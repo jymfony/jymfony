@@ -1,0 +1,17 @@
+{
+  "name": "jymfony-util",
+  "version": "0.1.0",
+  "description": "Jymfony util functions",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "jymfony",
+    "utils"
+  ],
+  "author": "Alessandro Chitolina <alekitto@gmail.com>",
+  "license": "MIT",
+  "engines": {
+    "node": ">=6.0.0"
+  }
+}
