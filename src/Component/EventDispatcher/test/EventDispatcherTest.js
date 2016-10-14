@@ -1,6 +1,6 @@
 let expect = require('chai').expect;
-let EventDispatcher = require('../EventDispatcher');
-let Event = require('../Event');
+let EventDispatcher = require('../src/EventDispatcher');
+let Event = require('../src/Event');
 
 let createEventDispatcher = function() {
     return new EventDispatcher();
