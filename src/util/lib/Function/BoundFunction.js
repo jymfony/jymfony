@@ -1,4 +1,17 @@
 class BoundFunction {
+    /**
+     * Create a BoundFunction of thisArg.func and return
+     * a callable anonymous function. Call to apply and
+     * call methods of the closure will result in a call
+     * of the bound function.
+     *
+     * To access the BoundFunction object use the
+     * innerObject property of the returned value
+     *
+     * @param {Object} thisArg
+     * @param {string} func
+     * @returns {function}
+     */
     constructor(thisArg, func) {
         if (! isFunction(func)) {
             /** global: LogicException */
@@ -53,12 +66,25 @@ class BoundFunction {
      * @returns {Boolean}
      */
     equals(value) {
+        if (isCallableArray(value)) {
+            value = getCallableFromArray(value).innerObject;
+        }
+
         if (!(value instanceof BoundFunction)) {
             return false;
         }
 
         return this._thisArg === value._thisArg &&
                 this._func === value._func;
+    }
+
+    /**
+     * Get the bound object
+     *
+     * @returns {Object}
+     */
+    getObject() {
+        return this._thisArg;
     }
 }
 
