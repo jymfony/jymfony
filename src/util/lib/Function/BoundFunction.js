@@ -32,7 +32,7 @@ class BoundFunction {
      * @returns {*}
      */
     call(thisArg, args) {
-        let args = arguments.slice(1);
+        args = arguments.slice(1);
         return this.apply(undefined, args);
     }
 
