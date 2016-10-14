@@ -7,6 +7,16 @@ class BoundFunction {
 
         this._thisArg = thisArg;
         this._func = func;
+
+        let ret = () => {
+            return this.apply(undefined, arguments);
+        };
+
+        ret.apply = this.apply.bind(this);
+        ret.call = this.call.bind(this);
+        ret.innerObject = this;
+
+        return ret;
     }
 
     /**
