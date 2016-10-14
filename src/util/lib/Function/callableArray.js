@@ -1,3 +1,9 @@
+/**
+ * Check if arg is an array describing a callable
+ *
+ * @param arg
+ * @returns {Boolean}
+ */
 let isCallableArray = function (arg) {
     if (! isArray(arg) || arg.length !== 2) {
         return false;
@@ -7,8 +13,17 @@ let isCallableArray = function (arg) {
     return isString(arg[1]) && isFunction(target[arg[1]]);
 };
 
-/** global: LogicException */
+/**
+ * Generate a BoundFunction object from a callable
+ * array. The function can be called via apply or
+ * call methods.
+ *
+ * @param {Array} arg
+ * @returns {BoundFunction}
+ */
 let getCallableFromArray = function (arg) {
+    /** global: LogicException */
+    /** global: BoundFunction */
     if (! isCallableArray(arg)) {
         throw new LogicException(arg + ' is not a callable array');
     }
@@ -16,7 +31,7 @@ let getCallableFromArray = function (arg) {
     let target = arg[0];
     let func = target[arg[1]];
 
-    return func.bind(arg[0]);
+    return new BoundFunction(target, func);
 };
 
 global.isCallableArray = isCallableArray;
