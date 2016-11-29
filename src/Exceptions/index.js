@@ -1,3 +1,4 @@
 require('./lib/Exception');
-require('./lib/RuntimeException');
+require('./lib/InvalidArgumentException');
 require('./lib/LogicException');
+require('./lib/RuntimeException');
