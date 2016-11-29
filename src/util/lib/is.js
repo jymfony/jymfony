@@ -10,7 +10,7 @@ global.isFunction = function (obj) {
 
 let toString = Object.prototype.toString;
 for(let name of ['Arguments', 'String', 'Number', 'Date', 'RegExp', 'Error', 'Symbol', 'Map', 'WeakMap', 'Set', 'WeakSet']) {
-    if (global['is' + name] instanceof Function) {
+    if (isFunction(global['is' + name])) {
         continue;
     }
 
