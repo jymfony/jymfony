@@ -1,7 +1,7 @@
 {
-  "name": "jymfony-class-loader",
+  "name": "jymfony-autoloader",
   "version": "0.1.0",
-  "description": "Jymfony class loader",
+  "description": "Jymfony Autoloader",
   "main": "index.js",
   "scripts": {
     "test": "mocha ./test",
