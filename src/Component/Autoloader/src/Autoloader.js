@@ -46,8 +46,8 @@ let createProxy = function (baseDir) {
 };
 
 module.exports = class Autoloader {
-    constructor(finder = null) {
-        if (global.__jymfony.autoload) {
+    constructor(finder = null, globalObject = global) {
+        if (globalObject.__jymfony.autoload) {
             return;
         }
 
@@ -57,7 +57,8 @@ module.exports = class Autoloader {
 
         this._registered = false;
         this._finder = finder;
-        global.__jymfony.autoload = this;
+        this._global = globalObject;
+        this._global.__jymfony.autoload = this;
     }
 
     register() {
@@ -108,7 +109,7 @@ module.exports = class Autoloader {
 
             let parts = namespace.split('.');
             let last = parts.pop();
-            let parent = global;
+            let parent = this._global;
 
             for (let part of parts) {
                 parent = this._ensureNamespace(part, parent);
@@ -124,7 +125,7 @@ module.exports = class Autoloader {
         }
     }
 
-    _ensureNamespace(namespace, parent = global) {
+    _ensureNamespace(namespace, parent = this._global) {
         if (parent[namespace] === undefined) {
             return parent[namespace] = {};
         }
