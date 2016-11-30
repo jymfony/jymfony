@@ -1,6 +1,5 @@
-let Event = require("./Event");
-require('jymfony-util');
-require('jymfony-exceptions');
+/** @global Jymfony */
+const Event = Jymfony.EventDispatcher.Event;
 
 class EventDispatcher
 {

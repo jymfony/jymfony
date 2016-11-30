@@ -1,6 +1,7 @@
 let expect = require('chai').expect;
-let EventDispatcher = require('../src/EventDispatcher');
-let Event = require('../src/Event');
+
+const EventDispatcher = Jymfony.EventDispatcher.EventDispatcher;
+const Event = Jymfony.EventDispatcher.Event;
 
 let createEventDispatcher = function() {
     return new EventDispatcher();
