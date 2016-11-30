@@ -1,0 +1,35 @@
+{
+  "name": "jymfony-class-loader",
+  "version": "0.1.0",
+  "description": "Jymfony class loader",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha ./test",
+    "coverage": "istanbul cover _mocha && istanbul report clover"
+  },
+  "keywords": [
+    "jymfony",
+    "class loader",
+    "autoload"
+  ],
+  "author": "Alessandro Chitolina <alekitto@gmail.com>",
+  "license": "MIT",
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "dependencies": {
+    "jymfony-exceptions": "https://github.com/jymfony/exceptions.git"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "istanbul": "^0.4",
+    "mocha": "^3.0"
+  },
+  "config": {
+    "jymfony-autoload": {
+      "namespaces": {
+        "Jymfony.Autoloader": "src/"
+      }
+    }
+  }
+}
