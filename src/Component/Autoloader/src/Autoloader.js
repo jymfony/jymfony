@@ -55,11 +55,18 @@ module.exports = class Autoloader {
             finder = new Finder();
         }
 
+        this._registered = false;
         this._finder = finder;
         global.__jymfony.autoload = this;
     }
 
     register() {
+        if (this._registered) {
+            return;
+        }
+
+        this._registered = true;
+
         let rootDir = this._finder.findRoot();
         for (let module of this._finder.listModules()) {
             let packageInfo;
