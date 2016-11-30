@@ -17,5 +17,12 @@
   },
   "dependencies": {
     "jymfony-exceptions": "https://github.com/jymfony/exceptions.git"
+  },
+  "config": {
+    "jymfony-autoload": {
+      "includes": [
+        "index.js"
+      ]
+    }
   }
 }
