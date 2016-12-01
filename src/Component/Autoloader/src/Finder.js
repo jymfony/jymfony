@@ -10,12 +10,7 @@ module.exports = class Finder {
 
             let parts = path.dirname(current.filename).split(path.sep);
             for (; parts.length; parts.pop()) {
-                let packageJson;
-                if (path.sep == '/') {
-                    packageJson = '/' + path.join(...parts, 'package.json');
-                } else {
-                    throw new Error('Verify this on Windows!');
-                }
+                let packageJson = this._normalizePath(parts, 'package.json');
 
                 let stat;
 
@@ -29,11 +24,7 @@ module.exports = class Finder {
                     continue;
                 }
 
-                if (path.sep == '/') {
-                    root = '/' + path.join(...parts);
-                } else {
-                    throw new Error('Verify this on Windows!');
-                }
+                root = this._normalizePath(parts);
                 break;
             }
         }
@@ -47,7 +38,7 @@ module.exports = class Finder {
 
         let processor = function * (list) {
             for (let name of list) {
-                if (name[0] === '.') {
+                if ('.' === name[0]) {
                     continue;
                 }
 
@@ -82,5 +73,14 @@ module.exports = class Finder {
         }
 
         return current;
+    }
+
+    _normalizePath(parts, fileName = null)
+    {
+        if ('/' !== path.sep) {
+            throw new Error('Verify this on Windows!');
+        }
+
+        return `/${path.join(...parts, null !== fileName ? fileName : '')}`;
     }
 };
