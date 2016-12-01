@@ -1,15 +1,15 @@
-// Cache root dir value
-let root = undefined;
-
 module.exports = class Finder {
     constructor(fs = require('fs'), path = require('path'), currentModule = module) {
         this._fs = fs;
         this._path = path;
         this._currentModule = currentModule;
+
+        // Cache root dir value
+        this._root = undefined;
     }
 
     findRoot() {
-        if (undefined === root) {
+        if (undefined === this._root) {
             let current = this._getMainModule();
 
             let parts = this._path.dirname(current.filename).split(this._path.sep);
@@ -21,6 +21,10 @@ module.exports = class Finder {
                 try {
                     stat = this._fs.statSync(packageJson);
                 } catch (e) {
+                    if (! e.code || e.code !== 'ENOENT') {
+                        throw e;
+                    }
+
                     continue;
                 }
 
@@ -28,12 +32,12 @@ module.exports = class Finder {
                     continue;
                 }
 
-                root = this._normalizePath(parts);
+                this._root = this._normalizePath(parts);
                 break;
             }
         }
 
-        return root;
+        return this._root;
     }
 
     listModules() {
@@ -51,12 +55,16 @@ module.exports = class Finder {
         };
 
         for (; parts.length; parts.pop()) {
-            let dir = this._path.join(...parts, 'node_modules');
+            let dir = this._normalizePath(parts, 'node_modules');
             let stat;
 
             try {
                 stat = this._fs.statSync(dir);
             } catch (e) {
+                if (! e.code || e.code !== 'ENOENT') {
+                    throw e;
+                }
+
                 continue;
             }
 

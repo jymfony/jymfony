@@ -82,7 +82,6 @@ module.exports = class Autoloader {
             this._processPackageInfo(packageInfo, dir);
         }
 
-        // let relativeRoot = path.relative(path.dirname(module.filename), rootDir);
         this._processPackageInfo(require(rootDir + '/package.json'), rootDir);
     }
 
