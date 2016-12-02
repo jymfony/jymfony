@@ -8,38 +8,71 @@ module.exports = class Finder {
         this._root = undefined;
     }
 
+    /**
+     * Searches for file/folder in base dir
+     *
+     * @param baseDir
+     * @param name
+     *
+     * @returns object
+     */
+    find(baseDir, name) {
+        let fileName = baseDir + this._path.sep + name;
+
+        for (let i = 2;;) {
+            try {
+                let stat = this._fs.statSync(fileName);
+
+                return {
+                    filename: fileName,
+                    directory: stat.isDirectory()
+                };
+            } catch (e) {
+                if (! e.code || e.code !== 'ENOENT') {
+                    throw e;
+                }
+
+                if (--i) {
+                    fileName += '.js';
+                    continue;
+                }
+
+                break;
+            }
+        }
+
+        return undefined;
+    }
+
+    /**
+     * Get application root dir, based on root module
+     *
+     * @returns {string|undefined}
+     */
     findRoot() {
         if (undefined === this._root) {
             let current = this._getMainModule();
 
             let parts = this._path.dirname(current.filename).split(this._path.sep);
             for (; parts.length; parts.pop()) {
-                let packageJson = this._normalizePath(parts, 'package.json');
+                let root = this._normalizePath(parts);
 
-                let stat;
-
-                try {
-                    stat = this._fs.statSync(packageJson);
-                } catch (e) {
-                    if (! e.code || e.code !== 'ENOENT') {
-                        throw e;
-                    }
-
-                    continue;
+                if (this.find(root, 'package.json')) {
+                    this._root = root;
+                    break;
                 }
-
-                if (! stat.isFile()) {
-                    continue;
-                }
-
-                this._root = this._normalizePath(parts);
-                break;
             }
         }
 
         return this._root;
     }
 
+    /**
+     * Get module names list
+     * Note that this will return top-level modules ONLY
+     *
+     * @returns {Array}
+     */
     listModules() {
         let root = this.findRoot();
         let parts = root.split(this._path.sep);

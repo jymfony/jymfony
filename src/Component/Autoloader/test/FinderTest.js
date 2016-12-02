@@ -27,11 +27,11 @@ describe('Finder', function () {
         let fs = {
             statSync: (fn) => {
                 if (fn !== '/var/node/foo/bar/package.json') {
-                    throw new Error('Incorrect argument');
+                    throw new Error('Incorrect argument "'+fn+'"');
                 }
 
                 return {
-                    isFile: () => true
+                    isDirectory: () => false
                 };
             },
         };
@@ -62,7 +62,7 @@ describe('Finder', function () {
                 ++callCount;
 
                 return {
-                    isFile: () => true
+                    isDirectory: () => false
                 };
             },
         };
@@ -136,7 +136,7 @@ describe('Finder', function () {
                 switch (fn) {
                     case '/var/node/foo/bar/package.json':
                         return {
-                            isFile: () => true
+                            isDirectory: () => false
                         };
 
                     case '/var/node/foo/bar/node_modules':

@@ -1,49 +1,8 @@
 global.__jymfony = global.__jymfony || {};
 
-const Finder = require('./Finder');
-const path   = require('path');
-const fs     = require('fs');
-
-let createProxy = function (baseDir) {
-    return new Proxy({}, {
-        get: function (target, name) {
-            if (typeof name === 'symbol') {
-                return undefined;
-            }
-
-            if (target[name] === undefined) {
-                let fileName = baseDir + name;
-
-                let stat = undefined;
-                for (let i = 2;;) {
-                    try {
-                        stat = fs.statSync(fileName);
-                        break;
-                    } catch (e) {
-                        if (--i) {
-                            fileName += '.js';
-                            continue;
-                        }
-
-                        break;
-                    }
-                }
-
-                if (! stat) {
-                    return undefined;
-                }
-
-                if (stat.isDirectory()) {
-                    target[name] = createProxy(baseDir + name + '/');
-                } else {
-                    target[name] = require(fileName);
-                }
-            }
-
-            return target[name];
-        }
-    })
-};
+const Finder    = require('./Finder');
+const Namespace = require('./Namespace');
+const path      = require('path');
 
 module.exports = class Autoloader {
     constructor(finder = null, globalObject = global) {
@@ -114,7 +73,7 @@ module.exports = class Autoloader {
                 parent = this._ensureNamespace(part, parent);
             }
 
-            parent[last] = createProxy(baseDir + '/' + config[namespace]);
+            parent[last] = new Namespace(this._finder, baseDir + '/' + config[namespace]);
         }
     }
 
@@ -126,7 +85,7 @@ module.exports = class Autoloader {
 
     _ensureNamespace(namespace, parent = this._global) {
         if (parent[namespace] === undefined) {
-            return parent[namespace] = {};
+            return parent[namespace] = new Namespace(namespace);
         }
 
         return parent[namespace];
