@@ -4,11 +4,13 @@ module.exports = class Namespace {
      *
      * @param {Finder} finder
      * @param {Array<string>, string} baseDirs
+     * @param {Function} require
      *
      * @returns {Proxy} The namespace object
      */
-    constructor(finder, baseDirs = []) {
+    constructor(finder, baseDirs = [], require = module.require) {
         this._finder = finder;
+        this._require = require;
         this._target = {
             __namespace: this
         };
@@ -22,7 +24,9 @@ module.exports = class Namespace {
         }
 
         return new Proxy(this._target, {
-            get: this._get
+            get: (target, name) => {
+                return this._get(target, name);
+            }
         });
     }
 
@@ -56,13 +60,13 @@ module.exports = class Namespace {
         if (true === target[name]) {
             return undefined;
         } else if (undefined === target[name]) {
-            let t = target.__namespace._find(name);
-            if (typeof t !== 'function') {
+            let found = this._find(name);
+            if (typeof found !== 'function') {
                 target[name] = true;
                 return undefined;
             }
 
-            target[name] = t;
+            target[name] = found;
         }
 
         return target[name];
@@ -94,6 +98,6 @@ module.exports = class Namespace {
             return new Namespace(this._finder, stat.filename);
         }
 
-        return require(stat.filename);
+        return this._require(stat.filename);
     }
 };

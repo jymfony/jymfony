@@ -21,6 +21,7 @@ describe('Finder', function () {
         let mockedPath = {
             join: path.join,
             dirname: path.dirname,
+            normalize: path.normalize,
             sep: '/'
         };
 
@@ -53,6 +54,7 @@ describe('Finder', function () {
         let mockedPath = {
             join: path.join,
             dirname: path.dirname,
+            normalize: path.normalize,
             sep: '/'
         };
 
@@ -88,6 +90,7 @@ describe('Finder', function () {
         let mockedPath = {
             join: path.join,
             dirname: path.dirname,
+            normalize: path.normalize,
             sep: '/'
         };
 
@@ -120,6 +123,7 @@ describe('Finder', function () {
         let mockedPath = {
             join: path.join,
             dirname: path.dirname,
+            normalize: path.normalize,
             sep: '/'
         };
 
@@ -180,7 +184,7 @@ describe('Finder', function () {
             },
         };
 
-        let finder = new Finder(fs, { sep: '/' }, {});
+        let finder = new Finder(fs, { normalize: path.normalize, sep: '/' }, {});
         let obj = finder.find('/var/node', 'package.json');
 
         expect(obj).to.be.deep.equal({
@@ -207,7 +211,7 @@ describe('Finder', function () {
             },
         };
 
-        let finder = new Finder(fs, { sep: '/' }, {});
+        let finder = new Finder(fs, { normalize: path.normalize, sep: '/' }, {});
         let obj = finder.find('/var/node', 'index');
 
         expect(obj).to.be.deep.equal({
@@ -226,7 +230,7 @@ describe('Finder', function () {
             },
         };
 
-        let finder = new Finder(fs, { sep: '/' }, {});
+        let finder = new Finder(fs, { normalize: path.normalize, sep: '/' }, {});
         try {
             finder.find('/var/node', 'index');
         } catch (e) {

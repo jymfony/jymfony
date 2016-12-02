@@ -17,7 +17,7 @@ module.exports = class Finder {
      * @returns object
      */
     find(baseDir, name) {
-        let fileName = baseDir + this._path.sep + name;
+        let fileName = this._path.normalize(baseDir + this._path.sep + name);
 
         for (let i = 2;;) {
             try {
