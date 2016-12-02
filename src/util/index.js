@@ -5,3 +5,4 @@ require('./lib/Function/getFunction');
 require('./lib/String/strtr');
 
 require('./lib/is');
+require('./lib/interface');
