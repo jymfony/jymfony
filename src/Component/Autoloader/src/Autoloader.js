@@ -73,7 +73,12 @@ module.exports = class Autoloader {
                 parent = this._ensureNamespace(part, parent);
             }
 
-            parent[last] = new Namespace(this._finder, baseDir + '/' + config[namespace]);
+            let nsDirectory = path.normalize(baseDir + '/' + config[namespace]);
+            if (undefined === parent[last]) {
+                parent[last] = new Namespace(this._finder, nsDirectory);
+            } else {
+                parent[last].__namespace.addDirectory(nsDirectory);
+            }
         }
     }
 
@@ -85,7 +90,7 @@ module.exports = class Autoloader {
 
     _ensureNamespace(namespace, parent = this._global) {
         if (parent[namespace] === undefined) {
-            return parent[namespace] = new Namespace(namespace);
+            return parent[namespace] = new Namespace(this._finder);
         }
 
         return parent[namespace];

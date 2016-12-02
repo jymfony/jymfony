@@ -58,7 +58,8 @@ module.exports = class Namespace {
         } else if (undefined === target[name]) {
             let t = target.__namespace._find(name);
             if (typeof t !== 'function') {
-                t = true;
+                target[name] = true;
+                return undefined;
             }
 
             target[name] = t;
