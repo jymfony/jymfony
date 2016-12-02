@@ -168,4 +168,71 @@ describe('Finder', function () {
             'jymfony-event-dispatcher'
         ]);
     });
+
+    it('find', function () {
+        let fs = {
+            statSync: (fn) => {
+                expect(fn).to.be.equal('/var/node/package.json');
+
+                return {
+                    isDirectory: () => false
+                };
+            },
+        };
+
+        let finder = new Finder(fs, { sep: '/' }, {});
+        let obj = finder.find('/var/node', 'package.json');
+
+        expect(obj).to.be.deep.equal({
+            filename: '/var/node/package.json',
+            directory: false
+        });
+    });
+
+    it('find appends .js ext', function () {
+        let fs = {
+            statSync: (fn) => {
+                if ('/var/node/index' === fn) {
+                    let e = new Error;
+                    e.code = 'ENOENT';
+
+                    throw e;
+                } else if ('/var/node/index.js' === fn) {
+                    return {
+                        isDirectory: () => false
+                    };
+                }
+
+                throw new Error('Invalid argument');
+            },
+        };
+
+        let finder = new Finder(fs, { sep: '/' }, {});
+        let obj = finder.find('/var/node', 'index');
+
+        expect(obj).to.be.deep.equal({
+            filename: '/var/node/index.js',
+            directory: false
+        });
+    });
+
+    it('find rethrows errors', function () {
+        let fs = {
+            statSync: () => {
+                let e = new Error;
+                e.code = 'EUNK';
+
+                throw e;
+            },
+        };
+
+        let finder = new Finder(fs, { sep: '/' }, {});
+        try {
+            finder.find('/var/node', 'index');
+        } catch (e) {
+            return;
+        }
+
+        throw new Error('Exception expected');
+    });
 });
