@@ -4,12 +4,8 @@ let obj2map = function (obj) {
     }
 
     let result = new Map;
-    for (let key in obj) {
-        if (! obj.hasOwnProperty(key)) {
-            continue;
-        }
-
-        result.set(key, obj2map(obj[key]));
+    for (let [key, value] of objentries(obj)) {
+        result.set(key, obj2map(value));
     }
 
     return result;
