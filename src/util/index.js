@@ -1,4 +1,5 @@
-require('./lib/Object/entries.js');
+require('./lib/Error/trigger_deprecated');
+require('./lib/Object/entries');
 require('./lib/Object/obj2map');
 require('./lib/Function/BoundFunction');
 require('./lib/Function/callableArray');
