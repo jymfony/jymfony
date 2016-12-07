@@ -1,6 +1,8 @@
 class Interface {
-    constructor() {
-        throw new Error('Cannot instantiate '+this.constructor.toString());
+    constructor(throwError = true) {
+        if (throwError) {
+            throw new Error('Cannot instantiate ' + this.constructor.name);
+        }
     }
 }
 
