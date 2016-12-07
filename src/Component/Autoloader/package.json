@@ -17,9 +17,6 @@
   "engines": {
     "node": ">=6.0.0"
   },
-  "dependencies": {
-    "jymfony-exceptions": "https://github.com/jymfony/exceptions.git"
-  },
   "devDependencies": {
     "chai": "^3.5.0",
     "istanbul": "^0.4",
