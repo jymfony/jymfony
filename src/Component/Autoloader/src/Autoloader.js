@@ -4,6 +4,10 @@ const Finder    = require('./Finder');
 const Namespace = require('./Namespace');
 const path      = require('path');
 
+/**
+ * @namespace Jymfony.Autoloader
+ * @type {Jymfony.Autoloader.Autoloader}
+ */
 module.exports = class Autoloader {
     constructor(finder = null, globalObject = global) {
         if (globalObject.__jymfony.autoload) {

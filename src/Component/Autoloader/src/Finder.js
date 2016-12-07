@@ -1,3 +1,7 @@
+/**
+ * @namespace Jymfony.Autoloader
+ * @type {Jymfony.Autoloader.Finder}
+ */
 module.exports = class Finder {
     constructor(fs = require('fs'), path = require('path'), currentModule = module) {
         this._fs = fs;

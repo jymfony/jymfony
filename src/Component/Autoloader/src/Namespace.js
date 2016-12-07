@@ -1,5 +1,9 @@
 let ClassNotFoundException = undefined;
 
+/**
+ * @namespace Jymfony.Autoloader
+ * @type {Jymfony.Autoloader.Namespace}
+ */
 module.exports = class Namespace {
     /**
      * Namespace constructor
