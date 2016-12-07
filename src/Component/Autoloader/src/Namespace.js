@@ -122,12 +122,17 @@ module.exports = class Namespace {
         }
 
         let fn = this._internalRequire.resolve(filename);
-        mod.__reflection = {
-            filename: fn,
-            fqcn: this._fullyQualifiedName + '.' + mod.name,
-            module: this._internalRequire.cache[fn],
-            constructor: mod
-        };
+        Object.defineProperty(mod, '__reflection', {
+            enumerable: false,
+            writable: false,
+            configurable: false,
+            value: {
+                filename: fn,
+                fqcn: this._fullyQualifiedName + '.' + mod.name,
+                module: this._internalRequire.cache[fn],
+                constructor: mod
+            }
+        });
 
         return mod;
     }
