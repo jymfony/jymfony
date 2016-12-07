@@ -1,19 +1,28 @@
+let ClassNotFoundException = undefined;
+
 module.exports = class Namespace {
     /**
      * Namespace constructor
      *
      * @param {Finder} finder
+     * @param {string} fqn
      * @param {Array<string>, string} baseDirs
-     * @param {Function} require
+     * @param {Function} req
      *
      * @returns {Proxy} The namespace object
      */
-    constructor(finder, baseDirs = [], require = module.require) {
+    constructor(finder, fqn, baseDirs = [], req = require) {
         this._finder = finder;
-        this._require = require;
+        this._internalRequire = req;
+        this._fullyQualifiedName = fqn;
+        if (undefined === ClassNotFoundException) {
+            ClassNotFoundException = this._require('./Exception/ClassNotFoundException.js');
+        }
+
         this._target = {
             __namespace: this
         };
+
         this._baseDirs = new Set;
         if (typeof baseDirs === 'string') {
             baseDirs = [baseDirs];
@@ -43,6 +52,15 @@ module.exports = class Namespace {
     }
 
     /**
+     * Get the namespace FQN
+     *
+     * @returns {string}
+     */
+    get name() {
+        return this._fullyQualifiedName;
+    }
+
+    /**
      * Autoload/get a class or namespace
      *
      * @param {object} target
@@ -60,13 +78,7 @@ module.exports = class Namespace {
         if (true === target[name]) {
             return undefined;
         } else if (undefined === target[name]) {
-            let found = this._find(name);
-            if (typeof found !== 'function') {
-                target[name] = true;
-                return undefined;
-            }
-
-            target[name] = found;
+            target[name] = this._find(name);
         }
 
         return target[name];
@@ -95,9 +107,28 @@ module.exports = class Namespace {
         }
 
         if (stat.directory) {
-            return new Namespace(this._finder, stat.filename);
+            return new Namespace(this._finder, this.name + '.' + name, stat.filename);
         }
 
         return this._require(stat.filename);
+    }
+
+    _require(filename) {
+        let mod = this._internalRequire(filename);
+
+        // class constructor
+        if (typeof mod !== 'function') {
+            throw new ClassNotFoundException('Class not found in ' + filename + '. The file was found, but the class isn\'t there.');
+        }
+
+        let fn = this._internalRequire.resolve(filename);
+        mod.__reflection = {
+            filename: fn,
+            fqcn: this._fullyQualifiedName + '.' + mod.name,
+            module: this._internalRequire.cache[fn],
+            constructor: mod
+        };
+
+        return mod;
     }
 };

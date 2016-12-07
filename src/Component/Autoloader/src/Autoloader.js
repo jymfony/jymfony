@@ -75,7 +75,7 @@ module.exports = class Autoloader {
 
             let nsDirectory = path.normalize(baseDir + '/' + config[namespace]);
             if (undefined === parent[last]) {
-                parent[last] = new Namespace(this._finder, nsDirectory);
+                parent[last] = new Namespace(this._finder, this._generateFqn(parent, last), nsDirectory);
             } else {
                 parent[last].__namespace.addDirectory(nsDirectory);
             }
@@ -88,11 +88,15 @@ module.exports = class Autoloader {
         }
     }
 
-    _ensureNamespace(namespace, parent = this._global) {
+    _ensureNamespace(namespace, parent) {
         if (parent[namespace] === undefined) {
-            return parent[namespace] = new Namespace(this._finder);
+            return parent[namespace] = new Namespace(this._finder, this._generateFqn(parent, namespace));
         }
 
         return parent[namespace];
+    }
+
+    _generateFqn(parent, namespace) {
+        return (parent === this._global ? '' : parent.__namespace.name + '.') + namespace;
     }
 };

@@ -1,3 +1,4 @@
+require('jymfony-exceptions');
 let expect = require('chai').expect;
 
 /*
@@ -50,15 +51,64 @@ describe('Namespace', function () {
                 }
             }
         };
-        let ns = new Namespace(finder, [], (module) => {
+
+        let req = (module) => {
             expect(module).to.be.equal('/var/node/foo_vendor/FooClass.js');
             return function () { };
-        });
+        };
+        req.cache = {
+            '/var/node/foo_vendor/FooClass.js': {}
+        };
+        req.resolve = (module) => {
+            return '/var/node/foo_vendor/FooClass.js';
+        };
+
+        let ns = new Namespace(finder, 'Foo', [], req);
 
         ns.__namespace.addDirectory('/var/node/vendor1/');
         ns.__namespace.addDirectory('/var/node/foo_vendor/');
 
         let func = ns.FooClass;
         expect(func).to.be.a('function');
+    });
+
+    it('injects reflection metadata', function () {
+        let finder = {
+            find: (dir, name) => {
+                if (dir === '/var/node/foo_vendor/') {
+                    expect(name).to.be.equal('FooClass');
+                    return {
+                        filename: '/var/node/foo_vendor/FooClass.js',
+                        directory: false
+                    };
+                } else {
+                    throw new Error('Unexpected argument');
+                }
+            }
+        };
+
+        let constructor = class FooClass {};
+
+        let req = (module) => {
+            expect(module).to.be.equal('/var/node/foo_vendor/FooClass.js');
+            return constructor;
+        };
+        req.cache = {
+            '/var/node/foo_vendor/FooClass.js': {}
+        };
+        req.resolve = (module) => {
+            return '/var/node/foo_vendor/FooClass.js';
+        };
+
+        let ns = new Namespace(finder, 'Foo', ['/var/node/foo_vendor/'], req);
+
+        let func = ns.FooClass;
+        expect(func).to.be.a('function');
+        expect(func.__reflection).to.be.deep.equal({
+            filename: '/var/node/foo_vendor/FooClass.js',
+            fqcn: 'Foo.FooClass',
+            module: {},
+            constructor: func
+        })
     });
 });
