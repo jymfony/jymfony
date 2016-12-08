@@ -112,6 +112,15 @@ global.ReflectionClass = class ReflectionClass {
     }
 
     /**
+     * Get the fully qualified name of the reflected class
+     *
+     * @returns {string|undefined}
+     */
+    get name() {
+        return this._className;
+    }
+
+    /**
      * Filename declaring this class
      *
      * @returns {string}
