@@ -68,6 +68,17 @@ global.ReflectionClass = class ReflectionClass {
     }
 
     /**
+     * Checks if this class contains a method
+     *
+     * @param {string} name
+     *
+     * @returns {boolean}
+     */
+    hasMethod(name) {
+        return this._methods[name] === true;
+    }
+
+    /**
      * Filename declaring this class
      *
      * @returns {string}
@@ -153,7 +164,7 @@ global.ReflectionClass = class ReflectionClass {
     }
 
     _loadWithoutMetadata(value) {
-        this._className = value.name;
+        this._className = undefined;
         this._module = ReflectionClass._searchModule(value);
         this._filename = this._module ? this._module.filename : undefined;
         this._constructor = value;
