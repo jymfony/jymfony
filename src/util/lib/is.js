@@ -1,4 +1,5 @@
 global.isArray = Array.isArray;
+let toString = Object.prototype.toString;
 
 global.isFunction = function (obj) {
     if (obj instanceof BoundFunction) {
@@ -14,7 +15,6 @@ if (! isFunction(global.isObject)) {
     }
 }
 
-let toString = Object.prototype.toString;
 for(let name of ['Arguments', 'String', 'Number', 'Date', 'RegExp', 'Error', 'Symbol', 'Map', 'WeakMap', 'Set', 'WeakSet']) {
     if (isFunction(global['is' + name])) {
         continue;
