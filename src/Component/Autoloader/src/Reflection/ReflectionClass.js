@@ -79,6 +79,39 @@ global.ReflectionClass = class ReflectionClass {
     }
 
     /**
+     * Checks if class has defined property (getter/setter)
+     *
+     * @param name
+     *
+     * @returns {boolean}
+     */
+    hasProperty(name) {
+        return this._properties[name] === true;
+    }
+
+    /**
+     * Checks if class has readable property (getter)
+     *
+     * @param name
+     *
+     * @returns {boolean}
+     */
+    hasReadableProperty(name) {
+        return this._readableProperties[name] === true;
+    }
+
+    /**
+     * Checks if class has writable property (setter)
+     *
+     * @param name
+     *
+     * @returns {boolean}
+     */
+    hasWritableProperty(name) {
+        return this._readableProperties[name] === true;
+    }
+
+    /**
      * Filename declaring this class
      *
      * @returns {string}
