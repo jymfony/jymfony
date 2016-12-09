@@ -1,3 +1,5 @@
+global.__jymfony = global.__jymfony || {};
+
 let obj2map = function (obj) {
     if (Object.getPrototypeOf(obj) !== Object.prototype) {
         return obj;
@@ -11,4 +13,4 @@ let obj2map = function (obj) {
     return result;
 };
 
-global.obj2map = obj2map;
+global.__jymfony.obj2map = obj2map;

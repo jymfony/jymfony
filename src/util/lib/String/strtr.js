@@ -1,7 +1,9 @@
 'use strict';
 
-String.prototype.strtr = function (replacePairs) {
-    let str = this.toString(), key, re;
+global.__jymfony = global.__jymfony || {};
+
+global.__jymfony.strtr = function (string, replacePairs) {
+    let str = string.toString(), key, re;
 
     for (key in replacePairs) {
         if (replacePairs.hasOwnProperty(key)) {
