@@ -1,6 +1,9 @@
-/** @global Jymfony */
 const Event = Jymfony.EventDispatcher.Event;
 
+/**
+ * @memberOf Jymfony.EventDispatcher
+ * @type {Jymfony.EventDispatcher.EventDispatcher}
+ */
 class EventDispatcher
 {
     constructor() {

@@ -1,3 +1,7 @@
+/**
+ * @memberOf Jymfony.EventDispatcher
+ * @type {Jymfony.EventDispatcher.Event}
+ */
 class Event {
     constructor() {
         this._propagationStopped = false;
