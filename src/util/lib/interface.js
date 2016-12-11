@@ -3,6 +3,10 @@ global.getInterface = function (superclass) {
     Object.setPrototypeOf(mixin, superclass.prototype);
     mixin[Symbol.hasInstance] = (o) => {
         let mixins = o.constructor['_applied_mixins'];
+        if (! mixins) {
+            return false;
+        }
+
         return mixins.indexOf(mixin) != -1;
     };
 
