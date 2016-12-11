@@ -2,7 +2,7 @@
  * @namespace Jymfony.PropertyAccess
  * @type {Jymfony.PropertyAccess.PropertyAccessorInterface}
  */
-module.exports = class PropertyAccessorInterface extends Interface {
+module.exports = getInterface(class PropertyAccessorInterface {
     /**
      * Returns a value at the end of a property path
      *
@@ -41,4 +41,4 @@ module.exports = class PropertyAccessorInterface extends Interface {
      *
      * @throws {Jymfony.PropertyAccess.Exception.AccessException} A property in the path is not found
      */
-};
+});

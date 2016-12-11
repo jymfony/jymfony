@@ -2,7 +2,7 @@
  * @namespace Jymfony.PropertyAccess
  * @type {Jymfony.PropertyAccess.PropertyPathInterface}
  */
-module.exports = class PropertyPathInterface extends Interface {
+module.exports = getInterface(class PropertyPathInterface {
     /**
      * Returns the path as string
      *
@@ -44,4 +44,4 @@ module.exports = class PropertyPathInterface extends Interface {
      *
      * @returns {int}
      */
-};
+});
