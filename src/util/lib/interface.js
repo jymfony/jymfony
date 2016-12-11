@@ -24,3 +24,7 @@ global.mix = function (superclass, ...interfaces) {
     });
     return mixed;
 };
+
+global.implementationOf = function(...interfaces) {
+    return global.mix(undefined, ...interfaces);
+};
