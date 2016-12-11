@@ -5,7 +5,7 @@ const PropertyPathInterface = Jymfony.PropertyAccess.PropertyPathInterface;
  * @namespace Jymfony.PropertyAccess
  * @type {Jymfony.PropertyAccess.PropertyPath}
  */
-module.exports = class PropertyPath extends mix(undefined, PropertyPathInterface) {
+module.exports = class PropertyPath extends implementationOf(PropertyPathInterface) {
     constructor(propertyPath) {
         super();
 
