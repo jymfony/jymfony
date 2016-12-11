@@ -9,10 +9,6 @@ const PropertyPathInterface = Jymfony.PropertyAccess.PropertyPathInterface;
  * @type {Jymfony.PropertyAccess.PropertyAccessor}
  */
 class PropertyAccessor extends mix(undefined, PropertyAccessorInterface) {
-    constructor() {
-        super(false);
-    }
-
     /**
      * @inheritDoc
      */

@@ -7,7 +7,7 @@ const PropertyPathInterface = Jymfony.PropertyAccess.PropertyPathInterface;
  */
 module.exports = class PropertyPath extends mix(undefined, PropertyPathInterface) {
     constructor(propertyPath) {
-        super(false);
+        super();
 
         if (propertyPath instanceof PropertyPath) {
             this._elements = Array.from(propertyPath._elements);
