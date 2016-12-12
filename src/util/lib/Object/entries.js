@@ -6,12 +6,20 @@ global.__jymfony = global.__jymfony || {};
  * @param {Object} object
  */
 let entries = function * objentries(object) {
+    if (isArray(object)) {
+        for (let k of object.keys()) {
+            yield [k, object[k]];
+        }
+
+        return;
+    }
+
     if (Object.getPrototypeOf(object) !== Object.prototype) {
         throw new InvalidArgumentException('Argument 1 is not an object');
     }
 
     if (Object.entries) {
-        yield * Object.entries();
+        yield * Object.entries(object);
         return;
     }
 
