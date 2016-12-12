@@ -8,3 +8,5 @@ require('./lib/String/strtr');
 
 require('./lib/is');
 require('./lib/interface');
+
+require('./lib/DataStructure/PriorityQueue');

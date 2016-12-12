@@ -1,0 +1,151 @@
+const GenericCollectionTrait = require('./Traits/GenericCollectionTrait');
+
+let left = index => (index * 2) + 1;
+let right = index => (index * 2) + 2;
+let parent = index => Math.floor((index - 1) / 2);
+
+class PriorityNode {
+    constructor(value, priority, stamp) {
+        this.value = value;
+        this.priority = priority;
+        this.stamp = stamp;
+    }
+}
+
+global.PriorityQueue = class PriorityQueue extends GenericCollectionTrait(class{}) {
+    constructor() {
+        super();
+
+        this._heap = [];
+        this._stamp = 0;
+    }
+
+    clear() {
+        this._heap = {};
+        this._stamp = 0;
+    }
+
+    copy() {
+        let copy = new PriorityQueue();
+
+        copy._heap = [ ...this._heap ];
+        copy._stamp = this._stamp;
+
+        return copy;
+    }
+
+    get length() {
+        return this._heap.length;
+    }
+
+    peek() {
+        if (this.isEmpty()) {
+            throw new UnderflowException();
+        }
+
+        return this._heap[0].value;
+    }
+
+    pop() {
+        if (this.isEmpty()) {
+            throw new UnderflowException();
+        }
+
+        let leaf = this._heap.pop();
+
+        if (! this._heap.length) {
+            return leaf.value;
+        }
+
+        let value = this._getRoot().value;
+        this._setRoot(leaf);
+
+        return value;
+    }
+
+    push(value, priority) {
+        this._heap.push(new PriorityNode(value, priority, this._stamp++));
+        this._siftUp(this._heap.length - 1);
+    }
+
+    toArray() {
+        let heap = this._heap;
+        let acc = [];
+
+        while (! this.isEmpty()) {
+            acc.push(this.pop());
+        }
+
+        this._heap = heap;
+        return acc;
+    }
+
+    * [Symbol.iterator]() {
+        while (! this.isEmpty()) {
+            yield this.pop();
+        }
+    }
+
+    _compare(a, b) {
+        console.log(arguments);
+        let x = this._heap[a];
+        let y = this._heap[b];
+
+        return Math.sign(x.priority - y.priority) || Math.sign(y.stamp - x.stamp);
+    }
+
+    _swap(a, b) {
+        let tmp = this._heap[a];
+        this._heap[a] = this._heap[b];
+        this._heap[b] = tmp;
+    }
+
+    _getLargestLeaf(parent) {
+        let l = left(parent);
+        let r = right(parent);
+
+        if (r < this._heap.length && this._compare(l, r) < 0) {
+            return r;
+        }
+
+        return l;
+    }
+
+    _siftDown(node) {
+        let last = Math.floor(this._heap.length / 2);
+
+        let leaf;
+        for (let parent = node; parent < last; parent = leaf) {
+            // Get the largest leaf to eventually swap with the parent
+            leaf = this._getLargestLeaf(parent);
+
+            if (this._compare(parent, leaf) > 0) {
+                break;
+            }
+
+            this._swap(parent, leaf);
+        }
+    }
+
+    _siftUp(leaf) {
+        let p;
+        for(; leaf > 0; leaf = p) {
+            p = parent(leaf);
+
+            if (this._compare(leaf, p) < 0) {
+                break;
+            }
+
+            this._swap(p, leaf);
+        }
+    }
+
+    _setRoot(node) {
+        this._heap[0] = node;
+        this._siftDown(0);
+    }
+
+    _getRoot() {
+        return this._heap[0];
+    }
+};
