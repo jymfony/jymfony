@@ -11,11 +11,11 @@ module.exports = superclass => class GenericCollectionTrait extends superclass {
         throw new Error('You must override "toArray" method');
     }
 
-    [Symbol.inspect]() {
+    inspect() {
         return this.toArray();
     }
 
-    [Symbol.toStringTag]() {
+    get [Symbol.toStringTag]() {
         return this.constructor.name;
     }
 };

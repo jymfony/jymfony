@@ -12,6 +12,14 @@ class PriorityNode {
     }
 }
 
+/**
+ * Priority queues are similar to queues, but values are inserted with
+ * an assigned priority and popped out from the highest priority to the
+ * lowest. The iterator is destructive: elements are popped out and
+ * removed from the queue
+ *
+ * @type {PriorityQueue}
+ */
 global.PriorityQueue = class PriorityQueue extends GenericCollectionTrait(class{}) {
     constructor() {
         super();
@@ -20,11 +28,19 @@ global.PriorityQueue = class PriorityQueue extends GenericCollectionTrait(class{
         this._stamp = 0;
     }
 
+    /**
+     * Empties the queue
+     */
     clear() {
         this._heap = {};
         this._stamp = 0;
     }
 
+    /**
+     * Make a copy queue
+     *
+     * @returns {PriorityQueue}
+     */
     copy() {
         let copy = new PriorityQueue();
 
@@ -34,10 +50,20 @@ global.PriorityQueue = class PriorityQueue extends GenericCollectionTrait(class{
         return copy;
     }
 
+    /**
+     * Returns how many elements are in the queue
+     *
+     * @returns {Number}
+     */
     get length() {
         return this._heap.length;
     }
 
+    /**
+     * Gets the first element without modifying the queue
+     *
+     * @returns {*}
+     */
     peek() {
         if (this.isEmpty()) {
             throw new UnderflowException();
@@ -46,6 +72,11 @@ global.PriorityQueue = class PriorityQueue extends GenericCollectionTrait(class{
         return this._heap[0].value;
     }
 
+    /**
+     * Pop the higher priority value from the queue
+     *
+     * @returns {*}
+     */
     pop() {
         if (this.isEmpty()) {
             throw new UnderflowException();
@@ -63,11 +94,22 @@ global.PriorityQueue = class PriorityQueue extends GenericCollectionTrait(class{
         return value;
     }
 
+    /**
+     * Push a value into the queue
+     *
+     * @param {*} value
+     * @param {int} priority
+     */
     push(value, priority) {
         this._heap.push(new PriorityNode(value, priority, this._stamp++));
         this._siftUp(this._heap.length - 1);
     }
 
+    /**
+     * Gets an element array copy (ordered)
+     *
+     * @returns {Array}
+     */
     toArray() {
         let heap = this._heap;
         let acc = [];

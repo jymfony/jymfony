@@ -4,7 +4,7 @@
   "description": "Jymfony util functions",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha test/**"
   },
   "keywords": [
     "jymfony",
@@ -17,6 +17,11 @@
   },
   "dependencies": {
     "jymfony-exceptions": "https://github.com/jymfony/exceptions.git"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "istanbul": "^0.4",
+    "mocha": "^3.0"
   },
   "config": {
     "jymfony-autoload": {
