@@ -32,7 +32,7 @@ global.PriorityQueue = class PriorityQueue extends GenericCollectionTrait(class{
      * Empties the queue
      */
     clear() {
-        this._heap = {};
+        this._heap = [];
         this._stamp = 0;
     }
 
@@ -111,7 +111,7 @@ global.PriorityQueue = class PriorityQueue extends GenericCollectionTrait(class{
      * @returns {Array}
      */
     toArray() {
-        let heap = this._heap;
+        let heap = [ ...this._heap ];
         let acc = [];
 
         while (! this.isEmpty()) {
@@ -129,7 +129,6 @@ global.PriorityQueue = class PriorityQueue extends GenericCollectionTrait(class{
     }
 
     _compare(a, b) {
-        console.log(arguments);
         let x = this._heap[a];
         let y = this._heap[b];
 

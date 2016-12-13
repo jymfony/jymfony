@@ -4,7 +4,8 @@
   "description": "Jymfony util functions",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test/**"
+    "test": "node ./tests.js test/**",
+    "coverage": "istanbul cover --root ./lib ./tests.js test/** && istanbul report clover"
   },
   "keywords": [
     "jymfony",
