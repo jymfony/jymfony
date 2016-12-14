@@ -23,16 +23,16 @@ let deepClone = function (object) {
                 result[index] = deepClone(child);
             });
         } else if (isObject(object)) {
-            if (object.prototype) {
-                result = object;
-            } else if (object instanceof Date) {
-                result = new Date(object);
-            } else {
+            if (isObjectLiteral(object)) {
                 // Object literal ({ ... })
                 result = {};
                 for (let i of Object.keys(object)) {
                     result[i] = deepClone(object[i]);
                 }
+            } else if (object instanceof Date) {
+                result = new Date(object);
+            } else {
+                result = object;
             }
         }
     }

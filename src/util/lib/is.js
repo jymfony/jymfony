@@ -33,3 +33,7 @@ global.isScalar = function (value) {
         }
     }
 };
+
+global.isObjectLiteral = function (value) {
+    return toString.call(value) === '[object Object]';
+};
