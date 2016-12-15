@@ -13,6 +13,16 @@ module.exports = class Extension extends implementationOf(ExtensionInterface) {
      * @inheritDoc
      */
     getConfiguration() {
+        let reflClass = new ReflectionClass(this);
+
+        let nsName = reflClass.namespaceName();
+        let confClass = nsName + '.Configuration';
+
+        if (ReflectionClass.exists(confClass)) {
+            let reflected = new ReflectionCalss(confClass);
+            return reflected.newInstance();
+        }
+
         return undefined;
     }
 
@@ -48,7 +58,7 @@ module.exports = class Extension extends implementationOf(ExtensionInterface) {
     }
 
     /**
-     * @param {ContainerBuilder} container
+     * @param {Jymfony.DependencyInjection.ContainerBuilder} container
      * @param {*} config
      *
      * @returns {*}
