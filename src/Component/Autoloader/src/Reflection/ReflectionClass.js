@@ -140,6 +140,24 @@ global.ReflectionClass = class ReflectionClass {
     }
 
     /**
+     * Get the Namespace object containing this class
+     *
+     * @returns {Jymfony.Autoloader.Namespace}
+     */
+    get namespace() {
+        return this._namespace;
+    }
+
+    /**
+     * Get the namespace name
+     *
+     * @returns {string}
+     */
+    get namespaceName() {
+        return this._namespace.name;
+    }
+
+    /**
      * Filename declaring this class
      *
      * @returns {string}
@@ -180,6 +198,7 @@ global.ReflectionClass = class ReflectionClass {
     _loadFromMetadata(value) {
         let metadata = value.__reflection;
         this._className = metadata.fqcn;
+        this._namespace = metadata.namespace;
 
         if (TheBigReflectionDataCache.classes[this._className]) {
             this._loadFromCache();
@@ -229,6 +248,7 @@ global.ReflectionClass = class ReflectionClass {
         this._module = ReflectionClass._searchModule(value);
         this._filename = this._module ? this._module.filename : undefined;
         this._constructor = value;
+        this._namespace = undefined;
 
         this._loadProperties();
     }

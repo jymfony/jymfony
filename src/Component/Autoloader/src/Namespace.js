@@ -134,7 +134,8 @@ module.exports = class Namespace {
                 filename: fn,
                 fqcn: this._fullyQualifiedName + '.' + mod.name,
                 module: this._internalRequire.cache[fn],
-                constructor: mod
+                constructor: mod,
+                namespace: this
             }
         });
 
