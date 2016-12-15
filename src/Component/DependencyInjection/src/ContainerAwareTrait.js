@@ -1,4 +1,3 @@
-
 /**
  * @memberOf Jymfony.DependencyInjection
  * @type {Jymfony.DependencyInjection.ContainerAwareTrait}
