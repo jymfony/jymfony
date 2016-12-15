@@ -48,7 +48,7 @@ module.exports = class Namespace {
      *
      * @param directory
      *
-     * @returns {Namespace}
+     * @returns {Jymfony.Autoloader.Namespace}
      */
     addDirectory(directory) {
         this._baseDirs.add(directory);

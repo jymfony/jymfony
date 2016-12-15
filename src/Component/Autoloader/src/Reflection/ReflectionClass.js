@@ -45,6 +45,25 @@ global.ReflectionClass = class ReflectionClass {
     }
 
     /**
+     * Checks if a class exists
+     *
+     * @param {string} className
+     */
+    static exists(className) {
+        try {
+            new ReflectionClass(className);
+        } catch (e) {
+            if (! (e instanceof ReflectionException)) {
+                throw e;
+            }
+
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
      * Construct a new object
      *
      * @param {...*} var_args Arguments to constructor
@@ -241,6 +260,8 @@ global.ReflectionClass = class ReflectionClass {
 
     static _recursiveGet(start, parts) {
         let part;
+        parts = [ ...parts ].reverse();
+
         while (part = parts.pop()) {
             start = start[part];
         }
