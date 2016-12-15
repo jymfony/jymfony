@@ -12,6 +12,6 @@ require('./lib/Function/getFunction');
 
 require('./lib/String/strtr');
 
-require('./lib/interface');
+require('./lib/mixins');
 
 require('./lib/DataStructure/PriorityQueue');
