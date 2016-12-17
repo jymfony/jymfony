@@ -34,9 +34,10 @@ module.exports = class Autoloader {
         let rootDir = this._finder.findRoot();
         for (let module of this._finder.listModules()) {
             let packageInfo;
+            let packageJson = path.join(rootDir, 'node_modules', module, 'package.json');
 
             try {
-                packageInfo = require(module + path.sep + 'package.json');
+                packageInfo = require(packageJson);
             } catch (e) {
                 continue;
             }

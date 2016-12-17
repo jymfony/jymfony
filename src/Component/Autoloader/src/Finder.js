@@ -96,6 +96,7 @@ module.exports = class Finder {
             let stat;
 
             try {
+                dir = this._fs.realpathSync(dir);
                 stat = this._fs.statSync(dir);
             } catch (e) {
                 if (! e.code || e.code !== 'ENOENT') {

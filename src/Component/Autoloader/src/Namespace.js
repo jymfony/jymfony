@@ -118,14 +118,14 @@ module.exports = class Namespace {
     }
 
     _require(filename) {
-        let mod = this._internalRequire(filename);
+        let fn = this._internalRequire.resolve(filename);
+        let mod = this._internalRequire(fn);
 
         // class constructor
         if (typeof mod !== 'function') {
-            throw new ClassNotFoundException('Class not found in ' + filename + '. The file was found, but the class isn\'t there.');
+            throw new ClassNotFoundException('Class not found in ' + fn + '. The file was found, but the class isn\'t there.');
         }
 
-        let fn = this._internalRequire.resolve(filename);
         Object.defineProperty(mod, '__reflection', {
             enumerable: false,
             writable: false,
