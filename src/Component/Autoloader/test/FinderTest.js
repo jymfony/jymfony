@@ -136,6 +136,7 @@ describe('Finder', function () {
                     'jymfony-event-dispatcher'
                 ];
             },
+            realpathSync: fn => fn,
             statSync: (fn) => {
                 switch (fn) {
                     case '/var/node/foo/bar/package.json':
