@@ -47,7 +47,7 @@ global.mix = function (superclass, ...mixins) {
     mixins = mixins.filter(i => i[symClassType] !== 'Interface');
 
     let mixed = (s => class extends s {})(superclass);
-    Object.defineProperty(mixed.constructor, '_applied_interfaces', {
+    Object.defineProperty(mixed, '_applied_interfaces', {
         value: [superclass, ...mixins],
         enumerable: false
     });
