@@ -2,7 +2,7 @@
  * @namespace Jymfony.PropertyAccess
  * @type {Jymfony.PropertyAccess.PropertyAccessorInterface}
  */
-module.exports = getInterface(class PropertyAccessorInterface {
+class PropertyAccessorInterface {
     /**
      * Returns a value at the end of a property path
      *
@@ -13,14 +13,12 @@ module.exports = getInterface(class PropertyAccessorInterface {
      *
      * If a property in the path is not found, an exception is thrown
      *
-     * @function
-     * @name PropertyAccessorInterface#getValue
-     *
      * @param {*} object
      * @param {string|Jymfony.PropertyAccess.PropertyPathInterface} path
      *
      * @throws {Jymfony.PropertyAccess.Exception.AccessException} A property in the path is not found
      */
+    getValue(object, path) { }
 
     /**
      * Sets a value at the end of a property path
@@ -32,13 +30,13 @@ module.exports = getInterface(class PropertyAccessorInterface {
      *
      * If a property in the path is not found, an exception is thrown
      *
-     * @function
-     * @name PropertyAccessorInterface#setValue
-     *
      * @param {*} object
      * @param {*} value
      * @param {string|Jymfony.PropertyAccess.PropertyPathInterface} path
      *
      * @throws {Jymfony.PropertyAccess.Exception.AccessException} A property in the path is not found
      */
-});
+    setValue(object, value, path) { }
+}
+
+module.exports = getInterface(PropertyAccessorInterface);

@@ -2,21 +2,16 @@
  * @namespace Jymfony.PropertyAccess
  * @type {Jymfony.PropertyAccess.PropertyPathInterface}
  */
-module.exports = getInterface(class PropertyPathInterface {
+class PropertyPathInterface {
     /**
      * Returns the path as string
      *
-     * @function
-     * @name PropertyPathInterface#toString
-     *
      * @returns {string}
      */
+    toString() { }
 
     /**
      * Returns the element at given index
-     *
-     * @function
-     * @name PropertyPathInterface#getElement
      *
      * @param {int} index
      *
@@ -24,24 +19,27 @@ module.exports = getInterface(class PropertyPathInterface {
      *
      * @throws {Jymfony.PropertyAccess.Exception.OutOfBoundsException}
      */
+    getElement(index) { }
 
     /**
      * Returns the path length
      *
      * @property
      * @readonly
-     * @name PropertyPathInterface#length
      *
      * @returns {int}
      */
+    get length() { }
 
     /**
      * Returns the last element of the path
      *
      * @property
      * @readonly
-     * @name PropertyPathInterface#last
      *
      * @returns {int}
      */
-});
+    get last() { }
+}
+
+module.exports = getInterface(PropertyPathInterface);
