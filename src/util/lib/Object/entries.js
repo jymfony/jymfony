@@ -14,6 +14,10 @@ let entries = function * objentries(object) {
         return;
     }
 
+    if (object instanceof Map) {
+        return object.entries();
+    }
+
     if (Object.getPrototypeOf(object) !== Object.prototype) {
         throw new InvalidArgumentException('Argument 1 is not an object');
     }
