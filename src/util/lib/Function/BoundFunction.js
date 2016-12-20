@@ -21,8 +21,9 @@ class BoundFunction {
         this._thisArg = thisArg;
         this._func = func;
 
-        let ret = () => {
-            return this.apply(undefined, arguments);
+        let self = this;
+        let ret = function () {
+            return self.apply(undefined, arguments);
         };
 
         ret.apply = this.apply.bind(this);
@@ -38,7 +39,7 @@ class BoundFunction {
      * "this" is already defined
      *
      * @param {Object} thisArg Ignored
-     * @param {Array} argArray
+     * @param {Arguments|Array} argArray
      * @return {*}
      */
     apply(thisArg, argArray) {
