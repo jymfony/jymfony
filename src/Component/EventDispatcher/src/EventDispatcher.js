@@ -4,23 +4,25 @@ const Event = Jymfony.EventDispatcher.Event;
  * @memberOf Jymfony.EventDispatcher
  * @type {Jymfony.EventDispatcher.EventDispatcher}
  */
-class EventDispatcher
-{
+class EventDispatcher {
     constructor() {
         this.listeners = {};
         this.sorted = {};
     }
 
     dispatch(eventName, event = new Event) {
+        let p = Promise.resolve(event);
         for(let listener of this.getListeners(eventName)) {
-            if (event.isPropagationStopped()) {
-                break;
-            }
+            p.then(event => {
+                if (event.isPropagationStopped()) {
+                    return event;
+                }
 
-            listener.apply(null, [event, eventName, this]);
+                return __jymfony.Async.run(listener, event, eventName, this)
+            });
         }
 
-        return event;
+        return p;
     }
 
     * getListeners(eventName = null) {

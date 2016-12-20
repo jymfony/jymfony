@@ -118,16 +118,20 @@ describe('EventDispatcher', function () {
         dispatcher.addListener(preFoo, [listener, 'preFoo']);
         dispatcher.addListener(postFoo, [listener, 'postFoo']);
 
-        dispatcher.dispatch('event.pre_foo');
+        let promise = dispatcher.dispatch('event.pre_foo');
+        expect(promise).to.be.instanceOf(Promise);
 
         let event = new Event;
-        return (
-            expect(listener.preFooCalled).to.be.true &&
-            expect(listener.postFooCalled).to.be.false &&
-            expect(dispatcher.dispatch('noevent')).to.be.instanceOf(Event) &&
-            expect(dispatcher.dispatch(preFoo)).to.be.instanceOf(Event) &&
-            expect(dispatcher.dispatch(postFoo, event) === event).to.be.true
-        );
+        return Promise.all([
+            promise.then(() => {
+                return expect(listener.preFooCalled).to.be.true &&
+                expect(listener.postFooCalled).to.be.false;
+            }),
+            dispatcher.dispatch('noevent').then(event => expect(event).to.be.instanceOf(Event)),
+            dispatcher.dispatch(preFoo).then(event => expect(event).to.be.instanceOf(Event)),
+            dispatcher.dispatch(postFoo, event).then(e => expect(e === event).to.be.true),
+        ]);
+
     });
 
     it('dispatch for closure', function () {
@@ -139,9 +143,8 @@ describe('EventDispatcher', function () {
 
         dispatcher.addListener(preFoo, listener);
         dispatcher.addListener(postFoo, listener);
-        dispatcher.dispatch(preFoo);
-
-        return expect(invoked).to.be.equal(1);
+        return dispatcher.dispatch(preFoo)
+            .then(() => { return expect(invoked).to.be.equal(1) });
     });
 
     it('stop event propagation', function () {
@@ -150,12 +153,11 @@ describe('EventDispatcher', function () {
 
         dispatcher.addListener('event.post_foo', [listener, 'postFoo'], 10);
         dispatcher.addListener('event.post_foo', [listener, 'preFoo']);
-        dispatcher.dispatch(postFoo);
-
-        return (
-            expect(listener.postFooCalled).to.be.true &&
-            expect(listener.preFooCalled).to.be.false
-        );
+        return dispatcher.dispatch(postFoo)
+            .then(() => {
+                return expect(listener.postFooCalled).to.be.true &&
+                expect(listener.preFooCalled).to.be.false;
+            });
     });
 
     it('dispatch by priority', function () {
@@ -175,9 +177,10 @@ describe('EventDispatcher', function () {
         dispatcher.addListener(preFoo, listener1, -10);
         dispatcher.addListener(preFoo, listener2);
         dispatcher.addListener(preFoo, listener3, 10);
-        dispatcher.dispatch(preFoo);
-
-        return expect(invoked).to.deep.equal(['3', '2', '1']);
+        return dispatcher.dispatch(preFoo)
+            .then(() => {
+                return expect(invoked).to.deep.equal(['3', '2', '1']);
+            });
     });
 
     it('remove listener', function () {
@@ -264,9 +267,11 @@ describe('EventDispatcher', function () {
             name = n;
             instance = i;
         });
-        dispatcher.dispatch('preFoo');
 
-        return expect(name).to.be.equal('preFoo') &&
+        return dispatcher.dispatch('preFoo')
+            .then(() => {
+                return expect(name).to.be.equal('preFoo') &&
                 expect(instance).to.be.equal(dispatcher);
+            });
     });
 });
