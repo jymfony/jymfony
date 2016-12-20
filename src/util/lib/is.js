@@ -27,11 +27,14 @@ for(let name of ['Arguments', 'String', 'Number', 'Date', 'RegExp', 'Error', 'Sy
 
 const primitives = [ Number, String, Boolean ];
 global.isScalar = function (value) {
+    let proto = Object.getPrototypeOf(value);
     for (let type of primitives) {
-        if (value instanceof type) {
+        if (proto === type.prototype) {
             return true;
         }
     }
+
+    return false;
 };
 
 global.isObjectLiteral = function (value) {

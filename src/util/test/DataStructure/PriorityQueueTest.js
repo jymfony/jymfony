@@ -143,5 +143,5 @@ describe('PriorityQueue', function () {
         for (let el of q) {
             expect(q.length).to.be.equal(--count);
         }
-    })
+    });
 });

@@ -11,13 +11,13 @@ class Async {
      * This function always returns a Promise object
      *
      * @param {Generator|GeneratorFunction|Function} generator
-     * @param {[*]} args
+     * @param {...*} args
      *
      * @returns {Promise}
      */
     static run(generator, ...args) {
         if (isGeneratorFunction(generator)) {
-            return Async.run(generator(), ...args);
+            return Async.run(generator(...args));
         }
 
         return new Promise((resolve, reject) => {
@@ -25,11 +25,12 @@ class Async {
                 generator = generator(...args);
             }
 
-            if (! generator || ! isFunction(generator.next)) {
+            if (! generator || isScalar(generator) || ! isFunction(generator.next)) {
                 return resolve(generator);
             }
 
-            let next = ret => {
+            let next, onFulfilled, onRejected;
+            next = ret => {
                 if (ret.done) {
                     return resolve(ret.value);
                 }
@@ -37,6 +38,8 @@ class Async {
                 let val = Async.toPromise(ret.value);
                 if (val && isPromise(val)) {
                     return val.then(onFulfilled, onRejected);
+                } else if (isScalar(val)) {
+                    return resolve(val);
                 }
 
                 return onRejected(new TypeError(
@@ -44,7 +47,7 @@ class Async {
                 ));
             };
 
-            let onFulfilled = res => {
+            onFulfilled = res => {
                 let retVal;
 
                 try {
@@ -57,7 +60,7 @@ class Async {
                 return null;
             };
 
-            let onRejected = err => {
+            onRejected = err => {
                 let retVal;
 
                 try {
@@ -79,7 +82,7 @@ class Async {
             return obj;
         }
 
-        if (isGenerator(obj)) {
+        if (isGenerator(obj) || isGeneratorFunction(obj)) {
             return Async.run(obj);
         }
 
@@ -100,7 +103,7 @@ class Async {
 
     static functionToPromise(fn) {
         return new Promise((resolve, reject) => {
-            fn((err, res) => {
+            let retVal = fn(function (err, res) {
                 if (err) {
                     return reject(err);
                 }
@@ -111,6 +114,10 @@ class Async {
 
                 resolve(res);
             });
+
+            if (undefined !== retVal) {
+                resolve(retVal);
+            }
         });
     }
 
