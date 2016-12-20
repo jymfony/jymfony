@@ -1,4 +1,4 @@
-module.exports = superclass => class GenericCollectionTrait extends superclass {
+class GenericCollectionTrait {
     isEmpty() {
         return this.length === 0;
     }
@@ -18,4 +18,6 @@ module.exports = superclass => class GenericCollectionTrait extends superclass {
     get [Symbol.toStringTag]() {
         return this.constructor.name;
     }
-};
+}
+
+module.exports = getTrait(GenericCollectionTrait);

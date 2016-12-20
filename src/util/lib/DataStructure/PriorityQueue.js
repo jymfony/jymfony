@@ -20,7 +20,7 @@ class PriorityNode {
  *
  * @type {PriorityQueue}
  */
-global.PriorityQueue = class PriorityQueue extends GenericCollectionTrait(class{}) {
+global.PriorityQueue = class PriorityQueue extends mix(undefined, GenericCollectionTrait) {
     constructor() {
         super();
 

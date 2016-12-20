@@ -52,7 +52,7 @@ class BoundFunction {
      * an argument list, instead of a single array of arguments
      *
      * @param {Object} thisArg
-     * @param {...*} [args]
+     * @param {...*} args
      * @returns {*}
      */
     call(thisArg, args) {

@@ -22,8 +22,6 @@ let isCallableArray = function (arg) {
  * @returns {BoundFunction}
  */
 let getCallableFromArray = function (arg) {
-    /** global: LogicException */
-    /** global: BoundFunction */
     if (! isCallableArray(arg)) {
         throw new LogicException(arg + ' is not a callable array');
     }
