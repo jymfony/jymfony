@@ -37,3 +37,28 @@ global.isScalar = function (value) {
 global.isObjectLiteral = function (value) {
     return toString.call(value) === '[object Object]';
 };
+
+global.isGenerator = function (value) {
+    return isFunction(value.next) && isFunction(value.throw);
+};
+global.isGeneratorFunction = function (value) {
+    if (isGenerator(value)) {
+        return false;
+    }
+
+    let constructor = value.constructor;
+
+    if (! constructor) {
+        return false;
+    }
+
+    if ('GeneratorFunction' === constructor.name || 'GeneratorFunction' === constructor.displayName) {
+        return true;
+    }
+
+    return isGenerator(constructor.prototype);
+};
+
+global.isPromise = function (value) {
+    return isFunction(value.then);
+};

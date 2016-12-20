@@ -17,3 +17,4 @@ require('./lib/String/ucfirst');
 require('./lib/mixins');
 
 require('./lib/DataStructure/PriorityQueue');
+require('./lib/Async/Async');
