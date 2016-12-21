@@ -1,3 +1,5 @@
+'use strict';
+
 global.__jymfony = global.__jymfony || {};
 
 global.__jymfony.getFunction = function (object, funcName) {

@@ -1,3 +1,5 @@
+'use strict';
+
 global.__jymfony = global.__jymfony || {};
 
 const primitives = [ Number, String, Boolean ];

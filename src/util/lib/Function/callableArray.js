@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Check if arg is an array describing a callable
  *

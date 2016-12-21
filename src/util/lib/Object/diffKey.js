@@ -1,3 +1,5 @@
+'use strict';
+
 global.__jymfony = global.__jymfony || {};
 
 let diffKey = function (arr1, ...arrays) {
