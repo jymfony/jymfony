@@ -26,13 +26,26 @@ global.getInterface = function (definition) {
 global.getTrait = function (definition) {
     let mixin = (superclass) => {
         let trait = class extends superclass {};
-        let inherits = [...Object.getOwnPropertyNames(definition.prototype), ...Object.getOwnPropertySymbols(definition.prototype)];
-        for (let prop of inherits) {
+
+        let inherits = new Map();
+        let parent = definition;
+        do {
+            if (parent.prototype) {
+                for (let p of [...Object.getOwnPropertyNames(parent.prototype), ...Object.getOwnPropertySymbols(parent.prototype)]) {
+                    if (inherits.has(p)) {
+                        continue;
+                    }
+
+                    inherits.set(p, Object.getOwnPropertyDescriptor(parent.prototype, p));
+                }
+            }
+        } while (parent = Object.getPrototypeOf(parent));
+
+        for (let [prop, descriptor] of inherits.entries()) {
             if (prop === 'constructor') {
                 continue;
             }
 
-            let descriptor = Object.getOwnPropertyDescriptor(definition.prototype, prop);
             Object.defineProperty(trait.prototype, prop, descriptor);
         }
 
@@ -40,6 +53,7 @@ global.getTrait = function (definition) {
     };
 
     Object.setPrototypeOf(mixin, {
+        definition: definition,
         [symClassType]: 'Trait',
     });
 

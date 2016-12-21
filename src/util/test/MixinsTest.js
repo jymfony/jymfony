@@ -32,3 +32,57 @@ describe('Mixins.getInterface', function () {
             expect(o).to.be.instanceOf(iTest2);
     });
 });
+
+describe('Mixins.getTrait', function () {
+    it('should return an extendable expression', () => {
+        let traitTest = getTrait(class TestTrait {});
+
+        return expect(typeof traitTest === 'function').to.be.true;
+    });
+
+    it('should not have instanceof', (done) => {
+        let traitTest = getTrait(class TestTrait {});
+        class Foobar extends mix(undefined, traitTest) { }
+        let o = new Foobar();
+
+        try {
+            let val = o instanceof traitTest;
+        } catch (e) {
+            expect(e).to.be.instanceOf(TypeError);
+            expect(e.message).to.be.equal('Function has non-object prototype \'undefined\' in instanceof check');
+            done();
+            return;
+        }
+
+        throw new Error('Failed test');
+    });
+
+    it('can be extended', () => {
+        let testTrait = getTrait(class TestTrait {
+            foo() {
+                return 'foo';
+            }
+
+            foobar() {
+                return 'foobar';
+            }
+        });
+        let testTraitEx = getTrait(class extends testTrait.definition {
+            foo() {
+                return 'bar';
+            }
+
+            bar() {
+                return 'baz';
+            }
+        });
+
+        class Foobar extends mix(undefined, testTraitEx) { }
+        let o = new Foobar();
+
+        return expect(o.foo).to.be.instanceOf(Function) &&
+            expect(o.foo()).to.be.equal('bar') &&
+            expect(o.bar).to.be.instanceOf(Function) &&
+            expect(o.foobar).to.be.instanceOf(Function);
+    });
+});
