@@ -1,5 +1,5 @@
 const CompilerPassInterface = Jymfony.DependencyInjection.Compiler.CompilerPassInterface;
-const Reference = Jymfony.DependencyInjection.Compiler.Reference;
+const Reference = Jymfony.DependencyInjection.Reference;
 const Container = Jymfony.DependencyInjection.Container;
 const RuntimeException = Jymfony.DependencyInjection.Exception.RuntimeException;
 

@@ -56,7 +56,7 @@ module.exports = class AnalyzeServiceReferencesPass extends implementationOf(Rep
     }
 
     _processArguments(args) {
-        for (let argument of args) {
+        for (let argument of Object.values(args)) {
             if (isArray(argument) || isObjectLiteral(argument)) {
                 this._processArguments(argument);
             } else if (argument instanceof Reference) {

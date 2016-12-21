@@ -38,7 +38,7 @@ module.exports = class ResolveDefinitionTemplatesPass extends implementationOf(C
                 this._currentId = k;
             }
 
-            if (isArray(argument)) {
+            if (isArray(argument) || isObjectLiteral(argument)) {
                 args[k] = this._resolveArguments(container, argument);
             } else if (argument instanceof Definition) {
                 if (argument instanceof DefinitionDecorator) {

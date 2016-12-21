@@ -404,7 +404,7 @@ module.exports = class ContainerBuilder extends Container {
      * @param {string} id
      * @param {string|null} class_
      *
-     * @returns {Definition} A Definition instance
+     * @returns {Jymfony.DependencyInjection.Definition} A Definition instance
      */
     register(id, class_) {
         return this.setDefinition(id, new Definition(class_));
@@ -413,10 +413,10 @@ module.exports = class ContainerBuilder extends Container {
     /**
      * Adds the service definitions.
      *
-     * @param {Definition[]} definitions
+     * @param {Jymfony.DependencyInjection.Definition[]} definitions
      */
     addDefinitions(definitions) {
-        for (let [name, definition] of __jymfony.getEntries(definitions)) {
+        for (let [id, definition] of __jymfony.getEntries(definitions)) {
             this.setDefinition(id, definition);
         }
     }
@@ -424,7 +424,7 @@ module.exports = class ContainerBuilder extends Container {
     /**
      * Sets the service definitions.
      *
-     * @param {Definition[]} definitions
+     * @param {Jymfony.DependencyInjection.Definition[]} definitions
      */
     setDefinitions(definitions) {
         this._definitions = {};
@@ -434,7 +434,7 @@ module.exports = class ContainerBuilder extends Container {
     /**
      * Gets all service definitions.
      *
-     * @returns {Object<string, Definition>}
+     * @returns {Object<string, Jymfony.DependencyInjection.Definition>}
      */
     getDefinitions() {
         return Object.assign({}, this._definitions);
@@ -446,7 +446,7 @@ module.exports = class ContainerBuilder extends Container {
      * @param {string} id
      * @param {Definition} definition
      *
-     * @returns Definition the service definition
+     * @returns {Jymfony.DependencyInjection.Definition} the service definition
      *
      * @throws BadMethodCallException When this ContainerBuilder is frozen
      */
@@ -477,7 +477,7 @@ module.exports = class ContainerBuilder extends Container {
      *
      * @param {string} id
      *
-     * @returns {Definition}
+     * @returns {Jymfony.DependencyInjection.Definition}
      *
      * @throws ServiceNotFoundException if the service definition does not exist
      */
@@ -497,7 +497,7 @@ module.exports = class ContainerBuilder extends Container {
      *
      * @param {string} id
      *
-     * @returns {Definition} A Definition instance
+     * @returns {Jymfony.DependencyInjection.Definition} A Definition instance
      *
      * @throws ServiceNotFoundException if the service definition does not exist
      */

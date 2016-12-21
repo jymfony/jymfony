@@ -55,7 +55,7 @@ class Container {
      * @returns {string}
      */
     getParameter(name) {
-        return this._parameterBag.get(name);
+        return this.parameterBag.get(name);
     }
 
     /**
@@ -66,7 +66,7 @@ class Container {
      * @returns {boolean}
      */
     hasParameter(name) {
-        return this._parameterBag.has(name);
+        return this.parameterBag.has(name);
     }
 
     /**
@@ -76,7 +76,7 @@ class Container {
      * @param {string} value
      */
     setParameter(name, value) {
-        this._parameterBag.set(name, value);
+        this.parameterBag.set(name, value);
     }
 
     /**
@@ -234,7 +234,7 @@ class Container {
      *
      * @param {string} id
      *
-     * @return {string}
+     * @returns {string}
      */
     static underscore(id) {
         return id.toLowerCase()
@@ -242,6 +242,18 @@ class Container {
             .replace(/([A-Z]+)([A-Z][a-z])/, '$1_$2')
             .replace(/([a-z\d])([A-Z])/, '$1_$2')
         ;
+    }
+
+    /**
+     * Camelizes a string
+     *
+     * @param {string} id
+     *
+     * @returns {string}
+     */
+    static camelize(id)
+    {
+        return __jymfony.strtr(__jymfony.ucwords(__jymfony.strtr(id, {'_': ' ', '.': '_ ', '\\': '_ '})), {' ': ''});
     }
 }
 

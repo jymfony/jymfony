@@ -19,7 +19,7 @@ module.exports = class RemoveUnusedDefinitionsPass extends implementationOf(Repe
             let isReferenced, referencingAliases;
             if (graph.hasNode(id)) {
                 let edges = graph.getNode(id).getInEdges();
-                let referencingAliases = [];
+                referencingAliases = [];
                 let sourceIds = new Set;
 
                 for (let edge of edges) {
@@ -42,7 +42,7 @@ module.exports = class RemoveUnusedDefinitionsPass extends implementationOf(Repe
                 definition.setPublic(true);
                 container.removeDefinition(id);
                 compiler.addLogMessage(formatter.formatRemoveService(this, id, 'replaces alias ' + referencingAliases[0].toString()));
-            } else if (0 === count(referencingAliases) && ! isReferenced) {
+            } else if (0 === referencingAliases.length && ! isReferenced) {
                 container.removeDefinition(id);
                 compiler.addLogMessage(formatter.formatRemoveService(this, id, 'unused'));
                 hasChanged = true;

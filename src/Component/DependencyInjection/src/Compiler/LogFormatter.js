@@ -7,7 +7,7 @@ module.exports = class LogFormatter {
         return this.format(pass, `Removed service "${id}"; reason: ${reason}`);
     }
 
-    formatInlineService(pass, id, $arget)
+    formatInlineService(pass, id, target)
     {
         return this.format(pass, `Inlined service "${id}" to "${target}".`);
     }

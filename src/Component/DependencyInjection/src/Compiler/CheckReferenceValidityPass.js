@@ -24,13 +24,13 @@ module.exports = class CheckReferenceValidityPass extends implementationOf(Compi
     }
 
     _validateReferences(args) {
-        for (let argument of args) {
+        for (let argument of Object.values(args)) {
             if (isArray(argument) || isObjectLiteral(argument)) {
                 this._validateReferences(argument);
             } else if (argument instanceof Reference) {
                 let targetDefinition = this._getDefinition(argument.toString());
 
-                if (! targetDefinition && targetDefinition.isAbstract()) {
+                if (targetDefinition && targetDefinition.isAbstract()) {
                     throw new RuntimeException(
                         `The definition "${this._currentId}" has a reference to an abstract definition "${argument.toString()}". `
                             + 'Abstract definitions cannot be the target of references.'

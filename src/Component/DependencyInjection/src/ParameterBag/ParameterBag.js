@@ -8,7 +8,7 @@ let ParameterCircularReferenceException = Jymfony.DependencyInjection.Exception.
  */
 module.exports = class ParameterBag {
     constructor(params = {}) {
-        this._params = new Map(__jymfony.getEntries(params));
+        this._params = Object.assign({}, params);
         this._resolved = false;
     }
 
@@ -16,7 +16,7 @@ module.exports = class ParameterBag {
      * Empties the parameter bag
      */
     clear() {
-        this._params = new Map();
+        this._params = {};
     }
 
     /**
@@ -27,11 +27,11 @@ module.exports = class ParameterBag {
      */
     add(params, overwrite = true) {
         for (let [key, value] of __jymfony.getEntries(params)) {
-            if (! overwrite && this._params.has(key)) {
+            if (! overwrite && this._params.hasOwnProperty(key)) {
                 continue;
             }
 
-            this._params.set(key.toLowerCase(), value);
+            this._params[key.toLowerCase()] = value;
         }
     }
 
@@ -41,7 +41,7 @@ module.exports = class ParameterBag {
      * @returns {Map}
      */
     all() {
-        return new Map(this._params);
+        return Object.assign({}, this._params);
     }
 
     /**
@@ -53,11 +53,11 @@ module.exports = class ParameterBag {
     get(name) {
         name = name.toLowerCase();
         
-        if (! this._params.has(name)) {
+        if (! this._params.hasOwnProperty(name)) {
             throw new ParameterNotFoundException(name, null, null);
         }
 
-        return this._params.get(name);
+        return this._params[name];
     }
 
     /**
@@ -67,7 +67,7 @@ module.exports = class ParameterBag {
      * @param {string} value
      */
     set(name, value) {
-        this._params.set(name.toLowerCase(), value);
+        this._params[name.toLowerCase()] = value;
     }
 
     /**
@@ -77,7 +77,7 @@ module.exports = class ParameterBag {
      * @returns {boolean}
      */
     has(name) {
-        return this._params.has(name.toLowerCase());
+        return this._params.hasOwnProperty(name.toLowerCase());
     }
 
     /**
@@ -86,7 +86,7 @@ module.exports = class ParameterBag {
      * @param name
      */
     remove(name) {
-        this._params.delete(name.toLowerCase());
+        delete this._params[name.toLowerCase()];
     }
 
     /**
@@ -97,11 +97,11 @@ module.exports = class ParameterBag {
             return;
         }
 
-        let resolved = new Map;
-        for (let [key, value] of this._params.entries()) {
+        let resolved = {};
+        for (let [key, value] of __jymfony.getEntries(this._params)) {
             try {
                 value = this.resolveValue(value);
-                resolved.set(key, this.unescapeValue(value));
+                resolved[key] = this.unescapeValue(value);
             } catch (e) {
                 if (e instanceof ParameterNotFoundException) {
                     e.sourceKey = key;
@@ -124,10 +124,10 @@ module.exports = class ParameterBag {
      * @returns {*}
      */
     resolveValue(value, resolving = new Set) {
-        if (value instanceof Map) {
-            let args = new Map;
-            for (let [k, v] of value.entries()) {
-                args.set(this.resolveValue(k, new Set(resolving)), this.resolveValue(v, new Set(resolving)));
+        if (isArray(value) || isObjectLiteral(value)) {
+            let args = isArray(value) ? [] : {};
+            for (let [k, v] of __jymfony.getEntries(value)) {
+                args[this.resolveValue(k, new Set(resolving))] = this.resolveValue(v, new Set(resolving));
             }
 
             return args;
@@ -201,10 +201,10 @@ module.exports = class ParameterBag {
             return value.replace('%', '%%');
         }
 
-        if (isArray(value)) {
-            let result = new Map;
-            for (let [k, v] of value) {
-                result.add(k, this.escapeValue(v));
+        if (isArray(value) || isObjectLiteral(value)) {
+            let result = isArray(value) ? [] : {};
+            for (let [k, v] of __jymfony.getEntries(value)) {
+                result[k] = this.escapeValue(v);
             }
 
             return result;

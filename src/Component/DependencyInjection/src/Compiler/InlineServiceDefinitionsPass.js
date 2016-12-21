@@ -28,9 +28,7 @@ module.exports = class InlineServiceDefinitionsPass extends implementationOf(Rep
                 this._currentId = k;
             }
 
-            if (isArray(argument) || isObjectLiteral(argument)) {
-                args[k] = this._inlineArguments(container, argument);
-            } else if (argument instanceof Reference) {
+            if (argument instanceof Reference) {
                 let id = argument.toString();
                 if (! container.hasDefinition(id)) {
                     continue;
@@ -56,6 +54,8 @@ module.exports = class InlineServiceDefinitionsPass extends implementationOf(Rep
 
                 let factory = this._inlineArguments(container, [argument.getFactory()]);
                 argument.setFactory(factory[0]);
+            } else if (isArray(argument) || isObjectLiteral(argument)) {
+                args[k] = this._inlineArguments(container, argument);
             }
         }
 

@@ -26,12 +26,12 @@ module.exports = class Definition {
     /**
      * Set the service factory
      *
-     * @param {string|Array|Function} factory
+     * @param {string|Array} factory
      *
      * @returns {Jymfony.DependencyInjection.Definition}
      */
     setFactory(factory) {
-        if (isString(factory) && factory.indexOf('#')) {
+        if (isString(factory) && factory.indexOf('#') !== -1) {
             factory = factory.split('#', 2);
         }
 
@@ -42,7 +42,7 @@ module.exports = class Definition {
     /**
      * Get the current factory
      *
-     * @returns {string|Array|Function|undefined}
+     * @returns {string|Array|undefined}
      */
     getFactory() {
         return this._factory;
@@ -77,6 +77,10 @@ module.exports = class Definition {
      * @returns {Array}
      */
     getDecoratedService() {
+        if (! this._decoratedService) {
+            return this._decoratedService;
+        }
+
         return [ ...this._decoratedService ];
     }
 
@@ -560,7 +564,7 @@ module.exports = class Definition {
      * @returns {Jymfony.DependencyInjection.Definition}
      */
     setConfigurator(configurator) {
-        if (isString(configurator) && configurator.indexOf('#')) {
+        if (isString(configurator) && configurator.indexOf('#') !== -1) {
             configurator = configurator.split('#', 2);
         }
 

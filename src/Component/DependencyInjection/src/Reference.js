@@ -1,9 +1,11 @@
+const Container = Jymfony.DependencyInjection.Container;
+
 /**
  * @memberOf Jymfony.DependencyInjection
  * @type {Jymfony.DependencyInjection.Reference}
  */
 module.exports = class Reference {
-    constructor(id, invalidBehavior) {
+    constructor(id, invalidBehavior = Container.EXCEPTION_ON_INVALID_REFERENCE) {
         this._id = id.toLowerCase();
         this._invalidBehavior = invalidBehavior;
     }
