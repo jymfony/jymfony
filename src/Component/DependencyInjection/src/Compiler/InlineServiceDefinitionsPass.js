@@ -1,4 +1,3 @@
-const CompilerPassInterface = Jymfony.DependencyInjection.Compiler.CompilerPassInterface;
 const RepeatablePassInterface = Jymfony.DependencyInjection.Compiler.RepeatablePassInterface;
 const Definition = Jymfony.DependencyInjection.Definition;
 const Reference = Jymfony.DependencyInjection.Reference;
@@ -7,7 +6,7 @@ const Reference = Jymfony.DependencyInjection.Reference;
  * @memberOf Jymfony.DependencyInjection.Compiler
  * @type {Jymfony.DependencyInjection.Compiler.RemoveAbstractDefinitionsPass}
  */
-module.exports = class InlineServiceDefinitionsPass extends implementationOf(CompilerPassInterface, RepeatablePassInterface) {
+module.exports = class InlineServiceDefinitionsPass extends implementationOf(RepeatablePassInterface) {
     process(container) {
         this._compiler = container.getCompiler();
         this._formatter = container.getCompiler().logFormatter;

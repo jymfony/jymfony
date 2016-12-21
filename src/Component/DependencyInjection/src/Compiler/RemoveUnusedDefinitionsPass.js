@@ -1,11 +1,10 @@
-const CompilerPassInterface = Jymfony.DependencyInjection.Compiler.CompilerPassInterface;
 const RepeatablePassInterface = Jymfony.DependencyInjection.Compiler.RepeatablePassInterface;
 
 /**
  * @memberOf Jymfony.DependencyInjection.Compiler
  * @type {Jymfony.DependencyInjection.Compiler.RemoveUnusedDefinitionsPass}
  */
-module.exports = class RemoveUnusedDefinitionsPass extends implementationOf(CompilerPassInterface, RepeatablePassInterface) {
+module.exports = class RemoveUnusedDefinitionsPass extends implementationOf(RepeatablePassInterface) {
     process(container) {
         let compiler = container.getCompiler();
         let formatter = compiler.logFormatter;

@@ -15,7 +15,7 @@ module.exports = class RepeatedPass extends implementationOf(CompilerPassInterfa
 
         for (let pass of passes) {
             if (! (pass instanceof RepeatablePassInterface)) {
-                throw new InvalidArgumentException('passes must be an array of RepeatablePassInterface.');
+                throw new InvalidArgumentException('Passes must be an array of RepeatablePassInterface.');
             }
 
             pass.setRepeatedPass(this);
