@@ -4,7 +4,7 @@
  * @memberOf Jymfony.DependencyInjection.LazyProxy
  * @type {Jymfony.DependencyInjection.LazyProxy.InstantiatorInterface}
  */
-module.exports = getInterface(class InstantiatorInterface {
+class InstantiatorInterface {
     /**
      * Instantiate a proxy object
      *
@@ -18,4 +18,6 @@ module.exports = getInterface(class InstantiatorInterface {
      *
      * @returns {*}
      */
-});
+}
+
+module.exports = getInterface(InstantiatorInterface);

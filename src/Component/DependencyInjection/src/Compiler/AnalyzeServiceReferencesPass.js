@@ -9,6 +9,7 @@ const Reference = Jymfony.DependencyInjection.Reference;
  */
 module.exports = class AnalyzeServiceReferencesPass extends implementationOf(CompilerPassInterface, RepeatablePassInterface) {
     constructor(onlyConstructorArguments = false) {
+        super();
         this._onlyConstructorArguments = onlyConstructorArguments;
     }
 
@@ -55,8 +56,8 @@ module.exports = class AnalyzeServiceReferencesPass extends implementationOf(Com
         }
     }
 
-    _processArguments(arguments) {
-        for (let argument of arguments) {
+    _processArguments(args) {
+        for (let argument of args) {
             if (isArray(argument) || isObjectLiteral(argument)) {
                 this._processArguments(argument);
             } else if (argument instanceof Reference) {

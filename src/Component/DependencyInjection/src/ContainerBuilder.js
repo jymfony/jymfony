@@ -1,5 +1,5 @@
 const Alias = Jymfony.DependencyInjection.Alias;
-const Compiler = Jymfony.DependencyInjection.Compiler;
+const Compiler = Jymfony.DependencyInjection.Compiler.Compiler;
 const Container = Jymfony.DependencyInjection.Container;
 const Definition = Jymfony.DependencyInjection.Definition;
 const BadMethodCallException = Jymfony.DependencyInjection.Exception.BadMethodCallException;
@@ -77,7 +77,7 @@ module.exports = class ContainerBuilder extends Container {
      */
     getExtensions() {
         // Clone object
-        return { ... this._extensions };
+        return Object.assign({}, this._extensions);
     }
 
     /**
@@ -152,14 +152,14 @@ module.exports = class ContainerBuilder extends Container {
     set(id, service) {
         id = id.toLowerCase();
 
-        if (this.frozen && (undefined === this._definitions[id] || !this._definitions[id].isSynthetic())) {
+        if (this.frozen && undefined !== this._definitions[id] && ! this._definitions[id].isSynthetic()) {
             throw new BadMethodCallException('Cannot set a non-synthetic service into a frozen container');
         }
 
         delete this._definitions[id];
         delete this._aliasDefinitions[id];
 
-        Container.set.call(this, id, service);
+        super.set(id, service);
     }
 
     /**
@@ -181,7 +181,7 @@ module.exports = class ContainerBuilder extends Container {
     has(id) {
         id = id.toLowerCase();
 
-        return undefined !== this._definitions[id] || undefined !== this._aliasDefinitions[id] || Container.has.call(this, id);
+        return undefined !== this._definitions[id] || undefined !== this._aliasDefinitions[id] || super.has(id);
     }
 
     /**
@@ -195,7 +195,7 @@ module.exports = class ContainerBuilder extends Container {
     get(id, invalidBehavior = Container.EXCEPTION_ON_INVALID_REFERENCE) {
         id = id.toLowerCase();
 
-        let service = Container.get.call(this, id, Container.NULL_ON_INVALID_REFERENCE);
+        let service = super.get(id, Container.NULL_ON_INVALID_REFERENCE);
         if (undefined !== service) {
             return service;
         }
@@ -264,7 +264,7 @@ module.exports = class ContainerBuilder extends Container {
             this._extensionConfigs[name] = {};
         }
 
-        return { ... this._extensionConfigs[name] };
+        return Object.assign({}, this._extensionConfigs[name]);
     }
 
     /**
@@ -290,18 +290,18 @@ module.exports = class ContainerBuilder extends Container {
      */
     compile() {
         let compiler = this.getCompiler();
-        compiler.compile();
+        compiler.compile(this);
 
         this._extensionConfigs = {};
 
-        Container.compile.call(this);
+        super.compile();
     }
 
     /**
      * @inheritDoc
      */
     getServiceIds() {
-        let ids = new Set([...Object.keys(this._definitions), ...Object.keys(this._aliasDefinitions), ...Container.getServiceIds.call(this)]);
+        let ids = new Set([...Object.keys(this._definitions), ...Object.keys(this._aliasDefinitions), ...super.getServiceIds()]);
         return Array.from(ids.values());
     }
 
@@ -375,7 +375,7 @@ module.exports = class ContainerBuilder extends Container {
      * @returns {Object<string, Alias>}
      */
     getAliases() {
-        return { ...this._aliasDefinitions };
+        return Object.assign({}, this._aliasDefinitions);
     }
 
     /**
@@ -437,7 +437,7 @@ module.exports = class ContainerBuilder extends Container {
      * @returns {Object<string, Definition>}
      */
     getDefinitions() {
-        return { ...this._definitions };
+        return Object.assign({}, this._definitions);
     }
 
     /**
@@ -547,7 +547,7 @@ module.exports = class ContainerBuilder extends Container {
             require(parameterBag.resolveValue(file));
         }
 
-        let arguments = this._resolveServices(parameterBag.unescapeValue(parameterBag.resolveValue(definition.getArguments())));
+        let args = this._resolveServices(parameterBag.unescapeValue(parameterBag.resolveValue(definition.getArguments())));
         let factory = definition.getFactory();
 
         let service;
@@ -559,7 +559,7 @@ module.exports = class ContainerBuilder extends Container {
                 throw new RuntimeException('Cannot create service "' + id + '" because of invalid factory');
             }
 
-            service = factory.apply(null, arguments);
+            service = factory.apply(null, args);
         } else {
             let class_ = parameterBag.resolveValue(definition.getClass());
 
@@ -571,7 +571,7 @@ module.exports = class ContainerBuilder extends Container {
                 constructor = constructor[part];
             }
 
-            service = new constructor(...arguments);
+            service = new constructor(...args);
         }
 
         if (tryProxy || ! definition.isLazy()) {
@@ -697,7 +697,7 @@ module.exports = class ContainerBuilder extends Container {
             }
         }
 
-        let call = getCallableFromArray([service, call[0]]);
+        call = getCallableFromArray([service, call[0]]);
         call.apply(service, this._resolveServices(this.parameterBag.unescapeValue(this.parameterBag.resolveValue(call[1]))));
     }
 

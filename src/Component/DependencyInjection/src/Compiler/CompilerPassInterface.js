@@ -1,12 +1,10 @@
-/** @global getInterface */
-
 /**
  * Compilation passes must implement this interface
  *
  * @memberOf Jymfony.DependencyInjection.Compiler
  * @type {Jymfony.DependencyInjection.Compiler.CompilerPassInterface}
  */
-module.exports = getInterface(class CompilerPassInterface {
+class CompilerPassInterface {
     /**
      * Modify container
      *
@@ -15,4 +13,6 @@ module.exports = getInterface(class CompilerPassInterface {
      *
      * @param {ContainerBuilder} container
      */
-});
+}
+
+module.exports = getInterface(CompilerPassInterface);

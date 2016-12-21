@@ -8,10 +8,8 @@ let ParameterCircularReferenceException = Jymfony.DependencyInjection.Exception.
  */
 module.exports = class ParameterBag {
     constructor(params = {}) {
-        this._params = new Map;
+        this._params = new Map(__jymfony.getEntries(params));
         this._resolved = false;
-
-        this.add(params);
     }
 
     /**

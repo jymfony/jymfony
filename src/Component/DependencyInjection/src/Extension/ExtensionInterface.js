@@ -3,7 +3,7 @@
  *
  * @memberOf Jymfony.DependencyInjection.Extension
  */
-module.exports = getInterface(class ExtensionInterface {
+class ExtensionInterface {
     /**
      * Load a configuration
      *
@@ -46,4 +46,6 @@ module.exports = getInterface(class ExtensionInterface {
      * @name ExtensionInterface#alias
      * @type string
      */
-});
+}
+
+module.exports = getInterface(ExtensionInterface);

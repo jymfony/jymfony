@@ -1,7 +1,7 @@
 /**
  * @memberOf Jymfony.DependencyInjection.Extension
  */
-module.exports = getInterface(class PrependExtensionInterface {
+class PrependExtensionInterface {
     /**
      * Allow an extension to prepend the extension configurations
      *
@@ -10,4 +10,6 @@ module.exports = getInterface(class PrependExtensionInterface {
      *
      * @param ContainerBuilder container
      */
-});
+}
+
+module.exports = getInterface(PrependExtensionInterface);

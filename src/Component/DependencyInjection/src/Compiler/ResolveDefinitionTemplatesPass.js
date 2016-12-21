@@ -21,28 +21,28 @@ module.exports = class ResolveDefinitionTemplatesPass extends implementationOf(C
     }
 
     /**
-     * Resolves definition decorator arguments.
+     * Resolves definition decorator args.
      *
      * @param {Jymfony.DependencyInjection.ContainerBuilder} container The ContainerBuilder
-     * @param {Object|Array} arguments An array of arguments
+     * @param {Object|Array} args An array of args
      * @param {boolean} isRoot If we are processing the root definitions or not
      *
      * @returns {Object|Array}
      */
-    _resolveArguments(container, arguments, isRoot = false) {
-        for (let [k, argument] of __jymfony.getEntries(arguments)) {
+    _resolveArguments(container, args, isRoot = false) {
+        for (let [k, argument] of __jymfony.getEntries(args)) {
             if (isRoot) {
                 // yes, we are specifically fetching the definition from the
                 // container to ensure we are not operating on stale data
-                arguments[k] = argument = container.getDefinition(k);
+                args[k] = argument = container.getDefinition(k);
                 this._currentId = k;
             }
 
             if (isArray(argument)) {
-                arguments[k] = this._resolveArguments(container, argument);
+                args[k] = this._resolveArguments(container, argument);
             } else if (argument instanceof Definition) {
                 if (argument instanceof DefinitionDecorator) {
-                    arguments[k] = argument = this._resolveDefinition(container, argument);
+                    args[k] = argument = this._resolveDefinition(container, argument);
                     if (isRoot) {
                         container.setDefinition(k, argument);
                     }
@@ -60,7 +60,7 @@ module.exports = class ResolveDefinitionTemplatesPass extends implementationOf(C
             }
         }
 
-        return arguments;
+        return args;
     }
 
     /**

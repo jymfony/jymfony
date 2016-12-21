@@ -9,7 +9,7 @@ module.exports = class ResolveParameterPlaceHoldersPass extends implementationOf
     process(container) {
         let parameterBag = container.parameterBag;
 
-        for (let [id, definition] of container.getDefinitions()) {
+        for (let [id, definition] of __jymfony.getEntries(container.getDefinitions())) {
             try {
                 definition.setClass(parameterBag.resolveValue(definition.getClass()));
                 definition.setFile(parameterBag.resolveValue(definition.getFile()));

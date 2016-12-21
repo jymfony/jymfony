@@ -3,7 +3,7 @@ const InstantiatorInterface = Jymfony.DependencyInjection.LazyProxy.Instantiator
 /**
  * @memberOf Jymfony.DependencyInjection.LazyProxy
  */
-modules.exports = class RealServiceInstantiator extends implementationOf(InstantiatorInterface) {
+module.exports = class RealServiceInstantiator extends implementationOf(InstantiatorInterface) {
     /**
      * @inheritDoc
      */

@@ -3,7 +3,7 @@ const Compiler = Jymfony.DependencyInjection.Compiler;
 /**
  * @memberOf Jymfony.DependencyInjection.Compiler
  */
-module.exports = class PassConfig {
+class PassConfig {
     constructor() {
         this._mergePass = new Compiler.MergeExtensionConfigurationPass();
 
@@ -107,10 +107,12 @@ module.exports = class PassConfig {
             yield * passes[priority];
         }
     }
-};
+}
 
 PassConfig.TYPE_AFTER_REMOVING = 'afterRemoving';
 PassConfig.TYPE_BEFORE_OPTIMIZATION = 'beforeOptimization';
 PassConfig.TYPE_BEFORE_REMOVING = 'beforeRemoving';
 PassConfig.TYPE_OPTIMIZE = 'optimization';
 PassConfig.TYPE_REMOVE = 'removing';
+
+module.exports = PassConfig;

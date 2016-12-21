@@ -1,5 +1,7 @@
 /**
  * @memberOf Jymfony.DependencyInjection.Exception
  */
-module.exports = getInterface(class ExceptionInterface {
-});
+class ExceptionInterface {
+}
+
+module.exports = getInterface(ExceptionInterface);

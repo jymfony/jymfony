@@ -11,7 +11,7 @@ module.exports = class ResolveReferencesToAliasesPass extends implementationOf(C
     process(container) {
         this._container = container;
 
-        for (let definition of container.getDefinitions()) {
+        for (let definition of Object.values(container.getDefinitions())) {
             if (definition.isSynthetic() || definition.isAbstract()) {
                 continue;
             }
@@ -32,21 +32,21 @@ module.exports = class ResolveReferencesToAliasesPass extends implementationOf(C
         }
     }
 
-    _processArguments(arguments) {
-        for (let [k, argument] of __jymfony.getEntries(arguments)) {
+    _processArguments(args) {
+        for (let [k, argument] of __jymfony.getEntries(args)) {
             if (isArray(argument)) {
-                arguments[k] = this._processArguments(argument);
+                args[k] = this._processArguments(argument);
             } else if (argument instanceof Reference) {
                 let id = argument.toString();
                 let defId = this._getDefinitionId(id);
 
                 if (defId !== id) {
-                    arguments[k] = new Reference(defId, argument.invalidBehavior);
+                    args[k] = new Reference(defId, argument.invalidBehavior);
                 }
             }
         }
 
-        return arguments;
+        return args;
     }
 
     _processFactory(factory) {

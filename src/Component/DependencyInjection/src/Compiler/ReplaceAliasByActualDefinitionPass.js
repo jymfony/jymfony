@@ -55,7 +55,7 @@ module.exports = class ReplaceAliasByActualDefinitionPass extends implementation
         }
 
         // Now replace target instances in all definitions
-        for (let [definitionId, definition] of container.getDefinitions()) {
+        for (let [definitionId, definition] of __jymfony.getEntries(container.getDefinitions())) {
             definition.setArguments(this._updateArgumentReferences(replacements, definitionId, definition.getArguments()));
             definition.setMethodCalls(this._updateArgumentReferences(replacements, definitionId, definition.getMethodCalls()));
             definition.setProperties(this._updateArgumentReferences(replacements, definitionId, definition.getProperties()));
@@ -63,15 +63,15 @@ module.exports = class ReplaceAliasByActualDefinitionPass extends implementation
         }
     }
 
-    _updateArgumentReferences(replacements, definitionId, arguments) {
-        for (let [k, argument] of __jymfony.getEntries(arguments)) {
+    _updateArgumentReferences(replacements, definitionId, args) {
+        for (let [k, argument] of __jymfony.getEntries(args)) {
             // Handle recursion step
             if (isArray(argument) || isObjectLiteral(argument)) {
-                arguments[k] = this._updateArgumentReferences(replacements, definitionId, argument);
+                args[k] = this._updateArgumentReferences(replacements, definitionId, argument);
                 continue;
             }
 
-            // Skip arguments that don't need replacement
+            // Skip args that don't need replacement
             if (! (argument instanceof Reference)) {
                 continue;
             }
@@ -83,11 +83,11 @@ module.exports = class ReplaceAliasByActualDefinitionPass extends implementation
 
             // Perform the replacement
             let newId = replacements[referenceId];
-            arguments[k] = new Reference(newId, argument.invalidBehavior);
+            args[k] = new Reference(newId, argument.invalidBehavior);
             this._compiler.addLogMessage(this._formatter.formatUpdateReference(this, definitionId, referenceId, newId));
         }
 
-        return arguments;
+        return args;
     }
 
     _updateFactoryReference(replacements, factory) {

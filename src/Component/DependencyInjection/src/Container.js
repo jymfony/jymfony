@@ -1,4 +1,3 @@
-const ContainerBuilder = Jymfony.DependencyInjection.ContainerBuilder;
 const ServiceNotFoundException = Jymfony.DependencyInjection.Exception.ServiceNotFoundException;
 const ServiceCircularReferenceException = Jymfony.DependencyInjection.Exception.ServiceCircularReferenceException;
 const FrozenParameterBag = Jymfony.DependencyInjection.ParameterBag.FrozenParameterBag;
@@ -126,7 +125,7 @@ class Container {
             if (--i && id !== lcId) {
                 id = lcId;
                 continue;
-            } else if (this.constructor instanceof ContainerBuilder) {
+            } else if (this.constructor instanceof Jymfony.DependencyInjection.ContainerBuilder) {
                 return this['get' + __jymfony.strtr(id, underscoreMap) + 'Service'] !== undefined;
             }
 

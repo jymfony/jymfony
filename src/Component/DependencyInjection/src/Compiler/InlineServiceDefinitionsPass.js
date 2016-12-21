@@ -23,14 +23,14 @@ module.exports = class InlineServiceDefinitionsPass extends implementationOf(Com
         // do nothing - unused
     }
 
-    _inlineArguments(container, definitions, isRoot = false) {
-        for (let [k, argument] of __jymfony.getEntries(arguments)) {
+    _inlineArguments(container, args, isRoot = false) {
+        for (let [k, argument] of __jymfony.getEntries(args)) {
             if (isRoot) {
                 this._currentId = k;
             }
 
             if (isArray(argument) || isObjectLiteral(argument)) {
-                arguments[k] = this._inlineArguments(container, argument);
+                args[k] = this._inlineArguments(container, argument);
             } else if (argument instanceof Reference) {
                 let id = argument.toString();
                 if (! container.hasDefinition(id)) {
@@ -42,9 +42,9 @@ module.exports = class InlineServiceDefinitionsPass extends implementationOf(Com
                     this._compiler.addLogMessage(this._formatter.formatInlineService(this, id, this._currentId));
 
                     if (definition.isShared()) {
-                        arguments[k] = definition;
+                        args[k] = definition;
                     } else {
-                        arguments[k] = { ...definition };
+                        args[k] = Object.assign({}, definition);
                     }
                 }
             } else if (argument instanceof Definition) {
@@ -60,7 +60,7 @@ module.exports = class InlineServiceDefinitionsPass extends implementationOf(Com
             }
         }
 
-        return arguments;
+        return args;
     }
 
     _isInlineableDefinition(id, definition) {

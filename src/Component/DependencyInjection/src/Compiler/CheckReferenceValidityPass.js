@@ -23,8 +23,8 @@ module.exports = class CheckReferenceValidityPass extends implementationOf(Compi
         }
     }
 
-    _validateReferences(arguments) {
-        for (let argument of arguments) {
+    _validateReferences(args) {
+        for (let argument of args) {
             if (isArray(argument) || isObjectLiteral(argument)) {
                 this._validateReferences(argument);
             } else if (argument instanceof Reference) {

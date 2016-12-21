@@ -3,9 +3,9 @@
  * @type {Jymfony.DependencyInjection.Definition}
  */
 module.exports = class Definition {
-    constructor(class_ = null, arguments = []) {
+    constructor(class_ = null, args = []) {
         this._class = class_;
-        this._arguments = arguments;
+        this._arguments = args;
 
         this._file = undefined;
         this._factory = undefined;
@@ -230,12 +230,12 @@ module.exports = class Definition {
      *
      * @returns {Jymfony.DependencyInjection.Definition}
      */
-    addMethodCall(method, arguments = []) {
+    addMethodCall(method, args = []) {
         if (! method) {
             throw new InvalidArgumentException('Method name cannot be empty')
         }
 
-        this._calls.push([method, arguments]);
+        this._calls.push([method, args]);
 
         return this;
     }

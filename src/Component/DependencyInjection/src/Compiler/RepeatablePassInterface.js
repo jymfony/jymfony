@@ -1,11 +1,9 @@
-/** @global getInterface */
-
 /**
  * A pass that might be run repeatedly
  *
  * @memberOf Jymfony.DependencyInjection.Compiler
  */
-module.exports = getInterface(class RepeatablePassInterface {
+class RepeatablePassInterface {
     /**
      * Sets the RepeatedPass interface
      *
@@ -14,4 +12,6 @@ module.exports = getInterface(class RepeatablePassInterface {
      *
      * @param {Jymfony.DependencyInjection.Compiler.RepeatedPass} container
      */
-});
+}
+
+module.exports = getInterface(RepeatablePassInterface);

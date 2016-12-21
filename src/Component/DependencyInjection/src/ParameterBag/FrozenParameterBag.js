@@ -5,11 +5,13 @@ const ParameterBag = Jymfony.DependencyInjection.ParameterBag.ParameterBag;
  *
  * @memberOf Jymfony.DependencyInjection.ParameterBag
  */
-module.exports = class FrozenParameterBag extends ParameterBag{
+module.exports = class FrozenParameterBag extends ParameterBag {
     /**
      * @param {Map} params
      */
     constructor(params) {
+        super(params);
+
         this._params = params;
         this._resolved = true;
     }

@@ -7,7 +7,7 @@ const CompilerPassInterface = Jymfony.DependencyInjection.Compiler.CompilerPassI
 module.exports = class RemovePrivateAliasesPass extends implementationOf(CompilerPassInterface) {
     process(container) {
         let compiler = container.getCompiler();
-        let formatter = compiler.getLoggingFormatter();
+        let formatter = compiler.logFormatter;
 
         for (let [id, alias] of __jymfony.getEntries(container.getAliases())) {
             if (alias.isPublic()) {

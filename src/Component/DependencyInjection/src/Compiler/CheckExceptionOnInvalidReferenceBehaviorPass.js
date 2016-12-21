@@ -24,8 +24,8 @@ module.exports = class CheckExceptionOnInvalidReferenceBehaviorPass extends impl
         this._processReferences(definition.getProperties());
     }
 
-    _processReferences(arguments) {
-        for (let argument of arguments) {
+    _processReferences(args) {
+        for (let argument of args) {
             if (isArray(argument) || isObjectLiteral(argument)) {
                 this._processReferences(argument);
             } else if (argument instanceof Definition) {

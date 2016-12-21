@@ -27,6 +27,10 @@ module.exports = class ServiceReferenceGraph {
         return this._nodes[id];
     }
 
+    getNodes() {
+        return Object.assign({}, this._nodes);
+    }
+
     clear() {
         this._nodes = {};
     }

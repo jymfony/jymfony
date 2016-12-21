@@ -11,7 +11,7 @@ module.exports = class ResolveInvalidReferencesPass extends implementationOf(Com
     process(container) {
         this._container = container;
 
-        for (let definition of container.getDefinitions()) {
+        for (let definition of Object.values(container.getDefinitions())) {
             if (definition.isSynthetic() || definition.isAbstract()) {
                 continue;
             }
@@ -43,23 +43,23 @@ module.exports = class ResolveInvalidReferencesPass extends implementationOf(Com
         }
     }
 
-    _processArguments(arguments, inMethodCall, inCollection) {
-        for (let [k, argument] of __jymfony.getEntries(arguments)) {
+    _processArguments(args, inMethodCall, inCollection) {
+        for (let [k, argument] of __jymfony.getEntries(args)) {
             if (isArray(argument) || isObjectLiteral(argument)) {
-                arguments[k] = this._processArguments(argument, inMethodCall, true);
+                args[k] = this._processArguments(argument, inMethodCall, true);
             } else if (argument instanceof Reference) {
                 let id = argument.toString();
                 let invalidBehavior = argument.invalidBehavior;
                 let exists = this._container.has(id);
 
                 if (!exists && invalidBehavior === Container.NULL_ON_INVALID_REFERENCE) {
-                    arguments[k] = null;
+                    args[k] = null;
                 } else if (!exists && invalidBehavior === Container.IGNORE_ON_INVALID_REFERENCE) {
                     if (inCollection) {
-                        if (isArray(arguments)) {
-                            arguments.splice(k, 1);
+                        if (isArray(args)) {
+                            args.splice(k, 1);
                         } else {
-                            delete arguments[k];
+                            delete args[k];
                         }
                         continue;
                     }
@@ -68,11 +68,11 @@ module.exports = class ResolveInvalidReferencesPass extends implementationOf(Com
                         throw new RuntimeException('Method shouldn\'t be called.');
                     }
 
-                    arguments[k] = null;
+                    args[k] = null;
                 }
             }
         }
 
-        return arguments;
+        return args;
     }
 };

@@ -33,7 +33,7 @@ module.exports = class DefinitionDecorator extends Definition {
      * @returns {Object}
      */
     getChanges() {
-        return { ...this._changes };
+        return Object.assign({}, this._changes);
     }
 
     /**
@@ -112,16 +112,16 @@ module.exports = class DefinitionDecorator extends Definition {
      * @inheritDoc
      */
     getArguments() {
-        let arguments = [ ...this._arguments ];
+        let args = [ ...this._arguments ];
         for (let [k, v] of this._replacedArguments) {
-            if (k >= arguments.length) {
+            if (k >= args.length) {
                 continue;
             }
 
-            arguments[k] = v;
+            args[k] = v;
         }
 
-        return __jymfony.deepClone(arguments);
+        return __jymfony.deepClone(args);
     }
 
     /**
