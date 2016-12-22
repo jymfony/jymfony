@@ -38,7 +38,11 @@ global.isScalar = function (value) {
 };
 
 global.isObjectLiteral = function (value) {
-    return toString.call(value) === '[object Object]';
+    if (null === value || undefined === value) {
+        return false;
+    }
+
+    return Object.getPrototypeOf(value) === Object.getPrototypeOf({});
 };
 
 global.isGenerator = function (value) {
