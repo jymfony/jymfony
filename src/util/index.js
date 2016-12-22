@@ -3,6 +3,7 @@ require('./lib/Error/trigger_deprecated');
 require('./lib/Function/BoundFunction');
 require('./lib/is');
 
+require('./lib/Object/polyfills/values');
 require('./lib/Object/clone');
 require('./lib/Object/diffKey');
 require('./lib/Object/entries');
