@@ -217,11 +217,12 @@ global.ReflectionClass = class ReflectionClass {
                 filename: this._filename,
                 module: this._module,
                 constructor: this._constructor,
+                methods: this._methods,
                 properties: {
                     all: Object.keys(this._properties),
                     readable: Object.keys(this._readableProperties),
                     writable: Object.keys(this._writableProperties)
-                }
+                },
             }
         }
     }
@@ -238,6 +239,7 @@ global.ReflectionClass = class ReflectionClass {
         this._filename = data.filename;
         this._module = data.module;
         this._constructor = data.constructor;
+        this._methods = data.methods;
         propFunc(this._properties, data.properties.all);
         propFunc(this._readableProperties, data.properties.readable);
         propFunc(this._writableProperties, data.properties.writable);
@@ -254,35 +256,53 @@ global.ReflectionClass = class ReflectionClass {
     }
 
     _loadProperties() {
-        let proto = this._constructor.prototype;
-        let properties = Object.getOwnPropertyNames(proto);
-        for (let name of properties) {
-            if (name === 'constructor') {
-                continue;
-            }
-
-            let descriptor = Object.getOwnPropertyDescriptor(proto, name);
-            if (typeof descriptor.value === 'function') {
-                this._methods[name] = descriptor.value;
-            } else {
-                if (typeof descriptor.get === 'function') {
-                    this._properties[name] =
-                        this._readableProperties[name] = true;
+        let loadFromPrototype = (proto) => {
+            let properties = Object.getOwnPropertyNames(proto);
+            for (let name of properties) {
+                if (name === 'constructor') {
+                    continue;
                 }
 
-                if (typeof descriptor.set === 'function') {
-                    this._properties[name] =
-                        this._writableProperties[name] = true;
+                let descriptor = Object.getOwnPropertyDescriptor(proto, name);
+                if (typeof descriptor.value === 'function') {
+                    this._methods[name] = descriptor.value;
+                } else {
+                    if (typeof descriptor.get === 'function') {
+                        this._properties[name] =
+                            this._readableProperties[name] = true;
+                    }
+
+                    if (typeof descriptor.set === 'function') {
+                        this._properties[name] =
+                            this._writableProperties[name] = true;
+                    }
                 }
             }
+        };
+
+        let parent = this._constructor;
+        let chain = [this._constructor.prototype];
+        while (parent = Object.getPrototypeOf(parent)) {
+            if (parent.prototype) {
+                chain.unshift(parent.prototype);
+            }
+        }
+
+        for (let p of chain) {
+            loadFromPrototype(p);
         }
     }
 
     static _recursiveGet(start, parts) {
         let part;
+        let original = parts.join('.');
         parts = [ ...parts ].reverse();
 
         while (part = parts.pop()) {
+            if (undefined === start) {
+                throw new ReflectionException('Requesting non-existent class ' + original);
+            }
+
             start = start[part];
         }
 
