@@ -20,7 +20,7 @@ let entries = function * objentries(object) {
         return object.entries();
     }
 
-    if (Object.getPrototypeOf(object) !== Object.prototype) {
+    if (! isObject(object)) {
         throw new InvalidArgumentException('Argument 1 is not an object');
     }
 

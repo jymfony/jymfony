@@ -9,6 +9,7 @@ require('./lib/Object/diffKey');
 require('./lib/Object/entries');
 require('./lib/Object/merge');
 require('./lib/Object/obj2map');
+require('./lib/Object/serialize');
 
 require('./lib/Function/callableArray');
 require('./lib/Function/getFunction');

@@ -15,7 +15,7 @@ if (! isFunction(global.isObject)) {
     }
 }
 
-for(let name of ['Arguments', 'String', 'Number', 'Date', 'RegExp', 'Error', 'Symbol', 'Map', 'WeakMap', 'Set', 'WeakSet']) {
+for(let name of ['Arguments', 'Boolean', 'String', 'Number', 'Date', 'RegExp', 'Error', 'Symbol', 'Map', 'WeakMap', 'Set', 'WeakSet']) {
     if (isFunction(global['is' + name])) {
         continue;
     }
