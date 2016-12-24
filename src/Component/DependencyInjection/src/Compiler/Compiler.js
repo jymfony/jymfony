@@ -17,10 +17,14 @@ module.exports = class Compiler {
     /**
      * Compile container processing all compiler passes
      *
-     * @param {ContainerBuilder} container
+     * @param {Jymfony.DependencyInjection.ContainerBuilder} container
      */
     compile(container) {
         for (let pass of this._passConfig.getPasses()) {
+            if (container.isTrackingResources()) {
+                container.addObjectResource(pass);
+            }
+
             pass.process(container);
         }
     }

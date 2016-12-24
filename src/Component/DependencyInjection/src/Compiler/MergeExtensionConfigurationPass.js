@@ -25,6 +25,9 @@ module.exports = class MergeExtensionConfigurationPass extends implementationOf(
             configs = container.parameterBag.resolveValue(configs);
 
             let tmpContainer = new ContainerBuilder(container.parameterBag);
+            tmpContainer.setResourceTracking(container.isTrackingResources());
+            tmpContainer.addObjectResource(extension);
+
             extension.load(configs, tmpContainer);
 
             container.merge(tmpContainer);

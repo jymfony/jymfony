@@ -8,6 +8,8 @@ const ServiceNotFoundException = Jymfony.DependencyInjection.Exception.ServiceNo
 const RealServiceInstantiator = Jymfony.DependencyInjection.LazyProxy.RealServiceInstantiator;
 const Reference = Jymfony.DependencyInjection.Reference;
 
+const fs = require('fs');
+
 /**
  * @memberOf Jymfony.DependencyInjection
  * @type {Jymfony.DependencyInjection.ContainerBuilder}
@@ -45,6 +47,39 @@ module.exports = class ContainerBuilder extends Container {
          * @private
          */
         this._aliasDefinitions = {};
+
+        /**
+         * @type {Jymfony.Config.Resource.ResourceInterface[]}
+         * @private
+         */
+        this._resources = [];
+
+        /**
+         * @type {boolean}
+         * @private
+         */
+        this._trackResources = ReflectionClass.exists('Jymfony.Config.Resource.ResourceInterface');
+    }
+
+    /**
+     * Sets the track resources flag.
+     *
+     * Set this to false if you don't want to depend on
+     * the config package
+     *
+     * @param {boolean} track
+     */
+    setResourceTracking(track) {
+        this._trackResources = !! track;
+    }
+
+    /**
+     * Checks if resources are tracked.
+     *
+     * @returns {boolean}
+     */
+    isTrackingResources() {
+        return this._trackResources;
     }
 
     /**
@@ -91,6 +126,75 @@ module.exports = class ContainerBuilder extends Container {
     }
 
     /**
+     * Returns an array of resources used to build this configuration
+     *
+     * @returns {Jymfony.Config.Resource.ResourceInterface[]}
+     */
+    getResources() {
+        let seen = {};
+        return this._resources.filter(o => {
+            if (seen[o.toString()]) {
+                return false;
+            }
+
+            seen[o.toString()] = true;
+            return true;
+        });
+    }
+
+    /**
+     * Adds a resource for this configuration.
+     *
+     * @param {Jymfony.Config.Resource.ResourceInterface} resource A resource instance
+     *
+     * @returns {Jymfony.DependencyInjection.ContainerBuilder} The current instance
+     */
+    addResource(resource) {
+        if (! this.isTrackingResources()) {
+            return this;
+        }
+
+        this._resources.push(resource);
+        return this;
+    }
+
+    /**
+     * Adds the object class hierarchy as resources.
+     *
+     * @param {*} object An object instance
+     *
+     * @returns {Jymfony.DependencyInjection.ContainerBuilder}
+     */
+    addObjectResource(object) {
+        if (this.isTrackingResources()) {
+            this.addClassResource(new ReflectionClass(object));
+        }
+
+        return this;
+    }
+
+    /**
+     * Adds the given class hierarchy as resources.
+     *
+     * @param {ReflectionClass} reflClass
+     *
+     * @returns {Jymfony.DependencyInjection.ContainerBuilder}
+     */
+    addClassResource(reflClass) {
+        if (! this.isTrackingResources()) {
+            return this;
+        }
+
+        do {
+            if (reflClass.filename && fs.statSync(reflClass.filename).isFile()) {
+                this.addResource(new Jymfony.Config.Resource.FileResource(reflClass.filename));
+            }
+        } while (reflClass = reflClass.getParentClass());
+
+        return this;
+    }
+
+    /**
      * Loads the configuration for an extension
      *
      * @param extension
@@ -131,7 +235,7 @@ module.exports = class ContainerBuilder extends Container {
     /**
      * Get the compiler
      *
-     * @returns {Jymfony.DependencyInjection.Compiler}
+     * @returns {Jymfony.DependencyInjection.Compiler.Compiler}
      */
     getCompiler() {
         if (undefined === this._compiler) {
@@ -242,6 +346,9 @@ module.exports = class ContainerBuilder extends Container {
         this.addAliases(container._aliasDefinitions);
         this.parameterBag.add(container.parameterBag.all(), false);
 
+        for (let resource of container.getResources()) {
+            this.addResource(resource);
+        }
 
         for (let name of this._extensions.keys()) {
             if (undefined === this._extensionConfigs[name]) {
