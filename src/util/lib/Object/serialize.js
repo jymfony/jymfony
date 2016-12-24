@@ -57,6 +57,7 @@ function serialize(value) {
 }
 
 function unserialize(serialized) {
+    serialized = serialized.toString();
     let i = 0;
     let readData = (length = 1) => {
         let read = serialized.substr(i, length);
