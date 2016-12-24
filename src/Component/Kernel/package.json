@@ -1,0 +1,38 @@
+{
+  "name": "jymfony-kernel",
+  "version": "0.1.0",
+  "description": "Jymfony Application Kernel",
+  "main": "src/Kernel.js",
+  "scripts": {
+    "test": "node ./tests.js",
+    "coverage": "istanbul cover --root ./src ./tests.js && istanbul report clover"
+  },
+  "keywords": [
+    "application",
+    "kernel",
+    "jymfony"
+  ],
+  "author": "Alessandro Chitolina <alekitto@gmail.com>",
+  "license": "MIT",
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "dependencies": {
+    "jymfony-autoloader": "https://github.com/jymfony/autoloader.git",
+    "jymfony-dependency-injection": "https://github.com/jymfony/dependency-injection.git",
+    "jymfony-exceptions": "https://github.com/jymfony/exceptions.git",
+    "jymfony-util": "https://github.com/jymfony/util.git"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "istanbul": "^0.4",
+    "mocha": "^3.0"
+  },
+  "config": {
+    "jymfony-autoload": {
+      "namespaces": {
+        "Jymfony.Kernel": "src/"
+      }
+    }
+  }
+}
