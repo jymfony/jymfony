@@ -13,6 +13,8 @@ module.exports = class ResourceCheckerConfigCache extends implementationOf(Confi
      * @param {Jymfony.Config.ResourceCheckerInterface[]} resourceCheckers
      */
     constructor(file, resourceCheckers = []) {
+        super();
+
         this._file = file;
         this._checkers = resourceCheckers;
     }
@@ -43,9 +45,9 @@ module.exports = class ResourceCheckerConfigCache extends implementationOf(Confi
 
         let stat = fs.statSync(metadata);
         let time = stat.mtime;
-        let meta = JSON.parse(fs.readFileSync(metadata));
+        let meta = __jymfony.unserialize(fs.readFileSync(metadata));
 
-        for (let resource of __jymfony.getEntries(meta)) {
+        for (let resource of Object.values(meta)) {
             for (let checker of this._checkers) {
                 if (! checker.supports(resource)) {
                     continue;
@@ -79,7 +81,7 @@ module.exports = class ResourceCheckerConfigCache extends implementationOf(Confi
         }
 
         if (metadata) {
-            fs.writeFileSync(this._getMetaFile(), JSON.stringify(metadata));
+            fs.writeFileSync(this._getMetaFile(), __jymfony.serialize(metadata));
             try {
                 fs.chmodSync(this._getMetaFile(), mode);
             } catch (err) {

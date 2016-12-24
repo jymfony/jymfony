@@ -11,7 +11,7 @@ module.exports = class ConfigCache extends ResourceCheckerConfigCache {
      */
     constructor(file, debug) {
         let checkers = [];
-        if (! debug) {
+        if (debug) {
             checkers = [ new SelfCheckingResourceChecker() ];
         }
 
