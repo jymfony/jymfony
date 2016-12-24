@@ -139,6 +139,23 @@ module.exports = class Namespace {
             }
         });
 
+        if (mod.definition) {
+            // Interface or Trait
+
+            Object.defineProperty(mod.definition, '__reflection', {
+                enumerable: false,
+                writable: false,
+                configurable: false,
+                value: {
+                    filename: fn,
+                    fqcn: this._fullyQualifiedName + '.' + mod.definition.name,
+                    module: this._internalRequire.cache[fn],
+                    constructor: mod.definition,
+                    namespace: this
+                }
+            });
+        }
+
         return mod;
     }
 };

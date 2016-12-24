@@ -26,8 +26,15 @@ global.ReflectionClass = class ReflectionClass {
             value = value.constructor;
         }
 
-        if (typeof value === 'function' && undefined === value.prototype) {
-            throw new ReflectionException('Not a class');
+        if (typeof value === 'function') {
+            if (undefined === value.prototype) {
+                if (value.definition) {
+                    // Interface or Trait
+                    value = value.definition;
+                } else {
+                    throw new ReflectionException('Not a class');
+                }
+            }
         } else if (undefined === value) {
             throw new ReflectionException('Unknown class');
         }
@@ -80,7 +87,7 @@ global.ReflectionClass = class ReflectionClass {
      * @returns {*}
      */
     newInstanceWithoutConstructor() {
-        let surrogateCtor = () => {};
+        let surrogateCtor = function () { };
         surrogateCtor.prototype = this._constructor.prototype;
 
         return new surrogateCtor();
@@ -128,6 +135,21 @@ global.ReflectionClass = class ReflectionClass {
      */
     hasWritableProperty(name) {
         return this._readableProperties[name] === true;
+    }
+
+    /**
+     * Returns the ReflectionClass object for the parent class
+     *
+     * @returns {ReflectionClass}
+     */
+    getParentClass() {
+        let parent = Object.getPrototypeOf(this._constructor);
+
+        try {
+            return new ReflectionClass(parent);
+        } catch (e) {
+            return undefined;
+        }
     }
 
     /**
