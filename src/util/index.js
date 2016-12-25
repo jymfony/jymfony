@@ -14,6 +14,7 @@ require('./lib/Object/serialize');
 require('./lib/Function/callableArray');
 require('./lib/Function/getFunction');
 
+require('./lib/String/escapeshellarg');
 require('./lib/String/strtr');
 require('./lib/String/ucfirst');
 require('./lib/String/ucwords');
