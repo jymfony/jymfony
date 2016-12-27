@@ -2,6 +2,30 @@ const symClassType = Symbol('classType');
 const symAppliedInterfaces = Symbol('appliedInterface');
 const symOuterInterface = Symbol('outerInterface');
 
+const FunctionProps = Object.getOwnPropertyNames(Function.prototype);
+
+let getConstantsNames = function getConstantsNames(definition) {
+    let chain = [], parent = definition;
+    do {
+        if (parent[symOuterInterface]) {
+            chain.unshift(parent);
+        }
+    } while (parent = Object.getPrototypeOf(parent));
+
+    return Array.from(function * () {
+        for (let i of chain) {
+            yield * Object.getOwnPropertyNames(i)
+                .filter(P => {
+                    if (P === '__reflection' || P === 'prototype') {
+                        return false;
+                    }
+
+                    return FunctionProps.indexOf(P) === -1;
+                });
+        }
+    }());
+};
+
 global.getInterface = function (definition) {
     // todo: use definition to check if all methods are implemented
 
@@ -20,6 +44,12 @@ global.getInterface = function (definition) {
     });
 
     definition[symOuterInterface] = mixin;
+
+    let constant;
+    for (constant of getConstantsNames(definition)) {
+        mixin[constant] = definition[constant];
+    }
+
     return mixin;
 };
 
