@@ -12,7 +12,7 @@ let isCallableArray = function (arg) {
     }
 
     let target = arg[0];
-    return isString(arg[1]) && isFunction(target[arg[1]]);
+    return isString(arg[1]) && (isFunction(target[arg[1]]) || isGeneratorFunction(target[arg[1]]));
 };
 
 /**

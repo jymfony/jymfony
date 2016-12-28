@@ -73,3 +73,7 @@ global.isGeneratorFunction = function (value) {
 global.isPromise = function (value) {
     return isFunction(value.then);
 };
+
+global.isStream = module.exports = function (stream) {
+    return typeof stream === 'object' && isFunction(stream.pipe);
+};

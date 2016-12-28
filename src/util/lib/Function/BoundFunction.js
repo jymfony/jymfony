@@ -13,7 +13,7 @@ class BoundFunction {
      * @returns {function}
      */
     constructor(thisArg, func) {
-        if (! isFunction(func)) {
+        if (! isFunction(func) && ! isGeneratorFunction(func)) {
             /** global: LogicException */
             throw new LogicException('Trying to bind a non-function object');
         }

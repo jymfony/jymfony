@@ -15,9 +15,15 @@ require('./lib/Function/callableArray');
 require('./lib/Function/getFunction');
 
 require('./lib/String/escapeshellarg');
+require('./lib/String/levenshtein');
+require('./lib/String/strip_tags');
 require('./lib/String/strtr');
+require('./lib/String/trim');
 require('./lib/String/ucfirst');
 require('./lib/String/ucwords');
+require('./lib/String/version_compare');
+
+require('./lib/Regex/quote');
 
 require('./lib/mixins');
 
