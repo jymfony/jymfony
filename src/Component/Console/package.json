@@ -1,15 +1,14 @@
 {
-  "name": "jymfony-config",
+  "name": "jymfony-console",
   "version": "0.1.0",
-  "description": "Jymfony Configuration component",
-  "main": "src/Kernel.js",
+  "description": "Jymfony Console component",
+  "main": "src/Application.js",
   "scripts": {
-    "test": "node ./tests.js",
-    "coverage": "istanbul cover --root ./src ./tests.js && istanbul report clover"
+    "test": "node ./tests.js test/**",
+    "coverage": "istanbul cover --root ./src ./tests.js test/** && istanbul report clover"
   },
   "keywords": [
-    "application",
-    "kernel",
+    "console",
     "jymfony"
   ],
   "author": "Alessandro Chitolina <alekitto@gmail.com>",
