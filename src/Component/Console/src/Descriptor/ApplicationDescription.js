@@ -1,0 +1,125 @@
+/**
+ * @memberOf Jymfony.Console.Descriptor
+ * @type ApplicationDescription
+ *
+ * @internal
+ */
+class ApplicationDescription {
+    /**
+     * Constructor.
+     *
+     * @param {Jymfony.Console.Application} application
+     * @param {string|undefined} namespace
+     */
+    constructor(application, namespace = undefined) {
+        this._application = application;
+        this._namespace = namespace;
+    }
+
+    /**
+     * @returns {string[]}
+     */
+    get namespaces() {
+        if (undefined === this._namespaces) {
+            this._inspectApplication();
+        }
+
+        return Object.values(this._namespaces);
+    }
+
+    /**
+     * @returns {Jymfony.Console.Command.Command[]}
+     */
+    get commands() {
+        if (undefined === this._commands) {
+            this._inspectApplication();
+        }
+
+        return Object.assign({}, this._commands);
+    }
+
+    /**
+     * @param {string} name
+     *
+     * @returns {Jymfony.Console.Command.Command}
+     *
+     * @throws {Jymfony.Console.Exception.CommandNotFoundException}
+     */
+    getCommand(name) {
+        if (! this._commands[name] && ! this._aliases[name]) {
+            throw new CommandNotFoundException(`Command ${name} does not exist.`);
+        }
+
+        return this._commands[name] || this._aliases[name];
+    }
+
+    _inspectApplication() {
+        this._aliases = {};
+        this._commands = {};
+        this._namespaces = {};
+
+        let all = this._application.all(this._namespace ? this._application.findNamespace(this._namespace) : undefined);
+        for (let [namespace, commands] of this._sortCommands(all)) {
+            let names = [];
+
+            /** @var Command command */
+            for (let [name, command] of commands) {
+                if (! command.name || command.hidden) {
+                    continue;
+                }
+
+                if (command.name === name) {
+                    this._commands[name] = command;
+                } else {
+                    this._aliases[name] = command;
+                }
+
+                names.push(name);
+            }
+
+            this._namespaces[namespace] = {id: namespace, commands: names};
+        }
+    }
+
+    /**
+     * @param {Object.<string, Jymfony.Console.Command.Command>} commands
+     *
+     * @return array
+     */
+    * _sortCommands(commands) {
+        let namespacedCommands = {};
+        let globalCommands = {};
+        for (let [name, command] of __jymfony.getEntries(commands)) {
+            let key = this._application.extractNamespace(name, 1);
+            if (! key) {
+                if (! globalCommands._global) {
+                    globalCommands._global = {};
+                }
+
+                globalCommands._global[name] = command;
+            } else {
+                if (! namespacedCommands[key]) {
+                    namespacedCommands[key] = {};
+                }
+
+                namespacedCommands[key][name] = command;
+            }
+        }
+
+        let y = function * (ns) {
+            for (let name of Object.keys(ns).sort()) {
+                yield [name, ns[name]];
+            }
+        };
+
+        yield ['_global', Array.from(y(globalCommands._global))];
+
+        for (let namespace of Object.keys(namespacedCommands)) {
+            yield [namespace, Array.from(y(namespacedCommands[namespace]))];
+        }
+    }
+}
+
+ApplicationDescription.GLOBAL_NAMESPACE = '_global';
+
+module.exports = ApplicationDescription;
