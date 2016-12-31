@@ -238,9 +238,9 @@ class Container {
      */
     static underscore(id) {
         return id.toLowerCase()
-            .replace('_', '.')
-            .replace(/([A-Z]+)([A-Z][a-z])/, '$1_$2')
-            .replace(/([a-z\d])([A-Z])/, '$1_$2')
+            .replace(/_/g, '.')
+            .replace(/([A-Z]+)([A-Z][a-z])/g, '$1_$2')
+            .replace(/([a-z\d])([A-Z])/g, '$1_$2')
         ;
     }
 

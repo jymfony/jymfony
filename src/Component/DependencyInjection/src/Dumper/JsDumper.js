@@ -151,7 +151,7 @@ module.exports = global.${className} = ${className};
         }
 
         let name = Container.camelize(id);
-        name = name.replace(/[^a-zA-Z0-9_\x7f-\xff]/, '');
+        name = name.replace(/[^a-zA-Z0-9_\x7f-\xff]/g, '');
 
         let methodName = `get${name}Service`;
         let suffix = 1;
@@ -224,7 +224,7 @@ module.exports = global.${className} = ${className};
             returns.push('@deprecated ' + definition.getDeprecationMessage(id));
         }
 
-        returns = returns.join('\n     * ').replace('\n     * \n', '\n     *\n');
+        returns = returns.join('\n     * ').replace(/\n     * \n/g, '\n     *\n');
 
         let doc = '';
 
@@ -563,7 +563,7 @@ ${this._addReturn(id, definition)}\
                     return "'+" + this._dumpParameter(p2.toLowerCase()) + "+'";
                 };
 
-                return this._export(value).replace(/(%)?(%)([^%]+)\1/, replaceParameters).replace('%%', '%');
+                return this._export(value).replace(/(%)?(%)([^%]+)\1/g, replaceParameters).replace(/%%/g, '%');
             }
         } else if (isArray(value) || isObjectLiteral(value)) {
             let code = [];
@@ -620,9 +620,9 @@ ${this._addReturn(id, definition)}\
         if (this._container.hasDefinition(id)) {
             let definition = this._container.getDefinition(id);
             if (definition.isPublic()) {
-                return 'this._services[' + this._dumpValue(id) + '] || this.' + this._generateMethodName(id) + '()';
+                return '(this._services[' + this._dumpValue(id) + '] || this.' + this._generateMethodName(id) + '())';
             } else {
-                return 'this._privates[' + this._dumpValue(id) + '] || this.' + this._generateMethodName(id) + '()';
+                return '(this._privates[' + this._dumpValue(id) + '] || this.' + this._generateMethodName(id) + '())';
             }
         }
 

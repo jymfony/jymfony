@@ -161,7 +161,7 @@ module.exports = class ParameterBag {
             return this._resolved ? this.get(key) : this.resolveValue(this.get(key), resolving);
         }
 
-        return value.replace(/%%|%([^%\s]+)%/, (match, p1) => {
+        return value.replace(/%%|%([^%\s]+)%/g, (match, p1) => {
             if (! p1) {
                 return '%%';
             }
@@ -198,7 +198,7 @@ module.exports = class ParameterBag {
     escapeValue(value)
     {
         if (isString(value)) {
-            return value.replace('%', '%%');
+            return value.replace(/%/g, '%%');
         }
 
         if (isArray(value) || isObjectLiteral(value)) {
@@ -223,7 +223,7 @@ module.exports = class ParameterBag {
     unescapeValue(value)
     {
         if (isString(value)) {
-            return value.replace('%%', '%');
+            return value.replace(/%%/g, '%');
         }
 
         if (value instanceof Map) {

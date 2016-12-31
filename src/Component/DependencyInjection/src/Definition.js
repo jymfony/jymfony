@@ -553,7 +553,7 @@ module.exports = class Definition {
      * @returns {string}
      */
     getDeprecationMessage(id) {
-        return this._deprecationTemplate.replace('%service_id%', id);
+        return this._deprecationTemplate.replace(/%service_id%/g, id);
     }
 
     /**
