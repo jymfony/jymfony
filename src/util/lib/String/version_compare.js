@@ -17,7 +17,7 @@ global.__jymfony.version_compare = function version_compare (version1, version2,
     // The function first replaces _, - and + with a dot . in the version string and also
     // inserts dots . before and after any non number so that for example '4.3.2RC1' becomes '4.3.2.RC.1'
     let prepareVersion = v => {
-        v = v.replace(/[\-+_]/, '.').replace(/([^.\d]+)/, '.$1.').toLowerCase().split('.').filter(V => V !== '');
+        v = v.replace(/[\-+_]/g, '.').replace(/([^.\d]+)/g, '.$1.').toLowerCase().split('.').filter(V => V !== '');
         return v.length ? v : [-7];
     };
 

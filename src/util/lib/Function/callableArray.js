@@ -21,7 +21,7 @@ let isCallableArray = function (arg) {
  * call methods.
  *
  * @param {Array} arg
- * @returns {BoundFunction}
+ * @returns {Function|BoundFunction}
  */
 let getCallableFromArray = function (arg) {
     if (! isCallableArray(arg)) {
