@@ -187,7 +187,7 @@ module.exports = class ArgvInput extends Input {
     _parseLongOption(token) {
         let name = token.substr(2), pos;
 
-        if (pos = name.indexOf('=') > -1) {
+        if ((pos = name.indexOf('=')) > -1) {
             let value = name.substr(pos + 1);
             if (0 === value.length) {
                 this._parsed.unshift(null);
