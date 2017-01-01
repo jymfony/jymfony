@@ -61,7 +61,7 @@ module.exports = class Command {
     /**
      * Executes the current command.
      * You need to override this method. Defining it as a generator
-     * you can yield a Promise a waiting asynchronously for its
+     * you can yield a Promise and waiting asynchronously for its
      * completion, retrieving its value and surrounding it with a
      * try...catch block in case of rejection
      *
