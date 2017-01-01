@@ -1,4 +1,5 @@
 const TextDescriptor = Jymfony.Console.Descriptor.TextDescriptor;
+const JsonDescriptor = Jymfony.Console.Descriptor.JsonDescriptor;
 const InvalidArgumentException = Jymfony.Console.Exception.InvalidArgumentException;
 const Helper = Jymfony.Console.Helper.Helper;
 
@@ -17,7 +18,7 @@ module.exports = class DescriptorHelper extends Helper {
         this
             .register('txt', new TextDescriptor())
             // .register('xml', new XmlDescriptor())
-            // .register('json', new JsonDescriptor())
+            .register('json', new JsonDescriptor())
             // .register('md', new MarkdownDescriptor())
         ;
     }
