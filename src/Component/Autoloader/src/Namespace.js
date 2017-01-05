@@ -2,21 +2,21 @@ let ClassNotFoundException = undefined;
 
 /**
  * @memberOf Jymfony.Autoloader
- * @type {Jymfony.Autoloader.Namespace}
+ * @type Namespace
  */
 module.exports = class Namespace {
     /**
      * Namespace constructor
      *
-     * @param {Finder} finder
+     * @param {Jymfony.Autoloader.Autoloader} autoloader
      * @param {string} fqn
-     * @param {Array<string>, string} baseDirs
+     * @param {string[]|string} baseDirs
      * @param {Function} req
      *
      * @returns {Proxy} The namespace object
      */
-    constructor(finder, fqn, baseDirs = [], req = require) {
-        this._finder = finder;
+    constructor(autoloader, fqn, baseDirs = [], req = require) {
+        this._autoloader = autoloader;
         this._internalRequire = req;
         this._fullyQualifiedName = fqn;
         if (undefined === ClassNotFoundException) {
@@ -82,7 +82,19 @@ module.exports = class Namespace {
         if (true === target[name]) {
             return undefined;
         } else if (undefined === target[name]) {
-            target[name] = this._find(name);
+            let found;
+            try {
+                found = this._find(name);
+            } catch (e) {
+                if (! (e instanceof ClassNotFoundException) || this._autoloader.debug) {
+                    throw e;
+                }
+
+                return undefined;
+            }
+
+
+            target[name] = found;
         }
 
         return target[name];
@@ -99,19 +111,20 @@ module.exports = class Namespace {
      */
     _find(name) {
         let stat;
+        let finder = this._autoloader.finder;
         for (let dir of this._baseDirs) {
-            stat = this._finder.find(dir, name);
+            stat = finder.find(dir, name);
             if (stat !== undefined) {
                 break;
             }
         }
 
         if (! stat) {
-            return undefined;
+            throw new ClassNotFoundException(`Cannot resolve "${this.name}.${name}". File or directory cannot be found`);
         }
 
         if (stat.directory) {
-            return new Namespace(this._finder, this.name + '.' + name, stat.filename);
+            return new Namespace(this._autoloader, this.name + '.' + name, stat.filename);
         }
 
         return this._require(stat.filename);
@@ -123,7 +136,7 @@ module.exports = class Namespace {
 
         // class constructor
         if (typeof mod !== 'function') {
-            throw new ClassNotFoundException('Class not found in ' + fn + '. The file was found, but the class isn\'t there.');
+            throw new ClassNotFoundException(`Class not found in ${fn}. The file was found, but the class isn't there.`);
         }
 
         Object.defineProperty(mod, '__reflection', {

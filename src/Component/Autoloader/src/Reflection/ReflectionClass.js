@@ -10,7 +10,7 @@ TheBigReflectionDataCache.data = new Storage();
 /**
  * Utility class for classes reflection
  *
- * @type {ReflectionClass}
+ * @type ReflectionClass
  */
 global.ReflectionClass = class ReflectionClass {
     constructor(value) {

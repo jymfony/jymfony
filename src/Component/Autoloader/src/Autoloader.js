@@ -6,7 +6,7 @@ const path      = require('path');
 
 /**
  * @memberOf Jymfony.Autoloader
- * @type {Jymfony.Autoloader.Autoloader}
+ * @type Autoloader
  */
 module.exports = class Autoloader {
     constructor(finder = null, globalObject = global) {
@@ -18,12 +18,37 @@ module.exports = class Autoloader {
             finder = new Finder();
         }
 
+        this._debug = false;
         this._registered = false;
         this._finder = finder;
         this._global = globalObject;
         this._global.__jymfony.autoload = this;
     }
 
+    /**
+     * Get debug flag.
+     *
+     * @returns {boolean}
+     */
+    get debug() {
+        return this._debug;
+    }
+
+    /**
+     * Set debug flag.
+     * If true, the autoloader will throw ClassNotFoundException if
+     * the class (or a namespace) does not exist.
+     *
+     * @param {boolean} value
+     */
+    set debug(value) {
+        this._debug = !! value;
+    }
+
+    /**
+     * Scans package.json of the project and root dependencies
+     * and register itself as autoloader for found namespaces
+     */
     register() {
         if (this._registered) {
             return;

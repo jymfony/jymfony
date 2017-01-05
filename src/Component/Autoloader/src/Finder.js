@@ -1,6 +1,6 @@
 /**
  * @memberOf Jymfony.Autoloader
- * @type {Jymfony.Autoloader.Finder}
+ * @type Finder
  */
 module.exports = class Finder {
     constructor(fs = require('fs'), path = require('path'), currentModule = module) {

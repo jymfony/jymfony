@@ -1,6 +1,6 @@
 /**
- * @memberOf Jymfony.Autoloader
- * @type {Jymfony.Autoloader.ClassNotFoundException}
+ * @memberOf Jymfony.Autoloader.Exception
+ * @type ClassNotFoundException
  */
 module.exports = class ClassNotFoundException extends Error {
 };
