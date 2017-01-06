@@ -60,7 +60,7 @@ class TestEventSubscriberWithMultipleListeners extends TestEventListener {
     }
 }
 
-describe('EventDispatcher', function () {
+describe('[EventDispatcher] EventDispatcher', function () {
     it('construct', function () {
         let dispatcher = createEventDispatcher();
 

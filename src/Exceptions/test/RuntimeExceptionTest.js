@@ -1,7 +1,7 @@
 let expect = require('chai').expect;
 require('../lib/RuntimeException');
 
-describe('Exception', function () {
+describe('[Exceptions] RuntimeException', function () {
     it('registered in global namespace', function () {
         return expect(RuntimeException).to.be.not.undefined;
     });

@@ -1,0 +1,10 @@
+filter:
+    excluded_paths:
+        - src/*/test/**
+        - src/Component/*/test/**
+
+tools:
+    external_code_coverage: true
+
+checks:
+    javascript: true

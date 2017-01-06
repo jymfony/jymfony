@@ -7,7 +7,7 @@ let expect = require('chai').expect;
 const Finder = require('../src/Finder');
 const path = require('path');
 
-describe('Finder', function () {
+describe('[Autoloader] Finder', function () {
     it('findRoot', function () {
         let module = {
             parent: {

@@ -6,7 +6,7 @@ let expect = require('chai').expect;
  */
 const Namespace = require('../src/Namespace');
 
-describe('Namespace', function () {
+describe('[Autoloader] Namespace', function () {
     it('constructs as a Proxy', function () {
 
         /*
@@ -62,7 +62,7 @@ describe('Namespace', function () {
             return '/var/node/foo_vendor/FooClass.js';
         };
 
-        let ns = new Namespace(finder, 'Foo', [], req);
+        let ns = new Namespace({finder: finder}, 'Foo', [], req);
 
         ns.__namespace.addDirectory('/var/node/vendor1/');
         ns.__namespace.addDirectory('/var/node/foo_vendor/');
@@ -99,7 +99,7 @@ describe('Namespace', function () {
             return '/var/node/foo_vendor/FooClass.js';
         };
 
-        let ns = new Namespace(finder, 'Foo', ['/var/node/foo_vendor/'], req);
+        let ns = new Namespace({finder: finder}, 'Foo', ['/var/node/foo_vendor/'], req);
 
         let func = ns.FooClass;
         expect(func).to.be.a('function');

@@ -3,7 +3,7 @@ require('../lib/Exception');
 
 class TestException extends Exception {}
 
-describe('Exception', function () {
+describe('[Exceptions] Exception', function () {
     it('registered in global namespace', function () {
         return expect(Exception).to.be.not.undefined;
     });

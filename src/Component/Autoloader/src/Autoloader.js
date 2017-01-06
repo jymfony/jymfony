@@ -9,7 +9,7 @@ const path      = require('path');
  * @type Autoloader
  */
 module.exports = class Autoloader {
-    constructor(finder = null, globalObject = global) {
+    constructor(finder = undefined, globalObject = global) {
         if (globalObject.__jymfony.autoload) {
             return;
         }
@@ -43,6 +43,15 @@ module.exports = class Autoloader {
      */
     set debug(value) {
         this._debug = !! value;
+    }
+
+    /**
+     * Gets the current finder.
+     *
+     * @returns {Jymfony.Autoloader.Finder}
+     */
+    get finder() {
+        return this._finder;
     }
 
     /**
@@ -105,7 +114,7 @@ module.exports = class Autoloader {
 
             let nsDirectory = path.normalize(baseDir + '/' + config[namespace]);
             if (undefined === parent[last]) {
-                parent[last] = new Namespace(this._finder, this._generateFqn(parent, last), nsDirectory);
+                parent[last] = new Namespace(this, this._generateFqn(parent, last), nsDirectory);
             } else {
                 parent[last].__namespace.addDirectory(nsDirectory);
             }
@@ -120,7 +129,7 @@ module.exports = class Autoloader {
 
     _ensureNamespace(namespace, parent) {
         if (parent[namespace] === undefined) {
-            return parent[namespace] = new Namespace(this._finder, this._generateFqn(parent, namespace));
+            return parent[namespace] = new Namespace(this, this._generateFqn(parent, namespace));
         }
 
         return parent[namespace];

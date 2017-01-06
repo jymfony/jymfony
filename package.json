@@ -1,0 +1,41 @@
+{
+  "name": "jymfony",
+  "version": "0.0.1",
+  "description": "Jymfony",
+  "main": "index.js",
+  "scripts": {
+    "test": "node ./tests.js src/*/test/** src/Component/*/test/**",
+    "coverage": "istanbul cover --default-excludes --root ./src ./tests.js src/*/test/** src/Component/*/test/** && istanbul report clover"
+  },
+  "keywords": [
+    "jymfony",
+    "framework"
+  ],
+  "author": "Alessandro Chitolina <alekitto@gmail.com>",
+  "license": "MIT",
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "istanbul": "^0.4",
+    "mocha": "^3.0"
+  },
+  "config": {
+    "jymfony-autoload": {
+      "namespaces": {
+        "Jymfony.Autoloader": "src/Component/Autoloader/src",
+        "Jymfony.Config": "src/Component/Config/src",
+        "Jymfony.Console": "src/Component/Console/src",
+        "Jymfony.DependencyInjection": "src/Component/DependencyInjection/src",
+        "Jymfony.EventDispatcher": "src/Component/EventDispatcher/src",
+        "Jymfony.Kernel": "src/Component/Kernel/src",
+        "Jymfony.PropertyAccess": "src/Component/PropertyAccess/src"
+      },
+      "includes": [
+        "src/util/index.js",
+        "src/Exceptions/index.js"
+      ]
+    }
+  }
+}
