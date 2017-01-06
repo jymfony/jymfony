@@ -1,6 +1,6 @@
 {
   "name": "jymfony",
-  "version": "0.1.0-dev",
+  "version": "0.1.0-alpha.1",
   "description": "Jymfony",
   "main": "index.js",
   "scripts": {
