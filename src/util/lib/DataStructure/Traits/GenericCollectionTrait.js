@@ -1,13 +1,31 @@
 class GenericCollectionTrait {
+    /**
+     * Whether the collection is empty.
+     *
+     * @returns {boolean}
+     */
     isEmpty() {
         return this.length === 0;
     }
 
+    /**
+     * Clone the collection.
+     *
+     * @abstract
+     */
     copy() {
-        return new this.constructor(this);
+        /* istanbul ignore next: abstract method */
+        throw new Error('You must override "copy" method');
     }
 
+    /**
+     * Returns an array copy of the collection.
+     *
+     * @abstract
+     * @returns {Array}
+     */
     toArray() {
+        /* istanbul ignore next: abstract method */
         throw new Error('You must override "toArray" method');
     }
 
