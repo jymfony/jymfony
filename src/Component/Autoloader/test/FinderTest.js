@@ -174,6 +174,84 @@ describe('[Autoloader] Finder', function () {
         ]);
     });
 
+    it('listModules rethrows errors', function () {
+        let module = {
+            parent: undefined,
+            filename: '/var/node/foo/bar/app.js'
+        };
+
+        let mockedPath = {
+            join: path.join,
+            dirname: path.dirname,
+            normalize: path.normalize,
+            sep: '/'
+        };
+
+        let fs = {
+            readdirSync: () => {
+                return [
+                    '.bin',
+                    'jymfony-autoloader',
+                    'chai',
+                    'jymfony-event-dispatcher'
+                ];
+            },
+            realpathSync: fn => fn,
+            statSync: fn => {
+                if (fn === '/var/node/foo/bar/package.json') {
+                    return {
+                        isDirectory: () => false
+                    };
+                }
+
+                throw new Error('TEST_ERROR');
+            },
+        };
+
+        let finder = new Finder(fs, mockedPath, module);
+        try {
+            finder.listModules();
+        } catch (e) {
+            expect(e).to.be.instanceOf(Error);
+            expect(e.message).to.be.equal('TEST_ERROR');
+
+            return;
+        }
+
+        throw new Error('FAIL');
+    });
+
+    it('listModules with no modules installed', function () {
+        let module = {
+            parent: undefined,
+            filename: '/var/node/foo/bar/app.js'
+        };
+
+        let mockedPath = {
+            join: path.join,
+            dirname: path.dirname,
+            normalize: path.normalize,
+            sep: '/'
+        };
+
+        let fs = {
+            readdirSync: () => {
+                return [];
+            },
+            realpathSync: fn => fn,
+            statSync: () => {
+                return {
+                    isDirectory: () => false
+                };
+            },
+        };
+
+        let finder = new Finder(fs, mockedPath, module);
+        let mods = finder.listModules();
+
+        expect(mods).to.be.deep.equal([]);
+    });
+
     it('find', function () {
         let fs = {
             statSync: (fn) => {
@@ -219,6 +297,22 @@ describe('[Autoloader] Finder', function () {
             filename: '/var/node/index.js',
             directory: false
         });
+    });
+
+    it('find returns undefined if not found', function () {
+        let fs = {
+            statSync: (fn) => {
+                let e = new Error;
+                e.code = 'ENOENT';
+
+                throw e;
+            },
+        };
+
+        let finder = new Finder(fs, { normalize: path.normalize, sep: '/' }, {});
+        let obj = finder.find('/var/node', 'index');
+
+        expect(obj).to.be.deep.undefined;
     });
 
     it('find rethrows errors', function () {

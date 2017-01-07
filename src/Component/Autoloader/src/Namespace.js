@@ -75,13 +75,11 @@ module.exports = class Namespace {
      * @private
      */
     _get(target, name) {
-        if (typeof name === 'symbol') {
+        if (typeof name !== 'string') {
             return undefined;
         }
 
-        if (true === target[name]) {
-            return undefined;
-        } else if (undefined === target[name]) {
+        if (undefined === target[name]) {
             let found;
             try {
                 found = this._find(name);
