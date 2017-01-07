@@ -121,4 +121,38 @@ describe('Async runner', function () {
             return '1';
         }, 47, 'test', ['red'], {level: 47}, () => {});
     });
+
+    it('should reject an invalid value yielded', () => {
+        let p = Async.run(function * () {
+            yield Symbol('test');
+        });
+
+        return p.then(() => {
+            throw new Error('FAIL');
+        }, err => {
+            expect(err).to.be.instanceOf(TypeError);
+        });
+    });
+
+    it('should reject if error is thrown in async func', () => {
+        let p = Async.run(function * () {
+            throw new Error('TEST_ERROR');
+        });
+
+        return p.then(() => {
+            throw new Error('FAIL');
+        }, err => {
+            expect(err.message).to.be.equal('TEST_ERROR');
+        });
+    });
+
+    it('should allow try..catch blocks around yield statements', () => {
+        let p = Async.run(function * () {
+            try {
+                yield Symbol('test');
+            } catch (e) { }
+        });
+
+        return p;
+    });
 });
