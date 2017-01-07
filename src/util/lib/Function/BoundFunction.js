@@ -1,16 +1,22 @@
+/**
+ * A BoundFunction represents a function bound to a specific object.
+ * Call to "apply" and "call" methods of the closure will result in
+ * a call of the bound function.
+ *
+ * To access the BoundFunction object use the innerObject property
+ * of the returned value
+ *
+ * @type BoundFunction
+ */
 class BoundFunction {
     /**
      * Create a BoundFunction of thisArg.func and return
-     * a callable anonymous function. Call to apply and
-     * call methods of the closure will result in a call
-     * of the bound function.
-     *
-     * To access the BoundFunction object use the
-     * innerObject property of the returned value
+     * a callable anonymous function.
      *
      * @param {Object} thisArg
-     * @param {string} func
-     * @returns {function}
+     * @param {Function|GeneratorFunction} func
+     *
+     * @returns {Function}
      */
     constructor(thisArg, func) {
         if (! isFunction(func) && ! isGeneratorFunction(func)) {
@@ -28,6 +34,7 @@ class BoundFunction {
 
         ret.apply = this.apply.bind(this);
         ret.call = this.call.bind(this);
+        ret.equals = this.equals.bind(this);
         ret.innerObject = this;
 
         return ret;
@@ -40,6 +47,7 @@ class BoundFunction {
      *
      * @param {Object} thisArg Ignored
      * @param {Arguments|Array} argArray
+     *
      * @return {*}
      */
     apply(thisArg, argArray) {
@@ -53,10 +61,11 @@ class BoundFunction {
      *
      * @param {Object} thisArg
      * @param {...*} args
+     *
      * @returns {*}
      */
     call(thisArg, args) {
-        args = arguments.slice(1);
+        args = [].slice.call(arguments, 1);
         return this.apply(undefined, args);
     }
 
@@ -64,11 +73,16 @@ class BoundFunction {
      * Is this BoundFunction equals to another?
      *
      * @param {*} value
+     *
      * @returns {Boolean}
      */
     equals(value) {
         if (isCallableArray(value)) {
             value = getCallableFromArray(value).innerObject;
+        }
+
+        if (isFunction(value) && value.innerObject instanceof BoundFunction) {
+            value = value.innerObject;
         }
 
         if (!(value instanceof BoundFunction)) {
