@@ -109,7 +109,7 @@ class Async {
                 }
 
                 if (arguments.length > 2) {
-                    res = Array.slice.call(arguments, 1);
+                    res = [].slice.call(arguments, 1);
                 }
 
                 resolve(res);

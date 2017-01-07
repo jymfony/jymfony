@@ -15,7 +15,7 @@ function * doWork() {
 const Async = __jymfony.Async;
 
 describe('Async runner', function () {
-    it('should return a promise', () => {
+    it('run should return a promise', () => {
         let o = Async.run(function * () {
             yield doWork();
         });
@@ -23,7 +23,7 @@ describe('Async runner', function () {
         return expect(o).to.be.instanceOf(Promise);
     });
 
-    it('should handle non-generator functions with return value', () => {
+    it('run should handle non-generator functions with return value', () => {
         let func = () => 'bar';
         return Async.run(function * () {
             let ret = yield func;
@@ -34,7 +34,7 @@ describe('Async runner', function () {
         });
     });
 
-    it('should handle non-generator functions with callback', () => {
+    it('run should handle non-generator functions with callback', () => {
         let func = cb => {
             cb(undefined, 47);
         };
@@ -45,7 +45,7 @@ describe('Async runner', function () {
         });
     });
 
-    it('should resolve array', () => {
+    it('run should resolve array', () => {
         let arr = [
             doWork,
             doWork(),
@@ -71,7 +71,7 @@ describe('Async runner', function () {
         });
     });
 
-    it('should resolve object', () => {
+    it('run should resolve object', () => {
         let arr = {
             work: doWork,
             work2: doWork(),
@@ -97,7 +97,7 @@ describe('Async runner', function () {
         });
     });
 
-    it('should execute a generator function', () => {
+    it('run should execute a generator function', () => {
         return Async.run(function * () {
             let a = yield doWork;
             let b = yield doWork;
@@ -110,7 +110,7 @@ describe('Async runner', function () {
         });
     });
 
-    it('should pass arguments', () => {
+    it('run should pass arguments', () => {
         return Async.run(function * (num, str, arr, obj, func) {
             expect(num === 47).to.be.true;
             expect(str === 'test').to.be.true;
@@ -122,7 +122,7 @@ describe('Async runner', function () {
         }, 47, 'test', ['red'], {level: 47}, () => {});
     });
 
-    it('should reject an invalid value yielded', () => {
+    it('run should reject an invalid value yielded', () => {
         let p = Async.run(function * () {
             yield Symbol('test');
         });
@@ -134,7 +134,7 @@ describe('Async runner', function () {
         });
     });
 
-    it('should reject if error is thrown in async func', () => {
+    it('run should reject if error is thrown in async func', () => {
         let p = Async.run(function * () {
             throw new Error('TEST_ERROR');
         });
@@ -146,13 +146,52 @@ describe('Async runner', function () {
         });
     });
 
-    it('should allow try..catch blocks around yield statements', () => {
-        let p = Async.run(function * () {
+    it('run should allow try..catch blocks around yield statements', () => {
+        return Async.run(function * () {
             try {
                 yield Symbol('test');
             } catch (e) { }
         });
+    });
 
-        return p;
+    it('run should de-nodeify callbacks', () => {
+        let fn = (cb) => {
+            cb(undefined, 'TEST');
+        };
+
+        return Async.run(function * () {
+            return yield fn;
+        }).then(val => {
+            expect(val).to.be.equal('TEST');
+        });
+    });
+
+    it('run should throw if err is set', () => {
+        let fn = (cb) => {
+            cb(new Error('foobar'), undefined);
+        };
+
+        return Async.run(function * () {
+            return yield fn;
+        }).then(() => {
+            throw Error('FAIL');
+        }, err => {
+            expect(err.message).to.be.equal('foobar');
+        });
+    });
+
+    it('run should resolve with multiple args', () => {
+        let fn = (cb) => {
+            cb(undefined, 'foo', 'bar', 'foobar');
+        };
+
+        return Async.run(function * () {
+            return yield fn;
+        }).then((vals) => {
+            let [foo, bar, foobar] = vals;
+            expect(foo).to.be.equal('foo');
+            expect(bar).to.be.equal('bar');
+            expect(foobar).to.be.equal('foobar');
+        });
     });
 });
