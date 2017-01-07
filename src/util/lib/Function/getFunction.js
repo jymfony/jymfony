@@ -11,5 +11,5 @@ global.__jymfony.getFunction = function (object, funcName) {
         return object.constructor[funcName];
     }
 
-    throw new RuntimeException('Cannot retrieve function '+funcName+' from '+object.constructor.name);
+    throw new RuntimeException(`Cannot retrieve function ${funcName} from ${object.constructor.name}`);
 };

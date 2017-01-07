@@ -50,9 +50,14 @@ global.isObjectLiteral = function (value) {
 };
 
 global.isGenerator = function (value) {
-    return isFunction(value.next) && isFunction(value.throw);
+    return value && value.next && value.throw &&
+        isFunction(value.next) && isFunction(value.throw);
 };
 global.isGeneratorFunction = function (value) {
+    if (! value) {
+        return false;
+    }
+
     if (isGenerator(value)) {
         return false;
     }
