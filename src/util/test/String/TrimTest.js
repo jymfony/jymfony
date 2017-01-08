@@ -1,7 +1,6 @@
-require('../../lib/String/ucwords');
 const expect = require('chai').expect;
 
-describe('Trim', () => {
+describe('Trim', function () {
     let expectedLeftRightTrimOutput = [
         'This is a string',
         'this is another string',

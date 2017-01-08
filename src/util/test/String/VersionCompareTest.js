@@ -1,4 +1,3 @@
-require('../../lib/String/version_compare');
 const util = require("util");
 const expect = require('chai').expect;
 
@@ -12,7 +11,7 @@ let operators = [
     "ne", "<>", "!="
 ];
 
-describe('Version Compare', () => {
+describe('Version Compare', function () {
     it('compare', () => {
         let result = '';
         let test = (v1, v2) => {

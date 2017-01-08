@@ -1,7 +1,6 @@
-require('../../lib/String/ucwords');
 const expect = require('chai').expect;
 
-describe('Uppercase first character', () => {
+describe('Uppercase first character', function () {
     let testStrings = [
         'hey',
         'mate',

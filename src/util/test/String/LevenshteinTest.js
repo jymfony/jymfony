@@ -1,7 +1,7 @@
 require('../../lib/String/levenshtein');
 const expect = require('chai').expect;
 
-describe('Levenshtein distance', () => {
+describe('Levenshtein distance', function () {
     it('equals', () => { expect(__jymfony.levenshtein('12345', '12345')).to.be.equal(0); });
     it('1st empty', () => { expect(__jymfony.levenshtein('', 'xyz')).to.be.equal(3); });
     it('2nd empty', () => { expect(__jymfony.levenshtein('xyz', '')).to.be.equal(3); });

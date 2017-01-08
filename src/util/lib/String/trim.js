@@ -3,7 +3,7 @@
 
 global.__jymfony = global.__jymfony || {};
 
-global.__jymfony.rtrim = (str, charList) => {
+global.__jymfony.rtrim = function rtrim(str, charList) {
     if (undefined === charList) {
         charList = ' \\x09\\x0A\\x0D\\x00\\x0B';
     } else {
@@ -14,7 +14,7 @@ global.__jymfony.rtrim = (str, charList) => {
     return str.replace(re, '');
 };
 
-global.__jymfony.ltrim = (str, charList) => {
+global.__jymfony.ltrim = function ltrim(str, charList) {
     if (undefined === charList) {
         charList = ' \\x09\\x0A\\x0D\\x00\\x0B';
     } else {
@@ -25,6 +25,6 @@ global.__jymfony.ltrim = (str, charList) => {
     return str.replace(re, '');
 };
 
-global.__jymfony.trim = (str, charList) => {
+global.__jymfony.trim = function trim(str, charList) {
     return __jymfony.rtrim(__jymfony.ltrim(str, charList), charList);
 };
