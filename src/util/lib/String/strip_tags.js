@@ -6,7 +6,7 @@ global.__jymfony = global.__jymfony || {};
  * Adapted from locutus.io
  * Do not strip <?php tags
  */
-global.__jymfony.strip_tags = function strip_tags (input, allowed) {
+global.__jymfony.strip_tags = function strip_tags(input, allowed) {
     //  discuss at: http://locutus.io/php/strip_tags/
     // original by: Kevin van Zonneveld (http://kvz.io)
     // improved by: Luke Godfrey

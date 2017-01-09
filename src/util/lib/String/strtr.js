@@ -2,7 +2,7 @@
 
 global.__jymfony = global.__jymfony || {};
 
-global.__jymfony.strtr = function (string, replacePairs) {
+global.__jymfony.strtr = function strtr(string, replacePairs) {
     let str = string.toString(), key, re;
 
     for (key in replacePairs) {

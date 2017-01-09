@@ -7,7 +7,8 @@ global.__jymfony = global.__jymfony || {};
  *
  * @param {string} string
  */
-global.__jymfony.ucwords = function (string) {
+global.__jymfony.ucwords = function ucwords(string) {
     return string.toString()
-        .replace(/^([a-z\u00E0-\u00FC])|\s+([a-z\u00E0-\u00FC])/g, $1 => $1.toUpperCase());
+        .replace(/^([a-z\u00E0-\u00FC])|\s+([a-z\u00E0-\u00FC])/g, $1 => $1.toUpperCase())
+    ;
 };

@@ -3,28 +3,28 @@
 
 global.__jymfony = global.__jymfony || {};
 
-global.__jymfony.rtrim = function rtrim (str, charlist) {
-    if (undefined === charlist) {
-        charlist = ' \\x09\\x0A\\x0D\\x00\\x0B';
+global.__jymfony.rtrim = function rtrim(str, charList) {
+    if (undefined === charList) {
+        charList = ' \\x09\\x0A\\x0D\\x00\\x0B';
     } else {
-        charlist.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+        charList.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
     }
 
-    let re = new RegExp('[' + charlist + ']+$', 'g');
+    let re = new RegExp(`[${charList}]+$`, 'g');
     return str.replace(re, '');
 };
 
-global.__jymfony.ltrim = function ltrim (str, charlist) {
-    if (undefined === charlist) {
-        charlist = ' \\x09\\x0A\\x0D\\x00\\x0B';
+global.__jymfony.ltrim = function ltrim(str, charList) {
+    if (undefined === charList) {
+        charList = ' \\x09\\x0A\\x0D\\x00\\x0B';
     } else {
-        charlist.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+        charList.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
     }
 
-    let re = new RegExp('^[' + charlist + ']+', 'g');
+    let re = new RegExp(`^[${charList}]+`, 'g');
     return str.replace(re, '');
 };
 
-global.__jymfony.trim = function trim(str, charlist) {
-    return __jymfony.rtrim(__jymfony.ltrim(str, charlist), charlist);
+global.__jymfony.trim = function trim(str, charList) {
+    return __jymfony.rtrim(__jymfony.ltrim(str, charList), charList);
 };

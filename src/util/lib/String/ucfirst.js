@@ -7,6 +7,6 @@ global.__jymfony = global.__jymfony || {};
  *
  * @param {string} string
  */
-global.__jymfony.ucfirst = function (string) {
+global.__jymfony.ucfirst = function ucfirst(string) {
     return string.charAt(0).toUpperCase() + string.substring(1);
 };

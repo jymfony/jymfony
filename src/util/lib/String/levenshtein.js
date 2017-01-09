@@ -10,7 +10,7 @@ global.__jymfony = global.__jymfony || {};
  *
  * @returns {int}
  */
-global.__jymfony.levenshtein = function levenshtein (s, t) {
+global.__jymfony.levenshtein = function levenshtein(s, t) {
     // degenerate cases
     if (s == t) {
         return 0;

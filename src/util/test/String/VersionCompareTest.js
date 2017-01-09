@@ -1,4 +1,3 @@
-require('../../lib/String/version_compare');
 const util = require("util");
 const expect = require('chai').expect;
 
@@ -112,9 +111,9 @@ describe('Version Compare', function () {
                     let test = __jymfony.version_compare(v1, v2, op) ? "true" : "false";
                     result += util.format(
                         "%s %s %s : %s\n",
-                        ('       ' + v1).slice(-7),
-                        ('  ' + op).slice(-2),
-                        (v2 + '       ').slice(0, 7),
+                        (`       ${v1}`).slice(-7),
+                        (`  ${op}`).slice(-2),
+                        (`${v2}       `).slice(0, 7),
                         test
                     );
                 }

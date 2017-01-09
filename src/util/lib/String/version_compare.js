@@ -13,7 +13,7 @@ global.__jymfony = global.__jymfony || {};
  * @param {string|int} version2
  * @param {string|undefined} operator
  */
-global.__jymfony.version_compare = function version_compare (version1, version2, operator = undefined) {
+global.__jymfony.version_compare = function version_compare(version1, version2, operator = undefined) {
     // The function first replaces _, - and + with a dot . in the version string and also
     // inserts dots . before and after any non number so that for example '4.3.2RC1' becomes '4.3.2.RC.1'
     let prepareVersion = v => {
