@@ -43,6 +43,7 @@ global.ReflectionClass = class ReflectionClass {
         this._readableProperties = new Storage();
         this._writableProperties = new Storage();
         this._properties = new Storage();
+        this._constants = new Storage();
 
         if (undefined !== value.__reflection) {
             this._loadFromMetadata(value);
@@ -153,6 +154,15 @@ global.ReflectionClass = class ReflectionClass {
     }
 
     /**
+     * Gets the class constructor
+     *
+     * @returns {Function}
+     */
+    getConstructor() {
+        return this._constructor;
+    }
+
+    /**
      * Get the fully qualified name of the reflected class
      *
      * @returns {string|undefined}
@@ -217,6 +227,15 @@ global.ReflectionClass = class ReflectionClass {
         return Object.keys(this._properties);
     }
 
+    /**
+     * Get constants
+     *
+     * @returns {Object.<string, *>}
+     */
+    get constants() {
+        return Object.assign({}, this._constants);
+    }
+
     _loadFromMetadata(value) {
         let metadata = value.__reflection;
         this._className = metadata.fqcn;
@@ -232,6 +251,7 @@ global.ReflectionClass = class ReflectionClass {
         this._constructor = metadata.constructor;
 
         this._loadProperties();
+        this._loadConstants();
 
         if (undefined === TheBigReflectionDataCache.classes[this._className]) {
             TheBigReflectionDataCache.classes[this._className] = metadata.constructor;
@@ -240,6 +260,7 @@ global.ReflectionClass = class ReflectionClass {
                 module: this._module,
                 constructor: this._constructor,
                 methods: this._methods,
+                constants: this._constants,
                 properties: {
                     all: Object.keys(this._properties),
                     readable: Object.keys(this._readableProperties),
@@ -262,6 +283,7 @@ global.ReflectionClass = class ReflectionClass {
         this._module = data.module;
         this._constructor = data.constructor;
         this._methods = data.methods;
+        this._constants = data.constants;
         propFunc(this._properties, data.properties.all);
         propFunc(this._readableProperties, data.properties.readable);
         propFunc(this._writableProperties, data.properties.writable);
@@ -275,6 +297,7 @@ global.ReflectionClass = class ReflectionClass {
         this._namespace = undefined;
 
         this._loadProperties();
+        this._loadConstants();
     }
 
     _loadProperties() {
@@ -313,6 +336,35 @@ global.ReflectionClass = class ReflectionClass {
         for (let p of chain) {
             loadFromPrototype(p);
         }
+    }
+
+    _loadConstants() {
+        const FunctionProps = Object.getOwnPropertyNames(Function.prototype);
+
+        let parent = this._constructor;
+        let consts = {};
+        while (parent = Object.getPrototypeOf(parent)) {
+            let names = Object.getOwnPropertyNames(parent)
+                .filter(P => {
+                    if (P === '__reflection' || P === 'prototype') {
+                        return false;
+                    }
+
+                    if (typeof parent[P] === 'function') {
+                        return false;
+                    }
+
+                    return FunctionProps.indexOf(P) === -1;
+                });
+
+            for (let name of names) {
+                if (! consts.hasOwnProperty(name)) {
+                    consts[name] = parent[name];
+                }
+            }
+        }
+
+        this._constants = consts;
     }
 
     static _recursiveGet(start, parts) {
