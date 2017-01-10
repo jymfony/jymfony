@@ -102,7 +102,7 @@ global.ReflectionClass = class ReflectionClass {
      * @returns {boolean}
      */
     hasMethod(name) {
-        return this._methods[name] === true;
+        return this._methods[name] !== undefined;
     }
 
     /**
@@ -113,7 +113,7 @@ global.ReflectionClass = class ReflectionClass {
      * @returns {boolean}
      */
     hasProperty(name) {
-        return this._properties[name] === true;
+        return this._properties[name] !== undefined;
     }
 
     /**
@@ -124,7 +124,7 @@ global.ReflectionClass = class ReflectionClass {
      * @returns {boolean}
      */
     hasReadableProperty(name) {
-        return this._readableProperties[name] === true;
+        return this._readableProperties[name] !== undefined;
     }
 
     /**
@@ -135,7 +135,7 @@ global.ReflectionClass = class ReflectionClass {
      * @returns {boolean}
      */
     hasWritableProperty(name) {
-        return this._readableProperties[name] === true;
+        return this._writableProperties[name] !== undefined;
     }
 
     /**
@@ -144,7 +144,14 @@ global.ReflectionClass = class ReflectionClass {
      * @returns {ReflectionClass}
      */
     getParentClass() {
-        let parent = Object.getPrototypeOf(this._constructor);
+        let parent = this._constructor;
+        while (parent = Object.getPrototypeOf(parent)) {
+            if (parent.isMixin) {
+                continue;
+            }
+
+            break;
+        }
 
         try {
             return new ReflectionClass(parent);
@@ -346,7 +353,12 @@ global.ReflectionClass = class ReflectionClass {
         while (parent = Object.getPrototypeOf(parent)) {
             let names = Object.getOwnPropertyNames(parent)
                 .filter(P => {
-                    if (P === '__reflection' || P === 'prototype') {
+                    if (P === '__reflection' || P === 'prototype' || P === 'isMixin') {
+                        return false;
+                    }
+
+                    if (P === 'arguments' || P === 'caller') {
+                        // 'caller' and 'arguments' are restricted function properties and cannot be accessed in this context.
                         return false;
                     }
 

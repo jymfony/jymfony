@@ -29,7 +29,12 @@ let getConstantsNames = function getConstantsNames(definition) {
 global.getInterface = function (definition) {
     // todo: use definition to check if all methods are implemented
 
-    let mixin = (superclass) => class extends superclass {};
+    let mixin = (superclass) => {
+        let m = class extends superclass {};
+        m.isMixin = true;
+        return m;
+    };
+
     Object.setPrototypeOf(mixin, {
         definition: definition,
         [symClassType]: 'Interface',
@@ -112,7 +117,12 @@ global.mix = function (superclass, ...mixins) {
         }
     })());
 
-    let mixed = (s => class extends s {})(superclass);
+    let mixed = (s => {
+        let mixin = class extends s {};
+        mixin.isMixin = true;
+
+        return mixin;
+    })(superclass);
     Object.defineProperty(mixed, symAppliedInterfaces, {
         value: [...interfaces],
         enumerable: false
