@@ -1,8 +1,8 @@
 const Event = Jymfony.EventDispatcher.Event;
+const InvalidArgumentException = Jymfony.EventDispatcher.Exception.InvalidArgumentException;
 
 /**
  * @memberOf Jymfony.EventDispatcher
- * @type {Jymfony.EventDispatcher.EventDispatcher}
  */
 class EventDispatcher {
     constructor() {
@@ -10,6 +10,16 @@ class EventDispatcher {
         this.sorted = {};
     }
 
+    /**
+     * Dispatches an event.
+     * Returns a promise that resolves asynchronously running all
+     * the listeners.
+     *
+     * @param {string} eventName
+     * @param {Jymfony.EventDispatcher.Event} event
+     *
+     * @returns {Promise.<Jymfony.EventDispatcher.Event>}
+     */
     dispatch(eventName, event = new Event) {
         let p = Promise.resolve(event);
         for(let listener of this.getListeners(eventName)) {
@@ -25,7 +35,14 @@ class EventDispatcher {
         return p;
     }
 
-    * getListeners(eventName = null) {
+    /**
+     * Gets the listeners associated to an event.
+     *
+     * @param {string} eventName
+     *
+     * @returns {Array}
+     */
+    * getListeners(eventName = undefined) {
         if (eventName) {
             if (! this.listeners[eventName]) {
                 return [];
@@ -35,25 +52,30 @@ class EventDispatcher {
                 this._sortListeners(eventName);
             }
 
-            for(let listener of this.sorted[eventName]) {
+            for (let listener of this.sorted[eventName]) {
                 yield listener.listener;
             }
-
-            return;
-        }
-
-        for (let eventName of Object.keys(this.listeners)) {
-            yield* this.getListeners(eventName);
+        } else {
+            for (let eventName of Object.keys(this.listeners)) {
+                yield * this.getListeners(eventName);
+            }
         }
     }
 
+    /**
+     * Attach a listener to an event.
+     *
+     * @param {string} eventName
+     * @param {Function|Array} listener
+     * @param {int} priority
+     */
     addListener(eventName, listener, priority = 0) {
         if (isCallableArray(listener)) {
             listener = getCallableFromArray(listener);
         }
 
-        if (typeof listener !== 'function') {
-            throw new TypeError("Listener must be a function");
+        if (! isFunction(listener)) {
+            throw new InvalidArgumentException("Listener must be a function");
         }
 
         let listeners = this.listeners[eventName];
@@ -65,10 +87,23 @@ class EventDispatcher {
         delete this.sorted[eventName];
     }
 
+    /**
+     * Whether an event has listeners attached.
+     *
+     * @param {string} eventName
+     *
+     * @returns {boolean} true if at least one listener is registered, false otherwise
+     */
     hasListeners(eventName) {
         return (!! this.listeners[eventName]) && this.listeners[eventName].length > 0;
     }
 
+    /**
+     * Detach a listener.
+     *
+     * @param {string} eventName
+     * @param {Function|Array} listener
+     */
     removeListener(eventName, listener) {
         if (! this.listeners[eventName]) {
             return;
@@ -88,13 +123,14 @@ class EventDispatcher {
         }
     }
 
+    /**
+     * Adds and event subscriber
+     *
+     * @param {*} subscriber
+     */
     addSubscriber(subscriber) {
         let events = __jymfony.getFunction(subscriber, 'getSubscribedEvents')();
-        for (let eventName in events) {
-            if (! events.hasOwnProperty(eventName)) {
-                continue;
-            }
-
+        for (let eventName of Object.keys(events)) {
             let params = events[eventName];
             if (isString(params)) {
                 this.addListener(eventName, [subscriber, params]);
@@ -108,13 +144,14 @@ class EventDispatcher {
         }
     }
 
+    /**
+     * Detaches all the listeners from a subscriber
+     *
+     * @param {*} subscriber
+     */
     removeSubscriber(subscriber) {
         let events = __jymfony.getFunction(subscriber, 'getSubscribedEvents')();
-        for (let eventName in events) {
-            if (! events.hasOwnProperty(eventName)) {
-                continue;
-            }
-
+        for (let eventName of Object.keys(events)) {
             let params = events[eventName];
             if (isArray(params) && isArray(params[0])) {
                 for(let listener of params) {
@@ -126,13 +163,20 @@ class EventDispatcher {
         }
     }
 
+    /**
+     * Sorts the array of listeners based on priority.
+     *
+     * @param {string} eventName
+     *
+     * @private
+     */
     _sortListeners(eventName) {
         if (undefined === this.listeners[eventName]) {
             return;
         }
 
         // Clone the array
-        let listeners = this.listeners[eventName].slice(0);
+        let listeners = [ ...this.listeners[eventName] ];
         this.sorted[eventName] = listeners.sort((a, b) => {
             return b.priority - a.priority;
         });
