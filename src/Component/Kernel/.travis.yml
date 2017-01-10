@@ -1,12 +1,13 @@
 language: node_js
 
 node_js:
-    - "6"
+    - 6
+    - 7
 
 sudo: false
 
-script: npm run-script coverage
+script: if [ "$TRAVIS_NODE_VERSION" == "6" ]; then npm run-script coverage; else npm test; fi
 
 after_success:
-    - npm install https://github.com/alekitto/ocular.js.git
-    - $(npm bin)/ocular coverage/clover.xml
+    - if [ "$TRAVIS_NODE_VERSION" == "6" ]; npm install https://github.com/alekitto/ocular.js.git; fi
+    - if [ "$TRAVIS_NODE_VERSION" == "6" ]; $(npm bin)/ocular coverage/clover.xml; fi
