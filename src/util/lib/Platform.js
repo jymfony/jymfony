@@ -9,7 +9,8 @@ class Platform {
             this._asyncSupport = false;
 
             try {
-                let fn = require('./Platform/async_function');
+                let fn;
+                eval('fn = async function () { }');
                 this._asyncSupport = (fn.constructor.name || fn.constructor.displayName) === 'AsyncFunction';
             } catch (e) {
                 if (!(e instanceof SyntaxError)) {
