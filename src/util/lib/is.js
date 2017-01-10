@@ -1,13 +1,7 @@
 global.isArray = Array.isArray;
 let toString = Object.prototype.toString;
 
-global.isFunction = function (obj) {
-    if (obj instanceof BoundFunction) {
-        return true;
-    }
-
-    return toString.call(obj) === '[object Function]';
-};
+require('./Is/functions');
 
 if (! isFunction(global.isObject)) {
     global.isObject = function (arg) {
@@ -47,32 +41,6 @@ global.isObjectLiteral = function (value) {
     }
 
     return Object.getPrototypeOf(value) === Object.getPrototypeOf({});
-};
-
-global.isGenerator = function (value) {
-    return value && value.next && value.throw &&
-        isFunction(value.next) && isFunction(value.throw);
-};
-global.isGeneratorFunction = function (value) {
-    if (! value) {
-        return false;
-    }
-
-    if (isGenerator(value)) {
-        return false;
-    }
-
-    let constructor = value.constructor;
-
-    if (! constructor) {
-        return false;
-    }
-
-    if ('GeneratorFunction' === constructor.name || 'GeneratorFunction' === constructor.displayName) {
-        return true;
-    }
-
-    return isGenerator(constructor.prototype);
 };
 
 global.isPromise = function (value) {

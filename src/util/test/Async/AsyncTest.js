@@ -194,4 +194,21 @@ describe('Async runner', function () {
             expect(foobar).to.be.equal('foobar');
         });
     });
+
+    let asyncTest;
+    if (__jymfony.Platform.hasAsyncFunctionSupport()) {
+        // Need to use eval here, as a SyntaxError will be raised if
+        // async/await support is disabled
+        eval(`asyncTest = () => {
+            let p = Promise.resolve('foobar');
+
+            return Async.run(async function (prom) {
+                return await prom;
+            }, p).then(val => {
+                expect(val).to.be.equal('foobar');
+            });
+        };`);
+    }
+
+    it('run should execute an async function', asyncTest);
 });

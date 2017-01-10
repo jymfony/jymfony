@@ -1,4 +1,5 @@
 require('./lib/Error/trigger_deprecated');
+require('./lib/Platform');
 
 require('./lib/Function/BoundFunction');
 require('./lib/is');

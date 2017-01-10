@@ -10,7 +10,7 @@ class Async {
      * to be completed simply yield-ing it
      * This function always returns a Promise object
      *
-     * @param {Generator|GeneratorFunction|Function} generator
+     * @param {Generator|GeneratorFunction|AsyncFunction|Function} generator
      * @param {...*} args
      *
      * @returns {Promise}
@@ -84,6 +84,10 @@ class Async {
 
         if (isGenerator(obj) || isGeneratorFunction(obj)) {
             return Async.run(obj);
+        }
+
+        if (isAsyncFunction(obj)) {
+            return obj();
         }
 
         if (isFunction(obj)) {
