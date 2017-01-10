@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "node ./tests.js src/*/test/** src/Component/*/test/**",
-    "coverage": "istanbul cover --default-excludes --root ./src ./tests.js src/*/test/** src/Component/*/test/** && istanbul report clover"
+    "coverage": "istanbul cover ./tests.js src/*/test/** src/Component/*/test/**"
   },
   "keywords": [
     "jymfony",

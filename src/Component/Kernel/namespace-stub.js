@@ -5,4 +5,4 @@
 /**
  * @namespace
  */
-global.Jymfony = {};
+global.Jymfony.Kernel = {};

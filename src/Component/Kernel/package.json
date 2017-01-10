@@ -4,8 +4,8 @@
   "description": "Jymfony Application Kernel",
   "main": "src/Kernel.js",
   "scripts": {
-    "test": "node ./tests.js",
-    "coverage": "istanbul cover --root ./src ./tests.js && istanbul report clover"
+    "test": "node ./tests.js test/**",
+    "coverage": "istanbul cover ./tests.js test/**"
   },
   "keywords": [
     "application",

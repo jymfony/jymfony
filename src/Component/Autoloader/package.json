@@ -4,8 +4,8 @@
   "description": "Jymfony Autoloader",
   "main": "index.js",
   "scripts": {
-    "test": "mocha ./test",
-    "coverage": "istanbul cover _mocha && istanbul report clover"
+    "test": "mocha",
+    "coverage": "istanbul cover _mocha"
   },
   "keywords": [
     "jymfony",

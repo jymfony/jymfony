@@ -5,7 +5,7 @@
   "main": "src/AbstractLexer.js",
   "scripts": {
     "test": "node ./tests.js test/**",
-    "coverage": "istanbul cover --root ./src ./tests.js test/** && istanbul report clover"
+    "coverage": "istanbul cover ./tests.js test/**"
   },
   "keywords": [
     "lexer",

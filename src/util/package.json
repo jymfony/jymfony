@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "node ./tests.js test/**",
-    "coverage": "istanbul cover --root ./lib ./tests.js test/** && istanbul report clover"
+    "coverage": "istanbul cover ./tests.js test/**"
   },
   "keywords": [
     "jymfony",

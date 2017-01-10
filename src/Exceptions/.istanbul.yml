@@ -1,0 +1,11 @@
+instrumentation:
+    root: ./lib
+    default-excludes: true
+    include-all-sources: true
+
+reporting:
+    print: summary
+    reports:
+        - clover
+        - lcov
+    dir: ./coverage
