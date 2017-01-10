@@ -2,6 +2,9 @@ instrumentation:
     root: ./src
     default-excludes: true
     include-all-sources: true
+    excludes:
+        - '**/tests.js'
+        - '**/namespace-stub.js'
 
 reporting:
     print: summary
