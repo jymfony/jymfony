@@ -8,6 +8,30 @@ describe('Mixins.getInterface', function () {
         return expect(typeof iTest === 'function').to.be.true;
     });
 
+    it('should check for unimplemented methods', () => {
+        let iTest = getInterface(class TestInterface {
+            foo() { }
+        });
+
+        let cTest = class extends implementationOf(iTest) {};
+        let cTest2 = class extends implementationOf(iTest) {
+            foo() { }
+        };
+
+        new cTest2();
+
+        try {
+            new cTest;
+        } catch (e) {
+            expect(e).to.be.instanceOf(SyntaxError);
+            expect(e.message).to.be.equal('Method "foo" must be implemented');
+
+            return;
+        }
+
+        throw new Error('FAIL');
+    });
+
     it('should make instanceof work', () => {
         let iTest = getInterface(class TestInterface {});
         let iTest2 = getInterface(class Test2Interface {});

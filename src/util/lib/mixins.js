@@ -1,98 +1,13 @@
-const symClassType = Symbol('classType');
-const symAppliedInterfaces = Symbol('appliedInterface');
-const symOuterInterface = Symbol('outerInterface');
-
-const FunctionProps = Object.getOwnPropertyNames(Function.prototype);
-
-let getConstantsNames = function getConstantsNames(definition) {
-    let chain = [], parent = definition;
-    do {
-        if (parent[symOuterInterface]) {
-            chain.unshift(parent);
-        }
-    } while (parent = Object.getPrototypeOf(parent));
-
-    return Array.from(function * () {
-        for (let i of chain) {
-            yield * Object.getOwnPropertyNames(i)
-                .filter(P => {
-                    if (P === '__reflection' || P === 'prototype') {
-                        return false;
-                    }
-
-                    return FunctionProps.indexOf(P) === -1;
-                });
-        }
-    }());
-};
+const Mixins = require('./Mixins/Mixins');
+const Interfaces = require('./Mixins/Interfaces');
+const Traits = require('./Mixins/Traits');
 
 global.getInterface = function (definition) {
-    // todo: use definition to check if all methods are implemented
-
-    let mixin = (superclass) => {
-        let m = class extends superclass {};
-        m.isMixin = true;
-        return m;
-    };
-
-    Object.setPrototypeOf(mixin, {
-        definition: definition,
-        [symClassType]: 'Interface',
-        [Symbol.hasInstance]: (o) => {
-            let mixins = o.constructor[symAppliedInterfaces];
-            if (! mixins) {
-                return false;
-            }
-
-            return mixins.indexOf(mixin) != -1;
-        }
-    });
-
-    definition[symOuterInterface] = mixin;
-
-    let constant;
-    for (constant of getConstantsNames(definition)) {
-        mixin[constant] = definition[constant];
-    }
-
-    return mixin;
+    return Interfaces.create(definition);
 };
 
 global.getTrait = function (definition) {
-    let mixin = (superclass) => {
-        let trait = class extends superclass {};
-
-        let inherits = new Map();
-        let parent = definition;
-        do {
-            if (parent.prototype) {
-                for (let p of [...Object.getOwnPropertyNames(parent.prototype), ...Object.getOwnPropertySymbols(parent.prototype)]) {
-                    if (inherits.has(p)) {
-                        continue;
-                    }
-
-                    inherits.set(p, Object.getOwnPropertyDescriptor(parent.prototype, p));
-                }
-            }
-        } while (parent = Object.getPrototypeOf(parent));
-
-        for (let [prop, descriptor] of inherits.entries()) {
-            if (prop === 'constructor') {
-                continue;
-            }
-
-            Object.defineProperty(trait.prototype, prop, descriptor);
-        }
-
-        return trait;
-    };
-
-    Object.setPrototypeOf(mixin, {
-        definition: definition,
-        [symClassType]: 'Trait',
-    });
-
-    return mixin;
+    return Traits.create(definition);
 };
 
 global.mix = function (superclass, ...mixins) {
@@ -101,13 +16,13 @@ global.mix = function (superclass, ...mixins) {
 
     let interfaces = Array.from((function * () {
         for (let i of mixins) {
-            if (i[symClassType] !== 'Interface') {
+            if (! Interfaces.isInterface(i)) {
                 continue;
             }
 
             let definition = i.definition;
             while (definition) {
-                let outer = definition[symOuterInterface];
+                let outer = Mixins.getMixin(definition);
                 if (outer) {
                     yield outer;
                 }
@@ -123,7 +38,8 @@ global.mix = function (superclass, ...mixins) {
 
         return mixin;
     })(superclass);
-    Object.defineProperty(mixed, symAppliedInterfaces, {
+
+    Object.defineProperty(mixed, Mixins.appliedInterfacesSymbol, {
         value: [...interfaces],
         enumerable: false
     });
