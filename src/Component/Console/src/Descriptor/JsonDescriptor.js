@@ -57,8 +57,7 @@ module.exports = class JsonDescriptor extends Descriptor {
      *
      * @returns {string}
      */
-    _writeData(data, options)
-    {
+    _writeData(data, options) {
         this._write(JSON.stringify(data));
     }
 
@@ -118,14 +117,13 @@ module.exports = class JsonDescriptor extends Descriptor {
      *
      * @returns {Object}
      */
-    _getCommandData(command)
-    {
+    _getCommandData(command) {
         command.getSynopsis();
         command.mergeApplicationDefinition(false);
 
         return {
             name: command.name,
-            usage: [command.getSynopsis(), ...command.usages, ...command.aliases],
+            usage: [ command.getSynopsis(), ...command.usages, ...command.aliases ],
             description: command.description,
             help: command.processedHelp,
             definition: this._getInputDefinitionData(command.nativeDefinition),

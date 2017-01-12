@@ -12,7 +12,7 @@ class Interfaces {
             let funcs = Mixins.getFunctions(definition);
 
             for (let fn of funcs) {
-                if (typeof obj[fn] !== 'function') {
+                if ('function' !== typeof obj[fn]) {
                     throw new SyntaxError('Method "' + fn + '" must be implemented');
                 }
             }
@@ -23,7 +23,7 @@ class Interfaces {
         Object.setPrototypeOf(mixin, {
             definition: definition,
             [Mixins.classTypeSymbol]: CLASS_TYPE,
-            [Symbol.hasInstance]: Interfaces._createHasInstance(mixin)
+            [Symbol.hasInstance]: Interfaces._createHasInstance(mixin),
         });
 
         return mixin;
@@ -36,7 +36,7 @@ class Interfaces {
                 return false;
             }
 
-            return mixins.indexOf(mixin) != -1;
+            return -1 != mixins.indexOf(mixin);
         };
     }
 }

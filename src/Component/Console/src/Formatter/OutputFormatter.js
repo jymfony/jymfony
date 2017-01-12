@@ -9,7 +9,7 @@ const OutputFormatterStyleStack = Jymfony.Console.Formatter.OutputFormatterStyle
  */
 module.exports = class OutputFormatter extends implementationOf(OutputFormatterInterface) {
     static escape(text) {
-        text = text.replace(/([^\\\\]?)</g, '$1\\<')
+        text = text.replace(/([^\\\\]?)</g, '$1\\<');
 
         if ('\\' === text.substr(text.length - 1)) {
             let len = text.length;
@@ -30,7 +30,7 @@ module.exports = class OutputFormatter extends implementationOf(OutputFormatterI
         this.setStyle('comment', new OutputFormatterStyle('yellow'));
         this.setStyle('question', new OutputFormatterStyle('black', 'cyan'));
 
-        for (let [name, style] of __jymfony.getEntries(styles)) {
+        for (let [ name, style ] of __jymfony.getEntries(styles)) {
             this.setStyle(name, style);
         }
 
@@ -113,10 +113,10 @@ module.exports = class OutputFormatter extends implementationOf(OutputFormatterI
 
         output += this._applyCurrentStyle(message.substr(offset));
 
-        if (output.indexOf('<<') !== -1) {
+        if (-1 !== output.indexOf('<<')) {
             return __jymfony.strtr(output, {
                 '\\<': '<',
-                '<<': '\\'
+                '<<': '\\',
             });
         }
 
@@ -133,7 +133,7 @@ module.exports = class OutputFormatter extends implementationOf(OutputFormatterI
      * @private
      */
     _applyCurrentStyle(text) {
-        return this.decorated && text.length > 0 ? this._styleStack.current.apply(text) : text;
+        return this.decorated && 0 < text.length ? this._styleStack.current.apply(text) : text;
     }
 
     /**

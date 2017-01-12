@@ -408,7 +408,7 @@ module.exports = class ContainerBuilder extends Container {
      * @inheritDoc
      */
     getServiceIds() {
-        let ids = new Set([...Object.keys(this._definitions), ...Object.keys(this._aliasDefinitions), ...super.getServiceIds()]);
+        let ids = new Set([ ...Object.keys(this._definitions), ...Object.keys(this._aliasDefinitions), ...super.getServiceIds() ]);
         return Array.from(ids.values());
     }
 
@@ -418,7 +418,7 @@ module.exports = class ContainerBuilder extends Container {
      * @param {Array<string, string|Alias>} aliases
      */
     addAliases(aliases) {
-        for (let [name, id] of __jymfony.getEntries(aliases)) {
+        for (let [ name, id ] of __jymfony.getEntries(aliases)) {
             this.setAlias(name, id);
         }
     }
@@ -523,7 +523,7 @@ module.exports = class ContainerBuilder extends Container {
      * @param {Jymfony.DependencyInjection.Definition[]} definitions
      */
     addDefinitions(definitions) {
-        for (let [id, definition] of __jymfony.getEntries(definitions)) {
+        for (let [ id, definition ] of __jymfony.getEntries(definitions)) {
             this.setDefinition(id, definition);
         }
     }
@@ -608,8 +608,7 @@ module.exports = class ContainerBuilder extends Container {
      *
      * @throws ServiceNotFoundException if the service definition does not exist
      */
-    findDefinition(id)
-    {
+    findDefinition(id) {
         id = id.toLowerCase();
 
         while (this._aliasDefinitions[id]) {
@@ -661,12 +660,12 @@ module.exports = class ContainerBuilder extends Container {
 
         if (factory) {
             if (isArray(factory)) {
-                factory = getCallableFromArray([this._resolveServices(parameterBag.resolveValue(factory[0])), factory[1]]);
+                factory = getCallableFromArray([ this._resolveServices(parameterBag.resolveValue(factory[0])), factory[1] ]);
             } else if (!isFunction(factory)) {
                 throw new RuntimeException('Cannot create service "' + id + '" because of invalid factory');
             }
 
-            service = factory.apply(null, args);
+            service = factory(...args);
         } else {
             let class_ = parameterBag.resolveValue(definition.getClass());
 
@@ -686,7 +685,7 @@ module.exports = class ContainerBuilder extends Container {
         }
 
         let properties = this._resolveServices(parameterBag.unescapeValue(parameterBag.resolveValue(definition.getProperties())));
-        for (let [name, value] of __jymfony.getEntries(properties)) {
+        for (let [ name, value ] of __jymfony.getEntries(properties)) {
             service[name] = value;
         }
 
@@ -726,7 +725,7 @@ module.exports = class ContainerBuilder extends Container {
     findTaggedServiceIds(name) {
         let tags = {};
 
-        for (let [id, definition] of __jymfony.getEntries(this._definitions)) {
+        for (let [ id, definition ] of __jymfony.getEntries(this._definitions)) {
             if (definition.hasTag(name)) {
                 tags[id] = definition.getTag(name);
             }
@@ -804,7 +803,7 @@ module.exports = class ContainerBuilder extends Container {
             }
         }
 
-        call = getCallableFromArray([service, call[0]]);
+        call = getCallableFromArray([ service, call[0] ]);
         call.apply(service, this._resolveServices(this.parameterBag.unescapeValue(this.parameterBag.resolveValue(call[1]))));
     }
 
@@ -836,7 +835,7 @@ module.exports = class ContainerBuilder extends Container {
      */
     _resolveServices(value) {
         if (value instanceof Map) {
-            for (let [k, v] of value.entries()) {
+            for (let [ k, v ] of value.entries()) {
                 value.set(k, this._resolveServices(v));
             }
         } else if (value instanceof Reference) {

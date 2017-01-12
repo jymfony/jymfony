@@ -1,4 +1,3 @@
-/** global: Exception */
 class InvalidArgumentException extends Exception {
 }
 

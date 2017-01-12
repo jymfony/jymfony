@@ -77,7 +77,7 @@ module.exports = class Input extends implementationOf(InputInterface) {
             return ! givenArguments.hasOwnProperty(argument) && definition.getArgument(argument).isRequired();
         });
 
-        if (missingArguments.length > 0) {
+        if (0 < missingArguments.length) {
             throw new RuntimeException(`Not enough arguments (missing: "${missingArguments.join(', ')}").`);
         }
     }

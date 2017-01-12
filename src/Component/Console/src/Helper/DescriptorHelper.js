@@ -39,7 +39,7 @@ module.exports = class DescriptorHelper extends Helper {
     describe(output, object, options = {}) {
         options = Object.assign({
             raw_text: false,
-            format: 'txt'
+            format: 'txt',
         }, options);
 
         if (! this._descriptors[options.format]) {

@@ -24,12 +24,12 @@ module.exports = class Namespace {
         }
 
         this._target = {
-            __namespace: this
+            __namespace: this,
         };
 
         this._baseDirs = new Set;
-        if (typeof baseDirs === 'string') {
-            baseDirs = [baseDirs];
+        if ('string' === typeof baseDirs) {
+            baseDirs = [ baseDirs ];
         }
 
         for (let dir of baseDirs) {
@@ -39,7 +39,7 @@ module.exports = class Namespace {
         return new Proxy(this._target, {
             get: (target, name) => {
                 return this._get(target, name);
-            }
+            },
         });
     }
 
@@ -75,7 +75,7 @@ module.exports = class Namespace {
      * @private
      */
     _get(target, name) {
-        if (typeof name !== 'string') {
+        if ('string' !== typeof name) {
             return undefined;
         }
 
@@ -90,7 +90,6 @@ module.exports = class Namespace {
 
                 return undefined;
             }
-
 
             target[name] = found;
         }
@@ -132,8 +131,8 @@ module.exports = class Namespace {
         let fn = this._internalRequire.resolve(filename);
         let mod = this._internalRequire(fn);
 
-        // class constructor
-        if (typeof mod !== 'function') {
+        // Class constructor
+        if ('function' !== typeof mod) {
             throw new ClassNotFoundException(`Class not found in ${fn}. The file was found, but the class isn't there.`);
         }
 
@@ -146,8 +145,8 @@ module.exports = class Namespace {
                 fqcn: this._fullyQualifiedName + '.' + mod.name,
                 module: this._internalRequire.cache[fn],
                 constructor: mod,
-                namespace: this
-            }
+                namespace: this,
+            },
         });
 
         if (mod.definition) {
@@ -162,8 +161,8 @@ module.exports = class Namespace {
                     fqcn: this._fullyQualifiedName + '.' + mod.definition.name,
                     module: this._internalRequire.cache[fn],
                     constructor: mod.definition,
-                    namespace: this
-                }
+                    namespace: this,
+                },
             });
         }
 

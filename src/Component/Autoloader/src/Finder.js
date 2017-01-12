@@ -29,10 +29,10 @@ module.exports = class Finder {
 
                 return {
                     filename: fileName,
-                    directory: stat.isDirectory()
+                    directory: stat.isDirectory(),
                 };
             } catch (e) {
-                if (! e.code || e.code !== 'ENOENT') {
+                if (! e.code || 'ENOENT' !== e.code) {
                     throw e;
                 }
 
@@ -99,7 +99,7 @@ module.exports = class Finder {
                 dir = this._fs.realpathSync(dir);
                 stat = this._fs.statSync(dir);
             } catch (e) {
-                if (! e.code || e.code !== 'ENOENT') {
+                if (! e.code || 'ENOENT' !== e.code) {
                     throw e;
                 }
 
@@ -125,8 +125,7 @@ module.exports = class Finder {
         return current;
     }
 
-    _normalizePath(parts, fileName)
-    {
+    _normalizePath(parts, fileName) {
         if ('/' !== this._path.sep) {
             throw new Error('Verify this on Windows!');
         }

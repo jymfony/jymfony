@@ -65,7 +65,7 @@ module.exports = class AbstractLexer {
      * @returns {boolean}
      */
     isNextTokenAny(tokens) {
-        return undefined !== this.lookahead && tokens.indexOf(this.lookahead.type) !== -1;
+        return undefined !== this.lookahead && -1 !== tokens.indexOf(this.lookahead.type);
     }
 
     /**
@@ -142,7 +142,7 @@ module.exports = class AbstractLexer {
         let className = reflClass.name;
         let constants = reflClass.constants;
 
-        for (let [name, value] of __jymfony.getEntries(constants)) {
+        for (let [ name, value ] of __jymfony.getEntries(constants)) {
             if (value === token) {
                 return className + '.' + name;
             }

@@ -15,18 +15,18 @@ global.__jymfony = global.__jymfony || {};
  */
 global.__jymfony.version_compare = function version_compare(version1, version2, operator = undefined) {
     // The function first replaces _, - and + with a dot . in the version string and also
-    // inserts dots . before and after any non number so that for example '4.3.2RC1' becomes '4.3.2.RC.1'
+    // Inserts dots . before and after any non number so that for example '4.3.2RC1' becomes '4.3.2.RC.1'
     let prepareVersion = v => {
-        v = v.replace(/[\-+_]/g, '.').replace(/([^.\d]+)/g, '.$1.').toLowerCase().split('.').filter(V => V !== '');
-        return v.length ? v : [-7];
+        v = v.replace(/[\-+_]/g, '.').replace(/([^.\d]+)/g, '.$1.').toLowerCase().split('.').filter(V => '' !== V);
+        return v.length ? v : [ -7 ];
     };
 
     version1 = prepareVersion(version1);
     version2 = prepareVersion(version2);
 
     // Then it compares the parts starting from left to right. If a part contains special version
-    // strings these are handled in the following order:
-    // any string not found in this list < dev < alpha = a < beta = b < RC = rc < # < pl = p.
+    // Strings these are handled in the following order:
+    // Any string not found in this list < dev < alpha = a < beta = b < RC = rc < # < pl = p.
     const map = {
         'dev': -4,
         'alpha': -3,
@@ -35,7 +35,7 @@ global.__jymfony.version_compare = function version_compare(version1, version2, 
         'b': -2,
         'rc': -1,
         'pl': 'p',
-        'p': 'p'
+        'p': 'p',
     };
 
     let numVer = v => {
@@ -55,10 +55,10 @@ global.__jymfony.version_compare = function version_compare(version1, version2, 
 
         if (chunk1 === chunk2) {
             // Do nothing and continue
-        } else if (chunk1 === 'p') {
+        } else if ('p' === chunk1) {
             compare = 1;
             break;
-        } else if (chunk2 === 'p') {
+        } else if ('p' === chunk2) {
             compare = -1;
             break;
         } else if (chunk1 > chunk2) {
@@ -78,29 +78,29 @@ global.__jymfony.version_compare = function version_compare(version1, version2, 
     switch (operator) {
         case '<':
         case 'lt':
-            return compare < 0;
+            return 0 > compare;
 
         case '<=':
         case 'le':
-            return compare <= 0;
+            return 0 >= compare;
 
         case '>':
         case 'gt':
-            return compare > 0;
+            return 0 < compare;
 
         case '>=':
         case 'ge':
-            return compare >= 0;
+            return 0 <= compare;
 
         case '==':
         case '=':
         case 'eq':
-            return compare === 0;
+            return 0 === compare;
 
         case '!=':
         case '<>':
         case 'ne':
-            return compare !== 0;
+            return 0 !== compare;
     }
 
     return undefined;

@@ -27,7 +27,7 @@ module.exports = class AnalyzeServiceReferencesPass extends implementationOf(Rep
         this._graph = container.getCompiler().getServiceReferenceGraph();
         this._graph.clear();
 
-        for (let [id, definition] of __jymfony.getEntries(container.getDefinitions())) {
+        for (let [ id, definition ] of __jymfony.getEntries(container.getDefinitions())) {
             if (definition.isSynthetic() || definition.isAbstract()) {
                 continue;
             }
@@ -45,12 +45,12 @@ module.exports = class AnalyzeServiceReferencesPass extends implementationOf(Rep
                 this._processArguments(definition.getProperties());
 
                 if (definition.getConfigurator()) {
-                    this._processArguments([definition.getConfigurator()]);
+                    this._processArguments([ definition.getConfigurator() ]);
                 }
             }
         }
 
-        for (let [id, alias] of __jymfony.getEntries(container.getAliases())) {
+        for (let [ id, alias ] of __jymfony.getEntries(container.getAliases())) {
             this._graph.connect(id, alias, alias.toString(), this._getDefinition(alias), null);
         }
     }
@@ -82,7 +82,7 @@ module.exports = class AnalyzeServiceReferencesPass extends implementationOf(Rep
     _getDefinition(id) {
         id = this._getDefinitionId(id);
 
-        return id === null ? null : this._container.getDefinition(id);
+        return null === id ? null : this._container.getDefinition(id);
     }
 
     _getDefinitionId(id) {

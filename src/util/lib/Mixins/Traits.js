@@ -6,7 +6,7 @@ class Traits {
         let parent = definition;
         do {
             if (parent.prototype) {
-                for (let p of [...Object.getOwnPropertyNames(parent.prototype), ...Object.getOwnPropertySymbols(parent.prototype)]) {
+                for (let p of [ ...Object.getOwnPropertyNames(parent.prototype), ...Object.getOwnPropertySymbols(parent.prototype) ]) {
                     if (inherits.has(p)) {
                         continue;
                     }
@@ -17,8 +17,8 @@ class Traits {
         } while (parent = Object.getPrototypeOf(parent));
 
         let mixin = Mixins.createMixin(definition, trait => {
-            for (let [prop, descriptor] of inherits.entries()) {
-                if (prop === 'constructor') {
+            for (let [ prop, descriptor ] of inherits.entries()) {
+                if ('constructor' === prop) {
                     continue;
                 }
 

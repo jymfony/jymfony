@@ -20,7 +20,6 @@ class BoundFunction {
      */
     constructor(thisArg, func) {
         if (! isFunction(func)) {
-            /** global: LogicException */
             throw new LogicException('Trying to bind a non-function object');
         }
 
@@ -29,6 +28,7 @@ class BoundFunction {
 
         let self = this;
         let ret = function () {
+            /* eslint prefer-spread: "off" */
             return self.apply(undefined, arguments);
         };
 
@@ -66,6 +66,8 @@ class BoundFunction {
      */
     call(thisArg, args) {
         args = [].slice.call(arguments, 1);
+
+        /* eslint prefer-spread: "off" */
         return this.apply(undefined, args);
     }
 

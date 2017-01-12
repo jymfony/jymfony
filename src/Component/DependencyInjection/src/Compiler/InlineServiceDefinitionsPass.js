@@ -19,11 +19,11 @@ module.exports = class InlineServiceDefinitionsPass extends implementationOf(Rep
      * @inheritDoc
      */
     setRepeatedPass(pass) {
-        // do nothing - unused
+        // Do nothing - unused
     }
 
     _inlineArguments(container, args, isRoot = false) {
-        for (let [k, argument] of __jymfony.getEntries(args)) {
+        for (let [ k, argument ] of __jymfony.getEntries(args)) {
             if (isRoot) {
                 this._currentId = k;
             }
@@ -49,10 +49,10 @@ module.exports = class InlineServiceDefinitionsPass extends implementationOf(Rep
                 argument.setMethodCalls(this._inlineArguments(container, argument.getMethodCalls()));
                 argument.setProperties(this._inlineArguments(container, argument.getProperties()));
 
-                let configurator = this._inlineArguments(container, [argument.getConfigurator()]);
+                let configurator = this._inlineArguments(container, [ argument.getConfigurator() ]);
                 argument.setConfigurator(configurator[0]);
 
-                let factory = this._inlineArguments(container, [argument.getFactory()]);
+                let factory = this._inlineArguments(container, [ argument.getFactory() ]);
                 argument.setFactory(factory[0]);
             } else if (isArray(argument) || isObjectLiteral(argument)) {
                 args[k] = this._inlineArguments(container, argument);
@@ -84,12 +84,12 @@ module.exports = class InlineServiceDefinitionsPass extends implementationOf(Rep
             ids.push(edge.getSourceNode().getId());
         }
 
-        if ([ ...new Set(ids) ].length > 1) {
+        if (1 < [ ...new Set(ids) ].length) {
             return false;
         }
 
         let factory;
-        if (ids.length > 1 && isArray(factory = definition.getFactory()) && (factory[0] instanceof Reference || factory[0] instanceof Definition)) {
+        if (1 < ids.length && isArray(factory = definition.getFactory()) && (factory[0] instanceof Reference || factory[0] instanceof Definition)) {
             return false;
         }
 

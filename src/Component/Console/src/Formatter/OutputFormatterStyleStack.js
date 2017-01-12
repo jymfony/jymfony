@@ -52,7 +52,7 @@ module.exports = class OutputFormatterStyleStack {
         let styles = [ ...this._styles ];
         styles.reverse();
 
-        for (let [index, stackedStyle] of __jymfony.getEntries(styles)) {
+        for (let [ index, stackedStyle ] of __jymfony.getEntries(styles)) {
             if (style.apply('') === stackedStyle.apply('')) {
                 this._styles = this._styles.slice(0, index);
 

@@ -44,8 +44,7 @@ module.exports = class ServiceReferenceGraph {
         destNode.addInEdge(edge);
     }
 
-    _createNode(id, value)
-    {
+    _createNode(id, value) {
         if (this._nodes[id] && this._nodes[id].getValue() === value) {
             return this._nodes[id];
         }

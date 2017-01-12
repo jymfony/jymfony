@@ -10,7 +10,7 @@ module.exports = class CheckReferenceValidityPass extends implementationOf(Compi
     process(container) {
         this._container = container;
 
-        for (let [id, definition] of __jymfony.getEntries(container.getDefinitions())) {
+        for (let [ id, definition ] of __jymfony.getEntries(container.getDefinitions())) {
             if (definition.isSynthetic() || definition.isAbstract()) {
                 continue;
             }

@@ -53,7 +53,7 @@ module.exports = class TextDescriptor extends Descriptor {
             }
         }
 
-        let totalWidth = options.total_width || this._calculateTotalWidthForOptions([option]);
+        let totalWidth = options.total_width || this._calculateTotalWidthForOptions([ option ]);
         let synopsis = util.format('%s%s',
             option.getShortcut() ? util.format('-%s, ', option.getShortcut()) : '    ',
             util.format('--%s%s', option.getName(), value)
@@ -98,7 +98,7 @@ module.exports = class TextDescriptor extends Descriptor {
 
             this._writeText('<comment>Options:</comment>', options);
             for (let option of definition.getOptions()) {
-                if (option.getShortcut().length > 1) {
+                if (1 < option.getShortcut().length) {
                     laterOptions.push(option);
                     continue;
                 }
@@ -124,7 +124,7 @@ module.exports = class TextDescriptor extends Descriptor {
 
         this._writeText('<comment>Usage:</comment>', options);
 
-        for (let usage of [command.getSynopsis(true), ...command.aliases, command.usages]) {
+        for (let usage of [ command.getSynopsis(true), ...command.aliases, command.usages ]) {
             this._writeText("\n");
             this._writeText('  ' + usage, options);
         }
@@ -182,7 +182,7 @@ module.exports = class TextDescriptor extends Descriptor {
                 this._writeText('<comment>Available commands:</comment>', options);
             }
 
-            // add commands by namespace
+            // Add commands by namespace
             let commands = description.commands;
 
             for (let namespace of description.namespaces) {
@@ -209,8 +209,7 @@ module.exports = class TextDescriptor extends Descriptor {
     /**
      * @private
      */
-    _writeText(content, options = {})
-    {
+    _writeText(content, options = {}) {
         this._write(
             options.raw_text ? __jymfony.strip_tags(content) : content,
             ! options.raw_output
@@ -295,4 +294,4 @@ module.exports = class TextDescriptor extends Descriptor {
 
         return totalWidth;
     }
-}
+};

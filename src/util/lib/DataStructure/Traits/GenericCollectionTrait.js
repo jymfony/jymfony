@@ -5,7 +5,7 @@ class GenericCollectionTrait {
      * @returns {boolean}
      */
     isEmpty() {
-        return this.length === 0;
+        return 0 === this.length;
     }
 
     /**

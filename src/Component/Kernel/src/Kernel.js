@@ -134,7 +134,7 @@ class Kernel {
             }
         }
 
-        // look for orphans
+        // Look for orphans
         let diff = __jymfony.diff_key(directChildren, this._bundles);
         if (directChildren.length && diff.length) {
             diff = Object.keys(diff);
@@ -142,15 +142,15 @@ class Kernel {
             throw new LogicException(`Bundle "${directChildren[diff[0]]}" extends bundle "${diff[0]}", which is not registered.`);
         }
 
-        // inheritance
+        // Inheritance
         /**
          * @type {Object}
          * @protected
          */
         this._bundleMap = {};
-        for (let [name, bundle] of __jymfony.getEntries(topMostBundles)) {
-            let bundleMap = [bundle];
-            let hierarchy = [name];
+        for (let [ name, bundle ] of __jymfony.getEntries(topMostBundles)) {
+            let bundleMap = [ bundle ];
+            let hierarchy = [ name ];
 
             while (directChildren[name]) {
                 name = directChildren[name];
@@ -208,7 +208,7 @@ class Kernel {
         let dumper = new Jymfony.DependencyInjection.Dumper.JsDumper(container);
         let options = {
             class_name: this._getContainerClass(),
-            debug: this._debug
+            debug: this._debug,
         };
 
         cache.write(dumper.dump(options), container.getResources());
@@ -223,12 +223,12 @@ class Kernel {
     _buildContainer() {
         let createDir = (name, dir) => {
             let mkdirRec = dir => {
-                for (let i = 2; i > 0; i--) {
+                for (let i = 2; 0 < i; i--) {
                     try {
                         fs.mkdirSync(dir, 0o777);
                         break;
                     } catch (e) {
-                        if (e.code !== 'ENOENT') {
+                        if ('ENOENT' !== e.code) {
                             throw e;
                         }
 
@@ -318,7 +318,7 @@ class Kernel {
      */
     _getKernelParameters() {
         let bundles = {};
-        for (let [name, bundle] of __jymfony.getEntries(this._bundles)) {
+        for (let [ name, bundle ] of __jymfony.getEntries(this._bundles)) {
             let reflClass = new ReflectionClass(bundle);
             bundles[name] = reflClass.name;
         }
@@ -330,7 +330,7 @@ class Kernel {
             'kernel.cache_dir': this.getCacheDir(),
             'kernel.logs_dir': this.getLogsDir(),
             'kernel.bundles': Object.keys(bundles),
-            'kernel.container_class': this._getContainerClass()
+            'kernel.container_class': this._getContainerClass(),
         };
     }
 }

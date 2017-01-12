@@ -17,7 +17,7 @@ class InputArgument {
     constructor(name, mode = undefined, description = '', defaultValue = undefined) {
         if (undefined === mode) {
             mode = InputArgument.OPTIONAL;
-        } else if (! isNumber(mode) || mode > 7 || mode < 1) {
+        } else if (! isNumber(mode) || 7 < mode || 1 > mode) {
             throw new InvalidArgumentException(`Argument mode "${mode}" is not valid.`);
         }
 

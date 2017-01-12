@@ -59,11 +59,11 @@ class ApplicationDescription {
         this._namespaces = {};
 
         let all = this._application.all(this._namespace ? this._application.findNamespace(this._namespace) : undefined);
-        for (let [namespace, commands] of this._sortCommands(all)) {
+        for (let [ namespace, commands ] of this._sortCommands(all)) {
             let names = [];
 
             /** @var Command command */
-            for (let [name, command] of commands) {
+            for (let [ name, command ] of commands) {
                 if (! command.name || command.hidden) {
                     continue;
                 }
@@ -89,7 +89,7 @@ class ApplicationDescription {
     * _sortCommands(commands) {
         let namespacedCommands = {};
         let globalCommands = {};
-        for (let [name, command] of __jymfony.getEntries(commands)) {
+        for (let [ name, command ] of __jymfony.getEntries(commands)) {
             let key = this._application.extractNamespace(name, 1);
             if (! key) {
                 if (! globalCommands._global) {
@@ -108,14 +108,14 @@ class ApplicationDescription {
 
         let y = function * (ns) {
             for (let name of Object.keys(ns).sort()) {
-                yield [name, ns[name]];
+                yield [ name, ns[name] ];
             }
         };
 
-        yield ['_global', Array.from(y(globalCommands._global))];
+        yield [ '_global', Array.from(y(globalCommands._global)) ];
 
         for (let namespace of Object.keys(namespacedCommands)) {
-            yield [namespace, Array.from(y(namespacedCommands[namespace]))];
+            yield [ namespace, Array.from(y(namespacedCommands[namespace])) ];
         }
     }
 }

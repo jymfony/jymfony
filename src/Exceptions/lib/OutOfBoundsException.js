@@ -1,4 +1,3 @@
-/** global: Exception */
 class OutOfBoundsException extends Exception {
 }
 

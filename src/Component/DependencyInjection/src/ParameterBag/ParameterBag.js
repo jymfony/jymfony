@@ -26,7 +26,7 @@ module.exports = class ParameterBag {
      * @param {boolean} overwrite
      */
     add(params, overwrite = true) {
-        for (let [key, value] of __jymfony.getEntries(params)) {
+        for (let [ key, value ] of __jymfony.getEntries(params)) {
             if (! overwrite && this._params.hasOwnProperty(key)) {
                 continue;
             }
@@ -98,7 +98,7 @@ module.exports = class ParameterBag {
         }
 
         let resolved = {};
-        for (let [key, value] of __jymfony.getEntries(this._params)) {
+        for (let [ key, value ] of __jymfony.getEntries(this._params)) {
             try {
                 value = this.resolveValue(value);
                 resolved[key] = this.unescapeValue(value);
@@ -126,7 +126,7 @@ module.exports = class ParameterBag {
     resolveValue(value, resolving = new Set) {
         if (isArray(value) || isObjectLiteral(value)) {
             let args = isArray(value) ? [] : {};
-            for (let [k, v] of __jymfony.getEntries(value)) {
+            for (let [ k, v ] of __jymfony.getEntries(value)) {
                 args[this.resolveValue(k, new Set(resolving))] = this.resolveValue(v, new Set(resolving));
             }
 
@@ -195,15 +195,14 @@ module.exports = class ParameterBag {
      *
      * @returns {*}
      */
-    escapeValue(value)
-    {
+    escapeValue(value) {
         if (isString(value)) {
             return value.replace(/%/g, '%%');
         }
 
         if (isArray(value) || isObjectLiteral(value)) {
             let result = isArray(value) ? [] : {};
-            for (let [k, v] of __jymfony.getEntries(value)) {
+            for (let [ k, v ] of __jymfony.getEntries(value)) {
                 result[k] = this.escapeValue(v);
             }
 
@@ -220,15 +219,14 @@ module.exports = class ParameterBag {
      *
      * @returns {*}
      */
-    unescapeValue(value)
-    {
+    unescapeValue(value) {
         if (isString(value)) {
             return value.replace(/%%/g, '%');
         }
 
         if (value instanceof Map) {
             let result = new Map;
-            for (let [k, v] of value) {
+            for (let [ k, v ] of value) {
                 result.set(k, this.unescapeValue(v));
             }
 

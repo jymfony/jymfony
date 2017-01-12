@@ -50,8 +50,7 @@ module.exports = class Bundle extends implementationOf(ContainerAwareTrait) {
                     throw new LogicException(`Extension ${r.name} must implement Jymfony.DependencyInjection.Extension.ExtensionInterface`);
                 }
 
-
-                // check naming convention
+                // Check naming convention
                 let basename = this.getName().replace(/Bundle$/, '');
                 let expectedAlias = Container.underscore(basename);
 

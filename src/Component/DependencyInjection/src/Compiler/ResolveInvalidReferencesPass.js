@@ -21,7 +21,7 @@ module.exports = class ResolveInvalidReferencesPass extends implementationOf(Com
             let calls = [];
             for (let call of definition.getMethodCalls()) {
                 try {
-                    calls.push([call[0], this._processArguments(call[1], true)]);
+                    calls.push([ call[0], this._processArguments(call[1], true) ]);
                 } catch (e) {
                     // Call is removed
                 }
@@ -30,9 +30,9 @@ module.exports = class ResolveInvalidReferencesPass extends implementationOf(Com
             definition.setMethodCalls(calls);
 
             let properties = {};
-            for (let [name, value] of __jymfony.getEntries(definition.getProperties())) {
+            for (let [ name, value ] of __jymfony.getEntries(definition.getProperties())) {
                 try {
-                    value = this._processArguments([value], true);
+                    value = this._processArguments([ value ], true);
                     properties[name] = value[0];
                 } catch (e) {
                     // Property ignored
@@ -44,7 +44,7 @@ module.exports = class ResolveInvalidReferencesPass extends implementationOf(Com
     }
 
     _processArguments(args, inMethodCall, inCollection) {
-        for (let [k, argument] of __jymfony.getEntries(args)) {
+        for (let [ k, argument ] of __jymfony.getEntries(args)) {
             if (isArray(argument) || isObjectLiteral(argument)) {
                 args[k] = this._processArguments(argument, inMethodCall, true);
             } else if (argument instanceof Reference) {

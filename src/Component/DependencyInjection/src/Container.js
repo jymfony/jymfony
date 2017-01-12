@@ -225,7 +225,7 @@ class Container {
      * @return {string[]}
      */
     getServiceIds() {
-        let set = new Set([...Object.keys(this._methodMap), ...Object.keys(this._services), 'service_container']);
+        let set = new Set([ ...Object.keys(this._methodMap), ...Object.keys(this._services), 'service_container' ]);
         return Array.from(set);
     }
 
@@ -251,8 +251,7 @@ class Container {
      *
      * @returns {string}
      */
-    static camelize(id)
-    {
+    static camelize(id) {
         return __jymfony.strtr(__jymfony.ucwords(__jymfony.strtr(id, {'_': ' ', '.': '_ ', '\\': '_ '})), {' ': ''});
     }
 }

@@ -72,7 +72,6 @@ class Async {
                 next(retVal);
             };
 
-
             onFulfilled();
         });
     }
@@ -112,7 +111,7 @@ class Async {
                     return reject(err);
                 }
 
-                if (arguments.length > 2) {
+                if (2 < arguments.length) {
                     res = [].slice.call(arguments, 1);
                 }
 

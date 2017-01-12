@@ -30,10 +30,10 @@ module.exports = class ResolveDefinitionTemplatesPass extends implementationOf(C
      * @returns {Object|Array}
      */
     _resolveArguments(container, args, isRoot = false) {
-        for (let [k, argument] of __jymfony.getEntries(args)) {
+        for (let [ k, argument ] of __jymfony.getEntries(args)) {
             if (isRoot) {
-                // yes, we are specifically fetching the definition from the
-                // container to ensure we are not operating on stale data
+                // Yes, we are specifically fetching the definition from the
+                // Container to ensure we are not operating on stale data
                 args[k] = argument = container.getDefinition(k);
                 this._currentId = k;
             }
@@ -52,10 +52,10 @@ module.exports = class ResolveDefinitionTemplatesPass extends implementationOf(C
                 argument.setMethodCalls(this._resolveArguments(container, argument.getMethodCalls()));
                 argument.setProperties(this._resolveArguments(container, argument.getProperties()));
 
-                let configurator = this._resolveArguments(container, [argument.getConfigurator()]);
+                let configurator = this._resolveArguments(container, [ argument.getConfigurator() ]);
                 argument.setConfigurator(configurator[0]);
 
-                let factory = this._resolveArguments(container, [argument.getFactory()]);
+                let factory = this._resolveArguments(container, [ argument.getFactory() ]);
                 argument.setFactory(factory[0]);
             }
         }
@@ -86,7 +86,7 @@ module.exports = class ResolveDefinitionTemplatesPass extends implementationOf(C
 
             parentDef = this._resolveDefinition(container, parentDef.toString());
             container.setDefinition(parent.toString(), parentDef);
-            this._currentId = id
+            this._currentId = id;
         }
 
         this._compiler.addLogMessage(this._formatter.formatResolveInheritance(this, this._currentId, parent.toString()));
@@ -149,13 +149,13 @@ module.exports = class ResolveDefinitionTemplatesPass extends implementationOf(C
             def.addArgument(argument);
         }
 
-        for (let [k, v] of __jymfony.getEntries(definition.getProperties())) {
+        for (let [ k, v ] of __jymfony.getEntries(definition.getProperties())) {
             def.addProperty(k, v);
         }
 
-        // append method calls
+        // Append method calls
         let calls = definition.getMethodCalls();
-        if (calls.length > 0) {
+        if (0 < calls.length) {
             def.setMethodCalls([ ...def.getMethodCalls(), ...calls ]);
         }
 

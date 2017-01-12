@@ -112,7 +112,7 @@ module.exports = class Application {
                     exitCode = 1;
                 }
 
-                if (exitCode > 255) {
+                if (255 < exitCode) {
                     exitCode = 255;
                 }
 
@@ -243,10 +243,10 @@ module.exports = class Application {
         let full_regex = new RegExp('^' + expr + '$');
         let commands = allCommands.filter(V => V.match(begin_regex));
 
-        if (! commands.length || commands.filter(V => V.match(full_regex)).length < 1) {
+        if (! commands.length || 1 > commands.filter(V => V.match(full_regex)).length) {
             let pos = name.lastIndexOf(':');
             if (-1 !== pos) {
-                // check if a namespace exists and contains commands
+                // Check if a namespace exists and contains commands
                 this.findNamespace(name.substr(0, pos));
             }
 
@@ -266,17 +266,17 @@ module.exports = class Application {
             throw new CommandNotFoundException(message, alternatives);
         }
 
-        // filter out aliases for commands which are already on the list
-        if (commands.length > 1) {
+        // Filter out aliases for commands which are already on the list
+        if (1 < commands.length) {
             commands = commands.filter(nameOrAlias => {
                 let commandName = this._commands[nameOrAlias].getName();
 
-                return commandName === nameOrAlias || Object.values(commands).indexOf(commandName) !== -1;
+                return commandName === nameOrAlias || -1 !== Object.values(commands).indexOf(commandName);
             });
         }
 
-        let exact = Object.values(commands).indexOf(name) !== -1;
-        if (commands.length > 1 && ! exact) {
+        let exact = -1 !== Object.values(commands).indexOf(name);
+        if (1 < commands.length && ! exact) {
             let suggestions = this._getAbbreviationSuggestions(commands);
 
             throw new CommandNotFoundException(`Command "${name}" is ambiguous (${suggestions}).`, commands);
@@ -300,7 +300,7 @@ module.exports = class Application {
         }
 
         let commands = {};
-        for (let [name, command] of __jymfony.getEntries(this._commands)) {
+        for (let [ name, command ] of __jymfony.getEntries(this._commands)) {
             if (namespace === this.extractNamespace(name, namespace.split(':').length + 1)) {
                 commands[name] = command;
             }
@@ -343,8 +343,8 @@ module.exports = class Application {
             throw new CommandNotFoundException(message, alternatives);
         }
 
-        let exact = namespaces.indexOf(namespace) !== -1;
-        if (namespaces > 1 && ! exact) {
+        let exact = -1 !== namespaces.indexOf(namespace);
+        if (1 < namespaces && ! exact) {
             throw new CommandNotFoundException(`The namespace "${namespace}" is ambiguous (${this._getAbbreviationSuggestions(namespaces)}).`, namespaces);
         }
 
@@ -361,8 +361,7 @@ module.exports = class Application {
      *
      * @returns {string} The namespace of the command
      */
-    extractNamespace(name, limit = undefined)
-    {
+    extractNamespace(name, limit = undefined) {
         let parts = name.split(':');
         parts.pop();
 
@@ -415,10 +414,10 @@ module.exports = class Application {
     get namespaces() {
         let namespaces = [];
         for (let command of this.all) {
-            namespaces = [...namespaces, ...this._extractAllNamespaces(command.name)];
+            namespaces = [ ...namespaces, ...this._extractAllNamespaces(command.name) ];
 
             for (let alias of command.aliases) {
-                namespaces = [...namespaces, ...this._extractAllNamespaces(alias)];
+                namespaces = [ ...namespaces, ...this._extractAllNamespaces(alias) ];
             }
         }
 
@@ -436,14 +435,14 @@ module.exports = class Application {
      * @protected
      */
     * _doRun(input, output) {
-        if (true === input.hasParameterOption(['--version', '-V'], true)) {
+        if (true === input.hasParameterOption([ '--version', '-V' ], true)) {
             output.writeln(this.getLongVersion());
 
             return 0;
         }
 
         let name = this._getCommandName(input);
-        if (true === input.hasParameterOption(['--help', '-h'], true)) {
+        if (true === input.hasParameterOption([ '--help', '-h' ], true)) {
             if (! name) {
                 name = 'help';
                 input = new ArrayInput({'command': 'help'});
@@ -457,11 +456,11 @@ module.exports = class Application {
             input = new ArrayInput({'command': this._defaultCommand});
         }
 
-        // the command name MUST be the first element of the input
+        // The command name MUST be the first element of the input
         let command = this.find(name);
 
         this._runningCommand = command;
-        let exitCode = yield __jymfony.Async.run(getCallableFromArray([this, '_doRunCommand']), command, input, output);
+        let exitCode = yield __jymfony.Async.run(getCallableFromArray([ this, '_doRunCommand' ]), command, input, output);
         this._runningCommand = undefined;
 
         return exitCode;
@@ -489,10 +488,10 @@ module.exports = class Application {
         }
 
         if (! this._eventDispatcher) {
-            return yield __jymfony.Async.run(getCallableFromArray([command, 'run']), input, output);
+            return yield __jymfony.Async.run(getCallableFromArray([ command, 'run' ]), input, output);
         }
 
-        // bind before the console.command event, so the listeners have access to input options/arguments
+        // Bind before the console.command event, so the listeners have access to input options/arguments
         try {
             command.mergeApplicationDefinition();
             input.bind(command.definition);
@@ -500,7 +499,7 @@ module.exports = class Application {
             if (! (e instanceof ExceptionInterface)) {
                 throw e;
             }
-            // ignore invalid options/arguments for now, to allow the event listeners to customize the InputDefinition
+            // Ignore invalid options/arguments for now, to allow the event listeners to customize the InputDefinition
         }
 
         let exitCode;
@@ -510,7 +509,7 @@ module.exports = class Application {
         if (event.commandShouldRun()) {
             let e = undefined;
             try {
-                exitCode = yield __jymfony.Async.run(getCallableFromArray([command, 'run']), input, output);
+                exitCode = yield __jymfony.Async.run(getCallableFromArray([ command, 'run' ]), input, output);
             } catch (x) {
                 e = x;
             }
@@ -547,13 +546,13 @@ module.exports = class Application {
      * @protected
      */
     _configureIO(input, output) {
-        if (true === input.hasParameterOption(['--ansi'], true)) {
+        if (true === input.hasParameterOption([ '--ansi' ], true)) {
             output.decorated = true;
-        } else if (true === input.hasParameterOption(['--no-ansi'], true)) {
+        } else if (true === input.hasParameterOption([ '--no-ansi' ], true)) {
             output.decorated = false;
         }
 
-        if (true === input.hasParameterOption(['--no-interaction', '-n'], true)) {
+        if (true === input.hasParameterOption([ '--no-interaction', '-n' ], true)) {
             input.interactive = false;
         } else if (this.helperSet.has('question')) {
             let inputStream = this.helperSet.get('question').inputStream;
@@ -562,13 +561,13 @@ module.exports = class Application {
             }
         }
 
-        if (true === input.hasParameterOption(['--quiet', '-q'], true)) {
+        if (true === input.hasParameterOption([ '--quiet', '-q' ], true)) {
             output.verbosity = OutputInterface.VERBOSITY_QUIET;
             input.interactive = false;
         } else {
-            if (input.hasParameterOption('-vvv', true) || input.hasParameterOption('--verbose=3', true) || input.getParameterOption('--verbose', false, true) === 3) {
+            if (input.hasParameterOption('-vvv', true) || input.hasParameterOption('--verbose=3', true) || 3 === input.getParameterOption('--verbose', false, true)) {
                 output.verbosity = OutputInterface.VERBOSITY_DEBUG;
-            } else if (input.hasParameterOption('-vv', true) || input.hasParameterOption('--verbose=2', true) || input.getParameterOption('--verbose', false, true) === 2) {
+            } else if (input.hasParameterOption('-vv', true) || input.hasParameterOption('--verbose=2', true) || 2 === input.getParameterOption('--verbose', false, true)) {
                 output.verbosity = OutputInterface.VERBOSITY_VERY_VERBOSE;
             } else if (input.hasParameterOption('-v', true) || input.hasParameterOption('--verbose=1', true) || input.hasParameterOption('--verbose', true) || input.getParameterOption('--verbose', false, true)) {
                 output.verbosity = OutputInterface.VERBOSITY_VERBOSE;
@@ -656,9 +655,9 @@ module.exports = class Application {
             let lines = [];
             for (let line of exception.message.split('\r?\n')) {
                 for (line of this._splitStringByWidth(line, width - 4)) {
-                    // pre-format lines to get the right string length
+                    // Pre-format lines to get the right string length
                     let lineLength = formatter.format(line).replace(/\[[^m]*m/g, '').length + 4;
-                    lines.push([line, lineLength]);
+                    lines.push([ line, lineLength ]);
 
                     len = Math.max(lineLength, len);
                 }
@@ -715,8 +714,8 @@ module.exports = class Application {
             collectionParts[item] = item.split(':');
         }
 
-        for (let [i, subname] of __jymfony.getEntries(name.split(':'))) {
-            for (let [collectionName, parts] of __jymfony.getEntries(collectionParts)) {
+        for (let [ i, subname ] of __jymfony.getEntries(name.split(':'))) {
+            for (let [ collectionName, parts ] of __jymfony.getEntries(collectionParts)) {
                 let exists = undefined !== alternatives[collectionName];
                 if (! parts[i] && exists) {
                     alternatives[collectionName] += threshold;
@@ -736,7 +735,7 @@ module.exports = class Application {
 
         for (let item of collection) {
             let lev = __jymfony.levenshtein(name, item);
-            if (lev <= name.length / 3 ||  -1 !== item.indexOf(name)) {
+            if (lev <= name.length / 3 || -1 !== item.indexOf(name)) {
                 alternatives[item] = undefined !== alternatives[item] ? alternatives[item] - lev : lev;
             }
         }
@@ -752,7 +751,7 @@ module.exports = class Application {
      * @return string A formatted string of abbreviated suggestions
      */
     _getAbbreviationSuggestions(abbrevs) {
-        return util.format('%s, %s%s', abbrevs[0], abbrevs[1], abbrevs.length > 2 ? ` and ${abbrevs.length - 2} more` : '');
+        return util.format('%s, %s%s', abbrevs[0], abbrevs[1], 2 < abbrevs.length ? ` and ${abbrevs.length - 2} more` : '');
     }
 
     /**

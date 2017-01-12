@@ -50,7 +50,7 @@ module.exports = class StreamOutput extends Output {
      * @private
      */
     _hasColorSupport() {
-        if (os.platform() === 'win32') {
+        if ('win32' === os.platform()) {
             return (
                 !! process.env['ANSICON'] ||
                 'ON' === process.env['ConEmuANSI'] ||

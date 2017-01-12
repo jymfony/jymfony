@@ -16,7 +16,7 @@ class InputOption {
      * @param {*} defaultValue
      */
     constructor(name, shortcut = undefined, mode = undefined, description = '', defaultValue = undefined) {
-        if (name.indexOf('--') === 0) {
+        if (0 === name.indexOf('--')) {
             name = name.substring(2);
         }
 
@@ -41,7 +41,7 @@ class InputOption {
 
         if (undefined === mode) {
             mode = InputOption.VALUE_NONE;
-        } else if (! isNumber(mode) || mode > 15 || mode < 1) {
+        } else if (! isNumber(mode) || 15 < mode || 1 > mode) {
             throw new InvalidArgumentException(`Option mode "${mode}" is not valid.`);
         }
 

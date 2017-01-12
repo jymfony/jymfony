@@ -145,7 +145,7 @@ global.PriorityQueue = class PriorityQueue extends mix(undefined, GenericCollect
         let l = left(parent);
         let r = right(parent);
 
-        if (r < this._heap.length && this._compare(l, r) < 0) {
+        if (r < this._heap.length && 0 > this._compare(l, r)) {
             return r;
         }
 
@@ -160,7 +160,7 @@ global.PriorityQueue = class PriorityQueue extends mix(undefined, GenericCollect
             // Get the largest leaf to eventually swap with the parent
             leaf = this._getLargestLeaf(parent);
 
-            if (this._compare(parent, leaf) > 0) {
+            if (0 < this._compare(parent, leaf)) {
                 break;
             }
 
@@ -170,10 +170,10 @@ global.PriorityQueue = class PriorityQueue extends mix(undefined, GenericCollect
 
     _siftUp(leaf) {
         let p;
-        for(; leaf > 0; leaf = p) {
+        for(; 0 < leaf; leaf = p) {
             p = parent(leaf);
 
-            if (this._compare(leaf, p) < 0) {
+            if (0 > this._compare(leaf, p)) {
                 break;
             }
 

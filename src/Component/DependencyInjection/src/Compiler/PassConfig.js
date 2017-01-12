@@ -18,8 +18,8 @@ class PassConfig {
                 new Compiler.ResolveInvalidReferencesPass(),
                 new Compiler.AnalyzeServiceReferencesPass(true),
                 new Compiler.CheckCircularReferencesPass(),
-                new Compiler.CheckReferenceValidityPass()
-            ]
+                new Compiler.CheckReferenceValidityPass(),
+            ],
         };
 
         this._optimizationPasses = {};
@@ -34,10 +34,10 @@ class PassConfig {
                     new Compiler.AnalyzeServiceReferencesPass(),
                     new Compiler.InlineServiceDefinitionsPass(),
                     new Compiler.AnalyzeServiceReferencesPass(),
-                    new Compiler.RemoveUnusedDefinitionsPass()
+                    new Compiler.RemoveUnusedDefinitionsPass(),
                 ]),
                 new Compiler.CheckExceptionOnInvalidReferenceBehaviorPass(),
-            ]
+            ],
         };
 
         this._afterRemovingPasses = {};

@@ -19,21 +19,20 @@ module.exports = class Helper extends implementationOf(HelperInterface) {
         return this._helperSet;
     }
 
-    static formatTime(secs)
-    {
+    static formatTime(secs) {
         const timeFormats = [
-            [0, '< 1 sec'],
-            [1, '1 sec'],
-            [2, 'secs', 1],
-            [60, '1 min'],
-            [120, 'mins', 60],
-            [3600, '1 hr'],
-            [7200, 'hrs', 3600],
-            [86400, '1 day'],
-            [172800, 'days', 86400],
+            [ 0, '< 1 sec' ],
+            [ 1, '1 sec' ],
+            [ 2, 'secs', 1 ],
+            [ 60, '1 min' ],
+            [ 120, 'mins', 60 ],
+            [ 3600, '1 hr' ],
+            [ 7200, 'hrs', 3600 ],
+            [ 86400, '1 day' ],
+            [ 172800, 'days', 86400 ],
         ];
 
-        for (let [index, format] of __jymfony.getEntries(timeFormats)) {
+        for (let [ index, format ] of __jymfony.getEntries(timeFormats)) {
             if (secs >= format[0]) {
                 if (timeFormats[index + 1] && secs < timeFormats[index + 1][0]
                     || index == timeFormats.length - 1
@@ -57,7 +56,7 @@ module.exports = class Helper extends implementationOf(HelperInterface) {
             return `${(memory / 1024 / 1024).toFixed(1)} MiB`;
         }
 
-        if (memory >= 1024) {
+        if (1024 <= memory) {
             return `${Math.floor(memory / 1024)} KiB`;
         }
 
@@ -68,10 +67,10 @@ module.exports = class Helper extends implementationOf(HelperInterface) {
         let isDecorated = formatter.decorated;
         formatter.decorated = false;
 
-        // remove <...> formatting
+        // Remove <...> formatting
         string = formatter.format(string);
 
-        // remove already formatted characters
+        // Remove already formatted characters
         string = string.replace(/\x1B\[[^m]*m/g, '');
         formatter.decorated(isDecorated);
     

@@ -27,8 +27,8 @@ module.exports = class ArrayInput extends Input {
      * @inheritDoc
      */
     get firstArgument() {
-        for (let [key, value] of __jymfony.getEntries(this._parameters)) {
-            if (key[0] === '-') {
+        for (let [ key, value ] of __jymfony.getEntries(this._parameters)) {
+            if ('-' === key[0]) {
                 continue;
             }
 
@@ -41,19 +41,19 @@ module.exports = class ArrayInput extends Input {
      */
     hasParameterOption(values, onlyParams = false) {
         if (! isArray(values) || ! isObjectLiteral(values)) {
-            values = [values];
+            values = [ values ];
         }
 
-        for (let [k, v] of __jymfony.getEntries(this._parameters)) {
+        for (let [ k, v ] of __jymfony.getEntries(this._parameters)) {
             if (! isNumber(k)) {
                 v = k;
             }
 
-            if (onlyParams && v === '--') {
+            if (onlyParams && '--' === v) {
                 return false;
             }
 
-            if (Object.values(values).indexOf(v) !== -1) {
+            if (-1 !== Object.values(values).indexOf(v)) {
                 return true;
             }
         }
@@ -66,19 +66,19 @@ module.exports = class ArrayInput extends Input {
      */
     getParameterOption(values, defaultValue = false, onlyParams = false) {
         if (! isArray(values) || ! isObjectLiteral(values)) {
-            values = [values];
+            values = [ values ];
         }
 
-        for (let [k, v] of __jymfony.getEntries(this._parameters)) {
-            if (onlyParams && (k === '--' || (isNumber(k) && v === '--'))) {
+        for (let [ k, v ] of __jymfony.getEntries(this._parameters)) {
+            if (onlyParams && ('--' === k || (isNumber(k) && '--' === v))) {
                 return false;
             }
 
             if (isNumber(k)) {
-                if (Object.values(values).indexOf(v) !== -1) {
+                if (-1 !== Object.values(values).indexOf(v)) {
                     return true;
                 }
-            } else if (Object.values(values).indexOf(k) !== -1) {
+            } else if (-1 !== Object.values(values).indexOf(k)) {
                 return v;
             }
         }
@@ -91,7 +91,7 @@ module.exports = class ArrayInput extends Input {
      */
     toString() {
         let params = [];
-        for (let [param, val] of __jymfony.getEntries(this._parameters)) {
+        for (let [ param, val ] of __jymfony.getEntries(this._parameters)) {
             if (param && '-' === param[0]) {
                 params.push(param + ('' != val ? '=' + this.escapeToken(val) : ''));
             } else {
@@ -106,8 +106,8 @@ module.exports = class ArrayInput extends Input {
      * @inheritDoc
      */
     parse() {
-        for (let [key, value] of __jymfony.getEntries(this._parameters)) {
-            if (key === '--') {
+        for (let [ key, value ] of __jymfony.getEntries(this._parameters)) {
+            if ('--' === key) {
                 return;
             }
 
@@ -150,8 +150,7 @@ module.exports = class ArrayInput extends Input {
      *
      * @private
      */
-    _addLongOption(name, value)
-    {
+    _addLongOption(name, value) {
         if (! this._definition.hasOption(name)) {
             throw new InvalidOptionException(sprintf('The "--%s" option does not exist.', $name));
         }
@@ -179,8 +178,7 @@ module.exports = class ArrayInput extends Input {
      *
      * @private
      */
-    _addArgument(name, value)
-    {
+    _addArgument(name, value) {
         if (! this._definition.hasArgument(name)) {
             throw new InvalidArgumentException(`The "${name}" argument does not exist.`);
         }

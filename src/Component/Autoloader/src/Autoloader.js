@@ -1,8 +1,8 @@
 global.__jymfony = global.__jymfony || {};
 
-const Finder    = require('./Finder');
+const Finder = require('./Finder');
 const Namespace = require('./Namespace');
-const path      = require('path');
+const path = require('path');
 
 /**
  * @memberOf Jymfony.Autoloader

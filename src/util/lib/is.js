@@ -5,11 +5,11 @@ require('./Is/functions');
 
 if (! isFunction(global.isObject)) {
     global.isObject = function (arg) {
-        return !! arg && typeof arg === 'object';
-    }
+        return !! arg && 'object' === typeof arg;
+    };
 }
 
-for(let name of ['Arguments', 'Boolean', 'String', 'Number', 'Date', 'RegExp', 'Error', 'Symbol', 'Map', 'WeakMap', 'Set', 'WeakSet']) {
+for(let name of [ 'Arguments', 'Boolean', 'String', 'Number', 'Date', 'RegExp', 'Error', 'Symbol', 'Map', 'WeakMap', 'Set', 'WeakSet' ]) {
     if (isFunction(global['is' + name])) {
         continue;
     }
@@ -47,6 +47,6 @@ global.isPromise = function (value) {
     return isFunction(value.then);
 };
 
-global.isStream = module.exports = function (stream) {
-    return typeof stream === 'object' && isFunction(stream.pipe);
+global.isStream = function (stream) {
+    return 'object' === typeof stream && isFunction(stream.pipe);
 };

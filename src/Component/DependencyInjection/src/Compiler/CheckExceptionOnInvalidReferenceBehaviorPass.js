@@ -12,7 +12,7 @@ module.exports = class CheckExceptionOnInvalidReferenceBehaviorPass extends impl
     process(container) {
         this._container = container;
 
-        for (let [id, definition] of __jymfony.getEntries(container.getDefinitions())) {
+        for (let [ id, definition ] of __jymfony.getEntries(container.getDefinitions())) {
             this._sourceId = id;
             this._processDefinition(definition);
         }

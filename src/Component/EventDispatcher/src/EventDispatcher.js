@@ -28,7 +28,7 @@ class EventDispatcher {
                     return event;
                 }
 
-                return __jymfony.Async.run(listener, event, eventName, this)
+                return __jymfony.Async.run(listener, event, eventName, this);
             });
         }
 
@@ -95,7 +95,7 @@ class EventDispatcher {
      * @returns {boolean} true if at least one listener is registered, false otherwise
      */
     hasListeners(eventName) {
-        return (!! this.listeners[eventName]) && this.listeners[eventName].length > 0;
+        return (!! this.listeners[eventName]) && 0 < this.listeners[eventName].length;
     }
 
     /**
@@ -133,12 +133,12 @@ class EventDispatcher {
         for (let eventName of Object.keys(events)) {
             let params = events[eventName];
             if (isString(params)) {
-                this.addListener(eventName, [subscriber, params]);
+                this.addListener(eventName, [ subscriber, params ]);
             } else if (isString(params[0])) {
-                this.addListener(eventName, [subscriber, params[0]], params[1] || 0);
+                this.addListener(eventName, [ subscriber, params[0] ], params[1] || 0);
             } else {
                 for (let listener of params) {
-                    this.addListener(eventName, [subscriber, listener[0]], listener[1] || 0);
+                    this.addListener(eventName, [ subscriber, listener[0] ], listener[1] || 0);
                 }
             }
         }
@@ -155,10 +155,10 @@ class EventDispatcher {
             let params = events[eventName];
             if (isArray(params) && isArray(params[0])) {
                 for(let listener of params) {
-                    this.removeListener(eventName, [subscriber, listener[0]]);
+                    this.removeListener(eventName, [ subscriber, listener[0] ]);
                 }
             } else {
-                this.removeListener(eventName, [subscriber, isString(params) ? params : params[0]]);
+                this.removeListener(eventName, [ subscriber, isString(params) ? params : params[0] ]);
             }
         }
     }

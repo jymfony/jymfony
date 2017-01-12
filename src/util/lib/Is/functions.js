@@ -1,5 +1,5 @@
 global.isGenerator = function isGenerator(value) {
-    return value && typeof value.next === 'function' && typeof value.throw === 'function';
+    return value && 'function' === typeof value.next && 'function' === typeof value.throw;
 };
 
 global.isGeneratorFunction = function isGeneratorFunction(value) {
@@ -35,12 +35,12 @@ if (__jymfony.Platform.hasAsyncFunctionSupport()) {
             return false;
         }
 
-        return (constructor.name || constructor.displayName) === 'AsyncFunction';
+        return 'AsyncFunction' === (constructor.name || constructor.displayName);
     };
 } else {
     global.isAsyncFunction = function isAsyncFunction() {
         return false;
-    }
+    };
 }
 
 global.isFunction = function isFunction(obj) {
@@ -56,5 +56,5 @@ global.isFunction = function isFunction(obj) {
         return true;
     }
 
-    return toString.call(obj) === '[object Function]';
+    return '[object Function]' === toString.call(obj);
 };

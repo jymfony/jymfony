@@ -31,7 +31,7 @@ module.exports = class Definition {
      * @returns {Jymfony.DependencyInjection.Definition}
      */
     setFactory(factory) {
-        if (isString(factory) && factory.indexOf('#') !== -1) {
+        if (isString(factory) && -1 !== factory.indexOf('#')) {
             factory = factory.split('#', 2);
         }
 
@@ -65,7 +65,7 @@ module.exports = class Definition {
         if (! id) {
             this._decoratedService = undefined;
         } else {
-            this._decoratedService = [id, renamedId, priority];
+            this._decoratedService = [ id, renamedId, priority ];
         }
 
         return this;
@@ -141,7 +141,7 @@ module.exports = class Definition {
      * @returns {Jymfony.DependencyInjection.Definition}
      */
     replaceArgument(index, argument) {
-        if (index < 0 || index >= this._arguments.length) {
+        if (0 > index || index >= this._arguments.length) {
             throw new InvalidArgumentException('Index is not in the range [0, ' + this._arguments.length.toString() + ']');
         }
 
@@ -167,7 +167,7 @@ module.exports = class Definition {
      * @returns {*}
      */
     getArgument(index) {
-        if (index < 0 || index >= this._arguments.length) {
+        if (0 > index || index >= this._arguments.length) {
             throw new InvalidArgumentException('Index is not in the range [0, ' + this._arguments.length.toString() + ']');
         }
 
@@ -236,10 +236,10 @@ module.exports = class Definition {
      */
     addMethodCall(method, args = []) {
         if (! method) {
-            throw new InvalidArgumentException('Method name cannot be empty')
+            throw new InvalidArgumentException('Method name cannot be empty');
         }
 
-        this._calls.push([method, args]);
+        this._calls.push([ method, args ]);
 
         return this;
     }
@@ -564,7 +564,7 @@ module.exports = class Definition {
      * @returns {Jymfony.DependencyInjection.Definition}
      */
     setConfigurator(configurator) {
-        if (isString(configurator) && configurator.indexOf('#') !== -1) {
+        if (isString(configurator) && -1 !== configurator.indexOf('#')) {
             configurator = configurator.split('#', 2);
         }
 

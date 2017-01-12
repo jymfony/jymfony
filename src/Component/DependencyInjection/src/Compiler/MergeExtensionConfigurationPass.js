@@ -16,7 +16,7 @@ module.exports = class MergeExtensionConfigurationPass extends implementationOf(
             }
         }
 
-        for (let [name, extension] of __jymfony.getEntries(container.getExtensions())) {
+        for (let [ name, extension ] of __jymfony.getEntries(container.getExtensions())) {
             let configs = container.getExtensionConfig(name);
             if (! configs) {
                 continue;

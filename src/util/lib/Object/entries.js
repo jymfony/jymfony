@@ -10,7 +10,7 @@ global.__jymfony = global.__jymfony || {};
 let entries = function * objentries(object) {
     if (isArray(object)) {
         for (let k of object.keys()) {
-            yield [k, object[k]];
+            yield [ k, object[k] ];
         }
 
         return;
@@ -34,7 +34,7 @@ let entries = function * objentries(object) {
             continue;
         }
 
-        yield [key, object[key]];
+        yield [ key, object[key] ];
     }
 };
 

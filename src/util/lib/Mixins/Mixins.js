@@ -64,11 +64,11 @@ class Mixins {
             for (let i of chain) {
                 yield * Object.getOwnPropertyNames(i)
                     .filter(P => {
-                        if (P === 'constructor') {
+                        if ('constructor' === P) {
                             return false;
                         }
 
-                        return typeof i[P] === 'function';
+                        return 'function' === typeof i[P];
                     });
             }
         }());
@@ -89,20 +89,20 @@ class Mixins {
             for (let i of chain) {
                 yield * Object.getOwnPropertyNames(i)
                     .filter(P => {
-                        if (P === '__reflection' || P === 'prototype') {
+                        if ('__reflection' === P || 'prototype' === P) {
                             return false;
                         }
 
-                        if (P === 'arguments' || P === 'caller') {
+                        if ('arguments' === P || 'caller' === P) {
                             // 'caller' and 'arguments' are restricted function properties and cannot be accessed in this context.
                             return false;
                         }
 
-                        if (typeof i[P] === 'function') {
+                        if ('function' === typeof i[P]) {
                             return false;
                         }
 
-                        return FunctionProps.indexOf(P) === -1;
+                        return -1 === FunctionProps.indexOf(P);
                     });
             }
         }());

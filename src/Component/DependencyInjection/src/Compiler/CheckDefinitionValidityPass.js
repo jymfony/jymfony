@@ -6,7 +6,7 @@ const CompilerPassInterface = Jymfony.DependencyInjection.Compiler.CompilerPassI
  */
 module.exports = class CheckDefinitionValidityPass extends implementationOf(CompilerPassInterface) {
     process(container) {
-        for (let [id, definition] of __jymfony.getEntries(container.getDefinitions())) {
+        for (let [ id, definition ] of __jymfony.getEntries(container.getDefinitions())) {
             if (definition.isSynthetic() && ! definition.isPublic()) {
                 throw new RuntimeException(`A synthetic service ("${id}") must be public`);
             }
@@ -19,9 +19,9 @@ module.exports = class CheckDefinitionValidityPass extends implementationOf(Comp
                 );
             }
 
-            for (let [name, tags] of __jymfony.getEntries(definition.getTags())) {
+            for (let [ name, tags ] of __jymfony.getEntries(definition.getTags())) {
                 for (let attributes of tags) {
-                    for (let [attribute, value] of __jymfony.getEntries(attributes)) {
+                    for (let [ attribute, value ] of __jymfony.getEntries(attributes)) {
                         if (! isScalar(value) && !! value) {
                             throw new RuntimeException(`A "tags" attribute must be of a scalar-type for service "${id}", tag "${name}", attribute "${attribute}"`);
                         }

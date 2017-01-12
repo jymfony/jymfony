@@ -17,7 +17,7 @@ let objectMerge = function (...args) {
     let counter = 0;
     let retObj = {};
     for (let arg of args) {
-        for (let [k, v] of __jymfony.getEntries(arg)) {
+        for (let [ k, v ] of __jymfony.getEntries(arg)) {
             if (parseInt(k, 10) + '' === k) {
                 retObj[counter++] = v;
             } else {

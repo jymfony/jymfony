@@ -19,7 +19,7 @@ module.exports = class Output extends implementationOf(OutputInterface) {
      */
     write(messages, newline = false, options = 0) {
         if (! isArray(messages)) {
-            messages = [messages];
+            messages = [ messages ];
         }
 
         let types = OutputInterface.OUTPUT_NORMAL | OutputInterface.OUTPUT_RAW | OutputInterface.OUTPUT_PLAIN;

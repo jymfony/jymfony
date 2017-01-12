@@ -8,7 +8,7 @@ let obj2map = function (obj) {
     }
 
     let result = new Map;
-    for (let [key, value] of __jymfony.getEntries(obj)) {
+    for (let [ key, value ] of __jymfony.getEntries(obj)) {
         result.set(key, obj2map(value));
     }
 

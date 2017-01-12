@@ -22,7 +22,7 @@ module.exports = class ResolveReferencesToAliasesPass extends implementationOf(C
             definition.setFactory(this._processFactory(definition.getFactory()));
         }
 
-        for (let [id, alias] of __jymfony.getEntries(container.getAliases())) {
+        for (let [ id, alias ] of __jymfony.getEntries(container.getAliases())) {
             let aliasId = alias.toString();
             let defId = this._getDefinitionId(aliasId);
 
@@ -33,7 +33,7 @@ module.exports = class ResolveReferencesToAliasesPass extends implementationOf(C
     }
 
     _processArguments(args) {
-        for (let [k, argument] of __jymfony.getEntries(args)) {
+        for (let [ k, argument ] of __jymfony.getEntries(args)) {
             if (isArray(argument)) {
                 args[k] = this._processArguments(argument);
             } else if (argument instanceof Reference) {

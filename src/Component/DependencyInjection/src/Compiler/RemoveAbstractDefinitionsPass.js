@@ -9,7 +9,7 @@ module.exports = class RemoveAbstractDefinitionsPass extends implementationOf(Co
         let compiler = container.getCompiler();
         let formatter = compiler.logFormatter;
 
-        for (let [id, definition] of __jymfony.getEntries(container.getDefinitions())) {
+        for (let [ id, definition ] of __jymfony.getEntries(container.getDefinitions())) {
             if (! definition.isAbstract()) {
                 continue;
             }

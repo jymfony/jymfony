@@ -2,15 +2,15 @@ const Mixins = require('./Mixins/Mixins');
 const Interfaces = require('./Mixins/Interfaces');
 const Traits = require('./Mixins/Traits');
 
-global.getInterface = function (definition) {
+global.getInterface = function getInterface(definition) {
     return Interfaces.create(definition);
 };
 
-global.getTrait = function (definition) {
+global.getTrait = function getTrait(definition) {
     return Traits.create(definition);
 };
 
-global.mix = function (superclass, ...mixins) {
+global.mix = function mix(superclass, ...mixins) {
     superclass = superclass || class {};
     superclass = mixins.reduce((a, b) => b(a), superclass);
 
@@ -40,13 +40,13 @@ global.mix = function (superclass, ...mixins) {
     })(superclass);
 
     Object.defineProperty(mixed, Mixins.appliedInterfacesSymbol, {
-        value: [...interfaces],
-        enumerable: false
+        value: [ ...interfaces ],
+        enumerable: false,
     });
 
     return mixed;
 };
 
-global.implementationOf = function(...interfaces) {
+global.implementationOf = function implementationOf(...interfaces) {
     return global.mix(undefined, ...interfaces);
 };

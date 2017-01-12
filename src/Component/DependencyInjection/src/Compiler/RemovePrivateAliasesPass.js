@@ -9,7 +9,7 @@ module.exports = class RemovePrivateAliasesPass extends implementationOf(Compile
         let compiler = container.getCompiler();
         let formatter = compiler.logFormatter;
 
-        for (let [id, alias] of __jymfony.getEntries(container.getAliases())) {
+        for (let [ id, alias ] of __jymfony.getEntries(container.getAliases())) {
             if (alias.isPublic()) {
                 continue;
             }

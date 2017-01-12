@@ -1,4 +1,3 @@
-/** global: Exception */
 class RuntimeException extends Exception {
 }
 

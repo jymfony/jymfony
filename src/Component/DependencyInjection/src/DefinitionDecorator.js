@@ -113,7 +113,7 @@ module.exports = class DefinitionDecorator extends Definition {
      */
     getArguments() {
         let args = [ ...this._arguments ];
-        for (let [k, v] of this._replacedArguments) {
+        for (let [ k, v ] of this._replacedArguments) {
             if (k >= args.length) {
                 continue;
             }

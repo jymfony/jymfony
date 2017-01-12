@@ -44,7 +44,7 @@ class PropertyAccessor extends implementationOf(PropertyAccessorInterface) {
      * @param {int} length
      */
     _readPropertiesUntil(object, propertyPath, length) {
-        let propertyValues = [object];
+        let propertyValues = [ object ];
 
         for (let i = 0; i < length; i++) {
             let property = propertyPath.getElement(i);
@@ -95,7 +95,7 @@ class PropertyAccessor extends implementationOf(PropertyAccessorInterface) {
         let getter = 'get' + camelized;
         let getsetter = camelized.charAt(0).toLowerCase() + camelized.substring(1);
         let hasser = 'has' + camelized;
-        let isser  = 'is'  + camelized;
+        let isser = 'is' + camelized;
 
         if (reflection.hasMethod(getter)) {
             retVal.type = PropertyAccessor.ACCESS_TYPE_METHOD;
@@ -113,7 +113,7 @@ class PropertyAccessor extends implementationOf(PropertyAccessorInterface) {
             retVal.type = PropertyAccessor.ACCESS_TYPE_PROPERTY;
             retVal.name = property;
         } else {
-            let methods = '"' + [getter, getsetter, hasser, isser].join('()", ') + '()"';
+            let methods = '"' + [ getter, getsetter, hasser, isser ].join('()", ') + '()"';
 
             retVal.type = PropertyAccessor.ACCESS_TYPE_NOT_FOUND;
             retVal.name =
@@ -170,7 +170,7 @@ class PropertyAccessor extends implementationOf(PropertyAccessorInterface) {
             retVal.type = PropertyAccessor.ACCESS_TYPE_PROPERTY;
             retVal.name = property;
         } else {
-            let methods = '"' + [getter, getsetter, hasser, isser].join('()", ') + '()"';
+            let methods = '"' + [ getter, getsetter, hasser, isser ].join('()", ') + '()"';
 
             retVal.type = PropertyAccessor.ACCESS_TYPE_NOT_FOUND;
             retVal.name =

@@ -14,7 +14,7 @@ TheBigReflectionDataCache.data = new Storage();
  */
 global.ReflectionClass = class ReflectionClass {
     constructor(value) {
-        if (typeof value === 'string') {
+        if ('string' === typeof value) {
             let cached = TheBigReflectionDataCache.classes[value];
             if (cached) {
                 value = cached;
@@ -22,11 +22,11 @@ global.ReflectionClass = class ReflectionClass {
                 let parts = value.split('.');
                 value = ReflectionClass._recursiveGet(global, parts);
             }
-        } else if (typeof value === 'object' && undefined !== value.constructor) {
+        } else if ('object' === typeof value && undefined !== value.constructor) {
             value = value.constructor;
         }
 
-        if (typeof value === 'function') {
+        if ('function' === typeof value) {
             if (undefined === value.prototype) {
                 if (value.definition) {
                     // Interface or Trait
@@ -271,9 +271,9 @@ global.ReflectionClass = class ReflectionClass {
                 properties: {
                     all: Object.keys(this._properties),
                     readable: Object.keys(this._readableProperties),
-                    writable: Object.keys(this._writableProperties)
+                    writable: Object.keys(this._writableProperties),
                 },
-            }
+            };
         }
     }
 
@@ -311,20 +311,20 @@ global.ReflectionClass = class ReflectionClass {
         let loadFromPrototype = (proto) => {
             let properties = Object.getOwnPropertyNames(proto);
             for (let name of properties) {
-                if (name === 'constructor') {
+                if ('constructor' === name) {
                     continue;
                 }
 
                 let descriptor = Object.getOwnPropertyDescriptor(proto, name);
-                if (typeof descriptor.value === 'function') {
+                if ('function' === typeof descriptor.value) {
                     this._methods[name] = descriptor.value;
                 } else {
-                    if (typeof descriptor.get === 'function') {
+                    if ('function' === typeof descriptor.get) {
                         this._properties[name] =
                             this._readableProperties[name] = true;
                     }
 
-                    if (typeof descriptor.set === 'function') {
+                    if ('function' === typeof descriptor.set) {
                         this._properties[name] =
                             this._writableProperties[name] = true;
                     }
@@ -333,7 +333,7 @@ global.ReflectionClass = class ReflectionClass {
         };
 
         let parent = this._constructor;
-        let chain = [this._constructor.prototype];
+        let chain = [ this._constructor.prototype ];
         while (parent = Object.getPrototypeOf(parent)) {
             if (parent.prototype) {
                 chain.unshift(parent.prototype);
@@ -353,20 +353,20 @@ global.ReflectionClass = class ReflectionClass {
         while (parent = Object.getPrototypeOf(parent)) {
             let names = Object.getOwnPropertyNames(parent)
                 .filter(P => {
-                    if (P === '__reflection' || P === 'prototype' || P === 'isMixin') {
+                    if ('__reflection' === P || 'prototype' === P || 'isMixin' === P) {
                         return false;
                     }
 
-                    if (P === 'arguments' || P === 'caller') {
+                    if ('arguments' === P || 'caller' === P) {
                         // 'caller' and 'arguments' are restricted function properties and cannot be accessed in this context.
                         return false;
                     }
 
-                    if (typeof parent[P] === 'function') {
+                    if ('function' === typeof parent[P]) {
                         return false;
                     }
 
-                    return FunctionProps.indexOf(P) === -1;
+                    return -1 === FunctionProps.indexOf(P);
                 });
 
             for (let name of names) {

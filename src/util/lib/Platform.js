@@ -11,7 +11,7 @@ class Platform {
             try {
                 let fn;
                 eval('fn = async function () { }');
-                this._asyncSupport = (fn.constructor.name || fn.constructor.displayName) === 'AsyncFunction';
+                this._asyncSupport = 'AsyncFunction' === (fn.constructor.name || fn.constructor.displayName);
             } catch (e) {
                 if (!(e instanceof SyntaxError)) {
                     throw e;

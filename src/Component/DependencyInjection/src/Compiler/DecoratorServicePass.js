@@ -9,17 +9,17 @@ module.exports = class DecoratorServicePass extends implementationOf(CompilerPas
     process(container) {
         let definitions = new PriorityQueue();
 
-        for (let [id, definition] of __jymfony.getEntries(container.getDefinitions())) {
+        for (let [ id, definition ] of __jymfony.getEntries(container.getDefinitions())) {
             let decorated = definition.getDecoratedService();
             if (! decorated) {
                 continue;
             }
 
-            definitions.push([id, definition], decorated[2]);
+            definitions.push([ id, definition ], decorated[2]);
         }
 
-        for (let [id, definition] of definitions) {
-            let [inner, renamedId, priority] = definition.getDecoratedService();
+        for (let [ id, definition ] of definitions) {
+            let [ inner, renamedId, priority ] = definition.getDecoratedService();
             definition.setDecoratedService(undefined);
 
             if (! renamedId) {

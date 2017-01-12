@@ -7,7 +7,7 @@
  * @returns {Boolean}
  */
 let isCallableArray = function (arg) {
-    if (! isArray(arg) || arg.length !== 2) {
+    if (! isArray(arg) || 2 !== arg.length) {
         return false;
     }
 

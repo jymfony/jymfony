@@ -14,7 +14,7 @@ module.exports = class ReplaceAliasByActualDefinitionPass extends implementation
         // First collect all alias targets that need to be replaced
         let seenAliasTargets = {};
         let replacements = {};
-        for (let [definitionId, target] of __jymfony.getEntries(container.getAliases())) {
+        for (let [ definitionId, target ] of __jymfony.getEntries(container.getAliases())) {
             let targetId = target.toString();
 
             // Special case: leave this target alone
@@ -55,7 +55,7 @@ module.exports = class ReplaceAliasByActualDefinitionPass extends implementation
         }
 
         // Now replace target instances in all definitions
-        for (let [definitionId, definition] of __jymfony.getEntries(container.getDefinitions())) {
+        for (let [ definitionId, definition ] of __jymfony.getEntries(container.getDefinitions())) {
             definition.setArguments(this._updateArgumentReferences(replacements, definitionId, definition.getArguments()));
             definition.setMethodCalls(this._updateArgumentReferences(replacements, definitionId, definition.getMethodCalls()));
             definition.setProperties(this._updateArgumentReferences(replacements, definitionId, definition.getProperties()));
@@ -64,7 +64,7 @@ module.exports = class ReplaceAliasByActualDefinitionPass extends implementation
     }
 
     _updateArgumentReferences(replacements, definitionId, args) {
-        for (let [k, argument] of __jymfony.getEntries(args)) {
+        for (let [ k, argument ] of __jymfony.getEntries(args)) {
             // Handle recursion step
             if (isArray(argument) || isObjectLiteral(argument)) {
                 args[k] = this._updateArgumentReferences(replacements, definitionId, argument);

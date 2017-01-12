@@ -11,7 +11,7 @@ module.exports = class RemoveUnusedDefinitionsPass extends implementationOf(Repe
         let graph = compiler.getServiceReferenceGraph();
 
         let hasChanged = false;
-        for (let [id, definition] of __jymfony.getEntries(container.getDefinitions())) {
+        for (let [ id, definition ] of __jymfony.getEntries(container.getDefinitions())) {
             if (definition.isPublic()) {
                 continue;
             }
@@ -31,7 +31,7 @@ module.exports = class RemoveUnusedDefinitionsPass extends implementationOf(Repe
                     }
                 }
 
-                isReferenced = sourceIds.size - referencingAliases.length > 0;
+                isReferenced = 0 < sourceIds.size - referencingAliases.length;
             } else {
                 referencingAliases = [];
                 isReferenced = false;

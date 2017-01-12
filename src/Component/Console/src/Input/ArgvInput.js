@@ -75,11 +75,11 @@ module.exports = class ArgvInput extends Input {
      */
     hasParameterOption(values, onlyParams = false) {
         if (! isArray(values)) {
-            values = [values];
+            values = [ values ];
         }
 
         for (let token of this._tokens) {
-            if (onlyParams && token === '--') {
+            if (onlyParams && '--' === token) {
                 return false;
             }
 
@@ -98,14 +98,14 @@ module.exports = class ArgvInput extends Input {
      */
     getParameterOption(values, defaultValue = false, onlyParams = false) {
         if (! isArray(values)) {
-            values = [values];
+            values = [ values ];
         }
 
         let tokens = [ ...this._tokens ], pos;
 
         while (0 < tokens.length) {
             let token = tokens.shift();
-            if (onlyParams && token === '--') {
+            if (onlyParams && '--' === token) {
                 return false;
             }
 
@@ -136,7 +136,7 @@ module.exports = class ArgvInput extends Input {
                 return match[1] + this.escapeToken(match[2]);
             }
 
-            if (token && token[0] !== '-') {
+            if (token && '-' !== token[0]) {
                 return this.escapeToken(token);
             }
 
@@ -156,17 +156,17 @@ module.exports = class ArgvInput extends Input {
     _parseArgument(token) {
         let c = Object.keys(this._arguments).length;
 
-        // if input is expecting another argument, add it
+        // If input is expecting another argument, add it
         if (this._definition.hasArgument(c)) {
             let arg = this._definition.getArgument(c);
-            this._arguments[arg.getName()] = arg.isArray() ? [token] : token;
+            this._arguments[arg.getName()] = arg.isArray() ? [ token ] : token;
 
-            // if last argument isArray(), append token to last argument
+            // If last argument isArray(), append token to last argument
         } else if (this._definition.hasArgument(c - 1) && this._definition.getArgument(c - 1).isArray()) {
             let arg = this._definition.getArgument(c - 1);
             this._arguments[arg.getName()].push(token);
 
-            // unexpected argument
+            // Unexpected argument
         } else {
             let all = this._definition.getArguments();
             if (all.length) {
@@ -187,7 +187,7 @@ module.exports = class ArgvInput extends Input {
     _parseLongOption(token) {
         let name = token.substr(2), pos;
 
-        if ((pos = name.indexOf('=')) > -1) {
+        if (-1 < (pos = name.indexOf('='))) {
             let value = name.substr(pos + 1);
             if (0 === value.length) {
                 this._parsed.unshift(null);
@@ -226,8 +226,8 @@ module.exports = class ArgvInput extends Input {
         }
 
         if (undefined === value && option.acceptValue() && this._parsed.length) {
-            // if option accepts an optional or mandatory argument
-            // let's see if there is one provided
+            // If option accepts an optional or mandatory argument
+            // Let's see if there is one provided
             let next = this._parsed.shift();
             if (next[0] && '-' !== next[0]) {
                 value = next;
@@ -265,9 +265,9 @@ module.exports = class ArgvInput extends Input {
     _parseShortOption(token) {
         let name = token.substr(1);
 
-        if (name.length > 1) {
+        if (1 < name.length) {
             if (this._definition.hasShortcut(name[0]) && this._definition.getOptionForShortcut(name[0]).acceptValue()) {
-                // an option with a value (with no space)
+                // An option with a value (with no space)
                 this._addShortOption(name[0], name.substr(1));
             } else {
                 this._parseShortOptionSet(name);

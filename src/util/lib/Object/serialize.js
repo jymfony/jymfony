@@ -27,7 +27,7 @@ function serialize(value) {
 
     if (isArray(value)) {
         let vals = [];
-        for (let [k, v] of __jymfony.getEntries(value)) {
+        for (let [ k, v ] of __jymfony.getEntries(value)) {
             vals.push(JSON.stringify(k) + ':' + serialize(v));
         }
 
@@ -36,7 +36,7 @@ function serialize(value) {
 
     if (isObjectLiteral(value)) {
         let vals = [];
-        for (let [k, v] of __jymfony.getEntries(value)) {
+        for (let [ k, v ] of __jymfony.getEntries(value)) {
             vals.push(serialize(k) + ':' + serialize(v));
         }
 
@@ -49,7 +49,7 @@ function serialize(value) {
     }
 
     let vals = [];
-    for (let [k, v] of __jymfony.getEntries(value)) {
+    for (let [ k, v ] of __jymfony.getEntries(value)) {
         vals.push(serialize(k) + ':' + serialize(v));
     }
 
@@ -76,7 +76,7 @@ function unserialize(serialized) {
         while (true) {
             let tmp = readData();
 
-            if (tmp === char || tmp === '') {
+            if (tmp === char || '' === tmp) {
                 return read;
             }
 
@@ -95,39 +95,45 @@ function unserialize(serialized) {
         let type = readData();
         let length, ret;
         switch (type) {
-            case 'N':
+            case 'N': {
                 return null;
+            }
 
-            case 'U':
+            case 'U': {
                 return undefined;
+            }
 
-            case 'B':
+            case 'B': {
                 expect(':');
-                return readData() == '1';
+                return '1' == readData();
+            }
 
-            case 'D':
+            case 'D': {
                 expect('(');
                 length = readUntil(')');
                 expect(':');
 
                 return Number(readData(length));
+            }
 
-            case 'S':
+            case 'S': {
                 expect('(');
                 length = readUntil(')');
                 expect(':');
                 return JSON.parse(readData(length));
+            }
 
-            case 'A':
+            case 'A': {
                 expect('(');
                 length = readUntil(')');
 
-                expect(':'); expect('{');
+                expect(':');
+                expect('{');
 
                 ret = [];
                 ret.length = length;
 
-                while (peek() !== '}') {
+                while ('}' !== peek()) {
                     let key = readUntil(':');
                     ret[key] = doUnserialize();
                     expect(';');
@@ -135,15 +141,17 @@ function unserialize(serialized) {
 
                 readData();
                 return ret;
+            }
 
-            case 'O':
+            case 'O': {
                 expect('(');
                 length = readUntil(')');
 
-                expect(':'); expect('{');
+                expect(':');
+                expect('{');
 
                 ret = {};
-                while (peek() !== '}') {
+                while ('}' !== peek()) {
                     let key = doUnserialize();
                     expect(':');
 
@@ -153,17 +161,19 @@ function unserialize(serialized) {
 
                 readData();
                 return ret;
+            }
 
-            case 'C':
+            case 'C': {
                 expect('[');
                 let class_ = readUntil(']');
 
                 let reflClass = new ReflectionClass(class_);
                 let obj = reflClass.newInstanceWithoutConstructor();
 
-                expect(':'); expect('{');
+                expect(':');
+                expect('{');
 
-                while (peek() !== '}') {
+                while ('}' !== peek()) {
                     let key = doUnserialize();
                     expect(':');
 
@@ -178,6 +188,7 @@ function unserialize(serialized) {
                 }
 
                 return obj;
+            }
         }
     };
 

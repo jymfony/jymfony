@@ -116,14 +116,14 @@ module.exports = class Command {
      * @see execute()
      */
     * run(input, output) {
-        // force the creation of the synopsis before the merge with the app definition
+        // Force the creation of the synopsis before the merge with the app definition
         this.getSynopsis(true);
         this.getSynopsis(false);
 
-        // add the application arguments and options
+        // Add the application arguments and options
         this.mergeApplicationDefinition();
 
-        // bind the input against the command specific arguments/options
+        // Bind the input against the command specific arguments/options
         try {
             input.bind(this._definition);
         } catch (e) {
@@ -132,26 +132,26 @@ module.exports = class Command {
             }
         }
 
-        yield __jymfony.Async.run(getCallableFromArray([this, 'initialize']), input, output);
+        yield __jymfony.Async.run(getCallableFromArray([ this, 'initialize' ]), input, output);
 
         if (undefined !== this._processTitle) {
             process.title = this._processTitle;
         }
 
         if (input.interactive) {
-            yield __jymfony.Async.run(getCallableFromArray([this, 'interact']), input, output);
+            yield __jymfony.Async.run(getCallableFromArray([ this, 'interact' ]), input, output);
         }
 
         // The command name argument is often omitted when a command is executed directly with its run() method.
         // It would fail the validation if we didn't make sure the command argument is present,
-        // since it's required by the application.
+        // Since it's required by the application.
         if (input.hasArgument('command') && undefined === input.getArgument('command')) {
             input.setArgument('command', this.name);
         }
 
         input.validate();
 
-        let statusCode = yield __jymfony.Async.run(getCallableFromArray([this, 'execute']), input, output);
+        let statusCode = yield __jymfony.Async.run(getCallableFromArray([ this, 'execute' ]), input, output);
 
         return Number.isInteger(statusCode) ? statusCode : 0;
     }
@@ -449,7 +449,7 @@ module.exports = class Command {
      * @returns {Jymfony.Console.Command.Command} The current instance
      */
     addUsage(usage) {
-        if (usage.indexOf(this._name) !== 0) {
+        if (0 !== usage.indexOf(this._name)) {
             usage = util.format('%s %s', this._name, usage);
         }
 
