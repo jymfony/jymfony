@@ -126,10 +126,11 @@ module.exports = class Finder {
     }
 
     _normalizePath(parts, fileName) {
+        let joined = this._path.join(...parts, (fileName || ''));
         if ('/' !== this._path.sep) {
-            throw new Error('Verify this on Windows!');
+            return joined;
         }
 
-        return `/${this._path.join(...parts, (fileName || ''))}`;
+        return `/${joined}`;
     }
 };
