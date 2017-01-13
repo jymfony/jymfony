@@ -7,6 +7,22 @@ let expect = require('chai').expect;
 const Finder = require('../src/Finder');
 const path = require('path');
 
+let pathJoin = function () {
+    let joined = undefined;
+    for (let i = 0; i < arguments.length; ++i) {
+        let arg = arguments[i];
+        if (arg.length > 0) {
+            if (joined === undefined) {
+                joined = arg;
+            } else {
+                joined += '/' + arg;
+            }
+        }
+    }
+
+    return joined;
+};
+
 describe('[Autoloader] Finder', function () {
     it('findRoot', function () {
         let module = {
@@ -19,9 +35,9 @@ describe('[Autoloader] Finder', function () {
         };
 
         let mockedPath = {
-            join: path.join,
+            join: pathJoin,
             dirname: path.dirname,
-            normalize: path.normalize,
+            normalize: str => str,
             sep: '/'
         };
 
@@ -52,9 +68,9 @@ describe('[Autoloader] Finder', function () {
         };
 
         let mockedPath = {
-            join: path.join,
+            join: pathJoin,
             dirname: path.dirname,
-            normalize: path.normalize,
+            normalize: str => str,
             sep: '/'
         };
 
@@ -88,9 +104,9 @@ describe('[Autoloader] Finder', function () {
         };
 
         let mockedPath = {
-            join: path.join,
+            join: pathJoin,
             dirname: path.dirname,
-            normalize: path.normalize,
+            normalize: str => str,
             sep: '/'
         };
 
@@ -121,9 +137,9 @@ describe('[Autoloader] Finder', function () {
         };
 
         let mockedPath = {
-            join: path.join,
+            join: pathJoin,
             dirname: path.dirname,
-            normalize: path.normalize,
+            normalize: str => str,
             sep: '/'
         };
 
@@ -181,9 +197,9 @@ describe('[Autoloader] Finder', function () {
         };
 
         let mockedPath = {
-            join: path.join,
+            join: pathJoin,
             dirname: path.dirname,
-            normalize: path.normalize,
+            normalize: str => str,
             sep: '/'
         };
 
@@ -228,9 +244,9 @@ describe('[Autoloader] Finder', function () {
         };
 
         let mockedPath = {
-            join: path.join,
+            join: pathJoin,
             dirname: path.dirname,
-            normalize: path.normalize,
+            normalize: str => str,
             sep: '/'
         };
 
@@ -263,7 +279,7 @@ describe('[Autoloader] Finder', function () {
             },
         };
 
-        let finder = new Finder(fs, { normalize: path.normalize, sep: '/' }, {});
+        let finder = new Finder(fs, { normalize: str => str, sep: '/' }, {});
         let obj = finder.find('/var/node', 'package.json');
 
         expect(obj).to.be.deep.equal({
@@ -290,7 +306,7 @@ describe('[Autoloader] Finder', function () {
             },
         };
 
-        let finder = new Finder(fs, { normalize: path.normalize, sep: '/' }, {});
+        let finder = new Finder(fs, { normalize: str => str, sep: '/' }, {});
         let obj = finder.find('/var/node', 'index');
 
         expect(obj).to.be.deep.equal({
