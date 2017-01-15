@@ -558,13 +558,13 @@ ${this._addReturn(id, definition)}\
             let match;
             if (match = /^%([^%]+)%$/.exec(value)) {
                 return this._dumpParameter(match[1].toLowerCase());
-            } else {
-                let replaceParameters = (match, p1, p2) => {
-                    return "'+" + this._dumpParameter(p2.toLowerCase()) + "+'";
-                };
-
-                return this._export(value).replace(/(%)?(%)([^%]+)\1/g, replaceParameters).replace(/%%/g, '%');
             }
+
+            let replaceParameters = (match, p1, p2) => {
+                return "'+" + this._dumpParameter(p2.toLowerCase()) + "+'";
+            };
+
+            return this._export(value).replace(/(%)?(%)([^%]+)\1/g, replaceParameters).replace(/%%/g, '%');
         } else if (isArray(value) || isObjectLiteral(value)) {
             let code = [];
             for (let [ k, v ] of __jymfony.getEntries(value)) {
@@ -621,9 +621,9 @@ ${this._addReturn(id, definition)}\
             let definition = this._container.getDefinition(id);
             if (definition.isPublic()) {
                 return '(this._services[' + this._dumpValue(id) + '] || this.' + this._generateMethodName(id) + '())';
-            } else {
-                return '(this._privates[' + this._dumpValue(id) + '] || this.' + this._generateMethodName(id) + '())';
             }
+
+            return '(this._privates[' + this._dumpValue(id) + '] || this.' + this._generateMethodName(id) + '())';
         }
 
         if (reference && Container.EXCEPTION_ON_INVALID_REFERENCE !== reference.invalidBehavior) {
