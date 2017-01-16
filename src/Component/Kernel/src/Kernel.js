@@ -6,7 +6,6 @@ const path = require('path');
 
 /**
  * @memberOf Jymfony.Kernel
- * @type {Jymfony.Kernel.Kernel}
  */
 class Kernel {
     /**

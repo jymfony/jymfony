@@ -4,7 +4,6 @@ const ExtensionInterface = Jymfony.DependencyInjection.Extension.ExtensionInterf
 
 /**
  * @memberOf Jymfony.Kernel
- * @type {Jymfony.Kernel.Bundle}
  */
 module.exports = class Bundle extends implementationOf(ContainerAwareTrait) {
     /**

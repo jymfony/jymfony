@@ -6,6 +6,8 @@ global.__jymfony = global.__jymfony || {};
  * Get [Key, Value] pairs for an object
  *
  * @param {Object} object
+ *
+ * @returns {Generator}
  */
 let entries = function * objentries(object) {
     if (isArray(object)) {
