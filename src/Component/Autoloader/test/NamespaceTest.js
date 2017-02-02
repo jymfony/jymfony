@@ -205,7 +205,7 @@ describe('[Autoloader] Namespace', function () {
         expect(func).to.be.a('function');
         expect(func.__reflection).to.have.property('filename').that.equals('/var/node/foo_vendor/FooClass.js');
         expect(func.__reflection).to.have.property('fqcn').that.equals('Foo.FooClass');
-        expect(func.__reflection).to.have.property('constructor').that.equals(func);
+        expect(func.__reflection).to.have.property('constructor');
         expect(func.__reflection).to.have.property('namespace');
     });
 });

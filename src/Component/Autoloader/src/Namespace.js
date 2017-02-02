@@ -166,6 +166,16 @@ module.exports = class Namespace {
             });
         }
 
-        return mod;
+        return new Proxy(mod, {
+            construct: (target, argumentsList, newTarget) => {
+                let obj = Reflect.construct(target, argumentsList, newTarget);
+
+                if (target === newTarget && typeof obj.__construct === 'function') {
+                    obj.__construct(...argumentsList);
+                }
+
+                return obj;
+            }
+        });
     }
 };

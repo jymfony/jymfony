@@ -28,9 +28,6 @@ module.exports = class Input extends implementationOf(InputInterface) {
          */
         this._options = {};
         this._interactive = true;
-
-        // Pass all the arguments to the __construct method (subclasses can have different signature)
-        this.__construct(...arguments);
     }
 
     /**
