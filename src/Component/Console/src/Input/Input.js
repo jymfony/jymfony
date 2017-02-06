@@ -17,13 +17,13 @@ module.exports = class Input extends implementationOf(InputInterface) {
         super();
 
         /**
-         * @type Object.<string, *>
+         * @type {Object.<string, *>}
          * @protected
          */
         this._arguments = {};
 
         /**
-         * @type Object.<string, *>
+         * @type {Object.<string, *>}
          * @protected
          */
         this._options = {};

@@ -208,4 +208,95 @@ describe('[Autoloader] Namespace', function () {
         expect(func.__reflection).to.have.property('constructor');
         expect(func.__reflection).to.have.property('namespace');
     });
+
+    it('calls __construct on new if defined', () => {
+        let finder = {
+            find: (dir, name) => {
+                if (dir === '/var/node/foo_vendor/') {
+                    expect(name).to.be.equal('FooClass');
+                    return {
+                        filename: '/var/node/foo_vendor/FooClass.js',
+                        directory: false
+                    };
+                } else {
+                    throw new Error('Unexpected argument');
+                }
+            }
+        };
+
+        let constructor = class FooClass {
+            __construct(arg) {
+                this.constructCalled = arg;
+            }
+        };
+
+        let req = (module) => {
+            expect(module).to.be.equal('/var/node/foo_vendor/FooClass.js');
+            return constructor;
+        };
+        req.cache = {
+            '/var/node/foo_vendor/FooClass.js': {}
+        };
+        req.resolve = (module) => {
+            return '/var/node/foo_vendor/FooClass.js';
+        };
+
+        let ns = new Namespace({finder: finder}, 'Foo', ['/var/node/foo_vendor/'], req);
+
+        let obj = new ns.FooClass('foobar');
+        expect(obj.constructCalled).to.be.equal('foobar');
+    });
+
+    it('calls __construct on new if defined', () => {
+        let finder = {
+            find: (dir, name) => {
+                if (dir === '/var/node/foo_vendor/') {
+                    if (name === 'FooClass') {
+                        return {
+                            filename: '/var/node/foo_vendor/FooClass.js',
+                            directory: false
+                        };
+                    } else if (name === 'BarClass') {
+                        return {
+                            filename: '/var/node/foo_vendor/BarClass.js',
+                            directory: false
+                        };
+                    }
+                }
+
+                throw new Error('Unexpected argument');
+            }
+        };
+
+        let constructor, superConstructor = class BarClass {
+            __construct(arg) {
+                this.superCalled = arg;
+            }
+        };
+
+        let req = (module) => {
+            if (module === '/var/node/foo_vendor/FooClass.js') {
+                return constructor;
+            } else if (module === '/var/node/foo_vendor/BarClass.js') {
+                return superConstructor;
+            }
+        };
+        req.cache = {
+            '/var/node/foo_vendor/BarClass.js': {},
+            '/var/node/foo_vendor/FooClass.js': {}
+        };
+        req.resolve = (module) => module;
+
+        let ns = new Namespace({finder: finder}, 'Foo', ['/var/node/foo_vendor/'], req);
+
+        constructor = class FooClass extends ns.BarClass {
+            __construct(arg) {
+                this.constructCalled = arg;
+            }
+        };
+
+        let obj = new ns.FooClass('foobar');
+        expect(obj.constructCalled).to.be.equal('foobar');
+        expect(obj.superCalled).to.be.undefined;
+    });
 });

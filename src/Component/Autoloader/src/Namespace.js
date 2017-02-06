@@ -170,7 +170,7 @@ module.exports = class Namespace {
             construct: (target, argumentsList, newTarget) => {
                 let obj = Reflect.construct(target, argumentsList, newTarget);
 
-                if (target === newTarget && typeof obj.__construct === 'function') {
+                if (target.prototype === newTarget.prototype && typeof obj.__construct === 'function') {
                     obj.__construct(...argumentsList);
                 }
 
