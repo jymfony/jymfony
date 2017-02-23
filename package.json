@@ -34,7 +34,8 @@
       },
       "includes": [
         "src/util/index.js",
-        "src/Exceptions/index.js"
+        "src/Exceptions/index.js",
+        "src/Component/DataStructure/index.js"
       ]
     }
   }

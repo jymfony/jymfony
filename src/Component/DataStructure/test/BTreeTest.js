@@ -1,4 +1,4 @@
-require('../../lib/DataStructure/PriorityQueue');
+require('../../../Component/DataStructure/src/PriorityQueue');
 const expect = require('chai').expect;
 
 let fillWithData = t => {
