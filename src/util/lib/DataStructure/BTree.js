@@ -47,7 +47,7 @@ class Node {
 /**
  * BTree
  *
- * @type {BTree}
+ * @type BTree
  */
 global.BTree = class BTree extends mix(undefined, GenericCollectionTrait) {
     /**
@@ -59,7 +59,21 @@ global.BTree = class BTree extends mix(undefined, GenericCollectionTrait) {
      */
     constructor(cmp_function = compare_func) {
         super();
+        this.clear();
 
+        /**
+         * The key compare function.
+         *
+         * @type {Function}
+         * @private
+         */
+        this._cmp_function = cmp_function;
+    }
+
+    /**
+     * Empties the tree.
+     */
+    clear() {
         /**
          * Root node.
          *
@@ -83,14 +97,6 @@ global.BTree = class BTree extends mix(undefined, GenericCollectionTrait) {
          * @private
          */
         this._length = 0;
-
-        /**
-         * The key compare function.
-         *
-         * @type {Function}
-         * @private
-         */
-        this._cmp_function = cmp_function;
     }
 
     /**
@@ -112,9 +118,38 @@ global.BTree = class BTree extends mix(undefined, GenericCollectionTrait) {
     }
 
     /**
+     * Copies the tree.
+     *
+     * @returns {BTree}
+     */
+    copy() {
+        let cloned = new BTree(this._cmp_function);
+        cloned._length = this._length;
+        cloned._height = this._height;
+
+        /**
+         * @param {Node} node
+         */
+        let cloneNode = node => {
+            let cloned = new Node(node.m);
+            cloned.children = [ ...node.children ];
+
+            for (let i = 0; i < cloned.children.length; i++) {
+                let entry = cloned.children[i];
+                cloned.children[i] = new Entry(entry.key, entry.val, entry.next ? cloneNode(entry.next) : undefined);
+            }
+
+            return cloned;
+        };
+
+        cloned._root = cloneNode(this._root);
+        return cloned;
+    }
+
+    /**
      * Search an entry.
      * Returns a key-value pair with the exact key if found or:
-     *  * if comparison is set to COMPARISON_LESS, the nearest lesser key.
+     *  * if comparison is set to COMPARISON_LESSER, the nearest lesser key.
      *  * if comparison is set to COMPARISON_GREATER, the nearest greater key.
      *  * undefined otherwise
      *
@@ -135,7 +170,7 @@ global.BTree = class BTree extends mix(undefined, GenericCollectionTrait) {
                     let compare = this._cmp_function(key, children[j].key);
                     if (compare == 0) {
                         return children[j];
-                    } else if (BTree.COMPARISON_LESS === comparison && compare > 0) {
+                    } else if (BTree.COMPARISON_LESSER === comparison && compare > 0) {
                         nearest = children[j];
                     } else if (BTree.COMPARISON_GREATER === comparison && compare < 0) {
                         return children[j];
@@ -353,5 +388,5 @@ global.BTree = class BTree extends mix(undefined, GenericCollectionTrait) {
 };
 
 BTree.COMPARISON_EQUAL = 0;
-BTree.COMPARISON_LESS = -1;
+BTree.COMPARISON_LESSER = -1;
 BTree.COMPARISON_GREATER = 1;
