@@ -1,0 +1,5732 @@
+{
+    "-2713904241": {
+        "gmt_offset": "-6160",
+        "dst": "0",
+        "abbrev": "LMT"
+    },
+    "-2713904240": {
+        "gmt_offset": "-6872",
+        "dst": "0",
+        "abbrev": "HMT"
+    },
+    "-1830377128": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "-1689548400": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "-1677794400": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "-1667430000": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "-1647730800": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "-1635807600": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "-1616194800": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "-1604358000": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "-1584658800": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "-1572735600": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "-1553036400": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "-1541199600": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "-1521500400": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "-1442444400": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "-1426806000": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "-1379286000": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "-1364770800": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "-1348441200": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "-1333321200": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "-1316386800": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "-1301266800": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "-1284332400": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "-1269817200": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "-1221433200": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "-1206918000": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "-1191193200": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "-1175468400": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "-1127689200": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "-1111964400": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "-1096844400": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "-1080514800": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "-1063580400": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "-1049065200": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "-1033340400": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "-1017615600": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "-1002495600": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "-986166000": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "-969231600": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "-950482800": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "-942015600": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "-922662000": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "-906937200": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "-891126000": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "-877302000": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "-873676800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOMT"
+    },
+    "-864000000": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "-857948400": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "-845852400": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "-842832000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOMT"
+    },
+    "-831340800": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "-825894000": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "-814402800": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "-810777600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOMT"
+    },
+    "-799891200": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "-794444400": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "-782953200": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "-779328000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOMT"
+    },
+    "-768441600": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "-762994800": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "-749084400": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "-733359600": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "-717624000": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "-701899200": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "-686174400": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "-670449600": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "-654724800": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "-639000000": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "-591825600": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "-575496000": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "-559771200": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "-544046400": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "-528321600": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "-512596800": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "-496872000": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "-481147200": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "-465422400": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "-449697600": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "-433972800": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "-417643200": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "-401918400": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "-386193600": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "-370468800": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "-354744000": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "-339019200": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "-323294400": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "-307569600": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "-291844800": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "-276120000": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "-260395200": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "-244670400": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "-228340800": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "-212616000": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "-196891200": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "-181166400": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "-165441600": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "-149716800": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "-133992000": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "-118267200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "228272400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "243997200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "260326800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "276051600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "291776400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "307504800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "323226000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "338954400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "354679200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "370404000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "386128800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "401853600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "417582000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "433303200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "449028000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "465357600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "481082400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "496807200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "512532000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "528256800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "543981600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "559706400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "575431200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "591156000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "606880800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "622605600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "638330400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "654660000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "670384800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "686109600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "701834400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "717559200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "WET"
+    },
+    "733280400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "749005200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "764730000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "780454800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "796179600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "811904400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "828234000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "846378000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "859683600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "877827600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "891133200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "909277200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "922582800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "941331600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "954032400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "972781200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "985482000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "1004230800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "1017536400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "1035680400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "1048986000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "1067130000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "1080435600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "1099184400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "1111885200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "1130634000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "1143334800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "1162083600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "1174784400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "1193533200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "1206838800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "1224982800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "1238288400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "1256432400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "1269738000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "1288486800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "1301187600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "1319936400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "1332637200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "1351386000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "1364691600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "1382835600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "1396141200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "1414285200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "1427590800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "1445734800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "1459040400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "1477789200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "1490490000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "1509238800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "1521939600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "1540688400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "1553994000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "1572138000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "1585443600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "1603587600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "1616893200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "1635642000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "1648342800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "1667091600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "1679792400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "1698541200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "1711846800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "1729990800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "1743296400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "1761440400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "1774746000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "1792890000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "1806195600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "1824944400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "1837645200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "1856394000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "1869094800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "1887843600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "1901149200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "1919293200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "1932598800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "1950742800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "1964048400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "1982797200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "1995498000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "2014246800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "2026947600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "2045696400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "2058397200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "2077146000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "2090451600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "2108595600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "2121901200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "2140045200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "2153350800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "2172099600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "2184800400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "2203549200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "2216250000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "2234998800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "2248304400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "2266448400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "2279754000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "2297898000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "2311203600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "2329347600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "2342653200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "2361402000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "2374102800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "2392851600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "2405552400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "2424301200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "2437606800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "2455750800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "2469056400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "2487200400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "2500506000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "2519254800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "2531955600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "2550704400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "2563405200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "2582154000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "2595459600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "2613603600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "2626909200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "2645053200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "2658358800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "2676502800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "2689808400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "2708557200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "2721258000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "2740006800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "2752707600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "2771456400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "2784762000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "2802906000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "2816211600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "2834355600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "2847661200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "2866410000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "2879110800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "2897859600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "2910560400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "2929309200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "2942010000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "2960758800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "2974064400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "2992208400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "3005514000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "3023658000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "3036963600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "3055712400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "3068413200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "3087162000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "3099862800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "3118611600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "3131917200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "3150061200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "3163366800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "3181510800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "3194816400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "3212960400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "3226266000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "3245014800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "3257715600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "3276464400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "3289165200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "3307914000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "3321219600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "3339363600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "3352669200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "3370813200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "3384118800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "3402867600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "3415568400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "3434317200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "3447018000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "3465766800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "3479072400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "3497216400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "3510522000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "3528666000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "3541971600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "3560115600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "3573421200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "3592170000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "3604870800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "3623619600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "3636320400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "3655069200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "3668374800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "3686518800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "3699824400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "3717968400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "3731274000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "3750022800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "3762723600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "3781472400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "3794173200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "3812922000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "3825622800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "3844371600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "3857677200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "3875821200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "3889126800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "3907270800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "3920576400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "3939325200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "3952026000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "3970774800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "3983475600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "4002224400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "4015530000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "4033674000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "4046979600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "4065123600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "4078429200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "4096573200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "4109878800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "4128627600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "4141328400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "4160077200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "4172778000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "4191526800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "4204227600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "4222976400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "4236282000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "4254426000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "4267731600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "4285875600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "4299181200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "4317930000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "4330630800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "4349379600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "4362080400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "4380829200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "4394134800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "4412278800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "4425584400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "4443728400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "4457034000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "4475178000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "4488483600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "4507232400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "4519933200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "4538682000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "4551382800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "4570131600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "4583437200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "4601581200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "4614886800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "4633030800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "4646336400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "4665085200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "4677786000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "4696534800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "4709235600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "4727984400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "4741290000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "4759434000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "4772739600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "4790883600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "4804189200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "4822333200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "4835638800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "4854387600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "4867088400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "4885837200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "4898538000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "4917286800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "4930592400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "4948736400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "4962042000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "4980186000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "4993491600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "5012240400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "5024941200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "5043690000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "5056390800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "5075139600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "5087840400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "5106589200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "5119894800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "5138038800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "5151344400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "5169488400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "5182794000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "5201542800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "5214243600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "5232992400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "5245693200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "5264442000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "5277747600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "5295891600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "5309197200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "5327341200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "5340646800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "5358790800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "5372096400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "5390845200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "5403546000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "5422294800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "5434995600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "5453744400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "5467050000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "5485194000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "5498499600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "5516643600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "5529949200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "5548698000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "5561398800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "5580147600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "5592848400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "5611597200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "5624902800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "5643046800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "5656352400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "5674496400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "5687802000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "5705946000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "5719251600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "5738000400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "5750701200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "5769450000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "5782150800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "5800899600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "5814205200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "5832349200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "5845654800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "5863798800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "5877104400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "5895853200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "5908554000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "5927302800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "5940003600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "5958752400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "5971453200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "5990202000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "6003507600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "6021651600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "6034957200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "6053101200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "6066406800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "6085155600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "6097856400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "6116605200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "6129306000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "6148054800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "6161360400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "6179504400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "6192810000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "6210954000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "6224259600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "6242403600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "6255709200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "6274458000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "6287158800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "6305907600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "6318608400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "6337357200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "6350662800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "6368806800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "6382112400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "6400256400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "6413562000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "6432310800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "6445011600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "6463760400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "6476461200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "6495210000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "6508515600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "6526659600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "6539965200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "6558109200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "6571414800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "6589558800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "6602864400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "6621613200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "6634314000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "6653062800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "6665763600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "6684512400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "6697818000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "6715962000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "6729267600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "6747411600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "6760717200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "6779466000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "6792166800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "6810915600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "6823616400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "6842365200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "6855066000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "6873814800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "6887120400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "6905264400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "6918570000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "6936714000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "6950019600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "6968768400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "6981469200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "7000218000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "7012918800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "7031667600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "7044973200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "7063117200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "7076422800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "7094566800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "7107872400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "7126016400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "7139322000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "7158070800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "7170771600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "7189520400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "7202221200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "7220970000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "7234275600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "7252419600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "7265725200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "7283869200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "7297174800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "7315318800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "7328624400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "7347373200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "7360074000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "7378822800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "7391523600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "7410272400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "7423578000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "7441722000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "7455027600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "7473171600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "7486477200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "7504621200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "7517926800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "7536675600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "7549376400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "7568125200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "7580826000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "7599574800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "7612880400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "7631024400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "7644330000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "7662474000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "7675779600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "7694528400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "7707229200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "7725978000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "7738678800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "7757427600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "7770733200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "7788877200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "7802182800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "7820326800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "7833632400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "7851776400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "7865082000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "7883830800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "7896531600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "7915280400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "7927981200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "7946730000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "7960035600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "7978179600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "7991485200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "8009629200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "8022934800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "8041683600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "8054384400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "8073133200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "8085834000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "8104582800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "8117283600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "8136032400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "8149338000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "8167482000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "8180787600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "8198931600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "8212237200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "8230986000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "8243686800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "8262435600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "8275136400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "8293885200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "8307190800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "8325334800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "8338640400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "8356784400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "8370090000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "8388234000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "8401539600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "8420288400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "8432989200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "8451738000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "8464438800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "8483187600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "8496493200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "8514637200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "8527942800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "8546086800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "8559392400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "8578141200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "8590842000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "8609590800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "8622291600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "8641040400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "8654346000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "8672490000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "8685795600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "8703939600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "8717245200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "8735389200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "8748694800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "8767443600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "8780144400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "8798893200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "8811594000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "8830342800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "8843648400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "8861792400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "8875098000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "8893242000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "8906547600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "8925296400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "8937997200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "8956746000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "8969446800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "8988195600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "9000896400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "9019645200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "9032950800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "9051094800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "9064400400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "9082544400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "9095850000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "9114598800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "9127299600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "9146048400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "9158749200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "9177498000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "9190803600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "9208947600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "9222253200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "9240397200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "9253702800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "9271846800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "9285152400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "9303901200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "9316602000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "9335350800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "9348051600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "9366800400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "9380106000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "9398250000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "9411555600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "9429699600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "9443005200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "9461754000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "9474454800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "9493203600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "9505904400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "9524653200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "9537958800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "9556102800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "9569408400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "9587552400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "9600858000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "9619002000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "9632307600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "9651056400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "9663757200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "9682506000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "9695206800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "9713955600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "9727261200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "9745405200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "9758710800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "9776854800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "9790160400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "9808909200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "9821610000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "9840358800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "9853059600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "9871808400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "9884509200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "9903258000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "9916563600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "9934707600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "9948013200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "9966157200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "9979462800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "9998211600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "10010912400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "10029661200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "10042362000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "10061110800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "10074416400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "10092560400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "10105866000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "10124010000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "10137315600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "10155459600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "10168765200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "10187514000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "10200214800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "10218963600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "10231664400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "10250413200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "10263718800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "10281862800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "10295168400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "10313312400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "10326618000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "10345366800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "10358067600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "10376816400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "10389517200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "10408266000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "10420966800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "10439715600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "10453021200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "10471165200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "10484470800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "10502614800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "10515920400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "10534064400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "10547370000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "10566118800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "10578819600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "10597568400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "10610269200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "10629018000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "10642323600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "10660467600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "10673773200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "10691917200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "10705222800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "10723971600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "10736672400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "10755421200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "10768122000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "10786870800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "10800176400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "10818320400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "10831626000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "10849770000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "10863075600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "10881219600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "10894525200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "10913274000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "10925974800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "10944723600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "10957424400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "10976173200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "10989478800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "11007622800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "11020928400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "11039072400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "11052378000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "11071126800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "11083827600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "11102576400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "11115277200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "11134026000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "11146726800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "11165475600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "11178781200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "11196925200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "11210230800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "11228374800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "11241680400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "11260429200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "11273130000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "11291878800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "11304579600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "11323328400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "11336634000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "11354778000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "11368083600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "11386227600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "11399533200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "11417677200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "11430982800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "11449731600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "11462432400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "11481181200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "11493882000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "11512630800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "11525936400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "11544080400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "11557386000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "11575530000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "11588835600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "11607584400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "11620285200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "11639034000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "11651734800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "11670483600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "11683789200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "11701933200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "11715238800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "11733382800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "11746688400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "11764832400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "11778138000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "11796886800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "11809587600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "11828336400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "11841037200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "11859786000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "11873091600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "11891235600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "11904541200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "11922685200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "11935990800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "11954739600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "11967440400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "11986189200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "11998890000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "12017638800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "12030339600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "12049088400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "12062394000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "12080538000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "12093843600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "12111987600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "12125293200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "12144042000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "12156742800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "12175491600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "12188192400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "12206941200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "12220246800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "12238390800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "12251696400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "12269840400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "12283146000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "12301290000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "12314595600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "12333344400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "12346045200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "12364794000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "12377494800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "12396243600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "12409549200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "12427693200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "12440998800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "12459142800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "12472448400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "12491197200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "12503898000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "12522646800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "12535347600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "12554096400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "12567402000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "12585546000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "12598851600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "12616995600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "12630301200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "12648445200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "12661750800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "12680499600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "12693200400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "12711949200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "12724650000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "12743398800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "12756704400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "12774848400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "12788154000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "12806298000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "12819603600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "12838352400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "12851053200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "12869802000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "12882502800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "12901251600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "12913952400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "12932701200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "12946006800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "12964150800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "12977456400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "12995600400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "13008906000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "13027654800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "13040355600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "13059104400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "13071805200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "13090554000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "13103859600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "13122003600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "13135309200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "13153453200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "13166758800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "13184902800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "13198208400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "13216957200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "13229658000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "13248406800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "13261107600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "13279856400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "13293162000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "13311306000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "13324611600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "13342755600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "13356061200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "13374810000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "13387510800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "13406259600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "13418960400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "13437709200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "13451014800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "13469158800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "13482464400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "13500608400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "13513914000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "13532058000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "13545363600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "13564112400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "13576813200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "13595562000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "13608262800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "13627011600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "13640317200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "13658461200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "13671766800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "13689910800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "13703216400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "13721965200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "13734666000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "13753414800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "13766115600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "13784864400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "13797565200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "13816314000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "13829619600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "13847763600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "13861069200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "13879213200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "13892518800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "13911267600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "13923968400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "13942717200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "13955418000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "13974166800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "13987472400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "14005616400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "14018922000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "14037066000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "14050371600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "14068515600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "14081821200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "14100570000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "14113270800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "14132019600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "14144720400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "14163469200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "14176774800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "14194918800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "14208224400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "14226368400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "14239674000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "14258422800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "14271123600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "14289872400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "14302573200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "14321322000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "14334627600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "14352771600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "14366077200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "14384221200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "14397526800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "14415670800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "14428976400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "14447725200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "14460426000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "14479174800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "14491875600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "14510624400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "14523930000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "14542074000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "14555379600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "14573523600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "14586829200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "14605578000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "14618278800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "14637027600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "14649728400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "14668477200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "14681178000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "14699926800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "14713232400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "14731376400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "14744682000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "14762826000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "14776131600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "14794880400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "14807581200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "14826330000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "14839030800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "14857779600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "14871085200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "14889229200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "14902534800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "14920678800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "14933984400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "14952128400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "14965434000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "14984182800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "14996883600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "15015632400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "15028333200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "15047082000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "15060387600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "15078531600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "15091837200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "15109981200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "15123286800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "15142035600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "15154736400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "15173485200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "15186186000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "15204934800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "15218240400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "15236384400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "15249690000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "15267834000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "15281139600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "15299283600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "15312589200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "15331338000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "15344038800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "15362787600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "15375488400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "15394237200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "15407542800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "15425686800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "15438992400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "15457136400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "15470442000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "15489190800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "15501891600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "15520640400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "15533341200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "15552090000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "15564790800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "15583539600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "15596845200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "15614989200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "15628294800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "15646438800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "15659744400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "15678493200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "15691194000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "15709942800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "15722643600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "15741392400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "15754698000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "15772842000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "15786147600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "15804291600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "15817597200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "15835741200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "15849046800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "15867795600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "15880496400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "15899245200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "15911946000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "15930694800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "15944000400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "15962144400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "15975450000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "15993594000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "16006899600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "16025648400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "16038349200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "16057098000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "16069798800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "16088547600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "16101853200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "16119997200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "16133302800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "16151446800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "16164752400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "16182896400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "16196202000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "16214950800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "16227651600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "16246400400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "16259101200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "16277850000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "16291155600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "16309299600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "16322605200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "16340749200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "16354054800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "16372803600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "16385504400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "16404253200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "16416954000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "16435702800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "16448403600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "16467152400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "16480458000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "16498602000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "16511907600": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "16530051600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "16543357200": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "16562106000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "16574806800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "16593555600": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "16606256400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "16625005200": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "16638310800": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "16656454800": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "16669760400": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "16687904400": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    },
+    "16701210000": {
+        "gmt_offset": "0",
+        "dst": "1",
+        "abbrev": "AZOST"
+    },
+    "16719354000": {
+        "gmt_offset": "-3600",
+        "dst": "0",
+        "abbrev": "AZOT"
+    }
+}

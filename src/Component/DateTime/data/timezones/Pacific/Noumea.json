@@ -1,0 +1,42 @@
+{
+    "-1829387149": {
+        "gmt_offset": "39948",
+        "dst": "0",
+        "abbrev": "LMT"
+    },
+    "-1829387148": {
+        "gmt_offset": "39600",
+        "dst": "0",
+        "abbrev": "NCT"
+    },
+    "250002000": {
+        "gmt_offset": "43200",
+        "dst": "1",
+        "abbrev": "NCST"
+    },
+    "257342400": {
+        "gmt_offset": "39600",
+        "dst": "0",
+        "abbrev": "NCT"
+    },
+    "281451600": {
+        "gmt_offset": "43200",
+        "dst": "1",
+        "abbrev": "NCST"
+    },
+    "288878400": {
+        "gmt_offset": "39600",
+        "dst": "0",
+        "abbrev": "NCT"
+    },
+    "849366000": {
+        "gmt_offset": "43200",
+        "dst": "1",
+        "abbrev": "NCST"
+    },
+    "857228400": {
+        "gmt_offset": "39600",
+        "dst": "0",
+        "abbrev": "NCT"
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "-2776979813": {
+        "gmt_offset": "-2588",
+        "dst": "0",
+        "abbrev": "LMT"
+    },
+    "-2776979812": {
+        "gmt_offset": "-2588",
+        "dst": "0",
+        "abbrev": "MMT"
+    },
+    "-1604359012": {
+        "gmt_offset": "-2670",
+        "dst": "0",
+        "abbrev": "LRT"
+    },
+    "73529070": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    }
+}

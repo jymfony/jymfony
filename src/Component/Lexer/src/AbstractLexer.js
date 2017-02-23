@@ -1,8 +1,8 @@
-const ValueHolder = Jymfony.Lexer.ValueHolder;
+const ValueHolder = Jymfony.Component.Lexer.ValueHolder;
 const util = require('util');
 
 /**
- * @memberOf Jymfony.Lexer
+ * @memberOf Jymfony.Component.Lexer
  * @type AbstractLexer
  *
  * @abstract
@@ -74,11 +74,11 @@ module.exports = class AbstractLexer {
      */
     moveNext() {
         this._peek = 0;
-        this.token = this.lookahead;
-        this.lookahead = this._tokens[this._position];
+        this.token = this._tokens[this._position];
+        this.lookahead = this._tokens[this._position + 1];
         this._position++;
 
-        return this.lookahead !== undefined;
+        return this.token !== undefined;
     }
 
     /**
@@ -138,12 +138,11 @@ module.exports = class AbstractLexer {
      */
     getLiteral(token) {
         let reflClass = new ReflectionClass(this);
-        let className = reflClass.name;
         let constants = reflClass.constants;
 
         for (let [ name, value ] of __jymfony.getEntries(constants)) {
             if (value === token) {
-                return className + '.' + name;
+                return name;
             }
         }
 
@@ -181,8 +180,15 @@ module.exports = class AbstractLexer {
      * @param {string} input A query string.
      */
     _scan(input) {
-        const regex = new RegExp(util.format(
-            '((?:%s))|%s', this.getCatchablePatterns().join(')|(?:'), this.getNonCatchablePatterns().join('|')
+        let non_catchable = this.getNonCatchablePatterns();
+        if (non_catchable.length) {
+            non_catchable = '|' + non_catchable.join('|');
+        } else {
+            non_catchable = '';
+        }
+
+        let regex = new RegExp(util.format(
+            '((?:%s))%s', this.getCatchablePatterns().join(')|(?:'), non_catchable
         ), 'g' + this.getModifiers());
 
         let match;
@@ -200,6 +206,13 @@ module.exports = class AbstractLexer {
                 position: match.index,
             });
         }
+    }
+
+    /**
+     * Iterates through the tokens
+     */
+    * [Symbol.iterator]() {
+        yield * this._tokens;
     }
 
     /**
@@ -244,8 +257,8 @@ module.exports = class AbstractLexer {
      *
      * @returns {int}
      *
-     * @abstract
      * @protected
+     * @abstract
      */
     getType(holder) {
         throw new Error('You must override getType method');

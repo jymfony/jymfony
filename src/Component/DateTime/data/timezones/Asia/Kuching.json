@@ -1,0 +1,102 @@
+{
+    "-1383463281": {
+        "gmt_offset": "26480",
+        "dst": "0",
+        "abbrev": "LMT"
+    },
+    "-1383463280": {
+        "gmt_offset": "27000",
+        "dst": "0",
+        "abbrev": "BORT"
+    },
+    "-1167636600": {
+        "gmt_offset": "28800",
+        "dst": "0",
+        "abbrev": "BORT"
+    },
+    "-1082448000": {
+        "gmt_offset": "30000",
+        "dst": "1",
+        "abbrev": "BORTST"
+    },
+    "-1074586800": {
+        "gmt_offset": "28800",
+        "dst": "0",
+        "abbrev": "BORT"
+    },
+    "-1050825600": {
+        "gmt_offset": "30000",
+        "dst": "1",
+        "abbrev": "BORTST"
+    },
+    "-1042964400": {
+        "gmt_offset": "28800",
+        "dst": "0",
+        "abbrev": "BORT"
+    },
+    "-1019289600": {
+        "gmt_offset": "30000",
+        "dst": "1",
+        "abbrev": "BORTST"
+    },
+    "-1011428400": {
+        "gmt_offset": "28800",
+        "dst": "0",
+        "abbrev": "BORT"
+    },
+    "-987753600": {
+        "gmt_offset": "30000",
+        "dst": "1",
+        "abbrev": "BORTST"
+    },
+    "-979892400": {
+        "gmt_offset": "28800",
+        "dst": "0",
+        "abbrev": "BORT"
+    },
+    "-956217600": {
+        "gmt_offset": "30000",
+        "dst": "1",
+        "abbrev": "BORTST"
+    },
+    "-948356400": {
+        "gmt_offset": "28800",
+        "dst": "0",
+        "abbrev": "BORT"
+    },
+    "-924595200": {
+        "gmt_offset": "30000",
+        "dst": "1",
+        "abbrev": "BORTST"
+    },
+    "-916734000": {
+        "gmt_offset": "28800",
+        "dst": "0",
+        "abbrev": "BORT"
+    },
+    "-893059200": {
+        "gmt_offset": "30000",
+        "dst": "1",
+        "abbrev": "BORTST"
+    },
+    "-885198000": {
+        "gmt_offset": "28800",
+        "dst": "0",
+        "abbrev": "BORT"
+    },
+    "-879667200": {
+        "gmt_offset": "32400",
+        "dst": "0",
+        "abbrev": "JST"
+    },
+    "-767005200": {
+        "gmt_offset": "28800",
+        "dst": "0",
+        "abbrev": "BORT"
+    },
+    "378662400": {
+        "gmt_offset": "28800",
+        "dst": "0",
+        "abbrev": "MYT"
+    }
+}

@@ -5,4 +5,4 @@
 /**
  * @namespace
  */
-global.Jymfony.Lexer = {};
+Jymfony.Component.Lexer = {};

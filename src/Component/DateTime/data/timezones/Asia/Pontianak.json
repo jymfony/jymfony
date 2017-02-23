@@ -1,0 +1,47 @@
+{
+    "-1946186241": {
+        "gmt_offset": "26240",
+        "dst": "0",
+        "abbrev": "LMT"
+    },
+    "-1946186240": {
+        "gmt_offset": "26240",
+        "dst": "0",
+        "abbrev": "PMT"
+    },
+    "-1172906240": {
+        "gmt_offset": "27000",
+        "dst": "0",
+        "abbrev": "WIB"
+    },
+    "-881220600": {
+        "gmt_offset": "32400",
+        "dst": "0",
+        "abbrev": "JST"
+    },
+    "-766054800": {
+        "gmt_offset": "27000",
+        "dst": "0",
+        "abbrev": "WIB"
+    },
+    "-683883000": {
+        "gmt_offset": "28800",
+        "dst": "0",
+        "abbrev": "WIB"
+    },
+    "-620812800": {
+        "gmt_offset": "27000",
+        "dst": "0",
+        "abbrev": "WIB"
+    },
+    "-189415800": {
+        "gmt_offset": "28800",
+        "dst": "0",
+        "abbrev": "WITA"
+    },
+    "567964800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "WIB"
+    }
+}

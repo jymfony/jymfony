@@ -1,0 +1,47 @@
+{
+    "-2524543301": {
+        "gmt_offset": "21700",
+        "dst": "0",
+        "abbrev": "LMT"
+    },
+    "-2524543300": {
+        "gmt_offset": "21200",
+        "dst": "0",
+        "abbrev": "HMT"
+    },
+    "-891582800": {
+        "gmt_offset": "23400",
+        "dst": "0",
+        "abbrev": "BURT"
+    },
+    "-872058600": {
+        "gmt_offset": "19800",
+        "dst": "0",
+        "abbrev": "IST"
+    },
+    "-862637400": {
+        "gmt_offset": "23400",
+        "dst": "0",
+        "abbrev": "BURT"
+    },
+    "-576138600": {
+        "gmt_offset": "21600",
+        "dst": "0",
+        "abbrev": "DACT"
+    },
+    "38772000": {
+        "gmt_offset": "21600",
+        "dst": "0",
+        "abbrev": "BDT"
+    },
+    "1245430800": {
+        "gmt_offset": "25200",
+        "dst": "1",
+        "abbrev": "BDST"
+    },
+    "1262278800": {
+        "gmt_offset": "21600",
+        "dst": "0",
+        "abbrev": "BDT"
+    }
+}

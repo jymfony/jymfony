@@ -1,0 +1,32 @@
+{
+    "-1988164201": {
+        "gmt_offset": "13800",
+        "dst": "0",
+        "abbrev": "LMT"
+    },
+    "-1988164200": {
+        "gmt_offset": "14400",
+        "dst": "0",
+        "abbrev": "MUT"
+    },
+    "403041600": {
+        "gmt_offset": "18000",
+        "dst": "1",
+        "abbrev": "MUST"
+    },
+    "417034800": {
+        "gmt_offset": "14400",
+        "dst": "0",
+        "abbrev": "MUT"
+    },
+    "1224972000": {
+        "gmt_offset": "18000",
+        "dst": "1",
+        "abbrev": "MUST"
+    },
+    "1238274000": {
+        "gmt_offset": "14400",
+        "dst": "0",
+        "abbrev": "MUT"
+    }
+}

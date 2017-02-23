@@ -1,0 +1,5272 @@
+{
+    "-3192437629": {
+        "gmt_offset": "44028",
+        "dst": "0",
+        "abbrev": "LMT"
+    },
+    "-3192437628": {
+        "gmt_offset": "44100",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "-757426500": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "152632800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "162309600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "183477600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "194968800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "215532000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "226418400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "246981600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "257868000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "278431200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "289317600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "309880800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "320767200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "341330400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "352216800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "372780000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "384271200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "404834400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "415720800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "436284000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "447170400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "467733600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "478620000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "499183200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "510069600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "530632800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "541519200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "562082400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "573573600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "594136800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "605023200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "623772000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "637682400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "655221600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "669132000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "686671200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "700581600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "718120800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "732636000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "749570400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "764085600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "781020000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "795535200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "812469600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "826984800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "844524000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "858434400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "875973600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "889884000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "907423200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "921938400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "938872800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "953388000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "970322400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "984837600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "1002376800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "1016287200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "1033826400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "1047736800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "1065276000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "1079791200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "1096725600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "1111240800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "1128175200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "1142690400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "1159624800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "1174140000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "1191074400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "1207404000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "1222524000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "1238853600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "1253973600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "1270303200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "1285423200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "1301752800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "1316872800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "1333202400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "1348927200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "1365256800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "1380376800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "1396706400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "1411826400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "1428156000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "1443276000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "1459605600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "1474725600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "1491055200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "1506175200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "1522504800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "1538229600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "1554559200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "1569679200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "1586008800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "1601128800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "1617458400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "1632578400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "1648908000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "1664028000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "1680357600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "1695477600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "1712412000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "1727532000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "1743861600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "1758981600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "1775311200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "1790431200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "1806760800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "1821880800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "1838210400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "1853330400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "1869660000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "1885384800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "1901714400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "1916834400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "1933164000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "1948284000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "1964613600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "1979733600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "1996063200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "2011183200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "2027512800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "2042632800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "2058962400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "2074687200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "2091016800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "2106136800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "2122466400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "2137586400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "2153916000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "2169036000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "2185365600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "2200485600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "2216815200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "2232540000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "2248869600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "2263989600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "2280319200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "2295439200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "2311768800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "2326888800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "2343218400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "2358338400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "2374668000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "2389788000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "2406117600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "2421842400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "2438172000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "2453292000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "2469621600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "2484741600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "2501071200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "2516191200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "2532520800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "2547640800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "2563970400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "2579090400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "2596024800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "2611144800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "2627474400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "2642594400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "2658924000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "2674044000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "2690373600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "2705493600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "2721823200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "2736943200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "2753272800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "2768997600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "2785327200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "2800447200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "2816776800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "2831896800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "2848226400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "2863346400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "2879676000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "2894796000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "2911125600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "2926245600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "2942575200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "2958300000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "2974629600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "2989749600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "3006079200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "3021199200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "3037528800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "3052648800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "3068978400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "3084098400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "3100428000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "3116152800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "3132482400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "3147602400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "3163932000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "3179052000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "3195381600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "3210501600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "3226831200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "3241951200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "3258280800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "3273400800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "3289730400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "3305455200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "3321784800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "3336904800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "3353234400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "3368354400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "3384684000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "3399804000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "3416133600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "3431253600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "3447583200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "3462703200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "3479637600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "3494757600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "3511087200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "3526207200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "3542536800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "3557656800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "3573986400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "3589106400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "3605436000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "3620556000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "3636885600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "3652610400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "3668940000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "3684060000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "3700389600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "3715509600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "3731839200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "3746959200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "3763288800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "3778408800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "3794738400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "3809858400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "3826188000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "3841912800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "3858242400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "3873362400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "3889692000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "3904812000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "3921141600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "3936261600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "3952591200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "3967711200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "3984040800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "3999765600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "4016095200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "4031215200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "4047544800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "4062664800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "4078994400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "4094114400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "4110444000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "4125564000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "4141893600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "4157013600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "4173343200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "4188463200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "4204792800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "4220517600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "4236847200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "4251967200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "4268296800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "4283416800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "4299746400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "4314866400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "4331196000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "4346316000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "4362645600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "4378370400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "4394700000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "4409820000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "4426149600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "4441269600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "4457599200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "4472719200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "4489048800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "4504168800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "4520498400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "4535618400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "4551948000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "4567672800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "4584002400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "4599122400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "4615452000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "4630572000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "4646901600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "4662021600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "4678351200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "4693471200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "4709800800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "4724920800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "4741855200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "4756975200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "4773304800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "4788424800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "4804754400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "4819874400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "4836204000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "4851324000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "4867653600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "4882773600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "4899103200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "4914828000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "4931157600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "4946277600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "4962607200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "4977727200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "4994056800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "5009176800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "5025506400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "5040626400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "5056956000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "5072076000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "5088405600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "5104130400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "5120460000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "5135580000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "5151909600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "5167029600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "5183359200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "5198479200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "5214808800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "5229928800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "5246258400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "5261983200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "5278312800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "5293432800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "5309762400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "5324882400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "5341212000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "5356332000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "5372661600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "5387781600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "5404111200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "5419231200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "5435560800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "5451285600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "5467615200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "5482735200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "5499064800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "5514184800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "5530514400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "5545634400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "5561964000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "5577084000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "5593413600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "5608533600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "5625468000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "5640588000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "5656917600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "5672037600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "5688367200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "5703487200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "5719816800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "5734936800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "5751266400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "5766386400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "5782716000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "5798440800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "5814770400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "5829890400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "5846220000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "5861340000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "5877669600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "5892789600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "5909119200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "5924239200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "5940568800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "5955688800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "5972018400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "5987743200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "6004072800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "6019192800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "6035522400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "6050642400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "6066972000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "6082092000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "6098421600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "6113541600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "6129871200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "6145596000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "6161925600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "6177045600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "6193375200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "6208495200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "6224824800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "6239944800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "6256274400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "6271394400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "6287724000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "6302844000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "6319173600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "6334898400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "6351228000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "6366348000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "6382677600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "6397797600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "6414127200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "6429247200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "6445576800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "6460696800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "6477026400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "6492146400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "6509080800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "6524200800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "6540530400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "6555650400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "6571980000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "6587100000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "6603429600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "6618549600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "6634879200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "6649999200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "6666328800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "6682053600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "6698383200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "6713503200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "6729832800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "6744952800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "6761282400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "6776402400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "6792732000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "6807852000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "6824181600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "6839301600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "6855631200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "6871356000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "6887685600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "6902805600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "6919135200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "6934255200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "6950584800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "6965704800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "6982034400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "6997154400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "7013484000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "7029208800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "7045538400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "7060658400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "7076988000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "7092108000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "7108437600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "7123557600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "7139887200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "7155007200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "7171336800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "7186456800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "7202786400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "7218511200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "7234840800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "7249960800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "7266290400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "7281410400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "7297740000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "7312860000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "7329189600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "7344309600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "7360639200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "7375759200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "7392088800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "7407813600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "7424143200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "7439263200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "7455592800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "7470712800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "7487042400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "7502162400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "7518492000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "7533612000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "7549941600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "7565061600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "7581391200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "7597116000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "7613445600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "7628565600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "7644895200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "7660015200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "7676344800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "7691464800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "7707794400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "7722914400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "7739244000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "7754364000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "7771298400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "7786418400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "7802748000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "7817868000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "7834197600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "7849317600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "7865647200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "7880767200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "7897096800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "7912216800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "7928546400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "7944271200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "7960600800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "7975720800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "7992050400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "8007170400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "8023500000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "8038620000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "8054949600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "8070069600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "8086399200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "8101519200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "8117848800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "8133573600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "8149903200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "8165023200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "8181352800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "8196472800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "8212802400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "8227922400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "8244252000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "8259372000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "8275701600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "8291426400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "8307756000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "8322876000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "8339205600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "8354325600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "8370655200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "8385775200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "8402104800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "8417224800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "8433554400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "8448674400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "8465004000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "8480728800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "8497058400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "8512178400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "8528508000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "8543628000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "8559957600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "8575077600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "8591407200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "8606527200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "8622856800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "8637976800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "8654911200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "8670031200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "8686360800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "8701480800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "8717810400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "8732930400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "8749260000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "8764380000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "8780709600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "8795829600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "8812159200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "8827884000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "8844213600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "8859333600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "8875663200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "8890783200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "8907112800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "8922232800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "8938562400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "8953682400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "8970012000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "8985132000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "9001461600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "9017186400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "9033516000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "9048636000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "9064965600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "9080085600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "9096415200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "9111535200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "9127864800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "9142984800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "9159314400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "9175039200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "9191368800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "9206488800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "9222818400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "9237938400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "9254268000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "9269388000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "9285717600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "9300837600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "9317167200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "9332287200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "9348616800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "9364341600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "9380671200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "9395791200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "9412120800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "9427240800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "9443570400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "9458690400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "9475020000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "9490140000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "9506469600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "9521589600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "9538524000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "9553644000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "9569973600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "9585093600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "9601423200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "9616543200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "9632872800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "9647992800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "9664322400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "9679442400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "9695772000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "9711496800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "9727826400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "9742946400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "9759276000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "9774396000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "9790725600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "9805845600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "9822175200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "9837295200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "9853624800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "9868744800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "9885074400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "9900799200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "9917128800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "9932248800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "9948578400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "9963698400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "9980028000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "9995148000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "10011477600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "10026597600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "10042927200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "10058652000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "10074981600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "10090101600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "10106431200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "10121551200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "10137880800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "10153000800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "10169330400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "10184450400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "10200780000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "10215900000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "10232229600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "10247954400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "10264284000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "10279404000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "10295733600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "10310853600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "10327183200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "10342303200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "10358632800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "10373752800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "10390082400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "10405202400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "10421532000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "10437256800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "10453586400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "10468706400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "10485036000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "10500156000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "10516485600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "10531605600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "10547935200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "10563055200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "10579384800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "10594504800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "10610834400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "10626559200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "10642888800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "10658008800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "10674338400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "10689458400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "10705788000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "10720908000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "10737237600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "10752357600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "10768687200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "10783807200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "10800741600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "10815861600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "10832191200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "10847311200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "10863640800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "10878760800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "10895090400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "10910210400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "10926540000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "10941660000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "10957989600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "10973714400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "10990044000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "11005164000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "11021493600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "11036613600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "11052943200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "11068063200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "11084392800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "11099512800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "11115842400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "11130962400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "11147292000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "11163016800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "11179346400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "11194466400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "11210796000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "11225916000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "11242245600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "11257365600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "11273695200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "11288815200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "11305144800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "11320869600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "11337199200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "11352319200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "11368648800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "11383768800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "11400098400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "11415218400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "11431548000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "11446668000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "11462997600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "11478117600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "11494447200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "11510172000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "11526501600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "11541621600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "11557951200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "11573071200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "11589400800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "11604520800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "11620850400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "11635970400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "11652300000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "11667420000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "11684354400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "11699474400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "11715804000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "11730924000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "11747253600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "11762373600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "11778703200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "11793823200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "11810152800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "11825272800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "11841602400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "11857327200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "11873656800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "11888776800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "11905106400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "11920226400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "11936556000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "11951676000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "11968005600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "11983125600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "11999455200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "12014575200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "12030904800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "12046629600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "12062959200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "12078079200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "12094408800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "12109528800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "12125858400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "12140978400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "12157308000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "12172428000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "12188757600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "12204482400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "12220812000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "12235932000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "12252261600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "12267381600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "12283711200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "12298831200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "12315160800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "12330280800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "12346610400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "12361730400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "12378060000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "12393784800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "12410114400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "12425234400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "12441564000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "12456684000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "12473013600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "12488133600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "12504463200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "12519583200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "12535912800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "12551032800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "12567967200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "12583087200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "12599416800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "12614536800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "12630866400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "12645986400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "12662316000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "12677436000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "12693765600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "12708885600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "12725215200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "12740940000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "12757269600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "12772389600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "12788719200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "12803839200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "12820168800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "12835288800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "12851618400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "12866738400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "12883068000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "12898188000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "12914517600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "12930242400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "12946572000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "12961692000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "12978021600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "12993141600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "13009471200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "13024591200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "13040920800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "13056040800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "13072370400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "13088095200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "13104424800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "13119544800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "13135874400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "13150994400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "13167324000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "13182444000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "13198773600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "13213893600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "13230223200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "13245343200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "13261672800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "13277397600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "13293727200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "13308847200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "13325176800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "13340296800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "13356626400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "13371746400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "13388076000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "13403196000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "13419525600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "13434645600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "13451580000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "13466700000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "13483029600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "13498149600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "13514479200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "13529599200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "13545928800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "13561048800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "13577378400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "13592498400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "13608828000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "13624552800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "13640882400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "13656002400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "13672332000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "13687452000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "13703781600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "13718901600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "13735231200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "13750351200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "13766680800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "13781800800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "13798130400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "13813855200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "13830184800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "13845304800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "13861634400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "13876754400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "13893084000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "13908204000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "13924533600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "13939653600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "13955983200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "13971708000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "13988037600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "14003157600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "14019487200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "14034607200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "14050936800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "14066056800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "14082386400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "14097506400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "14113836000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "14128956000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "14145285600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "14161010400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "14177340000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "14192460000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "14208789600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "14223909600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "14240239200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "14255359200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "14271688800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "14286808800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "14303138400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "14318258400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "14335192800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "14350312800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "14366642400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "14381762400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "14398092000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "14413212000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "14429541600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "14444661600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "14460991200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "14476111200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "14492440800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "14508165600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "14524495200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "14539615200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "14555944800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "14571064800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "14587394400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "14602514400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "14618844000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "14633964000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "14650293600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "14665413600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "14681743200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "14697468000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "14713797600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "14728917600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "14745247200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "14760367200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "14776696800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "14791816800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "14808146400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "14823266400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "14839596000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "14855320800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "14871650400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "14886770400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "14903100000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "14918220000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "14934549600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "14949669600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "14965999200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "14981119200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "14997448800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "15012568800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "15028898400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "15044623200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "15060952800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "15076072800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "15092402400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "15107522400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "15123852000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "15138972000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "15155301600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "15170421600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "15186751200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "15201871200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "15218805600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "15233925600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "15250255200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "15265375200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "15281704800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "15296824800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "15313154400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "15328274400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "15344604000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "15359724000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "15376053600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "15391778400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "15408108000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "15423228000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "15439557600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "15454677600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "15471007200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "15486127200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "15502456800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "15517576800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "15533906400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "15549026400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "15565356000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "15581080800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "15597410400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "15612530400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "15628860000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "15643980000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "15660309600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "15675429600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "15691759200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "15706879200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "15723208800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "15738933600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "15755263200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "15770383200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "15786712800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "15801832800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "15818162400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "15833282400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "15849612000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "15864732000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "15881061600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "15896181600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "15912511200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "15928236000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "15944565600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "15959685600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "15976015200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "15991135200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "16007464800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "16022584800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "16038914400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "16054034400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "16070364000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "16085484000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "16102418400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "16117538400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "16133868000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "16148988000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "16165317600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "16180437600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "16196767200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "16211887200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "16228216800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "16243336800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "16259666400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "16275391200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "16291720800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "16306840800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "16323170400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "16338290400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "16354620000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "16369740000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "16386069600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "16401189600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "16417519200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "16432639200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "16448968800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "16464693600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "16481023200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "16496143200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "16512472800": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "16527592800": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "16543922400": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "16559042400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "16575372000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "16590492000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "16606821600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "16622546400": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "16638876000": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "16653996000": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "16670325600": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "16685445600": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    },
+    "16701775200": {
+        "gmt_offset": "45900",
+        "dst": "0",
+        "abbrev": "CHAST"
+    },
+    "16716895200": {
+        "gmt_offset": "49500",
+        "dst": "1",
+        "abbrev": "CHADT"
+    }
+}

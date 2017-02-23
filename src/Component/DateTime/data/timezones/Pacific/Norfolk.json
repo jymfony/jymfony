@@ -1,0 +1,32 @@
+{
+    "-2177493113": {
+        "gmt_offset": "40312",
+        "dst": "0",
+        "abbrev": "LMT"
+    },
+    "-2177493112": {
+        "gmt_offset": "40320",
+        "dst": "0",
+        "abbrev": "NMT"
+    },
+    "-599656320": {
+        "gmt_offset": "41400",
+        "dst": "0",
+        "abbrev": "NFT"
+    },
+    "152029800": {
+        "gmt_offset": "45000",
+        "dst": "1",
+        "abbrev": "NFST"
+    },
+    "162912600": {
+        "gmt_offset": "41400",
+        "dst": "0",
+        "abbrev": "NFT"
+    },
+    "1443882600": {
+        "gmt_offset": "39600",
+        "dst": "0",
+        "abbrev": "NFT"
+    }
+}

@@ -1,0 +1,102 @@
+{
+    "-2337925405": {
+        "gmt_offset": "27804",
+        "dst": "0",
+        "abbrev": "LMT"
+    },
+    "-2337925404": {
+        "gmt_offset": "28800",
+        "dst": "0",
+        "abbrev": "AWST"
+    },
+    "-1672559940": {
+        "gmt_offset": "32400",
+        "dst": "1",
+        "abbrev": "AWDT"
+    },
+    "-1665385200": {
+        "gmt_offset": "28800",
+        "dst": "0",
+        "abbrev": "AWST"
+    },
+    "-883634400": {
+        "gmt_offset": "32400",
+        "dst": "1",
+        "abbrev": "AWDT"
+    },
+    "-876121200": {
+        "gmt_offset": "28800",
+        "dst": "0",
+        "abbrev": "AWST"
+    },
+    "-860392800": {
+        "gmt_offset": "32400",
+        "dst": "1",
+        "abbrev": "AWDT"
+    },
+    "-844671600": {
+        "gmt_offset": "28800",
+        "dst": "0",
+        "abbrev": "AWST"
+    },
+    "152042400": {
+        "gmt_offset": "32400",
+        "dst": "1",
+        "abbrev": "AWDT"
+    },
+    "162928800": {
+        "gmt_offset": "28800",
+        "dst": "0",
+        "abbrev": "AWST"
+    },
+    "436298400": {
+        "gmt_offset": "32400",
+        "dst": "1",
+        "abbrev": "AWDT"
+    },
+    "447184800": {
+        "gmt_offset": "28800",
+        "dst": "0",
+        "abbrev": "AWST"
+    },
+    "690314400": {
+        "gmt_offset": "32400",
+        "dst": "1",
+        "abbrev": "AWDT"
+    },
+    "699386400": {
+        "gmt_offset": "28800",
+        "dst": "0",
+        "abbrev": "AWST"
+    },
+    "1165082400": {
+        "gmt_offset": "32400",
+        "dst": "1",
+        "abbrev": "AWDT"
+    },
+    "1174759200": {
+        "gmt_offset": "28800",
+        "dst": "0",
+        "abbrev": "AWST"
+    },
+    "1193508000": {
+        "gmt_offset": "32400",
+        "dst": "1",
+        "abbrev": "AWDT"
+    },
+    "1206813600": {
+        "gmt_offset": "28800",
+        "dst": "0",
+        "abbrev": "AWST"
+    },
+    "1224957600": {
+        "gmt_offset": "32400",
+        "dst": "1",
+        "abbrev": "AWDT"
+    },
+    "1238263200": {
+        "gmt_offset": "28800",
+        "dst": "0",
+        "abbrev": "AWST"
+    }
+}

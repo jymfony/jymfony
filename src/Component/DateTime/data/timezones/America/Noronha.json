@@ -1,0 +1,202 @@
+{
+    "-1767217821": {
+        "gmt_offset": "-7780",
+        "dst": "0",
+        "abbrev": "LMT"
+    },
+    "-1767217820": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "FNT"
+    },
+    "-1206961200": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "FNST"
+    },
+    "-1191366000": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "FNT"
+    },
+    "-1175378400": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "FNST"
+    },
+    "-1159830000": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "FNT"
+    },
+    "-633823200": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "FNST"
+    },
+    "-622072800": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "FNT"
+    },
+    "-602287200": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "FNST"
+    },
+    "-591836400": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "FNT"
+    },
+    "-570751200": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "FNST"
+    },
+    "-560214000": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "FNT"
+    },
+    "-539128800": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "FNST"
+    },
+    "-531356400": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "FNT"
+    },
+    "-191368800": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "FNST"
+    },
+    "-184201200": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "FNT"
+    },
+    "-155167200": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "FNST"
+    },
+    "-150073200": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "FNT"
+    },
+    "-128901600": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "FNST"
+    },
+    "-121129200": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "FNT"
+    },
+    "-99957600": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "FNST"
+    },
+    "-89593200": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "FNT"
+    },
+    "-68421600": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "FNST"
+    },
+    "-57970800": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "FNT"
+    },
+    "499744800": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "FNST"
+    },
+    "511232400": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "FNT"
+    },
+    "530589600": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "FNST"
+    },
+    "540262800": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "FNT"
+    },
+    "562125600": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "FNST"
+    },
+    "571194000": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "FNT"
+    },
+    "592970400": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "FNST"
+    },
+    "602038800": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "FNT"
+    },
+    "624420000": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "FNST"
+    },
+    "634698000": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "FNT"
+    },
+    "938916000": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "FNST"
+    },
+    "951613200": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "FNT"
+    },
+    "970970400": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "FNST"
+    },
+    "971571600": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "FNT"
+    },
+    "1003024800": {
+        "gmt_offset": "-3600",
+        "dst": "1",
+        "abbrev": "FNST"
+    },
+    "1013907600": {
+        "gmt_offset": "-7200",
+        "dst": "0",
+        "abbrev": "FNT"
+    }
+}

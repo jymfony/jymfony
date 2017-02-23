@@ -1,0 +1,112 @@
+{
+    "-2366790957": {
+        "gmt_offset": "35756",
+        "dst": "0",
+        "abbrev": "LMT"
+    },
+    "-2366790956": {
+        "gmt_offset": "36000",
+        "dst": "0",
+        "abbrev": "AEST"
+    },
+    "-1672567140": {
+        "gmt_offset": "39600",
+        "dst": "1",
+        "abbrev": "AEDT"
+    },
+    "-1665392400": {
+        "gmt_offset": "36000",
+        "dst": "0",
+        "abbrev": "AEST"
+    },
+    "-883641600": {
+        "gmt_offset": "39600",
+        "dst": "1",
+        "abbrev": "AEDT"
+    },
+    "-876128400": {
+        "gmt_offset": "36000",
+        "dst": "0",
+        "abbrev": "AEST"
+    },
+    "-860400000": {
+        "gmt_offset": "39600",
+        "dst": "1",
+        "abbrev": "AEDT"
+    },
+    "-844678800": {
+        "gmt_offset": "36000",
+        "dst": "0",
+        "abbrev": "AEST"
+    },
+    "-828345600": {
+        "gmt_offset": "39600",
+        "dst": "1",
+        "abbrev": "AEDT"
+    },
+    "-813229200": {
+        "gmt_offset": "36000",
+        "dst": "0",
+        "abbrev": "AEST"
+    },
+    "57686400": {
+        "gmt_offset": "39600",
+        "dst": "1",
+        "abbrev": "AEDT"
+    },
+    "67968000": {
+        "gmt_offset": "36000",
+        "dst": "0",
+        "abbrev": "AEST"
+    },
+    "625593600": {
+        "gmt_offset": "39600",
+        "dst": "1",
+        "abbrev": "AEDT"
+    },
+    "636480000": {
+        "gmt_offset": "36000",
+        "dst": "0",
+        "abbrev": "AEST"
+    },
+    "657043200": {
+        "gmt_offset": "39600",
+        "dst": "1",
+        "abbrev": "AEDT"
+    },
+    "667929600": {
+        "gmt_offset": "36000",
+        "dst": "0",
+        "abbrev": "AEST"
+    },
+    "688492800": {
+        "gmt_offset": "39600",
+        "dst": "1",
+        "abbrev": "AEDT"
+    },
+    "699379200": {
+        "gmt_offset": "36000",
+        "dst": "0",
+        "abbrev": "AEST"
+    },
+    "719942400": {
+        "gmt_offset": "39600",
+        "dst": "1",
+        "abbrev": "AEDT"
+    },
+    "731433600": {
+        "gmt_offset": "36000",
+        "dst": "0",
+        "abbrev": "AEST"
+    },
+    "751996800": {
+        "gmt_offset": "39600",
+        "dst": "1",
+        "abbrev": "AEDT"
+    },
+    "762883200": {
+        "gmt_offset": "36000",
+        "dst": "0",
+        "abbrev": "AEST"
+    }
+}

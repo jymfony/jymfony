@@ -1,0 +1,32 @@
+{
+    "-1546279393": {
+        "gmt_offset": "-21408",
+        "dst": "0",
+        "abbrev": "LMT"
+    },
+    "-1546279392": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "CST"
+    },
+    "547020000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "CDT"
+    },
+    "559717200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "CST"
+    },
+    "578469600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "CDT"
+    },
+    "591166800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "CST"
+    }
+}

@@ -1,0 +1,5127 @@
+{
+    "-1704165945": {
+        "gmt_offset": "12344",
+        "dst": "0",
+        "abbrev": "LMT"
+    },
+    "-1704165944": {
+        "gmt_offset": "12344",
+        "dst": "0",
+        "abbrev": "TMT"
+    },
+    "-757394744": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "247177800": {
+        "gmt_offset": "14400",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "259272000": {
+        "gmt_offset": "18000",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "277758000": {
+        "gmt_offset": "14400",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "283982400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "290809800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "306531000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "322432200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "338499000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "673216200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "685481400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "701209800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "717103800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "732745800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "748639800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "764281800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "780175800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "795817800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "811711800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "827353800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "843247800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "858976200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "874870200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "890512200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "906406200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "922048200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "937942200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "953584200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "969478200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "985206600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "1001100600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "1016742600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "1032636600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "1048278600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "1064172600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "1079814600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "1095708600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "1111437000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "1127331000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "1206045000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "1221939000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "1237667400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "1253561400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "1269203400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "1285097400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "1300739400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "1316633400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "1332275400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "1348169400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "1363897800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "1379791800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "1395433800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "1411327800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "1426969800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "1442863800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "1458505800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "1474399800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "1490128200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "1506022200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "1521664200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "1537558200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "1553200200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "1569094200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "1584736200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "1600630200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "1616358600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "1632252600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "1647894600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "1663788600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "1679430600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "1695324600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "1710966600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "1726860600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "1742589000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "1758483000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "1774125000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "1790019000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "1805661000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "1821555000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "1837197000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "1853091000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "1868733000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "1884627000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "1900355400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "1916249400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "1931891400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "1947785400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "1963427400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "1979321400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "1994963400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "2010857400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "2026585800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "2042479800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "2058121800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "2074015800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "2089657800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "2105551800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "2121193800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "2137087800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "2152729800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "2168623800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "2184265800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "2200159800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "2215888200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "2231782200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "2247424200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "2263318200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "2278960200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "2294854200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "2310496200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "2326390200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "2342118600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "2358012600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "2373654600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "2389548600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "2405190600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "2421084600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "2436726600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "2452620600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "2468349000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "2484243000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "2499885000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "2515779000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "2531421000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "2547315000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "2562957000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "2578851000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "2594579400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "2610473400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "2626115400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "2642009400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "2657651400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "2673545400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "2689187400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "2705081400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "2720809800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "2736703800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "2752345800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "2768239800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "2783881800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "2799775800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "2815417800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "2831311800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "2847040200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "2862934200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "2878576200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "2894470200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "2910112200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "2926006200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "2941648200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "2957542200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "2973270600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "2989164600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "3004806600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "3020700600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "3036342600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "3052236600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "3067878600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "3083772600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "3099501000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "3115395000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "3131037000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "3146931000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "3162573000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "3178467000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "3194109000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "3210003000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "3225731400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "3241625400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "3257267400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "3273161400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "3288803400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "3304697400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "3320339400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "3336233400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "3351961800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "3367855800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "3383497800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "3399391800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "3415033800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "3430927800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "3446569800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "3462463800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "3478192200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "3494086200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "3509728200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "3525622200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "3541264200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "3557158200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "3572800200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "3588694200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "3604422600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "3620316600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "3635958600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "3651852600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "3667494600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "3683388600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "3699030600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "3714924600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "3730653000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "3746547000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "3762189000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "3778083000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "3793725000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "3809619000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "3825261000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "3841155000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "3856883400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "3872777400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "3888419400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "3904313400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "3919955400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "3935849400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "3951491400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "3967385400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "3983113800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "3999007800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "4014649800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "4030543800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "4046185800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "4062079800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "4077721800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "4093615800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "4109257800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "4125151800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "4140793800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "4156687800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "4172329800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "4188223800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "4203865800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "4219759800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "4235488200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "4251382200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "4267024200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "4282918200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "4298560200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "4314454200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "4330096200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "4345990200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "4361718600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "4377612600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "4393254600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "4409148600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "4424790600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "4440684600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "4456326600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "4472220600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "4487949000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "4503843000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "4519485000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "4535379000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "4551021000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "4566915000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "4582557000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "4598451000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "4614179400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "4630073400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "4645715400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "4661609400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "4677251400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "4693145400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "4708787400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "4724681400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "4740409800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "4756303800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "4771945800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "4787839800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "4803481800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "4819375800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "4835017800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "4850911800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "4866640200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "4882534200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "4898176200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "4914070200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "4929712200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "4945606200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "4961248200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "4977142200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "4992870600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "5008764600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "5024406600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "5040300600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "5055942600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "5071836600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "5087478600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "5103372600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "5119101000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "5134995000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "5150637000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "5166531000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "5182173000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "5198067000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "5213709000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "5229603000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "5245331400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "5261225400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "5276867400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "5292761400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "5308403400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "5324297400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "5339939400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "5355833400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "5371561800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "5387455800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "5403097800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "5418991800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "5434633800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "5450527800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "5466169800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "5482063800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "5497792200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "5513686200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "5529328200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "5545222200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "5560864200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "5576758200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "5592400200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "5608294200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "5624022600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "5639916600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "5655558600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "5671452600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "5687094600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "5702988600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "5718630600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "5734524600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "5750253000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "5766147000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "5781789000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "5797683000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "5813325000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "5829219000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "5844861000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "5860755000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "5876483400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "5892377400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "5908019400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "5923913400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "5939555400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "5955449400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "5971091400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "5986985400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "6002713800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "6018607800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "6034249800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "6050143800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "6065785800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "6081679800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "6097321800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "6113215800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "6128944200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "6144838200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "6160480200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "6176374200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "6192016200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "6207910200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "6223552200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "6239446200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "6255174600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "6271068600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "6286710600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "6302604600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "6318246600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "6334140600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "6349782600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "6365676600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "6381405000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "6397299000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "6412941000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "6428835000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "6444477000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "6460371000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "6476013000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "6491907000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "6507635400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "6523529400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "6539171400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "6555065400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "6570707400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "6586601400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "6602243400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "6618137400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "6633865800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "6649759800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "6665401800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "6681295800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "6696937800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "6712831800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "6728473800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "6744367800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "6760096200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "6775990200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "6791632200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "6807526200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "6823168200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "6839062200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "6854704200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "6870598200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "6886326600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "6902220600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "6917862600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "6933756600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "6949398600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "6965292600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "6980934600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "6996828600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "7012557000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "7028451000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "7044093000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "7059987000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "7075629000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "7091523000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "7107165000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "7123059000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "7138787400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "7154681400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "7170323400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "7186217400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "7201859400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "7217753400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "7233395400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "7249289400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "7264931400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "7280825400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "7296467400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "7312361400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "7328003400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "7343897400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "7359539400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "7375433400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "7391161800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "7407055800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "7422697800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "7438591800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "7454233800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "7470127800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "7485769800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "7501663800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "7517392200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "7533286200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "7548928200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "7564822200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "7580464200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "7596358200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "7612000200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "7627894200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "7643622600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "7659516600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "7675158600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "7691052600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "7706694600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "7722588600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "7738230600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "7754124600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "7769853000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "7785747000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "7801389000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "7817283000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "7832925000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "7848819000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "7864461000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "7880355000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "7896083400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "7911977400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "7927619400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "7943513400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "7959155400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "7975049400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "7990691400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "8006585400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "8022313800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "8038207800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "8053849800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "8069743800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "8085385800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "8101279800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "8116921800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "8132815800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "8148544200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "8164438200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "8180080200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "8195974200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "8211616200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "8227510200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "8243152200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "8259046200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "8274774600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "8290668600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "8306310600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "8322204600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "8337846600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "8353740600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "8369382600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "8385276600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "8401005000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "8416899000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "8432541000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "8448435000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "8464077000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "8479971000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "8495613000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "8511507000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "8527235400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "8543129400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "8558771400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "8574665400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "8590307400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "8606201400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "8621843400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "8637737400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "8653465800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "8669359800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "8685001800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "8700895800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "8716537800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "8732431800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "8748073800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "8763967800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "8779696200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "8795590200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "8811232200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "8827126200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "8842768200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "8858662200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "8874304200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "8890198200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "8905926600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "8921820600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "8937462600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "8953356600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "8968998600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "8984892600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "9000534600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "9016428600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "9032157000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "9048051000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "9063693000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "9079587000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "9095229000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "9111123000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "9126765000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "9142659000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "9158387400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "9174281400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "9189923400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "9205817400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "9221459400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "9237353400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "9252995400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "9268889400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "9284617800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "9300511800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "9316153800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "9332047800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "9347689800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "9363583800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "9379225800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "9395119800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "9410848200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "9426742200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "9442384200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "9458278200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "9473920200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "9489814200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "9505456200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "9521350200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "9537078600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "9552972600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "9568614600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "9584508600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "9600150600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "9616044600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "9631686600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "9647580600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "9663309000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "9679203000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "9694845000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "9710739000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "9726381000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "9742275000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "9757917000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "9773811000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "9789539400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "9805433400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "9821075400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "9836969400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "9852611400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "9868505400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "9884147400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "9900041400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "9915769800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "9931663800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "9947305800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "9963199800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "9978841800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "9994735800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "10010377800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "10026271800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "10042000200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "10057894200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "10073536200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "10089430200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "10105072200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "10120966200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "10136608200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "10152502200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "10168230600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "10184124600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "10199766600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "10215660600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "10231302600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "10247196600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "10262838600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "10278732600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "10294461000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "10310355000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "10325997000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "10341891000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "10357533000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "10373427000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "10389069000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "10404963000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "10420605000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "10436499000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "10452141000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "10468035000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "10483677000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "10499571000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "10515213000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "10531107000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "10546835400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "10562729400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "10578371400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "10594265400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "10609907400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "10625801400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "10641443400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "10657337400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "10673065800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "10688959800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "10704601800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "10720495800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "10736137800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "10752031800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "10767673800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "10783567800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "10799296200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "10815190200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "10830832200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "10846726200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "10862368200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "10878262200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "10893904200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "10909798200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "10925526600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "10941420600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "10957062600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "10972956600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "10988598600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "11004492600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "11020134600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "11036028600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "11051757000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "11067651000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "11083293000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "11099187000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "11114829000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "11130723000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "11146365000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "11162259000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "11177987400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "11193881400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "11209523400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "11225417400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "11241059400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "11256953400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "11272595400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "11288489400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "11304217800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "11320111800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "11335753800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "11351647800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "11367289800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "11383183800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "11398825800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "11414719800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "11430448200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "11446342200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "11461984200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "11477878200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "11493520200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "11509414200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "11525056200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "11540950200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "11556678600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "11572572600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "11588214600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "11604108600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "11619750600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "11635644600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "11651286600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "11667180600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "11682909000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "11698803000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "11714445000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "11730339000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "11745981000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "11761875000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "11777517000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "11793411000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "11809139400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "11825033400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "11840675400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "11856569400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "11872211400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "11888105400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "11903747400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "11919641400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "11935369800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "11951263800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "11966905800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "11982799800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "11998441800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "12014335800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "12029977800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "12045871800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "12061600200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "12077494200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "12093136200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "12109030200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "12124672200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "12140566200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "12156208200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "12172102200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "12187830600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "12203724600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "12219366600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "12235260600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "12250902600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "12266796600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "12282438600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "12298332600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "12314061000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "12329955000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "12345597000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "12361491000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "12377133000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "12393027000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "12408669000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "12424563000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "12440291400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "12456185400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "12471827400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "12487721400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "12503363400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "12519257400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "12534899400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "12550793400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "12566521800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "12582415800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "12598057800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "12613951800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "12629593800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "12645487800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "12661129800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "12677023800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "12692752200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "12708646200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "12724288200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "12740182200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "12755824200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "12771718200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "12787360200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "12803254200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "12818982600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "12834876600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "12850518600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "12866412600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "12882054600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "12897948600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "12913590600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "12929484600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "12945213000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "12961107000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "12976749000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "12992643000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "13008285000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "13024179000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "13039821000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "13055715000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "13071443400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "13087337400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "13102979400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "13118873400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "13134515400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "13150409400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "13166051400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "13181945400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "13197673800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "13213567800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "13229209800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "13245103800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "13260745800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "13276639800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "13292281800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "13308175800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "13323904200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "13339798200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "13355440200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "13371334200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "13386976200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "13402870200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "13418512200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "13434406200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "13450134600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "13466028600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "13481670600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "13497564600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "13513206600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "13529100600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "13544742600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "13560636600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "13576365000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "13592259000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "13607901000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "13623795000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "13639437000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "13655331000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "13670973000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "13686867000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "13702595400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "13718489400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "13734131400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "13750025400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "13765667400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "13781561400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "13797203400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "13813097400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "13828825800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "13844719800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "13860361800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "13876255800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "13891897800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "13907791800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "13923433800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "13939327800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "13955056200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "13970950200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "13986592200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "14002486200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "14018128200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "14034022200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "14049664200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "14065558200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "14081286600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "14097180600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "14112822600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "14128716600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "14144358600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "14160252600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "14175894600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "14191788600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "14207517000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "14223411000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "14239053000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "14254947000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "14270589000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "14286483000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "14302125000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "14318019000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "14333747400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "14349641400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "14365283400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "14381177400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "14396819400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "14412713400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "14428355400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "14444249400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "14459977800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "14475871800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "14491513800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "14507407800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "14523049800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "14538943800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "14554585800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "14570479800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "14586208200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "14602102200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "14617744200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "14633638200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "14649280200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "14665174200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "14680816200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "14696710200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "14712438600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "14728332600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "14743974600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "14759868600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "14775510600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "14791404600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "14807046600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "14822940600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "14838669000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "14854563000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "14870205000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "14886099000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "14901741000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "14917635000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "14933277000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "14949171000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "14964899400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "14980793400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "14996435400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "15012329400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "15027971400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "15043865400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "15059507400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "15075401400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "15091129800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "15107023800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "15122665800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "15138559800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "15154201800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "15170095800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "15185737800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "15201631800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "15217360200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "15233254200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "15248896200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "15264790200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "15280432200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "15296326200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "15311968200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "15327862200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "15343590600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "15359484600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "15375126600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "15391020600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "15406662600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "15422556600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "15438198600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "15454092600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "15469821000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "15485715000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "15501357000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "15517251000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "15532893000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "15548787000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "15564429000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "15580323000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "15596051400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "15611945400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "15627587400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "15643481400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "15659123400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "15675017400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "15690659400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "15706553400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "15722281800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "15738175800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "15753817800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "15769711800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "15785353800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "15801247800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "15816889800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "15832783800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "15848512200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "15864406200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "15880048200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "15895942200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "15911584200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "15927478200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "15943120200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "15959014200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "15974742600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "15990636600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "16006278600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "16022172600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "16037814600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "16053708600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "16069350600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "16085244600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "16100973000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "16116867000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "16132509000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "16148403000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "16164045000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "16179939000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "16195581000": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "16211475000": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "16227203400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "16243097400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "16258739400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "16274633400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "16290275400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "16306169400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "16321811400": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "16337705400": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "16353433800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "16369327800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "16384969800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "16400863800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "16416505800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "16432399800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "16448041800": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "16463935800": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "16479664200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "16495558200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "16511200200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "16527094200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "16542736200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "16558630200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "16574272200": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "16590166200": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "16605894600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "16621788600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "16637430600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "16653324600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "16668966600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "16684860600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    },
+    "16700502600": {
+        "gmt_offset": "16200",
+        "dst": "1",
+        "abbrev": "IRDT"
+    },
+    "16716396600": {
+        "gmt_offset": "12600",
+        "dst": "0",
+        "abbrev": "IRST"
+    }
+}

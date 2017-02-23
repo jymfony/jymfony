@@ -1,0 +1,27 @@
+{
+    "-1730578041": {
+        "gmt_offset": "-13960",
+        "dst": "0",
+        "abbrev": "LMT"
+    },
+    "-1730578040": {
+        "gmt_offset": "-13500",
+        "dst": "0",
+        "abbrev": "GBGT"
+    },
+    "-113688900": {
+        "gmt_offset": "-13500",
+        "dst": "0",
+        "abbrev": "GYT"
+    },
+    "176010300": {
+        "gmt_offset": "-10800",
+        "dst": "0",
+        "abbrev": "GYT"
+    },
+    "662698800": {
+        "gmt_offset": "-14400",
+        "dst": "0",
+        "abbrev": "GYT"
+    }
+}

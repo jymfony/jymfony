@@ -1,0 +1,5322 @@
+{
+    "-2524495353": {
+        "gmt_offset": "-26248",
+        "dst": "0",
+        "abbrev": "LMT"
+    },
+    "-2524495352": {
+        "gmt_offset": "-26248",
+        "dst": "0",
+        "abbrev": "EMT"
+    },
+    "-1178124152": {
+        "gmt_offset": "-25200",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "-36619200": {
+        "gmt_offset": "-21600",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "-23922000": {
+        "gmt_offset": "-25200",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "-3355200": {
+        "gmt_offset": "-21600",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "7527600": {
+        "gmt_offset": "-25200",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "24465600": {
+        "gmt_offset": "-21600",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "37767600": {
+        "gmt_offset": "-25200",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "55915200": {
+        "gmt_offset": "-21600",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "69217200": {
+        "gmt_offset": "-25200",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "87969600": {
+        "gmt_offset": "-21600",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "100666800": {
+        "gmt_offset": "-25200",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "118209600": {
+        "gmt_offset": "-21600",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "132116400": {
+        "gmt_offset": "-25200",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "150868800": {
+        "gmt_offset": "-21600",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "163566000": {
+        "gmt_offset": "-25200",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "182318400": {
+        "gmt_offset": "-21600",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "195620400": {
+        "gmt_offset": "-25200",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "213768000": {
+        "gmt_offset": "-21600",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "227070000": {
+        "gmt_offset": "-25200",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "245217600": {
+        "gmt_offset": "-21600",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "258519600": {
+        "gmt_offset": "-25200",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "277272000": {
+        "gmt_offset": "-21600",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "289969200": {
+        "gmt_offset": "-25200",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "308721600": {
+        "gmt_offset": "-21600",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "321418800": {
+        "gmt_offset": "-25200",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "340171200": {
+        "gmt_offset": "-21600",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "353473200": {
+        "gmt_offset": "-25200",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "371620800": {
+        "gmt_offset": "-21600",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "384922800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "403070400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "416372400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "434520000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "447822000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "466574400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "479271600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "498024000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "510721200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "529473600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "545194800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "560923200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "574225200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "592372800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "605674800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "624427200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "637124400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "653457600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "668574000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "687326400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "700628400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "718776000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "732078000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "750225600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "763527600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "781675200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "794977200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "813729600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "826426800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "845179200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "859690800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "876628800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "889930800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "906868800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "923194800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "939528000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "952830000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "971582400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "984279600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "1003032000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "1015729200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "1034481600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "1047178800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "1065931200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "1079233200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "1097380800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "1110682800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "1128830400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "1142132400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "1160884800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "1173582000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "1192334400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "1206846000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "1223784000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "1237086000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "1255233600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "1270350000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "1286683200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "1304823600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "1313899200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "1335668400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "1346558400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "1367118000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "1378612800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "1398567600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "1410062400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "1463281200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "1471147200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "1494730800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "1502596800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "1526180400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "1534046400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "1557630000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "1565496000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "1589079600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "1596945600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "1620529200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "1629000000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "1652583600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "1660449600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "1684033200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "1691899200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "1715482800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "1723348800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "1746932400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "1754798400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "1778382000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "1786248000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "1809831600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "1818302400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "1841886000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "1849752000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "1873335600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "1881201600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "1904785200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "1912651200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "1936234800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "1944100800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "1967684400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "1976155200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "1999738800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "2007604800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "2031188400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "2039054400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "2062638000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "2070504000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "2094087600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "2101953600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "2125537200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "2133403200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "2156986800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "2165457600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "2189041200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "2196907200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "2220490800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "2228356800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "2251940400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "2259806400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "2283390000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "2291256000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "2314839600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "2322705600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "2346894000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "2354760000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "2378343600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "2386209600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "2409793200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "2417659200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "2441242800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "2449108800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "2472692400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "2480558400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "2504142000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "2512612800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "2536196400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "2544062400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "2567646000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "2575512000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "2599095600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "2606961600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "2630545200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "2638411200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "2661994800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "2669860800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "2693444400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "2701915200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "2725498800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "2733364800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "2756948400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "2764814400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "2788398000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "2796264000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "2819847600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "2827713600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "2851297200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "2859768000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "2883351600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "2891217600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "2914801200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "2922667200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "2946250800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "2954116800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "2977700400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "2985566400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "3009150000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "3017016000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "3040599600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "3049070400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "3072654000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "3080520000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "3104103600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "3111969600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "3135553200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "3143419200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "3167002800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "3174868800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "3198452400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "3206318400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "3230506800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "3238372800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "3261956400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "3269822400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "3293406000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "3301272000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "3324855600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "3332721600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "3356305200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "3364171200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "3387754800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "3396225600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "3419809200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "3427675200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "3451258800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "3459124800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "3482708400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "3490574400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "3514158000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "3522024000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "3545607600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "3553473600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "3577057200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "3585528000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "3609111600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "3616977600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "3640561200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "3648427200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "3672010800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "3679876800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "3703460400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "3711326400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "3734910000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "3743380800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "3766964400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "3774830400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "3798414000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "3806280000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "3829863600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "3837729600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "3861313200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "3869179200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "3892762800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "3900628800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "3924212400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "3932683200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "3956266800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "3964132800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "3987716400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "3995582400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "4019166000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "4027032000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "4050615600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "4058481600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "4082065200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "4089931200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "4113514800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "4121985600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "4145569200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "4153435200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "4177018800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "4184884800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "4208468400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "4216334400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "4239918000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "4247784000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "4271367600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "4279233600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "4302817200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "4311288000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "4334871600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "4342737600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "4366321200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "4374187200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "4397770800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "4405636800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "4429220400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "4437086400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "4460670000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "4468536000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "4492724400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "4500590400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "4524174000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "4532040000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "4555623600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "4563489600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "4587073200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "4594939200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "4618522800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "4626388800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "4649972400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "4658443200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "4682026800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "4689892800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "4713476400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "4721342400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "4744926000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "4752792000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "4776375600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "4784241600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "4807825200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "4815691200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "4839274800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "4847745600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "4871329200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "4879195200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "4902778800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "4910644800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "4934228400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "4942094400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "4965678000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "4973544000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "4997127600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "5005598400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "5029182000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "5037048000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "5060631600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "5068497600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "5092081200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "5099947200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "5123530800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "5131396800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "5154980400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "5162846400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "5186430000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "5194900800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "5218484400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "5226350400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "5249934000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "5257800000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "5281383600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "5289249600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "5312833200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "5320699200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "5344282800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "5352148800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "5376337200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "5384203200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "5407786800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "5415652800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "5439236400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "5447102400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "5470686000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "5478552000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "5502135600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "5510001600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "5533585200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "5542056000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "5565639600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "5573505600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "5597089200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "5604955200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "5628538800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "5636404800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "5659988400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "5667854400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "5691438000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "5699304000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "5722887600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "5731358400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "5754942000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "5762808000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "5786391600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "5794257600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "5817841200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "5825707200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "5849290800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "5857156800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "5880740400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "5889211200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "5912794800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "5920660800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "5944244400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "5952110400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "5975694000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "5983560000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "6007143600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "6015009600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "6038593200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "6046459200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "6070042800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "6078513600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "6102097200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "6109963200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "6133546800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "6141412800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "6164996400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "6172862400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "6196446000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "6204312000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "6227895600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "6235761600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "6259950000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "6267816000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "6291399600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "6299265600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "6322849200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "6330715200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "6354298800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "6362164800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "6385748400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "6393614400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "6417198000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "6425668800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "6449252400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "6457118400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "6480702000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "6488568000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "6512151600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "6520017600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "6543601200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "6551467200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "6575050800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "6582916800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "6606500400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "6614971200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "6638554800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "6646420800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "6670004400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "6677870400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "6701454000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "6709320000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "6732903600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "6740769600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "6764353200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "6772824000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "6796407600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "6804273600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "6827857200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "6835723200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "6859306800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "6867172800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "6890756400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "6898622400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "6922206000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "6930072000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "6953655600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "6962126400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "6985710000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "6993576000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "7017159600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "7025025600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "7048609200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "7056475200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "7080058800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "7087924800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "7111508400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "7119374400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "7143562800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "7151428800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "7175012400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "7182878400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "7206462000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "7214328000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "7237911600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "7245777600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "7269361200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "7277227200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "7300810800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "7308676800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "7332260400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "7340731200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "7364314800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "7372180800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "7395764400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "7403630400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "7427214000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "7435080000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "7458663600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "7466529600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "7490113200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "7497979200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "7522167600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "7530033600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "7553617200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "7561483200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "7585066800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "7592932800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "7616516400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "7624382400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "7647966000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "7655832000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "7679415600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "7687886400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "7711470000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "7719336000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "7742919600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "7750785600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "7774369200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "7782235200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "7805818800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "7813684800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "7837268400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "7845134400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "7868718000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "7877188800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "7900772400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "7908638400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "7932222000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "7940088000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "7963671600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "7971537600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "7995121200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "8002987200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "8026570800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "8035041600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "8058625200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "8066491200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "8090074800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "8097940800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "8121524400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "8129390400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "8152974000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "8160840000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "8184423600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "8192289600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "8215873200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "8224344000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "8247927600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "8255793600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "8279377200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "8287243200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "8310826800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "8318692800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "8342276400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "8350142400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "8373726000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "8381592000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "8405780400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "8413646400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "8437230000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "8445096000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "8468679600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "8476545600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "8500129200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "8507995200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "8531578800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "8539444800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "8563028400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "8571499200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "8595082800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "8602948800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "8626532400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "8634398400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "8657982000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "8665848000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "8689431600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "8697297600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "8720881200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "8728747200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "8752330800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "8760801600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "8784385200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "8792251200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "8815834800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "8823700800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "8847284400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "8855150400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "8878734000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "8886600000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "8910183600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "8918654400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "8942238000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "8950104000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "8973687600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "8981553600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "9005137200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "9013003200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "9036586800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "9044452800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "9068036400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "9075902400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "9099486000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "9107956800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "9131540400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "9139406400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "9162990000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "9170856000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "9194439600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "9202305600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "9225889200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "9233755200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "9257338800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "9265204800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "9289393200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "9297259200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "9320842800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "9328708800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "9352292400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "9360158400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "9383742000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "9391608000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "9415191600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "9423057600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "9446641200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "9455112000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "9478695600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "9486561600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "9510145200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "9518011200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "9541594800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "9549460800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "9573044400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "9580910400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "9604494000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "9612360000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "9635943600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "9644414400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "9667998000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "9675864000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "9699447600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "9707313600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "9730897200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "9738763200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "9762346800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "9770212800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "9793796400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "9802267200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "9825850800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "9833716800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "9857300400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "9865166400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "9888750000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "9896616000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "9920199600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "9928065600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "9951649200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "9959515200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "9983098800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "9991569600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "10015153200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "10023019200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "10046602800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "10054468800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "10078052400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "10085918400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "10109502000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "10117368000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "10140951600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "10148817600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "10173006000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "10180872000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "10204455600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "10212321600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "10235905200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "10243771200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "10267354800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "10275220800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "10298804400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "10306670400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "10330254000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "10338724800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "10362308400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "10370174400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "10393758000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "10401624000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "10425207600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "10433073600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "10456657200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "10464523200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "10488106800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "10495972800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "10519556400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "10527422400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "10551610800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "10559476800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "10583060400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "10590926400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "10614510000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "10622376000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "10645959600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "10653825600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "10677409200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "10685275200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "10708858800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "10717329600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "10740913200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "10748779200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "10772362800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "10780228800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "10803812400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "10811678400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "10835262000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "10843128000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "10866711600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "10874577600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "10898161200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "10906632000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "10930215600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "10938081600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "10961665200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "10969531200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "10993114800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "11000980800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "11024564400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "11032430400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "11056014000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "11064484800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "11088068400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "11095934400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "11119518000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "11127384000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "11150967600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "11158833600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "11182417200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "11190283200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "11213866800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "11221732800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "11245316400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "11253787200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "11277370800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "11285236800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "11308820400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "11316686400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "11340270000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "11348136000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "11371719600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "11379585600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "11403169200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "11411035200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "11435223600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "11443089600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "11466673200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "11474539200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "11498122800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "11505988800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "11529572400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "11537438400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "11561022000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "11568888000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "11592471600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "11600942400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "11624526000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "11632392000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "11655975600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "11663841600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "11687425200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "11695291200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "11718874800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "11726740800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "11750324400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "11758190400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "11781774000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "11790244800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "11813828400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "11821694400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "11845278000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "11853144000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "11876727600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "11884593600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "11908177200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "11916043200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "11939626800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "11948097600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "11971681200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "11979547200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "12003130800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "12010996800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "12034580400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "12042446400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "12066030000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "12073896000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "12097479600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "12105345600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "12128929200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "12137400000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "12160983600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "12168849600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "12192433200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "12200299200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "12223882800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "12231748800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "12255332400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "12263198400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "12286782000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "12294648000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "12318836400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "12326702400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "12350286000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "12358152000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "12381735600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "12389601600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "12413185200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "12421051200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "12444634800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "12452500800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "12476084400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "12484555200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "12508138800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "12516004800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "12539588400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "12547454400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "12571038000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "12578904000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "12602487600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "12610353600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "12633937200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "12641803200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "12665386800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "12673857600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "12697441200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "12705307200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "12728890800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "12736756800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "12760340400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "12768206400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "12791790000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "12799656000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "12823239600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "12831710400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "12855294000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "12863160000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "12886743600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "12894609600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "12918193200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "12926059200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "12949642800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "12957508800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "12981092400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "12988958400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "13012542000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "13021012800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "13044596400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "13052462400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "13076046000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "13083912000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "13107495600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "13115361600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "13138945200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "13146811200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "13170394800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "13178260800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "13202449200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "13210315200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "13233898800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "13241764800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "13265348400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "13273214400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "13296798000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "13304664000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "13328247600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "13336113600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "13359697200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "13368168000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "13391751600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "13399617600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "13423201200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "13431067200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "13454650800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "13462516800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "13486100400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "13493966400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "13517550000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "13525416000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "13548999600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "13557470400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "13581054000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "13588920000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "13612503600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "13620369600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "13643953200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "13651819200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "13675402800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "13683268800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "13706852400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "13715323200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "13738906800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "13746772800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "13770356400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "13778222400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "13801806000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "13809672000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "13833255600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "13841121600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "13864705200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "13872571200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "13896154800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "13904625600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "13928209200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "13936075200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "13959658800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "13967524800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "13991108400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "13998974400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "14022558000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "14030424000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "14054007600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "14061873600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "14086062000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "14093928000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "14117511600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "14125377600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "14148961200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "14156827200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "14180410800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "14188276800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "14211860400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "14219726400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "14243310000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "14251780800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "14275364400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "14283230400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "14306814000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "14314680000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "14338263600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "14346129600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "14369713200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "14377579200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "14401162800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "14409028800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "14432612400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "14441083200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "14464666800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "14472532800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "14496116400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "14503982400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "14527566000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "14535432000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "14559015600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "14566881600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "14590465200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "14598936000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "14622519600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "14630385600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "14653969200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "14661835200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "14685418800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "14693284800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "14716868400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "14724734400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "14748318000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "14756184000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "14779767600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "14788238400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "14811822000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "14819688000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "14843271600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "14851137600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "14874721200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "14882587200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "14906170800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "14914036800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "14937620400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "14945486400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "14969674800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "14977540800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "15001124400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "15008990400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "15032574000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "15040440000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "15064023600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "15071889600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "15095473200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "15103339200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "15126922800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "15135393600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "15158977200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "15166843200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "15190426800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "15198292800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "15221876400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "15229742400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "15253326000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "15261192000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "15284775600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "15292641600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "15316225200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "15324696000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "15348279600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "15356145600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "15379729200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "15387595200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "15411178800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "15419044800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "15442628400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "15450494400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "15474078000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "15482548800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "15506132400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "15513998400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "15537582000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "15545448000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "15569031600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "15576897600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "15600481200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "15608347200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "15631930800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "15639796800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "15663380400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "15671851200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "15695434800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "15703300800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "15726884400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "15734750400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "15758334000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "15766200000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "15789783600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "15797649600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "15821233200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "15829099200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "15853287600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "15861153600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "15884737200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "15892603200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "15916186800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "15924052800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "15947636400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "15955502400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "15979086000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "15986952000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "16010535600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "16019006400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "16042590000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "16050456000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "16074039600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "16081905600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "16105489200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "16113355200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "16136938800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "16144804800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "16168388400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "16176254400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "16199838000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "16208308800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "16231892400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "16239758400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "16263342000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "16271208000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "16294791600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "16302657600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "16326241200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "16334107200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "16357690800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "16366161600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "16389745200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "16397611200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "16421194800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "16429060800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "16452644400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "16460510400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "16484094000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "16491960000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "16515543600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "16523409600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "16546993200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "16555464000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "16579047600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "16586913600": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "16610497200": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "16618363200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "16641946800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "16649812800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "16673396400": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "16681262400": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    },
+    "16704846000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "EAST"
+    },
+    "16712712000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "EASST"
+    }
+}

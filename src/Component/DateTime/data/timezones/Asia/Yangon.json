@@ -1,0 +1,27 @@
+{
+    "-2840163881": {
+        "gmt_offset": "23080",
+        "dst": "0",
+        "abbrev": "LMT"
+    },
+    "-2840163880": {
+        "gmt_offset": "23080",
+        "dst": "0",
+        "abbrev": "RMT"
+    },
+    "-1577946280": {
+        "gmt_offset": "23400",
+        "dst": "0",
+        "abbrev": "BURT"
+    },
+    "-873268200": {
+        "gmt_offset": "32400",
+        "dst": "0",
+        "abbrev": "JST"
+    },
+    "-778410000": {
+        "gmt_offset": "23400",
+        "dst": "0",
+        "abbrev": "MMT"
+    }
+}

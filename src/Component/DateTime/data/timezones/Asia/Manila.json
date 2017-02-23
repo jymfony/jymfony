@@ -1,0 +1,57 @@
+{
+    "-3944621041": {
+        "gmt_offset": "-57360",
+        "dst": "0",
+        "abbrev": "LMT"
+    },
+    "-3944621040": {
+        "gmt_offset": "29040",
+        "dst": "0",
+        "abbrev": "LMT"
+    },
+    "-2229321840": {
+        "gmt_offset": "28800",
+        "dst": "0",
+        "abbrev": "PHT"
+    },
+    "-1046678400": {
+        "gmt_offset": "32400",
+        "dst": "1",
+        "abbrev": "PHST"
+    },
+    "-1038733200": {
+        "gmt_offset": "28800",
+        "dst": "0",
+        "abbrev": "PHT"
+    },
+    "-873273600": {
+        "gmt_offset": "32400",
+        "dst": "0",
+        "abbrev": "JST"
+    },
+    "-794221200": {
+        "gmt_offset": "28800",
+        "dst": "0",
+        "abbrev": "PHT"
+    },
+    "-496224000": {
+        "gmt_offset": "32400",
+        "dst": "1",
+        "abbrev": "PHST"
+    },
+    "-489315600": {
+        "gmt_offset": "28800",
+        "dst": "0",
+        "abbrev": "PHT"
+    },
+    "259344000": {
+        "gmt_offset": "32400",
+        "dst": "1",
+        "abbrev": "PHST"
+    },
+    "275151600": {
+        "gmt_offset": "28800",
+        "dst": "0",
+        "abbrev": "PHT"
+    }
+}

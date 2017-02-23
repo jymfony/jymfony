@@ -38,7 +38,7 @@ class Node {
         this.m = k;
 
         /**
-         * @type {Array<Entry>}
+         * @type {[Entry]}
          */
         this.children = [];
     }
@@ -206,7 +206,12 @@ global.BTree = class BTree extends mix(undefined, GenericCollectionTrait) {
      * @returns {*}
      */
     get(key) {
-        return this.search(key)[1];
+        let found = this.search(key);
+        if (undefined === found) {
+            return found;
+        }
+
+        return found[1];
     }
 
     /**

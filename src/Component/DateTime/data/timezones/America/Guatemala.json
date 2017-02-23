@@ -1,0 +1,52 @@
+{
+    "-1617040677": {
+        "gmt_offset": "-21724",
+        "dst": "0",
+        "abbrev": "LMT"
+    },
+    "-1617040676": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "CST"
+    },
+    "123055200": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "CDT"
+    },
+    "130914000": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "CST"
+    },
+    "422344800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "CDT"
+    },
+    "433054800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "CST"
+    },
+    "669708000": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "CDT"
+    },
+    "684219600": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "CST"
+    },
+    "1146376800": {
+        "gmt_offset": "-18000",
+        "dst": "1",
+        "abbrev": "CDT"
+    },
+    "1159678800": {
+        "gmt_offset": "-21600",
+        "dst": "0",
+        "abbrev": "CST"
+    }
+}

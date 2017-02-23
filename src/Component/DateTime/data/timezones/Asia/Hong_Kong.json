@@ -1,0 +1,352 @@
+{
+    "-2056693003": {
+        "gmt_offset": "27402",
+        "dst": "0",
+        "abbrev": "LMT"
+    },
+    "-2056693002": {
+        "gmt_offset": "28800",
+        "dst": "0",
+        "abbrev": "HKT"
+    },
+    "-907389000": {
+        "gmt_offset": "32400",
+        "dst": "1",
+        "abbrev": "HKST"
+    },
+    "-891667800": {
+        "gmt_offset": "28800",
+        "dst": "0",
+        "abbrev": "HKT"
+    },
+    "-884246400": {
+        "gmt_offset": "32400",
+        "dst": "0",
+        "abbrev": "JST"
+    },
+    "-766746000": {
+        "gmt_offset": "28800",
+        "dst": "0",
+        "abbrev": "HKT"
+    },
+    "-747981000": {
+        "gmt_offset": "32400",
+        "dst": "1",
+        "abbrev": "HKST"
+    },
+    "-728544600": {
+        "gmt_offset": "28800",
+        "dst": "0",
+        "abbrev": "HKT"
+    },
+    "-717049800": {
+        "gmt_offset": "32400",
+        "dst": "1",
+        "abbrev": "HKST"
+    },
+    "-694503000": {
+        "gmt_offset": "28800",
+        "dst": "0",
+        "abbrev": "HKT"
+    },
+    "-683785800": {
+        "gmt_offset": "32400",
+        "dst": "1",
+        "abbrev": "HKST"
+    },
+    "-668064600": {
+        "gmt_offset": "28800",
+        "dst": "0",
+        "abbrev": "HKT"
+    },
+    "-654755400": {
+        "gmt_offset": "32400",
+        "dst": "1",
+        "abbrev": "HKST"
+    },
+    "-636615000": {
+        "gmt_offset": "28800",
+        "dst": "0",
+        "abbrev": "HKT"
+    },
+    "-623305800": {
+        "gmt_offset": "32400",
+        "dst": "1",
+        "abbrev": "HKST"
+    },
+    "-605165400": {
+        "gmt_offset": "28800",
+        "dst": "0",
+        "abbrev": "HKT"
+    },
+    "-591856200": {
+        "gmt_offset": "32400",
+        "dst": "1",
+        "abbrev": "HKST"
+    },
+    "-573715800": {
+        "gmt_offset": "28800",
+        "dst": "0",
+        "abbrev": "HKT"
+    },
+    "-559801800": {
+        "gmt_offset": "32400",
+        "dst": "1",
+        "abbrev": "HKST"
+    },
+    "-542352600": {
+        "gmt_offset": "28800",
+        "dst": "0",
+        "abbrev": "HKT"
+    },
+    "-528352200": {
+        "gmt_offset": "32400",
+        "dst": "1",
+        "abbrev": "HKST"
+    },
+    "-510211800": {
+        "gmt_offset": "28800",
+        "dst": "0",
+        "abbrev": "HKT"
+    },
+    "-498112200": {
+        "gmt_offset": "32400",
+        "dst": "1",
+        "abbrev": "HKST"
+    },
+    "-478762200": {
+        "gmt_offset": "28800",
+        "dst": "0",
+        "abbrev": "HKT"
+    },
+    "-466662600": {
+        "gmt_offset": "32400",
+        "dst": "1",
+        "abbrev": "HKST"
+    },
+    "-446707800": {
+        "gmt_offset": "28800",
+        "dst": "0",
+        "abbrev": "HKT"
+    },
+    "-435213000": {
+        "gmt_offset": "32400",
+        "dst": "1",
+        "abbrev": "HKST"
+    },
+    "-415258200": {
+        "gmt_offset": "28800",
+        "dst": "0",
+        "abbrev": "HKT"
+    },
+    "-403158600": {
+        "gmt_offset": "32400",
+        "dst": "1",
+        "abbrev": "HKST"
+    },
+    "-383808600": {
+        "gmt_offset": "28800",
+        "dst": "0",
+        "abbrev": "HKT"
+    },
+    "-371709000": {
+        "gmt_offset": "32400",
+        "dst": "1",
+        "abbrev": "HKST"
+    },
+    "-352359000": {
+        "gmt_offset": "28800",
+        "dst": "0",
+        "abbrev": "HKT"
+    },
+    "-340259400": {
+        "gmt_offset": "32400",
+        "dst": "1",
+        "abbrev": "HKST"
+    },
+    "-320909400": {
+        "gmt_offset": "28800",
+        "dst": "0",
+        "abbrev": "HKT"
+    },
+    "-308809800": {
+        "gmt_offset": "32400",
+        "dst": "1",
+        "abbrev": "HKST"
+    },
+    "-288855000": {
+        "gmt_offset": "28800",
+        "dst": "0",
+        "abbrev": "HKT"
+    },
+    "-277360200": {
+        "gmt_offset": "32400",
+        "dst": "1",
+        "abbrev": "HKST"
+    },
+    "-257405400": {
+        "gmt_offset": "28800",
+        "dst": "0",
+        "abbrev": "HKT"
+    },
+    "-245910600": {
+        "gmt_offset": "32400",
+        "dst": "1",
+        "abbrev": "HKST"
+    },
+    "-225955800": {
+        "gmt_offset": "28800",
+        "dst": "0",
+        "abbrev": "HKT"
+    },
+    "-213856200": {
+        "gmt_offset": "32400",
+        "dst": "1",
+        "abbrev": "HKST"
+    },
+    "-194506200": {
+        "gmt_offset": "28800",
+        "dst": "0",
+        "abbrev": "HKT"
+    },
+    "-182406600": {
+        "gmt_offset": "32400",
+        "dst": "1",
+        "abbrev": "HKST"
+    },
+    "-163056600": {
+        "gmt_offset": "28800",
+        "dst": "0",
+        "abbrev": "HKT"
+    },
+    "-148537800": {
+        "gmt_offset": "32400",
+        "dst": "1",
+        "abbrev": "HKST"
+    },
+    "-132816600": {
+        "gmt_offset": "28800",
+        "dst": "0",
+        "abbrev": "HKT"
+    },
+    "-117088200": {
+        "gmt_offset": "32400",
+        "dst": "1",
+        "abbrev": "HKST"
+    },
+    "-101367000": {
+        "gmt_offset": "28800",
+        "dst": "0",
+        "abbrev": "HKT"
+    },
+    "-85638600": {
+        "gmt_offset": "32400",
+        "dst": "1",
+        "abbrev": "HKST"
+    },
+    "-69312600": {
+        "gmt_offset": "28800",
+        "dst": "0",
+        "abbrev": "HKT"
+    },
+    "-53584200": {
+        "gmt_offset": "32400",
+        "dst": "1",
+        "abbrev": "HKST"
+    },
+    "-37863000": {
+        "gmt_offset": "28800",
+        "dst": "0",
+        "abbrev": "HKT"
+    },
+    "-22134600": {
+        "gmt_offset": "32400",
+        "dst": "1",
+        "abbrev": "HKST"
+    },
+    "-6413400": {
+        "gmt_offset": "28800",
+        "dst": "0",
+        "abbrev": "HKT"
+    },
+    "9315000": {
+        "gmt_offset": "32400",
+        "dst": "1",
+        "abbrev": "HKST"
+    },
+    "25036200": {
+        "gmt_offset": "28800",
+        "dst": "0",
+        "abbrev": "HKT"
+    },
+    "40764600": {
+        "gmt_offset": "32400",
+        "dst": "1",
+        "abbrev": "HKST"
+    },
+    "56485800": {
+        "gmt_offset": "28800",
+        "dst": "0",
+        "abbrev": "HKT"
+    },
+    "72214200": {
+        "gmt_offset": "32400",
+        "dst": "1",
+        "abbrev": "HKST"
+    },
+    "88540200": {
+        "gmt_offset": "28800",
+        "dst": "0",
+        "abbrev": "HKT"
+    },
+    "104268600": {
+        "gmt_offset": "32400",
+        "dst": "1",
+        "abbrev": "HKST"
+    },
+    "119989800": {
+        "gmt_offset": "28800",
+        "dst": "0",
+        "abbrev": "HKT"
+    },
+    "126041400": {
+        "gmt_offset": "32400",
+        "dst": "1",
+        "abbrev": "HKST"
+    },
+    "151439400": {
+        "gmt_offset": "28800",
+        "dst": "0",
+        "abbrev": "HKT"
+    },
+    "167167800": {
+        "gmt_offset": "32400",
+        "dst": "1",
+        "abbrev": "HKST"
+    },
+    "182889000": {
+        "gmt_offset": "28800",
+        "dst": "0",
+        "abbrev": "HKT"
+    },
+    "198617400": {
+        "gmt_offset": "32400",
+        "dst": "1",
+        "abbrev": "HKST"
+    },
+    "214338600": {
+        "gmt_offset": "28800",
+        "dst": "0",
+        "abbrev": "HKT"
+    },
+    "295385400": {
+        "gmt_offset": "32400",
+        "dst": "1",
+        "abbrev": "HKST"
+    },
+    "309292200": {
+        "gmt_offset": "28800",
+        "dst": "0",
+        "abbrev": "HKT"
+    }
+}

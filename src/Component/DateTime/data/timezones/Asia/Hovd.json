@@ -1,0 +1,5087 @@
+{
+    "-2032927597": {
+        "gmt_offset": "21996",
+        "dst": "0",
+        "abbrev": "LMT"
+    },
+    "-2032927596": {
+        "gmt_offset": "21600",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "252439200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "417978000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "433785600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "449600400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "465321600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "481050000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "496771200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "512499600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "528220800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "543949200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "559670400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "575398800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "591120000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "606848400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "622569600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "638298000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "654624000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "670352400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "686073600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "701802000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "717523200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "733251600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "748972800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "764701200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "780422400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "796150800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "811872000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "828205200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "843926400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "859654800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "875376000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "891104400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "906825600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "988398000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "1001700000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "1017428400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "1033149600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "1048878000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "1064599200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "1080327600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "1096048800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "1111777200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "1127498400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "1143226800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "1159552800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "1427482800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "1443196800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "1458932400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "1474646400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "1490382000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "1506700800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "1522436400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "1538150400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "1553886000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "1569600000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "1585335600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "1601049600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "1616785200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "1632499200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "1648234800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "1663948800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "1679684400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "1696003200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "1711738800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "1727452800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "1743188400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "1758902400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "1774638000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "1790352000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "1806087600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "1821801600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "1837537200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "1853856000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "1869591600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "1885305600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "1901041200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "1916755200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "1932490800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "1948204800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "1963940400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "1979654400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "1995390000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "2011104000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "2026839600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "2043158400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "2058894000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "2074608000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "2090343600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "2106057600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "2121793200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "2137507200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "2153242800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "2168956800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "2184692400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "2200406400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "2216746800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "2232460800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "2248196400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "2263910400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "2279646000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "2295360000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "2311095600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "2326809600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "2342545200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "2358259200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "2373994800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "2390313600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "2406049200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "2421763200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "2437498800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "2453212800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "2468948400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "2484662400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "2500398000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "2516112000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "2531847600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "2547561600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "2563297200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "2579616000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "2595351600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "2611065600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "2626801200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "2642515200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "2658250800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "2673964800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "2689700400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "2705414400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "2721150000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "2737468800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "2753204400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "2768918400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "2784654000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "2800368000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "2816103600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "2831817600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "2847553200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "2863267200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "2879002800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "2894716800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "2910452400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "2926771200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "2942506800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "2958220800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "2973956400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "2989670400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "3005406000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "3021120000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "3036855600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "3052569600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "3068305200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "3084019200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "3100359600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "3116073600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "3131809200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "3147523200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "3163258800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "3178972800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "3194708400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "3210422400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "3226158000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "3241872000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "3257607600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "3273926400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "3289662000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "3305376000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "3321111600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "3336825600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "3352561200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "3368275200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "3384010800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "3399724800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "3415460400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "3431174400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "3446910000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "3463228800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "3478964400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "3494678400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "3510414000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "3526128000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "3541863600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "3557577600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "3573313200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "3589027200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "3604762800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "3621081600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "3636817200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "3652531200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "3668266800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "3683980800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "3699716400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "3715430400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "3731166000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "3746880000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "3762615600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "3778329600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "3794065200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "3810384000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "3826119600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "3841833600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "3857569200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "3873283200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "3889018800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "3904732800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "3920468400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "3936182400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "3951918000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "3967632000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "3983972400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "3999686400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "4015422000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "4031136000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "4046871600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "4062585600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "4078321200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "4094035200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "4109770800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "4125484800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "4141220400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "4156934400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "4172670000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "4188988800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "4204724400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "4220438400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "4236174000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "4251888000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "4267623600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "4283337600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "4299073200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "4314787200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "4330522800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "4346236800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "4362577200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "4378291200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "4394026800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "4409740800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "4425476400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "4441190400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "4456926000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "4472640000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "4488375600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "4504089600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "4519825200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "4536144000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "4551879600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "4567593600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "4583329200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "4599043200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "4614778800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "4630492800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "4646228400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "4661942400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "4677678000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "4693392000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "4709127600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "4725446400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "4741182000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "4756896000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "4772631600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "4788345600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "4804081200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "4819795200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "4835530800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "4851244800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "4866980400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "4883299200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "4899034800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "4914748800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "4930484400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "4946198400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "4961934000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "4977648000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "4993383600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "5009097600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "5024833200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "5040547200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "5056282800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "5072601600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "5088337200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "5104051200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "5119786800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "5135500800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "5151236400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "5166950400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "5182686000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "5198400000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "5214135600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "5229849600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "5246190000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "5261904000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "5277639600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "5293353600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "5309089200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "5324803200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "5340538800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "5356252800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "5371988400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "5387702400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "5403438000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "5419756800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "5435492400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "5451206400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "5466942000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "5482656000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "5498391600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "5514105600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "5529841200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "5545555200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "5561290800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "5577004800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "5592740400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "5609059200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "5624794800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "5640508800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "5656244400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "5671958400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "5687694000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "5703408000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "5719143600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "5734857600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "5750593200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "5766912000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "5782647600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "5798361600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "5814097200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "5829811200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "5845546800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "5861260800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "5876996400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "5892710400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "5908446000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "5924160000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "5939895600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "5956214400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "5971950000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "5987664000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "6003399600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "6019113600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "6034849200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "6050563200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "6066298800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "6082012800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "6097748400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "6113462400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "6129802800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "6145516800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "6161252400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "6176966400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "6192702000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "6208416000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "6224151600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "6239865600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "6255601200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "6271315200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "6287050800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "6303369600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "6319105200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "6334819200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "6350554800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "6366268800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "6382004400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "6397718400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "6413454000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "6429168000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "6444903600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "6460617600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "6476353200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "6492672000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "6508407600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "6524121600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "6539857200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "6555571200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "6571306800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "6587020800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "6602756400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "6618470400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "6634206000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "6650524800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "6666260400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "6681974400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "6697710000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "6713424000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "6729159600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "6744873600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "6760609200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "6776323200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "6792058800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "6807772800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "6823508400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "6839827200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "6855562800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "6871276800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "6887012400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "6902726400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "6918462000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "6934176000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "6949911600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "6965625600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "6981361200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "6997075200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "7013415600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "7029129600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "7044865200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "7060579200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "7076314800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "7092028800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "7107764400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "7123478400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "7139214000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "7154928000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "7170663600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "7186982400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "7202718000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "7218432000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "7234167600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "7249881600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "7265617200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "7281331200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "7297066800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "7312780800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "7328516400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "7344230400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "7359966000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "7375680000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "7392020400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "7407734400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "7423470000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "7439184000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "7454919600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "7470633600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "7486369200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "7502083200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "7517818800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "7533532800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "7549268400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "7565587200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "7581322800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "7597036800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "7612772400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "7628486400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "7644222000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "7659936000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "7675671600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "7691385600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "7707121200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "7722835200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "7738570800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "7754889600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "7770625200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "7786339200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "7802074800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "7817788800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "7833524400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "7849238400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "7864974000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "7880688000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "7896423600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "7912742400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "7928478000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "7944192000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "7959927600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "7975641600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "7991377200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "8007091200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "8022826800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "8038540800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "8054276400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "8069990400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "8085726000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "8102044800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "8117780400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "8133494400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "8149230000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "8164944000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "8180679600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "8196393600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "8212129200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "8227843200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "8243578800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "8259292800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "8275633200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "8291347200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "8307082800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "8322796800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "8338532400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "8354246400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "8369982000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "8385696000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "8401431600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "8417145600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "8432881200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "8449200000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "8464935600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "8480649600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "8496385200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "8512099200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "8527834800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "8543548800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "8559284400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "8574998400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "8590734000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "8606448000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "8622183600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "8638502400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "8654238000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "8669952000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "8685687600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "8701401600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "8717137200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "8732851200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "8748586800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "8764300800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "8780036400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "8796355200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "8812090800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "8827804800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "8843540400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "8859254400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "8874990000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "8890704000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "8906439600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "8922153600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "8937889200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "8953603200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "8969338800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "8985657600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "9001393200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "9017107200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "9032842800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "9048556800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "9064292400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "9080006400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "9095742000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "9111456000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "9127191600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "9142905600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "9159246000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "9174960000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "9190695600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "9206409600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "9222145200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "9237859200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "9253594800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "9269308800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "9285044400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "9300758400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "9316494000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "9332812800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "9348548400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "9364262400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "9379998000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "9395712000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "9411447600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "9427161600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "9442897200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "9458611200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "9474346800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "9490060800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "9505796400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "9522115200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "9537850800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "9553564800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "9569300400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "9585014400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "9600750000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "9616464000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "9632199600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "9647913600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "9663649200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "9679968000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "9695703600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "9711417600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "9727153200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "9742867200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "9758602800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "9774316800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "9790052400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "9805766400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "9821502000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "9837216000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "9852951600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "9869270400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "9885006000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "9900720000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "9916455600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "9932169600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "9947905200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "9963619200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "9979354800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "9995068800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "10010804400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "10026518400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "10042858800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "10058572800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "10074308400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "10090022400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "10105758000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "10121472000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "10137207600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "10152921600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "10168657200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "10184371200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "10200106800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "10216425600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "10232161200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "10247875200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "10263610800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "10279324800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "10295060400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "10310774400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "10326510000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "10342224000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "10357959600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "10373673600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "10389409200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "10405728000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "10421463600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "10437177600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "10452913200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "10468627200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "10484362800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "10500076800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "10515812400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "10531526400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "10547262000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "10562976000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "10578711600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "10595030400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "10610766000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "10626480000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "10642215600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "10657929600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "10673665200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "10689379200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "10705114800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "10720828800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "10736564400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "10752278400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "10768014000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "10784332800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "10800068400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "10815782400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "10831518000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "10847232000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "10862967600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "10878681600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "10894417200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "10910131200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "10925866800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "10942185600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "10957921200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "10973635200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "10989370800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "11005084800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "11020820400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "11036534400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "11052270000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "11067984000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "11083719600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "11099433600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "11115169200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "11131488000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "11147223600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "11162937600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "11178673200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "11194387200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "11210122800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "11225836800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "11241572400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "11257286400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "11273022000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "11288736000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "11305076400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "11320790400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "11336526000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "11352240000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "11367975600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "11383689600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "11399425200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "11415139200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "11430874800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "11446588800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "11462324400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "11478643200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "11494378800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "11510092800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "11525828400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "11541542400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "11557278000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "11572992000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "11588727600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "11604441600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "11620177200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "11635891200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "11651626800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "11667945600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "11683681200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "11699395200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "11715130800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "11730844800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "11746580400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "11762294400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "11778030000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "11793744000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "11809479600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "11825798400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "11841534000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "11857248000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "11872983600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "11888697600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "11904433200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "11920147200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "11935882800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "11951596800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "11967332400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "11983046400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "11998782000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "12015100800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "12030836400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "12046550400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "12062286000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "12078000000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "12093735600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "12109449600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "12125185200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "12140899200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "12156634800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "12172348800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "12188689200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "12204403200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "12220138800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "12235852800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "12251588400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "12267302400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "12283038000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "12298752000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "12314487600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "12330201600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "12345937200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "12362256000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "12377991600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "12393705600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "12409441200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "12425155200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "12440890800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "12456604800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "12472340400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "12488054400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "12503790000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "12519504000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "12535239600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "12551558400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "12567294000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "12583008000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "12598743600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "12614457600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "12630193200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "12645907200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "12661642800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "12677356800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "12693092400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "12709411200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "12725146800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "12740860800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "12756596400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "12772310400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "12788046000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "12803760000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "12819495600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "12835209600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "12850945200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "12866659200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "12882394800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "12898713600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "12914449200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "12930163200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "12945898800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "12961612800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "12977348400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "12993062400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "13008798000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "13024512000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "13040247600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "13055961600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "13072302000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "13088016000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "13103751600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "13119465600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "13135201200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "13150915200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "13166650800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "13182364800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "13198100400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "13213814400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "13229550000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "13245868800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "13261604400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "13277318400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "13293054000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "13308768000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "13324503600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "13340217600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "13355953200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "13371667200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "13387402800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "13403116800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "13418852400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "13435171200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "13450906800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "13466620800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "13482356400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "13498070400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "13513806000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "13529520000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "13545255600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "13560969600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "13576705200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "13593024000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "13608759600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "13624473600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "13640209200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "13655923200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "13671658800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "13687372800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "13703108400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "13718822400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "13734558000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "13750272000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "13766007600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "13782326400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "13798062000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "13813776000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "13829511600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "13845225600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "13860961200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "13876675200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "13892410800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "13908124800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "13923860400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "13939574400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "13955914800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "13971628800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "13987364400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "14003078400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "14018814000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "14034528000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "14050263600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "14065977600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "14081713200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "14097427200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "14113162800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "14129481600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "14145217200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "14160931200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "14176666800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "14192380800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "14208116400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "14223830400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "14239566000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "14255280000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "14271015600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "14286729600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "14302465200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "14318784000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "14334519600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "14350233600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "14365969200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "14381683200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "14397418800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "14413132800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "14428868400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "14444582400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "14460318000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "14476636800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "14492372400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "14508086400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "14523822000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "14539536000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "14555271600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "14570985600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "14586721200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "14602435200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "14618170800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "14633884800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "14649620400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "14665939200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "14681674800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "14697388800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "14713124400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "14728838400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "14744574000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "14760288000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "14776023600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "14791737600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "14807473200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "14823187200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "14839527600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "14855241600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "14870977200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "14886691200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "14902426800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "14918140800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "14933876400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "14949590400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "14965326000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "14981040000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "14996775600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "15013094400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "15028830000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "15044544000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "15060279600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "15075993600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "15091729200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "15107443200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "15123178800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "15138892800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "15154628400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "15170342400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "15186078000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "15202396800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "15218132400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "15233846400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "15249582000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "15265296000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "15281031600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "15296745600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "15312481200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "15328195200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "15343930800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "15360249600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "15375985200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "15391699200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "15407434800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "15423148800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "15438884400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "15454598400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "15470334000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "15486048000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "15501783600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "15517497600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "15533233200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "15549552000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "15565287600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "15581001600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "15596737200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "15612451200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "15628186800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "15643900800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "15659636400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "15675350400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "15691086000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "15706800000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "15723140400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "15738854400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "15754590000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "15770304000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "15786039600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "15801753600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "15817489200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "15833203200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "15848938800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "15864652800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "15880388400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "15896707200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "15912442800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "15928156800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "15943892400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "15959606400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "15975342000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "15991056000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "16006791600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "16022505600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "16038241200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "16053955200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "16069690800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "16086009600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "16101745200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "16117459200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "16133194800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "16148908800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "16164644400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "16180358400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "16196094000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "16211808000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "16227543600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "16243862400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "16259598000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "16275312000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "16291047600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "16306761600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "16322497200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "16338211200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "16353946800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "16369660800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "16385396400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "16401110400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "16416846000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "16433164800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "16448900400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "16464614400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "16480350000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "16496064000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "16511799600": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "16527513600": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "16543249200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "16558963200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "16574698800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "16590412800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "16606753200": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "16622467200": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "16638202800": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "16653916800": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "16669652400": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "16685366400": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    },
+    "16701102000": {
+        "gmt_offset": "28800",
+        "dst": "1",
+        "abbrev": "HOVST"
+    },
+    "16716816000": {
+        "gmt_offset": "25200",
+        "dst": "0",
+        "abbrev": "HOVT"
+    }
+}

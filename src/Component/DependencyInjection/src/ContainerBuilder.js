@@ -31,7 +31,7 @@ module.exports = class ContainerBuilder extends Container {
         this._extensions = {};
 
         /**
-         * @type {Object<string, Array<Object<string, *>>>}
+         * @type {Object<string, [Object<string, *>]>}
          * @private
          */
         this._extensionConfigs = {};
@@ -415,7 +415,7 @@ module.exports = class ContainerBuilder extends Container {
     /**
      * Add service aliases
      *
-     * @param {Array<string, string|Alias>} aliases
+     * @param {Object<string, string|Alias>} aliases
      */
     addAliases(aliases) {
         for (let [ name, id ] of __jymfony.getEntries(aliases)) {
@@ -426,7 +426,7 @@ module.exports = class ContainerBuilder extends Container {
     /**
      * Set service aliases
      *
-     * @param {Array<string, string|Alias>} aliases
+     * @param {Object<string, string|Alias>} aliases
      */
     setAliases(aliases) {
         this._aliasDefinitions = {};

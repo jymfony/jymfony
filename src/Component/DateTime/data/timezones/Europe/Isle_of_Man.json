@@ -1,0 +1,5832 @@
+{
+    "-3852662326": {
+        "gmt_offset": "-75",
+        "dst": "0",
+        "abbrev": "LMT"
+    },
+    "-3852662325": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "-1691964000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "-1680472800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "-1664143200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "-1650146400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "-1633903200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "-1617487200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "-1601848800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "-1586037600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "-1570399200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "-1552168800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "-1538344800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "-1522533600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "-1507500000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "-1490565600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "-1473631200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "-1460930400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "-1442786400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "-1428876000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "-1410732000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "-1396216800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "-1379282400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "-1364767200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "-1348437600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "-1333317600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "-1315778400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "-1301263200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "-1284328800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "-1269813600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "-1253484000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "-1238364000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "-1221429600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "-1206914400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "-1189980000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "-1175464800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "-1159135200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "-1143410400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "-1126476000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "-1111960800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "-1095631200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "-1080511200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "-1063576800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "-1049061600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "-1032127200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "-1017612000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "-1001282400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "-986162400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "-969228000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "-950479200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "-942012000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "-904518000": {
+        "gmt_offset": "7200",
+        "dst": "1",
+        "abbrev": "BDST"
+    },
+    "-896050800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "-875487600": {
+        "gmt_offset": "7200",
+        "dst": "1",
+        "abbrev": "BDST"
+    },
+    "-864601200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "-844038000": {
+        "gmt_offset": "7200",
+        "dst": "1",
+        "abbrev": "BDST"
+    },
+    "-832546800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "-812588400": {
+        "gmt_offset": "7200",
+        "dst": "1",
+        "abbrev": "BDST"
+    },
+    "-798073200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "-781052400": {
+        "gmt_offset": "7200",
+        "dst": "1",
+        "abbrev": "BDST"
+    },
+    "-772066800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "-764805600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "-748476000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "-733356000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "-719445600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "-717030000": {
+        "gmt_offset": "7200",
+        "dst": "1",
+        "abbrev": "BDST"
+    },
+    "-706748400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "-699487200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "-687996000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "-668037600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "-654732000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "-636588000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "-622072800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "-605743200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "-590623200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "-574293600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "-558568800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "-542239200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "-527119200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "-512604000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "-496274400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "-481154400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "-464220000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "-449704800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "-432165600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "-417650400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "-401320800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "-386200800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "-369266400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "-354751200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "-337816800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "-323301600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "-306972000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "-291852000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "-276732000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "-257983200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "-245282400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "-226533600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "-213228000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "-195084000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "-182383200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "-163634400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "-150933600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "-132184800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "-119484000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "-100735200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "-88034400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "-68680800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "-59004000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "57722400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "69818400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "89172000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "101268000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "120621600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "132717600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "152071200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "164167200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "183520800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "196221600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "214970400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "227671200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "246420000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "259120800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "278474400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "290570400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "309924000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "322020000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "341373600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "354675600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "372819600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "386125200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "404269200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "417574800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "435718800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "449024400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "467773200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "481078800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "499222800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "512528400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "530672400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "543978000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "562122000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "575427600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "593571600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "606877200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "625626000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "638326800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "657075600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "670381200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "688525200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "701830800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "719974800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "733280400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "751424400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "764730000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "782874000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "796179600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "814323600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "828234000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "846378000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "859683600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "877827600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "891133200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "909277200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "922582800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "941331600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "954032400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "972781200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "985482000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "1004230800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "1017536400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "1035680400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "1048986000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "1067130000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "1080435600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "1099184400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "1111885200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "1130634000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "1143334800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "1162083600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "1174784400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "1193533200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "1206838800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "1224982800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "1238288400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "1256432400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "1269738000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "1288486800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "1301187600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "1319936400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "1332637200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "1351386000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "1364691600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "1382835600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "1396141200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "1414285200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "1427590800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "1445734800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "1459040400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "1477789200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "1490490000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "1509238800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "1521939600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "1540688400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "1553994000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "1572138000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "1585443600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "1603587600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "1616893200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "1635642000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "1648342800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "1667091600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "1679792400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "1698541200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "1711846800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "1729990800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "1743296400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "1761440400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "1774746000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "1792890000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "1806195600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "1824944400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "1837645200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "1856394000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "1869094800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "1887843600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "1901149200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "1919293200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "1932598800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "1950742800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "1964048400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "1982797200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "1995498000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "2014246800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "2026947600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "2045696400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "2058397200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "2077146000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "2090451600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "2108595600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "2121901200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "2140045200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "2153350800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "2172099600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "2184800400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "2203549200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "2216250000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "2234998800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "2248304400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "2266448400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "2279754000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "2297898000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "2311203600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "2329347600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "2342653200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "2361402000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "2374102800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "2392851600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "2405552400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "2424301200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "2437606800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "2455750800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "2469056400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "2487200400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "2500506000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "2519254800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "2531955600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "2550704400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "2563405200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "2582154000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "2595459600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "2613603600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "2626909200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "2645053200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "2658358800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "2676502800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "2689808400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "2708557200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "2721258000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "2740006800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "2752707600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "2771456400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "2784762000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "2802906000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "2816211600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "2834355600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "2847661200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "2866410000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "2879110800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "2897859600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "2910560400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "2929309200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "2942010000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "2960758800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "2974064400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "2992208400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "3005514000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "3023658000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "3036963600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "3055712400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "3068413200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "3087162000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "3099862800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "3118611600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "3131917200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "3150061200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "3163366800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "3181510800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "3194816400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "3212960400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "3226266000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "3245014800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "3257715600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "3276464400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "3289165200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "3307914000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "3321219600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "3339363600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "3352669200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "3370813200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "3384118800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "3402867600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "3415568400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "3434317200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "3447018000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "3465766800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "3479072400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "3497216400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "3510522000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "3528666000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "3541971600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "3560115600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "3573421200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "3592170000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "3604870800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "3623619600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "3636320400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "3655069200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "3668374800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "3686518800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "3699824400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "3717968400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "3731274000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "3750022800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "3762723600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "3781472400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "3794173200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "3812922000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "3825622800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "3844371600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "3857677200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "3875821200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "3889126800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "3907270800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "3920576400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "3939325200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "3952026000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "3970774800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "3983475600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "4002224400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "4015530000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "4033674000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "4046979600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "4065123600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "4078429200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "4096573200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "4109878800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "4128627600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "4141328400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "4160077200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "4172778000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "4191526800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "4204227600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "4222976400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "4236282000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "4254426000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "4267731600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "4285875600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "4299181200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "4317930000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "4330630800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "4349379600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "4362080400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "4380829200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "4394134800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "4412278800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "4425584400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "4443728400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "4457034000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "4475178000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "4488483600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "4507232400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "4519933200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "4538682000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "4551382800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "4570131600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "4583437200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "4601581200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "4614886800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "4633030800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "4646336400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "4665085200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "4677786000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "4696534800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "4709235600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "4727984400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "4741290000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "4759434000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "4772739600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "4790883600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "4804189200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "4822333200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "4835638800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "4854387600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "4867088400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "4885837200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "4898538000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "4917286800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "4930592400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "4948736400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "4962042000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "4980186000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "4993491600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "5012240400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "5024941200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "5043690000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "5056390800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "5075139600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "5087840400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "5106589200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "5119894800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "5138038800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "5151344400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "5169488400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "5182794000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "5201542800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "5214243600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "5232992400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "5245693200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "5264442000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "5277747600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "5295891600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "5309197200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "5327341200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "5340646800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "5358790800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "5372096400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "5390845200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "5403546000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "5422294800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "5434995600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "5453744400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "5467050000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "5485194000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "5498499600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "5516643600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "5529949200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "5548698000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "5561398800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "5580147600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "5592848400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "5611597200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "5624902800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "5643046800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "5656352400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "5674496400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "5687802000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "5705946000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "5719251600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "5738000400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "5750701200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "5769450000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "5782150800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "5800899600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "5814205200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "5832349200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "5845654800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "5863798800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "5877104400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "5895853200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "5908554000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "5927302800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "5940003600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "5958752400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "5971453200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "5990202000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "6003507600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "6021651600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "6034957200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "6053101200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "6066406800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "6085155600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "6097856400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "6116605200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "6129306000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "6148054800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "6161360400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "6179504400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "6192810000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "6210954000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "6224259600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "6242403600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "6255709200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "6274458000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "6287158800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "6305907600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "6318608400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "6337357200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "6350662800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "6368806800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "6382112400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "6400256400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "6413562000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "6432310800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "6445011600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "6463760400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "6476461200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "6495210000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "6508515600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "6526659600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "6539965200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "6558109200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "6571414800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "6589558800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "6602864400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "6621613200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "6634314000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "6653062800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "6665763600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "6684512400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "6697818000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "6715962000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "6729267600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "6747411600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "6760717200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "6779466000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "6792166800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "6810915600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "6823616400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "6842365200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "6855066000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "6873814800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "6887120400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "6905264400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "6918570000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "6936714000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "6950019600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "6968768400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "6981469200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "7000218000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "7012918800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "7031667600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "7044973200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "7063117200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "7076422800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "7094566800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "7107872400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "7126016400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "7139322000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "7158070800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "7170771600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "7189520400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "7202221200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "7220970000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "7234275600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "7252419600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "7265725200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "7283869200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "7297174800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "7315318800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "7328624400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "7347373200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "7360074000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "7378822800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "7391523600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "7410272400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "7423578000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "7441722000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "7455027600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "7473171600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "7486477200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "7504621200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "7517926800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "7536675600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "7549376400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "7568125200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "7580826000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "7599574800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "7612880400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "7631024400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "7644330000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "7662474000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "7675779600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "7694528400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "7707229200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "7725978000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "7738678800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "7757427600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "7770733200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "7788877200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "7802182800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "7820326800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "7833632400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "7851776400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "7865082000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "7883830800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "7896531600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "7915280400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "7927981200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "7946730000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "7960035600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "7978179600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "7991485200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "8009629200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "8022934800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "8041683600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "8054384400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "8073133200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "8085834000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "8104582800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "8117283600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "8136032400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "8149338000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "8167482000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "8180787600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "8198931600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "8212237200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "8230986000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "8243686800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "8262435600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "8275136400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "8293885200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "8307190800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "8325334800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "8338640400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "8356784400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "8370090000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "8388234000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "8401539600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "8420288400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "8432989200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "8451738000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "8464438800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "8483187600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "8496493200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "8514637200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "8527942800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "8546086800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "8559392400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "8578141200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "8590842000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "8609590800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "8622291600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "8641040400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "8654346000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "8672490000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "8685795600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "8703939600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "8717245200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "8735389200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "8748694800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "8767443600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "8780144400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "8798893200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "8811594000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "8830342800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "8843648400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "8861792400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "8875098000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "8893242000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "8906547600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "8925296400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "8937997200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "8956746000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "8969446800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "8988195600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "9000896400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "9019645200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "9032950800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "9051094800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "9064400400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "9082544400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "9095850000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "9114598800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "9127299600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "9146048400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "9158749200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "9177498000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "9190803600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "9208947600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "9222253200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "9240397200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "9253702800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "9271846800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "9285152400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "9303901200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "9316602000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "9335350800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "9348051600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "9366800400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "9380106000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "9398250000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "9411555600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "9429699600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "9443005200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "9461754000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "9474454800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "9493203600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "9505904400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "9524653200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "9537958800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "9556102800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "9569408400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "9587552400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "9600858000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "9619002000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "9632307600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "9651056400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "9663757200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "9682506000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "9695206800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "9713955600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "9727261200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "9745405200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "9758710800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "9776854800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "9790160400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "9808909200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "9821610000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "9840358800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "9853059600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "9871808400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "9884509200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "9903258000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "9916563600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "9934707600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "9948013200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "9966157200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "9979462800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "9998211600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "10010912400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "10029661200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "10042362000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "10061110800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "10074416400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "10092560400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "10105866000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "10124010000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "10137315600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "10155459600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "10168765200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "10187514000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "10200214800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "10218963600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "10231664400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "10250413200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "10263718800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "10281862800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "10295168400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "10313312400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "10326618000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "10345366800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "10358067600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "10376816400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "10389517200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "10408266000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "10420966800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "10439715600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "10453021200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "10471165200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "10484470800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "10502614800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "10515920400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "10534064400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "10547370000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "10566118800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "10578819600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "10597568400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "10610269200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "10629018000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "10642323600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "10660467600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "10673773200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "10691917200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "10705222800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "10723971600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "10736672400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "10755421200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "10768122000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "10786870800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "10800176400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "10818320400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "10831626000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "10849770000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "10863075600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "10881219600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "10894525200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "10913274000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "10925974800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "10944723600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "10957424400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "10976173200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "10989478800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "11007622800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "11020928400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "11039072400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "11052378000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "11071126800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "11083827600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "11102576400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "11115277200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "11134026000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "11146726800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "11165475600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "11178781200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "11196925200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "11210230800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "11228374800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "11241680400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "11260429200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "11273130000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "11291878800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "11304579600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "11323328400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "11336634000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "11354778000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "11368083600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "11386227600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "11399533200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "11417677200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "11430982800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "11449731600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "11462432400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "11481181200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "11493882000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "11512630800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "11525936400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "11544080400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "11557386000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "11575530000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "11588835600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "11607584400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "11620285200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "11639034000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "11651734800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "11670483600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "11683789200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "11701933200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "11715238800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "11733382800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "11746688400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "11764832400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "11778138000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "11796886800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "11809587600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "11828336400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "11841037200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "11859786000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "11873091600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "11891235600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "11904541200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "11922685200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "11935990800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "11954739600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "11967440400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "11986189200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "11998890000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "12017638800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "12030339600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "12049088400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "12062394000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "12080538000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "12093843600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "12111987600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "12125293200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "12144042000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "12156742800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "12175491600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "12188192400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "12206941200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "12220246800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "12238390800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "12251696400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "12269840400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "12283146000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "12301290000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "12314595600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "12333344400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "12346045200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "12364794000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "12377494800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "12396243600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "12409549200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "12427693200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "12440998800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "12459142800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "12472448400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "12491197200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "12503898000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "12522646800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "12535347600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "12554096400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "12567402000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "12585546000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "12598851600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "12616995600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "12630301200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "12648445200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "12661750800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "12680499600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "12693200400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "12711949200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "12724650000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "12743398800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "12756704400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "12774848400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "12788154000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "12806298000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "12819603600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "12838352400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "12851053200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "12869802000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "12882502800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "12901251600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "12913952400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "12932701200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "12946006800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "12964150800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "12977456400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "12995600400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "13008906000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "13027654800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "13040355600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "13059104400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "13071805200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "13090554000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "13103859600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "13122003600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "13135309200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "13153453200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "13166758800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "13184902800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "13198208400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "13216957200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "13229658000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "13248406800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "13261107600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "13279856400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "13293162000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "13311306000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "13324611600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "13342755600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "13356061200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "13374810000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "13387510800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "13406259600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "13418960400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "13437709200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "13451014800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "13469158800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "13482464400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "13500608400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "13513914000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "13532058000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "13545363600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "13564112400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "13576813200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "13595562000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "13608262800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "13627011600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "13640317200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "13658461200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "13671766800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "13689910800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "13703216400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "13721965200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "13734666000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "13753414800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "13766115600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "13784864400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "13797565200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "13816314000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "13829619600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "13847763600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "13861069200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "13879213200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "13892518800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "13911267600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "13923968400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "13942717200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "13955418000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "13974166800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "13987472400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "14005616400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "14018922000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "14037066000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "14050371600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "14068515600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "14081821200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "14100570000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "14113270800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "14132019600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "14144720400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "14163469200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "14176774800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "14194918800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "14208224400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "14226368400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "14239674000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "14258422800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "14271123600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "14289872400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "14302573200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "14321322000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "14334627600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "14352771600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "14366077200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "14384221200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "14397526800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "14415670800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "14428976400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "14447725200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "14460426000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "14479174800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "14491875600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "14510624400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "14523930000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "14542074000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "14555379600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "14573523600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "14586829200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "14605578000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "14618278800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "14637027600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "14649728400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "14668477200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "14681178000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "14699926800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "14713232400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "14731376400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "14744682000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "14762826000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "14776131600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "14794880400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "14807581200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "14826330000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "14839030800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "14857779600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "14871085200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "14889229200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "14902534800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "14920678800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "14933984400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "14952128400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "14965434000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "14984182800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "14996883600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "15015632400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "15028333200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "15047082000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "15060387600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "15078531600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "15091837200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "15109981200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "15123286800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "15142035600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "15154736400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "15173485200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "15186186000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "15204934800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "15218240400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "15236384400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "15249690000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "15267834000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "15281139600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "15299283600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "15312589200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "15331338000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "15344038800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "15362787600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "15375488400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "15394237200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "15407542800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "15425686800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "15438992400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "15457136400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "15470442000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "15489190800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "15501891600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "15520640400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "15533341200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "15552090000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "15564790800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "15583539600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "15596845200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "15614989200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "15628294800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "15646438800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "15659744400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "15678493200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "15691194000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "15709942800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "15722643600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "15741392400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "15754698000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "15772842000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "15786147600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "15804291600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "15817597200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "15835741200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "15849046800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "15867795600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "15880496400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "15899245200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "15911946000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "15930694800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "15944000400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "15962144400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "15975450000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "15993594000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "16006899600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "16025648400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "16038349200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "16057098000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "16069798800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "16088547600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "16101853200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "16119997200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "16133302800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "16151446800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "16164752400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "16182896400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "16196202000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "16214950800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "16227651600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "16246400400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "16259101200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "16277850000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "16291155600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "16309299600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "16322605200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "16340749200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "16354054800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "16372803600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "16385504400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "16404253200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "16416954000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "16435702800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "16448403600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "16467152400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "16480458000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "16498602000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "16511907600": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "16530051600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "16543357200": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "16562106000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "16574806800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "16593555600": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "16606256400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "16625005200": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "16638310800": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "16656454800": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "16669760400": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "16687904400": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    },
+    "16701210000": {
+        "gmt_offset": "3600",
+        "dst": "1",
+        "abbrev": "BST"
+    },
+    "16719354000": {
+        "gmt_offset": "0",
+        "dst": "0",
+        "abbrev": "GMT"
+    }
+}

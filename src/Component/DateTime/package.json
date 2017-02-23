@@ -1,0 +1,39 @@
+{
+  "name": "jymfony-datetime",
+  "version": "0.1.0",
+  "description": "Jymfony DateTime Component",
+  "scripts": {
+    "test": "node ./tests.js test/**",
+    "coverage": "istanbul cover ./tests.js test/**"
+  },
+  "keywords": [
+    "date",
+    "datetime",
+    "datetimezone",
+    "timezone",
+    "jymfony"
+  ],
+  "author": "Alessandro Chitolina <alekitto@gmail.com>",
+  "license": "MIT",
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "dependencies": {
+    "jymfony-autoloader": "https://github.com/jymfony/autoloader.git",
+    "jymfony-exceptions": "https://github.com/jymfony/exceptions.git",
+    "jymfony-lexer": "https://github.com/jymfony/lexer.git",
+    "jymfony-util": "https://github.com/jymfony/util.git"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "istanbul": "^0.4",
+    "mocha": "^3.0"
+  },
+  "config": {
+    "jymfony-autoload": {
+      "namespaces": {
+        "Jymfony.DateTime": "src/"
+      }
+    }
+  }
+}

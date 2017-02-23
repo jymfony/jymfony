@@ -1,0 +1,27 @@
+{
+    "-1577951857": {
+        "gmt_offset": "28656",
+        "dst": "0",
+        "abbrev": "LMT"
+    },
+    "-1577951856": {
+        "gmt_offset": "28656",
+        "dst": "0",
+        "abbrev": "MMT"
+    },
+    "-1172908656": {
+        "gmt_offset": "28800",
+        "dst": "0",
+        "abbrev": "WITA"
+    },
+    "-880272000": {
+        "gmt_offset": "32400",
+        "dst": "0",
+        "abbrev": "JST"
+    },
+    "-766054800": {
+        "gmt_offset": "28800",
+        "dst": "0",
+        "abbrev": "WITA"
+    }
+}

@@ -1,0 +1,5402 @@
+{
+    "-3192435545": {
+        "gmt_offset": "41944",
+        "dst": "0",
+        "abbrev": "LMT"
+    },
+    "-3192435544": {
+        "gmt_offset": "41400",
+        "dst": "0",
+        "abbrev": "NZMT"
+    },
+    "-1330335000": {
+        "gmt_offset": "45000",
+        "dst": "1",
+        "abbrev": "NZST"
+    },
+    "-1320057000": {
+        "gmt_offset": "41400",
+        "dst": "0",
+        "abbrev": "NZMT"
+    },
+    "-1300699800": {
+        "gmt_offset": "43200",
+        "dst": "1",
+        "abbrev": "NZST"
+    },
+    "-1287396000": {
+        "gmt_offset": "41400",
+        "dst": "0",
+        "abbrev": "NZMT"
+    },
+    "-1269250200": {
+        "gmt_offset": "43200",
+        "dst": "1",
+        "abbrev": "NZST"
+    },
+    "-1255946400": {
+        "gmt_offset": "41400",
+        "dst": "0",
+        "abbrev": "NZMT"
+    },
+    "-1237800600": {
+        "gmt_offset": "43200",
+        "dst": "1",
+        "abbrev": "NZST"
+    },
+    "-1224496800": {
+        "gmt_offset": "41400",
+        "dst": "0",
+        "abbrev": "NZMT"
+    },
+    "-1206351000": {
+        "gmt_offset": "43200",
+        "dst": "1",
+        "abbrev": "NZST"
+    },
+    "-1192442400": {
+        "gmt_offset": "41400",
+        "dst": "0",
+        "abbrev": "NZMT"
+    },
+    "-1174901400": {
+        "gmt_offset": "43200",
+        "dst": "1",
+        "abbrev": "NZST"
+    },
+    "-1160992800": {
+        "gmt_offset": "41400",
+        "dst": "0",
+        "abbrev": "NZMT"
+    },
+    "-1143451800": {
+        "gmt_offset": "43200",
+        "dst": "1",
+        "abbrev": "NZST"
+    },
+    "-1125914400": {
+        "gmt_offset": "41400",
+        "dst": "0",
+        "abbrev": "NZMT"
+    },
+    "-1112607000": {
+        "gmt_offset": "43200",
+        "dst": "1",
+        "abbrev": "NZST"
+    },
+    "-1094464800": {
+        "gmt_offset": "41400",
+        "dst": "0",
+        "abbrev": "NZMT"
+    },
+    "-1081157400": {
+        "gmt_offset": "43200",
+        "dst": "1",
+        "abbrev": "NZST"
+    },
+    "-1063015200": {
+        "gmt_offset": "41400",
+        "dst": "0",
+        "abbrev": "NZMT"
+    },
+    "-1049707800": {
+        "gmt_offset": "43200",
+        "dst": "1",
+        "abbrev": "NZST"
+    },
+    "-1031565600": {
+        "gmt_offset": "41400",
+        "dst": "0",
+        "abbrev": "NZMT"
+    },
+    "-1018258200": {
+        "gmt_offset": "43200",
+        "dst": "1",
+        "abbrev": "NZST"
+    },
+    "-1000116000": {
+        "gmt_offset": "41400",
+        "dst": "0",
+        "abbrev": "NZMT"
+    },
+    "-986808600": {
+        "gmt_offset": "43200",
+        "dst": "1",
+        "abbrev": "NZST"
+    },
+    "-968061600": {
+        "gmt_offset": "41400",
+        "dst": "0",
+        "abbrev": "NZMT"
+    },
+    "-955359000": {
+        "gmt_offset": "43200",
+        "dst": "1",
+        "abbrev": "NZST"
+    },
+    "-936612000": {
+        "gmt_offset": "41400",
+        "dst": "0",
+        "abbrev": "NZMT"
+    },
+    "-923304600": {
+        "gmt_offset": "43200",
+        "dst": "1",
+        "abbrev": "NZST"
+    },
+    "152632800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "162309600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "183477600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "194968800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "215532000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "226418400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "246981600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "257868000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "278431200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "289317600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "309880800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "320767200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "341330400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "352216800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "372780000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "384271200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "404834400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "415720800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "436284000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "447170400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "467733600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "478620000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "499183200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "510069600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "530632800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "541519200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "562082400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "573573600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "594136800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "605023200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "623772000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "637682400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "655221600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "669132000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "686671200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "700581600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "718120800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "732636000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "749570400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "764085600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "781020000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "795535200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "812469600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "826984800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "844524000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "858434400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "875973600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "889884000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "907423200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "921938400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "938872800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "953388000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "970322400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "984837600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "1002376800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "1016287200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "1033826400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "1047736800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "1065276000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "1079791200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "1096725600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "1111240800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "1128175200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "1142690400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "1159624800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "1174140000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "1191074400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "1207404000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "1222524000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "1238853600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "1253973600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "1270303200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "1285423200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "1301752800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "1316872800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "1333202400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "1348927200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "1365256800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "1380376800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "1396706400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "1411826400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "1428156000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "1443276000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "1459605600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "1474725600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "1491055200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "1506175200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "1522504800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "1538229600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "1554559200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "1569679200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "1586008800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "1601128800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "1617458400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "1632578400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "1648908000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "1664028000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "1680357600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "1695477600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "1712412000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "1727532000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "1743861600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "1758981600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "1775311200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "1790431200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "1806760800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "1821880800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "1838210400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "1853330400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "1869660000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "1885384800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "1901714400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "1916834400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "1933164000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "1948284000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "1964613600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "1979733600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "1996063200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "2011183200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "2027512800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "2042632800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "2058962400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "2074687200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "2091016800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "2106136800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "2122466400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "2137586400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "2153916000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "2169036000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "2185365600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "2200485600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "2216815200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "2232540000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "2248869600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "2263989600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "2280319200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "2295439200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "2311768800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "2326888800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "2343218400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "2358338400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "2374668000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "2389788000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "2406117600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "2421842400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "2438172000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "2453292000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "2469621600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "2484741600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "2501071200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "2516191200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "2532520800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "2547640800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "2563970400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "2579090400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "2596024800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "2611144800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "2627474400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "2642594400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "2658924000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "2674044000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "2690373600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "2705493600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "2721823200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "2736943200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "2753272800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "2768997600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "2785327200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "2800447200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "2816776800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "2831896800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "2848226400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "2863346400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "2879676000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "2894796000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "2911125600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "2926245600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "2942575200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "2958300000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "2974629600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "2989749600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "3006079200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "3021199200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "3037528800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "3052648800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "3068978400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "3084098400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "3100428000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "3116152800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "3132482400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "3147602400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "3163932000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "3179052000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "3195381600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "3210501600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "3226831200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "3241951200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "3258280800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "3273400800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "3289730400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "3305455200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "3321784800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "3336904800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "3353234400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "3368354400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "3384684000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "3399804000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "3416133600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "3431253600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "3447583200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "3462703200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "3479637600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "3494757600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "3511087200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "3526207200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "3542536800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "3557656800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "3573986400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "3589106400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "3605436000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "3620556000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "3636885600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "3652610400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "3668940000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "3684060000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "3700389600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "3715509600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "3731839200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "3746959200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "3763288800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "3778408800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "3794738400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "3809858400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "3826188000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "3841912800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "3858242400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "3873362400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "3889692000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "3904812000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "3921141600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "3936261600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "3952591200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "3967711200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "3984040800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "3999765600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "4016095200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "4031215200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "4047544800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "4062664800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "4078994400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "4094114400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "4110444000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "4125564000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "4141893600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "4157013600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "4173343200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "4188463200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "4204792800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "4220517600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "4236847200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "4251967200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "4268296800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "4283416800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "4299746400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "4314866400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "4331196000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "4346316000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "4362645600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "4378370400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "4394700000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "4409820000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "4426149600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "4441269600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "4457599200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "4472719200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "4489048800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "4504168800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "4520498400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "4535618400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "4551948000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "4567672800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "4584002400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "4599122400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "4615452000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "4630572000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "4646901600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "4662021600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "4678351200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "4693471200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "4709800800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "4724920800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "4741855200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "4756975200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "4773304800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "4788424800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "4804754400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "4819874400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "4836204000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "4851324000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "4867653600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "4882773600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "4899103200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "4914828000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "4931157600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "4946277600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "4962607200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "4977727200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "4994056800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "5009176800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "5025506400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "5040626400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "5056956000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "5072076000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "5088405600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "5104130400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "5120460000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "5135580000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "5151909600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "5167029600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "5183359200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "5198479200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "5214808800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "5229928800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "5246258400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "5261983200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "5278312800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "5293432800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "5309762400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "5324882400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "5341212000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "5356332000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "5372661600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "5387781600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "5404111200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "5419231200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "5435560800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "5451285600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "5467615200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "5482735200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "5499064800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "5514184800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "5530514400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "5545634400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "5561964000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "5577084000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "5593413600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "5608533600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "5625468000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "5640588000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "5656917600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "5672037600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "5688367200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "5703487200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "5719816800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "5734936800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "5751266400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "5766386400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "5782716000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "5798440800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "5814770400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "5829890400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "5846220000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "5861340000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "5877669600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "5892789600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "5909119200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "5924239200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "5940568800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "5955688800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "5972018400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "5987743200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "6004072800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "6019192800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "6035522400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "6050642400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "6066972000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "6082092000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "6098421600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "6113541600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "6129871200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "6145596000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "6161925600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "6177045600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "6193375200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "6208495200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "6224824800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "6239944800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "6256274400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "6271394400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "6287724000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "6302844000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "6319173600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "6334898400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "6351228000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "6366348000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "6382677600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "6397797600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "6414127200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "6429247200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "6445576800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "6460696800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "6477026400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "6492146400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "6509080800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "6524200800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "6540530400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "6555650400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "6571980000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "6587100000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "6603429600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "6618549600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "6634879200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "6649999200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "6666328800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "6682053600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "6698383200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "6713503200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "6729832800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "6744952800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "6761282400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "6776402400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "6792732000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "6807852000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "6824181600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "6839301600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "6855631200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "6871356000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "6887685600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "6902805600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "6919135200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "6934255200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "6950584800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "6965704800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "6982034400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "6997154400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "7013484000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "7029208800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "7045538400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "7060658400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "7076988000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "7092108000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "7108437600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "7123557600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "7139887200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "7155007200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "7171336800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "7186456800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "7202786400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "7218511200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "7234840800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "7249960800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "7266290400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "7281410400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "7297740000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "7312860000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "7329189600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "7344309600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "7360639200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "7375759200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "7392088800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "7407813600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "7424143200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "7439263200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "7455592800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "7470712800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "7487042400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "7502162400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "7518492000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "7533612000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "7549941600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "7565061600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "7581391200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "7597116000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "7613445600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "7628565600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "7644895200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "7660015200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "7676344800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "7691464800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "7707794400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "7722914400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "7739244000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "7754364000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "7771298400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "7786418400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "7802748000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "7817868000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "7834197600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "7849317600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "7865647200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "7880767200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "7897096800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "7912216800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "7928546400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "7944271200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "7960600800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "7975720800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "7992050400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "8007170400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "8023500000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "8038620000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "8054949600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "8070069600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "8086399200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "8101519200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "8117848800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "8133573600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "8149903200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "8165023200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "8181352800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "8196472800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "8212802400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "8227922400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "8244252000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "8259372000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "8275701600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "8291426400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "8307756000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "8322876000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "8339205600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "8354325600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "8370655200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "8385775200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "8402104800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "8417224800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "8433554400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "8448674400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "8465004000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "8480728800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "8497058400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "8512178400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "8528508000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "8543628000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "8559957600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "8575077600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "8591407200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "8606527200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "8622856800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "8637976800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "8654911200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "8670031200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "8686360800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "8701480800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "8717810400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "8732930400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "8749260000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "8764380000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "8780709600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "8795829600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "8812159200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "8827884000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "8844213600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "8859333600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "8875663200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "8890783200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "8907112800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "8922232800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "8938562400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "8953682400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "8970012000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "8985132000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "9001461600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "9017186400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "9033516000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "9048636000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "9064965600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "9080085600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "9096415200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "9111535200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "9127864800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "9142984800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "9159314400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "9175039200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "9191368800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "9206488800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "9222818400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "9237938400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "9254268000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "9269388000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "9285717600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "9300837600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "9317167200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "9332287200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "9348616800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "9364341600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "9380671200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "9395791200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "9412120800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "9427240800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "9443570400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "9458690400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "9475020000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "9490140000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "9506469600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "9521589600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "9538524000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "9553644000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "9569973600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "9585093600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "9601423200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "9616543200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "9632872800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "9647992800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "9664322400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "9679442400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "9695772000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "9711496800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "9727826400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "9742946400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "9759276000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "9774396000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "9790725600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "9805845600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "9822175200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "9837295200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "9853624800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "9868744800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "9885074400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "9900799200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "9917128800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "9932248800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "9948578400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "9963698400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "9980028000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "9995148000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "10011477600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "10026597600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "10042927200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "10058652000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "10074981600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "10090101600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "10106431200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "10121551200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "10137880800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "10153000800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "10169330400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "10184450400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "10200780000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "10215900000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "10232229600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "10247954400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "10264284000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "10279404000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "10295733600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "10310853600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "10327183200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "10342303200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "10358632800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "10373752800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "10390082400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "10405202400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "10421532000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "10437256800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "10453586400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "10468706400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "10485036000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "10500156000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "10516485600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "10531605600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "10547935200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "10563055200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "10579384800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "10594504800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "10610834400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "10626559200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "10642888800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "10658008800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "10674338400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "10689458400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "10705788000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "10720908000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "10737237600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "10752357600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "10768687200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "10783807200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "10800741600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "10815861600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "10832191200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "10847311200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "10863640800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "10878760800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "10895090400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "10910210400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "10926540000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "10941660000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "10957989600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "10973714400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "10990044000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "11005164000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "11021493600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "11036613600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "11052943200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "11068063200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "11084392800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "11099512800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "11115842400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "11130962400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "11147292000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "11163016800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "11179346400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "11194466400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "11210796000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "11225916000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "11242245600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "11257365600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "11273695200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "11288815200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "11305144800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "11320869600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "11337199200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "11352319200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "11368648800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "11383768800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "11400098400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "11415218400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "11431548000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "11446668000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "11462997600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "11478117600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "11494447200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "11510172000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "11526501600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "11541621600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "11557951200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "11573071200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "11589400800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "11604520800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "11620850400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "11635970400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "11652300000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "11667420000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "11684354400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "11699474400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "11715804000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "11730924000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "11747253600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "11762373600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "11778703200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "11793823200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "11810152800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "11825272800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "11841602400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "11857327200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "11873656800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "11888776800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "11905106400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "11920226400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "11936556000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "11951676000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "11968005600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "11983125600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "11999455200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "12014575200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "12030904800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "12046629600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "12062959200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "12078079200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "12094408800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "12109528800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "12125858400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "12140978400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "12157308000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "12172428000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "12188757600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "12204482400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "12220812000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "12235932000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "12252261600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "12267381600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "12283711200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "12298831200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "12315160800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "12330280800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "12346610400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "12361730400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "12378060000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "12393784800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "12410114400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "12425234400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "12441564000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "12456684000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "12473013600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "12488133600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "12504463200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "12519583200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "12535912800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "12551032800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "12567967200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "12583087200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "12599416800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "12614536800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "12630866400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "12645986400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "12662316000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "12677436000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "12693765600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "12708885600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "12725215200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "12740940000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "12757269600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "12772389600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "12788719200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "12803839200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "12820168800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "12835288800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "12851618400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "12866738400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "12883068000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "12898188000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "12914517600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "12930242400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "12946572000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "12961692000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "12978021600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "12993141600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "13009471200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "13024591200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "13040920800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "13056040800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "13072370400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "13088095200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "13104424800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "13119544800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "13135874400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "13150994400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "13167324000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "13182444000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "13198773600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "13213893600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "13230223200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "13245343200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "13261672800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "13277397600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "13293727200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "13308847200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "13325176800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "13340296800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "13356626400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "13371746400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "13388076000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "13403196000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "13419525600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "13434645600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "13451580000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "13466700000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "13483029600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "13498149600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "13514479200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "13529599200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "13545928800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "13561048800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "13577378400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "13592498400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "13608828000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "13624552800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "13640882400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "13656002400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "13672332000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "13687452000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "13703781600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "13718901600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "13735231200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "13750351200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "13766680800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "13781800800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "13798130400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "13813855200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "13830184800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "13845304800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "13861634400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "13876754400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "13893084000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "13908204000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "13924533600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "13939653600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "13955983200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "13971708000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "13988037600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "14003157600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "14019487200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "14034607200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "14050936800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "14066056800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "14082386400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "14097506400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "14113836000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "14128956000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "14145285600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "14161010400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "14177340000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "14192460000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "14208789600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "14223909600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "14240239200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "14255359200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "14271688800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "14286808800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "14303138400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "14318258400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "14335192800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "14350312800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "14366642400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "14381762400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "14398092000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "14413212000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "14429541600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "14444661600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "14460991200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "14476111200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "14492440800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "14508165600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "14524495200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "14539615200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "14555944800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "14571064800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "14587394400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "14602514400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "14618844000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "14633964000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "14650293600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "14665413600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "14681743200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "14697468000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "14713797600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "14728917600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "14745247200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "14760367200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "14776696800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "14791816800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "14808146400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "14823266400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "14839596000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "14855320800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "14871650400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "14886770400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "14903100000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "14918220000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "14934549600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "14949669600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "14965999200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "14981119200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "14997448800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "15012568800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "15028898400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "15044623200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "15060952800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "15076072800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "15092402400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "15107522400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "15123852000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "15138972000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "15155301600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "15170421600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "15186751200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "15201871200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "15218805600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "15233925600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "15250255200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "15265375200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "15281704800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "15296824800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "15313154400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "15328274400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "15344604000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "15359724000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "15376053600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "15391778400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "15408108000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "15423228000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "15439557600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "15454677600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "15471007200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "15486127200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "15502456800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "15517576800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "15533906400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "15549026400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "15565356000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "15581080800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "15597410400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "15612530400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "15628860000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "15643980000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "15660309600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "15675429600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "15691759200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "15706879200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "15723208800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "15738933600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "15755263200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "15770383200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "15786712800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "15801832800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "15818162400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "15833282400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "15849612000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "15864732000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "15881061600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "15896181600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "15912511200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "15928236000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "15944565600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "15959685600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "15976015200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "15991135200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "16007464800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "16022584800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "16038914400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "16054034400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "16070364000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "16085484000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "16102418400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "16117538400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "16133868000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "16148988000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "16165317600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "16180437600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "16196767200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "16211887200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "16228216800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "16243336800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "16259666400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "16275391200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "16291720800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "16306840800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "16323170400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "16338290400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "16354620000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "16369740000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "16386069600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "16401189600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "16417519200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "16432639200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "16448968800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "16464693600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "16481023200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "16496143200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "16512472800": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "16527592800": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "16543922400": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "16559042400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "16575372000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "16590492000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "16606821600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "16622546400": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "16638876000": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "16653996000": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "16670325600": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "16685445600": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    },
+    "16701775200": {
+        "gmt_offset": "43200",
+        "dst": "0",
+        "abbrev": "NZST"
+    },
+    "16716895200": {
+        "gmt_offset": "46800",
+        "dst": "1",
+        "abbrev": "NZDT"
+    }
+}
