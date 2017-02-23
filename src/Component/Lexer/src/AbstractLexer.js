@@ -18,7 +18,6 @@ module.exports = class AbstractLexer {
         this._position = 0;
     }
 
-
     /**
      * Resets the peek pointer to 0.
      */

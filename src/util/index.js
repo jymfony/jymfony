@@ -31,4 +31,5 @@ require('./lib/Regex/quote');
 require('./lib/mixins');
 
 require('./lib/DataStructure/PriorityQueue');
+require('./lib/DataStructure/BTree');
 require('./lib/Async/Async');
