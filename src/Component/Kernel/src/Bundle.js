@@ -1,9 +1,9 @@
-const Container = Jymfony.DependencyInjection.Container;
-const ContainerAwareTrait = Jymfony.DependencyInjection.ContainerAwareTrait;
-const ExtensionInterface = Jymfony.DependencyInjection.Extension.ExtensionInterface;
+const Container = Jymfony.Component.DependencyInjection.Container;
+const ContainerAwareTrait = Jymfony.Component.DependencyInjection.ContainerAwareTrait;
+const ExtensionInterface = Jymfony.Component.DependencyInjection.Extension.ExtensionInterface;
 
 /**
- * @memberOf Jymfony.Kernel
+ * @memberOf Jymfony.Component.Kernel
  */
 module.exports = class Bundle extends implementationOf(ContainerAwareTrait) {
     /**
@@ -15,7 +15,7 @@ module.exports = class Bundle extends implementationOf(ContainerAwareTrait) {
     /**
      * Builds the bundle
      *
-     * @param {Jymfony.DependencyInjection.ContainerBuilder} container
+     * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
      */
     build(container) {
     }
@@ -46,7 +46,7 @@ module.exports = class Bundle extends implementationOf(ContainerAwareTrait) {
             if (extension) {
                 if (! (extension instanceof ExtensionInterface)) {
                     let r = new ReflectionClass(extension);
-                    throw new LogicException(`Extension ${r.name} must implement Jymfony.DependencyInjection.Extension.ExtensionInterface`);
+                    throw new LogicException(`Extension ${r.name} must implement Jymfony.Component.DependencyInjection.Extension.ExtensionInterface`);
                 }
 
                 // Check naming convention

@@ -1,9 +1,9 @@
-const CompilerPassInterface = Jymfony.DependencyInjection.Compiler.CompilerPassInterface;
-const Reference = Jymfony.DependencyInjection.Reference;
+const CompilerPassInterface = Jymfony.Component.DependencyInjection.Compiler.CompilerPassInterface;
+const Reference = Jymfony.Component.DependencyInjection.Reference;
 
 /**
- * @memberOf Jymfony.DependencyInjection.Compiler
- * @type {Jymfony.DependencyInjection.Compiler.ReplaceAliasByActualDefinitionPass}
+ * @memberOf Jymfony.Component.DependencyInjection.Compiler
+ * @type {Jymfony.Component.DependencyInjection.Compiler.ReplaceAliasByActualDefinitionPass}
  */
 module.exports = class ReplaceAliasByActualDefinitionPass extends implementationOf(CompilerPassInterface) {
     process(container) {

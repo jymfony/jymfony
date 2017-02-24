@@ -1,7 +1,7 @@
-const HelperInterface = Jymfony.Console.Helper.HelperInterface;
+const HelperInterface = Jymfony.Component.Console.Helper.HelperInterface;
 
 /**
- * @memberOf Jymfony.Console.Helper
+ * @memberOf Jymfony.Component.Console.Helper
  * @type Helper
  */
 module.exports = class Helper extends implementationOf(HelperInterface) {

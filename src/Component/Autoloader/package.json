@@ -26,7 +26,7 @@
   "config": {
     "jymfony-autoload": {
       "namespaces": {
-        "Jymfony.Autoloader": "src/"
+        "Jymfony.Component.Autoloader": "src/"
       }
     }
   }

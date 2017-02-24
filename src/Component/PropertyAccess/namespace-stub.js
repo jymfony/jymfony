@@ -5,4 +5,4 @@
 /**
  * @namespace
  */
-global.Jymfony.PropertyAccess = {};
+global.Jymfony.Component.PropertyAccess = {};

@@ -1,4 +1,4 @@
-const SelfCheckingResourceInterface = Jymfony.Config.Resource.SelfCheckingResourceInterface;
+const SelfCheckingResourceInterface = Jymfony.Component.Config.Resource.SelfCheckingResourceInterface;
 const fs = require('fs');
 
 module.exports = class FileResource extends implementationOf(SelfCheckingResourceInterface) {

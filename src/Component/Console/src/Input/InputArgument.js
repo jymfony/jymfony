@@ -1,8 +1,8 @@
-const InvalidArgumentException = Jymfony.Console.Exception.InvalidArgumentException;
-const LogicException = Jymfony.Console.Exception.LogicException;
+const InvalidArgumentException = Jymfony.Component.Console.Exception.InvalidArgumentException;
+const LogicException = Jymfony.Component.Console.Exception.LogicException;
 
 /**
- * @memberOf Jymfony.Console.Input
+ * @memberOf Jymfony.Component.Console.Input
  * @type InputArgument
  */
 class InputArgument {
@@ -74,7 +74,7 @@ class InputArgument {
      *
      * @param {*} defaultValue
      *
-     * @throws {Jymfony.Console.Exception.LogicException} If the argument is required
+     * @throws {Jymfony.Component.Console.Exception.LogicException} If the argument is required
      */
     setDefault(defaultValue) {
         if (undefined !== defaultValue && this.isRequired()) {

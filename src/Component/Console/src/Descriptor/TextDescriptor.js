@@ -1,10 +1,10 @@
-const ApplicationDescription = Jymfony.Console.Descriptor.ApplicationDescription;
-const Descriptor = Jymfony.Console.Descriptor.Descriptor;
-const InputDefinition = Jymfony.Console.Input.InputDefinition;
+const ApplicationDescription = Jymfony.Component.Console.Descriptor.ApplicationDescription;
+const Descriptor = Jymfony.Component.Console.Descriptor.Descriptor;
+const InputDefinition = Jymfony.Component.Console.Input.InputDefinition;
 const util = require('util');
 
 /**
- * @memberOf Jymfony.Console.Descriptor
+ * @memberOf Jymfony.Component.Console.Descriptor
  * @type TextDescriptor
  *
  * @internal
@@ -219,7 +219,7 @@ module.exports = class TextDescriptor extends Descriptor {
     /**
      * Formats command aliases to show them in the command description.
      *
-     * @param {Jymfony.Console.Command.Command} command
+     * @param {Jymfony.Component.Console.Command.Command} command
      *
      * @returns {string}
      *
@@ -250,7 +250,7 @@ module.exports = class TextDescriptor extends Descriptor {
     }
 
     /**
-     * @param {Jymfony.Console.Command.Command[]} commands
+     * @param {Jymfony.Component.Console.Command.Command[]} commands
      *
      * @returns {int}
      *
@@ -270,7 +270,7 @@ module.exports = class TextDescriptor extends Descriptor {
     }
 
     /**
-     * @param {Jymfony.Console.Input.InputOption[]} options
+     * @param {Jymfony.Component.Console.Input.InputOption[]} options
      *
      * @returns {int}
      *

@@ -1,10 +1,10 @@
-const TextDescriptor = Jymfony.Console.Descriptor.TextDescriptor;
-const JsonDescriptor = Jymfony.Console.Descriptor.JsonDescriptor;
-const InvalidArgumentException = Jymfony.Console.Exception.InvalidArgumentException;
-const Helper = Jymfony.Console.Helper.Helper;
+const TextDescriptor = Jymfony.Component.Console.Descriptor.TextDescriptor;
+const JsonDescriptor = Jymfony.Component.Console.Descriptor.JsonDescriptor;
+const InvalidArgumentException = Jymfony.Component.Console.Exception.InvalidArgumentException;
+const Helper = Jymfony.Component.Console.Helper.Helper;
 
 /**
- * @memberOf Jymfony.Console.Helper
+ * @memberOf Jymfony.Component.Console.Helper
  * @type DescriptorHelper
  */
 module.exports = class DescriptorHelper extends Helper {
@@ -30,11 +30,11 @@ module.exports = class DescriptorHelper extends Helper {
      * * format: string, the output format name
      * * raw_text: boolean, sets output type as raw
      *
-     * @param {Jymfony.Console.Output.OutputInterface} output
+     * @param {Jymfony.Component.Console.Output.OutputInterface} output
      * @param {Object} object
      * @param {*} options
      *
-     * @throws {Jymfony.Console.Exception.InvalidArgumentException} when the given format is not supported
+     * @throws {Jymfony.Component.Console.Exception.InvalidArgumentException} when the given format is not supported
      */
     describe(output, object, options = {}) {
         options = Object.assign({
@@ -54,9 +54,9 @@ module.exports = class DescriptorHelper extends Helper {
      * Registers a descriptor.
      *
      * @param {string} format
-     * @param {Jymfony.Console.Descriptor.DescriptorInterface} descriptor
+     * @param {Jymfony.Component.Console.Descriptor.DescriptorInterface} descriptor
      *
-     * @returns {Jymfony.Console.Helper.DescriptorHelper}
+     * @returns {Jymfony.Component.Console.Helper.DescriptorHelper}
      */
     register(format, descriptor) {
         this._descriptors[format] = descriptor;

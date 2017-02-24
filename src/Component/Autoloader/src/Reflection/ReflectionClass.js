@@ -181,7 +181,7 @@ global.ReflectionClass = class ReflectionClass {
     /**
      * Get the Namespace object containing this class
      *
-     * @returns {Jymfony.Autoloader.Namespace}
+     * @returns {Jymfony.Component.Autoloader.Namespace}
      */
     get namespace() {
         return this._namespace;

@@ -1,7 +1,7 @@
-const Compiler = Jymfony.DependencyInjection.Compiler;
+const Compiler = Jymfony.Component.DependencyInjection.Compiler;
 
 /**
- * @memberOf Jymfony.DependencyInjection.Compiler
+ * @memberOf Jymfony.Component.DependencyInjection.Compiler
  */
 class PassConfig {
     constructor() {

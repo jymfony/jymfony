@@ -5,7 +5,7 @@ const Namespace = require('./Namespace');
 const path = require('path');
 
 /**
- * @memberOf Jymfony.Autoloader
+ * @memberOf Jymfony.Component.Autoloader
  * @type Autoloader
  */
 module.exports = class Autoloader {
@@ -48,7 +48,7 @@ module.exports = class Autoloader {
     /**
      * Gets the current finder.
      *
-     * @returns {Jymfony.Autoloader.Finder}
+     * @returns {Jymfony.Component.Autoloader.Finder}
      */
     get finder() {
         return this._finder;

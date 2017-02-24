@@ -1,10 +1,10 @@
-const Command = Jymfony.Console.Command.Command;
-const InputArgument = Jymfony.Console.Input.InputArgument;
-const InputOption = Jymfony.Console.Input.InputOption;
-const DescriptorHelper = Jymfony.Console.Helper.DescriptorHelper;
+const Command = Jymfony.Component.Console.Command.Command;
+const InputArgument = Jymfony.Component.Console.Input.InputArgument;
+const InputOption = Jymfony.Component.Console.Input.InputOption;
+const DescriptorHelper = Jymfony.Component.Console.Helper.DescriptorHelper;
 
 /**
- * @memberOf Jymfony.Console.Command
+ * @memberOf Jymfony.Component.Console.Command
  * @type HelpCommand
  */
 module.exports = class HelpCommand extends Command {
@@ -37,7 +37,7 @@ To display the list of available commands, please use the <info>list</info> comm
     /**
      * Sets the command.
      *
-     * @param {Jymfony.Console.Command.Command} command The command to set
+     * @param {Jymfony.Component.Console.Command.Command} command The command to set
      */
     set command(command) {
         this._command = command;

@@ -1,10 +1,10 @@
-let ParameterNotFoundException = Jymfony.DependencyInjection.Exception.ParameterNotFoundException;
-let ParameterCircularReferenceException = Jymfony.DependencyInjection.Exception.ParameterCircularReferenceException;
+let ParameterNotFoundException = Jymfony.Component.DependencyInjection.Exception.ParameterNotFoundException;
+let ParameterCircularReferenceException = Jymfony.Component.DependencyInjection.Exception.ParameterCircularReferenceException;
 
 /**
  * Holds parameters
  *
- * @memberOf Jymfony.DependencyInjection.ParameterBag
+ * @memberOf Jymfony.Component.DependencyInjection.ParameterBag
  */
 module.exports = class ParameterBag {
     constructor(params = {}) {

@@ -1,7 +1,7 @@
 const expect = require('chai').expect;
 
-const ConsoleOutput = Jymfony.Console.Output.ConsoleOutput;
-const OutputInterface = Jymfony.Console.Output.OutputInterface;
+const ConsoleOutput = Jymfony.Component.Console.Output.ConsoleOutput;
+const OutputInterface = Jymfony.Component.Console.Output.OutputInterface;
 
 describe('[Console] ConsoleOutput', function () {
     it('constructor', () => {

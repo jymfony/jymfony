@@ -1,8 +1,8 @@
 const BaseException = global.RuntimeException;
 
 /**
- * @namespace Jymfony.PropertyAccess
- * @type {Jymfony.PropertyAccess.Exception.RuntimeException}
+ * @namespace Jymfony.Component.PropertyAccess
+ * @type {Jymfony.Component.PropertyAccess.Exception.RuntimeException}
  */
 module.exports = class RuntimeException extends BaseException {
 };

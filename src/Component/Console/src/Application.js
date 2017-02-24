@@ -1,21 +1,21 @@
-const Command = Jymfony.Console.Command.Command;
-const CommandNotFoundException = Jymfony.Console.Exception.CommandNotFoundException;
-const ExceptionInterface = Jymfony.Console.Exception.ExceptionInterface;
-const HelperSet = Jymfony.Console.Helper.HelperSet;
-const ArgvInput = Jymfony.Console.Input.ArgvInput;
-const ArrayInput = Jymfony.Console.Input.ArrayInput;
-const InputArgument = Jymfony.Console.Input.InputArgument;
-const InputAwareInterface = Jymfony.Console.Input.InputAwareInterface;
-const InputDefinition = Jymfony.Console.Input.InputDefinition;
-const InputOption = Jymfony.Console.Input.InputOption;
-const ConsoleOutput = Jymfony.Console.Output.ConsoleOutput;
-const ConsoleOutputInterface = Jymfony.Console.Output.ConsoleOutputInterface;
-const OutputInterface = Jymfony.Console.Output.OutputInterface;
+const Command = Jymfony.Component.Console.Command.Command;
+const CommandNotFoundException = Jymfony.Component.Console.Exception.CommandNotFoundException;
+const ExceptionInterface = Jymfony.Component.Console.Exception.ExceptionInterface;
+const HelperSet = Jymfony.Component.Console.Helper.HelperSet;
+const ArgvInput = Jymfony.Component.Console.Input.ArgvInput;
+const ArrayInput = Jymfony.Component.Console.Input.ArrayInput;
+const InputArgument = Jymfony.Component.Console.Input.InputArgument;
+const InputAwareInterface = Jymfony.Component.Console.Input.InputAwareInterface;
+const InputDefinition = Jymfony.Component.Console.Input.InputDefinition;
+const InputOption = Jymfony.Component.Console.Input.InputOption;
+const ConsoleOutput = Jymfony.Component.Console.Output.ConsoleOutput;
+const ConsoleOutputInterface = Jymfony.Component.Console.Output.ConsoleOutputInterface;
+const OutputInterface = Jymfony.Component.Console.Output.OutputInterface;
 
 const util = require('util');
 
 /**
- * @memberOf Jymfony.Console
+ * @memberOf Jymfony.Component.Console
  * @type Application
  */
 module.exports = class Application {
@@ -36,7 +36,7 @@ module.exports = class Application {
     /**
      * Sets the event dispatcher.
      *
-     * @param {Jymfony.EventDispatcher.EventDispatcher} dispatcher
+     * @param {Jymfony.Component.EventDispatcher.EventDispatcher} dispatcher
      */
     set dispatcher(dispatcher) {
         this._eventDispatcher = dispatcher;
@@ -45,7 +45,7 @@ module.exports = class Application {
     /**
      * Gets the helper set.
      *
-     * @returns {Jymfony.Console.Helper.HelperSet}
+     * @returns {Jymfony.Component.Console.Helper.HelperSet}
      */
     get helperSet() {
         return this._helperSet;
@@ -54,7 +54,7 @@ module.exports = class Application {
     /**
      * Set an input definition to be used with this application.
      *
-     * @param {Jymfony.Console.Input.InputDefinition} definition The input definition
+     * @param {Jymfony.Component.Console.Input.InputDefinition} definition The input definition
      */
     set definition(definition) {
         this._definition = definition;
@@ -63,7 +63,7 @@ module.exports = class Application {
     /**
      * Gets the InputDefinition related to this Application.
      *
-     * @returns {Jymfony.Console.Input.InputDefinition} The InputDefinition instance
+     * @returns {Jymfony.Component.Console.Input.InputDefinition} The InputDefinition instance
      */
     get definition() {
         return this._definition;
@@ -81,8 +81,8 @@ module.exports = class Application {
     /**
      * Run the application
      *
-     * @param {Jymfony.Console.Input.InputInterface} input
-     * @param {Jymfony.Console.Output.OutputInterface} output
+     * @param {Jymfony.Component.Console.Input.InputInterface} input
+     * @param {Jymfony.Component.Console.Output.OutputInterface} output
      *
      * @returns {Promise} Promise executing the application
      */
@@ -146,7 +146,7 @@ module.exports = class Application {
      *
      * @param {string} name The command name
      *
-     * @return {Jymfony.Console.Command.Command} The newly created command
+     * @return {Jymfony.Component.Console.Command.Command} The newly created command
      */
     register(name) {
         return this.add(new Command(name));
@@ -157,7 +157,7 @@ module.exports = class Application {
      *
      * If a Command is not enabled it will not be added.
      *
-     * @param {Jymfony.Console.Command.Command[]} commands An array of commands
+     * @param {Jymfony.Component.Console.Command.Command[]} commands An array of commands
      */
     addCommands(commands) {
         for (let command of commands) {
@@ -171,9 +171,9 @@ module.exports = class Application {
      * If a command with the same name already exists, it will be overridden.
      * If the command is not enabled it will not be added.
      *
-     * @param {Jymfony.Console.Command.Command} command A Command object
+     * @param {Jymfony.Component.Console.Command.Command} command A Command object
      *
-     * @return {Jymfony.Console.Command.Command|undefined} The registered command if enabled or null
+     * @return {Jymfony.Component.Console.Command.Command|undefined} The registered command if enabled or null
      */
     add(command) {
         command.application = this;
@@ -198,9 +198,9 @@ module.exports = class Application {
      *
      * @param {string} name The command name or alias
      *
-     * @returns {Jymfony.Console.Command.Command} A Command object
+     * @returns {Jymfony.Component.Console.Command.Command} A Command object
      *
-     * @throws {Jymfony.Console.Exception.CommandNotFoundException} When command name given does not exist
+     * @throws {Jymfony.Component.Console.Exception.CommandNotFoundException} When command name given does not exist
      */
     get(name) {
         if (undefined === this._commands[name]) {
@@ -229,9 +229,9 @@ module.exports = class Application {
      *
      * @param {string} name A command name or a command alias
      *
-     * @return {Jymfony.Console.Command.Command} A Command instance
+     * @return {Jymfony.Component.Console.Command.Command} A Command instance
      *
-     * @throws {Jymfony.Console.Exception.CommandNotFoundException} When command name is incorrect or ambiguous
+     * @throws {Jymfony.Component.Console.Exception.CommandNotFoundException} When command name is incorrect or ambiguous
      */
     find(name) {
         let allCommands = Object.keys(this._commands);
@@ -292,7 +292,7 @@ module.exports = class Application {
      *
      * @param {string} namespace A namespace name
      *
-     * @returns {Object.<string, Jymfony.Console.Command.Command[]>} An array of Command instances
+     * @returns {Object.<string, Jymfony.Component.Console.Command.Command[]>} An array of Command instances
      */
     all(namespace = undefined) {
         if (undefined === namespace) {
@@ -316,7 +316,7 @@ module.exports = class Application {
      *
      * @returns {string} A registered namespace
      *
-     * @throws {Jymfony.Console.Exception.CommandNotFoundException} When namespace is incorrect or ambiguous
+     * @throws {Jymfony.Component.Console.Exception.CommandNotFoundException} When namespace is incorrect or ambiguous
      */
     findNamespace(namespace) {
         let allNamespaces = this.namespaces;
@@ -427,8 +427,8 @@ module.exports = class Application {
     /**
      * Runs the current application.
      *
-     * @param {Jymfony.Console.Input.InputInterface} input An Input instance
-     * @param {Jymfony.Console.Output.OutputInterface} output An Output instance
+     * @param {Jymfony.Component.Console.Input.InputInterface} input An Input instance
+     * @param {Jymfony.Component.Console.Output.OutputInterface} output An Output instance
      *
      * @returns {int} 0 if everything went fine, or an error code
      *
@@ -472,9 +472,9 @@ module.exports = class Application {
      * If an event dispatcher has been attached to the application,
      * events are also dispatched during the life-cycle of the command.
      *
-     * @param {Jymfony.Console.Command.Command} command A Command instance
-     * @param {Jymfony.Console.Input.InputInterface} input An Input instance
-     * @param {Jymfony.Console.Output.OutputInterface} output An Output instance
+     * @param {Jymfony.Component.Console.Command.Command} command A Command instance
+     * @param {Jymfony.Component.Console.Input.InputInterface} input An Input instance
+     * @param {Jymfony.Component.Console.Output.OutputInterface} output An Output instance
      *
      * @return int 0 if everything went fine, or an error code
      *
@@ -540,8 +540,8 @@ module.exports = class Application {
     /**
      * Configures the input and output instances based on the user arguments and options.
      *
-     * @param {Jymfony.Console.Input.InputInterface} input An InputInterface instance
-     * @param {Jymfony.Console.Output.OutputInterface} output An OutputInterface instance
+     * @param {Jymfony.Component.Console.Input.InputInterface} input An InputInterface instance
+     * @param {Jymfony.Component.Console.Output.OutputInterface} output An OutputInterface instance
      *
      * @protected
      */
@@ -578,7 +578,7 @@ module.exports = class Application {
     /**
      * Gets the default helper set.
      *
-     * @returns {Jymfony.Console.Helper.HelperSet}
+     * @returns {Jymfony.Component.Console.Helper.HelperSet}
      *
      * @protected
      */
@@ -589,7 +589,7 @@ module.exports = class Application {
     /**
      * Gets the default input definition.
      *
-     * @returns {Jymfony.Console.Input.InputDefinition}
+     * @returns {Jymfony.Component.Console.Input.InputDefinition}
      *
      * @protected
      */
@@ -610,21 +610,21 @@ module.exports = class Application {
     /**
      * Gets the built-in commands.
      *
-     * @returns {Jymfony.Console.Command.Command[]}
+     * @returns {Jymfony.Component.Console.Command.Command[]}
      *
      * @protected
      */
     _getDefaultCommands() {
         return [
-            new Jymfony.Console.Command.ListCommand(),
-            new Jymfony.Console.Command.HelpCommand(),
+            new Jymfony.Component.Console.Command.ListCommand(),
+            new Jymfony.Component.Console.Command.HelpCommand(),
         ];
     }
 
     /**
      * Gets the name of the command
      *
-     * @param {Jymfony.Console.Input.InputInterface} input
+     * @param {Jymfony.Component.Console.Input.InputInterface} input
      *
      * @returns {string}
      *

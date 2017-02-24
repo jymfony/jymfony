@@ -1,6 +1,6 @@
 /**
- * @memberOf Jymfony.Config
- * @type {Jymfony.Config.ConfigCacheInterface}
+ * @memberOf Jymfony.Component.Config
+ * @type {Jymfony.Component.Config.ConfigCacheInterface}
  */
 class ConfigCacheInterface {
     /**
@@ -23,7 +23,7 @@ class ConfigCacheInterface {
      * independently and can be used to check cache freshness at a later time.
      *
      * @param {string} content The content to write into the cache
-     * @param {Jymfony.Config.Resource.ResourceInterface[]} metadata An array of ResourceInterface instances
+     * @param {Jymfony.Component.Config.Resource.ResourceInterface[]} metadata An array of ResourceInterface instances
      *
      * @throws \RuntimeException When the cache file cannot be written
      */

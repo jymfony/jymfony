@@ -29,7 +29,7 @@
   "config": {
     "jymfony-autoload": {
       "namespaces": {
-        "Jymfony.EventDispatcher": "src/"
+        "Jymfony.Component.EventDispatcher": "src/"
       }
     }
   }

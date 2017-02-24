@@ -5,4 +5,4 @@
 /**
  * @namespace
  */
-global.Jymfony.Console = {};
+global.Jymfony.Component.Console = {};

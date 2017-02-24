@@ -1,10 +1,10 @@
-const RepeatablePassInterface = Jymfony.DependencyInjection.Compiler.RepeatablePassInterface;
-const Definition = Jymfony.DependencyInjection.Definition;
-const Reference = Jymfony.DependencyInjection.Reference;
+const RepeatablePassInterface = Jymfony.Component.DependencyInjection.Compiler.RepeatablePassInterface;
+const Definition = Jymfony.Component.DependencyInjection.Definition;
+const Reference = Jymfony.Component.DependencyInjection.Reference;
 
 /**
- * @memberOf Jymfony.DependencyInjection.Compiler
- * @type {Jymfony.DependencyInjection.Compiler.ResolveInvalidReferencesPass}
+ * @memberOf Jymfony.Component.DependencyInjection.Compiler
+ * @type {Jymfony.Component.DependencyInjection.Compiler.ResolveInvalidReferencesPass}
  */
 module.exports = class AnalyzeServiceReferencesPass extends implementationOf(RepeatablePassInterface) {
     constructor(onlyConstructorArguments = false) {
@@ -20,7 +20,7 @@ module.exports = class AnalyzeServiceReferencesPass extends implementationOf(Rep
     }
 
     /**
-     * @param {Jymfony.DependencyInjection.ContainerBuilder} container
+     * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
      */
     process(container) {
         this._container = container;

@@ -1,16 +1,16 @@
-const ConfigCacheInterface = Jymfony.Config.ConfigCacheInterface;
+const ConfigCacheInterface = Jymfony.Component.Config.ConfigCacheInterface;
 const fs = require('fs');
 
 /**
- * @memberOf Jymfony.Config
- * @type {Jymfony.Config.ResourceCheckerConfigCache}
+ * @memberOf Jymfony.Component.Config
+ * @type {Jymfony.Component.Config.ResourceCheckerConfigCache}
  */
 module.exports = class ResourceCheckerConfigCache extends implementationOf(ConfigCacheInterface) {
     /**
      * Create a config cache with resource checkers
      *
      * @param {string} file
-     * @param {Jymfony.Config.ResourceCheckerInterface[]} resourceCheckers
+     * @param {Jymfony.Component.Config.ResourceCheckerInterface[]} resourceCheckers
      */
     constructor(file, resourceCheckers = []) {
         super();

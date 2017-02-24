@@ -1,24 +1,24 @@
 const util = require('util');
 
-const Container = Jymfony.DependencyInjection.Container;
-const ContainerBuilder = Jymfony.DependencyInjection.ContainerBuilder;
-const Definition = Jymfony.DependencyInjection.Definition;
-const RuntimeException = Jymfony.DependencyInjection.Exception.RuntimeException;
-const ServiceCircularReferenceException = Jymfony.DependencyInjection.Exception.ServiceCircularReferenceException;
-const Parameter = Jymfony.DependencyInjection.Parameter;
-const Reference = Jymfony.DependencyInjection.Reference;
-const Variable = Jymfony.DependencyInjection.Variable;
+const Container = Jymfony.Component.DependencyInjection.Container;
+const ContainerBuilder = Jymfony.Component.DependencyInjection.ContainerBuilder;
+const Definition = Jymfony.Component.DependencyInjection.Definition;
+const RuntimeException = Jymfony.Component.DependencyInjection.Exception.RuntimeException;
+const ServiceCircularReferenceException = Jymfony.Component.DependencyInjection.Exception.ServiceCircularReferenceException;
+const Parameter = Jymfony.Component.DependencyInjection.Parameter;
+const Reference = Jymfony.Component.DependencyInjection.Reference;
+const Variable = Jymfony.Component.DependencyInjection.Variable;
 
 const firstChars = 'abcdefghijklmnopqrstuvwxyz';
 const nonFirstChars = 'abcdefghijklmnopqrstuvwxyz0123456789_';
 
 /**
- * @memberOf Jymfony.DependencyInjection.Dumper
- * @type {Jymfony.DependencyInjection.Dumper.JsDumper}
+ * @memberOf Jymfony.Component.DependencyInjection.Dumper
+ * @type {Jymfony.Component.DependencyInjection.Dumper.JsDumper}
  */
 module.exports = class JsDumper {
     /**
-     * @param {Jymfony.DependencyInjection.ContainerBuilder} container
+     * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
      */
     constructor(container) {
         if (! container.frozen) {
@@ -31,7 +31,7 @@ module.exports = class JsDumper {
 
     dump(options = {}) {
         options = Object.assign({}, {
-            base_class: 'Jymfony.DependencyInjection.Container',
+            base_class: 'Jymfony.Component.DependencyInjection.Container',
             class_name: 'ProjectContainer',
             debug: true,
         }, options);
@@ -62,9 +62,9 @@ module.exports = class JsDumper {
 
     _startClass(className, baseClass) {
         return `
-const Container = Jymfony.DependencyInjection.Container;
-const LogicException = Jymfony.DependencyInjection.Exception.LogicException;
-const FrozenParameterBag = Jymfony.DependencyInjection.ParameterBag.FrozenParameterBag;
+const Container = Jymfony.Component.DependencyInjection.Container;
+const LogicException = Jymfony.Component.DependencyInjection.Exception.LogicException;
+const FrozenParameterBag = Jymfony.Component.DependencyInjection.ParameterBag.FrozenParameterBag;
 
 class ${className} extends ${baseClass} {
     constructor() {
@@ -200,7 +200,7 @@ module.exports = global.${className} = ${className};
      * Generate a service
      *
      * @param {string} id
-     * @param {Jymfony.DependencyInjection.Definition} definition
+     * @param {Jymfony.Component.DependencyInjection.Definition} definition
      *
      * @private
      */
@@ -213,7 +213,7 @@ module.exports = global.${className} = ${className};
         let returns = [];
 
         if (definition.isSynthetic()) {
-            returns.push('@throws {Jymfony.DependencyInjection.RuntimeException} always since this service is expected to be injected dynamically');
+            returns.push('@throws {Jymfony.Component.DependencyInjection.RuntimeException} always since this service is expected to be injected dynamically');
         } else if (class_ = definition.getClass()) {
             returns.push('@returns {' + (-1 != class_.indexOf('%') ? '*' : class_) + '} An instance of ' + class_);
         } else if (factory = definition.getFactory()) {
@@ -376,7 +376,7 @@ ${this._addReturn(id, definition)}\
      * Generate service instance
      *
      * @param {string} id
-     * @param {Jymfony.DependencyInjection.Definition} definition
+     * @param {Jymfony.Component.DependencyInjection.Definition} definition
      *
      * @returns {string}
      * @private

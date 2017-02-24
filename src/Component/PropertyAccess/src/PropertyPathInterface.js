@@ -1,6 +1,6 @@
 /**
- * @namespace Jymfony.PropertyAccess
- * @type {Jymfony.PropertyAccess.PropertyPathInterface}
+ * @namespace Jymfony.Component.PropertyAccess
+ * @type {Jymfony.Component.PropertyAccess.PropertyPathInterface}
  */
 class PropertyPathInterface {
     /**
@@ -17,7 +17,7 @@ class PropertyPathInterface {
      *
      * @returns {string}
      *
-     * @throws {Jymfony.PropertyAccess.Exception.OutOfBoundsException}
+     * @throws {Jymfony.Component.PropertyAccess.Exception.OutOfBoundsException}
      */
     getElement(index) { }
 

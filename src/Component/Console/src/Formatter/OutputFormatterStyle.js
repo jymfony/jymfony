@@ -1,5 +1,5 @@
-const InvalidArgumentException = Jymfony.Console.Exception.InvalidArgumentException;
-const OutputFormatterStyleInterface = Jymfony.Console.Formatter.OutputFormatterStyleInterface;
+const InvalidArgumentException = Jymfony.Component.Console.Exception.InvalidArgumentException;
+const OutputFormatterStyleInterface = Jymfony.Component.Console.Formatter.OutputFormatterStyleInterface;
 
 const util = require("util");
 
@@ -36,7 +36,7 @@ const availableOptions = {
 };
 
 /**
- * @memberOf Jymfony.Console.Formatter
+ * @memberOf Jymfony.Component.Console.Formatter
  * @type OutputFormatterStyle
  */
 module.exports = class OutputFormatterStyle extends implementationOf(OutputFormatterStyleInterface) {

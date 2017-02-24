@@ -1,5 +1,5 @@
 /**
- * @memberOf Jymfony.Console.Formatter
+ * @memberOf Jymfony.Component.Console.Formatter
  * @type OutputFormatterInterface
  *
  * @interface
@@ -23,7 +23,7 @@ class OutputFormatterInterface {
      * Sets a new style.
      *
      * @param {string} name  The style name
-     * @param {Jymfony.Console.Formatter.OutputFormatterStyleInterface} style The style instance
+     * @param {Jymfony.Component.Console.Formatter.OutputFormatterStyleInterface} style The style instance
      */
     setStyle(name, style) { }
 
@@ -41,7 +41,7 @@ class OutputFormatterInterface {
      *
      * @param {string} name
      *
-     * @returns {Jymfony.Console.Formatter.OutputFormatterStyleInterface}
+     * @returns {Jymfony.Component.Console.Formatter.OutputFormatterStyleInterface}
      */
     getStyle(name) { }
 

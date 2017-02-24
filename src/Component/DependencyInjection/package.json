@@ -30,7 +30,7 @@
   "config": {
     "jymfony-autoload": {
       "namespaces": {
-        "Jymfony.DependencyInjection": "src/"
+        "Jymfony.Component.DependencyInjection": "src/"
       }
     }
   }

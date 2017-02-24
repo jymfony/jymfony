@@ -1,8 +1,8 @@
 const BaseException = global.RuntimeException;
-const ExceptionInterface = Jymfony.Console.Exception.ExceptionInterface;
+const ExceptionInterface = Jymfony.Component.Console.Exception.ExceptionInterface;
 
 /**
- * @memberOf Jymfony.Console.Exception
+ * @memberOf Jymfony.Component.Console.Exception
  * @type RuntimeException
  */
 module.exports = class RuntimeException extends mix(BaseException, ExceptionInterface) {

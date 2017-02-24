@@ -1,9 +1,9 @@
-const Alias = Jymfony.DependencyInjection.Alias;
-const Definition = Jymfony.DependencyInjection.Definition;
+const Alias = Jymfony.Component.DependencyInjection.Alias;
+const Definition = Jymfony.Component.DependencyInjection.Definition;
 
 /**
- * @memberOf Jymfony.DependencyInjection.Compiler
- * @type {Jymfony.DependencyInjection.Compiler.ServiceReferenceGraphNode}
+ * @memberOf Jymfony.Component.DependencyInjection.Compiler
+ * @type {Jymfony.Component.DependencyInjection.Compiler.ServiceReferenceGraphNode}
  */
 module.exports = class ServiceReferenceGraphNode {
     constructor(id, value) {

@@ -1,8 +1,8 @@
 /**
  * Lazy proxy instantiator
  *
- * @memberOf Jymfony.DependencyInjection.LazyProxy
- * @type {Jymfony.DependencyInjection.LazyProxy.InstantiatorInterface}
+ * @memberOf Jymfony.Component.DependencyInjection.LazyProxy
+ * @type {Jymfony.Component.DependencyInjection.LazyProxy.InstantiatorInterface}
  */
 class InstantiatorInterface {
     /**

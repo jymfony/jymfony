@@ -1,12 +1,12 @@
-const CompilerPassInterface = Jymfony.DependencyInjection.Compiler.CompilerPassInterface;
-const Container = Jymfony.DependencyInjection.Container;
-const Definition = Jymfony.DependencyInjection.Definition;
-const ServiceNotFoundException = Jymfony.DependencyInjection.Exception.ServiceNotFoundException;
-const Reference = Jymfony.DependencyInjection.Reference;
+const CompilerPassInterface = Jymfony.Component.DependencyInjection.Compiler.CompilerPassInterface;
+const Container = Jymfony.Component.DependencyInjection.Container;
+const Definition = Jymfony.Component.DependencyInjection.Definition;
+const ServiceNotFoundException = Jymfony.Component.DependencyInjection.Exception.ServiceNotFoundException;
+const Reference = Jymfony.Component.DependencyInjection.Reference;
 
 /**
- * @memberOf Jymfony.DependencyInjection.Compiler
- * @type {Jymfony.DependencyInjection.Compiler.CheckExceptionOnInvalidReferenceBehaviorPass}
+ * @memberOf Jymfony.Component.DependencyInjection.Compiler
+ * @type {Jymfony.Component.DependencyInjection.Compiler.CheckExceptionOnInvalidReferenceBehaviorPass}
  */
 module.exports = class CheckExceptionOnInvalidReferenceBehaviorPass extends implementationOf(CompilerPassInterface) {
     process(container) {

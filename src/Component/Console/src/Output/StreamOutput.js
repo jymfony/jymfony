@@ -1,13 +1,13 @@
-const InvalidArgumentException = Jymfony.Console.Exception.InvalidArgumentException;
-const OutputFormatter = Jymfony.Console.Formatter.OutputFormatter;
-const Output = Jymfony.Console.Output.Output;
-const OutputInterface = Jymfony.Console.Output.OutputInterface;
+const InvalidArgumentException = Jymfony.Component.Console.Exception.InvalidArgumentException;
+const OutputFormatter = Jymfony.Component.Console.Formatter.OutputFormatter;
+const Output = Jymfony.Component.Console.Output.Output;
+const OutputInterface = Jymfony.Component.Console.Output.OutputInterface;
 
 const stream = require('stream');
 const os = require("os");
 
 /**
- * @memberOf Jymfony.Console.Output
+ * @memberOf Jymfony.Component.Console.Output
  * @type StreamOutput
  */
 module.exports = class StreamOutput extends Output {

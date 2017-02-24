@@ -5,4 +5,9 @@
 /**
  * @namespace
  */
-global.Jymfony = {};
+global.Jymfony = {
+    /**
+     * @namespace
+     */
+    Component: {}
+};

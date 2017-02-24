@@ -1,4 +1,4 @@
-const SelfCheckingResourceInterface = Jymfony.Config.Resource.SelfCheckingResourceInterface;
+const SelfCheckingResourceInterface = Jymfony.Component.Config.Resource.SelfCheckingResourceInterface;
 
 module.exports = class ClassExistenceResource extends implementationOf(SelfCheckingResourceInterface) {
     constructor(resource) {

@@ -1,7 +1,7 @@
-const InvalidArgumentException = Jymfony.Console.Exception.InvalidArgumentException;
+const InvalidArgumentException = Jymfony.Component.Console.Exception.InvalidArgumentException;
 
 /**
- * @memberOf Jymfony.Console.Helper
+ * @memberOf Jymfony.Component.Console.Helper
  * @type HelperSet
  */
 module.exports = class HelperSet {
@@ -16,7 +16,7 @@ module.exports = class HelperSet {
     /**
      * Sets a helper.
      *
-     * @param {Jymfony.Console.Helper.HelperInterface} helper The helper instance
+     * @param {Jymfony.Component.Console.Helper.HelperInterface} helper The helper instance
      */
     set(helper) {
         this._helpers[helper.name] = helper;
@@ -40,9 +40,9 @@ module.exports = class HelperSet {
      *
      * @param {string} name The helper name
      *
-     * @returns {Jymfony.Console.Helper.HelperInterface} The helper instance
+     * @returns {Jymfony.Component.Console.Helper.HelperInterface} The helper instance
      *
-     * @throws {Jymfony.Console.Exception.InvalidArgumentException} if the helper is not defined
+     * @throws {Jymfony.Component.Console.Exception.InvalidArgumentException} if the helper is not defined
      */
     get(name) {
         if (! this.has(name)) {
@@ -55,7 +55,7 @@ module.exports = class HelperSet {
     /**
      * Sets the command associated with this helper set.
      *
-     * @param {Jymfony.Console.Command.Command} command A Command instance
+     * @param {Jymfony.Component.Console.Command.Command} command A Command instance
      */
     set command(command) {
         this._command = command;
@@ -64,14 +64,14 @@ module.exports = class HelperSet {
     /**
      * Gets the command associated with this helper set.
      *
-     * @returns {Jymfony.Console.Command.Command} A Command instance
+     * @returns {Jymfony.Component.Console.Command.Command} A Command instance
      */
     getCommand() {
         return this._command;
     }
 
     /**
-     * @returns {Jymfony.Console.Helper.HelperInterface[]}
+     * @returns {Jymfony.Component.Console.Helper.HelperInterface[]}
      */
     * [Symbol.iterator]() {
         yield * Object.values(this._helpers);

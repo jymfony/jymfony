@@ -1,8 +1,8 @@
 const BaseException = global.LogicException;
-const ExceptionInterface = Jymfony.Console.Exception.ExceptionInterface;
+const ExceptionInterface = Jymfony.Component.Console.Exception.ExceptionInterface;
 
 /**
- * @memberOf Jymfony.Console.Exception
+ * @memberOf Jymfony.Component.Console.Exception
  * @type LogicException
  */
 module.exports = class LogicException extends mix(BaseException, ExceptionInterface) {

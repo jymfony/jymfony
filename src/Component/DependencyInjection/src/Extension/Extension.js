@@ -1,12 +1,12 @@
-const Container = Jymfony.DependencyInjection.Container;
-const BadMethodCallException = Jymfony.DependencyInjection.Exception.BadMethodCallException;
-const InvalidArgumentException = Jymfony.DependencyInjection.Exception.InvalidArgumentException;
-const ExtensionInterface = Jymfony.DependencyInjection.Extension.ExtensionInterface;
+const Container = Jymfony.Component.DependencyInjection.Container;
+const BadMethodCallException = Jymfony.Component.DependencyInjection.Exception.BadMethodCallException;
+const InvalidArgumentException = Jymfony.Component.DependencyInjection.Exception.InvalidArgumentException;
+const ExtensionInterface = Jymfony.Component.DependencyInjection.Extension.ExtensionInterface;
 
 /**
  * Abstract extension
  *
- * @memberOf Jymfony.DependencyInjection.Extension
+ * @memberOf Jymfony.Component.DependencyInjection.Extension
  */
 module.exports = class Extension extends implementationOf(ExtensionInterface) {
     /**
@@ -58,7 +58,7 @@ module.exports = class Extension extends implementationOf(ExtensionInterface) {
     }
 
     /**
-     * @param {Jymfony.DependencyInjection.ContainerBuilder} container
+     * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
      * @param {*} config
      *
      * @returns {*}

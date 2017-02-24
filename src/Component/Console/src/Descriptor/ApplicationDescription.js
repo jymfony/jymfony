@@ -1,5 +1,5 @@
 /**
- * @memberOf Jymfony.Console.Descriptor
+ * @memberOf Jymfony.Component.Console.Descriptor
  * @type ApplicationDescription
  *
  * @internal
@@ -8,7 +8,7 @@ class ApplicationDescription {
     /**
      * Constructor.
      *
-     * @param {Jymfony.Console.Application} application
+     * @param {Jymfony.Component.Console.Application} application
      * @param {string|undefined} namespace
      */
     constructor(application, namespace = undefined) {
@@ -28,7 +28,7 @@ class ApplicationDescription {
     }
 
     /**
-     * @returns {Jymfony.Console.Command.Command[]}
+     * @returns {Jymfony.Component.Console.Command.Command[]}
      */
     get commands() {
         if (undefined === this._commands) {
@@ -41,9 +41,9 @@ class ApplicationDescription {
     /**
      * @param {string} name
      *
-     * @returns {Jymfony.Console.Command.Command}
+     * @returns {Jymfony.Component.Console.Command.Command}
      *
-     * @throws {Jymfony.Console.Exception.CommandNotFoundException}
+     * @throws {Jymfony.Component.Console.Exception.CommandNotFoundException}
      */
     getCommand(name) {
         if (! this._commands[name] && ! this._aliases[name]) {
@@ -82,7 +82,7 @@ class ApplicationDescription {
     }
 
     /**
-     * @param {Object.<string, Jymfony.Console.Command.Command>} commands
+     * @param {Object.<string, Jymfony.Component.Console.Command.Command>} commands
      *
      * @return array
      */

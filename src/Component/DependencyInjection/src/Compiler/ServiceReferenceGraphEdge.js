@@ -1,6 +1,6 @@
 /**
- * @memberOf Jymfony.DependencyInjection.Compiler
- * @type {Jymfony.DependencyInjection.Compiler.ServiceReferenceGraphEdge}
+ * @memberOf Jymfony.Component.DependencyInjection.Compiler
+ * @type {Jymfony.Component.DependencyInjection.Compiler.ServiceReferenceGraphEdge}
  */
 module.exports = class ServiceReferenceGraphEdge {
     constructor(sourceNode, destNode, value = undefined) {

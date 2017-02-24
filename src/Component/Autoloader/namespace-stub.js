@@ -5,4 +5,4 @@
 /**
  * @namespace
  */
-global.Jymfony.Autoloader = {};
+global.Jymfony.Component.Autoloader = {};

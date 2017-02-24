@@ -1,17 +1,17 @@
-const RuntimeException = Jymfony.Console.Exception.RuntimeException;
-const InvalidArgumentException = Jymfony.Console.Exception.InvalidArgumentException;
-const InputInterface = Jymfony.Console.Input.InputInterface;
-const InputDefinition = Jymfony.Console.Input.InputDefinition;
+const RuntimeException = Jymfony.Component.Console.Exception.RuntimeException;
+const InvalidArgumentException = Jymfony.Component.Console.Exception.InvalidArgumentException;
+const InputInterface = Jymfony.Component.Console.Input.InputInterface;
+const InputDefinition = Jymfony.Component.Console.Input.InputDefinition;
 
 /**
- * @memberOf Jymfony.Console.Input
+ * @memberOf Jymfony.Component.Console.Input
  * @type Input
  */
 module.exports = class Input extends implementationOf(InputInterface) {
     /**
      * Constructor.
      *
-     * @param {Jymfony.Console.Input.InputDefinition} definition
+     * @param {Jymfony.Component.Console.Input.InputDefinition} definition
      */
     constructor(definition = undefined) {
         super();
@@ -33,7 +33,7 @@ module.exports = class Input extends implementationOf(InputInterface) {
     /**
      * Initializer
      *
-     * @param {Jymfony.Console.Input.InputDefinition} definition
+     * @param {Jymfony.Component.Console.Input.InputDefinition} definition
      * @protected
      */
     __construct(definition = undefined) {

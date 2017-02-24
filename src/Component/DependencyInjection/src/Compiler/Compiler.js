@@ -1,9 +1,9 @@
-const PassConfig = Jymfony.DependencyInjection.Compiler.PassConfig;
-const ServiceReferenceGraph = Jymfony.DependencyInjection.Compiler.ServiceReferenceGraph;
-const LogFormatter = Jymfony.DependencyInjection.Compiler.LogFormatter;
+const PassConfig = Jymfony.Component.DependencyInjection.Compiler.PassConfig;
+const ServiceReferenceGraph = Jymfony.Component.DependencyInjection.Compiler.ServiceReferenceGraph;
+const LogFormatter = Jymfony.Component.DependencyInjection.Compiler.LogFormatter;
 
 /**
- * @memberOf Jymfony.DependencyInjection.Compiler
+ * @memberOf Jymfony.Component.DependencyInjection.Compiler
  */
 module.exports = class Compiler {
     constructor() {
@@ -17,7 +17,7 @@ module.exports = class Compiler {
     /**
      * Compile container processing all compiler passes
      *
-     * @param {Jymfony.DependencyInjection.ContainerBuilder} container
+     * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
      */
     compile(container) {
         for (let pass of this._passConfig.getPasses()) {
@@ -50,7 +50,7 @@ module.exports = class Compiler {
     }
 
     /**
-     * @returns {Jymfony.DependencyInjection.Compiler.ServiceReferenceGraph}
+     * @returns {Jymfony.Component.DependencyInjection.Compiler.ServiceReferenceGraph}
      */
     getServiceReferenceGraph() {
         return this._referenceGraph;
@@ -68,7 +68,7 @@ module.exports = class Compiler {
     /**
      * Get the compiler log formatter
      *
-     * @returns {Jymfony.DependencyInjection.Compiler.LogFormatter}
+     * @returns {Jymfony.Component.DependencyInjection.Compiler.LogFormatter}
      */
     get logFormatter() {
         return this._logFormatter;

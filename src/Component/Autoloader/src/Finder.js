@@ -1,5 +1,5 @@
 /**
- * @memberOf Jymfony.Autoloader
+ * @memberOf Jymfony.Component.Autoloader
  * @type Finder
  */
 module.exports = class Finder {

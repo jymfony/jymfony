@@ -1,9 +1,9 @@
-const CompilerPassInterface = Jymfony.DependencyInjection.Compiler.CompilerPassInterface;
-const ContainerBuilder = Jymfony.DependencyInjection.ContainerBuilder;
-const PrependExtensionInterface = Jymfony.DependencyInjection.Extension.PrependExtensionInterface;
+const CompilerPassInterface = Jymfony.Component.DependencyInjection.Compiler.CompilerPassInterface;
+const ContainerBuilder = Jymfony.Component.DependencyInjection.ContainerBuilder;
+const PrependExtensionInterface = Jymfony.Component.DependencyInjection.Extension.PrependExtensionInterface;
 
 /**
- * @memberOf Jymfony.DependencyInjection.Compiler
+ * @memberOf Jymfony.Component.DependencyInjection.Compiler
  */
 module.exports = class MergeExtensionConfigurationPass extends implementationOf(CompilerPassInterface) {
     /**

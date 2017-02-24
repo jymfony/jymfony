@@ -31,7 +31,7 @@
   "config": {
     "jymfony-autoload": {
       "namespaces": {
-        "Jymfony.Kernel": "src/"
+        "Jymfony.Component.Kernel": "src/"
       }
     }
   }

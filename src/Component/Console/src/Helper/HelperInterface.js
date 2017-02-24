@@ -1,5 +1,5 @@
 /**
- * @memberOf Jymfony.Console.Helper
+ * @memberOf Jymfony.Component.Console.Helper
  * @type HelperInterface
  *
  * @interface
@@ -8,14 +8,14 @@ class HelperInterface {
     /**
      * Sets the helper set associated with this helper.
      *
-     * @param {Jymfony.Console.Helper.HelperSet} helperSet A HelperSet instance
+     * @param {Jymfony.Component.Console.Helper.HelperSet} helperSet A HelperSet instance
      */
     set helperSet(helperSet) { }
 
     /**
      * Gets the helper set associated with this helper.
      *
-     * @returns {Jymfony.Console.Helper.HelperSet} A HelperSet instance
+     * @returns {Jymfony.Component.Console.Helper.HelperSet} A HelperSet instance
      */
     get helperSet() { }
 

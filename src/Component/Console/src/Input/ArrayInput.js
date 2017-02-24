@@ -1,6 +1,6 @@
-const InvalidArgumentException = Jymfony.Console.Exception.InvalidArgumentException;
-const InvalidOptionException = Jymfony.Console.Exception.InvalidOptionException;
-const Input = Jymfony.Console.Input.Input;
+const InvalidArgumentException = Jymfony.Component.Console.Exception.InvalidArgumentException;
+const InvalidOptionException = Jymfony.Component.Console.Exception.InvalidOptionException;
+const Input = Jymfony.Component.Console.Input.Input;
 
 /**
  * ArrayInput represents an input provided as an array.
@@ -9,13 +9,13 @@ const Input = Jymfony.Console.Input.Input;
  *
  *     $input = new ArrayInput(array('name' => 'foo', '--bar' => 'foobar'));
  *
- * @memberOf Jymfony.Console.Input
+ * @memberOf Jymfony.Component.Console.Input
  * @type ArrayInput
  */
 module.exports = class ArrayInput extends Input {
     /**
      * @param {Object.<string, string>} parameters
-     * @param {Jymfony.Console.Input.InputDefinition} definition
+     * @param {Jymfony.Component.Console.Input.InputDefinition} definition
      */
     __construct(parameters, definition = undefined) {
         this._parameters = parameters;
@@ -127,7 +127,7 @@ module.exports = class ArrayInput extends Input {
      * @param {string} shortcut The short option key
      * @param {*} value The value for the option
      *
-     * @throws {Jymfony.Console.Exception.InvalidOptionException} When option given doesn't exist
+     * @throws {Jymfony.Component.Console.Exception.InvalidOptionException} When option given doesn't exist
      *
      * @private
      */
@@ -145,8 +145,8 @@ module.exports = class ArrayInput extends Input {
      * @param {string} name  The long option key
      * @param {*} value The value for the option
      *
-     * @throws {Jymfony.Console.Exception.InvalidOptionException} When option given doesn't exist
-     * @throws {Jymfony.Console.Exception.InvalidOptionException} When a required value is missing
+     * @throws {Jymfony.Component.Console.Exception.InvalidOptionException} When option given doesn't exist
+     * @throws {Jymfony.Component.Console.Exception.InvalidOptionException} When a required value is missing
      *
      * @private
      */
@@ -174,7 +174,7 @@ module.exports = class ArrayInput extends Input {
      * @param {string} name  The argument name
      * @param {*} value The value for the argument
      *
-     * @throws {Jymfony.Console.Exception.InvalidArgumentException} When argument given doesn't exist
+     * @throws {Jymfony.Component.Console.Exception.InvalidArgumentException} When argument given doesn't exist
      *
      * @private
      */

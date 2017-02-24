@@ -1,14 +1,14 @@
 let ClassNotFoundException = undefined;
 
 /**
- * @memberOf Jymfony.Autoloader
+ * @memberOf Jymfony.Component.Autoloader
  * @type Namespace
  */
 module.exports = class Namespace {
     /**
      * Namespace constructor
      *
-     * @param {Jymfony.Autoloader.Autoloader} autoloader
+     * @param {Jymfony.Component.Autoloader.Autoloader} autoloader
      * @param {string} fqn
      * @param {string[]|string} baseDirs
      * @param {Function} req
@@ -48,7 +48,7 @@ module.exports = class Namespace {
      *
      * @param directory
      *
-     * @returns {Jymfony.Autoloader.Namespace}
+     * @returns {Jymfony.Component.Autoloader.Namespace}
      */
     addDirectory(directory) {
         this._baseDirs.add(directory);

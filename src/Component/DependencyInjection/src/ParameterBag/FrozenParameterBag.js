@@ -1,9 +1,9 @@
-const ParameterBag = Jymfony.DependencyInjection.ParameterBag.ParameterBag;
+const ParameterBag = Jymfony.Component.DependencyInjection.ParameterBag.ParameterBag;
 
 /**
  * Holds read-only parameters
  *
- * @memberOf Jymfony.DependencyInjection.ParameterBag
+ * @memberOf Jymfony.Component.DependencyInjection.ParameterBag
  */
 module.exports = class FrozenParameterBag extends ParameterBag {
     /**

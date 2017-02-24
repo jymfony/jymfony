@@ -1,5 +1,5 @@
 /**
- * @memberOf Jymfony.DependencyInjection
+ * @memberOf Jymfony.Component.DependencyInjection
  */
 module.exports = class Alias {
     constructor(id, public_ = false) {

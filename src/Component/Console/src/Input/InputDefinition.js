@@ -1,11 +1,11 @@
-const LogicException = Jymfony.Console.Exception.LogicException;
-const InvalidArgumentException = Jymfony.Console.Exception.InvalidArgumentException;
-const InputOption = Jymfony.Console.Input.InputOption;
+const LogicException = Jymfony.Component.Console.Exception.LogicException;
+const InvalidArgumentException = Jymfony.Component.Console.Exception.InvalidArgumentException;
+const InputOption = Jymfony.Component.Console.Input.InputOption;
 
 const util = require("util");
 
 /**
- * @memberOf Jymfony.Console.Input
+ * @memberOf Jymfony.Component.Console.Input
  * @type InputDefinition
  */
 module.exports = class InputDefinition {
@@ -40,13 +40,13 @@ module.exports = class InputDefinition {
     /**
      * Sets arguments for this definition
      *
-     * @param {Jymfony.Console.Input.InputArgument[]} args
+     * @param {Jymfony.Component.Console.Input.InputArgument[]} args
      */
     setArguments(args = undefined) {
         /**
          * The arguments array
          *
-         * @type Object.<string, Jymfony.Console.Input.InputArgument>
+         * @type Object.<string, Jymfony.Component.Console.Input.InputArgument>
          * @private
          */
         this._arguments = {};
@@ -59,7 +59,7 @@ module.exports = class InputDefinition {
     /**
      * Adds arguments to the definition
      *
-     * @param {Jymfony.Console.Input.InputArgument[]} args
+     * @param {Jymfony.Component.Console.Input.InputArgument[]} args
      */
     addArguments(args) {
         if (! args) {
@@ -74,7 +74,7 @@ module.exports = class InputDefinition {
     /**
      * Adds an argument
      *
-     * @param {Jymfony.Console.Input.InputArgument} argument
+     * @param {Jymfony.Component.Console.Input.InputArgument} argument
      */
     addArgument(argument) {
         let name = argument.getName();
@@ -108,7 +108,7 @@ module.exports = class InputDefinition {
      *
      * @param {string|int} name
      *
-     * @returns {Jymfony.Console.Input.InputArgument}
+     * @returns {Jymfony.Component.Console.Input.InputArgument}
      */
     getArgument(name) {
         if (! this.hasArgument(name)) {
@@ -133,7 +133,7 @@ module.exports = class InputDefinition {
     /**
      * Gets the InputArgument array
      *
-     * @returns {Jymfony.Console.Input.InputArgument[]}
+     * @returns {Jymfony.Component.Console.Input.InputArgument[]}
      */
     getArguments() {
         return Object.values(this._arguments);
@@ -165,13 +165,13 @@ module.exports = class InputDefinition {
     /**
      * Sets options for the definition
      *
-     * @param {Jymfony.Console.Input.InputOption[]} options
+     * @param {Jymfony.Component.Console.Input.InputOption[]} options
      */
     setOptions(options) {
         /**
          * The options array
          *
-         * @type Object.<string, Jymfony.Console.Input.InputOption>
+         * @type Object.<string, Jymfony.Component.Console.Input.InputOption>
          * @private
          */
         this._options = {};
@@ -189,7 +189,7 @@ module.exports = class InputDefinition {
     /**
      * Add input options.
      *
-     * @param {Jymfony.Console.Input.InputOption[]} options
+     * @param {Jymfony.Component.Console.Input.InputOption[]} options
      */
     addOptions(options) {
         for (let option of options) {
@@ -200,7 +200,7 @@ module.exports = class InputDefinition {
     /**
      * Adds an option.
      *
-     * @param {Jymfony.Console.Input.InputOption} option
+     * @param {Jymfony.Component.Console.Input.InputOption} option
      */
     addOption(option) {
         let name = option.getName();
@@ -251,7 +251,7 @@ module.exports = class InputDefinition {
     /**
      * Gets the array of options
      *
-     * @returns {Jymfony.Console.Input.InputOption[]}
+     * @returns {Jymfony.Component.Console.Input.InputOption[]}
      */
     getOptions() {
         return Object.values(this._options);
@@ -272,7 +272,7 @@ module.exports = class InputDefinition {
      *
      *
      * @param shortcut
-     * @returns {Jymfony.Console.Input.InputOption}
+     * @returns {Jymfony.Component.Console.Input.InputOption}
      */
     getOptionForShortcut(shortcut) {
         if (! this.hasShortcut(shortcut)) {

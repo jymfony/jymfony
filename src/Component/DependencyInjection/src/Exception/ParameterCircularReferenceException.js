@@ -1,7 +1,7 @@
-const RuntimeException = Jymfony.DependencyInjection.Exception.RuntimeException;
+const RuntimeException = Jymfony.Component.DependencyInjection.Exception.RuntimeException;
 
 /**
- * @memberOf Jymfony.DependencyInjection.Exception
+ * @memberOf Jymfony.Component.DependencyInjection.Exception
  */
 module.exports = class ParameterCircularReferenceException extends RuntimeException {
     constructor(parameters) {

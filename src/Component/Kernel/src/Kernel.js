@@ -1,11 +1,11 @@
-const ContainerBuilder = Jymfony.DependencyInjection.ContainerBuilder;
-const ConfigCache = Jymfony.Config.ConfigCache;
+const ContainerBuilder = Jymfony.Component.DependencyInjection.ContainerBuilder;
+const ConfigCache = Jymfony.Component.Config.ConfigCache;
 
 const fs = require('fs');
 const path = require('path');
 
 /**
- * @memberOf Jymfony.Kernel
+ * @memberOf Jymfony.Component.Kernel
  */
 class Kernel {
     /**
@@ -32,7 +32,7 @@ class Kernel {
         }
 
         /**
-         * @type {Jymfony.DependencyInjection.Container}
+         * @type {Jymfony.Component.DependencyInjection.Container}
          * @protected
          */
         this._container = undefined;
@@ -94,7 +94,7 @@ class Kernel {
     /**
      * Gets the bundles to be registered
      *
-     * @returns {Jymfony.Kernel.Bundle[]}
+     * @returns {Jymfony.Component.Kernel.Bundle[]}
      * @abstract
      */
     registerBundles() {
@@ -103,7 +103,7 @@ class Kernel {
 
     _initializeBundles() {
         /**
-         * @type {Jymfony.Kernel.Bundle[]}
+         * @type {Jymfony.Component.Kernel.Bundle[]}
          * @protected
          */
         this._bundles = {};
@@ -198,13 +198,13 @@ class Kernel {
     /**
      * Dumps the container in JS code in cache
      *
-     * @param {Jymfony.DependencyInjection.ContainerBuilder} container
-     * @param {Jymfony.Config.ConfigCache} cache
+     * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
+     * @param {Jymfony.Component.Config.ConfigCache} cache
      *
      * @protected
      */
     _dumpContainer(container, cache) {
-        let dumper = new Jymfony.DependencyInjection.Dumper.JsDumper(container);
+        let dumper = new Jymfony.Component.DependencyInjection.Dumper.JsDumper(container);
         let options = {
             class_name: this._getContainerClass(),
             debug: this._debug,
@@ -216,7 +216,7 @@ class Kernel {
     /**
      * Builds the service container
      *
-     * @returns {Jymfony.DependencyInjection.ContainerBuilder}
+     * @returns {Jymfony.Component.DependencyInjection.ContainerBuilder}
      * @protected
      */
     _buildContainer() {
@@ -275,7 +275,7 @@ class Kernel {
     /**
      * Create a ContainerBuilder
      *
-     * @returns {Jymfony.DependencyInjection.ContainerBuilder}
+     * @returns {Jymfony.Component.DependencyInjection.ContainerBuilder}
      * @protected
      */
     _getContainerBuilder() {
@@ -288,7 +288,7 @@ class Kernel {
     /**
      * Prepares the container builder to be compiled
      *
-     * @param {Jymfony.DependencyInjection.ContainerBuilder} container
+     * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
      * @protected
      */
     _prepareContainer(container) {

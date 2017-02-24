@@ -1,8 +1,8 @@
-const OutputFormatter = Jymfony.Console.Formatter.OutputFormatter;
-const OutputInterface = Jymfony.Console.Output.OutputInterface;
+const OutputFormatter = Jymfony.Component.Console.Formatter.OutputFormatter;
+const OutputInterface = Jymfony.Component.Console.Output.OutputInterface;
 
 /**
- * @memberOf Jymfony.Console.Output
+ * @memberOf Jymfony.Component.Console.Output
  * @type Output
  */
 module.exports = class Output extends implementationOf(OutputInterface) {

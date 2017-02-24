@@ -1,14 +1,14 @@
-const ExceptionInterface = Jymfony.Console.Exception.ExceptionInterface;
-const InvalidArgumentException = Jymfony.Console.Exception.InvalidArgumentException;
-const LogicException = Jymfony.Console.Exception.LogicException;
-const InputArgument = Jymfony.Console.Input.InputArgument;
-const InputOption = Jymfony.Console.Input.InputOption;
-const InputDefinition = Jymfony.Console.Input.InputDefinition;
+const ExceptionInterface = Jymfony.Component.Console.Exception.ExceptionInterface;
+const InvalidArgumentException = Jymfony.Component.Console.Exception.InvalidArgumentException;
+const LogicException = Jymfony.Component.Console.Exception.LogicException;
+const InputArgument = Jymfony.Component.Console.Input.InputArgument;
+const InputOption = Jymfony.Component.Console.Input.InputOption;
+const InputDefinition = Jymfony.Component.Console.Input.InputDefinition;
 
 const util = require('util');
 
 /**
- * @memberOf Jymfony.Console.Command
+ * @memberOf Jymfony.Component.Console.Command
  * @type Command
  */
 module.exports = class Command {
@@ -65,8 +65,8 @@ module.exports = class Command {
      * completion, retrieving its value and surrounding it with a
      * try...catch block in case of rejection
      *
-     * @param {Jymfony.Console.Input.InputInterface} input An InputInterface instance
-     * @param {Jymfony.Console.Output.OutputInterface} output An OutputInterface instance
+     * @param {Jymfony.Component.Console.Input.InputInterface} input An InputInterface instance
+     * @param {Jymfony.Component.Console.Output.OutputInterface} output An OutputInterface instance
      *
      * @returns {undefined|int} undefined or 0 if everything went fine, or an error code
      *
@@ -83,8 +83,8 @@ module.exports = class Command {
      * This means that this is the only place where the command can
      * interactively ask for values of missing required arguments.
      *
-     * @param {Jymfony.Console.Input.InputInterface} input An InputInterface instance
-     * @param {Jymfony.Console.Output.OutputInterface} output An OutputInterface instance
+     * @param {Jymfony.Component.Console.Input.InputInterface} input An InputInterface instance
+     * @param {Jymfony.Component.Console.Output.OutputInterface} output An OutputInterface instance
      */
     * interact(input, output) {
     }
@@ -95,8 +95,8 @@ module.exports = class Command {
      * This is mainly useful when a lot of commands extends one main command
      * where some things need to be initialized based on the input arguments and options.
      *
-     * @param {Jymfony.Console.Input.InputInterface} input An InputInterface instance
-     * @param {Jymfony.Console.Output.OutputInterface} output An OutputInterface instance
+     * @param {Jymfony.Component.Console.Input.InputInterface} input An InputInterface instance
+     * @param {Jymfony.Component.Console.Output.OutputInterface} output An OutputInterface instance
      */
     * initialize(input, output) {
     }
@@ -108,8 +108,8 @@ module.exports = class Command {
      * The code to execute is either defined by overriding the execute() method
      * in a sub-class.
      *
-     * @param {Jymfony.Console.Input.InputInterface} input An InputInterface instance
-     * @param {Jymfony.Console.Output.OutputInterface} output An OutputInterface instance
+     * @param {Jymfony.Component.Console.Input.InputInterface} input An InputInterface instance
+     * @param {Jymfony.Component.Console.Output.OutputInterface} output An OutputInterface instance
      *
      * @return int The command exit code
      *
@@ -185,7 +185,7 @@ module.exports = class Command {
     /**
      * Sets the application instance for this command.
      *
-     * @param {Jymfony.Console.Application} application An Application instance
+     * @param {Jymfony.Component.Console.Application} application An Application instance
      */
     set application(application) {
         this._application = application;
@@ -195,7 +195,7 @@ module.exports = class Command {
     /**
      * Gets the application instance for this command.
      *
-     * @returns {Jymfony.Console.Application}
+     * @returns {Jymfony.Component.Console.Application}
      */
     get application() {
         return this._application;
@@ -204,7 +204,7 @@ module.exports = class Command {
     /**
      * Sets the helper set.
      *
-     * @param {Jymfony.Console.Helper.HelperSet} helperSet A HelperSet instance
+     * @param {Jymfony.Component.Console.Helper.HelperSet} helperSet A HelperSet instance
      */
     set helperSet(helperSet) {
         this._helperSet = helperSet;
@@ -213,7 +213,7 @@ module.exports = class Command {
     /**
      * Gets the helper set.
      *
-     * @returns {Jymfony.Console.Helper.HelperSet} A HelperSet instance
+     * @returns {Jymfony.Component.Console.Helper.HelperSet} A HelperSet instance
      */
     get helperSet() {
         return this._helperSet;
@@ -222,7 +222,7 @@ module.exports = class Command {
     /**
      * Sets an array of argument and option instances.
      *
-     * @param {Array|Jymfony.Console.Input.InputDefinition} definition An array of argument and option instances or a definition instance
+     * @param {Array|Jymfony.Component.Console.Input.InputDefinition} definition An array of argument and option instances or a definition instance
      */
     set definition(definition) {
         if (definition instanceof InputDefinition) {
@@ -237,7 +237,7 @@ module.exports = class Command {
     /**
      * Gets the InputDefinition attached to this Command.
      *
-     * @return {Jymfony.Console.Input.InputDefinition} An InputDefinition instance
+     * @return {Jymfony.Component.Console.Input.InputDefinition} An InputDefinition instance
      */
     get definition() {
         return this._definition;
@@ -251,7 +251,7 @@ module.exports = class Command {
      *
      * This method is not part of public API and should not be used directly.
      *
-     * @returns {Jymfony.Console.Input.InputDefinition} An InputDefinition instance
+     * @returns {Jymfony.Component.Console.Input.InputDefinition} An InputDefinition instance
      */
     get nativeDefinition() {
         return this.definition;
@@ -265,7 +265,7 @@ module.exports = class Command {
      * @param {string} description A description text
      * @param {*} defaultValue The default value (for InputArgument::OPTIONAL mode only)
      *
-     * @returns {Jymfony.Console.Command.Command} The current instance
+     * @returns {Jymfony.Component.Console.Command.Command} The current instance
      */
     addArgument(name, mode = undefined, description = '', defaultValue = undefined) {
         this._definition.addArgument(new InputArgument(name, mode, description, defaultValue));
@@ -282,7 +282,7 @@ module.exports = class Command {
      * @param {string} description A description text
      * @param {*} defaultValue The default value (must be undefined for InputOption.VALUE_NONE)
      *
-     * @returns {Jymfony.Console.Command.Command} The current instance
+     * @returns {Jymfony.Component.Console.Command.Command} The current instance
      */
     addOption(name, shortcut = undefined, mode = undefined, description = '', defaultValue = undefined) {
         this._definition.addOption(new InputOption(name, shortcut, mode, description, defaultValue));
@@ -300,7 +300,7 @@ module.exports = class Command {
      *
      * @param {string} name The command name
      *
-     * @throws {Jymfony.Console.Exception.InvalidArgumentException} When the name is invalid
+     * @throws {Jymfony.Component.Console.Exception.InvalidArgumentException} When the name is invalid
      */
     set name(name) {
         this._validateName(name);
@@ -401,7 +401,7 @@ module.exports = class Command {
      *
      * @param {string[]} aliases An array of aliases for the command
      *
-     * @throws {Jymfony.Console.Exception.InvalidArgumentException} When an alias is invalid
+     * @throws {Jymfony.Component.Console.Exception.InvalidArgumentException} When an alias is invalid
      */
     set aliases(aliases) {
         if (! isArray(aliases) && ! isObjectLiteral(aliases)) {
@@ -446,7 +446,7 @@ module.exports = class Command {
      *
      * @param {string} usage The usage, it'll be prefixed with the command name
      *
-     * @returns {Jymfony.Console.Command.Command} The current instance
+     * @returns {Jymfony.Component.Console.Command.Command} The current instance
      */
     addUsage(usage) {
         if (0 !== usage.indexOf(this._name)) {
@@ -492,7 +492,7 @@ module.exports = class Command {
      *
      * @param {string} name
      *
-     * @throws {Jymfony.Console.Exception.InvalidArgumentException} When the name is invalid
+     * @throws {Jymfony.Component.Console.Exception.InvalidArgumentException} When the name is invalid
      */
     _validateName(name) {
         if (! /^[^\:]+(\:[^\:]+)*$/.test(name)) {

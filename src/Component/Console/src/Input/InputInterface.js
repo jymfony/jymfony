@@ -1,5 +1,5 @@
 /**
- * @memberOf Jymfony.Console.Input
+ * @memberOf Jymfony.Component.Console.Input
  * @type InputInterface
  *
  * @interface
@@ -42,14 +42,14 @@ class InputInterface {
     /**
      * Binds the current Input instance with the given arguments and options.
      *
-     * @param {Jymfony.Console.Input.InputDefinition} definition A InputDefinition instance
+     * @param {Jymfony.Component.Console.Input.InputDefinition} definition A InputDefinition instance
      */
     bind(definition) { }
 
     /**
      * Validates the input.
      *
-     * @throws {Jymfony.Console.Exception.RuntimeException} When not enough arguments are given
+     * @throws {Jymfony.Component.Console.Exception.RuntimeException} When not enough arguments are given
      */
     validate() { }
 
@@ -67,7 +67,7 @@ class InputInterface {
      *
      * @return {*} The argument value
      *
-     * @throws {Jymfony.Console.Exception.InvalidArgumentException} When argument given doesn't exist
+     * @throws {Jymfony.Component.Console.Exception.InvalidArgumentException} When argument given doesn't exist
      */
     getArgument(name) { }
 
@@ -77,7 +77,7 @@ class InputInterface {
      * @param {string} name  The argument name
      * @param {string} value The argument value
      *
-     * @throws {Jymfony.Console.Exception.InvalidArgumentException} When argument given doesn't exist
+     * @throws {Jymfony.Component.Console.Exception.InvalidArgumentException} When argument given doesn't exist
      */
     setArgument(name, value) { }
 
@@ -104,7 +104,7 @@ class InputInterface {
      *
      * @returns {*} The option value
      *
-     * @throws {Jymfony.Console.Exception.InvalidArgumentException} When option given doesn't exist
+     * @throws {Jymfony.Component.Console.Exception.InvalidArgumentException} When option given doesn't exist
      */
     getOption(name) { }
 
@@ -114,7 +114,7 @@ class InputInterface {
      * @param {string} name The option name
      * @param {string|boolean} value The option value
      *
-     * @throws {Jymfony.Console.Exception.InvalidArgumentException} When option given doesn't exist
+     * @throws {Jymfony.Component.Console.Exception.InvalidArgumentException} When option given doesn't exist
      */
     setOption(name, value) { }
 

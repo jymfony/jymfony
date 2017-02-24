@@ -1,9 +1,9 @@
-const CompilerPassInterface = Jymfony.DependencyInjection.Compiler.CompilerPassInterface;
-const ServiceCircularReferenceException = Jymfony.DependencyInjection.Exception.ServiceCircularReferenceException;
+const CompilerPassInterface = Jymfony.Component.DependencyInjection.Compiler.CompilerPassInterface;
+const ServiceCircularReferenceException = Jymfony.Component.DependencyInjection.Exception.ServiceCircularReferenceException;
 
 /**
- * @memberOf Jymfony.DependencyInjection.Compiler
- * @type {Jymfony.DependencyInjection.Compiler.CheckCircularReferencesPass}
+ * @memberOf Jymfony.Component.DependencyInjection.Compiler
+ * @type {Jymfony.Component.DependencyInjection.Compiler.CheckCircularReferencesPass}
  */
 module.exports = class CheckCircularReferencesPass extends implementationOf(CompilerPassInterface) {
     process(container) {

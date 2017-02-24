@@ -1,5 +1,5 @@
-const ResourceCheckerConfigCache = Jymfony.Config.ResourceCheckerConfigCache;
-const SelfCheckingResourceChecker = Jymfony.Config.Resource.SelfCheckingResourceChecker;
+const ResourceCheckerConfigCache = Jymfony.Component.Config.ResourceCheckerConfigCache;
+const SelfCheckingResourceChecker = Jymfony.Component.Config.Resource.SelfCheckingResourceChecker;
 const fs = require('fs');
 
 module.exports = class ConfigCache extends ResourceCheckerConfigCache {

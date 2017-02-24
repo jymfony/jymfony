@@ -1,9 +1,9 @@
-const ResourceCheckerInterface = Jymfony.Config.ResourceCheckerInterface;
-const SelfCheckingResourceInterface = Jymfony.Config.Resource.SelfCheckingResourceInterface;
+const ResourceCheckerInterface = Jymfony.Component.Config.ResourceCheckerInterface;
+const SelfCheckingResourceInterface = Jymfony.Component.Config.Resource.SelfCheckingResourceInterface;
 
 /**
- * @memberOf Jymfony.Config.Resource
- * @type {Jymfony.Config.Resource.SelfCheckingResourceChecker}
+ * @memberOf Jymfony.Component.Config.Resource
+ * @type {Jymfony.Component.Config.Resource.SelfCheckingResourceChecker}
  */
 module.exports = class SelfCheckingResourceChecker extends implementationOf(ResourceCheckerInterface) {
     /**

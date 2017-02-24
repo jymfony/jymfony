@@ -1,8 +1,8 @@
-const ConsoleOutputInterface = Jymfony.Console.Output.ConsoleOutputInterface;
-const StreamOutput = Jymfony.Console.Output.StreamOutput;
+const ConsoleOutputInterface = Jymfony.Component.Console.Output.ConsoleOutputInterface;
+const StreamOutput = Jymfony.Component.Console.Output.StreamOutput;
 
 /**
- * @memberOf Jymfony.Console.Output
+ * @memberOf Jymfony.Component.Console.Output
  * @type ConsoleOutput
  */
 module.exports = class ConsoleOutput extends mix(StreamOutput, ConsoleOutputInterface) {

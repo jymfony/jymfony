@@ -1,6 +1,6 @@
 /**
- * @memberOf Jymfony.DependencyInjection
- * @type {Jymfony.DependencyInjection.Definition}
+ * @memberOf Jymfony.Component.DependencyInjection
+ * @type {Jymfony.Component.DependencyInjection.Definition}
  */
 module.exports = class Definition {
     constructor(class_ = null, args = []) {
@@ -28,7 +28,7 @@ module.exports = class Definition {
      *
      * @param {string|Array} factory
      *
-     * @returns {Jymfony.DependencyInjection.Definition}
+     * @returns {Jymfony.Component.DependencyInjection.Definition}
      */
     setFactory(factory) {
         if (isString(factory) && -1 !== factory.indexOf('#')) {
@@ -55,7 +55,7 @@ module.exports = class Definition {
      * @param {string} renamedId
      * @param {int} priority
      *
-     * @returns {Jymfony.DependencyInjection.Definition}
+     * @returns {Jymfony.Component.DependencyInjection.Definition}
      */
     setDecoratedService(id, renamedId = undefined, priority = 0) {
         if (renamedId && id == renamedId) {
@@ -89,7 +89,7 @@ module.exports = class Definition {
      *
      * @param {string} className
      *
-     * @returns {Jymfony.DependencyInjection.Definition}
+     * @returns {Jymfony.Component.DependencyInjection.Definition}
      */
     setClass(className) {
         this._class = className;
@@ -111,7 +111,7 @@ module.exports = class Definition {
      *
      * @param {Array} args
      *
-     * @returns {Jymfony.DependencyInjection.Definition}
+     * @returns {Jymfony.Component.DependencyInjection.Definition}
      */
     setArguments(args) {
         this._arguments = args;
@@ -124,7 +124,7 @@ module.exports = class Definition {
      *
      * @param {*} argument
      *
-     * @returns {Jymfony.DependencyInjection.Definition}
+     * @returns {Jymfony.Component.DependencyInjection.Definition}
      */
     addArgument(argument) {
         this._arguments.push(argument);
@@ -138,7 +138,7 @@ module.exports = class Definition {
      * @param {int} index
      * @param {*} argument
      *
-     * @returns {Jymfony.DependencyInjection.Definition}
+     * @returns {Jymfony.Component.DependencyInjection.Definition}
      */
     replaceArgument(index, argument) {
         if (0 > index || index >= this._arguments.length) {
@@ -179,7 +179,7 @@ module.exports = class Definition {
      *
      * @param {Object} properties
      *
-     * @returns {Jymfony.DependencyInjection.Definition}
+     * @returns {Jymfony.Component.DependencyInjection.Definition}
      */
     setProperties(properties) {
         this._properties = properties;
@@ -193,7 +193,7 @@ module.exports = class Definition {
      * @param {string} property
      * @param {*} value
      *
-     * @returns {Jymfony.DependencyInjection.Definition}
+     * @returns {Jymfony.Component.DependencyInjection.Definition}
      */
     addProperty(property, value) {
         this._properties[property] = value;
@@ -215,7 +215,7 @@ module.exports = class Definition {
      *
      * @param {Array} calls
      *
-     * @returns {Jymfony.DependencyInjection.Definition}
+     * @returns {Jymfony.Component.DependencyInjection.Definition}
      */
     setMethodCalls(calls = []) {
         this._calls = [];
@@ -232,7 +232,7 @@ module.exports = class Definition {
      * @param {string} method
      * @param {Array} arguments
      *
-     * @returns {Jymfony.DependencyInjection.Definition}
+     * @returns {Jymfony.Component.DependencyInjection.Definition}
      */
     addMethodCall(method, args = []) {
         if (! method) {
@@ -249,7 +249,7 @@ module.exports = class Definition {
      *
      * @param {string} method
      *
-     * @returns {Jymfony.DependencyInjection.Definition}
+     * @returns {Jymfony.Component.DependencyInjection.Definition}
      */
     removeMethodCall(method) {
         for (let i = 0; i < this._calls.length; i++) {
@@ -294,7 +294,7 @@ module.exports = class Definition {
      *
      * @param {Object} tags
      *
-     * @returns {Jymfony.DependencyInjection.Definition}
+     * @returns {Jymfony.Component.DependencyInjection.Definition}
      */
     setTags(tags) {
         this._tags = tags;
@@ -332,7 +332,7 @@ module.exports = class Definition {
      * @param {string} name
      * @param {Object} attributes
      *
-     * @returns {Jymfony.DependencyInjection.Definition}
+     * @returns {Jymfony.Component.DependencyInjection.Definition}
      */
     addTag(name, attributes = {}) {
         this._tags[name] = this._tags[name] || [];
@@ -357,7 +357,7 @@ module.exports = class Definition {
      *
      * @param {string} name
      *
-     * @returns {Jymfony.DependencyInjection.Definition}
+     * @returns {Jymfony.Component.DependencyInjection.Definition}
      */
     clearTag(name) {
         delete this._tags[name];
@@ -368,7 +368,7 @@ module.exports = class Definition {
     /**
      * Clears all the tags
      *
-     * @returns {Jymfony.DependencyInjection.Definition}
+     * @returns {Jymfony.Component.DependencyInjection.Definition}
      */
     clearTags() {
         this._tags = {};
@@ -381,7 +381,7 @@ module.exports = class Definition {
      *
      * @param {string} file
      *
-     * @returns {Jymfony.DependencyInjection.Definition}
+     * @returns {Jymfony.Component.DependencyInjection.Definition}
      */
     setFile(file) {
         this._file = file;
@@ -403,7 +403,7 @@ module.exports = class Definition {
      *
      * @param {boolean} shared
      *
-     * @returns {Jymfony.DependencyInjection.Definition}
+     * @returns {Jymfony.Component.DependencyInjection.Definition}
      */
     setShared(shared) {
         this._shared = !! shared;
@@ -425,7 +425,7 @@ module.exports = class Definition {
      *
      * @param {boolean} _public
      *
-     * @returns {Jymfony.DependencyInjection.Definition}
+     * @returns {Jymfony.Component.DependencyInjection.Definition}
      */
     setPublic(_public) {
         this._public = !! _public;
@@ -447,7 +447,7 @@ module.exports = class Definition {
      *
      * @param {boolean} lazy
      *
-     * @returns {Jymfony.DependencyInjection.Definition}
+     * @returns {Jymfony.Component.DependencyInjection.Definition}
      */
     setLazy(lazy) {
         this._lazy = !! lazy;
@@ -470,7 +470,7 @@ module.exports = class Definition {
      *
      * @param {boolean} synthetic
      *
-     * @returns {Jymfony.DependencyInjection.Definition}
+     * @returns {Jymfony.Component.DependencyInjection.Definition}
      */
     setSynthetic(synthetic) {
         this._synthetic = !! synthetic;
@@ -493,7 +493,7 @@ module.exports = class Definition {
      *
      * @param {boolean} abstract
      *
-     * @returns {Jymfony.DependencyInjection.Definition}
+     * @returns {Jymfony.Component.DependencyInjection.Definition}
      */
     setAbstract(abstract) {
         this._abstract = !! abstract;
@@ -520,7 +520,7 @@ module.exports = class Definition {
      * @param {boolean} status
      * @param {string} template
      *
-     * @returns {Jymfony.DependencyInjection.Definition}
+     * @returns {Jymfony.Component.DependencyInjection.Definition}
      */
     setDeprecated(status = true, template = undefined) {
         if (template) {
@@ -561,7 +561,7 @@ module.exports = class Definition {
      *
      * @param {string|Array|Function} configurator
      *
-     * @returns {Jymfony.DependencyInjection.Definition}
+     * @returns {Jymfony.Component.DependencyInjection.Definition}
      */
     setConfigurator(configurator) {
         if (isString(configurator) && -1 !== configurator.indexOf('#')) {

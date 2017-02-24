@@ -1,8 +1,8 @@
 const BaseException = global.InvalidArgumentException;
-const ExceptionInterface = Jymfony.DependencyInjection.Exception.ExceptionInterface;
+const ExceptionInterface = Jymfony.Component.DependencyInjection.Exception.ExceptionInterface;
 
 /**
- * @memberOf Jymfony.DependencyInjection.Exception
+ * @memberOf Jymfony.Component.DependencyInjection.Exception
  */
 module.exports = class InvalidArgumentException extends mix(BaseException, ExceptionInterface) {
 };

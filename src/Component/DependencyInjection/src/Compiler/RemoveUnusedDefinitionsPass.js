@@ -1,8 +1,8 @@
-const RepeatablePassInterface = Jymfony.DependencyInjection.Compiler.RepeatablePassInterface;
+const RepeatablePassInterface = Jymfony.Component.DependencyInjection.Compiler.RepeatablePassInterface;
 
 /**
- * @memberOf Jymfony.DependencyInjection.Compiler
- * @type {Jymfony.DependencyInjection.Compiler.RemoveUnusedDefinitionsPass}
+ * @memberOf Jymfony.Component.DependencyInjection.Compiler
+ * @type {Jymfony.Component.DependencyInjection.Compiler.RemoveUnusedDefinitionsPass}
  */
 module.exports = class RemoveUnusedDefinitionsPass extends implementationOf(RepeatablePassInterface) {
     process(container) {

@@ -1,8 +1,8 @@
-const AccessException = Jymfony.PropertyAccess.Exception.AccessException;
+const AccessException = Jymfony.Component.PropertyAccess.Exception.AccessException;
 
 /**
- * @namespace Jymfony.PropertyAccess
- * @type {Jymfony.PropertyAccess.Exception.NoSuchPropertyException}
+ * @namespace Jymfony.Component.PropertyAccess
+ * @type {Jymfony.Component.PropertyAccess.Exception.NoSuchPropertyException}
  */
 module.exports = class NoSuchPropertyException extends AccessException {
 };

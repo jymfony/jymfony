@@ -1,10 +1,10 @@
-const RepeatablePassInterface = Jymfony.DependencyInjection.Compiler.RepeatablePassInterface;
-const Definition = Jymfony.DependencyInjection.Definition;
-const Reference = Jymfony.DependencyInjection.Reference;
+const RepeatablePassInterface = Jymfony.Component.DependencyInjection.Compiler.RepeatablePassInterface;
+const Definition = Jymfony.Component.DependencyInjection.Definition;
+const Reference = Jymfony.Component.DependencyInjection.Reference;
 
 /**
- * @memberOf Jymfony.DependencyInjection.Compiler
- * @type {Jymfony.DependencyInjection.Compiler.RemoveAbstractDefinitionsPass}
+ * @memberOf Jymfony.Component.DependencyInjection.Compiler
+ * @type {Jymfony.Component.DependencyInjection.Compiler.RemoveAbstractDefinitionsPass}
  */
 module.exports = class InlineServiceDefinitionsPass extends implementationOf(RepeatablePassInterface) {
     process(container) {

@@ -1,9 +1,9 @@
-const OutOfBoundsException = Jymfony.PropertyAccess.Exception.OutOfBoundsException;
-const PropertyPathInterface = Jymfony.PropertyAccess.PropertyPathInterface;
+const OutOfBoundsException = Jymfony.Component.PropertyAccess.Exception.OutOfBoundsException;
+const PropertyPathInterface = Jymfony.Component.PropertyAccess.PropertyPathInterface;
 
 /**
- * @namespace Jymfony.PropertyAccess
- * @type {Jymfony.PropertyAccess.PropertyPath}
+ * @namespace Jymfony.Component.PropertyAccess
+ * @type {Jymfony.Component.PropertyAccess.PropertyPath}
  */
 module.exports = class PropertyPath extends implementationOf(PropertyPathInterface) {
     constructor(propertyPath) {

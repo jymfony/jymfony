@@ -1,8 +1,8 @@
-const ResourceInterface = Jymfony.Config.Resource.ResourceInterface;
+const ResourceInterface = Jymfony.Component.Config.Resource.ResourceInterface;
 
 /**
- * @memberOf Jymfony.Config.Resource
- * @type {Jymfony.Config.Resource.SelfCheckingResourceInterface}
+ * @memberOf Jymfony.Component.Config.Resource
+ * @type {Jymfony.Component.Config.Resource.SelfCheckingResourceInterface}
  */
 class SelfCheckingResourceInterface extends ResourceInterface.definition {
     /**

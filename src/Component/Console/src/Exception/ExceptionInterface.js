@@ -1,5 +1,5 @@
 /**
- * @memberOf Jymfony.Console.Exception
+ * @memberOf Jymfony.Component.Console.Exception
  * @type ExceptionInterface
  *
  * @interface

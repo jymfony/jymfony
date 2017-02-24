@@ -1,13 +1,13 @@
 /**
- * @memberOf Jymfony.Config
- * @type {Jymfony.Config.ResourceCheckerInterface}
+ * @memberOf Jymfony.Component.Config
+ * @type {Jymfony.Component.Config.ResourceCheckerInterface}
  */
 class ResourceCheckerInterface {
     /**
      * Queries the ResourceChecker whether it can validate a given
      * resource or not.
      *
-     * @param {Jymfony.Config.Resource.ResourceInterface} metadata The resource to be checked for freshness
+     * @param {Jymfony.Component.Config.Resource.ResourceInterface} metadata The resource to be checked for freshness
      *
      * @returns bool True if the ResourceChecker can handle this resource type, false if not
      */
@@ -16,7 +16,7 @@ class ResourceCheckerInterface {
     /**
      * Validates the resource.
      *
-     * @param {Jymfony.Config.Resource.ResourceInterface} resource  The resource to be validated
+     * @param {Jymfony.Component.Config.Resource.ResourceInterface} resource  The resource to be validated
      * @param {int} timestamp The timestamp at which the cache associated with this resource was created
      *
      * @returns bool True if the resource has not changed since the given timestamp, false otherwise

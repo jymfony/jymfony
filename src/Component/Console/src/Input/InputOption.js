@@ -1,8 +1,8 @@
-const InvalidArgumentException = Jymfony.Console.Exception.InvalidArgumentException;
-const LogicException = Jymfony.Console.Exception.LogicException;
+const InvalidArgumentException = Jymfony.Component.Console.Exception.InvalidArgumentException;
+const LogicException = Jymfony.Component.Console.Exception.LogicException;
 
 /**
- * @memberOf Jymfony.Console.Input
+ * @memberOf Jymfony.Component.Console.Input
  * @type InputOption
  */
 class InputOption {
@@ -135,7 +135,7 @@ class InputOption {
      *
      * @param {*} defaultValue
      *
-     * @throws {Jymfony.Console.Exception.LogicException} If the argument is required
+     * @throws {Jymfony.Component.Console.Exception.LogicException} If the argument is required
      */
     setDefault(defaultValue) {
         if (InputOption.VALUE_NONE === (this._mode & InputOption.VALUE_NONE) && undefined !== defaultValue) {
@@ -178,7 +178,7 @@ class InputOption {
     /**
      * Whether this option equals another option
      *
-     * @param {Jymfony.Console.Input.InputOption} option
+     * @param {Jymfony.Component.Console.Input.InputOption} option
      */
     equals(option) {
         return option.getName() === this.getName()

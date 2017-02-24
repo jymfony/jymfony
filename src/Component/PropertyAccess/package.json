@@ -29,7 +29,7 @@
   "config": {
     "jymfony-autoload": {
       "namespaces": {
-        "Jymfony.PropertyAccess": "src/"
+        "Jymfony.Component.PropertyAccess": "src/"
       }
     }
   }

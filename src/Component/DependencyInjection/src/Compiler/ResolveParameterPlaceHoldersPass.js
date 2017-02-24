@@ -1,9 +1,9 @@
-const CompilerPassInterface = Jymfony.DependencyInjection.Compiler.CompilerPassInterface;
-const ParameterNotFoundException = Jymfony.DependencyInjection.Exception.ParameterNotFoundException;
+const CompilerPassInterface = Jymfony.Component.DependencyInjection.Compiler.CompilerPassInterface;
+const ParameterNotFoundException = Jymfony.Component.DependencyInjection.Exception.ParameterNotFoundException;
 
 /**
- * @memberOf Jymfony.DependencyInjection.Compiler
- * @type {Jymfony.DependencyInjection.Compiler.ResolveParameterPlaceHoldersPass}
+ * @memberOf Jymfony.Component.DependencyInjection.Compiler
+ * @type {Jymfony.Component.DependencyInjection.Compiler.ResolveParameterPlaceHoldersPass}
  */
 module.exports = class ResolveParameterPlaceHoldersPass extends implementationOf(CompilerPassInterface) {
     process(container) {

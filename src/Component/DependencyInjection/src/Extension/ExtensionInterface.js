@@ -1,7 +1,7 @@
 /**
  * Container extension
  *
- * @memberOf Jymfony.DependencyInjection.Extension
+ * @memberOf Jymfony.Component.DependencyInjection.Extension
  */
 class ExtensionInterface {
     /**

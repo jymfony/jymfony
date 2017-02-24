@@ -1,13 +1,13 @@
-const Application = Jymfony.Console.Application;
-const Command = Jymfony.Console.Command.Command;
-const DescriptorInterface = Jymfony.Console.Descriptor.DescriptorInterface;
-const InputArgument = Jymfony.Console.Input.InputArgument;
-const InputOption = Jymfony.Console.Input.InputOption;
-const InputDefinition = Jymfony.Console.Input.InputDefinition;
-const OutputInterface = Jymfony.Console.Output.OutputInterface;
+const Application = Jymfony.Component.Console.Application;
+const Command = Jymfony.Component.Console.Command.Command;
+const DescriptorInterface = Jymfony.Component.Console.Descriptor.DescriptorInterface;
+const InputArgument = Jymfony.Component.Console.Input.InputArgument;
+const InputOption = Jymfony.Component.Console.Input.InputOption;
+const InputDefinition = Jymfony.Component.Console.Input.InputDefinition;
+const OutputInterface = Jymfony.Component.Console.Output.OutputInterface;
 
 /**
- * @memberOf Jymfony.Console.Descriptor
+ * @memberOf Jymfony.Component.Console.Descriptor
  * @type Descriptor
  */
 module.exports = class Descriptor extends implementationOf(DescriptorInterface) {
@@ -58,7 +58,7 @@ module.exports = class Descriptor extends implementationOf(DescriptorInterface) 
     /**
      * Describes an InputArgument instance.
      *
-     * @param {Jymfony.Console.Input.InputArgument} argument
+     * @param {Jymfony.Component.Console.Input.InputArgument} argument
      * @param {*} options
      *
      * @returns {string|*}
@@ -73,7 +73,7 @@ module.exports = class Descriptor extends implementationOf(DescriptorInterface) 
     /**
      * Describes an InputOption instance.
      *
-     * @param {Jymfony.Console.Input.InputOption} option
+     * @param {Jymfony.Component.Console.Input.InputOption} option
      * @param {*} options
      *
      * @returns {string|*}
@@ -88,7 +88,7 @@ module.exports = class Descriptor extends implementationOf(DescriptorInterface) 
     /**
      * Describes an InputDefinition instance.
      *
-     * @param {Jymfony.Console.Input.InputDefinition} definition
+     * @param {Jymfony.Component.Console.Input.InputDefinition} definition
      * @param {*} options
      *
      * @returns {string|*}
@@ -103,7 +103,7 @@ module.exports = class Descriptor extends implementationOf(DescriptorInterface) 
     /**
      * Describes a Command instance.
      *
-     * @param {Jymfony.Console.Command.Command} command
+     * @param {Jymfony.Component.Console.Command.Command} command
      * @param {*} options
      *
      * @returns {string|*}
@@ -118,7 +118,7 @@ module.exports = class Descriptor extends implementationOf(DescriptorInterface) 
     /**
      * Describes an Application instance.
      *
-     * @param {Jymfony.Console.Application} application
+     * @param {Jymfony.Component.Console.Application} application
      * @param {*} options
      *
      * @returns {string|*}

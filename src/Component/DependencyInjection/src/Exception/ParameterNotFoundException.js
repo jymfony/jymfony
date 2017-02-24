@@ -1,7 +1,7 @@
-const InvalidArgumentException = Jymfony.DependencyInjection.Exception.InvalidArgumentException;
+const InvalidArgumentException = Jymfony.Component.DependencyInjection.Exception.InvalidArgumentException;
 
 /**
- * @memberOf Jymfony.DependencyInjection.Exception
+ * @memberOf Jymfony.Component.DependencyInjection.Exception
  */
 module.exports = class ParameterNotFoundException extends InvalidArgumentException {
     constructor(key, sourceId, sourceKey) {

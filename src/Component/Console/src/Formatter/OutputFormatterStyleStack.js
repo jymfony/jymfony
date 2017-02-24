@@ -1,14 +1,14 @@
-const OutputFormatterStyle = Jymfony.Console.Formatter.OutputFormatterStyle;
+const OutputFormatterStyle = Jymfony.Component.Console.Formatter.OutputFormatterStyle;
 
 /**
- * @memberOf Jymfony.Console.Formatter
+ * @memberOf Jymfony.Component.Console.Formatter
  * @type OutputFormatterStyleStack
  */
 module.exports = class OutputFormatterStyleStack {
     /**
      * Constructor.
      *
-     * @param {Jymfony.Console.Formatter.OutputFormatterStyleInterface|null} emptyStyle
+     * @param {Jymfony.Component.Console.Formatter.OutputFormatterStyleInterface|null} emptyStyle
      */
     constructor(emptyStyle = undefined) {
         this._emptyStyle = emptyStyle || new OutputFormatterStyle();
@@ -25,7 +25,7 @@ module.exports = class OutputFormatterStyleStack {
     /**
      * Pushes a style in the stack.
      *
-     * @param {Jymfony.Console.Formatter.OutputFormatterStyleInterface} style
+     * @param {Jymfony.Component.Console.Formatter.OutputFormatterStyleInterface} style
      */
     push(style) {
         this._styles.push(style);
@@ -34,9 +34,9 @@ module.exports = class OutputFormatterStyleStack {
     /**
      * Pops a style from the stack.
      *
-     * @param {Jymfony.Console.Formatter.OutputFormatterStyleInterface|undefined} style
+     * @param {Jymfony.Component.Console.Formatter.OutputFormatterStyleInterface|undefined} style
      *
-     * @returns {Jymfony.Console.Formatter.OutputFormatterStyleInterface}
+     * @returns {Jymfony.Component.Console.Formatter.OutputFormatterStyleInterface}
      *
      * @throws {InvalidArgumentException} When style tags incorrectly nested
      */
@@ -66,7 +66,7 @@ module.exports = class OutputFormatterStyleStack {
     /**
      * Computes current style with stacks top codes.
      *
-     * @returns {Jymfony.Console.Formatter.OutputFormatterStyleInterface}
+     * @returns {Jymfony.Component.Console.Formatter.OutputFormatterStyleInterface}
      */
     get current() {
         if (! this._styles.length) {
@@ -77,14 +77,14 @@ module.exports = class OutputFormatterStyleStack {
     }
 
     /**
-     * @param {Jymfony.Console.Formatter.OutputFormatterStyleInterface} emptyStyle
+     * @param {Jymfony.Component.Console.Formatter.OutputFormatterStyleInterface} emptyStyle
      */
     set emptyStyle(emptyStyle) {
         this._emptyStyle = emptyStyle;
     }
 
     /**
-     * @returns {Jymfony.Console.Formatter.OutputFormatterStyleInterface}
+     * @returns {Jymfony.Component.Console.Formatter.OutputFormatterStyleInterface}
      */
     get emptyStyle() {
         return this._emptyStyle;

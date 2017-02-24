@@ -1,6 +1,6 @@
 /**
- * @memberOf Jymfony.DependencyInjection.Compiler
- * @type {Jymfony.DependencyInjection.Compiler.LogFormatter}
+ * @memberOf Jymfony.Component.DependencyInjection.Compiler
+ * @type {Jymfony.Component.DependencyInjection.Compiler.LogFormatter}
  */
 module.exports = class LogFormatter {
     formatRemoveService(pass, id, reason) {

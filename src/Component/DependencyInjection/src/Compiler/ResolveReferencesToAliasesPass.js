@@ -1,11 +1,11 @@
-const Alias = Jymfony.DependencyInjection.Alias;
-const CompilerPassInterface = Jymfony.DependencyInjection.Compiler.CompilerPassInterface;
-const ServiceCircularReferenceException = Jymfony.DependencyInjection.Exception.ServiceCircularReferenceException;
-const Reference = Jymfony.DependencyInjection.Reference;
+const Alias = Jymfony.Component.DependencyInjection.Alias;
+const CompilerPassInterface = Jymfony.Component.DependencyInjection.Compiler.CompilerPassInterface;
+const ServiceCircularReferenceException = Jymfony.Component.DependencyInjection.Exception.ServiceCircularReferenceException;
+const Reference = Jymfony.Component.DependencyInjection.Reference;
 
 /**
- * @memberOf Jymfony.DependencyInjection.Compiler
- * @type {Jymfony.DependencyInjection.Compiler.ResolveReferencesToAliasesPass}
+ * @memberOf Jymfony.Component.DependencyInjection.Compiler
+ * @type {Jymfony.Component.DependencyInjection.Compiler.ResolveReferencesToAliasesPass}
  */
 module.exports = class ResolveReferencesToAliasesPass extends implementationOf(CompilerPassInterface) {
     process(container) {

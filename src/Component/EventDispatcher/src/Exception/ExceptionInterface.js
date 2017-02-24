@@ -1,5 +1,5 @@
 /**
- * @memberOf Jymfony.EventDispatcher.Exception
+ * @memberOf Jymfony.Component.EventDispatcher.Exception
  */
 class ExceptionInterface {
 }

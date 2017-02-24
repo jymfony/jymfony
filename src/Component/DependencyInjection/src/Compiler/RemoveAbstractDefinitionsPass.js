@@ -1,8 +1,8 @@
-const CompilerPassInterface = Jymfony.DependencyInjection.Compiler.CompilerPassInterface;
+const CompilerPassInterface = Jymfony.Component.DependencyInjection.Compiler.CompilerPassInterface;
 
 /**
- * @memberOf Jymfony.DependencyInjection.Compiler
- * @type {Jymfony.DependencyInjection.Compiler.RemoveAbstractDefinitionsPass}
+ * @memberOf Jymfony.Component.DependencyInjection.Compiler
+ * @type {Jymfony.Component.DependencyInjection.Compiler.RemoveAbstractDefinitionsPass}
  */
 module.exports = class RemoveAbstractDefinitionsPass extends implementationOf(CompilerPassInterface) {
     process(container) {

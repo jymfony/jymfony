@@ -1,18 +1,18 @@
-const Alias = Jymfony.DependencyInjection.Alias;
-const Compiler = Jymfony.DependencyInjection.Compiler.Compiler;
-const Container = Jymfony.DependencyInjection.Container;
-const Definition = Jymfony.DependencyInjection.Definition;
-const BadMethodCallException = Jymfony.DependencyInjection.Exception.BadMethodCallException;
-const InvalidArgumentException = Jymfony.DependencyInjection.Exception.InvalidArgumentException;
-const ServiceNotFoundException = Jymfony.DependencyInjection.Exception.ServiceNotFoundException;
-const RealServiceInstantiator = Jymfony.DependencyInjection.LazyProxy.RealServiceInstantiator;
-const Reference = Jymfony.DependencyInjection.Reference;
+const Alias = Jymfony.Component.DependencyInjection.Alias;
+const Compiler = Jymfony.Component.DependencyInjection.Compiler.Compiler;
+const Container = Jymfony.Component.DependencyInjection.Container;
+const Definition = Jymfony.Component.DependencyInjection.Definition;
+const BadMethodCallException = Jymfony.Component.DependencyInjection.Exception.BadMethodCallException;
+const InvalidArgumentException = Jymfony.Component.DependencyInjection.Exception.InvalidArgumentException;
+const ServiceNotFoundException = Jymfony.Component.DependencyInjection.Exception.ServiceNotFoundException;
+const RealServiceInstantiator = Jymfony.Component.DependencyInjection.LazyProxy.RealServiceInstantiator;
+const Reference = Jymfony.Component.DependencyInjection.Reference;
 
 const fs = require('fs');
 
 /**
- * @memberOf Jymfony.DependencyInjection
- * @type {Jymfony.DependencyInjection.ContainerBuilder}
+ * @memberOf Jymfony.Component.DependencyInjection
+ * @type {Jymfony.Component.DependencyInjection.ContainerBuilder}
  */
 module.exports = class ContainerBuilder extends Container {
     /**
@@ -49,7 +49,7 @@ module.exports = class ContainerBuilder extends Container {
         this._aliasDefinitions = {};
 
         /**
-         * @type {Jymfony.Config.Resource.ResourceInterface[]}
+         * @type {Jymfony.Component.Config.Resource.ResourceInterface[]}
          * @private
          */
         this._resources = [];
@@ -58,7 +58,7 @@ module.exports = class ContainerBuilder extends Container {
          * @type {boolean}
          * @private
          */
-        this._trackResources = ReflectionClass.exists('Jymfony.Config.Resource.ResourceInterface');
+        this._trackResources = ReflectionClass.exists('Jymfony.Component.Config.Resource.ResourceInterface');
     }
 
     /**
@@ -128,7 +128,7 @@ module.exports = class ContainerBuilder extends Container {
     /**
      * Returns an array of resources used to build this configuration
      *
-     * @returns {Jymfony.Config.Resource.ResourceInterface[]}
+     * @returns {Jymfony.Component.Config.Resource.ResourceInterface[]}
      */
     getResources() {
         let seen = {};
@@ -145,9 +145,9 @@ module.exports = class ContainerBuilder extends Container {
     /**
      * Adds a resource for this configuration.
      *
-     * @param {Jymfony.Config.Resource.ResourceInterface} resource A resource instance
+     * @param {Jymfony.Component.Config.Resource.ResourceInterface} resource A resource instance
      *
-     * @returns {Jymfony.DependencyInjection.ContainerBuilder} The current instance
+     * @returns {Jymfony.Component.DependencyInjection.ContainerBuilder} The current instance
      */
     addResource(resource) {
         if (! this.isTrackingResources()) {
@@ -163,7 +163,7 @@ module.exports = class ContainerBuilder extends Container {
      *
      * @param {*} object An object instance
      *
-     * @returns {Jymfony.DependencyInjection.ContainerBuilder}
+     * @returns {Jymfony.Component.DependencyInjection.ContainerBuilder}
      */
     addObjectResource(object) {
         if (this.isTrackingResources()) {
@@ -178,7 +178,7 @@ module.exports = class ContainerBuilder extends Container {
      *
      * @param {ReflectionClass} reflClass
      *
-     * @returns {Jymfony.DependencyInjection.ContainerBuilder}
+     * @returns {Jymfony.Component.DependencyInjection.ContainerBuilder}
      */
     addClassResource(reflClass) {
         if (! this.isTrackingResources()) {
@@ -187,7 +187,7 @@ module.exports = class ContainerBuilder extends Container {
 
         do {
             if (reflClass.filename && fs.statSync(reflClass.filename).isFile()) {
-                this.addResource(new Jymfony.Config.Resource.FileResource(reflClass.filename));
+                this.addResource(new Jymfony.Component.Config.Resource.FileResource(reflClass.filename));
             }
         } while (reflClass = reflClass.getParentClass());
 
@@ -200,7 +200,7 @@ module.exports = class ContainerBuilder extends Container {
      * @param extension
      * @param values
      *
-     * @returns {Jymfony.DependencyInjection.ContainerBuilder}
+     * @returns {Jymfony.Component.DependencyInjection.ContainerBuilder}
      */
     loadFromExtension(extension, values = []) {
         if (this.frozen) {
@@ -223,7 +223,7 @@ module.exports = class ContainerBuilder extends Container {
      * @param type
      * @param {int} priority
      *
-     * @returns {Jymfony.DependencyInjection.ContainerBuilder}
+     * @returns {Jymfony.Component.DependencyInjection.ContainerBuilder}
      */
     addCompilerPass(pass, type, priority = 0) {
         let compiler = this.getCompiler();
@@ -235,7 +235,7 @@ module.exports = class ContainerBuilder extends Container {
     /**
      * Get the compiler
      *
-     * @returns {Jymfony.DependencyInjection.Compiler.Compiler}
+     * @returns {Jymfony.Component.DependencyInjection.Compiler.Compiler}
      */
     getCompiler() {
         if (undefined === this._compiler) {
@@ -335,7 +335,7 @@ module.exports = class ContainerBuilder extends Container {
      * Services definition are overwritten by the merged container,
      * while parameters are kept from this one
      *
-     * @param {Jymfony.DependencyInjection.ContainerBuilder} container
+     * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
      */
     merge(container) {
         if (this.frozen) {
@@ -437,7 +437,7 @@ module.exports = class ContainerBuilder extends Container {
      * Sets an alias for an existing service.
      *
      * @param {string} alias
-     * @param {string|Jymfony.DependencyInjection.Alias} id
+     * @param {string|Jymfony.Component.DependencyInjection.Alias} id
      */
     setAlias(alias, id) {
         alias = alias.toLowerCase();
@@ -511,7 +511,7 @@ module.exports = class ContainerBuilder extends Container {
      * @param {string} id
      * @param {string|null} class_
      *
-     * @returns {Jymfony.DependencyInjection.Definition} A Definition instance
+     * @returns {Jymfony.Component.DependencyInjection.Definition} A Definition instance
      */
     register(id, class_) {
         return this.setDefinition(id, new Definition(class_));
@@ -520,7 +520,7 @@ module.exports = class ContainerBuilder extends Container {
     /**
      * Adds the service definitions.
      *
-     * @param {Jymfony.DependencyInjection.Definition[]} definitions
+     * @param {Jymfony.Component.DependencyInjection.Definition[]} definitions
      */
     addDefinitions(definitions) {
         for (let [ id, definition ] of __jymfony.getEntries(definitions)) {
@@ -531,7 +531,7 @@ module.exports = class ContainerBuilder extends Container {
     /**
      * Sets the service definitions.
      *
-     * @param {Jymfony.DependencyInjection.Definition[]} definitions
+     * @param {Jymfony.Component.DependencyInjection.Definition[]} definitions
      */
     setDefinitions(definitions) {
         this._definitions = {};
@@ -541,7 +541,7 @@ module.exports = class ContainerBuilder extends Container {
     /**
      * Gets all service definitions.
      *
-     * @returns {Object<string, Jymfony.DependencyInjection.Definition>}
+     * @returns {Object<string, Jymfony.Component.DependencyInjection.Definition>}
      */
     getDefinitions() {
         return Object.assign({}, this._definitions);
@@ -553,7 +553,7 @@ module.exports = class ContainerBuilder extends Container {
      * @param {string} id
      * @param {Definition} definition
      *
-     * @returns {Jymfony.DependencyInjection.Definition} the service definition
+     * @returns {Jymfony.Component.DependencyInjection.Definition} the service definition
      *
      * @throws BadMethodCallException When this ContainerBuilder is frozen
      */
@@ -584,7 +584,7 @@ module.exports = class ContainerBuilder extends Container {
      *
      * @param {string} id
      *
-     * @returns {Jymfony.DependencyInjection.Definition}
+     * @returns {Jymfony.Component.DependencyInjection.Definition}
      *
      * @throws ServiceNotFoundException if the service definition does not exist
      */
@@ -604,7 +604,7 @@ module.exports = class ContainerBuilder extends Container {
      *
      * @param {string} id
      *
-     * @returns {Jymfony.DependencyInjection.Definition} A Definition instance
+     * @returns {Jymfony.Component.DependencyInjection.Definition} A Definition instance
      *
      * @throws ServiceNotFoundException if the service definition does not exist
      */
@@ -620,7 +620,7 @@ module.exports = class ContainerBuilder extends Container {
     /**
      * Creates a service for a service definition.
      *
-     * @param {Jymfony.DependencyInjection.Definition} definition
+     * @param {Jymfony.Component.DependencyInjection.Definition} definition
      * @param {string} id
      * @param {boolean} tryProxy
      *

@@ -1,5 +1,5 @@
-const RuntimeException = Jymfony.Console.Exception.RuntimeException;
-const Input = Jymfony.Console.Input.Input;
+const RuntimeException = Jymfony.Component.Console.Exception.RuntimeException;
+const Input = Jymfony.Component.Console.Input.Input;
 
 /**
  * ArgvInput represents an input coming from the CLI arguments.
@@ -24,7 +24,7 @@ const Input = Jymfony.Console.Input.Input;
  * @see http://www.gnu.org/software/libc/manual/html_node/Argument-Syntax.html
  * @see http://www.opengroup.org/onlinepubs/009695399/basedefs/xbd_chap12.html#tag_12_02
  *
- * @memberOf Jymfony.Console.Input
+ * @memberOf Jymfony.Component.Console.Input
  * @type ArgvInput
  */
 module.exports = class ArgvInput extends Input {
@@ -149,7 +149,7 @@ module.exports = class ArgvInput extends Input {
      *
      * @param {string} token The current token
      *
-     * @throws {Jymfony.Console.Exception.RuntimeException} When too many arguments are given
+     * @throws {Jymfony.Component.Console.Exception.RuntimeException} When too many arguments are given
      *
      * @private
      */
@@ -205,7 +205,7 @@ module.exports = class ArgvInput extends Input {
      * @param {string} name The long option key
      * @param {*} value The value for the option
      *
-     * @throws {Jymfony.Console.Exception.RuntimeException} When option given doesn't exist
+     * @throws {Jymfony.Component.Console.Exception.RuntimeException} When option given doesn't exist
      *
      * @private
      */

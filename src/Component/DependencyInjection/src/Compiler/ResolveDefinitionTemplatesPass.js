@@ -1,13 +1,13 @@
-const CompilerPassInterface = Jymfony.DependencyInjection.Compiler.CompilerPassInterface;
-const Definition = Jymfony.DependencyInjection.Definition;
-const DefinitionDecorator = Jymfony.DependencyInjection.DefinitionDecorator;
+const CompilerPassInterface = Jymfony.Component.DependencyInjection.Compiler.CompilerPassInterface;
+const Definition = Jymfony.Component.DependencyInjection.Definition;
+const DefinitionDecorator = Jymfony.Component.DependencyInjection.DefinitionDecorator;
 
 /**
  * This replaces all DefinitionDecorator instances with their equivalent fully
  * merged Definition instance.
  *
- * @memberOf Jymfony.DependencyInjection.Compiler
- * @type {Jymfony.DependencyInjection.Compiler.ResolveDefinitionTemplatesPass}
+ * @memberOf Jymfony.Component.DependencyInjection.Compiler
+ * @type {Jymfony.Component.DependencyInjection.Compiler.ResolveDefinitionTemplatesPass}
  */
 module.exports = class ResolveDefinitionTemplatesPass extends implementationOf(CompilerPassInterface) {
     /**
@@ -23,7 +23,7 @@ module.exports = class ResolveDefinitionTemplatesPass extends implementationOf(C
     /**
      * Resolves definition decorator args.
      *
-     * @param {Jymfony.DependencyInjection.ContainerBuilder} container The ContainerBuilder
+     * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container The ContainerBuilder
      * @param {Object|Array} args An array of args
      * @param {boolean} isRoot If we are processing the root definitions or not
      *
@@ -66,10 +66,10 @@ module.exports = class ResolveDefinitionTemplatesPass extends implementationOf(C
     /**
      * Resolves the definition.
      *
-     * @param {Jymfony.DependencyInjection.ContainerBuilder} container
-     * @param {Jymfony.DependencyInjection.DefinitionDecorator} definition
+     * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
+     * @param {Jymfony.Component.DependencyInjection.DefinitionDecorator} definition
      *
-     * @returns {Jymfony.DependencyInjection.Definition}
+     * @returns {Jymfony.Component.DependencyInjection.Definition}
      *
      * @throws {RuntimeException} When the definition is invalid
      */

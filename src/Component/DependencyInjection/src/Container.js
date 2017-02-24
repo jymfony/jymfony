@@ -1,13 +1,13 @@
-const ServiceNotFoundException = Jymfony.DependencyInjection.Exception.ServiceNotFoundException;
-const ServiceCircularReferenceException = Jymfony.DependencyInjection.Exception.ServiceCircularReferenceException;
-const FrozenParameterBag = Jymfony.DependencyInjection.ParameterBag.FrozenParameterBag;
-const ParameterBag = Jymfony.DependencyInjection.ParameterBag.ParameterBag;
+const ServiceNotFoundException = Jymfony.Component.DependencyInjection.Exception.ServiceNotFoundException;
+const ServiceCircularReferenceException = Jymfony.Component.DependencyInjection.Exception.ServiceCircularReferenceException;
+const FrozenParameterBag = Jymfony.Component.DependencyInjection.ParameterBag.FrozenParameterBag;
+const ParameterBag = Jymfony.Component.DependencyInjection.ParameterBag.ParameterBag;
 
 let underscoreMap = {'_': '', '.': '_', '\\': '_'};
 
 /**
- * @memberOf Jymfony.DependencyInjection
- * @type {Jymfony.DependencyInjection.Container}
+ * @memberOf Jymfony.Component.DependencyInjection
+ * @type {Jymfony.Component.DependencyInjection.Container}
  */
 class Container {
     constructor(parameterBag) {
@@ -41,7 +41,7 @@ class Container {
     /**
      * Get the container parameter bag
      *
-     * @returns {Jymfony.DependencyInjection.ParameterBag}
+     * @returns {Jymfony.Component.DependencyInjection.ParameterBag}
      */
     get parameterBag() {
         return this._parameterBag;
@@ -125,7 +125,7 @@ class Container {
             if (--i && id !== lcId) {
                 id = lcId;
                 continue;
-            } else if (this.constructor instanceof Jymfony.DependencyInjection.ContainerBuilder) {
+            } else if (this.constructor instanceof Jymfony.Component.DependencyInjection.ContainerBuilder) {
                 return this['get' + __jymfony.strtr(id, underscoreMap) + 'Service'] !== undefined;
             }
 

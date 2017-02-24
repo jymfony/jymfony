@@ -1,8 +1,8 @@
-const RuntimeException = Jymfony.PropertyAccess.Exception.RuntimeException;
+const RuntimeException = Jymfony.Component.PropertyAccess.Exception.RuntimeException;
 
 /**
- * @namespace Jymfony.PropertyAccess
- * @type {Jymfony.PropertyAccess.Exception.AccessException}
+ * @namespace Jymfony.Component.PropertyAccess
+ * @type {Jymfony.Component.PropertyAccess.Exception.AccessException}
  */
 module.exports = class AccessException extends RuntimeException {
 };

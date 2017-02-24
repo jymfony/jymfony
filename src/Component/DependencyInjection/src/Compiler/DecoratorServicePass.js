@@ -1,9 +1,9 @@
-const Alias = Jymfony.DependencyInjection.Alias;
-const CompilerPassInterface = Jymfony.DependencyInjection.Compiler.CompilerPassInterface;
+const Alias = Jymfony.Component.DependencyInjection.Alias;
+const CompilerPassInterface = Jymfony.Component.DependencyInjection.Compiler.CompilerPassInterface;
 
 /**
- * @memberOf Jymfony.DependencyInjection.Compiler
- * @type {Jymfony.DependencyInjection.Compiler.DecoratorServicePass}
+ * @memberOf Jymfony.Component.DependencyInjection.Compiler
+ * @type {Jymfony.Component.DependencyInjection.Compiler.DecoratorServicePass}
  */
 module.exports = class DecoratorServicePass extends implementationOf(CompilerPassInterface) {
     process(container) {

@@ -1,8 +1,8 @@
-const Event = Jymfony.EventDispatcher.Event;
-const InvalidArgumentException = Jymfony.EventDispatcher.Exception.InvalidArgumentException;
+const Event = Jymfony.Component.EventDispatcher.Event;
+const InvalidArgumentException = Jymfony.Component.EventDispatcher.Exception.InvalidArgumentException;
 
 /**
- * @memberOf Jymfony.EventDispatcher
+ * @memberOf Jymfony.Component.EventDispatcher
  */
 class EventDispatcher {
     constructor() {
@@ -16,9 +16,9 @@ class EventDispatcher {
      * the listeners.
      *
      * @param {string} eventName
-     * @param {Jymfony.EventDispatcher.Event} event
+     * @param {Jymfony.Component.EventDispatcher.Event} event
      *
-     * @returns {Promise.<Jymfony.EventDispatcher.Event>}
+     * @returns {Promise.<Jymfony.Component.EventDispatcher.Event>}
      */
     dispatch(eventName, event = new Event) {
         let p = Promise.resolve(event);

@@ -1,11 +1,11 @@
-const CompilerPassInterface = Jymfony.DependencyInjection.Compiler.CompilerPassInterface;
-const Reference = Jymfony.DependencyInjection.Reference;
-const Container = Jymfony.DependencyInjection.Container;
-const RuntimeException = Jymfony.DependencyInjection.Exception.RuntimeException;
+const CompilerPassInterface = Jymfony.Component.DependencyInjection.Compiler.CompilerPassInterface;
+const Reference = Jymfony.Component.DependencyInjection.Reference;
+const Container = Jymfony.Component.DependencyInjection.Container;
+const RuntimeException = Jymfony.Component.DependencyInjection.Exception.RuntimeException;
 
 /**
- * @memberOf Jymfony.DependencyInjection.Compiler
- * @type {Jymfony.DependencyInjection.Compiler.ResolveInvalidReferencesPass}
+ * @memberOf Jymfony.Component.DependencyInjection.Compiler
+ * @type {Jymfony.Component.DependencyInjection.Compiler.ResolveInvalidReferencesPass}
  */
 module.exports = class ResolveInvalidReferencesPass extends implementationOf(CompilerPassInterface) {
     process(container) {

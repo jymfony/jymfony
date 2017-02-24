@@ -1,7 +1,7 @@
-const InvalidArgumentException = Jymfony.DependencyInjection.Exception.InvalidArgumentException;
+const InvalidArgumentException = Jymfony.Component.DependencyInjection.Exception.InvalidArgumentException;
 
 /**
- * @memberOf Jymfony.DependencyInjection.Exception
+ * @memberOf Jymfony.Component.DependencyInjection.Exception
  */
 class ServiceNotFoundException extends InvalidArgumentException {
     constructor(id) {

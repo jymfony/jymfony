@@ -1,5 +1,5 @@
 /**
- * @memberOf Jymfony.DependencyInjection.Exception
+ * @memberOf Jymfony.Component.DependencyInjection.Exception
  */
 class ExceptionInterface {
 }

@@ -1,5 +1,5 @@
-const Descriptor = Jymfony.Console.Descriptor.Descriptor;
-const ApplicationDescription = Jymfony.Console.Descriptor.ApplicationDescription;
+const Descriptor = Jymfony.Component.Console.Descriptor.Descriptor;
+const ApplicationDescription = Jymfony.Component.Console.Descriptor.ApplicationDescription;
 
 module.exports = class JsonDescriptor extends Descriptor {
     /**
@@ -62,7 +62,7 @@ module.exports = class JsonDescriptor extends Descriptor {
     }
 
     /**
-     * @param {Jymfony.Console.Input.InputArgument} argument
+     * @param {Jymfony.Component.Console.Input.InputArgument} argument
      *
      * @returns {Object}
      */
@@ -77,7 +77,7 @@ module.exports = class JsonDescriptor extends Descriptor {
     }
 
     /**
-     * @param {Jymfony.Console.Input.InputOption} option
+     * @param {Jymfony.Component.Console.Input.InputOption} option
      *
      * @returns {Object}
      */
@@ -94,7 +94,7 @@ module.exports = class JsonDescriptor extends Descriptor {
     }
 
     /**
-     * @param {Jymfony.Console.Input.InputDefinition} definition
+     * @param {Jymfony.Component.Console.Input.InputDefinition} definition
      *
      * @returns Object
      */
@@ -113,7 +113,7 @@ module.exports = class JsonDescriptor extends Descriptor {
     }
 
     /**
-     * @param {Jymfony.Console.Command.Command} command
+     * @param {Jymfony.Component.Console.Command.Command} command
      *
      * @returns {Object}
      */

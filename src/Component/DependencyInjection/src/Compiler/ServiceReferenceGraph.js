@@ -1,5 +1,5 @@
-const ServiceReferenceGraphEdge = Jymfony.DependencyInjection.Compiler.ServiceReferenceGraphEdge;
-const ServiceReferenceGraphNode = Jymfony.DependencyInjection.Compiler.ServiceReferenceGraphNode;
+const ServiceReferenceGraphEdge = Jymfony.Component.DependencyInjection.Compiler.ServiceReferenceGraphEdge;
+const ServiceReferenceGraphNode = Jymfony.Component.DependencyInjection.Compiler.ServiceReferenceGraphNode;
 
 /**
  * Graph representation of services
@@ -7,7 +7,7 @@ const ServiceReferenceGraphNode = Jymfony.DependencyInjection.Compiler.ServiceRe
  * Use this in compiler passes instead of collecting these info
  * in every pass
  *
- * @memberOf Jymfony.DependencyInjection.Compiler
+ * @memberOf Jymfony.Component.DependencyInjection.Compiler
  * @internal
  */
 module.exports = class ServiceReferenceGraph {

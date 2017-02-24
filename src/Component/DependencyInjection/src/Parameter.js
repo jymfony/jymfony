@@ -1,5 +1,5 @@
 /**
- * @memberOf Jymfony.DependencyInjection
+ * @memberOf Jymfony.Component.DependencyInjection
  */
 module.exports = class Parameter {
     constructor(id) {

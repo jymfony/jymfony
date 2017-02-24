@@ -1,14 +1,14 @@
-const CompilerPassInterface = Jymfony.DependencyInjection.Compiler.CompilerPassInterface;
-const RepeatablePassInterface = Jymfony.DependencyInjection.Compiler.RepeatablePassInterface;
-const InvalidArgumentException = Jymfony.DependencyInjection.Exception.InvalidArgumentException;
+const CompilerPassInterface = Jymfony.Component.DependencyInjection.Compiler.CompilerPassInterface;
+const RepeatablePassInterface = Jymfony.Component.DependencyInjection.Compiler.RepeatablePassInterface;
+const InvalidArgumentException = Jymfony.Component.DependencyInjection.Exception.InvalidArgumentException;
 
 /**
- * @memberOf Jymfony.DependencyInjection.Compiler
- * @type {Jymfony.DependencyInjection.Compiler.RepeatedPass}
+ * @memberOf Jymfony.Component.DependencyInjection.Compiler
+ * @type {Jymfony.Component.DependencyInjection.Compiler.RepeatedPass}
  */
 module.exports = class RepeatedPass extends implementationOf(CompilerPassInterface) {
     /**
-     * @param {Jymfony.DependencyInjection.Compiler.CompilerPassInterface[]} passes
+     * @param {Jymfony.Component.DependencyInjection.Compiler.CompilerPassInterface[]} passes
      */
     constructor(passes) {
         super();
@@ -47,7 +47,7 @@ module.exports = class RepeatedPass extends implementationOf(CompilerPassInterfa
     /**
      * Returns the passes.
      *
-     * @returns {Jymfony.DependencyInjection.Compiler.RepeatablePassInterface[]}
+     * @returns {Jymfony.Component.DependencyInjection.Compiler.RepeatablePassInterface[]}
      */
     getPasses() {
         return this._passes;

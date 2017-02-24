@@ -1,5 +1,5 @@
 /**
- * @memberOf Jymfony.DependencyInjection.Extension
+ * @memberOf Jymfony.Component.DependencyInjection.Extension
  */
 class PrependExtensionInterface {
     /**

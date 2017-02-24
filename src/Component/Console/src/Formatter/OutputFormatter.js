@@ -1,10 +1,10 @@
-const InvalidArgumentException = Jymfony.Console.Exception.InvalidArgumentException;
-const OutputFormatterInterface = Jymfony.Console.Formatter.OutputFormatterInterface;
-const OutputFormatterStyle = Jymfony.Console.Formatter.OutputFormatterStyle;
-const OutputFormatterStyleStack = Jymfony.Console.Formatter.OutputFormatterStyleStack;
+const InvalidArgumentException = Jymfony.Component.Console.Exception.InvalidArgumentException;
+const OutputFormatterInterface = Jymfony.Component.Console.Formatter.OutputFormatterInterface;
+const OutputFormatterStyle = Jymfony.Component.Console.Formatter.OutputFormatterStyle;
+const OutputFormatterStyleStack = Jymfony.Component.Console.Formatter.OutputFormatterStyleStack;
 
 /**
- * @memberOf Jymfony.Console.Formatter
+ * @memberOf Jymfony.Component.Console.Formatter
  * @type OutputFormatter
  */
 module.exports = class OutputFormatter extends implementationOf(OutputFormatterInterface) {
@@ -141,7 +141,7 @@ module.exports = class OutputFormatter extends implementationOf(OutputFormatterI
      *
      * @param {string} string
      *
-     * @returns {Jymfony.Console.Formatter.OutputFormatterStyle|boolean} false if string is not format string
+     * @returns {Jymfony.Component.Console.Formatter.OutputFormatterStyle|boolean} false if string is not format string
      *
      * @private
      */

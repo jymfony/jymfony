@@ -24,18 +24,18 @@
   "config": {
     "jymfony-autoload": {
       "namespaces": {
-        "Jymfony.Autoloader": "src/Component/Autoloader/src",
-        "Jymfony.Config": "src/Component/Config/src",
-        "Jymfony.Console": "src/Component/Console/src",
-        "Jymfony.DependencyInjection": "src/Component/DependencyInjection/src",
-        "Jymfony.EventDispatcher": "src/Component/EventDispatcher/src",
-        "Jymfony.Kernel": "src/Component/Kernel/src",
-        "Jymfony.PropertyAccess": "src/Component/PropertyAccess/src"
+        "Jymfony.Component.Autoloader": "src/Component/Autoloader/src",
+        "Jymfony.Component.Config": "src/Component/Config/src",
+        "Jymfony.Component.Console": "src/Component/Console/src",
+        "Jymfony.Component.DependencyInjection": "src/Component/DependencyInjection/src",
+        "Jymfony.Component.EventDispatcher": "src/Component/EventDispatcher/src",
+        "Jymfony.Component.Kernel": "src/Component/Kernel/src",
+        "Jymfony.Component.PropertyAccess": "src/Component/PropertyAccess/src"
       },
       "includes": [
         "src/util/index.js",
         "src/Exceptions/index.js",
-        "src/Component/DataStructure/src/all.js"
+        "src/DataStructure/src/all.js"
       ]
     }
   }

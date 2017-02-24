@@ -1,12 +1,12 @@
-const NoSuchPropertyException = Jymfony.PropertyAccess.Exception.NoSuchPropertyException;
-const UnexpectedTypeException = Jymfony.PropertyAccess.Exception.UnexpectedTypeException;
-const PropertyAccessorInterface = Jymfony.PropertyAccess.PropertyAccessorInterface;
-const PropertyPath = Jymfony.PropertyAccess.PropertyPath;
-const PropertyPathInterface = Jymfony.PropertyAccess.PropertyPathInterface;
+const NoSuchPropertyException = Jymfony.Component.PropertyAccess.Exception.NoSuchPropertyException;
+const UnexpectedTypeException = Jymfony.Component.PropertyAccess.Exception.UnexpectedTypeException;
+const PropertyAccessorInterface = Jymfony.Component.PropertyAccess.PropertyAccessorInterface;
+const PropertyPath = Jymfony.Component.PropertyAccess.PropertyPath;
+const PropertyPathInterface = Jymfony.Component.PropertyAccess.PropertyPathInterface;
 
 /**
- * @namespace Jymfony.PropertyAccess
- * @type {Jymfony.PropertyAccess.PropertyAccessor}
+ * @namespace Jymfony.Component.PropertyAccess
+ * @type {Jymfony.Component.PropertyAccess.PropertyAccessor}
  */
 class PropertyAccessor extends implementationOf(PropertyAccessorInterface) {
     /**
@@ -40,7 +40,7 @@ class PropertyAccessor extends implementationOf(PropertyAccessorInterface) {
      * Reads the path to a given path index
      *
      * @param {*} object
-     * @param {Jymfony.PropertyAccess.PropertyPathInterface} propertyPath
+     * @param {Jymfony.Component.PropertyAccess.PropertyPathInterface} propertyPath
      * @param {int} length
      */
     _readPropertiesUntil(object, propertyPath, length) {

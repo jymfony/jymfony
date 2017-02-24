@@ -1,5 +1,5 @@
 /**
- * @memberOf Jymfony.Console.Formatter
+ * @memberOf Jymfony.Component.Console.Formatter
  * @type OutputFormatterStyleInterface
  *
  * @interface

@@ -5,4 +5,4 @@
 /**
  * @namespace
  */
-global.Jymfony.EventDispatcher = {};
+global.Jymfony.Component.EventDispatcher = {};

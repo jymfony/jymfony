@@ -1,5 +1,5 @@
 /**
- * @memberOf Jymfony.Console.Output
+ * @memberOf Jymfony.Component.Console.Output
  * @type OutputInterface
  *
  * @interface
@@ -81,14 +81,14 @@ class OutputInterface {
     /**
      * Sets output formatter.
      *
-     * @param {Jymfony.Console.Formatter.OutputFormatterInterface} formatter
+     * @param {Jymfony.Component.Console.Formatter.OutputFormatterInterface} formatter
      */
     set formatter(formatter) { }
 
     /**
      * Returns current output formatter instance.
      *
-     * @returns {Jymfony.Console.Formatter.OutputFormatterInterface}
+     * @returns {Jymfony.Component.Console.Formatter.OutputFormatterInterface}
      */
     get formatter() { }
 }

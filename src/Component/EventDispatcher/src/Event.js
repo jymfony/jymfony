@@ -1,5 +1,5 @@
 /**
- * @memberOf Jymfony.EventDispatcher
+ * @memberOf Jymfony.Component.EventDispatcher
  */
 class Event {
     constructor() {

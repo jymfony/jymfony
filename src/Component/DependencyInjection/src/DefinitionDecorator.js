@@ -1,14 +1,14 @@
-const Definition = Jymfony.DependencyInjection.Definition;
+const Definition = Jymfony.Component.DependencyInjection.Definition;
 
 /**
- * @memberOf Jymfony.DependencyInjection
- * @type {Jymfony.DependencyInjection.DefinitionDecorator}
+ * @memberOf Jymfony.Component.DependencyInjection
+ * @type {Jymfony.Component.DependencyInjection.DefinitionDecorator}
  */
 module.exports = class DefinitionDecorator extends Definition {
     /**
      * Create a new DefinitionDecorator
      *
-     * @param {Jymfony.DependencyInjection.Definition} parent
+     * @param {Jymfony.Component.DependencyInjection.Definition} parent
      */
     constructor(parent) {
         super();
@@ -21,7 +21,7 @@ module.exports = class DefinitionDecorator extends Definition {
     /**
      * Get decorated definition
      *
-     * @return {Jymfony.DependencyInjection.Definition}
+     * @return {Jymfony.Component.DependencyInjection.Definition}
      */
     getParent() {
         return this._parent;

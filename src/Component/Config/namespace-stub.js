@@ -5,4 +5,4 @@
 /**
  * @namespace
  */
-global.Jymfony.Config = {};
+global.Jymfony.Component.Config = {};
