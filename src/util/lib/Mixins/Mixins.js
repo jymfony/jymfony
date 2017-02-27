@@ -112,7 +112,7 @@ class Mixins {
         let chain = [], parent = definition;
         do {
             if (parent[symOuterMixin]) {
-                chain.unshift(parent.prototype);
+                chain.unshift(parent);
             }
         } while (parent = Object.getPrototypeOf(parent));
 

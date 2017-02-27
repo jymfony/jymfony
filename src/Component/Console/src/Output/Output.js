@@ -59,7 +59,7 @@ module.exports = class Output extends implementationOf(OutputInterface) {
      * @inheritDoc
      */
     set verbosity(level) {
-        this._verbosity = Number(level);
+        this._verbosity = ~~level;
     }
 
     /**
