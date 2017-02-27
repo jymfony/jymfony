@@ -62,13 +62,13 @@ class Mixins {
 
         return Array.from(function * () {
             for (let i of chain) {
-                yield * Object.getOwnPropertyNames(i)
+                yield * Object.getOwnPropertyNames(i.prototype)
                     .filter(P => {
                         if ('constructor' === P) {
                             return false;
                         }
 
-                        return 'function' === typeof i[P];
+                        return 'function' === typeof i.prototype[P];
                     });
             }
         }());
