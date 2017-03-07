@@ -10,7 +10,13 @@ os:
 
 sudo: false
 
-script: if [ "$TRAVIS_NODE_VERSION" == "6" ] && [ "$TRAVIS_OS_NAME" == "linux" ]; then npm run-script coverage; else npm test; fi
+install:
+    - npm install -g eslint
+    - npm install
+
+script:
+    - if [ "$TRAVIS_NODE_VERSION" == "6" ] && [ "$TRAVIS_OS_NAME" == "linux" ]; then npm run-script coverage; else npm test; fi
+    - eslint src/
 
 after_success:
     - if [ "$TRAVIS_NODE_VERSION" == "6" ] && [ "$TRAVIS_OS_NAME" == "linux" ]; then npm install https://github.com/alekitto/ocular.js.git; fi
