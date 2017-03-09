@@ -6,8 +6,21 @@ const InvalidArgumentException = Jymfony.Component.EventDispatcher.Exception.Inv
  */
 class EventDispatcher {
     constructor() {
-        this.listeners = {};
-        this.sorted = {};
+        /**
+         * Listeners map.
+         *
+         * @type {Object.<string, [Object]>}
+         * @private
+         */
+        this._listeners = {};
+
+        /**
+         * Listeners map sorted by priority.
+         *
+         * @type {Object.<string, [Object]>}
+         * @private
+         */
+        this._sorted = {};
     }
 
     /**
@@ -44,19 +57,19 @@ class EventDispatcher {
      */
     * getListeners(eventName = undefined) {
         if (eventName) {
-            if (! this.listeners[eventName]) {
+            if (! this._listeners[eventName]) {
                 return [];
             }
 
-            if (! this.sorted[eventName]) {
+            if (! this._sorted[eventName]) {
                 this._sortListeners(eventName);
             }
 
-            for (let listener of this.sorted[eventName]) {
+            for (let listener of this._sorted[eventName]) {
                 yield listener.listener;
             }
         } else {
-            for (let eventName of Object.keys(this.listeners)) {
+            for (let eventName of Object.keys(this._listeners)) {
                 yield * this.getListeners(eventName);
             }
         }
@@ -78,13 +91,13 @@ class EventDispatcher {
             throw new InvalidArgumentException("Listener must be a function");
         }
 
-        let listeners = this.listeners[eventName];
+        let listeners = this._listeners[eventName];
         if (undefined === listeners) {
-            listeners = this.listeners[eventName] = [];
+            listeners = this._listeners[eventName] = [];
         }
 
         listeners.push({ listener: listener, priority: priority });
-        delete this.sorted[eventName];
+        delete this._sorted[eventName];
     }
 
     /**
@@ -95,7 +108,7 @@ class EventDispatcher {
      * @returns {boolean} true if at least one listener is registered, false otherwise
      */
     hasListeners(eventName) {
-        return (!! this.listeners[eventName]) && 0 < this.listeners[eventName].length;
+        return (!! this._listeners[eventName]) && 0 < this._listeners[eventName].length;
     }
 
     /**
@@ -105,7 +118,7 @@ class EventDispatcher {
      * @param {Function|Array} listener
      */
     removeListener(eventName, listener) {
-        if (! this.listeners[eventName]) {
+        if (! this._listeners[eventName]) {
             return;
         }
 
@@ -113,13 +126,13 @@ class EventDispatcher {
             listener = getCallableFromArray(listener);
         }
 
-        for (let registered of this.listeners[eventName]) {
+        for (let registered of this._listeners[eventName]) {
             if (! EventDispatcher._funcEquals(registered.listener, listener)) {
                 continue;
             }
 
-            let index = this.listeners[eventName].indexOf(registered);
-            this.listeners[eventName].splice(index, 1);
+            let index = this._listeners[eventName].indexOf(registered);
+            this._listeners[eventName].splice(index, 1);
         }
     }
 
@@ -171,13 +184,13 @@ class EventDispatcher {
      * @private
      */
     _sortListeners(eventName) {
-        if (undefined === this.listeners[eventName]) {
+        if (undefined === this._listeners[eventName]) {
             return;
         }
 
         // Clone the array
-        let listeners = [ ...this.listeners[eventName] ];
-        this.sorted[eventName] = listeners.sort((a, b) => {
+        let listeners = [ ...this._listeners[eventName] ];
+        this._sorted[eventName] = listeners.sort((a, b) => {
             return b.priority - a.priority;
         });
     }
