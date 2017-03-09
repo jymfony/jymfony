@@ -23,6 +23,7 @@ class Son extends mix(Parent, ISon) {
 }
 
 Parent.CONST_1 = 'foobar';
+Son.CONST_2 = 'foo';
 
 describe('[Autoloader] ReflectionClass', function () {
     it('newInstance should return an object', () => {
@@ -105,6 +106,9 @@ describe('[Autoloader] ReflectionClass', function () {
     it('constants getter should work', () => {
         let reflClass = new ReflectionClass(Son);
 
-        expect(reflClass.constants).to.be.deep.equal({ CONST_1: 'foobar' });
+        expect(reflClass.constants).to.be.deep.equal({
+            CONST_1: 'foobar',
+            CONST_2: 'foo',
+        });
     });
 });

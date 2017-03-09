@@ -349,8 +349,15 @@ global.ReflectionClass = class ReflectionClass {
         const FunctionProps = Object.getOwnPropertyNames(Function.prototype);
 
         let parent = this._constructor;
-        let consts = {};
+        let chain = [ this._constructor ];
         while (parent = Object.getPrototypeOf(parent)) {
+            if (parent.prototype) {
+                chain.unshift(parent.prototype.constructor);
+            }
+        }
+
+        let consts = {};
+        for (parent of chain) {
             let names = Object.getOwnPropertyNames(parent)
                 .filter(P => {
                     if ('__reflection' === P || 'prototype' === P || 'isMixin' === P) {
