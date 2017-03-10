@@ -1,4 +1,5 @@
 let expect = require('chai').expect;
+let path = require("path");
 
 /*
  * We are testing autoloader component here
@@ -55,36 +56,6 @@ describe('[Autoloader] Namespace', function () {
         expect(subns).to.be.undefined;
     });
 
-    it('returns undefined if is not a constructor', () => {
-        let req = (module) => {
-            expect(module).to.be.equal('/var/node/foo_vendor/FooClass.js');
-            return undefined;
-        };
-        req.cache = {
-            '/var/node/foo_vendor/FooClass.js': {}
-        };
-        req.resolve = (module) => {
-            return '/var/node/foo_vendor/FooClass.js';
-        };
-
-        let finder = {
-            find: (dir, name) => {
-                expect(name).to.be.equal('FooClass');
-                return {
-                    filename: '/var/node/foo_vendor/FooClass.js',
-                    directory: false
-                };
-            }
-        };
-
-        let ns = new Namespace({finder: finder}, 'Foo', [
-            '/var/node/foo_vendor'
-        ], req);
-        let class_ = ns.FooClass;
-
-        expect(class_).to.be.undefined;
-    });
-
     it('throws if is not a constructor and debug is enabled', () => {
         let req = (module) => {
             expect(module).to.be.equal('/var/node/foo_vendor/FooClass.js');
@@ -112,6 +83,7 @@ describe('[Autoloader] Namespace', function () {
         ], req);
         try {
             let class_ = ns.FooClass;
+            expect(class_).to.be.undefined;
         } catch (e) {
             expect(e).to.be.instanceOf(ClassNotFoundException);
             return;
@@ -168,7 +140,7 @@ describe('[Autoloader] Namespace', function () {
         ns.__namespace.addDirectory('/var/node/foo_vendor/');
 
         let func = ns.FooClass;
-        expect(func).to.be.a('function');
+        expect(func).to.be.instanceOf(Function);
     });
 
     it('injects reflection metadata', () => {
@@ -202,11 +174,12 @@ describe('[Autoloader] Namespace', function () {
         let ns = new Namespace({finder: finder}, 'Foo', ['/var/node/foo_vendor/'], req);
 
         let func = ns.FooClass;
-        expect(func).to.be.a('function');
-        expect(func.__reflection).to.have.property('filename').that.equals('/var/node/foo_vendor/FooClass.js');
-        expect(func.__reflection).to.have.property('fqcn').that.equals('Foo.FooClass');
-        expect(func.__reflection).to.have.property('constructor');
-        expect(func.__reflection).to.have.property('namespace');
+
+        expect(func).to.be.instanceOf(Function);
+        expect(func[Symbol.reflection]).to.have.property('filename').that.equals('/var/node/foo_vendor/FooClass.js');
+        expect(func[Symbol.reflection]).to.have.property('fqcn').that.equals('Foo.FooClass');
+        expect(func[Symbol.reflection]).to.have.property('constructor');
+        expect(func[Symbol.reflection]).to.have.property('namespace');
     });
 
     it('calls __construct on new if defined', () => {
@@ -298,5 +271,39 @@ describe('[Autoloader] Namespace', function () {
         let obj = new ns.FooClass('foobar');
         expect(obj.constructCalled).to.be.equal('foobar');
         expect(obj.superCalled).to.be.undefined;
+    });
+
+    it('resolves circular requirements', () => {
+        let finder = {
+            find: (dir, name) => {
+                if (name === 'FooClass') {
+                    return {
+                        filename: path.join(__dirname, '..', 'fixtures', 'FooClass.js'),
+                        directory: false
+                    };
+                } else if (name === 'BarClass') {
+                    return {
+                        filename: path.join(__dirname, '..', 'fixtures', 'BarClass.js'),
+                        directory: false
+                    };
+                }
+
+                throw new Error('Unexpected argument');
+            }
+        };
+
+        let ns = new Namespace({ finder: finder }, 'Foo', path.join(__dirname, '..', 'fixtures'), require);
+        try {
+            global.Foo = ns;
+
+            let foo = new ns.FooClass();
+            let bar = foo.bar;
+
+            expect(bar).to.be.instanceOf(ns.BarClass);
+            expect(foo).to.be.instanceOf(ns.FooClass);
+            expect(ns.FooClass.HELLO).to.be.equal('Hello, world!');
+        } finally {
+            global.Foo = undefined;
+        }
     });
 });

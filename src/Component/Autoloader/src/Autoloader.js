@@ -64,6 +64,7 @@ module.exports = class Autoloader {
         }
 
         this._registered = true;
+        Symbol.reflection = Symbol('reflection');
 
         let rootDir = this._finder.findRoot();
         for (let module of this._finder.listModules()) {

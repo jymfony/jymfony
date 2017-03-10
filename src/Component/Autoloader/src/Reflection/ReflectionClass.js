@@ -45,7 +45,7 @@ global.ReflectionClass = class ReflectionClass {
         this._properties = new Storage();
         this._constants = new Storage();
 
-        if (undefined !== value.__reflection) {
+        if (undefined !== value[Symbol.reflection]) {
             this._loadFromMetadata(value);
         } else {
             this._loadWithoutMetadata(value);
@@ -244,7 +244,7 @@ global.ReflectionClass = class ReflectionClass {
     }
 
     _loadFromMetadata(value) {
-        let metadata = value.__reflection;
+        let metadata = value[Symbol.reflection];
         this._className = metadata.fqcn;
         this._namespace = metadata.namespace;
 
@@ -360,7 +360,7 @@ global.ReflectionClass = class ReflectionClass {
         for (parent of chain) {
             let names = Object.getOwnPropertyNames(parent)
                 .filter(P => {
-                    if ('__reflection' === P || 'prototype' === P || 'isMixin' === P) {
+                    if ('prototype' === P || 'isMixin' === P) {
                         return false;
                     }
 

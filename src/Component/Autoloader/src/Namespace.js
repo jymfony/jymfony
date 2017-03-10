@@ -1,4 +1,5 @@
 let ClassNotFoundException = undefined;
+const FunctionPrototype = new Function();
 
 /**
  * @memberOf Jymfony.Component.Autoloader
@@ -20,7 +21,7 @@ module.exports = class Namespace {
         this._internalRequire = req;
         this._fullyQualifiedName = fqn;
         if (undefined === ClassNotFoundException) {
-            ClassNotFoundException = this._require('./Exception/ClassNotFoundException.js');
+            ClassNotFoundException = this._internalRequire('./Exception/ClassNotFoundException.js');
         }
 
         this._target = {
@@ -129,53 +130,114 @@ module.exports = class Namespace {
 
     _require(filename) {
         let fn = this._internalRequire.resolve(filename);
-        let mod = this._internalRequire(fn);
+        let realTarget = undefined;
 
-        // Class constructor
-        if ('function' !== typeof mod) {
-            throw new ClassNotFoundException(`Class not found in ${fn}. The file was found, but the class isn't there.`);
-        }
+        let init = () => {
+            if (undefined !== realTarget) {
+                return;
+            }
 
-        Object.defineProperty(mod, '__reflection', {
-            enumerable: false,
-            writable: false,
-            configurable: false,
-            value: {
+            let mod = this._internalRequire(fn);
+
+            // Class constructor
+            if ('function' !== typeof mod) {
+                throw new ClassNotFoundException(`Class not found in ${fn}. The file was found, but the class isn't there.`);
+            }
+
+            realTarget = mod;
+
+            let name = mod.definition ? mod.definition.name : mod.name;
+            let meta = {
                 filename: fn,
-                fqcn: this._fullyQualifiedName + '.' + mod.name,
+                fqcn: this._fullyQualifiedName + '.' + name,
                 module: this._internalRequire.cache[fn],
                 constructor: mod,
                 namespace: this,
-            },
-        });
+            };
 
-        if (mod.definition) {
-            // Interface or Trait
-
-            Object.defineProperty(mod.definition, '__reflection', {
+            Object.defineProperty(mod, Symbol.reflection, {
                 enumerable: false,
                 writable: false,
                 configurable: false,
-                value: {
-                    filename: fn,
-                    fqcn: this._fullyQualifiedName + '.' + mod.definition.name,
-                    module: this._internalRequire.cache[fn],
-                    constructor: mod.definition,
-                    namespace: this,
-                },
+                value: meta,
             });
-        }
 
-        return new Proxy(mod, {
+            if (mod.definition) {
+                // Interface or Trait
+                Object.defineProperty(mod.definition, Symbol.reflection, {
+                    enumerable: false,
+                    writable: false,
+                    configurable: false,
+                    value: meta,
+                });
+            }
+        };
+
+        const handlers = {
+            get: (target, key) => {
+                init();
+                return Reflect.get(realTarget, key);
+            },
+            set: (target, key, value) => {
+                init();
+                return Reflect.set(realTarget, key, value)
+            },
+            has: (target, key) => {
+                init();
+                return Reflect.has(realTarget, key);
+            },
+            deleteProperty: (target, key) => {
+                init();
+                return Reflect.deleteProperty(realTarget, key);
+            },
+            defineProperty: (target, key, descriptor) => {
+                init();
+                return Reflect.defineProperty(realTarget, key, descriptor);
+            },
+            enumerate: (target) => {
+                init();
+                return Reflect.enumerate(realTarget);
+            },
+            ownKeys: (target) => {
+                init();
+                return Reflect.ownKeys(realTarget);
+            },
+            apply: (target, thisArgument, args) => {
+                init();
+                return Reflect.apply(realTarget, thisArgument, args);
+            },
             construct: (target, argumentsList, newTarget) => {
-                let obj = Reflect.construct(target, argumentsList, newTarget);
+                init();
+                let obj = Reflect.construct(realTarget, argumentsList, newTarget);
 
-                if (target.prototype === newTarget.prototype && 'function' === typeof obj.__construct) {
+                if (realTarget.prototype === newTarget.prototype && 'function' === typeof obj.__construct) {
                     obj.__construct(...argumentsList);
                 }
 
                 return obj;
             },
-        });
+            getPrototypeOf: (target) => {
+                init();
+                return Reflect.getPrototypeOf(realTarget);
+            },
+            setPrototypeOf: (target, proto) => {
+                init();
+                return Reflect.setPrototypeOf(realTarget, proto);
+            },
+            isExtensible: (target) => {
+                init();
+                return Reflect.isExtensible(realTarget);
+            },
+            preventExtensions: (target) => {
+                init();
+                return Reflect.preventExtensions(realTarget);
+            },
+            getOwnPropertyDescriptor: (target, key) => {
+                init();
+                return Reflect.getOwnPropertyDescriptor(realTarget, key);
+            },
+        };
+
+        return new Proxy(FunctionPrototype, handlers);
     }
 };

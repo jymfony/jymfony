@@ -89,7 +89,7 @@ class Mixins {
             for (let i of chain) {
                 yield * Object.getOwnPropertyNames(i)
                     .filter(P => {
-                        if ('__reflection' === P || 'prototype' === P) {
+                        if ('prototype' === P) {
                             return false;
                         }
 
