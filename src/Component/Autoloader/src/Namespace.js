@@ -180,7 +180,7 @@ module.exports = class Namespace {
             },
             set: (target, key, value) => {
                 init();
-                return Reflect.set(realTarget, key, value)
+                return Reflect.set(realTarget, key, value);
             },
             has: (target, key) => {
                 init();
