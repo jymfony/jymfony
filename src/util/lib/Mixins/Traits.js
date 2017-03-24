@@ -18,11 +18,15 @@ class Traits {
 
         let mixin = Mixins.createMixin(definition, trait => {
             for (let [ prop, descriptor ] of inherits.entries()) {
-                if ('constructor' === prop) {
+                if ('constructor' === prop || '__construct' === prop) {
                     continue;
                 }
 
                 Object.defineProperty(trait.prototype, prop, descriptor);
+            }
+        }, obj => {
+            if (isFunction(definition.prototype.__construct)) {
+                definition.prototype.__construct.call(obj);
             }
         });
 

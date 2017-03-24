@@ -677,7 +677,7 @@ module.exports = class Application {
             if (OutputInterface.VERBOSITY_VERBOSE <= output.verbosity) {
                 output.writeln('<comment>Exception trace:</comment>', OutputInterface.VERBOSITY_QUIET);
 
-                // exception related properties
+                // Exception related properties
                 let trace = Exception.parseStackTrace(exception);
                 for (let current of trace) {
                     const func = current['function'];

@@ -18,10 +18,15 @@ class tm_desc {
             tz = DEFAULT_TZ;
         }
 
+        if (! (tz instanceof DateTimeZone)) {
+            tz = DateTimeZone.get(tz);
+        }
+
         /**
          * @type {DateTimeZone}
          */
-        this.tm_tz = DateTimeZone.get(tz);
+        this.tm_tz = tz;
+
         let d = new Date();
         this.unix_timestamp = ~~(d.getTime() / 1000);
         this._tm_msec = d.getMilliseconds();

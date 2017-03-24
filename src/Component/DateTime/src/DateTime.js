@@ -18,7 +18,7 @@ class DateTime {
      * Constructor.
      *
      * @param {undefined|string|int|Date} datetime The datetime string or unix timestamp
-     * @param {undefined|string} timezone The timezone of the datetime
+     * @param {undefined|string|Jymfony.Component.DateTime.DateTimeZone} timezone The timezone of the datetime
      */
     constructor(datetime = undefined, timezone = undefined) {
         if (undefined === datetime) {

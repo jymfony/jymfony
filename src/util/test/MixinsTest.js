@@ -58,13 +58,13 @@ describe('Mixins.getInterface', function () {
 });
 
 describe('Mixins.getTrait', function () {
-    it('should return an extendable expression', () => {
+    it('getTrait should return an extendable expression', () => {
         let traitTest = getTrait(class TestTrait {});
 
         return expect(typeof traitTest === 'function').to.be.true;
     });
 
-    it('should not have instanceof', (done) => {
+    it('getTrait should not have instanceof', (done) => {
         let traitTest = getTrait(class TestTrait {});
         class Foobar extends mix(undefined, traitTest) { }
         let o = new Foobar();
@@ -81,7 +81,7 @@ describe('Mixins.getTrait', function () {
         throw new Error('Failed test');
     });
 
-    it('can be extended', () => {
+    it('traits should be extended', () => {
         let testTrait = getTrait(class TestTrait {
             foo() {
                 return 'foo';
@@ -108,5 +108,17 @@ describe('Mixins.getTrait', function () {
             expect(o.foo()).to.be.equal('bar') &&
             expect(o.bar).to.be.instanceOf(Function) &&
             expect(o.foobar).to.be.instanceOf(Function);
+    });
+
+    it('traits constructor should be called upon object creation', () => {
+        let traitTest = getTrait(class TestTrait {
+            __construct() {
+                this.foo = 'foobar';
+            }
+        });
+        class Foobar extends mix(undefined, traitTest) { }
+
+        let obj = new Foobar();
+        expect(obj.foo).to.be.equal('foobar');
     });
 });
