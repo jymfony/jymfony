@@ -132,6 +132,7 @@ class Parser {
         }
 
         this._tm._makeTime();
+        this._tm._makeTm();
         return this._tm;
     }
 

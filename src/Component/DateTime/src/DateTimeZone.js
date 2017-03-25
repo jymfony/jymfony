@@ -113,7 +113,7 @@ class DateTimeZone {
      * @internal
      */
     _getOffsetForWallClock(wallTimestamp) {
-        let found = this._transitions.search(wallTimestamp, BTree.COMPARISON_LESSER);
+        let found = this._transitions.search(wallTimestamp - 1, BTree.COMPARISON_LESSER);
         if (undefined === found) {
             return 0;
         }
@@ -159,7 +159,7 @@ class DateTimeZone {
             });
 
             for (let [ timestamp, descriptor ] of __jymfony.getEntries(data)) {
-                this._data.push(timestamp, {
+                this._data.push(timestamp - 0, {
                     gmt_offset: ~~(descriptor.gmt_offset),
                     dst: !! descriptor.dst,
                     abbrev: descriptor.abbrev,
@@ -183,8 +183,10 @@ class DateTimeZone {
         }
 
         this._transitions = new BTree();
+        let previous = 0;
         for (let [ timestamp, descriptor ] of this._data) {
-            let wall_clock = timestamp - descriptor.gmt_offset;
+            let wall_clock = timestamp + previous;
+            previous = ~~descriptor.gmt_offset;
             this._transitions.push(wall_clock, descriptor);
         }
     }

@@ -39,7 +39,7 @@ class TimeSpan {
             throw new InvalidArgumentException('Invalid value for milliseconds: ' + millis);
         }
 
-        this._milliseconds = millis;
+        this._milliseconds = ~~millis;
     }
 
     get seconds() {
@@ -51,7 +51,7 @@ class TimeSpan {
             throw new InvalidArgumentException('Invalid value for seconds: ' + seconds);
         }
 
-        this._seconds = seconds;
+        this._seconds = ~~seconds;
     }
 
     get minutes() {
@@ -63,7 +63,7 @@ class TimeSpan {
             throw new InvalidArgumentException('Invalid value for minutes: ' + mins);
         }
 
-        this._minutes = mins;
+        this._minutes = ~~mins;
     }
 
     get hours() {
@@ -75,7 +75,7 @@ class TimeSpan {
             throw new InvalidArgumentException('Invalid value for hours: ' + hours);
         }
 
-        this._hours = hours;
+        this._hours = ~~hours;
     }
 
     get days() {
@@ -87,7 +87,7 @@ class TimeSpan {
             throw new InvalidArgumentException('Invalid value for days: ' + days);
         }
 
-        this._days = days;
+        this._days = ~~days;
     }
 
     get months() {
@@ -99,7 +99,7 @@ class TimeSpan {
             throw new InvalidArgumentException('Invalid value for months: ' + months);
         }
 
-        this._months = months;
+        this._months = ~~months;
     }
 
     get years() {
@@ -111,7 +111,7 @@ class TimeSpan {
             throw new InvalidArgumentException('Invalid value for years: ' + years);
         }
 
-        this._years = years;
+        this._years = ~~years;
     }
 
     _parse(isoDuration) {
