@@ -637,8 +637,8 @@ module.exports = class Application {
     /**
      * Renders a catched exception
      *
-     * @param exception
-     * @param output
+     * @param {Error} exception
+     * @param {Jymfony.Component.Console.Output.OutputInterface} output
      *
      * @protected
      */
@@ -676,7 +676,16 @@ module.exports = class Application {
 
             if (OutputInterface.VERBOSITY_VERBOSE <= output.verbosity) {
                 output.writeln('<comment>Exception trace:</comment>', OutputInterface.VERBOSITY_QUIET);
-                output.writeln(exception.stack);
+
+                // exception related properties
+                let trace = Exception.parseStackTrace(exception);
+                for (let current of trace) {
+                    const func = current['function'];
+                    const file = current['file'] || 'n/a';
+                    const line = current['line'] || 'n/a';
+                    output.writeln(util.format('   %s() at <info>%s:%s</info>', func, file, line), OutputInterface.VERBOSITY_QUIET);
+                }
+
                 output.writeln('', OutputInterface.VERBOSITY_QUIET);
             }
         } while (exception = exception.previous);
