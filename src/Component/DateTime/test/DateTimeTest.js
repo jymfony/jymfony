@@ -16,6 +16,20 @@ describe('[DateTime] Parser', function () {
         expect(dt).to.be.instanceOf(DateTime);
     });
 
+    it('should accept a js Date object on construction', () => {
+        let date = new Date(1490313600000);
+        let dt = new DateTime(date, 'Etc/UTC');
+
+        expect(dt).to.be.instanceOf(DateTime);
+        expect(dt.year).to.be.equal(2017);
+        expect(dt.month).to.be.equal(3);
+        expect(dt.day).to.be.equal(24);
+        expect(dt.hour).to.be.equal(0);
+        expect(dt.minute).to.be.equal(0);
+        expect(dt.second).to.be.equal(0);
+        expect(dt.millisecond).to.be.equal(0);
+    });
+
     it('today should set time to midnight', () => {
         let dt = DateTime.today;
 

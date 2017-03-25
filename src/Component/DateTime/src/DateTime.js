@@ -17,7 +17,7 @@ class DateTime {
     /**
      * Constructor.
      *
-     * @param {undefined|string|int} datetime The datetime string or unix timestamp
+     * @param {undefined|string|int|Date} datetime The datetime string or unix timestamp
      * @param {undefined|string} timezone The timezone of the datetime
      */
     constructor(datetime = undefined, timezone = undefined) {
@@ -29,6 +29,11 @@ class DateTime {
         } else if (isNumber(datetime)) {
             this._tm = new tm_desc(timezone);
             this._tm.unix_timestamp = datetime;
+        } else if (datetime instanceof Date) {
+            let val = datetime.valueOf();
+            this._tm = new tm_desc(timezone);
+            this._tm.unix_timestamp = ~~(val / 1000);
+            this._tm.tm_msec = val % 1000;
         } else {
             throw new InvalidArgumentException('Argument 1 passed to new DateTime should be a string, a number or undefined');
         }
