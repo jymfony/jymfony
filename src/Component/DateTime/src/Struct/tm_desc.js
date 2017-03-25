@@ -459,6 +459,11 @@ class tm_desc {
     }
 
     _addMilliseconds(msecs) {
+        msecs = ~~msecs;
+        if (! msecs) {
+            return;
+        }
+
         this._tm_msec += msecs;
 
         this._addSeconds(~~(this._tm_msec / 1000));
@@ -466,11 +471,21 @@ class tm_desc {
     }
 
     _addSeconds(secs) {
+        secs = ~~secs;
+        if (! secs) {
+            return;
+        }
+
         this._unix_time += secs;
         this._makeTm();
     }
 
     _addDays(days) {
+        days = ~~days;
+        if (! days) {
+            return;
+        }
+
         this._tm_mday += days;
         const month = () => 1 < this._tm_mon ? this._tm_mon - 1 : 11;
 
@@ -486,6 +501,11 @@ class tm_desc {
     }
 
     _addMonths(months) {
+        months = ~~months;
+        if (! months) {
+            return;
+        }
+
         const month = () => 1 < this._tm_mon ? this._tm_mon - 1 : 11;
         this._tm_mon += months;
 
@@ -505,6 +525,11 @@ class tm_desc {
     }
 
     _addYears(years) {
+        years = ~~years;
+        if (! years) {
+            return;
+        }
+
         const month = () => 1 < this._tm_mon ? this._tm_mon - 1 : 11;
         this.tm_year += years;
 
