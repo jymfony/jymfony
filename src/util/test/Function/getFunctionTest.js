@@ -20,13 +20,6 @@ describe('getFunction', function () {
     });
 
     it ('should throw if not found', () => {
-        try {
-            __jymfony.getFunction(new TestObject(), 'non-existent');
-        } catch (e) {
-            expect(e).to.be.instanceOf(RuntimeException);
-            return;
-        }
-
-        throw new Error('FAIL');
+        expect(__jymfony.getFunction.bind(undefined, new TestObject(), 'non-existent')).to.throw(RuntimeException);
     });
 });

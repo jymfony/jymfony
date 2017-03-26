@@ -57,14 +57,7 @@ describe('PriorityQueue', function () {
 
     it('peek throws UnderflowException if queue is empty', () => {
         let q = new PriorityQueue();
-        try {
-            q.peek();
-        } catch (e) {
-            expect(e).to.be.instanceOf(UnderflowException);
-            return;
-        }
-
-        throw new Error('Error expected');
+        expect(q.peek.bind(q)).to.throw(UnderflowException);
     });
 
     it('peek', () => {
@@ -79,14 +72,7 @@ describe('PriorityQueue', function () {
 
     it('pop throws UnderflowException if queue is empty', () => {
         let q = new PriorityQueue();
-        try {
-            q.pop();
-        } catch (e) {
-            expect(e).to.be.instanceOf(UnderflowException);
-            return;
-        }
-
-        throw new Error('Error expected');
+        expect(q.pop.bind(q)).to.throw(UnderflowException);
     });
 
     it('pop', () => {

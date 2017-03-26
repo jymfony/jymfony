@@ -40,14 +40,6 @@ describe('callable array', function () {
     }
 
     it('getCallableArray throws if invalid argument is passed', () => {
-        try {
-            getCallableFromArray('foo');
-        } catch (e) {
-            expect(e).to.be.instanceOf(LogicException);
-
-            return;
-        }
-
-        throw new Error('FAIL');
+        expect(getCallableFromArray.bind(undefined, 'foo')).to.throw(LogicException);
     })
 });

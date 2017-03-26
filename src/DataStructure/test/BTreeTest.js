@@ -39,26 +39,12 @@ describe('BTree', function () {
 
     it('push throws if key is null', () => {
         let t = new BTree();
-        try {
-            t.push(null, 'foo');
-        } catch (e) {
-            expect(e).to.be.instanceOf(InvalidArgumentException);
-            return;
-        }
-
-        throw new Error('Expected exception');
+        expect(t.push.bind(t, null, 'foo')).to.throw(InvalidArgumentException);
     });
 
     it('push throws if key is undefined', () => {
         let t = new BTree();
-        try {
-            t.push(undefined, 'foo');
-        } catch (e) {
-            expect(e).to.be.instanceOf(InvalidArgumentException);
-            return;
-        }
-
-        throw new Error('Expected exception');
+        expect(t.push.bind(t, undefined, 'foo')).to.throw(InvalidArgumentException);
     });
 
     it('isEmpty', () => {

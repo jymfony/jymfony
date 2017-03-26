@@ -20,16 +20,7 @@ describe('Mixins.getInterface', function () {
 
         new cTest2();
 
-        try {
-            new cTest;
-        } catch (e) {
-            expect(e).to.be.instanceOf(SyntaxError);
-            expect(e.message).to.be.equal('Method "foo" must be implemented');
-
-            return;
-        }
-
-        throw new Error('FAIL');
+        expect(() => new cTest).to.throw(SyntaxError, 'Method "foo" must be implemented');
     });
 
     it('should make instanceof work', () => {
@@ -64,21 +55,12 @@ describe('Mixins.getTrait', function () {
         return expect(typeof traitTest === 'function').to.be.true;
     });
 
-    it('getTrait should not have instanceof', (done) => {
+    it('getTrait should not have instanceof', () => {
         let traitTest = getTrait(class TestTrait {});
         class Foobar extends mix(undefined, traitTest) { }
         let o = new Foobar();
 
-        try {
-            let val = o instanceof traitTest;
-        } catch (e) {
-            expect(e).to.be.instanceOf(TypeError);
-            expect(e.message).to.be.equal('Function has non-object prototype \'undefined\' in instanceof check');
-            done();
-            return;
-        }
-
-        throw new Error('Failed test');
+        expect(() => o instanceof traitTest).to.throw(TypeError, 'Function has non-object prototype \'undefined\' in instanceof check');
     });
 
     it('traits should be extended', () => {

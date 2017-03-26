@@ -121,13 +121,7 @@ describe('[Autoloader] Finder', function () {
 
         let finder = new Finder(fs, mockedPath, module);
 
-        try {
-            finder.findRoot();
-        } catch (e) {
-            return;
-        }
-
-        throw new Error('Expected error');
+        expect(finder.findRoot.bind(finder)).to.throw();
     });
 
     it('listModules', function () {
@@ -225,16 +219,7 @@ describe('[Autoloader] Finder', function () {
         };
 
         let finder = new Finder(fs, mockedPath, module);
-        try {
-            finder.listModules();
-        } catch (e) {
-            expect(e).to.be.instanceOf(Error);
-            expect(e.message).to.be.equal('TEST_ERROR');
-
-            return;
-        }
-
-        throw new Error('FAIL');
+        expect(finder.listModules.bind(finder)).to.throw('TEST_ERROR');
     });
 
     it('listModules with no modules installed', function () {
@@ -342,12 +327,6 @@ describe('[Autoloader] Finder', function () {
         };
 
         let finder = new Finder(fs, { normalize: path.normalize, sep: '/' }, {});
-        try {
-            finder.find('/var/node', 'index');
-        } catch (e) {
-            return;
-        }
-
-        throw new Error('Exception expected');
+        expect(finder.find.bind(finder, '/var/node', 'index')).to.throw();
     });
 });

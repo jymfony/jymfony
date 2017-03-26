@@ -36,14 +36,7 @@ describe('BoundFunction', function () {
     });
 
     it('should throw if argument is not a function', () => {
-        try {
-            new BoundFunction(new TestObject('val'), 'foo');
-        } catch (e) {
-            expect(e).to.be.instanceOf(LogicException);
-            return;
-        }
-
-        throw new Error('FAIL');
+        expect(() => new BoundFunction(new TestObject('val'), 'foo')).to.throw(LogicException);
     });
 
     it('equals should work', () => {

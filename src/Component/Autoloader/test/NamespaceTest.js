@@ -81,15 +81,11 @@ describe('[Autoloader] Namespace', function () {
         let ns = new Namespace({ finder: finder, debug: true }, 'Foo', [
             '/var/node/foo_vendor'
         ], req);
-        try {
+
+        expect(() => {
             let class_ = ns.FooClass;
             expect(class_).to.be.undefined;
-        } catch (e) {
-            expect(e).to.be.instanceOf(ClassNotFoundException);
-            return;
-        }
-
-        throw Error('FAILED');
+        }).to.throw(ClassNotFoundException);
     });
 
     it('object can be set', () => {
