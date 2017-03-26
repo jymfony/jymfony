@@ -58,7 +58,7 @@ module.exports = class Definition {
      * @returns {Jymfony.Component.DependencyInjection.Definition}
      */
     setDecoratedService(id, renamedId = undefined, priority = 0) {
-        if (renamedId && id == renamedId) {
+        if (renamedId && id === renamedId) {
             throw new InvalidArgumentException('The decorated service inner name for "' + id + '" must be different than the service name');
         }
 
@@ -230,7 +230,7 @@ module.exports = class Definition {
      * Add a method to call
      *
      * @param {string} method
-     * @param {Array} arguments
+     * @param {Array} args
      *
      * @returns {Jymfony.Component.DependencyInjection.Definition}
      */
