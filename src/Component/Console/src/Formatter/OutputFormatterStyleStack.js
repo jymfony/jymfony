@@ -2,15 +2,14 @@ const OutputFormatterStyle = Jymfony.Component.Console.Formatter.OutputFormatter
 
 /**
  * @memberOf Jymfony.Component.Console.Formatter
- * @type OutputFormatterStyleStack
  */
-module.exports = class OutputFormatterStyleStack {
+class OutputFormatterStyleStack {
     /**
      * Constructor.
      *
      * @param {Jymfony.Component.Console.Formatter.OutputFormatterStyleInterface|null} emptyStyle
      */
-    constructor(emptyStyle = undefined) {
+    __construct(emptyStyle = undefined) {
         this._emptyStyle = emptyStyle || new OutputFormatterStyle();
         this.reset();
     }
@@ -89,4 +88,6 @@ module.exports = class OutputFormatterStyleStack {
     get emptyStyle() {
         return this._emptyStyle;
     }
-};
+}
+
+module.exports = OutputFormatterStyleStack;

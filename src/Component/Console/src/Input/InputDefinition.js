@@ -6,13 +6,12 @@ const util = require("util");
 
 /**
  * @memberOf Jymfony.Component.Console.Input
- * @type InputDefinition
  */
-module.exports = class InputDefinition {
+class InputDefinition {
     /**
      * @param {Array} definition An array of InputArgument or InputOption
      */
-    constructor(definition = []) {
+    __construct(definition = []) {
         this.setDefinition(definition);
     }
 
@@ -69,6 +68,8 @@ module.exports = class InputDefinition {
         for (let argument of args) {
             this.addArgument(argument);
         }
+
+        return this;
     }
 
     /**
@@ -101,6 +102,8 @@ module.exports = class InputDefinition {
         }
 
         this._arguments[name] = argument;
+
+        return this;
     }
 
     /**
@@ -213,7 +216,7 @@ module.exports = class InputDefinition {
             shortcuts = option.getShortcut().split('|');
             for (let shortcut of shortcuts) {
                 if (this._shortcuts[shortcut] && !this._options[this._shortcuts[shortcut]].equals(option)) {
-                    throw new LogicException(`An option with shortcut "${shortcut}" has been already defined`);
+                    throw new LogicException(`An option with shortcut "${shortcut}" already exists.`);
                 }
             }
         }
@@ -224,6 +227,8 @@ module.exports = class InputDefinition {
                 this._shortcuts[shortcut] = name;
             }
         }
+
+        return this;
     }
 
     /**
@@ -346,4 +351,6 @@ module.exports = class InputDefinition {
 
         return elements.join(' ');
     }
-};
+}
+
+module.exports = InputDefinition;

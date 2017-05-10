@@ -2,9 +2,8 @@ const HelperInterface = Jymfony.Component.Console.Helper.HelperInterface;
 
 /**
  * @memberOf Jymfony.Component.Console.Helper
- * @type Helper
  */
-module.exports = class Helper extends implementationOf(HelperInterface) {
+class Helper extends implementationOf(HelperInterface) {
     /**
      * @inheritDoc
      */
@@ -64,6 +63,18 @@ module.exports = class Helper extends implementationOf(HelperInterface) {
     }
 
     static strlenWithoutDecoration(formatter, string) {
+        return Helper.removeDecoration(formatter, string).length;
+    }
+
+    /**
+     * Removes decoration from output string
+     *
+     * @param {Jymfony.Component.Console.Formatter.OutputFormatterInterface} formatter
+     * @param {string} string
+     *
+     * @returns {string}
+     */
+    static removeDecoration(formatter, string) {
         let isDecorated = formatter.decorated;
         formatter.decorated = false;
 
@@ -73,7 +84,7 @@ module.exports = class Helper extends implementationOf(HelperInterface) {
         // Remove already formatted characters
         string = string.replace(/\x1B\[[^m]*m/g, '');
         formatter.decorated(isDecorated);
-    
-        return string.length;
     }
-};
+}
+
+module.exports = Helper;

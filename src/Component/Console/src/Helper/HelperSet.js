@@ -2,10 +2,9 @@ const InvalidArgumentException = Jymfony.Component.Console.Exception.InvalidArgu
 
 /**
  * @memberOf Jymfony.Component.Console.Helper
- * @type HelperSet
  */
-module.exports = class HelperSet {
-    constructor(helpers = []) {
+class HelperSet {
+    __construct(helpers = []) {
         this._helpers = {};
 
         for (let helper of helpers) {
@@ -76,4 +75,6 @@ module.exports = class HelperSet {
     * [Symbol.iterator]() {
         yield * Object.values(this._helpers);
     }
-};
+}
+
+module.exports = HelperSet;

@@ -10,9 +10,8 @@ const Input = Jymfony.Component.Console.Input.Input;
  *     $input = new ArrayInput(array('name' => 'foo', '--bar' => 'foobar'));
  *
  * @memberOf Jymfony.Component.Console.Input
- * @type ArrayInput
  */
-module.exports = class ArrayInput extends Input {
+class ArrayInput extends Input {
     /**
      * @param {Object.<string, string>} parameters
      * @param {Jymfony.Component.Console.Input.InputDefinition} definition
@@ -40,7 +39,7 @@ module.exports = class ArrayInput extends Input {
      * @inheritDoc
      */
     hasParameterOption(values, onlyParams = false) {
-        if (! isArray(values) || ! isObjectLiteral(values)) {
+        if (! isArray(values) && ! isObjectLiteral(values)) {
             values = [ values ];
         }
 
@@ -152,7 +151,7 @@ module.exports = class ArrayInput extends Input {
      */
     _addLongOption(name, value) {
         if (! this._definition.hasOption(name)) {
-            throw new InvalidOptionException(sprintf('The "--%s" option does not exist.', $name));
+            throw new InvalidOptionException(`The "--${name}" option does not exist.`);
         }
 
         let option = this._definition.getOption(name);
@@ -185,4 +184,6 @@ module.exports = class ArrayInput extends Input {
 
         this._arguments[name] = value;
     }
-};
+}
+
+module.exports = ArrayInput;

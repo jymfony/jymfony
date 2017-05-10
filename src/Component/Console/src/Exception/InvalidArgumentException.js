@@ -3,7 +3,8 @@ const ExceptionInterface = Jymfony.Component.Console.Exception.ExceptionInterfac
 
 /**
  * @memberOf Jymfony.Component.Console.Exception
- * @type InvalidArgumentException
  */
-module.exports = class InvalidArgumentException extends mix(BaseException, ExceptionInterface) {
-};
+class InvalidArgumentException extends mix(BaseException, ExceptionInterface) {
+}
+
+module.exports = InvalidArgumentException;

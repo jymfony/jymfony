@@ -3,7 +3,6 @@ const LogicException = Jymfony.Component.Console.Exception.LogicException;
 
 /**
  * @memberOf Jymfony.Component.Console.Input
- * @type InputOption
  */
 class InputOption {
     /**
@@ -15,7 +14,7 @@ class InputOption {
      * @param {string} description
      * @param {*} defaultValue
      */
-    constructor(name, shortcut = undefined, mode = undefined, description = '', defaultValue = undefined) {
+    __construct(name, shortcut = undefined, mode = undefined, description = '', defaultValue = undefined) {
         if (0 === name.indexOf('--')) {
             name = name.substring(2);
         }

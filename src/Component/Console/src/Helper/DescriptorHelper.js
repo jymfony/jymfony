@@ -5,14 +5,13 @@ const Helper = Jymfony.Component.Console.Helper.Helper;
 
 /**
  * @memberOf Jymfony.Component.Console.Helper
- * @type DescriptorHelper
  */
-module.exports = class DescriptorHelper extends Helper {
+class DescriptorHelper extends Helper {
     /**
      * Constructor.
      */
-    constructor() {
-        super();
+    __construct() {
+        super.__construct();
         this._descriptors = {};
 
         this
@@ -70,4 +69,6 @@ module.exports = class DescriptorHelper extends Helper {
     get name() {
         return 'descriptor';
     }
-};
+}
+
+module.exports = DescriptorHelper;

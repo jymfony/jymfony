@@ -8,24 +8,43 @@ const os = require("os");
 
 /**
  * @memberOf Jymfony.Component.Console.Output
- * @type StreamOutput
  */
-module.exports = class StreamOutput extends Output {
-    constructor(stream, verbosity = OutputInterface.VERBOSITY_NORMAL, decorated = undefined, formatter = new OutputFormatter()) {
+class StreamOutput extends Output {
+    __construct(stream, verbosity = OutputInterface.VERBOSITY_NORMAL, decorated = undefined, formatter = new OutputFormatter()) {
         if (! isStream(stream) || ! stream.writable) {
             throw new InvalidArgumentException('Argument 1 should be an instance of stream.Writable');
         }
 
-        super(verbosity, decorated, formatter);
+        super.__construct(verbosity, decorated, formatter);
 
         /**
          * @type stream.Writable
          */
         this._stream = stream;
+        this._deferUncork = true;
 
         if (undefined === decorated) {
             this.decorated = this._hasColorSupport();
         }
+    }
+
+    /**
+     * Gets the underlying stream object.
+     *
+     * @returns {stream.Writable}
+     */
+    get stream() {
+        return this._stream;
+    }
+
+    /**
+     * Sets whether the uncork should be deferred to process.nextTick
+     * or should be called immediately.
+     *
+     * @param {boolean} defer
+     */
+    set deferUncork(defer) {
+        this._deferUncork = defer;
     }
 
     /**
@@ -39,7 +58,11 @@ module.exports = class StreamOutput extends Output {
             this._stream.write(os.EOL);
         }
 
-        process.nextTick(() => this._stream.uncork());
+        if (this._deferUncork) {
+            process.nextTick(() => this._stream.uncork());
+        } else {
+            this._stream.uncork();
+        }
     }
 
     /**
@@ -61,4 +84,6 @@ module.exports = class StreamOutput extends Output {
 
         return !! this._stream.isTTY;
     }
-};
+}
+
+module.exports = StreamOutput;

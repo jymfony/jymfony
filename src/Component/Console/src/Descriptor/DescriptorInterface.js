@@ -1,6 +1,5 @@
 /**
  * @memberOf Jymfony.Component.Console.Descriptor
- * @type DescriptorInterface
  *
  * @interface
  */

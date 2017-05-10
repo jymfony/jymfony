@@ -1,7 +1,10 @@
 const Descriptor = Jymfony.Component.Console.Descriptor.Descriptor;
 const ApplicationDescription = Jymfony.Component.Console.Descriptor.ApplicationDescription;
 
-module.exports = class JsonDescriptor extends Descriptor {
+/**
+ * @memberOf Jymfony.Component.Console.Descriptor
+ */
+class JsonDescriptor extends Descriptor {
     /**
      * @inheritDoc
      */
@@ -129,4 +132,6 @@ module.exports = class JsonDescriptor extends Descriptor {
             definition: this._getInputDefinitionData(command.nativeDefinition),
         };
     }
-};
+}
+
+module.exports = JsonDescriptor;

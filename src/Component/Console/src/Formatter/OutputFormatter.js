@@ -5,9 +5,8 @@ const OutputFormatterStyleStack = Jymfony.Component.Console.Formatter.OutputForm
 
 /**
  * @memberOf Jymfony.Component.Console.Formatter
- * @type OutputFormatter
  */
-module.exports = class OutputFormatter extends implementationOf(OutputFormatterInterface) {
+class OutputFormatter extends implementationOf(OutputFormatterInterface) {
     static escape(text) {
         text = text.replace(/([^\\\\]?)</g, '$1\\<');
 
@@ -20,8 +19,7 @@ module.exports = class OutputFormatter extends implementationOf(OutputFormatterI
         return text;
     }
 
-    constructor(decorated = false, styles = {}) {
-        super();
+    __construct(decorated = false, styles = {}) {
         this._decorated = !! decorated;
         this._styles = {};
 
@@ -175,4 +173,6 @@ module.exports = class OutputFormatter extends implementationOf(OutputFormatterI
 
         return style;
     }
-};
+}
+
+module.exports = OutputFormatter;

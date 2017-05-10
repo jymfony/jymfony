@@ -5,17 +5,14 @@ const InputDefinition = Jymfony.Component.Console.Input.InputDefinition;
 
 /**
  * @memberOf Jymfony.Component.Console.Input
- * @type Input
  */
-module.exports = class Input extends implementationOf(InputInterface) {
+class Input extends implementationOf(InputInterface) {
     /**
      * Constructor.
      *
      * @param {Jymfony.Component.Console.Input.InputDefinition} definition
      */
-    constructor(definition = undefined) {
-        super();
-
+    __construct(definition = undefined) {
         /**
          * @type {Object.<string, *>}
          * @protected
@@ -28,15 +25,7 @@ module.exports = class Input extends implementationOf(InputInterface) {
          */
         this._options = {};
         this._interactive = true;
-    }
 
-    /**
-     * Initializer
-     *
-     * @param {Jymfony.Component.Console.Input.InputDefinition} definition
-     * @protected
-     */
-    __construct(definition = undefined) {
         if (! definition) {
             this._definition = new InputDefinition();
         } else {
@@ -175,4 +164,6 @@ module.exports = class Input extends implementationOf(InputInterface) {
     escapeToken(token) {
         return /^[\w-]+$/.test(token) ? token : __jymfony.escapeshellarg(token);
     }
-};
+}
+
+module.exports = Input;

@@ -1,6 +1,8 @@
 const Command = Jymfony.Component.Console.Command.Command;
+const ConsoleEvents = Jymfony.Component.Console.ConsoleEvents;
 const CommandNotFoundException = Jymfony.Component.Console.Exception.CommandNotFoundException;
 const ExceptionInterface = Jymfony.Component.Console.Exception.ExceptionInterface;
+const FormatterHelper = Jymfony.Component.Console.Helper.FormatterHelper;
 const HelperSet = Jymfony.Component.Console.Helper.HelperSet;
 const ArgvInput = Jymfony.Component.Console.Input.ArgvInput;
 const ArrayInput = Jymfony.Component.Console.Input.ArrayInput;
@@ -11,15 +13,16 @@ const InputOption = Jymfony.Component.Console.Input.InputOption;
 const ConsoleOutput = Jymfony.Component.Console.Output.ConsoleOutput;
 const ConsoleOutputInterface = Jymfony.Component.Console.Output.ConsoleOutputInterface;
 const OutputInterface = Jymfony.Component.Console.Output.OutputInterface;
+const OutputFormatter = Jymfony.Component.Console.Formatter.OutputFormatter;
+const Terminal = Jymfony.Component.Console.Terminal;
 
 const util = require('util');
 
 /**
  * @memberOf Jymfony.Component.Console
- * @type Application
  */
-module.exports = class Application {
-    constructor(name = 'UNKNOWN', version = 'UNKNOWN') {
+class Application {
+    __construct(name = 'UNKNOWN', version = 'UNKNOWN') {
         this._name = name;
         this._version = version;
         this._eventDispatcher = undefined;
@@ -27,6 +30,8 @@ module.exports = class Application {
         this._helperSet = this._getDefaultHelperSet();
         this._definition = this._getDefaultInputDefinition();
         this._commands = {};
+        this._terminal = new Terminal();
+        this._catchExceptions = true;
 
         for (let command of this._getDefaultCommands()) {
             this.add(command);
@@ -70,12 +75,30 @@ module.exports = class Application {
     }
 
     /**
+     * Gets the help message.
+     *
+     * @return string A help message
+     */
+    get help() {
+        return this.getLongVersion();
+    }
+
+    /**
      * Sets the default Command name.
      *
      * @param {string} commandName The Command name
      */
     set defaultCommand(commandName) {
         this._defaultCommand = commandName;
+    }
+
+    /**
+     * Sets whether to catch exceptions while running or not.
+     *
+     * @param {boolean} catchExceptions
+     */
+    set catchExceptions(catchExceptions) {
+        this._catchExceptions = catchExceptions;
     }
 
     /**
@@ -86,42 +109,38 @@ module.exports = class Application {
      *
      * @returns {Promise} Promise executing the application
      */
-    run(input, output) {
-        if (! input) {
-            input = new ArgvInput();
-        }
-
-        if (! output) {
-            output = new ConsoleOutput();
-        }
-
+    run(input = new ArgvInput(), output = new ConsoleOutput()) {
         this._configureIO(input, output);
 
         let promise = __jymfony.Async.run(this._doRun(input, output));
 
-        return promise
-            .catch((exception) => {
-                if (output instanceof ConsoleOutputInterface) {
-                    this._renderException(exception, output.errorOutput);
-                } else {
-                    this._renderException(exception, output);
-                }
+        if (this._catchExceptions) {
+            promise = promise
+                .catch((exception) => {
+                    if (output instanceof ConsoleOutputInterface) {
+                        this._renderException(exception, output.errorOutput);
+                    } else {
+                        this._renderException(exception, output);
+                    }
 
-                let exitCode = exception.code || 1;
-                if (! isNumber(exitCode)) {
-                    exitCode = 1;
-                }
+                    let exitCode = exception.code || 1;
+                    if (! isNumber(exitCode)) {
+                        exitCode = 1;
+                    }
 
-                if (255 < exitCode) {
-                    exitCode = 255;
-                }
+                    if (255 < exitCode) {
+                        exitCode = 255;
+                    }
 
-                return exitCode;
-            })
-            .then(exitCode => {
-                return process.exitCode = exitCode;
-            })
-        ;
+                    return exitCode;
+                })
+                .then(exitCode => {
+                    return process.exitCode = exitCode;
+                })
+            ;
+        }
+
+        return promise;
     }
 
     /**
@@ -132,13 +151,13 @@ module.exports = class Application {
     getLongVersion() {
         if ('UNKNOWN' !== this.name) {
             if ('UNKNOWN' !== this.version) {
-                return util.format('<info>%s</info> version <comment>%s</comment>', this.name, this.version);
+                return util.format('%s <info>%s</info>', this.name, this.version);
             }
 
-            return util.format('<info>%s</info>', this.name);
+            return this.name;
         }
 
-        return '<info>Console Tool</info>';
+        return 'Console Tool';
     }
 
     /**
@@ -184,6 +203,13 @@ module.exports = class Application {
             return;
         }
 
+        if (! command.definition) {
+            throw new LogicException(util.format(
+                'Command class "%s" is not correctly initialized. You probably forgot to call the parent constructor.',
+                (new ReflectionClass(command)).name
+            ));
+        }
+
         this._commands[command.name] = command;
 
         for (let alias of command.aliases) {
@@ -219,6 +245,17 @@ module.exports = class Application {
         }
 
         return command;
+    }
+
+    /**
+     * Returns true if the command exists, false otherwise.
+     *
+     * @param {string} name The command name or alias
+     *
+     * @returns {boolean} true if the command exists, false otherwise
+     */
+    has(name) {
+        return this._commands[name] !== undefined;
     }
 
     /**
@@ -269,17 +306,30 @@ module.exports = class Application {
         // Filter out aliases for commands which are already on the list
         if (1 < commands.length) {
             commands = commands.filter(nameOrAlias => {
-                let commandName = this._commands[nameOrAlias].getName();
+                let commandName = this._commands[nameOrAlias].name;
 
-                return commandName === nameOrAlias || -1 !== Object.values(commands).indexOf(commandName);
+                return commandName === nameOrAlias || -1 === Object.values(commands).indexOf(commandName);
             });
         }
 
         let exact = -1 !== Object.values(commands).indexOf(name);
         if (1 < commands.length && ! exact) {
-            let suggestions = this._getAbbreviationSuggestions(commands);
+            const usableWidth = this._terminal.width - 10;
+            let abbrevs = Object.values(commands);
 
-            throw new CommandNotFoundException(`Command "${name}" is ambiguous (${suggestions}).`, commands);
+            let maxLen = 0;
+            for (let abbrev of abbrevs) {
+                maxLen = Math.max(abbrev.length, maxLen);
+            }
+
+            const spaces = Array(maxLen).fill(' ').join('');
+            abbrevs = abbrevs.map(cmd => {
+                let abbrev = (cmd + spaces).substr(0, maxLen) + ' ' + this._commands[cmd].description;
+                return abbrev.length > usableWidth ? abbrev.substr(0, usableWidth - 3) + '...' : abbrev;
+            });
+
+            let suggestions = this._getAbbreviationSuggestions(abbrevs);
+            throw new CommandNotFoundException(`Command "${name}" is ambiguous.\nDid you mean one of these?\n${suggestions}`, commands);
         }
 
         return this.get(exact ? name : commands[0]);
@@ -292,7 +342,7 @@ module.exports = class Application {
      *
      * @param {string} namespace A namespace name
      *
-     * @returns {Object.<string, Jymfony.Component.Console.Command.Command[]>} An array of Command instances
+     * @returns {Object.<string, Jymfony.Component.Console.Command.Command>} An array of Command instances
      */
     all(namespace = undefined) {
         if (undefined === namespace) {
@@ -320,7 +370,7 @@ module.exports = class Application {
      */
     findNamespace(namespace) {
         let allNamespaces = this.namespaces;
-        let expr = name.replace(/([^:]+|)/g, (match, p1) => {
+        let expr = namespace.replace(/([^:]+|)/g, (match, p1) => {
             return __jymfony.regex_quote(p1) + '[^:]*';
         });
 
@@ -344,8 +394,8 @@ module.exports = class Application {
         }
 
         let exact = -1 !== namespaces.indexOf(namespace);
-        if (1 < namespaces && ! exact) {
-            throw new CommandNotFoundException(`The namespace "${namespace}" is ambiguous (${this._getAbbreviationSuggestions(namespaces)}).`, namespaces);
+        if (1 < namespaces.length && ! exact) {
+            throw new CommandNotFoundException(`The namespace "${namespace}" is ambiguous.\nDid you mean one of these?\n${this._getAbbreviationSuggestions(namespaces)}`, namespaces);
         }
 
         return exact ? namespace : namespaces[0];
@@ -413,7 +463,7 @@ module.exports = class Application {
      */
     get namespaces() {
         let namespaces = [];
-        for (let command of this.all) {
+        for (let command of Object.values(this.all())) {
             namespaces = [ ...namespaces, ...this._extractAllNamespaces(command.name) ];
 
             for (let alias of command.aliases) {
@@ -421,7 +471,7 @@ module.exports = class Application {
             }
         }
 
-        return (new Set(namespaces.filter())).toArray();
+        return Array.from(new Set(namespaces.filter(v => !! v)));
     }
 
     /**
@@ -445,7 +495,7 @@ module.exports = class Application {
         if (true === input.hasParameterOption([ '--help', '-h' ], true)) {
             if (! name) {
                 name = 'help';
-                input = new ArrayInput({'command': 'help'});
+                input = new ArrayInput({'command_name': this._defaultCommand});
             } else {
                 this._wantHelps = true;
             }
@@ -457,7 +507,22 @@ module.exports = class Application {
         }
 
         // The command name MUST be the first element of the input
-        let command = this.find(name);
+        let command;
+        try {
+            command = this.find(name);
+        } catch (e) {
+            if (this._eventDispatcher) {
+                let event = new Jymfony.Component.Console.Event.ConsoleErrorEvent(input, output, e, command);
+                yield this._eventDispatcher.dispatch(ConsoleEvents.ERROR, event);
+
+                e = event.error;
+                if (0 === event.exitCode) {
+                    return 0;
+                }
+            }
+
+            throw e;
+        }
 
         this._runningCommand = command;
         let exitCode = yield __jymfony.Async.run(getCallableFromArray([ this, '_doRunCommand' ]), command, input, output);
@@ -503,11 +568,11 @@ module.exports = class Application {
         }
 
         let exitCode;
-        let event = new ConsoleCommandEvent(command, input, output);
+        let e;
+        let event = new Jymfony.Component.Console.Event.ConsoleCommandEvent(command, input, output);
         yield this._eventDispatcher.dispatch(ConsoleEvents.COMMAND, event);
 
-        if (event.commandShouldRun()) {
-            let e = undefined;
+        if (event.commandShouldRun) {
             try {
                 exitCode = yield __jymfony.Async.run(getCallableFromArray([ command, 'run' ]), input, output);
             } catch (x) {
@@ -515,24 +580,24 @@ module.exports = class Application {
             }
 
             if (undefined !== e) {
-                event = new ConsoleExceptionEvent(command, input, output, e, e.code);
-                yield this._eventDispatcher.dispatch(ConsoleEvents.EXCEPTION, event);
+                event = new Jymfony.Component.Console.Event.ConsoleErrorEvent(input, output, e, command);
+                yield this._eventDispatcher.dispatch(ConsoleEvents.ERROR, event);
+                e = event.error;
 
-                if (e !== event.exception) {
-                    e = event.exception;
+                if (0 === (exitCode = event.exitCode)) {
+                    e = undefined;
                 }
-
-                event = new ConsoleTerminateEvent(command, input, output, e.code);
-                yield this._eventDispatcher.dispatch(ConsoleEvents.TERMINATE, event);
-
-                throw e;
             }
         } else {
-            exitCode = ConsoleCommandEvent.RETURN_CODE_DISABLED;
+            exitCode = Jymfony.Component.Console.Event.ConsoleCommandEvent.RETURN_CODE_DISABLED;
         }
 
-        event = new ConsoleTerminateEvent(command, input, output, exitCode);
+        event = new Jymfony.Component.Console.Event.ConsoleTerminateEvent(command, input, output, exitCode);
         yield this._eventDispatcher.dispatch(ConsoleEvents.TERMINATE, event);
+
+        if (undefined !== e) {
+            throw e;
+        }
 
         return event.exitCode;
     }
@@ -583,7 +648,9 @@ module.exports = class Application {
      * @protected
      */
     _getDefaultHelperSet() {
-        return new HelperSet();
+        return new HelperSet([
+            new FormatterHelper(),
+        ]);
     }
 
     /**
@@ -603,7 +670,7 @@ module.exports = class Application {
             new InputOption('--version', 'V', InputOption.VALUE_NONE, 'Display this application version'),
             new InputOption('--ansi', '', InputOption.VALUE_NONE, 'Force ANSI output'),
             new InputOption('--no-ansi', '', InputOption.VALUE_NONE, 'Disable ANSI output'),
-            new InputOption('--no-interaction', '-n', InputOption.VALUE_NONE, 'Do not ask any interactive question'),
+            new InputOption('--no-interaction', 'n', InputOption.VALUE_NONE, 'Do not ask any interactive question'),
         ]);
     }
 
@@ -646,17 +713,20 @@ module.exports = class Application {
         output.writeln('', OutputInterface.VERBOSITY_QUIET);
 
         do {
-            let title = util.format('  [%s]  ', (new ReflectionClass(exception)).name || exception.constructor.name || 'Error');
+            let title = util.format('  [%s%s]  ',
+                (new ReflectionClass(exception)).name || exception.constructor.name || 'Error',
+                output.isVerbose() && exception.code ? ` (${exception.code})` : ''
+            );
             let len = title.length;
 
-            let width = process.stdout.columns || Number.MAX_SAFE_INTEGER;
+            let width = this._terminal.width - 1;
             let formatter = output.formatter;
 
             let lines = [];
             for (let line of exception.message.split('\r?\n')) {
                 for (line of this._splitStringByWidth(line, width - 4)) {
                     // Pre-format lines to get the right string length
-                    let lineLength = formatter.format(line).replace(/\[[^m]*m/g, '').length + 4;
+                    let lineLength = line.length + 4;
                     lines.push([ line, lineLength ]);
 
                     len = Math.max(lineLength, len);
@@ -667,7 +737,7 @@ module.exports = class Application {
             messages.push(emptyLine = formatter.format(util.format('<error>%s</error>', ' '.repeat(len))));
             messages.push(formatter.format(util.format('<error>%s%s</error>', title, ' '.repeat(Math.max(0, len - title.length)))));
             for (let line of lines) {
-                messages.push(formatter.format(util.format('<error>  %s  %s</error>', line[0], ' '.repeat(len - line[1]))));
+                messages.push(formatter.format(util.format('<error>  %s  %s</error>', OutputFormatter.escape(line[0]), ' '.repeat(len - line[1]))));
             }
             messages.push(emptyLine);
             messages.push('');
@@ -691,7 +761,7 @@ module.exports = class Application {
         } while (exception = exception.previous);
 
         if (this._runningCommand) {
-            output.writeln(util.format('<info>%s</info>', util.format(this._runningCommand.getSynopsis(), this.name)), OutputInterface.VERBOSITY_QUIET);
+            output.writeln(util.format('<info>%s</info>', this._runningCommand.getSynopsis()), OutputInterface.VERBOSITY_QUIET);
             output.writeln('', OutputInterface.VERBOSITY_QUIET);
         }
     }
@@ -749,7 +819,7 @@ module.exports = class Application {
             }
         }
 
-        return Object.keys(Object.sort(Object.filter(alternatives, lev => lev < 2 * threshold)));
+        return Object.keys(Object.filter(alternatives, lev => lev < 2 * threshold)).sort();
     }
 
     /**
@@ -760,7 +830,7 @@ module.exports = class Application {
      * @return string A formatted string of abbreviated suggestions
      */
     _getAbbreviationSuggestions(abbrevs) {
-        return util.format('%s, %s%s', abbrevs[0], abbrevs[1], 2 < abbrevs.length ? ` and ${abbrevs.length - 2} more` : '');
+        return '    ' + abbrevs.join('\n    ');
     }
 
     /**
@@ -786,4 +856,6 @@ module.exports = class Application {
 
         return namespaces;
     }
-};
+}
+
+module.exports = Application;

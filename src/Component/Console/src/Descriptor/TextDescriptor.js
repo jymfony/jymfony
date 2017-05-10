@@ -5,11 +5,10 @@ const util = require('util');
 
 /**
  * @memberOf Jymfony.Component.Console.Descriptor
- * @type TextDescriptor
  *
  * @internal
  */
-module.exports = class TextDescriptor extends Descriptor {
+class TextDescriptor extends Descriptor {
     /**
      * @inheritDoc
      */
@@ -124,7 +123,7 @@ module.exports = class TextDescriptor extends Descriptor {
 
         this._writeText('<comment>Usage:</comment>', options);
 
-        for (let usage of [ command.getSynopsis(true), ...command.aliases, command.usages ]) {
+        for (let usage of [ command.getSynopsis(true), ...command.aliases, ...command.usages ]) {
             this._writeText("\n");
             this._writeText('  ' + usage, options);
         }
@@ -132,6 +131,7 @@ module.exports = class TextDescriptor extends Descriptor {
 
         let definition = command.nativeDefinition;
         if (definition.getOptions().length || definition.getArguments().length) {
+            this._writeText("\n");
             this.describeInputDefinition(definition, options);
             this._writeText("\n");
         }
@@ -246,7 +246,7 @@ module.exports = class TextDescriptor extends Descriptor {
      * @private
      */
     _formatDefaultValue(defaultValue) {
-        JSON.stringify(defaultValue).replace(/\\\\/g, '\\');
+        return JSON.stringify(defaultValue).replace(/\\\\/g, '\\');
     }
 
     /**
@@ -294,4 +294,6 @@ module.exports = class TextDescriptor extends Descriptor {
 
         return totalWidth;
     }
-};
+}
+
+module.exports = TextDescriptor;

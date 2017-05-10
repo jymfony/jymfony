@@ -5,9 +5,8 @@ const DescriptorHelper = Jymfony.Component.Console.Helper.DescriptorHelper;
 
 /**
  * @memberOf Jymfony.Component.Console.Command
- * @type HelpCommand
  */
-module.exports = class HelpCommand extends Command {
+class HelpCommand extends Command {
     /**
      * @inheritDoc
      */
@@ -29,8 +28,7 @@ You can also output the help in other formats by using the <comment>--format</co
 
   <info>%command.full_name% --format=xml list</info>
 
-To display the list of available commands, please use the <info>list</info> command.
-`
+To display the list of available commands, please use the <info>list</info> command.`
         ;
     }
 
@@ -59,4 +57,6 @@ To display the list of available commands, please use the <info>list</info> comm
 
         this._command = undefined;
     }
-};
+}
+
+module.exports = HelpCommand;

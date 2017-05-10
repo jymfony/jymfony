@@ -1,6 +1,5 @@
 /**
  * @memberOf Jymfony.Component.Console.Helper
- * @type HelperInterface
  *
  * @interface
  */

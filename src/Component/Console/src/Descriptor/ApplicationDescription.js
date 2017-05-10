@@ -1,6 +1,5 @@
 /**
  * @memberOf Jymfony.Component.Console.Descriptor
- * @type ApplicationDescription
  *
  * @internal
  */
@@ -11,7 +10,7 @@ class ApplicationDescription {
      * @param {Jymfony.Component.Console.Application} application
      * @param {string|undefined} namespace
      */
-    constructor(application, namespace = undefined) {
+    __construct(application, namespace = undefined) {
         this._application = application;
         this._namespace = namespace;
     }

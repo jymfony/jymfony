@@ -3,7 +3,6 @@ const LogicException = Jymfony.Component.Console.Exception.LogicException;
 
 /**
  * @memberOf Jymfony.Component.Console.Input
- * @type InputArgument
  */
 class InputArgument {
     /**
@@ -14,7 +13,7 @@ class InputArgument {
      * @param {string} description
      * @param {*} defaultValue
      */
-    constructor(name, mode = undefined, description = '', defaultValue = undefined) {
+    __construct(name, mode = undefined, description = '', defaultValue = undefined) {
         if (undefined === mode) {
             mode = InputArgument.OPTIONAL;
         } else if (! isNumber(mode) || 7 < mode || 1 > mode) {

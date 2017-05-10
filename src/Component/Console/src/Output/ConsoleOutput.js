@@ -3,11 +3,10 @@ const StreamOutput = Jymfony.Component.Console.Output.StreamOutput;
 
 /**
  * @memberOf Jymfony.Component.Console.Output
- * @type ConsoleOutput
  */
-module.exports = class ConsoleOutput extends mix(StreamOutput, ConsoleOutputInterface) {
-    constructor(verbosity = ConsoleOutputInterface.VERBOSITY_NORMAL, decorated = undefined, formatter = undefined) {
-        super(process.stdout, verbosity, decorated, formatter);
+class ConsoleOutput extends mix(StreamOutput, ConsoleOutputInterface) {
+    __construct(verbosity = ConsoleOutputInterface.VERBOSITY_NORMAL, decorated = undefined, formatter = undefined) {
+        super.__construct(process.stdout, verbosity, decorated, formatter);
 
         let actualDecorated = this.decorated;
         this._stderr = new StreamOutput(process.stderr, verbosity, decorated, this.formatter);
@@ -84,4 +83,6 @@ module.exports = class ConsoleOutput extends mix(StreamOutput, ConsoleOutputInte
     set errorOutput(error) {
         this._stderr = error;
     }
-};
+}
+
+module.exports = ConsoleOutput;

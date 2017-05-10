@@ -2,7 +2,6 @@ const OutputInterface = Jymfony.Component.Console.Output.OutputInterface;
 
 /**
  * @memberOf Jymfony.Component.Console.Output
- * @type ConsoleOutputInterface
  *
  * @interface
  */

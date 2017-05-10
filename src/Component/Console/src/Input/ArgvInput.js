@@ -6,13 +6,13 @@ const Input = Jymfony.Component.Console.Input.Input;
  *
  * Usage:
  *
- *     $input = new ArgvInput();
+ *     input = new ArgvInput();
  *
  * By default, the `process.argv` array is used for the input values.
  *
  * This can be overridden by explicitly passing the input values in the constructor:
  *
- *     $input = new ArgvInput($_SERVER['argv']);
+ *     input = new ArgvInput(process.argv);
  *
  * If you pass it yourself, don't forget that the first element of the array
  * is the name of the running application.
@@ -25,9 +25,8 @@ const Input = Jymfony.Component.Console.Input.Input;
  * @see http://www.opengroup.org/onlinepubs/009695399/basedefs/xbd_chap12.html#tag_12_02
  *
  * @memberOf Jymfony.Component.Console.Input
- * @type ArgvInput
  */
-module.exports = class ArgvInput extends Input {
+class ArgvInput extends Input {
     __construct(argv = process.argv, definition = undefined) {
         // Skip application name
         this._tokens = argv.slice(2);
@@ -320,4 +319,6 @@ module.exports = class ArgvInput extends Input {
             }
         }
     }
-};
+}
+
+module.exports = ArgvInput;

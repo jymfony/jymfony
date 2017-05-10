@@ -6,9 +6,8 @@ const DescriptorHelper = Jymfony.Component.Console.Helper.DescriptorHelper;
 
 /**
  * @memberOf Jymfony.Component.Console.Command
- * @type HelpCommand
  */
-module.exports = class ListCommand extends Command {
+class ListCommand extends Command {
     /**
      * @inheritDoc
      */
@@ -30,8 +29,7 @@ You can also output the information in other formats by using the <comment>--for
 
 It's also possible to get raw list of commands (useful for embedding command runner):
 
-  <info>%command.full_name% --raw</info>
-`
+  <info>%command.full_name% --raw</info>`
         ;
     }
 
@@ -64,4 +62,6 @@ It's also possible to get raw list of commands (useful for embedding command run
             new InputOption('format', undefined, InputOption.VALUE_REQUIRED, 'The output format (txt, xml, json, or md)', 'txt'),
         ]);
     }
-};
+}
+
+module.exports = ListCommand;

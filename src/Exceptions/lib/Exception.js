@@ -1,11 +1,12 @@
 const UNKNOWN_FUNCTION = '?';
 
 class Exception extends Error {
-    constructor(message, previous = undefined) {
+    constructor(message, code = null, previous = undefined) {
         super(message);
 
         this.name = this.constructor.name;
         this.previous = previous;
+        this.code = code;
         this.message = message;
         if ('function' === typeof Error.captureStackTrace) {
             Error.captureStackTrace(this, this.constructor);

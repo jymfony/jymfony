@@ -9,16 +9,16 @@ const util = require('util');
 
 /**
  * @memberOf Jymfony.Component.Console.Command
- * @type Command
  */
-module.exports = class Command {
-    constructor(name) {
+class Command {
+    __construct(name) {
         this._name = undefined;
         this._synopsis = {};
         this._aliases = [];
         this._usages = [];
         this._ignoreValidationError = false;
         this._definition = new InputDefinition();
+        this._help = '';
 
         if (name) {
             this.name = name;
@@ -499,4 +499,6 @@ module.exports = class Command {
             throw new InvalidArgumentException(`Command name "${name}" is invalid.`);
         }
     }
-};
+}
+
+module.exports = Command;

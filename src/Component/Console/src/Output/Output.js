@@ -3,12 +3,9 @@ const OutputInterface = Jymfony.Component.Console.Output.OutputInterface;
 
 /**
  * @memberOf Jymfony.Component.Console.Output
- * @type Output
  */
-module.exports = class Output extends implementationOf(OutputInterface) {
-    constructor(verbosity = OutputInterface.VERBOSITY_NORMAL, decorated = false, formatter = new OutputFormatter()) {
-        super();
-
+class Output extends implementationOf(OutputInterface) {
+    __construct(verbosity = OutputInterface.VERBOSITY_NORMAL, decorated = false, formatter = new OutputFormatter()) {
         this._verbosity = undefined === verbosity ? OutputInterface.VERBOSITY_NORMAL : verbosity;
         this._formatter = formatter;
         this.decorated = decorated;
@@ -136,4 +133,6 @@ module.exports = class Output extends implementationOf(OutputInterface) {
     _doWrite(message, newline) {
         throw new RuntimeException('You must override the _doWrite method');
     }
-};
+}
+
+module.exports = Output;

@@ -1,6 +1,5 @@
 /**
  * @memberOf Jymfony.Component.Console.Output
- * @type OutputInterface
  *
  * @interface
  */

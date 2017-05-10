@@ -5,6 +5,7 @@ instrumentation:
     excludes:
         - '**/tests.js'
         - '**/namespace-stub.js'
+        - '**/fixtures/**'
 
 reporting:
     print: summary

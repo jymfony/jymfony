@@ -1,6 +1,5 @@
 /**
  * @memberOf Jymfony.Component.Console.Input
- * @type InputInterface
  *
  * @interface
  */

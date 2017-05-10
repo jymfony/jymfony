@@ -37,12 +37,9 @@ const availableOptions = {
 
 /**
  * @memberOf Jymfony.Component.Console.Formatter
- * @type OutputFormatterStyle
  */
-module.exports = class OutputFormatterStyle extends implementationOf(OutputFormatterStyleInterface) {
-    constructor(foreground = null, background = null, options = []) {
-        super();
-
+class OutputFormatterStyle extends implementationOf(OutputFormatterStyleInterface) {
+    __construct(foreground = null, background = null, options = []) {
         if (foreground) {
             this.foreground = foreground;
         }
@@ -161,4 +158,6 @@ module.exports = class OutputFormatterStyle extends implementationOf(OutputForma
 
         return util.format("\x1B[%sm%s\x1B[%sm", setCodes.join(';'), text, unsetCodes.join(';'));
     }
-};
+}
+
+module.exports = OutputFormatterStyle;

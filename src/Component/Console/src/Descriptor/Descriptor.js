@@ -8,9 +8,8 @@ const OutputInterface = Jymfony.Component.Console.Output.OutputInterface;
 
 /**
  * @memberOf Jymfony.Component.Console.Descriptor
- * @type Descriptor
  */
-module.exports = class Descriptor extends implementationOf(DescriptorInterface) {
+class Descriptor extends implementationOf(DescriptorInterface) {
     /**
      * @inheritDoc
      */
@@ -129,4 +128,6 @@ module.exports = class Descriptor extends implementationOf(DescriptorInterface) 
     describeApplication(application, options = {}) {
         throw new Error('describeInputOption must be overridden');
     }
-};
+}
+
+module.exports = Descriptor;
