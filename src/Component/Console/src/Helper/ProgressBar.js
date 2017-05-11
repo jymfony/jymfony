@@ -1,3 +1,4 @@
+const LogicException = Jymfony.Component.Console.Exception.LogicException;
 const Helper = Jymfony.Component.Console.Helper.Helper;
 const OutputInterface = Jymfony.Component.Console.Output.OutputInterface;
 const ConsoleOutputInterface = Jymfony.Component.Console.Output.ConsoleOutputInterface;
