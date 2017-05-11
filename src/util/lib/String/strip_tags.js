@@ -4,6 +4,8 @@ global.__jymfony = global.__jymfony || {};
 
 /*
  * Adapted from locutus.io
+ * Originally released under MIT license
+ *
  * Do not strip <?php tags
  */
 global.__jymfony.strip_tags = function strip_tags(input, allowed) {

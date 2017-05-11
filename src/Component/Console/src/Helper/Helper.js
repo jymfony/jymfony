@@ -83,7 +83,9 @@ class Helper extends implementationOf(HelperInterface) {
 
         // Remove already formatted characters
         string = string.replace(/\x1B\[[^m]*m/g, '');
-        formatter.decorated(isDecorated);
+        formatter.decorated = isDecorated;
+
+        return string;
     }
 }
 

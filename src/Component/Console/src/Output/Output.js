@@ -48,7 +48,7 @@ class Output extends implementationOf(OutputInterface) {
     /**
      * @inheritDoc
      */
-    writeln(messages, options = 0) {
+    writeln(messages = '', options = 0) {
         this.write(messages, true, options);
     }
 
