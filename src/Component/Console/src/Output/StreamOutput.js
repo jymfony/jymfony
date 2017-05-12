@@ -1,10 +1,11 @@
+const stream = require('stream');
+const os = require("os");
+
 const InvalidArgumentException = Jymfony.Component.Console.Exception.InvalidArgumentException;
 const OutputFormatter = Jymfony.Component.Console.Formatter.OutputFormatter;
 const Output = Jymfony.Component.Console.Output.Output;
 const OutputInterface = Jymfony.Component.Console.Output.OutputInterface;
-
-const stream = require('stream');
-const os = require("os");
+const Terminal = Jymfony.Component.Console.Terminal;
 
 /**
  * @memberOf Jymfony.Component.Console.Output
@@ -73,16 +74,11 @@ class StreamOutput extends Output {
      * @private
      */
     _hasColorSupport() {
-        if ('win32' === os.platform()) {
-            return (
-                !! process.env['ANSICON'] ||
-                'ON' === process.env['ConEmuANSI'] ||
-                'xterm' === process.env['TERM'] ||
-                __jymfony.version_compare(os.release(), '10.0.10586', '>=')
-            );
+        if (! this._stream.isTTY) {
+            return false;
         }
 
-        return !! this._stream.isTTY;
+        return Terminal.hasANSISupport;
     }
 }
 

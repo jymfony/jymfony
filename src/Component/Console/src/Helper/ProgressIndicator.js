@@ -2,6 +2,7 @@ const InvalidArgumentException = Jymfony.Component.Console.Exception.InvalidArgu
 const LogicException = Jymfony.Component.Console.Exception.LogicException;
 const Helper = Jymfony.Component.Console.Helper.Helper;
 const OutputInterface = Jymfony.Component.Console.Output.OutputInterface;
+const Terminal = Jymfony.Component.Console.Terminal;
 const DateTime = Jymfony.Component.DateTime.DateTime;
 
 /**
@@ -25,7 +26,7 @@ class ProgressIndicator {
         }
 
         if (! indicatorValues) {
-            indicatorValues = [ '-', '\\', '|', '/' ];
+            indicatorValues = this._getDefaultIndicators();
         }
 
         if (2 > indicatorValues.length) {
@@ -54,7 +55,7 @@ class ProgressIndicator {
      *
      * @param {string|undefined} message
      */
-    start(message) {
+    start(message = '') {
         if (this._started) {
             throw new LogicException('Progress indicator already started.');
         }
@@ -96,7 +97,7 @@ class ProgressIndicator {
      *
      * @param {string|undefined} message
      */
-    finish(message) {
+    finish(message = '') {
         if (! this._started) {
             throw new LogicException('Progress indicator has not yet been started.');
         }
@@ -135,7 +136,7 @@ class ProgressIndicator {
             ProgressIndicator.formatters = ProgressIndicator.initPlaceholderFormatters();
         }
 
-        ProgressIndicator.$formatters[name] = callable;
+        ProgressIndicator.formatters[name] = callable;
     }
 
     /**
@@ -161,7 +162,7 @@ class ProgressIndicator {
         this._overwrite(this._format.replace(new RegExp('%([a-z\-_]+)(?:\:([^%]+))?%', 'ig'), (str, match1) => {
             let formatter;
             if (formatter = ProgressIndicator.getPlaceholderFormatterDefinition(match1)) {
-                formatter(this);
+                return formatter(this);
             }
 
             return str;
@@ -198,6 +199,14 @@ class ProgressIndicator {
     _getCurrentTimeInMilliseconds() {
         let now = DateTime.now;
         return ~~(now.timestamp * 1000 + now.millisecond);
+    }
+
+    _getDefaultIndicators() {
+        if (this._output.decorated && Terminal.hasUnicodeSupport) {
+            return [ '⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏' ];
+        }
+
+        return [ '-', '\\', '|', '/' ];
     }
 
     static initPlaceholderFormatters() {

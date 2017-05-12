@@ -387,7 +387,7 @@ describe('[Console] Application', function () {
 
     it('renderException should work', () => {
         let application = new Application();
-        process.env.COLUMNS = 120;
+        delete process.env.COLUMNS;
 
         let tester = new ApplicationTester(application);
         return __jymfony.Async.run(function * () {
@@ -426,13 +426,16 @@ describe('[Console] Application', function () {
         let tester = new ApplicationTester(application);
         return __jymfony.Async.run(function * () {
             yield tester.run({'command': 'foo'}, {decorated: false});
-            expect(tester.getDisplay(true))
-                .to.be.equal(fs.readFileSync(path.join(fixtures_path, 'application_renderexception_escapeslines.txt'), { encoding: 'utf-8' }));
+            try {
+                expect(tester.getDisplay(true))
+                    .to.be.equal(fs.readFileSync(path.join(fixtures_path, 'application_renderexception_escapeslines.txt'), {encoding: 'utf-8'}));
+            } finally {
+                delete process.env.COLUMNS;
+            }
         });
     });
 
     it('run should work', () => {
-        process.env.COLUMNS = 120;
         let command, application = new Application();
         application.add(command = new Fixtures.Foo1Command());
 
@@ -492,8 +495,6 @@ describe('[Console] Application', function () {
     });
 
     it('verbosity should be set correctly', () => {
-        process.env.COLUMNS = 120;
-
         return __jymfony.Async.run(function * () {
             let application = new Application();
             ensureStaticCommandHelp(application);
@@ -526,8 +527,6 @@ describe('[Console] Application', function () {
     });
 
     it('version options should work', () => {
-        process.env.COLUMNS = 120;
-
         return __jymfony.Async.run(function * () {
             let application = new Application();
             ensureStaticCommandHelp(application);
@@ -544,8 +543,6 @@ describe('[Console] Application', function () {
     });
 
     it('ansi/no-ansi options should work', () => {
-        process.env.COLUMNS = 120;
-
         return __jymfony.Async.run(function * () {
             let application = new Application();
             ensureStaticCommandHelp(application);

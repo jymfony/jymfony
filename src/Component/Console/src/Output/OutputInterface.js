@@ -19,7 +19,7 @@ class OutputInterface {
      * @param {string|string[]} messages The message as an array of lines of a single string
      * @param {int} options  A bitmask of options (one of the OUTPUT or VERBOSITY constants), 0 is considered the same as self::OUTPUT_NORMAL | self::VERBOSITY_NORMAL
      */
-    writeln(messages, options = 0) { }
+    writeln(messages = '', options = 0) { }
 
     /**
      * Sets the verbosity of the output.
