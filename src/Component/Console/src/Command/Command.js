@@ -189,7 +189,6 @@ class Command {
      */
     set application(application) {
         this._application = application;
-        this.helperSet = application ? application.helperSet : undefined;
     }
 
     /**
@@ -199,24 +198,6 @@ class Command {
      */
     get application() {
         return this._application;
-    }
-
-    /**
-     * Sets the helper set.
-     *
-     * @param {Jymfony.Component.Console.Helper.HelperSet} helperSet A HelperSet instance
-     */
-    set helperSet(helperSet) {
-        this._helperSet = helperSet;
-    }
-
-    /**
-     * Gets the helper set.
-     *
-     * @returns {Jymfony.Component.Console.Helper.HelperSet} A HelperSet instance
-     */
-    get helperSet() {
-        return this._helperSet;
     }
 
     /**
@@ -465,24 +446,6 @@ class Command {
      */
     get usages() {
         return this._usages;
-    }
-
-    /**
-     * Gets a helper instance by name.
-     *
-     * @param {string} name The helper name
-     *
-     * @returns {*} The helper value
-     *
-     * @throws LogicException           if no HelperSet is defined
-     * @throws InvalidArgumentException if the helper is not defined
-     */
-    getHelper(name) {
-        if (! this._helperSet) {
-            throw new LogicException(`Cannot retrieve helper "${name}" because there is no HelperSet defined. Did you forget to add your command to the application or to set the application on the command using the setApplication() method? You can also set the HelperSet directly using the setHelperSet() method.`);
-        }
-
-        return this._helperSet.get(name);
     }
 
     /**

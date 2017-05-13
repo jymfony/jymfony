@@ -1,12 +1,12 @@
 const RuntimeException = Jymfony.Component.Console.Exception.RuntimeException;
 const InvalidArgumentException = Jymfony.Component.Console.Exception.InvalidArgumentException;
-const InputInterface = Jymfony.Component.Console.Input.InputInterface;
 const InputDefinition = Jymfony.Component.Console.Input.InputDefinition;
+const StreamableInputInterface = Jymfony.Component.Console.Input.StreamableInputInterface;
 
 /**
  * @memberOf Jymfony.Component.Console.Input
  */
-class Input extends implementationOf(InputInterface) {
+class Input extends implementationOf(StreamableInputInterface) {
     /**
      * Constructor.
      *
@@ -163,6 +163,24 @@ class Input extends implementationOf(InputInterface) {
      */
     escapeToken(token) {
         return /^[\w-]+$/.test(token) ? token : __jymfony.escapeshellarg(token);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    get stream() {
+        return this._stream;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    set stream(stream) {
+        /**
+         * @type {Jymfony.Component.Console.Input.StreamableInputInterface}
+         * @private
+         */
+        this._stream = stream;
     }
 }
 

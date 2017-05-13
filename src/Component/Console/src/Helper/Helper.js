@@ -1,23 +1,7 @@
-const HelperInterface = Jymfony.Component.Console.Helper.HelperInterface;
-
 /**
  * @memberOf Jymfony.Component.Console.Helper
  */
-class Helper extends implementationOf(HelperInterface) {
-    /**
-     * @inheritDoc
-     */
-    set helperSet(helperSet) {
-        this._helperSet = helperSet;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    get helperSet() {
-        return this._helperSet;
-    }
-
+class Helper {
     static formatTime(secs) {
         const timeFormats = [
             [ 0, '< 1 sec' ],
@@ -34,9 +18,9 @@ class Helper extends implementationOf(HelperInterface) {
         for (let [ index, format ] of __jymfony.getEntries(timeFormats)) {
             if (secs >= format[0]) {
                 if (timeFormats[index + 1] && secs < timeFormats[index + 1][0]
-                    || index == timeFormats.length - 1
+                    || index === timeFormats.length - 1
                 ) {
-                    if (2 == format.length) {
+                    if (2 === format.length) {
                         return format[1];
                     }
 

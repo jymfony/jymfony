@@ -3,13 +3,12 @@ const ConsoleEvents = Jymfony.Component.Console.ConsoleEvents;
 const CommandNotFoundException = Jymfony.Component.Console.Exception.CommandNotFoundException;
 const ExceptionInterface = Jymfony.Component.Console.Exception.ExceptionInterface;
 const FormatterHelper = Jymfony.Component.Console.Helper.FormatterHelper;
-const HelperSet = Jymfony.Component.Console.Helper.HelperSet;
 const ArgvInput = Jymfony.Component.Console.Input.ArgvInput;
 const ArrayInput = Jymfony.Component.Console.Input.ArrayInput;
 const InputArgument = Jymfony.Component.Console.Input.InputArgument;
-const InputAwareInterface = Jymfony.Component.Console.Input.InputAwareInterface;
 const InputDefinition = Jymfony.Component.Console.Input.InputDefinition;
 const InputOption = Jymfony.Component.Console.Input.InputOption;
+const StreamableInputInterface = Jymfony.Component.Console.Input.StreamableInputInterface;
 const ConsoleOutput = Jymfony.Component.Console.Output.ConsoleOutput;
 const ConsoleOutputInterface = Jymfony.Component.Console.Output.ConsoleOutputInterface;
 const OutputInterface = Jymfony.Component.Console.Output.OutputInterface;
@@ -27,7 +26,6 @@ class Application {
         this._version = version;
         this._eventDispatcher = undefined;
         this._defaultCommand = 'list';
-        this._helperSet = this._getDefaultHelperSet();
         this._definition = this._getDefaultInputDefinition();
         this._commands = {};
         this._terminal = new Terminal();
@@ -45,15 +43,6 @@ class Application {
      */
     set dispatcher(dispatcher) {
         this._eventDispatcher = dispatcher;
-    }
-
-    /**
-     * Gets the helper set.
-     *
-     * @returns {Jymfony.Component.Console.Helper.HelperSet}
-     */
-    get helperSet() {
-        return this._helperSet;
     }
 
     /**
@@ -546,12 +535,6 @@ class Application {
      * @throws {Exception} when the command being run threw an exception
      */
     * _doRunCommand(command, input, output) {
-        for (let helper of command.helperSet) {
-            if (helper instanceof InputAwareInterface) {
-                helper.input = input;
-            }
-        }
-
         if (! this._eventDispatcher) {
             return yield __jymfony.Async.run(getCallableFromArray([ command, 'run' ]), input, output);
         }
@@ -619,9 +602,9 @@ class Application {
 
         if (true === input.hasParameterOption([ '--no-interaction', '-n' ], true)) {
             input.interactive = false;
-        } else if (this.helperSet.has('question')) {
-            let inputStream = this.helperSet.get('question').inputStream;
-            if (! inputStream.isTTY && ! process.env['SHELL_INTERACTIVE']) {
+        } else if (input instanceof StreamableInputInterface) {
+            let inputStream = input.stream;
+            if (undefined !== inputStream && ! inputStream.isTTY && ! process.env.SHELL_INTERACTIVE) {
                 input.interactive = false;
             }
         }
@@ -638,19 +621,6 @@ class Application {
                 output.verbosity = OutputInterface.VERBOSITY_VERBOSE;
             }
         }
-    }
-
-    /**
-     * Gets the default helper set.
-     *
-     * @returns {Jymfony.Component.Console.Helper.HelperSet}
-     *
-     * @protected
-     */
-    _getDefaultHelperSet() {
-        return new HelperSet([
-            new FormatterHelper(),
-        ]);
     }
 
     /**

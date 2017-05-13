@@ -651,11 +651,4 @@ describe('[Console] Application', function () {
             });
         });
     }
-
-    it('default helper set should return default values', () => {
-        let application = new Application();
-        let helperSet = application.helperSet;
-
-        expect(helperSet.has('formatter')).to.be.true;
-    });
 });
