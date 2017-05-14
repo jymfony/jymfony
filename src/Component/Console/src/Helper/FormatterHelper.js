@@ -76,13 +76,6 @@ class FormatterHelper extends Helper {
 
         return message.substr(0, length) + suffix;
     }
-
-    /**
-     * @inheritDoc
-     */
-    get name() {
-        return 'formatter';
-    }
 }
 
 module.exports = FormatterHelper;

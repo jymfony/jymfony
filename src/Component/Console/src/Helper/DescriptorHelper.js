@@ -62,13 +62,6 @@ class DescriptorHelper extends Helper {
 
         return this;
     }
-
-    /**
-     * @inheritDoc
-     */
-    get name() {
-        return 'descriptor';
-    }
 }
 
 module.exports = DescriptorHelper;

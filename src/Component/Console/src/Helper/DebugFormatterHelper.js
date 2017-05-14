@@ -107,13 +107,6 @@ class DebugFormatterHelper extends Helper {
     _getBorder(id) {
         return util.format('<bg=%s> </>', this._colors[this._started[id].border]);
     }
-
-    /**
-     * @inheritDoc
-     */
-    get name() {
-        return 'debug_formatter';
-    }
 }
 
 module.exports = DebugFormatterHelper;
