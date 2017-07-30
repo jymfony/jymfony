@@ -436,12 +436,12 @@ class tm_desc {
      */
     _fromDate(date) {
         this._tm_msec = date.getMilliseconds(); /* Milliseconds */
-        this._tm_sec = date.getSeconds();       /* Seconds */
-        this._tm_min = date.getMinutes();       /* Minutes */
-        this._tm_hour = date.getHours();        /* Hours */
-        this._tm_mday = date.getDate();         /* Day of the month */
-        this._tm_mon = date.getMonth() + 1;     /* Month */
-        this.tm_year = date.getFullYear();      /* Year */
+        this._tm_sec = date.getSeconds(); /* Seconds */
+        this._tm_min = date.getMinutes(); /* Minutes */
+        this._tm_hour = date.getHours(); /* Hours */
+        this._tm_mday = date.getDate(); /* Day of the month */
+        this._tm_mon = date.getMonth() + 1; /* Month */
+        this.tm_year = date.getFullYear(); /* Year */
 
         this._makeTime();
     }

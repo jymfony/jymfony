@@ -165,7 +165,7 @@ global.BTree = class BTree extends mix(undefined, GenericCollectionTrait) {
             let children = node.children;
             let nearest = undefined;
 
-            if (0 == height) {      // External node
+            if (0 == height) { // External node
                 for (let j = 0; j < node.m; j++) {
                     let compare = this._cmp_function(key, children[j].key);
                     if (0 == compare) {
@@ -176,7 +176,7 @@ global.BTree = class BTree extends mix(undefined, GenericCollectionTrait) {
                         return children[j];
                     }
                 }
-            } else {                // Internal node
+            } else { // Internal node
                 for (let j = 0; j < node.m; j++) {
                     if (j + 1 == node.m || lt(key, children[j + 1].key)) {
                         let result = search(children[j].next, key, height - 1);
@@ -260,7 +260,7 @@ global.BTree = class BTree extends mix(undefined, GenericCollectionTrait) {
             let j;
             let newEntry = new Entry(key, val, undefined);
 
-            if (0 == height) {      // External node
+            if (0 == height) { // External node
                 for (j = 0; j < root.m; j++) {
                     let compare = this._cmp_function(key, root.children[j].key);
                     if (0 == compare) {
@@ -272,7 +272,7 @@ global.BTree = class BTree extends mix(undefined, GenericCollectionTrait) {
                         break;
                     }
                 }
-            } else {            // Internal node
+            } else { // Internal node
                 for (j = 0; j < root.m; j++) {
                     if ((j+1 == root.m) || lt(key, root.children[j+1].key)) {
                         let u = insert(root.children[j++].next, key, val, height-1);
@@ -337,7 +337,7 @@ global.BTree = class BTree extends mix(undefined, GenericCollectionTrait) {
         let search = (node, key, height) => {
             let children = node.children;
 
-            if (0 == height) {      // External node
+            if (0 == height) { // External node
                 for (let j = 0; j < node.m; j++) {
                     if (eq(key, children[j].key)) {
                         this._length--;
@@ -347,7 +347,7 @@ global.BTree = class BTree extends mix(undefined, GenericCollectionTrait) {
                         return;
                     }
                 }
-            } else {                // Internal node
+            } else { // Internal node
                 for (let j = 0; j < node.m; j++) {
                     if (j + 1 == node.m || lt(key, children[j + 1].key)) {
                         return search(children[j].next, key, height - 1);

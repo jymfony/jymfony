@@ -9,5 +9,5 @@ global.Jymfony = {
     /**
      * @namespace
      */
-    Component: {}
+    Component: {},
 };
