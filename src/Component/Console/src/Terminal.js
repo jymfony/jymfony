@@ -1,4 +1,5 @@
 const os = require('os');
+const child_process = require("child_process");
 
 /**
  * @memberOf Jymfony.Component.Console
@@ -27,6 +28,32 @@ class Terminal {
         return /UTF-?(8|16)$/i.test(ctype);
     }
 
+    static disableStty() {
+        Terminal.stty = false;
+    }
+
+    static hasSttyAvailable() {
+        if (undefined !== Terminal.stty) {
+            return Terminal.stty;
+        }
+
+        Terminal.resetStty();
+        return Terminal.stty;
+    }
+
+    static resetStty() {
+        let obj = child_process.spawnSync('stty', [], {
+            shell: true,
+            stdio: [
+                0,
+                'pipe',
+                'pipe',
+            ],
+        });
+
+        return Terminal.stty = 0 === obj.status;
+    }
+
     get width() {
         return process.env.COLUMNS || process.stdout.columns || 80;
     }
@@ -35,5 +62,7 @@ class Terminal {
         return process.env.LINES || process.stdout.rows || 50;
     }
 }
+
+Terminal.stty = undefined;
 
 module.exports = Terminal;

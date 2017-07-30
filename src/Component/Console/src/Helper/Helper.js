@@ -1,4 +1,6 @@
 /**
+ * Contains helper methods to format strings and values
+ *
  * @memberOf Jymfony.Component.Console.Helper
  */
 class Helper {

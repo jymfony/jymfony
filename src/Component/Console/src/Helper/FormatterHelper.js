@@ -37,8 +37,8 @@ class FormatterHelper extends Helper {
         let lines = [];
 
         for (let message of messages) {
-            message = OutputFormatter.escape($message);
-            lines.push(util.format($large ? '  %s  ' : ' %s ', message));
+            message = OutputFormatter.escape(message);
+            lines.push(util.format(large ? '  %s  ' : ' %s ', message));
             len = Math.max(message.length + (large ? 4 : 2), len);
         }
 
@@ -51,7 +51,7 @@ class FormatterHelper extends Helper {
             messages.push(' '.repeat(len));
         }
 
-        for (let i = 0; i < lines.length; ++i) {
+        for (let i = 0; i < messages.length; ++i) {
             messages[i] = util.format('<%s>%s</%s>', style, messages[i], style);
         }
 

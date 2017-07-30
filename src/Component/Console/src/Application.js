@@ -2,7 +2,6 @@ const Command = Jymfony.Component.Console.Command.Command;
 const ConsoleEvents = Jymfony.Component.Console.ConsoleEvents;
 const CommandNotFoundException = Jymfony.Component.Console.Exception.CommandNotFoundException;
 const ExceptionInterface = Jymfony.Component.Console.Exception.ExceptionInterface;
-const FormatterHelper = Jymfony.Component.Console.Helper.FormatterHelper;
 const ArgvInput = Jymfony.Component.Console.Input.ArgvInput;
 const ArrayInput = Jymfony.Component.Console.Input.ArrayInput;
 const InputArgument = Jymfony.Component.Console.Input.InputArgument;
