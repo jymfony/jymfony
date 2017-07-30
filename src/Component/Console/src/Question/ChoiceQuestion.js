@@ -115,10 +115,6 @@ class ChoiceQuestion extends Question {
             }
         }
     }
-
-    _renderRawList(input) {
-        throw new Error('Unimplemented');
-    }
 }
 
 ChoiceQuestion.MODE_LIST = 'list';

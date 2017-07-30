@@ -1,8 +1,6 @@
 const FormatterHelper = Jymfony.Component.Console.Helper.FormatterHelper;
 const ReadlineRenderer = Jymfony.Component.Console.Question.Renderer.ReadlineRenderer;
 
-const readline = require("readline");
-
 /**
  * Represents a console question
  * It is strongly recommended to create a question with the help of a
