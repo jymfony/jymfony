@@ -2,7 +2,7 @@ const FormatterHelper = Jymfony.Component.Console.Helper.FormatterHelper;
 const AbstractRenderer = Jymfony.Component.Console.Question.Renderer.AbstractRenderer;
 
 /**
- * Renders a Question prompt using readline.
+ * Renders a ChoiceQuestion prompt as ordered list.
  *
  * This class is internal and should be considered private
  * DO NOT USE this directly.

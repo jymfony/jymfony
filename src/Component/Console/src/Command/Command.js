@@ -27,7 +27,7 @@ class Command {
         this.configure();
 
         if (! this.name) {
-            throw new RuntimeException(`The command defined in "${(new ReflectionClass(this)).name}" cannot have an empty name.`);
+            throw new LogicException(`The command defined in "${(new ReflectionClass(this)).name}" cannot have an empty name.`);
         }
     }
 
@@ -416,7 +416,7 @@ class Command {
         let key = short ? 'short' : 'long';
 
         if (undefined === this._synopsis[key]) {
-            this._synopsis[key] = __jymfony.trim(util.format('%s %s', this._name, this._definition.getSynopsis(short)));
+            this._synopsis[key] = __jymfony.trim(__jymfony.sprintf('%s %s', this._name, this._definition.getSynopsis(short)));
         }
 
         return this._synopsis[key];
@@ -431,7 +431,7 @@ class Command {
      */
     addUsage(usage) {
         if (0 !== usage.indexOf(this._name)) {
-            usage = util.format('%s %s', this._name, usage);
+            usage = __jymfony.sprintf('%s %s', this._name, usage);
         }
 
         this._usages.push(usage);
