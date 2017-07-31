@@ -1,11 +1,14 @@
 const expect = require('chai').expect;
 const path = require('path');
+const os = require("os");
 
 const Application = Jymfony.Component.Console.Application;
 const Command = Jymfony.Component.Console.Command.Command;
+const InvalidOptionException = Jymfony.Component.Console.Exception.InvalidOptionException;
 const InputArgument = Jymfony.Component.Console.Input.InputArgument;
 const InputDefinition = Jymfony.Component.Console.Input.InputDefinition;
 const InputOption = Jymfony.Component.Console.Input.InputOption;
+const CommandTester = Jymfony.Component.Console.Tester.CommandTester;
 
 const fixtures_path = path.join(__dirname, '..', '..', 'fixtures');
 const Fixtures = new Jymfony.Component.Autoloader.Namespace(__jymfony.autoload, 'Fixtures', [
@@ -92,9 +95,11 @@ describe('[Console] Command', function () {
     ];
 
     for (let [key, name] of __jymfony.getEntries(tests)) {
-        it('set invalid name should throw with dataset #'+key, () => {
+        it('set invalid name should throw with dataset #' + key, () => {
             let cmd = new Fixtures.TestCommand();
-            expect(() => { cmd.name = name; })
+            expect(() => {
+                cmd.name = name;
+            })
                 .to.throw(InvalidArgumentException);
         });
     }
@@ -153,5 +158,75 @@ describe('[Console] Command', function () {
 
         expect(cmd.usages).to.contain('namespace:name foo1');
         expect(cmd.usages).to.contain('namespace:name foo2');
+    });
+
+    it('should call interactive', () => {
+        let tester = new CommandTester(new Fixtures.TestCommand());
+        return tester.run([], {interactive: true})
+            .then(() => {
+                expect(tester.getDisplay()).to.be.equal('interact called' + os.EOL + 'execute called' + os.EOL);
+            });
+    });
+
+    it('should not call interactive', () => {
+        let tester = new CommandTester(new Fixtures.TestCommand());
+        return tester.run([], {interactive: false})
+            .then(() => {
+                expect(tester.getDisplay()).to.be.equal('execute called' + os.EOL);
+            });
+    });
+
+    it('execute should be overridden', () => {
+        let tester = new CommandTester(new Command('foo'));
+        return tester.run({})
+            .then(() => {
+                throw Error('Should not be resolved');
+            }, err => {
+                expect(err).to.be.instanceOf(LogicException);
+                expect(err.message).to.be.equal('You must override the execute() method in the concrete command class.');
+            });
+    });
+
+    it('run with invalid option should throw', () => {
+        let tester = new CommandTester(new Fixtures.TestCommand());
+        return tester.run({'--bar': true})
+            .then(() => {
+                throw Error('Should not be resolved');
+            }, err => {
+                expect(err).to.be.instanceOf(InvalidOptionException);
+                expect(err.message).to.be.equal('The "--bar" option does not exist.');
+            });
+    });
+
+    it('should return exit code', () => {
+        let tester = new CommandTester(new Fixtures.TestCommand());
+        return tester.run({})
+            .then((exitCode) => {
+                expect(exitCode).to.be.equal(0);
+            });
+    });
+
+    it('should return integer exit code', () => {
+        let cmd = new Fixtures.TestCommand();
+        cmd.execute = function () {
+            return '2.3';
+        };
+
+        let tester = new CommandTester(cmd);
+        return tester.run({})
+            .then((exitCode) => {
+                expect(exitCode).to.be.equal(2);
+            });
+    });
+
+    it('should set process title', () => {
+        let cmd = new Fixtures.TestCommand();
+        cmd.processTitle = 'TEST';
+
+        let tester = new CommandTester(cmd);
+        return tester.run({})
+            .then(() => {
+                expect(process.title).to.be.equal('TEST');
+            });
     });
 });

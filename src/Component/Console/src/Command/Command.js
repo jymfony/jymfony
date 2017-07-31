@@ -5,9 +5,9 @@ const InputArgument = Jymfony.Component.Console.Input.InputArgument;
 const InputOption = Jymfony.Component.Console.Input.InputOption;
 const InputDefinition = Jymfony.Component.Console.Input.InputDefinition;
 
-const util = require('util');
-
 /**
+ * Base class for all commands.
+ *
  * @memberOf Jymfony.Component.Console.Command
  */
 class Command {
@@ -43,7 +43,7 @@ class Command {
     /**
      * Checks whether the command is enabled or not in the current environment.
      *
-     * Override this to check for x or y and return false if the command can not
+     * Override this return false if the command can not
      * run properly under the current conditions.
      *
      * @returns {boolean}
@@ -153,7 +153,7 @@ class Command {
 
         let statusCode = yield __jymfony.Async.run(getCallableFromArray([ this, 'execute' ]), input, output);
 
-        return Number.isInteger(statusCode) ? statusCode : 0;
+        return ! Number.isNaN(statusCode) ? ~~statusCode : 0;
     }
 
     /**
