@@ -43,8 +43,8 @@ class CommandTester {
          */
         this._readOutput = '';
 
-        // set the command name automatically if the application requires
-        // this argument and no command name was passed
+        // Set the command name automatically if the application requires
+        // This argument and no command name was passed
         if (! input.command
             && this._command.application
             && this._command.application.definition.hasArgument('command')
