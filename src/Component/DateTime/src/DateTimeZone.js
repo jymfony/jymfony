@@ -172,7 +172,7 @@ class DateTimeZone {
                 dst: !! descriptor.dst,
                 abbrev: descriptor.abbrev,
             });
-        } else if (correction = Parser.parseTzCorrection(timezone)) {
+        } else if (undefined !== (correction = Parser.parseTzCorrection(timezone))) {
             this._data.push(-Infinity, {
                 gmt_offset: correction,
                 dst: false,

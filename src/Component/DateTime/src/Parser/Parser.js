@@ -136,11 +136,23 @@ class Parser {
         return this._tm;
     }
 
+    /**
+     * Parse the tz correction string and return the offset in seconds.
+     * Returns undefined if correction is not valid.
+     *
+     * @param {string} correction
+     *
+     * @returns {undefined|int}
+     */
     static parseTzCorrection(correction) {
         const regex = /(?:GMT)?([+-])(0?[1-9]|1[0-2]):?([0-5][0-9])?/;
 
         correction = correction.trim();
         let matches = correction.match(regex);
+
+        if (null === matches) {
+            return undefined;
+        }
 
         let sign = '+' === matches[1] ? +1 : -1;
         let hours = ~~matches[2];
