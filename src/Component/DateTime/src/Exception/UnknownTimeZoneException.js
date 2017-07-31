@@ -4,3 +4,5 @@
  */
 class UnknownTimeZoneException extends Exception {
 }
+
+module.exports = UnknownTimeZoneException;
