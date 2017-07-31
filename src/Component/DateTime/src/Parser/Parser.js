@@ -145,7 +145,11 @@ class Parser {
      * @returns {undefined|int}
      */
     static parseTzCorrection(correction) {
-        const regex = /(?:GMT)?([+-])(0?[1-9]|1[0-2]):?([0-5][0-9])?/;
+        if ('UTC' === correction) {
+            return 0;
+        }
+
+        const regex = /(?:GMT|UTC)?([+-])(0?[1-9]|1[0-2]):?([0-5][0-9])?/;
 
         correction = correction.trim();
         let matches = correction.match(regex);
