@@ -635,7 +635,7 @@ ${this._addReturn(id, definition)}\
      * @private
      */
     _dumpParameter(name) {
-        if (name !== 'env()' && name.substr(0, 4) === 'env(' && name.substr(-1, 1) === ')') {
+        if ('env()' !== name && 'env(' === name.substr(0, 4) && ')' === name.substr(-1, 1)) {
             let matches = /env\((.+)\)/.exec(name);
             let envVarName = matches[1];
 

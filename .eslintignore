@@ -1,2 +1,4 @@
 src/*/test/**
+src/*/fixtures/**
 src/Component/*/test/**
+src/Component/*/fixtures/**

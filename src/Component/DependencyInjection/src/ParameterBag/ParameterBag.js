@@ -64,16 +64,16 @@ class ParameterBag {
      */
     get(name) {
         name = name.toLowerCase();
-        if (name !== 'env()' && name.substr(0, 4) === 'env(' && name.substr(-1, 1) === ')') {
+        if ('env()' !== name && 'env(' === name.substr(0, 4) && ')' === name.substr(-1, 1)) {
             let matches = /env\((.+)\)/.exec(name);
             let envVarName = matches[1];
             if (undefined !== this._env[envVarName]) {
                 return this._env[envVarName];
             } else if (undefined !== process.env[envVarName]) {
                 return this._env[envVarName] = process.env[envVarName];
-            } else {
-                return this._env[envVarName] = this._get(name, true);
             }
+
+            return this._env[envVarName] = this._get(name, true);
         }
 
         return this._get(name);
