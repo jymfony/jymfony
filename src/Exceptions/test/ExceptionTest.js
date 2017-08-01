@@ -1,5 +1,4 @@
 let expect = require('chai').expect;
-require('../lib/Exception');
 
 class TestException extends Exception {}
 

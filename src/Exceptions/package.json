@@ -4,8 +4,8 @@
   "description": "Jymfony exception (core package)",
   "main": "index.js",
   "scripts": {
-    "test": "mocha ./test",
-    "coverage": "istanbul cover _mocha"
+    "test": "node ./tests.js test/**",
+    "coverage": "istanbul cover ./tests.js test/**"
   },
   "keywords": [
     "jymfony",

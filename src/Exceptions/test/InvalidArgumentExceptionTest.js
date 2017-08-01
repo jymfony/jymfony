@@ -1,5 +1,4 @@
 let expect = require('chai').expect;
-require('../lib/InvalidArgumentException');
 
 describe('[Exceptions] InvalidArgumentException', function () {
     it('registered in global namespace', function () {

@@ -1,5 +1,4 @@
 let expect = require('chai').expect;
-require('../lib/LogicException');
 
 describe('[Exceptions] LogicException', function () {
     it('registered in global namespace', function () {

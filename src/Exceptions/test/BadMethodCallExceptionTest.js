@@ -1,5 +1,4 @@
 let expect = require('chai').expect;
-require('../lib/BadMethodCallException');
 
 describe('[Exceptions] BadMethodCallException', function () {
     it('registered in global namespace', function () {

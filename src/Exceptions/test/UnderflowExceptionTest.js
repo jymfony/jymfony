@@ -1,5 +1,4 @@
 let expect = require('chai').expect;
-require('../lib/UnderflowException');
 
 describe('[Exceptions] UnderflowException', function () {
     it('registered in global namespace', function () {

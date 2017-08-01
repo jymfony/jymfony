@@ -1,5 +1,4 @@
 let expect = require('chai').expect;
-require('../lib/OutOfBoundsException');
 
 describe('[Exceptions] OutOfBoundsException', function () {
     it('registered in global namespace', function () {
