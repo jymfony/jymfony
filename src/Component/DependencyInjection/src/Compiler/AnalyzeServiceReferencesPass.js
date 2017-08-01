@@ -4,9 +4,8 @@ const Reference = Jymfony.Component.DependencyInjection.Reference;
 
 /**
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
- * @type {Jymfony.Component.DependencyInjection.Compiler.ResolveInvalidReferencesPass}
  */
-module.exports = class AnalyzeServiceReferencesPass extends implementationOf(RepeatablePassInterface) {
+class AnalyzeServiceReferencesPass extends implementationOf(RepeatablePassInterface) {
     constructor(onlyConstructorArguments = false) {
         super();
         this._onlyConstructorArguments = onlyConstructorArguments;
@@ -82,7 +81,7 @@ module.exports = class AnalyzeServiceReferencesPass extends implementationOf(Rep
     _getDefinition(id) {
         id = this._getDefinitionId(id);
 
-        return null === id ? null : this._container.getDefinition(id);
+        return undefined === id ? undefined : this._container.getDefinition(id);
     }
 
     _getDefinitionId(id) {
@@ -91,9 +90,11 @@ module.exports = class AnalyzeServiceReferencesPass extends implementationOf(Rep
         }
 
         if (! this._container.hasDefinition(id)) {
-            return;
+            return undefined;
         }
 
         return id;
     }
-};
+}
+
+module.exports = AnalyzeServiceReferencesPass;

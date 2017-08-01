@@ -1,15 +1,26 @@
-let ParameterNotFoundException = Jymfony.Component.DependencyInjection.Exception.ParameterNotFoundException;
-let ParameterCircularReferenceException = Jymfony.Component.DependencyInjection.Exception.ParameterCircularReferenceException;
+const RuntimeException = Jymfony.Component.DependencyInjection.Exception.RuntimeException;
+const ParameterNotFoundException = Jymfony.Component.DependencyInjection.Exception.ParameterNotFoundException;
+const ParameterCircularReferenceException = Jymfony.Component.DependencyInjection.Exception.ParameterCircularReferenceException;
 
 /**
- * Holds parameters
+ * Holds parameters.
  *
  * @memberOf Jymfony.Component.DependencyInjection.ParameterBag
  */
-module.exports = class ParameterBag {
-    constructor(params = {}) {
-        this._params = Object.assign({}, params);
+class ParameterBag {
+    /**
+     * Constructor.
+     *
+     * @param {Object} params
+     */
+    __construct(params = {}) {
+        this._params = {};
+        this._env = {};
         this._resolved = false;
+
+        for (let [ name, value ] of __jymfony.getEntries(params)) {
+            this.set(name, value);
+        }
     }
 
     /**
@@ -45,19 +56,27 @@ module.exports = class ParameterBag {
     }
 
     /**
-     * Get a parameter
+     * Gets a parameter.
      *
      * @param name
-     * @returns {string}
+     *
+     * @returns {*}
      */
     get(name) {
         name = name.toLowerCase();
-        
-        if (! this._params.hasOwnProperty(name)) {
-            throw new ParameterNotFoundException(name, null, null);
+        if (name !== 'env()' && name.substr(0, 4) === 'env(' && name.substr(-1, 1) === ')') {
+            let matches = /env\((.+)\)/.exec(name);
+            let envVarName = matches[1];
+            if (undefined !== this._env[envVarName]) {
+                return this._env[envVarName];
+            } else if (undefined !== process.env[envVarName]) {
+                return this._env[envVarName] = process.env[envVarName];
+            } else {
+                return this._env[envVarName] = this._get(name, true);
+            }
         }
 
-        return this._params[name];
+        return this._get(name);
     }
 
     /**
@@ -235,4 +254,29 @@ module.exports = class ParameterBag {
 
         return value;
     }
-};
+
+    /**
+     * Gets a parameter from the parameter list.
+     *
+     * @param {string} name
+     * @param {boolean} strictlyScalar
+     *
+     * @returns {*}
+     *
+     * @private
+     */
+    _get(name, strictlyScalar = false) {
+        if (! this._params.hasOwnProperty(name)) {
+            throw new ParameterNotFoundException(name, null, null);
+        }
+
+        const param = this._params[name];
+        if (strictlyScalar && ! isScalar(param)) {
+            throw new RuntimeException(__jymfony.sprintf('The value for parameter "%s" must be a scalar, %s given.', name, typeof param));
+        }
+
+        return param;
+    }
+}
+
+module.exports = ParameterBag;

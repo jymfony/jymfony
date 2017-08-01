@@ -1,12 +1,11 @@
 const SelfCheckingResourceInterface = Jymfony.Component.Config.Resource.SelfCheckingResourceInterface;
-const fs = require('fs');
 
 /**
  * @memberOf Jymfony.Component.Config.Resource
  */
-class FileResource extends implementationOf(SelfCheckingResourceInterface) {
-    __construct(resource) {
-        this._resource = fs.realpathSync(resource);
+class EnvVariableResource extends implementationOf(SelfCheckingResourceInterface) {
+    __construct(name) {
+        this._resource = process.env[name];
     }
 
     /**
@@ -20,8 +19,8 @@ class FileResource extends implementationOf(SelfCheckingResourceInterface) {
      * {@inheritDoc}
      */
     isFresh(timestamp) {
-        return fs.existsSync(this._resource) && fs.statSync(this._resource).mtime <= timestamp;
+        return this._resource === process.env[name];
     }
 }
 
-module.exports = FileResource;
+module.exports = EnvVariableResource;

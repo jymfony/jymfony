@@ -28,6 +28,7 @@ module.exports = class ResolveParameterPlaceHoldersPass extends implementationOf
                 definition.setMethodCalls(calls);
 
                 definition.setProperties(parameterBag.resolveValue(definition.getProperties()));
+                definition.setConfigurator(parameterBag.resolveValue(definition.getConfigurator()));
             } catch (e) {
                 if (e instanceof ParameterNotFoundException) {
                     e.sourceId = id;

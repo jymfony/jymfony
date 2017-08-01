@@ -7,10 +7,16 @@ let underscoreMap = {'_': '', '.': '_', '\\': '_'};
 
 /**
  * @memberOf Jymfony.Component.DependencyInjection
- * @type {Jymfony.Component.DependencyInjection.Container}
  */
 class Container {
-    constructor(parameterBag) {
+    /**
+     * Constructor.
+     * DO NOT USE __construct here, as this is the base
+     * class for a non-namespaced (dumped) container.
+     *
+     * @param parameterBag
+     */
+    __construct(parameterBag) {
         this._parameterBag = parameterBag || new ParameterBag();
 
         this._services = {};
@@ -41,7 +47,7 @@ class Container {
     /**
      * Get the container parameter bag
      *
-     * @returns {Jymfony.Component.DependencyInjection.ParameterBag}
+     * @returns {Jymfony.Component.DependencyInjection.ParameterBag.ParameterBag}
      */
     get parameterBag() {
         return this._parameterBag;

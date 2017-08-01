@@ -1,6 +1,5 @@
 /**
  * @memberOf Jymfony.Component.Config
- * @type {Jymfony.Component.Config.ConfigCacheInterface}
  */
 class ConfigCacheInterface {
     /**

@@ -4,9 +4,8 @@ const Reference = Jymfony.Component.DependencyInjection.Reference;
 
 /**
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
- * @type {Jymfony.Component.DependencyInjection.Compiler.RemoveAbstractDefinitionsPass}
  */
-module.exports = class InlineServiceDefinitionsPass extends implementationOf(RepeatablePassInterface) {
+class InlineServiceDefinitionsPass extends implementationOf(RepeatablePassInterface) {
     process(container) {
         this._compiler = container.getCompiler();
         this._formatter = container.getCompiler().logFormatter;
@@ -62,7 +61,21 @@ module.exports = class InlineServiceDefinitionsPass extends implementationOf(Rep
         return args;
     }
 
+    /**
+     * Checks whether a service could be inlined.
+     *
+     * @param {string} id
+     * @param {Jymfony.Component.DependencyInjection.Definition} definition
+     *
+     * @returns {boolean}
+     *
+     * @private
+     */
     _isInlineableDefinition(id, definition) {
+        if (definition.isDeprecated()) {
+            return false;
+        }
+
         if (! definition.isShared()) {
             return true;
         }
@@ -75,7 +88,7 @@ module.exports = class InlineServiceDefinitionsPass extends implementationOf(Rep
             return true;
         }
 
-        if (this._currentId == id) {
+        if (this._currentId === id) {
             return false;
         }
 
@@ -95,4 +108,6 @@ module.exports = class InlineServiceDefinitionsPass extends implementationOf(Rep
 
         return true;
     }
-};
+}
+
+module.exports = InlineServiceDefinitionsPass;

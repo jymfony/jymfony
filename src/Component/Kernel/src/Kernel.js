@@ -9,12 +9,12 @@ const path = require('path');
  */
 class Kernel {
     /**
-     * Gets a new Kernel
+     * Constructor.
      *
      * @param {string} environment
      * @param {boolean} debug
      */
-    constructor(environment, debug) {
+    __construct(environment, debug) {
         /**
          * @type {string}
          * @protected
@@ -36,6 +36,12 @@ class Kernel {
          * @protected
          */
         this._container = undefined;
+
+        /**
+         * @type {Jymfony.Component.Kernel.Bundle[]}
+         * @protected
+         */
+        this._bundles = {};
 
         this._booted = false;
     }
@@ -97,16 +103,11 @@ class Kernel {
      * @returns {Jymfony.Component.Kernel.Bundle[]}
      * @abstract
      */
-    registerBundles() {
+    * registerBundles() {
         throw new Error('You must override registerBundles method');
     }
 
     _initializeBundles() {
-        /**
-         * @type {Jymfony.Component.Kernel.Bundle[]}
-         * @protected
-         */
-        this._bundles = {};
         let directChildren = {};
         let topMostBundles = {};
 
@@ -123,7 +124,7 @@ class Kernel {
                     throw new LogicException(`Bundle "${parentName}" is directly extended by two bundles "${name}" and "${directChildren[parentName]}".`);
                 }
 
-                if (parentName == name) {
+                if (parentName === name) {
                     throw new LogicException(`Bundle "${name}" can not extend itself.`);
                 }
 

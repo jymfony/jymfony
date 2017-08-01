@@ -12,17 +12,16 @@ const fs = require('fs');
 
 /**
  * @memberOf Jymfony.Component.DependencyInjection
- * @type {Jymfony.Component.DependencyInjection.ContainerBuilder}
  */
-module.exports = class ContainerBuilder extends Container {
+class ContainerBuilder extends Container {
     /**
      * Creates a new ContainerBuilder
      *
      * @param parameterBag
      * @constructor
      */
-    constructor(parameterBag) {
-        super(parameterBag);
+    __construct(parameterBag) {
+        super.__construct(parameterBag);
 
         /**
          * @type {Object<string, ExtensionInterface>}
@@ -59,6 +58,13 @@ module.exports = class ContainerBuilder extends Container {
          * @private
          */
         this._trackResources = ReflectionClass.exists('Jymfony.Component.Config.Resource.ResourceInterface');
+
+        this.setDefinition(
+            'service_container',
+            (new Definition('Jymfony.Component.DependencyInjection.Container'))
+                .setSynthetic(true)
+                .setPublic(true)
+        );
     }
 
     /**
@@ -846,4 +852,6 @@ module.exports = class ContainerBuilder extends Container {
 
         return value;
     }
-};
+}
+
+module.exports = ContainerBuilder;

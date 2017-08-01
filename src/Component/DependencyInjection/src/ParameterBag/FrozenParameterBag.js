@@ -9,9 +9,7 @@ module.exports = class FrozenParameterBag extends ParameterBag {
     /**
      * @param {Map} params
      */
-    constructor(params) {
-        super(params);
-
+    __construct(params) {
         this._params = params;
         this._resolved = true;
     }

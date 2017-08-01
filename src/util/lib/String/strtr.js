@@ -3,16 +3,12 @@
 global.__jymfony = global.__jymfony || {};
 
 global.__jymfony.strtr = function strtr(string, replacePairs) {
-    let str = string.toString(), key, re;
+    let str = string.toString(), re;
 
-    for (key in replacePairs) {
-        if (! replacePairs.hasOwnProperty(key)) {
-            continue;
-        }
-
+    for (let [ key, value ] of __jymfony.getEntries(replacePairs)) {
         key = key.replace(/[|\\{}()[\]^$+*?.]/g, '\\$&');
         re = new RegExp(key, "g");
-        str = str.replace(re, replacePairs[key]);
+        str = str.replace(re, value);
     }
 
     return str;

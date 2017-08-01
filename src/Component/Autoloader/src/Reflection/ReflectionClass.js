@@ -309,6 +309,10 @@ global.ReflectionClass = class ReflectionClass {
 
     _loadProperties() {
         let loadFromPrototype = (proto) => {
+            if (undefined === proto || null === proto) {
+                return;
+            }
+
             let properties = Object.getOwnPropertyNames(proto);
             for (let name of properties) {
                 if ('constructor' === name) {

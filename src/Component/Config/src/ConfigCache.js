@@ -2,7 +2,10 @@ const ResourceCheckerConfigCache = Jymfony.Component.Config.ResourceCheckerConfi
 const SelfCheckingResourceChecker = Jymfony.Component.Config.Resource.SelfCheckingResourceChecker;
 const fs = require('fs');
 
-module.exports = class ConfigCache extends ResourceCheckerConfigCache {
+/**
+ * @memberOf Jymfony.Component.Config
+ */
+class ConfigCache extends ResourceCheckerConfigCache {
     /**
      * Creates a ConfigCache class
      *
@@ -29,4 +32,6 @@ module.exports = class ConfigCache extends ResourceCheckerConfigCache {
 
         return super.isFresh();
     }
-};
+}
+
+module.exports = ConfigCache;

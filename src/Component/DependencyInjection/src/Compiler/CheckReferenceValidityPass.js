@@ -4,9 +4,8 @@ const Reference = Jymfony.Component.DependencyInjection.Reference;
 
 /**
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
- * @type {Jymfony.Component.DependencyInjection.Compiler.CheckReferenceValidityPass}
  */
-module.exports = class CheckReferenceValidityPass extends implementationOf(CompilerPassInterface) {
+class CheckReferenceValidityPass extends implementationOf(CompilerPassInterface) {
     process(container) {
         this._container = container;
 
@@ -47,4 +46,6 @@ module.exports = class CheckReferenceValidityPass extends implementationOf(Compi
 
         return this._container.getDefinition(id);
     }
-};
+}
+
+module.exports = CheckReferenceValidityPass;

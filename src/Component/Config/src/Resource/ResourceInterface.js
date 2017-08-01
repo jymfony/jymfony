@@ -1,6 +1,5 @@
 /**
  * @memberOf Jymfony.Component.Config.Resource
- * @type {Jymfony.Component.Config.Resource.ResourceInterface}
  */
 class ResourceInterface {
     /**
