@@ -21,7 +21,7 @@ class JsFileLoader extends FileLoader {
      * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container A ContainerBuilder instance
      * @param {Jymfony.Component.Config.FileLocatorInterface} locator A FileLocator instance
      */
-    __construct(container, locator){
+    __construct(container, locator) {
         /**
          * @type {Jymfony.Component.DependencyInjection.ContainerBuilder}
          * @private

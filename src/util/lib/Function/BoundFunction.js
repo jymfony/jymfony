@@ -48,7 +48,7 @@ class BoundFunction {
      * @param {Object} thisArg Ignored
      * @param {Arguments|Array} argArray
      *
-     * @return {*}
+     * @returns {*}
      */
     apply(thisArg, argArray) {
         return this._func.apply(this._thisArg, argArray);

@@ -65,7 +65,7 @@ class Application {
     /**
      * Gets the help message.
      *
-     * @return string A help message
+     * @returns {string} A help message
      */
     get help() {
         return this.getLongVersion();
@@ -134,7 +134,7 @@ class Application {
     /**
      * Returns the long version of the application.
      *
-     * @return string The long application version
+     * @returns {string} The long application version
      */
     getLongVersion() {
         if ('UNKNOWN' !== this.name) {
@@ -153,7 +153,7 @@ class Application {
      *
      * @param {string} name The command name
      *
-     * @return {Jymfony.Component.Console.Command.Command} The newly created command
+     * @returns {Jymfony.Component.Console.Command.Command} The newly created command
      */
     register(name) {
         return this.add(new Command(name));
@@ -180,7 +180,7 @@ class Application {
      *
      * @param {Jymfony.Component.Console.Command.Command} command A Command object
      *
-     * @return {Jymfony.Component.Console.Command.Command|undefined} The registered command if enabled or null
+     * @returns {Jymfony.Component.Console.Command.Command|undefined} The registered command if enabled or null
      */
     add(command) {
         command.application = this;
@@ -254,7 +254,7 @@ class Application {
      *
      * @param {string} name A command name or a command alias
      *
-     * @return {Jymfony.Component.Console.Command.Command} A Command instance
+     * @returns {Jymfony.Component.Console.Command.Command} A Command instance
      *
      * @throws {Jymfony.Component.Console.Exception.CommandNotFoundException} When command name is incorrect or ambiguous
      */
@@ -529,7 +529,7 @@ class Application {
      * @param {Jymfony.Component.Console.Input.InputInterface} input An Input instance
      * @param {Jymfony.Component.Console.Output.OutputInterface} output An Output instance
      *
-     * @return int 0 if everything went fine, or an error code
+     * @returns {int} 0 if everything went fine, or an error code
      *
      * @throws {Exception} when the command being run threw an exception
      */
@@ -749,7 +749,7 @@ class Application {
      * @param {string} name The string
      * @param {string[]} collection The collection
      *
-     * @returns string[] A sorted array of similar string
+     * @returns {string[]} A sorted array of similar string
      *
      * @private
      */
@@ -796,7 +796,7 @@ class Application {
      *
      * @param {string[]} abbrevs Abbreviated suggestions to convert
      *
-     * @return string A formatted string of abbreviated suggestions
+     * @returns {string} A formatted string of abbreviated suggestions
      */
     _getAbbreviationSuggestions(abbrevs) {
         return '    ' + abbrevs.join('\n    ');

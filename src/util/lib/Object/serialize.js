@@ -49,8 +49,8 @@ function serialize(value) {
     }
 
     let vals = [], properties;
-    if (obj.__sleep instanceof Function) {
-        properties = obj.__sleep();
+    if (value.__sleep instanceof Function) {
+        properties = value.__sleep();
     } else {
         properties = Object.keys(value);
     }

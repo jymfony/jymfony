@@ -10,6 +10,8 @@ module.exports = class MergeExtensionConfigurationPass extends implementationOf(
      * @inheritDoc
      */
     process(container) {
+        let parameters = container.parameterBag.all();
+
         for (let extension of Object.values(container.getExtensions())) {
             if (extension instanceof PrependExtensionInterface) {
                 extension.prepend(container);

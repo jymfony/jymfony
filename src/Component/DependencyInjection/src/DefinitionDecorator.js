@@ -21,7 +21,7 @@ module.exports = class DefinitionDecorator extends Definition {
     /**
      * Get decorated definition
      *
-     * @return {Jymfony.Component.DependencyInjection.Definition}
+     * @returns {Jymfony.Component.DependencyInjection.Definition}
      */
     getParent() {
         return this._parent;

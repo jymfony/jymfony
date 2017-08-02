@@ -8,7 +8,7 @@ class LoaderResolverInterface {
      * @param {*} resource A resource
      * @param {undefined|string} type The resource type or null if unknown
      *
-     * @return {Jymfony.Component.Config.Loader.LoaderInterface|false} The loader or false if none is able to load the resource
+     * @returns {Jymfony.Component.Config.Loader.LoaderInterface|false} The loader or false if none is able to load the resource
      */
     resolve(resource, type = undefined) { }
 }

@@ -29,6 +29,10 @@ class FileLoader extends Loader {
         this._currentDir = undefined;
     }
 
+    get currentDir() {
+        return this._currentDir;
+    }
+
     /**
      * Sets the current directory.
      *
@@ -41,7 +45,7 @@ class FileLoader extends Loader {
     /**
      * Returns the file locator used by this loader.
      *
-     * @return {Jymfony.Component.Config.FileLoaderInterface}
+     * @returns {Jymfony.Component.Config.FileLoaderInterface}
      */
     get locator() {
         return this._locator;

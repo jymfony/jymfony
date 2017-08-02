@@ -1,10 +1,14 @@
 const Command = Jymfony.Component.Console.Command.Command;
 
-module.exports = class FooCommand extends Command {
+class MyCommand extends Command {
+    constructor() {
+        super();
+        super.__construct();
+    }
+
     configure() {
-        this.name = 'foo:bar';
-        this.description = 'The foo:bar command';
-        this.aliases = [ 'afoobar' ];
+        this.name = 'my:command:foo';
+        this.description = 'The my:command:foo command';
     }
 
     interact(input, output) {
@@ -17,4 +21,6 @@ module.exports = class FooCommand extends Command {
 
         output.writeln('called');
     }
-};
+}
+
+global.MyCommand = MyCommand;

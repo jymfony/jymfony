@@ -28,7 +28,7 @@ class ProcessableHandlerTrait {
      *
      * @param {*} record
      *
-     * @return {*}
+     * @returns {*}
      *
      * @protected
      */

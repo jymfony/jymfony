@@ -1,5 +1,5 @@
 const FileLocator = Jymfony.Component.Config.FileLocator;
-const JsFileLoader = Jymfony.Component.Config.Loader.JsFileLoader;
+const JsFileLoader = Jymfony.Component.DependencyInjection.Loader.JsFileLoader;
 const Extension = Jymfony.Component.DependencyInjection.Extension.Extension;
 const path = require('path');
 

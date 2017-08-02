@@ -6,7 +6,7 @@ module.exports = class FoobarCommand extends Command {
         this.description = 'The foobar:foo command';
     }
 
-    * execute(input, output) {
+    execute(input, output) {
         this.input = input;
         this.output = output;
     }

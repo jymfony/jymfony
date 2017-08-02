@@ -532,7 +532,6 @@ class ProgressBar {
     _buildLine() {
         let regex = new RegExp('%([a-z\-_]+)(?:\:([^%]+))?%', 'ig');
         let callback = (string, match1, match2) => {
-            // Console.log(args); process.exit();
             let text, formatter;
             if (formatter = ProgressBar.getPlaceholderFormatterDefinition(match1)) {
                 text = formatter(this, this._output);

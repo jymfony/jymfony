@@ -19,7 +19,7 @@ class Extension extends implementationOf(ExtensionInterface) {
         let confClass = nsName + '.Configuration';
 
         if (ReflectionClass.exists(confClass)) {
-            let reflected = new ReflectionCalss(confClass);
+            let reflected = new ReflectionClass(confClass);
             return reflected.newInstance();
         }
 

@@ -174,6 +174,7 @@ describe('[Console] Application', function () {
             'The namespace "f" is ambiguous.\nDid you mean one of these?\n    foo\n    foo1'
         );
     });
+
     it('findNamespace should throw on invalid namespace', () => {
         let application = new Application();
 

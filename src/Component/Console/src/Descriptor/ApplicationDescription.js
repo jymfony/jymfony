@@ -83,7 +83,7 @@ class ApplicationDescription {
     /**
      * @param {Object.<string, Jymfony.Component.Console.Command.Command>} commands
      *
-     * @return array
+     * @returns array
      */
     * _sortCommands(commands) {
         let namespacedCommands = {};
