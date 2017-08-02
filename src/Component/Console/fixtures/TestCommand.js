@@ -8,11 +8,11 @@ module.exports = class TestCommand extends Command {
         this.help = 'help';
     }
 
-    * execute(input, output) {
+    execute(input, output) {
         output.writeln('execute called');
     }
 
-    * interact(input, output) {
+    interact(input, output) {
         output.writeln('interact called');
     }
 };

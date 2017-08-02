@@ -111,7 +111,7 @@ class Command {
      * @param {Jymfony.Component.Console.Input.InputInterface} input An InputInterface instance
      * @param {Jymfony.Component.Console.Output.OutputInterface} output An OutputInterface instance
      *
-     * @return int The command exit code
+     * @returns int The command exit code
      *
      * @see execute()
      */
@@ -218,7 +218,7 @@ class Command {
     /**
      * Gets the InputDefinition attached to this Command.
      *
-     * @return {Jymfony.Component.Console.Input.InputDefinition} An InputDefinition instance
+     * @returns {Jymfony.Component.Console.Input.InputDefinition} An InputDefinition instance
      */
     get definition() {
         return this._definition;

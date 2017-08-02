@@ -34,7 +34,7 @@ class AbstractProcessingHandler extends mix(AbstractHandler,
      * Writes the record down to the log of the implementing handler
      *
      * @param {*} record
-     * @return void
+     * @returns void
      *
      * @abstract
      */

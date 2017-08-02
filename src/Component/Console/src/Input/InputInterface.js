@@ -55,7 +55,7 @@ class InputInterface {
     /**
      * Returns all the given arguments merged with the default values.
      *
-     * @return {Array}
+     * @returns {Array}
      */
     get arguments() { }
 
@@ -64,7 +64,7 @@ class InputInterface {
      *
      * @param {string} name The argument name
      *
-     * @return {*} The argument value
+     * @returns {*} The argument value
      *
      * @throws {Jymfony.Component.Console.Exception.InvalidArgumentException} When argument given doesn't exist
      */
@@ -92,7 +92,7 @@ class InputInterface {
     /**
      * Returns all the given options merged with the default values.
      *
-     * @return {Array}
+     * @returns {Array}
      */
     get options() { }
 
@@ -122,7 +122,7 @@ class InputInterface {
      *
      * @param {string} name The InputOption name
      *
-     * @return {boolean}
+     * @returns {boolean}
      */
     hasOption(name) { }
 

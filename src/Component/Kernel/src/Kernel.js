@@ -1,5 +1,6 @@
 const ContainerBuilder = Jymfony.Component.DependencyInjection.ContainerBuilder;
 const ConfigCache = Jymfony.Component.Config.ConfigCache;
+const KernelInterface = Jymfony.Component.Kernel.KernelInterface;
 
 const fs = require('fs');
 const path = require('path');
@@ -7,7 +8,7 @@ const path = require('path');
 /**
  * @memberOf Jymfony.Component.Kernel
  */
-class Kernel {
+class Kernel extends implementationOf(KernelInterface) {
     /**
      * Constructor.
      *
@@ -26,6 +27,18 @@ class Kernel {
          * @protected
          */
         this._debug = debug;
+
+        /**
+         * @type {string}
+         * @protected
+         */
+        this._rootDir = this.getRootDir();
+
+        /**
+         * @type {string}
+         * @protected
+         */
+        this._name = this.getName();
 
         if (this._debug) {
             this._startTime = new Date();
@@ -63,6 +76,41 @@ class Kernel {
         }
 
         this._booted = true;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    getName() {
+        if (undefined === this._name) {
+            this._name = path.basename(this._rootDir).replace(/[^a-zA-Z0-9_]+/, '');
+            if (isNumber(this._name[0])) {
+                this._name = `_${this._name}`;
+            }
+        }
+
+        return this._name;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    get environment() {
+        return this._environment;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    get debug() {
+        return this._debug;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    get container() {
+        return this._container;
     }
 
     /**

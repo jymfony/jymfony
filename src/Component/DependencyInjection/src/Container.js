@@ -16,7 +16,7 @@ class Container {
      *
      * @param parameterBag
      */
-    __construct(parameterBag) {
+    constructor(parameterBag) {
         this._parameterBag = parameterBag || new ParameterBag();
 
         this._services = {};
@@ -228,7 +228,7 @@ class Container {
     /**
      * Get all service ids
      *
-     * @return {string[]}
+     * @returns {string[]}
      */
     getServiceIds() {
         let set = new Set([ ...Object.keys(this._methodMap), ...Object.keys(this._services), 'service_container' ]);

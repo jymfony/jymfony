@@ -4,8 +4,8 @@
   "description": "Jymfony",
   "main": "index.js",
   "scripts": {
-    "test": "node ./tests.js \"src/*/test/**/*.js\" \"src/Component/*/test/**/*.js\"",
-    "coverage": "istanbul cover ./tests.js \"src/*/test/**/*.js\" \"src/Component/*/test/**/*.js\""
+    "test": "node ./tests.js \"src/*/test/**/*.js\" \"src/{Component,Bundle}/*/test/**/*.js\"",
+    "coverage": "istanbul cover ./tests.js \"src/*/test/**/*.js\" \"src/{Component,Bundle}/*/test/**/*.js\""
   },
   "keywords": [
     "jymfony",
@@ -25,6 +25,7 @@
   "config": {
     "jymfony-autoload": {
       "namespaces": {
+        "Jymfony.Bundle.FrameworkBundle": "src/Bundle/FrameworkBundle/src",
         "Jymfony.Component.Autoloader": "src/Component/Autoloader/src",
         "Jymfony.Component.Config": "src/Component/Config/src",
         "Jymfony.Component.Console": "src/Component/Console/src",

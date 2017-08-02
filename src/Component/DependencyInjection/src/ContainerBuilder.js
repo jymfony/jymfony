@@ -356,7 +356,7 @@ class ContainerBuilder extends Container {
             this.addResource(resource);
         }
 
-        for (let name of this._extensions.keys()) {
+        for (let name of Object.keys(this._extensions)) {
             if (undefined === this._extensionConfigs[name]) {
                 this._extensionConfigs[name] = {};
             }
@@ -630,7 +630,7 @@ class ContainerBuilder extends Container {
      * @param {string} id
      * @param {boolean} tryProxy
      *
-     * @return {*} The service described by the service definition
+     * @returns {*} The service described by the service definition
      *
      * @throws RuntimeException When the factory definition is incomplete or when the service is a synthetic service
      * @throws InvalidArgumentException When configure callable is not callable

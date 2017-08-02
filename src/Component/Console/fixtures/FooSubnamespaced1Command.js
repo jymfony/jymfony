@@ -7,7 +7,7 @@ module.exports = class FooSubnamespaced1Command extends Command {
         this.aliases = [ 'foobarbaz' ];
     }
 
-    * execute(input, output) {
+    execute(input, output) {
         this.input = input;
         this.output = output;
     }
