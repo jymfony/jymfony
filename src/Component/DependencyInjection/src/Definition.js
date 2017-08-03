@@ -3,7 +3,7 @@
  * @type {Jymfony.Component.DependencyInjection.Definition}
  */
 module.exports = class Definition {
-    constructor(class_ = null, args = []) {
+    constructor(class_ = undefined, args = []) {
         this._class = class_;
         this._arguments = args;
 

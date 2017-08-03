@@ -169,6 +169,13 @@ global.ReflectionClass = class ReflectionClass {
         return this._constructor;
     }
 
+    /**
+     * Checks whether this class is a subclass of a given subclass.
+     *
+     * @param {Function} parentClass
+     *
+     * @returns {boolean}
+     */
     isSubclassOf(parentClass) {
         let parent = Object.getPrototypeOf(this._constructor);
 

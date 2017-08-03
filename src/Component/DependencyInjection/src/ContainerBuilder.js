@@ -519,7 +519,7 @@ class ContainerBuilder extends Container {
      *
      * @returns {Jymfony.Component.DependencyInjection.Definition} A Definition instance
      */
-    register(id, class_) {
+    register(id, class_ = undefined) {
         return this.setDefinition(id, new Definition(class_));
     }
 
