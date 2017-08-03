@@ -169,6 +169,12 @@ global.ReflectionClass = class ReflectionClass {
         return this._constructor;
     }
 
+    isSubclassOf(parentClass) {
+        let parent = Object.getPrototypeOf(this._constructor);
+
+        return parent.prototype instanceof parentClass;
+    }
+
     /**
      * Get the fully qualified name of the reflected class
      *

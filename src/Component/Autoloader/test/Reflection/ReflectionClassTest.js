@@ -5,7 +5,6 @@ let expect = require('chai').expect;
  * cannot use the autoloader itself to load classes! :)
  */
 require('../../src/Reflection/ReflectionClass');
-var util = require("util");
 
 class GrandParent {
     get readProp() { }
@@ -15,7 +14,16 @@ class Parent extends GrandParent {
     parentMethod() { }
 }
 let ISon = getInterface(class SonInterface {});
+let ISon2 = getInterface(class Son2Interface {});
+
 class Son extends mix(Parent, ISon) {
+    constructor() { super(); this.foo = 'bar'; }
+
+    get prop() { }
+    set prop(v) { }
+}
+
+class Son2 extends mix(Parent, ISon, ISon2) {
     constructor() { super(); this.foo = 'bar'; }
 
     get prop() { }
@@ -111,4 +119,20 @@ describe('[Autoloader] ReflectionClass', function () {
             CONST_2: 'foo',
         });
     });
+
+    it('isSubclassOf should work', () => {
+        let reflClass = new ReflectionClass(Son2);
+
+        expect(reflClass.isSubclassOf(ISon2)).to.be.true;
+        expect(reflClass.isSubclassOf(ISon)).to.be.true;
+        expect(reflClass.isSubclassOf(Parent)).to.be.true;
+        expect(reflClass.isSubclassOf(GrandParent)).to.be.true;
+
+        reflClass = new ReflectionClass(Son);
+
+        expect(reflClass.isSubclassOf(ISon2)).to.be.false;
+        expect(reflClass.isSubclassOf(ISon)).to.be.true;
+        expect(reflClass.isSubclassOf(Parent)).to.be.true;
+        expect(reflClass.isSubclassOf(GrandParent)).to.be.true;
+    })
 });
