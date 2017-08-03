@@ -5,11 +5,9 @@ class PrependExtensionInterface {
     /**
      * Allow an extension to prepend the extension configurations
      *
-     * @function
-     * @name ExtensionInterface#prepend
-     *
-     * @param ContainerBuilder container
+     * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
      */
+    prepend(container) { }
 }
 
 module.exports = getInterface(PrependExtensionInterface);

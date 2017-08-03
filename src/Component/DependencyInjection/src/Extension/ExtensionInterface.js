@@ -7,45 +7,38 @@ class ExtensionInterface {
     /**
      * Load a configuration
      *
-     * @function
-     * @name ExtensionInterface#load
-     *
-     * @param {Object} configs
-     * @param {ContainerBuilder} container
+     * @param {*} configs
+     * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
      */
+    load(configs, container) { }
 
     /**
      * Returns the extension configuration object
      *
-     * @function
-     * @name ExtensionInterface#getConfiguration
-     *
-     * @returns {ConfigurationInterface}
+     * @returns {Jymfony.Component.Config.Definition.ConfigurationInterface}
      */
+    getConfiguration() { }
 
     /**
      * Namespace to be used for this extension
      *
-     * @property
-     * @name ExtensionInterface#namespace
-     * @type string
+     * @returns {string}
      */
+    get namespace() { }
 
     /**
      * Base path for the XSD files
      *
-     * @property
-     * @name ExtensionInterface#xsdValidationBasePath
-     * @type string
+     * @returns {string}
      */
+    get xsdValidationBasePath() { }
 
     /**
      * Configuration alias
      *
-     * @property
-     * @name ExtensionInterface#alias
-     * @type string
+     * @returns {string}
      */
+    get alias() { }
 }
 
 module.exports = getInterface(ExtensionInterface);
