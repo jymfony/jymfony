@@ -18,7 +18,7 @@ class FileLoader extends Loader {
     __construct(locator) {
         /**
          * @type {Jymfony.Component.Config.FileLoaderInterface}
-         * @private
+         * @protected
          */
         this._locator = locator;
 
