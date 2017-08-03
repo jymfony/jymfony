@@ -4,6 +4,9 @@ const FileLocatorFileNotFoundException = Jymfony.Component.Config.Exception.File
 const fs = require('fs');
 const path = require('path');
 
+/**
+ * @memberOf Jymfony.Component.Config
+ */
 class FileLocator extends implementationOf(FileLocatorInterface) {
     /**
      * Constructor.
@@ -56,7 +59,7 @@ class FileLocator extends implementationOf(FileLocatorInterface) {
         }
 
         if (0 === filepaths.length) {
-            throw new FileLocatorFileNotFoundException(__jymfony.sprintf('The file "%s" does not exist (in: %s).', name, paths.join(', ')), 0, undefined, notfound);
+            throw new FileLocatorFileNotFoundException(__jymfony.sprintf('The file "%s" does not exist (in: %s).', name, Array.from(paths).join(', ')), 0, undefined, notfound);
         }
 
         return filepaths;
