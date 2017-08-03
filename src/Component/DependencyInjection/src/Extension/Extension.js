@@ -8,7 +8,7 @@ const ExtensionInterface = Jymfony.Component.DependencyInjection.Extension.Exten
  *
  * @memberOf Jymfony.Component.DependencyInjection.Extension
  */
-module.exports = class Extension extends implementationOf(ExtensionInterface) {
+class Extension extends implementationOf(ExtensionInterface) {
     /**
      * @inheritDoc
      */
@@ -72,4 +72,6 @@ module.exports = class Extension extends implementationOf(ExtensionInterface) {
 
         return container.parameterBag.resolveValue(config.enabled);
     }
-};
+}
+
+module.exports = Extension;
