@@ -5,7 +5,7 @@ const InvalidArgumentException = Jymfony.Component.EventDispatcher.Exception.Inv
  * @memberOf Jymfony.Component.EventDispatcher
  */
 class EventDispatcher {
-    constructor() {
+    __construct() {
         /**
          * Listeners map.
          *
