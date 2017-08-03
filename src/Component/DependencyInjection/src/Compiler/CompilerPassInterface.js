@@ -8,11 +8,9 @@ class CompilerPassInterface {
     /**
      * Modify container
      *
-     * @function
-     * @name CompilerPassInterface#process
-     *
      * @param {ContainerBuilder} container
      */
+    process(container) { }
 }
 
 module.exports = getInterface(CompilerPassInterface);
