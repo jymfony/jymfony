@@ -4,9 +4,24 @@ class Exception extends Error {
     constructor(message, code = null, previous = undefined) {
         super(message);
 
+        /**
+         * @type {string}
+         */
         this.name = this.constructor.name;
+
+        /**
+         * @type {Exception}
+         */
         this.previous = previous;
+
+        /**
+         * @type {int}
+         */
         this.code = code;
+
+        /**
+         * @type {string}
+         */
         this.message = message;
         if ('function' === typeof Error.captureStackTrace) {
             Error.captureStackTrace(this, this.constructor);

@@ -48,9 +48,15 @@ function serialize(value) {
         throw new RuntimeException('Cannot serialize non-autoloaded object (no metadata present for deserialization)');
     }
 
-    let vals = [];
-    for (let [ k, v ] of __jymfony.getEntries(value)) {
-        vals.push(serialize(k) + ':' + serialize(v));
+    let vals = [], properties;
+    if (obj.__sleep instanceof Function) {
+        properties = obj.__sleep();
+    } else {
+        properties = Object.keys(value);
+    }
+
+    for (let k of properties) {
+        vals.push(serialize(k) + ':' + serialize(value[k]));
     }
 
     return 'C[' + reflClass.name + ']:{' + vals.join(';') + (vals.length ? ';' : '') + '}';

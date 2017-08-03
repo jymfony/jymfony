@@ -1,5 +1,5 @@
 /**
- * @memberOf {Jymfony.Component.Config.Loader}
+ * @memberOf Jymfony.Component.Config.Loader
  */
 class LoaderInterface {
     /**
