@@ -17,7 +17,6 @@
     "node": ">=6.0.0"
   },
   "dependencies": {
-    "@angular/compiler": "^4.3.3",
     "@jymfony/autoloader": "https://github.com/jymfony/autoloader.git",
     "@jymfony/exceptions": "https://github.com/jymfony/exceptions.git",
     "@jymfony/util": "https://github.com/jymfony/util.git"
