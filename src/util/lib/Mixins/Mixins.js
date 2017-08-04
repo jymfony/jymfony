@@ -82,7 +82,7 @@ class Mixins {
                         'static': isStatic,
                         'property': fn,
                         'get': undefined !== descriptor.get,
-                        'set': undefined !== descriptor.set
+                        'set': undefined !== descriptor.set,
                     };
                 }
             }
