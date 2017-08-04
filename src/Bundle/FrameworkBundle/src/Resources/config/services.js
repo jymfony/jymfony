@@ -13,3 +13,7 @@ container.register('kernel')
 container.register('cache_warmer', 'Jymfony.Component.Kernel.CacheWarmer.CacheWarmerAggregate')
     .setPublic(true)
 ;
+
+container.register('cache_clearer', 'Jymfony.Component.Kernel.CacheClearer.ChainCacheClearer')
+    .setPublic(true)
+;
