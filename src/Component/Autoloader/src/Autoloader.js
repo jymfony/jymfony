@@ -1,27 +1,58 @@
-global.__jymfony = global.__jymfony || {};
-
 const Finder = require('./Finder');
 const Namespace = require('./Namespace');
 const path = require('path');
 
 /**
+ * Main autoloader.
+ * Singleton class: the constructor returns always the
+ * same instance (in the same global context)
+ *
  * @memberOf Jymfony.Component.Autoloader
- * @type Autoloader
  */
-module.exports = class Autoloader {
+class Autoloader {
+    /**
+     * Constructor.
+     *
+     * @param {undefined|Jymfony.Component.Autoloader.Finder} finder
+     * @param {Object} globalObject
+     */
     constructor(finder = undefined, globalObject = global) {
-        if (globalObject.__jymfony.autoload) {
-            return;
+        if (globalObject.__jymfony && globalObject.__jymfony.autoload) {
+            return globalObject.__jymfony.autoload;
         }
 
         if (! finder) {
             finder = new Finder();
         }
 
+        /**
+         * @type {boolean}
+         * @private
+         */
         this._debug = false;
+
+        /**
+         * @type {boolean}
+         * @private
+         */
         this._registered = false;
+
+        /**
+         * @type {Jymfony.Component.Autoloader.Finder}
+         * @private
+         */
         this._finder = finder;
+
+        /**
+         * @type {Object}
+         * @private
+         */
         this._global = globalObject;
+        this._global.__jymfony = this._global.__jymfony || {};
+
+        /**
+         * @type {Jymfony.Component.Autoloader.Autoloader}
+         */
         this._global.__jymfony.autoload = this;
     }
 
@@ -140,4 +171,6 @@ module.exports = class Autoloader {
     _generateFqn(parent, namespace) {
         return (parent === this._global ? '' : parent.__namespace.name + '.') + namespace;
     }
-};
+}
+
+module.exports = Autoloader;
