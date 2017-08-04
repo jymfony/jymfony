@@ -33,5 +33,5 @@
     "@jymfony/property-access": "0.1.0-alpha.2",
     "@jymfony/util": "0.1.0-alpha.2"
   },
-  "flat": true,
+  "flat": true
 }
