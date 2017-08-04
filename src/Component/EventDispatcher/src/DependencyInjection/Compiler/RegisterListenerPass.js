@@ -1,7 +1,7 @@
 const CompilerPassInterface = Jymfony.Component.DependencyInjection.CompilerPassInterface;
 const EventSubscriberInterface = Jymfony.EventDispatcher.EventSubscriberInterface;
 const EventDispatcher = Jymfony.EventDispatcher.EventDispatcher;
-const ServiceClosureArgument = Jymfony.Component.DependencyInjection.Argument.ServiceClousureArgument;
+const ServiceClosureArgument = Jymfony.Component.DependencyInjection.Argument.ServiceClosureArgument;
 const NotStaticMethodException = Jymfony.Component.DependencyInjection.Exception.NotStaticMethodException;
 
 class RegisterListenerPass extends implementationOf(CompilerPassInterface) {
@@ -62,7 +62,7 @@ class RegisterListenerPass extends implementationOf(CompilerPassInterface) {
 
             try {
                 for (let args of extractingDispatcher.listeners) {
-                    args[1] = [ new ServiceClosureArgument(new Reference(id), args[1]) ];
+                    args[1] = [ new ServiceClosureArgument(new Reference(id)), args[1] ];
                     definition.addMethodCall('addListener', args);
                 }
             } catch (e) {

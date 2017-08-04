@@ -1,33 +1,31 @@
-const ArgumentInterface = Jymfony.Component.EventDispatcher.ArgumentInterface;
+const ArgumentInterface = Jymfony.Component.DependencyInjection.Argument.ArgumentInterface;
 const Reference = Jymfony.Component.DependencyInjection.Reference;
 
 /**
- * @memberOf Jymfony.Component.DependencyInjection
+ * @memberOf Jymfony.Component.DependencyInjection.Argument
  */
-class ServiceClousureArgument extends implementationOf(ArgumentInterface) {
-
+class ServiceClosureArgument extends implementationOf(ArgumentInterface) {
     /**
+     * Constructor.
+     *
      * @param {Jymfony.Component.DependencyInjection.Reference} reference
-     * @private
      */
     __construct(reference) {
         this._values = [ reference ];
     }
 
     /**
-     *
-     * @return {Array|*}
+     * @inheritDoc
      */
     get values() {
         return this._values;
     }
 
     /**
-     *
-     * @param {Array|*} values
+     * @inheritDoc
      */
     set values(values) {
-        if (values[0] === undefined || ! (values[0] instanceof Reference || null === values[0])) {
+        if (! values[0] || ! values[0] instanceof Reference) {
             throw new InvalidArgumentException('A ServiceClosureArgument must hold one and only one Reference.');
         }
 
@@ -35,4 +33,4 @@ class ServiceClousureArgument extends implementationOf(ArgumentInterface) {
     }
 }
 
-module.exports = ServiceClousureArgument;
+module.exports = ServiceClosureArgument;

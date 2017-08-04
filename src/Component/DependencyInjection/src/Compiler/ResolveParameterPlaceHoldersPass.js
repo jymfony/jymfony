@@ -1,49 +1,68 @@
-const CompilerPassInterface = Jymfony.Component.DependencyInjection.Compiler.CompilerPassInterface;
+const AbstractRecursivePass = Jymfony.Component.DependencyInjection.Compiler.AbstractRecursivePass;
+const Definition = Jymfony.Component.DependencyInjection.Definition;
 const ParameterNotFoundException = Jymfony.Component.DependencyInjection.Exception.ParameterNotFoundException;
 
 /**
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
- * @type {Jymfony.Component.DependencyInjection.Compiler.ResolveParameterPlaceHoldersPass}
  */
-module.exports = class ResolveParameterPlaceHoldersPass extends implementationOf(CompilerPassInterface) {
+class ResolveParameterPlaceHoldersPass extends AbstractRecursivePass {
     process(container) {
-        let parameterBag = container.parameterBag;
+        /**
+         * @type {Jymfony.Component.DependencyInjection.ParameterBag.ParameterBag}
+         * @private
+         */
+        this._bag = container.parameterBag;
 
-        for (let [ id, definition ] of __jymfony.getEntries(container.getDefinitions())) {
-            try {
-                definition.setClass(parameterBag.resolveValue(definition.getClass()));
-                definition.setFile(parameterBag.resolveValue(definition.getFile()));
-                definition.setArguments(parameterBag.resolveValue(definition.getArguments()));
+        try {
+            super.process(container);
 
-                let factory = definition.getFactory();
-                if (isArray(factory) && factory[0]) {
-                    factory[0] = parameterBag.resolveValue(factory[0]);
-                    definition.setFactory(factory);
-                }
+            let aliases = {};
+            for (let [ name, target ] of __jymfony.getEntries(container.getAliases())) {
+                this._currentId = name;
+                aliases[this._bag.resolveValue(name)] = this._bag.resolveValue(target);
+            }
 
-                let calls = definition.getMethodCalls();
-                for (let [ key, call ] of __jymfony.getEntries(calls)) {
-                    calls[key] = [ parameterBag.resolveValue(call[0]), parameterBag.resolveValue(call[1]) ];
-                }
-                definition.setMethodCalls(calls);
+            container.setAliases(aliases);
+        } catch (e) {
+            if (e instanceof ParameterNotFoundException) {
+                e.sourceId = this._currentId;
+            }
 
-                definition.setProperties(parameterBag.resolveValue(definition.getProperties()));
-                definition.setConfigurator(parameterBag.resolveValue(definition.getConfigurator()));
-            } catch (e) {
-                if (e instanceof ParameterNotFoundException) {
-                    e.sourceId = id;
-                }
+            throw e;
+        }
 
-                throw e;
+        this._bag.resolve();
+        this._bag = undefined;
+    }
+
+    _processValue(value, isRoot = false) {
+        if (isString(value)) {
+            return this._bag.resolveValue(value);
+        }
+
+        if (value instanceof Definition) {
+            let changes = value.getChanges();
+            if (changes['class']) {
+                value.setClass(this._bag.resolveValue(value.getClass()));
+            }
+            if (changes['file']) {
+                value.setFile(this._bag.resolveValue(value.getFile()));
             }
         }
 
-        let aliases = {};
-        for (let [ name, target ] of __jymfony.getEntries(container.getAliases())) {
-            aliases[parameterBag.resolveValue(name)] = parameterBag.resolveValue(target);
-        }
-        container.setAliases(aliases);
+        value = super._processValue(value, isRoot);
 
-        parameterBag.resolve();
+        if (isObjectLiteral(value)) {
+            let res = {};
+            for (let [ k, v ] of __jymfony.getEntries(value)) {
+                res[this._bag.resolveValue(k)] = v;
+            }
+
+            value = res;
+        }
+
+        return value;
     }
-};
+}
+
+module.exports = ResolveParameterPlaceHoldersPass;

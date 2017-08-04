@@ -1,16 +1,11 @@
-const CompilerPassInterface = Jymfony.Component.DependencyInjection.Compiler.CompilerPassInterface;
+const AbstractRecursivePass = Jymfony.Component.DependencyInjection.Compiler.AbstractRecursivePass;
 const Reference = Jymfony.Component.DependencyInjection.Reference;
 
 /**
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
- * @type {Jymfony.Component.DependencyInjection.Compiler.ReplaceAliasByActualDefinitionPass}
  */
-module.exports = class ReplaceAliasByActualDefinitionPass extends implementationOf(CompilerPassInterface) {
+module.exports = class ReplaceAliasByActualDefinitionPass extends AbstractRecursivePass {
     process(container) {
-        // Setup
-        this._compiler = container.getCompiler();
-        this._formatter = this._compiler.logFormatter;
-
         // First collect all alias targets that need to be replaced
         let seenAliasTargets = {};
         let replacements = {};
@@ -34,8 +29,8 @@ module.exports = class ReplaceAliasByActualDefinitionPass extends implementation
 
             // Process new target
             seenAliasTargets[targetId] = true;
-            let definition;
 
+            let definition;
             try {
                 definition = container.getDefinition(targetId);
             } catch (e) {
@@ -54,48 +49,20 @@ module.exports = class ReplaceAliasByActualDefinitionPass extends implementation
             replacements[targetId] = definitionId;
         }
 
-        // Now replace target instances in all definitions
-        for (let [ definitionId, definition ] of __jymfony.getEntries(container.getDefinitions())) {
-            definition.setArguments(this._updateArgumentReferences(replacements, definitionId, definition.getArguments()));
-            definition.setMethodCalls(this._updateArgumentReferences(replacements, definitionId, definition.getMethodCalls()));
-            definition.setProperties(this._updateArgumentReferences(replacements, definitionId, definition.getProperties()));
-            definition.setFactory(this._updateFactoryReference(replacements, definition.getFactory()));
-        }
+        this._replacements = replacements;
+
+        super.process(container);
+        this._replacements = {};
     }
 
-    _updateArgumentReferences(replacements, definitionId, args) {
-        for (let [ k, argument ] of __jymfony.getEntries(args)) {
-            // Handle recursion step
-            if (isArray(argument) || isObjectLiteral(argument)) {
-                args[k] = this._updateArgumentReferences(replacements, definitionId, argument);
-                continue;
-            }
-
-            // Skip args that don't need replacement
-            if (! (argument instanceof Reference)) {
-                continue;
-            }
-
-            let referenceId = argument.toString();
-            if (! replacements[referenceId]) {
-                continue;
-            }
-
-            // Perform the replacement
-            let newId = replacements[referenceId];
-            args[k] = new Reference(newId, argument.invalidBehavior);
-            this._compiler.addLogMessage(this._formatter.formatUpdateReference(this, definitionId, referenceId, newId));
+    _processValue(value, isRoot = false) {
+        if (value instanceof Reference && undefined !== this._replacements[value.toString()]) {
+            // Perform the replacement.
+            let newId = this._replacements[value.toString()];
+            let value = new Reference(newId, value.invalidBehavior);
+            this._container.log(this, __jymfony.sprintf('Changed reference of service "%s" previously pointing to "%s" to "%s".', this._currentId, value.toString(), newId));
         }
 
-        return args;
-    }
-
-    _updateFactoryReference(replacements, factory) {
-        let referenceId;
-        if (isArray(factory) && factory[0] instanceof Reference && replacements[referenceId = factory[0].toString()]) {
-            factory[0] = new Reference(replacements[referenceId], factory[0].invalidBehavior);
-        }
-
-        return factory;
+        return super._processValue(value, isRoot);
     }
 };

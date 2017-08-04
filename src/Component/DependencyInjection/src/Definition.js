@@ -1,10 +1,9 @@
 /**
  * @memberOf Jymfony.Component.DependencyInjection
- * @type {Jymfony.Component.DependencyInjection.Definition}
  */
-module.exports = class Definition {
-    constructor(class_ = undefined, args = []) {
-        this._class = class_;
+class Definition {
+    __construct(class_ = undefined, args = []) {
+        this._class = undefined;
         this._arguments = args;
 
         this._file = undefined;
@@ -21,6 +20,33 @@ module.exports = class Definition {
         this._abstract = false;
         this._lazy = false;
         this._decoratedService = undefined;
+        this._changes = {};
+
+        if (undefined !== class_) {
+            this.setClass(class_);
+        }
+    }
+
+    /**
+     * Sets the changes.
+     *
+     * @param {Object} changes
+     *
+     * @returns {Jymfony.Component.DependencyInjection.Definition}
+     */
+    setChanges(changes) {
+        this._changes = Object.assign({}, changes);
+
+        return this;
+    }
+
+    /**
+     * Return all changes tracked for the Definition object
+     *
+     * @returns {Object}
+     */
+    getChanges() {
+        return Object.assign({}, this._changes);
     }
 
     /**
@@ -31,6 +57,8 @@ module.exports = class Definition {
      * @returns {Jymfony.Component.DependencyInjection.Definition}
      */
     setFactory(factory) {
+        this._changes['factory'] = true;
+
         if (isString(factory) && -1 !== factory.indexOf('#')) {
             factory = factory.split('#', 2);
         }
@@ -62,6 +90,8 @@ module.exports = class Definition {
             throw new InvalidArgumentException('The decorated service inner name for "' + id + '" must be different than the service name');
         }
 
+        this._changes['decorated_service'] = true;
+
         if (! id) {
             this._decoratedService = undefined;
         } else {
@@ -92,6 +122,7 @@ module.exports = class Definition {
      * @returns {Jymfony.Component.DependencyInjection.Definition}
      */
     setClass(className) {
+        this._changes['class'] = true;
         this._class = className;
 
         return this;
@@ -384,6 +415,7 @@ module.exports = class Definition {
      * @returns {Jymfony.Component.DependencyInjection.Definition}
      */
     setFile(file) {
+        this._changes['file'] = true;
         this._file = file;
 
         return this;
@@ -406,6 +438,7 @@ module.exports = class Definition {
      * @returns {Jymfony.Component.DependencyInjection.Definition}
      */
     setShared(shared) {
+        this._changes['shared'] = true;
         this._shared = !! shared;
 
         return this;
@@ -428,6 +461,7 @@ module.exports = class Definition {
      * @returns {Jymfony.Component.DependencyInjection.Definition}
      */
     setPublic(_public) {
+        this._changes['public'] = true;
         this._public = !! _public;
 
         return this;
@@ -450,6 +484,7 @@ module.exports = class Definition {
      * @returns {Jymfony.Component.DependencyInjection.Definition}
      */
     setLazy(lazy) {
+        this._changes['lazy'] = true;
         this._lazy = !! lazy;
 
         return this;
@@ -531,6 +566,7 @@ module.exports = class Definition {
             this._deprecationTemplate = template;
         }
 
+        this._changes['deprecated'] = true;
         this._deprecated = !! status;
 
         return this;
@@ -564,6 +600,7 @@ module.exports = class Definition {
      * @returns {Jymfony.Component.DependencyInjection.Definition}
      */
     setConfigurator(configurator) {
+        this._changes['configurator'] = true;
         if (isString(configurator) && -1 !== configurator.indexOf('#')) {
             configurator = configurator.split('#', 2);
         }
@@ -581,4 +618,6 @@ module.exports = class Definition {
     getConfigurator() {
         return this._configurator;
     }
-};
+}
+
+module.exports = Definition;

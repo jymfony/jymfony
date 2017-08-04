@@ -1,14 +1,14 @@
 /**
- * @memberOf Jymfony.Component.DependencyInjection
+ * @memberOf Jymfony.Component.DependencyInjection.Argument
  */
 class ArgumentInterface {
     /**
-     * @returns {Array}
+     * @returns {[*]}
      */
     get values() {}
 
     /**
-     * @param {Array} values
+     * @param {[*]} values
      */
     set values(values) {}
 }

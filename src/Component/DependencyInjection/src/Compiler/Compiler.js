@@ -50,6 +50,17 @@ module.exports = class Compiler {
     }
 
     /**
+     * @final
+     */
+    log(pass, message) {
+        if (-1 !== message.indexOf("\n")) {
+            message = __jymfony.trim(message).replace("\n", "\n" + pass.constructor.name + ": ");
+        }
+
+        this.addLogMessage(pass.constructor.name + ": " + message);
+    }
+
+    /**
      * @returns {Jymfony.Component.DependencyInjection.Compiler.ServiceReferenceGraph}
      */
     getServiceReferenceGraph() {

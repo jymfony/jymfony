@@ -3,7 +3,6 @@ const ServiceCircularReferenceException = Jymfony.Component.DependencyInjection.
 
 /**
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
- * @type {Jymfony.Component.DependencyInjection.Compiler.CheckCircularReferencesPass}
  */
 module.exports = class CheckCircularReferencesPass extends implementationOf(CompilerPassInterface) {
     process(container) {

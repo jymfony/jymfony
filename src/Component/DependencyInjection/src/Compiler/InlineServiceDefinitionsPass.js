@@ -1,3 +1,5 @@
+const ArgumentInterface = Jymfony.Component.DependencyInjection.Argument.ArgumentInterface;
+const AbstractRecursivePass = Jymfony.Component.DependencyInjection.Compiler.AbstractRecursivePass;
 const RepeatablePassInterface = Jymfony.Component.DependencyInjection.Compiler.RepeatablePassInterface;
 const Definition = Jymfony.Component.DependencyInjection.Definition;
 const Reference = Jymfony.Component.DependencyInjection.Reference;
@@ -5,60 +7,54 @@ const Reference = Jymfony.Component.DependencyInjection.Reference;
 /**
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
  */
-class InlineServiceDefinitionsPass extends implementationOf(RepeatablePassInterface) {
-    process(container) {
-        this._compiler = container.getCompiler();
-        this._formatter = container.getCompiler().logFormatter;
-        this._graph = container.getCompiler().getServiceReferenceGraph();
+class InlineServiceDefinitionsPass extends mix(AbstractRecursivePass, RepeatablePassInterface) {
+    __construct() {
+        this._repeatedPass = undefined;
+        this._inlinedServiceIds = {};
 
-        container.setDefinitions(this._inlineArguments(container, container.getDefinitions(), true));
+        super.__construct();
     }
 
     /**
      * @inheritDoc
      */
     setRepeatedPass(pass) {
-        // Do nothing - unused
+        this._repeatedPass = pass;
     }
 
-    _inlineArguments(container, args, isRoot = false) {
-        for (let [ k, argument ] of __jymfony.getEntries(args)) {
-            if (isRoot) {
-                this._currentId = k;
-            }
+    /**
+     * @inheritDoc
+     */
+    get inlinedServiceIds() {
+        return Object.assign({}, this._inlinedServiceIds);
+    }
 
-            if (argument instanceof Reference) {
-                let id = argument.toString();
-                if (! container.hasDefinition(id)) {
-                    continue;
+    _processValue(value, isRoot = false) {
+        if (value instanceof ArgumentInterface) {
+            return value;
+        }
+
+        if (value instanceof Reference && this._container.hasDefinition(value.toString())) {
+            let id = value.toString();
+            let definition = this._container.getDefinition(id);
+
+            if (this._isInlineableDefinition(id, definition, this._container.getCompiler().getServiceReferenceGraph())) {
+                this._container.log(this, __jymfony.sprintf('Inlined service "%s" to "%s".', id, this._currentId));
+
+                if (undefined === this._inlinedServiceIds[id]) {
+                    this._inlinedServiceIds[id] = [];
+                }
+                this._inlinedServiceIds[id].push(this._currentId);
+
+                if (definition.isShared()) {
+                    return definition;
                 }
 
-                let definition = container.getDefinition(id);
-                if (this._isInlineableDefinition(id, definition)) {
-                    this._compiler.addLogMessage(this._formatter.formatInlineService(this, id, this._currentId));
-
-                    if (definition.isShared()) {
-                        args[k] = definition;
-                    } else {
-                        args[k] = Object.assign({}, definition);
-                    }
-                }
-            } else if (argument instanceof Definition) {
-                argument.setArguments(this._inlineArguments(container, argument.getArguments()));
-                argument.setMethodCalls(this._inlineArguments(container, argument.getMethodCalls()));
-                argument.setProperties(this._inlineArguments(container, argument.getProperties()));
-
-                let configurator = this._inlineArguments(container, [ argument.getConfigurator() ]);
-                argument.setConfigurator(configurator[0]);
-
-                let factory = this._inlineArguments(container, [ argument.getFactory() ]);
-                argument.setFactory(factory[0]);
-            } else if (isArray(argument) || isObjectLiteral(argument)) {
-                args[k] = this._inlineArguments(container, argument);
+                value = __jymfony.deepClone(definition);
             }
         }
 
-        return args;
+        return super._processValue(value, isRoot);
     }
 
     /**
@@ -71,7 +67,7 @@ class InlineServiceDefinitionsPass extends implementationOf(RepeatablePassInterf
      *
      * @private
      */
-    _isInlineableDefinition(id, definition) {
+    _isInlineableDefinition(id, definition, graph) {
         if (definition.isDeprecated()) {
             return false;
         }
@@ -84,7 +80,7 @@ class InlineServiceDefinitionsPass extends implementationOf(RepeatablePassInterf
             return false;
         }
 
-        if (! this._graph.hasNode(id)) {
+        if (! graph.hasNode(id)) {
             return true;
         }
 
@@ -93,7 +89,7 @@ class InlineServiceDefinitionsPass extends implementationOf(RepeatablePassInterf
         }
 
         let ids = [];
-        for (let edge of this._graph.getNode(id).getInEdges()) {
+        for (let edge of graph.getNode(id).getInEdges()) {
             ids.push(edge.getSourceNode().getId());
         }
 

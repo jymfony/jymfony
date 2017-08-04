@@ -1,6 +1,6 @@
-const util = require('util');
-
 const EnvVariableResource = Jymfony.Component.Config.Resource.EnvVariableResource;
+const ArgumentInterface = Jymfony.Component.DependencyInjection.Argument.ArgumentInterface;
+const ServiceClosureArgument = Jymfony.Component.DependencyInjection.Argument.ServiceClosureArgument;
 const Container = Jymfony.Component.DependencyInjection.Container;
 const ContainerBuilder = Jymfony.Component.DependencyInjection.ContainerBuilder;
 const Definition = Jymfony.Component.DependencyInjection.Definition;
@@ -513,7 +513,21 @@ ${this._addReturn(id, definition)}\
     }
 
     _dumpValue(value, interpolate = true) {
-        if (value instanceof Definition) {
+        if (value instanceof ArgumentInterface) {
+            let scope = [ this._definitionVariables, this._referenceVariables, this._variableCount ];
+            this._definitionVariables = this._referenceVariables = undefined;
+
+            try {
+                if (value instanceof ServiceClosureArgument) {
+                    value = value.values[0];
+                    let code = this._dumpValue(value, interpolate);
+
+                    return __jymfony.sprintf("(function () {\n            return %s;\n        )()", code);
+                }
+            } finally {
+                [ this._definitionVariables, this._referenceVariables, this._variableCount ] = scope;
+            }
+        } else if (value instanceof Definition) {
             if (this._definitionVariables && this._definitionVariables.has(value)) {
                 return this._dumpValue(this._definitionVariables.get(value), interpolate);
             }

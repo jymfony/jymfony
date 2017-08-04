@@ -31,6 +31,10 @@ class Interfaces {
 
     static _createHasInstance(mixin) {
         return o => {
+            if (! isObject(o)) {
+                return false;
+            }
+
             let mixins = o.constructor[Mixins.appliedInterfacesSymbol];
             if (! mixins) {
                 return false;

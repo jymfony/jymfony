@@ -1,95 +1,81 @@
-const CompilerPassInterface = Jymfony.Component.DependencyInjection.Compiler.CompilerPassInterface;
+const AbstractRecursivePass = Jymfony.Component.DependencyInjection.Compiler.AbstractRecursivePass;
+const ChildDefinition = Jymfony.Component.DependencyInjection.ChildDefinition;
 const Definition = Jymfony.Component.DependencyInjection.Definition;
-const DefinitionDecorator = Jymfony.Component.DependencyInjection.DefinitionDecorator;
+const ExceptionInterface = Jymfony.Component.DependencyInjection.Exception.ExceptionInterface;
 
 /**
- * This replaces all DefinitionDecorator instances with their equivalent fully
+ * This replaces all ChildDefinition instances with their equivalent fully
  * merged Definition instance.
  *
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
- * @type {Jymfony.Component.DependencyInjection.Compiler.ResolveDefinitionTemplatesPass}
  */
-module.exports = class ResolveDefinitionTemplatesPass extends implementationOf(CompilerPassInterface) {
-    /**
-     * @inheritDoc
-     */
-    process(container) {
-        this._compiler = container.getCompiler();
-        this._formatter = this._compiler.logFormatter;
+class ResolveDefinitionTemplatesPass extends AbstractRecursivePass {
+    _processValue(value, isRoot = false) {
+        if (! (value instanceof Definition)) {
+            return super._processValue(value, isRoot);
+        }
 
-        container.setDefinitions(this._resolveArguments(container, container.getDefinitions(), true));
-    }
+        if (isRoot) {
+            // Yes, we are specifically fetching the definition from the
+            // Container to ensure we are not operating on stale data
+            value = this._container.getDefinition(this._currentId);
+        }
 
-    /**
-     * Resolves definition decorator args.
-     *
-     * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container The ContainerBuilder
-     * @param {Object|Array} args An array of args
-     * @param {boolean} isRoot If we are processing the root definitions or not
-     *
-     * @returns {Object|Array}
-     */
-    _resolveArguments(container, args, isRoot = false) {
-        for (let [ k, argument ] of __jymfony.getEntries(args)) {
+        if (value instanceof ChildDefinition) {
+            value = this._resolveDefinition(value);
             if (isRoot) {
-                // Yes, we are specifically fetching the definition from the
-                // Container to ensure we are not operating on stale data
-                args[k] = argument = container.getDefinition(k);
-                this._currentId = k;
-            }
-
-            if (isArray(argument) || isObjectLiteral(argument)) {
-                args[k] = this._resolveArguments(container, argument);
-            } else if (argument instanceof Definition) {
-                if (argument instanceof DefinitionDecorator) {
-                    args[k] = argument = this._resolveDefinition(container, argument);
-                    if (isRoot) {
-                        container.setDefinition(k, argument);
-                    }
-                }
-
-                argument.setArguments(this._resolveArguments(container, argument.getArguments()));
-                argument.setMethodCalls(this._resolveArguments(container, argument.getMethodCalls()));
-                argument.setProperties(this._resolveArguments(container, argument.getProperties()));
-
-                let configurator = this._resolveArguments(container, [ argument.getConfigurator() ]);
-                argument.setConfigurator(configurator[0]);
-
-                let factory = this._resolveArguments(container, [ argument.getFactory() ]);
-                argument.setFactory(factory[0]);
+                this._container.setDefinition(this._currentId, value);
             }
         }
 
-        return args;
+        return super._processValue(value, isRoot);
     }
 
     /**
      * Resolves the definition.
      *
-     * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
-     * @param {Jymfony.Component.DependencyInjection.DefinitionDecorator} definition
+     * @param {Jymfony.Component.DependencyInjection.ChildDefinition} definition
      *
      * @returns {Jymfony.Component.DependencyInjection.Definition}
      *
      * @throws {RuntimeException} When the definition is invalid
      */
-    _resolveDefinition(container, definition) {
+    _resolveDefinition(definition) {
+        try {
+            this._doResolveDefinition(definition);
+        } catch (e) {
+            if (e instanceof ExceptionInterface) {
+                e.message = __jymfony.sprintf('Service "%s": %s', this._currentId, e.message);
+            }
+
+            throw e;
+        }
+    }
+
+    /**
+     * @param {Jymfony.Component.DependencyInjection.ChildDefinition} definition
+     *
+     * @returns {Jymfony.Component.DependencyInjection.Definition}
+     *
+     * @private
+     */
+    _doResolveDefinition(definition) {
         let parent = definition.getParent();
-        if (! container.has(parent.toString())) {
+        if (! this._container.has(parent.toString())) {
             throw new RuntimeException(`The parent definition "${parent.toString()}" defined for definition "${this._currentId} does not exist.`);
         }
 
-        let parentDef = container.findDefinition(parent.toString());
-        if (parentDef instanceof DefinitionDecorator) {
+        let parentDef = this._container.findDefinition(parent.toString());
+        if (parentDef instanceof ChildDefinition) {
             let id = this._currentId;
             this._currentId = parent;
 
-            parentDef = this._resolveDefinition(container, parentDef.toString());
-            container.setDefinition(parent.toString(), parentDef);
+            parentDef = this._resolveDefinition(parentDef);
+            this._container.setDefinition(parent.toString(), parentDef);
             this._currentId = id;
         }
 
-        this._compiler.addLogMessage(this._formatter.formatResolveInheritance(this, this._currentId, parent.toString()));
+        this._container.log(this, __jymfony.sprintf('Resolving inheritance for "%s" (parent: %s).', this._currentId, parent.toString()));
         let def = new Definition();
 
         def.setClass(parentDef.getClass());
@@ -106,6 +92,7 @@ module.exports = class ResolveDefinitionTemplatesPass extends implementationOf(C
         def.setFile(parentDef.getFile());
         def.setPublic(parentDef.isPublic());
         def.setLazy(parentDef.isLazy());
+        def.setChanges(parentDef.getChanges());
 
         let changes = definition.getChanges();
         if (changes.class) {
@@ -165,4 +152,6 @@ module.exports = class ResolveDefinitionTemplatesPass extends implementationOf(C
 
         return def;
     }
-};
+}
+
+module.exports = ResolveDefinitionTemplatesPass;

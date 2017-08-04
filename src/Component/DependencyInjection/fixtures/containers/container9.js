@@ -1,6 +1,4 @@
 const ContainerBuilder = Jymfony.Component.DependencyInjection.ContainerBuilder;
-const ParameterBag = Jymfony.Component.DependencyInjection.ParameterBag.ParameterBag;
-const Parameter = Jymfony.Component.DependencyInjection.Parameter;
 const Reference = Jymfony.Component.DependencyInjection.Reference;
 
 let container = new ContainerBuilder();

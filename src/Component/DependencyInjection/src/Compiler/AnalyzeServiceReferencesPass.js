@@ -1,3 +1,5 @@
+const ArgumentInterface = Jymfony.Component.DependencyInjection.Argument.ArgumentInterface;
+const AbstractRecursivePass = Jymfony.Component.DependencyInjection.Compiler.AbstractRecursivePass;
 const RepeatablePassInterface = Jymfony.Component.DependencyInjection.Compiler.RepeatablePassInterface;
 const Definition = Jymfony.Component.DependencyInjection.Definition;
 const Reference = Jymfony.Component.DependencyInjection.Reference;
@@ -5,9 +7,8 @@ const Reference = Jymfony.Component.DependencyInjection.Reference;
 /**
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
  */
-class AnalyzeServiceReferencesPass extends implementationOf(RepeatablePassInterface) {
-    constructor(onlyConstructorArguments = false) {
-        super();
+class AnalyzeServiceReferencesPass extends mix(AbstractRecursivePass, RepeatablePassInterface) {
+    __construct(onlyConstructorArguments = false) {
         this._onlyConstructorArguments = onlyConstructorArguments;
     }
 
@@ -22,60 +23,70 @@ class AnalyzeServiceReferencesPass extends implementationOf(RepeatablePassInterf
      * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
      */
     process(container) {
-        this._container = container;
+        /**
+         * @type {Jymfony.Component.DependencyInjection.Compiler.ServiceReferenceGraph}
+         * @private
+         */
         this._graph = container.getCompiler().getServiceReferenceGraph();
         this._graph.clear();
-
-        for (let [ id, definition ] of __jymfony.getEntries(container.getDefinitions())) {
-            if (definition.isSynthetic() || definition.isAbstract()) {
-                continue;
-            }
-
-            this._currentId = id;
-            this._currentDefinition = definition;
-            this._processArguments(definition.getArguments());
-
-            if (isArray(definition.getFactory())) {
-                this._processArguments(definition.getFactory());
-            }
-
-            if (! this._onlyConstructorArguments) {
-                this._processArguments(definition.getMethodCalls());
-                this._processArguments(definition.getProperties());
-
-                if (definition.getConfigurator()) {
-                    this._processArguments([ definition.getConfigurator() ]);
-                }
-            }
-        }
+        this._lazy = false;
 
         for (let [ id, alias ] of __jymfony.getEntries(container.getAliases())) {
             this._graph.connect(id, alias, alias.toString(), this._getDefinition(alias), null);
         }
+
+        super.process(container);
     }
 
-    _processArguments(args) {
-        for (let argument of Object.values(args)) {
-            if (isArray(argument) || isObjectLiteral(argument)) {
-                this._processArguments(argument);
-            } else if (argument instanceof Reference) {
-                this._graph.connect(
-                    this._currentId,
-                    this._currentDefinition,
-                    this._getDefinitionId(argument.toString()),
-                    this._getDefinition(argument.toString()),
-                    argument
-                );
-            } else if (argument instanceof Definition) {
-                this._processArguments(argument.getArguments());
-                this._processArguments(argument.getMethodCalls());
-                this._processArguments(argument.getProperties());
+    _processValue(value, isRoot = false) {
+        let lazy = this._lazy;
 
-                if (isArray(argument.getFactory())) {
-                    this._processArguments(argument.getFactory());
-                }
-            }
+        if (value instanceof ArgumentInterface) {
+            this._lazy = true;
+            super._processValue(value.values);
+            this._lazy = lazy;
+
+            return value;
         }
+
+        if (value instanceof Reference) {
+            let targetDefinition = this._getDefinition(value.toString());
+
+            this._graph.connect(
+                this._currentId,
+                this._currentDefinition,
+                this._getDefinitionId(value.toString()),
+                targetDefinition,
+                value
+            );
+
+            return value;
+        }
+
+        if (! (value instanceof Definition)) {
+            return super._processValue(value, isRoot);
+        }
+
+        if (isRoot) {
+            if (value.isSynthetic() || value.isAbstract()) {
+                return value;
+            }
+
+            this._currentDefinition = value;
+        }
+
+        this._lazy = false;
+
+        this._processValue(value.getFactory());
+        this._processValue(value.getArguments());
+
+        if (! this._onlyConstructorArguments) {
+            this._processValue(value.getProperties());
+            this._processValue(value.getMethodCalls());
+            this._processValue(value.getConfigurator());
+        }
+
+        this._lazy = lazy;
     }
 
     _getDefinition(id) {
