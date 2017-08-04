@@ -18,7 +18,7 @@
     "node": ">=6.0.0"
   },
   "dependencies": {
-    "@jymfony/autoload": "0.1.0-alpha.2",
+    "@jymfony/autoloader": "0.1.0-alpha.2",
     "@jymfony/config": "0.1.0-alpha.2",
     "@jymfony/console": "0.1.0-alpha.2",
     "@jymfony/dependency-injection": "0.1.0-alpha.2",
