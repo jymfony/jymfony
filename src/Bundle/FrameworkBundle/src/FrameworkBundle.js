@@ -1,5 +1,7 @@
 const Bundle = Jymfony.Component.Kernel.Bundle;
 
+const AddConsoleCommandPass = Jymfony.Component.Console.DependencyInjection.AddConsoleCommandPass;
+
 /**
  * Bundle
  *
@@ -16,7 +18,10 @@ class FrameworkBundle extends implementationOf(Bundle) {
      * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
      */
     build(container) {
-        container.addCompilerPass(new RegisterListenerPass());
+        container
+            .addCompilerPass(new RegisterListenerPass())
+            .addCompilerPass(new AddConsoleCommandPass())
+        ;
     }
 }
 
