@@ -277,7 +277,7 @@ class Command {
      * This method can set both the namespace and the name if
      * you separate them by a colon (:)
      *
-     *     $command->setName('foo:bar');
+     *     command.name = 'foo:bar';
      *
      * @param {string} name The command name
      *
