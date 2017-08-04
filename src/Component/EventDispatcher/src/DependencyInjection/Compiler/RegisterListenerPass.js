@@ -1,9 +1,12 @@
-const CompilerPassInterface = Jymfony.Component.DependencyInjection.CompilerPassInterface;
-const EventSubscriberInterface = Jymfony.EventDispatcher.EventSubscriberInterface;
-const EventDispatcher = Jymfony.EventDispatcher.EventDispatcher;
+const CompilerPassInterface = Jymfony.Component.DependencyInjection.Compiler.CompilerPassInterface;
+const EventSubscriberInterface = Jymfony.Component.EventDispatcher.EventSubscriberInterface;
+const EventDispatcher = Jymfony.Component.EventDispatcher.EventDispatcher;
 const ServiceClosureArgument = Jymfony.Component.DependencyInjection.Argument.ServiceClosureArgument;
 const NotStaticMethodException = Jymfony.Component.DependencyInjection.Exception.NotStaticMethodException;
 
+/**
+ * @memberOf Jymfony.Component.EventDispatcher.DependencyInjection.Compiler
+ */
 class RegisterListenerPass extends implementationOf(CompilerPassInterface) {
     __construct (dispatcherService = 'event_dispatcher', listenerTag = 'kernel.event_listener', subscriberTag = 'kernel.event_subscriber') {
         this.dispatcherService = dispatcherService;
@@ -54,7 +57,7 @@ class RegisterListenerPass extends implementationOf(CompilerPassInterface) {
             let myReflectionClass = new ReflectionClass(myclass);
 
             if (! myReflectionClass.isSubclassOf(EventSubscriberInterface)) {
-                throw new InvalidArgumentException(__jymfony.sprintf('Service "%s" must implement interface "Jymfony.EventDispatcher.EventSubscriberInterface".', id));
+                throw new InvalidArgumentException(__jymfony.sprintf('Service "%s" must implement interface "Jymfony.Component.EventDispatcher.EventSubscriberInterface".', id));
             }
 
             container.addObjectResource(myclass);

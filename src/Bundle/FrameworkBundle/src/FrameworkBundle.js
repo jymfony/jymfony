@@ -1,18 +1,14 @@
 const Bundle = Jymfony.Component.Kernel.Bundle;
 const RegisterListenerPass = Jymfony.Component.EventDispatcher.DependencyInjection.Compiler.RegisterListenerPass;
-const AddCacheWarmerPass = Jymfony.Bundle.FrameworkBundle.DependencyInjection.Component.AddCacheWarmerPass;
+const AddCacheWarmerPass = Jymfony.Bundle.FrameworkBundle.DependencyInjection.Compiler.AddCacheWarmerPass;
 const AddConsoleCommandPass = Jymfony.Component.Console.DependencyInjection.AddConsoleCommandPass;
 
 /**
  * Bundle
  *
- * @memberOf Jymfony.FrameworkBundle
+ * @memberOf Jymfony.Bundle.FrameworkBundle
  */
-class FrameworkBundle extends implementationOf(Bundle) {
-    boot() {
-
-    }
-
+class FrameworkBundle extends Bundle {
     /**
      * Builds the bundle
      *

@@ -1,5 +1,6 @@
 const Alias = Jymfony.Component.DependencyInjection.Alias;
 const Compiler = Jymfony.Component.DependencyInjection.Compiler.Compiler;
+const PassConfig = Jymfony.Component.DependencyInjection.Compiler.PassConfig;
 const Container = Jymfony.Component.DependencyInjection.Container;
 const Definition = Jymfony.Component.DependencyInjection.Definition;
 const BadMethodCallException = Jymfony.Component.DependencyInjection.Exception.BadMethodCallException;
@@ -231,7 +232,7 @@ class ContainerBuilder extends Container {
      *
      * @returns {Jymfony.Component.DependencyInjection.ContainerBuilder}
      */
-    addCompilerPass(pass, type, priority = 0) {
+    addCompilerPass(pass, type = PassConfig.TYPE_BEFORE_OPTIMIZATION, priority = 0) {
         let compiler = this.getCompiler();
         compiler.addPass(pass, type, priority);
 

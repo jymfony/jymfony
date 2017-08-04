@@ -61,7 +61,7 @@ class PassConfig {
             collection[priority] = [];
         }
 
-        collection.priority.push(pass);
+        collection[priority].push(pass);
     }
 
     * getPasses() {
