@@ -3,12 +3,12 @@
 
 /** @global container */
 /** @var {Jymfony.Component.DependencyInjection.Containercontainer} container */
+
 container.setParameter('console.command.ids', [ 'command_1', 'command_2' ]);
-container.register('command_1', 'MyCommand')
+container.register('command_1', 'Jymfony.Bundle.FrameworkBundle.Tests.Fixtures.MyCommand')
     .setPublic(true)
-    .setFile(`${loader.currentDir}/../MyCommand.js`)
 ;
-container.register('command_2', 'MyCommand2')
+
+container.register('command_2', 'Jymfony.Bundle.FrameworkBundle.Tests.Fixtures.MyCommand2')
     .setPublic(true)
-    .setFile(`${loader.currentDir}/../MyCommand2.js`)
 ;

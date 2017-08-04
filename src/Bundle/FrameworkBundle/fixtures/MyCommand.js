@@ -1,11 +1,6 @@
 const Command = Jymfony.Component.Console.Command.Command;
 
 class MyCommand extends Command {
-    constructor() {
-        super();
-        super.__construct();
-    }
-
     configure() {
         this.name = 'my:command:foo';
         this.description = 'The my:command:foo command';
@@ -23,4 +18,4 @@ class MyCommand extends Command {
     }
 }
 
-global.MyCommand = MyCommand;
+module.exports = MyCommand;

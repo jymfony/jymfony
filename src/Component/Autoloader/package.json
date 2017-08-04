@@ -17,11 +17,13 @@
   "engines": {
     "node": ">=6.0.0"
   },
+  "dependencies": {
+    "@jymfony/util": "https://github.com/jymfony/util.git"
+  },
   "devDependencies": {
     "chai": "^3.5.0",
     "istanbul": "^0.4",
-    "mocha": "^3.0",
-    "@jymfony/util": "https://github.com/jymfony/util.git"
+    "mocha": "^3.0"
   },
   "config": {
     "jymfony-autoload": {

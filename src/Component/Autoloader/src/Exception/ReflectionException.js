@@ -1,6 +1,7 @@
 /**
  * @memberOf Jymfony.Component.Autoloader.Exception
- * @type ReflectionException
  */
-module.exports = class ReflectionException extends Error {
-};
+class ReflectionException extends Error {
+}
+
+module.exports = ReflectionException;
