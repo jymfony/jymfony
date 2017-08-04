@@ -1,6 +1,6 @@
 {
-  "name": "jymfony-exceptions",
-  "version": "0.1.0",
+  "name": "@jymfony/exceptions",
+  "version": "0.1.0-dev",
   "description": "Jymfony exception (core package)",
   "main": "index.js",
   "scripts": {

@@ -1,0 +1,37 @@
+{
+  "name": "jymfony",
+  "version": "0.1.0-dev",
+  "description": "Jymfony",
+  "keywords": [
+    "jymfony",
+    "framework"
+  ],
+  "author": "Alessandro Chitolina <alekitto@gmail.com>",
+  "contributors": [
+    {
+      "name": "Community",
+      "url": "https://github.com/jymfony/jymfony/graphs/contributors"
+    }
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "dependencies": {
+    "@jymfony/autoload": "0.1.0-dev",
+    "@jymfony/config": "0.1.0-dev",
+    "@jymfony/console": "0.1.0-dev",
+    "@jymfony/dependency-injection": "0.1.0-dev",
+    "@jymfony/datastructure": "0.1.0-dev",
+    "@jymfony/datetime": "0.1.0-dev",
+    "@jymfony/event-dispatcher": "0.1.0-dev",
+    "@jymfony/exceptions": "0.1.0-dev",
+    "@jymfony/framework-bundle": "0.1.0-dev",
+    "@jymfony/kernel": "0.1.0-dev",
+    "@jymfony/lexer": "0.1.0-dev",
+    "@jymfony/logger": "0.1.0-dev",
+    "@jymfony/property-access": "0.1.0-dev",
+    "@jymfony/util": "0.1.0-dev"
+  },
+  "flat": true,
+}

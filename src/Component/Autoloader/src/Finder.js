@@ -1,8 +1,7 @@
 /**
  * @memberOf Jymfony.Component.Autoloader
- * @type Finder
  */
-module.exports = class Finder {
+class Finder {
     constructor(fs = require('fs'), path = require('path'), currentModule = module) {
         this._fs = fs;
         this._path = path;
@@ -80,6 +79,33 @@ module.exports = class Finder {
     listModules() {
         let root = this.findRoot();
         let parts = root.split(this._path.sep);
+        let firstLevel = true;
+        let self = this;
+        let currentDir;
+
+        let rd = function * (dir, ignoreErrors = false) {
+            let stat;
+
+            try {
+                dir = self._fs.realpathSync(dir);
+                stat = self._fs.statSync(dir);
+            } catch (e) {
+                if (! ignoreErrors) {
+                    throw e;
+                }
+
+                return [];
+            }
+
+            if (! stat.isDirectory()) {
+                let e = new Error;
+                e.code = 'ENOENT';
+
+                throw e;
+            }
+
+            yield * self._fs.readdirSync(dir);
+        };
 
         let processor = function * (list) {
             for (let name of list) {
@@ -87,30 +113,30 @@ module.exports = class Finder {
                     continue;
                 }
 
-                yield name;
+                if (firstLevel && '@' === name[0]) {
+                    firstLevel = false;
+
+                    for (let sub of processor(rd(self._path.join(currentDir, name), true))) {
+                        yield name + '/' + sub;
+                    }
+
+                    firstLevel = true;
+                } else {
+                    yield name;
+                }
             }
         };
 
         for (; parts.length; parts.pop()) {
-            let dir = this._normalizePath(parts, 'node_modules');
-            let stat;
+            currentDir = this._normalizePath(parts, 'node_modules');
 
             try {
-                dir = this._fs.realpathSync(dir);
-                stat = this._fs.statSync(dir);
+                return Array.from(processor(rd(currentDir)));
             } catch (e) {
                 if (! e.code || 'ENOENT' !== e.code) {
                     throw e;
                 }
-
-                continue;
             }
-
-            if (! stat.isDirectory()) {
-                continue;
-            }
-
-            return Array.from(processor(this._fs.readdirSync(dir)));
         }
 
         return [];
@@ -133,4 +159,6 @@ module.exports = class Finder {
 
         return `/${joined}`;
     }
-};
+}
+
+module.exports = Finder;

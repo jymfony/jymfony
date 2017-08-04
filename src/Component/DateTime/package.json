@@ -1,6 +1,6 @@
 {
-  "name": "jymfony-datetime",
-  "version": "0.1.0",
+  "name": "@jymfony/datetime",
+  "version": "0.1.0-dev",
   "description": "Jymfony DateTime Component",
   "scripts": {
     "test": "node ./tests.js test/**",
@@ -19,10 +19,10 @@
     "node": ">=6.0.0"
   },
   "dependencies": {
-    "jymfony-autoloader": "https://github.com/jymfony/autoloader.git",
-    "jymfony-exceptions": "https://github.com/jymfony/exceptions.git",
-    "jymfony-lexer": "https://github.com/jymfony/lexer.git",
-    "jymfony-util": "https://github.com/jymfony/util.git"
+    "@jymfony/autoloader": "https://github.com/jymfony/autoloader.git",
+    "@jymfony/exceptions": "https://github.com/jymfony/exceptions.git",
+    "@jymfony/lexer": "https://github.com/jymfony/lexer.git",
+    "@jymfony/util": "https://github.com/jymfony/util.git"
   },
   "devDependencies": {
     "chai": "^3.5.0",

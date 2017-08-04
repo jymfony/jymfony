@@ -1,6 +1,6 @@
 {
-  "name": "jymfony-property-access",
-  "version": "0.1.0",
+  "name": "@jymfony/property-access",
+  "version": "0.1.0-dev",
   "description": "Jymfony Propery Access",
   "scripts": {
     "test": "node ./tests.js",
@@ -17,9 +17,9 @@
     "node": ">=6.0.0"
   },
   "dependencies": {
-    "jymfony-autoloader": "https://github.com/jymfony/autoloader.git",
-    "jymfony-exceptions": "https://github.com/jymfony/exceptions.git",
-    "jymfony-util": "https://github.com/jymfony/util.git"
+    "@jymfony/autoloader": "https://github.com/jymfony/autoloader.git",
+    "@jymfony/exceptions": "https://github.com/jymfony/exceptions.git",
+    "@jymfony/util": "https://github.com/jymfony/util.git"
   },
   "devDependencies": {
     "chai": "^3.5.0",

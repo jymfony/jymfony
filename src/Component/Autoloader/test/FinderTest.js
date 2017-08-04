@@ -138,13 +138,26 @@ describe('[Autoloader] Finder', function () {
         };
 
         let fs = {
-            readdirSync: () => {
-                return [
-                    '.bin',
-                    'jymfony-autoloader',
-                    'chai',
-                    'jymfony-event-dispatcher'
-                ];
+            readdirSync: (dir) => {
+                // console.log(dir); process.exit();
+                if ('/var/node/node_modules' === dir) {
+                    return [
+                        '.bin',
+                        'jymfony-autoloader',
+                        'chai',
+                        'jymfony-event-dispatcher',
+                        '@jymfony'
+                    ];
+                }
+
+                if ('/var/node/node_modules/@jymfony' === dir) {
+                    return [
+                        'dependency-injection',
+                        'framework-bundle',
+                    ];
+                }
+
+                return [];
             },
             realpathSync: fn => fn,
             statSync: (fn) => {
@@ -169,9 +182,13 @@ describe('[Autoloader] Finder', function () {
                             isDirectory: () => true
                         };
 
+                    case '/var/node/node_modules/@jymfony':
+                        return {
+                            isDirectory: () => true
+                        };
 
                     default:
-                        throw new Error('Unexpected argument');
+                        throw new Error('Unexpected argument "' + fn + '"');
                 }
             },
         };
@@ -180,7 +197,9 @@ describe('[Autoloader] Finder', function () {
         expect(finder.listModules()).to.be.deep.equal([
             'jymfony-autoloader',
             'chai',
-            'jymfony-event-dispatcher'
+            'jymfony-event-dispatcher',
+            '@jymfony/dependency-injection',
+            '@jymfony/framework-bundle',
         ]);
     });
 
