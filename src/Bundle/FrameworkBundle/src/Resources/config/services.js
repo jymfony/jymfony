@@ -9,3 +9,7 @@ container.register('kernel')
     .setPublic(true)
     .setSynthetic(true)
 ;
+
+container.register('cache_warmer', 'Jymfony.Component.Kernel.CacheWarmer.CacheWarmerAggregate')
+    .setPublic(true)
+;

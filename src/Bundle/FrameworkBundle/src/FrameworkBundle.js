@@ -1,5 +1,6 @@
 const Bundle = Jymfony.Component.Kernel.Bundle;
-
+const RegisterListenerPass = Jymfony.Component.EventDispatcher.DependencyInjection.Compiler.RegisterListenerPass;
+const AddCacheWarmerPass = Jymfony.Bundle.FrameworkBundle.DependencyInjection.Component.AddCacheWarmerPass;
 /**
  * Bundle
  *
@@ -17,6 +18,7 @@ class FrameworkBundle extends implementationOf(Bundle) {
      */
     build(container) {
         container.addCompilerPass(new RegisterListenerPass());
+        container.addCompilerPass(new AddCacheWarmerPass());
     }
 }
 
