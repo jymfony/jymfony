@@ -53,10 +53,10 @@ module.exports = class Bundle extends implementationOf(ContainerAwareTrait) {
                 let basename = this.getName().replace(/Bundle$/, '');
                 let expectedAlias = Container.underscore(basename);
 
-                if (expectedAlias != extension.alias) {
+                if (expectedAlias !== extension.alias) {
                     throw new LogicException(
                         `Users will expect the alias of the default extension of a bundle to be the underscored version of the bundle name ("${expectedAlias}"). ` +
-                        `You can override "Bundle::getContainerExtension()" if you want to use "${extension.getAlias()}" or another alias.`
+                        `You can override "Bundle::getContainerExtension()" if you want to use "${extension.alias}" or another alias.`
                     );
                 }
 
