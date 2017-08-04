@@ -21,8 +21,7 @@ class EventSubscriberInterface {
      *
      * @returns {Object} The events name to listen to
      */
-
-    getSubscribedEvents() { }
+    static getSubscribedEvents() { }
 }
 
 module.exports = getInterface(EventSubscriberInterface);
