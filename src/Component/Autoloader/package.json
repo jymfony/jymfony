@@ -1,6 +1,6 @@
 {
   "name": "@jymfony/autoloader",
-  "version": "0.1.0-dev",
+  "version": "0.1.0-alpha.2",
   "description": "Jymfony Autoloader",
   "main": "index.js",
   "scripts": {
@@ -17,11 +17,13 @@
   "engines": {
     "node": ">=6.0.0"
   },
+  "dependencies": {
+    "@jymfony/util": "0.1.0-alpha.2"
+  },
   "devDependencies": {
     "chai": "^3.5.0",
     "istanbul": "^0.4",
-    "mocha": "^3.0",
-    "@jymfony/util": "https://github.com/jymfony/util.git"
+    "mocha": "^3.0"
   },
   "config": {
     "jymfony-autoload": {
