@@ -1,2 +1,2 @@
-require('jymfony-util');
+require('@jymfony/util');
 require('./src/all');
