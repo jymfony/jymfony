@@ -1,6 +1,7 @@
 const Mixins = require('./Mixins');
-
 const CLASS_TYPE = 'Interface';
+
+let checkedClassesCache = new Set;
 
 class Interfaces {
     static isInterface(mixin) {
@@ -9,13 +10,41 @@ class Interfaces {
 
     static create(definition) {
         let checks = obj => {
-            let funcs = Mixins.getFunctions(definition);
+            if (checkedClassesCache.has(obj.constructor)) {
+                return;
+            }
 
-            for (let fn of funcs) {
-                if ('function' !== typeof obj[fn]) {
-                    throw new SyntaxError('Method "' + fn + '" must be implemented');
+            for (let descriptor of Mixins.getFunctions(definition)) {
+                if (descriptor.fn) {
+                    if ('function' === typeof obj[descriptor.fn]) {
+                        continue;
+                    }
+
+                    if (descriptor['static'] && 'function' === typeof obj.constructor[descriptor.fn]) {
+                        continue;
+                    }
+
+                    throw new SyntaxError('Method "' + descriptor.fn + '" must be implemented.');
+                } else if (descriptor.property) {
+                    let target = descriptor['static'] ? obj.constructor : obj;
+                    let targetDescriptor = Mixins.getPropertyDescriptor(target, descriptor.property);
+
+                    if (undefined === targetDescriptor) {
+                        throw new SyntaxError(
+                            __jymfony.sprintf('Getter/Setter for "%s" property must be implemented.', descriptor.property)
+                        )
+                    }
+
+                    if (descriptor['get'] && undefined === targetDescriptor.get) {
+                        throw new SyntaxError('Getter for "' + descriptor.property + '" property must be implemented.');
+                    }
+                    if (descriptor['set'] && undefined === targetDescriptor.set) {
+                        throw new SyntaxError('Setter for "' + descriptor.property + '" property must be implemented.');
+                    }
                 }
             }
+
+            checkedClassesCache.add(obj.constructor);
         };
 
         let mixin = Mixins.createMixin(definition, undefined, checks);
