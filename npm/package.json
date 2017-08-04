@@ -1,6 +1,6 @@
 {
   "name": "jymfony",
-  "version": "0.1.0-alpha.2",
+  "version": "0.1.0-alpha.3",
   "description": "Jymfony",
   "keywords": [
     "jymfony",
@@ -18,20 +18,20 @@
     "node": ">=6.0.0"
   },
   "dependencies": {
-    "@jymfony/autoloader": "0.1.0-alpha.2",
-    "@jymfony/config": "0.1.0-alpha.2",
-    "@jymfony/console": "0.1.0-alpha.2",
-    "@jymfony/dependency-injection": "0.1.0-alpha.2",
-    "@jymfony/datastructure": "0.1.0-alpha.2",
-    "@jymfony/datetime": "0.1.0-alpha.2",
-    "@jymfony/event-dispatcher": "0.1.0-alpha.2",
-    "@jymfony/exceptions": "0.1.0-alpha.2",
-    "@jymfony/framework-bundle": "0.1.0-alpha.2",
-    "@jymfony/kernel": "0.1.0-alpha.2",
-    "@jymfony/lexer": "0.1.0-alpha.2",
-    "@jymfony/logger": "0.1.0-alpha.2",
-    "@jymfony/property-access": "0.1.0-alpha.2",
-    "@jymfony/util": "0.1.0-alpha.2"
+    "@jymfony/autoloader": "0.1.0-alpha.3",
+    "@jymfony/config": "0.1.0-alpha.3",
+    "@jymfony/console": "0.1.0-alpha.3",
+    "@jymfony/dependency-injection": "0.1.0-alpha.3",
+    "@jymfony/datastructure": "0.1.0-alpha.3",
+    "@jymfony/datetime": "0.1.0-alpha.3",
+    "@jymfony/event-dispatcher": "0.1.0-alpha.3",
+    "@jymfony/exceptions": "0.1.0-alpha.3",
+    "@jymfony/framework-bundle": "0.1.0-alpha.3",
+    "@jymfony/kernel": "0.1.0-alpha.3",
+    "@jymfony/lexer": "0.1.0-alpha.3",
+    "@jymfony/logger": "0.1.0-alpha.3",
+    "@jymfony/property-access": "0.1.0-alpha.3",
+    "@jymfony/util": "0.1.0-alpha.3"
   },
   "flat": true
 }

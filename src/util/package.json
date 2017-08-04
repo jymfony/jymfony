@@ -1,6 +1,6 @@
 {
   "name": "@jymfony/util",
-  "version": "0.1.0-alpha.2",
+  "version": "0.1.0-alpha.3",
   "description": "Jymfony util functions",
   "main": "index.js",
   "scripts": {
@@ -17,7 +17,7 @@
     "node": ">=6.0.0"
   },
   "dependencies": {
-    "@jymfony/exceptions": "0.1.0-alpha.2"
+    "@jymfony/exceptions": "0.1.0-alpha.3"
   },
   "devDependencies": {
     "chai": "^3.5.0",

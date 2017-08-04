@@ -32,7 +32,7 @@ class Interfaces {
                     if (undefined === targetDescriptor) {
                         throw new SyntaxError(
                             __jymfony.sprintf('Getter/Setter for "%s" property must be implemented.', descriptor.property)
-                        )
+                        );
                     }
 
                     if (descriptor['get'] && undefined === targetDescriptor.get) {
