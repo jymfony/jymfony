@@ -51,27 +51,47 @@ class Mixins {
         return definition[symOuterMixin];
     }
 
+    static getPropertyDescriptor(obj, propKey) {
+        do {
+            const descriptor = Object.getOwnPropertyDescriptor(obj, propKey);
+            if (undefined !== descriptor) {
+                return descriptor;
+            }
+        } while (obj = Object.getPrototypeOf(obj));
+
+        return undefined;
+    }
+
     /**
      * Get function names
      *
      * @param {Function} definition
      * @internal
      */
-    static getFunctions(definition) {
+    static * getFunctions(definition) {
         let chain = this._getClassChain(definition);
+        const gen = function * (obj, isStatic) {
+            for (let fn of Object.getOwnPropertyNames(obj)) {
+                let descriptor = Object.getOwnPropertyDescriptor(obj, fn);
+                if ('constructor' !== fn && 'function' === typeof descriptor.value) {
+                    yield {'static': isStatic, fn: fn};
+                }
 
-        return Array.from(function * () {
-            for (let i of chain) {
-                yield * Object.getOwnPropertyNames(i.prototype)
-                    .filter(P => {
-                        if ('constructor' === P) {
-                            return false;
-                        }
-
-                        return 'function' === typeof i.prototype[P];
-                    });
+                if ('function' === typeof descriptor.get || 'function' === typeof descriptor.set) {
+                    yield {
+                        'static': isStatic,
+                        'property': fn,
+                        'get': undefined !== descriptor.get,
+                        'set': undefined !== descriptor.set
+                    };
+                }
             }
-        }());
+        };
+
+        for (let i of chain) {
+            yield * gen(i.prototype, false);
+            yield * gen(i, true);
+        }
     }
 
     /**

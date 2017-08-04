@@ -522,7 +522,7 @@ ${this._addReturn(id, definition)}\
                     value = value.values[0];
                     let code = this._dumpValue(value, interpolate);
 
-                    return __jymfony.sprintf("(function () {\n            return %s;\n        )()", code);
+                    return __jymfony.sprintf("() => {\n            return %s;\n        }", code);
                 }
             } finally {
                 [ this._definitionVariables, this._referenceVariables, this._variableCount ] = scope;

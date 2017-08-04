@@ -8,7 +8,7 @@ global.__jymfony.getFunction = function (object, funcName) {
     }
 
     if (isFunction(object[funcName])) {
-        return object[funcName];
+        return new BoundFunction(object, object[funcName]);
     }
 
     throw new RuntimeException(`Cannot retrieve function ${funcName} from ${object.constructor.name}`);

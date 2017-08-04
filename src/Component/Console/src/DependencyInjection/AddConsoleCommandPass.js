@@ -2,7 +2,7 @@ const Command = Jymfony.Component.Console.Command;
 const CompilerPassInterface = Jymfony.Component.DependencyInjection.Compiler.CompilerPassInterface;
 
 /**
- * @memberOf Jymfony.Component.DependencyInjection.Compiler
+ * @memberOf Jymfony.Component.Console.DependencyInjection
  */
 class AddConsoleCommandPass extends implementationOf(CompilerPassInterface) {
     /**
@@ -47,7 +47,7 @@ class AddConsoleCommandPass extends implementationOf(CompilerPassInterface) {
             serviceIds[commandId] = id;
         }
 
-        container.setParameter('console.command.ids', serviceIds);
+        container.setParameter('console.command.ids', Object.values(serviceIds));
     }
 }
 

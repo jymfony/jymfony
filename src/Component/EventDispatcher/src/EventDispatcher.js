@@ -83,14 +83,6 @@ class EventDispatcher {
      * @param {int} priority
      */
     addListener(eventName, listener, priority = 0) {
-        if (isCallableArray(listener)) {
-            listener = getCallableFromArray(listener);
-        }
-
-        if (! isFunction(listener)) {
-            throw new InvalidArgumentException("Listener must be a function");
-        }
-
         let listeners = this._listeners[eventName];
         if (undefined === listeners) {
             listeners = this._listeners[eventName] = [];
@@ -122,11 +114,23 @@ class EventDispatcher {
             return;
         }
 
+        if (isArray(listener) && undefined !== listener[0] && isFunction(listener[0])) {
+            listener[0] = listener[0]();
+        }
+
         if (isCallableArray(listener)) {
             listener = getCallableFromArray(listener);
         }
 
         for (let registered of this._listeners[eventName]) {
+            if (isArray(registered.listener) && undefined !== registered.listener[0] && isFunction(registered.listener[0])) {
+                registered.listener[0] = registered.listener[0]();
+            }
+
+            if (isCallableArray(registered.listener)) {
+                registered.listener = getCallableFromArray(registered.listener);
+            }
+
             if (! EventDispatcher._funcEquals(registered.listener, listener)) {
                 continue;
             }
@@ -190,9 +194,22 @@ class EventDispatcher {
 
         // Clone the array
         let listeners = [ ...this._listeners[eventName] ];
-        this._sorted[eventName] = listeners.sort((a, b) => {
-            return b.priority - a.priority;
-        });
+        this._sorted[eventName] = [];
+        for (let listener of listeners.sort((a, b) => b.priority - a.priority)) {
+            if (isArray(listener.listener) && undefined !== listener.listener[0] && isFunction(listener.listener[0])) {
+                listener.listener[0] = listener.listener[0]();
+            }
+
+            if (isCallableArray(listener.listener)) {
+                listener.listener = getCallableFromArray(listener.listener);
+            }
+
+            if (! isFunction(listener.listener)) {
+                throw new InvalidArgumentException("Listener must be a function");
+            }
+
+            this._sorted[eventName].push(listener);
+        }
     }
 
     static _funcEquals(func1, func2) {

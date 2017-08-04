@@ -20,7 +20,94 @@ describe('Mixins.getInterface', function () {
 
         new cTest2();
 
-        expect(() => new cTest).to.throw(SyntaxError, 'Method "foo" must be implemented');
+        expect(() => new cTest).to.throw(SyntaxError, 'Method "foo" must be implemented.');
+    });
+
+    it('should check for unimplemented static methods', () => {
+        let iTest = getInterface(class TestInterface {
+            static foo() { }
+        });
+
+        let cTest = class extends implementationOf(iTest) {};
+        let cTest2 = class extends implementationOf(iTest) {
+            static foo() { }
+        };
+        let cTest3 = class extends implementationOf(iTest) {
+            foo() { }
+        };
+
+        new cTest2();
+        new cTest3();
+
+        expect(() => new cTest).to.throw(SyntaxError, 'Method "foo" must be implemented.');
+    });
+
+    it('should check for unimplemented getters', () => {
+        let iTest = getInterface(class TestInterface {
+            get foo() { }
+        });
+
+        let cTest = class extends implementationOf(iTest) {};
+        let cTest2 = class extends implementationOf(iTest) {
+            get foo() { }
+        };
+        let cTest3 = class extends implementationOf(iTest) {
+            set foo(foo) { }
+        };
+
+        new cTest2();
+
+        expect(() => new cTest).to.throw(SyntaxError, 'Getter/Setter for "foo" property must be implemented.');
+        expect(() => new cTest3).to.throw(SyntaxError, 'Getter for "foo" property must be implemented.');
+    });
+
+    it('should check for unimplemented static getters', () => {
+        let iTest = getInterface(class TestInterface {
+            static get foo() { }
+        });
+
+        let cTest = class extends implementationOf(iTest) {};
+        let cTest2 = class extends implementationOf(iTest) {
+            static get foo() { }
+        };
+
+        new cTest2();
+
+        expect(() => new cTest).to.throw(SyntaxError, 'Getter/Setter for "foo" property must be implemented.');
+    });
+
+    it('should check for unimplemented setters', () => {
+        let iTest = getInterface(class TestInterface {
+            set foo(foo) { }
+        });
+
+        let cTest = class extends implementationOf(iTest) {};
+        let cTest2 = class extends implementationOf(iTest) {
+            set foo(foo) { }
+        };
+        let cTest3 = class extends implementationOf(iTest) {
+            get foo() { }
+        };
+
+        new cTest2();
+
+        expect(() => new cTest).to.throw(SyntaxError, 'Getter/Setter for "foo" property must be implemented.');
+        expect(() => new cTest3).to.throw(SyntaxError, 'Setter for "foo" property must be implemented.');
+    });
+
+    it('should check for unimplemented static setters', () => {
+        let iTest = getInterface(class TestInterface {
+            static set foo(foo) { }
+        });
+
+        let cTest = class extends implementationOf(iTest) {};
+        let cTest2 = class extends implementationOf(iTest) {
+            static set foo(foo) { }
+        };
+
+        new cTest2();
+
+        expect(() => new cTest).to.throw(SyntaxError, 'Getter/Setter for "foo" property must be implemented.');
     });
 
     it('should make instanceof work', () => {

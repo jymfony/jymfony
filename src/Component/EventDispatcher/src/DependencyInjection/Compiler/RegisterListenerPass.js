@@ -1,18 +1,21 @@
-const CompilerPassInterface = Jymfony.Component.DependencyInjection.CompilerPassInterface;
-const EventSubscriberInterface = Jymfony.EventDispatcher.EventSubscriberInterface;
-const EventDispatcher = Jymfony.EventDispatcher.EventDispatcher;
+const CompilerPassInterface = Jymfony.Component.DependencyInjection.Compiler.CompilerPassInterface;
+const Reference = Jymfony.Component.DependencyInjection.Reference;
+const EventSubscriberInterface = Jymfony.Component.EventDispatcher.EventSubscriberInterface;
+const EventDispatcher = Jymfony.Component.EventDispatcher.EventDispatcher;
 const ServiceClosureArgument = Jymfony.Component.DependencyInjection.Argument.ServiceClosureArgument;
-const NotStaticMethodException = Jymfony.Component.DependencyInjection.Exception.NotStaticMethodException;
+const NotStaticMethodException = Jymfony.Component.EventDispatcher.Exception.NotStaticMethodException;
 
+/**
+ * @memberOf Jymfony.Component.EventDispatcher.DependencyInjection.Compiler
+ */
 class RegisterListenerPass extends implementationOf(CompilerPassInterface) {
-    __construct (dispatcherService = 'event_dispatcher', listenerTag = 'kernel.event_listener', subscriberTag = 'kernel.event_subscriber') {
+    __construct(dispatcherService = 'event_dispatcher', listenerTag = 'kernel.event_listener', subscriberTag = 'kernel.event_subscriber') {
         this.dispatcherService = dispatcherService;
         this.listenerTag = listenerTag;
         this.subscriberTag = subscriberTag;
     }
 
     /**
-     *
      * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
      */
     process(container) {
@@ -50,11 +53,11 @@ class RegisterListenerPass extends implementationOf(CompilerPassInterface) {
         for (let [ id, attributes ] of __jymfony.getEntries(container.findTaggedServiceIds(this.subscriberTag))) {
             let def = container.getDefinition(id);
 
-            let myclass = container.getParameterBag().resolveValue(def.getClass());
+            let myclass = container.parameterBag.resolveValue(def.getClass());
             let myReflectionClass = new ReflectionClass(myclass);
 
             if (! myReflectionClass.isSubclassOf(EventSubscriberInterface)) {
-                throw new InvalidArgumentException(__jymfony.sprintf('Service "%s" must implement interface "Jymfony.EventDispatcher.EventSubscriberInterface".', id));
+                throw new InvalidArgumentException(__jymfony.sprintf('Service "%s" must implement interface "Jymfony.Component.EventDispatcher.EventSubscriberInterface".', id));
             }
 
             container.addObjectResource(myclass);

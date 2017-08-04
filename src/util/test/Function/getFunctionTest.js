@@ -10,7 +10,7 @@ describe('getFunction', function () {
     it ('should retrieve function from object', () => {
         let fn = __jymfony.getFunction(new TestObject(), 'foo');
         expect(fn).to.be.instanceOf(Function);
-        expect(fn).to.be.equal(TestObject.prototype.foo);
+        expect(fn.innerObject._func).to.be.equal(TestObject.prototype.foo);
     });
 
     it ('should retrieve static function from object', () => {

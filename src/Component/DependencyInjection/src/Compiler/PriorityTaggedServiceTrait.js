@@ -1,5 +1,8 @@
 const Reference = Jymfony.Component.DependencyInjection.Reference;
 
+/**
+ * @memberOf Jymfony.Component.DependencyInjection.Compiler
+ */
 class PriorityTaggedServiceTrait {
     /**
      *
@@ -19,9 +22,9 @@ class PriorityTaggedServiceTrait {
             services[priority].push(new Reference(serviceId));
         }
 
-        services.ksort();
+        services = Object.ksort(services);
 
-        for (let refs of services) {
+        for (let refs of Object.values(services)) {
             yield * refs;
         }
     }

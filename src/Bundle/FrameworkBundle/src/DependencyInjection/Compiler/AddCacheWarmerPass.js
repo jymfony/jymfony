@@ -1,10 +1,10 @@
-const CompilerPassInterface = Jymfony.Component.DependencyInjection.CompilerPassInterface;
-const PriorityTaggedServiceTrait = Jymfony.Component.DependencyInjection.PriorityTaggedServiceTrait;
+const CompilerPassInterface = Jymfony.Component.DependencyInjection.Compiler.CompilerPassInterface;
+const PriorityTaggedServiceTrait = Jymfony.Component.DependencyInjection.Compiler.PriorityTaggedServiceTrait;
 
 /**
- * @memberOf Jymfony.FrameworkBundle.DependencyInjection
+ * @memberOf Jymfony.FrameworkBundle.DependencyInjection.Compiler
  */
-class AddCacheWarmerPass extends mix(CompilerPassInterface, PriorityTaggedServiceTrait) {
+class AddCacheWarmerPass extends implementationOf(CompilerPassInterface, PriorityTaggedServiceTrait) {
     /**
      *
      * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
@@ -17,7 +17,7 @@ class AddCacheWarmerPass extends mix(CompilerPassInterface, PriorityTaggedServic
         let warmers = this.findAndSortTaggedServices('kernel.cache_warmer', container);
 
         let arrayWarmers = Array.from(warmers);
-        if (arrayWarmers.isEmpty()) {
+        if (0 === arrayWarmers.length) {
             return;
         }
 
