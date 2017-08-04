@@ -1,14 +1,13 @@
 {
-  "name": "@jymfony/property-access",
+  "name": "@jymfony/logger",
   "version": "0.1.0-alpha.2",
-  "description": "Jymfony Propery Access",
+  "description": "Jymfony Logger",
   "scripts": {
     "test": "node ./tests.js",
     "coverage": "istanbul cover --root ./src ./tests.js && istanbul report clover"
   },
   "keywords": [
-    "property path",
-    "property access",
+    "logger",
     "jymfony"
   ],
   "author": "Alessandro Chitolina <alekitto@gmail.com>",
@@ -29,7 +28,7 @@
   "config": {
     "jymfony-autoload": {
       "namespaces": {
-        "Jymfony.PropertyAccess": "src/"
+        "Jymfony.Logger": "src/"
       }
     }
   }
