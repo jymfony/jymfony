@@ -1,8 +1,7 @@
 /**
  * @memberOf Jymfony.Component.DependencyInjection
- * @type {Jymfony.Component.DependencyInjection.ContainerAwareTrait}
  */
-module.exports = getTrait(class ContainerAwareTrait {
+class ContainerAwareTrait {
     /**
      * Sets the container
      *
@@ -17,4 +16,6 @@ module.exports = getTrait(class ContainerAwareTrait {
          */
         this._container = container;
     }
-});
+}
+
+module.exports = getTrait(ContainerAwareTrait);

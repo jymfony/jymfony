@@ -1,11 +1,12 @@
 const Container = Jymfony.Component.DependencyInjection.Container;
+const ContainerAwareInterface = Jymfony.Component.DependencyInjection.ContainerAwareInterface;
 const ContainerAwareTrait = Jymfony.Component.DependencyInjection.ContainerAwareTrait;
 const ExtensionInterface = Jymfony.Component.DependencyInjection.Extension.ExtensionInterface;
 
 /**
  * @memberOf Jymfony.Component.Kernel
  */
-module.exports = class Bundle extends implementationOf(ContainerAwareTrait) {
+module.exports = class Bundle extends implementationOf(ContainerAwareInterface, ContainerAwareTrait) {
     /**
      * Boots the bundle
      */

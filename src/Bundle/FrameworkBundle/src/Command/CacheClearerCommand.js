@@ -1,9 +1,13 @@
 const Command = Jymfony.Component.Console.Command.Command;
+const ContainerAwareInterface = Jymfony.Component.DependencyInjection.ContainerAwareInterface;
 const ContainerAwareTrait = Jymfony.Component.DependencyInjection.ContainerAwareTrait;
 
 const fs = require('fs');
 
-class CacheClearerCommand extends mix(Command, ContainerAwareTrait) {
+/**
+ * @memberOf Jymfony.Bundle.FrameworkBundle.Command
+ */
+class CacheClearerCommand extends mix(Command, ContainerAwareInterface, ContainerAwareTrait) {
     /**
      * @inheritDoc
      */
@@ -11,9 +15,11 @@ class CacheClearerCommand extends mix(Command, ContainerAwareTrait) {
         this.name = 'cache:clear';
         this.description = 'Clears the cache';
         this.help = `The <info>%command.name%</info> command clears the application cache for a given environment
-        and debug mode:
-            <info>%command.full_name% --env=dev</info>
-        <info>%command.full_name% --env=prod --no-debug</info>`;
+and debug mode:
+
+  <info>%command.full_name% --env=dev</info>
+  <info>%command.full_name% --env=prod --no-debug</info>`
+        ;
     }
 
     /**
@@ -41,7 +47,7 @@ class CacheClearerCommand extends mix(Command, ContainerAwareTrait) {
         );
         output.writeln(`<comment>${message}</comment>`);
 
-        // $this->getContainer()->get('cache_clearer')->clear($realCacheDir);
+        // this._container.get('cache_clearer').clear(realCacheDir);
 
         let isOutputVerbose = output.isVerbose();
         if (isOutputVerbose) {
