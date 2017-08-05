@@ -1,4 +1,4 @@
-const Command = Jymfony.Component.Console.Command;
+const Command = Jymfony.Component.Console.Command.Command;
 const CompilerPassInterface = Jymfony.Component.DependencyInjection.Compiler.CompilerPassInterface;
 
 /**

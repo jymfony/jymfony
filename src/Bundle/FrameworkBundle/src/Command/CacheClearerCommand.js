@@ -29,9 +29,11 @@ and debug mode:
         let realCacheDir = this._container.getParameter('kernel.cache_dir');
         // The old cache dir name must not be longer than the real one to avoid exceeding
         // The maximum length of a directory or file path within it (esp. Windows MAX_PATH)
-        let oldCacheDir = realCacheDir.substr(realCacheDir.length -1) + '~' === realCacheDir.substr(realCacheDir.length -1) ? '+' : '~';
+        let oldCacheDir = realCacheDir.substring(0, realCacheDir.length - 1) + ('~' === realCacheDir.substr(realCacheDir.length - 1) ? '+' : '~');
 
-        if (! fs.accessSync(realCacheDir, fs.constants.W_OK)) {
+        try {
+            fs.accessSync(realCacheDir, fs.constants.W_OK);
+        } catch (e) {
             throw new RuntimeException(__jymfony.sprintf('Unable to write in the "%s" directory', realCacheDir));
         }
 
@@ -40,6 +42,7 @@ and debug mode:
         }
 
         let kernel = this._container.get('kernel');
+
         let message = __jymfony.sprintf(
             'Clearing the cache for the <info>%s</info> environment with debug <info>%s</info>',
             kernel.environment,
@@ -48,6 +51,7 @@ and debug mode:
         output.writeln(`<comment>${message}</comment>`);
 
         // this._container.get('cache_clearer').clear(realCacheDir);
+        fs.renameSync(realCacheDir, oldCacheDir);
 
         let isOutputVerbose = output.isVerbose();
         if (isOutputVerbose) {
