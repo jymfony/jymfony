@@ -1,4 +1,5 @@
 const Command = Jymfony.Component.Console.Command.Command;
+const JymfonyStyle = Jymfony.Component.Console.Style.JymfonyStyle;
 const ContainerAwareInterface = Jymfony.Component.DependencyInjection.ContainerAwareInterface;
 const ContainerAwareTrait = Jymfony.Component.DependencyInjection.ContainerAwareTrait;
 
@@ -7,7 +8,7 @@ const fs = require('fs');
 /**
  * @memberOf Jymfony.Bundle.FrameworkBundle.Command
  */
-class CacheClearerCommand extends mix(Command, ContainerAwareInterface, ContainerAwareTrait) {
+class CacheClearCommand extends mix(Command, ContainerAwareInterface, ContainerAwareTrait) {
     /**
      * @inheritDoc
      */
@@ -26,6 +27,8 @@ and debug mode:
      * @inheritDoc
      */
     execute(input, output) {
+        let io = new JymfonyStyle(input, output);
+
         let realCacheDir = this._container.getParameter('kernel.cache_dir');
         // The old cache dir name must not be longer than the real one to avoid exceeding
         // The maximum length of a directory or file path within it (esp. Windows MAX_PATH)
@@ -43,34 +46,24 @@ and debug mode:
 
         let kernel = this._container.get('kernel');
 
-        let message = __jymfony.sprintf(
-            'Clearing the cache for the <info>%s</info> environment with debug <info>%s</info>',
-            kernel.environment,
-            kernel.debug
-        );
-        output.writeln(`<comment>${message}</comment>`);
+        io.comment(__jymfony.sprintf('Clearing the cache for the <info>%s</info> environment with debug <info>%s</info>', kernel.environment, kernel.debug));
 
-        // this._container.get('cache_clearer').clear(realCacheDir);
+        // This._container.get('cache_clearer').clear(realCacheDir);
         fs.renameSync(realCacheDir, oldCacheDir);
 
         let isOutputVerbose = output.isVerbose();
         if (isOutputVerbose) {
-            output.writeln('<comment>Removing old cache directory...</comment>');
+            io.comment('Removing old cache directory...');
         }
 
         fs.unlinkSync(oldCacheDir);
 
         if (isOutputVerbose) {
-            output.writeln('<comment>Finished</comment>');
+            io.comment('Finished');
         }
 
-        message = __jymfony.sprintf(
-            'Cache for the "%s" environment (debug=%s) was successfully cleared.',
-            kernel.environment,
-            kernel.debug
-        );
-        output.writeln(`<bg=green;fg=white>${message}</>`);
+        io.success(__jymfony.sprintf('Cache for the "%s" environment (debug=%s) was successfully cleared.', kernel.environment, kernel.debug));
     }
 }
 
-module.exports = CacheClearerCommand;
+module.exports = CacheClearCommand;
