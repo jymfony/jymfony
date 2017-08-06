@@ -339,7 +339,7 @@ class JymfonyStyle extends OutputStyle {
         }
 
         // Prepend new line for each non LF chars (This means no blank line was output before)
-        this.newLine(2 - chars.split("\n").length - 1);
+        this.newLine(2 - (chars.split("\n").length - 1));
     }
 
     _autoPrependText() {

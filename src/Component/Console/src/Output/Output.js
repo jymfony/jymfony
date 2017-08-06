@@ -77,21 +77,21 @@ class Output extends implementationOf(OutputInterface) {
      * @inheritDoc
      */
     isVerbose() {
-        return OutputInterface.VERBOSITY_VERBOSE === this._verbosity;
+        return OutputInterface.VERBOSITY_VERBOSE <= this._verbosity;
     }
 
     /**
      * @inheritDoc
      */
     isVeryVerbose() {
-        return OutputInterface.VERBOSITY_VERY_VERBOSE === this._verbosity;
+        return OutputInterface.VERBOSITY_VERY_VERBOSE <= this._verbosity;
     }
 
     /**
      * @inheritDoc
      */
     isDebug() {
-        return OutputInterface.VERBOSITY_DEBUG === this._verbosity;
+        return OutputInterface.VERBOSITY_DEBUG <= this._verbosity;
     }
 
     /**
