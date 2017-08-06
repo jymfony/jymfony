@@ -155,6 +155,18 @@ class Kernel extends implementationOf(KernelInterface) {
         throw new Error('You must override registerBundles method');
     }
 
+    /**
+     * The extension point similar to the Bundle.build() method.
+     *
+     * Use this method to register compiler passes and manipulate the container during the building process.
+     *
+     * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
+     *
+     * @protected
+     */
+    _build(container) {
+    }
+
     _initializeBundles() {
         let directChildren = {};
         let topMostBundles = {};
@@ -356,6 +368,8 @@ class Kernel extends implementationOf(KernelInterface) {
         for (let bundle of Object.values(this._bundles)) {
             bundle.build(container);
         }
+
+        this._build(container);
     }
 
     /**

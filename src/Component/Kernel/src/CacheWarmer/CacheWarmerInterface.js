@@ -3,14 +3,14 @@
  */
 class CacheWarmerInterface {
     /**
-     * Checks wheter this warmes is optional or not
+     * Checks whether this warmer is optional or not.
      *
      * A warmer should return true is the cache can be generated
-     * incrementally and on-demand
+     * incrementally and on-demand.
      *
      * @returns {boolean}
      */
-    isOptional() { }
+    get optional() { }
 }
 
 module.exports = getInterface(CacheWarmerInterface);

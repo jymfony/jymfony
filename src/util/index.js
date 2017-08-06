@@ -27,6 +27,7 @@ require('./lib/String/trim');
 require('./lib/String/ucfirst');
 require('./lib/String/ucwords');
 require('./lib/String/version_compare');
+require('./lib/String/wordwrap');
 
 require('./lib/Regex/quote');
 

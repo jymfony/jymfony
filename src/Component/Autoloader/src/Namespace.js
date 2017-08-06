@@ -3,9 +3,8 @@ const FunctionPrototype = new Function();
 
 /**
  * @memberOf Jymfony.Component.Autoloader
- * @type Namespace
  */
-module.exports = class Namespace {
+class Namespace {
     /**
      * Namespace constructor
      *
@@ -240,4 +239,6 @@ module.exports = class Namespace {
 
         return new Proxy(FunctionPrototype, handlers);
     }
-};
+}
+
+module.exports = Namespace;

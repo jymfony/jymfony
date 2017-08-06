@@ -16,6 +16,7 @@ class FrameworkExtension extends Extension {
     load(configs, container) {
         let loader = new JsFileLoader(container, new FileLocator(path.join(__dirname, '..', 'Resources', 'config')));
         loader.load('services.js');
+        loader.load('commands.js');
     }
 }
 

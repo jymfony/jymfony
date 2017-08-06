@@ -22,6 +22,7 @@
     "@jymfony/dependency-injection": "0.1.0-alpha.3",
     "@jymfony/event-dispatcher": "0.1.0-alpha.3",
     "@jymfony/exceptions": "0.1.0-alpha.3",
+    "@jymfony/filesystem": "https://github.com/jymfony/filesystem.git",
     "@jymfony/kernel": "0.1.0-alpha.3",
     "@jymfony/util": "0.1.0-alpha.3"
   },

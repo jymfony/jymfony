@@ -2,9 +2,23 @@
 
 global.__jymfony = global.__jymfony || {};
 
-const primitives = [ Number, String, Boolean ];
+global.__jymfony.clone = function clone(object) {
+    if (! isObject(object)) {
+        throw new InvalidArgumentException('Cannot clone a non-object');
+    }
 
-let deepClone = function (object) {
+    const surrogateCtor = function () { };
+    surrogateCtor.prototype = object.constructor.prototype;
+
+    const target = new surrogateCtor();
+    for (let k of Object.keys(object)) {
+        target[k] = object[k];
+    }
+
+    return target;
+};
+
+global.__jymfony.deepClone = function deepClone(object) {
     if (! object ) {
         return object;
     }
@@ -36,5 +50,3 @@ let deepClone = function (object) {
 
     return result;
 };
-
-global.__jymfony.deepClone = deepClone;

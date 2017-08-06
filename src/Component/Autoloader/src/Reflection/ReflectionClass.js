@@ -405,18 +405,28 @@ global.ReflectionClass = class ReflectionClass {
 
     static _recursiveGet(start, parts) {
         let part;
-        let original = parts.join('.');
-        parts = [ ...parts ].reverse();
 
-        while (part = parts.pop()) {
-            if (undefined === start) {
-                throw new ReflectionException('Requesting non-existent class ' + original);
+        // Save autoload debug flag.
+        let debug = __jymfony.autoload.debug;
+        __jymfony.autoload.debug = false;
+
+        try {
+            let original = parts.join('.');
+            parts = [ ...parts ].reverse();
+
+            while (part = parts.pop()) {
+                if (undefined === start) {
+                    throw new ReflectionException('Requesting non-existent class ' + original);
+                }
+
+                start = start[part];
             }
 
-            start = start[part];
+            return start;
+        } finally {
+            // Restore debug flag.
+            __jymfony.autoload.debug = debug;
         }
-
-        return start;
     }
 
     static _searchModule(value) {

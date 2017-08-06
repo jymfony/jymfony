@@ -2,26 +2,30 @@ const expect = require('chai').expect;
 const path = require("path");
 
 const Application = Jymfony.Bundle.FrameworkBundle.Console.Application;
+const Namespace = Jymfony.Component.Autoloader.Namespace;
 const Kernel = Jymfony.Component.Kernel.Kernel;
 
-const fixturesPath = path.join(__dirname, '..', '..', 'fixtures');
-const Fixtures = new Jymfony.Component.Autoloader.Namespace(__jymfony.autoload, 'Fixtures', [
-    fixturesPath,
-]);
+Jymfony.Bundle.FrameworkBundle.Tests = new Namespace(__jymfony.autoload, 'Jymfony.Bundle.FrameworkBundle.Tests');
+Jymfony.Bundle.FrameworkBundle.Tests.Fixtures = new Jymfony.Component.Autoloader.Namespace(
+    __jymfony.autoload,
+    'Jymfony.FrameworkBundle.Tests.Fixtures',
+    [ path.join(__dirname, '..', '..', 'fixtures') ]
+);
+
+const TestKernel = Jymfony.Bundle.FrameworkBundle.Tests.Fixtures.TestKernel;
 
 describe('[FrameworkBundle] Application', function () {
     it('constructor', () => {
-        let kernel = new Fixtures.TestKernel('test', true, false);
+        let kernel = new TestKernel('test', true, false);
         kernel.registerBundles = () => [];
 
         let application = new Application(kernel);
 
         expect(application.kernel).to.be.equal(kernel);
-
     });
 
     it('find', () => {
-        let kernel = new Fixtures.TestKernel('test', true, true);
+        let kernel = new TestKernel('test', true, true);
         kernel.registerBundles = () => [];
 
         let application = new Application(kernel);
@@ -32,7 +36,7 @@ describe('[FrameworkBundle] Application', function () {
     });
 
     it('get', () => {
-        let kernel = new Fixtures.TestKernel('test', true, true);
+        let kernel = new TestKernel('test', true, true);
         kernel.registerBundles = () => [];
 
         let application = new Application(kernel);
@@ -43,7 +47,7 @@ describe('[FrameworkBundle] Application', function () {
     });
 
     it('all', () => {
-        let kernel = new Fixtures.TestKernel('test', true, true);
+        let kernel = new TestKernel('test', true, true);
         kernel.registerBundles = () => [];
 
         let application = new Application(kernel);
@@ -55,7 +59,7 @@ describe('[FrameworkBundle] Application', function () {
     });
 
     it('getLongVersion', () => {
-        let kernel = new Fixtures.TestKernel('test', true, true);
+        let kernel = new TestKernel('test', true, true);
         kernel.registerBundles = () => [];
 
         let application = new Application(kernel);

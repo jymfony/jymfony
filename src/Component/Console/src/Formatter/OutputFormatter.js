@@ -10,6 +10,10 @@ class OutputFormatter extends implementationOf(OutputFormatterInterface) {
     static escape(text) {
         text = text.replace(/([^\\\\]?)</g, '$1\\<');
 
+        return OutputFormatter.escapeTrailingBackslash(text);
+    }
+
+    static escapeTrailingBackslash(text) {
         if ('\\' === text.substr(text.length - 1)) {
             let len = text.length;
             text = __jymfony.rtrim(text, '\\');

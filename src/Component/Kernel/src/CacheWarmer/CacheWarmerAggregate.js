@@ -1,8 +1,14 @@
+const CacheWarmerInterface = Jymfony.Component.Kernel.CacheWarmer.CacheWarmerInterface;
+
 /**
+ * Aggregates several cache warmers into a single one.
+ *
  * @memberOf Jymfony.Component.Kernel.CacheWarmer
  */
-class CacheWarmerAggregate {
+class CacheWarmerAggregate extends implementationOf(CacheWarmerInterface) {
     /**
+     * Constructor.
+     *
      * @param {[Jymfony.Component.Kernel.CacheWarmer.CacheWarmerInterface]} warmers
      */
     __construct(warmers = []) {
@@ -11,17 +17,21 @@ class CacheWarmerAggregate {
          * @private
          */
         this._warmers = warmers;
-    }
 
-    enableOptionalWarmers() {
         /**
          * @type {boolean}
          * @private
          */
+        this._optionalsEnabled = false;
+    }
+
+    enableOptionalWarmers() {
         this._optionalsEnabled = true;
     }
 
     /**
+     * Warms up the cache.
+     *
      * @param {String} cacheDir
      */
     warmUp(cacheDir) {
@@ -34,7 +44,10 @@ class CacheWarmerAggregate {
         }
     }
 
-    isOptional() {
+    /**
+     * @inheritDoc
+     */
+    get optional() {
         return false;
     }
 
@@ -43,6 +56,8 @@ class CacheWarmerAggregate {
     }
 
     /**
+     * Adds a cache warmer.
+     *
      * @param {Jymfony.Component.Kernel.CacheWarmer.CacheWarmerInterface} warmer
      */
     add(warmer) {

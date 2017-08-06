@@ -1,4 +1,4 @@
-const Command = Jymfony.Component.Console.Command;
+const Command = Jymfony.Component.Console.Command.Command;
 const CompilerPassInterface = Jymfony.Component.DependencyInjection.Compiler.CompilerPassInterface;
 
 /**
@@ -12,7 +12,7 @@ class AddConsoleCommandPass extends implementationOf(CompilerPassInterface) {
         let commandServices = container.findTaggedServiceIds('console.command');
         let serviceIds = { };
 
-        for (let [ id, tags ] of __jymfony.getEntries(commandServices)) {
+        for (let id of Object.keys(commandServices)) {
             let definition = container.getDefinition(id);
             let className = container.parameterBag.resolveValue(definition.getClass());
 

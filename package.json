@@ -33,6 +33,7 @@
         "Jymfony.Component.DateTime": "src/Component/DateTime/src",
         "Jymfony.Component.DependencyInjection": "src/Component/DependencyInjection/src",
         "Jymfony.Component.EventDispatcher": "src/Component/EventDispatcher/src",
+        "Jymfony.Component.Filesystem": "src/Component/Filesystem/src",
         "Jymfony.Component.Kernel": "src/Component/Kernel/src",
         "Jymfony.Component.Lexer": "src/Component/Lexer/src",
         "Jymfony.Component.Logger": "src/Component/Logger/src",

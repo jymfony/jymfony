@@ -26,6 +26,7 @@
     "@jymfony/datetime": "0.1.0-alpha.3",
     "@jymfony/event-dispatcher": "0.1.0-alpha.3",
     "@jymfony/exceptions": "0.1.0-alpha.3",
+    "@jymfony/filesystem": "0.1.0-dev",
     "@jymfony/framework-bundle": "0.1.0-alpha.3",
     "@jymfony/kernel": "0.1.0-alpha.3",
     "@jymfony/lexer": "0.1.0-alpha.3",

@@ -35,23 +35,19 @@ class JsFileLoader extends FileLoader {
      * @inheritDoc
      */
     load(resource, type = undefined) {
-        let context = {
-            container: this._container,
-            loader: this,
-        };
-
         let filePath = this._locator.locate(resource);
         this.currentDir = path.dirname(filePath);
         this._container.addResource(new FileResource(filePath));
 
-        let script = new vm.Script(fs.readFileSync(filePath), {
+        let code = '(function (container, loader) {\n'+fs.readFileSync(filePath)+'\n})';
+        let script = new vm.Script(code, {
             filename: filePath,
             produceCachedData: false,
         });
 
-        script.runInNewContext(context, {
+        script.runInThisContext({
             filename: filePath,
-        });
+        })(this._container, this);
     }
 
     /**
