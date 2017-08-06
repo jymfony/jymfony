@@ -22,6 +22,7 @@
     "@jymfony/dependency-injection": "https://github.com/jymfony/dependency-injection.git",
     "@jymfony/event-dispatcher": "https://github.com/jymfony/event-dispatcher.git",
     "@jymfony/exceptions": "https://github.com/jymfony/exceptions.git",
+    "@jymfony/filesystem": "https://github.com/jymfony/filesystem.git",
     "@jymfony/kernel": "https://github.com/jymfony/kernel.git",
     "@jymfony/util": "https://github.com/jymfony/util.git"
   },
