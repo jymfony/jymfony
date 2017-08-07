@@ -19,6 +19,7 @@ class Command {
         this._ignoreValidationError = false;
         this._definition = new InputDefinition();
         this._help = '';
+        this._description = '';
 
         if (name) {
             this.name = name;
