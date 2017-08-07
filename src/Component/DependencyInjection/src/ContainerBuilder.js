@@ -758,6 +758,13 @@ class ContainerBuilder extends Container {
     }
 
     /**
+     * @final
+     */
+    log(pass, message) {
+        this.getCompiler().log(pass, message);
+    }
+
+    /**
      * Returns the service conditionals
      *
      * @param {*} value
