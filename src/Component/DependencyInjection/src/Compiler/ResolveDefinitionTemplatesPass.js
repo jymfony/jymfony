@@ -42,7 +42,7 @@ class ResolveDefinitionTemplatesPass extends AbstractRecursivePass {
      */
     _resolveDefinition(definition) {
         try {
-            this._doResolveDefinition(definition);
+            return this._doResolveDefinition(definition);
         } catch (e) {
             if (e instanceof ExceptionInterface) {
                 e.message = __jymfony.sprintf('Service "%s": %s', this._currentId, e.message);

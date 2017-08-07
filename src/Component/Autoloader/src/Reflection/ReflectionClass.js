@@ -1,4 +1,4 @@
-const ReflectionException = require('../Exception/ReflectionException');
+require('../Exception/ReflectionException');
 
 let Storage = function () {};
 Storage.prototype = {};
@@ -177,9 +177,7 @@ global.ReflectionClass = class ReflectionClass {
      * @returns {boolean}
      */
     isSubclassOf(parentClass) {
-        let parent = Object.getPrototypeOf(this._constructor);
-
-        return parent.prototype instanceof parentClass;
+        return this._constructor.prototype instanceof parentClass;
     }
 
     /**

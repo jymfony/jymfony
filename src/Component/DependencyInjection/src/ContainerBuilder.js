@@ -21,8 +21,8 @@ class ContainerBuilder extends Container {
      * @param parameterBag
      * @constructor
      */
-    __construct(parameterBag) {
-        super.__construct(parameterBag);
+    constructor(parameterBag) {
+        super(parameterBag);
 
         /**
          * @type {Object<string, ExtensionInterface>}
@@ -755,6 +755,13 @@ class ContainerBuilder extends Container {
         }
 
         return Array.from(tags);
+    }
+
+    /**
+     * @final
+     */
+    log(pass, message) {
+        this.getCompiler().log(pass, message);
     }
 
     /**

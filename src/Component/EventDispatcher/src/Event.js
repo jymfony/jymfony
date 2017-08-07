@@ -2,7 +2,7 @@
  * @memberOf Jymfony.Component.EventDispatcher
  */
 class Event {
-    constructor() {
+    __construct() {
         this._propagationStopped = false;
     }
 

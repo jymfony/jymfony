@@ -772,13 +772,13 @@ ${this._addReturn(id, definition)}\
 
         if ('' === name) {
             name += firstChars[i % firstChars.length];
-            i /= firstChars.length;
+            i = ~~(i / firstChars.length);
         }
 
         while (0 < i) {
             --i;
             name += nonFirstChars[i % nonFirstChars.length];
-            i /= nonFirstChars.length;
+            i = ~~(i / nonFirstChars.length);
         }
 
         ++this._variableCount;
@@ -786,7 +786,7 @@ ${this._addReturn(id, definition)}\
     }
 
     _hasReference(id, args, deep = false, visited = new Set()) {
-        for (let argument of args) {
+        for (let argument of Object.values(args)) {
             if (argument instanceof Reference) {
                 let argumentId = argument.toString();
                 if (id === argumentId) {

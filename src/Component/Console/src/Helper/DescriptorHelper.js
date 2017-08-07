@@ -11,7 +11,6 @@ class DescriptorHelper extends Helper {
      * Constructor.
      */
     __construct() {
-        super.__construct();
         this._descriptors = {};
 
         this

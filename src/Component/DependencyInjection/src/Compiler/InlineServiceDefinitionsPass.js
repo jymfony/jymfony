@@ -11,8 +11,6 @@ class InlineServiceDefinitionsPass extends mix(AbstractRecursivePass, Repeatable
     __construct() {
         this._repeatedPass = undefined;
         this._inlinedServiceIds = {};
-
-        super.__construct();
     }
 
     /**
