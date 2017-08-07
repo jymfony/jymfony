@@ -53,8 +53,16 @@ class RegisterListenerPass extends implementationOf(CompilerPassInterface) {
         for (let [ id, attributes ] of __jymfony.getEntries(container.findTaggedServiceIds(this.subscriberTag))) {
             let def = container.getDefinition(id);
 
-            let myclass = container.parameterBag.resolveValue(def.getClass());
-            let myReflectionClass = new ReflectionClass(myclass);
+            let myReflectionClass, myclass = container.parameterBag.resolveValue(def.getClass());
+            try {
+                myReflectionClass = new ReflectionClass(myclass);
+            } catch (err) {
+                if (err instanceof ReflectionException) {
+                    throw new InvalidArgumentException(__jymfony.sprintf('Service "%s" requires a non-existent class "%s".', id, myclass));
+                }
+
+                throw err;
+            }
 
             if (! myReflectionClass.isSubclassOf(EventSubscriberInterface)) {
                 throw new InvalidArgumentException(__jymfony.sprintf('Service "%s" must implement interface "Jymfony.Component.EventDispatcher.EventSubscriberInterface".', id));
@@ -71,9 +79,9 @@ class RegisterListenerPass extends implementationOf(CompilerPassInterface) {
             } catch (e) {
                 if (e instanceof NotStaticMethodException) {
                     definition.addMethodCall('addSubscriber', [ new Reference(id) ]);
+                } else {
+                    throw e;
                 }
-
-                throw e;
             }
         }
     }
