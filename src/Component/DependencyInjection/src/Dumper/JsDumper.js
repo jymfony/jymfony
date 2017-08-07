@@ -772,13 +772,13 @@ ${this._addReturn(id, definition)}\
 
         if ('' === name) {
             name += firstChars[i % firstChars.length];
-            i /= firstChars.length;
+            i = ~~(i / firstChars.length);
         }
 
         while (0 < i) {
             --i;
             name += nonFirstChars[i % nonFirstChars.length];
-            i /= nonFirstChars.length;
+            i = ~~(i / nonFirstChars.length);
         }
 
         ++this._variableCount;
