@@ -79,6 +79,10 @@ class Namespace {
             return undefined;
         }
 
+        if ('__construct' === name) {
+            return undefined;
+        }
+
         if (undefined === target[name]) {
             let found;
             try {

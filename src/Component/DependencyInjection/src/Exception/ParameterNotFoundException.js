@@ -3,8 +3,8 @@ const InvalidArgumentException = Jymfony.Component.DependencyInjection.Exception
 /**
  * @memberOf Jymfony.Component.DependencyInjection.Exception
  */
-module.exports = class ParameterNotFoundException extends InvalidArgumentException {
-    constructor(key, sourceId, sourceKey) {
+class ParameterNotFoundException extends InvalidArgumentException {
+    constructor(key, sourceId = undefined, sourceKey = undefined) {
         super('');
 
         this._key = key;
@@ -15,9 +15,9 @@ module.exports = class ParameterNotFoundException extends InvalidArgumentExcepti
     }
 
     _updateMsg() {
-        if (null !== this._sourceId) {
+        if (undefined !== this._sourceId) {
             this.message = `The service "${this._sourceId}" has a dependency on a non-existent parameter "${this._key}".`;
-        } else if (null !== this._sourceKey) {
+        } else if (undefined !== this._sourceKey) {
             this.message = `The parameter "${this._sourceKey}" has a dependency on a non-existent parameter "${this._key}".`;
         } else {
             this.message = `You have requested a non-existent parameter "${this._key}".`;
@@ -33,4 +33,6 @@ module.exports = class ParameterNotFoundException extends InvalidArgumentExcepti
         this._sourceId = sourceId;
         this._updateMsg();
     }
-};
+}
+
+module.exports = ParameterNotFoundException;

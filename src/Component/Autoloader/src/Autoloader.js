@@ -96,7 +96,6 @@ class Autoloader {
 
         this._registered = true;
         Symbol.reflection = Symbol('reflection');
-        Object.prototype.__construct = function () { };
 
         let rootDir = this._finder.findRoot();
         for (let module of this._finder.listModules()) {
