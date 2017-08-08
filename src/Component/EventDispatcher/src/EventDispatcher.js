@@ -34,18 +34,17 @@ class EventDispatcher {
      * @returns {Promise.<Jymfony.Component.EventDispatcher.Event>}
      */
     dispatch(eventName, event = new Event) {
-        let p = Promise.resolve(event);
-        for(let listener of this.getListeners(eventName)) {
-            p.then(event => {
+        let self = this;
+
+        return __jymfony.Async.run(function * () {
+            for (let listener of self.getListeners(eventName)) {
                 if (event.isPropagationStopped()) {
                     return event;
                 }
 
-                return __jymfony.Async.run(listener, event, eventName, this);
-            });
-        }
-
-        return p;
+                yield listener(event, eventName, self);
+            }
+        });
     }
 
     /**
