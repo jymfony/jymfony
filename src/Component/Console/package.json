@@ -1,6 +1,6 @@
 {
   "name": "@jymfony/console",
-  "version": "0.1.0-alpha.4",
+  "version": "0.1.0-alpha.5",
   "description": "Jymfony Console component",
   "main": "src/Application.js",
   "scripts": {
@@ -17,9 +17,9 @@
     "node": ">=6.0.0"
   },
   "dependencies": {
-    "@jymfony/autoloader": "0.1.0-alpha.4",
-    "@jymfony/exceptions": "0.1.0-alpha.4",
-    "@jymfony/util": "0.1.0-alpha.4"
+    "@jymfony/autoloader": "0.1.0-alpha.5",
+    "@jymfony/exceptions": "0.1.0-alpha.5",
+    "@jymfony/util": "0.1.0-alpha.5"
   },
   "devDependencies": {
     "chai": "^3.5.0",

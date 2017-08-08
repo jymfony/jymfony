@@ -1,6 +1,6 @@
 {
   "name": "@jymfony/config",
-  "version": "0.1.0-alpha.4",
+  "version": "0.1.0-alpha.5",
   "description": "Jymfony Configuration component",
   "main": "src/Kernel.js",
   "scripts": {
@@ -18,9 +18,9 @@
     "node": ">=6.0.0"
   },
   "dependencies": {
-    "@jymfony/autoloader": "0.1.0-alpha.4",
-    "@jymfony/exceptions": "0.1.0-alpha.4",
-    "@jymfony/util": "0.1.0-alpha.4"
+    "@jymfony/autoloader": "0.1.0-alpha.5",
+    "@jymfony/exceptions": "0.1.0-alpha.5",
+    "@jymfony/util": "0.1.0-alpha.5"
   },
   "devDependencies": {
     "chai": "^3.5.0",

@@ -1,6 +1,6 @@
 {
   "name": "@jymfony/filesystem",
-  "version": "0.1.0-alpha.4",
+  "version": "0.1.0-alpha.5",
   "description": "Jymfony Filesystem Component",
   "main": "src/Filesystem.js",
   "scripts": {
@@ -17,9 +17,9 @@
     "node": ">=6.0.0"
   },
   "dependencies": {
-    "@jymfony/autoloader": "https://github.com/jymfony/autoloader.git",
-    "@jymfony/exceptions": "https://github.com/jymfony/exceptions.git",
-    "@jymfony/util": "https://github.com/jymfony/util.git"
+    "@jymfony/autoloader": "0.1.0-alpha.5",
+    "@jymfony/exceptions": "0.1.0-alpha.5",
+    "@jymfony/util": "0.1.0-alpha.5"
   },
   "devDependencies": {
     "chai": "^3.5.0",
