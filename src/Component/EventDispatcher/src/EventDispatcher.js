@@ -42,8 +42,10 @@ class EventDispatcher {
                     return event;
                 }
 
-                yield listener(event, eventName, self);
+                yield __jymfony.Async.run(listener, event, eventName, self);
             }
+
+            return event;
         });
     }
 
