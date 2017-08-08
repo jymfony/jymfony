@@ -1,6 +1,6 @@
 {
   "name": "@jymfony/property-access",
-  "version": "0.1.0-alpha.5",
+  "version": "0.1.0-alpha.6",
   "description": "Jymfony Propery Access",
   "scripts": {
     "test": "node ./tests.js",
@@ -17,9 +17,9 @@
     "node": ">=6.0.0"
   },
   "dependencies": {
-    "@jymfony/autoloader": "0.1.0-alpha.5",
-    "@jymfony/exceptions": "0.1.0-alpha.5",
-    "@jymfony/util": "0.1.0-alpha.5"
+    "@jymfony/autoloader": "0.1.0-alpha.6",
+    "@jymfony/exceptions": "0.1.0-alpha.6",
+    "@jymfony/util": "0.1.0-alpha.6"
   },
   "devDependencies": {
     "chai": "^3.5.0",
