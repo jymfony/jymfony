@@ -121,17 +121,19 @@ describe('[EventDispatcher] EventDispatcher', function () {
         let promise = dispatcher.dispatch('event.pre_foo');
         expect(promise).to.be.instanceOf(Promise);
 
-        let event = new Event;
-        return Promise.all([
-            promise.then(() => {
-                return expect(listener.preFooCalled).to.be.true &&
+        promise.then(() => {
+            return expect(listener.preFooCalled).to.be.true &&
                 expect(listener.postFooCalled).to.be.false;
-            }),
-            dispatcher.dispatch('noevent').then(event => expect(event).to.be.instanceOf(Event)),
-            dispatcher.dispatch(preFoo).then(event => expect(event).to.be.instanceOf(Event)),
-            dispatcher.dispatch(postFoo, event).then(e => expect(e === event).to.be.true),
-        ]);
+        });
 
+        let event = new Event;
+        return promise.then(() => {
+            Promise.all([
+                dispatcher.dispatch('noevent').then(event => expect(event).to.be.instanceOf(Event)),
+                dispatcher.dispatch(preFoo).then(event => expect(event).to.be.instanceOf(Event)),
+                dispatcher.dispatch(postFoo, event).then(e => expect(e === event).to.be.true),
+            ]);
+        });
     });
 
     it('dispatch for closure', function () {
