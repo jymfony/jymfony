@@ -5,8 +5,8 @@
   "description": "Jymfony",
   "main": "index.js",
   "scripts": {
-    "test": "node ./tests.js \"src/*/test/**/*.js\" \"src/{Component,Bundle}/*/test/**/*.js\"",
-    "coverage": "istanbul cover ./tests.js \"src/*/test/**/*.js\" \"src/{Component,Bundle}/*/test/**/*.js\""
+    "test": "node ./tests.js \"src/*/test/**/*.js\" \"src/{Component,Bundle}/*/test/**/*.js\" && eslint src/",
+    "coverage": "istanbul cover ./tests.js \"src/*/test/**/*.js\" \"src/{Component,Bundle}/*/test/**/*.js\" && eslint src/"
   },
   "keywords": [
     "jymfony",
