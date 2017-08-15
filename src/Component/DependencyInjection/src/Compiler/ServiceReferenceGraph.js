@@ -11,7 +11,7 @@ const ServiceReferenceGraphNode = Jymfony.Component.DependencyInjection.Compiler
  * @internal
  */
 module.exports = class ServiceReferenceGraph {
-    constructor() {
+    __construct() {
         this.clear();
     }
 

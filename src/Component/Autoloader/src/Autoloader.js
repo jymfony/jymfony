@@ -95,7 +95,23 @@ class Autoloader {
         }
 
         this._registered = true;
+
+        /**
+         * This is the base class of all the autoloaded classes.
+         * It is runtime-injected where needed.
+         *
+         * @type {JObject}
+         */
+        this._global.__jymfony.JObject = class JObject {
+            constructor(...$args) {
+                this.__construct(...$args);
+            }
+
+            __construct() { }
+        };
+
         Symbol.reflection = Symbol('reflection');
+        Symbol.docblock = Symbol('docblock');
 
         let rootDir = this._finder.findRoot();
         for (let module of this._finder.listModules()) {

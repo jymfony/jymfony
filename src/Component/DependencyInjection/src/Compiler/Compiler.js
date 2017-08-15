@@ -6,7 +6,7 @@ const LogFormatter = Jymfony.Component.DependencyInjection.Compiler.LogFormatter
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
  */
 module.exports = class Compiler {
-    constructor() {
+    __construct() {
         this._passConfig = new PassConfig();
         this._referenceGraph = new ServiceReferenceGraph();
         this._logFormatter = new LogFormatter();

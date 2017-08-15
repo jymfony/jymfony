@@ -21,8 +21,8 @@ class ContainerBuilder extends Container {
      * @param parameterBag
      * @constructor
      */
-    constructor(parameterBag) {
-        super(parameterBag);
+    __construct(parameterBag) {
+        super.__construct(parameterBag);
 
         /**
          * @type {Object<string, ExtensionInterface>}

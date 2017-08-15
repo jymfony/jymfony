@@ -2,7 +2,7 @@
  * @memberOf Jymfony.Component.DependencyInjection
  */
 module.exports = class Variable {
-    constructor(name) {
+    __construct(name) {
         this._id = name;
     }
 

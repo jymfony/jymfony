@@ -11,7 +11,7 @@ const tm_desc = Jymfony.Component.DateTime.Struct.tm_desc;
  * @internal
  */
 class Parser {
-    constructor() {
+    __construct() {
         /**
          * @type {Jymfony.Component.DateTime.Parser.Lexer}
          * @private

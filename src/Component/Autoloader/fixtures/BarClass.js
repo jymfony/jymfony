@@ -1,7 +1,7 @@
 const FooClass = Foo.FooClass;
 
 module.exports = class BarClass {
-    constructor(fooClass) {
+    __construct(fooClass) {
         this.fooClass = fooClass;
     }
 

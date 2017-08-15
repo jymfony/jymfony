@@ -4,7 +4,7 @@ const Compiler = Jymfony.Component.DependencyInjection.Compiler;
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
  */
 class PassConfig {
-    constructor() {
+    __construct() {
         this._mergePass = new Compiler.MergeExtensionConfigurationPass();
 
         this._beforeOptimizationPasses = {

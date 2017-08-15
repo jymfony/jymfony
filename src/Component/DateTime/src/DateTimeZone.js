@@ -17,7 +17,7 @@ let instances = new BTree();
  * @type DateTimeZone
  */
 class DateTimeZone {
-    constructor() {
+    __construct() {
         throw new Error('Object DateTimeZone cannot be constructed with new. Please use DateTimeZone.get instead');
     }
 

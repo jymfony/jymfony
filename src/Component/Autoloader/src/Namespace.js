@@ -1,3 +1,5 @@
+const ClassLoader = require('./ClassLoader');
+
 let ClassNotFoundException = undefined;
 const FunctionPrototype = new Function();
 
@@ -17,11 +19,19 @@ class Namespace {
      */
     constructor(autoloader, fqn, baseDirs = [], req = require) {
         this._autoloader = autoloader;
+
+        /**
+         * @type {require|Function}
+         * @private
+         */
         this._internalRequire = req;
+
         this._fullyQualifiedName = fqn;
         if (undefined === ClassNotFoundException) {
             ClassNotFoundException = this._internalRequire('./Exception/ClassNotFoundException.js');
         }
+
+        this._classLoader = new ClassLoader(autoloader.finder, this._internalRequire('path'), this._internalRequire('vm'));
 
         this._target = {
             __namespace: this,
@@ -133,14 +143,19 @@ class Namespace {
 
     _require(filename) {
         let fn = this._internalRequire.resolve(filename);
-        let realTarget = undefined;
+        let realTarget = undefined, self = undefined;
 
         let init = () => {
             if (undefined !== realTarget) {
                 return;
             }
 
-            let mod = this._internalRequire(fn);
+            let mod;
+            if (fn !== __filename) {
+                mod = this._classLoader.load(fn, self);
+            } else {
+                mod = this._internalRequire(fn);
+            }
 
             // Class constructor
             if ('function' !== typeof mod) {
@@ -211,13 +226,7 @@ class Namespace {
             },
             construct: (target, argumentsList, newTarget) => {
                 init();
-                let obj = Reflect.construct(realTarget, argumentsList, newTarget);
-
-                if (realTarget.prototype === newTarget.prototype && 'function' === typeof obj.__construct) {
-                    obj.__construct(...argumentsList);
-                }
-
-                return obj;
+                return Reflect.construct(realTarget, argumentsList, newTarget);
             },
             getPrototypeOf: (target) => {
                 init();
@@ -241,7 +250,7 @@ class Namespace {
             },
         };
 
-        return new Proxy(FunctionPrototype, handlers);
+        return self = new Proxy(FunctionPrototype, handlers);
     }
 }
 

@@ -11,8 +11,8 @@ class ResourceCheckerConfigCache extends implementationOf(ConfigCacheInterface) 
      * @param {string} file
      * @param {Jymfony.Component.Config.ResourceCheckerInterface[]} resourceCheckers
      */
-    constructor(file, resourceCheckers = []) {
-        super();
+    __construct(file, resourceCheckers = []) {
+        super.__construct();
 
         this._file = file;
         this._checkers = resourceCheckers;

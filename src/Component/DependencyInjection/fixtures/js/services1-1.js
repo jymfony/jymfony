@@ -3,8 +3,8 @@ const LogicException = Jymfony.Component.DependencyInjection.Exception.LogicExce
 const FrozenParameterBag = Jymfony.Component.DependencyInjection.ParameterBag.FrozenParameterBag;
 
 class DumpedContainer extends AbstractContainer {
-    constructor() {
-        super(new FrozenParameterBag(DumpedContainer._getDefaultsParameters()));
+    __construct() {
+        super.__construct(new FrozenParameterBag(DumpedContainer._getDefaultsParameters()));
 
         this._methodMap = {
         };

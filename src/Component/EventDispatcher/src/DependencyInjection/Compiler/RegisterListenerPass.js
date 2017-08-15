@@ -88,10 +88,8 @@ class RegisterListenerPass extends implementationOf(CompilerPassInterface) {
 }
 
 class ExtractingEventDispatcher extends mix(EventDispatcher, EventSubscriberInterface) {
-    constructor() {
-        super();
-
-        this.__construct();
+    __construct() {
+        super.__construct();
         this._listeners = [];
     }
 

@@ -6,9 +6,7 @@ const ConsoleEvent = Jymfony.Component.Console.Event.ConsoleEvent;
  * @memberOf Jymfony.Component.Console.Event
  */
 class ConsoleCommandEvent extends ConsoleEvent {
-    constructor() {
-        super();
-
+    __construct() {
         /**
          * Indicates if the command should be run or skipped.
          *

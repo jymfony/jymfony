@@ -2,7 +2,7 @@
  * @memberOf Jymfony.Component.DependencyInjection
  */
 module.exports = class Alias {
-    constructor(id, public_ = false) {
+    __construct(id, public_ = false) {
         this._id = id;
         this._public = public_;
     }

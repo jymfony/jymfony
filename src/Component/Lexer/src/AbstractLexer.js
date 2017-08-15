@@ -3,11 +3,10 @@ const util = require('util');
 
 /**
  * @memberOf Jymfony.Component.Lexer
- * @type AbstractLexer
  *
  * @abstract
  */
-module.exports = class AbstractLexer {
+class AbstractLexer {
     /**
      * Reset the lexer
      */
@@ -263,4 +262,6 @@ module.exports = class AbstractLexer {
     getType(holder) {
         throw new Error('You must override getType method');
     }
-};
+}
+
+module.exports = AbstractLexer;

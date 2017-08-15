@@ -11,7 +11,7 @@ global.getTrait = function getTrait(definition) {
 };
 
 global.mix = function mix(superclass, ...mixins) {
-    superclass = superclass || class {};
+    superclass = superclass || __jymfony.JObject;
     superclass = mixins.reduce((a, b) => b(a), superclass);
 
     let interfaces = Array.from((function * () {

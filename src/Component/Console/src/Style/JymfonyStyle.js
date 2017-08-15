@@ -317,7 +317,7 @@ class JymfonyStyle extends OutputStyle {
      * @return self
      */
     getErrorStyle() {
-        return new JymfonyStyle(this._input, this._getErrorOutput());
+        return new __self(this._input, this._getErrorOutput());
     }
 
     /**

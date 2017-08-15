@@ -62,7 +62,7 @@ class ResolveDefinitionTemplatesPass extends AbstractRecursivePass {
     _doResolveDefinition(definition) {
         let parent = definition.getParent();
         if (! this._container.has(parent.toString())) {
-            throw new RuntimeException(`The parent definition "${parent.toString()}" defined for definition "${this._currentId} does not exist.`);
+            throw new RuntimeException(`The parent definition "${parent.toString()}" defined for definition "${this._currentId}" does not exist.`);
         }
 
         let parentDef = this._container.findDefinition(parent.toString());

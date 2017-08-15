@@ -5,7 +5,7 @@
  * @memberOf Jymfony.Lexer
  */
 class ValueHolder {
-    __construct(value) {
+    constructor(value) {
         this.value = value;
     }
 

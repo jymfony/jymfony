@@ -44,7 +44,7 @@ class Async {
 
                 return onRejected(new TypeError(
                     __jymfony.sprintf('Expected a function, a generator, a promise, an array or an object. "%s" yielded',
-                    undefined === ret.value ? 'undefined' : ret.value.toString())
+                        undefined === ret.value ? 'undefined' : ret.value.toString())
                 ));
             };
 

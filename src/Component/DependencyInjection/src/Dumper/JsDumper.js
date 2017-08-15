@@ -81,8 +81,8 @@ const LogicException = Jymfony.Component.DependencyInjection.Exception.LogicExce
 const FrozenParameterBag = Jymfony.Component.DependencyInjection.ParameterBag.FrozenParameterBag;
 
 class ${className} extends ${baseClass} {
-    constructor() {
-        super(new FrozenParameterBag(${className}._getDefaultsParameters()));
+    __construct() {
+        super.__construct(new FrozenParameterBag(${className}._getDefaultsParameters()));
 
         ${this._getMethodMap()}
         ${this._getAliases()}

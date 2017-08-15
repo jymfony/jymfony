@@ -1,7 +1,7 @@
 const BarClass = Foo.BarClass;
 
 class FooClass {
-    constructor() {
+    __construct() {
         this.bar = new BarClass(this);
     }
 }

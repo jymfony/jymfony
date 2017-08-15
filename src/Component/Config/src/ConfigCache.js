@@ -12,13 +12,13 @@ class ConfigCache extends ResourceCheckerConfigCache {
      * @param {string} file
      * @param {boolean} debug
      */
-    constructor(file, debug) {
+    __construct(file, debug) {
         let checkers = [];
         if (debug) {
             checkers = [ new SelfCheckingResourceChecker() ];
         }
 
-        super(file, checkers);
+        super.__construct(file, checkers);
         this._debug = debug;
     }
 

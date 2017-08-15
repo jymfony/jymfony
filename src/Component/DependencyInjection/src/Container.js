@@ -11,12 +11,10 @@ let underscoreMap = {'_': '', '.': '_', '\\': '_'};
 class Container {
     /**
      * Constructor.
-     * DO NOT USE __construct here, as this is the base
-     * class for a non-namespaced (dumped) container.
      *
      * @param parameterBag
      */
-    constructor(parameterBag) {
+    __construct(parameterBag) {
         this._parameterBag = parameterBag || new ParameterBag();
 
         this._services = {};

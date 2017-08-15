@@ -13,7 +13,7 @@ const daysPerMonth = [
  * @internal
  */
 class tm_desc {
-    constructor(tz = undefined) {
+    __construct(tz = undefined) {
         if (undefined === tz) {
             tz = DEFAULT_TZ;
         }

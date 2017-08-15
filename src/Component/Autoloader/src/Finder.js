@@ -47,6 +47,10 @@ class Finder {
         return undefined;
     }
 
+    load(fn) {
+        return this._fs.readFileSync(fn, 'utf-8');
+    }
+
     /**
      * Get application root dir, based on root module
      *
