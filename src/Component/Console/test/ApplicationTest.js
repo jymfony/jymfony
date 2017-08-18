@@ -121,7 +121,9 @@ describe('[Console] Application', function () {
     });
 
     it('silent help should not write to output', () => {
-        let tester = new ApplicationTester(new Application());
+        let application = new Application();
+        application.autoExit = false;
+        let tester = new ApplicationTester(application);
         return tester.run({'-h': true, '-q': true}, { decorated: false })
             .then(code => {
                 expect(code).to.be.equal(0);
@@ -388,6 +390,7 @@ describe('[Console] Application', function () {
 
     it('renderException should work', () => {
         let application = new Application();
+        application.autoExit = false;
         delete process.env.COLUMNS;
 
         let tester = new ApplicationTester(application);
@@ -418,6 +421,7 @@ describe('[Console] Application', function () {
 
     it('renderException should escape lines', () => {
         let application = new Application();
+        application.autoExit = false;
         process.env.COLUMNS = 22;
 
         application.register('foo').execute = () => {
@@ -438,6 +442,7 @@ describe('[Console] Application', function () {
 
     it('run should work', () => {
         let command, application = new Application();
+        application.autoExit = false;
         application.add(command = new Fixtures.Foo1Command());
 
         return __jymfony.Async.run(function * () {
@@ -452,6 +457,7 @@ describe('[Console] Application', function () {
             expect(command.output).to.be.instanceOf(Jymfony.Component.Console.Output.ConsoleOutput);
 
             application = new Application();
+            application.autoExit = false;
             ensureStaticCommandHelp(application);
             let tester = new ApplicationTester(application);
 
@@ -484,6 +490,7 @@ describe('[Console] Application', function () {
             expect(tester.input.interactive).to.be.false;
 
             application = new Application();
+            application.autoExit = false;
             application.add(new Fixtures.FooCommand());
 
             tester = new ApplicationTester(application);
@@ -498,6 +505,7 @@ describe('[Console] Application', function () {
     it('verbosity should be set correctly', () => {
         return __jymfony.Async.run(function * () {
             let application = new Application();
+            application.autoExit = false;
             ensureStaticCommandHelp(application);
             let tester = new ApplicationTester(application);
 
@@ -530,6 +538,7 @@ describe('[Console] Application', function () {
     it('version options should work', () => {
         return __jymfony.Async.run(function * () {
             let application = new Application();
+            application.autoExit = false;
             ensureStaticCommandHelp(application);
             let tester = new ApplicationTester(application);
 
@@ -546,6 +555,7 @@ describe('[Console] Application', function () {
     it('ansi/no-ansi options should work', () => {
         return __jymfony.Async.run(function * () {
             let application = new Application();
+            application.autoExit = false;
             ensureStaticCommandHelp(application);
             let tester = new ApplicationTester(application);
 
@@ -559,6 +569,7 @@ describe('[Console] Application', function () {
 
     it('verbosity flag should not break argument', () => {
         let application = new Application();
+        application.autoExit = false;
         application.add(new Fixtures.FooCommand());
 
         let output = new NullOutput(new stream.PassThrough());
@@ -576,6 +587,7 @@ describe('[Console] Application', function () {
 
     it('should return exit code', () => {
         let application = new Application();
+        application.autoExit = false;
         application._doRun = function * () {
             throw new Exception('', 4);
         };
@@ -588,6 +600,7 @@ describe('[Console] Application', function () {
 
     it('should return exit code 1 when exception code is 0', () => {
         let application = new Application();
+        application.autoExit = false;
         application._doRun = function * () {
             throw new Exception('', 0);
         };
@@ -601,6 +614,7 @@ describe('[Console] Application', function () {
     it('should throw trying to add option with duplicate shortcut', ReflectionClass.exists('Jymfony.Component.EventDispatcher.EventDispatcher') ? () => {
         let eventDispatcher = new Jymfony.Component.EventDispatcher.EventDispatcher();
         let application = new Application();
+        application.autoExit = false;
         application.catchExceptions = false;
         application.dispatcher = eventDispatcher;
         application.definition.addOption(new InputOption('env', 'e', InputOption.VALUE_REQUIRED, 'Environment'));
@@ -634,6 +648,7 @@ describe('[Console] Application', function () {
     for (let [key, def] of tests()) {
         it('should throw on adding already set definition #'+key, () => {
             let application = new Application();
+            application.autoExit = false;
             application.catchExceptions = false;
             let command = application.register('foo');
             command.definition = [def];

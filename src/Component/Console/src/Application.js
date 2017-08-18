@@ -29,6 +29,7 @@ class Application {
         this._commands = {};
         this._terminal = new Terminal();
         this._catchExceptions = true;
+        this._autoExit = true;
 
         for (let command of this._getDefaultCommands()) {
             this.add(command);
@@ -90,6 +91,16 @@ class Application {
     }
 
     /**
+     * Sets if application should automatically terminate when run
+     * has been completed.
+     *
+     * @param {boolean} autoExit
+     */
+    set autoExit(autoExit) {
+        this._autoExit = autoExit;
+    }
+
+    /**
      * Run the application
      *
      * @param {Jymfony.Component.Console.Input.InputInterface} input
@@ -123,6 +134,10 @@ class Application {
                     return exitCode;
                 })
                 .then(exitCode => {
+                    if (this._autoExit) {
+                        process.exit(exitCode);
+                    }
+
                     return process.exitCode = exitCode;
                 })
             ;
