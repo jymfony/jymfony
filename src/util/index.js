@@ -34,3 +34,4 @@ require('./lib/Regex/quote');
 require('./lib/mixins');
 
 require('./lib/Async/Async');
+require('./lib/Async/sleep');
