@@ -6,7 +6,7 @@ const Event = Jymfony.Component.EventDispatcher.Event;
  * @memberOf Jymfony.Component.Console.Event
  */
 class ConsoleEvent extends Event {
-    __construct(command = null, input, output) {
+    __construct(command = undefined, input, output) {
         super.__construct();
 
         /**
