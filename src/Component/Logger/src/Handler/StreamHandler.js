@@ -37,12 +37,10 @@ class StreamHandler extends AbstractProcessingHandler {
     _write(record) {
         if (undefined === this._stream) {
             this._createDir();
-
-            const opts = {
+            this._stream = fs.createWriteStream(this._file, {
                 mode: this._filePermission,
                 flags: 'a',
-            };
-            this._stream = fs.createWriteStream(this._file, opts);
+            });
         }
 
         this._streamWrite(record);
