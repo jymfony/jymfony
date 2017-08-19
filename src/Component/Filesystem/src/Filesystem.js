@@ -3,6 +3,8 @@ const RecursiveDirectoryIterator = Jymfony.Component.Filesystem.Iterator.Recursi
 const fs = require('fs');
 const path = require("path");
 
+const internal = require('./internal');
+
 /**
  * @memberOf Jymfony.Component.Filesystem
  */
@@ -21,11 +23,11 @@ class Filesystem {
      */
     * copy(originFile, targetFile, overwriteNewerFiles = false) {
         yield this.mkdir(path.dirname(targetFile));
-        let originStat = yield this._doStat(targetFile);
+        let originStat = yield internal.stat(targetFile);
 
         let doCopy = true;
         if (! overwriteNewerFiles && (yield this.isFile(targetFile))) {
-            let targetStat = yield this._doStat(targetFile);
+            let targetStat = yield internal.stat(targetFile);
             doCopy = originStat.mtime > targetStat.mtime;
         }
 
@@ -51,7 +53,7 @@ class Filesystem {
             }
 
             fs.chmod(targetFile, originStat.mode);
-            let targetStat = yield this._doStat(targetFile);
+            let targetStat = yield internal.stat(targetFile);
             if (targetStat.size !== originStat.size) {
                 throw new IOException(__jymfony.sprintf('Failed to copy the whole content of "%s" to "%s" (%g of %g bytes copied).', originFile, targetFile, targetStat.size, originStat.size), null, undefined, originFile);
             }
@@ -77,7 +79,7 @@ class Filesystem {
             }
 
             try {
-                yield this._mkdirRecursive(dir, mode);
+                yield internal.mkdir(dir, mode);
             } catch (err) {
                 if (! (yield this.isDir(dir))) {
                     // The directory was not created by a concurrent process. Let's throw an exception with a developer friendly error message if we have one
@@ -100,9 +102,7 @@ class Filesystem {
         }
 
         for (let file of files) {
-            try {
-                yield this._doStat(file);
-            } catch (err) {
+            if (false === (yield internal.stat(file))) {
                 return false;
             }
         }
@@ -127,13 +127,13 @@ class Filesystem {
                 yield this.remove((yield this.readdir(file)).map(f => path.join(file, f)));
 
                 try {
-                    yield this._doRmdir(file);
+                    yield internal.rmdir(file);
                 } catch (err) {
                     throw new IOException(__jymfony.sprintf('Failed to remove directory "%s": %s.', file, err.message));
                 }
             } else {
                 try {
-                    yield this._doUnlink(file);
+                    yield internal.unlink(file);
                 } catch (err) {
                     throw new IOException(__jymfony.sprintf('Failed to remove file "%s": %s.', file, err.message));
                 }
@@ -179,7 +179,7 @@ class Filesystem {
 
         for (let file of iterator) {
             let target = file.replace(originDir, targetDir);
-            let stat = yield this._doStat(file, copyOnWindows);
+            let stat = yield internal.stat(file, copyOnWindows);
 
             if (copyOnWindows) {
                 if (stat.isFile()) {
@@ -222,7 +222,7 @@ class Filesystem {
         }
 
         try {
-            yield this._doRename(origin, target);
+            yield internal.rename(origin, target);
         } catch (err) {
             if (! (yield this.isDir(origin))) {
                 throw new IOException(__jymfony.sprintf('Cannot rename "%s" to "%s".', origin, target), null, undefined, target);
@@ -302,17 +302,17 @@ class Filesystem {
             }
 
             if (__jymfony.Platform.isWindows()) {
-                path = yield this._doReadlink(path);
+                path = yield internal.readlink(path);
             }
 
-            return yield this._doRealpath(path);
+            return yield internal.realpath(path);
         }
 
         if (__jymfony.Platform.isWindows()) {
-            return yield this._doRealpath(path);
+            return yield internal.realpath(path);
         }
 
-        return yield this._doReadlink(path);
+        return yield internal.readlink(path);
     }
 
     /**
@@ -323,15 +323,7 @@ class Filesystem {
      * @return {[string]}
      */
     * readdir(path) {
-        return yield new Promise((resolve, reject) => {
-            fs.readdir(path, {}, (err, files) => {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve(files);
-                }
-            });
-        });
+        return yield internal.readdir(path);
     }
 
     /**
@@ -342,7 +334,7 @@ class Filesystem {
      * @returns {boolean}
      */
     * isReadable(filename) {
-        return yield this._doAccess(filename, fs.constants.R_OK);
+        return yield internal.access(filename, fs.constants.R_OK);
     }
 
     /**
@@ -353,7 +345,7 @@ class Filesystem {
      * @returns {boolean}
      */
     * isWritable(filename) {
-        return yield this._doAccess(filename, fs.constants.W_OK);
+        return yield internal.access(filename, fs.constants.W_OK);
     }
 
     /**
@@ -364,7 +356,9 @@ class Filesystem {
      * @returns {boolean}
      */
     * isDir(path) {
-        return (yield this._doStat(path)).isDirectory();
+        const stat = yield internal.stat(path);
+
+        return stat ? stat.isDirectory() : false;
     }
 
     /**
@@ -375,7 +369,9 @@ class Filesystem {
      * @returns {boolean}
      */
     * isFile(path) {
-        return (yield this._doStat(path)).isFile();
+        const stat = yield internal.stat(path);
+
+        return stat ? stat.isFile() : false;
     }
 
     /**
@@ -386,204 +382,9 @@ class Filesystem {
      * @returns {boolean}
      */
     * isLink(path) {
-        return (yield this._doStat(path, true)).isSymbolicLink();
-    }
+        const stat = yield internal.stat(path);
 
-    /**
-     * Converts fs.access call to a promise.
-     *
-     * @param {string} filename
-     * @param {int} mode
-     *
-     * @returns {Promise}
-     *
-     * @private
-     */
-    _doAccess(filename, mode) {
-        return new Promise(resolve => {
-            fs.access(filename, mode, err => {
-                if (err) {
-                    resolve(false);
-                } else {
-                    resolve(true);
-                }
-            });
-        });
-    }
-
-    /**
-     * Converts fs.rename to a promise.
-     *
-     * @param {string} origin
-     * @param {string} target
-     *
-     * @returns {Promise}
-     *
-     * @private
-     */
-    _doRename(origin, target) {
-        return new Promise((resolve, reject) => {
-            fs.rename(origin, target, (err) => {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve();
-                }
-            });
-        });
-    }
-
-    /**
-     * Converts fs.stat (or lstat) to a promise.
-     *
-     * @param {string} file
-     * @param {boolean} followSymlink
-     *
-     * @returns {Promise}
-     *
-     * @private
-     */
-    _doStat(file, followSymlink = true) {
-        return new Promise((resolve, reject) => {
-            fs[followSymlink ? 'stat' : 'lstat'](file, (err, stats) => {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve(stats);
-                }
-            });
-        });
-    }
-
-    /**
-     * Converts fs.mkdir to a promise.
-     *
-     * @param {string} path
-     * @param {int} mode
-     *
-     * @returns {Promise}
-     *
-     * @private
-     */
-    _doMkdir(path, mode) {
-        return new Promise((resolve, reject) => {
-            fs.mkdir(path, mode, (err) => {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve();
-                }
-            });
-        });
-    }
-
-    /**
-     * Converts fs.rmdir to a promise.
-     *
-     * @param {string} file
-     *
-     * @returns {Promise}
-     *
-     * @private
-     */
-    _doRmdir(file) {
-        return new Promise((resolve, reject) => {
-            fs.rmdir(file, (err) => {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve();
-                }
-            });
-        });
-    }
-
-    /**
-     * Calls mkdir recursively.
-     *
-     * @param {string} dir
-     * @param {int} mode
-     *
-     * @private
-     */
-    * _mkdirRecursive(dir, mode) {
-        for (let i = 2; 0 < i; i--) {
-            try {
-                yield this._doMkdir(dir, mode);
-                break;
-            } catch (e) {
-                if ('ENOENT' !== e.code) {
-                    throw e;
-                }
-
-                yield this._mkdirRecursive(path.dirname(dir), mode);
-            }
-        }
-    }
-
-    /**
-     * Converts readlink call to a promise.
-     *
-     * @param {string} file
-     *
-     * @return {Promise}
-     *
-     * @private
-     */
-    _doReadlink(file) {
-        return new Promise((resolve, reject) => {
-            fs.readlink(file, {}, (err, linkString) => {
-                if (err) {
-                    reject(err);
-                    return;
-                }
-
-                resolve(linkString);
-            });
-        });
-    }
-
-    /**
-     * Converts realpath call to a promise.
-     *
-     * @param {string} file
-     *
-     * @return {Promise}
-     *
-     * @private
-     */
-    _doRealpath(file) {
-        return new Promise((resolve, reject) => {
-            fs.realpath(file, {}, (err, resolvedPath) => {
-                if (err) {
-                    reject(err);
-                    return;
-                }
-
-                resolve(resolvedPath);
-            });
-        });
-    }
-
-    /**
-     * Converts unlink call to a promise.
-     *
-     * @param {string} file
-     *
-     * @return {Promise}
-     *
-     * @private
-     */
-    _doUnlink(file) {
-        return new Promise((resolve, reject) => {
-            fs.unlink(file, (err) => {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve();
-                }
-            });
-        });
+        return stat ? stat.isSymbolicLink() : false;
     }
 }
 
