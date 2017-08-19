@@ -135,7 +135,8 @@ class Application {
                 })
                 .then(exitCode => {
                     if (this._autoExit) {
-                        process.exit(exitCode);
+                        // Wait for next uncork call.
+                        process.nextTick(() => process.exit(exitCode));
                     }
 
                     return process.exitCode = exitCode;
