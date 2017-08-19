@@ -1,7 +1,7 @@
 /**
  * @memberOf Jymfony.Component.DependencyInjection
  */
-module.exports = class Alias {
+class Alias {
     __construct(id, public_ = false) {
         this._id = id;
         this._public = public_;
@@ -20,9 +20,13 @@ module.exports = class Alias {
      * Sets if this Alias is public
      *
      * @param public_
+     *
+     * @returns {Jymfony.Component.DependencyInjection.Alias}
      */
     setPublic(public_) {
         this._public = !! public_;
+
+        return this;
     }
 
     /**
@@ -33,4 +37,6 @@ module.exports = class Alias {
     toString() {
         return this._id;
     }
-};
+}
+
+module.exports = Alias;

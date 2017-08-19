@@ -480,7 +480,7 @@ class ContainerBuilder extends Container {
      * @returns {boolean}
      */
     hasAlias(alias) {
-        return undefined !== this._aliasDefinitions[alias.toLowerCase()];
+        return undefined !== this._aliasDefinitions[alias.toString().toLowerCase()];
     }
 
     /**
@@ -583,7 +583,7 @@ class ContainerBuilder extends Container {
      * @returns {boolean}
      */
     hasDefinition(id) {
-        return undefined !== this._definitions[id.toLowerCase()];
+        return undefined !== this._definitions[id.toString().toLowerCase()];
     }
 
     /**
@@ -596,7 +596,7 @@ class ContainerBuilder extends Container {
      * @throws ServiceNotFoundException if the service definition does not exist
      */
     getDefinition(id) {
-        id = id.toLowerCase();
+        id = id.toString().toLowerCase();
 
         if (undefined === this._definitions[id]) {
             throw new ServiceNotFoundException(id);

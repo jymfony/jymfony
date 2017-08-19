@@ -24,6 +24,12 @@ class AnalyzeServiceReferencesPass extends mix(AbstractRecursivePass, Repeatable
      */
     process(container) {
         /**
+         * @type {Jymfony.Component.DependencyInjection.ContainerBuilder}
+         * @protected
+         */
+        this._container = container;
+
+        /**
          * @type {Jymfony.Component.DependencyInjection.Compiler.ServiceReferenceGraph}
          * @private
          */

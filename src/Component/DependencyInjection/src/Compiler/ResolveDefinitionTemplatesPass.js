@@ -79,7 +79,6 @@ class ResolveDefinitionTemplatesPass extends AbstractRecursivePass {
         let def = new Definition();
 
         def.setClass(parentDef.getClass());
-        def.setArguments(parentDef.getArguments());
         def.setMethodCalls(parentDef.getMethodCalls());
         def.setProperties(parentDef.getProperties());
 
@@ -132,6 +131,7 @@ class ResolveDefinitionTemplatesPass extends AbstractRecursivePass {
             }
         }
 
+        definition.setArguments(parentDef.getArguments());
         for (let argument of definition.getArguments()) {
             def.addArgument(argument);
         }
