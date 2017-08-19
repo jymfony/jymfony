@@ -43,8 +43,8 @@ class ConsoleHandler extends mix(AbstractProcessingHandler, EventSubscriberInter
      * @inheritDoc
      */
     handle(record) {
-        // we have to update the logging level each time because the verbosity of the
-        // console output might have changed in the meantime (it is not immutable)
+        // We have to update the logging level each time because the verbosity of the
+        // Console output might have changed in the meantime (it is not immutable)
         return this._updateLevel() && super.handle(record);
     }
 
@@ -82,8 +82,8 @@ class ConsoleHandler extends mix(AbstractProcessingHandler, EventSubscriberInter
      */
     static getSubscribedEvents() {
         return {
-            [ConsoleEvents.COMMAND]: ['onCommand', 255],
-            [ConsoleEvents.TERMINATE]: ['onTerminate', -255],
+            [ConsoleEvents.COMMAND]: [ 'onCommand', 255 ],
+            [ConsoleEvents.TERMINATE]: [ 'onTerminate', -255 ],
         };
     }
 
@@ -91,15 +91,14 @@ class ConsoleHandler extends mix(AbstractProcessingHandler, EventSubscriberInter
      * @inheritD
      */
     _write(record) {
-        // at this point we've determined for sure that we want to output the record, so use the output's own verbosity
+        // At this point we've determined for sure that we want to output the record, so use the output's own verbosity
         this._output.write(record['formatted'].toString(), false, this._output.verbosity);
     }
 
     /**
      * {@inheritdoc}
      */
-    getDefaultFormatter()
-    {
+    getDefaultFormatter() {
         if (undefined === this._output) {
             return new ConsoleFormatter();
         }

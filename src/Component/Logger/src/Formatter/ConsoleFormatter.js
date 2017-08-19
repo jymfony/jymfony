@@ -68,7 +68,7 @@ class ConsoleFormatter extends NormalizerFormatter {
         let context = record.context;
         let replacements = {};
 
-        for (let [k, v] of __jymfony.getEntries(context)) {
+        for (let [ k, v ] of __jymfony.getEntries(context)) {
             // Remove quotes added by the dumper around string.
             v = __jymfony.trim(util.inspect(v), '"');
             v = OutputFormatter.escape(v);
