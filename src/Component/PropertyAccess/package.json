@@ -3,8 +3,7 @@
   "version": "0.1.0-dev",
   "description": "Jymfony Propery Access",
   "scripts": {
-    "test": "node ./tests.js",
-    "coverage": "istanbul cover --root ./src ./tests.js && istanbul report clover"
+    "test": "node ./tests.js"
   },
   "keywords": [
     "property path",

@@ -4,8 +4,7 @@
   "description": "Jymfony Filesystem Component",
   "main": "src/Filesystem.js",
   "scripts": {
-    "test": "node ./tests.js test/**",
-    "coverage": "istanbul cover ./tests.js test/**"
+    "test": "node ./tests.js test/**"
   },
   "keywords": [
     "filesystem",

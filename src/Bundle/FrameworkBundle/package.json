@@ -3,7 +3,7 @@
   "version": "0.1.0-dev",
   "description": "Jymfony Framework Bundle",
   "scripts": {
-    "test": "node ./tests.js test/**",
+    "test": "node ./tests.js test/**"
   },
   "keywords": [
     "jymfony"

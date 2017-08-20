@@ -4,8 +4,7 @@
   "description": "Jymfony Configuration component",
   "main": "src/Kernel.js",
   "scripts": {
-    "test": "node ./tests.js test/**",
-    "coverage": "istanbul cover ./tests.js test/**"
+    "test": "node ./tests.js test/**"
   },
   "keywords": [
     "application",

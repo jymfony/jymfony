@@ -4,8 +4,7 @@
   "description": "Jymfony util functions",
   "main": "index.js",
   "scripts": {
-    "test": "node ./tests.js test/**",
-    "coverage": "istanbul cover ./tests.js test/**"
+    "test": "node ./tests.js test/**"
   },
   "keywords": [
     "jymfony",
