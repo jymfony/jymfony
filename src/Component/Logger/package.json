@@ -28,7 +28,7 @@
   "config": {
     "jymfony-autoload": {
       "namespaces": {
-        "Jymfony.Logger": "src/"
+        "Jymfony.Component.Logger": "src/"
       }
     }
   }
