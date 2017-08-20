@@ -7,8 +7,4 @@ node_js:
 
 sudo: false
 
-script: if [ "$TRAVIS_NODE_VERSION" == "6" ]; then npm run-script coverage; else npm test; fi
-
-after_success:
-    - if [ "$TRAVIS_NODE_VERSION" == "6" ]; then npm install https://github.com/alekitto/ocular.js.git; fi
-    - if [ "$TRAVIS_NODE_VERSION" == "6" ]; then $(npm bin)/ocular coverage/clover.xml; fi
+script: npm test

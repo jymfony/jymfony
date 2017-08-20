@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "test": "node ./tests.js \"src/*/test/**/*.js\" \"src/{Component,Bundle}/*/test/**/*.js\" && eslint src/",
-    "coverage": "istanbul cover ./tests.js \"src/*/test/**/*.js\" \"src/{Component,Bundle}/*/test/**/*.js\" && eslint src/"
+    "coverage": "nyc npm test"
   },
   "keywords": [
     "jymfony",
@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
-    "istanbul": "^0.4",
+    "nyc": "^11.1.0",
     "mocha": "^3.4.2"
   },
   "flat": true,
@@ -45,5 +45,24 @@
         "src/DataStructure/src/all.js"
       ]
     }
+  },
+  "nyc": {
+    "per-file": true,
+    "include": [
+      "src/**/*.js"
+    ],
+    "exclude": [
+      "**/tests.js",
+      "**/namespace-stub.js",
+      "**/fixtures/**",
+      "**/test/**"
+    ],
+    "reporter": [
+      "lcov",
+      "text-summary",
+      "clover"
+    ],
+    "all": true,
+    "report-dir": "./coverage"
   }
 }

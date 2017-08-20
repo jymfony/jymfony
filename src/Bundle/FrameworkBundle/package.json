@@ -4,7 +4,6 @@
   "description": "Jymfony Framework Bundle",
   "scripts": {
     "test": "node ./tests.js test/**",
-    "coverage": "istanbul cover ./tests.js test/**"
   },
   "keywords": [
     "jymfony"
@@ -28,7 +27,6 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
-    "istanbul": "^0.4",
     "mocha": "^3.0"
   },
   "config": {

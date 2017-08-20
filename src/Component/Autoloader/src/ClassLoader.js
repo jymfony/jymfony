@@ -1,4 +1,5 @@
 const Patcher = require('./Parser/Patcher');
+const isNyc = !! global.__coverage__;
 
 let Storage = function () {};
 Storage.prototype = {};
@@ -71,19 +72,15 @@ class ClassLoader {
             require: require,
         };
 
-        code = `(function(exports, require, module, __filename, __dirname, __self) {
-${code}
-});`;
+        code = `(function(exports, require, module, __filename, __dirname, __self) { ${code} });`;
 
-        let script = new this._vm.Script(code, {
+        const opts = isNyc ? fn : {
             filename: fn,
             produceCachedData: false,
             lineOffset: -1,
-        });
+        };
 
-        script.runInThisContext({
-            filename: fn,
-        })(moduleObj.exports, (id) => {
+        this._vm.runInThisContext(code, opts)(moduleObj.exports, (id) => {
             if (id.startsWith('./') || id.startsWith('../')) {
                 return require(this._path.resolve(dirname, id));
             }
