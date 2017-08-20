@@ -32,7 +32,7 @@
   "config": {
     "jymfony-autoload": {
       "namespaces": {
-        "Jymfony.DateTime": "src/"
+        "Jymfony.Component.DateTime": "src/"
       }
     }
   }
