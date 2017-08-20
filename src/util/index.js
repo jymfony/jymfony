@@ -14,6 +14,8 @@ require('./lib/Object/obj2map');
 require('./lib/Object/serialize');
 require('./lib/Object/sort');
 
+require('./lib/Filesystem/mkdir');
+
 require('./lib/Function/callableArray');
 require('./lib/Function/getFunction');
 

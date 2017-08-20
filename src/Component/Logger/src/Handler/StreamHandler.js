@@ -68,16 +68,7 @@ class StreamHandler extends AbstractProcessingHandler {
         }
 
         this._dirCreated = true;
-        path.dirname(this._file)
-            .split(path.sep)
-            .reduce((acc, folder) => {
-                acc += folder + path.sep;
-                if (! fs.existsSync(acc)) {
-                    fs.mkdirSync(acc, 0o777);
-                }
-
-                return acc;
-            }, '');
+        __jymfony.mkdir(path.dirname(this._file));
     }
 }
 
