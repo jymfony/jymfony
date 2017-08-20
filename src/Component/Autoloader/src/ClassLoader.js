@@ -78,6 +78,7 @@ ${code}
         let script = new this._vm.Script(code, {
             filename: fn,
             produceCachedData: false,
+            lineOffset: -1,
         });
 
         script.runInThisContext({
