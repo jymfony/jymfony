@@ -29,6 +29,11 @@ class FileLoader extends Loader {
         this._currentDir = undefined;
     }
 
+    /**
+     * Gets the current directory.
+     *
+     * @return {string}
+     */
     get currentDir() {
         return this._currentDir;
     }

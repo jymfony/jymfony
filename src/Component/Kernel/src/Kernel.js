@@ -1,5 +1,9 @@
-const ContainerBuilder = Jymfony.Component.DependencyInjection.ContainerBuilder;
 const ConfigCache = Jymfony.Component.Config.ConfigCache;
+const DelegatingLoader = Jymfony.Component.Config.Loader.DelegatingLoader;
+const LoaderResolver = Jymfony.Component.Config.Loader.LoaderResolver;
+const ContainerBuilder = Jymfony.Component.DependencyInjection.ContainerBuilder;
+const JsFileLoader = Jymfony.Component.DependencyInjection.Loader.JsFileLoader;
+const FileLocator = Jymfony.Component.Kernel.Config.FileLocator;
 const KernelInterface = Jymfony.Component.Kernel.KernelInterface;
 
 const fs = require('fs');
@@ -40,6 +44,12 @@ class Kernel extends implementationOf(KernelInterface) {
          */
         this._name = this.getName();
 
+        /**
+         * @type {undefined|Date}
+         * @protected
+         */
+        this._startTime = undefined;
+
         if (this._debug) {
             this._startTime = new Date();
         }
@@ -56,6 +66,10 @@ class Kernel extends implementationOf(KernelInterface) {
          */
         this._bundles = {};
 
+        /**
+         * @type {boolean}
+         * @private
+         */
         this._booted = false;
     }
 
@@ -70,12 +84,30 @@ class Kernel extends implementationOf(KernelInterface) {
         this._initializeBundles();
         this._initializeContainer();
 
-        for (let bundle of Object.values(this._bundles)) {
+        for (let bundle of this.getBundles()) {
             bundle.setContainer(this._container);
             bundle.boot();
         }
 
         this._booted = true;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    shutdown() {
+        if (false === this._booted) {
+            return;
+        }
+
+        this._booted = false;
+
+        for (let bundle of this.getBundles()) {
+            bundle.shutdown();
+            bundle.setContainer(undefined);
+        }
+
+        this._container = undefined;
     }
 
     /**
@@ -111,6 +143,15 @@ class Kernel extends implementationOf(KernelInterface) {
      */
     get container() {
         return this._container;
+    }
+
+    /**
+     * Gets the start date time.
+     *
+     * @return {undefined|Date}
+     */
+    get startTime() {
+        return this._startTime;
     }
 
     /**
@@ -153,6 +194,88 @@ class Kernel extends implementationOf(KernelInterface) {
      */
     * registerBundles() {
         throw new Error('You must override registerBundles method');
+    }
+
+    /**
+     * @inheritDoc
+     */
+    getBundles() {
+        return Object.values(this._bundles);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    getBundle(name, first = true) {
+        if (undefined === this._bundleMap[name]) {
+            throw new InvalidArgumentException(__jymfony.sprintf('Bundle "%s" does not exist or it is not enabled. Maybe you forgot to add it in the registerBundles() method?', name));
+        }
+
+        if (true === first) {
+            return this._bundleMap[name][0];
+        }
+
+        return this._bundleMap[name];
+    }
+
+    /**
+     * @inheritDoc
+     */
+    locateResource(name, dir = undefined, first = true) {
+        if ('@' !== name.charAt(0)) {
+            throw new InvalidArgumentException(__jymfony.sprintf('A resource name must start with @ ("%s" given).', name));
+        }
+
+        if (-1 !== name.indexOf('..')) {
+            throw new RuntimeException(__jymfony.sprintf('File name "%s" contains invalid characters (..).', name));
+        }
+
+        let bundleName = name.substr(1);
+        let path = '';
+        if (-1 !== bundleName.indexOf('/')) {
+            [ bundleName, path ] = bundleName.split('/', 2);
+        }
+
+        let isResource = 0 === path.indexOf('Resources') && undefined !== dir;
+        let overridePath = path.substr(9);
+
+        let resourceBundle = undefined;
+        let bundles = this.getBundle(bundleName, false);
+        let files = [];
+
+        for (let bundle of bundles) {
+            let file;
+            if (isResource && fs.existsSync(file = dir + '/' + bundle.getName() + overridePath)) {
+                if (undefined !== resourceBundle) {
+                    throw new RuntimeException(__jymfony.sprintf('"%s" resource is hidden by a resource from the "%s" derived bundle. Create a "%s" file to override the bundle resource.',
+                        file,
+                        resourceBundle,
+                        dir + '/' + bundles[0].getName() + overridePath
+                    ));
+                }
+
+                if (first) {
+                    return file;
+                }
+
+                files.push(file);
+            }
+
+            if (fs.existsSync(file = bundle.path + '/' + path)) {
+                if (first && ! isResource) {
+                    return file;
+                }
+
+                files.push(file);
+                resourceBundle = bundle.getName();
+            }
+        }
+
+        if (0 < files.length) {
+            return first && isResource ? files[0] : files;
+        }
+
+        throw new InvalidArgumentException(__jymfony.sprintf('Unable to find file "%s".', name));
     }
 
     /**
@@ -275,6 +398,24 @@ class Kernel extends implementationOf(KernelInterface) {
     }
 
     /**
+     * Returns a loader for the container.
+     *
+     * @param {Jymfony.Component.DependencyInjection.Container} container The service container
+     *
+     * @returns {Jymfony.Component.Config.Loader.DelegatingLoader} The loader
+     *
+     * @protected
+     */
+    _getContainerLoader(container) {
+        const locator = new FileLocator(this);
+        const resolver = new LoaderResolver([
+            new JsFileLoader(container, locator),
+        ]);
+
+        return new DelegatingLoader(resolver);
+    }
+
+    /**
      * Builds the service container
      *
      * @returns {Jymfony.Component.DependencyInjection.ContainerBuilder}
@@ -282,34 +423,10 @@ class Kernel extends implementationOf(KernelInterface) {
      */
     _buildContainer() {
         let createDir = (name, dir) => {
-            let mkdirRec = dir => {
-                for (let i = 2; 0 < i; i--) {
-                    try {
-                        fs.mkdirSync(dir, 0o777);
-                        break;
-                    } catch (e) {
-                        if ('ENOENT' !== e.code) {
-                            throw e;
-                        }
-
-                        mkdirRec(path.dirname(dir));
-                    }
-                }
-            };
-
-            if (fs.existsSync(dir)) {
-                return;
-            }
-
-            let stat;
-            mkdirRec(dir);
-
             try {
-                stat = fs.statSync(dir);
-            } catch (e) { }
-
-            if (! stat || ! stat.isDirectory()) {
-                throw new global.RuntimeException(`Unable to create ${name} directory (${dir})`);
+                __jymfony.mkdir(dir);
+            } catch (e) {
+                throw new RuntimeException(`Unable to create ${name} directory (${dir})`);
             }
         };
 
@@ -320,8 +437,20 @@ class Kernel extends implementationOf(KernelInterface) {
         container.addObjectResource(this);
         this._prepareContainer(container);
 
+        let cont;
+        if (undefined !== (cont = this.registerContainerConfiguration(this._getContainerLoader(container)))) {
+            container.merge(cont);
+        }
+
         return container;
     }
+
+    /**
+     * @inheritDoc
+     */
+    registerContainerConfiguration(loader) {
+        return undefined;
+    };
 
     /**
      * Get Container class name

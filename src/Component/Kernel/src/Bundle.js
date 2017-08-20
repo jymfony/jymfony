@@ -3,14 +3,22 @@ const ContainerAwareInterface = Jymfony.Component.DependencyInjection.ContainerA
 const ContainerAwareTrait = Jymfony.Component.DependencyInjection.ContainerAwareTrait;
 const ExtensionInterface = Jymfony.Component.DependencyInjection.Extension.ExtensionInterface;
 
+const path = require('path');
+
 /**
  * @memberOf Jymfony.Component.Kernel
  */
-module.exports = class Bundle extends implementationOf(ContainerAwareInterface, ContainerAwareTrait) {
+class Bundle extends implementationOf(ContainerAwareInterface, ContainerAwareTrait) {
     /**
      * Boots the bundle
      */
     boot() {
+    }
+
+    /**
+     * Shutdowns the Bundle.
+     */
+    shutdown() {
     }
 
     /**
@@ -19,6 +27,27 @@ module.exports = class Bundle extends implementationOf(ContainerAwareInterface, 
      * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
      */
     build(container) {
+    }
+
+    /**
+     * Gets the Bundle directory path.
+     *
+     * The path should always be returned as a Unix path (with /).
+     *
+     * @returns {string} The Bundle absolute path
+     */
+    get path() {
+        if (undefined === this._path) {
+            let reflClass = new ReflectionClass(this);
+
+            /**
+             * @type {string}
+             * @private
+             */
+            this._path = path.dirname(reflClass.filename);
+        }
+
+        return this._path;
     }
 
     getName() {
@@ -93,4 +122,6 @@ module.exports = class Bundle extends implementationOf(ContainerAwareInterface, 
         let position = refl.name.lastIndexOf('.');
         this._name = refl.name.substring(position + 1);
     }
-};
+}
+
+module.exports = Bundle;
