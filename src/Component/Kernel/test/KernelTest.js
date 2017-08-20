@@ -1,4 +1,5 @@
 const Namespace = Jymfony.Component.Autoloader.Namespace;
+const DateTime = Jymfony.Component.DateTime.DateTime;
 const Bundle = Jymfony.Component.Kernel.Bundle;
 const Kernel = Jymfony.Component.Kernel.Kernel;
 
@@ -69,7 +70,7 @@ describe('[Kernel] Kernel', function () {
         expect(kernel.debug).to.be.true;
         expect(kernel.booted).to.be.false;
         expect(kernel.container).to.be.equal(undefined);
-        expect(kernel.startTime <= new Date()).to.be.true;
+        expect(kernel.startTime.microtime <= DateTime.now.microtime).to.be.true;
     });
 
     it('boot should initialize bundles and container', () => {

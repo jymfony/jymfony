@@ -1,6 +1,7 @@
 const ConfigCache = Jymfony.Component.Config.ConfigCache;
 const DelegatingLoader = Jymfony.Component.Config.Loader.DelegatingLoader;
 const LoaderResolver = Jymfony.Component.Config.Loader.LoaderResolver;
+const DateTime = Jymfony.Component.DateTime.DateTime;
 const ContainerBuilder = Jymfony.Component.DependencyInjection.ContainerBuilder;
 const JsFileLoader = Jymfony.Component.DependencyInjection.Loader.JsFileLoader;
 const FileLocator = Jymfony.Component.Kernel.Config.FileLocator;
@@ -51,7 +52,7 @@ class Kernel extends implementationOf(KernelInterface) {
         this._startTime = undefined;
 
         if (this._debug) {
-            this._startTime = new Date();
+            this._startTime = new DateTime();
         }
 
         /**

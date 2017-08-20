@@ -151,6 +151,15 @@ class DateTime {
     }
 
     /**
+     * Gets the UNIX timestamp with milliseconds.
+     *
+     * @return {float}
+     */
+    get microtime() {
+        return this._tm.unix_timestamp + (this._tm.tm_msec / 1000);
+    }
+
+    /**
      * Gets the Day of Week of this instance.
      * 1 = Monday, 7 = Sunday
      *
