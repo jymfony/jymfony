@@ -29,7 +29,7 @@
   "config": {
     "jymfony-autoload": {
       "namespaces": {
-        "Jymfony.Lexer": "src/"
+        "Jymfony.Component.Lexer": "src/"
       }
     }
   }
