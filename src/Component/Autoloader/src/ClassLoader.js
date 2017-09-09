@@ -77,7 +77,6 @@ class ClassLoader {
         const opts = isNyc ? fn : {
             filename: fn,
             produceCachedData: false,
-            lineOffset: -1,
         };
 
         this._vm.runInThisContext(code, opts)(moduleObj.exports, (id) => {

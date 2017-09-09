@@ -5,4 +5,5 @@ autoloader.register();
 
 module.exports = autoloader;
 
+require('./src/Exception/ReflectionException');
 require('./src/Reflection/ReflectionClass');

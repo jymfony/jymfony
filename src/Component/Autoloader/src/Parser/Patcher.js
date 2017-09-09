@@ -139,8 +139,18 @@ class Patcher {
 
                     break;
 
+                case Lexer.T_KEYWORD:
+                    if (1 === level && 'static' === token.value && lexer.isNextToken(Lexer.T_SPACE)) {
+                        lexer.peek();
+                        const methodToken = lexer.peek();
+
+                        if (methodToken.type === Lexer.T_IDENTIFIER) {
+                            classDocblock.methods[token.value + '#' + methodToken.value] = docblock;
+                        }
+                    }
+
                 default:
-                    if (1 !== level || '*' !== token.value) {
+                    if (1 !== level || ('*' !== token.value && 'async' !== token.value)) {
                         docblock = undefined;
                     }
 

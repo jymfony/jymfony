@@ -173,6 +173,14 @@ class Namespace {
                 namespace: this,
             };
 
+            if (! mod.hasOwnProperty('arguments')) {
+                Object.defineProperty(mod, 'arguments', {value: null, writable: false, enumerable: false, configurable: false});
+            }
+
+            if (! mod.hasOwnProperty('caller')) {
+                Object.defineProperty(mod, 'caller', {value: null, writable: false, enumerable: false, configurable: false});
+            }
+
             Object.defineProperty(mod, Symbol.reflection, {
                 enumerable: false,
                 writable: false,

@@ -104,7 +104,7 @@ class Autoloader {
          */
         this._global.__jymfony.JObject = class JObject {
             constructor(...$args) {
-                this.__construct(...$args);
+                return this.__construct(...$args);
             }
 
             __construct() { }
