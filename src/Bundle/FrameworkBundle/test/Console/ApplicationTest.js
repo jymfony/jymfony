@@ -15,6 +15,8 @@ Jymfony.Bundle.FrameworkBundle.Tests.Fixtures = new Jymfony.Component.Autoloader
 const TestKernel = Jymfony.Bundle.FrameworkBundle.Tests.Fixtures.TestKernel;
 
 describe('[FrameworkBundle] Application', function () {
+    this.timeout(Infinity);
+
     it('constructor', () => {
         let kernel = new TestKernel('test', true, false);
         kernel.registerBundles = () => [];
