@@ -1,0 +1,48 @@
+const NoCallsException = Jymfony.Component.Testing.Exception.Prediction.NoCallsException;
+const PredictionInterface = Jymfony.Component.Testing.Prediction.PredictionInterface;
+const Argument = Jymfony.Component.Testing.Argument;
+const AnyValuesToken = Jymfony.Component.Testing.Argument.Token.AnyValuesToken;
+
+/**
+ * @memberOf Jymfony.Component.Testing.Prediction
+ */
+class CallPrediction extends implementationOf(PredictionInterface) {
+    /**
+     * @inheritDoc
+     */
+    check(calls, object, method) {
+        if (calls.length) {
+            return;
+        }
+
+        let methodCalls = object.findProphecyMethodCalls(
+            method.methodName,
+            new Argument.ArgumentsWildcard([ new AnyValuesToken() ])
+        );
+
+        if (methodCalls.length) {
+            throw new NoCallsException(__jymfony.sprintf(
+                'No calls have been made that match:\n' +
+                '  %s.%s(%s)\n' +
+                'but expected at least one.\n' +
+                'Recorded `%s(...)` calls:\n%s',
+                (new ReflectionClass(object.reveal())).name,
+                method.methodName,
+                method.argumentsWildcard,
+                method.methodName,
+                methodCalls.map(call => call.toString()).join(', ')
+            ), method);
+        }
+
+        throw new NoCallsException(__jymfony.sprintf(
+            'No calls have been made that match:\n' +
+            '  %s.%s(%s)\n' +
+            'but expected at least one.',
+            (new ReflectionClass(object.reveal())).name,
+            method.methodName,
+            method.argumentsWildcard
+        ), method);
+    }
+}
+
+module.exports = CallPrediction;

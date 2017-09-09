@@ -2,6 +2,8 @@ const Namespace = Jymfony.Component.Autoloader.Namespace;
 const DateTime = Jymfony.Component.DateTime.DateTime;
 const Bundle = Jymfony.Component.Kernel.Bundle;
 const Kernel = Jymfony.Component.Kernel.Kernel;
+const Argument = Jymfony.Component.Testing.Argument.Argument;
+const Prophet = Jymfony.Component.Testing.Prophet;
 
 const expect = require('chai').expect;
 const path = require('path');
@@ -62,7 +64,20 @@ const getKernelForTest = function (methods = [], bundles = []) {
     return kernel;
 };
 
+/**
+ * @type {Jymfony.Component.Testing.Prophet}
+ */
+let prophet;
+
 describe('[Kernel] Kernel', function () {
+    beforeEach(() => {
+        prophet = new Prophet();
+    });
+
+    afterEach(() => {
+        prophet.checkPredictions();
+    });
+
     it('constructor', () => {
         let kernel = new Fixtures.KernelForTest('test_env', true);
 
@@ -82,16 +97,15 @@ describe('[Kernel] Kernel', function () {
     });
 
     it('boot sets the container to bundles', () => {
-        let bundle = new Bundle;
-        let container = undefined, called = false;
-        bundle.setContainer = cont => { called = true; container = cont; };
+        let bundle = prophet.prophesize(Bundle);
+        bundle.setContainer(Argument.any()).willReturn();
+        bundle.boot().willReturn();
 
         let kernel = getKernel(['_initializeBundles', '_initializeContainer']);
-        kernel.getBundles = () => [bundle];
+        kernel.getBundles = () => [bundle.reveal()];
         kernel.boot();
 
-        expect(container).to.be.equal(kernel.container);
-        expect(called).to.be.true;
+        bundle.setContainer(kernel.container).shouldHaveBeenCalled();
     });
 
     it('boot should set the booted flag', () => {
@@ -111,16 +125,12 @@ describe('[Kernel] Kernel', function () {
     });
 
     it('shutdown should call shutdown on all bundles', () => {
-        let bundle = new Bundle;
-        let called = false;
-
-        bundle.shutdown = () => { called = true; };
-
-        let kernel = getKernel(['_initializeContainer'], [ bundle ]);
+        let bundle = prophet.prophesize(Bundle);
+        let kernel = getKernel(['_initializeContainer'], [ bundle.reveal() ]);
 
         kernel.boot();
         kernel.shutdown();
 
-        expect(called).to.be.true;
-    })
+        bundle.shutdown().shouldHaveBeenCalled();
+    });
 });

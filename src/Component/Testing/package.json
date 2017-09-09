@@ -1,14 +1,12 @@
 {
-  "name": "@jymfony/kernel",
+  "name": "@jymfony/testing",
   "version": "0.1.0-dev",
-  "description": "Jymfony Application Kernel",
-  "main": "src/Kernel.js",
+  "description": "Jymfony Testing",
   "scripts": {
-    "test": "node ./tests.js test/**"
+    "test": "node ./tests.js"
   },
   "keywords": [
-    "application",
-    "kernel",
+    "testing",
     "jymfony"
   ],
   "author": "Alessandro Chitolina <alekitto@gmail.com>",
@@ -18,21 +16,17 @@
   },
   "dependencies": {
     "@jymfony/autoloader": "https://github.com/jymfony/autoloader.git",
-    "@jymfony/config": "https://github.com/jymfony/config.git",
-    "@jymfony/datetime": "https://github.com/jymfony/date-time.git",
-    "@jymfony/dependency-injection": "https://github.com/jymfony/dependency-injection.git",
     "@jymfony/exceptions": "https://github.com/jymfony/exceptions.git",
     "@jymfony/util": "https://github.com/jymfony/util.git"
   },
   "devDependencies": {
-    "@jymfony/testing": "https://github.com/jymfony/testing.git",
     "chai": "^3.5.0",
     "mocha": "^3.0"
   },
   "config": {
     "jymfony-autoload": {
       "namespaces": {
-        "Jymfony.Component.Kernel": "src/"
+        "Jymfony.Component.Testing": "src/"
       }
     }
   }

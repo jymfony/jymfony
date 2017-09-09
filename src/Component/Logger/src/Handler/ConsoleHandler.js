@@ -88,15 +88,7 @@ class ConsoleHandler extends mix(AbstractProcessingHandler, EventSubscriberInter
     }
 
     /**
-     * @inheritD
-     */
-    _write(record) {
-        // At this point we've determined for sure that we want to output the record, so use the output's own verbosity
-        this._output.write(record['formatted'].toString(), false, this._output.verbosity);
-    }
-
-    /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     getDefaultFormatter() {
         if (undefined === this._output) {
@@ -107,6 +99,14 @@ class ConsoleHandler extends mix(AbstractProcessingHandler, EventSubscriberInter
             colors: this._output.decorated,
             multiline: OutputInterface.VERBOSITY_DEBUG <= this._output.verbosity,
         });
+    }
+
+    /**
+     * @inheritDoc
+     */
+    _write(record) {
+        // At this point we've determined for sure that we want to output the record, so use the output's own verbosity
+        this._output.write(record['formatted'].toString(), false, this._output.verbosity);
     }
 
     /**

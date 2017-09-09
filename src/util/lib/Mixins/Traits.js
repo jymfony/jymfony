@@ -1,6 +1,11 @@
 const Mixins = require('./Mixins');
+const CLASS_TYPE = 'Trait';
 
 class Traits {
+    static isTrait(mixin) {
+        return mixin[Mixins.classTypeSymbol] === CLASS_TYPE;
+    }
+
     static create(definition) {
         let inherits = new Map();
         let parent = definition;
@@ -32,7 +37,7 @@ class Traits {
 
         Object.setPrototypeOf(mixin, {
             definition: definition,
-            [Mixins.classTypeSymbol]: 'Trait',
+            [Mixins.classTypeSymbol]: CLASS_TYPE,
         });
 
         return mixin;

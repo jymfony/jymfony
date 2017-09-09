@@ -44,6 +44,10 @@ class Mixins {
             mixin[constant] = definition[constant];
         }
 
+        Object.defineProperty(mixin, 'arguments', {value: null, writable: false, enumerable: false, configurable: false});
+        Object.defineProperty(mixin, 'caller', {value: null, writable: false, enumerable: false, configurable: false});
+        Object.defineProperty(mixin, 'prototype', {value: undefined, writable: false, enumerable: false, configurable: false});
+
         return mixin;
     }
 

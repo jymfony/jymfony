@@ -35,7 +35,7 @@ class Async {
                     return resolve(ret.value);
                 }
 
-                let val = Async.toPromise(ret.value);
+                const val = Async.toPromise(ret.value);
                 if (val && isPromise(val)) {
                     return val.then(onFulfilled, onRejected);
                 } else if (isScalar(val)) {
@@ -130,7 +130,7 @@ class Async {
         let promises = [];
 
         for (let k of Object.keys(obj)) {
-            let promise = Async.toPromise(obj[k]);
+            const promise = Async.toPromise(obj[k]);
 
             results[k] = undefined;
             promises.push(promise.then(res => (results[k] = res)));
