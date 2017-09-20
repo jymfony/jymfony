@@ -38,7 +38,7 @@ class Bundle extends implementationOf(ContainerAwareInterface, ContainerAwareTra
      */
     get path() {
         if (undefined === this._path) {
-            let reflClass = new ReflectionClass(this);
+            const reflClass = new ReflectionClass(this);
 
             /**
              * @type {string}
@@ -72,16 +72,16 @@ class Bundle extends implementationOf(ContainerAwareInterface, ContainerAwareTra
 
     getContainerExtension() {
         if (undefined === this._extension) {
-            let extension = this._createContainerExtension();
+            const extension = this._createContainerExtension();
             if (extension) {
                 if (! (extension instanceof ExtensionInterface)) {
-                    let r = new ReflectionClass(extension);
+                    const r = new ReflectionClass(extension);
                     throw new LogicException(`Extension ${r.name} must implement Jymfony.Component.DependencyInjection.Extension.ExtensionInterface`);
                 }
 
                 // Check naming convention
-                let basename = this.getName().replace(/Bundle$/, '');
-                let expectedAlias = Container.underscore(basename);
+                const basename = this.getName().replace(/Bundle$/, '');
+                const expectedAlias = Container.underscore(basename);
 
                 if (expectedAlias !== extension.alias) {
                     throw new LogicException(
@@ -102,24 +102,24 @@ class Bundle extends implementationOf(ContainerAwareInterface, ContainerAwareTra
     }
 
     _createContainerExtension() {
-        let className = this._getContainerExtensionClass();
+        const className = this._getContainerExtensionClass();
         if (ReflectionClass.exists(className)) {
-            let r = new ReflectionClass(className);
+            const r = new ReflectionClass(className);
             return r.newInstance();
         }
     }
 
     _getContainerExtensionClass() {
-        let basename = this.getName().replace(/Bundle$/, '');
+        const basename = this.getName().replace(/Bundle$/, '');
         return this.getNamespace() + '.DependencyInjection.' + basename + 'Extension';
     }
 
     _parseClassName() {
-        let refl = new ReflectionClass(this);
+        const refl = new ReflectionClass(this);
 
         this._namespace = refl.namespaceName;
 
-        let position = refl.name.lastIndexOf('.');
+        const position = refl.name.lastIndexOf('.');
         this._name = refl.name.substring(position + 1);
     }
 }

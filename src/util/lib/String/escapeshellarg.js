@@ -13,5 +13,5 @@ global.__jymfony.escapeshellarg = function escapeshellarg(arg) {
     //   Example 1: escapeshellarg("kevin's birthday")
     //   Returns 1: "'kevin\\'s birthday'"
 
-    return "'" + arg.replace(/[^\\]'/g, m => m.slice(0, 1) + '\\\'') + "'";
+    return '\'' + arg.replace(/[^\\]'/g, m => m.slice(0, 1) + '\\\'') + '\'';
 };

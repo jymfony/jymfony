@@ -1,13 +1,8 @@
 const ArgumentsWildcard = Jymfony.Component.Testing.Argument.ArgumentsWildcard;
 const Argument = Jymfony.Component.Testing.Argument.Argument;
 const Call = Jymfony.Component.Testing.Call.Call;
-const CallCenter = Jymfony.Component.Testing.Call.CallCenter;
 const MethodNotFoundException = Jymfony.Component.Testing.Exception.MethodNotFoundException;
-const MethodProphecyException = Jymfony.Component.Testing.Exception.MethodProphecyException;
-const AggregateException = Jymfony.Component.Testing.Exception.Prediction.AggregateException;
-const Doubler = Jymfony.Component.Testing.Double.Doubler;
 const Promise = Jymfony.Component.Testing.Promise;
-const ProphecyInterface = Jymfony.Component.Testing.Prophecy.ProphecyInterface;
 const MethodProphecy = Jymfony.Component.Testing.Prophecy.MethodProphecy;
 const ObjectProphecy = Jymfony.Component.Testing.Prophecy.ObjectProphecy;
 const Revealer = Jymfony.Component.Testing.Prophecy.Revealer;
@@ -16,7 +11,7 @@ const Prophet = Jymfony.Component.Testing.Prophet;
 
 const expect = require('chai').expect;
 
-describe('MethodProphecy', function () {
+describe('[Testing] MethodProphecy', function () {
     beforeEach(() => {
         /**
          * @type {Jymfony.Component.Testing.Prophet}

@@ -59,14 +59,14 @@ class ConsoleFormatter extends NormalizerFormatter {
     }
 
     _replacePlaceHolder(record) {
-        let message = record.message;
+        const message = record.message;
 
         if (-1 === message.indexOf('{')) {
             return record;
         }
 
-        let context = record.context;
-        let replacements = {};
+        const context = record.context;
+        const replacements = {};
 
         for (let [ k, v ] of __jymfony.getEntries(context)) {
             // Remove quotes added by the dumper around string.
@@ -81,6 +81,6 @@ class ConsoleFormatter extends NormalizerFormatter {
     }
 }
 
-ConsoleFormatter.SIMPLE_FORMAT = "%datetime% %start_tag%%level_name%%end_tag% <comment>[%channel%]</> %message%%context%%extra%\n";
+ConsoleFormatter.SIMPLE_FORMAT = '%datetime% %start_tag%%level_name%%end_tag% <comment>[%channel%]</> %message%%context%%extra%\n';
 
 module.exports = ConsoleFormatter;

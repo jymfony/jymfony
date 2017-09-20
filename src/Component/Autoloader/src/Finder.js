@@ -24,7 +24,7 @@ class Finder {
 
         for (let i = 2;;) {
             try {
-                let stat = this._fs.statSync(fileName);
+                const stat = this._fs.statSync(fileName);
 
                 return {
                     filename: fileName,
@@ -58,11 +58,11 @@ class Finder {
      */
     findRoot() {
         if (undefined === this._root) {
-            let current = this._getMainModule();
+            const current = this._getMainModule();
 
-            let parts = this._path.dirname(current.filename).split(this._path.sep);
+            const parts = this._path.dirname(current.filename).split(this._path.sep);
             for (; parts.length; parts.pop()) {
-                let root = this._normalizePath(parts);
+                const root = this._normalizePath(parts);
 
                 if (this.find(root, 'package.json')) {
                     this._root = root;
@@ -81,13 +81,13 @@ class Finder {
      * @returns {Array}
      */
     listModules() {
-        let root = this.findRoot();
-        let parts = root.split(this._path.sep);
+        const root = this.findRoot();
+        const parts = root.split(this._path.sep);
         let firstLevel = true;
-        let self = this;
+        const self = this;
         let currentDir;
 
-        let rd = function * (dir, ignoreErrors = false) {
+        const rd = function * (dir, ignoreErrors = false) {
             let stat;
 
             try {
@@ -98,11 +98,11 @@ class Finder {
                     throw e;
                 }
 
-                return [];
+                return;
             }
 
             if (! stat.isDirectory()) {
-                let e = new Error;
+                const e = new Error();
                 e.code = 'ENOENT';
 
                 throw e;
@@ -111,8 +111,8 @@ class Finder {
             yield * self._fs.readdirSync(dir);
         };
 
-        let processor = function * (list) {
-            for (let name of list) {
+        const processor = function * (list) {
+            for (const name of list) {
                 if ('.' === name[0]) {
                     continue;
                 }
@@ -120,7 +120,7 @@ class Finder {
                 if (firstLevel && '@' === name[0]) {
                     firstLevel = false;
 
-                    for (let sub of processor(rd(self._path.join(currentDir, name), true))) {
+                    for (const sub of processor(rd(self._path.join(currentDir, name), true))) {
                         yield name + '/' + sub;
                     }
 
@@ -156,7 +156,7 @@ class Finder {
     }
 
     _normalizePath(parts, fileName) {
-        let joined = this._path.join(...parts, (fileName || ''));
+        const joined = this._path.join(...parts, (fileName || ''));
         if ('/' !== this._path.sep) {
             return joined;
         }

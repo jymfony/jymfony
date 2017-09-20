@@ -116,7 +116,7 @@ class TimeSpan {
 
     _parse(isoDuration) {
         const regex = /^P([+\-])?(?:(\d+)Y)?(?:(\d+)M)?(?:(\d+)D)?(?:T)?(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?$/;
-        let matches = isoDuration.match(regex);
+        const matches = isoDuration.match(regex);
 
         if (! matches) {
             throw new InvalidDateTimeStringException(`${isoDuration} is not a valid timespan format`);

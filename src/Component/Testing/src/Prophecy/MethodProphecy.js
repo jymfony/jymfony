@@ -20,7 +20,7 @@ class MethodProphecy {
         if (! reflection.hasMethod(methodName) && ! reflection.hasProperty(methodName)) {
             throw new MethodNotFoundException(__jymfony.sprintf(
                 'Method `%s:%s()` is not defined.', reflection.name, methodName
-            ), reflection.name, methodName, arguments);
+            ), reflection.name, methodName, args);
         }
 
         this._objectProphecy = objectProphecy;
@@ -98,9 +98,9 @@ class MethodProphecy {
 
         if (! (args instanceof Argument.ArgumentsWildcard)) {
             throw new InvalidArgumentException(__jymfony.sprintf(
-                "Either an array or an instance of ArgumentsWildcard expected as\n" +
+                'Either an array or an instance of ArgumentsWildcard expected as\n' +
                 'a `MethodProphecy::withArguments()` argument, but got %s.',
-                typeof arguments
+                typeof args
             ));
         }
 
@@ -219,7 +219,7 @@ class MethodProphecy {
      * @returns {Jymfony.Component.Testing.Prophecy.MethodProphecy}
      */
     shouldBeCalled() {
-        return this.should(new Prediction.CallPrediction);
+        return this.should(new Prediction.CallPrediction());
     }
 
     /**
@@ -228,7 +228,7 @@ class MethodProphecy {
      * @returns {Jymfony.Component.Testing.Prophecy.MethodProphecy}
      */
     shouldNotBeCalled() {
-        return this.should(new Prediction.NoCallsPrediction);
+        return this.should(new Prediction.NoCallsPrediction());
     }
 
     /**
@@ -267,7 +267,7 @@ class MethodProphecy {
             this.willReturn();
         }
 
-        let calls = this._objectProphecy.findProphecyMethodCalls(this._methodName, this._args);
+        const calls = this._objectProphecy.findProphecyMethodCalls(this._methodName, this._args);
 
         try {
             prediction.check(calls, this._objectProphecy, this);
@@ -286,7 +286,7 @@ class MethodProphecy {
      * @returns {Jymfony.Component.Testing.Prophecy.MethodProphecy}
      */
     shouldHaveBeenCalled() {
-        return this.shouldHave(new Prediction.CallPrediction);
+        return this.shouldHave(new Prediction.CallPrediction());
     }
 
     /**
@@ -295,7 +295,7 @@ class MethodProphecy {
      * @returns {Jymfony.Component.Testing.Prophecy.MethodProphecy}
      */
     shouldNotHaveBeenCalled() {
-        return this.shouldHave(new Prediction.NoCallsPrediction);
+        return this.shouldHave(new Prediction.NoCallsPrediction());
     }
 
     /**

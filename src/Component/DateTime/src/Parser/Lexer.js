@@ -32,7 +32,7 @@ class Lexer extends AbstractLexer {
      * @inheritDoc
      */
     getType(holder) {
-        let value = holder.value.toString();
+        const value = holder.value.toString();
 
         switch (true) {
             case !! value.match(/^[+-]\d{4,}$/): return Lexer.T_SIGNED_YEAR;

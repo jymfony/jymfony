@@ -19,14 +19,14 @@ class RecursiveDirectoryIterator {
     }
 
     * [Symbol.iterator]() {
-        let dir = fs.readdirSync(this._path);
-        let secondStep = [];
+        const dir = fs.readdirSync(this._path);
+        const secondStep = [];
 
         for (let current of dir) {
             current = path.join(this._path, current);
 
             let childItr = undefined;
-            let st = this._followSymlinks ? fs.statSync(current) : fs.lstatSync(current);
+            const st = this._followSymlinks ? fs.statSync(current) : fs.lstatSync(current);
 
             if (st.isDirectory()) {
                 childItr = new __self(current, this._flags);
@@ -60,7 +60,7 @@ class RecursiveDirectoryIterator {
             }
         }
 
-        for (let other of secondStep) {
+        for (const other of secondStep) {
             if (other instanceof __self) {
                 yield * other;
             } else {

@@ -12,7 +12,7 @@ const Prophet = Jymfony.Component.Testing.Prophet;
 
 const expect = require('chai').expect;
 
-describe('ObjectProphecy', function () {
+describe('[Testing] ObjectProphecy', function () {
     beforeEach(() => {
         /**
          * @type {Jymfony.Component.Testing.Prophet}

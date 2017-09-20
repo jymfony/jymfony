@@ -1,4 +1,4 @@
-const fs = require("fs");
+const fs = require('fs');
 
 module.exports = function readlink (file) {
     return new Promise((resolve, reject) => {

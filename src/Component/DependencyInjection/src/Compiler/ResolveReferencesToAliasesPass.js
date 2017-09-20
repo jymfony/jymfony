@@ -11,7 +11,7 @@ module.exports = class ResolveReferencesToAliasesPass extends implementationOf(C
     process(container) {
         this._container = container;
 
-        for (let definition of Object.values(container.getDefinitions())) {
+        for (const definition of Object.values(container.getDefinitions())) {
             if (definition.isSynthetic() || definition.isAbstract()) {
                 continue;
             }
@@ -22,9 +22,9 @@ module.exports = class ResolveReferencesToAliasesPass extends implementationOf(C
             definition.setFactory(this._processFactory(definition.getFactory()));
         }
 
-        for (let [ id, alias ] of __jymfony.getEntries(container.getAliases())) {
-            let aliasId = alias.toString();
-            let defId = this._getDefinitionId(aliasId);
+        for (const [ id, alias ] of __jymfony.getEntries(container.getAliases())) {
+            const aliasId = alias.toString();
+            const defId = this._getDefinitionId(aliasId);
 
             if (aliasId !== defId) {
                 container.setAlias(id, new Alias(defId, alias.isPublic()));
@@ -33,12 +33,12 @@ module.exports = class ResolveReferencesToAliasesPass extends implementationOf(C
     }
 
     _processArguments(args) {
-        for (let [ k, argument ] of __jymfony.getEntries(args)) {
+        for (const [ k, argument ] of __jymfony.getEntries(args)) {
             if (isArray(argument)) {
                 args[k] = this._processArguments(argument);
             } else if (argument instanceof Reference) {
-                let id = argument.toString();
-                let defId = this._getDefinitionId(id);
+                const id = argument.toString();
+                const defId = this._getDefinitionId(id);
 
                 if (defId !== id) {
                     args[k] = new Reference(defId, argument.invalidBehavior);
@@ -54,8 +54,8 @@ module.exports = class ResolveReferencesToAliasesPass extends implementationOf(C
             return factory;
         }
 
-        let id = factory[0].toString();
-        let defId = this._getDefinitionId(id);
+        const id = factory[0].toString();
+        const defId = this._getDefinitionId(id);
 
         if (defId !== id) {
             factory[0] = new Reference(defId, factory[0].invalidBehavior);
@@ -65,7 +65,7 @@ module.exports = class ResolveReferencesToAliasesPass extends implementationOf(C
     }
 
     _getDefinitionId(id) {
-        let seen = {};
+        const seen = {};
         while (this._container.hasAlias(id)) {
             if (seen[id]) {
                 throw new ServiceCircularReferenceException(id, Object.keys(seen));

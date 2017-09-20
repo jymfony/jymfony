@@ -10,7 +10,7 @@ global.__jymfony.rtrim = function rtrim(str, charList) {
         charList.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
     }
 
-    let re = new RegExp(`[${charList}]+$`, 'g');
+    const re = new RegExp(`[${charList}]+$`, 'g');
     return str.replace(re, '');
 };
 
@@ -21,7 +21,7 @@ global.__jymfony.ltrim = function ltrim(str, charList) {
         charList.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
     }
 
-    let re = new RegExp(`^[${charList}]+`, 'g');
+    const re = new RegExp(`^[${charList}]+`, 'g');
     return str.replace(re, '');
 };
 

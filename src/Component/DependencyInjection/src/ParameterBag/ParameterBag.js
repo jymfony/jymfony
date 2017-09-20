@@ -18,7 +18,7 @@ class ParameterBag {
         this._env = {};
         this._resolved = false;
 
-        for (let [ name, value ] of __jymfony.getEntries(params)) {
+        for (const [ name, value ] of __jymfony.getEntries(params)) {
             this.set(name, value);
         }
     }
@@ -37,7 +37,7 @@ class ParameterBag {
      * @param {boolean} overwrite
      */
     add(params, overwrite = true) {
-        for (let [ key, value ] of __jymfony.getEntries(params)) {
+        for (const [ key, value ] of __jymfony.getEntries(params)) {
             if (! overwrite && this._params.hasOwnProperty(key)) {
                 continue;
             }
@@ -65,8 +65,8 @@ class ParameterBag {
     get(name) {
         name = name.toLowerCase();
         if ('env()' !== name && 'env(' === name.substr(0, 4) && ')' === name.substr(-1, 1)) {
-            let matches = /env\((.+)\)/.exec(name);
-            let envVarName = matches[1];
+            const matches = /env\((.+)\)/.exec(name);
+            const envVarName = matches[1];
             if (undefined !== this._env[envVarName]) {
                 return this._env[envVarName];
             } else if (undefined !== process.env[envVarName]) {
@@ -116,7 +116,7 @@ class ParameterBag {
             return;
         }
 
-        let resolved = {};
+        const resolved = {};
         for (let [ key, value ] of __jymfony.getEntries(this._params)) {
             try {
                 value = this.resolveValue(value);
@@ -142,10 +142,10 @@ class ParameterBag {
      *
      * @returns {*}
      */
-    resolveValue(value, resolving = new Set) {
+    resolveValue(value, resolving = new Set()) {
         if (isArray(value) || isObjectLiteral(value)) {
-            let args = isArray(value) ? [] : {};
-            for (let [ k, v ] of __jymfony.getEntries(value)) {
+            const args = isArray(value) ? [] : {};
+            for (const [ k, v ] of __jymfony.getEntries(value)) {
                 args[this.resolveValue(k, new Set(resolving))] = this.resolveValue(v, new Set(resolving));
             }
 
@@ -168,9 +168,9 @@ class ParameterBag {
      * @returns {*}
      */
     resolveString(value, resolving) {
-        let match = /^%([^%\s]+)%$/.exec(value);
+        const match = /^%([^%\s]+)%$/.exec(value);
         if (match) {
-            let key = match[1].toLowerCase();
+            const key = match[1].toLowerCase();
 
             if (resolving.has(key)) {
                 throw new ParameterCircularReferenceException(resolving.values());
@@ -184,14 +184,14 @@ class ParameterBag {
             if (! p1) {
                 return '%%';
             }
-            
-            let key = p1.toLowerCase();
+
+            const key = p1.toLowerCase();
             if (resolving.has(key)) {
                 throw new ParameterCircularReferenceException(Array.from(resolving));
             }
-            
+
             let resolved = this.get(key);
-            
+
             if (! isString(resolved) && ! isNumber(resolved)) {
                 throw new RuntimeException(`A string value must be composed of strings and/or numbers, but found parameter "${key}" of type ${typeof resolved} inside string value "${value}".`);
             }
@@ -220,8 +220,8 @@ class ParameterBag {
         }
 
         if (isArray(value) || isObjectLiteral(value)) {
-            let result = isArray(value) ? [] : {};
-            for (let [ k, v ] of __jymfony.getEntries(value)) {
+            const result = isArray(value) ? [] : {};
+            for (const [ k, v ] of __jymfony.getEntries(value)) {
                 result[k] = this.escapeValue(v);
             }
 
@@ -244,8 +244,8 @@ class ParameterBag {
         }
 
         if (value instanceof Map) {
-            let result = new Map;
-            for (let [ k, v ] of value) {
+            const result = new Map();
+            for (const [ k, v ] of value) {
                 result.set(k, this.unescapeValue(v));
             }
 

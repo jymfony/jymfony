@@ -26,7 +26,7 @@ class CheckboxRenderer extends ListRenderer {
     }
 
     _getValue() {
-        let choices = [];
+        const choices = [];
         for (let key = 0; key < this._selected.length; key++) {
             if (this._selected[key]) {
                 choices.push(this._question._choices[key]);

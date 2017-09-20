@@ -21,7 +21,7 @@ class LoaderResolver extends implementationOf(LoaderResolverInterface) {
          */
         this._loaders = [];
 
-        for (let loader of loaders) {
+        for (const loader of loaders) {
             this.addLoader(loader);
         }
     }
@@ -30,7 +30,7 @@ class LoaderResolver extends implementationOf(LoaderResolverInterface) {
      * @inheritDoc
      */
     resolve(resource, type = undefined) {
-        for (let loader of this._loaders) {
+        for (const loader of this._loaders) {
             if (loader.supports(resource, type)) {
                 return loader;
             }

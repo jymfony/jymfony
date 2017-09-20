@@ -5,7 +5,7 @@ const Prophet = Jymfony.Component.Testing.Prophet;
 
 const expect = require('chai').expect;
 
-describe('Revealer', function () {
+describe('[Testing] Revealer', function () {
     beforeEach(() => {
         /**
          * @type {Jymfony.Component.Testing.Prophecy.Revealer}

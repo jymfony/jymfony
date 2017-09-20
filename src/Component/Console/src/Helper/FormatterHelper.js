@@ -34,7 +34,7 @@ class FormatterHelper extends Helper {
         }
 
         let len = 0;
-        let lines = [];
+        const lines = [];
 
         for (let message of messages) {
             message = OutputFormatter.escape(message);
@@ -68,7 +68,7 @@ class FormatterHelper extends Helper {
      * @returns {string}
      */
     truncate(message, length, suffix = '...') {
-        let computedLength = length - suffix.length;
+        const computedLength = length - suffix.length;
 
         if (computedLength > message.length) {
             return message;

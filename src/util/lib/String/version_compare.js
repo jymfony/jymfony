@@ -16,7 +16,7 @@ global.__jymfony = global.__jymfony || {};
 global.__jymfony.version_compare = function version_compare(version1, version2, operator = undefined) {
     // The function first replaces _, - and + with a dot . in the version string and also
     // Inserts dots . before and after any non number so that for example '4.3.2RC1' becomes '4.3.2.RC.1'
-    let prepareVersion = v => {
+    const prepareVersion = v => {
         v = v.replace(/[\-+_]/g, '.').replace(/([^.\d]+)/g, '.$1.').toLowerCase().split('.').filter(V => '' !== V);
         return v.length ? v : [ -7 ];
     };
@@ -38,20 +38,20 @@ global.__jymfony.version_compare = function version_compare(version1, version2, 
         'p': 'p',
     };
 
-    let numVer = v => {
+    const numVer = v => {
         if (! v) {
             return 0;
         }
 
-        let n = parseInt(v);
+        const n = parseInt(v);
         return isNaN(n) ? (map[v] || -6) : n;
     };
 
     let compare = 0;
-    let maxI = Math.max(version1.length, version2.length);
+    const maxI = Math.max(version1.length, version2.length);
     for (let i = 0; i < maxI; i++) {
-        let chunk1 = numVer(version1[i]);
-        let chunk2 = numVer(version2[i]);
+        const chunk1 = numVer(version1[i]);
+        const chunk2 = numVer(version2[i]);
 
         if (chunk1 === chunk2) {
             // Do nothing and continue

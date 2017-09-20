@@ -13,7 +13,7 @@ class CheckReferenceValidityPass extends AbstractRecursivePass {
         }
 
         if (value instanceof Reference && this._container.hasDefinition(value.toString())) {
-            let targetDefinition = this._container.getDefinition(value.toString());
+            const targetDefinition = this._container.getDefinition(value.toString());
 
             if (targetDefinition.isAbstract()) {
                 throw new RuntimeException(

@@ -37,15 +37,15 @@ class JsonDescriptor extends Descriptor {
      * @inheritDoc
      */
     describeApplication(application, options = {}) {
-        let describedNamespace = options.namespace;
-        let description = new ApplicationDescription(application, describedNamespace);
-        let commands = [];
+        const describedNamespace = options.namespace;
+        const description = new ApplicationDescription(application, describedNamespace);
+        const commands = [];
 
-        for (let command of Object.values(description.commands)) {
+        for (const command of Object.values(description.commands)) {
             commands.push(this._getCommandData(command));
         }
 
-        let data = describedNamespace
+        const data = describedNamespace
             ? { commands: commands, namespace: describedNamespace }
             : { commands: commands, namespaces: description.namespaces };
 
@@ -102,13 +102,13 @@ class JsonDescriptor extends Descriptor {
      * @returns Object
      */
     _getInputDefinitionData(definition) {
-        let inputArguments = {};
-        for (let argument of definition.getArguments()) {
+        const inputArguments = {};
+        for (const argument of definition.getArguments()) {
             inputArguments[argument.getName()] = this._getInputArgumentData(argument);
         }
 
-        let inputOptions = {};
-        for (let option of definition.getOptions()) {
+        const inputOptions = {};
+        for (const option of definition.getOptions()) {
             inputOptions[option.getName()] = this._getInputOptionData(option);
         }
 

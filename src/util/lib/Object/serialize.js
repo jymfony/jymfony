@@ -26,8 +26,8 @@ function serialize(value) {
     }
 
     if (isArray(value)) {
-        let vals = [];
-        for (let [ k, v ] of __jymfony.getEntries(value)) {
+        const vals = [];
+        for (const [ k, v ] of __jymfony.getEntries(value)) {
             vals.push(JSON.stringify(k) + ':' + serialize(v));
         }
 
@@ -35,27 +35,23 @@ function serialize(value) {
     }
 
     if (isObjectLiteral(value)) {
-        let vals = [];
-        for (let [ k, v ] of __jymfony.getEntries(value)) {
+        const vals = [];
+        for (const [ k, v ] of __jymfony.getEntries(value)) {
             vals.push(serialize(k) + ':' + serialize(v));
         }
 
         return 'O(' + vals.length + '):{' + vals.join(';') + (vals.length ? ';' : '') + '}';
     }
 
-    let reflClass = new ReflectionClass(value);
+    const reflClass = new ReflectionClass(value);
     if (! reflClass.name) {
         throw new RuntimeException('Cannot serialize non-autoloaded object (no metadata present for deserialization)');
     }
 
-    let vals = [], properties;
-    if (value.__sleep instanceof Function) {
-        properties = value.__sleep();
-    } else {
-        properties = Object.keys(value);
-    }
+    const vals = [];
+    const properties = value.__sleep instanceof Function ? value.__sleep() : Object.keys(value);
 
-    for (let k of properties) {
+    for (const k of properties) {
         vals.push(serialize(k) + ':' + serialize(value[k]));
     }
 
@@ -65,22 +61,22 @@ function serialize(value) {
 function unserialize(serialized) {
     serialized = serialized.toString();
     let i = 0;
-    let readData = (length = 1) => {
-        let read = serialized.substr(i, length);
+    const readData = (length = 1) => {
+        const read = serialized.substr(i, length);
         i += Number(length);
 
         return read;
     };
 
-    let peek = () => {
+    const peek = () => {
         return serialized.substr(i, 1);
     };
 
-    let readUntil = (char) => {
+    const readUntil = (char) => {
         let read = '';
 
         while (true) {
-            let tmp = readData();
+            const tmp = readData();
 
             if (tmp === char || '' === tmp) {
                 return read;
@@ -90,15 +86,15 @@ function unserialize(serialized) {
         }
     };
 
-    let expect = (char) => {
-        let read = readData();
+    const expect = (char) => {
+        const read = readData();
         if (read !== char) {
             throw new Error('Invalid serialized value. Expected ' + char + ', received ' + read);
         }
     };
 
-    let doUnserialize = () => {
-        let type = readData();
+    const doUnserialize = () => {
+        const type = readData();
         let length, ret;
         switch (type) {
             case 'N': {
@@ -140,7 +136,7 @@ function unserialize(serialized) {
                 ret.length = length;
 
                 while ('}' !== peek()) {
-                    let key = readUntil(':');
+                    const key = readUntil(':');
                     ret[key] = doUnserialize();
                     expect(';');
                 }
@@ -158,7 +154,7 @@ function unserialize(serialized) {
 
                 ret = {};
                 while ('}' !== peek()) {
-                    let key = doUnserialize();
+                    const key = doUnserialize();
                     expect(':');
 
                     ret[key] = doUnserialize();
@@ -171,16 +167,16 @@ function unserialize(serialized) {
 
             case 'C': {
                 expect('[');
-                let class_ = readUntil(']');
+                const class_ = readUntil(']');
 
-                let reflClass = new ReflectionClass(class_);
-                let obj = reflClass.newInstanceWithoutConstructor();
+                const reflClass = new ReflectionClass(class_);
+                const obj = reflClass.newInstanceWithoutConstructor();
 
                 expect(':');
                 expect('{');
 
                 while ('}' !== peek()) {
-                    let key = doUnserialize();
+                    const key = doUnserialize();
                     expect(':');
 
                     obj[key] = doUnserialize();

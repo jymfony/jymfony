@@ -92,7 +92,7 @@ class CommandTester {
      */
     getDisplay(normalize = false) {
         /** @type {Buffer} */
-        let read = this._output.stream.read();
+        const read = this._output.stream.read();
         if (null !== read) {
             this._readOutput += read.toString();
         }
@@ -148,7 +148,7 @@ class CommandTester {
         const s = new stream.Readable();
         s.deferUncork = false;
 
-        for (let line of inputs) {
+        for (const line of inputs) {
             s.push(line);
         }
 

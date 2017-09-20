@@ -114,7 +114,7 @@ class JymfonyStyle extends OutputStyle {
         this._autoPrependText();
 
         messages = isArray(messages) ? Object.values(messages) : [ messages ];
-        for (let message of messages) {
+        for (const message of messages) {
             this.writeln(' ' + message);
         }
     }
@@ -167,10 +167,10 @@ class JymfonyStyle extends OutputStyle {
      * @inheritDoc
      */
     table(headers, rows) {
-        let style = __jymfony.clone(Table.getStyleDefinition('symfony-style-guide'));
+        const style = __jymfony.clone(Table.getStyleDefinition('symfony-style-guide'));
         style.cellHeaderFormat = '<info>%s</info>';
 
-        let table = new Table(this);
+        const table = new Table(this);
         table.headers = headers;
         table.rows = rows;
         table.style = style;
@@ -308,7 +308,7 @@ class JymfonyStyle extends OutputStyle {
      */
     newLine(count = 1) {
         super.newLine(count);
-        this._bufferedOutput.write("\n".repeat(count));
+        this._bufferedOutput.write('\n'.repeat(count));
     }
 
     /**
@@ -332,21 +332,21 @@ class JymfonyStyle extends OutputStyle {
     }
 
     _autoPrependBlock() {
-        let chars = this._bufferedOutput.fetch().replace(os.EOL, "\n").substr(-2);
+        const chars = this._bufferedOutput.fetch().replace(os.EOL, '\n').substr(-2);
 
         if (! chars.charAt(0)) {
             return this.newLine(); // Empty history, so we should start with a new line.
         }
 
         // Prepend new line for each non LF chars (This means no blank line was output before)
-        this.newLine(2 - (chars.split("\n").length - 1));
+        this.newLine(2 - (chars.split('\n').length - 1));
     }
 
     _autoPrependText() {
-        let fetched = this._bufferedOutput.fetch();
+        const fetched = this._bufferedOutput.fetch();
 
         // Prepend new line if last char isn't EOL:
-        if ("\n" !== fetched.substr(-1)) {
+        if ('\n' !== fetched.substr(-1)) {
             this.newLine();
         }
     }
@@ -359,7 +359,7 @@ class JymfonyStyle extends OutputStyle {
 
     _createBlock(messages, type = undefined, style = undefined, prefix = ' ', padding = false, escape = false) {
         let indentLength = 0, lineIndentation;
-        let prefixLength = Helper.strlenWithoutDecoration(this.formatter, prefix);
+        const prefixLength = Helper.strlenWithoutDecoration(this.formatter, prefix);
         let lines = [];
 
         if (undefined !== type) {

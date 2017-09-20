@@ -25,14 +25,14 @@ class ClassGenerator {
         const readableProperties = {};
         const writableProperties = {};
 
-        for (let IF of self._interfaces) {
+        for (const IF of self._interfaces) {
             const reflection = new ReflectionClass(IF);
 
-            for (let methodName of reflection.methods) {
+            for (const methodName of reflection.methods) {
                 methods[methodName] = reflection.getMethod(methodName);
             }
 
-            for (let propertyName of reflection.properties) {
+            for (const propertyName of reflection.properties) {
                 if (reflection.hasReadableProperty(propertyName)) {
                     readableProperties[propertyName] = true;
                 }
@@ -42,7 +42,7 @@ class ClassGenerator {
             }
         }
 
-        for (let [ methodName, reflMethod ] of __jymfony.getEntries(methods)) {
+        for (const [ methodName, reflMethod ] of __jymfony.getEntries(methods)) {
             if (Reflect.has(proto, methodName)) {
                 continue;
             }
@@ -65,10 +65,10 @@ class ClassGenerator {
             Object.defineProperty(proto, methodName, { value: method });
         }
 
-        for (let propName of Object.keys(readableProperties)) {
+        for (const propName of Object.keys(readableProperties)) {
             const descriptor = {
                 get: function () {
-                    return undefined; 
+                    return undefined;
                 },
             };
 
@@ -80,7 +80,7 @@ class ClassGenerator {
             Object.defineProperty(proto, propName, descriptor);
         }
 
-        for (let propName of Object.keys(writableProperties)) {
+        for (const propName of Object.keys(writableProperties)) {
             Object.defineProperty(proto, propName, {
                 set: function () { },
             });

@@ -50,14 +50,14 @@ class LineFormatter extends NormalizerFormatter {
      * @inheritDoc
      */
     format(record) {
-        let vars = super.format(record);
+        const vars = super.format(record);
         let output = this._format;
 
-        for (let [ variable, val ] of __jymfony.getEntries(vars.extra)) {
+        for (const [ variable, val ] of __jymfony.getEntries(vars.extra)) {
             output = output.replace(new RegExp(`%extra\.${variable}%`, 'g'), this.stringify(val));
         }
 
-        for (let [ variable, val ] of __jymfony.getEntries(vars.context)) {
+        for (const [ variable, val ] of __jymfony.getEntries(vars.context)) {
             output = output.replace(new RegExp(`%context\.${variable}%`, 'g'), this.stringify(val));
         }
 
@@ -66,7 +66,7 @@ class LineFormatter extends NormalizerFormatter {
         delete vars.context;
         delete vars.extra;
 
-        for (let [ variable, val ] of __jymfony.getEntries(vars)) {
+        for (const [ variable, val ] of __jymfony.getEntries(vars)) {
             output = output.replace(new RegExp(`%${variable}%`, 'g'), this.stringify(val));
         }
 
@@ -86,15 +86,15 @@ class LineFormatter extends NormalizerFormatter {
     _normalizeError(record) {
         let previousText = '', previous = record;
         while (previous = previous.previous) {
-            let trace = Exception.parseStackTrace(previous);
+            const trace = Exception.parseStackTrace(previous);
             previousText += ', ' + (new ReflectionClass(previous)).name + ': ' + previous.message + ' at ' + trace[0].file + ':' + trace[0].line;
         }
 
-        let trace = Exception.parseStackTrace(record);
+        const trace = Exception.parseStackTrace(record);
         let str = '[object] (' + (new ReflectionClass(record)).name + ': ' + previous.message + ' at ' + trace[0].file + ':' + trace[0].line + previousText + ')';
 
         if (this._includeStacktraces) {
-            str += "\n[stacktrace]\n" + record.stack + "\n";
+            str += '\n[stacktrace]\n' + record.stack + '\n';
         }
 
         return str;
@@ -142,6 +142,6 @@ class LineFormatter extends NormalizerFormatter {
     }
 }
 
-LineFormatter.SIMPLE_FORMAT = "[%datetime%] %channel%.%level_name%: %message% %context% %extra%\n";
+LineFormatter.SIMPLE_FORMAT = '[%datetime%] %channel%.%level_name%: %message% %context% %extra%\n';
 
 module.exports = LineFormatter;

@@ -60,11 +60,10 @@ class Exception extends Error {
      * @returns {[Object<string, string>]}
      */
     static parseStackTrace(error) {
-        const regex = /^\s*at (?:((?:\[object object])?\S+(?: \[as \S+])?) )?\(?(.*?):(\d+)(?::(\d+))?\)?\s*$/i;
-        let lines = error.stack.split('\n'),
-            stack = [],
-            parts,
-            element;
+        const regex = /^\s*at (?:((?:\[object object])?\S+(?: \[as \S+])?) )?\(?(.*?):(\d+)(?::(\d+))?\)?\s*$/i,
+            lines = error.stack.split('\n'),
+            stack = [];
+        let parts, element;
 
         for (let i = 0, j = lines.length; i < j; ++i) {
             if ((parts = regex.exec(lines[i]))) {

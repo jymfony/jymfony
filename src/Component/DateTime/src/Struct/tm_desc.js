@@ -27,7 +27,7 @@ class tm_desc {
          */
         this.tm_tz = tz;
 
-        let d = new Date();
+        const d = new Date();
         this.unix_timestamp = ~~(d.getTime() / 1000);
         this._tm_msec = d.getMilliseconds();
     }
@@ -230,7 +230,7 @@ class tm_desc {
             year--;
         }
 
-        let N = this.tm_mday + 2 * month + ~~(3 * (month + 1) / 5) + year + ~~(year / 4) - ~~(year / 100) + ~~(year / 400) + 2;
+        const N = this.tm_mday + 2 * month + ~~(3 * (month + 1) / 5) + year + ~~(year / 4) - ~~(year / 100) + ~~(year / 400) + 2;
         return (N + 5) % 7 + 1;
     }
 
@@ -241,7 +241,7 @@ class tm_desc {
      * @returns {int}
      */
     get first_day_of_year() {
-        let y = this.tm_year - 1;
+        const y = this.tm_year - 1;
         return (37 + y + ~~(y / 4) - ~~(y / 100) + ~~(y / 400) + 5) % 7 + 1;
     }
 
@@ -251,8 +251,8 @@ class tm_desc {
      * @returns {number}
      */
     get tm_yday() {
-        let target = daysPerMonth[this.tm_leap ? 1 : 0];
-        let months = target.slice(0, this.tm_mon - 1);
+        const target = daysPerMonth[this.tm_leap ? 1 : 0];
+        const months = target.slice(0, this.tm_mon - 1);
 
         return months.reduce((acc, val) => acc + val, 0) + this.tm_mday;
     }
@@ -277,7 +277,7 @@ class tm_desc {
      * @returns {number|*}
      */
     get iso_year() {
-        let target = this.copy();
+        const target = this.copy();
         target._addDays(-target.tm_wday + 3);
 
         return target.tm_year;
@@ -317,15 +317,15 @@ class tm_desc {
      */
     get days_from_epoch() {
         let y = this.tm_year;
-        let m = this.tm_mon;
-        let d = this.tm_mday;
+        const m = this.tm_mon;
+        const d = this.tm_mday;
 
         y -= 2 >= m ? 1 : 0;
 
-        let era = ~~((0 <= y ? y : y-399) / 400);
-        let yoe = Math.abs(y - era * 400);
-        let doy = ~~((153 * (m + (2 < m ? -3 : 9)) + 2)/5) + d-1;
-        let doe = yoe * 365 + ~~(yoe/4) - ~~(yoe/100) + doy;
+        const era = ~~((0 <= y ? y : y-399) / 400);
+        const yoe = Math.abs(y - era * 400);
+        const doy = ~~((153 * (m + (2 < m ? -3 : 9)) + 2)/5) + d-1;
+        const doe = yoe * 365 + ~~(yoe/4) - ~~(yoe/100) + doy;
 
         return era * 146097 + doe - 719468;
     }
@@ -334,14 +334,14 @@ class tm_desc {
      * @param {number} days
      */
     set days_from_epoch(days) {
-        let z = days + 719468;
-        let era = ~~((0 <= z ? z : z - 146096) / 146097);
-        let doe = Math.abs(z - era * 146097);
-        let yoe = ~~((doe - ~~(doe/1460) + ~~(doe/36524) - ~~(doe/146096)) / 365);
+        const z = days + 719468;
+        const era = ~~((0 <= z ? z : z - 146096) / 146097);
+        const doe = Math.abs(z - era * 146097);
+        const yoe = ~~((doe - ~~(doe/1460) + ~~(doe/36524) - ~~(doe/146096)) / 365);
 
         this.tm_year = yoe + era * 400;
-        let doy = Math.abs(doe - (365*yoe + ~~(yoe/4) - ~~(yoe/100)));
-        let mp = ~~((5 * doy + 2)/153);
+        const doy = Math.abs(doe - (365*yoe + ~~(yoe/4) - ~~(yoe/100)));
+        const mp = ~~((5 * doy + 2)/153);
         this._tm_mday = doy - ~~((153 * mp + 2)/5) + 1;
         this._tm_mon = mp + (10 > mp ? 3 : -9);
 
@@ -388,7 +388,7 @@ class tm_desc {
      * @returns {boolean}
      */
     get valid() {
-        let days_in_month = daysPerMonth[this.tm_leap ? 1 : 0][this.tm_mon - 1];
+        const days_in_month = daysPerMonth[this.tm_leap ? 1 : 0][this.tm_mon - 1];
         return this.tm_mday <= days_in_month;
     }
 
@@ -447,14 +447,14 @@ class tm_desc {
     }
 
     _makeTime() {
-        let wall_ts = this._wallclock_timestamp;
-        let offset = this.tm_tz._getOffsetForWallClock(wall_ts);
+        const wall_ts = this._wallclock_timestamp;
+        const offset = this.tm_tz._getOffsetForWallClock(wall_ts);
 
         this._unix_time = wall_ts - offset;
     }
 
     _makeTm() {
-        let wall_ts = this._unix_time + this.tm_tz.getOffset(this._unix_time);
+        const wall_ts = this._unix_time + this.tm_tz.getOffset(this._unix_time);
 
         this._tm_sec = wall_ts % 60;
         this._tm_min = ~~((wall_ts % 3600 - this._tm_sec) / 60);

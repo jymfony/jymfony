@@ -9,7 +9,7 @@ const Reference = Jymfony.Component.DependencyInjection.Reference;
 class CheckExceptionOnInvalidReferenceBehaviorPass extends AbstractRecursivePass {
     _processValue(value, isRoot = false) {
         if (value instanceof Reference && Container.EXCEPTION_ON_INVALID_REFERENCE === value.invalidBehavior) {
-            let destId = value.toString();
+            const destId = value.toString();
 
             if (! this._container.has(destId)) {
                 throw new ServiceNotFoundException(destId, this._sourceId);

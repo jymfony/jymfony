@@ -1,5 +1,5 @@
 const fs = require('fs');
-const path = require("path");
+const path = require('path');
 const AbstractProcessingHandler = Jymfony.Component.Logger.Handler.AbstractProcessingHandler;
 const LogLevel = Jymfony.Component.Logger.LogLevel;
 

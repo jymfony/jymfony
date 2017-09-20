@@ -2,9 +2,9 @@
 
 global.__jymfony = global.__jymfony || {};
 
-let diffKey = function (arr1, ...arrays) {
-    let inArrays = key => {
-        for (let array of arrays) {
+const diffKey = function (arr1, ...arrays) {
+    const inArrays = key => {
+        for (const array of arrays) {
             if (key in array) {
                 return true;
             }
@@ -13,8 +13,8 @@ let diffKey = function (arr1, ...arrays) {
         return false;
     };
 
-    let retArr = {};
-    for (let key of Object.keys(arr1)) {
+    const retArr = {};
+    for (const key of Object.keys(arr1)) {
         if (inArrays(key)) {
             continue;
         }

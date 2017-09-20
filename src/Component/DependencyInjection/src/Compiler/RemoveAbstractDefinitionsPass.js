@@ -6,10 +6,10 @@ const CompilerPassInterface = Jymfony.Component.DependencyInjection.Compiler.Com
  */
 module.exports = class RemoveAbstractDefinitionsPass extends implementationOf(CompilerPassInterface) {
     process(container) {
-        let compiler = container.getCompiler();
-        let formatter = compiler.logFormatter;
+        const compiler = container.getCompiler();
+        const formatter = compiler.logFormatter;
 
-        for (let [ id, definition ] of __jymfony.getEntries(container.getDefinitions())) {
+        for (const [ id, definition ] of __jymfony.getEntries(container.getDefinitions())) {
             if (! definition.isAbstract()) {
                 continue;
             }

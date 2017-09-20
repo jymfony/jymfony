@@ -1,7 +1,7 @@
 const IOException = Jymfony.Component.Filesystem.Exception.IOException;
 const RecursiveDirectoryIterator = Jymfony.Component.Filesystem.Iterator.RecursiveDirectoryIterator;
 const fs = require('fs');
-const path = require("path");
+const path = require('path');
 
 const internal = require('./internal');
 
@@ -23,17 +23,17 @@ class Filesystem {
      */
     * copy(originFile, targetFile, overwriteNewerFiles = false) {
         yield this.mkdir(path.dirname(targetFile));
-        let originStat = yield internal.stat(targetFile);
+        const originStat = yield internal.stat(targetFile);
 
         let doCopy = true;
         if (! overwriteNewerFiles && (yield this.isFile(targetFile))) {
-            let targetStat = yield internal.stat(targetFile);
+            const targetStat = yield internal.stat(targetFile);
             doCopy = originStat.mtime > targetStat.mtime;
         }
 
         if (doCopy) {
-            let rs = fs.createReadStream(originFile);
-            let ws = fs.createWriteStream(targetFile);
+            const rs = fs.createReadStream(originFile);
+            const ws = fs.createWriteStream(targetFile);
 
             try {
                 yield new Promise((resolve, reject) => {
@@ -53,7 +53,7 @@ class Filesystem {
             }
 
             fs.chmod(targetFile, originStat.mode);
-            let targetStat = yield internal.stat(targetFile);
+            const targetStat = yield internal.stat(targetFile);
             if (targetStat.size !== originStat.size) {
                 throw new IOException(__jymfony.sprintf('Failed to copy the whole content of "%s" to "%s" (%g of %g bytes copied).', originFile, targetFile, targetStat.size, originStat.size), null, undefined, originFile);
             }
@@ -73,7 +73,7 @@ class Filesystem {
             dirs = [ dirs ];
         }
 
-        for (let dir of dirs) {
+        for (const dir of dirs) {
             if (yield this.isDir(dir)) {
                 continue;
             }
@@ -101,7 +101,7 @@ class Filesystem {
             files = [ files ];
         }
 
-        for (let file of files) {
+        for (const file of files) {
             if (false === (yield internal.stat(file))) {
                 return false;
             }
@@ -122,7 +122,7 @@ class Filesystem {
             files = [ files ];
         }
 
-        for (let file of files.reverse()) {
+        for (const file of files.reverse()) {
             if (yield this.isDir(file)) {
                 yield this.remove((yield this.readdir(file)).map(f => path.join(file, f)));
 
@@ -160,26 +160,26 @@ class Filesystem {
 
         // Iterate in destination folder to remove obsolete entries
         if ((yield this.exists(targetDir)) && options['delete']) {
-            let deleteIterator = new RecursiveDirectoryIterator(targetDir, RecursiveDirectoryIterator.CHILD_FIRST);
-            for (let file of deleteIterator) {
-                let origin = file.replace(targetDir, originDir);
+            const deleteIterator = new RecursiveDirectoryIterator(targetDir, RecursiveDirectoryIterator.CHILD_FIRST);
+            for (const file of deleteIterator) {
+                const origin = file.replace(targetDir, originDir);
                 if (! (yield this.exists(origin))) {
                     yield this.remove(file);
                 }
             }
         }
 
-        let copyOnWindows = __jymfony.Platform.isWindows() && !! options.copy_on_windows;
-        let flags = copyOnWindows ? RecursiveDirectoryIterator.FOLLOW_SYMLINKS : 0;
-        let iterator = new RecursiveDirectoryIterator(originDir, flags | RecursiveDirectoryIterator.CHILD_LAST);
+        const copyOnWindows = __jymfony.Platform.isWindows() && !! options.copy_on_windows;
+        const flags = copyOnWindows ? RecursiveDirectoryIterator.FOLLOW_SYMLINKS : 0;
+        const iterator = new RecursiveDirectoryIterator(originDir, flags | RecursiveDirectoryIterator.CHILD_LAST);
 
         if (! (yield this.exists(targetDir))) {
             yield this.mkdir(targetDir);
         }
 
-        for (let file of iterator) {
-            let target = file.replace(originDir, targetDir);
-            let stat = yield internal.stat(file, copyOnWindows);
+        for (const file of iterator) {
+            const target = file.replace(originDir, targetDir);
+            const stat = yield internal.stat(file, copyOnWindows);
 
             if (copyOnWindows) {
                 if (stat.isFile()) {
@@ -264,7 +264,7 @@ class Filesystem {
             }
         }
 
-        let promise = new Promise(resolve => {
+        const promise = new Promise(resolve => {
             fs.symlink(originDir, targetDir, 'dir', err => {
                 resolve(! err);
             });

@@ -11,7 +11,7 @@ global.isGeneratorFunction = function isGeneratorFunction(value) {
         return false;
     }
 
-    let constructor = value.constructor;
+    const constructor = value.constructor;
 
     if (! constructor) {
         return false;
@@ -30,7 +30,7 @@ if (__jymfony.Platform.hasAsyncFunctionSupport()) {
             return false;
         }
 
-        let constructor = value.constructor;
+        const constructor = value.constructor;
         if (!constructor) {
             return false;
         }

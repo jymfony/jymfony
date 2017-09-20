@@ -23,8 +23,8 @@ class TestKernel extends Kernel {
          */
         this._addTestCommands = addTestCommands;
 
-        let current_date = (new Date()).valueOf().toString();
-        let random = Math.random().toString();
+        const current_date = (new Date()).valueOf().toString();
+        const random = Math.random().toString();
 
         this._prefixCacheLogDir = crypto.createHmac('sha1', current_date + random).update('logs_cache_prefix').digest('hex');
         super.__construct(environment, debug);
@@ -48,10 +48,10 @@ class TestKernel extends Kernel {
      * @inheritDoc
      */
     _getContainerBuilder() {
-        let container = new ContainerBuilder();
+        const container = new ContainerBuilder();
 
         if (this._addTestCommands) {
-            let loader = new JsFileLoader(container, new FileLocator());
+            const loader = new JsFileLoader(container, new FileLocator());
             loader.load(path.join(__dirname, 'js', 'services.js'));
         }
 
@@ -65,8 +65,8 @@ class TestKernel extends Kernel {
      */
     _initializeContainer() {
         let container;
-        let class_ = this._getContainerClass();
-        let cache = new ConfigCache(path.join(this.getCacheDir(), class_ + '.js'), this._debug);
+        const class_ = this._getContainerClass();
+        const cache = new ConfigCache(path.join(this.getCacheDir(), class_ + '.js'), this._debug);
 
         container = this._buildContainer();
         container.compile();

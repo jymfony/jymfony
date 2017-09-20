@@ -81,7 +81,7 @@ class ApplicationTester {
             );
             this._output.deferUncork = false;
 
-            let stdErr = new StreamOutput(new stream.PassThrough());
+            const stdErr = new StreamOutput(new stream.PassThrough());
             stdErr.formatter = this._output.formatter;
             stdErr.verbosity = this._output.verbosity;
             stdErr.decorated = this._output.decorated;
@@ -108,7 +108,7 @@ class ApplicationTester {
      */
     getDisplay(normalize = false) {
         /** @type {Buffer} */
-        let read = this._output.stream.read();
+        const read = this._output.stream.read();
         if (null !== read) {
             this._readOutput += read.toString();
         }
@@ -131,7 +131,7 @@ class ApplicationTester {
         }
 
         /** @type {Buffer} */
-        let read = this._output._stderr.stream.read();
+        const read = this._output._stderr.stream.read();
         if (null !== read) {
             this._readStdErr += read.toString();
         }

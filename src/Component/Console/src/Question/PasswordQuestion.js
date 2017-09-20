@@ -32,9 +32,9 @@ class PasswordQuestion extends Question {
     _getRenderer() {
         if (! this.hidden || ! this._output.stream.isTTY || ! Terminal.hasSttyAvailable()) {
             return new PasswordRenderer(this);
-        } 
+        }
         return new SttyPasswordRenderer(this);
-        
+
     }
 }
 

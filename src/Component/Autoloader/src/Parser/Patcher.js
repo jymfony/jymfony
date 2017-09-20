@@ -57,7 +57,7 @@ class Patcher {
         code += lexer.token.value; // Class
 
         if (! lexer.isNextToken(Lexer.T_SPACE)) {
-            throw new SyntaxError;
+            throw new SyntaxError();
         }
 
         lexer.moveNext();
@@ -77,7 +77,7 @@ class Patcher {
             lexer.moveNext();
             code += lexer.token.value;
         } else {
-            let currentPosition = code.length;
+            const currentPosition = code.length;
             patchRemoval = () => {
                 code = code.slice(0, currentPosition - 1) + code.slice(currentPosition + ' extends __jymfony.JObject '.length - 1);
             };
@@ -162,7 +162,7 @@ class Patcher {
             }
 
             if (0 === level) {
-                let docblock = JSON.stringify(classDocblock);
+                const docblock = JSON.stringify(classDocblock);
                 code += `
     static [Symbol.docblock]() {
         return ${docblock};
@@ -182,7 +182,7 @@ class Patcher {
 
     _parse() {
         this._code = '';
-        for (let block of this._process(lexer)) {
+        for (const block of this._process(lexer)) {
             this._code += block;
         }
     }

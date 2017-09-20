@@ -1,8 +1,8 @@
 const GenericCollectionTrait = require('./Traits/GenericCollectionTrait');
 
-let left = index => (index * 2) + 1;
-let right = index => (index * 2) + 2;
-let parent = index => Math.floor((index - 1) / 2);
+const left = index => (index * 2) + 1;
+const right = index => (index * 2) + 2;
+const parent = index => Math.floor((index - 1) / 2);
 
 class PriorityNode {
     constructor(value, priority, stamp) {
@@ -17,10 +17,8 @@ class PriorityNode {
  * an assigned priority and popped out from the highest priority to the
  * lowest. The iterator is destructive: elements are popped out and
  * removed from the queue
- *
- * @type {PriorityQueue}
  */
-global.PriorityQueue = class PriorityQueue extends mix(undefined, GenericCollectionTrait) {
+class PriorityQueue extends mix(undefined, GenericCollectionTrait) {
     constructor() {
         super();
 
@@ -42,7 +40,7 @@ global.PriorityQueue = class PriorityQueue extends mix(undefined, GenericCollect
      * @returns {PriorityQueue}
      */
     copy() {
-        let copy = new PriorityQueue();
+        const copy = new PriorityQueue();
 
         copy._heap = [ ...this._heap ];
         copy._stamp = this._stamp;
@@ -82,13 +80,13 @@ global.PriorityQueue = class PriorityQueue extends mix(undefined, GenericCollect
             throw new UnderflowException();
         }
 
-        let leaf = this._heap.pop();
+        const leaf = this._heap.pop();
 
         if (! this._heap.length) {
             return leaf.value;
         }
 
-        let value = this._getRoot().value;
+        const value = this._getRoot().value;
         this._setRoot(leaf);
 
         return value;
@@ -111,8 +109,8 @@ global.PriorityQueue = class PriorityQueue extends mix(undefined, GenericCollect
      * @returns {Array}
      */
     toArray() {
-        let heap = [ ...this._heap ];
-        let acc = [];
+        const heap = [ ...this._heap ];
+        const acc = [];
 
         while (! this.isEmpty()) {
             acc.push(this.pop());
@@ -129,21 +127,21 @@ global.PriorityQueue = class PriorityQueue extends mix(undefined, GenericCollect
     }
 
     _compare(a, b) {
-        let x = this._heap[a];
-        let y = this._heap[b];
+        const x = this._heap[a];
+        const y = this._heap[b];
 
         return Math.sign(x.priority - y.priority) || Math.sign(y.stamp - x.stamp);
     }
 
     _swap(a, b) {
-        let tmp = this._heap[a];
+        const tmp = this._heap[a];
         this._heap[a] = this._heap[b];
         this._heap[b] = tmp;
     }
 
     _getLargestLeaf(parent) {
-        let l = left(parent);
-        let r = right(parent);
+        const l = left(parent);
+        const r = right(parent);
 
         if (r < this._heap.length && 0 > this._compare(l, r)) {
             return r;
@@ -153,7 +151,7 @@ global.PriorityQueue = class PriorityQueue extends mix(undefined, GenericCollect
     }
 
     _siftDown(node) {
-        let last = Math.floor(this._heap.length / 2);
+        const last = Math.floor(this._heap.length / 2);
 
         let leaf;
         for (let parent = node; parent < last; parent = leaf) {
@@ -189,4 +187,6 @@ global.PriorityQueue = class PriorityQueue extends mix(undefined, GenericCollect
     _getRoot() {
         return this._heap[0];
     }
-};
+}
+
+global.PriorityQueue = PriorityQueue;

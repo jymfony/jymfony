@@ -157,7 +157,7 @@ class QuestionBuilder {
      * @returns {Jymfony.Component.Console.Question.Question}
      */
     build() {
-        let question = new Question(this.input, this.output);
+        const question = new Question(this.input, this.output);
         question.question = this._prompt;
         question.normalizer = this._normalizer;
         question.validator = this._validator;

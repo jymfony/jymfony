@@ -26,13 +26,13 @@ and debug mode:
      * @inheritDoc
      */
     * execute(input, output) {
-        let io = new JymfonyStyle(input, output);
-        let fs = new Filesystem();
+        const io = new JymfonyStyle(input, output);
+        const fs = new Filesystem();
 
-        let realCacheDir = this._container.getParameter('kernel.cache_dir');
+        const realCacheDir = this._container.getParameter('kernel.cache_dir');
         // The old cache dir name must not be longer than the real one to avoid exceeding
         // The maximum length of a directory or file path within it (esp. Windows MAX_PATH)
-        let oldCacheDir = realCacheDir.substring(0, realCacheDir.length - 1) + ('~' === realCacheDir.substr(realCacheDir.length - 1) ? '+' : '~');
+        const oldCacheDir = realCacheDir.substring(0, realCacheDir.length - 1) + ('~' === realCacheDir.substr(realCacheDir.length - 1) ? '+' : '~');
 
         if (! (yield fs.isWritable(realCacheDir))) {
             throw new RuntimeException(__jymfony.sprintf('Unable to write in the "%s" directory', realCacheDir));
@@ -42,13 +42,13 @@ and debug mode:
             yield fs.remove(oldCacheDir);
         }
 
-        let kernel = this._container.get('kernel');
+        const kernel = this._container.get('kernel');
         io.comment(__jymfony.sprintf('Clearing the cache for the <info>%s</info> environment with debug <info>%s</info>', kernel.environment, kernel.debug));
 
         // This._container.get('cache_clearer').clear(realCacheDir);
         yield fs.rename(realCacheDir, oldCacheDir);
 
-        let isOutputVerbose = output.isVerbose();
+        const isOutputVerbose = output.isVerbose();
         if (isOutputVerbose) {
             io.comment('Removing old cache directory...');
         }

@@ -40,7 +40,7 @@ class ReflectionMethod {
             this._method = method;
             this._static = true;
         } else {
-            throw new ReflectionException('Unknown method "' + methodName + "'");
+            throw new ReflectionException('Unknown method "' + methodName + '\'');
         }
 
         /**

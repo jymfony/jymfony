@@ -1,43 +1,49 @@
 const ReflectionMethod = require('./ReflectionMethod');
 
-let Storage = function () {};
+const Storage = function () {};
 Storage.prototype = {};
 
-let TheBigReflectionDataCache = new Storage();
+const TheBigReflectionDataCache = new Storage();
 TheBigReflectionDataCache.classes = new Storage();
 TheBigReflectionDataCache.data = new Storage();
+
+const getClass = function getClass(value) {
+    if ('string' === typeof value) {
+        const cached = TheBigReflectionDataCache.classes[value];
+        if (cached) {
+            value = cached;
+        } else {
+            const parts = value.split('.');
+            value = ReflectionClass._recursiveGet(global, parts);
+        }
+    } else if ('object' === typeof value && undefined !== value.constructor) {
+        value = value.constructor;
+    }
+
+    if ('function' === typeof value) {
+        if (undefined === value.prototype) {
+            if (value.definition) {
+                // Interface or Trait
+                this._isInterface = mixins.isInterface(value);
+                value = value.definition;
+            } else {
+                throw new ReflectionException('Not a class');
+            }
+        }
+    } else if (undefined === value) {
+        throw new ReflectionException('Unknown class');
+    }
+
+    return value;
+};
 
 /**
  * Utility class for classes reflection.
  */
 class ReflectionClass {
     constructor(value) {
-        if ('string' === typeof value) {
-            let cached = TheBigReflectionDataCache.classes[value];
-            if (cached) {
-                value = cached;
-            } else {
-                let parts = value.split('.');
-                value = ReflectionClass._recursiveGet(global, parts);
-            }
-        } else if ('object' === typeof value && undefined !== value.constructor) {
-            value = value.constructor;
-        }
-
         this._isInterface = false;
-        if ('function' === typeof value) {
-            if (undefined === value.prototype) {
-                if (value.definition) {
-                    // Interface or Trait
-                    this._isInterface = mixins.isInterface(value);
-                    value = value.definition;
-                } else {
-                    throw new ReflectionException('Not a class');
-                }
-            }
-        } else if (undefined === value) {
-            throw new ReflectionException('Unknown class');
-        }
+        value = getClass.apply(this, [ value ]);
 
         this._methods = new Storage();
         this._staticMethods = new Storage();
@@ -66,7 +72,7 @@ class ReflectionClass {
      */
     static exists(className) {
         try {
-            new ReflectionClass(className);
+            getClass(className);
         } catch (e) {
             if (! (e instanceof ReflectionException)) {
                 throw e;
@@ -95,7 +101,7 @@ class ReflectionClass {
      * @returns {*}
      */
     newInstanceWithoutConstructor() {
-        let surrogateCtor = function () { };
+        const surrogateCtor = function () { };
         surrogateCtor.prototype = this._constructor.prototype;
 
         return new surrogateCtor();
@@ -165,7 +171,7 @@ class ReflectionClass {
      */
     getPropertyDescriptor(name) {
         if (undefined === this._properties[name]) {
-            throw new ReflectionException('Property "' + name + "' does not exist.");
+            throw new ReflectionException('Property "' + name + '\' does not exist.');
         }
 
         return this._properties[name];
@@ -315,7 +321,7 @@ class ReflectionClass {
     }
 
     _loadFromMetadata(value) {
-        let metadata = value[Symbol.reflection];
+        const metadata = value[Symbol.reflection];
         this._className = metadata.fqcn;
         this._namespace = metadata.namespace;
 
@@ -350,10 +356,10 @@ class ReflectionClass {
     }
 
     _loadFromCache() {
-        let data = TheBigReflectionDataCache.data[this._className];
+        const data = TheBigReflectionDataCache.data[this._className];
 
-        let propFunc = function (storage, data) {
-            for (let v of data) {
+        const propFunc = function (storage, data) {
+            for (const v of data) {
                 storage[v] = true;
             }
         };
@@ -381,18 +387,18 @@ class ReflectionClass {
     }
 
     _loadProperties() {
-        let loadFromPrototype = (proto) => {
+        const loadFromPrototype = (proto) => {
             if (undefined === proto || null === proto) {
                 return;
             }
 
-            let properties = Object.getOwnPropertyNames(proto);
-            for (let name of properties) {
+            const properties = Object.getOwnPropertyNames(proto);
+            for (const name of properties) {
                 if ('constructor' === name) {
                     continue;
                 }
 
-                let descriptor = Object.getOwnPropertyDescriptor(proto, name);
+                const descriptor = Object.getOwnPropertyDescriptor(proto, name);
                 if ('function' === typeof descriptor.value) {
                     this._methods[name] = descriptor;
                 } else {
@@ -410,18 +416,18 @@ class ReflectionClass {
         };
 
         let parent = this._constructor;
-        let chain = [ this._constructor.prototype ];
+        const chain = [ this._constructor.prototype ];
         while (parent = Object.getPrototypeOf(parent)) {
             if (parent.prototype) {
                 chain.unshift(parent.prototype);
             }
         }
 
-        for (let p of chain) {
+        for (const p of chain) {
             loadFromPrototype(p);
         }
 
-        for (let IF of mixins.getInterfaces(this._constructor)) {
+        for (const IF of mixins.getInterfaces(this._constructor)) {
             const reflectionInterface = new ReflectionClass(IF);
             this._interfaces.push(reflectionInterface);
         }
@@ -431,16 +437,16 @@ class ReflectionClass {
         const FunctionProps = Object.getOwnPropertyNames(Function.prototype);
 
         let parent = this._constructor;
-        let chain = [ this._constructor ];
+        const chain = [ this._constructor ];
         while (parent = Object.getPrototypeOf(parent)) {
             if (parent.prototype) {
                 chain.unshift(parent.prototype.constructor);
             }
         }
 
-        let consts = {};
+        const consts = {};
         for (parent of chain) {
-            let names = Object.getOwnPropertyNames(parent)
+            const names = Object.getOwnPropertyNames(parent)
                 .filter(P => {
                     if ('prototype' === P || 'isMixin' === P) {
                         return false;
@@ -459,7 +465,7 @@ class ReflectionClass {
                     return -1 === FunctionProps.indexOf(P);
                 });
 
-            for (let name of names) {
+            for (const name of names) {
                 if (! consts.hasOwnProperty(name)) {
                     consts[name] = parent[name];
                 }
@@ -473,11 +479,11 @@ class ReflectionClass {
         let part;
 
         // Save autoload debug flag.
-        let debug = __jymfony.autoload.debug;
+        const debug = __jymfony.autoload.debug;
         __jymfony.autoload.debug = false;
 
         try {
-            let original = parts.join('.');
+            const original = parts.join('.');
             parts = [ ...parts ].reverse();
 
             while (part = parts.pop()) {
@@ -496,8 +502,8 @@ class ReflectionClass {
     }
 
     static _searchModule(value) {
-        for (let moduleName of Object.keys(require.cache)) {
-            let mod = require.cache[moduleName];
+        for (const moduleName of Object.keys(require.cache)) {
+            const mod = require.cache[moduleName];
             if (mod.exports === value) {
                 return mod;
             }

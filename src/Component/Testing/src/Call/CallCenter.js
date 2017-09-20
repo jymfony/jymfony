@@ -38,8 +38,8 @@ class CallCenter {
             return undefined;
         }
 
-        let matches = [];
-        for (let methodProphecy of prophecy.getMethodProphecies(methodName)) {
+        const matches = [];
+        for (const methodProphecy of prophecy.getMethodProphecies(methodName)) {
             let score;
             if (0 < (score = methodProphecy.argumentsWildcard.scoreArguments(args))) {
                 matches.push([ score, methodProphecy ]);
@@ -52,7 +52,7 @@ class CallCenter {
 
         matches.sort((match1, match2) => match2[0] - match1[0]);
 
-        let methodProphecy = matches[0][1];
+        const methodProphecy = matches[0][1];
         let returnValue = undefined;
         let exception = undefined;
         let promise;

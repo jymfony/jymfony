@@ -26,7 +26,7 @@ class ArrayInput extends Input {
      * @inheritDoc
      */
     get firstArgument() {
-        for (let [ key, value ] of __jymfony.getEntries(this._parameters)) {
+        for (const [ key, value ] of __jymfony.getEntries(this._parameters)) {
             if ('-' === key[0]) {
                 continue;
             }
@@ -68,7 +68,7 @@ class ArrayInput extends Input {
             values = [ values ];
         }
 
-        for (let [ k, v ] of __jymfony.getEntries(this._parameters)) {
+        for (const [ k, v ] of __jymfony.getEntries(this._parameters)) {
             if (onlyParams && ('--' === k || (isNumber(k) && '--' === v))) {
                 return false;
             }
@@ -89,8 +89,8 @@ class ArrayInput extends Input {
      * @inheritDoc
      */
     toString() {
-        let params = [];
-        for (let [ param, val ] of __jymfony.getEntries(this._parameters)) {
+        const params = [];
+        for (const [ param, val ] of __jymfony.getEntries(this._parameters)) {
             if (param && '-' === param[0]) {
                 params.push(param + ('' != val ? '=' + this.escapeToken(val) : ''));
             } else {
@@ -105,7 +105,7 @@ class ArrayInput extends Input {
      * @inheritDoc
      */
     parse() {
-        for (let [ key, value ] of __jymfony.getEntries(this._parameters)) {
+        for (const [ key, value ] of __jymfony.getEntries(this._parameters)) {
             if ('--' === key) {
                 return;
             }
@@ -154,7 +154,7 @@ class ArrayInput extends Input {
             throw new InvalidOptionException(`The "--${name}" option does not exist.`);
         }
 
-        let option = this._definition.getOption(name);
+        const option = this._definition.getOption(name);
 
         if (! value) {
             if (option.isValueRequired()) {

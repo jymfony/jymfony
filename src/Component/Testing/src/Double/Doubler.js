@@ -105,7 +105,7 @@ class Doubler {
             reflection.newInstanceWithoutConstructor() :
             reflection.newInstance(...this._constructorArgs);
 
-        for (let methodName of reflection.methods) {
+        for (const methodName of reflection.methods) {
             if ('constructor' === methodName || '__construct' === methodName) {
                 continue;
             }
@@ -130,8 +130,8 @@ class Doubler {
             obj[methodName] = method;
         }
 
-        for (let propertyName of reflection.properties) {
-            let descriptor = reflection.getPropertyDescriptor(propertyName);
+        for (const propertyName of reflection.properties) {
+            const descriptor = reflection.getPropertyDescriptor(propertyName);
 
             if (reflection.hasReadableProperty(propertyName)) {
                 descriptor.get = function () {

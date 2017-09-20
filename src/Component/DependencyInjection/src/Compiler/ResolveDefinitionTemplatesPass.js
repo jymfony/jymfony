@@ -60,14 +60,14 @@ class ResolveDefinitionTemplatesPass extends AbstractRecursivePass {
      * @private
      */
     _doResolveDefinition(definition) {
-        let parent = definition.getParent();
+        const parent = definition.getParent();
         if (! this._container.has(parent.toString())) {
             throw new RuntimeException(`The parent definition "${parent.toString()}" defined for definition "${this._currentId}" does not exist.`);
         }
 
         let parentDef = this._container.findDefinition(parent.toString());
         if (parentDef instanceof ChildDefinition) {
-            let id = this._currentId;
+            const id = this._currentId;
             this._currentId = parent;
 
             parentDef = this._resolveDefinition(parentDef);
@@ -76,7 +76,7 @@ class ResolveDefinitionTemplatesPass extends AbstractRecursivePass {
         }
 
         this._container.log(this, __jymfony.sprintf('Resolving inheritance for "%s" (parent: %s).', this._currentId, parent.toString()));
-        let def = new Definition();
+        const def = new Definition();
 
         def.setClass(parentDef.getClass());
         def.setMethodCalls(parentDef.getMethodCalls());
@@ -93,7 +93,7 @@ class ResolveDefinitionTemplatesPass extends AbstractRecursivePass {
         def.setLazy(parentDef.isLazy());
         def.setChanges(parentDef.getChanges());
 
-        let changes = definition.getChanges();
+        const changes = definition.getChanges();
         if (changes.class) {
             def.setClass(definition.getClass());
         }
@@ -123,7 +123,7 @@ class ResolveDefinitionTemplatesPass extends AbstractRecursivePass {
         }
 
         if (changes.decorated_service) {
-            let decoratedService = definition.getDecoratedService();
+            const decoratedService = definition.getDecoratedService();
             if (! decoratedService) {
                 def.setDecoratedService(undefined);
             } else {
@@ -132,16 +132,16 @@ class ResolveDefinitionTemplatesPass extends AbstractRecursivePass {
         }
 
         definition.setArguments(parentDef.getArguments());
-        for (let argument of definition.getArguments()) {
+        for (const argument of definition.getArguments()) {
             def.addArgument(argument);
         }
 
-        for (let [ k, v ] of __jymfony.getEntries(definition.getProperties())) {
+        for (const [ k, v ] of __jymfony.getEntries(definition.getProperties())) {
             def.addProperty(k, v);
         }
 
         // Append method calls
-        let calls = definition.getMethodCalls();
+        const calls = definition.getMethodCalls();
         if (0 < calls.length) {
             def.setMethodCalls([ ...def.getMethodCalls(), ...calls ]);
         }

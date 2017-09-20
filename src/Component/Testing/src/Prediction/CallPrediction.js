@@ -15,7 +15,7 @@ class CallPrediction extends implementationOf(PredictionInterface) {
             return;
         }
 
-        let methodCalls = object.findProphecyMethodCalls(
+        const methodCalls = object.findProphecyMethodCalls(
             method.methodName,
             new Argument.ArgumentsWildcard([ new AnyValuesToken() ])
         );

@@ -7,11 +7,11 @@ class Traits {
     }
 
     static create(definition) {
-        let inherits = new Map();
+        const inherits = new Map();
         let parent = definition;
         do {
             if (parent.prototype) {
-                for (let p of [ ...Object.getOwnPropertyNames(parent.prototype), ...Object.getOwnPropertySymbols(parent.prototype) ]) {
+                for (const p of [ ...Object.getOwnPropertyNames(parent.prototype), ...Object.getOwnPropertySymbols(parent.prototype) ]) {
                     if (inherits.has(p)) {
                         continue;
                     }
@@ -21,8 +21,8 @@ class Traits {
             }
         } while (parent = Object.getPrototypeOf(parent));
 
-        let mixin = Mixins.createMixin(definition, trait => {
-            for (let [ prop, descriptor ] of inherits.entries()) {
+        const mixin = Mixins.createMixin(definition, trait => {
+            for (const [ prop, descriptor ] of inherits.entries()) {
                 if ('constructor' === prop || '__construct' === prop) {
                     continue;
                 }

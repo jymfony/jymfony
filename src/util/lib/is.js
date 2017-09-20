@@ -9,7 +9,7 @@ if (! isFunction(global.isObject)) {
     };
 }
 
-for(let name of [ 'Arguments', 'Boolean', 'String', 'Number', 'Date', 'RegExp', 'Error', 'Symbol', 'Map', 'WeakMap', 'Set', 'WeakSet' ]) {
+for(const name of [ 'Arguments', 'Boolean', 'String', 'Number', 'Date', 'RegExp', 'Error', 'Symbol', 'Map', 'WeakMap', 'Set', 'WeakSet' ]) {
     if (isFunction(global['is' + name])) {
         continue;
     }
@@ -25,8 +25,8 @@ global.isScalar = function isScalar(value) {
         return false;
     }
 
-    let proto = Object.getPrototypeOf(value);
-    for (let type of primitives) {
+    const proto = Object.getPrototypeOf(value);
+    for (const type of primitives) {
         if (proto === type.prototype) {
             return true;
         }

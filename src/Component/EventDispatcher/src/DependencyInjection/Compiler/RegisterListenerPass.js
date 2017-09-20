@@ -23,11 +23,11 @@ class RegisterListenerPass extends implementationOf(CompilerPassInterface) {
             return;
         }
 
-        let definition = container.findDefinition(this.dispatcherService);
+        const definition = container.findDefinition(this.dispatcherService);
 
-        for (let [ id, events ] of __jymfony.getEntries(container.findTaggedServiceIds(this.listenerTag))) {
-            for (let event of events) {
-                let priority = event.priority !== undefined ? event.priority : 0;
+        for (const [ id, events ] of __jymfony.getEntries(container.findTaggedServiceIds(this.listenerTag))) {
+            for (const event of events) {
+                const priority = event.priority !== undefined ? event.priority : 0;
 
                 if (event.event === undefined) {
                     throw new InvalidArgumentException(__jymfony.sprintf('Service "%s" must define the "event" attribute on "%s" tags.', id, this.listenerTag));
@@ -48,12 +48,13 @@ class RegisterListenerPass extends implementationOf(CompilerPassInterface) {
             }
         }
 
-        let extractingDispatcher = new ExtractingEventDispatcher();
+        const extractingDispatcher = new ExtractingEventDispatcher();
 
-        for (let [ id, attributes ] of __jymfony.getEntries(container.findTaggedServiceIds(this.subscriberTag))) {
-            let def = container.getDefinition(id);
+        for (const [ id, attributes ] of __jymfony.getEntries(container.findTaggedServiceIds(this.subscriberTag))) {
+            const def = container.getDefinition(id);
 
-            let myReflectionClass, myclass = container.parameterBag.resolveValue(def.getClass());
+            const myclass = container.parameterBag.resolveValue(def.getClass());
+            let myReflectionClass;
             try {
                 myReflectionClass = new ReflectionClass(myclass);
             } catch (err) {
@@ -72,7 +73,7 @@ class RegisterListenerPass extends implementationOf(CompilerPassInterface) {
             extractingDispatcher.subscriber = myclass;
 
             try {
-                for (let args of extractingDispatcher.listeners) {
+                for (const args of extractingDispatcher.listeners) {
                     args[1] = [ new ServiceClosureArgument(new Reference(id)), args[1] ];
                     definition.addMethodCall('addListener', args);
                 }
@@ -109,8 +110,8 @@ class ExtractingEventDispatcher extends mix(EventDispatcher, EventSubscriberInte
     }
 
     getSubscribedEvents() {
-        let reflClass = new ReflectionClass(this._subscriber);
-        let class_ = reflClass.getConstructor();
+        const reflClass = new ReflectionClass(this._subscriber);
+        const class_ = reflClass.getConstructor();
 
         if (! isFunction(class_.getSubscribedEvents)) {
             throw new NotStaticMethodException();

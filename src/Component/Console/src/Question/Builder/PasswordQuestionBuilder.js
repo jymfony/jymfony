@@ -52,7 +52,7 @@ class PasswordQuestionBuilder extends QuestionBuilder {
      * @returns {Jymfony.Component.Console.Question.PasswordQuestion}
      */
     build() {
-        let question = new PasswordQuestion(this.input, this.output);
+        const question = new PasswordQuestion(this.input, this.output);
         question.question = this._prompt;
         question.normalizer = this._normalizer;
         question.validator = this._validator;

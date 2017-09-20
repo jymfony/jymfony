@@ -12,8 +12,8 @@ class PriorityTaggedServiceTrait {
     * findAndSortTaggedServices(tagName, container) {
         let services = {};
 
-        for (let [ serviceId, attributes ] of __jymfony.getEntries(container.findTaggedServiceIds(tagName))) {
-            let priority = attributes[0].priority === undefined ? 0 : attributes[0].priority;
+        for (const [ serviceId, attributes ] of __jymfony.getEntries(container.findTaggedServiceIds(tagName))) {
+            const priority = attributes[0].priority === undefined ? 0 : attributes[0].priority;
 
             if (services[priority] === undefined) {
                 services[priority] = [];
@@ -24,7 +24,7 @@ class PriorityTaggedServiceTrait {
 
         services = Object.ksort(services);
 
-        for (let refs of Object.values(services)) {
+        for (const refs of Object.values(services)) {
             yield * refs;
         }
     }

@@ -18,10 +18,10 @@ class Mixins {
      * @returns {Function}
      */
     static createMixin(definition, cb = undefined, constructCb = undefined) {
-        let mixin = (superclass) => {
-            let m = class extends superclass {
-                constructor() {
-                    super(...arguments);
+        const mixin = (superclass) => {
+            const m = class extends superclass {
+                constructor(...args) {
+                    super(...args);
 
                     if (undefined !== constructCb) {
                         constructCb(this);
@@ -40,7 +40,7 @@ class Mixins {
 
         definition[symOuterMixin] = mixin;
 
-        for (let constant of Mixins.getConstantsNames(definition)) {
+        for (const constant of Mixins.getConstantsNames(definition)) {
             mixin[constant] = definition[constant];
         }
 
@@ -73,10 +73,10 @@ class Mixins {
      * @internal
      */
     static * getFunctions(definition) {
-        let chain = this._getClassChain(definition);
+        const chain = this._getClassChain(definition);
         const gen = function * (obj, isStatic) {
-            for (let fn of Object.getOwnPropertyNames(obj)) {
-                let descriptor = Object.getOwnPropertyDescriptor(obj, fn);
+            for (const fn of Object.getOwnPropertyNames(obj)) {
+                const descriptor = Object.getOwnPropertyDescriptor(obj, fn);
                 if ('constructor' !== fn && 'function' === typeof descriptor.value) {
                     yield {'static': isStatic, fn: fn};
                 }
@@ -92,7 +92,7 @@ class Mixins {
             }
         };
 
-        for (let i of chain) {
+        for (const i of chain) {
             yield * gen(i.prototype, false);
             yield * gen(i, true);
         }
@@ -107,10 +107,10 @@ class Mixins {
      * @internal
      */
     static getConstantsNames(definition) {
-        let chain = this._getClassChain(definition);
+        const chain = this._getClassChain(definition);
 
         return Array.from(function * () {
-            for (let i of chain) {
+            for (const i of chain) {
                 yield * Object.getOwnPropertyNames(i)
                     .filter(P => {
                         if ('prototype' === P) {
@@ -133,7 +133,8 @@ class Mixins {
     }
 
     static _getClassChain(definition) {
-        let chain = [], parent = definition;
+        const chain = [];
+        let parent = definition;
         do {
             if (parent[symOuterMixin]) {
                 chain.unshift(parent);

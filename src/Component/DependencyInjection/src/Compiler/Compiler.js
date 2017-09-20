@@ -20,7 +20,7 @@ module.exports = class Compiler {
      * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
      */
     compile(container) {
-        for (let pass of this._passConfig.getPasses()) {
+        for (const pass of this._passConfig.getPasses()) {
             if (container.isTrackingResources()) {
                 container.addObjectResource(pass);
             }
@@ -53,11 +53,11 @@ module.exports = class Compiler {
      * @final
      */
     log(pass, message) {
-        if (-1 !== message.indexOf("\n")) {
-            message = __jymfony.trim(message).replace("\n", "\n" + pass.constructor.name + ": ");
+        if (-1 !== message.indexOf('\n')) {
+            message = __jymfony.trim(message).replace('\n', '\n' + pass.constructor.name + ': ');
         }
 
-        this.addLogMessage(pass.constructor.name + ": " + message);
+        this.addLogMessage(pass.constructor.name + ': ' + message);
     }
 
     /**

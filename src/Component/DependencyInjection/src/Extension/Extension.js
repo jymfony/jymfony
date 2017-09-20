@@ -13,13 +13,13 @@ class Extension extends implementationOf(ExtensionInterface) {
      * @inheritDoc
      */
     getConfiguration() {
-        let reflClass = new ReflectionClass(this);
+        const reflClass = new ReflectionClass(this);
 
-        let nsName = reflClass.namespaceName();
-        let confClass = nsName + '.Configuration';
+        const nsName = reflClass.namespaceName();
+        const confClass = nsName + '.Configuration';
 
         if (ReflectionClass.exists(confClass)) {
-            let reflected = new ReflectionClass(confClass);
+            const reflected = new ReflectionClass(confClass);
             return reflected.newInstance();
         }
 
@@ -44,7 +44,7 @@ class Extension extends implementationOf(ExtensionInterface) {
      * @inheritDoc
      */
     get alias() {
-        let className = this.constructor.name;
+        const className = this.constructor.name;
 
         if (! /.+Extension$/.test(className)) {
             throw new BadMethodCallException('This extension does not follow the standard naming convention. You must overwrite alias getter');

@@ -113,10 +113,10 @@ class Autoloader {
         Symbol.reflection = Symbol('reflection');
         Symbol.docblock = Symbol('docblock');
 
-        let rootDir = this._finder.findRoot();
-        for (let module of this._finder.listModules()) {
+        const rootDir = this._finder.findRoot();
+        for (const module of this._finder.listModules()) {
             let packageInfo;
-            let packageJson = path.join(rootDir, 'node_modules', module, 'package.json');
+            const packageJson = path.join(rootDir, 'node_modules', module, 'package.json');
 
             try {
                 packageInfo = require(packageJson);
@@ -124,7 +124,7 @@ class Autoloader {
                 continue;
             }
 
-            let dir = path.join(rootDir, 'node_modules', module);
+            const dir = path.join(rootDir, 'node_modules', module);
             this._processPackageInfo(packageInfo, dir);
         }
 
@@ -136,7 +136,7 @@ class Autoloader {
             return;
         }
 
-        let config = packageInfo.config['jymfony-autoload'];
+        const config = packageInfo.config['jymfony-autoload'];
         if (config.namespaces) {
             this._processNamespaces(config.namespaces, baseDir);
         }
@@ -147,20 +147,20 @@ class Autoloader {
     }
 
     _processNamespaces(config, baseDir) {
-        for (let namespace in config) {
+        for (const namespace in config) {
             if (! config.hasOwnProperty(namespace)) {
                 continue;
             }
 
-            let parts = namespace.split('.');
-            let last = parts.pop();
+            const parts = namespace.split('.');
+            const last = parts.pop();
             let parent = this._global;
 
-            for (let part of parts) {
+            for (const part of parts) {
                 parent = this._ensureNamespace(part, parent);
             }
 
-            let nsDirectory = path.normalize(baseDir + '/' + config[namespace]);
+            const nsDirectory = path.normalize(baseDir + '/' + config[namespace]);
             if (undefined === parent[last]) {
                 parent[last] = new Namespace(this, this._generateFqn(parent, last), nsDirectory);
             } else {
@@ -170,7 +170,7 @@ class Autoloader {
     }
 
     _processIncludes(config, baseDir) {
-        for (let fileName of config) {
+        for (const fileName of config) {
             require(baseDir + '/' + fileName);
         }
     }

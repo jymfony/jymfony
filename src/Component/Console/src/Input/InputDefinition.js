@@ -2,7 +2,7 @@ const LogicException = Jymfony.Component.Console.Exception.LogicException;
 const InvalidArgumentException = Jymfony.Component.Console.Exception.InvalidArgumentException;
 const InputOption = Jymfony.Component.Console.Input.InputOption;
 
-const util = require("util");
+const util = require('util');
 
 /**
  * @memberOf Jymfony.Component.Console.Input
@@ -21,10 +21,10 @@ class InputDefinition {
      * @param {Array} definition
      */
     setDefinition(definition) {
-        let args = [];
-        let options = [];
+        const args = [];
+        const options = [];
 
-        for (let argument of definition) {
+        for (const argument of definition) {
             if (argument instanceof InputOption) {
                 options.push(argument);
             } else {
@@ -65,7 +65,7 @@ class InputDefinition {
             return;
         }
 
-        for (let argument of args) {
+        for (const argument of args) {
             this.addArgument(argument);
         }
 
@@ -78,7 +78,7 @@ class InputDefinition {
      * @param {Jymfony.Component.Console.Input.InputArgument} argument
      */
     addArgument(argument) {
-        let name = argument.getName();
+        const name = argument.getName();
         if (this._arguments[name]) {
             throw new LogicException(`An argument with name "${name}" already exists.`);
         }
@@ -128,7 +128,7 @@ class InputDefinition {
      * @returns {boolean}
      */
     hasArgument(name) {
-        let arg = isNumber(name) ? Object.values(this._arguments)[name] : this._arguments[name];
+        const arg = isNumber(name) ? Object.values(this._arguments)[name] : this._arguments[name];
 
         return arg !== undefined;
     }
@@ -157,8 +157,8 @@ class InputDefinition {
      * @returns {Object.<string, *>}
      */
     getArgumentDefaults() {
-        let ret = {};
-        for (let argument of Object.values(this._arguments)) {
+        const ret = {};
+        for (const argument of Object.values(this._arguments)) {
             ret[argument.getName()] = argument.getDefault();
         }
 
@@ -195,7 +195,7 @@ class InputDefinition {
      * @param {Jymfony.Component.Console.Input.InputOption[]} options
      */
     addOptions(options) {
-        for (let option of options) {
+        for (const option of options) {
             this.addOption(option);
         }
     }
@@ -206,7 +206,7 @@ class InputDefinition {
      * @param {Jymfony.Component.Console.Input.InputOption} option
      */
     addOption(option) {
-        let name = option.getName();
+        const name = option.getName();
         if (this._options[name] && ! this._options[name].equals(option)) {
             throw new LogicException(`An option named "${name}" already exists.`);
         }
@@ -214,7 +214,7 @@ class InputDefinition {
         let shortcuts;
         if (option.getShortcut()) {
             shortcuts = option.getShortcut().split('|');
-            for (let shortcut of shortcuts) {
+            for (const shortcut of shortcuts) {
                 if (this._shortcuts[shortcut] && !this._options[this._shortcuts[shortcut]].equals(option)) {
                     throw new LogicException(`An option with shortcut "${shortcut}" already exists.`);
                 }
@@ -223,7 +223,7 @@ class InputDefinition {
 
         this._options[name] = option;
         if (option.getShortcut()) {
-            for (let shortcut of shortcuts) {
+            for (const shortcut of shortcuts) {
                 this._shortcuts[shortcut] = name;
             }
         }
@@ -293,8 +293,8 @@ class InputDefinition {
      * @returns {Object.<string, *>}
      */
     getOptionDefaults() {
-        let ret = {};
-        for (let option of this.getOptions()) {
+        const ret = {};
+        for (const option of this.getOptions()) {
             ret[option.getName()] = option.getDefault();
         }
 
@@ -309,12 +309,12 @@ class InputDefinition {
      * @returns {string}
      */
     getSynopsis(short = false) {
-        let elements = [];
+        const elements = [];
 
         if (short && this.getOptions().length) {
             elements.push('[options]');
         } else if (! short) {
-            for (let option of this.getOptions()) {
+            for (const option of this.getOptions()) {
                 let value = '';
                 if (option.acceptValue()) {
                     value = util.format(
@@ -325,7 +325,7 @@ class InputDefinition {
                     );
                 }
 
-                let shortcut = option.getShortcut() ? util.format('-%s|', option.getShortcut()) : '';
+                const shortcut = option.getShortcut() ? util.format('-%s|', option.getShortcut()) : '';
                 elements.push(util.format('[%s--%s%s]', shortcut, option.getName(), value));
             }
         }
@@ -334,7 +334,7 @@ class InputDefinition {
             elements.push('[--]');
         }
 
-        for (let argument of this.getArguments()) {
+        for (const argument of this.getArguments()) {
             let element = '<' + argument.getName() + '>';
             if (! argument.isRequired()) {
                 element = '[' + element + ']';

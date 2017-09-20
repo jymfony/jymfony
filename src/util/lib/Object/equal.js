@@ -56,7 +56,7 @@ const iterableEqual = (left, right, strict, memoizeMap) => {
 
 const enumerableKeys = function enumerableKeys(val) {
     return Array.from((function * () {
-        for (let key in val) {
+        for (const key in val) {
             yield key;
         }
     })());
@@ -81,7 +81,7 @@ const objectEqual = (left, right, strict, memoizeMap) => {
         return false;
     }
 
-    for (let key of ka) {
+    for (const key of ka) {
         if (! __jymfony.equal(left[key], right[key], strict, memoizeMap)) {
             return false;
         }

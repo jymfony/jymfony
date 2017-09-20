@@ -179,7 +179,7 @@ class Question {
                     throw e;
                 }
 
-                let err = formatter.formatBlock(e.message, 'error', true);
+                const err = formatter.formatBlock(e.message, 'error', true);
                 this._output.writeln(err);
             }
         } while (true);

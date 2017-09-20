@@ -24,8 +24,8 @@ global.__jymfony.levenshtein = function levenshtein(s, t) {
         return s.length;
     }
 
-    let v0 = Array(t.length + 1).fill(0);
-    let v1 = Array(t.length + 1).fill(0);
+    const v0 = Array(t.length + 1).fill(0);
+    const v1 = Array(t.length + 1).fill(0);
 
     // Initialize v0 (the previous row of distances)
     // This row is A[0][i]: edit distance for an empty s
@@ -43,7 +43,7 @@ global.__jymfony.levenshtein = function levenshtein(s, t) {
 
         // Use formula to fill in the rest of the row
         for (let j = 0; j < t.length; j++) {
-            let cost = (s[i] == t[j]) ? 0 : 1;
+            const cost = (s[i] == t[j]) ? 0 : 1;
             v1[j + 1] = Math.min(v1[j] + 1, v0[j + 1] + 1, v0[j] + cost);
         }
 

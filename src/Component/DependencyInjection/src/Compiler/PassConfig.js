@@ -51,12 +51,12 @@ class PassConfig {
      * @param {int} priority
      */
     addPass(pass, type, priority) {
-        let property = '_' + type + 'Passes';
+        const property = '_' + type + 'Passes';
         if (! this.hasOwnProperty(property)) {
             throw new InvalidArgumentException('Invalid type ' + type);
         }
 
-        let collection = this[property];
+        const collection = this[property];
         if (! collection[priority]) {
             collection[priority] = [];
         }
@@ -97,13 +97,13 @@ class PassConfig {
     }
 
     * _sortPasses(passes) {
-        let keys = Object.keys(passes);
+        const keys = Object.keys(passes);
         if (0 === keys.length) {
             return;
         }
 
         keys.sort().reverse();
-        for (let priority of keys) {
+        for (const priority of keys) {
             yield * passes[priority];
         }
     }

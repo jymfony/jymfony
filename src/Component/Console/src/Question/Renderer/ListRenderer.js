@@ -55,7 +55,7 @@ class ListRenderer extends AbstractRenderer {
     doAsk() {
         this._print();
 
-        let p = new Promise(resolve => {
+        const p = new Promise(resolve => {
             this._promiseResolve = resolve;
         });
 
@@ -74,7 +74,7 @@ class ListRenderer extends AbstractRenderer {
      * @protected
      */
     _onData(data) {
-        let char = data.toString();
+        const char = data.toString();
 
         switch (char) {
             case '\x03': {
@@ -153,7 +153,7 @@ class ListRenderer extends AbstractRenderer {
         let p = this._outputFormatter.format('[<info>?</info>] ' + this._question._question + '\n');
 
         for (let key = 0; key < this._question._choices.length; key++) {
-            let choice = this._question._choices[key];
+            const choice = this._question._choices[key];
             let msg = this._renderChoice(choice, key);
 
             if (this._current === key) {

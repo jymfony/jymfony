@@ -22,7 +22,7 @@ class Prophet {
      * @returns {Jymfony.Component.Testing.Prophecy.ObjectProphecy}
      */
     prophesize(classOrInterface = undefined) {
-        let prophecy = new ObjectProphecy();
+        const prophecy = new ObjectProphecy();
 
         if (undefined !== classOrInterface && ReflectionClass.exists(classOrInterface)) {
             const reflClass = new ReflectionClass(classOrInterface);
@@ -45,7 +45,7 @@ class Prophet {
      */
     checkPredictions() {
         let exception = undefined;
-        for (let prophecy of this._prophecies) {
+        for (const prophecy of this._prophecies) {
             try {
                 prophecy.checkProphecyMethodsPredictions();
             } catch (e) {
@@ -54,7 +54,7 @@ class Prophet {
                 }
 
                 if (undefined === exception) {
-                    exception = new AggregateException("Some predictions failed:\n");
+                    exception = new AggregateException('Some predictions failed:\n');
                 }
 
                 exception.append(e);

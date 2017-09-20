@@ -22,7 +22,7 @@ class LoggerInterface {
      * @returns {void}
      */
     emergency(message, context = {}) { }
-    
+
     /**
      * Action must be taken immediately.
      *

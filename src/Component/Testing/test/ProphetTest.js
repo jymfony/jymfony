@@ -7,7 +7,7 @@ const PromiseInterface = Jymfony.Component.Testing.Promise.PromiseInterface;
 
 const expect = require('chai').expect;
 
-describe('Prophet', function () {
+describe('[Testing] Prophet', function () {
     beforeEach(() => {
         /**
          * @type {Jymfony.Component.Testing.Prophet}

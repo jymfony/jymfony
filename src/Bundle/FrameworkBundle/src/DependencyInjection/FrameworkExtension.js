@@ -14,7 +14,7 @@ class FrameworkExtension extends Extension {
      * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
      */
     load(configs, container) {
-        let loader = new JsFileLoader(container, new FileLocator(path.join(__dirname, '..', 'Resources', 'config')));
+        const loader = new JsFileLoader(container, new FileLocator(path.join(__dirname, '..', 'Resources', 'config')));
         loader.load('services.js');
         loader.load('commands.js');
         loader.load('logger.js');

@@ -20,14 +20,14 @@ class TextDescriptor extends Descriptor {
             defaultValue = '';
         }
 
-        let totalWidth = options['total_width'] || argument.getName().length;
-        let spacingWidth = totalWidth - argument.getName().length;
+        const totalWidth = options['total_width'] || argument.getName().length;
+        const spacingWidth = totalWidth - argument.getName().length;
 
         this._writeText(util.format('  <info>%s</info>  %s%s%s',
             argument.getName(),
             ' '.repeat(spacingWidth),
             // + 4 = 2 spaces before <info>, 2 spaces after </info>
-            argument.getDescription().replace(/\s*[\r\n]\s*/g, "\n" + ' '.repeat(totalWidth + 4)),
+            argument.getDescription().replace(/\s*[\r\n]\s*/g, '\n' + ' '.repeat(totalWidth + 4)),
             defaultValue
         ), options);
     }
@@ -52,19 +52,19 @@ class TextDescriptor extends Descriptor {
             }
         }
 
-        let totalWidth = options.total_width || this._calculateTotalWidthForOptions([ option ]);
-        let synopsis = util.format('%s%s',
+        const totalWidth = options.total_width || this._calculateTotalWidthForOptions([ option ]);
+        const synopsis = util.format('%s%s',
             option.getShortcut() ? util.format('-%s, ', option.getShortcut()) : '    ',
             util.format('--%s%s', option.getName(), value)
         );
 
-        let spacingWidth = totalWidth - synopsis.length;
+        const spacingWidth = totalWidth - synopsis.length;
 
         this._writeText(util.format('  <info>%s</info>  %s%s%s%s',
             synopsis,
             ' '.repeat(spacingWidth),
             // + 4 = 2 spaces before <info>, 2 spaces after </info>
-            option.getDescription().replace(/\s*[\r\n]\s*/g, "\n" + ' '.repeat(totalWidth + 4)),
+            option.getDescription().replace(/\s*[\r\n]\s*/g, '\n' + ' '.repeat(totalWidth + 4)),
             defaultValue,
             option.isArray() ? '<comment> (multiple values allowed)</comment>' : ''
         ), options);
@@ -75,39 +75,39 @@ class TextDescriptor extends Descriptor {
      */
     describeInputDefinition(definition, options = {}) {
         let totalWidth = this._calculateTotalWidthForOptions(definition.getOptions());
-        for (let argument of definition.getArguments()) {
+        for (const argument of definition.getArguments()) {
             totalWidth = Math.max(totalWidth, argument.getName().length);
         }
 
         if (definition.getArguments().length) {
             this._writeText('<comment>Arguments:</comment>', options);
-            this._writeText("\n");
-            for (let argument of definition.getArguments()) {
+            this._writeText('\n');
+            for (const argument of definition.getArguments()) {
                 this.describeInputArgument(argument, Object.assign({}, options, { total_width: totalWidth }));
-                this._writeText("\n");
+                this._writeText('\n');
             }
         }
 
         if (definition.getArguments().length && definition.getOptions().length) {
-            this._writeText("\n");
+            this._writeText('\n');
         }
 
         if (definition.getOptions().length) {
-            let laterOptions = [];
+            const laterOptions = [];
 
             this._writeText('<comment>Options:</comment>', options);
-            for (let option of definition.getOptions()) {
+            for (const option of definition.getOptions()) {
                 if (1 < option.getShortcut().length) {
                     laterOptions.push(option);
                     continue;
                 }
 
-                this._writeText("\n");
+                this._writeText('\n');
                 this.describeInputOption(option, Object.assign({}, options, { total_width: totalWidth }));
             }
 
-            for (let option of laterOptions) {
-                this._writeText("\n");
+            for (const option of laterOptions) {
+                this._writeText('\n');
                 this.describeInputOption(option, Object.assign({}, options, { total_width: totalWidth }));
             }
         }
@@ -123,26 +123,26 @@ class TextDescriptor extends Descriptor {
 
         this._writeText('<comment>Usage:</comment>', options);
 
-        for (let usage of [ command.getSynopsis(true), ...command.aliases, ...command.usages ]) {
-            this._writeText("\n");
+        for (const usage of [ command.getSynopsis(true), ...command.aliases, ...command.usages ]) {
+            this._writeText('\n');
             this._writeText('  ' + usage, options);
         }
-        this._writeText("\n");
+        this._writeText('\n');
 
-        let definition = command.nativeDefinition;
+        const definition = command.nativeDefinition;
         if (definition.getOptions().length || definition.getArguments().length) {
-            this._writeText("\n");
+            this._writeText('\n');
             this.describeInputDefinition(definition, options);
-            this._writeText("\n");
+            this._writeText('\n');
         }
 
         let help;
         if (help = command.processedHelp) {
-            this._writeText("\n");
+            this._writeText('\n');
             this._writeText('<comment>Help:</comment>', options);
-            this._writeText("\n");
-            this._writeText('  ' + help.replace(/\n/g, "\n  "), options);
-            this._writeText("\n");
+            this._writeText('\n');
+            this._writeText('  ' + help.replace(/\n/g, '\n  '), options);
+            this._writeText('\n');
         }
     }
 
@@ -150,31 +150,31 @@ class TextDescriptor extends Descriptor {
      * @inheritDoc
      */
     describeApplication(application, options = {}) {
-        let describedNamespace = options.namespace;
-        let description = new ApplicationDescription(application, describedNamespace);
+        const describedNamespace = options.namespace;
+        const description = new ApplicationDescription(application, describedNamespace);
 
         if (options.raw_text) {
-            let width = this._getColumnWidth(Object.values(description.commands));
+            const width = this._getColumnWidth(Object.values(description.commands));
 
-            for (let command of Object.values(description.commands)) {
-                this._writeText(util.format("%s %s", (' '.repeat(width) + command.name).slice(-width), command.description), options);
-                this._writeText("\n");
+            for (const command of Object.values(description.commands)) {
+                this._writeText(util.format('%s %s', (' '.repeat(width) + command.name).slice(-width), command.description), options);
+                this._writeText('\n');
             }
         } else {
-            let help = application.help;
+            const help = application.help;
             if (help) {
-                this._writeText(help + "\n\n", options);
+                this._writeText(help + '\n\n', options);
             }
 
-            this._writeText("<comment>Usage:</comment>\n", options);
-            this._writeText("  command [options] [arguments]\n\n", options);
+            this._writeText('<comment>Usage:</comment>\n', options);
+            this._writeText('  command [options] [arguments]\n\n', options);
 
             this.describeInputDefinition(new InputDefinition(application.definition.getOptions()), options);
 
-            this._writeText("\n");
-            this._writeText("\n");
+            this._writeText('\n');
+            this._writeText('\n');
 
-            let width = this._getColumnWidth(Object.values(description.commands));
+            const width = this._getColumnWidth(Object.values(description.commands));
 
             if (describedNamespace) {
                 this._writeText(util.format('<comment>Available commands for the "%s" namespace:</comment>', describedNamespace), options);
@@ -183,26 +183,26 @@ class TextDescriptor extends Descriptor {
             }
 
             // Add commands by namespace
-            let commands = description.commands;
+            const commands = description.commands;
 
-            for (let namespace of description.namespaces) {
+            for (const namespace of description.namespaces) {
                 if (! describedNamespace && ApplicationDescription.GLOBAL_NAMESPACE !== namespace.id) {
-                    this._writeText("\n");
+                    this._writeText('\n');
                     this._writeText(' <comment>' + namespace.id + '</comment>', options);
                 }
 
-                for (let name of namespace.commands) {
+                for (const name of namespace.commands) {
                     if (commands[name]) {
-                        this._writeText("\n");
-                        let spacingWidth = width - name.length;
-                        let command = commands[name];
-                        let commandAliases = this._getCommandAliasesText(command);
+                        this._writeText('\n');
+                        const spacingWidth = width - name.length;
+                        const command = commands[name];
+                        const commandAliases = this._getCommandAliasesText(command);
                         this._writeText(util.format('  <info>%s</info>%s%s', name, ' '.repeat(spacingWidth), commandAliases + command.description), options);
                     }
                 }
             }
 
-            this._writeText("\n");
+            this._writeText('\n');
         }
     }
 
@@ -227,7 +227,7 @@ class TextDescriptor extends Descriptor {
      */
     _getCommandAliasesText(command) {
         let text = '';
-        let aliases = command.aliases;
+        const aliases = command.aliases;
 
         if (aliases.length) {
             text = '[' + aliases.join('|') + '] ';
@@ -257,11 +257,11 @@ class TextDescriptor extends Descriptor {
      * @private
      */
     _getColumnWidth(commands) {
-        let widths = [];
+        const widths = [];
 
-        for (let command of commands) {
+        for (const command of commands) {
             widths.push(command.name.length);
-            for (let alias of command.aliases) {
+            for (const alias of command.aliases) {
                 widths.push(alias.length);
             }
         }
@@ -278,7 +278,7 @@ class TextDescriptor extends Descriptor {
      */
     _calculateTotalWidthForOptions(options) {
         let totalWidth = 0;
-        for (let option of options) {
+        for (const option of options) {
             // "-" + shortcut + ", --" + name
             let nameLength = 1 + Math.max(option.getShortcut().length, 1) + 4 + option.getName().length;
 

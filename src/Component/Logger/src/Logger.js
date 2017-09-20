@@ -100,7 +100,7 @@ class Logger extends AbstractLogger {
             handlers = Object.values(handlers);
         }
 
-        for (let handler of handlers.reverse()) {
+        for (const handler of handlers.reverse()) {
             this.pushHandler(handler);
         }
     }
@@ -159,9 +159,9 @@ class Logger extends AbstractLogger {
      * @returns {boolean}
      */
     addRecord(level, message, context) {
-        let levelName = this.constructor.levels[level];
+        const levelName = this.constructor.levels[level];
 
-        let it = __jymfony.getEntries(this._handlers);
+        const it = __jymfony.getEntries(this._handlers);
         let handlerKey, handler, current;
         while (current = it.next(), ! current.done) {
             handler = current.value[1];
@@ -185,7 +185,7 @@ class Logger extends AbstractLogger {
             extra: {},
         };
 
-        for (let processor of this._processors) {
+        for (const processor of this._processors) {
             record = processor(record);
         }
 
@@ -205,8 +205,8 @@ class Logger extends AbstractLogger {
      * @param {int} level
      */
     isHandling(level) {
-        let record = { level: level };
-        let it = __jymfony.getEntries(this._handlers);
+        const record = { level: level };
+        const it = __jymfony.getEntries(this._handlers);
         let handler;
 
         while (handler = it.value[1]) {

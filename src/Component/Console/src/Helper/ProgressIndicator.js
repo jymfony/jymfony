@@ -81,7 +81,7 @@ class ProgressIndicator {
             return;
         }
 
-        let currentTime = this._getCurrentTimeInMilliseconds();
+        const currentTime = this._getCurrentTimeInMilliseconds();
         if (currentTime < this._indicatorUpdateTime) {
             return;
         }
@@ -189,7 +189,7 @@ class ProgressIndicator {
      */
     _overwrite(message) {
         if (this._output.decorated) {
-            this._output.write("\x0D\x1B[2K");
+            this._output.write('\x0D\x1B[2K');
             this._output.write(message);
         } else {
             this._output.writeln(message);
@@ -197,7 +197,7 @@ class ProgressIndicator {
     }
 
     _getCurrentTimeInMilliseconds() {
-        let now = DateTime.now;
+        const now = DateTime.now;
         return ~~(now.timestamp * 1000 + now.millisecond);
     }
 
@@ -239,7 +239,7 @@ class ProgressIndicator {
              * @returns {string}
              */
             memory: () => {
-                let usage = process.memoryUsage();
+                const usage = process.memoryUsage();
                 return Helper.formatMemory(usage.rss + usage.heapTotal + usage.external);
             },
         };

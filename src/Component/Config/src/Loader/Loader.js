@@ -57,7 +57,7 @@ class Loader extends implementationOf(LoaderInterface) {
             return this;
         }
 
-        let loader = undefined === this._resolver ? false : this._resolver.resolve(resource, type);
+        const loader = undefined === this._resolver ? false : this._resolver.resolve(resource, type);
 
         if (false === loader) {
             throw new FileLoaderLoadException(resource, undefined, undefined, undefined, type);

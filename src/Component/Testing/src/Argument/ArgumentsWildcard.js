@@ -27,7 +27,7 @@ class ArgumentsWildcard {
         }
 
         let totalScore = 0;
-        for (let [ key, token ] of __jymfony.getEntries(this._tokens)) {
+        for (const [ key, token ] of __jymfony.getEntries(this._tokens)) {
             let score;
             if (1 >= (score = token.scoreArgument(args[key]))) {
                 return false;

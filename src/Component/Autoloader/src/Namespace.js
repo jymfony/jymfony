@@ -37,12 +37,12 @@ class Namespace {
             __namespace: this,
         };
 
-        this._baseDirs = new Set;
+        this._baseDirs = new Set();
         if ('string' === typeof baseDirs) {
             baseDirs = [ baseDirs ];
         }
 
-        for (let dir of baseDirs) {
+        for (const dir of baseDirs) {
             this.addDirectory(dir);
         }
 
@@ -122,8 +122,8 @@ class Namespace {
      */
     _find(name) {
         let stat;
-        let finder = this._autoloader.finder;
-        for (let dir of this._baseDirs) {
+        const finder = this._autoloader.finder;
+        for (const dir of this._baseDirs) {
             stat = finder.find(dir, name);
             if (stat !== undefined) {
                 break;
@@ -142,10 +142,10 @@ class Namespace {
     }
 
     _require(filename) {
-        let fn = this._internalRequire.resolve(filename);
+        const fn = this._internalRequire.resolve(filename);
         let realTarget = undefined, self = undefined;
 
-        let init = () => {
+        const init = () => {
             if (undefined !== realTarget) {
                 return;
             }
@@ -164,8 +164,8 @@ class Namespace {
 
             realTarget = mod;
 
-            let name = mod.definition ? mod.definition.name : mod.name;
-            let meta = {
+            const name = mod.definition ? mod.definition.name : mod.name;
+            const meta = {
                 filename: fn,
                 fqcn: this._fullyQualifiedName + '.' + name,
                 module: this._internalRequire.cache[fn],

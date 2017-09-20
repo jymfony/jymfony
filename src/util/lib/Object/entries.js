@@ -9,9 +9,9 @@ global.__jymfony = global.__jymfony || {};
  *
  * @returns {Generator}
  */
-let entries = function * objentries(object) {
+const entries = function * objentries(object) {
     if (isArray(object)) {
-        for (let k of object.keys()) {
+        for (const k of object.keys()) {
             yield [ k, object[k] ];
         }
 
@@ -31,7 +31,7 @@ let entries = function * objentries(object) {
         return;
     }
 
-    for (let key in object) {
+    for (const key in object) {
         if (! object.hasOwnProperty(key)) {
             continue;
         }

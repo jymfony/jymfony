@@ -6,24 +6,24 @@ const ServiceCircularReferenceException = Jymfony.Component.DependencyInjection.
  */
 module.exports = class CheckCircularReferencesPass extends implementationOf(CompilerPassInterface) {
     process(container) {
-        let graph = container.getCompiler().getServiceReferenceGraph();
+        const graph = container.getCompiler().getServiceReferenceGraph();
 
         this._checkedNodes = {};
-        for (let [ id, node ] of __jymfony.getEntries(graph.getNodes())) {
+        for (const [ id, node ] of __jymfony.getEntries(graph.getNodes())) {
             this._currentPath = [ id ];
             this._checkOutEdges(node.getOutEdges());
         }
     }
 
     _checkOutEdges(edges) {
-        for (let edge of edges) {
-            let node = edge.getDestNode();
-            let id = node.getId();
+        for (const edge of edges) {
+            const node = edge.getDestNode();
+            const id = node.getId();
 
             if (! this._checkedNodes[id] || 0 == this._checkedNodes[id].length) {
                 // Don't check circular dependencies for lazy services
                 if (! node.getValue() || ! node.getValue().isLazy()) {
-                    let searchKey = this._currentPath.indexOf(id);
+                    const searchKey = this._currentPath.indexOf(id);
                     this._currentPath.push(id);
 
                     if (-1 !== searchKey) {

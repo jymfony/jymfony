@@ -60,7 +60,7 @@ class ArgvInput extends Input {
      * @inheritDoc
      */
     get firstArgument() {
-        for (let token of this._tokens) {
+        for (const token of this._tokens) {
             if (token && '-' === token[0]) {
                 continue;
             }
@@ -77,12 +77,12 @@ class ArgvInput extends Input {
             values = [ values ];
         }
 
-        for (let token of this._tokens) {
+        for (const token of this._tokens) {
             if (onlyParams && '--' === token) {
                 return false;
             }
 
-            for (let value of values) {
+            for (const value of values) {
                 if (token === value || 0 === token.indexOf(value+'=')) {
                     return true;
                 }
@@ -100,15 +100,16 @@ class ArgvInput extends Input {
             values = [ values ];
         }
 
-        let tokens = [ ...this._tokens ], pos;
+        const tokens = [ ...this._tokens ];
+        let pos;
 
         while (0 < tokens.length) {
-            let token = tokens.shift();
+            const token = tokens.shift();
             if (onlyParams && '--' === token) {
                 return false;
             }
 
-            for (let value of values) {
+            for (const value of values) {
                 if (token === value || 0 === token.indexOf(value + '=')) {
                     pos = token.indexOf('=');
                     if (-1 !== pos) {
@@ -153,21 +154,21 @@ class ArgvInput extends Input {
      * @private
      */
     _parseArgument(token) {
-        let c = Object.keys(this._arguments).length;
+        const c = Object.keys(this._arguments).length;
 
         // If input is expecting another argument, add it
         if (this._definition.hasArgument(c)) {
-            let arg = this._definition.getArgument(c);
+            const arg = this._definition.getArgument(c);
             this._arguments[arg.getName()] = arg.isArray() ? [ token ] : token;
 
             // If last argument isArray(), append token to last argument
         } else if (this._definition.hasArgument(c - 1) && this._definition.getArgument(c - 1).isArray()) {
-            let arg = this._definition.getArgument(c - 1);
+            const arg = this._definition.getArgument(c - 1);
             this._arguments[arg.getName()].push(token);
 
             // Unexpected argument
         } else {
-            let all = this._definition.getArguments();
+            const all = this._definition.getArguments();
             if (all.length) {
                 throw new RuntimeException(`Too many arguments, expected arguments "${all.map(A => A.getName()).join('" "')}".`);
             }
@@ -184,10 +185,11 @@ class ArgvInput extends Input {
      * @private
      */
     _parseLongOption(token) {
-        let name = token.substr(2), pos;
+        const name = token.substr(2);
+        let pos;
 
         if (-1 < (pos = name.indexOf('='))) {
-            let value = name.substr(pos + 1);
+            const value = name.substr(pos + 1);
             if (0 === value.length) {
                 this._parsed.unshift(null);
             }
@@ -213,7 +215,7 @@ class ArgvInput extends Input {
             throw new RuntimeException(`The "--${name}" option does not exist.`);
         }
 
-        let option = this._definition.getOption(name);
+        const option = this._definition.getOption(name);
 
         // Convert empty values to undefined
         if (! value || ! value[0]) {
@@ -227,7 +229,7 @@ class ArgvInput extends Input {
         if (undefined === value && option.acceptValue() && this._parsed.length) {
             // If option accepts an optional or mandatory argument
             // Let's see if there is one provided
-            let next = this._parsed.shift();
+            const next = this._parsed.shift();
             if (next[0] && '-' !== next[0]) {
                 value = next;
             } else if (! next) {
@@ -262,7 +264,7 @@ class ArgvInput extends Input {
      * @private
      */
     _parseShortOption(token) {
-        let name = token.substr(1);
+        const name = token.substr(1);
 
         if (1 < name.length) {
             if (this._definition.hasShortcut(name[0]) && this._definition.getOptionForShortcut(name[0]).acceptValue()) {
@@ -304,13 +306,13 @@ class ArgvInput extends Input {
      * @private
      */
     _parseShortOptionSet(name) {
-        let length = name.length, i = 0;
-        for (; i < length; ++i) {
+        const length = name.length;
+        for (let i = 0; i < length; ++i) {
             if (! this._definition.hasShortcut(name[i])) {
                 throw new RuntimeException(`The "-${name[i]}" option does not exist.`);
             }
 
-            let option = this._definition.getOptionForShortcut(name[i]);
+            const option = this._definition.getOptionForShortcut(name[i]);
             if (option.acceptValue()) {
                 this._addLongOption(option.getName(), i === length - 1 ? undefined : name.substr(i + 1));
                 break;

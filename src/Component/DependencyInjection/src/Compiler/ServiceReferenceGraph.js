@@ -36,9 +36,9 @@ module.exports = class ServiceReferenceGraph {
     }
 
     connect(sourceId, sourceValue, destId, destValue = null, reference = null) {
-        let sourceNode = this._createNode(sourceId, sourceValue);
-        let destNode = this._createNode(destId, destValue);
-        let edge = new ServiceReferenceGraphEdge(sourceNode, destNode, reference);
+        const sourceNode = this._createNode(sourceId, sourceValue);
+        const destNode = this._createNode(destId, destValue);
+        const edge = new ServiceReferenceGraphEdge(sourceNode, destNode, reference);
 
         sourceNode.addOutEdge(edge);
         destNode.addInEdge(edge);

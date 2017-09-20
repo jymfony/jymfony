@@ -49,7 +49,7 @@ class ObjectProphecy extends implementationOf(ProphecyInterface) {
 
                 const prophecies = this.getMethodProphecies(key);
 
-                let method = new MethodProphecy(this, key);
+                const method = new MethodProphecy(this, key);
                 return new Proxy(() => {}, {
                     get: (target, key) => {
                         return Reflect.get(method, key);
@@ -59,7 +59,7 @@ class ObjectProphecy extends implementationOf(ProphecyInterface) {
                     },
                     apply: (target, thisArgument, args) => {
                         args = new ArgumentsWildcard(this._revealer.reveal(args));
-                        for (let candidate of prophecies) {
+                        for (const candidate of prophecies) {
                             if (__jymfony.equal(candidate.argumentsWildcard, args)) {
                                 return candidate;
                             }
@@ -168,12 +168,12 @@ class ObjectProphecy extends implementationOf(ProphecyInterface) {
      * @returns {Jymfony.Component.Testing.Prophecy.ObjectProphecy}
      */
     addMethodProphecy(methodProphecy) {
-        let methodName = methodProphecy.methodName;
-        let argumentsWildcard = methodProphecy.argumentsWildcard;
+        const methodName = methodProphecy.methodName;
+        const argumentsWildcard = methodProphecy.argumentsWildcard;
         if (undefined === argumentsWildcard) {
             throw new MethodProphecyException(__jymfony.sprintf(
-                "Can not add prophecy for method `%s`\n" +
-                "as you did not specify arguments wildcard for it.",
+                'Can not add prophecy for method `%s`\n' +
+                'as you did not specify arguments wildcard for it.',
                 methodName
             ), methodProphecy);
         }
@@ -198,9 +198,9 @@ class ObjectProphecy extends implementationOf(ProphecyInterface) {
      */
     getMethodProphecies(methodName = undefined) {
         if (undefined === methodName) {
-            let self = this;
+            const self = this;
             return Array.from((function * () {
-                for (let k of Object.keys(self._methodProphecies)) {
+                for (const k of Object.keys(self._methodProphecies)) {
                     yield * self._methodProphecies[k];
                 }
             })());
@@ -220,8 +220,8 @@ class ObjectProphecy extends implementationOf(ProphecyInterface) {
      */
     checkProphecyMethodsPredictions() {
         let exception;
-        for (let prophecies of Object.values(this._methodProphecies)) {
-            for (let prophecy of prophecies) {
+        for (const prophecies of Object.values(this._methodProphecies)) {
+            for (const prophecy of prophecies) {
                 try {
                     prophecy.checkPrediction();
                 } catch (e) {
@@ -230,7 +230,7 @@ class ObjectProphecy extends implementationOf(ProphecyInterface) {
                     }
 
                     if (undefined === exception) {
-                        exception = new AggregateException((new ReflectionClass(this)).name + ":\n");
+                        exception = new AggregateException((new ReflectionClass(this)).name + ':\n');
                         exception.objectProphecy = this;
                     }
 

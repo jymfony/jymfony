@@ -44,7 +44,7 @@ class DescriptorHelper extends Helper {
             throw new InvalidArgumentException(`Unsupported format "${options.format}".`);
         }
 
-        let descriptor = this._descriptors[options.format];
+        const descriptor = this._descriptors[options.format];
         descriptor.describe(output, object, options);
     }
 

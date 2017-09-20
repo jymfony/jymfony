@@ -104,7 +104,7 @@ class ContainerBuilder extends Container {
      * @returns {*}
      */
     getExtension(name) {
-        let extension = this._extensions[name];
+        const extension = this._extensions[name];
         if (extension) {
             return extension;
         }
@@ -138,7 +138,7 @@ class ContainerBuilder extends Container {
      * @returns {Jymfony.Component.Config.Resource.ResourceInterface[]}
      */
     getResources() {
-        let seen = {};
+        const seen = {};
         return this._resources.filter(o => {
             if (seen[o.toString()]) {
                 return false;
@@ -214,7 +214,7 @@ class ContainerBuilder extends Container {
             throw new BadMethodCallException('Cannot load from an extension on a frozen container');
         }
 
-        let namespace = this.getExtension(extension).alias;
+        const namespace = this.getExtension(extension).alias;
         if (! this._extensionConfigs[namespace]) {
             this._extensionConfigs[namespace] = [];
         }
@@ -233,7 +233,7 @@ class ContainerBuilder extends Container {
      * @returns {Jymfony.Component.DependencyInjection.ContainerBuilder}
      */
     addCompilerPass(pass, type = PassConfig.TYPE_BEFORE_OPTIMIZATION, priority = 0) {
-        let compiler = this.getCompiler();
+        const compiler = this.getCompiler();
         compiler.addPass(pass, type, priority);
 
         return this;
@@ -353,11 +353,11 @@ class ContainerBuilder extends Container {
         this.addAliases(container._aliasDefinitions);
         this.parameterBag.add(container.parameterBag.all(), false);
 
-        for (let resource of container.getResources()) {
+        for (const resource of container.getResources()) {
             this.addResource(resource);
         }
 
-        for (let name of Object.keys(this._extensions)) {
+        for (const name of Object.keys(this._extensions)) {
             if (undefined === this._extensionConfigs[name]) {
                 this._extensionConfigs[name] = {};
             }
@@ -403,7 +403,7 @@ class ContainerBuilder extends Container {
      *  - Freeze
      */
     compile() {
-        let compiler = this.getCompiler();
+        const compiler = this.getCompiler();
         compiler.compile(this);
 
         this._extensionConfigs = {};
@@ -415,7 +415,7 @@ class ContainerBuilder extends Container {
      * @inheritDoc
      */
     getServiceIds() {
-        let ids = new Set([ ...Object.keys(this._definitions), ...Object.keys(this._aliasDefinitions), ...super.getServiceIds() ]);
+        const ids = new Set([ ...Object.keys(this._definitions), ...Object.keys(this._aliasDefinitions), ...super.getServiceIds() ]);
         return Array.from(ids.values());
     }
 
@@ -425,7 +425,7 @@ class ContainerBuilder extends Container {
      * @param {Object<string, string|Alias>} aliases
      */
     addAliases(aliases) {
-        for (let [ name, id ] of __jymfony.getEntries(aliases)) {
+        for (const [ name, id ] of __jymfony.getEntries(aliases)) {
             this.setAlias(name, id);
         }
     }
@@ -530,7 +530,7 @@ class ContainerBuilder extends Container {
      * @param {Jymfony.Component.DependencyInjection.Definition[]} definitions
      */
     addDefinitions(definitions) {
-        for (let [ id, definition ] of __jymfony.getEntries(definitions)) {
+        for (const [ id, definition ] of __jymfony.getEntries(definitions)) {
             this.setDefinition(id, definition);
         }
     }
@@ -646,21 +646,21 @@ class ContainerBuilder extends Container {
         }
 
         if (tryProxy && definition.isLazy()) {
-            let proxy = this._getProxyInstantiator()
+            const proxy = this._getProxyInstantiator()
                 .instantiateProxy(this, definition, id, () => this._createService(definition, id, false));
 
             this._shareService(definition, proxy, id);
             return proxy;
         }
 
-        let parameterBag = this.parameterBag;
+        const parameterBag = this.parameterBag;
 
-        let file = definition.getFile();
+        const file = definition.getFile();
         if (file) {
             require(parameterBag.resolveValue(file));
         }
 
-        let args = this._resolveServices(parameterBag.unescapeValue(parameterBag.resolveValue(definition.getArguments())));
+        const args = this._resolveServices(parameterBag.unescapeValue(parameterBag.resolveValue(definition.getArguments())));
         let factory = definition.getFactory();
 
         let service;
@@ -674,9 +674,9 @@ class ContainerBuilder extends Container {
 
             service = factory(...args);
         } else {
-            let class_ = parameterBag.resolveValue(definition.getClass());
+            const class_ = parameterBag.resolveValue(definition.getClass());
 
-            let parts = class_.split('.');
+            const parts = class_.split('.');
             let constructor = global;
 
             let part;
@@ -691,16 +691,16 @@ class ContainerBuilder extends Container {
             this._shareService(definition, service, id);
         }
 
-        let properties = this._resolveServices(parameterBag.unescapeValue(parameterBag.resolveValue(definition.getProperties())));
-        for (let [ name, value ] of __jymfony.getEntries(properties)) {
+        const properties = this._resolveServices(parameterBag.unescapeValue(parameterBag.resolveValue(definition.getProperties())));
+        for (const [ name, value ] of __jymfony.getEntries(properties)) {
             service[name] = value;
         }
 
-        for (let call of definition.getMethodCalls()) {
+        for (const call of definition.getMethodCalls()) {
             this._callMethod(service, call);
         }
 
-        let configurator = definition.getConfigurator();
+        const configurator = definition.getConfigurator();
         if (configurator) {
             if (isArray(configurator)) {
                 configurator[0] = parameterBag.resolveValue(configurator[0]);
@@ -730,9 +730,9 @@ class ContainerBuilder extends Container {
      * @returns {Object<string, Object>}
      */
     findTaggedServiceIds(name) {
-        let tags = {};
+        const tags = {};
 
-        for (let [ id, definition ] of __jymfony.getEntries(this._definitions)) {
+        for (const [ id, definition ] of __jymfony.getEntries(this._definitions)) {
             if (definition.hasTag(name)) {
                 tags[id] = definition.getTag(name);
             }
@@ -747,9 +747,9 @@ class ContainerBuilder extends Container {
      * @returns {string[]}
      */
     findTags() {
-        let tags = new Set;
-        for (let definition of this._definitions) {
-            for (let tag of Object.keys(definition.getTags())) {
+        const tags = new Set();
+        for (const definition of this._definitions) {
+            for (const tag of Object.keys(definition.getTags())) {
                 tags.add(tag);
             }
         }
@@ -772,10 +772,10 @@ class ContainerBuilder extends Container {
      * @returns {Array}
      */
     static getServiceConditionals(value) {
-        let services = new Set;
+        const services = new Set();
 
         if (isArray(value)) {
-            for (let v of value) {
+            for (const v of value) {
                 ContainerBuilder.getServiceConditionals(v).forEach(service => services.add(service));
             }
         } else if (value instanceof Reference && value.invalidBehavior === Container.IGNORE_ON_INVALID_REFERENCE) {
@@ -809,9 +809,9 @@ class ContainerBuilder extends Container {
      * @private
      */
     _callMethod(service, call) {
-        let services = ContainerBuilder.getServiceConditionals(call[1]);
+        const services = ContainerBuilder.getServiceConditionals(call[1]);
 
-        for (let service of services) {
+        for (const service of services) {
             if (! this.has(service)) {
                 return;
             }
@@ -849,7 +849,7 @@ class ContainerBuilder extends Container {
      */
     _resolveServices(value) {
         if (value instanceof Map) {
-            for (let [ k, v ] of value.entries()) {
+            for (const [ k, v ] of value.entries()) {
                 value.set(k, this._resolveServices(v));
             }
         } else if (value instanceof Reference) {

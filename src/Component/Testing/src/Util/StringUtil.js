@@ -26,7 +26,7 @@ class StringUtil {
         }
 
         if (isArray(value)) {
-            for (let key of Object.keys(value)) {
+            for (const key of Object.keys(value)) {
                 value[key] = __self.stringify(value[key]);
             }
 

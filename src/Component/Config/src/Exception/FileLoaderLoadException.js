@@ -42,7 +42,7 @@ class FileLoaderLoadException extends Exception {
 
         // Is the resource located inside a bundle?
         if (isString(resource) && '@' === resource.charAt(0)) {
-            let bundle = resource.substr(resource.split('/'), 1);
+            const bundle = resource.substr(resource.split('/'), 1);
             message += __jymfony.sprintf(' Make sure the "%s" bundle is correctly registered and loaded in the application kernel class.', bundle);
             message += __jymfony.sprintf(' If the bundle is registered, make sure the bundle path "%s" is not empty.', resource);
         } else if (type) {
@@ -59,8 +59,8 @@ class FileLoaderLoadException extends Exception {
         }
 
         if (isArray($var)) {
-            let a = [];
-            for (let [ k, v ] of $var) {
+            const a = [];
+            for (const [ k, v ] of $var) {
                 a.push(__jymfony.sprintf('%s => %s', k, FileLoaderLoadException.varToString(v)));
             }
 

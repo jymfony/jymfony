@@ -250,7 +250,7 @@ class Definition {
      */
     setMethodCalls(calls = []) {
         this._calls = [];
-        for (let call of calls) {
+        for (const call of calls) {
             this.addMethodCall(call[0], (call[1] || []));
         }
 
@@ -284,7 +284,7 @@ class Definition {
      */
     removeMethodCall(method) {
         for (let i = 0; i < this._calls.length; i++) {
-            let call = this._calls[i];
+            const call = this._calls[i];
             if (call[0] === method) {
                 this._calls.splice(i, 1);
                 break;
@@ -302,7 +302,7 @@ class Definition {
      * @returns {boolean}
      */
     hasMethodCall(method) {
-        for (let call of this._calls) {
+        for (const call of this._calls) {
             if (call[0] === method) {
                 return true;
             }

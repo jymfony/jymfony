@@ -1,7 +1,7 @@
 const Patcher = require('./Parser/Patcher');
 const isNyc = !! global.__coverage__;
 
-let Storage = function () {};
+const Storage = function () {};
 Storage.prototype = {};
 
 /**
@@ -50,7 +50,7 @@ class ClassLoader {
         let code = this._finder.load(fn);
 
         try {
-            let parser = new Patcher(code);
+            const parser = new Patcher(code);
             code = parser.code;
         } catch (err) {
             // Patcher have failed. Code is unpatched, but can be included.
@@ -60,8 +60,8 @@ class ClassLoader {
             }
         }
 
-        let dirname = this._path.dirname(fn);
-        let moduleObj = {
+        const dirname = this._path.dirname(fn);
+        const moduleObj = {
             children: [],
             exports: undefined,
             filename: fn,

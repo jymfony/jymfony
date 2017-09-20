@@ -85,7 +85,7 @@ class Kernel extends implementationOf(KernelInterface) {
         this._initializeBundles();
         this._initializeContainer();
 
-        for (let bundle of this.getBundles()) {
+        for (const bundle of this.getBundles()) {
             bundle.setContainer(this._container);
             bundle.boot();
         }
@@ -103,7 +103,7 @@ class Kernel extends implementationOf(KernelInterface) {
 
         this._booted = false;
 
-        for (let bundle of this.getBundles()) {
+        for (const bundle of this.getBundles()) {
             bundle.shutdown();
             bundle.setContainer(undefined);
         }
@@ -180,7 +180,7 @@ class Kernel extends implementationOf(KernelInterface) {
      */
     getRootDir() {
         if (undefined === this._rootDir) {
-            let r = new ReflectionClass(this);
+            const r = new ReflectionClass(this);
             this._rootDir = path.dirname(r.filename);
         }
 
@@ -237,14 +237,14 @@ class Kernel extends implementationOf(KernelInterface) {
             [ bundleName, path ] = bundleName.split('/', 2);
         }
 
-        let isResource = 0 === path.indexOf('Resources') && undefined !== dir;
-        let overridePath = path.substr(9);
+        const isResource = 0 === path.indexOf('Resources') && undefined !== dir;
+        const overridePath = path.substr(9);
 
         let resourceBundle = undefined;
-        let bundles = this.getBundle(bundleName, false);
-        let files = [];
+        const bundles = this.getBundle(bundleName, false);
+        const files = [];
 
-        for (let bundle of bundles) {
+        for (const bundle of bundles) {
             let file;
             if (isResource && fs.existsSync(file = dir + '/' + bundle.getName() + overridePath)) {
                 if (undefined !== resourceBundle) {
@@ -292,15 +292,15 @@ class Kernel extends implementationOf(KernelInterface) {
     }
 
     _initializeBundles() {
-        let directChildren = {};
-        let topMostBundles = {};
+        const directChildren = {};
+        const topMostBundles = {};
 
-        for (let bundle of this.registerBundles()) {
-            let name = bundle.getName();
+        for (const bundle of this.registerBundles()) {
+            const name = bundle.getName();
             if (this._bundles[name]) {
                 throw new LogicException(`Trying to register two bundles with the same name "${name}"`);
             }
-            
+
             this._bundles[name] = bundle;
             let parentName;
             if (parentName = bundle.getParent()) {
@@ -333,8 +333,8 @@ class Kernel extends implementationOf(KernelInterface) {
          */
         this._bundleMap = {};
         for (let [ name, bundle ] of __jymfony.getEntries(topMostBundles)) {
-            let bundleMap = [ bundle ];
-            let hierarchy = [ name ];
+            const bundleMap = [ bundle ];
+            const hierarchy = [ name ];
 
             while (directChildren[name]) {
                 name = directChildren[name];
@@ -342,7 +342,7 @@ class Kernel extends implementationOf(KernelInterface) {
                 hierarchy.push(name);
             }
 
-            for (let hierarchyBundle of hierarchy) {
+            for (const hierarchyBundle of hierarchy) {
                 this._bundleMap[hierarchyBundle] = bundleMap;
                 bundleMap.pop();
             }
@@ -359,10 +359,10 @@ class Kernel extends implementationOf(KernelInterface) {
      */
     _initializeContainer() {
         let container;
-        let class_ = this._getContainerClass();
-        let cache = new ConfigCache(this.getCacheDir() + '/' + class_ + '.js', this._debug);
+        const class_ = this._getContainerClass();
+        const cache = new ConfigCache(this.getCacheDir() + '/' + class_ + '.js', this._debug);
 
-        let fresh = cache.isFresh();
+        const fresh = cache.isFresh();
         if (! fresh) {
             container = this._buildContainer();
             container.compile();
@@ -389,8 +389,8 @@ class Kernel extends implementationOf(KernelInterface) {
      * @protected
      */
     _dumpContainer(container, cache) {
-        let dumper = new Jymfony.Component.DependencyInjection.Dumper.JsDumper(container);
-        let options = {
+        const dumper = new Jymfony.Component.DependencyInjection.Dumper.JsDumper(container);
+        const options = {
             class_name: this._getContainerClass(),
             debug: this._debug,
         };
@@ -423,7 +423,7 @@ class Kernel extends implementationOf(KernelInterface) {
      * @protected
      */
     _buildContainer() {
-        let createDir = (name, dir) => {
+        const createDir = (name, dir) => {
             try {
                 __jymfony.mkdir(dir);
             } catch (e) {
@@ -434,7 +434,7 @@ class Kernel extends implementationOf(KernelInterface) {
         createDir('logs', this.getLogsDir());
         createDir('cache', this.getCacheDir());
 
-        let container = this._getContainerBuilder();
+        const container = this._getContainerBuilder();
         container.addObjectResource(this);
         this._prepareContainer(container);
 
@@ -470,7 +470,7 @@ class Kernel extends implementationOf(KernelInterface) {
      * @protected
      */
     _getContainerBuilder() {
-        let builder = new ContainerBuilder();
+        const builder = new ContainerBuilder();
         builder.parameterBag.add(this._getKernelParameters());
 
         return builder;
@@ -483,8 +483,8 @@ class Kernel extends implementationOf(KernelInterface) {
      * @protected
      */
     _prepareContainer(container) {
-        for (let bundle of Object.values(this._bundles)) {
-            let extension = bundle.getContainerExtension();
+        for (const bundle of Object.values(this._bundles)) {
+            const extension = bundle.getContainerExtension();
 
             if (extension) {
                 container.registerExtension(extension);
@@ -495,7 +495,7 @@ class Kernel extends implementationOf(KernelInterface) {
             }
         }
 
-        for (let bundle of Object.values(this._bundles)) {
+        for (const bundle of Object.values(this._bundles)) {
             bundle.build(container);
         }
 
@@ -509,9 +509,9 @@ class Kernel extends implementationOf(KernelInterface) {
      * @protected
      */
     _getKernelParameters() {
-        let bundles = {};
-        for (let [ name, bundle ] of __jymfony.getEntries(this._bundles)) {
-            let reflClass = new ReflectionClass(bundle);
+        const bundles = {};
+        for (const [ name, bundle ] of __jymfony.getEntries(this._bundles)) {
+            const reflClass = new ReflectionClass(bundle);
             bundles[name] = reflClass.name;
         }
 

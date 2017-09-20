@@ -29,6 +29,7 @@ class BoundFunction {
         const self = this;
         const ret = function () {
             /* eslint prefer-spread: "off" */
+            /* eslint prefer-rest-params: "off" */
             return self.apply(undefined, arguments);
         };
 

@@ -44,7 +44,7 @@ It's also possible to get raw list of commands (useful for embedding command run
      * @inheritDoc
      */
     execute(input, output) {
-        let helper = new DescriptorHelper();
+        const helper = new DescriptorHelper();
         helper.describe(output, this.application, {
             format: input.getOption('format'),
             raw_text: input.getOption('raw'),

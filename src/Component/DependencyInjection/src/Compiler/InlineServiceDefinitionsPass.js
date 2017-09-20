@@ -33,8 +33,8 @@ class InlineServiceDefinitionsPass extends mix(AbstractRecursivePass, Repeatable
         }
 
         if (value instanceof Reference && this._container.hasDefinition(value.toString())) {
-            let id = value.toString();
-            let definition = this._container.getDefinition(id);
+            const id = value.toString();
+            const definition = this._container.getDefinition(id);
 
             if (this._isInlineableDefinition(id, definition, this._container.getCompiler().getServiceReferenceGraph())) {
                 this._container.log(this, __jymfony.sprintf('Inlined service "%s" to "%s".', id, this._currentId));
@@ -86,8 +86,8 @@ class InlineServiceDefinitionsPass extends mix(AbstractRecursivePass, Repeatable
             return false;
         }
 
-        let ids = [];
-        for (let edge of graph.getNode(id).getInEdges()) {
+        const ids = [];
+        for (const edge of graph.getNode(id).getInEdges()) {
             ids.push(edge.getSourceNode().getId());
         }
 

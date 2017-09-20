@@ -1,7 +1,7 @@
 const InvalidArgumentException = Jymfony.Component.Console.Exception.InvalidArgumentException;
 const OutputFormatterStyleInterface = Jymfony.Component.Console.Formatter.OutputFormatterStyleInterface;
 
-const util = require("util");
+const util = require('util');
 
 const availableForegroundColors = {
     'black': {'set': 30, 'unset': 39},
@@ -52,7 +52,7 @@ class OutputFormatterStyle extends implementationOf(OutputFormatterStyleInterfac
             this.setOptions(options);
         }
 
-        this._options = new Set;
+        this._options = new Set();
     }
 
     /**
@@ -123,7 +123,7 @@ class OutputFormatterStyle extends implementationOf(OutputFormatterStyleInterfac
     setOptions(options) {
         this._options.clear();
 
-        for (let opt of options) {
+        for (const opt of options) {
             this.setOption(opt);
         }
     }
@@ -132,8 +132,8 @@ class OutputFormatterStyle extends implementationOf(OutputFormatterStyleInterfac
      * @inheritDoc
      */
     apply(text) {
-        let setCodes = [];
-        let unsetCodes = [];
+        const setCodes = [];
+        const unsetCodes = [];
 
         if (this._foreground) {
             setCodes.push(this._foreground['set']);
@@ -146,7 +146,7 @@ class OutputFormatterStyle extends implementationOf(OutputFormatterStyleInterfac
         }
 
         if (this._options.length) {
-            for (let opt of this._options) {
+            for (const opt of this._options) {
                 setCodes.push(opt['set']);
                 unsetCodes.push(opt['unset']);
             }
@@ -156,7 +156,7 @@ class OutputFormatterStyle extends implementationOf(OutputFormatterStyleInterfac
             return text;
         }
 
-        return util.format("\x1B[%sm%s\x1B[%sm", setCodes.join(';'), text, unsetCodes.join(';'));
+        return util.format('\x1B[%sm%s\x1B[%sm', setCodes.join(';'), text, unsetCodes.join(';'));
     }
 }
 

@@ -13,7 +13,7 @@ class Revealer {
      */
     reveal(value) {
         if (isArray(value) || isObjectLiteral(value)) {
-            for (let [ key, val ] of __jymfony.getEntries(value)) {
+            for (const [ key, val ] of __jymfony.getEntries(value)) {
                 value[key] = this.reveal(val);
             }
 

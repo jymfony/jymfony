@@ -43,7 +43,7 @@ class Parser {
         this._dateParsed = false;
 
         while (this._lexer.moveNext()) {
-            let token = this._lexer.token;
+            const token = this._lexer.token;
             if (Lexer.T_SPACE === token.type) {
                 continue;
             }
@@ -54,7 +54,7 @@ class Parser {
             }
 
             if (Lexer.T_NUMBER === token.type) {
-                let value = token.value;
+                const value = token.value;
                 if ('0' === value.substr(0, 1) || (
                     (6 === value.length || 4 === value.length) &&
                     (! this._lexer.lookahead || this._lexer.isNextToken(Lexer.T_SPACE))
@@ -69,7 +69,7 @@ class Parser {
                 }
 
                 if (12 < value) {
-                    let separator = this._lexer.lookahead.value;
+                    const separator = this._lexer.lookahead.value;
                     if ('.' === separator || ':' === separator) {
                         this._parseTime24HoursNotation();
                     } else {
@@ -83,7 +83,7 @@ class Parser {
                     this._parseTime12HoursNotation();
                     continue;
                 } else {
-                    let separator = this._lexer.lookahead.value;
+                    const separator = this._lexer.lookahead.value;
                     if ('.' === separator || ':' === separator) {
                         this._parseTime24HoursNotation();
                     } else {
@@ -152,15 +152,15 @@ class Parser {
         const regex = /(?:GMT|UTC)?([+-])(0?[1-9]|1[0-2]):?([0-5][0-9])?/;
 
         correction = correction.trim();
-        let matches = correction.match(regex);
+        const matches = correction.match(regex);
 
         if (null === matches) {
             return undefined;
         }
 
-        let sign = '+' === matches[1] ? +1 : -1;
-        let hours = ~~matches[2];
-        let minutes = ~~(matches[3] || 0);
+        const sign = '+' === matches[1] ? +1 : -1;
+        const hours = ~~matches[2];
+        const minutes = ~~(matches[3] || 0);
 
         return sign * (hours * 3600 + minutes * 60);
     }
@@ -177,7 +177,7 @@ class Parser {
             this._lexer.moveNext();
         }
 
-        let token = this._lexer.token;
+        const token = this._lexer.token;
         if (Lexer.T_NUMBER !== token.type) {
             this._syntaxError(Lexer.T_NUMBER);
         }
@@ -381,7 +381,7 @@ class Parser {
 
     _parseDate() {
         this._dateParsed = true;
-        let token = this._lexer.token;
+        const token = this._lexer.token;
         if (token.type === Lexer.T_SIGNED_YEAR) {
             this._parseIsoDate();
             return;
@@ -413,8 +413,8 @@ class Parser {
             this._syntaxError(Lexer.T_SEPARATOR, true);
         }
 
-        let token = this._lexer.token;
-        let separator = this._lexer.lookahead.value;
+        const token = this._lexer.token;
+        const separator = this._lexer.lookahead.value;
 
         if ('/' !== separator && '-' !== separator) {
             this._syntaxError(Lexer.T_SEPARATOR, true);
