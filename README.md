@@ -11,8 +11,12 @@ Requirements
 
 Installation
 ------------
-The suggested installation method is via [npm](https://npmjs.com/):
+The suggested installation method is via [yarn](https://yarnpkg.com/):
+```sh
+$ yarn add jymfony
+```
 
+But you can also install Jymfony via [npm](https://npmjs.com/):
 ```sh
 $ npm install jymfony
 ```
