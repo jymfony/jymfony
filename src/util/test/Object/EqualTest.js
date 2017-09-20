@@ -655,7 +655,7 @@ describe('Equal', function () {
 
         it('returns true for the same promises', () => {
             const promiseResolve = Promise.resolve();
-            const promiseReject = Promise.reject();
+            const promiseReject = Promise.reject().catch(() => {});
             const promisePending = new Promise(() => {});
             expect(__jymfony.equal(promiseResolve, promiseResolve)).to.be.true;
             expect(__jymfony.equal(promiseReject, promiseReject)).to.be.true;
@@ -665,7 +665,7 @@ describe('Equal', function () {
 
         it('returns false for different promises', () => {
             expect(__jymfony.equal(Promise.resolve(), Promise.resolve())).to.be.false;
-            expect(__jymfony.equal(Promise.reject(), Promise.reject())).to.be.false;
+            expect(__jymfony.equal(Promise.reject().catch(() => {}), Promise.reject().catch(() => {}))).to.be.false;
             expect(__jymfony.equal(new Promise(() => {}), new Promise(() => {}))).to.be.false;
         });
 
