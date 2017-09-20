@@ -6,7 +6,8 @@
   "main": "index.js",
   "scripts": {
     "test": "node ./tests.js \"src/*/test/**/*.js\" \"src/{Component,Bundle}/*/test/**/*.js\" && eslint src/",
-    "coverage": "nyc npm test"
+    "coverage": "nyc npm test",
+    "coverage-html": "nyc --reporter=lcov npm test"
   },
   "keywords": [
     "jymfony",
@@ -19,7 +20,7 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
-    "nyc": "^11.1.0",
+    "nyc": "^11.2.1",
     "mocha": "^3.4.2"
   },
   "flat": true,
@@ -59,7 +60,6 @@
       "**/test/**"
     ],
     "reporter": [
-      "lcov",
       "text-summary",
       "clover"
     ],
