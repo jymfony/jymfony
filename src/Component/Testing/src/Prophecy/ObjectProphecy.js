@@ -55,7 +55,7 @@ class ObjectProphecy extends implementationOf(ProphecyInterface) {
                         return Reflect.get(method, key);
                     },
                     has: (target, key) => {
-                        return Reflect.get(method, key);
+                        return Reflect.has(method, key);
                     },
                     apply: (target, thisArgument, args) => {
                         args = new ArgumentsWildcard(this._revealer.reveal(args));
