@@ -154,7 +154,10 @@ class OptionsResolver {
             }
 
             delete this._resolved[option];
-            this._defaults[option] = undefined;
+
+            if (! this._defaults.hasOwnProperty(option)) {
+                this._defaults[option] = undefined;
+            }
 
             if (undefined === this._lazy[option]) {
                 this._lazy[option] = [];
@@ -163,7 +166,7 @@ class OptionsResolver {
             this._lazy[option].push(value);
         } else {
             delete this._lazy[option];
-            this._resolved = value;
+            this._resolved[option] = value;
             this._defaults[option] = value;
         }
 
@@ -239,7 +242,7 @@ class OptionsResolver {
      * @returns {boolean} Whether the option is required
      */
     isRequired(option) {
-        return this._required[option];
+        return !! this._required[option];
     }
 
     /**
@@ -265,7 +268,7 @@ class OptionsResolver {
      * @returns {boolean} Whether the option is missing
      */
     isMissing(option) {
-        return this._required[option] && ! this._defaults.hasOwnProperty(option);
+        return !! this._required[option] && ! this._defaults.hasOwnProperty(option);
     }
 
     /**
@@ -665,7 +668,7 @@ class OptionsResolver {
         diff = Object.keys(clone._required).filter(key => ! clone._defaults.hasOwnProperty(key));
 
         if (0 < diff.length) {
-            throw new MissingOptionsException(sprintf(
+            throw new MissingOptionsException(__jymfony.sprintf(
                 1 < diff.length ? 'The required options "%s" are missing.' : 'The required option "%s" is missing.',
                 diff.join('", "')
             ));
