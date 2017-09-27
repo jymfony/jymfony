@@ -1,6 +1,6 @@
 {
   "name": "@jymfony/datastructure",
-  "version": "0.1.0-alpha.6",
+  "version": "0.1.0-alpha.8",
   "description": "Jymfony Data Structures",
   "scripts": {
     "test": "node ./tests.js test/**"
@@ -18,8 +18,8 @@
     "node": ">=6.0.0"
   },
   "dependencies": {
-    "@jymfony/exceptions": "0.1.0-alpha.6",
-    "@jymfony/util": "0.1.0-alpha.6"
+    "@jymfony/exceptions": "0.1.0-alpha.8",
+    "@jymfony/util": "0.1.0-alpha.8"
   },
   "devDependencies": {
     "chai": "^3.5.0",

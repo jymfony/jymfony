@@ -1,6 +1,6 @@
 {
   "name": "@jymfony/autoloader",
-  "version": "0.1.0-alpha.6",
+  "version": "0.1.0-alpha.8",
   "description": "Jymfony Autoloader",
   "main": "index.js",
   "scripts": {
@@ -17,7 +17,7 @@
     "node": ">=6.0.0"
   },
   "dependencies": {
-    "@jymfony/util": "0.1.0-alpha.6"
+    "@jymfony/util": "0.1.0-alpha.8"
   },
   "devDependencies": {
     "chai": "^3.5.0",
