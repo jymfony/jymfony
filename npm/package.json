@@ -21,9 +21,9 @@
     "@jymfony/autoloader": "0.1.0-dev",
     "@jymfony/config": "0.1.0-dev",
     "@jymfony/console": "0.1.0-dev",
-    "@jymfony/dependency-injection": "0.1.0-dev",
-    "@jymfony/datastructure": "0.1.0-dev",
     "@jymfony/datetime": "0.1.0-dev",
+    "@jymfony/datastructure": "0.1.0-dev",
+    "@jymfony/dependency-injection": "0.1.0-dev",
     "@jymfony/event-dispatcher": "0.1.0-dev",
     "@jymfony/exceptions": "0.1.0-dev",
     "@jymfony/filesystem": "0.1.0-dev",
@@ -31,7 +31,9 @@
     "@jymfony/kernel": "0.1.0-dev",
     "@jymfony/lexer": "0.1.0-dev",
     "@jymfony/logger": "0.1.0-dev",
+    "@jymfony/options-resolver": "0.1.0-dev",
     "@jymfony/property-access": "0.1.0-dev",
+    "@jymfony/testing": "0.1.0-dev",
     "@jymfony/util": "0.1.0-dev"
   },
   "flat": true
