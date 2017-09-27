@@ -11,15 +11,15 @@ module.exports = class ResolveInvalidReferencesPass extends implementationOf(Com
     process(container) {
         this._container = container;
 
-        for (let definition of Object.values(container.getDefinitions())) {
+        for (const definition of Object.values(container.getDefinitions())) {
             if (definition.isSynthetic() || definition.isAbstract()) {
                 continue;
             }
 
             definition.setArguments(this._processArguments(definition.getArguments()));
 
-            let calls = [];
-            for (let call of definition.getMethodCalls()) {
+            const calls = [];
+            for (const call of definition.getMethodCalls()) {
                 try {
                     calls.push([ call[0], this._processArguments(call[1], true) ]);
                 } catch (e) {
@@ -29,7 +29,7 @@ module.exports = class ResolveInvalidReferencesPass extends implementationOf(Com
 
             definition.setMethodCalls(calls);
 
-            let properties = {};
+            const properties = {};
             for (let [ name, value ] of __jymfony.getEntries(definition.getProperties())) {
                 try {
                     value = this._processArguments([ value ], true);
@@ -44,13 +44,13 @@ module.exports = class ResolveInvalidReferencesPass extends implementationOf(Com
     }
 
     _processArguments(args, inMethodCall, inCollection) {
-        for (let [ k, argument ] of __jymfony.getEntries(args)) {
+        for (const [ k, argument ] of __jymfony.getEntries(args)) {
             if (isArray(argument) || isObjectLiteral(argument)) {
                 args[k] = this._processArguments(argument, inMethodCall, true);
             } else if (argument instanceof Reference) {
-                let id = argument.toString();
-                let invalidBehavior = argument.invalidBehavior;
-                let exists = this._container.has(id);
+                const id = argument.toString();
+                const invalidBehavior = argument.invalidBehavior;
+                const exists = this._container.has(id);
 
                 if (!exists && invalidBehavior === Container.NULL_ON_INVALID_REFERENCE) {
                     args[k] = null;

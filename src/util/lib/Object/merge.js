@@ -2,12 +2,12 @@
 
 global.__jymfony = global.__jymfony || {};
 
-let objectMerge = function (...args) {
+const objectMerge = function (...args) {
     let retArray = args.every(T => isArray(T));
 
     if (retArray) {
         retArray = [];
-        for (let arg of args) {
+        for (const arg of args) {
             retArray.concat(arg);
         }
 
@@ -15,9 +15,9 @@ let objectMerge = function (...args) {
     }
 
     let counter = 0;
-    let retObj = {};
-    for (let arg of args) {
-        for (let [ k, v ] of __jymfony.getEntries(arg)) {
+    const retObj = {};
+    for (const arg of args) {
+        for (const [ k, v ] of __jymfony.getEntries(arg)) {
             if (parseInt(k, 10) + '' === k) {
                 retObj[counter++] = v;
             } else {

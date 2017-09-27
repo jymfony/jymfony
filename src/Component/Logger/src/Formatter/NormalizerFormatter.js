@@ -28,7 +28,7 @@ class NormalizerFormatter extends implementationOf(FormatterInterface) {
      */
     formatBatch(records) {
         records = __jymfony.deepClone(records);
-        for (let [ key, entry ] of __jymfony.getEntries(records)) {
+        for (const [ key, entry ] of __jymfony.getEntries(records)) {
             records[key] = this.format(entry);
         }
 
@@ -69,9 +69,9 @@ class NormalizerFormatter extends implementationOf(FormatterInterface) {
         }
 
         if (isObjectLiteral(record)) {
-            let normalized = {};
+            const normalized = {};
             let count = 0;
-            for (let [ key, value ] of __jymfony.getEntries(record)) {
+            for (const [ key, value ] of __jymfony.getEntries(record)) {
                 if (1000 < ++count) {
                     normalized['...'] = 'Over 1000 entries. Aborting normalization...';
                     break;
@@ -96,12 +96,12 @@ class NormalizerFormatter extends implementationOf(FormatterInterface) {
                 return this._normalizeError(record);
             }
 
-            let reflClass = new ReflectionClass(record);
+            const reflClass = new ReflectionClass(record);
             let value;
             if (reflClass.hasMethod('toString')) {
                 value = record.toString();
             } else {
-                let encoded = JSON.stringify(record);
+                const encoded = JSON.stringify(record);
                 value = JSON.parse(encoded);
             }
 
@@ -119,16 +119,16 @@ class NormalizerFormatter extends implementationOf(FormatterInterface) {
      * @protected
      */
     _normalizeError(record) {
-        let trace = Exception.parseStackTrace(record);
-        let reflClass = new ReflectionClass(trace);
+        const trace = Exception.parseStackTrace(record);
+        const reflClass = new ReflectionClass(trace);
 
-        let data = {
+        const data = {
             'class': reflClass.name,
             message: record.message,
             trace: trace,
         };
 
-        let previous = record.previous;
+        const previous = record.previous;
         if (previous) {
             data.previous = this._normalize(previous, depth + 1);
         }

@@ -8,7 +8,7 @@ class ConsoleOutput extends mix(StreamOutput, ConsoleOutputInterface) {
     __construct(verbosity = ConsoleOutputInterface.VERBOSITY_NORMAL, decorated = undefined, formatter = undefined) {
         super.__construct(process.stdout, verbosity, decorated, formatter);
 
-        let actualDecorated = this.decorated;
+        const actualDecorated = this.decorated;
         this._stderr = new StreamOutput(process.stderr, verbosity, decorated, this.formatter);
 
         if (undefined === decorated) {

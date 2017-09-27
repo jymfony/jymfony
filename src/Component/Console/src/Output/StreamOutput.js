@@ -1,5 +1,5 @@
 const stream = require('stream');
-const os = require("os");
+const os = require('os');
 
 const InvalidArgumentException = Jymfony.Component.Console.Exception.InvalidArgumentException;
 const OutputFormatter = Jymfony.Component.Console.Formatter.OutputFormatter;

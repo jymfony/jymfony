@@ -40,7 +40,7 @@ class PasswordRenderer extends AbstractRenderer {
             this._input.setRawMode(true);
         }
 
-        let p = new Promise((resolve) => {
+        const p = new Promise((resolve) => {
             /**
              * @type {function(*)}
              * @private
@@ -61,7 +61,7 @@ class PasswordRenderer extends AbstractRenderer {
 
         this._input.removeListener('data', this._dataCallback);
         this._input.pause();
-        this._output.write("\n");
+        this._output.write('\n');
 
         this._promiseResolve(this._buffer.toString());
         this._buffer = new Buffer(0);
@@ -79,7 +79,7 @@ class PasswordRenderer extends AbstractRenderer {
         // UTF-8 decode.
         while (0 < data.length) {
             let offset = 0;
-            let char = data[offset];
+            const char = data[offset];
             if (0xF0 === (char & 0xF0)) {
                 buf = new Buffer([ char, data[++offset], data[++offset], data[++offset] ]);
             } else if (0xE0 === (char & 0xE0)) {

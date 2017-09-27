@@ -1,5 +1,6 @@
 let expect = require('chai').expect;
 let path = require("path");
+let fs = require("fs");
 
 /*
  * We are testing autoloader component here
@@ -58,13 +59,14 @@ describe('[Autoloader] Namespace', function () {
 
     it('throws if is not a constructor and debug is enabled', () => {
         let req = (module) => {
-            expect(module).to.be.equal('/var/node/foo_vendor/FooClass.js');
-            return undefined;
+            if ('path' === module || 'vm' === module) {
+                return require(module);
+            }
         };
         req.cache = {
             '/var/node/foo_vendor/FooClass.js': {}
         };
-        req.resolve = (module) => {
+        req.resolve = () => {
             return '/var/node/foo_vendor/FooClass.js';
         };
 
@@ -75,6 +77,10 @@ describe('[Autoloader] Namespace', function () {
                     filename: '/var/node/foo_vendor/FooClass.js',
                     directory: false
                 };
+            },
+            load: (fn) => {
+                expect(fn).to.be.equal('/var/node/foo_vendor/FooClass.js');
+                return '';
             }
         };
 
@@ -116,17 +122,22 @@ describe('[Autoloader] Namespace', function () {
                     default:
                         throw new Error('Unexpected argument');
                 }
+            },
+            load: (fn) => {
+                expect(fn).to.be.equal('/var/node/foo_vendor/FooClass.js');
+                return 'module.exports = function () { };';
             }
         };
 
         let req = (module) => {
-            expect(module).to.be.equal('/var/node/foo_vendor/FooClass.js');
-            return function () { };
+            if ('path' === module || 'vm' === module) {
+                return require(module);
+            }
         };
         req.cache = {
             '/var/node/foo_vendor/FooClass.js': {}
         };
-        req.resolve = (module) => {
+        req.resolve = () => {
             return '/var/node/foo_vendor/FooClass.js';
         };
 
@@ -151,14 +162,17 @@ describe('[Autoloader] Namespace', function () {
                 } else {
                     throw new Error('Unexpected argument');
                 }
+            },
+            load: fn => {
+                expect(fn).to.be.equal('/var/node/foo_vendor/FooClass.js');
+                return 'module.exports = class FooClass {}';
             }
         };
 
-        let constructor = class FooClass {};
-
         let req = (module) => {
-            expect(module).to.be.equal('/var/node/foo_vendor/FooClass.js');
-            return constructor;
+            if ('path' === module || 'vm' === module) {
+                return require(module);
+            }
         };
         req.cache = {
             '/var/node/foo_vendor/FooClass.js': {}
@@ -190,18 +204,21 @@ describe('[Autoloader] Namespace', function () {
                 } else {
                     throw new Error('Unexpected argument');
                 }
-            }
-        };
-
-        let constructor = class FooClass {
-            __construct(arg) {
-                this.constructCalled = arg;
+            },
+            load: fn => {
+                expect(fn).to.be.equal('/var/node/foo_vendor/FooClass.js');
+                return `module.exports = class FooClass {
+                    __construct(arg) {
+                        this.constructCalled = arg;
+                    }
+                };`;
             }
         };
 
         let req = (module) => {
-            expect(module).to.be.equal('/var/node/foo_vendor/FooClass.js');
-            return constructor;
+            if ('path' === module || 'vm' === module) {
+                return require(module);
+            }
         };
         req.cache = {
             '/var/node/foo_vendor/FooClass.js': {}
@@ -234,20 +251,27 @@ describe('[Autoloader] Namespace', function () {
                 }
 
                 throw new Error('Unexpected argument');
-            }
-        };
-
-        let constructor, superConstructor = class BarClass {
-            __construct(arg) {
-                this.superCalled = arg;
+            },
+            load: fn => {
+                if (fn === '/var/node/foo_vendor/FooClass.js') {
+                    return `module.exports = class FooClass extends __ns.BarClass {
+                        __construct(arg) {
+                            this.constructCalled = arg;
+                        }
+                    }`;
+                } else if (fn === '/var/node/foo_vendor/BarClass.js') {
+                    return `module.exports = class BarClass {
+                        __construct(arg) {
+                            this.superCalled = arg;
+                        }
+                    };`;
+                }
             }
         };
 
         let req = (module) => {
-            if (module === '/var/node/foo_vendor/FooClass.js') {
-                return constructor;
-            } else if (module === '/var/node/foo_vendor/BarClass.js') {
-                return superConstructor;
+            if ('path' === module || 'vm' === module) {
+                return require(module);
             }
         };
         req.cache = {
@@ -257,16 +281,15 @@ describe('[Autoloader] Namespace', function () {
         req.resolve = (module) => module;
 
         let ns = new Namespace({finder: finder}, 'Foo', ['/var/node/foo_vendor/'], req);
+        try {
+            global.__ns = ns;
 
-        constructor = class FooClass extends ns.BarClass {
-            __construct(arg) {
-                this.constructCalled = arg;
-            }
-        };
-
-        let obj = new ns.FooClass('foobar');
-        expect(obj.constructCalled).to.be.equal('foobar');
-        expect(obj.superCalled).to.be.undefined;
+            let obj = new ns.FooClass('foobar');
+            expect(obj.constructCalled).to.be.equal('foobar');
+            expect(obj.superCalled).to.be.undefined;
+        } finally {
+            delete global.__ns;
+        }
     });
 
     it('resolves circular requirements', () => {
@@ -285,6 +308,9 @@ describe('[Autoloader] Namespace', function () {
                 }
 
                 throw new Error('Unexpected argument');
+            },
+            load: fn => {
+                return fs.readFileSync(fn, 'utf-8');
             }
         };
 
@@ -299,7 +325,7 @@ describe('[Autoloader] Namespace', function () {
             expect(foo).to.be.instanceOf(ns.FooClass);
             expect(ns.FooClass.HELLO).to.be.equal('Hello, world!');
         } finally {
-            global.Foo = undefined;
+            delete global.Foo;
         }
     });
 });

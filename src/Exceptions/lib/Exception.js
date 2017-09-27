@@ -22,12 +22,12 @@ class Exception extends Error {
         /**
          * @type {string}
          */
-        this.message = message;
-        if ('function' === typeof Error.captureStackTrace) {
-            Error.captureStackTrace(this, this.constructor);
-        } else {
-            this.stack = (new Error(message)).stack;
-        }
+        this._message = message;
+
+        Error.captureStackTrace(this, this.constructor);
+        this._originalStack = this.stack.split('\n').slice(2).join('\n');
+
+        delete this.message;
     }
 
     /**
@@ -39,6 +39,19 @@ class Exception extends Error {
         return Exception.parseStackTrace(this);
     }
 
+    set message(message) {
+        this._message = message;
+        this._updateStack();
+    }
+
+    get message() {
+        return this._message;
+    }
+
+    _updateStack() {
+        this.stack = this.constructor.name + ': ' + this.message + '\n\n' + this._originalStack;
+    }
+
     /**
      * Parses a stack trace from an error instance.
      *
@@ -47,11 +60,10 @@ class Exception extends Error {
      * @returns {[Object<string, string>]}
      */
     static parseStackTrace(error) {
-        const regex = /^\s*at (?:((?:\[object object])?\S+(?: \[as \S+])?) )?\(?(.*?):(\d+)(?::(\d+))?\)?\s*$/i;
-        let lines = error.stack.split('\n'),
-            stack = [],
-            parts,
-            element;
+        const regex = /^\s*at (?:((?:\[object object])?\S+(?: \[as \S+])?) )?\(?(.*?):(\d+)(?::(\d+))?\)?\s*$/i,
+            lines = error.stack.split('\n'),
+            stack = [];
+        let parts, element;
 
         for (let i = 0, j = lines.length; i < j; ++i) {
             if ((parts = regex.exec(lines[i]))) {

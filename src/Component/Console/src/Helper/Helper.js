@@ -17,7 +17,7 @@ class Helper {
             [ 172800, 'days', 86400 ],
         ];
 
-        for (let [ index, format ] of __jymfony.getEntries(timeFormats)) {
+        for (const [ index, format ] of __jymfony.getEntries(timeFormats)) {
             if (secs >= format[0]) {
                 if (timeFormats[index + 1] && secs < timeFormats[index + 1][0]
                     || index === timeFormats.length - 1
@@ -61,7 +61,7 @@ class Helper {
      * @returns {string}
      */
     static removeDecoration(formatter, string) {
-        let isDecorated = formatter.decorated;
+        const isDecorated = formatter.decorated;
         formatter.decorated = false;
 
         // Remove <...> formatting

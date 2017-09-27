@@ -10,10 +10,8 @@ module.exports = class RepeatedPass extends implementationOf(CompilerPassInterfa
     /**
      * @param {Jymfony.Component.DependencyInjection.Compiler.CompilerPassInterface[]} passes
      */
-    constructor(passes) {
-        super();
-
-        for (let pass of passes) {
+    __construct(passes) {
+        for (const pass of passes) {
             if (! (pass instanceof RepeatablePassInterface)) {
                 throw new InvalidArgumentException('Passes must be an array of RepeatablePassInterface.');
             }
@@ -31,7 +29,7 @@ module.exports = class RepeatedPass extends implementationOf(CompilerPassInterfa
         do {
             this._repeat = false;
 
-            for (let pass of this._passes) {
+            for (const pass of this._passes) {
                 pass.process(container);
             }
         } while (this._repeat);

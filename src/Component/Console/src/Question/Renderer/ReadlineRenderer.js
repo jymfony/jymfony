@@ -1,5 +1,5 @@
 const AbstractRenderer = Jymfony.Component.Console.Question.Renderer.AbstractRenderer;
-const readline = require("readline");
+const readline = require('readline');
 
 /**
  * Renders a Question prompt using readline.

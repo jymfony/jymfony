@@ -7,7 +7,7 @@ module.exports = class ServiceCircularReferenceException extends RuntimeExceptio
     constructor(id, path) {
         super('');
 
-        let params = Array.from(path);
+        const params = Array.from(path);
         this.message = `Circular reference detected for service "${id}", path: "${params.join('" -> "')}".`;
 
         this._serviceId = id;

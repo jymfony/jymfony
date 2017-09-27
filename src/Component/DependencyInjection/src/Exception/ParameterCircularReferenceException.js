@@ -7,7 +7,7 @@ module.exports = class ParameterCircularReferenceException extends RuntimeExcept
     constructor(parameters) {
         super('');
 
-        let params = Array.from(parameters);
+        const params = Array.from(parameters);
         this.message = `Circular reference detected for parameter "${params[0]}" ("${params.join('" > "')}" > "${params[0]}")`;
     }
 };

@@ -122,7 +122,7 @@ class Application extends BaseApplication {
         this._kernel.boot();
 
         if (this._kernel.container.hasParameter('console.command.ids')) {
-            for (let id of this._kernel.container.getParameter('console.command.ids')) {
+            for (const id of this._kernel.container.getParameter('console.command.ids')) {
                 this.add(this._kernel.container.get(id));
             }
         }

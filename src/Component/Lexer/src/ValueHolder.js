@@ -3,10 +3,9 @@
  * You can modify the value into your getType implementation.
  *
  * @memberOf Jymfony.Lexer
- * @type ValueHolder
  */
-module.exports = class ValueHolder {
-    constructor(value) {
+class ValueHolder {
+    __construct(value) {
         this.value = value;
     }
 
@@ -17,4 +16,6 @@ module.exports = class ValueHolder {
     set value(value) {
         this._value = value.toString();
     }
-};
+}
+
+module.exports = ValueHolder;

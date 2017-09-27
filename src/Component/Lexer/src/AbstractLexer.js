@@ -3,11 +3,10 @@ const util = require('util');
 
 /**
  * @memberOf Jymfony.Component.Lexer
- * @type AbstractLexer
  *
  * @abstract
  */
-module.exports = class AbstractLexer {
+class AbstractLexer {
     /**
      * Reset the lexer
      */
@@ -123,7 +122,7 @@ module.exports = class AbstractLexer {
      * @returns {Object|undefined} The next token or undefined if there are no more tokens ahead.
      */
     glimpse() {
-        let peek = this.peek();
+        const peek = this.peek();
         this._peek = 0;
 
         return peek;
@@ -137,10 +136,10 @@ module.exports = class AbstractLexer {
      * @returns {string}
      */
     getLiteral(token) {
-        let reflClass = new ReflectionClass(this);
-        let constants = reflClass.constants;
+        const reflClass = new ReflectionClass(this);
+        const constants = reflClass.constants;
 
-        for (let [ name, value ] of __jymfony.getEntries(constants)) {
+        for (const [ name, value ] of __jymfony.getEntries(constants)) {
             if (value === token) {
                 return name;
             }
@@ -187,7 +186,7 @@ module.exports = class AbstractLexer {
             non_catchable = '';
         }
 
-        let regex = new RegExp(util.format(
+        const regex = new RegExp(util.format(
             '((?:%s))%s', this.getCatchablePatterns().join(')|(?:'), non_catchable
         ), 'g' + this.getModifiers());
 
@@ -197,8 +196,8 @@ module.exports = class AbstractLexer {
                 continue;
             }
 
-            let holder = new ValueHolder(match[0]);
-            let type = this.getType(holder);
+            const holder = new ValueHolder(match[0]);
+            const type = this.getType(holder);
 
             this._tokens.push({
                 value: holder.value,
@@ -263,4 +262,6 @@ module.exports = class AbstractLexer {
     getType(holder) {
         throw new Error('You must override getType method');
     }
-};
+}
+
+module.exports = AbstractLexer;

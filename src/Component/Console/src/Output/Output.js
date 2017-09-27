@@ -19,11 +19,11 @@ class Output extends implementationOf(OutputInterface) {
             messages = [ messages ];
         }
 
-        let types = OutputInterface.OUTPUT_NORMAL | OutputInterface.OUTPUT_RAW | OutputInterface.OUTPUT_PLAIN;
-        let type = (types & options || OutputInterface.OUTPUT_NORMAL);
+        const types = OutputInterface.OUTPUT_NORMAL | OutputInterface.OUTPUT_RAW | OutputInterface.OUTPUT_PLAIN;
+        const type = (types & options || OutputInterface.OUTPUT_NORMAL);
 
-        let verbosities = OutputInterface.VERBOSITY_QUIET | OutputInterface.VERBOSITY_NORMAL | OutputInterface.VERBOSITY_VERBOSE | OutputInterface.VERBOSITY_VERY_VERBOSE | OutputInterface.VERBOSITY_DEBUG;
-        let verbosity = (verbosities & options || OutputInterface.VERBOSITY_NORMAL);
+        const verbosities = OutputInterface.VERBOSITY_QUIET | OutputInterface.VERBOSITY_NORMAL | OutputInterface.VERBOSITY_VERBOSE | OutputInterface.VERBOSITY_VERY_VERBOSE | OutputInterface.VERBOSITY_DEBUG;
+        const verbosity = (verbosities & options || OutputInterface.VERBOSITY_NORMAL);
 
         if (verbosity > this.verbosity) {
             return;

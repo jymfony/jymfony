@@ -7,10 +7,10 @@ const Reference = Jymfony.Component.DependencyInjection.Reference;
 module.exports = class ReplaceAliasByActualDefinitionPass extends AbstractRecursivePass {
     process(container) {
         // First collect all alias targets that need to be replaced
-        let seenAliasTargets = {};
-        let replacements = {};
-        for (let [ definitionId, target ] of __jymfony.getEntries(container.getAliases())) {
-            let targetId = target.toString();
+        const seenAliasTargets = {};
+        const replacements = {};
+        for (const [ definitionId, target ] of __jymfony.getEntries(container.getAliases())) {
+            const targetId = target.toString();
 
             // Special case: leave this target alone
             if ('service_container' === targetId) {
@@ -58,8 +58,8 @@ module.exports = class ReplaceAliasByActualDefinitionPass extends AbstractRecurs
     _processValue(value, isRoot = false) {
         if (value instanceof Reference && undefined !== this._replacements[value.toString()]) {
             // Perform the replacement.
-            let newId = this._replacements[value.toString()];
-            let value = new Reference(newId, value.invalidBehavior);
+            const newId = this._replacements[value.toString()];
+            const value = new Reference(newId, value.invalidBehavior);
             this._container.log(this, __jymfony.sprintf('Changed reference of service "%s" previously pointing to "%s" to "%s".', this._currentId, value.toString(), newId));
         }
 

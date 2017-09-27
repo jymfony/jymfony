@@ -56,10 +56,10 @@ class Input extends implementationOf(StreamableInputInterface) {
      * @inheritDoc
      */
     validate() {
-        let definition = this._definition;
-        let givenArguments = this._arguments;
+        const definition = this._definition;
+        const givenArguments = this._arguments;
 
-        let missingArguments = definition.getArguments().map(A => A.getName()).filter(argument => {
+        const missingArguments = definition.getArguments().map(A => A.getName()).filter(argument => {
             return ! givenArguments.hasOwnProperty(argument) && definition.getArgument(argument).isRequired();
         });
 

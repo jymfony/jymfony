@@ -16,9 +16,8 @@ install:
     - npm install
 
 script:
-    - if [ "$TRAVIS_NODE_VERSION" == "6" ] && [ "$TRAVIS_OS_NAME" == "linux" ]; then npm run-script coverage; else npm test; fi
-    - eslint src/
+    - if [ "$TRAVIS_NODE_VERSION" == "8" ] && [ "$TRAVIS_OS_NAME" == "linux" ]; then npm run-script coverage; else npm test; fi
 
 after_success:
-    - if [ "$TRAVIS_NODE_VERSION" == "6" ] && [ "$TRAVIS_OS_NAME" == "linux" ]; then npm install https://github.com/alekitto/ocular.js.git; fi
-    - if [ "$TRAVIS_NODE_VERSION" == "6" ] && [ "$TRAVIS_OS_NAME" == "linux" ]; then $(npm bin)/ocular coverage/clover.xml; fi
+    - if [ "$TRAVIS_NODE_VERSION" == "8" ] && [ "$TRAVIS_OS_NAME" == "linux" ]; then npm install https://github.com/alekitto/ocular.js.git; fi
+    - if [ "$TRAVIS_NODE_VERSION" == "8" ] && [ "$TRAVIS_OS_NAME" == "linux" ]; then $(npm bin)/ocular coverage/clover.xml; fi

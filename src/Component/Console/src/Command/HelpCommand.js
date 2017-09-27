@@ -49,7 +49,7 @@ To display the list of available commands, please use the <info>list</info> comm
             this._command = this.application.find(input.getArgument('command_name'));
         }
 
-        let helper = new DescriptorHelper();
+        const helper = new DescriptorHelper();
         helper.describe(output, this._command, {
             'format': input.getOption('format'),
             'raw_text': input.getOption('raw'),

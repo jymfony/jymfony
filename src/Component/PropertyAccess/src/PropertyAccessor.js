@@ -17,7 +17,7 @@ class PropertyAccessor extends implementationOf(PropertyAccessorInterface) {
             path = new PropertyPath(path);
         }
 
-        let propertyValues = this._readPropertiesUntil(object, path, path.length);
+        const propertyValues = this._readPropertiesUntil(object, path, path.length);
 
         return propertyValues[propertyValues.length - 1];
     }
@@ -30,8 +30,8 @@ class PropertyAccessor extends implementationOf(PropertyAccessorInterface) {
             path = new PropertyPath(path);
         }
 
-        let propertyValues = this._readPropertiesUntil(object, path, path.length - 1);
-        let target = propertyValues[propertyValues.length - 1];
+        const propertyValues = this._readPropertiesUntil(object, path, path.length - 1);
+        const target = propertyValues[propertyValues.length - 1];
 
         return this._writeProperty(target, path.last, value);
     }
@@ -44,10 +44,10 @@ class PropertyAccessor extends implementationOf(PropertyAccessorInterface) {
      * @param {int} length
      */
     _readPropertiesUntil(object, propertyPath, length) {
-        let propertyValues = [ object ];
+        const propertyValues = [ object ];
 
         for (let i = 0; i < length; i++) {
-            let property = propertyPath.getElement(i);
+            const property = propertyPath.getElement(i);
             object = this._readProperty(object, property);
 
             if (i + 1 < propertyPath.length && !isArray(object) && !isObject(object)) {
@@ -66,7 +66,7 @@ class PropertyAccessor extends implementationOf(PropertyAccessorInterface) {
         }
 
         let value;
-        let access = this._getReadAccessInfo(object, property);
+        const access = this._getReadAccessInfo(object, property);
 
         if (PropertyAccessor.ACCESS_TYPE_METHOD === access.type) {
             value = object[access.name]();
@@ -86,16 +86,16 @@ class PropertyAccessor extends implementationOf(PropertyAccessorInterface) {
      * @private
      */
     _getReadAccessInfo(object, property) {
-        let reflection = new ReflectionClass(object);
-        let retVal = {};
+        const reflection = new ReflectionClass(object);
+        const retVal = {};
 
-        let hasProperty = reflection.hasProperty(property) && reflection.hasReadableProperty(property);
-        let camelized = this._camelize(property);
+        const hasProperty = reflection.hasProperty(property) && reflection.hasReadableProperty(property);
+        const camelized = this._camelize(property);
 
-        let getter = 'get' + camelized;
-        let getsetter = camelized.charAt(0).toLowerCase() + camelized.substring(1);
-        let hasser = 'has' + camelized;
-        let isser = 'is' + camelized;
+        const getter = 'get' + camelized;
+        const getsetter = camelized.charAt(0).toLowerCase() + camelized.substring(1);
+        const hasser = 'has' + camelized;
+        const isser = 'is' + camelized;
 
         if (reflection.hasMethod(getter)) {
             retVal.type = PropertyAccessor.ACCESS_TYPE_METHOD;
@@ -113,7 +113,7 @@ class PropertyAccessor extends implementationOf(PropertyAccessorInterface) {
             retVal.type = PropertyAccessor.ACCESS_TYPE_PROPERTY;
             retVal.name = property;
         } else {
-            let methods = '"' + [ getter, getsetter, hasser, isser ].join('()", ') + '()"';
+            const methods = '"' + [ getter, getsetter, hasser, isser ].join('()", ') + '()"';
 
             retVal.type = PropertyAccessor.ACCESS_TYPE_NOT_FOUND;
             retVal.name =
@@ -130,7 +130,7 @@ class PropertyAccessor extends implementationOf(PropertyAccessorInterface) {
         }
 
         let retVal = object;
-        let access = this._getWriteAccessInfo(object, property, value);
+        const access = this._getWriteAccessInfo(object, property, value);
 
         if (PropertyAccessor.ACCESS_TYPE_METHOD === access.type) {
             retVal = object[access.name](value);
@@ -151,14 +151,14 @@ class PropertyAccessor extends implementationOf(PropertyAccessorInterface) {
      * @private
      */
     _getWriteAccessInfo(object, property, value) {
-        let reflection = new ReflectionClass(object);
-        let retVal = {};
+        const reflection = new ReflectionClass(object);
+        const retVal = {};
 
-        let hasProperty = reflection.hasProperty(property) && reflection.hasWritableProperty(property);
-        let camelized = this._camelize(property);
+        const hasProperty = reflection.hasProperty(property) && reflection.hasWritableProperty(property);
+        const camelized = this._camelize(property);
 
-        let setter = 'set' + camelized;
-        let getsetter = camelized.charAt(0).toLowerCase() + camelized.substring(1);
+        const setter = 'set' + camelized;
+        const getsetter = camelized.charAt(0).toLowerCase() + camelized.substring(1);
 
         if (reflection.hasMethod(setter)) {
             retVal.type = PropertyAccessor.ACCESS_TYPE_METHOD;
@@ -170,7 +170,7 @@ class PropertyAccessor extends implementationOf(PropertyAccessorInterface) {
             retVal.type = PropertyAccessor.ACCESS_TYPE_PROPERTY;
             retVal.name = property;
         } else {
-            let methods = '"' + [ getter, getsetter, hasser, isser ].join('()", ') + '()"';
+            const methods = '"' + [ getter, getsetter, hasser, isser ].join('()", ') + '()"';
 
             retVal.type = PropertyAccessor.ACCESS_TYPE_NOT_FOUND;
             retVal.name =

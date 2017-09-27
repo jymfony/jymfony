@@ -15,24 +15,24 @@ class RecursiveDirectoryIterator {
         this._path = fs.realpathSync(path);
         this._flags = flags;
 
-        this._followSymlinks = flags & RecursiveDirectoryIterator.FOLLOW_SYMLINKS;
+        this._followSymlinks = flags & __self.FOLLOW_SYMLINKS;
     }
 
     * [Symbol.iterator]() {
-        let dir = fs.readdirSync(this._path);
-        let secondStep = [];
+        const dir = fs.readdirSync(this._path);
+        const secondStep = [];
 
         for (let current of dir) {
             current = path.join(this._path, current);
 
             let childItr = undefined;
-            let st = this._followSymlinks ? fs.statSync(current) : fs.lstatSync(current);
+            const st = this._followSymlinks ? fs.statSync(current) : fs.lstatSync(current);
 
             if (st.isDirectory()) {
-                childItr = new Jymfony.Component.Filesystem.Iterator.RecursiveDirectoryIterator(current, this._flags);
+                childItr = new __self(current, this._flags);
             }
 
-            switch (this._flags & (RecursiveDirectoryIterator.CHILD_LAST | RecursiveDirectoryIterator.CHILD_FIRST)) {
+            switch (this._flags & (__self.CHILD_LAST | __self.CHILD_FIRST)) {
                 case 0:
                     if (undefined !== childItr) {
                         yield * childItr;
@@ -41,7 +41,7 @@ class RecursiveDirectoryIterator {
                     yield current;
                     break;
 
-                case RecursiveDirectoryIterator.CHILD_LAST:
+                case __self.CHILD_LAST:
                     if (undefined !== childItr) {
                         secondStep.push(childItr);
                         secondStep.push(current);
@@ -50,7 +50,7 @@ class RecursiveDirectoryIterator {
                     }
                     break;
 
-                case RecursiveDirectoryIterator.CHILD_FIRST:
+                case __self.CHILD_FIRST:
                     if (undefined !== childItr) {
                         yield * childItr;
                     }
@@ -60,8 +60,8 @@ class RecursiveDirectoryIterator {
             }
         }
 
-        for (let other of secondStep) {
-            if (other instanceof RecursiveDirectoryIterator) {
+        for (const other of secondStep) {
+            if (other instanceof __self) {
                 yield * other;
             } else {
                 yield other;

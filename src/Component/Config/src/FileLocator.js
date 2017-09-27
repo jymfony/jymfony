@@ -43,9 +43,9 @@ class FileLocator extends implementationOf(FileLocatorInterface) {
         }
 
         paths = new Set(paths);
-        let filepaths = [], notfound = [];
+        const filepaths = [], notfound = [];
 
-        for (let filePath of paths) {
+        for (const filePath of paths) {
             let file;
             if (fs.existsSync(file = path.join(filePath, name))) {
                 if (first) {

@@ -1,9 +1,9 @@
 const FileLoader = Jymfony.Component.Config.Loader.FileLoader;
 const FileResource = Jymfony.Component.Config.Resource.FileResource;
 
-const fs = require("fs");
-const path = require("path");
-const vm = require("vm");
+const fs = require('fs');
+const path = require('path');
+const vm = require('vm');
 
 /**
  * JsFileLoader loads service definitions from a js file.
@@ -35,12 +35,12 @@ class JsFileLoader extends FileLoader {
      * @inheritDoc
      */
     load(resource, type = undefined) {
-        let filePath = this._locator.locate(resource);
+        const filePath = this._locator.locate(resource);
         this.currentDir = path.dirname(filePath);
         this._container.addResource(new FileResource(filePath));
 
-        let code = '(function (container, loader) {\n'+fs.readFileSync(filePath)+'\n})';
-        let script = new vm.Script(code, {
+        const code = '(function (container, loader) {\n'+fs.readFileSync(filePath)+'\n})';
+        const script = new vm.Script(code, {
             filename: filePath,
             produceCachedData: false,
         });

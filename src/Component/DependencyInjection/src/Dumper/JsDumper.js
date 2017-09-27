@@ -31,7 +31,7 @@ class JsDumper {
         }
 
         this._container = container;
-        this._inlinedDefinitions = new Map;
+        this._inlinedDefinitions = new Map();
     }
 
     /**
@@ -62,12 +62,12 @@ class JsDumper {
     }
 
     _initMethodNamesMap(baseClass) {
-        this._serviceIdToMethodNameMap = new Map;
-        this._usedMethodNames = new Set;
+        this._serviceIdToMethodNameMap = new Map();
+        this._usedMethodNames = new Set();
 
         try {
-            let reflectionClass = new ReflectionClass(baseClass);
-            for (let method of reflectionClass.methods) {
+            const reflectionClass = new ReflectionClass(baseClass);
+            for (const method of reflectionClass.methods) {
                 this._usedMethodNames.add(method);
             }
         } catch (e) {
@@ -81,8 +81,8 @@ const LogicException = Jymfony.Component.DependencyInjection.Exception.LogicExce
 const FrozenParameterBag = Jymfony.Component.DependencyInjection.ParameterBag.FrozenParameterBag;
 
 class ${className} extends ${baseClass} {
-    constructor() {
-        super(new FrozenParameterBag(${className}._getDefaultsParameters()));
+    __construct() {
+        super.__construct(new FrozenParameterBag(${className}._getDefaultsParameters()));
 
         ${this._getMethodMap()}
         ${this._getAliases()}
@@ -111,36 +111,36 @@ module.exports = global.${className} = ${className};
         let code = `this._methodMap = {
 `;
 
-        let definitions = this._container.getDefinitions();
-        let ids = Object.keys(definitions).sort();
-        for (let id of ids) {
-            let definition = definitions[id];
+        const definitions = this._container.getDefinitions();
+        const ids = Object.keys(definitions).sort();
+        for (const id of ids) {
+            const definition = definitions[id];
             if (! definition.isPublic() || definition.isSynthetic()) {
                 continue;
             }
 
-            code += '            ' + this._export(id) + ': ' + this._export(this._generateMethodName(id)) + ",\n";
+            code += '            ' + this._export(id) + ': ' + this._export(this._generateMethodName(id)) + ',\n';
         }
 
-        return code + "        };\n";
+        return code + '        };\n';
     }
 
     _getAliases() {
         let code = `this._aliases = {
 `;
 
-        let aliases = this._container.getAliases();
-        let ids = Object.keys(aliases).sort();
-        for (let alias of ids) {
+        const aliases = this._container.getAliases();
+        const ids = Object.keys(aliases).sort();
+        for (const alias of ids) {
             let id = aliases[alias].toString();
             while (undefined !== aliases[id]) {
                 id = aliases[id].toString();
             }
 
-            code += '            ' + this._export(alias) + ': ' + this._export(id) + ",\n";
+            code += '            ' + this._export(alias) + ': ' + this._export(id) + ',\n';
         }
 
-        return code + "        };\n";
+        return code + '        };\n';
     }
 
     _export(value) {
@@ -183,9 +183,9 @@ module.exports = global.${className} = ${className};
 
     _getServices() {
         let publicServices = '', privateServices = '';
-        let serviceIds = Object.keys(this._container.getDefinitions()).sort();
-        for (let id of serviceIds) {
-            let definition = this._container.getDefinition(id);
+        const serviceIds = Object.keys(this._container.getDefinitions()).sort();
+        for (const id of serviceIds) {
+            const definition = this._container.getDefinition(id);
             if (definition.isPublic()) {
                 publicServices += this._getService(id, definition);
             } else {
@@ -197,10 +197,10 @@ module.exports = global.${className} = ${className};
     }
 
     _getDefaultParametersMethod() {
-        let code = "{\n";
-        let parameters = this._container.parameterBag.all();
-        for (let key of Object.keys(parameters)) {
-            code += `            "${key}": ${this._dumpParameter(key)},` + "\n";
+        let code = '{\n';
+        const parameters = this._container.parameterBag.all();
+        for (const key of Object.keys(parameters)) {
+            code += `            "${key}": ${this._dumpParameter(key)},` + '\n';
         }
         code += '        }';
 
@@ -264,7 +264,7 @@ module.exports = global.${className} = ${className};
             doc += '\n';
         }
 
-        let methodName = this._generateMethodName(id);
+        const methodName = this._generateMethodName(id);
         return `
     /**
      * Gets the ${visibility}'${id}' ${shared}service.
@@ -286,7 +286,7 @@ ${this._addReturn(id, definition)}\
     }
 
     _addServiceInclude(id, definition) {
-        let template = '        require(%s);\n';
+        const template = '        require(%s);\n';
         let code = '';
 
         let file;
@@ -294,7 +294,7 @@ ${this._addReturn(id, definition)}\
             code += __jymfony.sprintf(template, this._dumpValue(file));
         }
 
-        for (let def of this._getInlinedDefinitions(definition)) {
+        for (const def of this._getInlinedDefinitions(definition)) {
             file = def.getFile();
             if (file) {
                 code += __jymfony.sprintf(template, this._dumpValue(file));
@@ -305,14 +305,14 @@ ${this._addReturn(id, definition)}\
     }
 
     _addLocalTempVariables(cId, definition) {
-        let template = '        let %s = %s;\n';
+        const template = '        let %s = %s;\n';
 
-        let localDefinitions = [ definition, ...this._getInlinedDefinitions(definition) ];
+        const localDefinitions = [ definition, ...this._getInlinedDefinitions(definition) ];
 
-        let calls = {};
-        let behavior = {};
+        const calls = {};
+        const behavior = {};
 
-        for (let iDefinition of localDefinitions) {
+        for (const iDefinition of localDefinitions) {
             this._getServiceCallsFromArguments(iDefinition.getArguments(), calls, behavior);
             this._getServiceCallsFromArguments(iDefinition.getMethodCalls(), calls, behavior);
             this._getServiceCallsFromArguments(iDefinition.getProperties(), calls, behavior);
@@ -321,13 +321,13 @@ ${this._addReturn(id, definition)}\
         }
 
         let code = '';
-        for (let [ id, callCount ] of __jymfony.getEntries(calls)) {
+        for (const [ id, callCount ] of __jymfony.getEntries(calls)) {
             if ('service_container' === id || id === cId) {
                 continue;
             }
 
             if (1 < callCount) {
-                let name = this._getNextVariableName();
+                const name = this._getNextVariableName();
                 this._referenceVariables[id] = new Variable(name);
 
                 if (Container.EXCEPTION_ON_INVALID_REFERENCE === behavior[id]) {
@@ -339,7 +339,7 @@ ${this._addReturn(id, definition)}\
         }
 
         if ('' !== code) {
-            code += "\n";
+            code += '\n';
         }
 
         return code;
@@ -347,27 +347,27 @@ ${this._addReturn(id, definition)}\
 
     _addInlinedDefinitions(id, definition) {
         let code = '';
-        let nbOccurrences = new Map();
-        let processed = new Set();
-        let inlinedDefinitions = this._getInlinedDefinitions(definition);
+        const nbOccurrences = new Map();
+        const processed = new Set();
+        const inlinedDefinitions = this._getInlinedDefinitions(definition);
 
-        for (let iDefinition of inlinedDefinitions) {
+        for (const iDefinition of inlinedDefinitions) {
             if (! nbOccurrences.has(iDefinition)) {
                 nbOccurrences.set(iDefinition, 1);
             } else {
-                let i = nbOccurrences.get(iDefinition);
+                const i = nbOccurrences.get(iDefinition);
                 nbOccurrences.set(iDefinition, i + 1);
             }
         }
 
-        for (let sDefinition of inlinedDefinitions) {
+        for (const sDefinition of inlinedDefinitions) {
             if (processed.has(sDefinition)) {
                 continue;
             }
             processed.add(sDefinition);
 
             if (1 < nbOccurrences.get(sDefinition) || sDefinition.getMethodCalls().length || sDefinition.getProperties().length || sDefinition.getConfigurator()) {
-                let name = this._getNextVariableName();
+                const name = this._getNextVariableName();
                 this._definitionVariables.set(sDefinition, new Variable(name));
 
                 if (this._hasReference(id, sDefinition.getArguments())) {
@@ -399,10 +399,10 @@ ${this._addReturn(id, definition)}\
      * @private
      */
     _addServiceInstance(id, definition) {
-        let simple = this._isSimpleInstance(id, definition);
+        const simple = this._isSimpleInstance(id, definition);
         let instantiation = '';
         if (definition.isShared()) {
-            let variable = definition.isPublic() ? '_services' : '_privates';
+            const variable = definition.isPublic() ? '_services' : '_privates';
             instantiation = `this.${variable}["${id}"] = ` + (simple ? '' : 'instance');
         } else {
             instantiation = 'instance = ';
@@ -421,7 +421,7 @@ ${this._addReturn(id, definition)}\
         }
 
         if (! simple) {
-            code += "\n";
+            code += '\n';
         }
 
         return code;
@@ -430,9 +430,9 @@ ${this._addReturn(id, definition)}\
     _addInlinedDefinitionsSetup(id, definition) {
         this._referenceVariables[id] = 'instance';
         let code = '';
-        let processed = new Set();
+        const processed = new Set();
 
-        for (let iDefinition of this._getInlinedDefinitions(definition)) {
+        for (const iDefinition of this._getInlinedDefinitions(definition)) {
             if (processed.has(iDefinition)) {
                 continue;
             }
@@ -449,14 +449,14 @@ ${this._addReturn(id, definition)}\
                 throw new ServiceCircularReferenceException(id, array(id));
             }
 
-            let name = this._definitionVariables.get(iDefinition);
+            const name = this._definitionVariables.get(iDefinition);
             code += this._addMethodCalls(null, iDefinition, name);
             code += this._addProperties(null, iDefinition, name);
             code += this._addConfigurator(null, iDefinition, name);
         }
 
         if ('' !== code) {
-            code += "\n";
+            code += '\n';
         }
 
         return code;
@@ -464,7 +464,7 @@ ${this._addReturn(id, definition)}\
 
     _addProperties(id, definition, variableName = 'instance') {
         let code = '';
-        for (let [ name, value ] of __jymfony.getEntries(definition.getProperties())) {
+        for (const [ name, value ] of __jymfony.getEntries(definition.getProperties())) {
             code += __jymfony.sprintf('        %s.%s = %s;\n', variableName, name, this._dumpValue(value));
         }
 
@@ -474,9 +474,9 @@ ${this._addReturn(id, definition)}\
     _addMethodCalls(id, definition, variableName = 'instance') {
         let code = '';
 
-        for (let call of definition.getMethodCalls()) {
-            let args = [];
-            for (let value of call[1]) {
+        for (const call of definition.getMethodCalls()) {
+            const args = [];
+            for (const value of call[1]) {
                 args.push(this._dumpValue(value));
             }
 
@@ -487,17 +487,17 @@ ${this._addReturn(id, definition)}\
     }
 
     _addConfigurator(id, definition, variableName = 'instance') {
-        let callable = definition.getConfigurator();
+        const callable = definition.getConfigurator();
         if (! callable) {
             return '';
         }
 
         if (isArray(callable)) {
             if (callable[0] instanceof Reference || (callable[0] instanceof Definition && this._definitionVariables.has(definition))) {
-                return __jymfony.sprintf("        %s.%s(%s);\n", this._dumpValue(callable[0]), callable[1], variableName);
+                return __jymfony.sprintf('        %s.%s(%s);\n', this._dumpValue(callable[0]), callable[1], variableName);
             }
 
-            let class_ = this._dumpValue(callable[0]);
+            const class_ = this._dumpValue(callable[0]);
             throw new RuntimeException(class_);
         }
 
@@ -514,15 +514,15 @@ ${this._addReturn(id, definition)}\
 
     _dumpValue(value, interpolate = true) {
         if (value instanceof ArgumentInterface) {
-            let scope = [ this._definitionVariables, this._referenceVariables, this._variableCount ];
+            const scope = [ this._definitionVariables, this._referenceVariables, this._variableCount ];
             this._definitionVariables = this._referenceVariables = undefined;
 
             try {
                 if (value instanceof ServiceClosureArgument) {
                     value = value.values[0];
-                    let code = this._dumpValue(value, interpolate);
+                    const code = this._dumpValue(value, interpolate);
 
-                    return __jymfony.sprintf("() => {\n            return %s;\n        }", code);
+                    return __jymfony.sprintf('() => {\n            return %s;\n        }', code);
                 }
             } finally {
                 [ this._definitionVariables, this._referenceVariables, this._variableCount ] = scope;
@@ -540,12 +540,12 @@ ${this._addReturn(id, definition)}\
                 throw new RuntimeException('Cannot dump definitions which have configurator');
             }
 
-            let args = [];
-            for (let argument of value.getArguments()) {
+            const args = [];
+            for (const argument of value.getArguments()) {
                 args.push(this._dumpValue(argument));
             }
 
-            let factory = value.getFactory();
+            const factory = value.getFactory();
             if (factory) {
                 if (isString(factory)) {
                     return __jymfony.sprintf('%s(%s)', this._dumpLiteralClass(this._dumpValue(factory)), args.join(', '));
@@ -568,7 +568,7 @@ ${this._addReturn(id, definition)}\
                 throw new RuntimeException('Cannot dump definition because of invalid factory');
             }
 
-            let class_ = value.getClass();
+            const class_ = value.getClass();
             if (! class_) {
                 throw new RuntimeException('Cannot dump definition which have no class nor factory');
             }
@@ -577,7 +577,7 @@ ${this._addReturn(id, definition)}\
         } else if (value instanceof Variable) {
             return value.toString();
         } else if (value instanceof Reference) {
-            let id = value.toString();
+            const id = value.toString();
             if (this._referenceVariables && this._referenceVariables[id]) {
                 return this._dumpValue(this._referenceVariables[id], interpolate);
             }
@@ -591,14 +591,14 @@ ${this._addReturn(id, definition)}\
                 return this._dumpParameter(match[1].toLowerCase());
             }
 
-            let replaceParameters = (match, p1, p2) => {
-                return "'+" + this._dumpParameter(p2.toLowerCase()) + "+'";
+            const replaceParameters = (match, p1, p2) => {
+                return '\'+' + this._dumpParameter(p2.toLowerCase()) + '+\'';
             };
 
             return this._export(value).replace(/(%)?(%)([^%]+)\1/g, replaceParameters).replace(/%%/g, '%');
         } else if (isArray(value) || isObjectLiteral(value)) {
-            let code = [];
-            for (let [ k, v ] of __jymfony.getEntries(value)) {
+            const code = [];
+            for (const [ k, v ] of __jymfony.getEntries(value)) {
                 code.push((isArray(value) ? '' : this._dumpValue(k, interpolate) + ': ') + this._dumpValue(v));
             }
 
@@ -614,7 +614,7 @@ ${this._addReturn(id, definition)}\
 
     _getInlinedDefinitions(definition) {
         if (! this._inlinedDefinitions.has(definition)) {
-            let definitions = [
+            const definitions = [
                 ...this._getDefinitionsFromArguments(definition.getArguments()),
                 ...this._getDefinitionsFromArguments(definition.getMethodCalls()),
                 ...this._getDefinitionsFromArguments(definition.getProperties()),
@@ -629,7 +629,7 @@ ${this._addReturn(id, definition)}\
     }
 
     * _getDefinitionsFromArguments(args) {
-        for (let argument of Object.values(args)) {
+        for (const argument of Object.values(args)) {
             if (argument instanceof Definition) {
                 yield * this._getInlinedDefinitions(argument);
                 yield argument;
@@ -650,13 +650,13 @@ ${this._addReturn(id, definition)}\
      */
     _dumpParameter(name) {
         if ('env()' !== name && 'env(' === name.substr(0, 4) && ')' === name.substr(-1, 1)) {
-            let matches = /env\((.+)\)/.exec(name);
-            let envVarName = matches[1];
+            const matches = /env\((.+)\)/.exec(name);
+            const envVarName = matches[1];
 
             this._container.addResource(new EnvVariableResource(envVarName));
         }
 
-        let parameter = this._container.getParameter(name);
+        const parameter = this._container.getParameter(name);
         if (parameter instanceof Reference) {
             throw new InvalidArgumentException(__jymfony.sprintf('You cannot dump a container with parameters that contain references to other services (reference to service "%s" found in "%s").', parameter.toString(), name));
         } else if (parameter instanceof Definition) {
@@ -674,7 +674,7 @@ ${this._addReturn(id, definition)}\
         }
 
         if (this._container.hasDefinition(id)) {
-            let definition = this._container.getDefinition(id);
+            const definition = this._container.getDefinition(id);
             if (definition.isPublic()) {
                 return '(this._services[' + this._dumpValue(id) + '] || this.' + this._generateMethodName(id) + '())';
             }
@@ -702,9 +702,9 @@ ${this._addReturn(id, definition)}\
     }
 
     _getServiceCallsFromArguments(args, calls, behavior) {
-        for (let argument of Object.values(args)) {
+        for (const argument of Object.values(args)) {
             if (argument instanceof Reference) {
-                let id = argument.toString();
+                const id = argument.toString();
 
                 if (! calls[id]) {
                     calls[id] = 0;
@@ -724,7 +724,7 @@ ${this._addReturn(id, definition)}\
     }
 
     _isSimpleInstance(id, definition) {
-        for (let sDefinition of [ definition, ...this._getInlinedDefinitions(definition) ]) {
+        for (const sDefinition of [ definition, ...this._getInlinedDefinitions(definition) ]) {
             if (definition !== sDefinition && ! this._hasReference(id, sDefinition.getMethodCalls())) {
                 continue;
             }
@@ -739,10 +739,10 @@ ${this._addReturn(id, definition)}\
 
     _addNewInstance(definition, ret, instantiation, id) {
         let class_ = this._dumpValue(definition.getClass());
-        let args = Array.from(definition.getArguments().map(T => this._dumpValue(T)));
+        const args = Array.from(definition.getArguments().map(T => this._dumpValue(T)));
 
         if (definition.getFactory()) {
-            let callable = definition.getFactory();
+            const callable = definition.getFactory();
             if (isArray(callable)) {
                 if (callable[0] instanceof Reference || (callable[0] instanceof Definition && this._definitionVariables.has(callable[0]))) {
                     return __jymfony.sprintf(`        ${ret}${instantiation}%s.%s(%s);\n`, this._dumpValue(callable[0]), callable[1], args.join(', '));
@@ -786,16 +786,16 @@ ${this._addReturn(id, definition)}\
     }
 
     _hasReference(id, args, deep = false, visited = new Set()) {
-        for (let argument of Object.values(args)) {
+        for (const argument of Object.values(args)) {
             if (argument instanceof Reference) {
-                let argumentId = argument.toString();
+                const argumentId = argument.toString();
                 if (id === argumentId) {
                     return true;
                 }
 
                 if (deep && ! visited.has(argumentId) && 'service_container' !== argumentId) {
                     visited.add(argumentId);
-                    let service = this._container.getDefinition(argumentId);
+                    const service = this._container.getDefinition(argumentId);
 
                     // Todo
                     // If (service.isLazy() && ! (this._getProxyDumper instanceof NullDumper))
@@ -816,13 +816,13 @@ ${this._addReturn(id, definition)}\
     }
 
     _wrapServiceConditionals(value, code) {
-        let conditionals = ContainerBuilder.getServiceConditionals(value);
+        const conditionals = ContainerBuilder.getServiceConditionals(value);
         if (! conditionals.length) {
             return code;
         }
 
-        let conditions = [];
-        for (let service of conditionals) {
+        const conditions = [];
+        for (const service of conditionals) {
             conditions.push(__jymfony.sprintf('this.has(%s)', this._export(service.toString())));
         }
 

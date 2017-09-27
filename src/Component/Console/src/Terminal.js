@@ -1,5 +1,5 @@
 const os = require('os');
-const child_process = require("child_process");
+const child_process = require('child_process');
 
 /**
  * @memberOf Jymfony.Component.Console
@@ -24,7 +24,7 @@ class Terminal {
             return false;
         }
 
-        let ctype = process.env.LC_ALL || process.env.LC_CTYPE || process.env.LANG;
+        const ctype = process.env.LC_ALL || process.env.LC_CTYPE || process.env.LANG;
         return /UTF-?(8|16)$/i.test(ctype);
     }
 
@@ -42,7 +42,7 @@ class Terminal {
     }
 
     static resetStty() {
-        let obj = child_process.spawnSync('stty', [], {
+        const obj = child_process.spawnSync('stty', [], {
             shell: true,
             stdio: [
                 0,

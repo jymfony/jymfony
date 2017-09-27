@@ -40,7 +40,7 @@ class AbstractRecursivePass extends implementationOf(CompilerPassInterface) {
      */
     _processValue(value, isRoot = false) {
         if (isArray(value) || isObjectLiteral(value)) {
-            for (let [ k, v ] of __jymfony.getEntries(value)) {
+            for (const [ k, v ] of __jymfony.getEntries(value)) {
                 if (isRoot) {
                     this._currentId = k;
                 }
@@ -57,7 +57,7 @@ class AbstractRecursivePass extends implementationOf(CompilerPassInterface) {
             value.setProperties(this._processValue(value.getProperties()));
             value.setMethodCalls(this._processValue(value.getMethodCalls()));
 
-            let changes = value.getChanges();
+            const changes = value.getChanges();
             if (changes['factory']) {
                 value.setFactory(this._processValue(value.getFactory()));
             }

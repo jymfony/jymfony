@@ -10,15 +10,15 @@ module.exports = class MergeExtensionConfigurationPass extends implementationOf(
      * @inheritDoc
      */
     process(container) {
-        let parameters = container.parameterBag.all();
+        const parameters = container.parameterBag.all();
 
-        for (let extension of Object.values(container.getExtensions())) {
+        for (const extension of Object.values(container.getExtensions())) {
             if (extension instanceof PrependExtensionInterface) {
                 extension.prepend(container);
             }
         }
 
-        for (let [ name, extension ] of __jymfony.getEntries(container.getExtensions())) {
+        for (const [ name, extension ] of __jymfony.getEntries(container.getExtensions())) {
             let configs = container.getExtensionConfig(name);
             if (! configs) {
                 continue;
@@ -26,7 +26,7 @@ module.exports = class MergeExtensionConfigurationPass extends implementationOf(
 
             configs = container.parameterBag.resolveValue(configs);
 
-            let tmpContainer = new ContainerBuilder(container.parameterBag);
+            const tmpContainer = new ContainerBuilder(container.parameterBag);
             tmpContainer.setResourceTracking(container.isTrackingResources());
             tmpContainer.addObjectResource(extension);
 

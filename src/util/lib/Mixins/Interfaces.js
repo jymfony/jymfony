@@ -1,7 +1,7 @@
 const Mixins = require('./Mixins');
 const CLASS_TYPE = 'Interface';
 
-let checkedClassesCache = new Set;
+const checkedClassesCache = new Set();
 
 class Interfaces {
     static isInterface(mixin) {
@@ -9,12 +9,12 @@ class Interfaces {
     }
 
     static create(definition) {
-        let checks = obj => {
+        const checks = obj => {
             if (checkedClassesCache.has(obj.constructor)) {
                 return;
             }
 
-            for (let descriptor of Mixins.getFunctions(definition)) {
+            for (const descriptor of Mixins.getFunctions(definition)) {
                 if (descriptor.fn) {
                     if ('function' === typeof obj[descriptor.fn]) {
                         continue;
@@ -26,8 +26,8 @@ class Interfaces {
 
                     throw new SyntaxError('Method "' + descriptor.fn + '" must be implemented.');
                 } else if (descriptor.property) {
-                    let target = descriptor['static'] ? obj.constructor : obj;
-                    let targetDescriptor = Mixins.getPropertyDescriptor(target, descriptor.property);
+                    const target = descriptor['static'] ? obj.constructor : obj;
+                    const targetDescriptor = Mixins.getPropertyDescriptor(target, descriptor.property);
 
                     if (undefined === targetDescriptor) {
                         throw new SyntaxError(
@@ -47,7 +47,7 @@ class Interfaces {
             checkedClassesCache.add(obj.constructor);
         };
 
-        let mixin = Mixins.createMixin(definition, undefined, checks);
+        const mixin = Mixins.createMixin(definition, undefined, checks);
 
         Object.setPrototypeOf(mixin, {
             definition: definition,
@@ -64,7 +64,7 @@ class Interfaces {
                 return false;
             }
 
-            let mixins = o.constructor[Mixins.appliedInterfacesSymbol];
+            const mixins = o.constructor[Mixins.appliedInterfacesSymbol];
             if (! mixins) {
                 return false;
             }

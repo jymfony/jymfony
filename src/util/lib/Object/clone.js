@@ -11,7 +11,7 @@ global.__jymfony.clone = function clone(object) {
     surrogateCtor.prototype = object.constructor.prototype;
 
     const target = new surrogateCtor();
-    for (let k of Object.keys(object)) {
+    for (const k of Object.keys(object)) {
         target[k] = object[k];
     }
 
@@ -38,7 +38,7 @@ global.__jymfony.deepClone = function deepClone(object) {
         if (isObjectLiteral(object)) {
             // Object literal ({ ... })
             result = {};
-            for (let i of Object.keys(object)) {
+            for (const i of Object.keys(object)) {
                 result[i] = deepClone(object[i]);
             }
         } else if (object instanceof Date) {

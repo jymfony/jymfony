@@ -1,0 +1,33 @@
+{
+  "name": "@jymfony/testing",
+  "version": "0.1.0-dev",
+  "description": "Jymfony Testing",
+  "scripts": {
+    "test": "node ./tests.js"
+  },
+  "keywords": [
+    "testing",
+    "jymfony"
+  ],
+  "author": "Alessandro Chitolina <alekitto@gmail.com>",
+  "license": "MIT",
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "dependencies": {
+    "@jymfony/autoloader": "https://github.com/jymfony/autoloader.git",
+    "@jymfony/exceptions": "https://github.com/jymfony/exceptions.git",
+    "@jymfony/util": "https://github.com/jymfony/util.git"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.0"
+  },
+  "config": {
+    "jymfony-autoload": {
+      "namespaces": {
+        "Jymfony.Component.Testing": "src/"
+      }
+    }
+  }
+}

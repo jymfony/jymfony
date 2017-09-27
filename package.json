@@ -5,8 +5,9 @@
   "description": "Jymfony",
   "main": "index.js",
   "scripts": {
-    "test": "node ./tests.js \"src/*/test/**/*.js\" \"src/{Component,Bundle}/*/test/**/*.js\"",
-    "coverage": "istanbul cover ./tests.js \"src/*/test/**/*.js\" \"src/{Component,Bundle}/*/test/**/*.js\""
+    "test": "node ./tests.js \"src/*/test/**/*.js\" \"src/{Component,Bundle}/*/test/**/*.js\" && eslint src/",
+    "coverage": "nyc npm test",
+    "coverage-html": "nyc --reporter=lcov npm test"
   },
   "keywords": [
     "jymfony",
@@ -19,7 +20,7 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
-    "istanbul": "^0.4",
+    "nyc": "^11.2.1",
     "mocha": "^3.4.2"
   },
   "flat": true,
@@ -37,7 +38,9 @@
         "Jymfony.Component.Kernel": "src/Component/Kernel/src",
         "Jymfony.Component.Lexer": "src/Component/Lexer/src",
         "Jymfony.Component.Logger": "src/Component/Logger/src",
-        "Jymfony.Component.PropertyAccess": "src/Component/PropertyAccess/src"
+        "Jymfony.Component.OptionsResolver": "src/Component/OptionsResolver/src",
+        "Jymfony.Component.PropertyAccess": "src/Component/PropertyAccess/src",
+        "Jymfony.Component.Testing": "src/Component/Testing/src"
       },
       "includes": [
         "src/util/index.js",
@@ -45,5 +48,23 @@
         "src/DataStructure/src/all.js"
       ]
     }
+  },
+  "nyc": {
+    "per-file": true,
+    "include": [
+      "src/**/*.js"
+    ],
+    "exclude": [
+      "**/tests.js",
+      "**/namespace-stub.js",
+      "**/fixtures/**",
+      "**/test/**"
+    ],
+    "reporter": [
+      "text-summary",
+      "clover"
+    ],
+    "all": true,
+    "report-dir": "./coverage"
   }
 }

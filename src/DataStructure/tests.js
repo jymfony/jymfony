@@ -1,5 +1,2 @@
-require('@jymfony/autoloader');
-
-__jymfony.autoload.debug = true;
-
+require('./index');
 require('mocha/bin/_mocha');

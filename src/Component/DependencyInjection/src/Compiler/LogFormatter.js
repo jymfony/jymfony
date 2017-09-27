@@ -20,7 +20,7 @@ module.exports = class LogFormatter {
     }
 
     format(pass, message) {
-        let reflClass = new ReflectionClass(pass);
+        const reflClass = new ReflectionClass(pass);
         return reflClass.name + ': ' + message;
     }
 };

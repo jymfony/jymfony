@@ -3,14 +3,22 @@ const ContainerAwareInterface = Jymfony.Component.DependencyInjection.ContainerA
 const ContainerAwareTrait = Jymfony.Component.DependencyInjection.ContainerAwareTrait;
 const ExtensionInterface = Jymfony.Component.DependencyInjection.Extension.ExtensionInterface;
 
+const path = require('path');
+
 /**
  * @memberOf Jymfony.Component.Kernel
  */
-module.exports = class Bundle extends implementationOf(ContainerAwareInterface, ContainerAwareTrait) {
+class Bundle extends implementationOf(ContainerAwareInterface, ContainerAwareTrait) {
     /**
      * Boots the bundle
      */
     boot() {
+    }
+
+    /**
+     * Shutdowns the Bundle.
+     */
+    shutdown() {
     }
 
     /**
@@ -19,6 +27,27 @@ module.exports = class Bundle extends implementationOf(ContainerAwareInterface, 
      * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
      */
     build(container) {
+    }
+
+    /**
+     * Gets the Bundle directory path.
+     *
+     * The path should always be returned as a Unix path (with /).
+     *
+     * @returns {string} The Bundle absolute path
+     */
+    get path() {
+        if (undefined === this._path) {
+            const reflClass = new ReflectionClass(this);
+
+            /**
+             * @type {string}
+             * @private
+             */
+            this._path = path.dirname(reflClass.filename);
+        }
+
+        return this._path;
     }
 
     getName() {
@@ -43,16 +72,16 @@ module.exports = class Bundle extends implementationOf(ContainerAwareInterface, 
 
     getContainerExtension() {
         if (undefined === this._extension) {
-            let extension = this._createContainerExtension();
+            const extension = this._createContainerExtension();
             if (extension) {
                 if (! (extension instanceof ExtensionInterface)) {
-                    let r = new ReflectionClass(extension);
+                    const r = new ReflectionClass(extension);
                     throw new LogicException(`Extension ${r.name} must implement Jymfony.Component.DependencyInjection.Extension.ExtensionInterface`);
                 }
 
                 // Check naming convention
-                let basename = this.getName().replace(/Bundle$/, '');
-                let expectedAlias = Container.underscore(basename);
+                const basename = this.getName().replace(/Bundle$/, '');
+                const expectedAlias = Container.underscore(basename);
 
                 if (expectedAlias !== extension.alias) {
                     throw new LogicException(
@@ -73,24 +102,26 @@ module.exports = class Bundle extends implementationOf(ContainerAwareInterface, 
     }
 
     _createContainerExtension() {
-        let className = this._getContainerExtensionClass();
+        const className = this._getContainerExtensionClass();
         if (ReflectionClass.exists(className)) {
-            let r = new ReflectionClass(className);
+            const r = new ReflectionClass(className);
             return r.newInstance();
         }
     }
 
     _getContainerExtensionClass() {
-        let basename = this.getName().replace(/Bundle$/, '');
+        const basename = this.getName().replace(/Bundle$/, '');
         return this.getNamespace() + '.DependencyInjection.' + basename + 'Extension';
     }
 
     _parseClassName() {
-        let refl = new ReflectionClass(this);
+        const refl = new ReflectionClass(this);
 
         this._namespace = refl.namespaceName;
 
-        let position = refl.name.lastIndexOf('.');
+        const position = refl.name.lastIndexOf('.');
         this._name = refl.name.substring(position + 1);
     }
-};
+}
+
+module.exports = Bundle;

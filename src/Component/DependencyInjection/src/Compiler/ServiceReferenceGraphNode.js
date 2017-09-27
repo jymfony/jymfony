@@ -6,7 +6,7 @@ const Definition = Jymfony.Component.DependencyInjection.Definition;
  * @type {Jymfony.Component.DependencyInjection.Compiler.ServiceReferenceGraphNode}
  */
 module.exports = class ServiceReferenceGraphNode {
-    constructor(id, value) {
+    __construct(id, value) {
         this._id = id;
         this._value = value;
 

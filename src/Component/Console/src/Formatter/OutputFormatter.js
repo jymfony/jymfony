@@ -15,7 +15,7 @@ class OutputFormatter extends implementationOf(OutputFormatterInterface) {
 
     static escapeTrailingBackslash(text) {
         if ('\\' === text.substr(text.length - 1)) {
-            let len = text.length;
+            const len = text.length;
             text = __jymfony.rtrim(text, '\\');
             text += '<<'.repeat(len - text.length);
         }
@@ -32,7 +32,7 @@ class OutputFormatter extends implementationOf(OutputFormatterInterface) {
         this.setStyle('comment', new OutputFormatterStyle('yellow'));
         this.setStyle('question', new OutputFormatterStyle('black', 'cyan'));
 
-        for (let [ name, style ] of __jymfony.getEntries(styles)) {
+        for (const [ name, style ] of __jymfony.getEntries(styles)) {
             this.setStyle(name, style);
         }
 
@@ -84,11 +84,11 @@ class OutputFormatter extends implementationOf(OutputFormatterInterface) {
     format(message) {
         message = message.toString();
         let offset = 0, output = '', match;
-        let regex = /<(([a-z][a-z0-9_=;-]+)|\/([a-z][a-z0-9_=;-]+)?)>/ig;
+        const regex = /<(([a-z][a-z0-9_=;-]+)|\/([a-z][a-z0-9_=;-]+)?)>/ig;
 
         while (match = regex.exec(message)) {
-            let pos = match.index;
-            let text = match[0];
+            const pos = match.index;
+            const text = match[0];
 
             if (pos && '\\' == message[pos - 1]) {
                 continue;
@@ -97,8 +97,8 @@ class OutputFormatter extends implementationOf(OutputFormatterInterface) {
             output += this._applyCurrentStyle(message.substr(offset, pos - offset));
             offset = pos + text.length;
 
-            let open = '/' != text[1];
-            let tag = open ? match[1] : match[3];
+            const open = '/' != text[1];
+            const tag = open ? match[1] : match[3];
 
             let style;
             if (! open && ! tag) {
@@ -152,8 +152,9 @@ class OutputFormatter extends implementationOf(OutputFormatterInterface) {
             return this._styles[string];
         }
 
-        let regexp = /([^=]+)=([^;]+)(;|$)/g, match;
-        let style = new OutputFormatterStyle();
+        const regexp = /([^=]+)=([^;]+)(;|$)/g;
+        let match;
+        const style = new OutputFormatterStyle();
 
         string = string.toLowerCase();
         if (! regexp.test(string)) {

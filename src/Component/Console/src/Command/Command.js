@@ -152,7 +152,7 @@ class Command {
 
         input.validate();
 
-        let statusCode = yield __jymfony.Async.run(getCallableFromArray([ this, 'execute' ]), input, output);
+        const statusCode = yield __jymfony.Async.run(getCallableFromArray([ this, 'execute' ]), input, output);
 
         return ! Number.isNaN(statusCode) ? ~~statusCode : 0;
     }
@@ -172,7 +172,7 @@ class Command {
         this._definition.addOptions(this._application.definition.getOptions());
 
         if (mergeArgs) {
-            let currentArguments = this._definition.getArguments();
+            const currentArguments = this._definition.getArguments();
             this._definition.setArguments(this._application.definition.getArguments());
             this._definition.addArguments(currentArguments);
         }
@@ -370,7 +370,7 @@ class Command {
      * @returns {string} The processed help for the command
      */
     get processedHelp() {
-        let name = this._name;
+        const name = this._name;
 
         return (this.help || this.description)
             .replace(/%command\.name%/g, name)
@@ -390,7 +390,7 @@ class Command {
             throw new InvalidArgumentException('aliases must be an array or a literal object');
         }
 
-        for (let alias of Object.values(aliases)) {
+        for (const alias of Object.values(aliases)) {
             this._validateName(alias);
         }
 
@@ -414,7 +414,7 @@ class Command {
      * @returns {string} The synopsis
      */
     getSynopsis(short = false) {
-        let key = short ? 'short' : 'long';
+        const key = short ? 'short' : 'long';
 
         if (undefined === this._synopsis[key]) {
             this._synopsis[key] = __jymfony.trim(__jymfony.sprintf('%s %s', this._name, this._definition.getSynopsis(short)));

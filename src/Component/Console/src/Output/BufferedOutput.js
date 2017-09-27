@@ -21,7 +21,7 @@ class BufferedOutput extends Output {
      * @returns {string}
      */
     fetch() {
-        let content = this._buffer;
+        const content = this._buffer;
         this._buffer = '';
 
         return content;

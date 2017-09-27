@@ -38,9 +38,9 @@ class RawListRenderer extends AbstractRenderer {
                         return;
                     }
 
-                    let selected = value.split(',').map(T => __jymfony.trim(T)).filter(T => !! T);
-                    let choices = [];
-                    for (let c of selected) {
+                    const selected = value.split(',').map(T => __jymfony.trim(T)).filter(T => !! T);
+                    const choices = [];
+                    for (const c of selected) {
                         if (! (c in this._question._choices)) {
                             this._output.writeln(formatter.formatBlock('"' + c + '" is not a valid choice.', 'error', true));
                             this._print();
@@ -64,9 +64,9 @@ class RawListRenderer extends AbstractRenderer {
     }
 
     _print() {
-        let spaces = this._question._choices.length.toString().length;
+        const spaces = this._question._choices.length.toString().length;
         for (let key = 0; key < this._question._choices.length; key++) {
-            let choice = this._question._choices[key];
+            const choice = this._question._choices[key];
             this._output.writeln(__jymfony.sprintf(' %'+spaces+'d) ', key) + choice.label);
         }
 

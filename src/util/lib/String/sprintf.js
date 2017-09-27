@@ -21,16 +21,16 @@ global.__jymfony.sprintf = function sprintf (format, ...a) {
     //    Input by: Paulo Freitas
     //    Input by: Brett Zamir (http://brett-zamir.me)
 
-    let regex = /%%|%(\d+\$)?([-+'#0 ]*)(\*\d+\$|\*|\d+)?(?:\.(\*\d+\$|\*|\d+))?([scboxXuideEfFgG])/g;
+    const regex = /%%|%(\d+\$)?([-+'#0 ]*)(\*\d+\$|\*|\d+)?(?:\.(\*\d+\$|\*|\d+))?([scboxXuideEfFgG])/g;
     let i = 0;
 
-    let _pad = (str, len, chr = ' ', leftJustify = false) => {
-        let padding = (str.length >= len) ? '' : new Array(1 + len - str.length >>> 0).join(chr);
+    const _pad = (str, len, chr = ' ', leftJustify = false) => {
+        const padding = (str.length >= len) ? '' : new Array(1 + len - str.length >>> 0).join(chr);
         return leftJustify ? str + padding : padding + str;
     };
 
-    let justify = (value, prefix, leftJustify, minWidth, zeroPad, customPadChar) => {
-        let diff = minWidth - value.length;
+    const justify = (value, prefix, leftJustify, minWidth, zeroPad, customPadChar) => {
+        const diff = minWidth - value.length;
         if (0 < diff) {
             if (leftJustify || !zeroPad) {
                 value = _pad(value, minWidth, customPadChar, leftJustify);
@@ -46,9 +46,9 @@ global.__jymfony.sprintf = function sprintf (format, ...a) {
         return value;
     };
 
-    let _formatBaseX = (value, base, prefix, leftJustify, minWidth, precision, zeroPad) => {
+    const _formatBaseX = (value, base, prefix, leftJustify, minWidth, precision, zeroPad) => {
         // Note: casts negative numbers to positive ones
-        let number = value >>> 0;
+        const number = value >>> 0;
         prefix = (prefix && number && {
             '2': '0b',
             '8': '0',
@@ -60,7 +60,7 @@ global.__jymfony.sprintf = function sprintf (format, ...a) {
     };
 
     // _formatString()
-    let _formatString = (value, leftJustify, minWidth, precision, zeroPad, customPadChar) => {
+    const _formatString = (value, leftJustify, minWidth, precision, zeroPad, customPadChar) => {
         if (null !== precision && precision !== undefined) {
             value = value.slice(0, precision);
         }
@@ -69,7 +69,7 @@ global.__jymfony.sprintf = function sprintf (format, ...a) {
     };
 
     // DoFormat()
-    let doFormat = (substring, valueIndex, flags, minWidth, precision, type) => {
+    const doFormat = (substring, valueIndex, flags, minWidth, precision, type) => {
         let number, prefix, method, textTransform, value;
 
         if ('%%' === substring) {
@@ -82,7 +82,7 @@ global.__jymfony.sprintf = function sprintf (format, ...a) {
         let zeroPad = false;
         let prefixBaseX = false;
         let customPadChar = ' ';
-        let flagsl = flags.length;
+        const flagsl = flags.length;
         let j;
         for (j = 0; j < flagsl; j++) {
             switch (flags.charAt(j)) {
@@ -95,7 +95,7 @@ global.__jymfony.sprintf = function sprintf (format, ...a) {
                 case '-':
                     leftJustify = true;
                     break;
-                case "'":
+                case '\'':
                     customPadChar = flags.charAt(j + 1);
                     break;
                 case '0':

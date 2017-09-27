@@ -3,8 +3,7 @@
   "version": "0.1.0-alpha.6",
   "description": "Jymfony Logger",
   "scripts": {
-    "test": "node ./tests.js",
-    "coverage": "istanbul cover --root ./src ./tests.js && istanbul report clover"
+    "test": "node ./tests.js"
   },
   "keywords": [
     "logger",
@@ -22,13 +21,12 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
-    "istanbul": "^0.4",
     "mocha": "^3.0"
   },
   "config": {
     "jymfony-autoload": {
       "namespaces": {
-        "Jymfony.Logger": "src/"
+        "Jymfony.Component.Logger": "src/"
       }
     }
   }

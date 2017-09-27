@@ -3,7 +3,7 @@ const ServiceCircularReferenceException = Jymfony.Component.DependencyInjection.
 const FrozenParameterBag = Jymfony.Component.DependencyInjection.ParameterBag.FrozenParameterBag;
 const ParameterBag = Jymfony.Component.DependencyInjection.ParameterBag.ParameterBag;
 
-let underscoreMap = {'_': '', '.': '_', '\\': '_'};
+const underscoreMap = {'_': '', '.': '_', '\\': '_'};
 
 /**
  * @memberOf Jymfony.Component.DependencyInjection
@@ -11,12 +11,10 @@ let underscoreMap = {'_': '', '.': '_', '\\': '_'};
 class Container {
     /**
      * Constructor.
-     * DO NOT USE __construct here, as this is the base
-     * class for a non-namespaced (dumped) container.
      *
      * @param parameterBag
      */
-    constructor(parameterBag) {
+    __construct(parameterBag) {
         this._parameterBag = parameterBag || new ParameterBag();
 
         this._services = {};
@@ -127,7 +125,7 @@ class Container {
                 return true;
             }
 
-            let lcId = id.toLowerCase();
+            const lcId = id.toLowerCase();
             if (--i && id !== lcId) {
                 id = lcId;
                 continue;
@@ -231,7 +229,7 @@ class Container {
      * @returns {string[]}
      */
     getServiceIds() {
-        let set = new Set([ ...Object.keys(this._methodMap), ...Object.keys(this._services), 'service_container' ]);
+        const set = new Set([ ...Object.keys(this._methodMap), ...Object.keys(this._services), 'service_container' ]);
         return Array.from(set);
     }
 

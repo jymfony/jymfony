@@ -10,19 +10,25 @@ global.getTrait = function getTrait(definition) {
     return Traits.create(definition);
 };
 
+global.mixins = {
+    isInterface: Interfaces.isInterface,
+    isTrait: Traits.isTrait,
+    getInterfaces: (Class) => Class[Mixins.appliedInterfacesSymbol] || [],
+};
+
 global.mix = function mix(superclass, ...mixins) {
-    superclass = superclass || class {};
+    superclass = superclass || __jymfony.JObject || class {};
     superclass = mixins.reduce((a, b) => b(a), superclass);
 
-    let interfaces = Array.from((function * () {
-        for (let i of mixins) {
+    const interfaces = Array.from((function * () {
+        for (const i of mixins) {
             if (! Interfaces.isInterface(i)) {
                 continue;
             }
 
             let definition = i.definition;
             while (definition) {
-                let outer = Mixins.getMixin(definition);
+                const outer = Mixins.getMixin(definition);
                 if (outer) {
                     yield outer;
                 }
@@ -32,8 +38,8 @@ global.mix = function mix(superclass, ...mixins) {
         }
     })());
 
-    let mixed = (s => {
-        let mixin = class extends s {};
+    const mixed = (s => {
+        const mixin = class extends s {};
         mixin.isMixin = true;
 
         return mixin;

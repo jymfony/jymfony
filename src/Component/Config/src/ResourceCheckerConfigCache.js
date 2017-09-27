@@ -11,8 +11,8 @@ class ResourceCheckerConfigCache extends implementationOf(ConfigCacheInterface) 
      * @param {string} file
      * @param {Jymfony.Component.Config.ResourceCheckerInterface[]} resourceCheckers
      */
-    constructor(file, resourceCheckers = []) {
-        super();
+    __construct(file, resourceCheckers = []) {
+        super.__construct();
 
         this._file = file;
         this._checkers = resourceCheckers;
@@ -37,17 +37,17 @@ class ResourceCheckerConfigCache extends implementationOf(ConfigCacheInterface) 
             return true;
         }
 
-        let metadata = this._getMetaFile();
+        const metadata = this._getMetaFile();
         if (! fs.existsSync(metadata)) {
             return true;
         }
 
-        let stat = fs.statSync(metadata);
-        let time = stat.mtime;
-        let meta = __jymfony.unserialize(fs.readFileSync(metadata));
+        const stat = fs.statSync(metadata);
+        const time = stat.mtime;
+        const meta = __jymfony.unserialize(fs.readFileSync(metadata));
 
-        for (let resource of Object.values(meta)) {
-            for (let checker of this._checkers) {
+        for (const resource of Object.values(meta)) {
+            for (const checker of this._checkers) {
                 if (! checker.supports(resource)) {
                     continue;
                 }
@@ -69,8 +69,8 @@ class ResourceCheckerConfigCache extends implementationOf(ConfigCacheInterface) 
      * {@inheritDoc}
      */
     write(content, metadata = undefined) {
-        let umask = process.umask();
-        let mode = 0o666 & ~umask;
+        const umask = process.umask();
+        const mode = 0o666 & ~umask;
 
         fs.writeFileSync(this._file, content);
         try {

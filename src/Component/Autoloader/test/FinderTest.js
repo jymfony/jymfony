@@ -139,7 +139,6 @@ describe('[Autoloader] Finder', function () {
 
         let fs = {
             readdirSync: (dir) => {
-                // console.log(dir); process.exit();
                 if ('/var/node/node_modules' === dir) {
                     return [
                         '.bin',

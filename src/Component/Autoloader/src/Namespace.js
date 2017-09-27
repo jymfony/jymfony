@@ -1,3 +1,5 @@
+const ClassLoader = require('./ClassLoader');
+
 let ClassNotFoundException = undefined;
 const FunctionPrototype = new Function();
 
@@ -17,22 +19,30 @@ class Namespace {
      */
     constructor(autoloader, fqn, baseDirs = [], req = require) {
         this._autoloader = autoloader;
+
+        /**
+         * @type {require|Function}
+         * @private
+         */
         this._internalRequire = req;
+
         this._fullyQualifiedName = fqn;
         if (undefined === ClassNotFoundException) {
             ClassNotFoundException = this._internalRequire('./Exception/ClassNotFoundException.js');
         }
 
+        this._classLoader = new ClassLoader(autoloader.finder, this._internalRequire('path'), this._internalRequire('vm'));
+
         this._target = {
             __namespace: this,
         };
 
-        this._baseDirs = new Set;
+        this._baseDirs = new Set();
         if ('string' === typeof baseDirs) {
             baseDirs = [ baseDirs ];
         }
 
-        for (let dir of baseDirs) {
+        for (const dir of baseDirs) {
             this.addDirectory(dir);
         }
 
@@ -112,8 +122,8 @@ class Namespace {
      */
     _find(name) {
         let stat;
-        let finder = this._autoloader.finder;
-        for (let dir of this._baseDirs) {
+        const finder = this._autoloader.finder;
+        for (const dir of this._baseDirs) {
             stat = finder.find(dir, name);
             if (stat !== undefined) {
                 break;
@@ -132,15 +142,20 @@ class Namespace {
     }
 
     _require(filename) {
-        let fn = this._internalRequire.resolve(filename);
-        let realTarget = undefined;
+        const fn = this._internalRequire.resolve(filename);
+        let realTarget = undefined, self = undefined;
 
-        let init = () => {
+        const init = () => {
             if (undefined !== realTarget) {
                 return;
             }
 
-            let mod = this._internalRequire(fn);
+            let mod;
+            if (fn !== __filename) {
+                mod = this._classLoader.load(fn, self);
+            } else {
+                mod = this._internalRequire(fn);
+            }
 
             // Class constructor
             if ('function' !== typeof mod) {
@@ -149,14 +164,22 @@ class Namespace {
 
             realTarget = mod;
 
-            let name = mod.definition ? mod.definition.name : mod.name;
-            let meta = {
+            const name = mod.definition ? mod.definition.name : mod.name;
+            const meta = {
                 filename: fn,
                 fqcn: this._fullyQualifiedName + '.' + name,
                 module: this._internalRequire.cache[fn],
                 constructor: mod,
                 namespace: this,
             };
+
+            if (! mod.hasOwnProperty('arguments')) {
+                Object.defineProperty(mod, 'arguments', {value: null, writable: false, enumerable: false, configurable: false});
+            }
+
+            if (! mod.hasOwnProperty('caller')) {
+                Object.defineProperty(mod, 'caller', {value: null, writable: false, enumerable: false, configurable: false});
+            }
 
             Object.defineProperty(mod, Symbol.reflection, {
                 enumerable: false,
@@ -211,13 +234,7 @@ class Namespace {
             },
             construct: (target, argumentsList, newTarget) => {
                 init();
-                let obj = Reflect.construct(realTarget, argumentsList, newTarget);
-
-                if (realTarget.prototype === newTarget.prototype && 'function' === typeof obj.__construct) {
-                    obj.__construct(...argumentsList);
-                }
-
-                return obj;
+                return Reflect.construct(realTarget, argumentsList, newTarget);
             },
             getPrototypeOf: (target) => {
                 init();
@@ -241,7 +258,7 @@ class Namespace {
             },
         };
 
-        return new Proxy(FunctionPrototype, handlers);
+        return self = new Proxy(FunctionPrototype, handlers);
     }
 }
 

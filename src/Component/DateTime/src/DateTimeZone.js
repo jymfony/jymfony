@@ -5,9 +5,9 @@ const Parser = Jymfony.Component.DateTime.Parser.Parser;
 /**
  * @type {[string]}
  */
-let zones = require('../data/zones.json');
-let abbreviations = require('../data/abbrevs.json');
-let instances = new BTree();
+const zones = require('../data/zones.json');
+const abbreviations = require('../data/abbrevs.json');
+const instances = new BTree();
 
 /**
  * The DateTimeZone represents a timezone definition.
@@ -17,7 +17,7 @@ let instances = new BTree();
  * @type DateTimeZone
  */
 class DateTimeZone {
-    constructor() {
+    __construct() {
         throw new Error('Object DateTimeZone cannot be constructed with new. Please use DateTimeZone.get instead');
     }
 
@@ -30,7 +30,7 @@ class DateTimeZone {
     static get(timezone) {
         let o = instances.get(timezone);
         if (undefined === o) {
-            let reflClass = new ReflectionClass('Jymfony.Component.DateTime.DateTimeZone');
+            const reflClass = new ReflectionClass('Jymfony.Component.DateTime.DateTimeZone');
             o = reflClass.newInstanceWithoutConstructor();
 
             o._load(timezone);
@@ -65,7 +65,7 @@ class DateTimeZone {
      * @returns {int|undefined}
      */
     getOffset(datetime) {
-        let found = this._getData(datetime);
+        const found = this._getData(datetime);
         if (undefined === found) {
             return undefined;
         }
@@ -81,7 +81,7 @@ class DateTimeZone {
      * @returns {string}
      */
     getAbbrev(datetime) {
-        let found = this._getData(datetime);
+        const found = this._getData(datetime);
         if (undefined === found) {
             return 'UTC';
         }
@@ -96,7 +96,7 @@ class DateTimeZone {
      * @returns {boolean}
      */
     isDST(datetime) {
-        let found = this._getData(datetime);
+        const found = this._getData(datetime);
         if (undefined === found) {
             return false;
         }
@@ -113,7 +113,7 @@ class DateTimeZone {
      * @internal
      */
     _getOffsetForWallClock(wallTimestamp) {
-        let found = this._transitions.search(wallTimestamp - 1, BTree.COMPARISON_LESSER);
+        const found = this._transitions.search(wallTimestamp - 1, BTree.COMPARISON_LESSER);
         if (undefined === found) {
             return 0;
         }
@@ -151,14 +151,14 @@ class DateTimeZone {
         let correction;
 
         if (-1 !== zones.indexOf(timezone)) {
-            let data = require('../data/timezones/' + timezone);
+            const data = require('../data/timezones/' + timezone);
             this._data.push(-Infinity, {
                 gmt_offset: 0,
                 dst: false,
-                abbrev: "GMT",
+                abbrev: 'GMT',
             });
 
-            for (let [ timestamp, descriptor ] of __jymfony.getEntries(data)) {
+            for (const [ timestamp, descriptor ] of __jymfony.getEntries(data)) {
                 this._data.push(timestamp - 0, {
                     gmt_offset: ~~(descriptor.gmt_offset),
                     dst: !! descriptor.dst,
@@ -166,7 +166,7 @@ class DateTimeZone {
                 });
             }
         } else if (-1 !== abbreviations.indexOf(timezone)) {
-            let descriptor = require(`../data/abbrev/${timezone}.json`);
+            const descriptor = require(`../data/abbrev/${timezone}.json`);
             this._data.push(-Infinity, {
                 gmt_offset: ~~(descriptor.gmt_offset),
                 dst: !! descriptor.dst,
@@ -184,8 +184,8 @@ class DateTimeZone {
 
         this._transitions = new BTree();
         let previous = 0;
-        for (let [ timestamp, descriptor ] of this._data) {
-            let wall_clock = timestamp + previous;
+        for (const [ timestamp, descriptor ] of this._data) {
+            const wall_clock = timestamp + previous;
             previous = ~~descriptor.gmt_offset;
             this._transitions.push(wall_clock, descriptor);
         }

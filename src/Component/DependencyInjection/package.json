@@ -3,8 +3,7 @@
   "version": "0.1.0-alpha.6",
   "description": "Jymfony Dependency Injection",
   "scripts": {
-    "test": "node ./tests.js test/**",
-    "coverage": "istanbul cover ./tests.js test/**"
+    "test": "node ./tests.js test/**"
   },
   "keywords": [
     "di",
@@ -26,7 +25,6 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
-    "istanbul": "^0.4",
     "mocha": "^3.0"
   },
   "config": {

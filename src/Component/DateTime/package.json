@@ -3,8 +3,7 @@
   "version": "0.1.0-alpha.6",
   "description": "Jymfony DateTime Component",
   "scripts": {
-    "test": "node ./tests.js test/**",
-    "coverage": "istanbul cover ./tests.js test/**"
+    "test": "node ./tests.js test/**"
   },
   "keywords": [
     "date",
@@ -20,19 +19,19 @@
   },
   "dependencies": {
     "@jymfony/autoloader": "0.1.0-alpha.6",
+    "@jymfony/datastructure": "0.1.0-alpha.6",
     "@jymfony/exceptions": "0.1.0-alpha.6",
     "@jymfony/lexer": "0.1.0-alpha.6",
     "@jymfony/util": "0.1.0-alpha.6"
   },
   "devDependencies": {
     "chai": "^3.5.0",
-    "istanbul": "^0.4",
     "mocha": "^3.0"
   },
   "config": {
     "jymfony-autoload": {
       "namespaces": {
-        "Jymfony.DateTime": "src/"
+        "Jymfony.Component.DateTime": "src/"
       }
     }
   }

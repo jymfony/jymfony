@@ -45,8 +45,8 @@ global.__jymfony.strip_tags = function strip_tags(input, allowed) {
     // Making sure the allowed arg is a string containing only tags in lowercase (<a><b><c>)
     allowed = (((allowed || '') + '').toLowerCase().match(/<[a-z][a-z0-9]*>/g) || []).join('');
 
-    let tags = /<\/?([a-z][a-z0-9]*)\b[^>]*>/gi;
-    let commentsTags = /<!--[\s\S]*?-->/gi;
+    const tags = /<\/?([a-z][a-z0-9]*)\b[^>]*>/gi;
+    const commentsTags = /<!--[\s\S]*?-->/gi;
 
     return input.replace(commentsTags, '').replace(tags, ($0, $1) => {
         return -1 < allowed.indexOf('<' + $1.toLowerCase() + '>') ? $0 : '';

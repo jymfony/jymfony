@@ -6,24 +6,24 @@ const RepeatablePassInterface = Jymfony.Component.DependencyInjection.Compiler.R
  */
 module.exports = class RemoveUnusedDefinitionsPass extends implementationOf(RepeatablePassInterface) {
     process(container) {
-        let compiler = container.getCompiler();
-        let formatter = compiler.logFormatter;
-        let graph = compiler.getServiceReferenceGraph();
+        const compiler = container.getCompiler();
+        const formatter = compiler.logFormatter;
+        const graph = compiler.getServiceReferenceGraph();
 
         let hasChanged = false;
-        for (let [ id, definition ] of __jymfony.getEntries(container.getDefinitions())) {
+        for (const [ id, definition ] of __jymfony.getEntries(container.getDefinitions())) {
             if (definition.isPublic()) {
                 continue;
             }
 
             let isReferenced, referencingAliases;
             if (graph.hasNode(id)) {
-                let edges = graph.getNode(id).getInEdges();
+                const edges = graph.getNode(id).getInEdges();
                 referencingAliases = [];
-                let sourceIds = new Set;
+                const sourceIds = new Set();
 
-                for (let edge of edges) {
-                    let node = edge.getSourceNode();
+                for (const edge of edges) {
+                    const node = edge.getSourceNode();
                     sourceIds.add(node.getId());
 
                     if (node.isAlias()) {

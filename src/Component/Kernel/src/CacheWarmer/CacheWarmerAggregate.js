@@ -35,7 +35,7 @@ class CacheWarmerAggregate extends implementationOf(CacheWarmerInterface) {
      * @param {String} cacheDir
      */
     warmUp(cacheDir) {
-        for (let warmer of this._warmers) {
+        for (const warmer of this._warmers) {
             if (! this._optionalsEnabled && warmer.isOptional()) {
                 continue;
             }

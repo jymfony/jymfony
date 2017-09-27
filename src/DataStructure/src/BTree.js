@@ -2,7 +2,7 @@ const GenericCollectionTrait = require('./Traits/GenericCollectionTrait');
 
 // Integer compare function
 const compare_func = (a, b) => {
-    if (a == b) {
+    if (a === b) {
         return 0;
     } else if (a > b) {
         return 1;
@@ -46,10 +46,8 @@ class Node {
 
 /**
  * BTree
- *
- * @type BTree
  */
-global.BTree = class BTree extends mix(undefined, GenericCollectionTrait) {
+class BTree extends mix(undefined, GenericCollectionTrait) {
     /**
      * Comparison function can be defined passing it to cmp_function parameter.
      * The function should return 0 if elements are equals, 1 if the first argument
@@ -123,19 +121,19 @@ global.BTree = class BTree extends mix(undefined, GenericCollectionTrait) {
      * @returns {BTree}
      */
     copy() {
-        let cloned = new BTree(this._cmp_function);
+        const cloned = new BTree(this._cmp_function);
         cloned._length = this._length;
         cloned._height = this._height;
 
         /**
          * @param {Node} node
          */
-        let cloneNode = node => {
-            let cloned = new Node(node.m);
+        const cloneNode = node => {
+            const cloned = new Node(node.m);
             cloned.children = [ ...node.children ];
 
             for (let i = 0; i < cloned.children.length; i++) {
-                let entry = cloned.children[i];
+                const entry = cloned.children[i];
                 cloned.children[i] = new Entry(entry.key, entry.val, entry.next ? cloneNode(entry.next) : undefined);
             }
 
@@ -159,16 +157,16 @@ global.BTree = class BTree extends mix(undefined, GenericCollectionTrait) {
      * @returns {Array} Gets a key-value pair if found or undefined
      */
     search(key, comparison = BTree.COMPARISON_EQUAL) {
-        let lt = (a, b) => 0 > this._cmp_function(a, b);
+        const lt = (a, b) => 0 > this._cmp_function(a, b);
 
-        let search = (node, key, height) => {
-            let children = node.children;
+        const search = (node, key, height) => {
+            const children = node.children;
             let nearest = undefined;
 
-            if (0 == height) { // External node
+            if (0 === height) { // External node
                 for (let j = 0; j < node.m; j++) {
-                    let compare = this._cmp_function(key, children[j].key);
-                    if (0 == compare) {
+                    const compare = this._cmp_function(key, children[j].key);
+                    if (0 === compare) {
                         return children[j];
                     } else if (BTree.COMPARISON_LESSER === comparison && 0 < compare) {
                         nearest = children[j];
@@ -178,8 +176,8 @@ global.BTree = class BTree extends mix(undefined, GenericCollectionTrait) {
                 }
             } else { // Internal node
                 for (let j = 0; j < node.m; j++) {
-                    if (j + 1 == node.m || lt(key, children[j + 1].key)) {
-                        let result = search(children[j].next, key, height - 1);
+                    if (j + 1 === node.m || lt(key, children[j + 1].key)) {
+                        const result = search(children[j].next, key, height - 1);
                         if (undefined !== result) {
                             return result;
                         }
@@ -206,7 +204,7 @@ global.BTree = class BTree extends mix(undefined, GenericCollectionTrait) {
      * @returns {*}
      */
     get(key) {
-        let found = this.search(key);
+        const found = this.search(key);
         if (undefined === found) {
             return found;
         }
@@ -224,7 +222,7 @@ global.BTree = class BTree extends mix(undefined, GenericCollectionTrait) {
      * @throws InvalidArgumentException if key is null or undefined
      */
     push(key, val) {
-        let lt = (a, b) => 0 > this._cmp_function(a, b);
+        const lt = (a, b) => 0 > this._cmp_function(a, b);
 
         /**
          * Splits a node.
@@ -234,8 +232,8 @@ global.BTree = class BTree extends mix(undefined, GenericCollectionTrait) {
          * @returns {Node}
          * @private
          */
-        let split = (root) => {
-            let t = new Node(2);
+        const split = (root) => {
+            const t = new Node(2);
             root.m = 2;
 
             for (let j = 0; 2 > j; j++){
@@ -256,14 +254,14 @@ global.BTree = class BTree extends mix(undefined, GenericCollectionTrait) {
          * @returns {undefined|boolean|Node}
          * @private
          */
-        let insert = (root, key, val, height) => {
+        const insert = (root, key, val, height) => {
             let j;
-            let newEntry = new Entry(key, val, undefined);
+            const newEntry = new Entry(key, val, undefined);
 
-            if (0 == height) { // External node
+            if (0 === height) { // External node
                 for (j = 0; j < root.m; j++) {
-                    let compare = this._cmp_function(key, root.children[j].key);
-                    if (0 == compare) {
+                    const compare = this._cmp_function(key, root.children[j].key);
+                    if (0 === compare) {
                         root.children[j].val = val;
                         return true;
                     }
@@ -274,12 +272,12 @@ global.BTree = class BTree extends mix(undefined, GenericCollectionTrait) {
                 }
             } else { // Internal node
                 for (j = 0; j < root.m; j++) {
-                    if ((j+1 == root.m) || lt(key, root.children[j+1].key)) {
-                        let u = insert(root.children[j++].next, key, val, height-1);
+                    if ((j+1 === root.m) || lt(key, root.children[j+1].key)) {
+                        const u = insert(root.children[j++].next, key, val, height-1);
                         if (! u || true === u) {
                             return u;
                         }
-                        
+
                         newEntry.key = u.children[0].key;
                         newEntry.next = u;
                         break;
@@ -302,10 +300,10 @@ global.BTree = class BTree extends mix(undefined, GenericCollectionTrait) {
         };
 
         if (null === key || key === undefined) {
-            throw new InvalidArgumentException("Key cannot be null or undefined");
+            throw new InvalidArgumentException('Key cannot be null or undefined');
         }
 
-        let u = insert(this._root, key, val, this._height);
+        const u = insert(this._root, key, val, this._height);
         if (true === u) {
             return;
         }
@@ -317,7 +315,7 @@ global.BTree = class BTree extends mix(undefined, GenericCollectionTrait) {
         }
 
         // Need to split root
-        let t = new Node(2);
+        const t = new Node(2);
         t.children[0] = new Entry(this._root.children[0].key, undefined, this._root);
         t.children[1] = new Entry(u.children[0].key, undefined, u);
 
@@ -331,13 +329,13 @@ global.BTree = class BTree extends mix(undefined, GenericCollectionTrait) {
      * @param {*} key
      */
     remove(key) {
-        let eq = (a, b) => 0 == this._cmp_function(a, b);
-        let lt = (a, b) => 0 > this._cmp_function(a, b);
+        const eq = (a, b) => 0 === this._cmp_function(a, b);
+        const lt = (a, b) => 0 > this._cmp_function(a, b);
 
-        let search = (node, key, height) => {
-            let children = node.children;
+        const search = (node, key, height) => {
+            const children = node.children;
 
-            if (0 == height) { // External node
+            if (0 === height) { // External node
                 for (let j = 0; j < node.m; j++) {
                     if (eq(key, children[j].key)) {
                         this._length--;
@@ -349,7 +347,7 @@ global.BTree = class BTree extends mix(undefined, GenericCollectionTrait) {
                 }
             } else { // Internal node
                 for (let j = 0; j < node.m; j++) {
-                    if (j + 1 == node.m || lt(key, children[j + 1].key)) {
+                    if (j + 1 === node.m || lt(key, children[j + 1].key)) {
                         return search(children[j].next, key, height - 1);
                     }
                 }
@@ -374,10 +372,10 @@ global.BTree = class BTree extends mix(undefined, GenericCollectionTrait) {
      * @returns {Generator}
      */
     * [Symbol.iterator]() {
-        let generator = function * (h, ht) {
-            let children = h.children;
+        const generator = function * (h, ht) {
+            const children = h.children;
 
-            if (0 == ht) {
+            if (0 === ht) {
                 for (let j = 0; j < h.m; j++) {
                     yield [ children[j].key, children[j].val ];
                 }
@@ -390,8 +388,10 @@ global.BTree = class BTree extends mix(undefined, GenericCollectionTrait) {
 
         yield * generator(this._root, this._height);
     }
-};
+}
 
 BTree.COMPARISON_EQUAL = 0;
 BTree.COMPARISON_LESSER = -1;
 BTree.COMPARISON_GREATER = 1;
+
+global.BTree = BTree;

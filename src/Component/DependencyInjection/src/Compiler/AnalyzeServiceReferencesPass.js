@@ -24,6 +24,12 @@ class AnalyzeServiceReferencesPass extends mix(AbstractRecursivePass, Repeatable
      */
     process(container) {
         /**
+         * @type {Jymfony.Component.DependencyInjection.ContainerBuilder}
+         * @protected
+         */
+        this._container = container;
+
+        /**
          * @type {Jymfony.Component.DependencyInjection.Compiler.ServiceReferenceGraph}
          * @private
          */
@@ -31,7 +37,7 @@ class AnalyzeServiceReferencesPass extends mix(AbstractRecursivePass, Repeatable
         this._graph.clear();
         this._lazy = false;
 
-        for (let [ id, alias ] of __jymfony.getEntries(container.getAliases())) {
+        for (const [ id, alias ] of __jymfony.getEntries(container.getAliases())) {
             this._graph.connect(id, alias, alias.toString(), this._getDefinition(alias), null);
         }
 
@@ -39,7 +45,7 @@ class AnalyzeServiceReferencesPass extends mix(AbstractRecursivePass, Repeatable
     }
 
     _processValue(value, isRoot = false) {
-        let lazy = this._lazy;
+        const lazy = this._lazy;
 
         if (value instanceof ArgumentInterface) {
             this._lazy = true;
@@ -50,7 +56,7 @@ class AnalyzeServiceReferencesPass extends mix(AbstractRecursivePass, Repeatable
         }
 
         if (value instanceof Reference) {
-            let targetDefinition = this._getDefinition(value.toString());
+            const targetDefinition = this._getDefinition(value.toString());
 
             this._graph.connect(
                 this._currentId,

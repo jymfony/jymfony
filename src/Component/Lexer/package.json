@@ -4,8 +4,7 @@
   "description": "Jymfony Lexer component",
   "main": "src/AbstractLexer.js",
   "scripts": {
-    "test": "node ./tests.js test/**",
-    "coverage": "istanbul cover ./tests.js test/**"
+    "test": "node ./tests.js test/**"
   },
   "keywords": [
     "lexer",
@@ -23,13 +22,12 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
-    "istanbul": "^0.4",
     "mocha": "^3.0"
   },
   "config": {
     "jymfony-autoload": {
       "namespaces": {
-        "Jymfony.Lexer": "src/"
+        "Jymfony.Component.Lexer": "src/"
       }
     }
   }

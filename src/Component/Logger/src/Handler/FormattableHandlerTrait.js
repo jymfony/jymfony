@@ -7,6 +7,10 @@ class FormattableHandlerTrait {
     }
 
     get formatter() {
+        if (undefined === this._formatter) {
+            this._formatter = this.getDefaultFormatter();
+        }
+
         return this._formatter;
     }
 }

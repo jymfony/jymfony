@@ -57,12 +57,12 @@ class ApplicationDescription {
         this._commands = {};
         this._namespaces = {};
 
-        let all = this._application.all(this._namespace ? this._application.findNamespace(this._namespace) : undefined);
-        for (let [ namespace, commands ] of this._sortCommands(all)) {
-            let names = [];
+        const all = this._application.all(this._namespace ? this._application.findNamespace(this._namespace) : undefined);
+        for (const [ namespace, commands ] of this._sortCommands(all)) {
+            const names = [];
 
             /** @var Command command */
-            for (let [ name, command ] of commands) {
+            for (const [ name, command ] of commands) {
                 if (! command.name || command.hidden) {
                     continue;
                 }
@@ -86,10 +86,10 @@ class ApplicationDescription {
      * @returns array
      */
     * _sortCommands(commands) {
-        let namespacedCommands = {};
-        let globalCommands = {};
-        for (let [ name, command ] of __jymfony.getEntries(commands)) {
-            let key = this._application.extractNamespace(name, 1);
+        const namespacedCommands = {};
+        const globalCommands = {};
+        for (const [ name, command ] of __jymfony.getEntries(commands)) {
+            const key = this._application.extractNamespace(name, 1);
             if (! key) {
                 if (! globalCommands._global) {
                     globalCommands._global = {};
@@ -105,15 +105,15 @@ class ApplicationDescription {
             }
         }
 
-        let y = function * (ns) {
-            for (let name of Object.keys(ns).sort()) {
+        const y = function * (ns) {
+            for (const name of Object.keys(ns).sort()) {
                 yield [ name, ns[name] ];
             }
         };
 
         yield [ '_global', Array.from(y(globalCommands._global)) ];
 
-        for (let namespace of Object.keys(namespacedCommands)) {
+        for (const namespace of Object.keys(namespacedCommands)) {
             yield [ namespace, Array.from(y(namespacedCommands[namespace])) ];
         }
     }

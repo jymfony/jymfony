@@ -13,11 +13,15 @@ class GrandParent {
 class Parent extends GrandParent {
     parentMethod() { }
 }
-let ISon = getInterface(class SonInterface {});
+let ISon = getInterface(class SonInterface {
+    getFoo() { }
+});
 let ISon2 = getInterface(class Son2Interface {});
 
 class Son extends mix(Parent, ISon) {
     constructor() { super(); this.foo = 'bar'; }
+
+    getFoo() { }
 
     get prop() { }
     set prop(v) { }
@@ -26,9 +30,19 @@ class Son extends mix(Parent, ISon) {
 class Son2 extends mix(Parent, ISon, ISon2) {
     constructor() { super(); this.foo = 'bar'; }
 
+    getFoo() { }
+
     get prop() { }
     set prop(v) { }
 }
+
+Son2[Symbol.reflection] = {
+    fqcn: 'FooNs.Son2',
+    namespace: undefined,
+    filename: __filename,
+    module: module,
+    constructor: Son2,
+};
 
 Parent.CONST_1 = 'foobar';
 Son.CONST_2 = 'foo';
@@ -60,6 +74,13 @@ describe('[Autoloader] ReflectionClass', function () {
         expect(obj).to.be.instanceOf(Parent);
         expect(obj).to.be.instanceOf(GrandParent);
         expect(obj).to.be.instanceOf(ISon);
+    });
+
+    it('newInstanceWithoutConstructor should return correct class name', () => {
+        let reflClass = new ReflectionClass(Son2);
+        let obj = reflClass.newInstanceWithoutConstructor();
+
+        expect((new ReflectionClass(obj)).name).to.be.equal('FooNs.Son2');
     });
 
     it('hasMethod should work', () => {
@@ -102,7 +123,7 @@ describe('[Autoloader] ReflectionClass', function () {
     it('methods getter should work', () => {
         let reflClass = new ReflectionClass(Son);
 
-        expect(reflClass.methods).to.be.deep.equal(['parentMethod']);
+        expect(reflClass.methods).to.be.deep.equal(['parentMethod', 'getFoo']);
     });
 
     it('properties getter should work', () => {
@@ -134,5 +155,18 @@ describe('[Autoloader] ReflectionClass', function () {
         expect(reflClass.isSubclassOf(ISon)).to.be.true;
         expect(reflClass.isSubclassOf(Parent)).to.be.true;
         expect(reflClass.isSubclassOf(GrandParent)).to.be.true;
-    })
+    });
+
+    it('isInterface should work', () => {
+        let reflClass = new ReflectionClass(Son);
+        expect(reflClass.isInterface).to.be.false;
+
+        reflClass = new ReflectionClass(ISon);
+        expect(reflClass.isInterface).to.be.true;
+    });
+
+    it('exposes interface methods', () => {
+        let reflClass = new ReflectionClass(ISon);
+        expect(reflClass.methods).to.be.deep.equal(['getFoo']);
+    });
 });

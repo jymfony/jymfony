@@ -4,8 +4,7 @@
   "description": "Jymfony Console component",
   "main": "src/Application.js",
   "scripts": {
-    "test": "node ./tests.js test/**",
-    "coverage": "istanbul cover ./tests.js test/** && istanbul report clover"
+    "test": "node ./tests.js test/**"
   },
   "keywords": [
     "console",
@@ -23,7 +22,6 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
-    "istanbul": "^0.4",
     "mocha": "^3.0"
   },
   "config": {

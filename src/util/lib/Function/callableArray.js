@@ -6,12 +6,12 @@
  * @param arg
  * @returns {Boolean}
  */
-let isCallableArray = function (arg) {
+const isCallableArray = function isCallableArray(arg) {
     if (! isArray(arg) || 2 !== arg.length) {
         return false;
     }
 
-    let target = arg[0];
+    const target = arg[0];
     return isString(arg[1]) && isFunction(target[arg[1]]);
 };
 
@@ -23,13 +23,13 @@ let isCallableArray = function (arg) {
  * @param {Array} arg
  * @returns {Function|BoundFunction}
  */
-let getCallableFromArray = function (arg) {
+const getCallableFromArray = function getCallableFromArray(arg) {
     if (! isCallableArray(arg)) {
         throw new LogicException(arg + ' is not a callable array');
     }
 
-    let target = arg[0];
-    let func = target[arg[1]];
+    const target = arg[0];
+    const func = target[arg[1]];
 
     return new BoundFunction(target, func);
 };

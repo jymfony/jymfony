@@ -33,10 +33,10 @@ __jymfony.wordwrap = function wordwrap (str, width = 75, strBreak = '\n', cut = 
         return str;
     }
 
-    let reBeginningUntilFirstWhitespace = /^\S*/;
-    let reLastCharsWithOptionalTrailingWhitespace = /\S*(\s)?$/;
-    let lines = str.split(os.EOL);
-    let l = lines.length;
+    const reBeginningUntilFirstWhitespace = /^\S*/;
+    const reLastCharsWithOptionalTrailingWhitespace = /\S*(\s)?$/;
+    const lines = str.split(os.EOL);
+    const l = lines.length;
     let match;
 
     // For each line of text
@@ -45,7 +45,7 @@ __jymfony.wordwrap = function wordwrap (str, width = 75, strBreak = '\n', cut = 
         lines[i] = '';
         while (line.length > width) {
             // Get slice of length one char above limit
-            let slice = line.slice(0, width + 1);
+            const slice = line.slice(0, width + 1);
             // Remove leading whitespace from rest of line to parse
             let ltrim = 0;
             // Remove trailing whitespace from new line content
@@ -71,7 +71,7 @@ __jymfony.wordwrap = function wordwrap (str, width = 75, strBreak = '\n', cut = 
                 // If cut wasn't forced
                 // Cut at next possible whitespace after the limit
                 if (!j) {
-                    let charsUntilNextWhitespace = (line.slice(width).match(reBeginningUntilFirstWhitespace) || [ '' ])[0];
+                    const charsUntilNextWhitespace = (line.slice(width).match(reBeginningUntilFirstWhitespace) || [ '' ])[0];
                     j = slice.length + charsUntilNextWhitespace.length;
                 }
             }

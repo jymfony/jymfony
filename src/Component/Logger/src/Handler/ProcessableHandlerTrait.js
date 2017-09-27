@@ -33,7 +33,7 @@ class ProcessableHandlerTrait {
      * @protected
      */
     _processRecord(record) {
-        for (let processor of this._processors) {
+        for (const processor of this._processors) {
             record = processor(record);
         }
 

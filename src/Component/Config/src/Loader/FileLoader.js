@@ -1,7 +1,7 @@
 const FileLoaderLoadException = Jymfony.Component.Config.Exception.FileLoaderLoadException;
 const FileLoaderImportCircularReferenceException = Jymfony.Component.Config.Exception.FileLoaderImportCircularReferenceException;
 const Loader = Jymfony.Component.Config.Loader.Loader;
-const path = require("path");
+const path = require('path');
 
 /**
  * FileLoader is the abstract class used by all built-in loaders that are file based.
@@ -29,6 +29,11 @@ class FileLoader extends Loader {
         this._currentDir = undefined;
     }
 
+    /**
+     * Gets the current directory.
+     *
+     * @return {string}
+     */
     get currentDir() {
         return this._currentDir;
     }
@@ -68,10 +73,10 @@ class FileLoader extends Loader {
     importResource(resource, type = undefined, ignoreErrors = false, sourceResource = undefined) {
         let i;
         if (isString(resource) && resource.length !== (i = __jymfony.strcspn(resource, '*?{['))) {
-            let ret = [];
+            const ret = [];
             let isSubpath = 0 !== i && -1 !== resource.substr(0, i).indexOf('/');
 
-            for (let [ path, info ] of this._glob(resource, false, ignoreErrors || !isSubpath)) {
+            for (const [ path, info ] of this._glob(resource, false, ignoreErrors || !isSubpath)) {
                 let res;
                 if (undefined !== (res = this._doImport(path, type, ignoreErrors, sourceResource))) {
                     ret.push(res);
@@ -111,21 +116,22 @@ class FileLoader extends Loader {
             }
         }
 
-        let resource = new GlobResource(prefix, pattern, recursive);
-        for (let [ path, info ] of resource) {
+        const resource = new GlobResource(prefix, pattern, recursive);
+        for (const [ path, info ] of resource) {
             yield [ path, info ];
         }
     }
 
     _doImport(resource, type = undefined, ignoreErrors = false, sourceResource = undefined) {
         try {
-            let loader = this.resolve(resource, type), ret;
+            const loader = this.resolve(resource, type);
+            let ret;
 
             if (loader instanceof FileLoader && undefined !== this._currentDir) {
                 resource = loader.locator.locate(resource, this._currentDir, false);
             }
 
-            let resources = isArray(resource) ? resource : [ resource ];
+            const resources = isArray(resource) ? resource : [ resource ];
             for (let i = 0; i < resources.length; ++i) {
                 if (FileLoader.loading.has(resources[i])) {
                     if (i === resources.length - 1) {
@@ -161,6 +167,6 @@ class FileLoader extends Loader {
     }
 }
 
-FileLoader.loading = new Set;
+FileLoader.loading = new Set();
 
 module.exports = FileLoader;

@@ -26,9 +26,10 @@ class BoundFunction {
         this._thisArg = thisArg;
         this._func = func;
 
-        let self = this;
-        let ret = function () {
+        const self = this;
+        const ret = function () {
             /* eslint prefer-spread: "off" */
+            /* eslint prefer-rest-params: "off" */
             return self.apply(undefined, arguments);
         };
 
@@ -87,7 +88,7 @@ class BoundFunction {
             value = value.innerObject;
         }
 
-        if (!(value instanceof BoundFunction)) {
+        if (! (value instanceof BoundFunction)) {
             return false;
         }
 

@@ -1,5 +1,5 @@
 global.isArray = Array.isArray;
-let toString = Object.prototype.toString;
+const toString = Object.prototype.toString;
 
 require('./Is/functions');
 
@@ -9,7 +9,7 @@ if (! isFunction(global.isObject)) {
     };
 }
 
-for(let name of [ 'Arguments', 'Boolean', 'String', 'Number', 'Date', 'RegExp', 'Error', 'Symbol', 'Map', 'WeakMap', 'Set', 'WeakSet' ]) {
+for(const name of [ 'Arguments', 'Boolean', 'String', 'Number', 'Date', 'RegExp', 'Error', 'Symbol', 'Map', 'WeakMap', 'Set', 'WeakSet' ]) {
     if (isFunction(global['is' + name])) {
         continue;
     }
@@ -20,13 +20,13 @@ for(let name of [ 'Arguments', 'Boolean', 'String', 'Number', 'Date', 'RegExp', 
 }
 
 const primitives = [ Number, String, Boolean ];
-global.isScalar = function (value) {
+global.isScalar = function isScalar(value) {
     if (undefined === value || null === value) {
         return false;
     }
 
-    let proto = Object.getPrototypeOf(value);
-    for (let type of primitives) {
+    const proto = Object.getPrototypeOf(value);
+    for (const type of primitives) {
         if (proto === type.prototype) {
             return true;
         }
@@ -35,7 +35,7 @@ global.isScalar = function (value) {
     return false;
 };
 
-global.isObjectLiteral = function (value) {
+global.isObjectLiteral = function isObjectLiteral(value) {
     if (null === value || undefined === value) {
         return false;
     }
@@ -43,10 +43,10 @@ global.isObjectLiteral = function (value) {
     return Object.getPrototypeOf(value) === Object.getPrototypeOf({});
 };
 
-global.isPromise = function (value) {
+global.isPromise = function isPromise(value) {
     return isFunction(value.then);
 };
 
-global.isStream = function (stream) {
+global.isStream = function isStream(stream) {
     return 'object' === typeof stream && isFunction(stream.pipe);
 };

@@ -20,7 +20,7 @@ class DateTime {
      * @param {undefined|string|int|Date} datetime The datetime string or unix timestamp
      * @param {undefined|string|Jymfony.Component.DateTime.DateTimeZone} timezone The timezone of the datetime
      */
-    constructor(datetime = undefined, timezone = undefined) {
+    __construct(datetime = undefined, timezone = undefined) {
         if (undefined === datetime) {
             this._tm = new tm_desc(timezone);
         } else if (isString(datetime)) {
@@ -30,7 +30,7 @@ class DateTime {
             this._tm = new tm_desc(timezone);
             this._tm.unix_timestamp = datetime;
         } else if (datetime instanceof Date) {
-            let val = datetime.valueOf();
+            const val = datetime.valueOf();
             this._tm = new tm_desc(timezone);
             this._tm.unix_timestamp = ~~(val / 1000);
             this._tm.tm_msec = val % 1000;
@@ -63,7 +63,7 @@ class DateTime {
      * @returns {Jymfony.Component.DateTime.DateTime}
      */
     static get yesterday() {
-        let dt = DateTime.today;
+        const dt = DateTime.today;
         dt._tm.add(new TimeSpan('P-1D'));
 
         return dt;
@@ -151,6 +151,15 @@ class DateTime {
     }
 
     /**
+     * Gets the UNIX timestamp with milliseconds.
+     *
+     * @return {float}
+     */
+    get microtime() {
+        return this._tm.unix_timestamp + (this._tm.tm_msec / 1000);
+    }
+
+    /**
      * Gets the Day of Week of this instance.
      * 1 = Monday, 7 = Sunday
      *
@@ -209,7 +218,7 @@ class DateTime {
             return this;
         }
 
-        let val = this.copy();
+        const val = this.copy();
         val._tm.tm_hour = hours;
         val._tm.tm_min = minutes;
         val._tm.tm_sec = seconds;
@@ -236,7 +245,7 @@ class DateTime {
             return this;
         }
 
-        let val = this.copy();
+        const val = this.copy();
         val._tm.tm_year = year;
         val._tm.tm_mon = month;
         val._tm.tm_mday = day;
@@ -256,7 +265,7 @@ class DateTime {
      * @returns {Jymfony.Component.DateTime.DateTime}
      */
     modify(interval) {
-        let val = this.copy();
+        const val = this.copy();
         val._tm.add(interval);
 
         return val;
@@ -314,16 +323,16 @@ class DateTime {
 }
 
 /* Constants */
-DateTime.ATOM = "Y-m-d\\TH:i:sP" ;
-DateTime.COOKIE = "l, d-M-Y H:i:s T" ;
-DateTime.ISO8601 = "Y-m-d\\TH:i:sO" ;
-DateTime.RFC822 = "D, d M y H:i:s O" ;
-DateTime.RFC850 = "l, d-M-y H:i:s T" ;
-DateTime.RFC1036 = "D, d M y H:i:s O" ;
-DateTime.RFC1123 = "D, d M Y H:i:s O" ;
-DateTime.RFC2822 = "D, d M Y H:i:s O" ;
-DateTime.RFC3339 = "Y-m-d\\TH:i:sP" ;
-DateTime.RSS = "D, d M Y H:i:s O" ;
-DateTime.W3C = "Y-m-d\\TH:i:sP" ;
+DateTime.ATOM = 'Y-m-d\\TH:i:sP' ;
+DateTime.COOKIE = 'l, d-M-Y H:i:s T' ;
+DateTime.ISO8601 = 'Y-m-d\\TH:i:sO' ;
+DateTime.RFC822 = 'D, d M y H:i:s O' ;
+DateTime.RFC850 = 'l, d-M-y H:i:s T' ;
+DateTime.RFC1036 = 'D, d M y H:i:s O' ;
+DateTime.RFC1123 = 'D, d M Y H:i:s O' ;
+DateTime.RFC2822 = 'D, d M Y H:i:s O' ;
+DateTime.RFC3339 = 'Y-m-d\\TH:i:sP' ;
+DateTime.RSS = 'D, d M Y H:i:s O' ;
+DateTime.W3C = 'Y-m-d\\TH:i:sP' ;
 
 module.exports = DateTime;

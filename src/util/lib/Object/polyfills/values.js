@@ -7,7 +7,7 @@
 
     Object.values = function (O) {
         return Array.from((function * () {
-            for (let key of Object.keys(O)) {
+            for (const key of Object.keys(O)) {
                 yield O[key];
             }
         })());

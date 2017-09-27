@@ -3,8 +3,8 @@ const LogicException = Jymfony.Component.DependencyInjection.Exception.LogicExce
 const FrozenParameterBag = Jymfony.Component.DependencyInjection.ParameterBag.FrozenParameterBag;
 
 class ProjectContainer extends Jymfony.Component.DependencyInjection.Container {
-    constructor() {
-        super(new FrozenParameterBag(ProjectContainer._getDefaultsParameters()));
+    __construct() {
+        super.__construct(new FrozenParameterBag(ProjectContainer._getDefaultsParameters()));
 
         this._methodMap = {
             "test": "getTestService",

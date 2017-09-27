@@ -14,9 +14,9 @@ class AddCacheWarmerPass extends implementationOf(CompilerPassInterface, Priorit
             return;
         }
 
-        let warmers = this.findAndSortTaggedServices('kernel.cache_warmer', container);
+        const warmers = this.findAndSortTaggedServices('kernel.cache_warmer', container);
 
-        let arrayWarmers = Array.from(warmers);
+        const arrayWarmers = Array.from(warmers);
         if (0 === arrayWarmers.length) {
             return;
         }

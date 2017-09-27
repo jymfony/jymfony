@@ -9,19 +9,19 @@ class AddConsoleCommandPass extends implementationOf(CompilerPassInterface) {
      * @inheritDoc
      */
     process(container) {
-        let commandServices = container.findTaggedServiceIds('console.command');
-        let serviceIds = { };
+        const commandServices = container.findTaggedServiceIds('console.command');
+        const serviceIds = { };
 
         for (let id of Object.keys(commandServices)) {
-            let definition = container.getDefinition(id);
-            let className = container.parameterBag.resolveValue(definition.getClass());
+            const definition = container.getDefinition(id);
+            const className = container.parameterBag.resolveValue(definition.getClass());
 
             let r;
             try {
                 r = new ReflectionClass(className);
             } catch (e) {
                 if (e instanceof ReflectionException) {
-                    let message = __jymfony.sprintf('Class "%s" used for service "%s" cannot be found.', className, id);
+                    const message = __jymfony.sprintf('Class "%s" used for service "%s" cannot be found.', className, id);
                     e = new InvalidArgumentException(message, null, e);
                 }
 

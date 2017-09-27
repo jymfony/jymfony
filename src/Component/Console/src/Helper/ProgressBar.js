@@ -286,8 +286,8 @@ class ProgressBar {
             step = 0;
         }
 
-        let prevPeriod = ~~(this._step / this._redrawFreq);
-        let currPeriod = ~~(step / this._redrawFreq);
+        const prevPeriod = ~~(this._step / this._redrawFreq);
+        const currPeriod = ~~(step / this._redrawFreq);
         this._step = step;
         this._percent = this._max ? this._step / this._max : 0;
         if (prevPeriod !== currPeriod || this._max === step) {
@@ -360,7 +360,7 @@ class ProgressBar {
             this._format = format;
         }
 
-        this._formatLineCount = this._format.split("\n").length - 1;
+        this._formatLineCount = this._format.split('\n').length - 1;
     }
 
     /**
@@ -373,14 +373,14 @@ class ProgressBar {
         if (this._overwrite) {
             if (! this._firstRun) {
                 // Move the cursor to the beginning of the line
-                this._output.write("\x0D");
+                this._output.write('\x0D');
 
                 // Erase the line
-                this._output.write("\x1B[2K");
+                this._output.write('\x1B[2K');
 
                 // Erase previous lines
                 if (0 < this._formatLineCount) {
-                    this._output.write("\x1B[1A\x1B[2K".repeat(this._formatLineCount));
+                    this._output.write('\x1B[1A\x1B[2K'.repeat(this._formatLineCount));
                 }
             }
         } else if (0 < this._step) {
@@ -417,10 +417,10 @@ class ProgressBar {
              * @returns {string}
              */
             bar: (bar, output) => {
-                let completeBars = ~~(0 < bar.maxSteps ? bar.progressPercent * bar.barWidth : bar.progress % bar.barWidth);
+                const completeBars = ~~(0 < bar.maxSteps ? bar.progressPercent * bar.barWidth : bar.progress % bar.barWidth);
                 let display = bar.barCharacter.repeat(completeBars);
                 if (completeBars < bar.barWidth) {
-                    let emptyBars = bar.barWidth - completeBars - Helper.strlenWithoutDecoration(output.formatter, bar.progressCharacter);
+                    const emptyBars = bar.barWidth - completeBars - Helper.strlenWithoutDecoration(output.formatter, bar.progressCharacter);
                     display += bar.progressCharacter + bar.emptyBarCharacter.repeat(emptyBars);
                 }
 
@@ -476,7 +476,7 @@ class ProgressBar {
              * @returns {string}
              */
             memory: () => {
-                let usage = process.memoryUsage();
+                const usage = process.memoryUsage();
                 return Helper.formatMemory(usage.rss + usage.heapTotal + usage.external);
             },
             /**
@@ -485,7 +485,7 @@ class ProgressBar {
              * @returns {string}
              */
             current: (bar) => {
-                let progress = bar.progress.toString();
+                const progress = bar.progress.toString();
                 return ' '.repeat(bar._stepWidth - progress.length) + progress;
             },
             /**
@@ -530,8 +530,8 @@ class ProgressBar {
      * @returns {string}
      */
     _buildLine() {
-        let regex = new RegExp('%([a-z\-_]+)(?:\:([^%]+))?%', 'ig');
-        let callback = (string, match1, match2) => {
+        const regex = new RegExp('%([a-z\-_]+)(?:\:([^%]+))?%', 'ig');
+        const callback = (string, match1, match2) => {
             let text, formatter;
             if (formatter = ProgressBar.getPlaceholderFormatterDefinition(match1)) {
                 text = formatter(this, this._output);
@@ -548,14 +548,14 @@ class ProgressBar {
             return text;
         };
 
-        let line = this._format.replace(regex, callback);
+        const line = this._format.replace(regex, callback);
 
         // Gets string length for each sub line with multiline format
-        let linesLength = line.split("\n")
-            .map(subLine => Helper.strlenWithoutDecoration(this._output.formatter, __jymfony.rtrim(subLine, "\r")));
-        let linesWidth = Math.max(...linesLength);
+        const linesLength = line.split('\n')
+            .map(subLine => Helper.strlenWithoutDecoration(this._output.formatter, __jymfony.rtrim(subLine, '\r')));
+        const linesWidth = Math.max(...linesLength);
 
-        let terminalWidth = this._terminal.width;
+        const terminalWidth = this._terminal.width;
         if (linesWidth <= terminalWidth) {
             return line;
         }

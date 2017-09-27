@@ -33,11 +33,11 @@ class EventDispatcher {
      *
      * @returns {Promise.<Jymfony.Component.EventDispatcher.Event>}
      */
-    dispatch(eventName, event = new Event) {
-        let self = this;
+    dispatch(eventName, event = new Event()) {
+        const self = this;
 
         return __jymfony.Async.run(function * () {
-            for (let listener of self.getListeners(eventName)) {
+            for (const listener of self.getListeners(eventName)) {
                 if (event.isPropagationStopped()) {
                     return event;
                 }
@@ -66,11 +66,11 @@ class EventDispatcher {
                 this._sortListeners(eventName);
             }
 
-            for (let listener of this._sorted[eventName]) {
+            for (const listener of this._sorted[eventName]) {
                 yield listener.listener;
             }
         } else {
-            for (let eventName of Object.keys(this._listeners)) {
+            for (const eventName of Object.keys(this._listeners)) {
                 yield * this.getListeners(eventName);
             }
         }
@@ -123,7 +123,7 @@ class EventDispatcher {
             listener = getCallableFromArray(listener);
         }
 
-        for (let registered of this._listeners[eventName]) {
+        for (const registered of this._listeners[eventName]) {
             if (isArray(registered.listener) && undefined !== registered.listener[0] && isFunction(registered.listener[0])) {
                 registered.listener[0] = registered.listener[0]();
             }
@@ -136,7 +136,7 @@ class EventDispatcher {
                 continue;
             }
 
-            let index = this._listeners[eventName].indexOf(registered);
+            const index = this._listeners[eventName].indexOf(registered);
             this._listeners[eventName].splice(index, 1);
         }
     }
@@ -147,15 +147,15 @@ class EventDispatcher {
      * @param {*} subscriber
      */
     addSubscriber(subscriber) {
-        let events = __jymfony.getFunction(subscriber, 'getSubscribedEvents')();
-        for (let eventName of Object.keys(events)) {
-            let params = events[eventName];
+        const events = __jymfony.getFunction(subscriber, 'getSubscribedEvents')();
+        for (const eventName of Object.keys(events)) {
+            const params = events[eventName];
             if (isString(params)) {
                 this.addListener(eventName, [ subscriber, params ]);
             } else if (isString(params[0])) {
                 this.addListener(eventName, [ subscriber, params[0] ], params[1] || 0);
             } else {
-                for (let listener of params) {
+                for (const listener of params) {
                     this.addListener(eventName, [ subscriber, listener[0] ], listener[1] || 0);
                 }
             }
@@ -168,11 +168,11 @@ class EventDispatcher {
      * @param {*} subscriber
      */
     removeSubscriber(subscriber) {
-        let events = __jymfony.getFunction(subscriber, 'getSubscribedEvents')();
-        for (let eventName of Object.keys(events)) {
-            let params = events[eventName];
+        const events = __jymfony.getFunction(subscriber, 'getSubscribedEvents')();
+        for (const eventName of Object.keys(events)) {
+            const params = events[eventName];
             if (isArray(params) && isArray(params[0])) {
-                for(let listener of params) {
+                for(const listener of params) {
                     this.removeListener(eventName, [ subscriber, listener[0] ]);
                 }
             } else {
@@ -194,9 +194,9 @@ class EventDispatcher {
         }
 
         // Clone the array
-        let listeners = [ ...this._listeners[eventName] ];
+        const listeners = [ ...this._listeners[eventName] ];
         this._sorted[eventName] = [];
-        for (let listener of listeners.sort((a, b) => b.priority - a.priority)) {
+        for (const listener of listeners.sort((a, b) => b.priority - a.priority)) {
             if (isArray(listener.listener) && undefined !== listener.listener[0] && isFunction(listener.listener[0])) {
                 listener.listener[0] = listener.listener[0]();
             }
@@ -206,7 +206,7 @@ class EventDispatcher {
             }
 
             if (! isFunction(listener.listener)) {
-                throw new InvalidArgumentException("Listener must be a function");
+                throw new InvalidArgumentException('Listener must be a function');
             }
 
             this._sorted[eventName].push(listener);

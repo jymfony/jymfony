@@ -98,7 +98,7 @@ class ChoiceQuestionBuilder extends QuestionBuilder {
     }
 
     build() {
-        let question = new ChoiceQuestion(this.input, this.output, this._choices, this._mode);
+        const question = new ChoiceQuestion(this.input, this.output, this._choices, this._mode);
         question.multiple = this._multiple;
         question.question = this._prompt;
         question.normalizer = this._normalizer;

@@ -16,8 +16,8 @@ class ResolveParameterPlaceHoldersPass extends AbstractRecursivePass {
         try {
             super.process(container);
 
-            let aliases = {};
-            for (let [ name, target ] of __jymfony.getEntries(container.getAliases())) {
+            const aliases = {};
+            for (const [ name, target ] of __jymfony.getEntries(container.getAliases())) {
                 this._currentId = name;
                 aliases[this._bag.resolveValue(name)] = this._bag.resolveValue(target);
             }
@@ -41,7 +41,7 @@ class ResolveParameterPlaceHoldersPass extends AbstractRecursivePass {
         }
 
         if (value instanceof Definition) {
-            let changes = value.getChanges();
+            const changes = value.getChanges();
             if (changes['class']) {
                 value.setClass(this._bag.resolveValue(value.getClass()));
             }
@@ -53,8 +53,8 @@ class ResolveParameterPlaceHoldersPass extends AbstractRecursivePass {
         value = super._processValue(value, isRoot);
 
         if (isObjectLiteral(value)) {
-            let res = {};
-            for (let [ k, v ] of __jymfony.getEntries(value)) {
+            const res = {};
+            for (const [ k, v ] of __jymfony.getEntries(value)) {
                 res[this._bag.resolveValue(k)] = v;
             }
 

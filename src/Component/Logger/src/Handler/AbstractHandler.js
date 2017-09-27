@@ -26,7 +26,7 @@ class AbstractHandler extends implementationOf(HandlerInterface) {
      * @inheritDoc
      */
     handleBatch(records) {
-        for (let record of records) {
+        for (const record of records) {
             this.handle(record);
         }
     }

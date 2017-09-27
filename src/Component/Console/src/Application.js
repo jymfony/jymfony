@@ -29,8 +29,9 @@ class Application {
         this._commands = {};
         this._terminal = new Terminal();
         this._catchExceptions = true;
+        this._autoExit = true;
 
-        for (let command of this._getDefaultCommands()) {
+        for (const command of this._getDefaultCommands()) {
             this.add(command);
         }
     }
@@ -90,6 +91,16 @@ class Application {
     }
 
     /**
+     * Sets if application should automatically terminate when run
+     * has been completed.
+     *
+     * @param {boolean} autoExit
+     */
+    set autoExit(autoExit) {
+        this._autoExit = autoExit;
+    }
+
+    /**
      * Run the application
      *
      * @param {Jymfony.Component.Console.Input.InputInterface} input
@@ -123,6 +134,11 @@ class Application {
                     return exitCode;
                 })
                 .then(exitCode => {
+                    if (this._autoExit) {
+                        // Wait for next uncork call.
+                        process.nextTick(() => process.exit(exitCode));
+                    }
+
                     return process.exitCode = exitCode;
                 })
             ;
@@ -167,7 +183,7 @@ class Application {
      * @param {Jymfony.Component.Console.Command.Command[]} commands An array of commands
      */
     addCommands(commands) {
-        for (let command of commands) {
+        for (const command of commands) {
             this.add(command);
         }
     }
@@ -200,7 +216,7 @@ class Application {
 
         this._commands[command.name] = command;
 
-        for (let alias of command.aliases) {
+        for (const alias of command.aliases) {
             this._commands[alias] = command;
         }
 
@@ -221,12 +237,12 @@ class Application {
             throw new CommandNotFoundException(`The command "${name}" does not exist.`);
         }
 
-        let command = this._commands[name];
+        const command = this._commands[name];
 
         if (this._wantHelps) {
             this._wantHelps = false;
 
-            let helpCommand = this.get('help');
+            const helpCommand = this.get('help');
             helpCommand.command = command;
 
             return helpCommand;
@@ -259,17 +275,17 @@ class Application {
      * @throws {Jymfony.Component.Console.Exception.CommandNotFoundException} When command name is incorrect or ambiguous
      */
     find(name) {
-        let allCommands = Object.keys(this._commands);
-        let expr = name.replace(/([^:]+|)/g, (match, p1) => {
+        const allCommands = Object.keys(this._commands);
+        const expr = name.replace(/([^:]+|)/g, (match, p1) => {
             return __jymfony.regex_quote(p1) + '[^:]*';
         });
 
-        let begin_regex = new RegExp('^' + expr);
-        let full_regex = new RegExp('^' + expr + '$');
+        const begin_regex = new RegExp('^' + expr);
+        const full_regex = new RegExp('^' + expr + '$');
         let commands = allCommands.filter(V => V.match(begin_regex));
 
         if (! commands.length || 1 > commands.filter(V => V.match(full_regex)).length) {
-            let pos = name.lastIndexOf(':');
+            const pos = name.lastIndexOf(':');
             if (-1 !== pos) {
                 // Check if a namespace exists and contains commands
                 this.findNamespace(name.substr(0, pos));
@@ -277,12 +293,12 @@ class Application {
 
             let message = `Command "${name}" is not defined.`;
 
-            let alternatives = this._findAlternatives(name, allCommands);
+            const alternatives = this._findAlternatives(name, allCommands);
             if (alternatives.length) {
                 if (1 == alternatives.length) {
-                    message += "\n\nDid you mean this?\n    ";
+                    message += '\n\nDid you mean this?\n    ';
                 } else {
-                    message += "\n\nDid you mean one of these?\n    ";
+                    message += '\n\nDid you mean one of these?\n    ';
                 }
 
                 message += alternatives.join('\n    ');
@@ -294,29 +310,29 @@ class Application {
         // Filter out aliases for commands which are already on the list
         if (1 < commands.length) {
             commands = commands.filter(nameOrAlias => {
-                let commandName = this._commands[nameOrAlias].name;
+                const commandName = this._commands[nameOrAlias].name;
 
                 return commandName === nameOrAlias || -1 === Object.values(commands).indexOf(commandName);
             });
         }
 
-        let exact = -1 !== Object.values(commands).indexOf(name);
+        const exact = -1 !== Object.values(commands).indexOf(name);
         if (1 < commands.length && ! exact) {
             const usableWidth = this._terminal.width - 10;
             let abbrevs = Object.values(commands);
 
             let maxLen = 0;
-            for (let abbrev of abbrevs) {
+            for (const abbrev of abbrevs) {
                 maxLen = Math.max(abbrev.length, maxLen);
             }
 
             const spaces = Array(maxLen).fill(' ').join('');
             abbrevs = abbrevs.map(cmd => {
-                let abbrev = (cmd + spaces).substr(0, maxLen) + ' ' + this._commands[cmd].description;
+                const abbrev = (cmd + spaces).substr(0, maxLen) + ' ' + this._commands[cmd].description;
                 return abbrev.length > usableWidth ? abbrev.substr(0, usableWidth - 3) + '...' : abbrev;
             });
 
-            let suggestions = this._getAbbreviationSuggestions(abbrevs);
+            const suggestions = this._getAbbreviationSuggestions(abbrevs);
             throw new CommandNotFoundException(`Command "${name}" is ambiguous.\nDid you mean one of these?\n${suggestions}`, commands);
         }
 
@@ -337,8 +353,8 @@ class Application {
             return Object.assign({}, this._commands);
         }
 
-        let commands = {};
-        for (let [ name, command ] of __jymfony.getEntries(this._commands)) {
+        const commands = {};
+        for (const [ name, command ] of __jymfony.getEntries(this._commands)) {
             if (namespace === this.extractNamespace(name, namespace.split(':').length + 1)) {
                 commands[name] = command;
             }
@@ -357,31 +373,31 @@ class Application {
      * @throws {Jymfony.Component.Console.Exception.CommandNotFoundException} When namespace is incorrect or ambiguous
      */
     findNamespace(namespace) {
-        let allNamespaces = this.namespaces;
-        let expr = namespace.replace(/([^:]+|)/g, (match, p1) => {
+        const allNamespaces = this.namespaces;
+        const expr = namespace.replace(/([^:]+|)/g, (match, p1) => {
             return __jymfony.regex_quote(p1) + '[^:]*';
         });
 
-        let regex = new RegExp('^' + expr);
-        let namespaces = allNamespaces.filter(V => V.match(regex));
+        const regex = new RegExp('^' + expr);
+        const namespaces = allNamespaces.filter(V => V.match(regex));
 
         if (! namespaces.length) {
             let message = `There are no commands defined in the "${namespace}" namespace.`, alternatives;
 
             if (alternatives = this._findAlternatives(namespace, allNamespaces)) {
                 if (1 == alternatives.length) {
-                    message += "\n\nDid you mean this?\n    ";
+                    message += '\n\nDid you mean this?\n    ';
                 } else {
-                    message += "\n\nDid you mean one of these?\n    ";
+                    message += '\n\nDid you mean one of these?\n    ';
                 }
 
-                message += alternatives.join("\n    ");
+                message += alternatives.join('\n    ');
             }
 
             throw new CommandNotFoundException(message, alternatives);
         }
 
-        let exact = -1 !== namespaces.indexOf(namespace);
+        const exact = -1 !== namespaces.indexOf(namespace);
         if (1 < namespaces.length && ! exact) {
             throw new CommandNotFoundException(`The namespace "${namespace}" is ambiguous.\nDid you mean one of these?\n${this._getAbbreviationSuggestions(namespaces)}`, namespaces);
         }
@@ -400,7 +416,7 @@ class Application {
      * @returns {string} The namespace of the command
      */
     extractNamespace(name, limit = undefined) {
-        let parts = name.split(':');
+        const parts = name.split(':');
         parts.pop();
 
         return (limit ? parts.slice(0, limit) : parts).join(':');
@@ -451,10 +467,10 @@ class Application {
      */
     get namespaces() {
         let namespaces = [];
-        for (let command of Object.values(this.all())) {
+        for (const command of Object.values(this.all())) {
             namespaces = [ ...namespaces, ...this._extractAllNamespaces(command.name) ];
 
-            for (let alias of command.aliases) {
+            for (const alias of command.aliases) {
                 namespaces = [ ...namespaces, ...this._extractAllNamespaces(alias) ];
             }
         }
@@ -500,7 +516,7 @@ class Application {
             command = this.find(name);
         } catch (e) {
             if (this._eventDispatcher) {
-                let event = new Jymfony.Component.Console.Event.ConsoleErrorEvent(input, output, e, command);
+                const event = new Jymfony.Component.Console.Event.ConsoleErrorEvent(input, output, e, command);
                 yield this._eventDispatcher.dispatch(ConsoleEvents.ERROR, event);
 
                 e = event.error;
@@ -513,7 +529,7 @@ class Application {
         }
 
         this._runningCommand = command;
-        let exitCode = yield __jymfony.Async.run(getCallableFromArray([ this, '_doRunCommand' ]), command, input, output);
+        const exitCode = yield __jymfony.Async.run(getCallableFromArray([ this, '_doRunCommand' ]), command, input, output);
         this._runningCommand = undefined;
 
         return exitCode;
@@ -602,7 +618,7 @@ class Application {
         if (true === input.hasParameterOption([ '--no-interaction', '-n' ], true)) {
             input.interactive = false;
         } else if (input instanceof StreamableInputInterface) {
-            let inputStream = input.stream;
+            const inputStream = input.stream;
             if (undefined !== inputStream && ! inputStream.isTTY && ! process.env.SHELL_INTERACTIVE) {
                 input.interactive = false;
             }
@@ -682,30 +698,31 @@ class Application {
         output.writeln('', OutputInterface.VERBOSITY_QUIET);
 
         do {
-            let title = util.format('  [%s%s]  ',
+            const title = util.format('  [%s%s]  ',
                 (new ReflectionClass(exception)).name || exception.constructor.name || 'Error',
                 output.isVerbose() && exception.code ? ` (${exception.code})` : ''
             );
             let len = title.length;
 
-            let width = this._terminal.width - 1;
-            let formatter = output.formatter;
+            const width = this._terminal.width - 1;
+            const formatter = output.formatter;
 
-            let lines = [];
+            const lines = [];
             for (let line of exception.message.split('\r?\n')) {
                 for (line of this._splitStringByWidth(line, width - 4)) {
                     // Pre-format lines to get the right string length
-                    let lineLength = line.length + 4;
+                    const lineLength = line.length + 4;
                     lines.push([ line, lineLength ]);
 
                     len = Math.max(lineLength, len);
                 }
             }
 
-            let messages = [], emptyLine;
+            const messages = [];
+            let emptyLine;
             messages.push(emptyLine = formatter.format(util.format('<error>%s</error>', ' '.repeat(len))));
             messages.push(formatter.format(util.format('<error>%s%s</error>', title, ' '.repeat(Math.max(0, len - title.length)))));
-            for (let line of lines) {
+            for (const line of lines) {
                 messages.push(formatter.format(util.format('<error>  %s  %s</error>', OutputFormatter.escape(line[0]), ' '.repeat(len - line[1]))));
             }
             messages.push(emptyLine);
@@ -717,8 +734,8 @@ class Application {
                 output.writeln('<comment>Exception trace:</comment>', OutputInterface.VERBOSITY_QUIET);
 
                 // Exception related properties
-                let trace = Exception.parseStackTrace(exception);
-                for (let current of trace) {
+                const trace = Exception.parseStackTrace(exception);
+                for (const current of trace) {
                     const func = current['function'];
                     const file = current['file'] || 'n/a';
                     const line = current['line'] || 'n/a';
@@ -736,7 +753,9 @@ class Application {
     }
 
     * _splitStringByWidth(line, number) {
-        let rx = new RegExp(`(.{1,${number}})`, 'g'), chunk;
+        const rx = new RegExp(`(.{1,${number}})`, 'g');
+        let chunk;
+
         while (chunk = rx.exec(line)) {
             yield chunk[1];
         }
@@ -754,17 +773,17 @@ class Application {
      * @private
      */
     _findAlternatives(name, collection) {
-        let threshold = 1e3;
-        let alternatives = {};
+        const threshold = 1e3;
+        const alternatives = {};
 
-        let collectionParts = {};
-        for (let item of collection) {
+        const collectionParts = {};
+        for (const item of collection) {
             collectionParts[item] = item.split(':');
         }
 
-        for (let [ i, subname ] of __jymfony.getEntries(name.split(':'))) {
-            for (let [ collectionName, parts ] of __jymfony.getEntries(collectionParts)) {
-                let exists = undefined !== alternatives[collectionName];
+        for (const [ i, subname ] of __jymfony.getEntries(name.split(':'))) {
+            for (const [ collectionName, parts ] of __jymfony.getEntries(collectionParts)) {
+                const exists = undefined !== alternatives[collectionName];
                 if (! parts[i] && exists) {
                     alternatives[collectionName] += threshold;
                     continue;
@@ -772,7 +791,7 @@ class Application {
                     continue;
                 }
 
-                let lev = __jymfony.levenshtein(subname, parts[i]);
+                const lev = __jymfony.levenshtein(subname, parts[i]);
                 if (lev <= subname.length / 3 || '' !== subname && -1 !== parts[i].indexOf(subname)) {
                     alternatives[collectionName] = exists ? alternatives[collectionName] + lev : lev;
                 } else if (exists) {
@@ -781,8 +800,8 @@ class Application {
             }
         }
 
-        for (let item of collection) {
-            let lev = __jymfony.levenshtein(name, item);
+        for (const item of collection) {
+            const lev = __jymfony.levenshtein(name, item);
             if (lev <= name.length / 3 || -1 !== item.indexOf(name)) {
                 alternatives[item] = undefined !== alternatives[item] ? alternatives[item] - lev : lev;
             }
@@ -810,12 +829,12 @@ class Application {
      * @returns {string[]} The namespaces of the command
      */
     _extractAllNamespaces(name) {
-        let parts = name.split(':');
+        const parts = name.split(':');
         parts.splice(parts.length - 1);
 
-        let namespaces = [];
+        const namespaces = [];
 
-        for (let part of parts) {
+        for (const part of parts) {
             if (namespaces.length) {
                 namespaces.push(namespaces[namespaces.length-1] + ':' + part);
             } else {

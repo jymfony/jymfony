@@ -1,14 +1,8 @@
 require('../../index');
 const expect = require('chai').expect;
 
-function sleep(ms) {
-    return function(done) {
-        setTimeout(done, ms);
-    };
-}
-
 function * doWork() {
-    yield sleep(50);
+    yield __jymfony.sleep(50);
     return 'foo';
 }
 

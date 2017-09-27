@@ -29,8 +29,8 @@ class ChildDefinition extends Definition {
      * @inheritDoc
      */
     getArguments() {
-        let args = [ ...this._arguments ];
-        for (let [ k, v ] of __jymfony.getEntries(this._replacedArguments)) {
+        const args = [ ...this._arguments ];
+        for (const [ k, v ] of __jymfony.getEntries(this._replacedArguments)) {
             if (k >= args.length) {
                 continue;
             }

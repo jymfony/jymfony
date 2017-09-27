@@ -6,7 +6,7 @@ const CompilerPassInterface = Jymfony.Component.DependencyInjection.Compiler.Com
  */
 module.exports = class ExtensionCompilerPass extends implementationOf(CompilerPassInterface) {
     process(container) {
-        for (let extension of Object.values(container.getExtensions())) {
+        for (const extension of Object.values(container.getExtensions())) {
             if (extension instanceof CompilerPassInterface) {
                 extension.process(container);
             }

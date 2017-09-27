@@ -29,13 +29,13 @@ class Async {
                 return resolve(generator);
             }
 
-            let next, onFulfilled, onRejected;
-            next = ret => {
+            /* eslint indent: "off" */
+            const next = ret => {
                 if (ret.done) {
                     return resolve(ret.value);
                 }
 
-                let val = Async.toPromise(ret.value);
+                const val = Async.toPromise(ret.value);
                 if (val && isPromise(val)) {
                     return val.then(onFulfilled, onRejected);
                 } else if (isScalar(val)) {
@@ -44,9 +44,9 @@ class Async {
 
                 return onRejected(new TypeError(
                     __jymfony.sprintf('Expected a function, a generator, a promise, an array or an object. "%s" yielded',
-                    undefined === ret.value ? 'undefined' : ret.value.toString())
+                        undefined === ret.value ? 'undefined' : ret.value.toString())
                 ));
-            };
+            },
 
             onFulfilled = res => {
                 let retVal;
@@ -59,7 +59,7 @@ class Async {
 
                 next(retVal);
                 return null;
-            };
+            },
 
             onRejected = err => {
                 let retVal;
@@ -107,12 +107,13 @@ class Async {
 
     static functionToPromise(fn) {
         return new Promise((resolve, reject) => {
-            let retVal = fn(function (err, res) {
+            const retVal = fn(function (err, res) {
                 if (err) {
                     return reject(err);
                 }
 
                 if (2 < arguments.length) {
+                    /* eslint prefer-rest-params: "off" */
                     res = [].slice.call(arguments, 1);
                 }
 
@@ -126,11 +127,11 @@ class Async {
     }
 
     static objectToPromise(obj) {
-        let results = {};
-        let promises = [];
+        const results = {};
+        const promises = [];
 
-        for (let k of Object.keys(obj)) {
-            let promise = Async.toPromise(obj[k]);
+        for (const k of Object.keys(obj)) {
+            const promise = Async.toPromise(obj[k]);
 
             results[k] = undefined;
             promises.push(promise.then(res => (results[k] = res)));

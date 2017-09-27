@@ -6,9 +6,7 @@ const PropertyPathInterface = Jymfony.Component.PropertyAccess.PropertyPathInter
  * @type {Jymfony.Component.PropertyAccess.PropertyPath}
  */
 module.exports = class PropertyPath extends implementationOf(PropertyPathInterface) {
-    constructor(propertyPath) {
-        super();
-
+    __construct(propertyPath) {
         if (propertyPath instanceof PropertyPath) {
             this._elements = Array.from(propertyPath._elements);
         } else if (isString(propertyPath)) {
