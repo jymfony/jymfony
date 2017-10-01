@@ -117,11 +117,17 @@ class Definition {
     /**
      * Set the service class
      *
-     * @param {string} className
+     * @param {string|Function} className
      *
      * @returns {Jymfony.Component.DependencyInjection.Definition}
      */
     setClass(className) {
+        if (isFunction(className)) {
+            try {
+                className = (new ReflectionClass(className)).name;
+            } catch (e) { }
+        }
+
         this._changes['class'] = true;
         this._class = className;
 
