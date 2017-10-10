@@ -29,6 +29,7 @@
       "namespaces": {
         "Jymfony.Bundle.FrameworkBundle": "src/Bundle/FrameworkBundle/src",
         "Jymfony.Component.Autoloader": "src/Component/Autoloader/src",
+        "Jymfony.Component.Cache": "src/Component/Cache/src",
         "Jymfony.Component.Config": "src/Component/Config/src",
         "Jymfony.Component.Console": "src/Component/Console/src",
         "Jymfony.Component.DateTime": "src/Component/DateTime/src",

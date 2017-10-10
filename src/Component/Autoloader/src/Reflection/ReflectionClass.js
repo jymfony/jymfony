@@ -100,6 +100,21 @@ class ReflectionClass {
     }
 
     /**
+     * Gets a FQCN from an object, constructor or a string.
+     *
+     * @param className
+     *
+     * @returns {string}
+     */
+    static getClassName(className) {
+        try {
+            return (new ReflectionClass(className)).name;
+        } catch (e) {
+            return 'Object';
+        }
+    }
+
+    /**
      * Construct a new object.
      *
      * @param {...*} var_args Arguments to constructor
