@@ -96,29 +96,13 @@ class CacheItemPoolInterface {
     * deleteItems(keys) { }
 
     /**
-     * Persists a cache item immediately.
+     * Persists a cache item.
      *
      * @param {Jymfony.Component.Cache.CacheItemInterface} item The cache item to save.
      *
      * @returns {boolean} True if the item was successfully persisted. False if there was an error.
      */
     * save(item) { }
-
-    /**
-     * Sets a cache item to be persisted later.
-     *
-     * @param {Jymfony.Component.Cache.CacheItemInterface} item The cache item to save.
-     *
-     * @returns {boolean} False if the item could not be queued or if a commit was attempted and failed. True otherwise.
-     */
-    * saveDeferred(item) { }
-
-    /**
-     * Persists any deferred cache items.
-     *
-     * @returns {boolean} True if all not-yet-saved items were successfully saved or there were none. False otherwise.
-     */
-    * commit() { }
 }
 
 module.exports = getInterface(CacheItemPoolInterface);

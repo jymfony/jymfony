@@ -45,6 +45,12 @@ global.mix = function mix(superclass, ...mixins) {
         return mixin;
     })(superclass);
 
+    for (const mixin of mixins) {
+        for (const name of Mixins.getConstantsNames(mixin.definition)) {
+            mixed[name] = mixin[name];
+        }
+    }
+
     Object.defineProperty(mixed, Mixins.appliedInterfacesSymbol, {
         value: [ ...interfaces ],
         enumerable: false,

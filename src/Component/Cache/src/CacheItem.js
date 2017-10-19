@@ -93,7 +93,7 @@ class CacheItem extends implementationOf(CacheItemInterface) {
      */
     expiresAt(expiration) {
         if (null === expiration || undefined === expiration) {
-            this._expiry = this._defaultLifetime > 0 ? DateTime.now.timestamp : undefined;
+            this._expiry = 0 < this._defaultLifetime ? DateTime.unixTime : undefined;
         } else if (expiration instanceof DateTime) {
             this._expiry = expiration.timestamp;
         } else {
@@ -111,7 +111,7 @@ class CacheItem extends implementationOf(CacheItemInterface) {
      */
     expiresAfter(time) {
         if (null === time || undefined === time) {
-            this._expiry = this._defaultLifetime > 0 ? DateTime.now.timestamp : undefined;
+            this._expiry = 0 < this._defaultLifetime ? DateTime.unixTime : undefined;
         } else if (time instanceof TimeSpan) {
             this._expiry = DateTime.now.modify(time).timestamp;
         } else if (isNumber(time)) {
@@ -137,7 +137,7 @@ class CacheItem extends implementationOf(CacheItemInterface) {
      */
     tag(tags) {
         if (! isArray(tags)) {
-            tags = [tags];
+            tags = [ tags ];
         }
 
         for (const tag of tags) {
@@ -148,11 +148,11 @@ class CacheItem extends implementationOf(CacheItemInterface) {
                 ));
             }
 
-            if (this._tags.indexOf(tag) !== -1) {
+            if (-1 !== this._tags.indexOf(tag)) {
                 continue;
             }
 
-            if (tag.length === 0) {
+            if (0 === tag.length) {
                 throw new InvalidArgumentException('Cache tag must have length greater than 0');
             }
 
@@ -174,7 +174,7 @@ class CacheItem extends implementationOf(CacheItemInterface) {
             ));
         }
 
-        if (key.length === 0) {
+        if (0 === key.length) {
             throw new InvalidArgumentException('Cache key must have length greater than 0');
         }
 

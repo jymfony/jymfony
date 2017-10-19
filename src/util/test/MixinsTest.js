@@ -73,7 +73,7 @@ describe('Mixins.getInterface', function () {
 
         new cTest2();
 
-        expect(() => new cTest).to.throw(SyntaxError, 'Getter/Setter for "foo" property must be implemented.');
+        expect(() => new cTest).to.throw(SyntaxError, 'Getter for "foo" property must be implemented.');
     });
 
     it('should check for unimplemented setters', () => {
@@ -91,7 +91,7 @@ describe('Mixins.getInterface', function () {
 
         new cTest2();
 
-        expect(() => new cTest).to.throw(SyntaxError, 'Getter/Setter for "foo" property must be implemented.');
+        expect(() => new cTest).to.throw(SyntaxError, 'Setter for "foo" property must be implemented.');
         expect(() => new cTest3).to.throw(SyntaxError, 'Setter for "foo" property must be implemented.');
     });
 
@@ -107,7 +107,7 @@ describe('Mixins.getInterface', function () {
 
         new cTest2();
 
-        expect(() => new cTest).to.throw(SyntaxError, 'Getter/Setter for "foo" property must be implemented.');
+        expect(() => new cTest).to.throw(SyntaxError, 'Setter for "foo" property must be implemented.');
     });
 
     it('should make instanceof work', () => {
@@ -185,9 +185,21 @@ describe('Mixins.getTrait', function () {
                 this.foo = 'foobar';
             }
         });
-        class Foobar extends mix(undefined, traitTest) { }
+        class Foobar extends mix(undefined, traitTest) {
+            __construct() {}
+        }
 
         let obj = new Foobar();
         expect(obj.foo).to.be.equal('foobar');
+    });
+
+    it('constants should be inherited from trait', () => {
+        const traitClass = class TestTrait { };
+        traitClass.STATIC_VALUE = 'static';
+
+        const traitTest = getTrait(traitClass);
+        class Foobar extends mix(undefined, traitTest) { }
+
+        expect(Foobar.STATIC_VALUE).to.be.equal('static');
     });
 });

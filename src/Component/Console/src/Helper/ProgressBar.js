@@ -48,7 +48,7 @@ class ProgressBar {
             this.redrawFrequency = max / 10;
         }
 
-        this._startTime = DateTime.now.timestamp;
+        this._startTime = DateTime.unixTime;
     }
 
     /**
@@ -243,7 +243,7 @@ class ProgressBar {
      * @param {int|null} max Number of steps to complete the bar (0 if indeterminate), null to leave unchanged
      */
     start(max = undefined) {
-        this._startTime = DateTime.now.timestamp;
+        this._startTime = DateTime.unixTime;
         this._step = 0;
         this._percent = 0.0;
 
@@ -432,7 +432,7 @@ class ProgressBar {
              * @returns {string}
              */
             elapsed: (bar) => {
-                return Helper.formatTime(DateTime.now.timestamp - bar.startTime);
+                return Helper.formatTime(DateTime.unixTime - bar.startTime);
             },
             /**
              * @param {Jymfony.Component.Console.Helper.ProgressBar} bar
@@ -448,7 +448,7 @@ class ProgressBar {
                 if (! bar._step) {
                     remaining = 0;
                 } else {
-                    remaining = Math.round((DateTime.now.timestamp - bar.startTime) / bar.progress * (bar.maxSteps - bar.progress));
+                    remaining = Math.round((DateTime.unixTime - bar.startTime) / bar.progress * (bar.maxSteps - bar.progress));
                 }
 
                 return Helper.formatTime(remaining);
@@ -467,7 +467,7 @@ class ProgressBar {
                 if (! bar.progress) {
                     estimated = 0;
                 } else {
-                    estimated = Math.round((DateTime.now.timestamp - bar.startTime) / bar.progress * bar.maxSteps);
+                    estimated = Math.round((DateTime.unixTime - bar.startTime) / bar.progress * bar.maxSteps);
                 }
 
                 return Helper.formatTime(estimated);

@@ -62,26 +62,6 @@ class NullAdapter extends implementationOf(CacheItemPoolInterface) {
     save(item) {
         return false;
     }
-
-    /**
-     * Sets a cache item to be persisted later.
-     *
-     * @param {Jymfony.Component.Cache.CacheItemInterface} item The cache item to save.
-     *
-     * @returns {boolean} False if the item could not be queued or if a commit was attempted and failed. True otherwise.
-     */
-    saveDeferred(item) {
-        return false;
-    }
-
-    /**
-     * Persists any deferred cache items.
-     *
-     * @returns {boolean} True if all not-yet-saved items were successfully saved or there were none. False otherwise.
-     */
-    commit() {
-        return false;
-    }
 }
 
 module.exports = NullAdapter;

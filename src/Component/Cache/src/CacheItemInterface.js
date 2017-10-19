@@ -77,7 +77,7 @@ class CacheItemInterface {
      *
      * @returns {Jymfony.Component.Cache.CacheItemInterface} The invoked object.
      */
-    expiresAt(expiration);
+    expiresAt(expiration) { }
 
     /**
      * Sets the expiration time for this cache item.
