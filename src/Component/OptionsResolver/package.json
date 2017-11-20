@@ -1,5 +1,5 @@
 {
-  "name": "@jymfony/lexer",
+  "name": "@jymfony/options-resolver",
   "version": "0.1.0-dev",
   "description": "Jymfony OptionsResolver component",
   "scripts": {
