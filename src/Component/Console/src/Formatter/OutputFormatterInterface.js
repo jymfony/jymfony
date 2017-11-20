@@ -52,6 +52,16 @@ class OutputFormatterInterface {
      * @returns {string} The styled message
      */
     format(message) { }
+
+    /**
+     * Formats a message according to the given styles, wrapping at `width` (0 means no wrapping).
+     *
+     * @param {string} message The message to style
+     * @param {int} width Wrap limit (0 means no wrapping)
+     *
+     * @returns {string} The styled message
+     */
+    formatAndWrap(message, width) { }
 }
 
 export default getInterface(OutputFormatterInterface);

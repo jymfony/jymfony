@@ -1,4 +1,6 @@
 declare namespace Jymfony.Component.Console.Formatter {
+    import ValueHolder = Jymfony.Component.Console.Internal.ValueHolder;
+
     export class OutputFormatter extends implementationOf(OutputFormatterInterface) {
         private _decorated: boolean;
         private _styles: Record<string, OutputFormatterStyleInterface>;
@@ -39,9 +41,14 @@ declare namespace Jymfony.Component.Console.Formatter {
         format(message: string): string;
 
         /**
+         * @inheritdoc
+         */
+        formatAndWrap(message: string, width: number): string;
+
+        /**
          * Applies current style from stack to text, if must be applied.
          */
-        private _applyCurrentStyle(text: string): string;
+        private _applyCurrentStyle(text: string, current: string, width: number, currentLineLength: ValueHolder<int>): string;
 
         /**
          * Tries to create new style instance from string.

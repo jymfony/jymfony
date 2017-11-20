@@ -26,5 +26,10 @@ declare namespace Jymfony.Component.Console.Formatter {
          * Formats a message according to the given styles.
          */
         format(message: string): string;
+
+        /**
+         * Formats a message according to the given styles, wrapping at `width` (0 means no wrapping).
+         */
+        formatAndWrap(message: string, width: number): string;
     }
 }

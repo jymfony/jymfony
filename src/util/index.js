@@ -34,6 +34,7 @@ require('./lib/String/htmlentities');
 require('./lib/String/levenshtein');
 require('./lib/String/querystring');
 require('./lib/String/sprintf');
+require('./lib/String/str_pad');
 require('./lib/String/strcspn');
 require('./lib/String/strip_tags');
 require('./lib/String/strtr');

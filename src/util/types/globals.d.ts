@@ -154,6 +154,15 @@ declare namespace __jymfony {
      */
     export function sprintf(format: string, ...args: any[]): string;
 
+    export const STR_PAD_RIGHT = 'STR_PAD_RIGHT';
+    export const STR_PAD_LEFT = 'STR_PAD_LEFT';
+    export const STR_PAD_BOTH = 'STR_PAD_BOTH';
+
+    /**
+     * Pad a string to a certain length with another string.
+     */
+    export function str_pad(string: string, length?: number, pad?: string, padType?: 'STR_PAD_RIGHT' | 'STR_PAD_LEFT' | 'STR_PAD_BOTH')
+
     /**
      * The strcspn() function returns the number of characters (including whitespaces)
      * found in a string before any part of the specified characters are found.
