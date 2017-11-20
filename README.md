@@ -25,6 +25,7 @@ Components available:
 ---------------------
 As said, Jymfony is made of reusable Javascript components:
 - `@jymfony/autoloader`
+- `@jymfony/cache`
 - `@jymfony/config`
 - `@jymfony/console`
 - `@jymfony/datetime`
@@ -33,6 +34,7 @@ As said, Jymfony is made of reusable Javascript components:
 - `@jymfony/filesystem`
 - `@jymfony/lexer`
 - `@jymfony/logger`
+- `@jymfomy/options-resolver`
 - `@jymfony/property-access`
 - `@jymfony/testing`
 
