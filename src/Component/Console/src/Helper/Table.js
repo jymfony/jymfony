@@ -1,5 +1,6 @@
-const OutputInterface = Jymfony.Component.Console.Output.OutputInterface;
 const InvalidArgumentException = Jymfony.Component.Console.Exception.InvalidArgumentException;
+const Helper = Jymfony.Component.Console.Helper.Helper;
+const OutputInterface = Jymfony.Component.Console.Output.OutputInterface;
 
 class Table {
     /**
@@ -10,18 +11,26 @@ class Table {
         /**
          * Table headers.
          *
-         * @type {Object}
+         * @type {String[]}
          * @private
          */
-        this._headers = {};
+        this._headers = [];
 
         /**
          * Table rows.
          *
-         * @type {Object}
+         * @type {Array}
          * @private
          */
-        this._rows = {};
+        this._rows = [];
+
+        /**
+         * Number of columns cache.
+         *
+         * @type {int}
+         * @private
+         */
+        this._numberOfColumns = 0;
 
         /**
          * Column widths cache.
@@ -29,7 +38,7 @@ class Table {
          * @type {Object}
          * @private
          */
-        this._effectiveColumnWidths = {};
+        this._effectiveColumnWidths = [];
 
         /**
          * @type {Array}
@@ -69,7 +78,7 @@ class Table {
     /**
      * Sets a style definition.
      *
-     * @param {string} name The style name
+     * @param {String} name The style name
      * @param {TableStyle} style A TableStyle instance
      */
     static setStyleDefinition(name, style) {
@@ -77,14 +86,14 @@ class Table {
             Table.styles = Table.initStyles();
         }
 
-        Table.styles[$name] = style;
+        Table.styles[name] = style;
     }
 
 
     /**
      * Gets a style definition by name.
      *
-     * @param {string} name The style name
+     * @param {String} name The style name
      *
      * @return TableStyle
      */
@@ -112,7 +121,7 @@ class Table {
     /**
      * Sets table style.
      *
-     * @param {TableStyle|string} name The style name or a TableStyle instance
+     * @param {TableStyle|String} name The style name or a TableStyle instance
      *
      * @return {Table}
      */
@@ -140,7 +149,7 @@ class Table {
      * Sets table column style.
      *
      * @param {int} columnIndex Column index
-     * @param {TableStyle|string} name The style name or a TableStyle instance
+     * @param {TableStyle|String} name The style name or a TableStyle instance
      *
      * @return {Table}
      */
@@ -178,5 +187,420 @@ class Table {
         }
 
         return this;
+    }
+
+    setHeaders(headers) {
+        if (!!headers && !__jymfony.isArray(headers[0])) {
+            headers = [headers];
+        }
+
+        this._headers = headers;
+
+        return this;
+    }
+
+    setRows(rows) {
+        this._rows = [];
+
+        return this.addRows(rows);
+    }
+
+    addRows(rows) {
+        for (let row of rows) {
+            this.addRow(row);
+        }
+
+        return this;
+    }
+
+    addRow(row) {
+        if (row instanceof TableSeparator) {
+            this._rows.push(row);
+
+            return this;
+        }
+
+        if (!__jymfony.isArray(row)) {
+            throw new InvalidArgumentException('A row must be an array or a TableSeparator instance.');
+        }
+
+        this._rows.push(row);
+
+        return this;
+    }
+
+    /**
+     * @param {int} column
+     * @param {Array} row
+     *
+     * @returns {Table}
+     */
+    setRow(column, row) {
+        this._rows[column] = row;
+
+        return this;
+    }
+
+    /**
+     * Renders table to output.
+     *
+     * Example:
+     * +---------------+-----------------------+------------------+
+     * | ISBN          | Title                 | Author           |
+     * +---------------+-----------------------+------------------+
+     * | 99921-58-10-7 | Divine Comedy         | Dante Alighieri  |
+     * | 9971-5-0210-0 | A Tale of Two Cities  | Charles Dickens  |
+     * | 960-425-059-0 | The Lord of the Rings | J. R. R. Tolkien |
+     * +---------------+-----------------------+------------------+
+     */
+    render() {
+        this._calculateNumberOfColumns();
+        let rows = this.buildTableRows(this._rows);
+        let headers = this.buildTableRows(this._headers);
+
+        this.calculateColumnsWidth([].concat(headers, rows));
+
+        this._renderRowSeparator();
+        if (headers.length > 0) {
+            for (let header of headers) {
+                this._renderRow(header, this.style.getCellHeaderFormat());
+                this._renderRowSeparator();
+            }
+        }
+
+        for (let row of rows) {
+            if (row instanceof TableSeparator) {
+                this._renderRowSeparator();
+            } else {
+                this._renderRow(row, this.style.getCellRowFormat());
+            }
+        }
+
+        if (rows.length > 0) {
+            this._renderRowSeparator();
+        }
+
+        this.cleanup();
+    }
+
+    /**
+     * Renders horizontal header separator.
+     *
+     * Example: +-----+-----------+-------+
+     *
+     * @private
+     */
+    _renderRowSeparator() {
+        let count = this._numberOfColumns;
+        if (0 === count) {
+            return;
+        }
+
+        let crossingChar = this.style.getCrossingChar();
+        let horizontalBorderChar = this.style.getHorizontalBorderChar();
+        if (!horizontalBorderChar && !crossingChar) {
+            return;
+        }
+
+        let markup = crossingChar();
+        for (let column = 0; column < count; ++column) {
+            markup += horizontalBorderChar.repeat(this._effectiveColumnWidths[column]) + crossingChar;
+        }
+
+        this._output.writeln(__jymfony.sprintf(this.style.getBorderFormat(), markup));
+    }
+
+    /**
+     * Renders vertical column separator.
+     * @private
+     */
+    _renderColumnSeparator() {
+        return __jymfony.sprintf(this.style.getBorderFormat(), this.style.getVerticalBorderChar());
+    }
+
+    /**
+     * Renders table row.
+     *
+     * Example: | 9971-5-0210-0 | A Tale of Two Cities  | Charles Dickens  |
+     *
+     * @param {Array} row
+     * @param {String} cellFormat
+     *
+     * @private
+     */
+    _renderRow(row, cellFormat) {
+        if (! isArray(row) || 0 === row.length) {
+            return;
+        }
+
+        let rowContent = this._renderColumnSeparator();
+        for (let column of this._getRowColumns(row)) {
+            rowContent += this._renderCell(row, column, cellFormat);
+            rowContent += this._renderColumnSeparator();
+        }
+
+        this._output.writeln(rowContent);
+    }
+
+    /**
+     * Renders table cell with padding.
+     *
+     * @param {Array} row
+     * @param {int} column
+     * @param {String} cellFormat
+     *
+     * @private
+     */
+    _renderCell(row, column, cellFormat) {
+        let cell = !!row[column] ? row[column] : '';
+        let width = this._effectiveColumnWidths[column];
+
+        if (cell instanceof TableCell && cell.colspan > 1) {
+            // add the width of the following columns(numbers of colspan).
+            for (let nextColumn = column + 1; nextColumn <= column + cell.getColspan() - 1; ++nextColumn) {
+                width += this._getColumnSeparatorWidth() + this._effectiveColumnWidths[nextColumn];
+            }
+        }
+
+        let style = this.getColumnStyle(column);
+        if (cell instanceof TableSeparator) {
+            return __jymfony.sprintf(style.getBorderFormat(), style.getHorizontalBorderChar().repeat(width));
+        }
+
+        width += cell.length - Helper.strlenWithoutDecoration(this._output.formatter(), cell);
+        let content = __jymfony.sprintf(style.getCellRowContentFormat(), cell);
+
+        return __jymfony.sprintf(cellFormat, str_pad(content, width, style.getPaddingChar(), style.getPadType()));
+    }
+
+    /**
+     * Calculate number of columns for this table.
+     *
+     * @private
+     */
+    _calculateNumberOfColumns() {
+        if (this._numberOfColumns) {
+            return;
+        }
+
+        let columns = [0];
+
+        for (let row of [].concat(this._headers, this._rows)) {
+            if (row instanceof TableSeparator) {
+                continue;
+            }
+
+            columns.push(this._getNumberOfColumns(row));
+        }
+
+        this._numberOfColumns = Math.max(...columns);
+    }
+
+    /**
+     * @param {Array} rows
+     *
+     * @returns {Array}
+     *
+     * @private
+     */
+    _buildTableRows(rows) {
+        let unmergedRows = [];
+
+        for (let rowNumber = 0; rowNumber < rows.length; ++rowNumber) {
+            let rows = this.fillNextRows(rows, rowNumber);
+
+            // Remove any new line breaks and replace it with a new line
+            for (let column = 0; column < rows[rowNumber].length; ++column) {
+                let cell = rows[rowNumber][column];
+
+                if (-1 === cell.indexOf("\n")) {
+                    continue;
+                }
+
+                let lines = cell.replace("\n", "<fg=default;bg=default>\n</>").split("\n");
+                for (let lineNumber = 0; lineNumber < lines.length; ++lineNumber) {
+                    let line = lines[lineNumber];
+
+                    if (cell instanceof TableCell) {
+                        line = new TableCell(line, { 'colspan': cell.getColspan() });
+                    }
+
+                    if (0 === lineNumber) {
+                        rows[rowNumber][column] = line;
+                    } else {
+                        unmergedRows[rowNumber][lineNumber][column] = line;
+                    }
+                }
+            }
+        }
+
+        let tableRows = [];
+        for (let rowNumber = 0; rowNumber < rows.length; ++rowNumber) {
+            tableRows.push(this._fillCells(rows[rowNumber]));
+
+            if (!!unmergedRows[rowNumber]) {
+                tableRows = [].concat(tableRows, unmergedRows[rowNumber]);
+            }
+        }
+
+        return tableRows;
+    }
+
+    /**
+     * fill rows that contains rowspan > 1.
+     *
+     * @param {Array} rows
+     * @param {int} line
+     *
+     * @return {Array}
+     *
+     * @private
+     */
+    _fillNextRows(rows, line) {
+        let unmergedRows = [];
+        for (let column = 0; column < rows[line]; ++column) {
+            let cell = rows[line][column];
+
+            if (cell instanceof TableCell && cell.getRowspan() > 1) {
+                let nbLines = cell.getRowspan() - 1;
+                let lines = [cell];
+
+                if (-1 < cell.indexOf("\n")) {
+                    let lines = cell.replace("\n", "<fg=default;bg=default>\n</>").split("\n");
+                    nbLines = lines.length > nbLines ? __jymfony.substr_count(cell, "\n") : nbLines;
+
+                    rows[line][column] = new TableCell(lines[0], { 'colspan': cell.getColspan() });
+                    lines[0].shift();
+                }
+
+                // create a two dimensional array (rowspan x colspan)
+                unmergedRows = array_replace_recursive(array_fill($line + 1, $nbLines, array()), $unmergedRows);
+                for (let unmergedRowNumber = 0; unmergedRowNumber < unmergedRows.length; ++unmergedRowNumber) {
+                    let value = !!lines[unmergedRowNumber - line] ? lines[unmergedRowNumber - line] : '';
+
+                    unmergedRows[unmergedRowNumber][column] = new TableCell(value, { 'colspan': cell.getColspan() });
+                    if (nbLines === unmergedRowKey - line) {
+                        break;
+                    }
+                }
+            }
+        }
+
+        for (let unmergedRowNumber = 0; unmergedRowNumber < unmergedRows.length; ++unmergedRowNumber) {
+            let unmergedRow = unmergedRows[unmergedRowNumber];
+
+            // we need to know if unmergedRow will be merged or inserted into $rows
+            if (!!rows[unmergedRowNumber] && isArray(rows[unmergedRowNumber]) &&
+                this._getNumberOfColumns(rows[unmergedRowNumber]) + this._getNumberOfColumns(unmergedRows[unmergedRowNumber]) <= this._numberOfColumns) {
+                for (let cellNumber = 0; cellNumber < unmergedRow.length; ++cellNumber) {
+                    let cell = unmergedRow[cellNumber];
+
+                    // insert cell into row at cellKey position
+                    array_splice(rows[unmergedRowNumber], cellNumber, 0, [cell]);
+                }
+            } else {
+                let row = this._copyRow(rows, unmergedRowNumber - 1);
+                for (let cellNumber = 0; cellNumber < unmergedRow.length; ++cellNumber) {
+                    let cell = unmergedRow[cellNumber];
+
+                    if (!! cell) {
+                        row[cellNumber] = unmergedRow[cellNumber];
+                    }
+                }
+
+                array_splice(rows, unmergedRowKey, 0, [row]);
+            }
+        }
+
+        return rows;
+    }
+
+    /**
+     * fill cells for a row that contains colspan > 1.
+     *
+     * @param {Array} row
+     *
+     * @return {Array}
+     *
+     * @private
+     */
+    _fillCells(row) {
+        let newRow = [];
+        for (const [ cellKey, cell ] of __jymfony.getEntries(row)) {
+            newRow.push(cell);
+            if (cell instanceof TableCell && cell.getColspan() > 1) {
+                for (let position = cellKey; position < cellKey + cell.getColspan() - 1; ++position) {
+                    // insert empty value at column position
+                    newRow.push('');
+                }
+            }
+        }
+
+        return !!newRow ? newRow : row;
+    }
+
+    /**
+     * @param {Array} rows
+     * @param {int} line
+     *
+     * @return {Array}
+     *
+     * @private
+     */
+    _copyRow(rows, line) {
+        let row = rows[line];
+        for (const [ cellKey, cell ] of __jymfony.getEntries(row)) {
+            row[cellKey] = '';
+
+            if (cell instanceof TableCell) {
+                row[cellKey] = new TableCell('', { 'colspan': cell.getColspan() });
+            }
+        }
+
+        return row;
+    }
+
+    /**
+     * Gets number of columns by row.
+     *
+     * @param {Array} row
+     *
+     * @return {int}
+     *
+     * @private
+     */
+    _getNumberOfColumns(row) {
+        let columns = row.length;
+
+        for (const cell of row) {
+            columns += cell instanceof TableCell ? cell.getColspan() - 0 : 0;
+        }
+
+        return columns;
+    }
+
+    /**
+     * Gets list of columns for the given row.
+     *
+     * @param {Array} row
+     *
+     * @return {Array}
+     *
+     * @private
+     */
+    _getRowColumns(row) {
+        let columns = [];
+        for (const [ cellKey, cell ] of __jymfony.getEntries(row)) {
+            if (cell instanceof TableCell && cell.getColspan() > 1) {
+                let range = [];
+                for (let i = cellKey + 1; i < cellKey + cell.getColspan() - 1; ++i) {
+                    range.push(i);
+                }
+
+                columns = columns.filter(x => range.indexOf(x) === -1);
+            }
+        }
+
+        return columns;
     }
 }
