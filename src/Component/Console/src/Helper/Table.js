@@ -258,7 +258,7 @@ class Table {
         let rows = this.buildTableRows(this._rows);
         let headers = this.buildTableRows(this._headers);
 
-        this.calculateColumnsWidth([].concat(headers, rows));
+        this._calculateColumnsWidth([].concat(headers, rows));
 
         this._renderRowSeparator();
         if (headers.length > 0) {
@@ -407,28 +407,24 @@ class Table {
         let unmergedRows = [];
 
         for (let rowNumber = 0; rowNumber < rows.length; ++rowNumber) {
-            let rows = this.fillNextRows(rows, rowNumber);
+            let rows = this._fillNextRows(rows, rowNumber);
 
             // Remove any new line breaks and replace it with a new line
-            for (let column = 0; column < rows[rowNumber].length; ++column) {
-                let cell = rows[rowNumber][column];
-
+            for (let [ column, cell ] of __jymfony.getEntries(rows[rowNumber])) {
                 if (-1 === cell.indexOf("\n")) {
                     continue;
                 }
 
                 let lines = cell.replace("\n", "<fg=default;bg=default>\n</>").split("\n");
-                for (let lineNumber = 0; lineNumber < lines.length; ++lineNumber) {
-                    let line = lines[lineNumber];
-
+                for (let [ lineKey, line ] of __jymfony.getEntries(lines)) {
                     if (cell instanceof TableCell) {
                         line = new TableCell(line, { 'colspan': cell.getColspan() });
                     }
 
-                    if (0 === lineNumber) {
+                    if (0 === lineKey) {
                         rows[rowNumber][column] = line;
                     } else {
-                        unmergedRows[rowNumber][lineNumber][column] = line;
+                        unmergedRows[rowNumber][lineKey][column] = line;
                     }
                 }
             }
@@ -458,9 +454,8 @@ class Table {
      */
     _fillNextRows(rows, line) {
         let unmergedRows = [];
-        for (let column = 0; column < rows[line]; ++column) {
-            let cell = rows[line][column];
 
+        for (const [ column, cell ] of __jymfony.getEntries(rows[line])) {
             if (cell instanceof TableCell && cell.getRowspan() > 1) {
                 let nbLines = cell.getRowspan() - 1;
                 let lines = [cell];
@@ -475,36 +470,30 @@ class Table {
 
                 // create a two dimensional array (rowspan x colspan)
                 unmergedRows = array_replace_recursive(array_fill($line + 1, $nbLines, array()), $unmergedRows);
-                for (let unmergedRowNumber = 0; unmergedRowNumber < unmergedRows.length; ++unmergedRowNumber) {
-                    let value = !!lines[unmergedRowNumber - line] ? lines[unmergedRowNumber - line] : '';
+                for (const [ unmergedRowKey, unmergedRow ] of __jymfony.getEntries(unmergedRows)) {
+                    let value = !!lines[unmergedRowKey - line] ? lines[unmergedRowKey - line] : '';
 
-                    unmergedRows[unmergedRowNumber][column] = new TableCell(value, { 'colspan': cell.getColspan() });
+                    unmergedRows[unmergedRowKey][column] = new TableCell(value, { 'colspan': cell.getColspan() });
                     if (nbLines === unmergedRowKey - line) {
                         break;
                     }
                 }
             }
         }
-
-        for (let unmergedRowNumber = 0; unmergedRowNumber < unmergedRows.length; ++unmergedRowNumber) {
-            let unmergedRow = unmergedRows[unmergedRowNumber];
-
+        for (const [ unmergedRowKey, unmergedRow ] of __jymfony.getEntries(unmergedRows)) {
             // we need to know if unmergedRow will be merged or inserted into $rows
-            if (!!rows[unmergedRowNumber] && isArray(rows[unmergedRowNumber]) &&
-                this._getNumberOfColumns(rows[unmergedRowNumber]) + this._getNumberOfColumns(unmergedRows[unmergedRowNumber]) <= this._numberOfColumns) {
-                for (let cellNumber = 0; cellNumber < unmergedRow.length; ++cellNumber) {
-                    let cell = unmergedRow[cellNumber];
+            if (!!rows[unmergedRowKey] && isArray(rows[unmergedRowKey]) &&
+                this._getNumberOfColumns(rows[unmergedRowKey]) + this._getNumberOfColumns(unmergedRows[unmergedRowKey]) <= this._numberOfColumns) {
 
+                for (const [ cellKey, cell ] of __jymfony.getEntries(unmergedRow)) {
                     // insert cell into row at cellKey position
-                    array_splice(rows[unmergedRowNumber], cellNumber, 0, [cell]);
+                    array_splice(rows[unmergedRowKey], cellKey, 0, [cell]);
                 }
             } else {
-                let row = this._copyRow(rows, unmergedRowNumber - 1);
-                for (let cellNumber = 0; cellNumber < unmergedRow.length; ++cellNumber) {
-                    let cell = unmergedRow[cellNumber];
-
-                    if (!! cell) {
-                        row[cellNumber] = unmergedRow[cellNumber];
+                let row = this._copyRow(rows, unmergedRowKey - 1);
+                for (const [ column, cell ] of __jymfony.getEntries(unmergedRow)) {
+                    if (!!cell) {
+                        row[column] = unmergedRow[column];
                     }
                 }
 
@@ -602,5 +591,43 @@ class Table {
         }
 
         return columns;
+    }
+
+    /**
+     * Calculates columns widths.
+     *
+     * @param {Array} rows
+     *
+     * @private
+     */
+    _calculateColumnsWidth(rows) {
+        for (let column = 0; column < this._numberOfColumns; ++column) {
+            let lengths = [];
+
+            for (let row of rows) {
+                if (row instanceof TableSeparator) {
+                    continue;
+                }
+
+                for (const [i, cell] of __jymfony.getEntries(row)) {
+                    if (cell instanceof TableCell) {
+                        let textContent = Helper.removeDecoration(this._output.formatter(), cell);
+                        let textLength = textContent.length;
+
+                        if (textLength > 0) {
+                            let contentColumns = str_split(textContent, Math.ceil(textLength / cell.getColspan()));
+
+                            for (const [position, content] of __jymfony.getEntries(contentColumns)) {
+                                row[i + position] = content;
+                            }
+                        }
+                    }
+                }
+
+                lengths.push(this._getCellWidth(row, column);
+            }
+
+            this._effectiveColumnWidths[column] = Math.max(lengths) + this.style.getCellRowContentFormat().length - 2;
+        }
     }
 }
