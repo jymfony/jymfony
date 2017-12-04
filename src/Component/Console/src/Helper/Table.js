@@ -1,7 +1,15 @@
 const InvalidArgumentException = Jymfony.Component.Console.Exception.InvalidArgumentException;
 const Helper = Jymfony.Component.Console.Helper.Helper;
+const TableCell = Jymfony.Component.Console.Helper.TableCell;
+const TableSeparator = Jymfony.Component.Console.Helper.TableSeparator;
+const TableStyle = Jymfony.Component.Console.Helper.TableStyle;
 const OutputInterface = Jymfony.Component.Console.Output.OutputInterface;
 
+let styles = {};
+
+/**
+ * @memberOf {Jymfony.Component.Console.Helper}
+ */
 class Table {
     /**
      * @param {OutputInterface} output An OutputInterface instance
@@ -11,7 +19,7 @@ class Table {
         /**
          * Table headers.
          *
-         * @type {String[]}
+         * @type {[String]}
          * @private
          */
         this._headers = [];
@@ -60,15 +68,15 @@ class Table {
          */
         this._output = output;
 
-        if (!this.styles) {
-            Table.styles = Table.initStyles();
+        if (__jymfony.equal({}, this.styles)) {
+            Table.styles = Table._initStyles();
         }
 
         this.style = 'default';
     }
 
     static get styles() {
-        return Table.styles;
+        return styles;
     }
 
     static set styles(styles) {
@@ -82,8 +90,8 @@ class Table {
      * @param {TableStyle} style A TableStyle instance
      */
     static setStyleDefinition(name, style) {
-        if (!Table.styles) {
-            Table.styles = Table.initStyles();
+        if (__jymfony.equal({}, this.styles)) {
+            Table.styles = Table._initStyles();
         }
 
         Table.styles[name] = style;
@@ -98,8 +106,8 @@ class Table {
      * @return TableStyle
      */
     static getStyleDefinition(name) {
-        if (!Table.styles) {
-            Table.styles = Table.initStyles();
+        if (__jymfony.equal({}, this.styles)) {
+            Table.styles = Table._initStyles();
         }
 
         if (!!Table.styles[name]) {
@@ -126,7 +134,7 @@ class Table {
      * @return {Table}
      */
     set style(name) {
-        this._style = this.resolveStyle(name);
+        this._style = this._resolveStyle(name);
 
         return this;
     }
@@ -280,7 +288,7 @@ class Table {
             this._renderRowSeparator();
         }
 
-        this.cleanup();
+        this._cleanup();
     }
 
     /**
@@ -462,7 +470,7 @@ class Table {
 
                 if (-1 < cell.indexOf("\n")) {
                     let lines = cell.replace("\n", "<fg=default;bg=default>\n</>").split("\n");
-                    nbLines = lines.length > nbLines ? __jymfony.substr_count(cell, "\n") : nbLines;
+                    nbLines = cell.split("\n").length - 1;
 
                     rows[line][column] = new TableCell(lines[0], { 'colspan': cell.getColspan() });
                     lines[0].shift();
@@ -471,7 +479,7 @@ class Table {
                 // create a two dimensional array (rowspan x colspan)
                 unmergedRows = array_replace_recursive(array_fill($line + 1, $nbLines, array()), $unmergedRows);
                 for (const [ unmergedRowKey, unmergedRow ] of __jymfony.getEntries(unmergedRows)) {
-                    let value = !!lines[unmergedRowKey - line] ? lines[unmergedRowKey - line] : '';
+                    let value = undefined !== lines[unmergedRowKey - line] ? lines[unmergedRowKey - line] : '';
 
                     unmergedRows[unmergedRowKey][column] = new TableCell(value, { 'colspan': cell.getColspan() });
                     if (nbLines === unmergedRowKey - line) {
@@ -624,10 +632,105 @@ class Table {
                     }
                 }
 
-                lengths.push(this._getCellWidth(row, column);
+                lengths.push(this._getCellWidth(row, column));
             }
 
             this._effectiveColumnWidths[column] = Math.max(lengths) + this.style.getCellRowContentFormat().length - 2;
         }
     }
+
+    /**
+     * @returns {int}
+     * @private
+     */
+    _getColumnSeparatorWidth() {
+        return __jymfony.sprintf(this.style.getBorderFormat(), this.style.getVerticalBorderChar()).length;
+    }
+
+    /**
+     * @param {Array} row
+     * @param {int} column
+     *
+     * @return {int}
+     *
+     * @private
+     */
+    _getCellWidth(row, column) {
+        let cellWidth = 0;
+
+        if (!!row[column]) {
+            const cell = row[column];
+            cellWidth = Helper.strlenWithoutDecoration(this._output.formatter(), cell);
+        }
+
+        const columnWidth = undefined !== this._columnWidths[column] ? this._columnWidths[column] : 0;
+
+        return Math.max(cellWidth, columnWidth);
+    }
+
+    /**
+     * Called after rendering to cleanup cache data.
+     *
+     * @private
+     */
+    _cleanup() {
+        this._effectiveColumnWidths = [];
+        this._numberOfColumns = null;
+    }
+
+    /**
+     * @private
+     */
+    static _initStyles() {
+        let borderless = new TableStyle();
+        borderless
+            .setHorizontalBorderChar('=')
+            .setVerticalBorderChar(' ')
+            .setCrossingChar(' ')
+        ;
+
+        let compact = new TableStyle();
+        compact
+            .setHorizontalBorderChar('')
+            .setVerticalBorderChar(' ')
+            .setCrossingChar('')
+            .setCellRowContentFormat('%s')
+        ;
+
+        let styleGuide = new TableStyle();
+        styleGuide
+            .setHorizontalBorderChar('-')
+            .setVerticalBorderChar(' ')
+            .setCrossingChar(' ')
+            .setCellHeaderFormat('%s')
+        ;
+
+        return {
+            'default': new TableStyle(),
+            'borderless': borderless,
+            'compact': compact,
+            'symfony-style-guide': styleGuide,
+        };
+    }
+
+    /**
+     * @param {TableStyle|String} name
+     *
+     * @returns {TableStyle}
+     *
+     * @private
+     */
+    _resolveStyle(name) {
+        if (name instanceof TableStyle) {
+            return name;
+        }
+
+        if (!!this.styles[name]) {
+            return this.styles[name];
+        }
+
+        throw new InvalidArgumentException(__jymfony.sprintf('Style "%s" is not defined.', name));
+    }
 }
+
+module.exports = Table;
