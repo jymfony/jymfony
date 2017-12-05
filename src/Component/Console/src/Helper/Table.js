@@ -19,7 +19,7 @@ class Table {
         /**
          * Table headers.
          *
-         * @type {[String]}
+         * @type {[string]}
          * @private
          */
         this._headers = [];
@@ -43,7 +43,7 @@ class Table {
         /**
          * Column widths cache.
          *
-         * @type {Object}
+         * @type {[int]}
          * @private
          */
         this._effectiveColumnWidths = [];
@@ -68,7 +68,7 @@ class Table {
          */
         this._output = output;
 
-        if (__jymfony.equal({}, this.styles)) {
+        if (undefined === this.styles) {
             Table.styles = Table._initStyles();
         }
 
@@ -86,7 +86,7 @@ class Table {
     /**
      * Sets a style definition.
      *
-     * @param {String} name The style name
+     * @param {string} name The style name
      * @param {TableStyle} style A TableStyle instance
      */
     static setStyleDefinition(name, style) {
@@ -97,13 +97,12 @@ class Table {
         Table.styles[name] = style;
     }
 
-
     /**
      * Gets a style definition by name.
      *
-     * @param {String} name The style name
+     * @param {string} name The style name
      *
-     * @return TableStyle
+     * @return {TableStyle}
      */
     static getStyleDefinition(name) {
         if (__jymfony.equal({}, this.styles)) {
@@ -129,14 +128,10 @@ class Table {
     /**
      * Sets table style.
      *
-     * @param {TableStyle|String} name The style name or a TableStyle instance
-     *
-     * @return {Table}
+     * @param {TableStyle|string} name The style name or a TableStyle instance
      */
     set style(name) {
         this._style = this._resolveStyle(name);
-
-        return this;
     }
 
 
@@ -157,12 +152,12 @@ class Table {
      * Sets table column style.
      *
      * @param {int} columnIndex Column index
-     * @param {TableStyle|String} name The style name or a TableStyle instance
+     * @param {TableStyle|string} name The style name or a TableStyle instance
      *
      * @return {Table}
      */
     setColumnStyle(columnIndex, name) {
-        this._columnStyles[columnIndex] = this.resolveStyle(name);
+        this._columnStyles[columnIndex] = this._resolveStyle(name);
 
         return this;
     }
@@ -263,8 +258,8 @@ class Table {
      */
     render() {
         this._calculateNumberOfColumns();
-        let rows = this.buildTableRows(this._rows);
-        let headers = this.buildTableRows(this._headers);
+        let rows = this._buildTableRows(this._rows);
+        let headers = this._buildTableRows(this._headers);
 
         this._calculateColumnsWidth([].concat(headers, rows));
 
@@ -332,7 +327,7 @@ class Table {
      * Example: | 9971-5-0210-0 | A Tale of Two Cities  | Charles Dickens  |
      *
      * @param {Array} row
-     * @param {String} cellFormat
+     * @param {string} cellFormat
      *
      * @private
      */
@@ -355,7 +350,7 @@ class Table {
      *
      * @param {Array} row
      * @param {int} column
-     * @param {String} cellFormat
+     * @param {string} cellFormat
      *
      * @private
      */
@@ -523,8 +518,10 @@ class Table {
      */
     _fillCells(row) {
         let newRow = [];
+
         for (const [ cellKey, cell ] of __jymfony.getEntries(row)) {
             newRow.push(cell);
+
             if (cell instanceof TableCell && cell.getColspan() > 1) {
                 for (let position = cellKey; position < cellKey + cell.getColspan() - 1; ++position) {
                     // insert empty value at column position
@@ -635,7 +632,7 @@ class Table {
                 lengths.push(this._getCellWidth(row, column));
             }
 
-            this._effectiveColumnWidths[column] = Math.max(lengths) + this.style.getCellRowContentFormat().length - 2;
+            this._effectiveColumnWidths[column] = Math.max(...lengths) + this.style.getCellRowContentFormat().length - 2;
         }
     }
 
@@ -675,7 +672,7 @@ class Table {
      */
     _cleanup() {
         this._effectiveColumnWidths = [];
-        this._numberOfColumns = null;
+        this._numberOfColumns = undefined;
     }
 
     /**
@@ -709,12 +706,12 @@ class Table {
             'default': new TableStyle(),
             'borderless': borderless,
             'compact': compact,
-            'symfony-style-guide': styleGuide,
+            'jymfony-style-guide': styleGuide,
         };
     }
 
     /**
-     * @param {TableStyle|String} name
+     * @param {TableStyle|string} name
      *
      * @returns {TableStyle}
      *

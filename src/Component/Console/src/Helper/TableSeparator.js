@@ -1,15 +1,17 @@
+const TableCell = Jymfony.Component.Console.Helper.TableCell;
+
 /**
  * Marks a row as being a separator.
  *
  * @memberOf {Jymfony.Component.Console.Helper}
  */
-class TableSeparator {
+class TableSeparator extends TableCell {
     /**
-     * @param {Array} options
+     * @param {Object} options
      *
      * @private
      */
-    __construct(options = []) {
+    __construct(options = {}) {
         super.__construct('', options);
     }
 }
