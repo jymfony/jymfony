@@ -8,7 +8,7 @@ const OutputInterface = Jymfony.Component.Console.Output.OutputInterface;
 let styles = {};
 
 /**
- * @memberOf {Jymfony.Component.Console.Helper}
+ * @memberOf Jymfony.Component.Console.Helper
  */
 class Table {
     /**

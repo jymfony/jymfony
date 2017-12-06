@@ -1,5 +1,5 @@
 /**
- * @memberOf {Jymfony.Component.Console.Helper}
+ * @memberOf Jymfony.Component.Console.Helper
  */
 class TableStyle {
     __construct() {

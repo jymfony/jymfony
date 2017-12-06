@@ -3,7 +3,7 @@ const TableCell = Jymfony.Component.Console.Helper.TableCell;
 /**
  * Marks a row as being a separator.
  *
- * @memberOf {Jymfony.Component.Console.Helper}
+ * @memberOf Jymfony.Component.Console.Helper
  */
 class TableSeparator extends TableCell {
     /**
