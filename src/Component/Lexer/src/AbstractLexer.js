@@ -1,5 +1,4 @@
 const ValueHolder = Jymfony.Component.Lexer.ValueHolder;
-const util = require('util');
 
 /**
  * @memberOf Jymfony.Component.Lexer
@@ -181,13 +180,13 @@ class AbstractLexer {
     _scan(input) {
         let non_catchable = this.getNonCatchablePatterns();
         if (non_catchable.length) {
-            non_catchable = '|' + non_catchable.join('|');
+            non_catchable = non_catchable.join('|') + '|';
         } else {
             non_catchable = '';
         }
 
-        const regex = new RegExp(util.format(
-            '((?:%s))%s', this.getCatchablePatterns().join(')|(?:'), non_catchable
+        const regex = new RegExp(__jymfony.sprintf(
+            '%s((?:%s))', non_catchable, this.getCatchablePatterns().join(')|(?:')
         ), 'g' + this.getModifiers());
 
         let match;
