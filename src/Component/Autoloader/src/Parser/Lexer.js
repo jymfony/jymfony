@@ -242,6 +242,7 @@ class Lexer {
             '[\'](?:[^\'\\\\]|\\\\.)*?[\']',
             '[\"](?:[^\'\\\\]|\\\\.)*?[\"]',
             '(\\/\\*([^*]|[\\r\\n]|(\\*+([^*\\/]|[\\r\\n])))*\\*+\\/)|(\\/\\/.*)',
+            '[/](?:[^/\\\\]|\\\\.)*?[/][a-z]+',
             '\\b'+Lexer.RESERVED_WORDS+'\\b',
             '[\\(\\)\\[\\]\\.\\{\\};]',
             '[=<>!~+-/%*&|:]+',
@@ -268,7 +269,11 @@ class Lexer {
                     return Lexer.T_DOCBLOCK;
                 }
 
-                return Lexer.T_COMMENT;
+                if (holder.value.startsWith('//')) {
+                    return Lexer.T_COMMENT;
+                }
+
+                return Lexer.T_REGEX;
         }
 
         switch (holder.value) {
@@ -381,6 +386,7 @@ Lexer.T_OPERATOR = 19;
 Lexer.T_NUMBER = 20;
 Lexer.T_COLON = 21;
 Lexer.T_FUNCTION = 22;
+Lexer.T_REGEX = 23;
 Lexer.T_OTHER = 255;
 
 Lexer.RESERVED_WORDS = '(?:do|if|in|for|let|new|try|var|case|else|enum|eval|false|null|this|true|void|with|break|catch|class|const|super|throw|while|yield|delete|export|import|public|return|static|switch|typeof|default|extends|finally|package|private|continue|debugger|function|arguments|interface|protected|implements|instanceof)';

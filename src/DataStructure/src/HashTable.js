@@ -271,6 +271,8 @@ class HashTable extends mix(undefined, GenericCollectionTrait) {
      * @returns {Array|Object}
      */
     toObject() {
+        const resolve = (val) => val instanceof HashTable ? val.toObject() : val;
+
         const entries = this.toArray();
         const isArray = (() => {
             if (0 === this._length) {
@@ -291,10 +293,10 @@ class HashTable extends mix(undefined, GenericCollectionTrait) {
         })();
 
         if (isArray) {
-            return entries.map(e => e[1]);
+            return entries.map(e => resolve(e[1]));
         }
 
-        return entries.reduce((res, val) => (res[val[0]] = val[1], res), {});
+        return entries.reduce((res, val) => (res[val[0]] = resolve(val[1]), res), {});
     }
 
     /**

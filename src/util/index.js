@@ -22,6 +22,7 @@ require('./lib/Function/getFunction');
 
 require('./lib/String/escapeshellarg');
 require('./lib/String/levenshtein');
+require('./lib/String/querystring');
 require('./lib/String/sprintf');
 require('./lib/String/strcspn');
 require('./lib/String/strip_tags');
