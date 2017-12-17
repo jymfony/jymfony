@@ -1,0 +1,39 @@
+{
+  "name": "@jymfony/http-server",
+  "version": "0.1.0-dev",
+  "description": "Jymfony Http Server",
+  "main": "src/HttpServer.js",
+  "scripts": {
+    "test": "node ./tests.js test/**"
+  },
+  "keywords": [
+    "application",
+    "http",
+    "server",
+    "jymfony"
+  ],
+  "author": "Alessandro Chitolina <alekitto@gmail.com>",
+  "license": "MIT",
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "dependencies": {
+    "@jymfony/autoloader": "https://github.com/jymfony/autoloader.git",
+    "@jymfony/event-dispatcher": "https://github.com/jymfony/event-dispatcher.git",
+    "@jymfony/exceptions": "https://github.com/jymfony/exceptions.git",
+    "@jymfony/http-foundation": "https://github.com/jymfony/http-foundation.git",
+    "@jymfony/util": "https://github.com/jymfony/util.git"
+  },
+  "devDependencies": {
+    "@jymfony/testing": "https://github.com/jymfony/testing.git",
+    "chai": "^3.5.0",
+    "mocha": "^3.0"
+  },
+  "config": {
+    "jymfony-autoload": {
+      "namespaces": {
+        "Jymfony.Component.HttpServer": "src/"
+      }
+    }
+  }
+}

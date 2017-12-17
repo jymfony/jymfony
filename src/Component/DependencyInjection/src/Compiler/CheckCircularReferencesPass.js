@@ -20,7 +20,7 @@ module.exports = class CheckCircularReferencesPass extends implementationOf(Comp
             const node = edge.getDestNode();
             const id = node.getId();
 
-            if (! this._checkedNodes[id] || 0 == this._checkedNodes[id].length) {
+            if (! this._checkedNodes[id] || 0 === this._checkedNodes[id].length) {
                 // Don't check circular dependencies for lazy services
                 if (! node.getValue() || ! node.getValue().isLazy()) {
                     const searchKey = this._currentPath.indexOf(id);
