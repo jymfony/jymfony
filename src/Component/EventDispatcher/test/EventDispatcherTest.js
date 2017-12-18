@@ -276,4 +276,26 @@ describe('[EventDispatcher] EventDispatcher', function () {
                 expect(instance).to.be.equal(dispatcher);
             });
     });
+
+    it('getListenerPriority should work', () => {
+        const dispatcher = createEventDispatcher();
+        const listener1 = new TestEventListener();
+        const listener2 = new TestEventListener();
+
+        dispatcher.addListener('pre.foo', listener1, -10);
+        dispatcher.addListener('pre.foo', listener2);
+
+        expect(dispatcher.getListenerPriority('pre.foo', listener1)).to.be.equal(-10);
+        expect(dispatcher.getListenerPriority('pre.foo', listener2)).to.be.equal(0);
+        expect(dispatcher.getListenerPriority('pre.bar', listener2)).to.be.undefined;
+        expect(dispatcher.getListenerPriority('pre.foo', () => {})).to.be.undefined;
+    });
+
+    it('getListenerPriority should find lazy listeners', () => {
+        const dispatcher = createEventDispatcher();
+        const listener = new TestEventListener();
+
+        dispatcher.addListener('pre.foo', [() => listener, 'preFoo'], -10);
+        expect(dispatcher.getListenerPriority('pre.foo', [listener, 'preFoo'])).to.be.equal(-10);
+    });
 });

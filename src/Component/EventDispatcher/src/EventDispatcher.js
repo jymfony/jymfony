@@ -1,10 +1,11 @@
 const Event = Jymfony.Component.EventDispatcher.Event;
+const EventDispatcherInterface = Jymfony.Component.EventDispatcher.EventDispatcherInterface;
 const InvalidArgumentException = Jymfony.Component.EventDispatcher.Exception.InvalidArgumentException;
 
 /**
  * @memberOf Jymfony.Component.EventDispatcher
  */
-class EventDispatcher {
+class EventDispatcher extends implementationOf(EventDispatcherInterface) {
     __construct() {
         /**
          * Listeners map.
@@ -24,14 +25,7 @@ class EventDispatcher {
     }
 
     /**
-     * Dispatches an event.
-     * Returns a promise that resolves asynchronously running all
-     * the listeners.
-     *
-     * @param {string} eventName
-     * @param {Jymfony.Component.EventDispatcher.Event} event
-     *
-     * @returns {Promise.<Jymfony.Component.EventDispatcher.Event>}
+     * @inheritDoc
      */
     dispatch(eventName, event = new Event()) {
         const self = this;
@@ -50,11 +44,7 @@ class EventDispatcher {
     }
 
     /**
-     * Gets the listeners associated to an event.
-     *
-     * @param {string} eventName
-     *
-     * @returns {Array}
+     * @inheritDoc
      */
     * getListeners(eventName = undefined) {
         if (eventName) {
@@ -71,17 +61,13 @@ class EventDispatcher {
             }
         } else {
             for (const eventName of Object.keys(this._listeners)) {
-                yield * this.getListeners(eventName);
+                yield [ eventName, Array.from(this.getListeners(eventName)) ];
             }
         }
     }
 
     /**
-     * Attach a listener to an event.
-     *
-     * @param {string} eventName
-     * @param {Function|Array} listener
-     * @param {int} priority
+     * @inheritDoc
      */
     addListener(eventName, listener, priority = 0) {
         let listeners = this._listeners[eventName];
@@ -94,21 +80,14 @@ class EventDispatcher {
     }
 
     /**
-     * Whether an event has listeners attached.
-     *
-     * @param {string} eventName
-     *
-     * @returns {boolean} true if at least one listener is registered, false otherwise
+     * @inheritDoc
      */
     hasListeners(eventName) {
         return (!! this._listeners[eventName]) && 0 < this._listeners[eventName].length;
     }
 
     /**
-     * Detach a listener.
-     *
-     * @param {string} eventName
-     * @param {Function|Array} listener
+     * @inheritDoc
      */
     removeListener(eventName, listener) {
         if (! this._listeners[eventName]) {
@@ -142,9 +121,7 @@ class EventDispatcher {
     }
 
     /**
-     * Adds and event subscriber
-     *
-     * @param {*} subscriber
+     * @inheritDoc
      */
     addSubscriber(subscriber) {
         const events = __jymfony.getFunction(subscriber, 'getSubscribedEvents')();
@@ -163,9 +140,7 @@ class EventDispatcher {
     }
 
     /**
-     * Detaches all the listeners from a subscriber
-     *
-     * @param {*} subscriber
+     * @inheritDoc
      */
     removeSubscriber(subscriber) {
         const events = __jymfony.getFunction(subscriber, 'getSubscribedEvents')();
@@ -177,6 +152,37 @@ class EventDispatcher {
                 }
             } else {
                 this.removeListener(eventName, [ subscriber, isString(params) ? params : params[0] ]);
+            }
+        }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    getListenerPriority(eventName, listener) {
+        if (! this._listeners[eventName]) {
+            return;
+        }
+
+        if (isArray(listener) && undefined !== listener[0] && isFunction(listener[0])) {
+            listener[0] = listener[0]();
+        }
+
+        if (isCallableArray(listener)) {
+            listener = getCallableFromArray(listener);
+        }
+
+        for (const v of this._listeners[eventName]) {
+            if (isArray(v.listener) && undefined !== v.listener[0] && isFunction(v.listener[0])) {
+                v.listener[0] = v.listener[0]();
+            }
+
+            if (isCallableArray(v.listener)) {
+                v.listener = getCallableFromArray(v.listener);
+            }
+
+            if (v.listener === listener || __self._funcEquals(listener, v.listener)) {
+                return v.priority;
             }
         }
     }
