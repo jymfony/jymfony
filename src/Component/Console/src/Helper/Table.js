@@ -493,14 +493,14 @@ class Table {
                     array_splice(rows[unmergedRowKey], cellKey, 0, [cell]);
                 }
             } else {
-                let row = this._copyRow(rows, unmergedRowKey - 1);
+                const row = this._copyRow(rows, unmergedRowKey - 1);
                 for (const [ column, cell ] of __jymfony.getEntries(unmergedRow)) {
                     if (!!cell) {
                         row[column] = unmergedRow[column];
                     }
                 }
 
-                array_splice(rows, unmergedRowKey, 0, [row]);
+                array_splice(rows, unmergedRowKey, 0, [ row ]);
             }
         }
 
@@ -517,20 +517,20 @@ class Table {
      * @private
      */
     _fillCells(row) {
-        let newRow = [];
+        const newRow = [];
 
         for (const [ cellKey, cell ] of __jymfony.getEntries(row)) {
             newRow.push(cell);
 
-            if (cell instanceof TableCell && cell.getColspan() > 1) {
+            if (cell instanceof TableCell && 1 < cell.getColspan()) {
                 for (let position = cellKey; position < cellKey + cell.getColspan() - 1; ++position) {
-                    // insert empty value at column position
+                    // Insert empty value at column position
                     newRow.push('');
                 }
             }
         }
 
-        return !!newRow ? newRow : row;
+        return 0 === newRow.length ? newRow : row;
     }
 
     /**
@@ -542,7 +542,7 @@ class Table {
      * @private
      */
     _copyRow(rows, line) {
-        let row = rows[line];
+        const row = rows[line];
         for (const [ cellKey, cell ] of __jymfony.getEntries(row)) {
             row[cellKey] = '';
 
@@ -585,13 +585,13 @@ class Table {
     _getRowColumns(row) {
         let columns = [];
         for (const [ cellKey, cell ] of __jymfony.getEntries(row)) {
-            if (cell instanceof TableCell && cell.getColspan() > 1) {
-                let range = [];
+            if (cell instanceof TableCell && 1 < cell.getColspan()) {
+                const range = [];
                 for (let i = cellKey + 1; i < cellKey + cell.getColspan() - 1; ++i) {
                     range.push(i);
                 }
 
-                columns = columns.filter(x => range.indexOf(x) === -1);
+                columns = columns.filter(x => -1 === range.indexOf(x));
             }
         }
 
@@ -607,22 +607,26 @@ class Table {
      */
     _calculateColumnsWidth(rows) {
         for (let column = 0; column < this._numberOfColumns; ++column) {
-            let lengths = [];
+            const lengths = [];
 
-            for (let row of rows) {
+            for (const row of rows) {
                 if (row instanceof TableSeparator) {
                     continue;
                 }
 
-                for (const [i, cell] of __jymfony.getEntries(row)) {
+                for (const [ i, cell ] of __jymfony.getEntries(row)) {
                     if (cell instanceof TableCell) {
-                        let textContent = Helper.removeDecoration(this._output.formatter(), cell);
-                        let textLength = textContent.length;
+                        const textContent = Helper.removeDecoration(this._output.formatter(), cell);
+                        const textLength = textContent.length;
 
-                        if (textLength > 0) {
-                            let contentColumns = str_split(textContent, Math.ceil(textLength / cell.getColspan()));
+                        if (0 < textLength) {
+                            const contentColumns = [];
+                            const step = Math.ceil(textLength / cell.getColspan());
+                            for (let counter = 0; counter < textLength; counter += step) {
+                                contentColumns.push(textContent.substr(counter, step));
+                            }
 
-                            for (const [position, content] of __jymfony.getEntries(contentColumns)) {
+                            for (const [ position, content ] of __jymfony.getEntries(contentColumns)) {
                                 row[i + position] = content;
                             }
                         }
@@ -679,14 +683,14 @@ class Table {
      * @private
      */
     static _initStyles() {
-        let borderless = new TableStyle();
+        const borderless = new TableStyle();
         borderless
             .setHorizontalBorderChar('=')
             .setVerticalBorderChar(' ')
             .setCrossingChar(' ')
         ;
 
-        let compact = new TableStyle();
+        const compact = new TableStyle();
         compact
             .setHorizontalBorderChar('')
             .setVerticalBorderChar(' ')
@@ -694,7 +698,7 @@ class Table {
             .setCellRowContentFormat('%s')
         ;
 
-        let styleGuide = new TableStyle();
+        const styleGuide = new TableStyle();
         styleGuide
             .setHorizontalBorderChar('-')
             .setVerticalBorderChar(' ')
