@@ -59,7 +59,7 @@ class TableStyle {
          */
         this._borderFormat = '%s';
 
-        //this._padType = STR_PAD_RIGHT;
+        this._padType = __jymfony.str_pad.RIGHT;
     }
 
     /**
@@ -220,7 +220,6 @@ class TableStyle {
         return this;
     }
 
-
     /**
      * Gets table border format.
      *
@@ -243,27 +242,26 @@ class TableStyle {
         return this;
     }
 
-    ///**
-    // * Gets cell padding type.
-    // *
-    // * @return {int}
-    // */
-    //get padType() {
-    //    return this._padType;
-    //}
-    //
-    ///**
-    // * Sets cell padding type.
-    // *
-    // * @param {int} padType STR_PAD_*
-    // */
-    //set padType(padType) {
-    //    if (! [STR_PAD_LEFT, STR_PAD_RIGHT, STR_PAD_BOTH].includes(padType)) {
-    //        throw new InvalidArgumentException('Invalid padding type. Expected one of (STR_PAD_LEFT, STR_PAD_RIGHT, STR_PAD_BOTH).');
-    //    }
-    //
-    //    this._padType = padType;
-    //}
-}
+    /**
+     * Gets cell padding type.
+     *
+     * @return {string}
+     */
+    getPadType() {
+        return this._padType;
+    }
 
+    /**
+     * Sets cell padding type.
+     *
+     * @param {string} padType
+     *
+     * @return {TableStyle}
+     */
+    setPadType(padType) {
+        this._padType = padType;
+
+        return this;
+    }
+}
 module.exports = TableStyle;

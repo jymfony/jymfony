@@ -1,0 +1,20 @@
+require('../../lib/String/str_pad');
+const expect = require('chai').expect;
+
+describe('String Pad', function () {
+    let tests = function * () {
+        yield [['space', 5], 'space'];
+        yield [['space', 10], 'space     '];
+        yield [['space', 10, ' ', __jymfony.str_pad.RIGHT], 'space     '];
+        yield [['space', 10, '0', __jymfony.str_pad.RIGHT], 'space00000'];
+        yield [['space', 10, '0', __jymfony.str_pad.LEFT], '00000space'];
+        yield [['space', 15, '0', __jymfony.str_pad.BOTH], '00000space00000'];
+        yield [['space', 16, '0', __jymfony.str_pad.BOTH], '00000space000000'];
+    };
+
+    for (let [args, expected] of tests()) {
+        it ('should correctly pad "' + args[0] + '" into ' + expected, () => {
+            expect(__jymfony.str_pad(...args)).to.be.equal(expected);
+        });
+    }
+});
