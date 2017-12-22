@@ -5,6 +5,7 @@ const OutputInterface = Jymfony.Component.Console.Output.OutputInterface;
 const Helper = Jymfony.Component.Console.Helper.Helper;
 const ProgressBar = Jymfony.Component.Console.Helper.ProgressBar;
 const ProgressIndicator = Jymfony.Component.Console.Helper.ProgressIndicator;
+const Table = Jymfony.Component.Console.Helper.Table;
 const OutputStyle = Jymfony.Component.Console.Style.OutputStyle;
 const QuestionBuilder = Jymfony.Component.Console.Question.Builder.QuestionBuilder;
 const QuestionType = Jymfony.Component.Console.Question.QuestionType;
@@ -171,7 +172,7 @@ class JymfonyStyle extends OutputStyle {
      * @inheritdoc
      */
     table(headers, rows) {
-        const style = __jymfony.clone(Table.getStyleDefinition('symfony-style-guide'));
+        const style = __jymfony.clone(Table.getStyleDefinition('jymfony-style-guide'));
         style.cellHeaderFormat = '<info>%s</info>';
 
         const table = new Table(this);

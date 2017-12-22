@@ -5,8 +5,6 @@ const TableSeparator = Jymfony.Component.Console.Helper.TableSeparator;
 const TableStyle = Jymfony.Component.Console.Helper.TableStyle;
 const OutputInterface = Jymfony.Component.Console.Output.OutputInterface;
 
-let _styles = undefined;
-
 /**
  * @memberOf Jymfony.Component.Console.Helper
  */
@@ -68,19 +66,23 @@ class Table {
          */
         this._output = output;
 
-        if (undefined === this.styles) {
-            _styles = Table._initStyles();
-        }
+        /**
+         * @type {Object<string, TableStyle>}
+         * @private
+         */
+        this._styles = {};
+
+        this._initStyles();
 
         this.style = 'default';
     }
 
-    static get styles() {
-        return _styles || {};
+    get styles() {
+        return this._styles;
     }
 
-    static set styles(styles) {
-        _styles = styles;
+    set styles(styles) {
+        this._styles = styles;
     }
 
     /**
@@ -90,11 +92,7 @@ class Table {
      * @param {TableStyle} style A TableStyle instance
      */
     static setStyleDefinition(name, style) {
-        if (! _styles) {
-            _styles = Table._initStyles();
-        }
-
-        _styles[name] = style;
+        this._styles[name] = style;
     }
 
     /**
@@ -106,7 +104,7 @@ class Table {
      */
     static getStyleDefinition(name) {
         if (__jymfony.equal({}, this.styles)) {
-            Table.styles = Table._initStyles();
+            this.styles = Table._initStyles();
         }
 
         if (!!Table.styles[name]) {
@@ -192,7 +190,7 @@ class Table {
     }
 
     setHeaders(headers) {
-        if (!!headers && !__jymfony.isArray(headers[0])) {
+        if (!!headers && !isArray(headers[0])) {
             headers = [ headers ];
         }
 
@@ -222,7 +220,7 @@ class Table {
             return this;
         }
 
-        if (!__jymfony.isArray(row)) {
+        if (!isArray(row)) {
             throw new InvalidArgumentException('A row must be an array or a TableSeparator instance.');
         }
 
@@ -685,7 +683,7 @@ class Table {
     /**
      * @private
      */
-    static _initStyles() {
+    _initStyles() {
         const borderless = new TableStyle();
         borderless
             .setHorizontalBorderChar('=')
@@ -709,7 +707,7 @@ class Table {
             .setCellHeaderFormat('%s')
         ;
 
-        return {
+        this._styles = {
             'default': new TableStyle(),
             'borderless': borderless,
             'compact': compact,
@@ -729,8 +727,8 @@ class Table {
             return name;
         }
 
-        if (!!_styles[name]) {
-            return _styles[name];
+        if (!!this._styles[name]) {
+            return this._styles[name];
         }
 
         throw new InvalidArgumentException(__jymfony.sprintf('Style "%s" is not defined.', name));

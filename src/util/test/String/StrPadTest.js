@@ -13,8 +13,12 @@ describe('String Pad', function () {
     };
 
     for (let [args, expected] of tests()) {
-        it ('should correctly pad "' + args[0] + '" into ' + expected, () => {
+        it('should correctly pad "' + args[0] + '" into ' + expected, () => {
             expect(__jymfony.str_pad(...args)).to.be.equal(expected);
         });
     }
+
+    it('should throw if invalid pad type', () => {
+        expect(() => __jymfony.str_pad('space', 15, ' ', 'I am not a valid pad type')).to.throw(InvalidArgumentException);
+    });
 });

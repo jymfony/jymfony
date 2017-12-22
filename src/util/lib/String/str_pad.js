@@ -2,8 +2,6 @@
 
 global.__jymfony = global.__jymfony || {};
 
-const InvalidArgumentException = Jymfony.Component.DependencyInjection.Exception.InvalidArgumentException;
-
 const STR_PAD_LEFT = 'STR_PAD_LEFT';
 const STR_PAD_RIGHT = 'STR_PAD_RIGHT';
 const STR_PAD_BOTH = 'STR_PAD_BOTH';
@@ -33,18 +31,21 @@ global.__jymfony.str_pad = (string, length = 0, pad = ' ', padType = STR_PAD_RIG
     }
 
     switch (padType) {
-        case STR_PAD_LEFT:
+        case STR_PAD_LEFT: {
             return Array(length + 1 - string.length).join(pad) + string;
+        }
 
-        case STR_PAD_BOTH:
+        case STR_PAD_BOTH: {
             const padLength = length - string.length;
             const right = Math.ceil(padLength / 2);
             const left = padLength - right;
 
             return Array(left + 1).join(pad) + string + Array(right + 1).join(pad);
+        }
 
-        default:
+        default: {
             return string + Array(length + 1 - string.length).join(pad);
+        }
     }
 };
 
