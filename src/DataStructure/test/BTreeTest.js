@@ -1,4 +1,4 @@
-require('../src/PriorityQueue');
+require('../src/BTree');
 const expect = require('chai').expect;
 
 let fillWithData = t => {
