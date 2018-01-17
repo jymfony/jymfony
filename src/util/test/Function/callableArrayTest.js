@@ -15,15 +15,15 @@ describe('callable array', function () {
     let tests = [
         [ 'foo' ],
         [ [] ],
-        [ ['test', 'foo', 'bar'] ],
+        [ [ 'test', 'foo', 'bar' ] ],
         [ { foo: 'foo', bar: 'bar' } ],
         [ new TestObject(), undefined ],
     ];
 
-    for (let index of tests.keys()) {
-        let t = tests[index];
+    for (const index of tests.keys()) {
+        const t = tests[index];
         it('isCallableArray should return false if invalid argument is passed with data #'+index, () => {
-            expect(isCallableArray.apply(undefined, t)).to.be.false;
+            expect(isCallableArray(...t)).to.be.false;
         });
     }
 
@@ -32,14 +32,14 @@ describe('callable array', function () {
         [ [ new TestObject(), 'gen' ] ],
     ];
 
-    for (let index of tests.keys()) {
-        let t = tests[index];
+    for (const index of tests.keys()) {
+        const t = tests[index];
         it('isCallableArray should work with data #'+index, () => {
-            expect(isCallableArray.apply(undefined, t)).to.be.true;
+            expect(isCallableArray(...t)).to.be.true;
         });
     }
 
     it('getCallableArray throws if invalid argument is passed', () => {
         expect(getCallableFromArray.bind(undefined, 'foo')).to.throw(LogicException);
-    })
+    });
 });

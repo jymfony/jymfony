@@ -258,7 +258,7 @@ class AbstractLexer {
      * @protected
      * @abstract
      */
-    getType(holder) {
+    getType(holder) { // eslint-disable-line no-unused-vars
         throw new Error('You must override getType method');
     }
 }

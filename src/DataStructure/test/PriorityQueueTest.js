@@ -3,17 +3,17 @@ const expect = require('chai').expect;
 
 describe('PriorityQueue', function () {
     it('toStringTag', () => {
-        let q = new PriorityQueue();
+        const q = new PriorityQueue();
         expect(q.toString()).to.be.equal('[object PriorityQueue]');
     });
 
     it('inspect', () => {
-        let q = new PriorityQueue();
+        const q = new PriorityQueue();
         expect(q.inspect()).to.be.instanceOf(Array);
     });
 
     it('isEmpty', () => {
-        let q = new PriorityQueue();
+        const q = new PriorityQueue();
         expect(q.isEmpty()).to.be.true;
 
         q.push('foo', 1);
@@ -21,7 +21,7 @@ describe('PriorityQueue', function () {
     });
 
     it('clear', () => {
-        let q = new PriorityQueue();
+        const q = new PriorityQueue();
         expect(q.length).to.be.equal(0);
 
         q.push('foo', 1);
@@ -33,16 +33,16 @@ describe('PriorityQueue', function () {
     });
 
     it('copy', () => {
-        let q = new PriorityQueue();
+        const q = new PriorityQueue();
         q.push('foo', 1);
         q.push('bar', 0);
 
-        let copy = q.copy();
-        expect(copy.toArray()).to.be.deep.equal(['foo', 'bar']);
+        const copy = q.copy();
+        expect(copy.toArray()).to.be.deep.equal([ 'foo', 'bar' ]);
     });
 
     it('length', () => {
-        let q = new PriorityQueue();
+        const q = new PriorityQueue();
         expect(q.length).to.be.equal(0);
 
         q.push('foo', 1);
@@ -56,37 +56,37 @@ describe('PriorityQueue', function () {
     });
 
     it('peek throws UnderflowException if queue is empty', () => {
-        let q = new PriorityQueue();
+        const q = new PriorityQueue();
         expect(q.peek.bind(q)).to.throw(UnderflowException);
     });
 
     it('peek', () => {
-        let q = new PriorityQueue();
+        const q = new PriorityQueue();
         q.push('foo', 0);
         q.push('bar', 1);
 
-        let first = q.peek();
+        const first = q.peek();
         expect(first).to.be.equal('bar');
         expect(q.length).to.be.equal(2);
     });
 
     it('pop throws UnderflowException if queue is empty', () => {
-        let q = new PriorityQueue();
+        const q = new PriorityQueue();
         expect(q.pop.bind(q)).to.throw(UnderflowException);
     });
 
     it('pop', () => {
-        let q = new PriorityQueue();
+        const q = new PriorityQueue();
         q.push('foo', 0);
         q.push('bar', 1);
 
-        let first = q.pop();
+        const first = q.pop();
         expect(first).to.be.equal('bar');
         expect(q.length).to.be.equal(1);
     });
 
     it('pops element in correct order', () => {
-        let q = new PriorityQueue();
+        const q = new PriorityQueue();
         q.push('foo', 1);
         q.push('bar', 12);
         q.push('baz', 1);
@@ -100,7 +100,7 @@ describe('PriorityQueue', function () {
     });
 
     it('push', () => {
-        let q = new PriorityQueue();
+        const q = new PriorityQueue();
         q.push('foo', 0);
         q.push('bar', 1);
 
@@ -108,25 +108,26 @@ describe('PriorityQueue', function () {
     });
 
     it('toArray', () => {
-        let q = new PriorityQueue();
+        const q = new PriorityQueue();
         q.push('foo', 1);
         q.push('bar', 12);
         q.push('baz', 1);
         q.push('foobar', 3);
 
-        expect(q.toArray()).to.be.deep.equal(['bar', 'foobar', 'foo', 'baz']);
+        expect(q.toArray()).to.be.deep.equal([ 'bar', 'foobar', 'foo', 'baz' ]);
         expect(q.length).to.be.equal(4);
     });
 
     it('iterator pops elements out', () => {
-        let q = new PriorityQueue();
+        const q = new PriorityQueue();
         q.push('foo', 1);
         q.push('bar', 12);
         q.push('baz', 1);
         q.push('foobar', 3);
 
         let count = 4;
-        for (let el of q) {
+        for (const el of q) {
+            expect(el).not.to.be.undefined;
             expect(q.length).to.be.equal(--count);
         }
     });

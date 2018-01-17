@@ -1,21 +1,21 @@
-const util = require("util");
+const util = require('util');
 const expect = require('chai').expect;
 
-let special_forms = ["-dev", "a1", "b1", "RC1", "rc1", "", "pl1"];
-let operators = [
-    "lt", "<",
-    "le", "<=",
-    "gt", ">",
-    "ge", ">=",
-    "eq", "=", "==",
-    "ne", "<>", "!="
+const special_forms = [ '-dev', 'a1', 'b1', 'RC1', 'rc1', '', 'pl1' ];
+const operators = [
+    'lt', '<',
+    'le', '<=',
+    'gt', '>',
+    'ge', '>=',
+    'eq', '=', '==',
+    'ne', '<>', '!=',
 ];
 
 describe('Version Compare', function () {
     it('compare', () => {
         let result = '';
-        let test = (v1, v2) => {
-            let res = __jymfony.version_compare(v1, v2);
+        const test = (v1, v2) => {
+            const res = __jymfony.version_compare(v1, v2);
             switch (res) {
                 case -1:
                     result += `${v1} < ${v2}\n`;
@@ -32,17 +32,17 @@ describe('Version Compare', function () {
             }
         };
 
-        test("1", "2");
-        test("10", "2");
-        test("1.0", "1.1");
-        test("1.2", "1.0.1");
-        for (let f1 of special_forms) {
-            for (let f2 of special_forms) {
+        test('1', '2');
+        test('10', '2');
+        test('1.0', '1.1');
+        test('1.2', '1.0.1');
+        for (const f1 of special_forms) {
+            for (const f2 of special_forms) {
                 test(`1.0${f1}`, `1.0${f2}`);
             }
         }
 
-        let expected = `1 < 2
+        const expected = `1 < 2
 10 > 2
 1.0 < 1.1
 1.2 > 1.0.1
@@ -103,14 +103,14 @@ describe('Version Compare', function () {
     it('operators', () => {
         let result = '';
 
-        for (let f1 of special_forms) {
-            for (let f2 of special_forms) {
-                for (let op of operators) {
-                    let v1 = `1.0${f1}`;
-                    let v2 = `1.0${f2}`;
-                    let test = __jymfony.version_compare(v1, v2, op) ? "true" : "false";
+        for (const f1 of special_forms) {
+            for (const f2 of special_forms) {
+                for (const op of operators) {
+                    const v1 = `1.0${f1}`;
+                    const v2 = `1.0${f2}`;
+                    const test = __jymfony.version_compare(v1, v2, op) ? 'true' : 'false';
                     result += util.format(
-                        "%s %s %s : %s\n",
+                        '%s %s %s : %s\n',
                         (`       ${v1}`).slice(-7),
                         (`  ${op}`).slice(-2),
                         (`${v2}       `).slice(0, 7),
@@ -120,7 +120,7 @@ describe('Version Compare', function () {
             }
         }
 
-        let expected = `1.0-dev lt 1.0-dev : false
+        const expected = `1.0-dev lt 1.0-dev : false
 1.0-dev  < 1.0-dev : false
 1.0-dev le 1.0-dev : true
 1.0-dev <= 1.0-dev : true
@@ -809,5 +809,5 @@ describe('Version Compare', function () {
 `;
 
         expect(result).to.be.equal(expected);
-    })
+    });
 });

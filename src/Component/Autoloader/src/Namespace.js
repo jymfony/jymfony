@@ -220,11 +220,11 @@ class Namespace {
                 init();
                 return Reflect.defineProperty(realTarget, key, descriptor);
             },
-            enumerate: (target) => {
+            enumerate: () => {
                 init();
                 return Reflect.enumerate(realTarget);
             },
-            ownKeys: (target) => {
+            ownKeys: () => {
                 init();
                 return Reflect.ownKeys(realTarget);
             },
@@ -236,7 +236,7 @@ class Namespace {
                 init();
                 return Reflect.construct(realTarget, argumentsList, newTarget);
             },
-            getPrototypeOf: (target) => {
+            getPrototypeOf: () => {
                 init();
                 return Reflect.getPrototypeOf(realTarget);
             },
@@ -244,11 +244,11 @@ class Namespace {
                 init();
                 return Reflect.setPrototypeOf(realTarget, proto);
             },
-            isExtensible: (target) => {
+            isExtensible: () => {
                 init();
                 return Reflect.isExtensible(realTarget);
             },
-            preventExtensions: (target) => {
+            preventExtensions: () => {
                 init();
                 return Reflect.preventExtensions(realTarget);
             },

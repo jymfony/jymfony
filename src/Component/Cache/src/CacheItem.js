@@ -183,3 +183,5 @@ class CacheItem extends implementationOf(CacheItemInterface) {
         }
     }
 }
+
+module.exports = CacheItem;

@@ -1,11 +1,10 @@
-const stream = require('stream');
-const os = require('os');
-
 const InvalidArgumentException = Jymfony.Component.Console.Exception.InvalidArgumentException;
 const OutputFormatter = Jymfony.Component.Console.Formatter.OutputFormatter;
 const Output = Jymfony.Component.Console.Output.Output;
 const OutputInterface = Jymfony.Component.Console.Output.OutputInterface;
 const Terminal = Jymfony.Component.Console.Terminal;
+
+const os = require('os');
 
 /**
  * @memberOf Jymfony.Component.Console.Output

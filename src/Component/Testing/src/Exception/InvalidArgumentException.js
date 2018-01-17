@@ -7,4 +7,4 @@ const ExceptionInterface = Jymfony.Component.Testing.Exception.ExceptionInterfac
 class InvalidArgumentException extends mix(BaseException, ExceptionInterface) {
 }
 
-module.exports = RuntimeException;
+module.exports = InvalidArgumentException;

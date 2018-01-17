@@ -11,7 +11,7 @@ class ReturnPromise extends implementationOf(PromiseInterface) {
     /**
      * @inheritDoc
      */
-    execute(args, object, method) {
+    execute() {
         const value = this._returnValues.shift();
 
         if (0 === this._returnValues.length) {

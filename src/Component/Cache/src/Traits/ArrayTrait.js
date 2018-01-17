@@ -1,8 +1,6 @@
 const CacheItem = Jymfony.Component.Cache.CacheItem;
 const LoggerAwareTrait = Jymfony.Component.Logger.LoggerAwareTrait;
 
-const crypto = require('crypto');
-
 /**
  * @memberOf Jymfony.Component.Cache.Traits
  */

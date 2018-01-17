@@ -9,14 +9,14 @@ class NoopHandler extends AbstractHandler {
     /**
      * @inheritDoc
      */
-    isHandling(record) {
+    isHandling() {
         return true;
     }
 
     /**
      * @inheritDoc
      */
-    handle(record) {
+    handle() {
         return false;
     }
 }

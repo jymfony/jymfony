@@ -187,11 +187,11 @@ describe('OptionsResolver', function () {
         });
 
         it('get required options', () => {
-            this._resolver.setRequired(['foo', 'bar']);
+            this._resolver.setRequired([ 'foo', 'bar' ]);
             this._resolver.setDefault('bam', 'baz');
             this._resolver.setDefault('foo', 'bar');
 
-            expect(this._resolver.getRequiredOptions()).to.be.deep.equal(['foo', 'bar']);
+            expect(this._resolver.getRequiredOptions()).to.be.deep.equal([ 'foo', 'bar' ]);
         });
     });
 
@@ -223,11 +223,11 @@ describe('OptionsResolver', function () {
         });
 
         it('get missing options', () => {
-            this._resolver.setRequired(['foo', 'bar']);
+            this._resolver.setRequired([ 'foo', 'bar' ]);
             this._resolver.setDefault('bam', 'baz');
             this._resolver.setDefault('foo', 'bar');
 
-            expect(this._resolver.getMissingOptions()).to.be.deep.equal(['bar']);
+            expect(this._resolver.getMissingOptions()).to.be.deep.equal([ 'bar' ]);
         });
     });
 });

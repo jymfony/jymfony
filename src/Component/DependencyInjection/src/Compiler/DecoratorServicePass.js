@@ -19,7 +19,7 @@ module.exports = class DecoratorServicePass extends implementationOf(CompilerPas
         }
 
         for (const [ id, definition ] of definitions) {
-            let [ inner, renamedId, priority ] = definition.getDecoratedService();
+            let [ inner, renamedId ] = definition.getDecoratedService();
             definition.setDecoratedService(undefined);
 
             if (! renamedId) {

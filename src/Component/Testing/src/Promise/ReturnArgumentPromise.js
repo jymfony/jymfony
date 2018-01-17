@@ -16,7 +16,7 @@ class ReturnArgumentPromise extends implementationOf(PromiseInterface) {
     /**
      * @inheritDoc
      */
-    execute(args, object, method) {
+    execute(args) {
         return args[this._index];
     }
 }

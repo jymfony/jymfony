@@ -1,6 +1,6 @@
-let expect = require('chai').expect;
-let path = require("path");
-let fs = require("fs");
+const expect = require('chai').expect;
+const path = require('path');
+const fs = require('fs');
 
 /*
  * We are testing autoloader component here
@@ -18,95 +18,95 @@ describe('[Autoloader] Namespace', function () {
          * proxy or not, we just check that is not a Namespace
          */
 
-        let ns = new Namespace({});
+        const ns = new Namespace({});
         expect(ns).not.to.be.instanceof(Namespace);
         expect(ns.__namespace).to.be.instanceof(Namespace);
     });
 
     it('returns undefined if a symbol is requested', () => {
-        let ns = new Namespace({});
+        const ns = new Namespace({});
 
         expect(ns[Symbol.iterator]).to.be.undefined;
     });
 
     it('returns undefined if namespace is not found', () => {
-        let finder = {
-            find: (dir, name) => {
-                let e = new Error();
+        const finder = {
+            find: () => {
+                const e = new Error();
                 e.code = 'ENOENT';
-            }
+            },
         };
 
-        let ns = new Namespace({ finder: finder });
-        let subns = ns.NotValid;
+        const ns = new Namespace({ finder: finder });
+        const subns = ns.NotValid;
 
         expect(subns).to.be.undefined;
     });
 
     it('throws if namespace is not found and debug is enabled', () => {
-        let finder = {
-            find: (dir, name) => {
-                let e = new Error();
+        const finder = {
+            find: () => {
+                const e = new Error();
                 e.code = 'ENOENT';
-            }
+            },
         };
 
-        let ns = new Namespace({ finder: finder });
-        let subns = ns.NotValid;
+        const ns = new Namespace({ finder: finder });
+        const subns = ns.NotValid;
 
         expect(subns).to.be.undefined;
     });
 
     it('throws if is not a constructor and debug is enabled', () => {
-        let req = (module) => {
+        const req = (module) => {
             if ('path' === module || 'vm' === module) {
                 return require(module);
             }
         };
         req.cache = {
-            '/var/node/foo_vendor/FooClass.js': {}
+            '/var/node/foo_vendor/FooClass.js': {},
         };
         req.resolve = () => {
             return '/var/node/foo_vendor/FooClass.js';
         };
 
-        let finder = {
+        const finder = {
             find: (dir, name) => {
                 expect(name).to.be.equal('FooClass');
                 return {
                     filename: '/var/node/foo_vendor/FooClass.js',
-                    directory: false
+                    directory: false,
                 };
             },
             load: (fn) => {
                 expect(fn).to.be.equal('/var/node/foo_vendor/FooClass.js');
                 return '';
-            }
+            },
         };
 
-        let ns = new Namespace({ finder: finder, debug: true }, 'Foo', [
-            '/var/node/foo_vendor'
+        const ns = new Namespace({ finder: finder, debug: true }, 'Foo', [
+            '/var/node/foo_vendor',
         ], req);
 
         expect(() => {
-            let class_ = ns.FooClass;
+            const class_ = ns.FooClass;
             expect(class_).to.be.undefined;
         }).to.throw(ClassNotFoundException);
     });
 
     it('object can be set', () => {
-        let ns = new Namespace({});
+        const ns = new Namespace({});
         ns.subNs = {
-            foo: 'bar'
+            foo: 'bar',
         };
 
         expect(ns.subNs).to.be.deep.equal({
-            foo: 'bar'
+            foo: 'bar',
         });
     });
 
     it('searches in all base dirs', () => {
-        let finder = {
+        const finder = {
             find: (dir, name) => {
                 switch (dir) {
                     case '/var/node/vendor1/':
@@ -116,7 +116,7 @@ describe('[Autoloader] Namespace', function () {
                         expect(name).to.be.equal('FooClass');
                         return {
                             filename: '/var/node/foo_vendor/FooClass.js',
-                            directory: false
+                            directory: false,
                         };
 
                     default:
@@ -126,64 +126,64 @@ describe('[Autoloader] Namespace', function () {
             load: (fn) => {
                 expect(fn).to.be.equal('/var/node/foo_vendor/FooClass.js');
                 return 'module.exports = function () { };';
-            }
+            },
         };
 
-        let req = (module) => {
+        const req = (module) => {
             if ('path' === module || 'vm' === module) {
                 return require(module);
             }
         };
         req.cache = {
-            '/var/node/foo_vendor/FooClass.js': {}
+            '/var/node/foo_vendor/FooClass.js': {},
         };
         req.resolve = () => {
             return '/var/node/foo_vendor/FooClass.js';
         };
 
-        let ns = new Namespace({finder: finder}, 'Foo', [], req);
+        const ns = new Namespace({finder: finder}, 'Foo', [], req);
 
         ns.__namespace.addDirectory('/var/node/vendor1/');
         ns.__namespace.addDirectory('/var/node/foo_vendor/');
 
-        let func = ns.FooClass;
+        const func = ns.FooClass;
         expect(func).to.be.instanceOf(Function);
     });
 
     it('injects reflection metadata', () => {
-        let finder = {
+        const finder = {
             find: (dir, name) => {
-                if (dir === '/var/node/foo_vendor/') {
+                if ('/var/node/foo_vendor/' === dir) {
                     expect(name).to.be.equal('FooClass');
                     return {
                         filename: '/var/node/foo_vendor/FooClass.js',
-                        directory: false
+                        directory: false,
                     };
-                } else {
-                    throw new Error('Unexpected argument');
                 }
+                throw new Error('Unexpected argument');
+
             },
             load: fn => {
                 expect(fn).to.be.equal('/var/node/foo_vendor/FooClass.js');
                 return 'module.exports = class FooClass {}';
-            }
+            },
         };
 
-        let req = (module) => {
+        const req = (module) => {
             if ('path' === module || 'vm' === module) {
                 return require(module);
             }
         };
         req.cache = {
-            '/var/node/foo_vendor/FooClass.js': {}
+            '/var/node/foo_vendor/FooClass.js': {},
         };
-        req.resolve = (module) => {
+        req.resolve = () => {
             return '/var/node/foo_vendor/FooClass.js';
         };
 
-        let ns = new Namespace({finder: finder}, 'Foo', ['/var/node/foo_vendor/'], req);
+        const ns = new Namespace({finder: finder}, 'Foo', [ '/var/node/foo_vendor/' ], req);
 
-        let func = ns.FooClass;
+        const func = ns.FooClass;
 
         expect(func).to.be.instanceOf(Function);
         expect(func[Symbol.reflection]).to.have.property('filename').that.equals('/var/node/foo_vendor/FooClass.js');
@@ -193,17 +193,17 @@ describe('[Autoloader] Namespace', function () {
     });
 
     it('calls __construct on new if defined', () => {
-        let finder = {
+        const finder = {
             find: (dir, name) => {
-                if (dir === '/var/node/foo_vendor/') {
+                if ('/var/node/foo_vendor/' === dir) {
                     expect(name).to.be.equal('FooClass');
                     return {
                         filename: '/var/node/foo_vendor/FooClass.js',
-                        directory: false
+                        directory: false,
                     };
-                } else {
-                    throw new Error('Unexpected argument');
                 }
+                throw new Error('Unexpected argument');
+
             },
             load: fn => {
                 expect(fn).to.be.equal('/var/node/foo_vendor/FooClass.js');
@@ -212,40 +212,40 @@ describe('[Autoloader] Namespace', function () {
                         this.constructCalled = arg;
                     }
                 };`;
-            }
+            },
         };
 
-        let req = (module) => {
+        const req = (module) => {
             if ('path' === module || 'vm' === module) {
                 return require(module);
             }
         };
         req.cache = {
-            '/var/node/foo_vendor/FooClass.js': {}
+            '/var/node/foo_vendor/FooClass.js': {},
         };
-        req.resolve = (module) => {
+        req.resolve = () => {
             return '/var/node/foo_vendor/FooClass.js';
         };
 
-        let ns = new Namespace({finder: finder}, 'Foo', ['/var/node/foo_vendor/'], req);
+        const ns = new Namespace({finder: finder}, 'Foo', [ '/var/node/foo_vendor/' ], req);
 
-        let obj = new ns.FooClass('foobar');
+        const obj = new ns.FooClass('foobar');
         expect(obj.constructCalled).to.be.equal('foobar');
     });
 
     it('calls __construct on new if defined', () => {
-        let finder = {
+        const finder = {
             find: (dir, name) => {
-                if (dir === '/var/node/foo_vendor/') {
-                    if (name === 'FooClass') {
+                if ('/var/node/foo_vendor/' === dir) {
+                    if ('FooClass' === name) {
                         return {
                             filename: '/var/node/foo_vendor/FooClass.js',
-                            directory: false
+                            directory: false,
                         };
-                    } else if (name === 'BarClass') {
+                    } else if ('BarClass' === name) {
                         return {
                             filename: '/var/node/foo_vendor/BarClass.js',
-                            directory: false
+                            directory: false,
                         };
                     }
                 }
@@ -253,38 +253,38 @@ describe('[Autoloader] Namespace', function () {
                 throw new Error('Unexpected argument');
             },
             load: fn => {
-                if (fn === '/var/node/foo_vendor/FooClass.js') {
+                if ('/var/node/foo_vendor/FooClass.js' === fn) {
                     return `module.exports = class FooClass extends __ns.BarClass {
                         __construct(arg) {
                             this.constructCalled = arg;
                         }
                     }`;
-                } else if (fn === '/var/node/foo_vendor/BarClass.js') {
+                } else if ('/var/node/foo_vendor/BarClass.js' === fn) {
                     return `module.exports = class BarClass {
                         __construct(arg) {
                             this.superCalled = arg;
                         }
                     };`;
                 }
-            }
+            },
         };
 
-        let req = (module) => {
+        const req = (module) => {
             if ('path' === module || 'vm' === module) {
                 return require(module);
             }
         };
         req.cache = {
             '/var/node/foo_vendor/BarClass.js': {},
-            '/var/node/foo_vendor/FooClass.js': {}
+            '/var/node/foo_vendor/FooClass.js': {},
         };
         req.resolve = (module) => module;
 
-        let ns = new Namespace({finder: finder}, 'Foo', ['/var/node/foo_vendor/'], req);
+        const ns = new Namespace({finder: finder}, 'Foo', [ '/var/node/foo_vendor/' ], req);
         try {
             global.__ns = ns;
 
-            let obj = new ns.FooClass('foobar');
+            const obj = new ns.FooClass('foobar');
             expect(obj.constructCalled).to.be.equal('foobar');
             expect(obj.superCalled).to.be.undefined;
         } finally {
@@ -293,17 +293,17 @@ describe('[Autoloader] Namespace', function () {
     });
 
     it('resolves circular requirements', () => {
-        let finder = {
+        const finder = {
             find: (dir, name) => {
-                if (name === 'FooClass') {
+                if ('FooClass' === name) {
                     return {
                         filename: path.join(__dirname, '..', 'fixtures', 'FooClass.js'),
-                        directory: false
+                        directory: false,
                     };
-                } else if (name === 'BarClass') {
+                } else if ('BarClass' === name) {
                     return {
                         filename: path.join(__dirname, '..', 'fixtures', 'BarClass.js'),
-                        directory: false
+                        directory: false,
                     };
                 }
 
@@ -311,15 +311,15 @@ describe('[Autoloader] Namespace', function () {
             },
             load: fn => {
                 return fs.readFileSync(fn, 'utf-8');
-            }
+            },
         };
 
-        let ns = new Namespace({ finder: finder }, 'Foo', path.join(__dirname, '..', 'fixtures'), require);
+        const ns = new Namespace({ finder: finder }, 'Foo', path.join(__dirname, '..', 'fixtures'), require);
         try {
             global.Foo = ns;
 
-            let foo = new ns.FooClass();
-            let bar = foo.bar;
+            const foo = new ns.FooClass();
+            const bar = foo.bar;
 
             expect(bar).to.be.instanceOf(ns.BarClass);
             expect(foo).to.be.instanceOf(ns.FooClass);

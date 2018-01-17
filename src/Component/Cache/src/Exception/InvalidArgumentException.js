@@ -1,6 +1,6 @@
 const BaseException = global.InvalidArgumentException;
 
-class InvalidArgumentException extends InvalidArgumentException {
+class InvalidArgumentException extends BaseException {
 }
 
 module.exports = InvalidArgumentException;

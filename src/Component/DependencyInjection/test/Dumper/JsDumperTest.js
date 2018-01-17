@@ -1,5 +1,5 @@
-const fs = require("fs");
-const path = require("path");
+const fs = require('fs');
+const path = require('path');
 const expect = require('chai').expect;
 
 const ContainerBuilder = Jymfony.Component.DependencyInjection.ContainerBuilder;
@@ -12,17 +12,17 @@ const fixturesPath = path.join(__dirname, '..', '..', 'fixtures');
 
 describe('[DependencyInjection] JsDumper', function () {
     it('dump', () => {
-        let container = new ContainerBuilder();
+        const container = new ContainerBuilder();
         container.compile();
 
-        let dumper = new JsDumper(container);
+        const dumper = new JsDumper(container);
         expect(dumper.dump()).to.be.equal(fs.readFileSync(path.join(fixturesPath, 'js', 'services1.js')).toString());
         expect(dumper.dump({ class_name: 'DumpedContainer', base_class: 'AbstractContainer' }))
             .to.be.equal(fs.readFileSync(path.join(fixturesPath, 'js', 'services1-1.js')).toString());
     });
 
     it('dump optimization string', () => {
-        let definition = new Definition();
+        const definition = new Definition();
         definition.setClass('Object');
         definition.setPublic(true);
         definition.addArgument({
@@ -38,49 +38,49 @@ describe('[DependencyInjection] JsDumper', function () {
             'optimize concatenation at the end': 'end%empty_value%',
         });
 
-        let container = new ContainerBuilder();
+        const container = new ContainerBuilder();
         container.setResourceTracking(false);
         container.setDefinition('test', definition);
         container.setParameter('empty_value', '');
         container.setParameter('some_string', '-');
         container.compile();
 
-        let dumper = new JsDumper(container);
+        const dumper = new JsDumper(container);
         expect(dumper.dump())
             .to.be.equal(fs.readFileSync(path.join(fixturesPath, 'js', 'services10.js')).toString());
     });
 
-    let tests = function * () {
+    const tests = function * () {
         yield {'foo': new Definition('Object')};
         yield {'foo': new Reference('foo')};
         yield {'foo': new Variable('foo')};
     };
     let count = 0;
 
-    for (let t of tests()) {
+    for (const t of tests()) {
         it('should throw if invalid parameters are passed #'+count++, () => {
-            let container = new ContainerBuilder(new ParameterBag(t));
+            const container = new ContainerBuilder(new ParameterBag(t));
             container.compile();
 
-            let dumper = new JsDumper(container);
+            const dumper = new JsDumper(container);
             expect(() => dumper.dump()).to.throw(InvalidArgumentException);
         });
     }
 
     it('should add parameters', () => {
-        let container = require(path.join(fixturesPath, 'containers', 'container8.js'));
+        const container = require(path.join(fixturesPath, 'containers', 'container8.js'));
         container.compile();
 
-        let dumper = new JsDumper(container);
+        const dumper = new JsDumper(container);
         expect(dumper.dump())
             .to.be.equal(fs.readFileSync(path.join(fixturesPath, 'js', 'services8.js')).toString());
     });
 
     it('should add services', () => {
-        let container = require(path.join(fixturesPath, 'containers', 'container9.js'));
+        const container = require(path.join(fixturesPath, 'containers', 'container9.js'));
         container.compile();
 
-        let dumper = new JsDumper(container);
+        const dumper = new JsDumper(container);
         expect(dumper.dump())
             .to.be.equal(fs.readFileSync(path.join(fixturesPath, 'js', 'services9.js')).toString());
     });

@@ -220,6 +220,7 @@ describe('Equal', function () {
 
     describe('arguments', function () {
         function getArguments() {
+            // eslint-disable-next-line prefer-rest-params
             return arguments;
         }
 
@@ -242,10 +243,12 @@ describe('Equal', function () {
         });
 
         it('returns false given an array', () => {
+            // eslint-disable-next-line prefer-rest-params
             expect(__jymfony.equal([], arguments)).to.be.false;
         });
 
         it('returns false given an object', () => {
+            // eslint-disable-next-line prefer-rest-params
             expect(__jymfony.equal({}, arguments)).to.be.false;
         });
 
@@ -655,7 +658,7 @@ describe('Equal', function () {
 
         it('returns true for the same promises', () => {
             const promiseResolve = Promise.resolve();
-            const promiseReject = Promise.reject().catch(() => {});
+            const promiseReject = Promise.reject(new Error()).catch(() => {});
             const promisePending = new Promise(() => {});
             expect(__jymfony.equal(promiseResolve, promiseResolve)).to.be.true;
             expect(__jymfony.equal(promiseReject, promiseReject)).to.be.true;
@@ -665,7 +668,7 @@ describe('Equal', function () {
 
         it('returns false for different promises', () => {
             expect(__jymfony.equal(Promise.resolve(), Promise.resolve())).to.be.false;
-            expect(__jymfony.equal(Promise.reject().catch(() => {}), Promise.reject().catch(() => {}))).to.be.false;
+            expect(__jymfony.equal(Promise.reject(new Error()).catch(() => {}), Promise.reject(new Error()).catch(() => {}))).to.be.false;
             expect(__jymfony.equal(new Promise(() => {}), new Promise(() => {}))).to.be.false;
         });
 
@@ -829,19 +832,29 @@ describe('Equal', function () {
     describe('generator', function () {
 
         it('returns true for same generator function calls', () => {
-            const generator = function * () { yield 1; yield 2; };
+            const generator = function * () {
+                yield 1; yield 2;
+            };
             expect(__jymfony.equal(generator(), generator())).to.be.true;
         });
 
         it('returns true for different generator function calls that return same results', () => {
-            const generatorA = function * () { yield 1; yield 2; };
-            const generatorB = function * () { yield 1; yield 2; };
+            const generatorA = function * () {
+                yield 1; yield 2;
+            };
+            const generatorB = function * () {
+                yield 1; yield 2;
+            };
             expect(__jymfony.equal(generatorA(), generatorB())).to.be.true;
         });
 
         it('returns true for different generator function calls are at level of iteration with same results', () => {
-            const generatorA = function * () { yield 1; yield 2; yield 3; };
-            const generatorB = function * () { yield 6; yield 2; yield 3; };
+            const generatorA = function * () {
+                yield 1; yield 2; yield 3;
+            };
+            const generatorB = function * () {
+                yield 6; yield 2; yield 3;
+            };
             const generatorAIterator = generatorA();
             const generatorBIterator = generatorB();
             generatorAIterator.next();
@@ -851,21 +864,31 @@ describe('Equal', function () {
 
         it('returns false for same generator function calls that return different results', () => {
             let set = 0;
-            const generator = function * () { yield set++; };
+            const generator = function * () {
+                yield set++;
+            };
             expect(__jymfony.equal(generator(), generator())).to.be.false;
         });
 
         it('returns false for generators at different stages of iteration', () => {
-            const generatorA = function * () { yield 1; yield 2; };
-            const generatorB = function * () { yield 1; yield 2; };
+            const generatorA = function * () {
+                yield 1; yield 2;
+            };
+            const generatorB = function * () {
+                yield 1; yield 2;
+            };
             const generatorBIterator = generatorB();
             generatorBIterator.next();
             expect(__jymfony.equal(generatorA(), generatorBIterator)).to.be.false;
         });
 
         it('returns false for generators if one is done', () => {
-            const generatorA = function * () { yield 1; yield 2; };
-            const generatorB = function * () { yield 1; yield 2; };
+            const generatorA = function * () {
+                yield 1; yield 2;
+            };
+            const generatorB = function * () {
+                yield 1; yield 2;
+            };
             const generatorBIterator = generatorB();
             generatorBIterator.next();
             generatorBIterator.next();

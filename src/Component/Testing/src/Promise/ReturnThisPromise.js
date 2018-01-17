@@ -7,7 +7,7 @@ class ReturnThisPromise extends implementationOf(PromiseInterface) {
     /**
      * @inheritDoc
      */
-    execute(args, object, method) {
+    execute(args, object) {
         return object;
     }
 }

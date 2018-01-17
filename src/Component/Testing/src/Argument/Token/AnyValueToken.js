@@ -7,7 +7,7 @@ class AnyValueToken extends implementationOf(TokenInterface) {
     /**
      * @inheritDoc
      */
-    scoreArgument(argument) {
+    scoreArgument() {
         return 3;
     }
 

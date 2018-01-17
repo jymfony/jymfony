@@ -1,4 +1,4 @@
-let expect = require('chai').expect;
+const expect = require('chai').expect;
 
 /*
  * We are testing autoloader component here
@@ -13,13 +13,15 @@ class GrandParent {
 class Parent extends GrandParent {
     parentMethod() { }
 }
-let ISon = getInterface(class SonInterface {
+const ISon = getInterface(class SonInterface {
     getFoo() { }
 });
-let ISon2 = getInterface(class Son2Interface {});
+const ISon2 = getInterface(class Son2Interface {});
 
 class Son extends mix(Parent, ISon) {
-    constructor() { super(); this.foo = 'bar'; }
+    constructor() {
+        super(); this.foo = 'bar';
+    }
 
     getFoo() { }
 
@@ -28,7 +30,9 @@ class Son extends mix(Parent, ISon) {
 }
 
 class Son2 extends mix(Parent, ISon, ISon2) {
-    constructor() { super(); this.foo = 'bar'; }
+    constructor() {
+        super(); this.foo = 'bar';
+    }
 
     getFoo() { }
 
@@ -49,8 +53,8 @@ Son.CONST_2 = 'foo';
 
 describe('[Autoloader] ReflectionClass', function () {
     it('newInstance should return an object', () => {
-        let reflClass = new ReflectionClass(Son);
-        let obj = reflClass.newInstance();
+        const reflClass = new ReflectionClass(Son);
+        const obj = reflClass.newInstance();
 
         expect(obj).not.to.be.undefined;
         expect(obj).to.be.instanceOf(Son);
@@ -58,8 +62,8 @@ describe('[Autoloader] ReflectionClass', function () {
     });
 
     it('newInstanceWithoutConstructor should return an object', () => {
-        let reflClass = new ReflectionClass(Son);
-        let obj = reflClass.newInstanceWithoutConstructor();
+        const reflClass = new ReflectionClass(Son);
+        const obj = reflClass.newInstanceWithoutConstructor();
 
         expect(obj).not.to.be.undefined;
         expect(obj).to.be.instanceOf(Son);
@@ -67,8 +71,8 @@ describe('[Autoloader] ReflectionClass', function () {
     });
 
     it('newInstanceWithoutConstructor should not break instanceof chain', () => {
-        let reflClass = new ReflectionClass(Son);
-        let obj = reflClass.newInstanceWithoutConstructor();
+        const reflClass = new ReflectionClass(Son);
+        const obj = reflClass.newInstanceWithoutConstructor();
 
         expect(obj).to.be.instanceOf(Son);
         expect(obj).to.be.instanceOf(Parent);
@@ -77,20 +81,20 @@ describe('[Autoloader] ReflectionClass', function () {
     });
 
     it('newInstanceWithoutConstructor should return correct class name', () => {
-        let reflClass = new ReflectionClass(Son2);
-        let obj = reflClass.newInstanceWithoutConstructor();
+        const reflClass = new ReflectionClass(Son2);
+        const obj = reflClass.newInstanceWithoutConstructor();
 
         expect((new ReflectionClass(obj)).name).to.be.equal('FooNs.Son2');
     });
 
     it('hasMethod should work', () => {
-        let reflClass = new ReflectionClass(Son);
+        const reflClass = new ReflectionClass(Son);
 
         expect(reflClass.hasMethod('parentMethod')).to.be.true;
     });
 
     it('hasProperty should work', () => {
-        let reflClass = new ReflectionClass(Son);
+        const reflClass = new ReflectionClass(Son);
 
         expect(reflClass.hasProperty('prop')).to.be.true;
         expect(reflClass.hasProperty('readProp')).to.be.true;
@@ -98,7 +102,7 @@ describe('[Autoloader] ReflectionClass', function () {
     });
 
     it('hasReadableProperty should work', () => {
-        let reflClass = new ReflectionClass(Son);
+        const reflClass = new ReflectionClass(Son);
 
         expect(reflClass.hasReadableProperty('prop')).to.be.true;
         expect(reflClass.hasReadableProperty('readProp')).to.be.true;
@@ -106,7 +110,7 @@ describe('[Autoloader] ReflectionClass', function () {
     });
 
     it('hasWritableProperty should work', () => {
-        let reflClass = new ReflectionClass(Son);
+        const reflClass = new ReflectionClass(Son);
 
         expect(reflClass.hasWritableProperty('prop')).to.be.true;
         expect(reflClass.hasWritableProperty('readProp')).to.be.false;
@@ -114,26 +118,26 @@ describe('[Autoloader] ReflectionClass', function () {
     });
 
     it('getParentClass should return a ReflectionClass object', () => {
-        let reflClass = new ReflectionClass(Son);
+        const reflClass = new ReflectionClass(Son);
 
         expect(reflClass.getParentClass()).to.be.instanceOf(ReflectionClass);
         expect(reflClass.getParentClass().getConstructor()).to.be.equal(Parent);
     });
 
     it('methods getter should work', () => {
-        let reflClass = new ReflectionClass(Son);
+        const reflClass = new ReflectionClass(Son);
 
-        expect(reflClass.methods).to.be.deep.equal(['parentMethod', 'getFoo']);
+        expect(reflClass.methods).to.be.deep.equal([ 'parentMethod', 'getFoo' ]);
     });
 
     it('properties getter should work', () => {
-        let reflClass = new ReflectionClass(Son);
+        const reflClass = new ReflectionClass(Son);
 
-        expect(reflClass.properties).to.be.deep.equal(['readProp', 'writeProp', 'prop']);
+        expect(reflClass.properties).to.be.deep.equal([ 'readProp', 'writeProp', 'prop' ]);
     });
 
     it('constants getter should work', () => {
-        let reflClass = new ReflectionClass(Son);
+        const reflClass = new ReflectionClass(Son);
 
         expect(reflClass.constants).to.be.deep.equal({
             CONST_1: 'foobar',
@@ -166,7 +170,7 @@ describe('[Autoloader] ReflectionClass', function () {
     });
 
     it('exposes interface methods', () => {
-        let reflClass = new ReflectionClass(ISon);
-        expect(reflClass.methods).to.be.deep.equal(['getFoo']);
+        const reflClass = new ReflectionClass(ISon);
+        expect(reflClass.methods).to.be.deep.equal([ 'getFoo' ]);
     });
 });
