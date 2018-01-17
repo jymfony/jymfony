@@ -13,7 +13,7 @@
     "array-callback-return": "error",
     "block-spacing": ["error", "always"],
     "brace-style": ["error", "1tbs"],
-    "capitalized-comments": "error",
+    "capitalized-comments": ["error", "always", { "ignoreInlineComments": true }],
     "class-methods-use-this": "off",
     "comma-dangle": ["error", {
       "arrays": "always-multiline",
@@ -64,6 +64,7 @@
     "no-throw-literal": "error",
     "no-trailing-spaces": "error",
     "no-unused-expressions": "error",
+    "no-unused-vars": "error",
     "no-useless-constructor": "error",
     "no-useless-return": "off",
     "no-var": "error",

@@ -53,7 +53,10 @@ class Extension extends implementationOf(ExtensionInterface) {
         return Container.underscore(className.substring(0, className.length - 9));
     }
 
-    _processConfiguration(configuration, configs) {
+    /**
+     * @todo
+     */
+    _processConfiguration(configuration, configs) { // eslint-disable-line no-unused-vars
         throw new Exception('Unimplemented');
     }
 

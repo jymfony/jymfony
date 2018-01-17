@@ -24,21 +24,21 @@ module.exports = class FrozenParameterBag extends ParameterBag {
     /**
      * @inheritDoc
      */
-    add(params, overwrite = true) {
+    add(/* params, overwrite = true */) {
         throw new LogicException('Impossible to call add() on a frozen bag');
     }
 
     /**
      * @inheritDoc
      */
-    set(name, value) {
+    set(/* name, value */) {
         throw new LogicException('Impossible to call set() on a frozen bag');
     }
 
     /**
      * @inheritDoc
      */
-    remove(name) {
+    remove(/* name */) {
         throw new LogicException('Impossible to call remove() on a frozen bag');
     }
 };

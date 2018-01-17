@@ -1,4 +1,4 @@
-let expect = require('chai').expect;
+const expect = require('chai').expect;
 
 /*
  * We are testing autoloader component here
@@ -7,11 +7,11 @@ let expect = require('chai').expect;
 const Finder = require('../src/Finder');
 const path = require('path');
 
-let pathJoin = function () {
+const pathJoin = function (...args) {
     let joined = undefined;
-    for (let i = 0; i < arguments.length; ++i) {
-        let arg = arguments[i];
-        if (arg.length > 0) {
+    for (let i = 0; i < args.length; ++i) {
+        const arg = args[i];
+        if (0 < arg.length) {
             if (joined === undefined) {
                 joined = arg;
             } else {
@@ -25,67 +25,67 @@ let pathJoin = function () {
 
 describe('[Autoloader] Finder', function () {
     it('findRoot', function () {
-        let module = {
+        const module = {
             parent: {
                 parent: {
                     parent: undefined,
-                    filename: '/var/node/foo/bar/app.js'
-                }
-            }
+                    filename: '/var/node/foo/bar/app.js',
+                },
+            },
         };
 
-        let mockedPath = {
+        const mockedPath = {
             join: pathJoin,
             dirname: path.dirname,
             normalize: str => str,
-            sep: '/'
+            sep: '/',
         };
 
-        let fs = {
+        const fs = {
             statSync: (fn) => {
-                if (fn !== '/var/node/foo/bar/package.json') {
+                if ('/var/node/foo/bar/package.json' !== fn) {
                     throw new Error('Incorrect argument "'+fn+'"');
                 }
 
                 return {
-                    isDirectory: () => false
+                    isDirectory: () => false,
                 };
             },
         };
 
-        let finder = new Finder(fs, mockedPath, module);
+        const finder = new Finder(fs, mockedPath, module);
         expect(finder.findRoot()).to.be.equal('/var/node/foo/bar');
     });
 
     it('findRoot caches result', function () {
-        let module = {
+        const module = {
             parent: {
                 parent: {
                     parent: undefined,
-                    filename: '/var/node/foo/bar/app.js'
-                }
-            }
+                    filename: '/var/node/foo/bar/app.js',
+                },
+            },
         };
 
-        let mockedPath = {
+        const mockedPath = {
             join: pathJoin,
             dirname: path.dirname,
             normalize: str => str,
-            sep: '/'
+            sep: '/',
         };
 
         let callCount = 0;
-        let fs = {
+        const fs = {
             statSync: () => {
                 ++callCount;
 
                 return {
-                    isDirectory: () => false
+                    isDirectory: () => false,
                 };
             },
         };
 
-        let finder = new Finder(fs, mockedPath, module);
+        const finder = new Finder(fs, mockedPath, module);
 
         finder.findRoot();
         finder.findRoot();
@@ -94,50 +94,50 @@ describe('[Autoloader] Finder', function () {
     });
 
     it('findRoot should rethrow if error is not ENOENT', function () {
-        let module = {
+        const module = {
             parent: {
                 parent: {
                     parent: undefined,
-                    filename: '/var/node/foo/bar/app.js'
-                }
-            }
+                    filename: '/var/node/foo/bar/app.js',
+                },
+            },
         };
 
-        let mockedPath = {
+        const mockedPath = {
             join: pathJoin,
             dirname: path.dirname,
             normalize: str => str,
-            sep: '/'
+            sep: '/',
         };
 
-        let fs = {
+        const fs = {
             statSync: () => {
-                let e = new Error;
+                const e = new Error();
                 e.code = 'EUNK';
 
                 throw e;
             },
         };
 
-        let finder = new Finder(fs, mockedPath, module);
+        const finder = new Finder(fs, mockedPath, module);
 
         expect(finder.findRoot.bind(finder)).to.throw();
     });
 
     it('listModules', function () {
-        let module = {
+        const module = {
             parent: undefined,
-            filename: '/var/node/foo/bar/app.js'
+            filename: '/var/node/foo/bar/app.js',
         };
 
-        let mockedPath = {
+        const mockedPath = {
             join: pathJoin,
             dirname: path.dirname,
             normalize: str => str,
-            sep: '/'
+            sep: '/',
         };
 
-        let fs = {
+        const fs = {
             readdirSync: (dir) => {
                 if ('/var/node/node_modules' === dir) {
                     return [
@@ -145,7 +145,7 @@ describe('[Autoloader] Finder', function () {
                         'jymfony-autoloader',
                         'chai',
                         'jymfony-event-dispatcher',
-                        '@jymfony'
+                        '@jymfony',
                     ];
                 }
 
@@ -163,27 +163,28 @@ describe('[Autoloader] Finder', function () {
                 switch (fn) {
                     case '/var/node/foo/bar/package.json':
                         return {
-                            isDirectory: () => false
+                            isDirectory: () => false,
                         };
 
-                    case '/var/node/foo/bar/node_modules':
-                        let e = new Error();
+                    case '/var/node/foo/bar/node_modules': {
+                        const e = new Error();
                         e.code = 'ENOENT';
                         throw e;
+                    }
 
                     case '/var/node/foo/node_modules':
                         return {
-                            isDirectory: () => false
+                            isDirectory: () => false,
                         };
 
                     case '/var/node/node_modules':
                         return {
-                            isDirectory: () => true
+                            isDirectory: () => true,
                         };
 
                     case '/var/node/node_modules/@jymfony':
                         return {
-                            isDirectory: () => true
+                            isDirectory: () => true,
                         };
 
                     default:
@@ -192,7 +193,7 @@ describe('[Autoloader] Finder', function () {
             },
         };
 
-        let finder = new Finder(fs, mockedPath, module);
+        const finder = new Finder(fs, mockedPath, module);
         expect(finder.listModules()).to.be.deep.equal([
             'jymfony-autoloader',
             'chai',
@@ -203,32 +204,32 @@ describe('[Autoloader] Finder', function () {
     });
 
     it('listModules rethrows errors', function () {
-        let module = {
+        const module = {
             parent: undefined,
-            filename: '/var/node/foo/bar/app.js'
+            filename: '/var/node/foo/bar/app.js',
         };
 
-        let mockedPath = {
+        const mockedPath = {
             join: pathJoin,
             dirname: path.dirname,
             normalize: str => str,
-            sep: '/'
+            sep: '/',
         };
 
-        let fs = {
+        const fs = {
             readdirSync: () => {
                 return [
                     '.bin',
                     'jymfony-autoloader',
                     'chai',
-                    'jymfony-event-dispatcher'
+                    'jymfony-event-dispatcher',
                 ];
             },
             realpathSync: fn => fn,
             statSync: fn => {
-                if (fn === '/var/node/foo/bar/package.json') {
+                if ('/var/node/foo/bar/package.json' === fn) {
                     return {
-                        isDirectory: () => false
+                        isDirectory: () => false,
                     };
                 }
 
@@ -236,72 +237,72 @@ describe('[Autoloader] Finder', function () {
             },
         };
 
-        let finder = new Finder(fs, mockedPath, module);
+        const finder = new Finder(fs, mockedPath, module);
         expect(finder.listModules.bind(finder)).to.throw('TEST_ERROR');
     });
 
     it('listModules with no modules installed', function () {
-        let module = {
+        const module = {
             parent: undefined,
-            filename: '/var/node/foo/bar/app.js'
+            filename: '/var/node/foo/bar/app.js',
         };
 
-        let mockedPath = {
+        const mockedPath = {
             join: pathJoin,
             dirname: path.dirname,
             normalize: str => str,
-            sep: '/'
+            sep: '/',
         };
 
-        let fs = {
+        const fs = {
             readdirSync: () => {
                 return [];
             },
             realpathSync: fn => fn,
             statSync: () => {
                 return {
-                    isDirectory: () => false
+                    isDirectory: () => false,
                 };
             },
         };
 
-        let finder = new Finder(fs, mockedPath, module);
-        let mods = finder.listModules();
+        const finder = new Finder(fs, mockedPath, module);
+        const mods = finder.listModules();
 
         expect(mods).to.be.deep.equal([]);
     });
 
     it('find', function () {
-        let fs = {
+        const fs = {
             statSync: (fn) => {
                 expect(fn).to.be.equal('/var/node/package.json');
 
                 return {
-                    isDirectory: () => false
+                    isDirectory: () => false,
                 };
             },
         };
 
-        let finder = new Finder(fs, { normalize: str => str, sep: '/' }, {});
-        let obj = finder.find('/var/node', 'package.json');
+        const finder = new Finder(fs, { normalize: str => str, sep: '/' }, {});
+        const obj = finder.find('/var/node', 'package.json');
 
         expect(obj).to.be.deep.equal({
             filename: '/var/node/package.json',
-            directory: false
+            directory: false,
         });
     });
 
     it('find appends .js ext', function () {
-        let fs = {
+        const fs = {
             statSync: (fn) => {
                 if ('/var/node/index' === fn) {
-                    let e = new Error;
+                    const e = new Error();
                     e.code = 'ENOENT';
 
                     throw e;
                 } else if ('/var/node/index.js' === fn) {
                     return {
-                        isDirectory: () => false
+                        isDirectory: () => false,
                     };
                 }
 
@@ -309,42 +310,42 @@ describe('[Autoloader] Finder', function () {
             },
         };
 
-        let finder = new Finder(fs, { normalize: str => str, sep: '/' }, {});
-        let obj = finder.find('/var/node', 'index');
+        const finder = new Finder(fs, { normalize: str => str, sep: '/' }, {});
+        const obj = finder.find('/var/node', 'index');
 
         expect(obj).to.be.deep.equal({
             filename: '/var/node/index.js',
-            directory: false
+            directory: false,
         });
     });
 
     it('find returns undefined if not found', function () {
-        let fs = {
-            statSync: (fn) => {
-                let e = new Error;
+        const fs = {
+            statSync: () => {
+                const e = new Error();
                 e.code = 'ENOENT';
 
                 throw e;
             },
         };
 
-        let finder = new Finder(fs, { normalize: path.normalize, sep: '/' }, {});
-        let obj = finder.find('/var/node', 'index');
+        const finder = new Finder(fs, { normalize: path.normalize, sep: '/' }, {});
+        const obj = finder.find('/var/node', 'index');
 
         expect(obj).to.be.deep.undefined;
     });
 
     it('find rethrows errors', function () {
-        let fs = {
+        const fs = {
             statSync: () => {
-                let e = new Error;
+                const e = new Error();
                 e.code = 'EUNK';
 
                 throw e;
             },
         };
 
-        let finder = new Finder(fs, { normalize: path.normalize, sep: '/' }, {});
+        const finder = new Finder(fs, { normalize: path.normalize, sep: '/' }, {});
         expect(finder.find.bind(finder, '/var/node', 'index')).to.throw();
     });
 });

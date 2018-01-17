@@ -1,11 +1,11 @@
 const ContainerBuilder = Jymfony.Component.DependencyInjection.ContainerBuilder;
 const Reference = Jymfony.Component.DependencyInjection.Reference;
 
-let container = new ContainerBuilder();
+const container = new ContainerBuilder();
 container.register('foo', 'Bar.Foo')
     .addTag('foo', {foo: 'foo'})
     .addTag('foo', {bar: 'bar', baz: 'baz'})
-    .setFactory(['Bar.FooFactory', 'getInstance'])
+    .setFactory([ 'Bar.FooFactory', 'getInstance' ])
     .setArguments([
         'foo',
         new Reference('foo.baz'),
@@ -20,13 +20,13 @@ container.register('foo', 'Bar.Foo')
     .setPublic(true)
 ;
 container.register('foo.baz', '%baz.class%')
-    .setFactory(['%baz.class%', 'getInstance'])
+    .setFactory([ '%baz.class%', 'getInstance' ])
     .setConfigurator('%baz.class%.configureStatic1')
     .setPublic(true)
 ;
 container.register('bar', 'Bar.FooClass')
-    .setArguments(['foo', new Reference('foo.baz')])
-    .setConfigurator([new Reference('foo.baz'), 'configure'])
+    .setArguments([ 'foo', new Reference('foo.baz') ])
+    .setConfigurator([ new Reference('foo.baz'), 'configure' ])
     .setPublic(true)
 ;
 container.register('foo_bar', '%foo_class%')

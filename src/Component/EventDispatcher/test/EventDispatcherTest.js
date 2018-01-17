@@ -1,17 +1,16 @@
-let expect = require('chai').expect;
+const expect = require('chai').expect;
 
 const EventDispatcher = Jymfony.Component.EventDispatcher.EventDispatcher;
 const Event = Jymfony.Component.EventDispatcher.Event;
 
-let createEventDispatcher = function() {
+const createEventDispatcher = function() {
     return new EventDispatcher();
 };
 
 const preFoo = 'event.pre_foo';
 const postFoo = 'event.post_foo';
 
-class TestEventListener
-{
+class TestEventListener {
     constructor() {
         this.preFooCalled = false;
         this.postFooCalled = false;
@@ -35,7 +34,7 @@ class TestEventSubscriber extends TestEventListener {
     static getSubscribedEvents() {
         return {
             preFoo: 'preFoo',
-            postFoo: 'postFoo'
+            postFoo: 'postFoo',
         };
     }
 }
@@ -43,8 +42,8 @@ class TestEventSubscriber extends TestEventListener {
 class TestEventSubscriberWithPriorities extends TestEventListener {
     getSubscribedEvents() {
         return {
-            preFoo: ['preFoo', 10],
-            postFoo: ['postFoo']
+            preFoo: [ 'preFoo', 10 ],
+            postFoo: [ 'postFoo' ],
         };
     }
 }
@@ -53,16 +52,16 @@ class TestEventSubscriberWithMultipleListeners extends TestEventListener {
     static getSubscribedEvents() {
         return {
             preFoo: [
-                ['preFoo', 10],
-                ['foo1']
-            ]
+                [ 'preFoo', 10 ],
+                [ 'foo1' ],
+            ],
         };
     }
 }
 
 describe('[EventDispatcher] EventDispatcher', function () {
     it('construct', function () {
-        let dispatcher = createEventDispatcher();
+        const dispatcher = createEventDispatcher();
 
         return (
             expect(Array.from(dispatcher.getListeners())).to.be.deep.equal([]) &&
@@ -72,11 +71,11 @@ describe('[EventDispatcher] EventDispatcher', function () {
     });
 
     it('addListeners', function () {
-        let dispatcher = createEventDispatcher();
-        let listener = new TestEventListener();
+        const dispatcher = createEventDispatcher();
+        const listener = new TestEventListener();
 
-        dispatcher.addListener(preFoo, [listener, 'preFoo']);
-        dispatcher.addListener(postFoo, [listener, 'postFoo']);
+        dispatcher.addListener(preFoo, [ listener, 'preFoo' ]);
+        dispatcher.addListener(postFoo, [ listener, 'postFoo' ]);
 
         return (
             expect(dispatcher.hasListeners(preFoo)).to.be.true &&
@@ -84,15 +83,15 @@ describe('[EventDispatcher] EventDispatcher', function () {
             expect(Array.from(dispatcher.getListeners(preFoo))).to.have.lengthOf(1) &&
             expect(Array.from(dispatcher.getListeners(postFoo))).to.have.lengthOf(1) &&
             expect(Array.from(dispatcher.getListeners())).to.have.lengthOf(2)
-        )
+        );
     });
 
     it('getListenersSortsByPriority', function () {
-        let dispatcher = createEventDispatcher();
+        const dispatcher = createEventDispatcher();
 
-        let listener1 = new TestEventListener();
-        let listener2 = new TestEventListener();
-        let listener3 = new TestEventListener();
+        const listener1 = new TestEventListener();
+        const listener2 = new TestEventListener();
+        const listener3 = new TestEventListener();
 
         listener1.name = '1';
         listener2.name = '2';
@@ -102,7 +101,7 @@ describe('[EventDispatcher] EventDispatcher', function () {
         dispatcher.addListener(preFoo, listener2.foo2, 10);
         dispatcher.addListener(preFoo, listener3.foo3, 0);
 
-        let listeners = Array.from(dispatcher.getListeners(preFoo));
+        const listeners = Array.from(dispatcher.getListeners(preFoo));
 
         return (
             expect(listeners[0]).to.be.equal(listener1.foo2) &&
@@ -112,13 +111,13 @@ describe('[EventDispatcher] EventDispatcher', function () {
     });
 
     it('dispatch', function () {
-        let dispatcher = createEventDispatcher();
-        let listener = new TestEventListener();
+        const dispatcher = createEventDispatcher();
+        const listener = new TestEventListener();
 
-        dispatcher.addListener(preFoo, [listener, 'preFoo']);
-        dispatcher.addListener(postFoo, [listener, 'postFoo']);
+        dispatcher.addListener(preFoo, [ listener, 'preFoo' ]);
+        dispatcher.addListener(postFoo, [ listener, 'postFoo' ]);
 
-        let promise = dispatcher.dispatch('event.pre_foo');
+        const promise = dispatcher.dispatch('event.pre_foo');
         expect(promise).to.be.instanceOf(Promise);
 
         promise.then(() => {
@@ -126,7 +125,7 @@ describe('[EventDispatcher] EventDispatcher', function () {
                 expect(listener.postFooCalled).to.be.false;
         });
 
-        let event = new Event;
+        const event = new Event();
         return promise.then(() => {
             Promise.all([
                 dispatcher.dispatch('noevent').then(event => expect(event).to.be.instanceOf(Event)),
@@ -137,24 +136,26 @@ describe('[EventDispatcher] EventDispatcher', function () {
     });
 
     it('dispatch for closure', function () {
-        let dispatcher = createEventDispatcher();
+        const dispatcher = createEventDispatcher();
         let invoked = 0;
-        let listener = () => {
+        const listener = () => {
             invoked++;
         };
 
         dispatcher.addListener(preFoo, listener);
         dispatcher.addListener(postFoo, listener);
         return dispatcher.dispatch(preFoo)
-            .then(() => { return expect(invoked).to.be.equal(1) });
+            .then(() => {
+                return expect(invoked).to.be.equal(1);
+            });
     });
 
     it('stop event propagation', function () {
-        let dispatcher = createEventDispatcher();
-        let listener = new TestEventListener();
+        const dispatcher = createEventDispatcher();
+        const listener = new TestEventListener();
 
-        dispatcher.addListener('event.post_foo', [listener, 'postFoo'], 10);
-        dispatcher.addListener('event.post_foo', [listener, 'preFoo']);
+        dispatcher.addListener('event.post_foo', [ listener, 'postFoo' ], 10);
+        dispatcher.addListener('event.post_foo', [ listener, 'preFoo' ]);
         return dispatcher.dispatch(postFoo)
             .then(() => {
                 return expect(listener.postFooCalled).to.be.true &&
@@ -163,16 +164,16 @@ describe('[EventDispatcher] EventDispatcher', function () {
     });
 
     it('dispatch by priority', function () {
-        let dispatcher = createEventDispatcher();
+        const dispatcher = createEventDispatcher();
 
-        let invoked = [];
-        let listener1 = () => {
+        const invoked = [];
+        const listener1 = () => {
             invoked.push('1');
         };
-        let listener2 = () => {
+        const listener2 = () => {
             invoked.push('2');
         };
-        let listener3 = () => {
+        const listener3 = () => {
             invoked.push('3');
         };
 
@@ -181,26 +182,26 @@ describe('[EventDispatcher] EventDispatcher', function () {
         dispatcher.addListener(preFoo, listener3, 10);
         return dispatcher.dispatch(preFoo)
             .then(() => {
-                return expect(invoked).to.deep.equal(['3', '2', '1']);
+                return expect(invoked).to.deep.equal([ '3', '2', '1' ]);
             });
     });
 
     it('remove listener', function () {
-        let dispatcher = createEventDispatcher();
-        let listener = new TestEventListener();
+        const dispatcher = createEventDispatcher();
+        const listener = new TestEventListener();
 
-        dispatcher.addListener('pre.bar', [listener, 'foo1']);
-        let test1 = expect(dispatcher.hasListeners('pre.bar')).to.be.true;
+        dispatcher.addListener('pre.bar', [ listener, 'foo1' ]);
+        const test1 = expect(dispatcher.hasListeners('pre.bar')).to.be.true;
 
-        dispatcher.removeListener('pre.bar', [listener, 'foo1']);
-        let test2 = expect(dispatcher.hasListeners('pre.bar')).to.be.false;
+        dispatcher.removeListener('pre.bar', [ listener, 'foo1' ]);
+        const test2 = expect(dispatcher.hasListeners('pre.bar')).to.be.false;
 
-        dispatcher.removeListener('non_exists', [listener, 'foo1']);
+        dispatcher.removeListener('non_exists', [ listener, 'foo1' ]);
         return test1 && test2;
     });
 
     it('add subscriber', function () {
-        let dispatcher = createEventDispatcher();
+        const dispatcher = createEventDispatcher();
         dispatcher.addSubscriber(new TestEventSubscriber());
 
         return expect(dispatcher.hasListeners('preFoo')).to.be.true &&
@@ -208,31 +209,33 @@ describe('[EventDispatcher] EventDispatcher', function () {
     });
 
     it('add subscriber with priorities', function () {
-        let dispatcher = createEventDispatcher();
+        const dispatcher = createEventDispatcher();
         dispatcher.addSubscriber(new TestEventSubscriber());
         dispatcher.addSubscriber(new TestEventSubscriberWithPriorities());
 
-        let listeners = Array.from(dispatcher.getListeners('preFoo'));
+        const listeners = Array.from(dispatcher.getListeners('preFoo'));
         return expect(dispatcher.hasListeners('preFoo')).to.be.true &&
                 expect(listeners).to.have.lengthOf(2) &&
                 expect(listeners[0].innerObject.getObject()).to.be.instanceOf(TestEventSubscriberWithPriorities);
     });
 
     it('add subscriber with multiple listeners', function () {
-        let subscriber, dispatcher = createEventDispatcher();
-        dispatcher.addSubscriber(subscriber = new TestEventSubscriberWithMultipleListeners());
+        const subscriber = new TestEventSubscriberWithMultipleListeners();
+        const dispatcher = createEventDispatcher();
+        dispatcher.addSubscriber(subscriber);
 
-        let listeners = Array.from(dispatcher.getListeners('preFoo'));
+        const listeners = Array.from(dispatcher.getListeners('preFoo'));
         return expect(dispatcher.hasListeners('preFoo')).to.be.true &&
                 expect(listeners).to.have.lengthOf(2) &&
-                expect(listeners[1].innerObject.equals([subscriber, 'foo1'])).to.be.true;
+                expect(listeners[1].innerObject.equals([ subscriber, 'foo1' ])).to.be.true;
     });
 
     it('remove subscriber', function () {
-        let subscriber, dispatcher = createEventDispatcher();
-        dispatcher.addSubscriber(subscriber = new TestEventSubscriber());
+        const subscriber = new TestEventSubscriber();
+        const dispatcher = createEventDispatcher();
+        dispatcher.addSubscriber(subscriber);
 
-        let ret = expect(dispatcher.hasListeners('preFoo')).to.be.true &&
+        const ret = expect(dispatcher.hasListeners('preFoo')).to.be.true &&
             expect(dispatcher.hasListeners('postFoo')).to.be.true;
 
         dispatcher.removeSubscriber(subscriber);
@@ -241,20 +244,22 @@ describe('[EventDispatcher] EventDispatcher', function () {
     });
 
     it('remove subscriber with priorities', function () {
-        let subscriber, dispatcher = createEventDispatcher();
-        dispatcher.addSubscriber(subscriber = new TestEventSubscriberWithPriorities());
+        const subscriber = new TestEventSubscriberWithPriorities();
+        const dispatcher = createEventDispatcher();
+        dispatcher.addSubscriber(subscriber);
 
-        let ret = expect(dispatcher.hasListeners('preFoo')).to.be.true;
+        const ret = expect(dispatcher.hasListeners('preFoo')).to.be.true;
 
         dispatcher.removeSubscriber(subscriber);
         return ret && expect(dispatcher.hasListeners('preFoo')).to.be.false;
     });
 
     it('add subscriber with multiple listeners', function () {
-        let subscriber, dispatcher = createEventDispatcher();
-        dispatcher.addSubscriber(subscriber = new TestEventSubscriberWithMultipleListeners());
+        const subscriber = new TestEventSubscriberWithMultipleListeners();
+        const dispatcher = createEventDispatcher();
+        dispatcher.addSubscriber(subscriber);
 
-        let ret = expect(dispatcher.hasListeners('preFoo')).to.be.true &&
+        const ret = expect(dispatcher.hasListeners('preFoo')).to.be.true &&
                     expect(Array.from(dispatcher.getListeners('preFoo'))).to.have.lengthOf(2);
 
         dispatcher.removeSubscriber(subscriber);
@@ -263,7 +268,7 @@ describe('[EventDispatcher] EventDispatcher', function () {
 
     it('receives correct arguments', function () {
         let name, instance;
-        let dispatcher = createEventDispatcher();
+        const dispatcher = createEventDispatcher();
 
         dispatcher.addListener('preFoo', (e, n, i) => {
             name = n;
@@ -295,7 +300,7 @@ describe('[EventDispatcher] EventDispatcher', function () {
         const dispatcher = createEventDispatcher();
         const listener = new TestEventListener();
 
-        dispatcher.addListener('pre.foo', [() => listener, 'preFoo'], -10);
-        expect(dispatcher.getListenerPriority('pre.foo', [listener, 'preFoo'])).to.be.equal(-10);
+        dispatcher.addListener('pre.foo', [ () => listener, 'preFoo' ], -10);
+        expect(dispatcher.getListenerPriority('pre.foo', [ listener, 'preFoo' ])).to.be.equal(-10);
     });
 });

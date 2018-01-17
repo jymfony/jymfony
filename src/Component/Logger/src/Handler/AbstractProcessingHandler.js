@@ -38,7 +38,7 @@ class AbstractProcessingHandler extends mix(AbstractHandler,
      *
      * @abstract
      */
-    _write(record) {
+    _write(record) { // eslint-disable-line no-unused-vars
         throw new Exception('_write method must be implemented.');
     }
 }

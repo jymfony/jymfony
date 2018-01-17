@@ -16,7 +16,7 @@ class ThrowPromise extends implementationOf(PromiseInterface) {
     /**
      * @inheritDoc
      */
-    execute(args, object, method) {
+    execute() {
         throw this._exception;
     }
 }

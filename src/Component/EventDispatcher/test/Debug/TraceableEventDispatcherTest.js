@@ -1,18 +1,9 @@
-let expect = require('chai').expect;
+const expect = require('chai').expect;
 
 const TraceableEventDispatcher = Jymfony.Component.EventDispatcher.Debug.TraceableEventDispatcher;
 const EventDispatcher = Jymfony.Component.EventDispatcher.EventDispatcher;
-const EventSubscriberInterface = Jymfony.Component.EventDispatcher.EventSubscriberInterface;
 const LoggerInterface = Jymfony.Component.Logger.LoggerInterface;
 const Prophet = Jymfony.Component.Testing.Prophet;
-
-class TestEventSubscriber extends implementationOf(EventSubscriberInterface) {
-    static getSubscribedEvents() {
-        return {
-            foo: 'call',
-        };
-    }
-}
 
 describe('[EventDispatcher] TraceableEventDispatcher', function () {
     beforeEach(() => {
@@ -64,7 +55,9 @@ describe('[EventDispatcher] TraceableEventDispatcher', function () {
         const logger = this._prophet.prophesize(LoggerInterface);
         const tdispatcher = new TraceableEventDispatcher(dispatcher, logger.reveal());
 
-        const listener = (event) => { event.stopPropagation(); };
+        const listener = (event) => {
+            event.stopPropagation();
+        };
         const listener2 = () => {};
         tdispatcher.addListener('foo', listener);
         tdispatcher.addListener('foo', listener2);
@@ -81,14 +74,18 @@ describe('[EventDispatcher] TraceableEventDispatcher', function () {
         const tdispatcher = new TraceableEventDispatcher(dispatcher);
 
         const called = [];
-        const listener = () => { called.push('foo1') };
-        const listener2 = () => { called.push('foo2') };
+        const listener = () => {
+            called.push('foo1');
+        };
+        const listener2 = () => {
+            called.push('foo2');
+        };
         tdispatcher.addListener('foo', listener, 10);
         tdispatcher.addListener('foo', listener2, 20);
 
         return tdispatcher.dispatch('foo')
             .then(() => {
-                expect(called).to.be.deep.equal(['foo2', 'foo1']);
+                expect(called).to.be.deep.equal([ 'foo2', 'foo1' ]);
             });
     });
 });

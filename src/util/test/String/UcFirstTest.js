@@ -1,7 +1,7 @@
 const expect = require('chai').expect;
 
 describe('Uppercase first character', function () {
-    let testStrings = [
+    const testStrings = [
         'hey',
         'mate',
         'what\'s',
@@ -14,7 +14,7 @@ describe('Uppercase first character', function () {
         'IS',
     ];
 
-    let expectedStrings = [
+    const expectedStrings = [
         'Hey',
         'Mate',
         'What\'s',

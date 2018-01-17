@@ -120,11 +120,10 @@ class ListRenderer extends AbstractRenderer {
      * Renders a choice label.
      *
      * @param {Jymfony.Component.Console.Question.Choice} choice
-     * @param {int} key
      *
      * @protected
      */
-    _renderChoice(choice, key) {
+    _renderChoice(choice/* , key */) {
         return ' > ' + choice.label;
     }
 

@@ -1,4 +1,4 @@
-let expect = require('chai').expect;
+const expect = require('chai').expect;
 
 describe('[Exceptions] OutOfBoundsException', function () {
     it('registered in global namespace', function () {
@@ -6,6 +6,6 @@ describe('[Exceptions] OutOfBoundsException', function () {
     });
 
     it('Is instance of Exception', function () {
-        return expect(new OutOfBoundsException).to.be.an.instanceof(Exception);
+        return expect(new OutOfBoundsException()).to.be.an.instanceof(Exception);
     });
 });

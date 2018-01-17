@@ -21,7 +21,7 @@ class NullAdapter extends implementationOf(CacheItemPoolInterface) {
      * @inheritDoc
      */
     getItems(keys = []) {
-        return new Map((function * (keys) {
+        return new Map((function * () {
             for (const key of keys) {
                 yield [ key, createCacheItem(key) ];
             }
@@ -31,7 +31,7 @@ class NullAdapter extends implementationOf(CacheItemPoolInterface) {
     /**
      * @inheritDoc
      */
-    hasItem(key) {
+    hasItem(/* key */) {
         return false;
     }
 
@@ -45,21 +45,21 @@ class NullAdapter extends implementationOf(CacheItemPoolInterface) {
     /**
      * @inheritDoc
      */
-    deleteItem(key) {
+    deleteItem(/* key */) {
         return true;
     }
 
     /**
      * @inheritDoc
      */
-    deleteItems(keys) {
+    deleteItems(/* keys */) {
         return true;
     }
 
     /**
      * @inheritDoc
      */
-    save(item) {
+    save(/* item */) {
         return false;
     }
 }

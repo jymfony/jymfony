@@ -184,7 +184,7 @@ class PropertyAccessor extends implementationOf(PropertyAccessorInterface) {
      *
      * @private
      */
-    _getWriteAccessInfo(object, property, value) {
+    _getWriteAccessInfo(object, property) {
         const reflection = new ReflectionClass(object);
         const className = reflection.name;
         const key = (-1 !== className.indexOf('@') ? encodeURIComponent(className) : className) + '..' + property;

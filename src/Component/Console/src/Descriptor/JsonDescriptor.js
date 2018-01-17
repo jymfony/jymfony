@@ -60,7 +60,7 @@ class JsonDescriptor extends Descriptor {
      *
      * @returns {string}
      */
-    _writeData(data, options) {
+    _writeData(data/* , options */) {
         this._write(JSON.stringify(data));
     }
 

@@ -1,5 +1,4 @@
-const fs = require("fs");
-const path = require("path");
+const path = require('path');
 const expect = require('chai').expect;
 
 const ContainerBuilder = Jymfony.Component.DependencyInjection.ContainerBuilder;
@@ -9,7 +8,7 @@ const fixturesPath = path.join(__dirname, '..', '..', 'fixtures');
 
 describe('[DependencyInjection] JsFileLoader', function () {
     it('supports js files', () => {
-        let loader = new JsFileLoader(new ContainerBuilder(), new FileLocator());
+        const loader = new JsFileLoader(new ContainerBuilder(), new FileLocator());
 
         expect(loader.supports('foo.js')).to.be.true;
         expect(loader.supports('foo.foo')).to.be.false;
@@ -18,7 +17,7 @@ describe('[DependencyInjection] JsFileLoader', function () {
 
     it('load', () => {
         let container;
-        let loader = new JsFileLoader(container = new ContainerBuilder(), new FileLocator());
+        const loader = new JsFileLoader(container = new ContainerBuilder(), new FileLocator());
         loader.load(path.join(fixturesPath, 'js', 'simple.js'));
 
         expect(container.getParameter('foo')).to.be.equal('foo');

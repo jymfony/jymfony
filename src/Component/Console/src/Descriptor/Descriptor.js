@@ -65,7 +65,7 @@ class Descriptor extends implementationOf(DescriptorInterface) {
      * @protected
      * @abstract
      */
-    describeInputArgument(argument, options = {}) {
+    describeInputArgument(argument, options = {}) { // eslint-disable-line no-unused-vars
         throw new Error('describeInputArgument must be overridden');
     }
 
@@ -80,7 +80,7 @@ class Descriptor extends implementationOf(DescriptorInterface) {
      * @protected
      * @abstract
      */
-    describeInputOption(option, options = {}) {
+    describeInputOption(option, options = {}) { // eslint-disable-line no-unused-vars
         throw new Error('describeInputOption must be overridden');
     }
 
@@ -95,7 +95,7 @@ class Descriptor extends implementationOf(DescriptorInterface) {
      * @protected
      * @abstract
      */
-    describeInputDefinition(definition, options = {}) {
+    describeInputDefinition(definition, options = {}) { // eslint-disable-line no-unused-vars
         throw new Error('describeInputOption must be overridden');
     }
 
@@ -110,7 +110,7 @@ class Descriptor extends implementationOf(DescriptorInterface) {
      * @protected
      * @abstract
      */
-    describeCommand(command, options = {}) {
+    describeCommand(command, options = {}) { // eslint-disable-line no-unused-vars
         throw new Error('describeInputOption must be overridden');
     }
 
@@ -125,7 +125,7 @@ class Descriptor extends implementationOf(DescriptorInterface) {
      * @protected
      * @abstract
      */
-    describeApplication(application, options = {}) {
+    describeApplication(application, options = {}) { // eslint-disable-line no-unused-vars
         throw new Error('describeInputOption must be overridden');
     }
 }

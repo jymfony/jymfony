@@ -130,7 +130,7 @@ class TraceableEventDispatcher extends implementationOf(TraceableEventDispatcher
      *
      * @protected
      */
-    _preDispatch(eventName, event) { }
+    _preDispatch(eventName, event) { } // eslint-disable-line no-unused-vars
 
     /**
      * Called after dispatching an event.
@@ -140,7 +140,7 @@ class TraceableEventDispatcher extends implementationOf(TraceableEventDispatcher
      *
      * @protected
      */
-    _postDispatch(eventName, event) { }
+    _postDispatch(eventName, event) { } // eslint-disable-line no-unused-vars
 
     /**
      * Wrap event listeners to track calls.

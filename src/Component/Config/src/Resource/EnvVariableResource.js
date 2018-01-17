@@ -18,7 +18,7 @@ class EnvVariableResource extends implementationOf(SelfCheckingResourceInterface
     /**
      * {@inheritDoc}
      */
-    isFresh(timestamp) {
+    isFresh(/* timestamp */) {
         return this._resource === process.env[name];
     }
 }

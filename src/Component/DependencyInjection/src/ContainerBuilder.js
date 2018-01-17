@@ -215,7 +215,7 @@ class ContainerBuilder extends Container {
         }
 
         const namespace = this.getExtension(extension).alias;
-        if (! this._extensionConfigs[namespace]) {
+        if (undefined === this._extensionConfigs[namespace]) {
             this._extensionConfigs[namespace] = [];
         }
 
@@ -359,10 +359,10 @@ class ContainerBuilder extends Container {
 
         for (const name of Object.keys(this._extensions)) {
             if (undefined === this._extensionConfigs[name]) {
-                this._extensionConfigs[name] = {};
+                this._extensionConfigs[name] = [];
             }
 
-            Object.assign(this._extensionConfigs[name], container.getExtensionConfig(name));
+            this._extensionConfigs[name].push(container.getExtensionConfig(name));
         }
     }
 
@@ -375,7 +375,7 @@ class ContainerBuilder extends Container {
      */
     getExtensionConfig(name) {
         if (undefined === this._extensionConfigs[name]) {
-            this._extensionConfigs[name] = {};
+            this._extensionConfigs[name] = [];
         }
 
         return Object.assign({}, this._extensionConfigs[name]);
@@ -389,10 +389,10 @@ class ContainerBuilder extends Container {
      */
     prependExtensionConfig(name, config) {
         if (undefined === this._extensionConfigs[name]) {
-            this._extensionConfigs[name] = {};
+            this._extensionConfigs[name] = [];
         }
 
-        this._extensionConfigs[name] = Object.assign({}, this._extensionConfigs[name]);
+        this._extensionConfigs[name].unshift(config);
     }
 
     /**

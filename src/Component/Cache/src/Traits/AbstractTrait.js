@@ -31,7 +31,7 @@ class AbstractTrait extends mix(undefined, LoggerAwareTrait) {
      * @abstract
      * @protected
      */
-    * _doFetch(ids) { }
+    * _doFetch(ids) { } // eslint-disable-line no-unused-vars
 
     /**
      * Confirms if the cache contains specified cache item.
@@ -43,7 +43,7 @@ class AbstractTrait extends mix(undefined, LoggerAwareTrait) {
      * @abstract
      * @protected
      */
-    * _doHave(id) { }
+    * _doHave(id) { } // eslint-disable-line no-unused-vars
 
     /**
      * Deletes all items in the pool.
@@ -55,7 +55,7 @@ class AbstractTrait extends mix(undefined, LoggerAwareTrait) {
      * @abstract
      * @protected
      */
-    * _doClear(namespace) { }
+    * _doClear(namespace) { } // eslint-disable-line no-unused-vars
 
     /**
      * Removes multiple items from the pool.
@@ -67,7 +67,7 @@ class AbstractTrait extends mix(undefined, LoggerAwareTrait) {
      * @abstract
      * @protected
      */
-    * _doDelete(ids) { }
+    * _doDelete(ids) { } // eslint-disable-line no-unused-vars
 
     /**
      * Persists several cache items immediately.
@@ -80,7 +80,7 @@ class AbstractTrait extends mix(undefined, LoggerAwareTrait) {
      * @abstract
      * @protected
      */
-    * _doSave(values, lifetime) { }
+    * _doSave(values, lifetime) { } // eslint-disable-line no-unused-vars
 
     /**
      * @inheritDoc
@@ -178,7 +178,7 @@ class AbstractTrait extends mix(undefined, LoggerAwareTrait) {
      */
     enableVersioning(enable = true) {
         const wasEnabled = undefined !== this._namespaceVersion;
-        this._namespaceVersion = '';
+        this._namespaceVersion = enable ? '' : undefined;
 
         return wasEnabled;
     }

@@ -1,7 +1,7 @@
 const expect = require('chai').expect;
 
 describe('Trim', function () {
-    let expectedLeftRightTrimOutput = [
+    const expectedLeftRightTrimOutput = [
         'This is a string',
         'this is another string',
         'these spaces should be trimmed',
@@ -9,7 +9,7 @@ describe('Trim', function () {
         'x00 and x0B too',
     ];
 
-    let testLeftTrimStrings = [
+    const testLeftTrimStrings = [
         ' This is a string',
         'this is another string',
         '    these spaces should be trimmed',
@@ -23,7 +23,7 @@ describe('Trim', function () {
         }
     });
 
-    let testRightTrimStrings = [
+    const testRightTrimStrings = [
         'This is a string ',
         'this is another string',
         'these spaces should be trimmed    ',
@@ -37,7 +37,7 @@ describe('Trim', function () {
         }
     });
 
-    let testTrimStrings = [
+    const testTrimStrings = [
         ' This is a string ',
         'this is another string',
         '    these spaces should be trimmed    ',
@@ -51,14 +51,14 @@ describe('Trim', function () {
         }
     });
 
-    let testLeftTrimCharListStrings = [
+    const testLeftTrimCharListStrings = [
         'Hello world!',
         'Hello Chai!',
         'Hello Mocha!',
         'NodeJS Hello!',
     ];
 
-    let expectedLeftTrimCharListStrings = [
+    const expectedLeftTrimCharListStrings = [
         ' world!',
         ' Chai!',
         ' Mocha!',
@@ -67,20 +67,20 @@ describe('Trim', function () {
 
     it('ltrim(string, ["H", "e", "l", "o"]) should left trim the "H" "e" "l" "o" chars', () => {
         for (let i = 0; i < testLeftTrimCharListStrings.length; ++i) {
-            expect(__jymfony.ltrim(testLeftTrimCharListStrings[i], "Helo"))
+            expect(__jymfony.ltrim(testLeftTrimCharListStrings[i], 'Helo'))
                 .to.be.equal(expectedLeftTrimCharListStrings[i])
             ;
         }
     });
 
-    let testRightTrimCharListStrings = [
+    const testRightTrimCharListStrings = [
         'world! Hello',
         'Chai! Hello',
         'Mocha! Hello',
         'Hello! NodeJS',
     ];
 
-    let expectedRightTrimCharListStrings = [
+    const expectedRightTrimCharListStrings = [
         'world! ',
         'Chai! ',
         'Mocha! ',
@@ -89,20 +89,20 @@ describe('Trim', function () {
 
     it('rtrim(string, ["H", "e", "l", "o"]) should left trim the "H" "e" "l" "o" chars', () => {
         for (let i = 0; i < testRightTrimCharListStrings.length; ++i) {
-            expect(__jymfony.rtrim(testRightTrimCharListStrings[i], "Helo"))
+            expect(__jymfony.rtrim(testRightTrimCharListStrings[i], 'Helo'))
                 .to.be.equal(expectedRightTrimCharListStrings[i])
             ;
         }
     });
 
-    let testTrimCharListStrings = [
+    const testTrimCharListStrings = [
         'Hello world! Hello',
         'Hello Chai! Hello',
         'Hello Mocha! Hello',
         'NodeJS Hello! NodeJS',
     ];
 
-    let expectedTrimCharListStrings = [
+    const expectedTrimCharListStrings = [
         ' world! ',
         ' Chai! ',
         ' Mocha! ',
@@ -111,7 +111,7 @@ describe('Trim', function () {
 
     it('trim(string, ["H", "e", "l", "o"]) should left trim the "H" "e" "l" "o" chars', () => {
         for (let i = 0; i < testTrimCharListStrings.length; ++i) {
-            expect(__jymfony.trim(testTrimCharListStrings[i], "Helo"))
+            expect(__jymfony.trim(testTrimCharListStrings[i], 'Helo'))
                 .to.be.equal(expectedTrimCharListStrings[i])
             ;
         }

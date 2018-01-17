@@ -288,8 +288,7 @@ class Kernel extends implementationOf(KernelInterface) {
      *
      * @protected
      */
-    _build(container) {
-    }
+    _build(container) { } // eslint-disable-line no-unused-vars
 
     _initializeBundles() {
         const directChildren = {};
@@ -453,7 +452,7 @@ class Kernel extends implementationOf(KernelInterface) {
     /**
      * @inheritDoc
      */
-    registerContainerConfiguration(loader) {
+    registerContainerConfiguration(/* loader */) {
         return undefined;
     };
 

@@ -73,7 +73,7 @@ class Command {
      *
      * @throws {LogicException} When this abstract method is not implemented
      */
-    * execute(input, output) {
+    * execute(input, output) { // eslint-disable-line no-unused-vars
         throw new LogicException('You must override the execute() method in the concrete command class.');
     }
 
@@ -87,7 +87,7 @@ class Command {
      * @param {Jymfony.Component.Console.Input.InputInterface} input An InputInterface instance
      * @param {Jymfony.Component.Console.Output.OutputInterface} output An OutputInterface instance
      */
-    * interact(input, output) {
+    * interact(input, output) { // eslint-disable-line no-unused-vars
     }
 
     /**
@@ -99,7 +99,7 @@ class Command {
      * @param {Jymfony.Component.Console.Input.InputInterface} input An InputInterface instance
      * @param {Jymfony.Component.Console.Output.OutputInterface} output An OutputInterface instance
      */
-    * initialize(input, output) {
+    * initialize(input, output) { // eslint-disable-line no-unused-vars
     }
 
 

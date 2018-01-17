@@ -1,4 +1,4 @@
-let expect = require('chai').expect;
+const expect = require('chai').expect;
 
 class TestException extends Exception {}
 
@@ -8,7 +8,7 @@ describe('[Exceptions] Exception', function () {
     });
 
     it('Is instance of Error', function () {
-        return expect(new Exception).to.be.an.instanceof(Error);
+        return expect(new Exception()).to.be.an.instanceof(Error);
     });
 
     it('Inherits name', function () {
@@ -16,7 +16,7 @@ describe('[Exceptions] Exception', function () {
     });
 
     it('Captures stack', function () {
-        let ex = new Exception;
+        const ex = new Exception();
         return expect(ex.stack).to.be.not.empty;
     });
 });

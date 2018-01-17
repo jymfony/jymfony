@@ -12,22 +12,19 @@ class Bundle extends implementationOf(ContainerAwareInterface, ContainerAwareTra
     /**
      * Boots the bundle
      */
-    boot() {
-    }
+    boot() { }
 
     /**
      * Shutdowns the Bundle.
      */
-    shutdown() {
-    }
+    shutdown() { }
 
     /**
      * Builds the bundle
      *
      * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
      */
-    build(container) {
-    }
+    build(container) { } // eslint-disable-line no-unused-vars
 
     /**
      * Gets the Bundle directory path.

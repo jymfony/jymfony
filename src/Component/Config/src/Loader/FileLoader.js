@@ -76,7 +76,7 @@ class FileLoader extends Loader {
             const ret = [];
             let isSubpath = 0 !== i && -1 !== resource.substr(0, i).indexOf('/');
 
-            for (const [ path, info ] of this._glob(resource, false, ignoreErrors || !isSubpath)) {
+            for (const [ path ] of this._glob(resource, false, ignoreErrors || !isSubpath)) {
                 let res;
                 if (undefined !== (res = this._doImport(path, type, ignoreErrors, sourceResource))) {
                     ret.push(res);
@@ -117,9 +117,7 @@ class FileLoader extends Loader {
         }
 
         const resource = new GlobResource(prefix, pattern, recursive);
-        for (const [ path, info ] of resource) {
-            yield [ path, info ];
-        }
+        yield * resource;
     }
 
     _doImport(resource, type = undefined, ignoreErrors = false, sourceResource = undefined) {
