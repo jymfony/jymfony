@@ -4,7 +4,7 @@
 const Alias = Jymfony.Component.DependencyInjection.Alias;
 const ChildDefinition = Jymfony.Component.DependencyInjection.ChildDefinition;
 
-container.register('jymfony.logger_prototype', 'Jymfony.Component.Logger.Logger')
+container.register('jymfony.logger_prototype', Jymfony.Component.Logger.Logger)
     .setAbstract(true)
     .addArgument(undefined)
 ;
