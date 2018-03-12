@@ -261,6 +261,7 @@ class ContainerBuilder extends Container {
      * @throws BadMethodCallException When trying to set a non-synthetic service into a frozen container
      */
     set(id, service) {
+        id = Container.normalizeId(id);
         id = id.toLowerCase();
 
         if (this.frozen && undefined !== this._definitions[id] && ! this._definitions[id].isSynthetic()) {
@@ -279,6 +280,7 @@ class ContainerBuilder extends Container {
      * @param {string} id
      */
     removeDefinition(id) {
+        id = Container.normalizeId(id);
         delete this._definitions[id.toLowerCase()];
     }
 
@@ -290,6 +292,7 @@ class ContainerBuilder extends Container {
      * @returns {boolean}
      */
     has(id) {
+        id = Container.normalizeId(id);
         id = id.toLowerCase();
 
         return undefined !== this._definitions[id] || undefined !== this._aliasDefinitions[id] || super.has(id);
@@ -304,6 +307,7 @@ class ContainerBuilder extends Container {
      * @returns {*}
      */
     get(id, invalidBehavior = Container.EXCEPTION_ON_INVALID_REFERENCE) {
+        id = Container.normalizeId(id);
         id = id.toLowerCase();
 
         let service = super.get(id, Container.NULL_ON_INVALID_REFERENCE);
@@ -447,6 +451,8 @@ class ContainerBuilder extends Container {
      * @param {string|Jymfony.Component.DependencyInjection.Alias} id
      */
     setAlias(alias, id) {
+        id = Container.normalizeId(id);
+        alias = Container.normalizeId(alias);
         alias = alias.toLowerCase();
 
         if (isString(id)) {
@@ -500,6 +506,7 @@ class ContainerBuilder extends Container {
      * @returns {Jymfony.Component.DependencyInjection.Alias}
      */
     getAlias(id) {
+        id = Container.normalizeId(id);
         id = id.toLowerCase();
 
         if (undefined === this._aliasDefinitions[id]) {
@@ -521,6 +528,8 @@ class ContainerBuilder extends Container {
      * @returns {Jymfony.Component.DependencyInjection.Definition} A Definition instance
      */
     register(id, class_ = undefined) {
+        id = Container.normalizeId(id);
+
         return this.setDefinition(id, new Definition(class_));
     }
 
@@ -569,6 +578,7 @@ class ContainerBuilder extends Container {
             throw new BadMethodCallException('Cannot add a definition to a frozen container');
         }
 
+        id = Container.normalizeId(id);
         id = id.toLowerCase();
         delete this._aliasDefinitions[id];
 
@@ -583,6 +593,8 @@ class ContainerBuilder extends Container {
      * @returns {boolean}
      */
     hasDefinition(id) {
+        id = Container.normalizeId(id);
+
         return undefined !== this._definitions[id.toString().toLowerCase()];
     }
 
@@ -596,6 +608,7 @@ class ContainerBuilder extends Container {
      * @throws {Jymfony.Component.DependencyInjection.Exception.ServiceNotFoundException} If the service definition does not exist
      */
     getDefinition(id) {
+        id = Container.normalizeId(id);
         id = id.toString().toLowerCase();
 
         if (undefined === this._definitions[id]) {
@@ -616,6 +629,7 @@ class ContainerBuilder extends Container {
      * @throws {Jymfony.Component.DependencyInjection.Exception.ServiceNotFoundException} If the service definition does not exist
      */
     findDefinition(id) {
+        id = Container.normalizeId(id);
         id = id.toLowerCase();
 
         while (this._aliasDefinitions[id]) {

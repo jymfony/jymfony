@@ -5,7 +5,7 @@ const Container = Jymfony.Component.DependencyInjection.Container;
  */
 class Reference {
     __construct(id, invalidBehavior = Container.EXCEPTION_ON_INVALID_REFERENCE) {
-        this._id = id.toLowerCase();
+        this._id = Container.normalizeId(id).toLowerCase();
         this._invalidBehavior = invalidBehavior;
     }
 
