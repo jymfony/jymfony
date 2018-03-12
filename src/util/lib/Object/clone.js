@@ -19,7 +19,7 @@ global.__jymfony.clone = function clone(object) {
 };
 
 global.__jymfony.deepClone = function deepClone(object) {
-    if (! object ) {
+    if (! object) {
         return object;
     }
 
