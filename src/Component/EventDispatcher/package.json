@@ -22,6 +22,7 @@
   },
   "devDependencies": {
     "@jymfony/logger": "https://github.com/jymfony/logger.git",
+    "@jymfony/testing": "https://github.com/jymfony/testing.git",
     "chai": "^3.5.0",
     "mocha": "^3.0"
   },
