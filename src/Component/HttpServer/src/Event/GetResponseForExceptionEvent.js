@@ -18,6 +18,12 @@ class GetResponseForExceptionEvent extends GetResponseEvent {
          */
         this._exception = e;
 
+        /**
+         * @type {boolean}
+         * @private
+         */
+        this._allowCustomResponseCode = false;
+
         super.__construct(server, request);
     }
 

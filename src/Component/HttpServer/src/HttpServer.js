@@ -1,5 +1,7 @@
+const BadRequestHttpException = Jymfony.Component.HttpFoundation.Exception.BadRequestHttpException;
 const HttpExceptionInterface = Jymfony.Component.HttpFoundation.Exception.HttpExceptionInterface;
 const NotFoundHttpException = Jymfony.Component.HttpFoundation.Exception.NotFoundHttpException;
+const RequestExceptionInterface = Jymfony.Component.HttpFoundation.Exception.RequestExceptionInterface;
 const ContentType = Jymfony.Component.HttpFoundation.Header.ContentType;
 const Request = Jymfony.Component.HttpFoundation.Request;
 const Response = Jymfony.Component.HttpFoundation.Response;
@@ -105,19 +107,13 @@ class HttpServer {
             return;
         }
 
-        let response;
         const request = new Request(req.url, requestParams, {}, req.headers, {
             'REMOTE_ADDR': req.connection.remoteAddress,
             'SCHEME': this._getScheme(),
             'SERVER_PROTOCOL': 'HTTP/'+req.httpVersion,
         }, content);
 
-        try {
-            response = yield this._handleRaw(request);
-        } catch (e) {
-            response = yield this._handleException(e, request);
-        }
-
+        const response = yield this.handle(request);
         res.writeHead(response.statusCode, response.statusText, response.headers.all);
 
         yield new Promise((resolve) => {
@@ -127,6 +123,39 @@ class HttpServer {
         });
 
         res.end();
+    }
+
+    /**
+     * Handles a Request to convert it to a Response.
+     *
+     * When catchExceptions is true, catches all exceptions
+     * and do its best to convert them to a Response instance.
+     *
+     * @param {Jymfony.Component.HttpFoundation.Request} request A Request instance
+     * @param {boolean} catchExceptions Whether to catch exceptions or not
+     *
+     * @returns {Jymfony.Component.HttpFoundation.Response} A Response instance
+     *
+     * @throws {Exception} When an Exception occurs during processing
+     */
+    * handle(request, catchExceptions = true) {
+        let response;
+
+        try {
+            response = yield this._handleRaw(request);
+        } catch (e) {
+            if (e instanceof RequestExceptionInterface) {
+                e = new BadRequestHttpException(e.message, e);
+            }
+
+            if (false === catchExceptions) {
+                throw e;
+            }
+
+            response = yield this._handleException(e, request);
+        }
+
+        return response;
     }
 
     /**
@@ -185,7 +214,7 @@ class HttpServer {
         yield this._dispatcher.dispatch(Event.HttpServerEvents.CONTROLLER, event);
         controller = event.controller;
 
-        const response = yield controller(request);
+        const response = yield __jymfony.Async.run(controller, request);
         if (! (response instanceof Response)) {
             let msg = 'The controller must return a response.';
 
@@ -197,7 +226,7 @@ class HttpServer {
             throw new LogicException(msg);
         }
 
-        return yield this._filterResponse(event.response, request);
+        return yield this._filterResponse(response, request);
     }
 
     /**
@@ -223,11 +252,11 @@ class HttpServer {
         const response = event.response;
 
         // The developer asked for a specific status code
-        if (! event.isAllowingCustomResponseCode && ! response.isClientError && ! response.isServerError && ! response.isRedirect) {
+        if (! event.isAllowingCustomResponseCode && ! response.isClientError && ! response.isServerError && ! response.isRedirect()) {
             // Ensure that we actually have an error response
             if (e instanceof HttpExceptionInterface) {
                 // Keep the HTTP status code and headers
-                response.statusCode = e.statusCode;
+                response.setStatusCode(e.statusCode);
                 response.headers.add(e.headers);
             } else {
                 response.statusCode = 500;
@@ -235,7 +264,7 @@ class HttpServer {
         }
 
         try {
-            return this._filterResponse(response, request);
+            return yield this._filterResponse(response, request);
         } catch (e) {
             return response;
         }

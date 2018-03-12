@@ -151,12 +151,6 @@ class Request {
          */
         this._url = urlModule.parse(url);
 
-        /**
-         * @type {undefined|string}
-         * @private
-         */
-        this._pathInfo = undefined;
-
         this.query = new ParameterBag(__jymfony.parse_query_string(this._url.query));
         this.request = new ParameterBag(request);
         this.attributes = new ParameterBag(attributes);
@@ -164,6 +158,43 @@ class Request {
         this.cookies = new ParameterBag(this.headers.cookies);
         this.server = new ParameterBag(server);
         this.content = content;
+    }
+
+    /**
+     * Clones a request and overrides some of its parameters.
+     *
+     * @returns {Jymfony.Component.HttpFoundation.Request}
+     */
+    duplicate(url = undefined, request = undefined, attributes = undefined, headers = undefined, server = undefined) {
+        const dup = __jymfony.deepClone(this);
+
+        if (undefined !== url) {
+            dup._url = urlModule.parse(url);
+            dup.query = new ParameterBag(__jymfony.parse_query_string(dup._url.query));
+        }
+
+        if (undefined !== request) {
+            dup.request = new ParameterBag(request);
+        }
+
+        if (undefined !== attributes) {
+            dup.attributes = new ParameterBag(attributes);
+        }
+
+        if (undefined !== headers) {
+            dup.headers = new HeaderBag(headers);
+            dup.cookies = new ParameterBag(dup.headers.cookies);
+        }
+
+        if (undefined !== server) {
+            dup.server = new ParameterBag(server);
+        }
+
+        if (! dup.getRequestFormat(undefined)) {
+            dup.setRequestFormat(this.getRequestFormat(undefined));
+        }
+
+        return dup;
     }
 
     /**

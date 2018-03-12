@@ -33,6 +33,7 @@
         "Jymfony.Component.Config": "src/Component/Config/src",
         "Jymfony.Component.Console": "src/Component/Console/src",
         "Jymfony.Component.DateTime": "src/Component/DateTime/src",
+        "Jymfony.Component.Debug": "src/Component/Debug/src",
         "Jymfony.Component.DependencyInjection": "src/Component/DependencyInjection/src",
         "Jymfony.Component.EventDispatcher": "src/Component/EventDispatcher/src",
         "Jymfony.Component.Filesystem": "src/Component/Filesystem/src",
