@@ -21,6 +21,7 @@
     "@jymfony/util": "https://github.com/jymfony/util.git"
   },
   "devDependencies": {
+    "@jymfony/logger": "https://github.com/jymfony/logger.git",
     "chai": "^3.5.0",
     "mocha": "^3.0"
   },
