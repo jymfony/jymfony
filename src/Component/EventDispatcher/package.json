@@ -1,6 +1,6 @@
 {
   "name": "@jymfony/event-dispatcher",
-  "version": "0.1.0-alpha.8",
+  "version": "0.1.0-alpha.9",
   "description": "Jymfony EventDispatcher",
   "main": "src/EventDispatcher.js",
   "scripts": {
@@ -16,13 +16,13 @@
     "node": ">=6.0.0"
   },
   "dependencies": {
-    "@jymfony/autoloader": "0.1.0-alpha.8",
-    "@jymfony/exceptions": "0.1.0-alpha.8",
-    "@jymfony/util": "0.1.0-alpha.8"
+    "@jymfony/autoloader": "0.1.0-alpha.9",
+    "@jymfony/exceptions": "0.1.0-alpha.9",
+    "@jymfony/util": "0.1.0-alpha.9"
   },
   "devDependencies": {
-    "@jymfony/logger": "https://github.com/jymfony/logger.git",
-    "@jymfony/testing": "https://github.com/jymfony/testing.git",
+    "@jymfony/logger": "0.1.0-alpha.9",
+    "@jymfony/testing": "0.1.0-alpha.9",
     "chai": "^3.5.0",
     "mocha": "^3.0"
   },

@@ -1,6 +1,6 @@
 {
   "name": "@jymfony/kernel",
-  "version": "0.1.0-alpha.8",
+  "version": "0.1.0-alpha.9",
   "description": "Jymfony Application Kernel",
   "main": "src/Kernel.js",
   "scripts": {
@@ -17,15 +17,15 @@
     "node": ">=6.0.0"
   },
   "dependencies": {
-    "@jymfony/autoloader": "0.1.0-alpha.8",
-    "@jymfony/config": "0.1.0-alpha.8",
-    "@jymfony/datetime": "0.1.0-alpha.8",
-    "@jymfony/dependency-injection": "0.1.0-alpha.8",
-    "@jymfony/exceptions": "0.1.0-alpha.8",
-    "@jymfony/util": "0.1.0-alpha.8"
+    "@jymfony/autoloader": "0.1.0-alpha.9",
+    "@jymfony/config": "0.1.0-alpha.9",
+    "@jymfony/datetime": "0.1.0-alpha.9",
+    "@jymfony/dependency-injection": "0.1.0-alpha.9",
+    "@jymfony/exceptions": "0.1.0-alpha.9",
+    "@jymfony/util": "0.1.0-alpha.9"
   },
   "devDependencies": {
-    "@jymfony/testing": "0.1.0-alpha.8",
+    "@jymfony/testing": "0.1.0-alpha.9",
     "chai": "^3.5.0",
     "mocha": "^3.0"
   },

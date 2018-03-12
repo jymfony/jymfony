@@ -1,6 +1,6 @@
 {
   "name": "@jymfony/framework-bundle",
-  "version": "0.1.0-alpha.8",
+  "version": "0.1.0-alpha.9",
   "description": "Jymfony Framework Bundle",
   "scripts": {
     "test": "node ./tests.js test/**"
@@ -14,16 +14,16 @@
     "node": ">=6.0.0"
   },
   "dependencies": {
-    "@jymfony/autoloader": "0.1.0-alpha.8",
-    "@jymfony/config": "0.1.0-alpha.8",
-    "@jymfony/console": "0.1.0-alpha.8",
-    "@jymfony/datetime": "0.1.0-alpha.8",
-    "@jymfony/dependency-injection": "0.1.0-alpha.8",
-    "@jymfony/event-dispatcher": "0.1.0-alpha.8",
-    "@jymfony/exceptions": "0.1.0-alpha.8",
-    "@jymfony/filesystem": "0.1.0-alpha.8",
-    "@jymfony/kernel": "0.1.0-alpha.8",
-    "@jymfony/util": "0.1.0-alpha.8"
+    "@jymfony/autoloader": "0.1.0-alpha.9",
+    "@jymfony/config": "0.1.0-alpha.9",
+    "@jymfony/console": "0.1.0-alpha.9",
+    "@jymfony/datetime": "0.1.0-alpha.9",
+    "@jymfony/dependency-injection": "0.1.0-alpha.9",
+    "@jymfony/event-dispatcher": "0.1.0-alpha.9",
+    "@jymfony/exceptions": "0.1.0-alpha.9",
+    "@jymfony/filesystem": "0.1.0-alpha.9",
+    "@jymfony/kernel": "0.1.0-alpha.9",
+    "@jymfony/util": "0.1.0-alpha.9"
   },
   "devDependencies": {
     "chai": "^3.5.0",

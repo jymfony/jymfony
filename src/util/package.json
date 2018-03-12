@@ -1,6 +1,6 @@
 {
   "name": "@jymfony/util",
-  "version": "0.1.0-alpha.8",
+  "version": "0.1.0-alpha.9",
   "description": "Jymfony util functions",
   "main": "index.js",
   "scripts": {
@@ -16,10 +16,10 @@
     "node": ">=6.0.0"
   },
   "dependencies": {
-    "@jymfony/exceptions": "0.1.0-alpha.8"
+    "@jymfony/exceptions": "0.1.0-alpha.9"
   },
   "devDependencies": {
-    "@jymfony/datastructure": "https://github.com/jymfony/data-structure.git",
+    "@jymfony/datastructure": "0.1.0-alpha.9",
     "chai": "^3.5.0",
     "mocha": "^3.0"
   },

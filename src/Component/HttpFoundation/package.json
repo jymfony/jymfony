@@ -1,6 +1,6 @@
 {
   "name": "@jymfony/http-foundation",
-  "version": "0.1.0-dev",
+  "version": "0.1.0-alpha.9",
   "description": "Jymfony Http Foundation",
   "scripts": {
     "test": "node ./tests.js test/**"
@@ -16,13 +16,13 @@
     "node": ">=6.0.0"
   },
   "dependencies": {
-    "@jymfony/autoloader": "https://github.com/jymfony/autoloader.git",
-    "@jymfony/datetime": "https://github.com/jymfony/date-time.git",
-    "@jymfony/exceptions": "https://github.com/jymfony/exceptions.git",
-    "@jymfony/util": "https://github.com/jymfony/util.git"
+    "@jymfony/autoloader": "0.1.0-alpha.9",
+    "@jymfony/datetime": "0.1.0-alpha.9",
+    "@jymfony/exceptions": "0.1.0-alpha.9",
+    "@jymfony/util": "0.1.0-alpha.9"
   },
   "devDependencies": {
-    "@jymfony/testing": "https://github.com/jymfony/testing.git",
+    "@jymfony/testing": "0.1.0-alpha.9",
     "chai": "^3.5.0",
     "mocha": "^3.0"
   },
