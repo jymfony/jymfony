@@ -17,6 +17,7 @@ class FrameworkExtension extends Extension {
         const loader = new JsFileLoader(container, new FileLocator(path.join(__dirname, '..', 'Resources', 'config')));
         loader.load('services.js');
         loader.load('commands.js');
+        loader.load('http-server.js');
         loader.load('logger.js');
     }
 }
