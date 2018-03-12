@@ -19,7 +19,7 @@ class CallbackPromise extends implementationOf(PromiseInterface) {
     /**
      * @inheritDoc
      */
-    execute(args, object, method) {
+    execute(args, object) {
         const cb = new BoundFunction(object, this._callback);
 
         return cb(...args);

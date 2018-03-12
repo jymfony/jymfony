@@ -49,14 +49,14 @@ describe('[Testing] MethodProphecy', function () {
     });
 
     it('converts 3rd constructor argument to ArgumentsWildcard if array', () => {
-        this._methodProphecy = new MethodProphecy(this._objectProphecy.reveal(), 'name', [42, 47]);
+        this._methodProphecy = new MethodProphecy(this._objectProphecy.reveal(), 'name', [ 42, 47 ]);
 
         expect(this._methodProphecy.argumentsWildcard).to.be.instanceOf(ArgumentsWildcard);
         expect(this._methodProphecy.argumentsWildcard.toString()).to.be.equal('exact(42), exact(47)');
     });
 
     it('converts array passed to withArguments method', () => {
-        this._methodProphecy.withArguments([42, 47]);
+        this._methodProphecy.withArguments([ 42, 47 ]);
 
         expect(this._methodProphecy.argumentsWildcard).to.be.instanceOf(ArgumentsWildcard);
         expect(this._methodProphecy.argumentsWildcard.toString()).to.be.equal('exact(42), exact(47)');

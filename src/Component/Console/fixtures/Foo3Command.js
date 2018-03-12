@@ -6,7 +6,7 @@ module.exports = class Foo3Command extends Command {
         this.description = 'The foo3:bar command';
     }
 
-    execute(input, output) {
+    execute() {
         try {
             try {
                 throw new Exception('First exception <p>this is html</p>');

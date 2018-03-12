@@ -21,8 +21,8 @@ describe('[Testing] Revealer', function () {
     });
 
     it('reveals a single ProphecyInterface object', () => {
-        let obj = this._prophet.prophesize(ProphecyInterface);
-        let method = new MethodProphecy(obj, 'reveal', []);
+        const obj = this._prophet.prophesize(ProphecyInterface);
+        const method = new MethodProphecy(obj, 'reveal', []);
         method.willReturn({ id: 'foobar' });
         obj.addMethodProphecy(method);
 

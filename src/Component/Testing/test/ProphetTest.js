@@ -17,17 +17,17 @@ describe('[Testing] Prophet', function () {
     });
 
     it('prophesize should return a new prophecy', () => {
-        let obj = this._prophet.prophesize();
+        const obj = this._prophet.prophesize();
         expect(obj).to.be.instanceOf(ObjectProphecy);
     });
 
     it('prophesize should construct a new prophecy with parent class if specified', () => {
-        let obj = this._prophet.prophesize(Prophet);
+        const obj = this._prophet.prophesize(Prophet);
         expect(obj.reveal()).to.be.instanceOf(Prophet);
     });
 
     it('prophesize should construct a new prophecy with interface if specified', () => {
-        let obj = this._prophet.prophesize(PromiseInterface);
+        const obj = this._prophet.prophesize(PromiseInterface);
         expect(obj.reveal()).to.be.instanceOf(PromiseInterface);
     });
 
@@ -36,13 +36,13 @@ describe('[Testing] Prophet', function () {
     });
 
     it('checkPredictions should throw AggregateException if prediction fails', () => {
-        let prophet = new Prophet();
-        let method1 = prophet.prophesize(MethodProphecy);
+        const prophet = new Prophet();
+        const method1 = prophet.prophesize(MethodProphecy);
         method1.methodName().willReturn('getName');
         method1.argumentsWildcard().willReturn(prophet.prophesize(ArgumentsWildcard));
         method1.checkPrediction().willReturn(null);
 
-        let method2 = prophet.prophesize(MethodProphecy);
+        const method2 = prophet.prophesize(MethodProphecy);
         method2.methodName().willReturn('isSet');
         method2.argumentsWildcard().willReturn(prophet.prophesize(ArgumentsWildcard));
         method2.checkPrediction().willThrow(new AggregateException());

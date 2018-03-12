@@ -59,7 +59,8 @@ module.exports = class ReplaceAliasByActualDefinitionPass extends AbstractRecurs
         if (value instanceof Reference && undefined !== this._replacements[value.toString()]) {
             // Perform the replacement.
             const newId = this._replacements[value.toString()];
-            const value = new Reference(newId, value.invalidBehavior);
+            value = new Reference(newId, value.invalidBehavior);
+
             this._container.log(this, __jymfony.sprintf('Changed reference of service "%s" previously pointing to "%s" to "%s".', this._currentId, value.toString(), newId));
         }
 

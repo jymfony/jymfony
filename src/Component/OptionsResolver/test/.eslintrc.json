@@ -1,0 +1,7 @@
+{
+  "rules": {
+    "no-new": "off",
+    "no-new-wrappers": "off",
+    "no-unused-expressions": "off"
+  }
+}

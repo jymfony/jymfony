@@ -1,4 +1,2 @@
-src/*/test/**
-src/*/fixtures/**
-src/Component/*/test/**
-src/Component/*/fixtures/**
+src/Component/DependencyInjection/fixtures/js
+src/**/*Interface.js

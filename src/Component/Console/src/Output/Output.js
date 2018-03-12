@@ -130,7 +130,7 @@ class Output extends implementationOf(OutputInterface) {
      *
      * @protected
      */
-    _doWrite(message, newline) {
+    _doWrite(message, newline) { // eslint-disable-line no-unused-vars
         throw new RuntimeException('You must override the _doWrite method');
     }
 }

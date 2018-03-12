@@ -1,3 +1,4 @@
+const Argument = Jymfony.Component.Testing.Argument;
 const UnexpectedCallsCountException = Jymfony.Component.Testing.Exception.UnexpectedCallsCountException;
 const PredictionInterface = Jymfony.Component.Testing.Prediction.PredictionInterface;
 
@@ -19,30 +20,28 @@ class CallTimesPrediction extends implementationOf(PredictionInterface) {
 
         const methodCalls = object.findProphecyMethodCalls(
             method.methodName,
-            new Argument.ArgumentsWildcard([ new AnyValuesToken() ])
+            new Argument.ArgumentsWildcard([ Argument.Argument.cetera() ])
         );
 
         let message;
         if (calls.length) {
             message = __jymfony.sprintf(
                 'Expected exactly %d calls that match:\n' +
-                '  %s.%s(%s)\n' +
+                '  %s(%s)\n' +
                 'but %d were made:\n%s',
                 this._times,
-                (new ReflectionClass(object.reveal())).name,
                 method.methodName,
                 method.argumentsWildcard,
                 calls.length,
                 methodCalls.map(call => call.toString()).join(', ')
             );
-        } else if (count($methodCalls)) {
+        } else if (methodCalls.length) {
             message = __jymfony.sprintf(
                 'Expected exactly %d calls that match:\n' +
-                '  %s.%s(%s)\n' +
+                '  %s(%s)\n' +
                 'but none were made.\n' +
                 'Recorded `%s(...)` calls:\n%s',
                 this._times,
-                (new ReflectionClass(object.reveal())).name,
                 method.methodName,
                 method.argumentsWildcard,
                 method.methodName,
@@ -51,10 +50,9 @@ class CallTimesPrediction extends implementationOf(PredictionInterface) {
         } else {
             message = __jymfony.sprintf(
                 'Expected exactly %d calls that match:\n' +
-                '  %s.%s(%s)\n' +
+                '  %s(%s)\n' +
                 'but none were made.',
                 this._times,
-                (new ReflectionClass(object.reveal())).name,
                 method.methodName,
                 method.argumentsWildcard
             );

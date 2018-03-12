@@ -50,7 +50,7 @@ class RegisterListenerPass extends implementationOf(CompilerPassInterface) {
 
         const extractingDispatcher = new ExtractingEventDispatcher();
 
-        for (const [ id, attributes ] of __jymfony.getEntries(container.findTaggedServiceIds(this.subscriberTag))) {
+        for (const [ id ] of __jymfony.getEntries(container.findTaggedServiceIds(this.subscriberTag))) {
             const def = container.getDefinition(id);
 
             const myclass = container.parameterBag.resolveValue(def.getClass());

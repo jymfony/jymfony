@@ -14,7 +14,12 @@ const getClass = function getClass(value) {
             value = cached;
         } else {
             const parts = value.split('.');
+            const name = value;
             value = ReflectionClass._recursiveGet(global, parts);
+
+            if (undefined !== value) {
+                TheBigReflectionDataCache.classes[name] = value;
+            }
         }
     } else if ('object' === typeof value && undefined !== value.constructor) {
         value = value.constructor;
@@ -82,6 +87,31 @@ class ReflectionClass {
         }
 
         return true;
+    }
+
+    /**
+     * Gets a class constructor given an object or a string
+     * containing a FQCN.
+     *
+     * @param className
+     */
+    static getClass(className) {
+        return getClass(className);
+    }
+
+    /**
+     * Gets a FQCN from an object, constructor or a string.
+     *
+     * @param className
+     *
+     * @returns {string}
+     */
+    static getClassName(className) {
+        try {
+            return (new ReflectionClass(className)).name;
+        } catch (e) {
+            return 'Object';
+        }
     }
 
     /**
@@ -325,7 +355,7 @@ class ReflectionClass {
         this._className = metadata.fqcn;
         this._namespace = metadata.namespace;
 
-        if (TheBigReflectionDataCache.classes[this._className]) {
+        if (TheBigReflectionDataCache.data[this._className]) {
             this._loadFromCache();
             return;
         }
@@ -337,8 +367,7 @@ class ReflectionClass {
         this._loadProperties();
         this._loadStatics();
 
-        if (undefined === TheBigReflectionDataCache.classes[this._className]) {
-            TheBigReflectionDataCache.classes[this._className] = metadata.constructor;
+        if (undefined === TheBigReflectionDataCache.data[this._className]) {
             TheBigReflectionDataCache.data[this._className] = {
                 filename: this._filename,
                 module: this._module,

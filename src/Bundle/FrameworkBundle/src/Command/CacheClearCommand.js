@@ -14,8 +14,7 @@ class CacheClearCommand extends mix(Command, ContainerAwareInterface, ContainerA
     configure() {
         this.name = 'cache:clear';
         this.description = 'Clears the cache';
-        this.help = `The <info>%command.name%</info> command clears the application cache for a given environment
-and debug mode:
+        this.help = `The <info>%command.name%</info> command clears the application cache for a given environment and debug mode:
 
   <info>%command.full_name% --env=dev</info>
   <info>%command.full_name% --env=prod --no-debug</info>`

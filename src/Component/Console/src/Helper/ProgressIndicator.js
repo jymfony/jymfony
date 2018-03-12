@@ -36,7 +36,7 @@ class ProgressIndicator {
         this._format = ProgressIndicator.getFormatDefinition(format);
         this._indicatorChangeInterval = indicatorChangeInterval;
         this._indicatorValues = indicatorValues;
-        this._startTime = DateTime.now.timestamp;
+        this._startTime = DateTime.unixTime;
     }
 
     /**
@@ -62,7 +62,7 @@ class ProgressIndicator {
 
         this._message = message;
         this._started = true;
-        this._startTime = DateTime.now.timestamp;
+        this._startTime = DateTime.unixTime;
         this._indicatorUpdateTime = this._getCurrentTimeInMilliseconds() + this._indicatorChangeInterval;
         this._indicatorCurrent = 0;
 
@@ -233,7 +233,7 @@ class ProgressIndicator {
              * @returns {string}
              */
             elapsed: (indicator) => {
-                return Helper.formatTime(DateTime.now.timestamp - indicator._startTime);
+                return Helper.formatTime(DateTime.unixTime - indicator._startTime);
             },
             /**
              * @returns {string}

@@ -31,7 +31,7 @@ describe('[Testing] ObjectProphecy', function () {
          * @private
          */
         this._revealer = this._prophet.prophesize(Revealer);
-        let method = new MethodProphecy(this._revealer, 'reveal', [Argument.any()]);
+        const method = new MethodProphecy(this._revealer, 'reveal', [ Argument.any() ]);
         method.willReturnArgument(0);
 
         /**
@@ -75,18 +75,18 @@ describe('[Testing] ObjectProphecy', function () {
     });
 
     it('should get method prophecy by method name', () => {
-        let method1 = this._prophet.prophesize(MethodProphecy);
+        const method1 = this._prophet.prophesize(MethodProphecy);
         method1.methodName().willReturn('getName');
         method1.argumentsWildcard().willReturn(this._prophet.prophesize(ArgumentsWildcard));
 
-        let method2 = this._prophet.prophesize(MethodProphecy);
+        const method2 = this._prophet.prophesize(MethodProphecy);
         method2.methodName().willReturn('setName');
         method2.argumentsWildcard().willReturn(this._prophet.prophesize(ArgumentsWildcard));
 
         this._objectProphecy.addMethodProphecy(method1.reveal());
         this._objectProphecy.addMethodProphecy(method2.reveal());
 
-        let methods = this._objectProphecy.getMethodProphecies('getName');
+        const methods = this._objectProphecy.getMethodProphecies('getName');
         expect(methods).to.have.length(1);
         expect(methods[0]).to.be.equal(method1.reveal());
     });
@@ -96,35 +96,35 @@ describe('[Testing] ObjectProphecy', function () {
     });
 
     it('should proxy method call to call center', () => {
-        this._callCenter.makeCall(this._objectProphecy.reveal(), 'setName', ['alekitto'])
+        this._callCenter.makeCall(this._objectProphecy.reveal(), 'setName', [ 'alekitto' ])
             .shouldBeCalled();
 
-        this._objectProphecy.makeProphecyMethodCall('setName', ['alekitto']);
+        this._objectProphecy.makeProphecyMethodCall('setName', [ 'alekitto' ]);
     });
 
     it('should reveal method arguments and return value', () => {
-        let method = new MethodProphecy(this._revealer, 'reveal', ['question']);
+        let method = new MethodProphecy(this._revealer, 'reveal', [ 'question' ]);
         method.willReturn('life');
 
-        method = new MethodProphecy(this._revealer, 'reveal', ['answer']);
+        method = new MethodProphecy(this._revealer, 'reveal', [ 'answer' ]);
         method.willReturn(42);
 
         this._callCenter.makeCall(this._objectProphecy, 'setName', 'life').willReturn('answer');
 
-        expect(this._objectProphecy.makeProphecyMethodCall('setName', ['question'])).to.be.equal(42);
+        expect(this._objectProphecy.makeProphecyMethodCall('setName', [ 'question' ])).to.be.equal(42);
     });
 
     it('should retrieve calls from call center', () => {
-        this._callCenter.findCalls('setName', new ArgumentsWildcard(['alekitto']))
+        this._callCenter.findCalls('setName', new ArgumentsWildcard([ 'alekitto' ]))
             .shouldBeCalled();
 
-        this._objectProphecy.findProphecyMethodCalls('setName', new ArgumentsWildcard(['alekitto']));
+        this._objectProphecy.findProphecyMethodCalls('setName', new ArgumentsWildcard([ 'alekitto' ]));
     });
 
     it('addMethodProphecy adds the prophecy', () => {
-        let methodProphecy = this._prophet.prophesize(MethodProphecy);
+        const methodProphecy = this._prophet.prophesize(MethodProphecy);
         methodProphecy.methodName().willReturn('setName');
-        methodProphecy.argumentsWildcard().willReturn(new ArgumentsWildcard(['foobar']));
+        methodProphecy.argumentsWildcard().willReturn(new ArgumentsWildcard([ 'foobar' ]));
 
         this._objectProphecy.addMethodProphecy(methodProphecy.reveal());
 
@@ -134,7 +134,7 @@ describe('[Testing] ObjectProphecy', function () {
     });
 
     it('addMethodProphecy should throw if no arguments wildcard is set', () => {
-        let methodProphecy = this._prophet.prophesize(MethodProphecy);
+        const methodProphecy = this._prophet.prophesize(MethodProphecy);
         methodProphecy.methodName().willReturn('setName');
         methodProphecy.argumentsWildcard().willReturn(undefined);
         methodProphecy.objectProphecy().willReturn(this._objectProphecy);
@@ -148,12 +148,12 @@ describe('[Testing] ObjectProphecy', function () {
     });
 
     it('checkProphecyMethodsPredictions should throw AggregateException if prophecy fails', () => {
-        let method1 = this._prophet.prophesize(MethodProphecy);
+        const method1 = this._prophet.prophesize(MethodProphecy);
         method1.methodName().willReturn('getName');
         method1.argumentsWildcard().willReturn(this._prophet.prophesize(ArgumentsWildcard));
-        method1.checkPrediction().willThrow(new AggregateException);
+        method1.checkPrediction().willThrow(new AggregateException());
 
-        let method2 = this._prophet.prophesize(MethodProphecy);
+        const method2 = this._prophet.prophesize(MethodProphecy);
         method2.methodName().willReturn('setName');
         method2.argumentsWildcard().willReturn(this._prophet.prophesize(ArgumentsWildcard));
         method2.checkPrediction().willReturn();
@@ -168,9 +168,9 @@ describe('[Testing] ObjectProphecy', function () {
     it('returns a new MethodProphecy for arbitrary call', () => {
         this._doubler.getInstance().willReturn(new class {
             getFoo() { }
-        });
+        }());
 
-        let retVal = this._objectProphecy.getFoo();
+        const retVal = this._objectProphecy.getFoo();
 
         expect(retVal).to.be.instanceOf(MethodProphecy);
         expect(retVal.methodName).to.be.equal('getFoo');
@@ -179,36 +179,36 @@ describe('[Testing] ObjectProphecy', function () {
     it('returns the same MethodProphecy for same signature', () => {
         this._doubler.getInstance().willReturn(new class {
             getFoo() { }
-        });
+        }());
 
-        let method1 = this._objectProphecy.getFoo(1, 2, 3);
+        const method1 = this._objectProphecy.getFoo(1, 2, 3);
         this._objectProphecy.addMethodProphecy(method1);
 
-        let method2 = this._objectProphecy.getFoo(1, 2, 3);
+        const method2 = this._objectProphecy.getFoo(1, 2, 3);
         expect(method2).to.be.equal(method1);
     });
 
     it('returns the different MethodProphecy for different signatures', () => {
         this._doubler.getInstance().willReturn(new class {
             getFoo() { }
-        });
+        }());
 
-        let method1 = this._objectProphecy.getFoo(1, 2, 3, { val: 'foo' });
+        const method1 = this._objectProphecy.getFoo(1, 2, 3, { val: 'foo' });
         this._objectProphecy.addMethodProphecy(method1);
 
-        let method2 = this._objectProphecy.getFoo(1, 2, 3, { val: 'bar' });
+        const method2 = this._objectProphecy.getFoo(1, 2, 3, { val: 'bar' });
         expect(method2).not.to.be.equal(method1);
     });
 
     it('returns the different MethodProphecy for different callbacks', () => {
         this._doubler.getInstance().willReturn(new class {
             getFoo() { }
-        });
+        }());
 
-        let method1 = this._objectProphecy.getFoo(() => {});
+        const method1 = this._objectProphecy.getFoo(() => {});
         this._objectProphecy.addMethodProphecy(method1);
 
-        let method2 = this._objectProphecy.getFoo(() => {});
+        const method2 = this._objectProphecy.getFoo(() => {});
         expect(method2).not.to.be.equal(method1);
     });
 });

@@ -1,0 +1,36 @@
+{
+  "name": "@jymfony/cache",
+  "version": "0.1.0-dev",
+  "description": "Jymfony Cache component",
+  "main": "src/Kernel.js",
+  "scripts": {
+    "test": "node ./tests.js test/**"
+  },
+  "keywords": [
+    "cache-pool",
+    "cache",
+    "jymfony"
+  ],
+  "author": "Alessandro Chitolina <alekitto@gmail.com>",
+  "license": "MIT",
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "dependencies": {
+    "@jymfony/autoloader": "https://github.com/jymfony/autoloader.git",
+    "@jymfony/exceptions": "https://github.com/jymfony/exceptions.git",
+    "@jymfony/logger": "https://github.com/jymfony/logger.git",
+    "@jymfony/util": "https://github.com/jymfony/util.git"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.0"
+  },
+  "config": {
+    "jymfony-autoload": {
+      "namespaces": {
+        "Jymfony.Component.Cache": "src/"
+      }
+    }
+  }
+}

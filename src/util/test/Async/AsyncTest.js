@@ -10,7 +10,7 @@ const Async = __jymfony.Async;
 
 describe('Async runner', function () {
     it('run should return a promise', () => {
-        let o = Async.run(function * () {
+        const o = Async.run(function * () {
             yield doWork();
         });
 
@@ -18,10 +18,10 @@ describe('Async runner', function () {
     });
 
     it('run should handle non-generator functions with return value', () => {
-        let func = () => 'bar';
+        const func = () => 'bar';
         return Async.run(function * () {
-            let ret = yield func;
-            let ret2 = yield func();
+            const ret = yield func;
+            const ret2 = yield func();
 
             return expect(ret).to.be.equal('bar') &&
                     expect(ret2).to.be.equal('bar');
@@ -29,95 +29,95 @@ describe('Async runner', function () {
     });
 
     it('run should handle non-generator functions with callback', () => {
-        let func = cb => {
+        const func = cb => {
             cb(undefined, 47);
         };
 
         return Async.run(function * () {
-            let ret = yield func;
+            const ret = yield func;
             return expect(ret).to.be.equal(47);
         });
     });
 
     it('run should resolve array', () => {
-        let arr = [
+        const arr = [
             doWork,
             doWork(),
             Promise.resolve('bar'),
-            new Promise((resolve, reject) => {
+            new Promise((resolve) => {
                 setTimeout(() => {
                     resolve('foobar');
                 }, 1);
             }),
-            () => 'baz'
+            () => 'baz',
         ];
 
         return Async.run(function * () {
-            let values = yield arr;
+            const values = yield arr;
 
             expect(values).to.be.deep.equal([
                 'foo',
                 'foo',
                 'bar',
                 'foobar',
-                'baz'
+                'baz',
             ]);
         });
     });
 
     it('run should resolve object', () => {
-        let arr = {
+        const arr = {
             work: doWork,
             work2: doWork(),
             bar: Promise.resolve('bar'),
-            foobar: new Promise((resolve, reject) => {
+            foobar: new Promise((resolve) => {
                 setTimeout(() => {
                     resolve('foobar');
                 }, 1);
             }),
-            baz: () => 'baz'
+            baz: () => 'baz',
         };
 
         return Async.run(function * () {
-            let values = yield arr;
+            const values = yield arr;
 
             expect(values).to.be.deep.equal({
                 work: 'foo',
                 work2: 'foo',
                 bar: 'bar',
                 foobar: 'foobar',
-                baz: 'baz'
+                baz: 'baz',
             });
         });
     });
 
     it('run should execute a generator function', () => {
         return Async.run(function * () {
-            let a = yield doWork;
-            let b = yield doWork;
+            const a = yield doWork;
+            const b = yield doWork;
 
             expect(a).to.be.equal('foo');
             expect(b).to.be.equal('foo');
 
-            let res = yield [doWork, doWork];
-            expect(res).to.be.deep.equal(['foo', 'foo']);
+            const res = yield [ doWork, doWork ];
+            expect(res).to.be.deep.equal([ 'foo', 'foo' ]);
         });
     });
 
     it('run should pass arguments', () => {
         return Async.run(function * (num, str, arr, obj, func) {
-            expect(num === 47).to.be.true;
-            expect(str === 'test').to.be.true;
+            expect(47 === num).to.be.true;
+            expect('test' === str).to.be.true;
             expect(arr).to.be.instanceOf(Array);
             expect(obj).to.be.instanceOf(Object);
             expect(func).to.be.instanceOf(Function);
 
             return '1';
-        }, 47, 'test', ['red'], {level: 47}, () => {});
+        }, 47, 'test', [ 'red' ], {level: 47}, () => {});
     });
 
     it('run should reject an invalid value yielded', () => {
-        let p = Async.run(function * () {
+        const p = Async.run(function * () {
             yield Symbol('test');
         });
 
@@ -129,7 +129,7 @@ describe('Async runner', function () {
     });
 
     it('run should reject if error is thrown in async func', () => {
-        let p = Async.run(function * () {
+        const p = Async.run(function * () {
             throw new Error('TEST_ERROR');
         });
 
@@ -149,7 +149,7 @@ describe('Async runner', function () {
     });
 
     it('run should de-nodeify callbacks', () => {
-        let fn = (cb) => {
+        const fn = (cb) => {
             cb(undefined, 'TEST');
         };
 
@@ -161,7 +161,7 @@ describe('Async runner', function () {
     });
 
     it('run should throw if err is set', () => {
-        let fn = (cb) => {
+        const fn = (cb) => {
             cb(new Error('foobar'), undefined);
         };
 
@@ -175,14 +175,14 @@ describe('Async runner', function () {
     });
 
     it('run should resolve with multiple args', () => {
-        let fn = (cb) => {
+        const fn = (cb) => {
             cb(undefined, 'foo', 'bar', 'foobar');
         };
 
         return Async.run(function * () {
             return yield fn;
         }).then((vals) => {
-            let [foo, bar, foobar] = vals;
+            const [ foo, bar, foobar ] = vals;
             expect(foo).to.be.equal('foo');
             expect(bar).to.be.equal('bar');
             expect(foobar).to.be.equal('foobar');
@@ -192,7 +192,7 @@ describe('Async runner', function () {
     let asyncTest;
     if (__jymfony.Platform.hasAsyncFunctionSupport()) {
         // Need to use eval here, as a SyntaxError will be raised if
-        // async/await support is disabled
+        // Async/await support is disabled
         eval(`asyncTest = () => {
             let p = Promise.resolve('foobar');
 

@@ -8,16 +8,14 @@ class InstantiatorInterface {
     /**
      * Instantiate a proxy object
      *
-     * @function
-     * @name InstantiatorInterface#instantiateProxy
-     *
-     * @param {Container} container
-     * @param {Definition} definition
+     * @param {Jymfony.Component.DependencyInjection.Container} container
+     * @param {Jymfony.Component.DependencyInjection.Definition} definition
      * @param {string} id
      * @param {Function} initializer
      *
      * @returns {*}
      */
+    instantiateProxy(container, definition, id, initializer) { }
 }
 
 module.exports = getInterface(InstantiatorInterface);

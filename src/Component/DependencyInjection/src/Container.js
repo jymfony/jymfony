@@ -116,6 +116,8 @@ class Container {
      * @returns {boolean}
      */
     has(id) {
+        id = __self.normalizeId(id);
+
         for (let i = 2;;) {
             if ('service_container' === id || undefined !== this._aliases[id] || undefined !== this._services[id]) {
                 return true;
@@ -146,6 +148,8 @@ class Container {
      * @returns {*}
      */
     get(id, invalidBehavior = Container.EXCEPTION_ON_INVALID_REFERENCE) {
+        id = __self.normalizeId(id);
+
         for (let i = 2;;) {
             if ('service_container' === id) {
                 return this;
@@ -203,6 +207,7 @@ class Container {
      * @returns {boolean}
      */
     initialized(id) {
+        id = __self.normalizeId(id);
         id = id.toLowerCase();
 
         if ('service_container' === id) {
@@ -231,6 +236,23 @@ class Container {
     getServiceIds() {
         const set = new Set([ ...Object.keys(this._methodMap), ...Object.keys(this._services), 'service_container' ]);
         return Array.from(set);
+    }
+
+    /**
+     * Normalizes a class definition (Function) to its class name.
+     *
+     * @param id
+     *
+     * @returns {*}
+     */
+    static normalizeId(id) {
+        if (isFunction(id)) {
+            try {
+                return (new ReflectionClass(id)).name;
+            } catch (e) { }
+        }
+
+        return id;
     }
 
     /**

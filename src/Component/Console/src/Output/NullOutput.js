@@ -10,12 +10,12 @@ class NullOutput extends implementationOf(OutputInterface) {
     /**
      * @inheritDoc
      */
-    write(messages, newline = false, options = 0) { }
+    write() { }
 
     /**
      * @inheritDoc
      */
-    writeln(messages, options = 0) { }
+    writeln() { }
 
     /**
      * @inheritDoc

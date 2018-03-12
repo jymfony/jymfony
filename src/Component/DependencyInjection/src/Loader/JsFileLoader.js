@@ -34,7 +34,7 @@ class JsFileLoader extends FileLoader {
     /**
      * @inheritDoc
      */
-    load(resource, type = undefined) {
+    load(resource ) {
         const filePath = this._locator.locate(resource);
         this.currentDir = path.dirname(filePath);
         this._container.addResource(new FileResource(filePath));

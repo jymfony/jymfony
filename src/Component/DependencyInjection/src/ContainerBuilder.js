@@ -25,7 +25,7 @@ class ContainerBuilder extends Container {
         super.__construct(parameterBag);
 
         /**
-         * @type {Object<string, ExtensionInterface>}
+         * @type {Object<string, Jymfony.Component.DependencyInjection.ExtensionInterface>}
          * @private
          */
         this._extensions = {};
@@ -37,13 +37,13 @@ class ContainerBuilder extends Container {
         this._extensionConfigs = {};
 
         /**
-         * @type {Object<string, Definition>}
+         * @type {Object<string, Jymfony.Component.DependencyInjection.Definition>}
          * @private
          */
         this._definitions = {};
 
         /**
-         * @type {Object<string, string>}
+         * @type {Object<string, Jymfony.Component.DependencyInjection.Alias>}
          * @private
          */
         this._aliasDefinitions = {};
@@ -91,7 +91,7 @@ class ContainerBuilder extends Container {
 
     /**
      * Registers an extension
-     * @param extension
+     * @param {Jymfony.Component.DependencyInjection.Extension.ExtensionInterface} extension
      */
     registerExtension(extension) {
         this._extensions[extension.alias] = extension;
@@ -115,7 +115,7 @@ class ContainerBuilder extends Container {
     /**
      * Returns all registered extensions
      *
-     * @returns {{}}
+     * @returns {Object<string, Jymfony.Component.DependencyInjection.Extension.ExtensionInterface>}
      */
     getExtensions() {
         // Clone object
@@ -204,8 +204,8 @@ class ContainerBuilder extends Container {
     /**
      * Loads the configuration for an extension
      *
-     * @param extension
-     * @param values
+     * @param {Jymfony.Component.DependencyInjection.Extension.ExtensionInterface} extension
+     * @param {Object<string, *>} values
      *
      * @returns {Jymfony.Component.DependencyInjection.ContainerBuilder}
      */
@@ -215,7 +215,7 @@ class ContainerBuilder extends Container {
         }
 
         const namespace = this.getExtension(extension).alias;
-        if (! this._extensionConfigs[namespace]) {
+        if (undefined === this._extensionConfigs[namespace]) {
             this._extensionConfigs[namespace] = [];
         }
 
@@ -226,8 +226,8 @@ class ContainerBuilder extends Container {
     /**
      * Add a compilation pass
      *
-     * @param {CompilerPassInterface} pass
-     * @param type
+     * @param {Jymfony.Component.DependencyInjection.Compiler.CompilerPassInterface} pass
+     * @param {string} type
      * @param {int} priority
      *
      * @returns {Jymfony.Component.DependencyInjection.ContainerBuilder}
@@ -261,6 +261,7 @@ class ContainerBuilder extends Container {
      * @throws BadMethodCallException When trying to set a non-synthetic service into a frozen container
      */
     set(id, service) {
+        id = Container.normalizeId(id);
         id = id.toLowerCase();
 
         if (this.frozen && undefined !== this._definitions[id] && ! this._definitions[id].isSynthetic()) {
@@ -279,6 +280,7 @@ class ContainerBuilder extends Container {
      * @param {string} id
      */
     removeDefinition(id) {
+        id = Container.normalizeId(id);
         delete this._definitions[id.toLowerCase()];
     }
 
@@ -290,6 +292,7 @@ class ContainerBuilder extends Container {
      * @returns {boolean}
      */
     has(id) {
+        id = Container.normalizeId(id);
         id = id.toLowerCase();
 
         return undefined !== this._definitions[id] || undefined !== this._aliasDefinitions[id] || super.has(id);
@@ -304,6 +307,7 @@ class ContainerBuilder extends Container {
      * @returns {*}
      */
     get(id, invalidBehavior = Container.EXCEPTION_ON_INVALID_REFERENCE) {
+        id = Container.normalizeId(id);
         id = id.toLowerCase();
 
         let service = super.get(id, Container.NULL_ON_INVALID_REFERENCE);
@@ -359,23 +363,23 @@ class ContainerBuilder extends Container {
 
         for (const name of Object.keys(this._extensions)) {
             if (undefined === this._extensionConfigs[name]) {
-                this._extensionConfigs[name] = {};
+                this._extensionConfigs[name] = [];
             }
 
-            Object.assign(this._extensionConfigs[name], container.getExtensionConfig(name));
+            this._extensionConfigs[name].push(container.getExtensionConfig(name));
         }
     }
 
     /**
      * Returns the configuration object for the given extension.
      *
-     * @param name
+     * @param {string} name
      *
      * @returns {Object}
      */
     getExtensionConfig(name) {
         if (undefined === this._extensionConfigs[name]) {
-            this._extensionConfigs[name] = {};
+            this._extensionConfigs[name] = [];
         }
 
         return Object.assign({}, this._extensionConfigs[name]);
@@ -389,10 +393,10 @@ class ContainerBuilder extends Container {
      */
     prependExtensionConfig(name, config) {
         if (undefined === this._extensionConfigs[name]) {
-            this._extensionConfigs[name] = {};
+            this._extensionConfigs[name] = [];
         }
 
-        this._extensionConfigs[name] = Object.assign({}, this._extensionConfigs[name]);
+        this._extensionConfigs[name].unshift(config);
     }
 
     /**
@@ -422,7 +426,7 @@ class ContainerBuilder extends Container {
     /**
      * Add service aliases
      *
-     * @param {Object<string, string|Alias>} aliases
+     * @param {Object<string, string|Jymfony.Component.DependencyInjection.Alias>} aliases
      */
     addAliases(aliases) {
         for (const [ name, id ] of __jymfony.getEntries(aliases)) {
@@ -433,7 +437,7 @@ class ContainerBuilder extends Container {
     /**
      * Set service aliases
      *
-     * @param {Object<string, string|Alias>} aliases
+     * @param {Object<string, string|Jymfony.Component.DependencyInjection.Alias>} aliases
      */
     setAliases(aliases) {
         this._aliasDefinitions = {};
@@ -447,6 +451,8 @@ class ContainerBuilder extends Container {
      * @param {string|Jymfony.Component.DependencyInjection.Alias} id
      */
     setAlias(alias, id) {
+        id = Container.normalizeId(id);
+        alias = Container.normalizeId(alias);
         alias = alias.toLowerCase();
 
         if (isString(id)) {
@@ -486,7 +492,7 @@ class ContainerBuilder extends Container {
     /**
      * Get all defined aliases
      *
-     * @returns {Object<string, Alias>}
+     * @returns {Object<string, Jymfony.Component.DependencyInjection.Alias>}
      */
     getAliases() {
         return Object.assign({}, this._aliasDefinitions);
@@ -497,9 +503,10 @@ class ContainerBuilder extends Container {
      *
      * @param {string} id
      *
-     * @returns {Alias}
+     * @returns {Jymfony.Component.DependencyInjection.Alias}
      */
     getAlias(id) {
+        id = Container.normalizeId(id);
         id = id.toLowerCase();
 
         if (undefined === this._aliasDefinitions[id]) {
@@ -521,6 +528,8 @@ class ContainerBuilder extends Container {
      * @returns {Jymfony.Component.DependencyInjection.Definition} A Definition instance
      */
     register(id, class_ = undefined) {
+        id = Container.normalizeId(id);
+
         return this.setDefinition(id, new Definition(class_));
     }
 
@@ -569,6 +578,7 @@ class ContainerBuilder extends Container {
             throw new BadMethodCallException('Cannot add a definition to a frozen container');
         }
 
+        id = Container.normalizeId(id);
         id = id.toLowerCase();
         delete this._aliasDefinitions[id];
 
@@ -583,6 +593,8 @@ class ContainerBuilder extends Container {
      * @returns {boolean}
      */
     hasDefinition(id) {
+        id = Container.normalizeId(id);
+
         return undefined !== this._definitions[id.toString().toLowerCase()];
     }
 
@@ -593,9 +605,10 @@ class ContainerBuilder extends Container {
      *
      * @returns {Jymfony.Component.DependencyInjection.Definition}
      *
-     * @throws ServiceNotFoundException if the service definition does not exist
+     * @throws {Jymfony.Component.DependencyInjection.Exception.ServiceNotFoundException} If the service definition does not exist
      */
     getDefinition(id) {
+        id = Container.normalizeId(id);
         id = id.toString().toLowerCase();
 
         if (undefined === this._definitions[id]) {
@@ -613,9 +626,10 @@ class ContainerBuilder extends Container {
      *
      * @returns {Jymfony.Component.DependencyInjection.Definition} A Definition instance
      *
-     * @throws ServiceNotFoundException if the service definition does not exist
+     * @throws {Jymfony.Component.DependencyInjection.Exception.ServiceNotFoundException} If the service definition does not exist
      */
     findDefinition(id) {
+        id = Container.normalizeId(id);
         id = id.toLowerCase();
 
         while (this._aliasDefinitions[id]) {
@@ -628,13 +642,13 @@ class ContainerBuilder extends Container {
      * Creates a service for a service definition.
      *
      * @param {Jymfony.Component.DependencyInjection.Definition} definition
-     * @param {string} id
+     * @param {undefined|string} id
      * @param {boolean} tryProxy
      *
      * @returns {*} The service described by the service definition
      *
-     * @throws RuntimeException When the factory definition is incomplete or when the service is a synthetic service
-     * @throws InvalidArgumentException When configure callable is not callable
+     * @throws {Jymfony.Component.DependencyInjection.Exception.RuntimeException} When the factory definition is incomplete or when the service is a synthetic service
+     * @throws {Jymfony.Component.DependencyInjection.Exception.InvalidArgumentException} When configure callable is not callable
      */
     _createService(definition, id, tryProxy = true) {
         if (definition.isSynthetic()) {
@@ -675,14 +689,7 @@ class ContainerBuilder extends Container {
             service = factory(...args);
         } else {
             const class_ = parameterBag.resolveValue(definition.getClass());
-
-            const parts = class_.split('.');
-            let constructor = global;
-
-            let part;
-            while (part = parts.pop()) {
-                constructor = constructor[part];
-            }
+            const constructor = ReflectionClass.getClass(class_);
 
             service = new constructor(...args);
         }
@@ -700,16 +707,18 @@ class ContainerBuilder extends Container {
             this._callMethod(service, call);
         }
 
-        const configurator = definition.getConfigurator();
+        let configurator = definition.getConfigurator();
         if (configurator) {
             if (isArray(configurator)) {
                 configurator[0] = parameterBag.resolveValue(configurator[0]);
-            }
 
-            if (configurator[0] instanceof Reference) {
-                configurator[0] = this.get(configurator[0].toString(), configurator[0].invalidBehavior);
-            } else if (configurator[0] instanceof Definition) {
-                configurator[0] = this._createService(configurator[0], null);
+                if (configurator[0] instanceof Reference) {
+                    configurator[0] = this.get(configurator[0].toString(), configurator[0].invalidBehavior);
+                } else if (configurator[0] instanceof Definition) {
+                    configurator[0] = this._createService(configurator[0], undefined);
+                }
+
+                configurator = getCallableFromArray(configurator);
             }
 
             if (! isFunction(configurator)) {
@@ -744,7 +753,7 @@ class ContainerBuilder extends Container {
     /**
      * Returns all the defined tags
      *
-     * @returns {string[]}
+     * @returns {[string]}
      */
     findTags() {
         const tags = new Set();
@@ -788,7 +797,7 @@ class ContainerBuilder extends Container {
     /**
      * Retrieve the currently set proxy instantiator or create a new one
      *
-     * @returns {InstantiatorInterface}
+     * @returns {Jymfony.Component.DependencyInjection.LazyProxy.InstantiatorInterface}
      *
      * @private
      */
@@ -824,7 +833,7 @@ class ContainerBuilder extends Container {
     /**
      * Shares a service in the container
      *
-     * @param {Definition} definition
+     * @param {Jymfony.Component.DependencyInjection.Definition} definition
      * @param {*} service
      * @param {string} id
      *
@@ -855,7 +864,7 @@ class ContainerBuilder extends Container {
         } else if (value instanceof Reference) {
             value = this.get(value.toString(), value.invalidBehavior);
         } else if (value instanceof Definition) {
-            value = this._createService(value, null);
+            value = this._createService(value, undefined);
         }
 
         return value;

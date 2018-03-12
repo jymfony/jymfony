@@ -374,7 +374,7 @@ ${this._addReturn(id, definition)}\
                     throw new ServiceCircularReferenceException(id, [ id ]);
                 }
 
-                code += this._addNewInstance(sDefinition, name, ' = ', id);
+                code += this._addNewInstance(sDefinition, name, ' = ');
 
                 if (! this._hasReference(id, sDefinition.getMethodCalls(), true) && ! this._hasReference(id, sDefinition.getProperties(), true)) {
                     code += this._addProperties(undefined, sDefinition, name);
@@ -415,7 +415,7 @@ ${this._addReturn(id, definition)}\
             instantiation += ' = ';
         }
 
-        let code = this._addNewInstance(definition, ret, instantiation, id);
+        let code = this._addNewInstance(definition, ret, instantiation);
         if (! definition.isShared() || ! simple) {
             code = '        let instance;\n' + code;
         }
@@ -737,7 +737,7 @@ ${this._addReturn(id, definition)}\
         return true;
     }
 
-    _addNewInstance(definition, ret, instantiation, id) {
+    _addNewInstance(definition, ret, instantiation) {
         let class_ = this._dumpValue(definition.getClass());
         const args = Array.from(definition.getArguments().map(T => this._dumpValue(T)));
 

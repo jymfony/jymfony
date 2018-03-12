@@ -1,7 +1,7 @@
 const expect = require('chai').expect;
 
 describe('Uppercase first words characters', function () {
-    let testLowerCase =
+    const testLowerCase =
 `lorem ipsum dolor sit amet, consectetur adipiscing elit.
 vivamus pretium nibh quis purus congue malesuada.
 aliquam euismod ornare libero, a aliquet felis gravida at.
@@ -13,7 +13,7 @@ proin ut iaculis orci.
 vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;
 praesent nec auctor risus.`;
 
-    let testSomeLowerSomeUpper =
+    const testSomeLowerSomeUpper =
 `Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 Vivamus pretium nibh quis purus congue malesuada.
 Aliquam euismod ornare libero, a aliquet felis gravida at.
@@ -25,7 +25,7 @@ Proin ut iaculis orci.
 Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;
 Praesent nec auctor risus.`;
 
-    let expected =
+    const expected =
 `Lorem Ipsum Dolor Sit Amet, Consectetur Adipiscing Elit.
 Vivamus Pretium Nibh Quis Purus Congue Malesuada.
 Aliquam Euismod Ornare Libero, A Aliquet Felis Gravida At.
@@ -43,7 +43,7 @@ Praesent Nec Auctor Risus.`;
     });
 
 
-    let testUpperCase =
+    const testUpperCase =
 `LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISCING ELIT.
 VIVAMUS PRETIUM NIBH QUIS PURUS CONGUE MALESUADA.
 ALIQUAM EUISMOD ORNARE LIBERO, A ALIQUET FELIS GRAVIDA AT.

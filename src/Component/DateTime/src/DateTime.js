@@ -49,6 +49,15 @@ class DateTime {
     }
 
     /**
+     * Gets current timestamp.
+     *
+     * @returns {int}
+     */
+    static get unixTime() {
+        return (new DateTime()).timestamp;
+    }
+
+    /**
      * Gets a new DateTime representing midnight of today.
      *
      * @returns {Jymfony.Component.DateTime.DateTime}

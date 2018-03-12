@@ -19,7 +19,7 @@ class ClassExistenceResource extends implementationOf(SelfCheckingResourceInterf
     /**
      * {@inheritDoc}
      */
-    isFresh(timestamp) {
+    isFresh(/* timestamp */) {
         return this._exists === ReflectionClass.exists(this._resource);
     }
 }

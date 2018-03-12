@@ -1,5 +1,4 @@
 const BaseApplication = Jymfony.Component.Console.Application;
-const KernelInterface = Jymfony.Component.Kernel.KernelInterface;
 const Kernel = Jymfony.Component.Kernel.Kernel;
 const InputOption = Jymfony.Component.Console.Input.InputOption;
 
@@ -113,11 +112,11 @@ class Application extends BaseApplication {
      * @protected
      */
     _registerCommands() {
-        if (this.commandsRegistered) {
+        if (this._commandsRegistered) {
             return;
         }
 
-        this.commandsRegistered = true;
+        this._commandsRegistered = true;
 
         this._kernel.boot();
 

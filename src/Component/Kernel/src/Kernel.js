@@ -288,8 +288,7 @@ class Kernel extends implementationOf(KernelInterface) {
      *
      * @protected
      */
-    _build(container) {
-    }
+    _build(container) { } // eslint-disable-line no-unused-vars
 
     _initializeBundles() {
         const directChildren = {};
@@ -427,6 +426,10 @@ class Kernel extends implementationOf(KernelInterface) {
             try {
                 __jymfony.mkdir(dir);
             } catch (e) {
+                if ('EEXIST' === e.code) {
+                    return;
+                }
+
                 throw new RuntimeException(`Unable to create ${name} directory (${dir})`);
             }
         };
@@ -449,7 +452,7 @@ class Kernel extends implementationOf(KernelInterface) {
     /**
      * @inheritDoc
      */
-    registerContainerConfiguration(loader) {
+    registerContainerConfiguration(/* loader */) {
         return undefined;
     };
 
