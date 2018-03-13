@@ -30,7 +30,7 @@ class EventDispatcher extends implementationOf(EventDispatcherInterface) {
     dispatch(eventName, event = new Event()) {
         const self = this;
 
-        return __jymfony.Async.run(function * () {
+        return __jymfony.Async.run(function * dispatch() {
             for (const listener of self.getListeners(eventName)) {
                 if (event.isPropagationStopped()) {
                     return event;

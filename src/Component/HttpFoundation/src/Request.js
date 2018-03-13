@@ -370,6 +370,15 @@ class Request {
     }
 
     /**
+     * Gets the full URI for this request.
+     *
+     * @return {string}
+     */
+    get uri() {
+        return this._url.href;
+    }
+
+    /**
      * Returns the port on which the request is made.
      *
      * This method can read the client port from the "X-Forwarded-Port" header

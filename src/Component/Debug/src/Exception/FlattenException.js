@@ -2,6 +2,8 @@ const HttpExceptionInterface = Jymfony.Component.HttpFoundation.Exception.HttpEx
 const RequestExceptionInterface = Jymfony.Component.HttpFoundation.Exception.RequestExceptionInterface;
 const Response = Jymfony.Component.HttpFoundation.Response;
 
+const asyncReflection = new ReflectionClass(__jymfony.Async);
+
 /**
  * Wraps an error to be able to serialize it.
  *
@@ -36,6 +38,10 @@ class FlattenException {
         e.trace = exception instanceof Exception ?
             exception.stackTrace :
             Exception.parseStackTrace(exception);
+
+        e.trace = e.trace.filter(t => {
+            return t.file !== asyncReflection.filename;
+        });
 
         let className = exception.constructor.name;
         try {

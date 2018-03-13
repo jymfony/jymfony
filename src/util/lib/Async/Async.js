@@ -141,4 +141,4 @@ class Async {
     }
 }
 
-global.__jymfony.Async = Async;
+module.exports = global.__jymfony.Async = Async;

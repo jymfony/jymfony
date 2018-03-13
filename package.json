@@ -44,6 +44,7 @@
         "Jymfony.Component.Logger": "src/Component/Logger/src",
         "Jymfony.Component.OptionsResolver": "src/Component/OptionsResolver/src",
         "Jymfony.Component.PropertyAccess": "src/Component/PropertyAccess/src",
+        "Jymfony.Component.Routing": "src/Component/Routing/src",
         "Jymfony.Component.Testing": "src/Component/Testing/src"
       },
       "includes": [

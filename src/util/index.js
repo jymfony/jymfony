@@ -34,6 +34,7 @@ require('./lib/String/version_compare');
 require('./lib/String/wordwrap');
 
 require('./lib/Regex/quote');
+require('./lib/Regex/named');
 
 require('./lib/mixins');
 
