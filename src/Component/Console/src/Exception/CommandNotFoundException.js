@@ -5,8 +5,8 @@ const ExceptionInterface = Jymfony.Component.Console.Exception.ExceptionInterfac
  * @memberOf Jymfony.Component.Console.Exception
  */
 class CommandNotFoundException extends mix(BaseException, ExceptionInterface) {
-    constructor(message, alternatives, previous = undefined) {
-        super(message, previous);
+    __construct(message, alternatives, previous = undefined) {
+        super.__construct(message, previous);
 
         this._alternatives = alternatives;
     }

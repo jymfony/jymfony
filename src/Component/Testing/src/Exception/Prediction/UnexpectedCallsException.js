@@ -12,8 +12,8 @@ class UnexpectedCallsException extends mix(MethodProphecyException, PredictionEx
      * @param {Jymfony.Component.Testing.Prophecy.ObjectProphecy} methodProphecy
      * @param {[*]} calls
      */
-    constructor(message, methodProphecy, calls) {
-        super(message, methodProphecy);
+    __construct(message, methodProphecy, calls) {
+        super.__construct(message, methodProphecy);
 
         this._calls = calls;
     }

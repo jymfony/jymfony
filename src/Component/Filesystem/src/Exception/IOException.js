@@ -5,8 +5,8 @@ const ExceptionInterface = Jymfony.Component.Filesystem.Exception.ExceptionInter
  * @memberOf Jymfony.Component.Filesystem.Exception
  */
 class IOException extends mix(BaseException, ExceptionInterface) {
-    constructor(message, code = null, previous = undefined, path = undefined) {
-        super(message, code, previous);
+    __construct(message, code = null, previous = undefined, path = undefined) {
+        super.__construct(message, code, previous);
 
         this._path = path;
     }

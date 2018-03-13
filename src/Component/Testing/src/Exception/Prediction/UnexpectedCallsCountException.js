@@ -12,8 +12,8 @@ class UnexpectedCallsCountException extends UnexpectedCallsException {
      * @param {int} count
      * @param {[*]} calls
      */
-    constructor(message, methodProphecy, count, calls) {
-        super(message, methodProphecy, calls);
+    __construct(message, methodProphecy, count, calls) {
+        super.__construct(message, methodProphecy, calls);
 
         this._expectedCount = count;
     }

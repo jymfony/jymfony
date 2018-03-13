@@ -4,8 +4,8 @@ const PredictionException = Jymfony.Component.Testing.Exception.Prediction.Predi
  * @memberOf Jymfony.Component.Testing.Exception.Prediction
  */
 class AggregateException extends mix(RuntimeException, PredictionException) {
-    constructor(message) {
-        super(message);
+    __construct(message) {
+        super.__construct(message);
 
         this._exceptions = [];
         this.objectProphecy = undefined;

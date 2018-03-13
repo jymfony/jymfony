@@ -4,8 +4,8 @@ const DoubleException = Jymfony.Component.Testing.Exception.DoubleException;
  * @memberOf Jymfony.Component.Testing.Exception
  */
 class MethodNotFoundException extends DoubleException {
-    constructor(message, classname, methodname, args = undefined) {
-        super(message);
+    __construct(message, classname, methodname, args = undefined) {
+        super.__construct(message);
 
         this._classname = classname;
         this._methodname = methodname;

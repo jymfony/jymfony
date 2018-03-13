@@ -4,8 +4,8 @@
  * @memberOf Jymfony.Component.Config.Exception
  */
 class FileLocatorFileNotFoundException extends InvalidArgumentException {
-    constructor(message = '', code = null, previous = undefined, paths = []) {
-        super(message, code, previous);
+    __construct(message = '', code = null, previous = undefined, paths = []) {
+        super.__construct(message, code, previous);
 
         /**
          * @type {[string]}

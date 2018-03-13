@@ -4,8 +4,8 @@ const RuntimeException = Jymfony.Component.DependencyInjection.Exception.Runtime
  * @memberOf Jymfony.Component.DependencyInjection.Exception
  */
 module.exports = class ServiceCircularReferenceException extends RuntimeException {
-    constructor(id, path) {
-        super('');
+    __construct(id, path) {
+        super.__construct('');
 
         const params = Array.from(path);
         this.message = `Circular reference detected for service "${id}", path: "${params.join('" -> "')}".`;

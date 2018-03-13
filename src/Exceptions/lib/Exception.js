@@ -1,9 +1,14 @@
 const UNKNOWN_FUNCTION = '?';
 
 class Exception extends Error {
-    constructor(message, code = null, previous = undefined) {
-        super(message);
+    constructor(...$args) {
+        super();
+        delete this.message;
 
+        return this.__construct(...$args);
+    }
+
+    __construct(message, code = null, previous = undefined) {
         /**
          * @type {string}
          */
@@ -26,8 +31,6 @@ class Exception extends Error {
 
         Error.captureStackTrace(this, this.constructor);
         this._originalStack = this.stack.split('\n').slice(2).join('\n');
-
-        delete this.message;
     }
 
     /**

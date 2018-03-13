@@ -8,8 +8,8 @@ const Response = Jymfony.Component.HttpFoundation.Response;
  * @memberOf Jymfony.Component.HttpFoundation.Exception
  */
 class BadRequestHttpException extends HttpException {
-    constructor(message, previous = undefined, headers = {}, code = 0) {
-        super(Response.HTTP_BAD_REQUEST, message, previous, headers, code);
+    __construct(message, previous = undefined, headers = {}, code = 0) {
+        super.__construct(Response.HTTP_BAD_REQUEST, message, previous, headers, code);
     }
 }
 

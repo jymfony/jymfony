@@ -4,8 +4,8 @@ const BadRequestException = Jymfony.Component.HttpServer.Exception.BadRequestExc
  * @memberOf Jymfony.Component.HttpServer.Exception
  */
 class BadContentLengthRequestException extends BadRequestException {
-    constructor(message = 'Content-Length mismatch', code = null, previous = undefined) {
-        super(message, code, previous);
+    __construct(message = 'Content-Length mismatch', code = null, previous = undefined) {
+        super.__construct(message, code, previous);
     }
 }
 

@@ -4,8 +4,8 @@ const ExceptionInterface = Jymfony.Component.Testing.Exception.ExceptionInterfac
  * @memberOf Jymfony.Component.Testing.Exception
  */
 class ObjectProphecyException extends mix(RuntimeException, ExceptionInterface) {
-    constructor(message, objectProphecy) {
-        super(message);
+    __construct(message, objectProphecy) {
+        super.__construct(message);
 
         this._objectProphecy = objectProphecy;
     }

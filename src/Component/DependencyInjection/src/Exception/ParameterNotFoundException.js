@@ -4,8 +4,8 @@ const InvalidArgumentException = Jymfony.Component.DependencyInjection.Exception
  * @memberOf Jymfony.Component.DependencyInjection.Exception
  */
 class ParameterNotFoundException extends InvalidArgumentException {
-    constructor(key, sourceId = undefined, sourceKey = undefined) {
-        super('');
+    __construct(key, sourceId = undefined, sourceKey = undefined) {
+        super.__construct('');
 
         this._key = key;
         this._sourceId = sourceId;

@@ -13,7 +13,7 @@ class FileLoaderLoadException extends Exception {
      * @param {Exception} previous
      * @param {string} type
      */
-    constructor(resource, sourceResource = undefined, code = null, previous = undefined, type = undefined) {
+    __construct(resource, sourceResource = undefined, code = null, previous = undefined, type = undefined) {
         let message = '';
         if (previous) {
             // Include the previous exception, to help the user see what might be the underlying cause
@@ -50,7 +50,7 @@ class FileLoaderLoadException extends Exception {
             message += __jymfony.sprintf(' Make sure there is a loader supporting the "%s" type.', type);
         }
 
-        super(message, code, previous);
+        super.__construct(message, code, previous);
     }
 
     static varToString($var) {

@@ -12,8 +12,8 @@ class UnexpectedCallException extends ObjectProphecyException {
      * @param {string} methodName
      * @param {[*]} args
      */
-    constructor(message, objectProphecy, methodName, args) {
-        super(message, objectProphecy);
+    __construct(message, objectProphecy, methodName, args) {
+        super.__construct(message, objectProphecy);
 
         this._methodName = methodName;
         this._args = args;
