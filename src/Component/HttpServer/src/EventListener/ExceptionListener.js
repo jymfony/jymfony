@@ -35,7 +35,7 @@ class ExceptionListener extends implementationOf(EventSubscriberInterface) {
 
         let exceptionClass = exception.constructor.name;
         try {
-            exceptionClass = new ReflectionClass(exception).name;
+            exceptionClass = new ReflectionClass(exception).name || exceptionClass;
         } catch (e) { }
 
         this._logException(exception, __jymfony.sprintf('Uncaught Exception %s: "%s"', exceptionClass, exception.message));

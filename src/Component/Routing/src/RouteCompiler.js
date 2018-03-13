@@ -1,3 +1,5 @@
+const CompiledRoute = Jymfony.Component.Routing.CompiledRoute;
+
 const SEPARATORS = [
     '/', ',', ';', '.', ':', '-', '_', '~', '+', '*', '=', '@', '|',
 ];
@@ -124,7 +126,7 @@ class RouteCompiler {
             regexp += __self._computeRegexp(tokens, i, firstOptional);
         }
 
-        regexp = new RegExp('^' + regexp + '$', 's' + (isHost ? 'i' : ''));
+        regexp = new RegExp('^' + regexp + '$', (isHost ? 'i' : ''));
 
         return {
             staticPrefix: __self._determineStaticPrefix(route, tokens),

@@ -16,7 +16,9 @@ class ExceptionController {
     showAction(request) {
         const exception = request.attributes.get('exception');
 
-        return new Response(JSON.stringify(exception));
+        return new Response(JSON.stringify(exception), 200, {
+            'content-type': 'application/json',
+        });
     }
 }
 

@@ -114,8 +114,9 @@ class HttpServer {
         }, content);
 
         const response = yield this.handle(request);
-        res.writeHead(response.statusCode, response.statusText, response.headers.all);
+        response.prepare(request);
 
+        res.writeHead(response.statusCode, response.statusText, response.headers.all);
         yield new Promise((resolve) => {
             res.write(response.content, 'utf8', () => {
                 resolve();
@@ -259,7 +260,7 @@ class HttpServer {
                 response.setStatusCode(e.statusCode);
                 response.headers.add(e.headers);
             } else {
-                response.statusCode = 500;
+                response.setStatusCode(500);
             }
         }
 

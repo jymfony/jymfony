@@ -24,7 +24,7 @@ class Route {
             .setMethods(methods)
             .setOptions(options)
             .setDefaults(defaults)
-            .setCondition(condition)
+            // .setCondition(condition)
             .setRequirements(requirements)
         ;
     }
