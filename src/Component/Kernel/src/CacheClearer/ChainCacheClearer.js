@@ -15,7 +15,7 @@ class ChainCacheClearer extends implementationOf(CacheClearerInterface) {
      * @inheritDoc
      */
     clear(cacheDir) {
-        for(let clearer of this._clearers) {
+        for(const clearer of this._clearers) {
             clearer.clear(cacheDir);
         }
     }

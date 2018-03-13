@@ -29,12 +29,13 @@ class AddCacheClearerPass extends implementationOf(CompilerPassInterface) {
             return;
         }
 
-        let clearers = [];
-        for (let [ id, attributes ] of __jymfony.getEntries(container.findTaggedServiceIds(this._cacheClearerTag))) {
+        const clearers = [];
+        for (const [ id ] of __jymfony.getEntries(container.findTaggedServiceIds(this._cacheClearerTag))) {
             clearers.push(new Reference(id));
         }
 
         container.getDefinition(this._cacheClearerId).replaceArgument(0, clearers);
+
         return clearers;
     }
 }

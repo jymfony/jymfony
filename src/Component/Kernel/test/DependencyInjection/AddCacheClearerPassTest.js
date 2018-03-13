@@ -6,26 +6,30 @@ const AddCacheClearerPass = Jymfony.Component.Kernel.DependencyInjection.AddCach
 
 describe('[Kernel] AddCacheClearerPass', function () {
     it('Pass is ignored if no CacheClearer definition', () => {
-        let container = {
+        const container = {
             hasDefinition: () => false,
-            findTaggedServiceIds: () => { throw new Error(); },
-            getDefinition: () => { throw new Error(); },
+            findTaggedServiceIds: () => {
+                throw new Error();
+            },
+            getDefinition: () => {
+                throw new Error();
+            },
         };
 
-        let pass = new AddCacheClearerPass();
+        const pass = new AddCacheClearerPass();
         pass.process(container);
     });
 
     it ('Pass process', () => {
-        let container = new ContainerBuilder();
-        let definition = container.register('cache_clearer').setArguments([undefined]);
+        const container = new ContainerBuilder();
+        const definition = container.register('cache_clearer').setArguments([ undefined ]);
         container.register('my_cache_clearer_service1')
             .addTag('kernel.cache_clearer')
         ;
 
-        let pass = new AddCacheClearerPass();
+        const pass = new AddCacheClearerPass();
         pass.process(container);
-        let expected = [
+        const expected = [
             new Reference('my_cache_clearer_service1'),
         ];
 
