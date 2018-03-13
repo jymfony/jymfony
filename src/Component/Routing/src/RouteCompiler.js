@@ -47,7 +47,8 @@ class RouteCompiler {
             result.variables,
             hostRegex,
             hostTokens,
-            [ ...new Set(...variables) ]
+            hostVariables,
+            [ ...new Set(variables) ]
         );
     }
 
@@ -65,8 +66,9 @@ class RouteCompiler {
         const tokens = [];
 
         let match;
-        while (match = /{\w+}/g.exec(pattern)) {
-            const varName = match[0].substr(1, -1);
+        const re = /{\w+}/g;
+        while (match = re.exec(pattern)) {
+            const varName = match[0].substr(1, match[0].length - 2);
             const precedingText = pattern.substr(pos, match.index - pos);
             pos = match.index + match[0].length;
 
@@ -98,7 +100,7 @@ class RouteCompiler {
                     defaultSeparator !== nextSeparator && '' !== nextSeparator ? __jymfony.regex_quote(nextSeparator) : ''
                 );
 
-                regexp = new RegExp(regPattern);
+                regexp = regPattern;
             }
 
             tokens.push([ 'variable', isSeparator ? precedingChar : '', regexp, varName ]);
@@ -142,10 +144,10 @@ class RouteCompiler {
         }
 
         let prefix = tokens[0][1];
-
-        if (undefined !== tokens[1][1] && '/' !== tokens[1][1] && false === route.hasDefault(tokens[1][3])) {
+        if (undefined !== tokens[1] && undefined !== tokens[1][1] && '/' !== tokens[1][1] && false === route.hasDefault(tokens[1][3])) {
             prefix += tokens[1][1];
         }
+
         return prefix;
     }
 

@@ -30,7 +30,7 @@ class Exception extends Error {
         this._message = message;
 
         Error.captureStackTrace(this, this.constructor);
-        this._originalStack = this.stack.split('\n').slice(2).join('\n');
+        this._originalStack = this.stack.split('\n').join('\n');
 
         this._updateStack();
     }

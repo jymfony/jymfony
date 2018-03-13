@@ -7,7 +7,7 @@ class CompiledRoute {
         this._regex = regex;
         this._tokens = tokens;
         this._pathVariables = pathVariables;
-        this._hostRegex = hostTokens;
+        this._hostRegex = hostRegex;
         this._hostTokens = hostTokens;
         this._hostVariables = hostVariables;
         this._variables = variables;

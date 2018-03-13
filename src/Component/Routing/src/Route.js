@@ -24,7 +24,7 @@ class Route {
             .setMethods(methods)
             .setOptions(options)
             .setDefaults(defaults)
-            // .setCondition(condition)
+            .setCondition(condition)
             .setRequirements(requirements)
         ;
     }
@@ -294,6 +294,13 @@ class Route {
     }
 
     /**
+     * Sets the route condition.
+     */
+    setCondition(/* condition */) {
+        // @todo
+    }
+
+    /**
      * Gets the requirements.
      *
      * @return {Object<string, RegExp>}
@@ -379,7 +386,7 @@ class Route {
             return this._compiled;
         }
 
-        const class_ = this.getOption('compiler_class');
+        const class_ = ReflectionClass.getClass(this.getOption('compiler_class'));
         return this._compiled = class_['compile'](this);
     }
 

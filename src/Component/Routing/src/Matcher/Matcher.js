@@ -98,7 +98,7 @@ class Matcher extends implementationOf(MatcherInterface) {
      */
     _getAttributes(route, name, attributes) {
         return Object.assign({
-            '_route': name,
+            _route: name,
         }, route.defaults, attributes);
     }
 }
