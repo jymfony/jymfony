@@ -31,6 +31,8 @@ class Exception extends Error {
 
         Error.captureStackTrace(this, this.constructor);
         this._originalStack = this.stack.split('\n').slice(2).join('\n');
+
+        this._updateStack();
     }
 
     /**
