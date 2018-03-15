@@ -1,4 +1,5 @@
 const Command = Jymfony.Component.Console.Command.Command;
+const Alias = Jymfony.Component.DependencyInjection.Alias;
 const CompilerPassInterface = Jymfony.Component.DependencyInjection.Compiler.CompilerPassInterface;
 
 /**
@@ -40,7 +41,7 @@ class AddConsoleCommandPass extends implementationOf(CompilerPassInterface) {
             }
 
             if (! definition.isPublic()) {
-                container.setAlias(commandId, id);
+                container.setAlias(commandId, new Alias(id).setPublic(true));
                 id = commandId;
             }
 

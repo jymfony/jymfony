@@ -34,3 +34,8 @@ container.register(Jymfony.Component.HttpServer.EventListener.RouterListener, Jy
     .addArgument(new Reference('logger'))
     .addArgument('%kernel.debug%')
 ;
+
+container.register(Jymfony.Component.HttpServer.Command.HttpServerRunCommand, Jymfony.Component.HttpServer.Command.HttpServerRunCommand)
+    .addTag('console.command')
+    .addArgument(new Reference(Jymfony.Component.HttpServer.HttpServer))
+;
