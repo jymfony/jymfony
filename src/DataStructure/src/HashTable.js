@@ -244,10 +244,14 @@ class HashTable extends mix(undefined, GenericCollectionTrait) {
 
         if (e !== this._first) {
             prev.next = next;
+        } else {
+            this._first = next;
         }
 
         if (e !== this._last) {
             next.prev = prev;
+        } else {
+            this._last = prev;
         }
 
         return undefined !== e ? e.value : undefined;
@@ -300,9 +304,39 @@ class HashTable extends mix(undefined, GenericCollectionTrait) {
     }
 
     /**
+     * Creates an HashTable from an object or array.
+     *
+     * @param {Object|Array} obj
+     *
+     * @returns {HashTable}
+     */
+    static fromObject(obj) {
+        const table = new HashTable();
+        for (const [ key, value ] of __jymfony.getEntries(obj)) {
+            table.put(key, value);
+        }
+
+        return table;
+    }
+
+    /**
+     * Returns all the table keys (ordered).
+     *
+     * @returns {[]}
+     */
+    keys() {
+        return Array.from(this)
+            .map(tuple => tuple[0]);
+    }
+
+    /**
      * Iterate over all the collection elements.
      */
     * [Symbol.iterator]() {
+        if (undefined === this._first) {
+            return;
+        }
+
         let e = this._first;
 
         do {
