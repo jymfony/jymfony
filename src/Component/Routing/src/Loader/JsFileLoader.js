@@ -1,52 +1,41 @@
 const FileLoader = Jymfony.Component.Config.Loader.FileLoader;
 const FileResource = Jymfony.Component.Config.Resource.FileResource;
+const RouteCollection = Jymfony.Component.Routing.RouteCollection;
 
 const fs = require('fs');
 const path = require('path');
 const vm = require('vm');
 
 /**
- * JsFileLoader loads service definitions from a js file.
+ * JsFileLoader loads routes from a js file.
  *
- * The js file is required and the container variable can be
- * used within the file to change the container.
+ * The js file is required and the collection variable can be
+ * used within the file to load routes.
  *
- * @memberOf Jymfony.Component.DependencyInjection.Loader
+ * @memberOf Jymfony.Component.Routing.Loader
  */
 class JsFileLoader extends FileLoader {
-    /**
-     * Constructor.
-     *
-     * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container A ContainerBuilder instance
-     * @param {Jymfony.Component.Config.FileLocatorInterface} locator A FileLocator instance
-     */
-    __construct(container, locator) {
-        /**
-         * @type {Jymfony.Component.DependencyInjection.ContainerBuilder}
-         * @private
-         */
-        this._container = container;
-
-        super.__construct(locator);
-    }
-
     /**
      * @inheritDoc
      */
     load(resource) {
         const filePath = this._locator.locate(resource);
         this.currentDir = path.dirname(filePath);
-        this._container.addResource(new FileResource(filePath));
 
-        const code = '(function (container, loader) {\n'+fs.readFileSync(filePath)+'\n})';
+        const code = '(function (loader) {\n'+fs.readFileSync(filePath)+'\n})';
         const script = new vm.Script(code, {
             filename: filePath,
             produceCachedData: false,
         });
 
+        const collection = new RouteCollection();
+        collection.addResource(new FileResource(filePath));
+
         script.runInThisContext({
             filename: filePath,
-        })(this._container, this);
+        })(collection, this);
+
+        return collection;
     }
 
     /**

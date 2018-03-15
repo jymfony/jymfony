@@ -3,7 +3,7 @@ const DelegatingLoader = Jymfony.Component.Config.Loader.DelegatingLoader;
 const LoaderResolver = Jymfony.Component.Config.Loader.LoaderResolver;
 const DateTime = Jymfony.Component.DateTime.DateTime;
 const ContainerBuilder = Jymfony.Component.DependencyInjection.ContainerBuilder;
-const JsFileLoader = Jymfony.Component.DependencyInjection.Loader.JsFileLoader;
+const Loader = Jymfony.Component.DependencyInjection.Loader;
 const FileLocator = Jymfony.Component.Kernel.Config.FileLocator;
 const KernelInterface = Jymfony.Component.Kernel.KernelInterface;
 
@@ -398,6 +398,29 @@ class Kernel extends implementationOf(KernelInterface) {
     }
 
     /**
+     * Configures the container.
+     * You can register extensions:
+     *
+     * container.loadFromExtension('framework', {
+     *     secret: '%secret%',
+     * });
+     *
+     * Or services:
+     *
+     * container.register('halloween', 'FooBundle.HalloweenProvider');
+     *
+     * Or parameters:
+     *
+     * container.setParameter('halloween', 'lot of fun');
+     *
+     * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
+     * @param {Jymfony.Component.Config.Loader.LoaderInterface} loader
+     *
+     * @protected
+     */
+    _configureContainer(container, loader) { } // eslint-disable-line no-unused-vars
+
+    /**
      * Returns a loader for the container.
      *
      * @param {Jymfony.Component.DependencyInjection.Container} container The service container
@@ -409,7 +432,9 @@ class Kernel extends implementationOf(KernelInterface) {
     _getContainerLoader(container) {
         const locator = new FileLocator(this);
         const resolver = new LoaderResolver([
-            new JsFileLoader(container, locator),
+            new Loader.JsFileLoader(container, locator),
+            new Loader.JsonFileLoader(container, locator),
+            new Loader.FunctionLoader(container),
         ]);
 
         return new DelegatingLoader(resolver);
@@ -452,8 +477,11 @@ class Kernel extends implementationOf(KernelInterface) {
     /**
      * @inheritDoc
      */
-    registerContainerConfiguration(/* loader */) {
-        return undefined;
+    registerContainerConfiguration(loader) {
+        loader.load((container) => {
+            this._configureContainer(container, loader);
+            container.addObjectResource(this);
+        });
     };
 
     /**

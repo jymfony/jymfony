@@ -10,4 +10,4 @@ class CacheClearerInterface {
     clear(cacheDir) { }
 }
 
-module.exports = instanceOf(CacheClearerInterface);
+module.exports = getInterface(CacheClearerInterface);

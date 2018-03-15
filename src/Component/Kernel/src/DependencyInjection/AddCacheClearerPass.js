@@ -34,7 +34,7 @@ class AddCacheClearerPass extends implementationOf(CompilerPassInterface) {
             clearers.push(new Reference(id));
         }
 
-        container.getDefinition(this._cacheClearerId).replaceArgument(0, clearers);
+        container.getDefinition(this._cacheClearerId).setArguments([ clearers ]);
 
         return clearers;
     }

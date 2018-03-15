@@ -1,3 +1,4 @@
+const Processor = Jymfony.Component.Config.Definition.Processor;
 const Container = Jymfony.Component.DependencyInjection.Container;
 const BadMethodCallException = Jymfony.Component.DependencyInjection.Exception.BadMethodCallException;
 const InvalidArgumentException = Jymfony.Component.DependencyInjection.Exception.InvalidArgumentException;
@@ -9,6 +10,10 @@ const ExtensionInterface = Jymfony.Component.DependencyInjection.Extension.Exten
  * @memberOf Jymfony.Component.DependencyInjection.Extension
  */
 class Extension extends implementationOf(ExtensionInterface) {
+    __construct() {
+        this._processedConfigs = [];
+    }
+
     /**
      * @inheritDoc
      */
@@ -56,8 +61,12 @@ class Extension extends implementationOf(ExtensionInterface) {
     /**
      * @todo
      */
-    _processConfiguration(configuration, configs) { // eslint-disable-line no-unused-vars
-        throw new Exception('Unimplemented');
+    _processConfiguration(configuration, configs) {
+        const processor = new Processor();
+        const processed = processor.processConfiguration(configuration, configs);
+        this._processedConfigs.push(processed);
+
+        return processed;
     }
 
     /**

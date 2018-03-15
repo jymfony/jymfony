@@ -1,19 +1,14 @@
 const FileLoader = Jymfony.Component.Config.Loader.FileLoader;
 const FileResource = Jymfony.Component.Config.Resource.FileResource;
 
-const fs = require('fs');
 const path = require('path');
-const vm = require('vm');
 
 /**
- * JsFileLoader loads service definitions from a js file.
- *
- * The js file is required and the container variable can be
- * used within the file to change the container.
+ * JsonFileLoader loads configurations from a JSON file.
  *
  * @memberOf Jymfony.Component.DependencyInjection.Loader
  */
-class JsFileLoader extends FileLoader {
+class JsonFileLoader extends FileLoader {
     /**
      * Constructor.
      *
@@ -38,15 +33,8 @@ class JsFileLoader extends FileLoader {
         this.currentDir = path.dirname(filePath);
         this._container.addResource(new FileResource(filePath));
 
-        const code = '(function (container, loader) {\n'+fs.readFileSync(filePath)+'\n})';
-        const script = new vm.Script(code, {
-            filename: filePath,
-            produceCachedData: false,
-        });
-
-        script.runInThisContext({
-            filename: filePath,
-        })(this._container, this);
+        const content = require(filePath);
+        this._loadFromExtensions(content);
     }
 
     /**
@@ -57,12 +45,22 @@ class JsFileLoader extends FileLoader {
             return false;
         }
 
-        if (undefined === type && '.js' === path.extname(resource)) {
+        if (undefined === type && '.json' === path.extname(resource)) {
             return true;
         }
 
-        return 'js' === type;
+        return 'json' === type;
+    }
+
+    _loadFromExtensions(content) {
+        for (const [ name, values ] of __jymfony.getEntries(content)) {
+            if (0 < [ 'imports', 'parameters', 'services' ].indexOf(name)) {
+                continue;
+            }
+
+            this._container.loadFromExtension(name, values);
+        }
     }
 }
 
-module.exports = JsFileLoader;
+module.exports = JsonFileLoader;

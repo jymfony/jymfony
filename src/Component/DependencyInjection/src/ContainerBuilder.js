@@ -204,7 +204,7 @@ class ContainerBuilder extends Container {
     /**
      * Loads the configuration for an extension
      *
-     * @param {Jymfony.Component.DependencyInjection.Extension.ExtensionInterface} extension
+     * @param {string} extension
      * @param {Object<string, *>} values
      *
      * @returns {Jymfony.Component.DependencyInjection.ContainerBuilder}
@@ -382,7 +382,7 @@ class ContainerBuilder extends Container {
             this._extensionConfigs[name] = [];
         }
 
-        return Object.assign({}, this._extensionConfigs[name]);
+        return [ ...this._extensionConfigs[name] ];
     }
 
     /**
@@ -452,8 +452,7 @@ class ContainerBuilder extends Container {
      */
     setAlias(alias, id) {
         id = Container.normalizeId(id);
-        alias = Container.normalizeId(alias);
-        alias = alias.toLowerCase();
+        alias = Container.normalizeId(alias).toLowerCase();
 
         if (isString(id)) {
             id = new Alias(id);

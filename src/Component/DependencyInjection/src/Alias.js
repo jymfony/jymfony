@@ -1,9 +1,11 @@
+const Container = Jymfony.Component.DependencyInjection.Container;
+
 /**
  * @memberOf Jymfony.Component.DependencyInjection
  */
 class Alias {
     __construct(id, public_ = false) {
-        this._id = id;
+        this._id = Container.normalizeId(id);
         this._public = public_;
     }
 

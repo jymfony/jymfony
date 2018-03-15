@@ -27,3 +27,10 @@ container.register(Jymfony.Component.HttpServer.EventListener.ExceptionListener,
     .addArgument(new Reference('logger'))
     .addArgument('%kernel.debug%')
 ;
+
+container.register(Jymfony.Component.HttpServer.EventListener.RouterListener, Jymfony.Component.HttpServer.EventListener.RouterListener)
+    .addTag('kernel.event_subscriber')
+    .addArgument(new Reference('router'))
+    .addArgument(new Reference('logger'))
+    .addArgument('%kernel.debug%')
+;

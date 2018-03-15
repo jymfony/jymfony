@@ -298,6 +298,8 @@ class Route {
      */
     setCondition(/* condition */) {
         // @todo
+
+        return this;
     }
 
     /**
