@@ -130,7 +130,7 @@ class Route {
      */
     setMethods(methods) {
         if (0 === methods.length) {
-            throw InvalidArgumentException('At least one method must be set for a route');
+            throw new InvalidArgumentException('At least one method must be set for a route');
         }
 
         this._methods = methods.map(s => s.toUpperCase());
