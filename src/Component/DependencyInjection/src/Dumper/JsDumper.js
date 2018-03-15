@@ -374,7 +374,7 @@ ${this._addReturn(id, definition)}\
                     throw new ServiceCircularReferenceException(id, [ id ]);
                 }
 
-                code += this._addNewInstance(sDefinition, name, ' = ');
+                code += this._addNewInstance(sDefinition, 'let ' + name, ' = ');
 
                 if (! this._hasReference(id, sDefinition.getMethodCalls(), true) && ! this._hasReference(id, sDefinition.getProperties(), true)) {
                     code += this._addProperties(undefined, sDefinition, name);
