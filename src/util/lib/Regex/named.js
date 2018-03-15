@@ -33,7 +33,7 @@ if (! __jymfony.Platform.hasModernRegex()) {
 
         exec(string) {
             const result = super.exec(string);
-            if (! result) {
+            if (! result || ! /\(\?<(\w+)>/.test(this._source)) {
                 return result;
             }
 
