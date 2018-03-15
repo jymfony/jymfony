@@ -118,11 +118,14 @@ class HttpServer {
         response.prepare(request);
 
         res.writeHead(response.statusCode, response.statusText, response.headers.all);
-        yield new Promise((resolve) => {
-            res.write(response.content, 'utf8', () => {
-                resolve();
+
+        if (! response.isEmpty && response.content) {
+            yield new Promise((resolve) => {
+                res.write(response.content, 'utf8', () => {
+                    resolve();
+                });
             });
-        });
+        }
 
         res.end();
     }
