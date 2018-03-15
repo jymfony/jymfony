@@ -294,7 +294,7 @@ class BaseNode extends implementationOf(NodeInterface) {
      *
      * @throws {Exception}
      * @throws {Jymfony.Component.Config.Definition.Exception.InvalidConfigurationException}
-     * 
+     *
      * @final
      */
     finalize(value) {
