@@ -1,4 +1,5 @@
 const CacheItem = Jymfony.Component.Cache.CacheItem;
+const DateTime = Jymfony.Component.DateTime.DateTime;
 const LoggerAwareTrait = Jymfony.Component.Logger.LoggerAwareTrait;
 
 /**

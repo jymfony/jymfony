@@ -108,6 +108,7 @@ class HttpServer {
         }
 
         const request = new Request(req.url, requestParams, {}, req.headers, {
+            'REQUEST_METHOD': req.method,
             'REMOTE_ADDR': req.connection.remoteAddress,
             'SCHEME': this._getScheme(),
             'SERVER_PROTOCOL': 'HTTP/'+req.httpVersion,

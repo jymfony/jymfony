@@ -1,6 +1,7 @@
 const CacheItem = Jymfony.Component.Cache.CacheItem;
 const CacheItemPoolInterface = Jymfony.Component.Cache.CacheItemPoolInterface;
 const ArrayTrait = Jymfony.Component.Cache.Traits.ArrayTrait;
+const DateTime = Jymfony.Component.DateTime.DateTime;
 const LoggerAwareInterface = Jymfony.Component.Logger.LoggerAwareInterface;
 
 /**
