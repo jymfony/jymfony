@@ -20,8 +20,8 @@ class NoCallsPrediction extends implementationOf(PredictionInterface) {
             '  %s.%s(%s)\n' +
             'but %d %s made:\n%s',
             (new ReflectionClass(object.reveal()).name,
-                method.methodName,
-                method.argumentsWildcard),
+            method.methodName,
+            method.argumentsWildcard),
             calls.length,
             verb,
             calls.map(call => call.toString())

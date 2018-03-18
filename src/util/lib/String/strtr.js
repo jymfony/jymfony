@@ -1,5 +1,7 @@
 'use strict';
 
+require('../Regex/quote');
+
 global.__jymfony = global.__jymfony || {};
 
 global.__jymfony.strtr = function strtr(string, replacePairs) {
