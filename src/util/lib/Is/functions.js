@@ -44,7 +44,7 @@ if (__jymfony.Platform.hasAsyncFunctionSupport()) {
 }
 
 global.isFunction = function isFunction(obj) {
-    if (undefined !== BoundFunction && obj instanceof BoundFunction) {
+    if (undefined !== global.BoundFunction && obj instanceof BoundFunction) {
         return true;
     }
 
