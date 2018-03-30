@@ -41,6 +41,19 @@ class AbstractParser extends implementationOf(ParserInterface) {
     }
 
     /**
+     * Decodes a string buffer into a request param object.
+     *
+     * @param {string} buffer
+     *
+     * @returns {[Object<string, *>, Object<string, Jymfony.Component.HttpFoundation.File.UploadedFile>]}
+     *
+     * @abstract
+     */
+    decode() {
+        throw new LogicException('Method "decode" must be implemented.');
+    }
+
+    /**
      * @inheritDoc
      */
     parse() {

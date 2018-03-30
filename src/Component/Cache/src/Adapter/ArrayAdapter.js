@@ -6,7 +6,6 @@ const LoggerAwareInterface = Jymfony.Component.Logger.LoggerAwareInterface;
 
 /**
  * @memberOf Jymfony.Component.Cache.Adapter
- * @abstract
  */
 class ArrayAdapter extends implementationOf(CacheItemPoolInterface, LoggerAwareInterface, ArrayTrait) {
     __construct(defaultLifetime = 0) {

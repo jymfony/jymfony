@@ -1,3 +1,4 @@
+const BadRequestException = Jymfony.Component.HttpServer.Exception.BadRequestException;
 const BadRequestHttpException = Jymfony.Component.HttpFoundation.Exception.BadRequestHttpException;
 const HttpExceptionInterface = Jymfony.Component.HttpFoundation.Exception.HttpExceptionInterface;
 const NotFoundHttpException = Jymfony.Component.HttpFoundation.Exception.NotFoundHttpException;
