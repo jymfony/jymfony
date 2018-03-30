@@ -33,6 +33,8 @@ As said, Jymfony is made of reusable Javascript components:
 - `@jymfony/dependency-injection`
 - `@jymfony/event-dispatcher`
 - `@jymfony/filesystem`
+- `@jymfony/http-foundation`
+- `@jymfony/http-server`
 - `@jymfony/kernel`
 - `@jymfony/lexer`
 - `@jymfony/logger`
