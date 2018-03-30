@@ -29,13 +29,16 @@ As said, Jymfony is made of reusable Javascript components:
 - `@jymfony/config`
 - `@jymfony/console`
 - `@jymfony/datetime`
+- `@jymfony/debug`
 - `@jymfony/dependency-injection`
 - `@jymfony/event-dispatcher`
 - `@jymfony/filesystem`
+- `@jymfony/kernel`
 - `@jymfony/lexer`
 - `@jymfony/logger`
 - `@jymfomy/options-resolver`
 - `@jymfony/property-access`
+- `@jymfony/routing`
 - `@jymfony/testing`
 
 Each component have its own `README.md`, you can read more about those there.
@@ -56,6 +59,14 @@ class ThisIsATrait {
 }
 
 module.exports = getInterface(ThisIsATrait);
+```
+
+Testing
+-------
+In order to test Jymfony, just run:
+
+```sh
+$ yarn test
 ```
 
 Contributing
