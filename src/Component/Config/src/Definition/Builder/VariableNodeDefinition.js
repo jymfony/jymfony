@@ -30,7 +30,7 @@ class VariableNodeDefinition extends NodeDefinition {
             node.setAllowOverwrite(this._merge.allowOverwrite);
         }
 
-        if (true === this._default) {
+        if (true === this._isDefault) {
             node.setDefaultValue(this._default);
         }
 

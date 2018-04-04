@@ -18,7 +18,7 @@ class HttpServer {
      *
      * @param {Jymfony.Component.EventDispatcher.EventDispatcherInterface} dispatcher
      * @param {Jymfony.Component.HttpFoundation.Controller.ControllerResolverInterface} resolver
-     * @param {http.Server} http
+     * @param {http} http
      */
     __construct(dispatcher, resolver, http = require('http')) {
         /**

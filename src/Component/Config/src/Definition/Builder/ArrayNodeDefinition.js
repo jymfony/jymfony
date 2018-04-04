@@ -297,7 +297,7 @@ class ArrayNodeDefinition extends mix(NodeDefinition, ParentNodeDefinitionInterf
             .beforeNormalization()
                 .ifArray()
                 .then((v) => {
-                    v.enabled = v.enabled || true;
+                    v.enabled = undefined === v.enabled ? true : v.enabled;
 
                     return v;
                 })

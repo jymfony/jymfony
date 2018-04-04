@@ -15,6 +15,7 @@ class Configuration extends implementationOf(ConfigurationInterface) {
         const rootNode = treeBuilder.root('framework');
 
         this._addRouterSection(rootNode);
+        this._addHttpServerSection(rootNode);
 
         return treeBuilder;
     }
@@ -33,6 +34,20 @@ class Configuration extends implementationOf(ConfigurationInterface) {
                     .scalarNode('resource').isRequired().end()
                     .scalarNode('type').end()
                 .end()
+            .end()
+        ;
+    }
+
+    /**
+     * @param {Jymfony.Component.Config.Definition.Builder.ArrayNodeDefinition} rootNode
+     * @private
+     */
+    _addHttpServerSection(rootNode) {
+        rootNode
+            .children()
+                .arrayNode('http_server')
+                .info('http server configuration')
+                .canBeEnabled()
             .end()
         ;
     }

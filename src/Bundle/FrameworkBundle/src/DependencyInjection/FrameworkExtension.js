@@ -18,13 +18,13 @@ class FrameworkExtension extends Extension {
         const loader = new JsFileLoader(container, new FileLocator(path.join(__dirname, '..', 'Resources', 'config')));
         loader.load('services.js');
         loader.load('commands.js');
-        loader.load('http-server.js');
         loader.load('logger.js');
 
         const configuration = this.getConfiguration(container);
         const config = this._processConfiguration(configuration, configs);
 
         this._registerRouterConfiguration(config.router, container, loader);
+        this._registerHttpServerConfiguration(config.http_server, container, loader);
     }
 
     /**
@@ -60,6 +60,19 @@ class FrameworkExtension extends Extension {
         }
 
         definition.replaceArgument(3, options);
+    }
+
+    /**
+     * @param {*} config
+     * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
+     * @param {Jymfony.Component.DependencyInjection.Loader.LoaderInterface} loader
+     */
+    _registerHttpServerConfiguration(config, container, loader) {
+        if (! this._isConfigEnabled(container, config)) {
+            return;
+        }
+
+        loader.load('http-server.js');
     }
 }
 
