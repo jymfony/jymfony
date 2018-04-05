@@ -1,5 +1,8 @@
 const NormalizerFormatter = Jymfony.Component.Logger.Formatter.NormalizerFormatter;
 
+/**
+ * @memberOf Jymfony.Component.Logger.Formatter
+ */
 class LineFormatter extends NormalizerFormatter {
     __construct(format = undefined, dateFormat = undefined, allowInlineLineBreaks = false) {
         /**

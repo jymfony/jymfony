@@ -7,6 +7,11 @@ container.register('jymfony.logger_prototype', Jymfony.Component.Logger.Logger)
     .addArgument([])
 ;
 
+container.register('jymfony.logger.formatter.json', Jymfony.Component.Logger.Formatter.JsonFormatter);
+container.register('jymfony.logger.formatter.line', Jymfony.Component.Logger.Formatter.LineFormatter);
+container.register('jymfony.logger.formatter.normalizer', Jymfony.Component.Logger.Formatter.NormalizerFormatter);
+container.register('jymfony.logger.formatter.console', Jymfony.Component.Logger.Formatter.ConsoleFormatter);
+
 container.register('jymfony.logger.handler_prototype.stream', Jymfony.Component.Logger.Handler.StreamHandler)
     .setArguments([
         null,
