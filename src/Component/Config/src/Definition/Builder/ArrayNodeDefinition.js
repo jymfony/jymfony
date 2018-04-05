@@ -1,4 +1,5 @@
 const ArrayNode = Jymfony.Component.Config.Definition.ArrayNode;
+const PrototypedArrayNode = Jymfony.Component.Config.Definition.PrototypedArrayNode;
 const NodeDefinition = Jymfony.Component.Config.Definition.Builder.NodeDefinition;
 const NodeBuilder = Jymfony.Component.Config.Definition.Builder.NodeBuilder;
 const ParentNodeDefinitionInterface = Jymfony.Component.Config.Definition.Builder.ParentNodeDefinitionInterface;
@@ -436,7 +437,7 @@ class ArrayNodeDefinition extends mix(NodeDefinition, ParentNodeDefinitionInterf
 
             if (false !== this._addDefaultChildren) {
                 node.setAddChildrenIfNoneSet(this._addDefaultChildren);
-                if (this.prototype instanceof this.constructor && undefined === this._prototype._prototype) {
+                if (this._prototype instanceof ArrayNodeDefinition && undefined === this._prototype._prototype) {
                     this._prototype.addDefaultsIfNotSet();
                 }
             }

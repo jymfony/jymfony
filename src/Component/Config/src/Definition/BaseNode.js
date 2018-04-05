@@ -12,7 +12,7 @@ class BaseNode extends implementationOf(NodeInterface) {
      * @throws \InvalidArgumentException if the name contains a period
      */
     __construct(name, parent = undefined) {
-        if (-1 !== name.indexOf('.')) {
+        if (isString(name) && -1 !== name.indexOf('.')) {
             throw new InvalidArgumentException('The name must not contain ".".');
         }
 

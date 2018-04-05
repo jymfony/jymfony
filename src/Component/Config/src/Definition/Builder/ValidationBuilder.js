@@ -1,3 +1,5 @@
+const ExprBuilder = Jymfony.Component.Config.Definition.Builder.ExprBuilder;
+
 /**
  * This class builds validation conditions.
  *
@@ -34,7 +36,7 @@ class ValidationBuilder {
             return this;
         }
 
-        const expr = new ExprBuilder(this.node);
+        const expr = new ExprBuilder(this._node);
         this.rules.push(expr);
 
         return expr;

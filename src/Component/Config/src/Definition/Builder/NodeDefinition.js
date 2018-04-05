@@ -267,6 +267,15 @@ class NodeDefinition extends implementationOf(NodeParentInterface) {
     }
 
     /**
+     * Sets undefined as the default value.
+     *
+     * @returns {Jymfony.Component.Config.Definition.Builder.NodeDefinition}
+     */
+    defaultUndefined() {
+        return this.defaultValue(undefined);
+    }
+
+    /**
      * Sets true as the default value.
      *
      * @returns {Jymfony.Component.Config.Definition.Builder.NodeDefinition}
