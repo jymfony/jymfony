@@ -114,6 +114,10 @@ class FrameworkExtension extends Extension {
                 );
         }
 
+        if (handler.formatter) {
+            definition.addProperty('formatter', new Reference(handler.formatter));
+        }
+
         container.setDefinition(handlerId, definition);
 
         return handlerId;
