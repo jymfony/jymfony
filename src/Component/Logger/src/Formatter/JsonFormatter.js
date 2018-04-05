@@ -16,7 +16,7 @@ class JsonFormatter extends NormalizerFormatter {
      * @inheritDoc
      */
     format(record) {
-        return JSON.stringify(this._normalize(record));
+        return JSON.stringify(this._normalize(record)) + '\n';
     }
 
     /**
@@ -62,7 +62,7 @@ class JsonFormatter extends NormalizerFormatter {
 
         if (isObject(record)) {
             if (record instanceof Error) {
-                return this._normalizeError(record);
+                return this._normalizeError(record, depth);
             }
 
             const reflClass = new ReflectionClass(record);

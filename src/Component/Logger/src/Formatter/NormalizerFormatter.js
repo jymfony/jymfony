@@ -93,7 +93,7 @@ class NormalizerFormatter extends implementationOf(FormatterInterface) {
 
         if (isObject(record)) {
             if (record instanceof Error) {
-                return this._normalizeError(record);
+                return this._normalizeError(record, depth);
             }
 
             const reflClass = new ReflectionClass(record);
@@ -118,7 +118,7 @@ class NormalizerFormatter extends implementationOf(FormatterInterface) {
      *
      * @protected
      */
-    _normalizeError(record) {
+    _normalizeError(record, depth) {
         const trace = Exception.parseStackTrace(record);
         const reflClass = new ReflectionClass(trace);
 
