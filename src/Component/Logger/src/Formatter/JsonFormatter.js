@@ -1,3 +1,4 @@
+const DateTime = Jymfony.Component.DateTime.DateTime;
 const NormalizerFormatter = Jymfony.Component.Logger.Formatter.NormalizerFormatter;
 
 /**
@@ -14,13 +15,20 @@ class JsonFormatter extends NormalizerFormatter {
     /**
      * @inheritDoc
      */
+    format(record) {
+        return JSON.stringify(this._normalize(record));
+    }
+
+    /**
+     * @inheritDoc
+     */
     _normalize(record, depth = 0) {
-        if (isScalar(record)) {
-            if (isNumber(record) && ! Number.isFinite(record)) {
+        if (isNumber(record)) {
+            if (! Number.isFinite(record)) {
                 return (0 < record ? '' : '-') + 'INF';
             }
 
-            if (isNaN(record)) {
+            if (record !== record) {
                 return 'NaN';
             }
         }
