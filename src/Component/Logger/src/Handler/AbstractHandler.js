@@ -1,3 +1,4 @@
+const LineFormatter = Jymfony.Component.Logger.Formatter.LineFormatter;
 const HandlerInterface = Jymfony.Component.Logger.Handler.HandlerInterface;
 const LogLevel = Jymfony.Component.Logger.LogLevel;
 
@@ -72,6 +73,15 @@ class AbstractHandler extends implementationOf(HandlerInterface) {
      */
     set bubble(value) {
         this._bubble = value;
+    }
+
+    /**
+     * Gets the default formatter.
+     *
+     * @returns {Jymfony.Component.Logger.Formatter.FormatterInterface}
+     */
+    getDefaultFormatter() {
+        return new LineFormatter();
     }
 }
 

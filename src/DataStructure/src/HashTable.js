@@ -226,6 +226,33 @@ class HashTable extends mix(undefined, GenericCollectionTrait) {
     }
 
     /**
+     * Returns if a key is present in the table.
+     *
+     * @param {int|string} key
+     *
+     * @returns {boolean}
+     */
+    has(key) {
+        const hashCode = isNumericInt(key) ? ~~key : hash(String(key));
+        const bucketIdx = hashCode % this._bucketSize;
+        let e = this._buckets[bucketIdx];
+
+        if (e === undefined) {
+            return false;
+        }
+
+        while (e !== undefined) {
+            if (e.key == key) {
+                return true;
+            }
+
+            e = e.next;
+        }
+
+        return false;
+    }
+
+    /**
      * Removes an element from the collection.
      *
      * @param {int|string} key
@@ -377,7 +404,7 @@ class HashTable extends mix(undefined, GenericCollectionTrait) {
             return;
         }
 
-        while (e.key != key) {
+        while (e !== undefined && e.key != key) {
             e = e.next;
         }
 

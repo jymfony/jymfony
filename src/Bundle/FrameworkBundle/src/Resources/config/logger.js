@@ -1,17 +1,27 @@
 /** @global container */
 /** @var {Jymfony.Component.DependencyInjection.ContainerBuilder} container */
 
-const Alias = Jymfony.Component.DependencyInjection.Alias;
-const ChildDefinition = Jymfony.Component.DependencyInjection.ChildDefinition;
-
 container.register('jymfony.logger_prototype', Jymfony.Component.Logger.Logger)
     .setAbstract(true)
     .addArgument(undefined)
+    .addArgument([])
 ;
 
-const definition = (new ChildDefinition('jymfony.logger_prototype'))
-    .setPublic(false)
-    .replaceArgument(0, 'app');
+container.register('jymfony.logger.handler_prototype.stream', Jymfony.Component.Logger.Handler.StreamHandler)
+    .setArguments([
+        null,
+        Jymfony.Component.Logger.LogLevel.DEBUG,
+        true,
+        undefined,
+    ])
+    .setAbstract(true)
+;
 
-container.setDefinition('jymfony.logger', definition);
-container.setAlias('logger', (new Alias('jymfony.logger').setPublic(true)));
+container.register('jymfony.logger.handler_prototype.console', Jymfony.Component.Logger.Handler.ConsoleHandler)
+    .setArguments([
+        undefined,
+        true,
+        undefined,
+    ])
+    .setAbstract(true)
+;

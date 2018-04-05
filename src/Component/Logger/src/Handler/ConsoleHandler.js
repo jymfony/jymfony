@@ -25,11 +25,11 @@ class ConsoleHandler extends mix(AbstractProcessingHandler, EventSubscriberInter
      * @param {boolean} bubble
      * @param {Object} verbosityLevelMap
      */
-    __construct(output = undefined, bubble = true, verbosityLevelMap = DEFAULT_VERBOSITY_MAP) {
+    __construct(output = undefined, bubble = true, verbosityLevelMap = undefined) {
         super.__construct(LogLevel.DEBUG, bubble);
 
         this._output = output;
-        this._verbosityLevelMap = verbosityLevelMap;
+        this._verbosityLevelMap = verbosityLevelMap || DEFAULT_VERBOSITY_MAP;
     }
 
     /**

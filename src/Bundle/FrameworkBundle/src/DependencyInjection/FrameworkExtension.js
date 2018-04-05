@@ -1,5 +1,9 @@
 const Configuration = Jymfony.Bundle.FrameworkBundle.DependencyInjection.Configuration;
+const InvalidConfigurationException = Jymfony.Component.Config.Definition.Exception.InvalidConfigurationException;
 const FileLocator = Jymfony.Component.Config.FileLocator;
+const Alias = Jymfony.Component.DependencyInjection.Alias;
+const ChildDefinition = Jymfony.Component.DependencyInjection.ChildDefinition;
+const Reference = Jymfony.Component.DependencyInjection.Reference;
 const JsFileLoader = Jymfony.Component.DependencyInjection.Loader.JsFileLoader;
 const Extension = Jymfony.Component.DependencyInjection.Extension.Extension;
 const path = require('path');
@@ -18,11 +22,11 @@ class FrameworkExtension extends Extension {
         const loader = new JsFileLoader(container, new FileLocator(path.join(__dirname, '..', 'Resources', 'config')));
         loader.load('services.js');
         loader.load('commands.js');
-        loader.load('logger.js');
 
         const configuration = this.getConfiguration(container);
         const config = this._processConfiguration(configuration, configs);
 
+        this._registerLoggerConfiguration(config.logger, container, loader);
         this._registerRouterConfiguration(config.router, container, loader);
         this._registerHttpServerConfiguration(config.http_server, container, loader);
     }
@@ -39,6 +43,85 @@ class FrameworkExtension extends Extension {
     /**
      * @param {*} config
      * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
+     * @param loader
+     */
+    _registerLoggerConfiguration(config, container, loader) {
+        if (! this._isConfigEnabled(container, config) || ! config.handlers) {
+            return;
+        }
+
+        if (! ReflectionClass.exists('Jymfony.Component.Logger.Logger')) {
+            throw new InvalidConfigurationException('Logger component is not installed');
+        }
+
+        loader.load('logger.js');
+
+        const handlers = new PriorityQueue();
+        for (const [name, handler] of __jymfony.getEntries(config.handlers)) {
+            handlers.push(new Reference(this._buildLoggerHandler(container, name, handler)), handler.priority);
+        }
+
+        const definition = (new ChildDefinition('jymfony.logger_prototype'))
+            .setPublic(false)
+            .replaceArgument(0, 'app')
+            .replaceArgument(1, handlers.toArray())
+        ;
+
+        container.setDefinition('jymfony.logger', definition);
+        container.setAlias('logger', new Alias('jymfony.logger', true));
+    }
+
+    _buildLoggerHandler(container, name, handler) {
+        const handlerId = 'jymfony.logger.handler.'+name;
+        if ('service' === handler.type) {
+            container.setAlias(handler, handler.id);
+
+            return handlerId;
+        }
+
+        const definition = new ChildDefinition('jymfony.logger.handler_prototype.'+handler.type);
+        handler.level = isNumber(handler.level) ? handler.level : Jymfony.Component.Logger.LogLevel[handler.level.toUpperCase()];
+
+        switch (handler.type) {
+            case 'stream':
+                definition.setArguments([
+                    handler.path,
+                    handler.level,
+                    handler.bubble,
+                    handler.file_permission,
+                ]);
+                break;
+
+            case 'console':
+                definition.setArguments([
+                    undefined,
+                    handler.bubble,
+                    handler.verbosity_levels,
+                ]);
+                definition.addTag('kernel.event_subscriber');
+                break;
+
+            case 'null':
+                definition.setArguments([
+                    handler.level,
+                    handler.bubble,
+                ]);
+                break;
+
+            default:
+                throw new InvalidArgumentException(
+                    __jymfony.sprintf('Invalid handler type "%s" given for handler "%s"', handler.type, name)
+                );
+        }
+
+        container.setDefinition(handlerId, definition);
+
+        return handlerId;
+    }
+
+    /**
+     * @param {*} config
+     * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
      * @param {Jymfony.Component.DependencyInjection.Loader.LoaderInterface} loader
      */
     _registerRouterConfiguration(config, container, loader) {
@@ -47,6 +130,10 @@ class FrameworkExtension extends Extension {
             container.removeDefinition('console.command.router_match');
 
             return;
+        }
+
+        if (! ReflectionClass.exists('Jymfony.Component.Routing.RouterInterface')) {
+            throw new InvalidConfigurationException('Router component is not installed');
         }
 
         loader.load('routing.js');
@@ -70,6 +157,10 @@ class FrameworkExtension extends Extension {
     _registerHttpServerConfiguration(config, container, loader) {
         if (! this._isConfigEnabled(container, config)) {
             return;
+        }
+
+        if (! ReflectionClass.exists('Jymfony.Component.HttpServer.HttpServer')) {
+            throw new InvalidConfigurationException('HttpServer component is not installed');
         }
 
         loader.load('http-server.js');

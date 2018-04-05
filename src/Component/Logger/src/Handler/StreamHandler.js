@@ -13,7 +13,7 @@ class StreamHandler extends AbstractProcessingHandler {
      * @param {Writable|string} stream
      * @param filePermission
      */
-    __construct(stream, level = LogLevel.DEBUG, bubble = true, filePermission = null) {
+    __construct(stream, level = LogLevel.DEBUG, bubble = true, filePermission = undefined) {
         super.__construct(level, bubble);
 
         if (isString(stream)) {
@@ -34,13 +34,23 @@ class StreamHandler extends AbstractProcessingHandler {
         }
     }
 
+    /**
+     * Flushes the stream and closes it.
+     */
+    close() {
+        this._stream.end('');
+        this._stream = undefined;
+    }
+
     _write(record) {
         if (undefined === this._stream) {
             this._createDir();
+            const fd = fs.openSync(this._file, 'a', this._filePermission || 0o666);
             this._stream = fs.createWriteStream(this._file, {
-                mode: this._filePermission,
-                flags: 'a',
+                fd,
             });
+
+            process.on('exit', () => this.close());
         }
 
         this._streamWrite(record);
@@ -54,7 +64,9 @@ class StreamHandler extends AbstractProcessingHandler {
      * @private
      */
     _streamWrite(record) {
+        this._stream.cork();
         this._stream.write(record.formatted);
+        this._stream.uncork();
     }
 
     /**
@@ -68,7 +80,13 @@ class StreamHandler extends AbstractProcessingHandler {
         }
 
         this._dirCreated = true;
-        __jymfony.mkdir(path.dirname(this._file));
+        try {
+            __jymfony.mkdir(path.dirname(this._file));
+        } catch (e) {
+            if ('EEXIST' !== e.code) {
+                throw e;
+            }
+        }
     }
 }
 

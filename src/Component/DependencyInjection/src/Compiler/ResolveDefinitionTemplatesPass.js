@@ -131,7 +131,7 @@ class ResolveDefinitionTemplatesPass extends AbstractRecursivePass {
             }
         }
 
-        definition.setArguments(parentDef.getArguments());
+        definition._arguments = parentDef.getArguments();
         for (const argument of definition.getArguments()) {
             def.addArgument(argument);
         }
