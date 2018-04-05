@@ -14,6 +14,7 @@ container.register(Jymfony.Component.HttpServer.HttpServer, Jymfony.Component.Ht
         new Reference('event_dispatcher'),
         new Reference(Jymfony.Component.HttpFoundation.Controller.ControllerResolverInterface),
     ])
+    .addMethodCall('setLogger', [ new Reference('logger') ])
 ;
 
 container.register('kernel.exception_controller', Jymfony.Bundle.FrameworkBundle.Controller.ExceptionController)
