@@ -2,6 +2,7 @@ const FlattenException = Jymfony.Component.Debug.Exception.FlattenException;
 const EventSubscriberInterface = Jymfony.Component.EventDispatcher.EventSubscriberInterface;
 const Events = Jymfony.Component.HttpServer.Event.HttpServerEvents;
 const HttpExceptionInterface = Jymfony.Component.HttpFoundation.Exception.HttpExceptionInterface;
+const NotFoundHttpException = Jymfony.Component.HttpFoundation.Exception.NotFoundHttpException;
 const Request = Jymfony.Component.HttpFoundation.Request;
 const DebugLoggerInterface = Jymfony.Component.Kernel.Log.DebugLoggerInterface;
 
@@ -38,7 +39,9 @@ class ExceptionListener extends implementationOf(EventSubscriberInterface) {
             exceptionClass = new ReflectionClass(exception).name || exceptionClass;
         } catch (e) { }
 
-        this._logException(exception, __jymfony.sprintf('Uncaught Exception %s: "%s"', exceptionClass, exception.message));
+        if (! (exception instanceof NotFoundHttpException)) {
+            this._logException(exception, __jymfony.sprintf('Uncaught Exception %s: "%s"', exceptionClass, exception.message));
+        }
 
         let response;
         request = this._duplicateRequest(exception, request);
