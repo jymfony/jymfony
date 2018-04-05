@@ -29,7 +29,7 @@ class ChildDefinition extends Definition {
      * @inheritDoc
      */
     setArguments(args) {
-        for (const [k,v] of __jymfony.getEntries(args)) {
+        for (const [ k, v ] of __jymfony.getEntries(args)) {
             this.replaceArgument(k, v);
         }
 

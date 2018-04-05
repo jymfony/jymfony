@@ -57,7 +57,7 @@ class FrameworkExtension extends Extension {
         loader.load('logger.js');
 
         const handlers = new PriorityQueue();
-        for (const [name, handler] of __jymfony.getEntries(config.handlers)) {
+        for (const [ name, handler ] of __jymfony.getEntries(config.handlers)) {
             handlers.push(new Reference(this._buildLoggerHandler(container, name, handler)), handler.priority);
         }
 
