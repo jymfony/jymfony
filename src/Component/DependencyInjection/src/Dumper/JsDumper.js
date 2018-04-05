@@ -366,7 +366,7 @@ ${this._addReturn(id, definition)}\
             }
             processed.add(sDefinition);
 
-            if (1 < nbOccurrences.get(sDefinition) || sDefinition.getMethodCalls().length || sDefinition.getProperties().length || sDefinition.getConfigurator()) {
+            if (1 < nbOccurrences.get(sDefinition) || sDefinition.getMethodCalls().length || Object.keys(sDefinition.getProperties()).length || sDefinition.getConfigurator()) {
                 const name = this._getNextVariableName();
                 this._definitionVariables.set(sDefinition, new Variable(name));
 

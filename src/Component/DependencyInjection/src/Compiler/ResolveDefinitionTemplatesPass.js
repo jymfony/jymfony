@@ -92,6 +92,7 @@ class ResolveDefinitionTemplatesPass extends AbstractRecursivePass {
         def.setPublic(parentDef.isPublic());
         def.setLazy(parentDef.isLazy());
         def.setChanges(parentDef.getChanges());
+        def.setProperties(parentDef.getProperties());
 
         const changes = definition.getChanges();
         if (changes.class) {
