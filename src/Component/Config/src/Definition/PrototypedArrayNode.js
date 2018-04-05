@@ -115,12 +115,12 @@ class PrototypedArrayNode extends ArrayNode {
     getDefaultValue() {
         if (undefined !== this._defaultChildren) {
             const defaultValue = this._prototype.hasDefaultValue() ? this._prototype.getDefaultValue() : {};
-            const defaults = {};
+            const defaults = new HashTable();
             for (const [ i, name ] of __jymfony.getEntries(Object.values(this._defaultChildren))) {
-                defaults[undefined === this._keyAttribute ? i : name] = defaultValue;
+                defaults.put(undefined === this._keyAttribute ? i : name, defaultValue);
             }
 
-            return defaults;
+            return defaults.toObject();
         }
 
         return this._defaultValue;
