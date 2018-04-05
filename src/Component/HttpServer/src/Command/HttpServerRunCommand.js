@@ -22,6 +22,18 @@ class HttpServerRunCommand extends Command {
     }
 
     configure() {
+        this.description = 'Run the http server and listen for incoming connections';
+        this.help = `The <info>%command.name%</info> command will run the http server and listen for connections on the given address and port:
+
+  <info>%command.full_name%</info>
+
+Will listen on all addresses on port 80.
+  
+  <info>%command.full_name% 127.0.0.1 8080</info>
+
+Starts the server and listen on port 8080 on localhost address only.`
+        ;
+
         this.addArgument('address', InputArgument.OPTIONAL, 'The address where the server will listen to', '0.0.0.0');
         this.addArgument('port', InputArgument.OPTIONAL, 'The port', 80);
     }

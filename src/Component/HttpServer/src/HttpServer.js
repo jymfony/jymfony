@@ -8,6 +8,7 @@ const Request = Jymfony.Component.HttpFoundation.Request;
 const Response = Jymfony.Component.HttpFoundation.Response;
 const Event = Jymfony.Component.HttpServer.Event;
 const RequestParser = Jymfony.Component.HttpServer.RequestParser;
+const NullLogger = Jymfony.Component.Logger.NullLogger;
 
 /**
  * @memberOf Jymfony.Component.HttpServer
@@ -38,6 +39,21 @@ class HttpServer {
          * @protected
          */
         this._http = new http.Server(this._incomingRequest.bind(this));
+
+        /**
+         * @type {Jymfony.Component.Logger.LoggerInterface}
+         * @private
+         */
+        this._logger = new NullLogger();
+    }
+
+    /**
+     * Sets the logger for the current http server.
+     *
+     * @param {Jymfony.Component.Logger.LoggerInterface} logger
+     */
+    setLogger(logger) {
+        this._logger = logger;
     }
 
     /**
@@ -61,6 +77,8 @@ class HttpServer {
             } else {
                 this._http.listen({ host, port });
             }
+
+            this._logger.debug('Http server listening on '+(path || host + ':' + port));
         });
     }
 
@@ -75,10 +93,15 @@ class HttpServer {
     _incomingRequest(req, res) {
         return __jymfony.Async
             .run(this._handleRequest(req, res))
-            .catch(() => {
+            .catch((e) => {
                 res.writeHead(500, { 'Content-Type': 'text/plain' });
                 res.write('Unknown error while handling your request.\r\n');
                 res.end();
+
+                this._logger.error('Error while processing request: ' + e.message, {
+                    exception: e,
+                    request: req,
+                });
             });
     }
 
@@ -102,6 +125,10 @@ class HttpServer {
                 res.writeHead(400, {'Content-Type': 'text/plain'});
             } else {
                 res.writeHead(500, {'Content-Type': 'text/plain'});
+                this._logger.error('Error while parsing request content: '+e.message, {
+                    exception: e,
+                    request: req,
+                });
             }
 
             res.end();
