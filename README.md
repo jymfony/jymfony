@@ -7,7 +7,7 @@ Jymfony was born from an idea of [Alessandro Chitolina](https://github.com/aleki
 
 Requirements
 ------------
-- Node.js >= 6.0.0
+- Node.js >= 8.10.0
 
 Installation
 ------------
