@@ -10,6 +10,7 @@ module.exports = class FrozenParameterBag extends ParameterBag {
      * @param {Map} params
      */
     __construct(params) {
+        this._env = {};
         this._params = params;
         this._resolved = true;
     }

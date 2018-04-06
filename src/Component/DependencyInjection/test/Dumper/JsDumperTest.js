@@ -84,4 +84,13 @@ describe('[DependencyInjection] JsDumper', function () {
         expect(dumper.dump())
             .to.be.equal(fs.readFileSync(path.join(fixturesPath, 'js', 'services9.js')).toString());
     });
+
+    it('should handle env parameters', () => {
+        const container = require(path.join(fixturesPath, 'containers', 'container-env.js'));
+        container.compile();
+
+        const dumper = new JsDumper(container);
+        expect(dumper.dump())
+            .to.be.equal(fs.readFileSync(path.join(fixturesPath, 'js', 'services-env.js')).toString());
+    });
 });

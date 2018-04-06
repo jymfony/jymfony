@@ -63,7 +63,6 @@ class ParameterBag {
      * @returns {*}
      */
     get(name) {
-        name = name.toLowerCase();
         if ('env()' !== name && 'env(' === name.substr(0, 4) && ')' === name.substr(-1, 1)) {
             const matches = /env\((.+)\)/.exec(name);
             const envVarName = matches[1];
@@ -73,10 +72,10 @@ class ParameterBag {
                 return this._env[envVarName] = process.env[envVarName];
             }
 
-            return this._env[envVarName] = this._get(name, true);
+            return this._env[envVarName] = this._get(name.toLowerCase(), true);
         }
 
-        return this._get(name);
+        return this._get(name.toLowerCase());
     }
 
     /**
@@ -168,6 +167,10 @@ class ParameterBag {
      * @returns {*}
      */
     resolveString(value, resolving) {
+        if ('%env()%' !== value && '%env(' === value.substr(0, 5) && ')%' === value.substr(-2, 2)) {
+            return value;
+        }
+
         const match = /^%([^%\s]+)%$/.exec(value);
         if (match) {
             const key = match[1].toLowerCase();
@@ -177,7 +180,7 @@ class ParameterBag {
             }
 
             resolving.add(key);
-            return this._resolved ? this.get(key) : this.resolveValue(this.get(key), resolving);
+            return this._resolved ? this.get(match[1]) : this.resolveValue(this.get(match[1]), resolving);
         }
 
         return value.replace(/%%|%([^%\s]+)%/g, (match, p1) => {
@@ -190,7 +193,7 @@ class ParameterBag {
                 throw new ParameterCircularReferenceException(Array.from(resolving));
             }
 
-            let resolved = this.get(key);
+            let resolved = this.get(p1);
 
             if (! isString(resolved) && ! isNumber(resolved)) {
                 throw new RuntimeException(`A string value must be composed of strings and/or numbers, but found parameter "${key}" of type ${typeof resolved} inside string value "${value}".`);

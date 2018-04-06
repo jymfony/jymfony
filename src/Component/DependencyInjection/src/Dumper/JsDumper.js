@@ -200,7 +200,7 @@ module.exports = global.${className} = ${className};
         let code = '{\n';
         const parameters = this._container.parameterBag.all();
         for (const key of Object.keys(parameters)) {
-            code += `            "${key}": ${this._dumpParameter(key)},` + '\n';
+            code += `            "${key}": ${this._dumpParameter(key, false)},` + '\n';
         }
         code += '        }';
 
@@ -588,14 +588,14 @@ ${this._addReturn(id, definition)}\
         } else if (interpolate && isString(value)) {
             let match;
             if (match = /^%([^%]+)%$/.exec(value)) {
-                return this._dumpParameter(match[1].toLowerCase());
+                return this._dumpParameter(match[1]);
             }
 
             const replaceParameters = (match, p1, p2) => {
-                return '\'+' + this._dumpParameter(p2.toLowerCase()) + '+\'';
+                return '"+' + this._dumpParameter(p2) + '+"';
             };
 
-            return this._export(value).replace(/(%)?(%)([^%]+)\1/g, replaceParameters).replace(/%%/g, '%');
+            return this._export(value).replace(RegExp('(?<!%)(%)([^%]+)\\1', 'g'), replaceParameters).replace(/%%/g, '%');
         } else if (isArray(value) || isObjectLiteral(value)) {
             const code = [];
             for (const [ k, v ] of __jymfony.getEntries(value)) {
@@ -643,17 +643,19 @@ ${this._addReturn(id, definition)}\
      * Dumps a parameter.
      *
      * @param {string} name
+     * @param {boolean} resolveEnv
      *
      * @returns {string}
      *
      * @private
      */
-    _dumpParameter(name) {
-        if ('env()' !== name && 'env(' === name.substr(0, 4) && ')' === name.substr(-1, 1)) {
+    _dumpParameter(name, resolveEnv = true) {
+        if (resolveEnv && 'env()' !== name && 'env(' === name.substr(0, 4) && ')' === name.substr(-1, 1)) {
             const matches = /env\((.+)\)/.exec(name);
             const envVarName = matches[1];
 
             this._container.addResource(new EnvVariableResource(envVarName));
+            return 'this.getParameter(\"env('+envVarName+')\")';
         }
 
         const parameter = this._container.getParameter(name);
@@ -665,7 +667,7 @@ ${this._addReturn(id, definition)}\
             throw new InvalidArgumentException(__jymfony.sprintf('You cannot dump a container with parameters that contain variable references. Variable "%s" found in "%s".', parameter.toString(), name));
         }
 
-        return this._export(parameter, false);
+        return this._export(parameter);
     }
 
     _getServiceCall(id, reference = undefined) {

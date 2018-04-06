@@ -55,6 +55,10 @@ class ResolveParameterPlaceHoldersPass extends AbstractRecursivePass {
         if (isObjectLiteral(value)) {
             const res = {};
             for (const [ k, v ] of __jymfony.getEntries(value)) {
+                if ('%env()%' !== k && '%env(' === k.substr(0, 5) && ')%' === k.substr(-2, 2)) {
+                    throw new InvalidArgumentException('Cannot use environment variable '+k.substr(5, k.length-7) + ' as object key.');
+                }
+
                 res[this._bag.resolveValue(k)] = v;
             }
 
