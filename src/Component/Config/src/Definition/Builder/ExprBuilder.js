@@ -75,7 +75,7 @@ class ExprBuilder {
      * @returns {Jymfony.Component.Config.Definition.Builder.ExprBuilder}
      */
     ifNull() {
-        this.ifPart = (v) => null === v;
+        this.ifPart = (v) => (null === v || undefined === v);
 
         return this;
     }
@@ -86,7 +86,9 @@ class ExprBuilder {
      * @returns {Jymfony.Component.Config.Definition.Builder.ExprBuilder}
      */
     ifEmpty() {
-        this.ifPart = (v) => !v;
+        this.ifPart = (v) => {
+            return (!v || (isArray(v) && 0 === v.length) || (isObjectLiteral(v) && 0 === Object.keys(v).length));
+        };
 
         return this;
     }

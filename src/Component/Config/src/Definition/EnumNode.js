@@ -42,7 +42,6 @@ class EnumNode extends ScalarNode {
 
         return value;
     }
-
 }
 
 module.exports = EnumNode;

@@ -49,7 +49,7 @@ class EnumNodeDefinition extends ScalarNodeDefinition {
             throw new RuntimeException('You must call values() on enum nodes.');
         }
 
-        return new EnumNode(this._name, this._parent);
+        return new EnumNode(this._name, this._parent, this._values);
     }
 }
 
