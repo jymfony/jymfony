@@ -106,4 +106,98 @@ describe('[Config] ExprBuilder', function () {
             .end();
         expectFinalizedValueIs('test_value', builder, { key: [] });
     });
+
+    it('if array expression', () => {
+        let builder = testBuilder()
+            .ifArray()
+            .then(() => 'test_value')
+            .end();
+        expectFinalizedValueIs('value', builder);
+
+        builder = testBuilder()
+            .ifArray()
+            .then(() => 'test_value')
+            .end();
+        expectFinalizedValueIs('test_value', builder, { key: { foo: 'bar' } });
+
+        builder = testBuilder()
+            .ifArray()
+            .then(() => 'test_value')
+            .end();
+        expectFinalizedValueIs('test_value', builder, { key: [ 'bar', 'baz' ] });
+    });
+
+    it('if inArray expression', () => {
+        let builder = testBuilder()
+            .ifInArray([ 'foo', 'bar' ])
+            .then(() => 'test_value')
+            .end();
+        expectFinalizedValueIs('value', builder);
+
+        builder = testBuilder()
+            .ifInArray([ 'foo', 'bar', 'value' ])
+            .then(() => 'test_value')
+            .end();
+        expectFinalizedValueIs('test_value', builder);
+    });
+
+    it('if notInArray expression', () => {
+        let builder = testBuilder()
+            .ifNotInArray([ 'foo', 'bar' ])
+            .then(() => 'test_value')
+            .end();
+        expectFinalizedValueIs('test_value', builder);
+
+        builder = testBuilder()
+            .ifNotInArray([ 'foo', 'bar', 'value' ])
+            .then(() => 'test_value')
+            .end();
+        expectFinalizedValueIs('value', builder);
+    });
+
+    it('then empty array expression', () => {
+        const builder = testBuilder()
+            .ifString()
+            .thenEmptyArray()
+            .end();
+        expectFinalizedValueIs([], builder);
+    });
+
+    it('then empty object expression', () => {
+        const builder = testBuilder()
+            .ifString()
+            .thenEmptyObject()
+            .end();
+        expectFinalizedValueIs({}, builder);
+    });
+
+    it('then invalid expression', () => {
+        const builder = testBuilder()
+            .ifString()
+            .thenInvalid('Invalid value')
+            .end();
+
+        expect(() => finalizeTestBuilder(builder))
+            .to.throw(Jymfony.Component.Config.Definition.Exception.InvalidConfigurationException);
+    });
+
+    it('then unset expression', () => {
+        const builder = testBuilder()
+            .ifString()
+            .thenUnset()
+            .end();
+
+        expect(finalizeTestBuilder(builder)).to.deep.equal({});
+    });
+
+    it('should throw if no if part is set', () => {
+        const builder = testBuilder();
+        expect(builder.end.bind(builder)).to.throw(RuntimeException);
+    });
+
+    it('should throw if no than part is set', () => {
+        const builder = testBuilder()
+            .ifString();
+        expect(builder.end.bind(builder)).to.throw(RuntimeException);
+    });
 });

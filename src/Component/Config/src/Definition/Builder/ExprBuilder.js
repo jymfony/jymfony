@@ -1,4 +1,5 @@
 const UnsetKeyException = Jymfony.Component.Config.Definition.Exception.UnsetKeyException;
+const InvalidConfigurationException = Jymfony.Component.Config.Definition.Exception.InvalidConfigurationException;
 
 /**
  * This class builds an if expression.
@@ -167,6 +168,19 @@ class ExprBuilder {
     }
 
     /**
+     * Sets a closure returning an empty object.
+     *
+     * @returns {Jymfony.Component.Config.Definition.Builder.ExprBuilder}
+     */
+    thenEmptyObject() {
+        this.thenPart = () => {
+            return {};
+        };
+
+        return this;
+    }
+
+    /**
      * Sets a closure marking the value as invalid at validation time.
      *
      * if you want to add the value of the node in your message just use a %s placeholder.
@@ -179,7 +193,7 @@ class ExprBuilder {
      */
     thenInvalid(message) {
         this.thenPart = (v) => {
-            throw new InvalidArgumentException(__jymfony.sprintf(message, JSON.stringify(v)));
+            throw new InvalidConfigurationException(__jymfony.sprintf(message, JSON.stringify(v)));
         };
 
         return this;

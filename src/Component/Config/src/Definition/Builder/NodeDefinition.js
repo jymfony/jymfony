@@ -122,7 +122,7 @@ class NodeDefinition extends implementationOf(NodeParentInterface) {
     /**
      * Sets example configuration.
      *
-     * @param {string|array} example
+     * @param {string|array|Object} example
      *
      * @returns {Jymfony.Component.Config.Definition.Builder.NodeDefinition}
      */
