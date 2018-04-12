@@ -58,10 +58,11 @@ class Logger extends AbstractLogger {
      * Returns a new cloned instance with name changed.
      *
      * @param {string} name
+     *
      * @returns {Jymfony.Component.Logger.Logger}
      */
     withName(name) {
-        return new Logger(name, [ ...this._handlers ], [ ...this._processors ]);
+        return new Logger(name, [ ...this._handlers ], [ ...this._processors ], this._timezone);
     }
 
     /**
