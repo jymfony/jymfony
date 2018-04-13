@@ -43,7 +43,7 @@ As said, Jymfony is made of reusable Javascript components:
 - `@jymfony/routing`
 - `@jymfony/testing`
 
-Each component have its own `README.md`, you can read more about those there.
+Each component has its own `README.md`, you can read more about those there.
 
 Also, it comes with some `DataStructures`. With Jymfony you can declare:
 - interfaces
@@ -60,7 +60,7 @@ class ThisIsATrait {
     // ...
 }
 
-module.exports = getInterface(ThisIsATrait);
+module.exports = getTrait(ThisIsATrait);
 ```
 
 Testing
