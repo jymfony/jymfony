@@ -97,6 +97,8 @@ class Logger extends AbstractLogger {
      * @param {Jymfony.Component.Logger.Handler.HandlerInterface[]} handlers
      */
     set handlers(handlers) {
+        this._handlers = [];
+
         if (! isArray(handlers)) {
             handlers = Object.values(handlers);
         }
@@ -159,7 +161,7 @@ class Logger extends AbstractLogger {
      *
      * @returns {boolean}
      */
-    addRecord(level, message, context) {
+    addRecord(level, message, context = {}) {
         const levelName = this.constructor.levels[level];
 
         const it = __jymfony.getEntries(this._handlers);
@@ -198,6 +200,102 @@ class Logger extends AbstractLogger {
         } while (current = it.next(), ! current.done);
 
         return true;
+    }
+
+    /**
+     * Adds a log record at the DEBUG level.
+     *
+     * @param {string} message
+     * @param {Object.<*>} context
+     *
+     * @return {boolean}
+     */
+    addDebug(message, context = {}) {
+        return this.addRecord(LogLevel.DEBUG, message, context);
+    }
+
+    /**
+     * Adds a log record at the INFO level.
+     *
+     * @param {string} message
+     * @param {Object.<*>} context
+     *
+     * @return {boolean}
+     */
+    addInfo(message, context = {}) {
+        return this.addRecord(LogLevel.INFO, message, context);
+    }
+
+    /**
+     * Adds a log record at the NOTICE level.
+     *
+     * @param {string} message
+     * @param {Object.<*>} context
+     *
+     * @return {boolean}
+     */
+    addNotice(message, context = {}) {
+        return this.addRecord(LogLevel.NOTICE, message, context);
+    }
+
+    /**
+     * Adds a log record at the WARNING level.
+     *
+     * @param {string} message
+     * @param {Object.<*>} context
+     *
+     * @return {boolean}
+     */
+    addWarning(message, context = {}) {
+        return this.addRecord(LogLevel.WARNING, message, context);
+    }
+
+    /**
+     * Adds a log record at the ERROR level.
+     *
+     * @param {string} message
+     * @param {Object.<*>} context
+     *
+     * @return {boolean}
+     */
+    addError(message, context = {}) {
+        return this.addRecord(LogLevel.ERROR, message, context);
+    }
+
+    /**
+     * Adds a log record at the CRITICAL level.
+     *
+     * @param {string} message
+     * @param {Object.<*>} context
+     *
+     * @return {boolean}
+     */
+    addCritical(message, context = {}) {
+        return this.addRecord(LogLevel.CRITICAL, message, context);
+    }
+
+    /**
+     * Adds a log record at the ALERT level.
+     *
+     * @param {string} message
+     * @param {Object.<*>} context
+     *
+     * @return {boolean}
+     */
+    addAlert(message, context = {}) {
+        return this.addRecord(LogLevel.ALERT, message, context);
+    }
+
+    /**
+     * Adds a log record at the EMERGENCY level.
+     *
+     * @param {string} message
+     * @param {Object.<*>} context
+     *
+     * @return {boolean}
+     */
+    addEmergency(message, context = {}) {
+        return this.addRecord(LogLevel.EMERGENCY, message, context);
     }
 
     /**
