@@ -104,14 +104,64 @@ class Autoloader {
          */
         this._global.__jymfony.JObject = class JObject {
             constructor(...$args) {
-                return this.__construct(...$args);
+                const retVal = this.__construct(...$args);
+                if (undefined !== retVal && this !== retVal) {
+                    return retVal;
+                }
+
+                if (undefined !== this.__invoke) {
+                    return new Proxy(this.__invoke, {
+                        get: (target, key) => {
+                            return Reflect.get(this, key);
+                        },
+                        set: (target, key, value) => {
+                            return Reflect.set(this, key, value);
+                        },
+                        has: (target, key) => {
+                            return Reflect.has(this, key);
+                        },
+                        deleteProperty: (target, key) => {
+                            return Reflect.deleteProperty(this, key);
+                        },
+                        defineProperty: (target, key, descriptor) => {
+                            return Reflect.defineProperty(this, key, descriptor);
+                        },
+                        enumerate: () => {
+                            return Reflect.enumerate(this);
+                        },
+                        ownKeys: () => {
+                            return Reflect.ownKeys(this);
+                        },
+                        apply: (target, ctx, args) => {
+                            return this.__invoke(...args);
+                        },
+                        construct: (target, argumentsList, newTarget) => {
+                            return Reflect.construct(this, argumentsList, newTarget);
+                        },
+                        getPrototypeOf: () => {
+                            return Reflect.getPrototypeOf(this);
+                        },
+                        setPrototypeOf: (target, proto) => {
+                            return Reflect.setPrototypeOf(this, proto);
+                        },
+                        isExtensible: () => {
+                            return Reflect.isExtensible(this);
+                        },
+                        preventExtensions: () => {
+                            return Reflect.preventExtensions(this);
+                        },
+                        getOwnPropertyDescriptor: (target, key) => {
+                            return Reflect.getOwnPropertyDescriptor(this, key);
+                        },
+                    });
+                }
             }
 
             __construct() { }
         };
 
-        Symbol.reflection = Symbol('reflection');
-        Symbol.docblock = Symbol('docblock');
+        this._global.Symbol.reflection = Symbol('reflection');
+        this._global.Symbol.docblock = Symbol('docblock');
 
         const rootDir = this._finder.findRoot();
         for (const module of this._finder.listModules()) {
