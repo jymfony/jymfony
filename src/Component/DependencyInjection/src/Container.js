@@ -90,8 +90,6 @@ class Container {
      * @param {*} service
      */
     set(id, service) {
-        id = id.toLowerCase();
-
         if ('service_container' === id) {
             throw new InvalidArgumentException('A service with name "service_container" cannot be set');
         }
@@ -118,25 +116,19 @@ class Container {
     has(id) {
         id = __self.normalizeId(id);
 
-        for (let i = 2;;) {
-            if ('service_container' === id || undefined !== this._aliases[id] || undefined !== this._services[id]) {
-                return true;
-            }
-
-            if (undefined !== this._methodMap[id]) {
-                return true;
-            }
-
-            const lcId = id.toLowerCase();
-            if (--i && id !== lcId) {
-                id = lcId;
-                continue;
-            } else if (this.constructor instanceof Jymfony.Component.DependencyInjection.ContainerBuilder) {
-                return this['get' + __jymfony.strtr(id, underscoreMap) + 'Service'] !== undefined;
-            }
-
-            return false;
+        if ('service_container' === id || undefined !== this._aliases[id] || undefined !== this._services[id]) {
+            return true;
         }
+
+        if (undefined !== this._methodMap[id]) {
+            return true;
+        }
+
+        if (this.constructor instanceof Jymfony.Component.DependencyInjection.ContainerBuilder) {
+            return this['get' + __jymfony.strtr(id, underscoreMap) + 'Service'] !== undefined;
+        }
+
+        return false;
     }
 
     /**
@@ -150,53 +142,47 @@ class Container {
     get(id, invalidBehavior = Container.EXCEPTION_ON_INVALID_REFERENCE) {
         id = __self.normalizeId(id);
 
-        for (let i = 2;;) {
-            if ('service_container' === id) {
-                return this;
-            }
-
-            if (this._aliases[id]) {
-                id = this._aliases[id];
-            }
-
-            if (this._services.hasOwnProperty(id)) {
-                return this._services[id];
-            }
-
-            if (this._loading[id]) {
-                throw new ServiceCircularReferenceException(id, Object.keys(this._loading));
-            }
-
-            let method;
-            let lcId;
-            if (this._methodMap[id]) {
-                method = this._methodMap[id];
-            } else if (--i && id !== (lcId = id.toLowerCase())) {
-                id = lcId;
-                continue;
-            } else {
-                if (Container.EXCEPTION_ON_INVALID_REFERENCE === invalidBehavior) {
-                    throw new ServiceNotFoundException(id);
-                }
-
-                return;
-            }
-
-            this._loading[id] = true;
-
-            let service;
-            try {
-                service = this[method]();
-            } catch (e) {
-                delete this._services[id];
-
-                throw e;
-            } finally {
-                delete this._loading[id];
-            }
-
-            return service;
+        if ('service_container' === id) {
+            return this;
         }
+
+        if (this._aliases[id]) {
+            id = this._aliases[id];
+        }
+
+        if (this._services.hasOwnProperty(id)) {
+            return this._services[id];
+        }
+
+        if (this._loading[id]) {
+            throw new ServiceCircularReferenceException(id, Object.keys(this._loading));
+        }
+
+        let method;
+        if (this._methodMap[id]) {
+            method = this._methodMap[id];
+        } else {
+            if (Container.EXCEPTION_ON_INVALID_REFERENCE === invalidBehavior) {
+                throw new ServiceNotFoundException(id);
+            }
+
+            return;
+        }
+
+        this._loading[id] = true;
+
+        let service;
+        try {
+            service = this[method]();
+        } catch (e) {
+            delete this._services[id];
+
+            throw e;
+        } finally {
+            delete this._loading[id];
+        }
+
+        return service;
     }
 
     /**
@@ -208,7 +194,6 @@ class Container {
      */
     initialized(id) {
         id = __self.normalizeId(id);
-        id = id.toLowerCase();
 
         if ('service_container' === id) {
             return false;

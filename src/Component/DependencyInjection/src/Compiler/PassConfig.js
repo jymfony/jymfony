@@ -7,10 +7,19 @@ class PassConfig {
     __construct() {
         this._mergePass = new Compiler.MergeExtensionConfigurationPass();
 
+        const minus1000 = -1000;
         this._beforeOptimizationPasses = {
-            0: [
+            100: [
+                new Compiler.ResolveClassPass(),
+            ],
+            [minus1000]: [
                 new Compiler.ExtensionCompilerPass(),
-                new Compiler.ResolveDefinitionTemplatesPass(),
+            ],
+        };
+
+        this._optimizationPasses = {
+            0: [
+                new Compiler.ResolveChildDefinitionsPass(),
                 new Compiler.DecoratorServicePass(),
                 new Compiler.ResolveParameterPlaceHoldersPass(),
                 new Compiler.CheckDefinitionValidityPass(),
@@ -21,8 +30,6 @@ class PassConfig {
                 new Compiler.CheckReferenceValidityPass(),
             ],
         };
-
-        this._optimizationPasses = {};
         this._beforeRemovingPasses = {};
 
         this._removingPasses = {

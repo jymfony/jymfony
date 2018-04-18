@@ -802,7 +802,7 @@ ${this._addReturn(id, definition)}\
                     // Todo
                     // If (service.isLazy() && ! (this._getProxyDumper instanceof NullDumper))
 
-                    args = [ ...service.getMethodCalls(), ...service.getArguments(), ...service.getProperties() ];
+                    args = [ ...service.getMethodCalls(), ...service.getArguments(), ...Object.values(service.getProperties()) ];
                     if (this._hasReference(id, args, deep, visited)) {
                         return true;
                     }

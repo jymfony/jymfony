@@ -262,7 +262,6 @@ class ContainerBuilder extends Container {
      */
     set(id, service) {
         id = Container.normalizeId(id);
-        id = id.toLowerCase();
 
         if (this.frozen && undefined !== this._definitions[id] && ! this._definitions[id].isSynthetic()) {
             throw new BadMethodCallException('Cannot set a non-synthetic service into a frozen container');
@@ -281,7 +280,7 @@ class ContainerBuilder extends Container {
      */
     removeDefinition(id) {
         id = Container.normalizeId(id);
-        delete this._definitions[id.toLowerCase()];
+        delete this._definitions[id];
     }
 
     /**
@@ -293,7 +292,6 @@ class ContainerBuilder extends Container {
      */
     has(id) {
         id = Container.normalizeId(id);
-        id = id.toLowerCase();
 
         return undefined !== this._definitions[id] || undefined !== this._aliasDefinitions[id] || super.has(id);
     }
@@ -308,7 +306,6 @@ class ContainerBuilder extends Container {
      */
     get(id, invalidBehavior = Container.EXCEPTION_ON_INVALID_REFERENCE) {
         id = Container.normalizeId(id);
-        id = id.toLowerCase();
 
         let service = super.get(id, Container.NULL_ON_INVALID_REFERENCE);
         if (undefined !== service) {
@@ -452,7 +449,7 @@ class ContainerBuilder extends Container {
      */
     setAlias(alias, id) {
         id = Container.normalizeId(id);
-        alias = Container.normalizeId(alias).toLowerCase();
+        alias = Container.normalizeId(alias);
 
         if (isString(id)) {
             id = new Alias(id);
@@ -474,7 +471,7 @@ class ContainerBuilder extends Container {
      * @param {string} alias
      */
     removeAlias(alias) {
-        delete this._aliasDefinitions[alias.toLowerCase()];
+        delete this._aliasDefinitions[alias];
     }
 
     /**
@@ -485,7 +482,7 @@ class ContainerBuilder extends Container {
      * @returns {boolean}
      */
     hasAlias(alias) {
-        return undefined !== this._aliasDefinitions[alias.toString().toLowerCase()];
+        return undefined !== this._aliasDefinitions[alias.toString()];
     }
 
     /**
@@ -506,7 +503,6 @@ class ContainerBuilder extends Container {
      */
     getAlias(id) {
         id = Container.normalizeId(id);
-        id = id.toLowerCase();
 
         if (undefined === this._aliasDefinitions[id]) {
             throw new InvalidArgumentException('The service alias "'+id+' does not exist');
@@ -578,7 +574,6 @@ class ContainerBuilder extends Container {
         }
 
         id = Container.normalizeId(id);
-        id = id.toLowerCase();
         delete this._aliasDefinitions[id];
 
         return this._definitions[id] = definition;
@@ -594,7 +589,7 @@ class ContainerBuilder extends Container {
     hasDefinition(id) {
         id = Container.normalizeId(id);
 
-        return undefined !== this._definitions[id.toString().toLowerCase()];
+        return undefined !== this._definitions[id.toString()];
     }
 
     /**
@@ -608,7 +603,6 @@ class ContainerBuilder extends Container {
      */
     getDefinition(id) {
         id = Container.normalizeId(id);
-        id = id.toString().toLowerCase();
 
         if (undefined === this._definitions[id]) {
             throw new ServiceNotFoundException(id);
@@ -629,7 +623,6 @@ class ContainerBuilder extends Container {
      */
     findDefinition(id) {
         id = Container.normalizeId(id);
-        id = id.toLowerCase();
 
         while (this._aliasDefinitions[id]) {
             id = this._aliasDefinitions[id].toString();
@@ -843,7 +836,7 @@ class ContainerBuilder extends Container {
             return;
         }
 
-        this._services[id.toLowerCase()] = service;
+        this._services[id] = service;
     }
 
     /**
