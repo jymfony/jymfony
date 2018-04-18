@@ -125,6 +125,10 @@ class Logger extends AbstractLogger {
      * @returns {Jymfony.Component.Logger.Logger}
      */
     pushProcessor(processor) {
+        if (! isFunction(processor)) {
+            throw new InvalidArgumentException('Processors must be valid callables.');
+        }
+
         this._processors.unshift(processor);
         return this;
     }

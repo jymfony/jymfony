@@ -19,9 +19,9 @@ class NoCallsPrediction extends implementationOf(PredictionInterface) {
             'No calls expected that match:\n' +
             '  %s.%s(%s)\n' +
             'but %d %s made:\n%s',
-            (new ReflectionClass(object.reveal()).name,
+            (new ReflectionClass(object.reveal())).name,
             method.methodName,
-            method.argumentsWildcard),
+            method.argumentsWildcard,
             calls.length,
             verb,
             calls.map(call => call.toString())

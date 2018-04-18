@@ -108,4 +108,69 @@ describe('[Logger] Logger', function () {
         expect(logger.popProcessor()).to.be.equal(processor1);
         expect(logger.popProcessor.bind(logger)).to.throw(LogicException);
     });
+
+    it('should throw on pushing non-callable processor', () => {
+        const logger = new Logger('foo');
+
+        expect(logger.pushProcessor.bind(logger, {})).to.throw(InvalidArgumentException);
+    });
+
+    it('should execute processors', () => {
+        const logger = new Logger('foo');
+        const handler = new TestHandler();
+        let count = 0;
+
+        logger.pushHandler(handler);
+        logger.pushProcessor(record => {
+            record.extra.win = true;
+            count++;
+
+            return record;
+        });
+
+        logger.addError('test');
+        const [ record ] = handler.records;
+
+        expect(record.extra.win).to.be.true;
+        expect(count).to.be.equal(1);
+    });
+
+    it('should not execute processors when not handling', () => {
+        const logger = new Logger('foo');
+        const handler = this._prophet.prophesize(HandlerInterface);
+        handler.isHandling(Argument.any()).willReturn(false);
+        let count = 0;
+
+        logger.pushHandler(handler.reveal());
+        logger.pushProcessor(record => {
+            count++;
+
+            return record;
+        });
+
+        logger.addError('test');
+
+        expect(count).to.be.equal(0);
+    });
+
+    it('should not call handlers before first handling', () => {
+        const logger = new Logger('foo');
+        const handler1 = this._prophet.prophesize(HandlerInterface);
+        handler1.isHandling(Argument.any()).willReturn(false);
+        handler1.handle(Argument.any()).shouldBeCalledTimes(1).willReturn(false);
+
+        const handler2 = this._prophet.prophesize(HandlerInterface);
+        handler2.isHandling(Argument.any()).willReturn(true);
+        handler2.handle(Argument.any()).shouldBeCalledTimes(1).willReturn(false);
+
+        const handler3 = this._prophet.prophesize(HandlerInterface);
+        handler3.isHandling(Argument.any()).willReturn(false);
+        handler3.handle(Argument.any()).shouldNotBeCalled();
+
+        logger.pushHandler(handler1.reveal());
+        logger.pushHandler(handler2.reveal());
+        logger.pushHandler(handler3.reveal());
+
+        logger.addError('test');
+    });
 });
