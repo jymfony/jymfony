@@ -8,7 +8,7 @@ container.register(Jymfony.Component.HttpFoundation.Controller.ControllerResolve
     .addArgument(new Reference('logger'))
 ;
 
-container.register(Jymfony.Component.HttpServer.HttpServer, Jymfony.Component.HttpServer.HttpServer)
+container.register(Jymfony.Component.HttpServer.HttpServer)
     .setPublic(true)
     .setArguments([
         new Reference('event_dispatcher'),
@@ -22,14 +22,14 @@ container.register('kernel.exception_controller', Jymfony.Bundle.FrameworkBundle
     .addArgument('%kernel.debug%')
 ;
 
-container.register(Jymfony.Component.HttpServer.EventListener.ExceptionListener, Jymfony.Component.HttpServer.EventListener.ExceptionListener)
+container.register(Jymfony.Component.HttpServer.EventListener.ExceptionListener)
     .addTag('kernel.event_subscriber')
     .addArgument('kernel.exception_controller:showAction')
     .addArgument(new Reference('logger'))
     .addArgument('%kernel.debug%')
 ;
 
-container.register(Jymfony.Component.HttpServer.EventListener.RouterListener, Jymfony.Component.HttpServer.EventListener.RouterListener)
+container.register(Jymfony.Component.HttpServer.EventListener.RouterListener)
     .addTag('kernel.event_subscriber')
     .addTag('jymfony.logger', { channel: 'request' })
     .addArgument(new Reference('router'))
@@ -37,7 +37,7 @@ container.register(Jymfony.Component.HttpServer.EventListener.RouterListener, Jy
     .addArgument('%kernel.debug%')
 ;
 
-container.register(Jymfony.Component.HttpServer.Command.HttpServerRunCommand, Jymfony.Component.HttpServer.Command.HttpServerRunCommand)
+container.register(Jymfony.Component.HttpServer.Command.HttpServerRunCommand)
     .addTag('console.command')
     .addArgument(new Reference(Jymfony.Component.HttpServer.HttpServer))
 ;
