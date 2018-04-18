@@ -1,7 +1,9 @@
 const Bundle = Jymfony.Component.Kernel.Bundle;
+const PassConfig = Jymfony.Component.DependencyInjection.Compiler.PassConfig;
 const RegisterListenerPass = Jymfony.Component.EventDispatcher.DependencyInjection.Compiler.RegisterListenerPass;
 const RoutingResolverPass = Jymfony.Component.Routing.DependencyInjection.RoutingResolverPass;
 const AddCacheWarmerPass = Jymfony.Bundle.FrameworkBundle.DependencyInjection.Compiler.AddCacheWarmerPass;
+const LoggerChannelPass = Jymfony.Bundle.FrameworkBundle.DependencyInjection.Compiler.LoggerChannelPass;
 const AddConsoleCommandPass = Jymfony.Component.Console.DependencyInjection.AddConsoleCommandPass;
 const AddCacheClearerPass = Jymfony.Component.Kernel.DependencyInjection.AddCacheClearerPass;
 
@@ -21,9 +23,10 @@ class FrameworkBundle extends Bundle {
         container
             .addCompilerPass(new AddCacheWarmerPass())
             .addCompilerPass(new AddConsoleCommandPass())
-            .addCompilerPass(new RegisterListenerPass())
+            .addCompilerPass(new RegisterListenerPass(), PassConfig.TYPE_BEFORE_REMOVING)
             .addCompilerPass(new AddCacheClearerPass())
             .addCompilerPass(new RoutingResolverPass())
+            .addCompilerPass(new LoggerChannelPass())
         ;
     }
 }

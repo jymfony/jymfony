@@ -1,7 +1,6 @@
 const Configuration = Jymfony.Bundle.FrameworkBundle.DependencyInjection.Configuration;
 const InvalidConfigurationException = Jymfony.Component.Config.Definition.Exception.InvalidConfigurationException;
 const FileLocator = Jymfony.Component.Config.FileLocator;
-const Alias = Jymfony.Component.DependencyInjection.Alias;
 const ChildDefinition = Jymfony.Component.DependencyInjection.ChildDefinition;
 const Reference = Jymfony.Component.DependencyInjection.Reference;
 const JsFileLoader = Jymfony.Component.DependencyInjection.Loader.JsFileLoader;
@@ -57,8 +56,16 @@ class FrameworkExtension extends Extension {
         loader.load('logger.js');
 
         const handlers = new PriorityQueue();
+        const handlersToChannels = {};
         for (const [ name, handler ] of __jymfony.getEntries(config.handlers)) {
-            handlers.push(new Reference(this._buildLoggerHandler(container, name, handler)), handler.priority);
+            const serviceId = this._buildLoggerHandler(container, name, handler);
+            handlers.push(new Reference(serviceId), handler.priority);
+
+            if (undefined === handler.channels) {
+                continue;
+            }
+
+            handlersToChannels[serviceId] = handler.channels;
         }
 
         const definition = (new ChildDefinition('jymfony.logger_prototype'))
@@ -67,8 +74,8 @@ class FrameworkExtension extends Extension {
             .replaceArgument(1, handlers.toArray())
         ;
 
+        container.setParameter('jymfony.logger.handlers_to_channels', handlersToChannels);
         container.setDefinition('jymfony.logger', definition);
-        container.setAlias('logger', new Alias('jymfony.logger', true));
     }
 
     _buildLoggerHandler(container, name, handler) {

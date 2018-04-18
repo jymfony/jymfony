@@ -3,6 +3,7 @@
 const TreeBuilder = Jymfony.Component.Config.Definition.Builder.TreeBuilder;
 const ConfigurationInterface = Jymfony.Component.Config.Definition.ConfigurationInterface;
 const InvalidConfigurationException = Jymfony.Component.Config.Definition.Exception.InvalidConfigurationException;
+const UnsetKeyException = Jymfony.Component.Config.Definition.Exception.UnsetKeyException;
 
 /**
  * @memberOf Jymfony.Bundle.FrameworkBundle.DependencyInjection
@@ -128,7 +129,43 @@ class Configuration extends implementationOf(ConfigurationInterface) {
                                         .ifTrue(v => __jymfony.equal({}, v) || __jymfony.equal([], v))
                                         .thenUnset()
                                     .end()
+                                    .validate()
+                                        .always(v => {
+                                            let exclusive = undefined;
+                                            if (v.type) {
+                                                exclusive = 'exclusive' === v.type;
+                                            }
+
+                                            const elements = [];
+                                            for (const element of v.elements) {
+                                                if ('!' === element.charAt(0)) {
+                                                    if (false === exclusive) {
+                                                        throw new InvalidConfigurationException('Cannot combine exclusive/inclusive definitions in channel list');
+                                                    }
+
+                                                    elements.push(element.substr(1));
+                                                    exclusive = true;
+                                                } else {
+                                                    if (true === exclusive) {
+                                                        throw new InvalidConfigurationException('Cannot combine exclusive/inclusive definitions in channel list');
+                                                    }
+
+                                                    elements.push(element);
+                                                    exclusive = false;
+                                                }
+                                            }
+
+                                            if (0 === elements.length) {
+                                                throw new UnsetKeyException();
+                                            }
+
+                                            return { type: exclusive ? 'exclusive' : 'inclusive', elements };
+                                        })
+                                    .end()
                                     .children()
+                                        .enumNode('type')
+                                            .values([ 'inclusive', 'exclusive' ])
+                                        .end()
                                         .arrayNode('elements')
                                             .scalarPrototype().end()
                                         .end()

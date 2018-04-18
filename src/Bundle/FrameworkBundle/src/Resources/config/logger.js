@@ -1,10 +1,15 @@
 /** @global container */
 /** @var {Jymfony.Component.DependencyInjection.ContainerBuilder} container */
 
+const Reference = Jymfony.Component.DependencyInjection.Reference;
+
+container.register('jymfony.logger.processor.message_processor', Jymfony.Component.Logger.Processor.MessageProcessor);
+
 container.register('jymfony.logger_prototype', Jymfony.Component.Logger.Logger)
     .setAbstract(true)
     .addArgument(undefined)
     .addArgument([])
+    .addArgument([ new Reference('jymfony.logger.processor.message_processor') ])
 ;
 
 container.register('jymfony.logger.formatter.json', Jymfony.Component.Logger.Formatter.JsonFormatter);
