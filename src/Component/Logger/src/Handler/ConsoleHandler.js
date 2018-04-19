@@ -21,9 +21,9 @@ class ConsoleHandler extends mix(AbstractProcessingHandler, EventSubscriberInter
     /**
      * Constructor.
      *
-     * @param {Jymfony.Component.Console.Output.OutputInterface} output
-     * @param {boolean} bubble
-     * @param {Object} verbosityLevelMap
+     * @param {Jymfony.Component.Console.Output.OutputInterface} [output]
+     * @param {boolean} [bubble = true]
+     * @param {Object} [verbosityLevelMap]
      */
     __construct(output = undefined, bubble = true, verbosityLevelMap = undefined) {
         super.__construct(LogLevel.DEBUG, bubble);

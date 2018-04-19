@@ -5,6 +5,11 @@ const FormatterInterface = Jymfony.Component.Logger.Formatter.FormatterInterface
  * @memberOf Jymfony.Component.Logger.Formatter
  */
 class NormalizerFormatter extends implementationOf(FormatterInterface) {
+    /**
+     * Constructor.
+     *
+     * @param {string} [dateFormat]
+     */
     __construct(dateFormat = undefined) {
         /**
          * The date format.
@@ -39,7 +44,7 @@ class NormalizerFormatter extends implementationOf(FormatterInterface) {
      * Normalizes a log record
      *
      * @param {*} record
-     * @param {int} depth
+     * @param {number} depth
      *
      * @protected
      */
@@ -115,6 +120,7 @@ class NormalizerFormatter extends implementationOf(FormatterInterface) {
      * Normalizes an Error object.
      *
      * @param {Error} record
+     * @param {number} depth
      *
      * @protected
      */

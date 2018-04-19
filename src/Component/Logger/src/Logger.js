@@ -11,9 +11,9 @@ class Logger extends AbstractLogger {
      * Construct the logger
      *
      * @param {string} name
-     * @param {[Jymfony.Component.Logger.Handler.HandlerInterface]} handlers
-     * @param {[Function]} processors
-     * @param {undefined|string|Jymfony.Component.DateTime.DateTimeZone} timezone
+     * @param {Jymfony.Component.Logger.Handler.HandlerInterface[]} [handlers = []]
+     * @param {Function[]} [processors = []]
+     * @param {undefined|string|Jymfony.Component.DateTime.DateTimeZone} [timezone]
      */
     __construct(name, handlers = [], processors = [], timezone = undefined) {
         /**
@@ -24,14 +24,14 @@ class Logger extends AbstractLogger {
         this._name = name;
 
         /**
-         * @type {[Jymfony.Component.Logger.Handler.HandlerInterface]}
+         * @type {Jymfony.Component.Logger.Handler.HandlerInterface[]}
          *
          * @protected
          */
         this._handlers = handlers;
 
         /**
-         * @type {[Function]}
+         * @type {Function[]}
          *
          * @protected
          */
@@ -81,6 +81,7 @@ class Logger extends AbstractLogger {
      * Pops out an handler off the stack.
      *
      * @returns {Jymfony.Component.Logger.Handler.HandlerInterface}
+     *
      * @throws {Jymfony.Component.Logger.Exception.LogicException}
      */
     popHandler() {
@@ -137,6 +138,7 @@ class Logger extends AbstractLogger {
      * Pops out a processor off the stack.
      *
      * @returns {Jymfony.Component.Logger.Handler.HandlerInterface}
+     *
      * @throws {Jymfony.Component.Logger.Exception.LogicException}
      */
     popProcessor() {
@@ -159,9 +161,9 @@ class Logger extends AbstractLogger {
     /**
      * Adds a record to the log.
      *
-     * @param {int} level
+     * @param {number} level
      * @param {string} message
-     * @param {Object.<*>} context
+     * @param {Object.<*>} [context = {}]
      *
      * @returns {boolean}
      */
@@ -210,7 +212,7 @@ class Logger extends AbstractLogger {
      * Adds a log record at the DEBUG level.
      *
      * @param {string} message
-     * @param {Object.<*>} context
+     * @param {Object.<*>} [context = {}]
      *
      * @return {boolean}
      */
@@ -222,7 +224,7 @@ class Logger extends AbstractLogger {
      * Adds a log record at the INFO level.
      *
      * @param {string} message
-     * @param {Object.<*>} context
+     * @param {Object.<*>} [context = {}]
      *
      * @return {boolean}
      */
@@ -234,7 +236,7 @@ class Logger extends AbstractLogger {
      * Adds a log record at the NOTICE level.
      *
      * @param {string} message
-     * @param {Object.<*>} context
+     * @param {Object.<*>} [context = {}]
      *
      * @return {boolean}
      */
@@ -246,7 +248,7 @@ class Logger extends AbstractLogger {
      * Adds a log record at the WARNING level.
      *
      * @param {string} message
-     * @param {Object.<*>} context
+     * @param {Object.<*>} [context = {}]
      *
      * @return {boolean}
      */
@@ -258,7 +260,7 @@ class Logger extends AbstractLogger {
      * Adds a log record at the ERROR level.
      *
      * @param {string} message
-     * @param {Object.<*>} context
+     * @param {Object.<*>} [context = {}]
      *
      * @return {boolean}
      */
@@ -270,7 +272,7 @@ class Logger extends AbstractLogger {
      * Adds a log record at the CRITICAL level.
      *
      * @param {string} message
-     * @param {Object.<*>} context
+     * @param {Object.<*>} [context = {}]
      *
      * @return {boolean}
      */
@@ -282,7 +284,7 @@ class Logger extends AbstractLogger {
      * Adds a log record at the ALERT level.
      *
      * @param {string} message
-     * @param {Object.<*>} context
+     * @param {Object.<*>} [context = {}]
      *
      * @return {boolean}
      */
@@ -294,7 +296,7 @@ class Logger extends AbstractLogger {
      * Adds a log record at the EMERGENCY level.
      *
      * @param {string} message
-     * @param {Object.<*>} context
+     * @param {Object.<*>} [context = {}]
      *
      * @return {boolean}
      */
@@ -305,7 +307,7 @@ class Logger extends AbstractLogger {
     /**
      * Checks if there's a handler that listen on level
      *
-     * @param {int} level
+     * @param {number} level
      */
     isHandling(level) {
         const record = { level: level };
@@ -324,9 +326,9 @@ class Logger extends AbstractLogger {
     /**
      * Adds a record to the log
      *
-     * @param {int} level
+     * @param {number} level
      * @param {string} message
-     * @param {Object.<*>} context
+     * @param {Object.<*>} [context = {}]
      */
     log(level, message, context = {}) {
         this.addRecord(level, message.toString(), context);

@@ -17,7 +17,7 @@ class LoggerInterface {
      * System is unusable.
      *
      * @param {string} message
-     * @param {object} context
+     * @param {object} [context = {}]
      *
      * @returns {void}
      */
@@ -30,7 +30,7 @@ class LoggerInterface {
      * trigger the SMS alerts and wake you up.
      *
      * @param {string} message
-     * @param {object} context
+     * @param {object} [context = {}]
      *
      * @returns {void}
      */
@@ -42,7 +42,7 @@ class LoggerInterface {
      * Example: Application component unavailable, unexpected exception.
      *
      * @param {string} message
-     * @param {object} context
+     * @param {object} [context = {}]
      *
      * @returns {void}
      */
@@ -53,7 +53,7 @@ class LoggerInterface {
      * be logged and monitored.
      *
      * @param {string} message
-     * @param {object} context
+     * @param {object} [context = {}]
      *
      * @returns {void}
      */
@@ -66,7 +66,7 @@ class LoggerInterface {
      * that are not necessarily wrong.
      *
      * @param {string} message
-     * @param {object} context
+     * @param {object} [context = {}]
      *
      * @returns {void}
      */
@@ -76,7 +76,7 @@ class LoggerInterface {
      * Normal but significant events.
      *
      * @param {string} message
-     * @param {object} context
+     * @param {object} [context = {}]
      *
      * @returns {void}
      */
@@ -88,7 +88,7 @@ class LoggerInterface {
      * Example: User logs in, SQL logs.
      *
      * @param {string} message
-     * @param {object} context
+     * @param {object} [context = {}]
      *
      * @returns {void}
      */
@@ -98,7 +98,7 @@ class LoggerInterface {
      * Detailed debug information.
      *
      * @param {string} message
-     * @param {object} context
+     * @param {object} [context = {}]
      *
      * @returns {void}
      */
@@ -109,7 +109,7 @@ class LoggerInterface {
      *
      * @param {*} level
      * @param {string} message
-     * @param {object} context
+     * @param {object} [context = {}]
      *
      * @returns {void}
      */

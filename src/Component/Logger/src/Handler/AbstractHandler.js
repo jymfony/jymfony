@@ -42,7 +42,7 @@ class AbstractHandler extends implementationOf(HandlerInterface) {
     /**
      * Gets the minimum logger level.
      *
-     * @returns {int}
+     * @returns {number}
      */
     get level() {
         return this._level;
@@ -51,7 +51,7 @@ class AbstractHandler extends implementationOf(HandlerInterface) {
     /**
      * Sets the minimum logger level.
      *
-     * @param {int} value
+     * @param {number} value
      */
     set level(value) {
         this._level = value;

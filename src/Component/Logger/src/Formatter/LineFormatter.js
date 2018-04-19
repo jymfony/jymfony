@@ -4,6 +4,13 @@ const NormalizerFormatter = Jymfony.Component.Logger.Formatter.NormalizerFormatt
  * @memberOf Jymfony.Component.Logger.Formatter
  */
 class LineFormatter extends NormalizerFormatter {
+    /**
+     * Constructor.
+     *
+     * @param {string} [format]
+     * @param {string} [dateFormat]
+     * @param {boolean} [allowInlineLineBreaks = false]
+     */
     __construct(format = undefined, dateFormat = undefined, allowInlineLineBreaks = false) {
         /**
          * The format for a single record.

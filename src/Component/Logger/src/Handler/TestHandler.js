@@ -12,13 +12,15 @@ class TestHandler extends AbstractProcessingHandler {
         super.__construct(level, bubble);
 
         /**
-         * @type {[Object]}
+         * @type {Object[]}
+         *
          * @protected
          */
         this._records = [];
 
         /**
-         * @type {Object<int, [Object]>}
+         * @type {Object<int, Object[]>}
+         *
          * @protected
          */
         this._recordsByLevel = {};
@@ -49,7 +51,7 @@ class TestHandler extends AbstractProcessingHandler {
     /**
      * Gets all the registered records.
      *
-     * @returns {[Object]}
+     * @returns {Object[]}
      */
     get records() {
         return [ ...this._records ];
@@ -78,7 +80,7 @@ class TestHandler extends AbstractProcessingHandler {
      * Whether a record with the same message has been recorded.
      *
      * @param {string|Object} record
-     * @param {int} level
+     * @param {number} level
      *
      * @returns {boolean}
      */
@@ -96,7 +98,7 @@ class TestHandler extends AbstractProcessingHandler {
      * Whether a record in which the given message is contained has been recorded.
      *
      * @param {string} message
-     * @param {int} level
+     * @param {number} level
      *
      * @returns {boolean}
      */
@@ -110,7 +112,7 @@ class TestHandler extends AbstractProcessingHandler {
      * Whether a record with message that matches the given regex has been recorded.
      *
      * @param {RegExp} regex
-     * @param {int} level
+     * @param {number} level
      *
      * @returns {*}
      */
@@ -124,7 +126,7 @@ class TestHandler extends AbstractProcessingHandler {
      * Checks whether a recorded record matches the given predicate.
      *
      * @param {Function} predicate
-     * @param {int} level
+     * @param {number} level
      *
      * @return {boolean}
      */
@@ -147,7 +149,7 @@ class TestHandler extends AbstractProcessingHandler {
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     _write(record) {
         if (undefined === this._recordsByLevel[record.level]) {
