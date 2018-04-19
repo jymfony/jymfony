@@ -17,7 +17,8 @@
   "dependencies": {
     "@jymfony/autoloader": "https://github.com/jymfony/autoloader.git",
     "@jymfony/exceptions": "https://github.com/jymfony/exceptions.git",
-    "@jymfony/util": "https://github.com/jymfony/util.git"
+    "@jymfony/util": "https://github.com/jymfony/util.git",
+    "mongodb": "~3.0.7"
   },
   "devDependencies": {
     "chai": "^3.5.0",

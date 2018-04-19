@@ -36,3 +36,14 @@ container.register('jymfony.logger.handler_prototype.console', Jymfony.Component
     ])
     .setAbstract(true)
 ;
+
+container.register('jymfony.logger.handler_prototype.mongodb', Jymfony.Component.Logger.Handler.MongoDBHandler)
+    .setArguments([
+        null,
+        null,
+        null,
+        Jymfony.Component.Logger.LogLevel.DEBUG,
+        true,
+    ])
+    .setAbstract(true)
+;
