@@ -109,7 +109,7 @@ class MongoDBFormatter extends implementationOf(FormatterInterface) {
      * @protected
      */
     _formatDate(record) {
-        return BSON.Timestamp.fromInt(record);
+        return BSON.Timestamp.fromInt(record.microtime);
     }
 
 }
