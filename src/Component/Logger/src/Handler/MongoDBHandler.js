@@ -14,7 +14,15 @@ class MongoDBHandler extends AbstractProcessingHandler {
      * @param {number} [level = 100] - The minimum logging level at which this handler will be triggered
      * @param {boolean} [bubble = true] - Whether the messages that are handled can bubble up the stack or not
      */
-    __construct(database, collection, host = undefined, port = undefined, server = null, level = LogLevel.DEBUG, bubble = true) { // [DOUBT] too much simplified?
+    __construct(
+        database,
+        collection,
+        host = undefined,
+        port = undefined,
+        server = null,
+        level = LogLevel.DEBUG,
+        bubble = true
+    ) {
         if (!host && !port && !server) {
             throw new LogicException('You must provider an url with port or a server to connect');
         }

@@ -1,5 +1,6 @@
 const DateTime = Jymfony.Component.DateTime.DateTime;
 const FormatterInterface = Jymfony.Component.Logger.Formatter.FormatterInterface;
+const BSON = require('bson');
 
 /**
  * @memberOf Jymfony.Component.Logger.Formatter
@@ -104,12 +105,11 @@ class MongoDBFormatter extends implementationOf(FormatterInterface) {
 
     /**
      * @param {DateTime} record
-     * @param {number} nestingLevel
      *
      * @protected
      */
-    _formatDate() {
-        // TODO : implementing mongodb UTCDateTime with bson
+    _formatDate(record) {
+        return BSON.Timestamp.fromInt(record);
     }
 
 }
