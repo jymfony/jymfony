@@ -115,21 +115,21 @@ describe('[Kernel] Kernel', function () {
         expect(kernel.booted).to.be.true;
     });
 
-    it('boot should initialize bundles once if multiple boot has called', () => {
+    it('boot should initialize bundles once if multiple boot has called', async () => {
         const kernel = getKernel([ '_initializeBundles', '_initializeContainer' ]);
-        kernel.boot();
-        kernel.boot();
+        await kernel.boot();
+        await kernel.boot();
 
         expect(kernel.getCallCount('_initializeBundles')).to.be.equal(1);
         expect(kernel.getCallCount('_initializeContainer')).to.be.equal(1);
     });
 
-    it('shutdown should call shutdown on all bundles', () => {
+    it('shutdown should call shutdown on all bundles', async () => {
         const bundle = prophet.prophesize(Bundle);
         const kernel = getKernel([ '_initializeContainer' ], [ bundle.reveal() ]);
 
-        kernel.boot();
-        kernel.shutdown();
+        await kernel.boot();
+        await kernel.shutdown();
 
         bundle.shutdown().shouldHaveBeenCalled();
     });

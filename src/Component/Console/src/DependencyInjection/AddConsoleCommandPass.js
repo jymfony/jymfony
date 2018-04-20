@@ -1,6 +1,6 @@
 const Command = Jymfony.Component.Console.Command.Command;
-const Alias = Jymfony.Component.DependencyInjection.Alias;
 const CompilerPassInterface = Jymfony.Component.DependencyInjection.Compiler.CompilerPassInterface;
+const Reference = Jymfony.Component.DependencyInjection.Reference;
 
 /**
  * @memberOf Jymfony.Component.Console.DependencyInjection
@@ -10,10 +10,14 @@ class AddConsoleCommandPass extends implementationOf(CompilerPassInterface) {
      * @inheritDoc
      */
     process(container) {
-        const commandServices = container.findTaggedServiceIds('console.command');
-        const serviceIds = { };
+        if (! container.hasDefinition(Jymfony.Bundle.FrameworkBundle.Console.Application)) {
+            return;
+        }
 
-        for (let id of Object.keys(commandServices)) {
+        const commandServices = container.findTaggedServiceIds('console.command');
+        const application = container.getDefinition(Jymfony.Bundle.FrameworkBundle.Console.Application);
+
+        for (const id of Object.keys(commandServices)) {
             const definition = container.getDefinition(id);
             const className = container.parameterBag.resolveValue(definition.getClass());
 
@@ -35,20 +39,8 @@ class AddConsoleCommandPass extends implementationOf(CompilerPassInterface) {
                 ;
             }
 
-            let commandId = `console.command.${className.replace('.', '_').toLowerCase()}`;
-            if (container.hasAlias(commandId) || serviceIds[commandId]) {
-                commandId += `_${id}`;
-            }
-
-            if (! definition.isPublic()) {
-                container.setAlias(commandId, new Alias(id).setPublic(true));
-                id = commandId;
-            }
-
-            serviceIds[commandId] = id;
+            application.addMethodCall('add', [ new Reference(id) ]);
         }
-
-        container.setParameter('console.command.ids', Object.values(serviceIds));
     }
 }
 

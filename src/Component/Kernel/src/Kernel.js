@@ -77,7 +77,7 @@ class Kernel extends implementationOf(KernelInterface) {
     /**
      * Boots the kernel
      */
-    boot() {
+    async boot() {
         if (this._booted) {
             return;
         }
@@ -87,7 +87,7 @@ class Kernel extends implementationOf(KernelInterface) {
 
         for (const bundle of this.getBundles()) {
             bundle.setContainer(this._container);
-            bundle.boot();
+            await bundle.boot();
         }
 
         this._booted = true;
@@ -96,7 +96,7 @@ class Kernel extends implementationOf(KernelInterface) {
     /**
      * @inheritDoc
      */
-    shutdown() {
+    async shutdown() {
         if (false === this._booted) {
             return;
         }
@@ -104,7 +104,7 @@ class Kernel extends implementationOf(KernelInterface) {
         this._booted = false;
 
         for (const bundle of this.getBundles()) {
-            bundle.shutdown();
+            await bundle.shutdown();
             bundle.setContainer(undefined);
         }
 

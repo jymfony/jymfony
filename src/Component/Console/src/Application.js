@@ -136,7 +136,9 @@ class Application {
                 .then(exitCode => {
                     if (this._autoExit) {
                         // Wait for next uncork call.
-                        process.nextTick(() => process.exit(exitCode));
+                        process.nextTick(async () => {
+                            await this.shutdown(exitCode);
+                        });
                     }
 
                     return process.exitCode = exitCode;
@@ -145,6 +147,13 @@ class Application {
         }
 
         return promise;
+    }
+
+    /**
+     * Shuts down the application.
+     */
+    shutdown(exitCode) {
+        process.exit(exitCode);
     }
 
     /**

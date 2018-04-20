@@ -35,14 +35,9 @@ class StreamHandler extends AbstractProcessingHandler {
     }
 
     /**
-     * Flushes the stream and closes it.
+     * Opens the stream if needed.
      */
-    close() {
-        this._stream.end('');
-        this._stream = undefined;
-    }
-
-    _write(record) {
+    open() {
         if (undefined === this._stream) {
             this._createDir();
             const fd = fs.openSync(this._file, 'a', this._filePermission || 0o666);
@@ -52,7 +47,18 @@ class StreamHandler extends AbstractProcessingHandler {
 
             process.on('exit', () => this.close());
         }
+    }
 
+    /**
+     * Flushes the stream and closes it.
+     */
+    close() {
+        this._stream.end('');
+        this._stream = undefined;
+    }
+
+    _write(record) {
+        this.open();
         this._streamWrite(record);
     }
 

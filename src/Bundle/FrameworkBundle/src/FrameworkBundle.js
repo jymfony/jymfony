@@ -7,7 +7,6 @@ const LoggerChannelPass = Jymfony.Bundle.FrameworkBundle.DependencyInjection.Com
 const AddConsoleCommandPass = Jymfony.Component.Console.DependencyInjection.AddConsoleCommandPass;
 const AddCacheClearerPass = Jymfony.Component.Kernel.DependencyInjection.AddCacheClearerPass;
 
-
 /**
  * Bundle
  *
@@ -28,6 +27,30 @@ class FrameworkBundle extends Bundle {
             .addCompilerPass(new RoutingResolverPass())
             .addCompilerPass(new LoggerChannelPass())
         ;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    async shutdown() {
+        await this._closeLogger();
+    }
+
+    /**
+     * Closes all the logger handlers.
+     *
+     * @return {Promise<void>}
+     * @private
+     */
+    async _closeLogger() {
+        if (! this._container.has('jymfony.logger')) {
+            return;
+        }
+
+        const logger = this._container.get('jymfony.logger');
+        for (const handler of logger.handlers) {
+            await handler.close();
+        }
     }
 }
 

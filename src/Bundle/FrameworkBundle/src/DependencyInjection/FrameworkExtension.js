@@ -20,11 +20,11 @@ class FrameworkExtension extends Extension {
     load(configs, container) {
         const loader = new JsFileLoader(container, new FileLocator(path.join(__dirname, '..', 'Resources', 'config')));
         loader.load('services.js');
-        loader.load('commands.js');
 
         const configuration = this.getConfiguration(container);
         const config = this._processConfiguration(configuration, configs);
 
+        this._registerConsoleConfiguration(config.console, container, loader);
         this._registerLoggerConfiguration(config.logger, container, loader);
         this._registerRouterConfiguration(config.router, container, loader);
         this._registerHttpServerConfiguration(config.http_server, container, loader);
@@ -37,6 +37,23 @@ class FrameworkExtension extends Extension {
      */
     getConfiguration(container) {
         return new Configuration(container.getParameter('kernel.debug'));
+    }
+
+    /**
+     * @param {*} config
+     * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
+     * @param {Jymfony.Component.DependencyInjection.Loader.LoaderInterface} loader
+     */
+    _registerConsoleConfiguration(config, container, loader) {
+        if (! this._isConfigEnabled(container, config)) {
+            return;
+        }
+
+        if (! ReflectionClass.exists('Jymfony.Component.Console.Application')) {
+            throw new InvalidConfigurationException('Console component is not installed');
+        }
+
+        loader.load('console.js');
     }
 
     /**

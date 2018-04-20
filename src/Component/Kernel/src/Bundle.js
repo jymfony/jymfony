@@ -12,12 +12,12 @@ class Bundle extends implementationOf(ContainerAwareInterface, ContainerAwareTra
     /**
      * Boots the bundle
      */
-    boot() { }
+    async boot() { }
 
     /**
      * Shutdowns the Bundle.
      */
-    shutdown() { }
+    async shutdown() { }
 
     /**
      * Builds the bundle

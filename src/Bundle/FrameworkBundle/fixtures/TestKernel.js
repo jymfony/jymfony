@@ -33,6 +33,13 @@ class TestKernel extends Kernel {
     /**
      * @inheritDoc
      */
+    * registerBundles() {
+        yield new Jymfony.Bundle.FrameworkBundle.FrameworkBundle();
+    }
+
+    /**
+     * @inheritDoc
+     */
     getLogsDir() {
         return path.normalize(path.join(os.tmpdir(), 'jymfony_tests', this._prefixCacheLogDir, 'var', 'logs'));
     }

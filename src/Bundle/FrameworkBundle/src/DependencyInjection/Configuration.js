@@ -16,11 +16,26 @@ class Configuration extends implementationOf(ConfigurationInterface) {
         const treeBuilder = new TreeBuilder();
         const rootNode = treeBuilder.root('framework');
 
+        this._addConsoleSection(rootNode);
         this._addLoggerSection(rootNode);
         this._addRouterSection(rootNode);
         this._addHttpServerSection(rootNode);
 
         return treeBuilder;
+    }
+
+    /**
+     * @param {Jymfony.Component.Config.Definition.Builder.ArrayNodeDefinition} rootNode
+     * @private
+     */
+    _addConsoleSection(rootNode) {
+        rootNode
+            .children()
+                .arrayNode('console')
+                .info('console configuration')
+                [ReflectionClass.exists('Jymfony.Component.Console.Application') ? 'canBeDisabled' : 'canBeEnabled']()
+            .end()
+        ;
     }
 
     /**

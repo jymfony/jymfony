@@ -6,7 +6,6 @@ const InputOption = Jymfony.Component.Console.Input.InputOption;
  * @memberOf Jymfony.Bundle.FrameworkBundle.Console
  */
 class Application extends BaseApplication {
-
     /**
      * Constructor.
      *
@@ -19,13 +18,8 @@ class Application extends BaseApplication {
          */
         this._kernel = kernel;
 
-        /**
-         * @type {boolean}
-         * @private
-         */
-        this._commandsRegistered = false;
-
         super.__construct('Jymfony', Kernel.VERSION);
+
         this.definition.addOption(new InputOption('--env', '-e', InputOption.VALUE_REQUIRED, 'The environment name', kernel.environment));
         this.definition.addOption(new InputOption('--no-debug', undefined, InputOption.VALUE_NONE, 'Switches off debug mode'));
     }
@@ -40,47 +34,12 @@ class Application extends BaseApplication {
     }
 
     /**
-     * Runs the current application.
-     *
-     * @param {Jymfony.Component.Console.Input.InputInterface} input An Input instance
-     * @param {Jymfony.Component.Console.Output.OutputInterface} output An Output instance
-     *
-     * @returns {int} 0 if everything went fine, or an error code
-     *
-     * @protected
-     */
-    * _doRun(input, output) {
-        this._kernel.boot();
-        this.dispatcher = this._kernel.container.get('event_dispatcher');
-
-        return yield * super._doRun(input, output);
-    }
-
-    /**
      * @inheritDoc
      */
-    find(name) {
-        this._registerCommands();
+    async shutdown(exitCode) {
+        await this._kernel.shutdown();
 
-        return super.find(name);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    get(name) {
-        this._registerCommands();
-
-        return super.get(name);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    all(namespace = undefined) {
-        this._registerCommands();
-
-        return super.all(namespace);
+        super.shutdown(exitCode);
     }
 
     /**
@@ -93,38 +52,6 @@ class Application extends BaseApplication {
             this._kernel.environment,
             this._kernel.debug ? 'true' : 'false'
         );
-    }
-
-    /**
-     * @inheritDoc
-     */
-    add(command) {
-        this._registerCommands();
-
-        return super.add(command);
-    }
-
-    /**
-     * Registers every {@see Jymfony.Component.Console.Command} command in 'console.command.ids'
-     * parameter (processed by {@see Jymfony.Bundle.FrameworkBundle.DependencyInjection.Compiler.AddConsoleCommandPass}
-     * in the current {@see Jymfony.Component.DependencyInjection.Container} instance.
-     *
-     * @protected
-     */
-    _registerCommands() {
-        if (this._commandsRegistered) {
-            return;
-        }
-
-        this._commandsRegistered = true;
-
-        this._kernel.boot();
-
-        if (this._kernel.container.hasParameter('console.command.ids')) {
-            for (const id of this._kernel.container.getParameter('console.command.ids')) {
-                this.add(this._kernel.container.get(id));
-            }
-        }
     }
 }
 

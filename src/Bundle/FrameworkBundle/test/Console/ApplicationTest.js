@@ -8,7 +8,7 @@ const Kernel = Jymfony.Component.Kernel.Kernel;
 Jymfony.Bundle.FrameworkBundle.Tests = new Namespace(__jymfony.autoload, 'Jymfony.Bundle.FrameworkBundle.Tests');
 Jymfony.Bundle.FrameworkBundle.Tests.Fixtures = new Namespace(
     __jymfony.autoload,
-    'Jymfony.FrameworkBundle.Tests.Fixtures',
+    'Jymfony.Bundle.FrameworkBundle.Tests.Fixtures',
     [ path.join(__dirname, '..', '..', 'fixtures') ]
 );
 
@@ -19,40 +19,35 @@ describe('[FrameworkBundle] Application', function () {
 
     it('constructor', () => {
         const kernel = new TestKernel('test', true, false);
-        kernel.registerBundles = () => [];
-
         const application = new Application(kernel);
 
         expect(application.kernel).to.be.equal(kernel);
     });
 
-    it('find', () => {
+    it('find', async () => {
         const kernel = new TestKernel('test', true, true);
-        kernel.registerBundles = () => [];
-
-        const application = new Application(kernel);
+        await kernel.boot();
+        const application = kernel.container.get('console.application');
 
         const command = application.find('my:command:foo');
 
         expect(kernel.container.get('command_1')).to.be.equal(command);
     });
 
-    it('get', () => {
+    it('get', async () => {
         const kernel = new TestKernel('test', true, true);
-        kernel.registerBundles = () => [];
-
-        const application = new Application(kernel);
+        await kernel.boot();
+        const application = kernel.container.get('console.application');
 
         const command = application.get('my:command:bar');
 
         expect(kernel.container.get('command_2')).to.be.equal(command);
     });
 
-    it('all', () => {
+    it('all', async () => {
         const kernel = new TestKernel('test', true, true);
-        kernel.registerBundles = () => [];
-
-        const application = new Application(kernel);
+        await kernel.boot();
+        const application = kernel.container.get('console.application');
 
         const commands = application.all('my:command');
 
@@ -60,11 +55,10 @@ describe('[FrameworkBundle] Application', function () {
         expect(kernel.container.get('command_2')).to.be.equal(commands['my:command:bar']);
     });
 
-    it('getLongVersion', () => {
+    it('getLongVersion', async () => {
         const kernel = new TestKernel('test', true, true);
-        kernel.registerBundles = () => [];
-
-        const application = new Application(kernel);
+        await kernel.boot();
+        const application = kernel.container.get('console.application');
         const expected = `Jymfony <info>${Kernel.VERSION}</info> (kernel: <comment>fixtures</comment>, env: <comment>test</comment>, debug: <comment>true</comment>)`;
 
         expect(application.getLongVersion()).to.be.equal(expected);
