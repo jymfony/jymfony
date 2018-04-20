@@ -38,8 +38,8 @@ class MongoDBHandler extends AbstractProcessingHandler {
         }
 
         this._server.on('connect', (server) => {
-            server.command('system.$cmd', {ismaster: true}, (err, result) => {
-                server.insert(this._namespace, [record]);
+            server.command('system.$cmd', {ismaster: true}, () => {
+                server.insert(this._namespace, [ record ]);
             });
         });
     }

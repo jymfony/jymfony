@@ -70,16 +70,17 @@ class MongoDBFormatter extends implementationOf(FormatterInterface) {
     }
 
     /**
-     * @param {*} value
+     * @param {*} record
      * @param {number} nestingLevel
      *
      * @protected
      */
-    _formatObject(value, nestingLevel) {
-        const objectVars = {}; // [DOUBT] how to get object var in js?
-        objectVars.class = value.constructor.name; // [DOUBT] I don't know if it's the right thing to get class name
+    _formatObject(record, nestingLevel) {
+        const reflClass = new ReflectionClass(record);
+        const value = reflClass.hasMethod('toString') ?
+            record.toString() : JSON.parse(JSON.stringify(record));
 
-        return this._formatArray(objectVars, nestingLevel);
+        return this._formatArray({[reflClass.name]: value}, nestingLevel);
     }
 
     /**
@@ -102,13 +103,13 @@ class MongoDBFormatter extends implementationOf(FormatterInterface) {
     }
 
     /**
-     * @param {DateTime} value
+     * @param {DateTime} record
      * @param {number} nestingLevel
      *
      * @protected
      */
-    _formatDate(value, nestingLevel) {
-        // todo : implementing mongodb UTCDateTime with bson
+    _formatDate() {
+        // TODO : implementing mongodb UTCDateTime with bson
     }
 
 }
