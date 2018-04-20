@@ -1,39 +1,47 @@
 const AbstractProcessingHandler = Jymfony.Component.Logger.Handler.AbstractProcessingHandler;
 const LogLevel = Jymfony.Component.Logger.LogLevel;
-const MongoClient = require('mongodb').MongoClient;
+const MongoServer = require('mongodb-core').Server;
 
 class MongoDBHandler extends AbstractProcessingHandler {
     /**
      * Constructor.
      *
-     * @param {string} url - URL to connect
      * @param {string} database - Database name
      * @param {string} collection - Collection name
-     * @param {number} level - The minimum logging level at which this handler will be triggered
-     * @param {boolean} [bubble = 100] - Whether the messages that are handled can bubble up the stack or not
+     * @param {string} [host] - Host to connect
+     * @param {string} [port] - Port to connect
+     * @param {Server} [server] - Collection name
+     * @param {number} [level = 100] - The minimum logging level at which this handler will be triggered
+     * @param {boolean} [bubble = true] - Whether the messages that are handled can bubble up the stack or not
      */
-    __construct(url, database, collection, level = LogLevel.DEBUG, bubble = true) { // [DOUBT] too much simplified?
-        this._url = `${url}/${database}`;
-        this._database = database;
-        this._collection = collection;
+    __construct(database, collection, host = undefined, port = undefined, server = null, level = LogLevel.DEBUG, bubble = true) { // [DOUBT] too much simplified?
+        if (!host && !port && !server) {
+            throw new LogicException('You must provider an url with port or a server to connect');
+        }
+
+        this._host = host;
+        this._port = port;
+        this._server = server;
+        this._namespace = `${database}.${collection}`;
 
         super.__construct(level, bubble);
     }
 
-    async _write(record) { // [DOUBT] asynchronous write on mongodb, but it open and close the connection every time.
-        let client;
-
-        try {
-            client = await MongoClient.connect(this._url);
-
-            await client.db(this._database).collection(this._collection).insertOne(record);
-        } catch(err) {
-            console.log(`[ERROR][MONGODB] - ${err}`);
-        } finally {
-            if (!!client) {
-                client.close();
-            }
+    _write(record) {
+        if (!this._server) {
+            this._server = new MongoServer({
+                host: this._host,
+                port: this._port,
+                reconnect: true,
+                reconnectInterval: 50,
+            });
         }
+
+        this._server.on('connect', (server) => {
+            server.command('system.$cmd', {ismaster: true}, (err, result) => {
+                server.insert(this._namespace, [record]);
+            });
+        });
     }
 
 }

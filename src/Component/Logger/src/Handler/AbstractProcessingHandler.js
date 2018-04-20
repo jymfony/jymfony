@@ -35,7 +35,7 @@ class AbstractProcessingHandler extends mix(AbstractHandler,
      *
      * @param {*} record
      *
-     * @returns void|Promise<void>
+     * @returns void
      *
      * @abstract
      */
