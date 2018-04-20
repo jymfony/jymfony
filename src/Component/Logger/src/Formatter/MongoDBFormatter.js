@@ -16,8 +16,6 @@ class MongoDBFormatter extends implementationOf(FormatterInterface) {
     __construct(maxNestingLevel = 3, exceptionTraceAsString = true) {
         this._maxNestingLevel = Math.max(maxNestingLevel, 0);
         this._exceptionTraceAsString = exceptionTraceAsString;
-
-        this._isLegacyMongoExt = undefined; // [DOUBT] is it needed for node?
     }
 
     /**
@@ -58,7 +56,7 @@ class MongoDBFormatter extends implementationOf(FormatterInterface) {
                     record[name] = this._formatDate(value, nestingLevel + 1);
                 } else if (value instanceof Error) {
                     record[name] = this._formatError(value, nestingLevel + 1);
-                } else if (isArray(value)) {
+                } else if (isArray(value) || isObjectLiteral(value)) {
                     record[name] = this._formatArray(value, nestingLevel + 1);
                 } else if (isObject(value)) {
                     record[name] = this._formatObject(value, nestingLevel + 1);
@@ -110,30 +108,9 @@ class MongoDBFormatter extends implementationOf(FormatterInterface) {
      * @protected
      */
     _formatDate(value, nestingLevel) {
-        if (this._isLegacyMongoExt) {
-            return this._legacyGetMongoBdDateTime(value);
-        }
-
-        return this._getMongoDbDateTime(value);
+        // todo : implementing mongodb UTCDateTime with bson
     }
 
-    /**
-     * @param {*} value
-     *
-     * @private
-     */
-    _getMongoDbDateTime(value) {
-        // todo : implementing mongodb UTCDateTime or is there in the driver package?
-    }
-
-    /**
-     * @param {DateTime} value
-     *
-     * @private
-     */
-    _legacyGetMongoBdDateTime(value) {
-        // todo : implementing mongodb UTCDateTime or is there in the driver package?
-    }
 }
 
 module.exports = MongoDBFormatter;

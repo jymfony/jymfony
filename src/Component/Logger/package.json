@@ -17,12 +17,13 @@
   "dependencies": {
     "@jymfony/autoloader": "https://github.com/jymfony/autoloader.git",
     "@jymfony/exceptions": "https://github.com/jymfony/exceptions.git",
-    "@jymfony/util": "https://github.com/jymfony/util.git",
-    "mongodb": "~3.0.7"
+    "@jymfony/util": "https://github.com/jymfony/util.git"
   },
   "devDependencies": {
     "chai": "^3.5.0",
-    "mocha": "^3.0"
+    "mocha": "^3.0",
+    "mongodb-core": "^3.0",
+    "bson": "^2.0"
   },
   "config": {
     "jymfony-autoload": {
