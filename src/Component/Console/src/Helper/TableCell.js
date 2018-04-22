@@ -12,7 +12,7 @@ class TableCell {
          *
          * @private
          */
-        this._value = value;
+        this._value = value.toString();
 
         /**
          * @type {Object}

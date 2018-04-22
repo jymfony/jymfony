@@ -17,7 +17,7 @@ class Table {
         /**
          * Table headers.
          *
-         * @type {[string]}
+         * @type {string[]}
          * @private
          */
         this._headers = [];
@@ -41,7 +41,7 @@ class Table {
         /**
          * Column widths cache.
          *
-         * @type {[int]}
+         * @type {int[]}
          * @private
          */
         this._effectiveColumnWidths = [];
@@ -72,7 +72,7 @@ class Table {
          */
         this._styles = {};
 
-        this._initStyles();
+        Table._initStyles();
 
         this.style = 'default';
     }
@@ -92,7 +92,11 @@ class Table {
      * @param {TableStyle} style A TableStyle instance
      */
     static setStyleDefinition(name, style) {
-        this._styles[name] = style;
+        if (! Table._styles) {
+            Table._styles = this._initStyles();
+        }
+
+        Table._styles[name] = style;
     }
 
     /**
@@ -258,7 +262,7 @@ class Table {
         const rows = this._buildTableRows(this._rows);
         const headers = this._buildTableRows(this._headers);
 
-        this._calculateColumnsWidth([].concat(headers, rows));
+        this._calculateColumnsWidth(__jymfony.deepClone([].concat(headers, rows)));
 
         this._renderRowSeparator();
         if (0 < headers.length) {
@@ -302,7 +306,7 @@ class Table {
             return;
         }
 
-        let markup = crossingChar();
+        let markup = crossingChar;
         for (let column = 0; column < count; ++column) {
             markup += horizontalBorderChar.repeat(this._effectiveColumnWidths[column]) + crossingChar;
         }
@@ -367,7 +371,7 @@ class Table {
             return __jymfony.sprintf(style.getBorderFormat(), style.getHorizontalBorderChar().repeat(width));
         }
 
-        width += cell.length - Helper.strlenWithoutDecoration(this._output.formatter(), cell);
+        width += cell.toString().length - Helper.strlenWithoutDecoration(this._output.formatter, cell);
         const content = __jymfony.sprintf(style.getCellRowContentFormat(), cell);
 
         return __jymfony.sprintf(cellFormat, __jymfony.str_pad(content, width, style.getPaddingChar(), style.getPadType()));
@@ -407,11 +411,11 @@ class Table {
         const unmergedRows = [];
 
         for (let rowNumber = 0; rowNumber < rows.length; ++rowNumber) {
-            const rows = this._fillNextRows(rows, rowNumber);
+            rows = this._fillNextRows(rows, rowNumber);
 
             // Remove any new line breaks and replace it with a new line
             for (const [ column, cell ] of __jymfony.getEntries(rows[rowNumber])) {
-                if (-1 === cell.indexOf('\n')) {
+                if (-1 === cell.toString().indexOf('\n')) {
                     continue;
                 }
 
@@ -456,6 +460,10 @@ class Table {
         const unmergedRows = [];
 
         for (const [ column, cell ] of __jymfony.getEntries(rows[line])) {
+            if (null !== cell && !(cell instanceof TableCell) && !(cell instanceof TableSeparator) && !isScalar(cell)) {
+                throw new InvalidArgumentException(__jymfony.sprintf('A cell must be a TableCell or a scalar, %s given.', typeof(cell)));
+            }
+
             if (cell instanceof TableCell && 1 < cell.getRowspan()) {
                 let nbLines = cell.getRowspan() - 1;
                 const lines = [ cell ];
@@ -568,7 +576,7 @@ class Table {
         let columns = row.length;
 
         for (const cell of row) {
-            columns += cell instanceof TableCell ? cell.getColspan() - 0 : 0;
+            columns += cell instanceof TableCell ? cell.getColspan() - 1 : 0;
         }
 
         return columns;
@@ -584,11 +592,11 @@ class Table {
      * @private
      */
     _getRowColumns(row) {
-        let columns = [];
+        let columns = [...Array(this._numberOfColumns).keys()];
         for (const [ cellKey, cell ] of __jymfony.getEntries(row)) {
             if (cell instanceof TableCell && 1 < cell.getColspan()) {
                 const range = [];
-                for (let i = cellKey + 1; i < cellKey + cell.getColspan() - 1; ++i) {
+                for (let i = cellKey + 1; i <= cellKey + cell.getColspan() - 1; ++i) {
                     range.push(i);
                 }
 
@@ -617,7 +625,7 @@ class Table {
 
                 for (const [ i, cell ] of __jymfony.getEntries(row)) {
                     if (cell instanceof TableCell) {
-                        const textContent = Helper.removeDecoration(this._output.formatter(), cell);
+                        const textContent = Helper.removeDecoration(this._output.formatter, cell);
                         const textLength = textContent.length;
 
                         if (0 < textLength) {
@@ -662,7 +670,7 @@ class Table {
 
         if (!!row[column]) {
             const cell = row[column];
-            cellWidth = Helper.strlenWithoutDecoration(this._output.formatter(), cell);
+            cellWidth = Helper.strlenWithoutDecoration(this._output.formatter, cell);
         }
 
         const columnWidth = undefined !== this._columnWidths[column] ? this._columnWidths[column] : 0;
@@ -683,7 +691,7 @@ class Table {
     /**
      * @private
      */
-    _initStyles() {
+    static _initStyles() {
         const borderless = new TableStyle();
         borderless
             .setHorizontalBorderChar('=')
@@ -707,7 +715,7 @@ class Table {
             .setCellHeaderFormat('%s')
         ;
 
-        this._styles = {
+        Table._styles = {
             'default': new TableStyle(),
             'borderless': borderless,
             'compact': compact,
@@ -722,13 +730,13 @@ class Table {
      *
      * @private
      */
-    _resolveStyle(name) {
+     _resolveStyle(name) {
         if (name instanceof TableStyle) {
             return name;
         }
 
-        if (!!this._styles[name]) {
-            return this._styles[name];
+        if (!!Table._styles[name]) {
+            return Table._styles[name];
         }
 
         throw new InvalidArgumentException(__jymfony.sprintf('Style "%s" is not defined.', name));
