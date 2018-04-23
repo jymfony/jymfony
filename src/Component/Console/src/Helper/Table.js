@@ -66,23 +66,17 @@ class Table {
          */
         this._output = output;
 
-        /**
-         * @type {Object<string, TableStyle>}
-         * @private
-         */
-        this._styles = {};
-
-        Table._initStyles();
+        Table._styles = Table._initStyles();
 
         this.style = 'default';
     }
 
-    get styles() {
-        return this._styles;
+    static get styles() {
+        return Table._styles;
     }
 
-    set styles(styles) {
-        this._styles = styles;
+    static set styles(styles) {
+        Table._styles = styles;
     }
 
     /**
@@ -93,7 +87,7 @@ class Table {
      */
     static setStyleDefinition(name, style) {
         if (! Table._styles) {
-            Table._styles = this._initStyles();
+            Table.styles = Table._initStyles();
         }
 
         Table._styles[name] = style;
@@ -107,8 +101,8 @@ class Table {
      * @return {TableStyle}
      */
     static getStyleDefinition(name) {
-        if (__jymfony.equal({}, this.styles)) {
-            this.styles = Table._initStyles();
+        if (undefined === Table._styles) {
+            Table.styles = Table._initStyles();
         }
 
         if (!!Table.styles[name]) {
@@ -194,7 +188,7 @@ class Table {
     }
 
     setHeaders(headers) {
-        if (!!headers && !isArray(headers[0])) {
+        if (0 < headers.length && !isArray(headers[0])) {
             headers = [ headers ];
         }
 
@@ -410,6 +404,7 @@ class Table {
     _buildTableRows(rows) {
         const unmergedRows = [];
 
+
         for (let rowNumber = 0; rowNumber < rows.length; ++rowNumber) {
             rows = this._fillNextRows(rows, rowNumber);
 
@@ -419,28 +414,53 @@ class Table {
                     continue;
                 }
 
-                const lines = cell.replace('\n', '<fg=default;bg=default>\n</>').split('\n');
+                const lines = cell.toString().replace('\n', '<fg=default;bg=default>\n</>').split('\n');
                 for (let [ lineKey, line ] of __jymfony.getEntries(lines)) {
                     if (cell instanceof TableCell) {
-                        line = new TableCell(line, { 'colspan': cell.getColspan() });
+                        line = new TableCell(line, { colspan: cell.getColspan() });
                     }
 
                     if (0 === lineKey) {
                         rows[rowNumber][column] = line;
                     } else {
+                        if (! unmergedRows[rowNumber]) {
+                            unmergedRows[rowNumber] = [];
+
+                            for (let i = 0; i < this._numberOfColumns; ++i) {
+                                unmergedRows[rowNumber][i] = '';
+                            }
+                        }
+
+                        if (! unmergedRows[rowNumber][lineKey]) {
+                            unmergedRows[rowNumber][lineKey] = [];
+
+                            for (let i = 0; i < this._numberOfColumns; ++i) {
+                                unmergedRows[rowNumber][lineKey][i] = '';
+                            }
+                        }
+
                         unmergedRows[rowNumber][lineKey][column] = line;
                     }
                 }
             }
         }
 
-        let tableRows = [];
-        for (let rowNumber = 0; rowNumber < rows.length; ++rowNumber) {
-            tableRows.push(this._fillCells(rows[rowNumber]));
+        let temp = [];
 
-            if (!!unmergedRows[rowNumber]) {
-                tableRows = [].concat(tableRows, unmergedRows[rowNumber]);
+        for (let rowNumber = 0; rowNumber < rows.length; ++rowNumber) {
+            temp.push(this._fillCells(rows[rowNumber]));
+            if (!!unmergedRows[rowNumber] && '' !== unmergedRows[rowNumber]) {
+                temp = [].concat(temp, unmergedRows[rowNumber]);
             }
+        }
+
+        let tableRows = [];
+        for (let rowNumber = 0; rowNumber < temp.length; ++rowNumber) {
+            if ('' === temp[rowNumber]) {
+                continue;
+            }
+
+            tableRows.push(temp[rowNumber]);
         }
 
         return tableRows;
@@ -460,7 +480,11 @@ class Table {
         const unmergedRows = [];
 
         for (const [ column, cell ] of __jymfony.getEntries(rows[line])) {
-            if (null !== cell && !(cell instanceof TableCell) && !(cell instanceof TableSeparator) && !isScalar(cell)) {
+            if (rows[line] instanceof TableSeparator) {
+                continue;
+            }
+
+            if (null !== cell && !(cell instanceof TableCell) && !isScalar(cell)) {
                 throw new InvalidArgumentException(__jymfony.sprintf('A cell must be a TableCell or a scalar, %s given.', typeof(cell)));
             }
 
@@ -468,11 +492,12 @@ class Table {
                 let nbLines = cell.getRowspan() - 1;
                 const lines = [ cell ];
 
-                if (-1 < cell.indexOf('\n')) {
-                    const lines = cell.replace('\n', '<fg=default;bg=default>\n</>').split('\n');
-                    nbLines = cell.split('\n').length - 1;
+                let cellValue = cell.toString();
+                if (-1 < cellValue.indexOf('\n')) {
+                    const lines = cellValue.replace('\n', '<fg=default;bg=default>\n</>').split('\n');
+                    nbLines = cellValue.split('\n').length - 1;
 
-                    rows[line][column] = new TableCell(lines[0], { 'colspan': cell.getColspan() });
+                    rows[line][column] = new TableCell(lines[0], { colspan: cell.getColspan() });
                     lines[0].shift();
                 }
 
@@ -484,7 +509,7 @@ class Table {
                 for (const [ unmergedRowKey, unmergedRow ] of __jymfony.getEntries(unmergedRows)) {
                     const value = undefined !== lines[unmergedRowKey - line] ? lines[unmergedRowKey - line] : '';
 
-                    unmergedRows[unmergedRowKey][column] = new TableCell(value, { 'colspan': cell.getColspan() });
+                    unmergedRows[unmergedRowKey][column] = new TableCell(value, { colspan: cell.getColspan() });
                     if (nbLines === unmergedRowKey - line) {
                         break;
                     }
@@ -493,7 +518,7 @@ class Table {
         }
 
         for (const [ unmergedRowKey, unmergedRow ] of __jymfony.getEntries(unmergedRows)) {
-            // We need to know if unmergedRow will be merged or inserted into $rows
+            // We need to know if unmergedRow will be merged or inserted into rows
             if (!!rows[unmergedRowKey] && isArray(rows[unmergedRowKey]) &&
                 this._getNumberOfColumns(rows[unmergedRowKey]) + this._getNumberOfColumns(unmergedRows[unmergedRowKey]) <= this._numberOfColumns) {
 
@@ -556,7 +581,7 @@ class Table {
             row[cellKey] = '';
 
             if (cell instanceof TableCell) {
-                row[cellKey] = new TableCell('', { 'colspan': cell.getColspan() });
+                row[cellKey] = new TableCell('', { colspan: cell.getColspan() });
             }
         }
 
@@ -715,7 +740,7 @@ class Table {
             .setCellHeaderFormat('%s')
         ;
 
-        Table._styles = {
+        return {
             'default': new TableStyle(),
             'borderless': borderless,
             'compact': compact,
