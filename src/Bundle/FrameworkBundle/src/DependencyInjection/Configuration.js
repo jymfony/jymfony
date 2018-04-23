@@ -85,7 +85,9 @@ class Configuration extends implementationOf(ConfigurationInterface) {
                                     .canBeUnset()
                                     .beforeNormalization()
                                         .ifString()
-                                        .then(v => { return { id: v }; })
+                                        .then(v => {
+                                            return { id: v };
+                                        })
                                     .end()
                                     .children()
                                         .scalarNode('id').info('Connection service id').end()
