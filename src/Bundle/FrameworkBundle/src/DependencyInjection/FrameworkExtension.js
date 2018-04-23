@@ -141,7 +141,9 @@ class FrameworkExtension extends Extension {
                     connections.push([ name, handler.mongo.url ]);
                     container.setParameter('jymfony.logger.mongodb.connections', connections);
 
-                    container.register('jymfony.logger.mongodb.connection.'+name).setSynthetic(true);
+                    container.register('jymfony.logger.mongodb.connection.'+name)
+                        .setSynthetic(true)
+                        .setPublic(true);
                 }
                 break;
 
