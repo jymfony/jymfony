@@ -137,15 +137,16 @@ class ParameterBag {
      * Replaces parameter placeholders (%name%) by their values for all parameters.
      *
      * @param {*} value
+     * @param {boolean} resolveEnv
      * @param {Set} resolving
      *
      * @returns {*}
      */
-    resolveValue(value, resolving = new Set()) {
+    resolveValue(value, resolveEnv = false, resolving = new Set()) {
         if (isArray(value) || isObjectLiteral(value)) {
             const args = isArray(value) ? [] : {};
             for (const [ k, v ] of __jymfony.getEntries(value)) {
-                args[this.resolveValue(k, new Set(resolving))] = this.resolveValue(v, new Set(resolving));
+                args[this.resolveValue(k, resolveEnv, new Set(resolving))] = this.resolveValue(v, resolveEnv, new Set(resolving));
             }
 
             return args;
@@ -155,19 +156,26 @@ class ParameterBag {
             return value;
         }
 
-        return this.resolveString(value, new Set(resolving));
+        return this.resolveString(value, resolveEnv, new Set(resolving));
     }
 
     /**
      * Resolves parameters inside a string
      *
      * @param {string} value
+     * @param {boolean} resolveEnv
      * @param {Set} resolving
      *
      * @returns {*}
      */
-    resolveString(value, resolving) {
+    resolveString(value, resolveEnv, resolving) {
         if ('%env()%' !== value && '%env(' === value.substr(0, 5) && ')%' === value.substr(-2, 2)) {
+            if (resolveEnv) {
+                const paramName = value.substr(1, value.length - 2);
+
+                return this.get(paramName);
+            }
+
             return value;
         }
 
@@ -180,7 +188,7 @@ class ParameterBag {
             }
 
             resolving.add(key);
-            return this._resolved ? this.get(match[1]) : this.resolveValue(this.get(match[1]), resolving);
+            return this._resolved ? this.get(match[1]) : this.resolveValue(this.get(match[1]), resolveEnv, resolving);
         }
 
         return value.replace(/%%|%([^%\s]+)%/g, (match, p1) => {
@@ -202,7 +210,7 @@ class ParameterBag {
             resolved = resolved.toString();
             resolving.add(key);
 
-            return this._resolved ? resolved : this.resolveString(resolved, resolving);
+            return this._resolved ? resolved : this.resolveString(resolved, resolveEnv, resolving);
         });
     }
 
