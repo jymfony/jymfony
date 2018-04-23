@@ -20,10 +20,10 @@
     "@jymfony/util": "https://github.com/jymfony/util.git"
   },
   "devDependencies": {
+    "bson": "^2.0",
     "chai": "^3.5.0",
     "mocha": "^3.0",
-    "mongodb-core": "^3.0",
-    "bson": "^2.0"
+    "mongodb": "^3.0"
   },
   "config": {
     "jymfony-autoload": {

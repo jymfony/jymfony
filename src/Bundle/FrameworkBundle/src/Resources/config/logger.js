@@ -41,7 +41,6 @@ container.register('jymfony.logger.handler_prototype.mongodb', Jymfony.Component
     .setArguments([
         null,
         null,
-        null,
         Jymfony.Component.Logger.LogLevel.DEBUG,
         true,
     ])

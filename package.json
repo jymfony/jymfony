@@ -22,10 +22,10 @@
     "node": ">=8.10.0"
   },
   "devDependencies": {
-    "bson": "^2.0.5",
+    "bson": "^2.0",
     "chai": "^3.5.0",
     "mocha": "^3.4.2",
-    "mongodb-core": "^3.0.7",
+    "mongodb": "^3.0",
     "nyc": "^11.2.1"
   },
   "flat": true,

@@ -9,8 +9,8 @@ class AbstractHandler extends implementationOf(HandlerInterface) {
     /**
      * Constructor.
      *
-     * @param {int} level
-     * @param {boolean} bubble
+     * @param {int} [level = LogLevel.DEBUG] The minimum logging level at which this handler will be triggered
+     * @param {boolean} [bubble = true] Whether the messages that are handled can bubble up the stack or not
      */
     __construct(level = LogLevel.DEBUG, bubble = true) {
         this._level = level;
