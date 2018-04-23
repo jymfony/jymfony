@@ -44,7 +44,9 @@ class FrameworkBundle extends Bundle {
             const MongoClient = require('mongodb').MongoClient;
 
             for (const [ name, url ] of this._container.getParameter('jymfony.logger.mongodb.connections')) {
-                this._container.set('jymfony.logger.mongodb.connection.'+name, await MongoClient.connect(url));
+                this._container.set('jymfony.logger.mongodb.connection.'+name, await MongoClient.connect(
+                    this._container.parameterBag.resolveValue(url, true)
+                ));
             }
         }
     }
