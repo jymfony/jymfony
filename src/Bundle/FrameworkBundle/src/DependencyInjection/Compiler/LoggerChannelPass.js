@@ -92,14 +92,14 @@ class LoggerChannelPass extends AbstractRecursivePass {
 
         if ('inclusive' === configuration.type) {
             yield * (configuration.elements || this._channels);
-        }
+        } else {
+            for (const channel of this._channels) {
+                if (-1 !== configuration.elements.indexOf(channel)) {
+                    continue;
+                }
 
-        for (const channel of this._channels) {
-            if (-1 !== configuration.elements.indexOf(channel)) {
-                continue;
+                yield channel;
             }
-
-            yield channel;
         }
     }
 }
