@@ -30,7 +30,7 @@ class MongoDBHandler extends AbstractProcessingHandler {
      */
     _write(record) {
         this._client.db().collection(this._collection)
-            .insertOne(record, {w: 0, j: false}, (err) => {
+            .insertOne(record.formatted, {w: 0, j: false}, (err) => {
                 if (err) {
                     this.close();
                 }

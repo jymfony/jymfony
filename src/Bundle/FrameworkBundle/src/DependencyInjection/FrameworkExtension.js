@@ -1,6 +1,7 @@
 const Configuration = Jymfony.Bundle.FrameworkBundle.DependencyInjection.Configuration;
 const InvalidConfigurationException = Jymfony.Component.Config.Definition.Exception.InvalidConfigurationException;
 const FileLocator = Jymfony.Component.Config.FileLocator;
+const Alias = Jymfony.Component.DependencyInjection.Alias;
 const ChildDefinition = Jymfony.Component.DependencyInjection.ChildDefinition;
 const Reference = Jymfony.Component.DependencyInjection.Reference;
 const JsFileLoader = Jymfony.Component.DependencyInjection.Loader.JsFileLoader;

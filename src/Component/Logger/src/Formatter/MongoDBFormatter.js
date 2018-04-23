@@ -39,6 +39,7 @@ class MongoDBFormatter extends implementationOf(FormatterInterface) {
     }
 
     /**
+     * Treat and format the given record as an array.
      *
      * @param {*} record
      * @param {number} nestingLevel
@@ -71,6 +72,8 @@ class MongoDBFormatter extends implementationOf(FormatterInterface) {
     }
 
     /**
+     * Treat and format the given record as an object.
+     *
      * @param {*} record
      * @param {number} nestingLevel
      *
@@ -85,6 +88,8 @@ class MongoDBFormatter extends implementationOf(FormatterInterface) {
     }
 
     /**
+     * Treat and format the given record as an error.
+     *
      * @param {Error} record
      * @param {number} nestingLevel
      *
@@ -104,6 +109,8 @@ class MongoDBFormatter extends implementationOf(FormatterInterface) {
     }
 
     /**
+     * Treat and format the given record as a date.
+     *
      * @param {DateTime} record
      *
      * @protected
