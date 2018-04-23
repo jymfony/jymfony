@@ -88,7 +88,6 @@ class FrameworkExtension extends Extension {
         const definition = (new ChildDefinition('jymfony.logger_prototype'))
             .setPublic(false)
             .replaceArgument(0, 'app')
-            .replaceArgument(1, handlers.toArray())
         ;
 
         container.setParameter('jymfony.logger.handlers_to_channels', handlersToChannels);
