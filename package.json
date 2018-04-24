@@ -22,9 +22,11 @@
     "node": ">=8.10.0"
   },
   "devDependencies": {
+    "bson": "^2.0",
     "chai": "^3.5.0",
-    "nyc": "^11.2.1",
-    "mocha": "^3.4.2"
+    "mocha": "^3.4.2",
+    "mongodb": "^3.0",
+    "nyc": "^11.2.1"
   },
   "flat": true,
   "config": {

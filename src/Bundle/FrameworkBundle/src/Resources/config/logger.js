@@ -16,6 +16,7 @@ container.register('jymfony.logger.formatter.json', Jymfony.Component.Logger.For
 container.register('jymfony.logger.formatter.line', Jymfony.Component.Logger.Formatter.LineFormatter);
 container.register('jymfony.logger.formatter.normalizer', Jymfony.Component.Logger.Formatter.NormalizerFormatter);
 container.register('jymfony.logger.formatter.console', Jymfony.Component.Logger.Formatter.ConsoleFormatter);
+container.register('jymfony.logger.formatter.mongodb', Jymfony.Component.Logger.Formatter.MongoDBFormatter);
 
 container.register('jymfony.logger.handler_prototype.stream', Jymfony.Component.Logger.Handler.StreamHandler)
     .setArguments([
@@ -32,6 +33,16 @@ container.register('jymfony.logger.handler_prototype.console', Jymfony.Component
         undefined,
         true,
         undefined,
+    ])
+    .setAbstract(true)
+;
+
+container.register('jymfony.logger.handler_prototype.mongodb', Jymfony.Component.Logger.Handler.MongoDBHandler)
+    .setArguments([
+        null,
+        null,
+        Jymfony.Component.Logger.LogLevel.DEBUG,
+        true,
     ])
     .setAbstract(true)
 ;

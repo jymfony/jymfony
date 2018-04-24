@@ -137,7 +137,7 @@ class ParameterBag {
      * Replaces parameter placeholders (%name%) by their values for all parameters.
      *
      * @param {*} value
-     * @param {boolean} resolveEnv
+     * @param {boolean} [resolveEnv = false]
      * @param {Set} resolving
      *
      * @returns {*}
@@ -188,6 +188,7 @@ class ParameterBag {
             }
 
             resolving.add(key);
+
             return this._resolved ? this.get(match[1]) : this.resolveValue(this.get(match[1]), resolveEnv, resolving);
         }
 

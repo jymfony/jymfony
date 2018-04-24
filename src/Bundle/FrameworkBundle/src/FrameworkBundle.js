@@ -37,6 +37,21 @@ class FrameworkBundle extends Bundle {
     }
 
     /**
+     * @inheritDoc
+     */
+    async boot() {
+        if (this._container.hasParameter('jymfony.logger.mongodb.connections')) {
+            const MongoClient = require('mongodb').MongoClient;
+
+            for (const [ name, url ] of this._container.getParameter('jymfony.logger.mongodb.connections')) {
+                this._container.set('jymfony.logger.mongodb.connection.'+name, await MongoClient.connect(
+                    this._container.parameterBag.resolveValue(url, true)
+                ));
+            }
+        }
+    }
+
+    /**
      * Closes all the logger handlers.
      *
      * @return {Promise<void>}

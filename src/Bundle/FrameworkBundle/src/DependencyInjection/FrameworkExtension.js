@@ -1,6 +1,7 @@
 const Configuration = Jymfony.Bundle.FrameworkBundle.DependencyInjection.Configuration;
 const InvalidConfigurationException = Jymfony.Component.Config.Definition.Exception.InvalidConfigurationException;
 const FileLocator = Jymfony.Component.Config.FileLocator;
+const Alias = Jymfony.Component.DependencyInjection.Alias;
 const ChildDefinition = Jymfony.Component.DependencyInjection.ChildDefinition;
 const Reference = Jymfony.Component.DependencyInjection.Reference;
 const JsFileLoader = Jymfony.Component.DependencyInjection.Loader.JsFileLoader;
@@ -122,6 +123,29 @@ class FrameworkExtension extends Extension {
                     handler.verbosity_levels,
                 ]);
                 definition.addTag('kernel.event_subscriber');
+                break;
+
+            case 'mongodb':
+                definition.setArguments([
+                    new Reference('jymfony.logger.mongodb.connection.'+name),
+                    handler.mongo.collection,
+                    handler.level,
+                    handler.bubble,
+                ]);
+
+                if (!!handler.mongo.id) {
+                    container.setAlias('jymfony.logger.mongodb.connection.'+name, new Alias(handler.mongo.id));
+                } else {
+                    const connections = container.hasParameter('jymfony.logger.mongodb.connections') ?
+                        container.getParameter('jymfony.logger.mongodb.connections') : [];
+
+                    connections.push([ name, handler.mongo.url ]);
+                    container.setParameter('jymfony.logger.mongodb.connections', connections);
+
+                    container.register('jymfony.logger.mongodb.connection.'+name)
+                        .setSynthetic(true)
+                        .setPublic(true);
+                }
                 break;
 
             case 'null':
