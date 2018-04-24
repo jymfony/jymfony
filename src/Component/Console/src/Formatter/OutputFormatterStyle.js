@@ -1,8 +1,6 @@
 const InvalidArgumentException = Jymfony.Component.Console.Exception.InvalidArgumentException;
 const OutputFormatterStyleInterface = Jymfony.Component.Console.Formatter.OutputFormatterStyleInterface;
 
-const util = require('util');
-
 const availableForegroundColors = {
     'black': {'set': 30, 'unset': 39},
     'red': {'set': 31, 'unset': 39},
@@ -156,7 +154,7 @@ class OutputFormatterStyle extends implementationOf(OutputFormatterStyleInterfac
             return text;
         }
 
-        return util.format('\x1B[%sm%s\x1B[%sm', setCodes.join(';'), text, unsetCodes.join(';'));
+        return __jymfony.sprintf('\x1B[%sm%s\x1B[%sm', setCodes.join(';'), text, unsetCodes.join(';'));
     }
 }
 

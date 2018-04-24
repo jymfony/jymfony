@@ -1,4 +1,3 @@
-const util = require('util');
 const Helper = Jymfony.Component.Console.Helper.Helper;
 const OutputFormatter = Jymfony.Component.Console.Formatter.OutputFormatter;
 
@@ -16,7 +15,7 @@ class FormatterHelper extends Helper {
      * @returns {string} The format section
      */
     formatSection(section, message, style = 'info') {
-        return util.format('<%s>[%s]</%s> %s', style, section, style, message);
+        return __jymfony.sprintf('<%s>[%s]</%s> %s', style, section, style, message);
     }
 
     /**
@@ -38,7 +37,7 @@ class FormatterHelper extends Helper {
 
         for (let message of messages) {
             message = OutputFormatter.escape(message);
-            lines.push(util.format(large ? '  %s  ' : ' %s ', message));
+            lines.push(__jymfony.sprintf(large ? '  %s  ' : ' %s ', message));
             len = Math.max(message.length + (large ? 4 : 2), len);
         }
 
@@ -52,7 +51,7 @@ class FormatterHelper extends Helper {
         }
 
         for (let i = 0; i < messages.length; ++i) {
-            messages[i] = util.format('<%s>%s</%s>', style, messages[i], style);
+            messages[i] = __jymfony.sprintf('<%s>%s</%s>', style, messages[i], style);
         }
 
         return messages.join('\n');

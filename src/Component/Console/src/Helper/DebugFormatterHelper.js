@@ -1,4 +1,3 @@
-const util = require('util');
 const Helper = Jymfony.Component.Console.Helper.Helper;
 
 /**
@@ -28,7 +27,7 @@ class DebugFormatterHelper extends Helper {
     start(id, message, prefix = 'RUN') {
         this._started[id] = {border: ++this._count % this._colors.length};
 
-        return util.format('%s<bg=blue;fg=white> %s </> <fg=blue>%s</>\n', this._getBorder(id), prefix, message);
+        return __jymfony.sprintf('%s<bg=blue;fg=white> %s </> <fg=blue>%s</>\n', this._getBorder(id), prefix, message);
     }
 
     /**
@@ -52,11 +51,11 @@ class DebugFormatterHelper extends Helper {
             }
 
             if (! this._started[id] || ! this._started[id].err) {
-                message += util.format('%s<bg=red;fg=white> %s </> ', this._getBorder(id), errorPrefix);
+                message += __jymfony.sprintf('%s<bg=red;fg=white> %s </> ', this._getBorder(id), errorPrefix);
                 this._started[id].err = true;
             }
 
-            message += buffer.replace(/\n/g, util.format('\n%s<bg=red;fg=white> %s </> ', this._getBorder(id), errorPrefix));
+            message += buffer.replace(/\n/g, __jymfony.sprintf('\n%s<bg=red;fg=white> %s </> ', this._getBorder(id), errorPrefix));
         } else {
             if (this._started[id] && this._started[id].err) {
                 message += '\n';
@@ -64,11 +63,11 @@ class DebugFormatterHelper extends Helper {
             }
 
             if (! this._started[id] || ! this._started[id].out) {
-                message += util.format('%s<bg=green;fg=white> %s </> ', this._getBorder(id), prefix);
+                message += __jymfony.sprintf('%s<bg=green;fg=white> %s </> ', this._getBorder(id), prefix);
                 this._started[id].out = true;
             }
 
-            message += buffer.replace(/\n/g, util.format('\n%s<bg=green;fg=white> %s </> ', this._getBorder(id), prefix));
+            message += buffer.replace(/\n/g, __jymfony.sprintf('\n%s<bg=green;fg=white> %s </> ', this._getBorder(id), prefix));
         }
 
         return message;
@@ -88,10 +87,10 @@ class DebugFormatterHelper extends Helper {
         const trailingEOL = this._started[id] && (this._started[id].out || this._started[id].err) ? '\n' : '';
 
         if (successful) {
-            return util.format('%s%s<bg=green;fg=white> %s </> <fg=green>%s</>\n', trailingEOL, this._getBorder(id), prefix, message);
+            return __jymfony.sprintf('%s%s<bg=green;fg=white> %s </> <fg=green>%s</>\n', trailingEOL, this._getBorder(id), prefix, message);
         }
 
-        message = util.format('%s%s<bg=red;fg=white> %s </> <fg=red>%s</>\n', trailingEOL, this._getBorder(id), prefix, message);
+        message = __jymfony.sprintf('%s%s<bg=red;fg=white> %s </> <fg=red>%s</>\n', trailingEOL, this._getBorder(id), prefix, message);
 
         delete this._started[id].out;
         delete this._started[id].err;
@@ -105,7 +104,7 @@ class DebugFormatterHelper extends Helper {
      * @returns {string}
      */
     _getBorder(id) {
-        return util.format('<bg=%s> </>', this._colors[this._started[id].border]);
+        return __jymfony.sprintf('<bg=%s> </>', this._colors[this._started[id].border]);
     }
 }
 

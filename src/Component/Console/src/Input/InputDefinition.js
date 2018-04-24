@@ -2,8 +2,6 @@ const LogicException = Jymfony.Component.Console.Exception.LogicException;
 const InvalidArgumentException = Jymfony.Component.Console.Exception.InvalidArgumentException;
 const InputOption = Jymfony.Component.Console.Input.InputOption;
 
-const util = require('util');
-
 /**
  * @memberOf Jymfony.Component.Console.Input
  */
@@ -317,7 +315,7 @@ class InputDefinition {
             for (const option of this.getOptions()) {
                 let value = '';
                 if (option.acceptValue()) {
-                    value = util.format(
+                    value = __jymfony.sprintf(
                         ' %s%s%s',
                         option.isValueOptional() ? '[' : '',
                         option.getName().toUpperCase(),
@@ -325,8 +323,8 @@ class InputDefinition {
                     );
                 }
 
-                const shortcut = option.getShortcut() ? util.format('-%s|', option.getShortcut()) : '';
-                elements.push(util.format('[%s--%s%s]', shortcut, option.getName(), value));
+                const shortcut = option.getShortcut() ? __jymfony.sprintf('-%s|', option.getShortcut()) : '';
+                elements.push(__jymfony.sprintf('[%s--%s%s]', shortcut, option.getName(), value));
             }
         }
 

@@ -14,8 +14,6 @@ const OutputInterface = Jymfony.Component.Console.Output.OutputInterface;
 const OutputFormatter = Jymfony.Component.Console.Formatter.OutputFormatter;
 const Terminal = Jymfony.Component.Console.Terminal;
 
-const util = require('util');
-
 /**
  * @memberOf Jymfony.Component.Console
  */
@@ -164,7 +162,7 @@ class Application {
     getLongVersion() {
         if ('UNKNOWN' !== this.name) {
             if ('UNKNOWN' !== this.version) {
-                return util.format('%s <info>%s</info>', this.name, this.version);
+                return __jymfony.sprintf('%s <info>%s</info>', this.name, this.version);
             }
 
             return this.name;
@@ -217,9 +215,9 @@ class Application {
         }
 
         if (! command.definition) {
-            throw new LogicException(util.format(
+            throw new LogicException(__jymfony.sprintf(
                 'Command class "%s" is not correctly initialized. You probably forgot to call the parent constructor.',
-                (new ReflectionClass(command)).name
+                ReflectionClass.getClassName(command)
             ));
         }
 
@@ -707,8 +705,8 @@ class Application {
         output.writeln('', OutputInterface.VERBOSITY_QUIET);
 
         do {
-            const title = util.format('  [%s%s]  ',
-                (new ReflectionClass(exception)).name || exception.constructor.name || 'Error',
+            const title = __jymfony.sprintf('  [%s%s]  ',
+                ReflectionClass.getClassName(exception) || exception.constructor.name || 'Error',
                 output.isVerbose() && exception.code ? ` (${exception.code})` : ''
             );
             let len = title.length;
@@ -729,10 +727,10 @@ class Application {
 
             const messages = [];
             let emptyLine;
-            messages.push(emptyLine = formatter.format(util.format('<error>%s</error>', ' '.repeat(len))));
-            messages.push(formatter.format(util.format('<error>%s%s</error>', title, ' '.repeat(Math.max(0, len - title.length)))));
+            messages.push(emptyLine = formatter.format(__jymfony.sprintf('<error>%s</error>', ' '.repeat(len))));
+            messages.push(formatter.format(__jymfony.sprintf('<error>%s%s</error>', title, ' '.repeat(Math.max(0, len - title.length)))));
             for (const line of lines) {
-                messages.push(formatter.format(util.format('<error>  %s  %s</error>', OutputFormatter.escape(line[0]), ' '.repeat(len - line[1]))));
+                messages.push(formatter.format(__jymfony.sprintf('<error>  %s  %s</error>', OutputFormatter.escape(line[0]), ' '.repeat(len - line[1]))));
             }
             messages.push(emptyLine);
             messages.push('');
@@ -748,7 +746,7 @@ class Application {
                     const func = current['function'];
                     const file = current['file'] || 'n/a';
                     const line = current['line'] || 'n/a';
-                    output.writeln(util.format('   %s() at <info>%s:%s</info>', func, file, line), OutputInterface.VERBOSITY_QUIET);
+                    output.writeln(__jymfony.sprintf('   %s() at <info>%s:%s</info>', func, file, line), OutputInterface.VERBOSITY_QUIET);
                 }
 
                 output.writeln('', OutputInterface.VERBOSITY_QUIET);
@@ -756,7 +754,7 @@ class Application {
         } while (exception = exception.previous);
 
         if (this._runningCommand) {
-            output.writeln(util.format('<info>%s</info>', this._runningCommand.getSynopsis()), OutputInterface.VERBOSITY_QUIET);
+            output.writeln(__jymfony.sprintf('<info>%s</info>', this._runningCommand.getSynopsis()), OutputInterface.VERBOSITY_QUIET);
             output.writeln('', OutputInterface.VERBOSITY_QUIET);
         }
     }

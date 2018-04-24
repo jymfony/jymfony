@@ -111,7 +111,7 @@ class ApplicationDescription {
             }
         };
 
-        yield [ '_global', Array.from(y(globalCommands._global)) ];
+        yield [ __self.GLOBAL_NAMESPACE, Array.from(y(globalCommands._global)) ];
 
         for (const namespace of Object.keys(namespacedCommands)) {
             yield [ namespace, Array.from(y(namespacedCommands[namespace])) ];

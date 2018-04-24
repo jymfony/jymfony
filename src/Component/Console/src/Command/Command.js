@@ -28,7 +28,9 @@ class Command {
         this.configure();
 
         if (! this.name) {
-            throw new LogicException(`The command defined in "${(new ReflectionClass(this)).name}" cannot have an empty name.`);
+            throw new LogicException(
+                __jymfony.sprintf('The command defined in "%s" cannot have an empty name.', ReflectionClass.getClassName(this))
+            );
         }
     }
 
@@ -73,7 +75,7 @@ class Command {
      *
      * @throws {LogicException} When this abstract method is not implemented
      */
-    * execute(input, output) { // eslint-disable-line no-unused-vars
+    async execute(input, output) { // eslint-disable-line no-unused-vars
         throw new LogicException('You must override the execute() method in the concrete command class.');
     }
 
@@ -87,7 +89,7 @@ class Command {
      * @param {Jymfony.Component.Console.Input.InputInterface} input An InputInterface instance
      * @param {Jymfony.Component.Console.Output.OutputInterface} output An OutputInterface instance
      */
-    * interact(input, output) { // eslint-disable-line no-unused-vars
+    async interact(input, output) { // eslint-disable-line no-unused-vars
     }
 
     /**
@@ -99,7 +101,7 @@ class Command {
      * @param {Jymfony.Component.Console.Input.InputInterface} input An InputInterface instance
      * @param {Jymfony.Component.Console.Output.OutputInterface} output An OutputInterface instance
      */
-    * initialize(input, output) { // eslint-disable-line no-unused-vars
+    async initialize(input, output) { // eslint-disable-line no-unused-vars
     }
 
 
@@ -116,7 +118,7 @@ class Command {
      *
      * @see execute()
      */
-    * run(input, output) {
+    async run(input, output) {
         // Force the creation of the synopsis before the merge with the app definition
         this.getSynopsis(true);
         this.getSynopsis(false);
@@ -133,14 +135,14 @@ class Command {
             }
         }
 
-        yield __jymfony.Async.run(getCallableFromArray([ this, 'initialize' ]), input, output);
+        await __jymfony.Async.run(getCallableFromArray([ this, 'initialize' ]), input, output);
 
         if (undefined !== this._processTitle) {
             process.title = this._processTitle;
         }
 
         if (input.interactive) {
-            yield __jymfony.Async.run(getCallableFromArray([ this, 'interact' ]), input, output);
+            await __jymfony.Async.run(getCallableFromArray([ this, 'interact' ]), input, output);
         }
 
         // The command name argument is often omitted when a command is executed directly with its run() method.
@@ -152,7 +154,7 @@ class Command {
 
         input.validate();
 
-        const statusCode = yield __jymfony.Async.run(getCallableFromArray([ this, 'execute' ]), input, output);
+        const statusCode = await __jymfony.Async.run(getCallableFromArray([ this, 'execute' ]), input, output);
 
         return ! Number.isNaN(statusCode) ? ~~statusCode : 0;
     }

@@ -38,7 +38,9 @@ class Descriptor extends implementationOf(DescriptorInterface) {
                 break;
 
             default:
-                throw new InvalidArgumentException(`Object of type "${(new ReflectionClass(object)).name}" is not describable.`);
+                throw new InvalidArgumentException(
+                    __jymfony.sprintf('Object of type "%s" is not describable.', ReflectionClass.getClassName(object))
+                );
         }
     }
 
