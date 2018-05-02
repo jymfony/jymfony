@@ -9,9 +9,9 @@ class ConfirmationQuestion extends Question {
     /**
      * @param {string} question The question to ask to the user
      * @param {boolean} [defaultAnswer = true] The default answer to return, true or false
-     * @param {string} [trueAnswerRegex = '/^y/i'] A regex to match the "yes" answer
+     * @param {string} [trueAnswerRegex = /^y/i] A regex to match the "yes" answer
      */
-    __construct(question, defaultAnswer = true, trueAnswerRegex = '/^y/i') {
+    __construct(question, defaultAnswer = true, trueAnswerRegex = /^y/i) {
         super.__construct(question, defaultAnswer);
 
         /**
