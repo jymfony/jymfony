@@ -10,71 +10,84 @@ const OutputInterface = Jymfony.Component.Console.Output.OutputInterface;
  */
 class Table {
     /**
-     * @param {OutputInterface} output An OutputInterface instance
-     * @private
+     * Constructor.
+     *
+     * @param {Jymfony.Component.Console.Output.OutputInterface} output - An OutputInterface instance
      */
     __construct(output) {
         /**
-         * Table headers.
-         *
          * @type {string[]}
+         *
          * @private
          */
         this._headers = [];
 
         /**
-         * Table rows.
-         *
          * @type {Array}
+         *
          * @private
          */
         this._rows = [];
 
         /**
-         * Number of columns cache.
-         *
          * @type {int}
+         *
          * @private
          */
         this._numberOfColumns = 0;
 
         /**
-         * Column widths cache.
-         *
          * @type {int[]}
+         *
          * @private
          */
         this._effectiveColumnWidths = [];
 
         /**
          * @type {Array}
+         *
          * @private
          */
         this._columnStyles = [];
 
         /**
-         * User set column widths.
+         * @var {int[]}
          *
-         * @var {Array}
          * @private
          */
         this._columnWidths = [];
 
         /**
-         * @type {OutputInterface}
+         * @type {Jymfony.Component.Console.Output.OutputInterface}
+         *
          * @private
          */
         this._output = output;
 
+        /**
+         * @type {Object<string, Jymfony.Component.Console.Helper.TableStyle>}
+         *
+         * @static
+         */
         Table._styles = Table._initStyles();
 
         this.style = 'default';
     }
 
+    /**
+     * @returns {Object<string, Jymfony.Component.Console.Helper.TableStyle>}
+     *
+     * @static
+     */
     static get styles() {
         return Table._styles;
     }
 
+    /**
+     * @param {Object<string, Jymfony.Component.Console.Helper.TableStyle>} styles
+     *
+     * @static
+     */
     static set styles(styles) {
         Table._styles = styles;
     }
@@ -82,8 +95,8 @@ class Table {
     /**
      * Sets a style definition.
      *
-     * @param {string} name The style name
-     * @param {TableStyle} style A TableStyle instance
+     * @param {string} name - The style name
+     * @param {Jymfony.Component.Console.Helper.TableStyle} style - A TableStyle instance
      */
     static setStyleDefinition(name, style) {
         if (! Table._styles) {
@@ -96,9 +109,9 @@ class Table {
     /**
      * Gets a style definition by name.
      *
-     * @param {string} name The style name
+     * @param {string} name - The style name
      *
-     * @return {TableStyle}
+     * @returns {Jymfony.Component.Console.Helper.TableStyle}
      */
     static getStyleDefinition(name) {
         if (undefined === Table._styles) {
@@ -115,7 +128,7 @@ class Table {
     /**
      * Gets the current table style.
      *
-     * @return {TableStyle}
+     * @returns {Jymfony.Component.Console.Helper.TableStyle}
      */
     get style() {
         return this._style;
@@ -124,7 +137,7 @@ class Table {
     /**
      * Sets table style.
      *
-     * @param {TableStyle|string} name The style name or a TableStyle instance
+     * @param {Jymfony.Component.Console.Helper.TableStyle|string} name - The style name or a TableStyle instance
      */
     set style(name) {
         this._style = this._resolveStyle(name);
@@ -135,9 +148,9 @@ class Table {
      *
      * If style was not set, it returns the global table style.
      *
-     * @param {int} columnIndex Column index
+     * @param {int} columnIndex - Column index
      *
-     * @return TableStyle
+     * @returns {Jymfony.Component.Console.Helper.TableStyle}
      */
     getColumnStyle(columnIndex) {
         return !!this._columnStyles[columnIndex] ? this._columnStyles[columnIndex] : this.style;
@@ -146,10 +159,10 @@ class Table {
     /**
      * Sets table column style.
      *
-     * @param {int} columnIndex Column index
-     * @param {TableStyle|string} name The style name or a TableStyle instance
+     * @param {int} columnIndex - Column index
+     * @param {TableStyle|string} name - The style name or a TableStyle instance
      *
-     * @return {Table}
+     * @returns {Jymfony.Component.Console.Helper.Table}
      */
     setColumnStyle(columnIndex, name) {
         this._columnStyles[columnIndex] = this._resolveStyle(name);
@@ -160,10 +173,10 @@ class Table {
     /**
      * Sets the minimum width of a column.
      *
-     * @param {int} columnIndex Column index
-     * @param {int} width Minimum column width in characters
+     * @param {int} columnIndex - Column index
+     * @param {int} width - Minimum column width in characters
      *
-     * @return {Table}
+     * @returns {Jymfony.Component.Console.Helper.Table}
      */
     setColumnWidth(columnIndex, width) {
         this._columnWidths[columnIndex] = width;
@@ -176,7 +189,7 @@ class Table {
      *
      * @param {Array} widths
      *
-     * @return {Table}
+     * @returns {Jymfony.Component.Console.Helper.Table}
      */
     setColumnWidths(widths) {
         this._columnWidths = [];
@@ -187,6 +200,13 @@ class Table {
         return this;
     }
 
+    /**
+     * Sets the headers.
+     *
+     * @param {string[]|Jymfony.Component.Console.Helper.TableCell[]|Jymfony.Component.Console.Helper.TableSeparator[]} headers
+     *
+     * @returns {Jymfony.Component.Console.Helper.Table}
+     */
     setHeaders(headers) {
         if (0 < headers.length && !isArray(headers[0])) {
             headers = [ headers ];
@@ -197,12 +217,22 @@ class Table {
         return this;
     }
 
+    /**
+     * @param {string[]|Jymfony.Component.Console.Helper.TableCell[]|Jymfony.Component.Console.Helper.TableSeparator[]} rows
+     *
+     * @returns {Jymfony.Component.Console.Helper.Table}
+     */
     setRows(rows) {
         this._rows = [];
 
         return this.addRows(rows);
     }
 
+    /**
+     * @param {string[]|Jymfony.Component.Console.Helper.TableCell[]|Jymfony.Component.Console.Helper.TableSeparator[]} rows
+     *
+     * @returns {Jymfony.Component.Console.Helper.Table}
+     */
     addRows(rows) {
         for (const row of rows) {
             this.addRow(row);
@@ -211,6 +241,11 @@ class Table {
         return this;
     }
 
+    /**
+     * @param {string|Jymfony.Component.Console.Helper.TableCell|Jymfony.Component.Console.Helper.TableSeparator} row
+     *
+     * @returns {Jymfony.Component.Console.Helper.Table}
+     */
     addRow(row) {
         if (row instanceof TableSeparator) {
             this._rows.push(row);
@@ -231,7 +266,7 @@ class Table {
      * @param {int} column
      * @param {Array} row
      *
-     * @returns {Table}
+     * @returns {Jymfony.Component.Console.Helper.Table}
      */
     setRow(column, row) {
         this._rows[column] = row;
@@ -253,12 +288,14 @@ class Table {
      */
     render() {
         this._calculateNumberOfColumns();
-        const rows = this._buildTableRows(this._rows);
-        const headers = this._buildTableRows(this._headers);
+        let rows = this._buildEmptyTableRows(this._rows);
+        rows = this._fillTableRows(rows, this._rows);
+
+        let headers = this._buildEmptyTableRows(this._headers);
+        headers = this._fillTableRows(headers, this._headers);
 
         this._calculateColumnsWidth(__jymfony.deepClone([].concat(headers, rows)));
 
-        this._renderRowSeparator();
         if (0 < headers.length) {
             for (const header of headers) {
                 this._renderRow(header, this.style.getCellHeaderFormat());
@@ -279,6 +316,33 @@ class Table {
         }
 
         this._cleanup();
+
+        //rows = this._buildTableRows(rows);
+        //const headers = this._buildTableRows(this._headers);
+        //
+        //this._calculateColumnsWidth(__jymfony.deepClone([].concat(headers, rows)));
+        //
+        //this._renderRowSeparator();
+        //if (0 < headers.length) {
+        //    for (const header of headers) {
+        //        this._renderRow(header, this.style.getCellHeaderFormat());
+        //        this._renderRowSeparator();
+        //    }
+        //}
+        //
+        //for (const row of rows) {
+        //    if (row instanceof TableSeparator) {
+        //        this._renderRowSeparator();
+        //    } else {
+        //        this._renderRow(row, this.style.getCellRowFormat());
+        //    }
+        //}
+        //
+        //if (0 < rows.length) {
+        //    this._renderRowSeparator();
+        //}
+        //
+        //this._cleanup();
     }
 
     /**
@@ -310,6 +374,7 @@ class Table {
 
     /**
      * Renders vertical column separator.
+     *
      * @private
      */
     _renderColumnSeparator() {
@@ -401,9 +466,71 @@ class Table {
      *
      * @private
      */
+    _buildEmptyTableRows(rows) {
+        let howManyRows = 0;
+        let howManyColumns = 0;
+
+        for (let rowNumber = 0; rowNumber < rows.length; ++rowNumber) {
+            ++howManyRows;
+
+            const row = rows[rowNumber];
+
+            for (let columnNumber = 0; columnNumber < row.length; ++columnNumber) {
+                ++howManyColumns;
+
+                const cell = row[columnNumber];
+                if (-1 < cell.toString().indexOf('\n')) {
+                    ++howManyRows;
+                }
+
+                if (cell instanceof TableCell) {
+                    const colspan = cell.getColspan();
+                    if (colspan > 1) {
+                        howManyColumns += colspan - 1;
+                    }
+
+                    const rowspan = cell.getRowspan();
+                    if (rowspan > 1) {
+                        howManyRows += rowspan - 1;
+                    }
+                }
+            }
+        }
+
+        const tableRows = [];
+        for (let r = 0; r < howManyRows; ++r) {
+            const row = [];
+            for (let c = 0; c < howManyColumns; ++c) {
+                row.push('');
+            }
+
+            tableRows.push(row);
+        }
+
+        return tableRows;
+    }
+
+    _fillTableRows(renderedTableRows, rows) {
+        for (let rowNumber = 0; rowNumber < rows.length; ++rowNumber) {
+            let row = rows[rowNumber];
+
+            for (const [column, cell] of __jymfony.getEntries(row)) {
+                renderedTableRows[rowNumber][column] = cell.toString();
+            }
+        }
+
+        return renderedTableRows
+    }
+
+    /**
+     * @param {Array} rows
+     *
+     * @returns {Array}
+     *
+     * @private
+     */
     _buildTableRows(rows) {
         const unmergedRows = [];
-
 
         for (let rowNumber = 0; rowNumber < rows.length; ++rowNumber) {
             rows = this._fillNextRows(rows, rowNumber);
@@ -472,7 +599,7 @@ class Table {
      * @param {Array} rows
      * @param {int} line
      *
-     * @return {Array}
+     * @returns {Array}
      *
      * @private
      */
@@ -546,7 +673,7 @@ class Table {
      *
      * @param {Array} row
      *
-     * @return {Array}
+     * @returns {Array}
      *
      * @private
      */
@@ -571,7 +698,7 @@ class Table {
      * @param {Array} rows
      * @param {int} line
      *
-     * @return {Array}
+     * @returns {Array}
      *
      * @private
      */
@@ -593,7 +720,7 @@ class Table {
      *
      * @param {Array} row
      *
-     * @return {int}
+     * @returns {int}
      *
      * @private
      */
@@ -612,7 +739,7 @@ class Table {
      *
      * @param {Array} row
      *
-     * @return {Array}
+     * @returns {Array}
      *
      * @private
      */
@@ -676,6 +803,7 @@ class Table {
 
     /**
      * @returns {int}
+     *
      * @private
      */
     _getColumnSeparatorWidth() {
@@ -686,7 +814,7 @@ class Table {
      * @param {Array} row
      * @param {int} column
      *
-     * @return {int}
+     * @returns {int}
      *
      * @private
      */
@@ -714,6 +842,8 @@ class Table {
     }
 
     /**
+     * @returns {Object.<string, Jymfony.Component.Console.Helper.TableStyle>}
+     *
      * @private
      */
     static _initStyles() {
@@ -749,9 +879,9 @@ class Table {
     }
 
     /**
-     * @param {TableStyle|string} name
+     * @param {Jymfony.Component.Console.Helper.TableStyle|string} name
      *
-     * @returns {TableStyle}
+     * @returns {Jymfony.Component.Console.Helper.TableStyle}
      *
      * @private
      */
