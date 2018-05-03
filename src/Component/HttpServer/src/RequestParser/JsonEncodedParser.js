@@ -1,4 +1,5 @@
 const BadContentLengthRequestException = Jymfony.Component.HttpServer.Exception.BadContentLengthRequestException;
+const InvalidJsonBodyException = Jymfony.Component.HttpServer.Exception.InvalidJsonBodyException;
 const ParserInterface = Jymfony.Component.HttpServer.RequestParser.ParserInterface;
 
 /**
@@ -44,7 +45,7 @@ class JsonEncodedParser extends implementationOf(ParserInterface) {
      * @inheritDoc
      */
     parse() {
-        return new Promise((resolve) => {
+        return new Promise((resolve, reject) => {
             this._request.on('data', /** {Buffer|string} */ chunk => {
                 this._buffer = Buffer.concat([ this._buffer, chunk ]);
             });
@@ -53,7 +54,12 @@ class JsonEncodedParser extends implementationOf(ParserInterface) {
                     throw new BadContentLengthRequestException();
                 }
 
-                resolve(JSON.parse(this._buffer.toString('ascii')));
+                const body = this._buffer.toString('ascii');
+                try {
+                    resolve(JSON.parse(body));
+                } catch (e) {
+                    reject(new InvalidJsonBodyException(body));
+                }
             });
         });
     }
