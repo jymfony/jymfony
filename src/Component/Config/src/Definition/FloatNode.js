@@ -8,7 +8,7 @@ const NumericNode = Jymfony.Component.Config.Definition.NumericNode;
  */
 class FloatNode extends NumericNode {
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     validateType(value) {
         if (! isNumber(value)) {

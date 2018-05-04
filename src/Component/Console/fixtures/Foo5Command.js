@@ -1,6 +1,11 @@
 const Command = Jymfony.Component.Console.Command.Command;
 
-module.exports = class Foo5Command extends Command {
+class Foo5Command extends Command {
+    /**
+     * @inheritdoc
+     */
     __construct() {
     }
-};
+}
+
+module.exports = Foo5Command;

@@ -45,7 +45,7 @@ class ContentType {
      * Gets a content type parameter (ex: charset).
      *
      * @param {string} parameter
-     * @param {undefined|string} defaultValue
+     * @param {undefined|string} [defaultValue]
      *
      * @returns {string}
      */

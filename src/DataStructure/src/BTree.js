@@ -63,6 +63,7 @@ class BTree extends mix(undefined, GenericCollectionTrait) {
          * The key compare function.
          *
          * @type {Function}
+         *
          * @private
          */
         this._cmp_function = cmp_function;
@@ -76,6 +77,7 @@ class BTree extends mix(undefined, GenericCollectionTrait) {
          * Root node.
          *
          * @type {Node}
+         *
          * @private
          */
         this._root = new Node(0);
@@ -84,6 +86,7 @@ class BTree extends mix(undefined, GenericCollectionTrait) {
          * The height of the BTree.
          *
          * @type {int}
+         *
          * @private
          */
         this._height = 0;
@@ -92,6 +95,7 @@ class BTree extends mix(undefined, GenericCollectionTrait) {
          * The number of nodes in the BTree.
          *
          * @type {int}
+         *
          * @private
          */
         this._length = 0;
@@ -199,7 +203,7 @@ class BTree extends mix(undefined, GenericCollectionTrait) {
     /**
      * Gets a value.
      *
-     * @param key
+     * @param {*} key
      *
      * @returns {*}
      */
@@ -219,7 +223,7 @@ class BTree extends mix(undefined, GenericCollectionTrait) {
      * @param {*} key
      * @param {*} val
      *
-     * @throws InvalidArgumentException if key is null or undefined
+     * @throws {InvalidArgumentException} if key is null or undefined
      */
     push(key, val) {
         const lt = (a, b) => 0 > this._cmp_function(a, b);
@@ -230,6 +234,7 @@ class BTree extends mix(undefined, GenericCollectionTrait) {
          * @param {Node} root
          *
          * @returns {Node}
+         *
          * @private
          */
         const split = (root) => {
@@ -252,6 +257,7 @@ class BTree extends mix(undefined, GenericCollectionTrait) {
          * @param {int} height
          *
          * @returns {undefined|boolean|Node}
+         *
          * @private
          */
         const insert = (root, key, val, height) => {

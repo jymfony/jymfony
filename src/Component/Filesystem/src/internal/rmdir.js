@@ -1,6 +1,11 @@
 const fs = require('fs');
 
-module.exports = function rmdir (file) {
+/**
+ * @param {string} file
+ *
+ * @returns {Promise}
+ */
+function rmdir(file) {
     return new Promise((resolve, reject) => {
         fs.rmdir(file, (err) => {
             if (err) {
@@ -10,4 +15,6 @@ module.exports = function rmdir (file) {
             }
         });
     });
-};
+}
+
+module.exports = rmdir;

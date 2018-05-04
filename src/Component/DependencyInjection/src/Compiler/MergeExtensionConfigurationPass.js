@@ -5,9 +5,9 @@ const PrependExtensionInterface = Jymfony.Component.DependencyInjection.Extensio
 /**
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
  */
-module.exports = class MergeExtensionConfigurationPass extends implementationOf(CompilerPassInterface) {
+class MergeExtensionConfigurationPass extends implementationOf(CompilerPassInterface) {
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     process(container) {
         const parameters = container.parameterBag.all();
@@ -36,4 +36,6 @@ module.exports = class MergeExtensionConfigurationPass extends implementationOf(
             container.parameterBag.add(parameters);
         }
     }
-};
+}
+
+module.exports = MergeExtensionConfigurationPass;

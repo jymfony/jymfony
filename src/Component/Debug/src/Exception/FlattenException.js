@@ -14,8 +14,8 @@ class FlattenException {
      * Creates a new FlattenException object
      *
      * @param {Error|Exception} exception
-     * @param {int} statusCode
-     * @param {Object<string, string>} headers
+     * @param {int} [statusCode]
+     * @param {Object.<string, string>} [headers = {}]
      */
     static create(exception, statusCode = undefined, headers = {}) {
         const e = new __self();

@@ -9,12 +9,13 @@ const DateTime = Jymfony.Component.DateTime.DateTime;
  * The ProgressBar provides helpers to display progress output.
  *
  * @memberOf Jymfony.Component.Console.Helper
+ *
  * @final
  */
 class ProgressBar {
     /**
      * @param {Jymfony.Component.Console.Output.OutputInterface} output An OutputInterface instance
-     * @param {int} max Maximum steps (0 if unknown)
+     * @param {int} [max = 0] Maximum steps (0 if unknown)
      */
     __construct(output, max = 0) {
         // Options
@@ -121,7 +122,7 @@ class ProgressBar {
      * (by wrapping the name with %).
      *
      * @param {string} message The text to associate with the placeholder
-     * @param {string} name The name of the placeholder
+     * @param {string} [name = 'message'] The name of the placeholder
      */
     setMessage(message, name = 'message') {
         this._messages[name] = message;
@@ -240,7 +241,7 @@ class ProgressBar {
     /**
      * Starts the progress output.
      *
-     * @param {int|null} max Number of steps to complete the bar (0 if indeterminate), null to leave unchanged
+     * @param {int|undefined} [max] Number of steps to complete the bar (0 if indeterminate), null to leave unchanged
      */
     start(max = undefined) {
         this._startTime = DateTime.unixTime;
@@ -257,7 +258,7 @@ class ProgressBar {
     /**
      * Advances the progress output X steps.
      *
-     * @param {int} step Number of steps to advance
+     * @param {int} [step = 1] Number of steps to advance
      */
     advance(step = 1) {
         this.progress = this._step + step;
@@ -367,6 +368,7 @@ class ProgressBar {
      * Overwrites a previous message to the output.
      *
      * @param {string} message The message
+     *
      * @private
      */
     _ow(message) {
@@ -391,6 +393,11 @@ class ProgressBar {
         this._output.write(message);
     }
 
+    /**
+     * @returns {string}
+     *
+     * @private
+     */
     _determineBestFormat() {
         switch (this._output.verbosity) {
             // OutputInterface::VERBOSITY_QUIET: display is disabled anyway
@@ -406,6 +413,8 @@ class ProgressBar {
     }
 
     /**
+     * @returns {Object.<string, Function>}
+     *
      * @private
      */
     static _initPlaceholderFormatters() {
@@ -508,6 +517,8 @@ class ProgressBar {
     }
 
     /**
+     * @returns {Object<string, string>}
+     *
      * @private
      */
     static _initFormats() {

@@ -3,7 +3,9 @@ const ParserInterface = Jymfony.Component.HttpServer.RequestParser.ParserInterfa
 
 /**
  * @memberOf Jymfony.Component.HttpServer.RequestParser
+ *
  * @internal
+ *
  * @abstract
  */
 class AbstractParser extends implementationOf(ParserInterface) {
@@ -16,25 +18,28 @@ class AbstractParser extends implementationOf(ParserInterface) {
     __construct(req, contentLength) {
         /**
          * @type {IncomingMessage}
+         *
          * @private
          */
         this._request = req;
 
         /**
          * @type {int}
+         *
          * @private
          */
         this._contentLength = contentLength;
 
         /**
          * @type {Buffer}
+         *
          * @private
          */
         this._buffer = Buffer.allocUnsafe(0);
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     get buffer() {
         return this._buffer;
@@ -45,7 +50,7 @@ class AbstractParser extends implementationOf(ParserInterface) {
      *
      * @param {string} buffer
      *
-     * @returns {[Object<string, *>, Object<string, Jymfony.Component.HttpFoundation.File.UploadedFile>]}
+     * @returns {Object.<string, *>, Object.<string, Jymfony.Component.HttpFoundation.File.UploadedFile>[]}
      *
      * @abstract
      */
@@ -54,7 +59,7 @@ class AbstractParser extends implementationOf(ParserInterface) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     parse() {
         return new Promise((resolve) => {

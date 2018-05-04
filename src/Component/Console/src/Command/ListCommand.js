@@ -9,7 +9,7 @@ const DescriptorHelper = Jymfony.Component.Console.Helper.DescriptorHelper;
  */
 class ListCommand extends Command {
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     configure() {
         this.name = 'list';
@@ -34,14 +34,14 @@ It's also possible to get raw list of commands (useful for embedding command run
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     get nativeDefinition() {
         return this._createDefinition();
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     execute(input, output) {
         const helper = new DescriptorHelper();
@@ -53,7 +53,7 @@ It's also possible to get raw list of commands (useful for embedding command run
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     _createDefinition() {
         return new InputDefinition([

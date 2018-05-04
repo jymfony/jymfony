@@ -1,6 +1,11 @@
 const fs = require('fs');
 
-module.exports = function realpath (file) {
+/**
+ * @param {string} file
+ *
+ * @returns {Promise}
+ */
+function realpath(file) {
     return new Promise((resolve, reject) => {
         fs.realpath(file, {}, (err, resolvedPath) => {
             if (err) {
@@ -11,4 +16,6 @@ module.exports = function realpath (file) {
             resolve(resolvedPath);
         });
     });
-};
+}
+
+module.exports = realpath;

@@ -4,9 +4,11 @@ const StreamableInputInterface = Jymfony.Component.Console.Input.StreamableInput
 /**
  * Abstract question renderer.
  *
- * @abstract
- * @internal
  * @memberOf Jymfony.Component.Console.Question.Renderer
+ *
+ * @abstract
+ *
+ * @internal
  */
 class AbstractRenderer extends implementationOf(RendererInterface) {
     /**
@@ -19,6 +21,7 @@ class AbstractRenderer extends implementationOf(RendererInterface) {
          * The underlying question object.
          *
          * @type {Jymfony.Console.Question.PasswordQuestion}
+         *
          * @protected
          */
         this._question = question;
@@ -27,6 +30,7 @@ class AbstractRenderer extends implementationOf(RendererInterface) {
          * Input object.
          *
          * @type {stream.Readable}
+         *
          * @protected
          */
         this._input = (this._question._input instanceof StreamableInputInterface ? this._question._input.stream : undefined) || process.stdin;
@@ -35,6 +39,7 @@ class AbstractRenderer extends implementationOf(RendererInterface) {
          * Output object.
          *
          * @type {Jymfony.Component.Console.Output.OutputInterface}
+         *
          * @protected
          */
         this._output = this._question._output;
@@ -43,6 +48,7 @@ class AbstractRenderer extends implementationOf(RendererInterface) {
          * Output formatter.
          *
          * @type {Jymfony.Component.Console.Formatter.OutputFormatterInterface}
+         *
          * @protected
          */
         this._outputFormatter = this._output.formatter;

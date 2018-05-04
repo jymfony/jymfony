@@ -2,6 +2,14 @@
 
 global.__jymfony = global.__jymfony || {};
 
+/**
+ * @param {string} str
+ * @param {string} mask
+ *
+ * @returns {int}
+ *
+ * @internal
+ */
 const _strcspn = function _strcspn(str, mask) {
     let lgth = 0;
     for (let i = 0; i < str.length; i++) {
@@ -21,8 +29,8 @@ const _strcspn = function _strcspn(str, mask) {
  *
  * @param {string} str
  * @param {string} mask
- * @param {int} start
- * @param {undefined|int} length
+ * @param {int} [start = 0]
+ * @param {undefined|int} [length]
  *
  * @returns {int}
  */

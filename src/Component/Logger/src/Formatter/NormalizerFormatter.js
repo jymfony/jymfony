@@ -44,7 +44,7 @@ class NormalizerFormatter extends implementationOf(FormatterInterface) {
      * Normalizes a log record
      *
      * @param {*} record
-     * @param {int} depth
+     * @param {int} [depth = 0]
      *
      * @protected
      */

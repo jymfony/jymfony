@@ -8,22 +8,27 @@
  * @memberOf Jymfony.Component.Routing
  */
 class RouteCollection {
+    /**
+     * Constructor.
+     */
     __construct() {
         /**
-         * @type {Object<string, Jymfony.Component.Routing.Route>}
+         * @type {Object.<string, Jymfony.Component.Routing.Route>}
+         *
          * @private
          */
         this._routes = {};
 
         /**
-         * @type {Object<string, Jymfony.Component.Config.ResourceInterface>}
+         * @type {Object.<string, Jymfony.Component.Config.ResourceInterface>}
+         *
          * @private
          */
         this._resources = {};
     }
 
     /**
-     * Adds a route
+     * Adds a route.
      *
      * @param {string} name
      * @param {Jymfony.Component.Routing.Route} route
@@ -40,7 +45,7 @@ class RouteCollection {
     /**
      * Returns all routes in this collection.
      *
-     * @returns {Object<string, Jymfony.Component.Routing.Route>}
+     * @returns {Object.<string, Jymfony.Component.Routing.Route>}
      */
     all() {
         return Object.assign({}, this._routes);
@@ -51,7 +56,7 @@ class RouteCollection {
      *
      * @param {string} name
      *
-     * @returns {Object<string, Jymfony.Component.Routing.Route>|undefined}
+     * @returns {Object.<string, Jymfony.Component.Routing.Route>|undefined}
      */
     get(name) {
         return this._routes[name];
@@ -60,7 +65,7 @@ class RouteCollection {
     /**
      * Removes a route or an array of routes from the collection
      *
-     * @param {string|[string]} name
+     * @param {string|string[]} name
      *
      * @returns {Jymfony.Component.Routing.RouteCollection}
      */
@@ -101,8 +106,8 @@ class RouteCollection {
      * Adds a prefix to the path of all child routes.
      *
      * @param {string} prefix An optional prefix to add before each pattern of the route collection
-     * @param {Object<string, *>} defaults A set of default values
-     * @param {Object<string, string|RegExp>} requirements A set of requirements
+     * @param {Object.<string, *>} [defaults = {}] A set of default values
+     * @param {Object.<string, string|RegExp>} [requirements = {}]  A set of requirements
      *
      * @returns {Jymfony.Component.Routing.RouteCollection}
      */
@@ -126,8 +131,8 @@ class RouteCollection {
      * Sets the host pattern on all routes.
      *
      * @param {string} pattern The pattern
-     * @param {Object<string, *>} defaults A set of default values
-     * @param {Object<string, string|RegExp>} requirements A set of requirements
+     * @param {Object.<string, *>} [defaults = {}] A set of default values
+     * @param {Object.<string, string|RegExp>} [requirements = {}] A set of requirements
      *
      * @returns {Jymfony.Component.Routing.RouteCollection}
      */
@@ -156,7 +161,6 @@ class RouteCollection {
 
     /**
      * Sets a condition on all routes.
-     *
      * Existing conditions will be overridden.
      *
      * @param {string} condition The condition
@@ -167,10 +171,9 @@ class RouteCollection {
 
     /**
      * Adds defaults to all routes.
-     *
      * An existing default value under the same name in a route will be overridden.
      *
-     * @param {Object<string, *>} defaults A set of default values
+     * @param {Object.<string, *>} defaults A set of default values
      */
     addDefaults(defaults) {
         if (0 === Object.keys(defaults).length) {
@@ -186,10 +189,9 @@ class RouteCollection {
 
     /**
      * Adds requirements to all routes.
-     *
      * An existing requirement under the same name in a route will be overridden.
      *
-     * @param {Object<string, string|RegExp>} requirements A set of requirements
+     * @param {Object.<string, string|RegExp>} requirements A set of requirements
      */
     addRequirements(requirements) {
         if (0 === Object.keys(requirements).length) {
@@ -205,10 +207,9 @@ class RouteCollection {
 
     /**
      * Adds options to all routes.
-     *
      * An existing option value under the same name in a route will be overridden.
      *
-     * @param {Object<string, *>} options An array of options
+     * @param {Object.<string, *>} options An array of options
      */
     addOptions(options) {
         if (0 === Object.keys(options).length) {
@@ -225,7 +226,7 @@ class RouteCollection {
     /**
      * Sets the schemes (e.g. 'https') all child routes are restricted to.
      *
-     * @param {string|[string]} schemes The scheme or an array of schemes
+     * @param {string|string[]} schemes The scheme or an array of schemes
      */
     setSchemes(schemes) {
         for (const route of this._routes) {
@@ -236,7 +237,7 @@ class RouteCollection {
     /**
      * Sets the HTTP methods (e.g. 'POST') all child routes are restricted to.
      *
-     * @param {string|[string]} methods The method or an array of methods
+     * @param {string|string[]} methods The method or an array of methods
      */
     setMethods(methods) {
         for (const route of this._routes) {
@@ -247,7 +248,7 @@ class RouteCollection {
     /**
      * Returns the set of resources loaded to build this collection.
      *
-     * @return {[Jymfony.Component.Config.ResourceInterface]}
+     * @returns {Jymfony.Component.Config.ResourceInterface[]}
      */
     get resources() {
         return Object.values(this._resources);

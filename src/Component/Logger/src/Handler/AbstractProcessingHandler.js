@@ -7,9 +7,12 @@ const ProcessableHandlerTrait = Jymfony.Component.Logger.Handler.ProcessableHand
 /**
  * @memberOf Jymfony.Component.Logger.Handler
  */
-class AbstractProcessingHandler extends mix(AbstractHandler,
-    FormattableHandlerInterface, ProcessableHandlerInterface,
-    FormattableHandlerTrait, ProcessableHandlerTrait
+class AbstractProcessingHandler extends mix(
+    AbstractHandler,
+    FormattableHandlerInterface,
+    ProcessableHandlerInterface,
+    FormattableHandlerTrait,
+    ProcessableHandlerTrait
 ) {
     /**
      * @inheritdoc
@@ -35,8 +38,6 @@ class AbstractProcessingHandler extends mix(AbstractHandler,
      * Writes the record down to the log of the implementing handler
      *
      * @param {*} record
-     *
-     * @returns void
      *
      * @abstract
      */

@@ -6,6 +6,7 @@ const INITIAL_SIZE = 64;
  * Returns an unsigned integer between 0 and 2^32-1
  *
  * @param {string} str
+ *
  * @returns {int}
  */
 const hash = (str) => {
@@ -59,53 +60,60 @@ class HashTable extends mix(undefined, GenericCollectionTrait) {
     /**
      * Constructor.
      *
-     * @param {int} [bucketSize=INITIAL_SIZE]
+     * @param {int} [bucketSize = INITIAL_SIZE]
      */
     constructor(bucketSize = INITIAL_SIZE) {
         super();
 
         /**
          * @type {int}
+         *
          * @private
          */
         this._bucketSize = bucketSize;
+
         this.clear();
     }
 
     clear() {
         /**
-         * @type {[Entry]}
+         * @type {Entry[]}
+         *
          * @private
          */
         this._buckets = Array(this._bucketSize).fill(undefined);
 
         /**
          * @type {Entry}
+         *
          * @private
          */
         this._first = undefined;
 
         /**
          * @type {Entry}
+         *
          * @private
          */
         this._last = undefined;
 
         /**
          * @type {int}
+         *
          * @private
          */
         this._length = 0;
 
         /**
          * @type {int}
+         *
          * @private
          */
         this._lastNumericIdx = 0;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     get length() {
         return this._length;
@@ -174,7 +182,7 @@ class HashTable extends mix(undefined, GenericCollectionTrait) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     copy() {
         const copy = new HashTable(this._bucketSize);
@@ -257,7 +265,7 @@ class HashTable extends mix(undefined, GenericCollectionTrait) {
      *
      * @param {int|string} key
      *
-     * @returns {undefined}
+     * @returns {undefined|*}
      */
     remove(key) {
         const e = this._search(key);
@@ -285,7 +293,7 @@ class HashTable extends mix(undefined, GenericCollectionTrait) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     toArray() {
         if (undefined === this._first) {
@@ -349,7 +357,7 @@ class HashTable extends mix(undefined, GenericCollectionTrait) {
     /**
      * Returns all the table keys (ordered).
      *
-     * @returns {[]}
+     * @returns {Array}
      */
     keys() {
         return Array.from(this)
@@ -375,6 +383,7 @@ class HashTable extends mix(undefined, GenericCollectionTrait) {
      * Helper method to add an entry to the collection.
      *
      * @param {Entry} entry
+     *
      * @private
      */
     _add(entry) {
@@ -390,7 +399,8 @@ class HashTable extends mix(undefined, GenericCollectionTrait) {
     /**
      * Searches an entry with key.
      *
-     * @param key
+     * @param {string} key
+     *
      * @returns {Entry|undefined}
      *
      * @private

@@ -13,30 +13,35 @@ class Doubler {
     __construct(prophecy) {
         /**
          * @type {undefined|Function}
+         *
          * @private
          */
         this._superClass = undefined;
 
         /**
-         * @type {[Function]}
+         * @type {Function[]}
+         *
          * @private
          */
         this._interfaces = [];
 
         /**
          * @type {undefined|Object}
+         *
          * @private
          */
         this._instance = undefined;
 
         /**
          * @type {undefined|Array}
+         *
          * @private
          */
         this._constructorArgs = undefined;
 
         /**
          * @type {Jymfony.Component.Testing.Prophecy.ObjectProphecy}
+         *
          * @private
          */
         this._prophecy = prophecy;
@@ -45,35 +50,35 @@ class Doubler {
     /**
      * Adds an interface to be implemented by the double.
      *
-     * @param Interface
+     * @param {Function} interface_
      */
-    addInterface(Interface) {
+    addInterface(interface_) {
         if (undefined !== this._instance) {
             throw new DoubleException('Can not implement interface with already instantiated double.');
         }
 
-        if (-1 === this._interfaces.indexOf(Interface)) {
-            this._interfaces.push(Interface);
+        if (-1 === this._interfaces.indexOf(interface_)) {
+            this._interfaces.push(interface_);
         }
     }
 
     /**
      * Sets the class to be extended by the double.
      *
-     * @param Class
+     * @param {Function} class_
      */
-    set superClass(Class) {
+    set superClass(class_) {
         if (undefined !== this._instance) {
             throw new DoubleException('Can not extend class with already instantiated double.');
         }
 
-        this._superClass = Class;
+        this._superClass = class_;
     }
 
     /**
      * Sets the constructor arguments.
      *
-     * @param args
+     * @param {Array} args
      */
     set constructorArguments(args) {
         this._constructorArgs = args;

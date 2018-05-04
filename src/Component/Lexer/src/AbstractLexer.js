@@ -10,9 +10,28 @@ class AbstractLexer {
      * Reset the lexer
      */
     reset() {
+        /**
+         * @type {int|string|undefined}
+         */
         this.token = undefined;
+
+        /**
+         * @type {Object}
+         */
         this.lookahead = undefined;
+
+        /**
+         * @type {int}
+         *
+         * @private
+         */
         this._peek = 0;
+
+        /**
+         * @type {int}
+         *
+         * @private
+         */
         this._position = 0;
     }
 
@@ -26,7 +45,7 @@ class AbstractLexer {
     /**
      * Resets the lexer position on the input to the given position.
      *
-     * @param {int} position Position to place the lexical scanner.
+     * @param {int} [position = 0] Position to place the lexical scanner.
      */
     resetPosition(position = 0) {
         this._position = position;
@@ -130,7 +149,7 @@ class AbstractLexer {
     /**
      * Gets the literal for a given token.
      *
-     * @param {int} token
+     * @param {int|string} token
      *
      * @returns {string}
      */
@@ -230,6 +249,7 @@ class AbstractLexer {
      * @returns {Array}
      *
      * @protected
+     *
      * @abstract
      */
     getCatchablePatterns() {
@@ -242,6 +262,7 @@ class AbstractLexer {
      * @returns {Array}
      *
      * @protected
+     *
      * @abstract
      */
     getNonCatchablePatterns() {
@@ -256,6 +277,7 @@ class AbstractLexer {
      * @returns {int}
      *
      * @protected
+     *
      * @abstract
      */
     getType(holder) { // eslint-disable-line no-unused-vars

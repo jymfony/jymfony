@@ -2,6 +2,11 @@ const Lexer = require('./Lexer');
 const lexer = new Lexer();
 
 class Patcher {
+    /**
+     * Constructor.
+     *
+     * @param {string} code
+     */
     constructor(code) {
         lexer.input = code;
 
@@ -10,6 +15,7 @@ class Patcher {
 
     /**
      * @param {Jymfony.Component.Autoloader.Parser.Lexer} lexer
+     *
      * @private
      */
     * _process(lexer) {
@@ -42,6 +48,7 @@ class Patcher {
     /**
      * @param {Jymfony.Component.Autoloader.Parser.Lexer} lexer
      * @param {undefined|string} classDocblock
+     *
      * @private
      */
     _processClass(lexer, classDocblock) {
@@ -180,6 +187,9 @@ class Patcher {
         return code;
     }
 
+    /**
+     * @private
+     */
     _parse() {
         this._code = '';
         for (const block of this._process(lexer)) {
@@ -187,6 +197,9 @@ class Patcher {
         }
     }
 
+    /**
+     * @returns {string}
+     */
     get code() {
         return this._code;
     }

@@ -37,7 +37,14 @@ const availableOptions = {
  * @memberOf Jymfony.Component.Console.Formatter
  */
 class OutputFormatterStyle extends implementationOf(OutputFormatterStyleInterface) {
-    __construct(foreground = null, background = null, options = []) {
+    /**
+     * Constructor.
+     *
+     * @param {string|undefined} [foreground]
+     * @param {string|undefined} [background]
+     * @param {Array} [options = []]
+     */
+    __construct(foreground = undefined, background = undefined, options = []) {
         if (foreground) {
             this.foreground = foreground;
         }
@@ -50,11 +57,16 @@ class OutputFormatterStyle extends implementationOf(OutputFormatterStyleInterfac
             this.setOptions(options);
         }
 
+        /**
+         * @type {Set<*>}
+         *
+         * @private
+         */
         this._options = new Set();
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     set foreground(color) {
         if (! color) {
@@ -72,7 +84,7 @@ class OutputFormatterStyle extends implementationOf(OutputFormatterStyleInterfac
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     set background(color) {
         if (! color) {
@@ -90,7 +102,7 @@ class OutputFormatterStyle extends implementationOf(OutputFormatterStyleInterfac
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     setOption(option) {
         if (! availableOptions[option]) {
@@ -103,7 +115,7 @@ class OutputFormatterStyle extends implementationOf(OutputFormatterStyleInterfac
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     unsetOption(option) {
         if (! availableOptions[option]) {
@@ -116,7 +128,7 @@ class OutputFormatterStyle extends implementationOf(OutputFormatterStyleInterfac
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     setOptions(options) {
         this._options.clear();
@@ -127,7 +139,7 @@ class OutputFormatterStyle extends implementationOf(OutputFormatterStyleInterfac
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     apply(text) {
         const setCodes = [];

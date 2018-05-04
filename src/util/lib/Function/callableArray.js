@@ -3,7 +3,8 @@
 /**
  * Check if arg is an array describing a callable
  *
- * @param arg
+ * @param {*} arg
+ *
  * @returns {Boolean}
  */
 const isCallableArray = function isCallableArray(arg) {

@@ -9,17 +9,23 @@ if (! isFunction(global.isObject)) {
     };
 }
 
-for(const name of [ 'Arguments', 'Boolean', 'String', 'Number', 'Date', 'RegExp', 'Error', 'Symbol', 'Map', 'WeakMap', 'Set', 'WeakSet' ]) {
-    if (isFunction(global['is' + name])) {
+for (const name of [ 'Arguments', 'Boolean', 'String', 'Number', 'Date', 'RegExp', 'Error', 'Symbol', 'Map', 'WeakMap', 'Set', 'WeakSet' ]) {
+    if (isFunction(global[`is${name}`])) {
         continue;
     }
 
     global['is' + name] = function (obj) {
-        return toString.call(obj) === '[object ' + name + ']';
+        return toString.call(obj) === `[object ${name}]`;
     };
 }
 
 const primitives = [ Number, String, Boolean ];
+
+/**
+ * @param {*} value
+ *
+ * @returns {boolean}
+ */
 global.isScalar = function isScalar(value) {
     if (undefined === value || null === value) {
         return false;
@@ -35,6 +41,11 @@ global.isScalar = function isScalar(value) {
     return false;
 };
 
+/**
+ * @param {*} value
+ *
+ * @returns {boolean}
+ */
 global.isObjectLiteral = function isObjectLiteral(value) {
     if (null === value || undefined === value) {
         return false;
@@ -43,10 +54,20 @@ global.isObjectLiteral = function isObjectLiteral(value) {
     return Object.getPrototypeOf(value) === Object.getPrototypeOf({});
 };
 
+/**
+ * @param {*} value
+ *
+ * @returns {boolean}
+ */
 global.isPromise = function isPromise(value) {
     return isFunction(value.then);
 };
 
+/**
+ * @param {*} stream
+ *
+ * @returns {boolean}
+ */
 global.isStream = function isStream(stream) {
     return 'object' === typeof stream && isFunction(stream.pipe);
 };

@@ -4,6 +4,11 @@ const PredictionInterface = Jymfony.Component.Testing.Prediction.PredictionInter
  * @memberOf Jymfony.Component.Testing.Prediction
  */
 class CallbackPrediction extends implementationOf(PredictionInterface) {
+    /**
+     * Constructor.
+     *
+     * @param {Function} callback
+     */
     __construct(callback) {
         if (! isFunction(callback)) {
             throw new InvalidArgumentException(__jymfony.sprintf(
@@ -16,7 +21,7 @@ class CallbackPrediction extends implementationOf(PredictionInterface) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     check(calls, object, method) {
         const cb = new BoundFunction(object, this._callback);

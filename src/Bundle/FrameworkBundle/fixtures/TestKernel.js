@@ -19,6 +19,7 @@ class TestKernel extends Kernel {
     __construct(environment, debug, addTestCommands) {
         /**
          * @type {boolean}
+         *
          * @private
          */
         this._addTestCommands = addTestCommands;
@@ -31,28 +32,28 @@ class TestKernel extends Kernel {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     * registerBundles() {
         yield new Jymfony.Bundle.FrameworkBundle.FrameworkBundle();
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     getLogsDir() {
         return path.normalize(path.join(os.tmpdir(), 'jymfony_tests', this._prefixCacheLogDir, 'var', 'logs'));
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     getCacheDir() {
         return path.normalize(path.join(os.tmpdir(), 'jymfony_tests', this._prefixCacheLogDir, 'var', 'cache'));
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     _getContainerBuilder() {
         const container = new ContainerBuilder();
@@ -68,7 +69,7 @@ class TestKernel extends Kernel {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     _initializeContainer() {
         let container;

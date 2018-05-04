@@ -14,14 +14,14 @@ class IdenticalValueToken extends implementationOf(TokenInterface) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     scoreArgument(argument) {
         return __jymfony.equal(argument, this._value, true) ? 11 : false;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     isLast() {
         return false;

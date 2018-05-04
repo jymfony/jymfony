@@ -10,7 +10,7 @@ class EventDispatcherInterface {
      * the listeners.
      *
      * @param {string} eventName
-     * @param {Jymfony.Component.EventDispatcher.Event} event
+     * @param {Jymfony.Component.EventDispatcher.Event} [event = new Jymfony.Component.EventDispatcher.Event()]
      *
      * @returns {Promise.<Jymfony.Component.EventDispatcher.Event>}
      */
@@ -21,14 +21,14 @@ class EventDispatcherInterface {
      *
      * @param {string} eventName
      * @param {Function|Array} listener
-     * @param {int} priority
+     * @param {int} [priority = 0]
      */
     addListener(eventName, listener, priority = 0) { }
 
     /**
      * Adds and event subscriber
      *
-     * @param {*} subscriber
+     * @param {Jymfony.Component.EventDispatcher.EventSubscriberInterface} subscriber
      */
     addSubscriber(subscriber) { }
 
@@ -50,7 +50,7 @@ class EventDispatcherInterface {
     /**
      * Gets the listeners associated to an event.
      *
-     * @param {string} eventName
+     * @param {string} [eventName]
      *
      * @returns {Array}
      */

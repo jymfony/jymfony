@@ -4,10 +4,26 @@ const PredictionException = Jymfony.Component.Testing.Exception.Prediction.Predi
  * @memberOf Jymfony.Component.Testing.Exception.Prediction
  */
 class AggregateException extends mix(RuntimeException, PredictionException) {
+    /**
+     * Constructor.
+     *
+     * @param {string} message
+     *
+     * @inheritdoc
+     */
     __construct(message) {
         super.__construct(message);
 
+        /**
+         * @type {Array}
+         *
+         * @private
+         */
         this._exceptions = [];
+
+        /**
+         * @type {Jymfony.Component.Testing.Prophecy.ObjectProphecy}
+         */
         this.objectProphecy = undefined;
     }
 
@@ -25,7 +41,7 @@ class AggregateException extends mix(RuntimeException, PredictionException) {
     }
 
     /**
-     * @return PredictionException[]
+     * @returns {PredictionException[]}
      */
     get exceptions() {
         return this._exceptions;

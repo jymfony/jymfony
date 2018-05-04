@@ -14,26 +14,38 @@ const Revealer = Jymfony.Component.Testing.Prophecy.Revealer;
 class ObjectProphecy extends implementationOf(ProphecyInterface) {
     /**
      * Constructor.
+     *
+     * @param {Jymfony.Component.Testing.Double.Doubler} [doubler]
+     * @param {Jymfony.Component.Testing.Prophecy.Revealer} [revealer]
+     * @param {Jymfony.Component.Testing.Call.CallCenter} [callCenter]
      */
     __construct(doubler = undefined, revealer = undefined, callCenter = undefined) {
         /**
          * @type {Jymfony.Component.Testing.Double.Doubler}
+         *
          * @private
          */
         this._doubler = doubler || new Doubler(this);
 
         /**
          * @type {Jymfony.Component.Testing.Prophecy.Revealer}
+         *
          * @private
          */
         this._revealer = revealer || new Revealer();
 
         /**
          * @type {Jymfony.Component.Testing.Call.CallCenter}
+         *
          * @private
          */
         this._callCenter = callCenter || new CallCenter();
 
+        /**
+         * @type {Object}
+         *
+         * @private
+         */
         this._methodProphecies = {};
 
         return new Proxy(this, {
@@ -78,7 +90,7 @@ class ObjectProphecy extends implementationOf(ProphecyInterface) {
     /**
      * Gets the registered method prophecies.
      *
-     * @returns {Object<string, [Jymfony.Component.Testing.Prophecy.MethodProphecy]>}
+     * @returns {Object<string, Jymfony.Component.Testing.Prophecy.MethodProphecy[]>}
      */
     get methodProphecies() {
         return this._methodProphecies;
@@ -122,7 +134,7 @@ class ObjectProphecy extends implementationOf(ProphecyInterface) {
     /**
      * Sets constructor arguments.
      *
-     * @param {[*]} args
+     * @param {*[]} args
      *
      * @returns {Jymfony.Component.Testing.Prophecy.ObjectProphecy}
      */
@@ -138,7 +150,7 @@ class ObjectProphecy extends implementationOf(ProphecyInterface) {
      * @param {string} methodName
      * @param {Jymfony.Component.Testing.Argument.ArgumentsWildcard} wildcard
      *
-     * @returns {[Jymfony.Component.Testing.Call.Call]}
+     * @returns {Jymfony.Component.Testing.Call.Call[]}
      */
     findProphecyMethodCalls(methodName, wildcard) {
         return this._callCenter.findCalls(methodName, wildcard);
@@ -148,7 +160,7 @@ class ObjectProphecy extends implementationOf(ProphecyInterface) {
      * Makes specific method call.
      *
      * @param {string} methodName
-     * @param {[*]} args
+     * @param {*[]} args
      *
      * @returns {*}
      */
@@ -192,9 +204,9 @@ class ObjectProphecy extends implementationOf(ProphecyInterface) {
     /**
      * Returns either all or related to single method prophecies.
      *
-     * @param {undefined|string} methodName
+     * @param {undefined|string} [methodName]
      *
-     * @returns {[Jymfony.Component.Testing.Prophecy.MethodProphecy]}
+     * @returns {Jymfony.Component.Testing.Prophecy.MethodProphecy[]}
      */
     getMethodProphecies(methodName = undefined) {
         if (undefined === methodName) {
@@ -245,7 +257,7 @@ class ObjectProphecy extends implementationOf(ProphecyInterface) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     reveal() {
         return this._doubler.getInstance();

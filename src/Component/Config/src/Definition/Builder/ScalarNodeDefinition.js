@@ -8,9 +8,7 @@ const ScalarNode = Jymfony.Component.Config.Definition.ScalarNode;
  */
 class ScalarNodeDefinition extends VariableNodeDefinition {
     /**
-     * Instantiate a Node.
-     *
-     * @returns {Jymfony.Component.Config.Definition.ScalarNode} The node
+     * @inheritdoc
      */
     instantiateNode() {
         return new ScalarNode(this._name, this._parent);

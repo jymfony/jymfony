@@ -13,8 +13,8 @@ class Autoloader {
     /**
      * Constructor.
      *
-     * @param {undefined|Jymfony.Component.Autoloader.Finder} finder
-     * @param {Object} globalObject
+     * @param {undefined|Jymfony.Component.Autoloader.Finder} [finder]
+     * @param {Object} [globalObject = global]
      */
     constructor(finder = undefined, globalObject = global) {
         if (globalObject.__jymfony && globalObject.__jymfony.autoload) {
@@ -27,31 +27,37 @@ class Autoloader {
 
         /**
          * @type {boolean}
+         *
          * @private
          */
         this._debug = false;
 
         /**
          * @type {boolean}
+         *
          * @private
          */
         this._registered = false;
 
         /**
          * @type {Jymfony.Component.Autoloader.Finder}
+         *
          * @private
          */
         this._finder = finder;
 
         /**
          * @type {Object}
-         * @private
+         *
+         * @public
          */
         this._global = globalObject;
         this._global.__jymfony = this._global.__jymfony || {};
 
         /**
          * @type {Jymfony.Component.Autoloader.Autoloader}
+         *
+         * @public
          */
         this._global.__jymfony.autoload = this;
     }
@@ -181,6 +187,12 @@ class Autoloader {
         this._processPackageInfo(require(rootDir + '/package.json'), rootDir);
     }
 
+    /**
+     * @param {Object} packageInfo
+     * @param {string} baseDir
+     *
+     * @private
+     */
     _processPackageInfo(packageInfo, baseDir) {
         if (! packageInfo.config || ! packageInfo.config['jymfony-autoload']) {
             return;
@@ -196,6 +208,12 @@ class Autoloader {
         }
     }
 
+    /**
+     * @param {Object} config
+     * @param {string} baseDir
+     *
+     * @private
+     */
     _processNamespaces(config, baseDir) {
         for (const namespace in config) {
             if (! config.hasOwnProperty(namespace)) {
@@ -219,12 +237,26 @@ class Autoloader {
         }
     }
 
+    /**
+     * @param {Object} config
+     * @param {string} baseDir
+     *
+     * @private
+     */
     _processIncludes(config, baseDir) {
         for (const fileName of config) {
             require(baseDir + '/' + fileName);
         }
     }
 
+    /**
+     * @param {Object} namespace
+     * @param {Object} parent
+     *
+     * @returns {Object}
+     *
+     * @private
+     */
     _ensureNamespace(namespace, parent) {
         if (parent[namespace] === undefined) {
             return parent[namespace] = new Namespace(this, this._generateFqn(parent, namespace));
@@ -233,6 +265,14 @@ class Autoloader {
         return parent[namespace];
     }
 
+    /**
+     * @param {Object} parent
+     * @param {Object} namespace
+     *
+     * @returns {string}
+     *
+     * @private
+     */
     _generateFqn(parent, namespace) {
         return (parent === this._global ? '' : parent.__namespace.name + '.') + namespace;
     }

@@ -10,12 +10,15 @@ class HttpServerRunCommand extends Command {
      * Constructor.
      *
      * @param {Jymfony.Component.HttpServer.HttpServer} server
+     *
+     * @inheritdoc
      */
     __construct(server) {
         super.__construct('http:listen');
 
         /**
          * @type {Jymfony.Component.HttpServer.HttpServer}
+         *
          * @private
          */
         this._server = server;

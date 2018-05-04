@@ -7,11 +7,8 @@ const ConsoleEvent = Jymfony.Component.Console.Event.ConsoleEvent;
  */
 class ConsoleTerminateEvent extends ConsoleEvent {
     /**
-     * Constructor.
+     * @inheritdoc
      *
-     * @param {Jymfony.Component.Console.Command.Command} command
-     * @param {Jymfony.Component.Console.Input.InputInterface} input
-     * @param {Jymfony.Component.Console.Output.OutputInterface} output
      * @param {int} exitCode
      */
     __construct(command, input, output, exitCode) {

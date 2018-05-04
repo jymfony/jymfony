@@ -6,7 +6,7 @@ class LoaderInterface {
      * Loads a resource.
      *
      * @param {*} resource The resource
-     * @param {undefined|string} type The resource type or undefined if unknown
+     * @param {undefined|string} [type] The resource type or undefined if unknown
      *
      * @throws {Exception} If something went wrong
      */
@@ -16,11 +16,11 @@ class LoaderInterface {
      * Returns whether this class supports the given resource.
      *
      * @param {*} resource A resource
-     * @param {undefined|string} type The resource type or undefined if unknown
+     * @param {undefined|string} [type] The resource type or undefined if unknown
      *
      * @returns {boolean} True if this class supports the given resource, false otherwise
      */
-    supports(resource, type = null) { }
+    supports(resource, type = undefined) { }
 
     /**
      * Gets the loader resolver.

@@ -5,11 +5,15 @@ const os = require('os');
  * @memberOf Jymfony.Component.Console.Output
  */
 class BufferedOutput extends Output {
+    /**
+     * @inheritdoc
+     */
     __construct(verbosity = OutputInterface.VERBOSITY_NORMAL, decorated = false, formatter = new OutputFormatter()) {
         super.__construct(verbosity, decorated, formatter);
 
         /**
          * @type {string}
+         *
          * @private
          */
         this._buffer = '';
@@ -28,7 +32,7 @@ class BufferedOutput extends Output {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     _doWrite(message, newline) {
         this._buffer += message;

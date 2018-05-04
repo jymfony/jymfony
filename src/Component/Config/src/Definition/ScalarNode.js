@@ -6,7 +6,7 @@ const InvalidTypeException = Jymfony.Component.Config.Definition.Exception.Inval
  */
 class ScalarNode extends VariableNode {
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     validateType(value) {
         if (! isScalar(value) && undefined !== value && null !== value) {
@@ -27,7 +27,7 @@ class ScalarNode extends VariableNode {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     isValueEmpty(value) {
         return undefined === value || null === value || '' === value;

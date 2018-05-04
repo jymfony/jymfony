@@ -15,18 +15,31 @@ class Input extends implementationOf(StreamableInputInterface) {
     __construct(definition = undefined) {
         /**
          * @type {Object.<string, *>}
+         *
          * @protected
          */
         this._arguments = {};
 
         /**
          * @type {Object.<string, *>}
+         *
          * @protected
          */
         this._options = {};
+
+        /**
+         * @type {boolean}
+         *
+         * @private
+         */
         this._interactive = true;
 
         if (! definition) {
+            /**
+             * @type {Jymfony.Component.Console.Input.InputDefinition}
+             *
+             * @private
+             */
             this._definition = new InputDefinition();
         } else {
             this.bind(definition);
@@ -35,7 +48,7 @@ class Input extends implementationOf(StreamableInputInterface) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     bind(definition) {
         this._arguments = {};
@@ -53,7 +66,7 @@ class Input extends implementationOf(StreamableInputInterface) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     validate() {
         const definition = this._definition;
@@ -69,28 +82,28 @@ class Input extends implementationOf(StreamableInputInterface) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     get interactive() {
         return this._interactive;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     set interactive(interactive) {
         this._interactive = interactive;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     get arguments() {
         return Object.assign({}, this._definition.getArgumentDefaults(), this._arguments);
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     getArgument(name) {
         if (! this._definition.hasArgument(name)) {
@@ -101,7 +114,7 @@ class Input extends implementationOf(StreamableInputInterface) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     setArgument(name, value) {
         if (! this._definition.hasArgument(name)) {
@@ -112,21 +125,21 @@ class Input extends implementationOf(StreamableInputInterface) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     hasArgument(name) {
         return this._definition.hasArgument(name);
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     get options() {
         return Object.assign({}, this._definition.getOptionDefaults(), this._options);
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     getOption(name) {
         if (! this._definition.hasOption(name)) {
@@ -137,7 +150,7 @@ class Input extends implementationOf(StreamableInputInterface) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     setOption(name, value) {
         if (! this._definition.hasOption(name)) {
@@ -148,7 +161,7 @@ class Input extends implementationOf(StreamableInputInterface) {
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     hasOption(name) {
         return this._definition._hasOption(name);
@@ -166,18 +179,19 @@ class Input extends implementationOf(StreamableInputInterface) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     get stream() {
         return this._stream;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     set stream(stream) {
         /**
          * @type {Jymfony.Component.Console.Input.StreamableInputInterface}
+         *
          * @private
          */
         this._stream = stream;

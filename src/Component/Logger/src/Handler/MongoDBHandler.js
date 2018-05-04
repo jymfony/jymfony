@@ -10,6 +10,8 @@ class MongoDBHandler extends AbstractProcessingHandler {
      * @param {string} collection The target collection name.
      * @param {int} [level = LogLevel.DEBUG] The minimum logging level at which this handler will be triggered.
      * @param {boolean} [bubble = true] Whether the messages that are handled can bubble up the stack or not.
+     *
+     * @inheritdoc
      */
     __construct(client, collection, level = LogLevel.DEBUG, bubble = true) {
         this._client = client;

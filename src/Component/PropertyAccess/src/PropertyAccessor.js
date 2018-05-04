@@ -4,20 +4,18 @@ const PropertyAccessorInterface = Jymfony.Component.PropertyAccess.PropertyAcces
 const PropertyPath = Jymfony.Component.PropertyAccess.PropertyPath;
 const PropertyPathInterface = Jymfony.Component.PropertyAccess.PropertyPathInterface;
 
-
 const CACHE_PREFIX_READ = 'r';
 const CACHE_PREFIX_WRITE = 'w';
 const CACHE_PREFIX_PROPERTY_PATH = 'p';
 
 /**
- * @namespace Jymfony.Component.PropertyAccess
- * @type {Jymfony.Component.PropertyAccess.PropertyAccessor}
+ * @memberOf Jymfony.Component.PropertyAccess
  */
 class PropertyAccessor extends implementationOf(PropertyAccessorInterface) {
     /**
      * Constructor.
      *
-     * @param {Jymfony.Component.Cache.CacheItemPoolInterface} cacheItemPool
+     * @param {Jymfony.Component.Cache.CacheItemPoolInterface} [cacheItemPool]
      */
     __construct(cacheItemPool = undefined) {
         if (undefined !== cacheItemPool &&
@@ -29,13 +27,14 @@ class PropertyAccessor extends implementationOf(PropertyAccessorInterface) {
 
         /**
          * @type {Jymfony.Component.Cache.CacheItemPoolInterface}
+         *
          * @private
          */
         this._cacheItemPool = cacheItemPool;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     getValue(object, path) {
         path = this._getPropertyPath(path);
@@ -45,7 +44,7 @@ class PropertyAccessor extends implementationOf(PropertyAccessorInterface) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     setValue(object, value, path) {
         path = this._getPropertyPath(path);
@@ -58,9 +57,11 @@ class PropertyAccessor extends implementationOf(PropertyAccessorInterface) {
     /**
      * Reads the path to a given path index
      *
-     * @param {*} object
+     * @param {Object} object
      * @param {Jymfony.Component.PropertyAccess.PropertyPathInterface} propertyPath
      * @param {int} length
+     *
+     * @returns {*}
      */
     _readPropertiesUntil(object, propertyPath, length) {
         const propertyValues = [ object ];
@@ -79,6 +80,14 @@ class PropertyAccessor extends implementationOf(PropertyAccessorInterface) {
         return propertyValues;
     }
 
+    /**
+     * @param {Object} object
+     * @param {string} property
+     *
+     * @returns {*}
+     *
+     * @private
+     */
     _readProperty(object, property) {
         if (! isObject(object)) {
             throw new NoSuchPropertyException('Cannot read property "' + property + '" from a non-object.');
@@ -101,6 +110,8 @@ class PropertyAccessor extends implementationOf(PropertyAccessorInterface) {
     /**
      * @param {Object} object
      * @param {string} property
+     *
+     * @returns {*}
      *
      * @private
      */
@@ -158,6 +169,15 @@ class PropertyAccessor extends implementationOf(PropertyAccessorInterface) {
         return retVal;
     }
 
+    /**
+     * @param {Object} object
+     * @param {string} property
+     * @param {*} value
+     *
+     * @returns {*}
+     *
+     * @private
+     */
     _writeProperty(object, property, value) {
         if (! isObject(object)) {
             throw new NoSuchPropertyException('Cannot write property "' + property + '" from a non-object.');
@@ -180,7 +200,6 @@ class PropertyAccessor extends implementationOf(PropertyAccessorInterface) {
     /**
      * @param {Object} object
      * @param {string} property
-     * @param {*} value
      *
      * @private
      */
@@ -258,6 +277,13 @@ class PropertyAccessor extends implementationOf(PropertyAccessorInterface) {
         return propertyPath;
     }
 
+    /**
+     * @param {string} string
+     *
+     * @returns {string}
+     *
+     * @private
+     */
     _camelize(string) {
         return string
             .replace(/_/g, ' ')

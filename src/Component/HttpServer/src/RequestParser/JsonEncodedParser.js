@@ -4,7 +4,9 @@ const ParserInterface = Jymfony.Component.HttpServer.RequestParser.ParserInterfa
 
 /**
  * @memberOf Jymfony.Component.HttpServer.RequestParser
+ *
  * @internal
+ *
  * @final
  */
 class JsonEncodedParser extends implementationOf(ParserInterface) {
@@ -17,32 +19,35 @@ class JsonEncodedParser extends implementationOf(ParserInterface) {
     __construct(req, contentLength) {
         /**
          * @type {IncomingMessage}
+         *
          * @private
          */
         this._request = req;
 
         /**
          * @type {int}
+         *
          * @private
          */
         this._contentLength = contentLength;
 
         /**
          * @type {Buffer}
+         *
          * @private
          */
         this._buffer = Buffer.allocUnsafe(0);
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     get buffer() {
         return this._buffer;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     parse() {
         return new Promise((resolve, reject) => {

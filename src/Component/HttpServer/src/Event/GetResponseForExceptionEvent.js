@@ -10,16 +10,20 @@ class GetResponseForExceptionEvent extends GetResponseEvent {
      * @param {Jymfony.Component.HttpServer.HttpServer} server
      * @param {Jymfony.Component.HttpFoundation.Request} request
      * @param {Error} e
+     *
+     * @inheritdoc
      */
     __construct(server, request, e) {
         /**
          * @type {Error}
+         *
          * @private
          */
         this._exception = e;
 
         /**
          * @type {boolean}
+         *
          * @private
          */
         this._allowCustomResponseCode = false;
@@ -53,6 +57,7 @@ class GetResponseForExceptionEvent extends GetResponseEvent {
     allowCustomResponseCode() {
         /**
          * @type {boolean}
+         *
          * @private
          */
         this._allowCustomResponseCode = true;

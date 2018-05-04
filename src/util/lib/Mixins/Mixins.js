@@ -12,8 +12,8 @@ class Mixins {
      * Creates a new mixin.
      *
      * @param {Function} definition
-     * @param {undefined|Function} cb Modify the newly created inner mixin
-     * @param {undefined|Function} constructCb Function to be called on construction
+     * @param {undefined|Function} [cb] Modify the newly created inner mixin
+     * @param {undefined|Function} [constructCb] Function to be called on construction
      *
      * @returns {Function}
      */
@@ -47,10 +47,21 @@ class Mixins {
         return mixin;
     }
 
+    /**
+     * @param {Object} definition
+     *
+     * @returns {*}
+     */
     static getMixin(definition) {
         return definition[symOuterMixin];
     }
 
+    /**
+     * @param {Object} obj
+     * @param {string} propKey
+     *
+     * @returns {*}
+     */
     static getPropertyDescriptor(obj, propKey) {
         do {
             const descriptor = Object.getOwnPropertyDescriptor(obj, propKey);
@@ -66,6 +77,7 @@ class Mixins {
      * Get function names
      *
      * @param {Function} definition
+     *
      * @internal
      */
     static * getFunctions(definition) {
@@ -100,6 +112,7 @@ class Mixins {
      * @param {Function} definition
      *
      * @returns {string[]}
+     *
      * @internal
      */
     static getConstantsNames(definition) {
@@ -128,6 +141,13 @@ class Mixins {
         }());
     }
 
+    /**
+     * @param {Object} definition
+     *
+     * @returns {Array}
+     *
+     * @private
+     */
     static _getClassChain(definition) {
         const chain = [];
         let parent = definition;

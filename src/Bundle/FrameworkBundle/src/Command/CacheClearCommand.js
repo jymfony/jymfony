@@ -9,7 +9,7 @@ const Filesystem = Jymfony.Component.Filesystem.Filesystem;
  */
 class CacheClearCommand extends mix(Command, ContainerAwareInterface, ContainerAwareTrait) {
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     configure() {
         this.name = 'cache:clear';
@@ -22,7 +22,7 @@ class CacheClearCommand extends mix(Command, ContainerAwareInterface, ContainerA
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     async execute(input, output) {
         const io = new JymfonyStyle(input, output);

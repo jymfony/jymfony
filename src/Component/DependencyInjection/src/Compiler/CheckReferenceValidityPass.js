@@ -7,6 +7,9 @@ const Reference = Jymfony.Component.DependencyInjection.Reference;
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
  */
 class CheckReferenceValidityPass extends AbstractRecursivePass {
+    /**
+     * @inheritdoc
+     */
     _processValue(value, isRoot = false) {
         if (isRoot && value instanceof Definition && (value.isSynthetic() || value.isAbstract())) {
             return value;

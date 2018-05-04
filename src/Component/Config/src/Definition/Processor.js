@@ -6,9 +6,9 @@ class Processor {
      * Processes an array of configurations.
      *
      * @param {Jymfony.Component.Config.Definition.NodeInterface} configTree The node tree describing the configuration
-     * @param {[Object]} configs An array of configuration items to process
+     * @param {Object[]} configs An array of configuration items to process
      *
-     * @return {Object} The processed configuration
+     * @returns {Object} The processed configuration
      */
     process(configTree, configs) {
         let currentConfig = {};
@@ -23,10 +23,10 @@ class Processor {
     /**
      * Processes an array of configurations.
      *
-     * @param {ConfigurationInterface} configuration The configuration class
-     * @param {array}                  configs       An array of configuration items to process
+     * @param {Jymfony.Component.Config.Definition.ConfigurationInterface} configuration The configuration class
+     * @param {Object[]} configs An array of configuration items to process
      *
-     * @return array The processed configuration
+     * @returns {Object[]} The processed configuration
      */
     processConfiguration(configuration, configs) {
         return this.process(configuration.configTreeBuilder.buildTree(), configs);

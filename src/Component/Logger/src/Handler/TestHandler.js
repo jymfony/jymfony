@@ -9,6 +9,8 @@ const LogLevel = Jymfony.Component.Logger.LogLevel;
  */
 class TestHandler extends AbstractProcessingHandler {
     /**
+     * Constructor.
+     *
      * @param {int} [level = LogLevel.DEBUG]
      * @param {boolean} [bubble = true]
      *
@@ -27,7 +29,7 @@ class TestHandler extends AbstractProcessingHandler {
         this._records = [];
 
         /**
-         * @type {Object<int, Object[]>}
+         * @type {Object.<int, Object[]>}
          *
          * @protected
          */
@@ -136,9 +138,9 @@ class TestHandler extends AbstractProcessingHandler {
      * @param {Function} predicate
      * @param {int} level
      *
-     * @return {boolean}
+     * @returns {boolean}
      *
-     * @throws InvalidArgumentException
+     * @throws {InvalidArgumentException}
      */
     hasRecordThatPasses(predicate, level) {
         if (! isFunction(predicate)) {

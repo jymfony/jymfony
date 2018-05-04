@@ -46,6 +46,11 @@ const getClass = function getClass(value) {
  * Utility class for classes reflection.
  */
 class ReflectionClass {
+    /**
+     * Constructor.
+     *
+     * @param {string|Object} value
+     */
     constructor(value) {
         this._isInterface = false;
         value = getClass.apply(this, [ value ]);
@@ -93,7 +98,7 @@ class ReflectionClass {
      * Gets a class constructor given an object or a string
      * containing a FQCN.
      *
-     * @param className
+     * @param {string|Object} className
      */
     static getClass(className) {
         return getClass(className);
@@ -102,7 +107,7 @@ class ReflectionClass {
     /**
      * Gets a FQCN from an object, constructor or a string.
      *
-     * @param className
+     * @param {string|Object} className
      *
      * @returns {string}
      */
@@ -117,12 +122,12 @@ class ReflectionClass {
     /**
      * Construct a new object.
      *
-     * @param {...*} var_args Arguments to constructor
+     * @param {...*} varArgs Arguments to constructor
      *
      * @returns {*}
      */
-    newInstance(...var_args) {
-        return new this._constructor(...var_args);
+    newInstance(...varArgs) {
+        return new this._constructor(...varArgs);
     }
 
     /**
@@ -173,7 +178,7 @@ class ReflectionClass {
     /**
      * Checks if class has readable property (getter).
      *
-     * @param name
+     * @param {string} name
      *
      * @returns {boolean}
      */
@@ -184,7 +189,7 @@ class ReflectionClass {
     /**
      * Checks if class has writable property (setter).
      *
-     * @param name
+     * @param {string} name
      *
      * @returns {boolean}
      */
@@ -252,7 +257,7 @@ class ReflectionClass {
     /**
      * Is this class an interface?
      *
-     * @return {boolean}
+     * @returns {boolean}
      */
     get isInterface() {
         return this._isInterface;
@@ -315,7 +320,7 @@ class ReflectionClass {
     /**
      * Gets the docblock for this class.
      *
-     * @return {string}
+     * @returns {string}
      */
     get docblock() {
         return this._docblock.class;
@@ -344,12 +349,17 @@ class ReflectionClass {
     /**
      * Get interfaces reflection classes.
      *
-     * @returns {[ReflectionClass]}
+     * @returns {ReflectionClass[]}
      */
     get interfaces() {
         return [ ...this._interfaces ];
     }
 
+    /**
+     * @param {Object} value
+     *
+     * @private
+     */
     _loadFromMetadata(value) {
         const metadata = value[Symbol.reflection];
         this._className = metadata.fqcn;
@@ -384,6 +394,9 @@ class ReflectionClass {
         }
     }
 
+    /**
+     * @private
+     */
     _loadFromCache() {
         const data = TheBigReflectionDataCache.data[this._className];
 
@@ -404,6 +417,9 @@ class ReflectionClass {
         this._interfaces = data.interfaces;
     }
 
+    /**
+     * @private
+     */
     _loadWithoutMetadata(value) {
         this._className = undefined;
         this._module = ReflectionClass._searchModule(value);
@@ -415,6 +431,9 @@ class ReflectionClass {
         this._loadStatics();
     }
 
+    /**
+     * @private
+     */
     _loadProperties() {
         const loadFromPrototype = (proto) => {
             if (undefined === proto || null === proto) {
@@ -462,6 +481,9 @@ class ReflectionClass {
         }
     }
 
+    /**
+     * @private
+     */
     _loadStatics() {
         const FunctionProps = Object.getOwnPropertyNames(Function.prototype);
 
@@ -504,6 +526,9 @@ class ReflectionClass {
         this._constants = consts;
     }
 
+    /**
+     * @private
+     */
     static _recursiveGet(start, parts) {
         let part;
 
@@ -530,6 +555,9 @@ class ReflectionClass {
         }
     }
 
+    /**
+     * @private
+     */
     static _searchModule(value) {
         for (const moduleName of Object.keys(require.cache)) {
             const mod = require.cache[moduleName];

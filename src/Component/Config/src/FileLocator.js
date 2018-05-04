@@ -11,18 +11,19 @@ class FileLocator extends implementationOf(FileLocatorInterface) {
     /**
      * Constructor.
      *
-     * @param {[string]|string} paths
+     * @param {string[]|string} paths
      */
     __construct(paths = []) {
         /**
-         * @type {[string]}
+         * @type {string[]}
+         *
          * @private
          */
         this._paths = isArray(paths) ? paths : [ paths ];
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     locate(name, currentPath = undefined, first = true) {
         if (! name) {

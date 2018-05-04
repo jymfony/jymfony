@@ -2,9 +2,11 @@
 
 global.__jymfony = global.__jymfony || {};
 
-/*
+/**
  * Adapted from locutus.io
  * Originally released under MIT license
+ *
+ * @param {string} arg
  */
 global.__jymfony.escapeshellarg = function escapeshellarg(arg) {
     //  Discuss at: http://locutus.io/php/escapeshellarg/

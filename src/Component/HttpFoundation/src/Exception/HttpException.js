@@ -7,22 +7,44 @@ const HttpExceptionInterface = Jymfony.Component.HttpFoundation.Exception.HttpEx
  * @memberOf Jymfony.Component.HttpFoundation.Exception
  */
 class HttpException extends mix(RuntimeException, HttpExceptionInterface) {
+    /**
+     * Constructor.
+     *
+     * @param {int} statusCode
+     * @param {string} message
+     * @param {Exception} [previous]
+     * @param {Object} [headers = {}]
+     * @param {int} [code = 0]
+     *
+     * @inheritdoc
+     */
     __construct(statusCode, message, previous = undefined, headers = {}, code = 0) {
         super.__construct(message, code, previous);
 
+        /**
+         * @type {int}
+         *
+         * @private
+         */
         this._statusCode = statusCode;
+
+        /**
+         * @type {Object}
+         *
+         * @private
+         */
         this._headers = headers;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     get statusCode() {
         return this._statusCode;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     get headers() {
         return Object.assign({}, this._headers);

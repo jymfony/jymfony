@@ -7,15 +7,20 @@ const crypto = require('crypto');
  * @memberOf Jymfony.Component.Cache.Traits
  */
 class AbstractTrait extends mix(undefined, LoggerAwareTrait) {
+    /**
+     * Constructor.
+     */
     __construct() {
         /**
          * @type {string|undefined}
+         *
          * @private
          */
         this._namespace = undefined;
 
         /**
-         * @type {undefined|string}
+         * @type {string|undefined}
+         *
          * @private
          */
         this._namespaceVersion = undefined;
@@ -24,11 +29,12 @@ class AbstractTrait extends mix(undefined, LoggerAwareTrait) {
     /**
      * Fetches several cache items.
      *
-     * @param {[string]} ids The cache identifiers to fetch
+     * @param {string[]} ids The cache identifiers to fetch
      *
-     * @returns {[*]} The corresponding values found in the cache
+     * @returns {*[]} The corresponding values found in the cache
      *
      * @abstract
+     *
      * @protected
      */
     async _doFetch(ids) { } // eslint-disable-line no-unused-vars
@@ -41,6 +47,7 @@ class AbstractTrait extends mix(undefined, LoggerAwareTrait) {
      * @returns {boolean} True if item exists in the cache, false otherwise
      *
      * @abstract
+     *
      * @protected
      */
     async _doHave(id) { } // eslint-disable-line no-unused-vars
@@ -53,6 +60,7 @@ class AbstractTrait extends mix(undefined, LoggerAwareTrait) {
      * @returns {boolean} True if the pool was successfully cleared, false otherwise
      *
      * @abstract
+     *
      * @protected
      */
     async _doClear(namespace) { } // eslint-disable-line no-unused-vars
@@ -60,11 +68,12 @@ class AbstractTrait extends mix(undefined, LoggerAwareTrait) {
     /**
      * Removes multiple items from the pool.
      *
-     * @param {[string]} ids An array of identifiers that should be removed from the pool
+     * @param {string[]} ids An array of identifiers that should be removed from the pool
      *
      * @returns {boolean} True if the items were successfully removed, false otherwise
      *
      * @abstract
+     *
      * @protected
      */
     async _doDelete(ids) { } // eslint-disable-line no-unused-vars
@@ -72,18 +81,19 @@ class AbstractTrait extends mix(undefined, LoggerAwareTrait) {
     /**
      * Persists several cache items immediately.
      *
-     * @param {Object<string, *>} values   The values to cache, indexed by their cache identifier
+     * @param {Object.<string, *>} values   The values to cache, indexed by their cache identifier
      * @param {int} lifetime The lifetime of the cached values, 0 for persisting until manual cleaning
      *
-     * @return {Object<string, *>|boolean} The identifiers that failed to be cached or a boolean stating if caching succeeded or not
+     * @returns {Object.<string, *>|boolean} The identifiers that failed to be cached or a boolean stating if caching succeeded or not
      *
      * @abstract
+     *
      * @protected
      */
     async _doSave(values, lifetime) { } // eslint-disable-line no-unused-vars
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     async hasItem(key) {
         const id = await this._getId(key);
@@ -98,7 +108,7 @@ class AbstractTrait extends mix(undefined, LoggerAwareTrait) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     async clear() {
         let cleared = undefined !== this._namespaceVersion;
@@ -123,14 +133,14 @@ class AbstractTrait extends mix(undefined, LoggerAwareTrait) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     async deleteItem(key) {
         return await this._deleteItems([ key ]);
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     async deleteItems(keys) {
         const ids = [];
@@ -172,7 +182,7 @@ class AbstractTrait extends mix(undefined, LoggerAwareTrait) {
      *
      * Calling this method also clears the memoized namespace version and thus forces a resynchonization of it.
      *
-     * @param {boolean} enable
+     * @param {boolean} [enable = true]
      *
      * @returns {boolean} the previous state of versioning
      */
@@ -183,6 +193,13 @@ class AbstractTrait extends mix(undefined, LoggerAwareTrait) {
         return wasEnabled;
     }
 
+    /**
+     * @param {string} key
+     *
+     * @returns {Promise<*>}
+     *
+     * @private
+     */
     async _getId(key) {
         CacheItem.validateKey(key);
 

@@ -20,6 +20,7 @@ class Question {
          * Input instance.
          *
          * @type {Jymfony.Component.Console.Input.InputInterface}
+         *
          * @protected
          */
         this._input = input;
@@ -28,6 +29,7 @@ class Question {
          * Output instance
          *
          * @type {Jymfony.Component.Console.Output.OutputInterface}
+         *
          * @protected
          */
         this._output = output;
@@ -36,6 +38,7 @@ class Question {
          * The question to be prompted to the user.
          *
          * @type {string}
+         *
          * @protected
          */
         this._question = '';
@@ -44,6 +47,7 @@ class Question {
          * The default answer to be returned if the user enters nothing.
          *
          * @type {*}
+         *
          * @protected
          */
         this._default = undefined;
@@ -51,7 +55,8 @@ class Question {
         /**
          * The answer normalizer.
          *
-         * @param {function(*): *} answer
+         * @type {Function}
+         *
          * @protected
          */
         this._normalizer = this._getDefaultNormalizer();
@@ -59,7 +64,8 @@ class Question {
         /**
          * Answer validator.
          *
-         * @type {function(*): void}
+         * @type {Function}
+         *
          * @protected
          */
         this._validator = this._getDefaultValidator();
@@ -68,7 +74,8 @@ class Question {
     /**
      * Build a default normalizer.
      *
-     * @returns {function(*): *}
+     * @returns {Function}
+     *
      * @protected
      */
     _getDefaultNormalizer() {
@@ -78,7 +85,8 @@ class Question {
     /**
      * Build a default validator.
      *
-     * @returns {function(*): undefined}
+     * @returns {Function}
+     *
      * @protected
      */
     _getDefaultValidator() {
@@ -106,7 +114,7 @@ class Question {
     /**
      * Sets the normalizer.
      *
-     * @param {function(*): *|undefined} normalizer
+     * @param {Function} normalizer
      */
     set normalizer(normalizer) {
         if (undefined === normalizer) {
@@ -119,7 +127,7 @@ class Question {
     /**
      * Sets the validator.
      *
-     * @param {function(*): void|undefined} validator
+     * @param {Function} validator
      */
     set validator(validator) {
         if (undefined === validator) {
@@ -132,7 +140,7 @@ class Question {
     /**
      * Sets the autocomplete values.
      *
-     * @param {[string]} values
+     * @param {string[]} values
      */
     set autocompleteValues(values) {
         this._autocompleteValues = values;

@@ -11,7 +11,7 @@ const OutputInterface = Jymfony.Component.Console.Output.OutputInterface;
  */
 class Descriptor extends implementationOf(DescriptorInterface) {
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     describe(output, object, options = {}) {
         this._output = output;
@@ -48,7 +48,7 @@ class Descriptor extends implementationOf(DescriptorInterface) {
      * Writes content to output.
      *
      * @param {string} content
-     * @param {boolean} decorated
+     * @param {boolean} [decorated = false]
      *
      * @protected
      */
@@ -60,7 +60,7 @@ class Descriptor extends implementationOf(DescriptorInterface) {
      * Describes an InputArgument instance.
      *
      * @param {Jymfony.Component.Console.Input.InputArgument} argument
-     * @param {*} options
+     * @param {*} [options = {}]
      *
      * @returns {string|*}
      *
@@ -75,7 +75,7 @@ class Descriptor extends implementationOf(DescriptorInterface) {
      * Describes an InputOption instance.
      *
      * @param {Jymfony.Component.Console.Input.InputOption} option
-     * @param {*} options
+     * @param {*} [options = {}]
      *
      * @returns {string|*}
      *
@@ -90,7 +90,7 @@ class Descriptor extends implementationOf(DescriptorInterface) {
      * Describes an InputDefinition instance.
      *
      * @param {Jymfony.Component.Console.Input.InputDefinition} definition
-     * @param {*} options
+     * @param {*} [options = {}]
      *
      * @returns {string|*}
      *
@@ -105,7 +105,7 @@ class Descriptor extends implementationOf(DescriptorInterface) {
      * Describes a Command instance.
      *
      * @param {Jymfony.Component.Console.Command.Command} command
-     * @param {*} options
+     * @param {*} [options = {}]
      *
      * @returns {string|*}
      *
@@ -120,7 +120,7 @@ class Descriptor extends implementationOf(DescriptorInterface) {
      * Describes an Application instance.
      *
      * @param {Jymfony.Component.Console.Application} application
-     * @param {*} options
+     * @param {*} [options = {}]
      *
      * @returns {string|*}
      *

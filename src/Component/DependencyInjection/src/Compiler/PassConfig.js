@@ -4,10 +4,24 @@ const Compiler = Jymfony.Component.DependencyInjection.Compiler;
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
  */
 class PassConfig {
+    /**
+     * Constructor.
+     */
     __construct() {
+        /**
+         * @type {Jymfony.Component.DependencyInjection.Compiler.MergeExtensionConfigurationPass}
+         *
+         * @private
+         */
         this._mergePass = new Compiler.MergeExtensionConfigurationPass();
 
         const minus1000 = -1000;
+
+        /**
+         * @type {Object}
+         *
+         * @private
+         */
         this._beforeOptimizationPasses = {
             100: [
                 new Compiler.ResolveClassPass(),
@@ -17,6 +31,11 @@ class PassConfig {
             ],
         };
 
+        /**
+         * @type {Object}
+         *
+         * @private
+         */
         this._optimizationPasses = {
             0: [
                 new Compiler.ResolveChildDefinitionsPass(),
@@ -30,8 +49,19 @@ class PassConfig {
                 new Compiler.CheckReferenceValidityPass(),
             ],
         };
+
+        /**
+         * @type {Object}
+         *
+         * @private
+         */
         this._beforeRemovingPasses = {};
 
+        /**
+         * @type {Object}
+         *
+         * @private
+         */
         this._removingPasses = {
             0: [
                 new Compiler.RemovePrivateAliasesPass(),
@@ -47,14 +77,19 @@ class PassConfig {
             ],
         };
 
+        /**
+         * @type {Object}
+         *
+         * @private
+         */
         this._afterRemovingPasses = {};
     }
 
     /**
      * Add a compilation pass
      *
-     * @param {CompilerPassInterface} pass
-     * @param type
+     * @param {Jymfony.Component.DependencyInjection.Compiler.CompilerPassInterface} pass
+     * @param {string} type
      * @param {int} priority
      */
     addPass(pass, type, priority) {
@@ -71,6 +106,9 @@ class PassConfig {
         collection[priority].push(pass);
     }
 
+    /**
+     * @returns {Generator|Jymfony.Component.DependencyInjection.Compiler.CompilerPassInterface[]}
+     */
     * getPasses() {
         yield this._mergePass;
 
@@ -83,26 +121,58 @@ class PassConfig {
         ];
     }
 
+    /**
+     * @returns {IterableIterator<Jymfony.Component.DependencyInjection.Compiler.CompilerPassInterface>}
+     *
+     * @private
+     */
     _getBeforeOptimizationPasses() {
         return this._sortPasses(this._beforeOptimizationPasses);
     }
 
+    /**
+     * @returns {IterableIterator<Jymfony.Component.DependencyInjection.Compiler.CompilerPassInterface>}
+     *
+     * @private
+     */
     _getOptimizationPasses() {
         return this._sortPasses(this._optimizationPasses);
     }
 
+    /**
+     * @returns {IterableIterator<Jymfony.Component.DependencyInjection.Compiler.CompilerPassInterface>}
+     *
+     * @private
+     */
     _getBeforeRemovingPasses() {
         return this._sortPasses(this._beforeRemovingPasses);
     }
 
+    /**
+     * @returns {IterableIterator<Jymfony.Component.DependencyInjection.Compiler.CompilerPassInterface>}
+     *
+     * @private
+     */
     _getRemovingPasses() {
         return this._sortPasses(this._removingPasses);
     }
 
+    /**
+     * @returns {IterableIterator<Jymfony.Component.DependencyInjection.Compiler.CompilerPassInterface>}
+     *
+     * @private
+     */
     _getAfterRemovingPasses() {
         return this._sortPasses(this._afterRemovingPasses);
     }
 
+    /**
+     * @param {Jymfony.Component.DependencyInjection.Compiler.CompilerPassInterface[]} passes
+     *
+     * @returns {IterableIterator<Jymfony.Component.DependencyInjection.Compiler.CompilerPassInterface>}
+     *
+     * @private
+     */
     * _sortPasses(passes) {
         const keys = Object.keys(passes);
         if (0 === keys.length) {

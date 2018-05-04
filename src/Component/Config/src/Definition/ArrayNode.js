@@ -7,61 +7,76 @@ const UnsetKeyException = Jymfony.Component.Config.Definition.Exception.UnsetKey
  * @memberOf Jymfony.Component.Config.Definition
  */
 class ArrayNode extends BaseNode {
+    /**
+     * @inheritdoc
+     */
     __construct(name, parent = undefined) {
         super.__construct(name, parent);
 
         /**
          * @type {Object}
+         *
          * @protected
          */
         this._children = {};
 
         /**
          * @type {boolean}
+         *
          * @protected
          */
         this._allowFalse = false;
 
         /**
          * @type {boolean}
+         *
          * @protected
          */
         this._allowNewKeys = true;
 
         /**
          * @type {boolean}
+         *
          * @protected
          */
         this._addIfNotSet = false;
 
         /**
          * @type {boolean}
+         *
          * @protected
          */
         this._performDeepMerging = false;
 
         /**
          * @type {boolean}
+         *
          * @protected
          */
         this._ignoreExtraKeys = false;
 
         /**
          * @type {boolean}
+         *
          * @protected
          */
         this._removeExtraKeys = false;
 
         /**
          * @type {boolean}
+         *
          * @protected
          */
         this._normalizeKeys = false;
     }
 
+    /**
+     * @param {boolean} normalizeKeys
+     */
     setNormalizeKeys(normalizeKeys) {
         /**
          * @type {boolean}
+         *
          * @protected
          */
         this._normalizeKeys = !! normalizeKeys;
@@ -79,6 +94,7 @@ class ArrayNode extends BaseNode {
      * @param {*} value
      *
      * @returns {Object} The value with normalized keys
+     *
      * @protected
      */
     _preNormalize(value) {
@@ -150,7 +166,7 @@ class ArrayNode extends BaseNode {
      * Whether extra keys should just be ignore without an exception.
      *
      * @param {boolean} bool To allow extra keys
-     * @param {boolean} remove To remove extra keys
+     * @param {boolean} [remove = true] To remove extra keys
      */
     setIgnoreExtraKeys(bool, remove = true) {
         this._ignoreExtraKeys = !! bool;
@@ -222,7 +238,7 @@ class ArrayNode extends BaseNode {
      *
      * @param {*} value
      *
-     * @return {*} The finalised value
+     * @returns {*} The finalised value
      *
      * @throws {Jymfony.Component.Config.Definition.Exception.UnsetKeyException}
      * @throws {Jymfony.Component.Config.Definition.Exception.InvalidConfigurationException} if the node doesn't have enough _children
@@ -267,7 +283,7 @@ class ArrayNode extends BaseNode {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     validateType(value) {
         if ((! isArray(value) && ! isObjectLiteral(value)) && (! this._allowFalse || false !== value)) {
@@ -292,7 +308,7 @@ class ArrayNode extends BaseNode {
      *
      * @param {*} value The value to normalize
      *
-     * @return {*} The normalized value
+     * @returns {*} The normalized value
      *
      * @throws {Jymfony.Component.Config.Definition.Exception.InvalidConfigurationException}
      */
@@ -332,7 +348,7 @@ class ArrayNode extends BaseNode {
      * @param {*} leftSide  The left side to merge
      * @param {*} rightSide The right side to merge
      *
-     * @return {*} The merged values
+     * @returns {*} The merged values
      *
      * @throws {Jymfony.Component.Config.Definition.Exception.InvalidConfigurationException}
      * @throws {RuntimeException}

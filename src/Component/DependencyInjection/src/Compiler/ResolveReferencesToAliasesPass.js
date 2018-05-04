@@ -5,11 +5,10 @@ const Reference = Jymfony.Component.DependencyInjection.Reference;
 
 /**
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
- * @type {Jymfony.Component.DependencyInjection.Compiler.ResolveReferencesToAliasesPass}
  */
 class ResolveReferencesToAliasesPass extends AbstractRecursivePass {
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     process(container) {
         super.process(container);
@@ -24,6 +23,9 @@ class ResolveReferencesToAliasesPass extends AbstractRecursivePass {
         }
     }
 
+    /**
+     * @inheritdoc
+     */
     _processValue(value) {
         if (value instanceof Reference) {
             const id = value.toString();
@@ -37,6 +39,14 @@ class ResolveReferencesToAliasesPass extends AbstractRecursivePass {
         return super._processValue(value);
     }
 
+    /**
+     * @param {string} id
+     * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
+     *
+     * @returns {string}
+     *
+     * @private
+     */
     _getDefinitionId(id, container) {
         const seen = {};
         while (container.hasAlias(id)) {

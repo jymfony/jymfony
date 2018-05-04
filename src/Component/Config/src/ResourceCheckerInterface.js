@@ -8,7 +8,7 @@ class ResourceCheckerInterface {
      *
      * @param {Jymfony.Component.Config.Resource.ResourceInterface} metadata The resource to be checked for freshness
      *
-     * @returns bool True if the ResourceChecker can handle this resource type, false if not
+     * @returns {boolean} True if the ResourceChecker can handle this resource type, false if not
      */
     supports(metadata) { }
 
@@ -18,7 +18,7 @@ class ResourceCheckerInterface {
      * @param {Jymfony.Component.Config.Resource.ResourceInterface} resource  The resource to be validated
      * @param {int} timestamp The timestamp at which the cache associated with this resource was created
      *
-     * @returns bool True if the resource has not changed since the given timestamp, false otherwise
+     * @returns {boolean} True if the resource has not changed since the given timestamp, false otherwise
      */
     isFresh(resource, timestamp) { }
 }

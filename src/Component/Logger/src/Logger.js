@@ -214,7 +214,7 @@ class Logger extends AbstractLogger {
      * @param {string} message
      * @param {Object.<*>} [context = {}]
      *
-     * @return {boolean}
+     * @returns {boolean}
      */
     addDebug(message, context = {}) {
         return this.addRecord(LogLevel.DEBUG, message, context);
@@ -226,7 +226,7 @@ class Logger extends AbstractLogger {
      * @param {string} message
      * @param {Object.<*>} [context = {}]
      *
-     * @return {boolean}
+     * @returns {boolean}
      */
     addInfo(message, context = {}) {
         return this.addRecord(LogLevel.INFO, message, context);
@@ -238,7 +238,7 @@ class Logger extends AbstractLogger {
      * @param {string} message
      * @param {Object.<*>} [context = {}]
      *
-     * @return {boolean}
+     * @returns {boolean}
      */
     addNotice(message, context = {}) {
         return this.addRecord(LogLevel.NOTICE, message, context);
@@ -250,7 +250,7 @@ class Logger extends AbstractLogger {
      * @param {string} message
      * @param {Object.<*>} [context = {}]
      *
-     * @return {boolean}
+     * @returns {boolean}
      */
     addWarning(message, context = {}) {
         return this.addRecord(LogLevel.WARNING, message, context);
@@ -262,7 +262,7 @@ class Logger extends AbstractLogger {
      * @param {string} message
      * @param {Object.<*>} [context = {}]
      *
-     * @return {boolean}
+     * @returns {boolean}
      */
     addError(message, context = {}) {
         return this.addRecord(LogLevel.ERROR, message, context);
@@ -274,7 +274,7 @@ class Logger extends AbstractLogger {
      * @param {string} message
      * @param {Object.<*>} [context = {}]
      *
-     * @return {boolean}
+     * @returns {boolean}
      */
     addCritical(message, context = {}) {
         return this.addRecord(LogLevel.CRITICAL, message, context);
@@ -286,7 +286,7 @@ class Logger extends AbstractLogger {
      * @param {string} message
      * @param {Object.<*>} [context = {}]
      *
-     * @return {boolean}
+     * @returns {boolean}
      */
     addAlert(message, context = {}) {
         return this.addRecord(LogLevel.ALERT, message, context);
@@ -298,7 +298,7 @@ class Logger extends AbstractLogger {
      * @param {string} message
      * @param {Object.<*>} [context = {}]
      *
-     * @return {boolean}
+     * @returns {boolean}
      */
     addEmergency(message, context = {}) {
         return this.addRecord(LogLevel.EMERGENCY, message, context);

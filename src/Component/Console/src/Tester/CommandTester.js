@@ -9,17 +9,21 @@ const StreamOutput = Jymfony.Component.Console.Output.StreamOutput;
  */
 class CommandTester {
     /**
+     * Constructor.
+     *
      * @param {Jymfony.Component.Console.Command.Command} command
      */
     __construct(command) {
         /**
          * @type {Jymfony.Component.Console.Command.Command}
+         *
          * @private
          */
         this._command = command;
 
         /**
-         * @type {[string]}
+         * @type {string[]}
+         *
          * @private
          */
         this._inputs = [];
@@ -34,11 +38,12 @@ class CommandTester {
      *  * verbosity        Sets the output verbosity level [VERBOSITY_NORMAL]
      *
      * @param {Object.<string, *>} input
-     * @param {Object<string, boolean|*>} options
+     * @param {Object<string, boolean|*>} [options = {}]
      */
     run(input, options = {}) {
         /**
          * @type {string}
+         *
          * @private
          */
         this._readOutput = '';
@@ -54,6 +59,7 @@ class CommandTester {
 
         /**
          * @type {Jymfony.Component.Console.Input.ArrayInput}
+         *
          * @private
          */
         this._input = new ArrayInput(input);
@@ -64,6 +70,7 @@ class CommandTester {
 
         /**
          * @type {int}
+         *
          * @private
          */
         this._statusCode = undefined;
@@ -80,13 +87,14 @@ class CommandTester {
         return __jymfony.Async.run(this._command.run(this._input, this._output))
             .then(statusCode => {
                 return this._statusCode = statusCode;
-            });
+            })
+        ;
     }
 
     /**
      * Gets the display returned by the last execution of the application.
      *
-     * @param {boolean} normalize Whether to normalize end of lines to \n or not
+     * @param {boolean} [normalize = false] Whether to normalize end of lines to \n or not
      *
      * @returns {string}
      */
@@ -103,7 +111,7 @@ class CommandTester {
     /**
      * Sets the user inputs.
      *
-     * @param {[string]} inputs
+     * @param {string[]} inputs
      */
     set inputs(inputs) {
         this._inputs = inputs;
@@ -140,7 +148,7 @@ class CommandTester {
     /**
      * Create a stream with given inputs.
      *
-     * @param {[string]} inputs
+     * @param {string[]} inputs
      *
      * @private
      */

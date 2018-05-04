@@ -10,7 +10,7 @@ const UnsetKeyException = Jymfony.Component.Config.Definition.Exception.UnsetKey
  */
 class Configuration extends implementationOf(ConfigurationInterface) {
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     get configTreeBuilder() {
         const treeBuilder = new TreeBuilder();
@@ -35,6 +35,7 @@ class Configuration extends implementationOf(ConfigurationInterface) {
 
     /**
      * @param {Jymfony.Component.Config.Definition.Builder.ArrayNodeDefinition} rootNode
+     *
      * @private
      */
     _addConsoleSection(rootNode) {
@@ -49,6 +50,7 @@ class Configuration extends implementationOf(ConfigurationInterface) {
 
     /**
      * @param {Jymfony.Component.Config.Definition.Builder.ArrayNodeDefinition} rootNode
+     *
      * @private
      */
     _addLoggerSection(rootNode) {
@@ -245,6 +247,7 @@ class Configuration extends implementationOf(ConfigurationInterface) {
 
     /**
      * @param {Jymfony.Component.Config.Definition.Builder.ArrayNodeDefinition} rootNode
+     *
      * @private
      */
     _addRouterSection(rootNode) {
@@ -263,6 +266,7 @@ class Configuration extends implementationOf(ConfigurationInterface) {
 
     /**
      * @param {Jymfony.Component.Config.Definition.Builder.ArrayNodeDefinition} rootNode
+     *
      * @private
      */
     _addHttpServerSection(rootNode) {

@@ -2,6 +2,12 @@
 
 global.__jymfony = global.__jymfony || {};
 
+/**
+ * @param {Array} arr1
+ * @param {...[]} arrays
+ *
+ * @returns {Array|boolean}
+ */
 const diffKey = function (arr1, ...arrays) {
     const inArrays = key => {
         for (const array of arrays) {

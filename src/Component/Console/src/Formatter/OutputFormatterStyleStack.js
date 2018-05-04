@@ -7,7 +7,7 @@ class OutputFormatterStyleStack {
     /**
      * Constructor.
      *
-     * @param {Jymfony.Component.Console.Formatter.OutputFormatterStyleInterface|null} emptyStyle
+     * @param {Jymfony.Component.Console.Formatter.OutputFormatterStyleInterface|undefined} [emptyStyle]
      */
     __construct(emptyStyle = undefined) {
         this._emptyStyle = emptyStyle || new OutputFormatterStyle();

@@ -9,16 +9,20 @@ class HttpEvent extends Event {
      *
      * @param {Jymfony.Component.HttpServer.HttpServer} server
      * @param {Jymfony.Component.HttpFoundation.Request} request
+     *
+     * @inheritdoc
      */
     __construct(server, request) {
         /**
          * @type {Jymfony.Component.HttpServer.HttpServer}
+         *
          * @private
          */
         this._server = server;
 
         /**
          * @type {Jymfony.Component.HttpFoundation.Request}
+         *
          * @private
          */
         this._request = request;

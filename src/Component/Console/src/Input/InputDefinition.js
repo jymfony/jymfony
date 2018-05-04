@@ -7,7 +7,7 @@ const InputOption = Jymfony.Component.Console.Input.InputOption;
  */
 class InputDefinition {
     /**
-     * @param {Array} definition An array of InputArgument or InputOption
+     * @param {Array} [definition = []] An array of InputArgument or InputOption
      */
     __construct(definition = []) {
         this.setDefinition(definition);
@@ -43,7 +43,8 @@ class InputDefinition {
         /**
          * The arguments array
          *
-         * @type Object.<string, Jymfony.Component.Console.Input.InputArgument>
+         * @type {Object.<string, Jymfony.Component.Console.Input.InputArgument>}
+         *
          * @private
          */
         this._arguments = {};
@@ -123,6 +124,7 @@ class InputDefinition {
      * Returns true if an argument exists
      *
      * @param {string|int} name
+     *
      * @returns {boolean}
      */
     hasArgument(name) {
@@ -172,7 +174,7 @@ class InputDefinition {
         /**
          * The options array
          *
-         * @type Object.<string, Jymfony.Component.Console.Input.InputOption>
+         * @type {Object.<string, Jymfony.Component.Console.Input.InputOption>}
          * @private
          */
         this._options = {};
@@ -180,10 +182,11 @@ class InputDefinition {
         /**
          * Shortcut to name array
          *
-         * @type Object.<string, string>
+         * @type {Object.<string, string>}
          * @private
          */
         this._shortcuts = {};
+
         this.addOptions(options);
     }
 
@@ -272,9 +275,8 @@ class InputDefinition {
     }
 
     /**
+     * @param {string} shortcut
      *
-     *
-     * @param shortcut
      * @returns {Jymfony.Component.Console.Input.InputOption}
      */
     getOptionForShortcut(shortcut) {
@@ -302,7 +304,7 @@ class InputDefinition {
     /**
      * Gets the synopsis
      *
-     * @param short Whether to return the short version
+     * @param {boolean} [short = false] Whether to return the short version
      *
      * @returns {string}
      */

@@ -7,6 +7,9 @@ const ParentNodeDefinitionInterface = Jymfony.Component.Config.Definition.Builde
  * @memberOf Jymfony.Component.Config.Definition.Builder
  */
 class NodeBuilder extends implementationOf(NodeParentInterface) {
+    /**
+     * Constructor.
+     */
     __construct() {
         this._nodeMapping = {
             'variable': 'Jymfony.Component.Config.Definition.Builder.VariableNodeDefinition',
@@ -20,6 +23,7 @@ class NodeBuilder extends implementationOf(NodeParentInterface) {
 
         /**
          * @type {Jymfony.Component.Config.Definition.Builder.ParentNodeDefinitionInterface}
+         *
          * @protected
          */
         this._parent = undefined;
@@ -28,7 +32,7 @@ class NodeBuilder extends implementationOf(NodeParentInterface) {
     /**
      * Set the parent node.
      *
-     * @param {Jymfony.Component.Config.Definition.Builder.ParentNodeDefinitionInterface} parent
+     * @param {Jymfony.Component.Config.Definition.Builder.ParentNodeDefinitionInterface} [parent]
      *
      * @returns {Jymfony.Component.Config.Definition.Builder.NodeBuilder}
      */
@@ -136,8 +140,8 @@ class NodeBuilder extends implementationOf(NodeParentInterface) {
      * @throws {RuntimeException} When the node class is not found
      */
     node(name, type) {
-        const $class = this._getNodeClass(type);
-        const node = (new ReflectionClass($class)).newInstance(name);
+        const targetClass = this._getNodeClass(type);
+        const node = (new ReflectionClass(targetClass)).newInstance(name);
 
         this.append(node);
 
@@ -149,7 +153,7 @@ class NodeBuilder extends implementationOf(NodeParentInterface) {
      *
      * Usage:
      *
-     *     $node = new ArrayNodeDefinition('name')
+     *     node = new ArrayNodeDefinition('name')
      *         .children()
      *             .scalarNode('foo').end()
      *             .scalarNode('baz').end()
@@ -208,12 +212,12 @@ class NodeBuilder extends implementationOf(NodeParentInterface) {
             throw new RuntimeException(__jymfony.sprintf('The node type "%s" is not registered.', type));
         }
 
-        const $class = this._nodeMapping[type];
-        if (! ReflectionClass.exists($class)) {
-            throw new RuntimeException(__jymfony.sprintf('The node class "%s" does not exist.', $class));
+        const targetClass = this._nodeMapping[type];
+        if (! ReflectionClass.exists(targetClass)) {
+            throw new RuntimeException(__jymfony.sprintf('The node class "%s" does not exist.', targetClass));
         }
 
-        return $class;
+        return targetClass;
     }
 }
 

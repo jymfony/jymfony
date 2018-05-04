@@ -5,6 +5,13 @@ const StreamOutput = Jymfony.Component.Console.Output.StreamOutput;
  * @memberOf Jymfony.Component.Console.Output
  */
 class ConsoleOutput extends mix(StreamOutput, ConsoleOutputInterface) {
+    /**
+     * Constructor.
+     *
+     * @param {string} [verbosity = Jymfony.Component.Console.Output.ConsoleOutputInterface.VERBOSITY_NORMAL]
+     * @param {boolean} [decorated]
+     * @param {Jymfony.Component.Console.Output.OutputFormatterInterface} [formatter]
+     */
     __construct(verbosity = ConsoleOutputInterface.VERBOSITY_NORMAL, decorated = undefined, formatter = undefined) {
         super.__construct(process.stdout, verbosity, decorated, formatter);
 
@@ -17,7 +24,7 @@ class ConsoleOutput extends mix(StreamOutput, ConsoleOutputInterface) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     set decorated(decorated) {
         super.decorated = decorated;
@@ -28,14 +35,14 @@ class ConsoleOutput extends mix(StreamOutput, ConsoleOutputInterface) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     get decorated() {
         return super.decorated;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     set formatter(formatter) {
         super.formatter = formatter;
@@ -46,14 +53,14 @@ class ConsoleOutput extends mix(StreamOutput, ConsoleOutputInterface) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     get formatter() {
         return super.formatter;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     set verbosity(level) {
         super.verbosity = level;
@@ -64,21 +71,21 @@ class ConsoleOutput extends mix(StreamOutput, ConsoleOutputInterface) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     get verbosity() {
         return super.verbosity;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     get errorOutput() {
         return this._stderr;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     set errorOutput(error) {
         this._stderr = error;

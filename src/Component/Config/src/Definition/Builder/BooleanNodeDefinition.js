@@ -9,7 +9,7 @@ const InvalidDefinitionException = Jymfony.Component.Config.Definition.Exception
  */
 class BooleanNodeDefinition extends ScalarNodeDefinition {
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     __construct(name, parent = undefined) {
         super.__construct(name, parent);
@@ -18,18 +18,16 @@ class BooleanNodeDefinition extends ScalarNodeDefinition {
     }
 
     /**
-     * Instantiate a Node.
-     *
-     * @returns {Jymfony.Component.Config.Definition.BooleanNode} The node
+     * @inheritdoc
      */
     instantiateNode() {
         return new BooleanNode(this._name, this._parent);
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      *
-     * @throws {InvalidDefinitionException}
+     * @throws {Jymfony.Component.Config.Definition.Exception.InvalidDefinitionException}
      */
     cannotBeEmpty() {
         throw new InvalidDefinitionException('cannotBeEmpty() is not applicable to BooleanNodeDefinition.');

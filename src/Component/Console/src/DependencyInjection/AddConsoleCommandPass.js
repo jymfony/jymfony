@@ -7,7 +7,7 @@ const Reference = Jymfony.Component.DependencyInjection.Reference;
  */
 class AddConsoleCommandPass extends implementationOf(CompilerPassInterface) {
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     process(container) {
         if (! container.hasDefinition(Jymfony.Bundle.FrameworkBundle.Console.Application)) {

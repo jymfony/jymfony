@@ -6,7 +6,7 @@ const PredictionInterface = Jymfony.Component.Testing.Prediction.PredictionInter
  */
 class NoCallsPrediction extends implementationOf(PredictionInterface) {
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     check(calls, object, method) {
         if (0 === calls.length) {

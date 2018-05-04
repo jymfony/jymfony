@@ -6,7 +6,7 @@ const NormalizerFormatter = Jymfony.Component.Logger.Formatter.NormalizerFormatt
  */
 class JsonFormatter extends NormalizerFormatter {
     /**
-     * Constructor.
+     * @inheritdoc
      */
     __construct() {
         super.__construct(NormalizerFormatter.SIMPLE_DATE);

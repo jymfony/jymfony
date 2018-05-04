@@ -23,52 +23,65 @@ class Kernel extends implementationOf(KernelInterface) {
     __construct(environment, debug) {
         /**
          * @type {string}
+         *
          * @protected
          */
         this._environment = environment;
 
         /**
          * @type {boolean}
+         *
          * @protected
          */
         this._debug = debug;
 
         /**
          * @type {string}
+         *
          * @protected
          */
         this._rootDir = this.getRootDir();
 
         /**
          * @type {string}
+         *
          * @protected
          */
         this._name = this.getName();
 
         /**
          * @type {undefined|Date}
+         *
          * @protected
          */
         this._startTime = undefined;
 
         if (this._debug) {
+            /**
+             * @type {Jymfony.Component.DateTime.DateTime}
+             *
+             * @protected
+             */
             this._startTime = new DateTime();
         }
 
         /**
          * @type {Jymfony.Component.DependencyInjection.Container}
+         *
          * @protected
          */
         this._container = undefined;
 
         /**
-         * @type {Jymfony.Component.Kernel.Bundle[]}
+         * @type {Object.<Jymfony.Component.Kernel.Bundle>}
+         *
          * @protected
          */
         this._bundles = {};
 
         /**
          * @type {boolean}
+         *
          * @private
          */
         this._booted = false;
@@ -94,7 +107,7 @@ class Kernel extends implementationOf(KernelInterface) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     async shutdown() {
         if (false === this._booted) {
@@ -112,7 +125,7 @@ class Kernel extends implementationOf(KernelInterface) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     getName() {
         if (undefined === this._name) {
@@ -126,21 +139,21 @@ class Kernel extends implementationOf(KernelInterface) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     get environment() {
         return this._environment;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     get debug() {
         return this._debug;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     get container() {
         return this._container;
@@ -149,7 +162,7 @@ class Kernel extends implementationOf(KernelInterface) {
     /**
      * Gets the start date time.
      *
-     * @return {undefined|Date}
+     * @returns {undefined|Jymfony.Component.DateTime.DateTime}
      */
     get startTime() {
         return this._startTime;
@@ -191,6 +204,7 @@ class Kernel extends implementationOf(KernelInterface) {
      * Gets the bundles to be registered
      *
      * @returns {Jymfony.Component.Kernel.Bundle[]}
+     *
      * @abstract
      */
     * registerBundles() {
@@ -198,14 +212,14 @@ class Kernel extends implementationOf(KernelInterface) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     getBundles() {
         return Object.values(this._bundles);
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     getBundle(name, first = true) {
         if (undefined === this._bundleMap[name]) {
@@ -220,7 +234,7 @@ class Kernel extends implementationOf(KernelInterface) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     locateResource(name, dir = undefined, first = true) {
         if ('@' !== name.charAt(0)) {
@@ -290,6 +304,9 @@ class Kernel extends implementationOf(KernelInterface) {
      */
     _build(container) { } // eslint-disable-line no-unused-vars
 
+    /**
+     * @private
+     */
     _initializeBundles() {
         const directChildren = {};
         const topMostBundles = {};
@@ -444,6 +461,7 @@ class Kernel extends implementationOf(KernelInterface) {
      * Builds the service container
      *
      * @returns {Jymfony.Component.DependencyInjection.ContainerBuilder}
+     *
      * @protected
      */
     _buildContainer() {
@@ -475,7 +493,7 @@ class Kernel extends implementationOf(KernelInterface) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     registerContainerConfiguration(loader) {
         loader.load((container) => {
@@ -488,6 +506,7 @@ class Kernel extends implementationOf(KernelInterface) {
      * Get Container class name
      *
      * @returns {string}
+     *
      * @protected
      */
     _getContainerClass() {
@@ -498,6 +517,7 @@ class Kernel extends implementationOf(KernelInterface) {
      * Create a ContainerBuilder
      *
      * @returns {Jymfony.Component.DependencyInjection.ContainerBuilder}
+     *
      * @protected
      */
     _getContainerBuilder() {
@@ -511,6 +531,7 @@ class Kernel extends implementationOf(KernelInterface) {
      * Prepares the container builder to be compiled
      *
      * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
+     *
      * @protected
      */
     _prepareContainer(container) {
@@ -537,6 +558,7 @@ class Kernel extends implementationOf(KernelInterface) {
      * Gets kernel container parameters
      *
      * @returns {Object}
+     *
      * @protected
      */
     _getKernelParameters() {

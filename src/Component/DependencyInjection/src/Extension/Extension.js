@@ -5,23 +5,31 @@ const InvalidArgumentException = Jymfony.Component.DependencyInjection.Exception
 const ExtensionInterface = Jymfony.Component.DependencyInjection.Extension.ExtensionInterface;
 
 /**
- * Abstract extension
+ * Abstract extension.
  *
  * @memberOf Jymfony.Component.DependencyInjection.Extension
  */
 class Extension extends implementationOf(ExtensionInterface) {
+    /**
+     * Constructor.
+     */
     __construct() {
+        /**
+         * @type {Object[]}
+         *
+         * @private
+         */
         this._processedConfigs = [];
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     getConfiguration() {
         const reflClass = new ReflectionClass(this);
 
-        const nsName = reflClass.namespaceName();
-        const confClass = nsName + '.Configuration';
+        const nsName = reflClass.namespaceName;
+        const confClass = `${nsName}.Configuration`;
 
         if (ReflectionClass.exists(confClass)) {
             const reflected = new ReflectionClass(confClass);
@@ -32,21 +40,21 @@ class Extension extends implementationOf(ExtensionInterface) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     get namespace() {
-        return 'http://example.org/schema/dic/'+this.alias;
+        return `http://example.org/schema/dic/${this.alias}`;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     get xsdValidationBasePath() {
         return false;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     get alias() {
         const className = this.constructor.name;
@@ -60,6 +68,11 @@ class Extension extends implementationOf(ExtensionInterface) {
 
     /**
      * @todo
+     *
+     * @param {Jymfony.Component.Config.Definition.ConfigurationInterface} configuration
+     * @param {Object[]} configs
+     *
+     * @returns {Object[]}
      */
     _processConfiguration(configuration, configs) {
         const processor = new Processor();
@@ -71,7 +84,7 @@ class Extension extends implementationOf(ExtensionInterface) {
 
     /**
      * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
-     * @param {*} config
+     * @param {Object} config
      *
      * @returns {*}
      *

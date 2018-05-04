@@ -8,15 +8,24 @@ class Route {
      * Constructor.
      *
      * @param {string} path
-     * @param {Object<string, *>} defaults
-     * @param {Object<string, string>} requirements
-     * @param {Object<string, *>} options
-     * @param {[string]} host
-     * @param {[string]} schemes
-     * @param {[string]} methods
-     * @param {string} condition
+     * @param {Object.<string, *>} [defaults = {}]
+     * @param {Object.<string, string>} [requirements = {}]
+     * @param {Object.<string, *>} [options = {}]
+     * @param {string[]} [host]
+     * @param {string[]} [schemes = []]
+     * @param {string[]} [methods = [ 'GET', 'POST' ]]
+     * @param {string} [condition]
      */
-    __construct(path, defaults = {}, requirements = {}, options = {}, host = undefined, schemes = [], methods = [ 'GET', 'POST' ], condition = undefined) {
+    __construct(
+        path,
+        defaults = {},
+        requirements = {},
+        options = {},
+        host = undefined,
+        schemes = [],
+        methods = [ 'GET', 'POST' ],
+        condition = undefined
+    ) {
         this
             .setPath(path)
             .setHost(host)
@@ -46,7 +55,7 @@ class Route {
      * @returns {Jymfony.Component.Routing.Route}
      */
     setPath(path) {
-        this._path = '/'+__jymfony.ltrim(__jymfony.trim(path), '/');
+        this._path = `/${__jymfony.ltrim(__jymfony.trim(path), '/')}`;
         this._compiled = undefined;
 
         return this;
@@ -79,7 +88,7 @@ class Route {
      * Returns the lowercased schemes this route is restricted to.
      * So an empty array means that any scheme is allowed.
      *
-     * @returns {[string]}
+     * @returns {string[]}
      */
     get schemes() {
         return this._schemes;
@@ -89,7 +98,7 @@ class Route {
      * Sets the schemes (e.g. 'https') this route is restricted to.
      * So an empty array means that any scheme is allowed.
      *
-     * @param {[string]} schemes
+     * @param {string[]} schemes
      *
      * @returns {Jymfony.Component.Routing.Route}
      */
@@ -114,7 +123,7 @@ class Route {
     /**
      * Returns the uppercased HTTP methods this route is restricted to.
      *
-     * @returns {[string]}
+     * @returns {string[]}
      */
     get methods() {
         return this._methods;
@@ -124,7 +133,7 @@ class Route {
      * Sets the methods (e.g. 'POST') this route is restricted to.
      * An empty array is not allowed.
      *
-     * @param {[string]} methods
+     * @param {string[]} methods
      *
      * @returns {Jymfony.Component.Routing.Route}
      */
@@ -142,7 +151,7 @@ class Route {
     /**
      * Returns the options.
      *
-     * @returns {Object<string, *>}
+     * @returns {Object.<string, *>}
      */
     get options() {
         return this._options;
@@ -151,7 +160,7 @@ class Route {
     /**
      * Sets the options.
      *
-     * @param {Object<string, *>} options
+     * @param {Object.<string, *>} options
      *
      * @returns {Jymfony.Component.Routing.Route}
      */
@@ -166,7 +175,7 @@ class Route {
     /**
      * Adds options.
      *
-     * @param {Object<string, *>} options
+     * @param {Object.<string, *>} options
      *
      * @returns {Jymfony.Component.Routing.Route}
      */
@@ -211,7 +220,7 @@ class Route {
      *
      * @param {string} name
      *
-     * @return {boolean}
+     * @returns {boolean}
      */
     hasOption(name) {
         return this._options.hasOwnProperty(name);
@@ -220,7 +229,7 @@ class Route {
     /**
      * Returns the defaults.
      *
-     * @returns {Object<string, *>}
+     * @returns {Object.<string, *>}
      */
     get defaults() {
         return this._defaults;
@@ -229,7 +238,7 @@ class Route {
     /**
      * Sets the defaults.
      *
-     * @param {Object<string, *>} defaults
+     * @param {Object.<string, *>} defaults
      *
      * @returns {Jymfony.Component.Routing.Route}
      */
@@ -242,7 +251,7 @@ class Route {
     /**
      * Adds defaults.
      *
-     * @param {Object<string, *>} defaults
+     * @param {Object.<string, *>} defaults
      *
      * @returns {Jymfony.Component.Routing.Route}
      */
@@ -287,7 +296,7 @@ class Route {
      *
      * @param {string} name
      *
-     * @return {boolean}
+     * @returns {boolean}
      */
     hasDefault(name) {
         return this._defaults.hasOwnProperty(name);
@@ -305,7 +314,7 @@ class Route {
     /**
      * Gets the requirements.
      *
-     * @return {Object<string, RegExp>}
+     * @returns {Object.<string, RegExp>}
      */
     get requirements() {
         return this._requirements;
@@ -314,7 +323,7 @@ class Route {
     /**
      * Sets the requirements-
      *
-     * @param {Object<string, string|RegExp>|[string|RegExp]} requirements
+     * @param {Object.<string, string|RegExp>|string[]|RegExp[]} requirements
      *
      * @returns {Jymfony.Component.Routing.Route}
      */
@@ -327,7 +336,7 @@ class Route {
     /**
      * Add requirements.
      *
-     * @param {Object<string, string|RegExp>|[string|RegExp]} requirements
+     * @param {Object.<string, string|RegExp>|string[]|RegExp[]} requirements
      *
      * @returns {Jymfony.Component.Routing.Route}
      */
@@ -344,9 +353,9 @@ class Route {
     /**
      * Gets a requirement by key.
      *
-     * @param key
+     * @param {string} key
      *
-     * @return {RegExp|undefined}
+     * @returns {RegExp|undefined}
      */
     getRequirement(key) {
         return this._requirements[key];
@@ -355,9 +364,9 @@ class Route {
     /**
      * Checks if a requirement for key has been set.
      *
-     * @param key
+     * @param {string} key
      *
-     * @return {boolean}
+     * @returns {boolean}
      */
     hasRequirement(key) {
         return this._requirements.hasOwnProperty(key);
@@ -369,7 +378,7 @@ class Route {
      * @param {string} key
      * @param {string|RegExp} regex
      *
-     * @return {Jymfony.Component.Routing.Route}
+     * @returns {Jymfony.Component.Routing.Route}
      */
     setRequirement(key, regex) {
         this._requirements[key] = this._sanitizeRequirement(key, regex);
@@ -381,7 +390,7 @@ class Route {
     /**
      * Compiles the route.
      *
-     * @returns
+     * @returns {Jymfony.Component.Routing.CompiledRoute}
      */
     compile() {
         if (undefined !== this._compiled) {

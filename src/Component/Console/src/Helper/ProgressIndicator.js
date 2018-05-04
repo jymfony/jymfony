@@ -13,12 +13,23 @@ const DateTime = Jymfony.Component.DateTime.DateTime;
 class ProgressIndicator {
     /**
      * @param {Jymfony.Component.Console.Output.OutputInterface} output
-     * @param {string|undefined} format Indicator format
-     * @param {int} indicatorChangeInterval Change interval in milliseconds
-     * @param {string[]|undefined} indicatorValues Animated indicator characters
+     * @param {string|undefined} [format] Indicator format
+     * @param {int} [indicatorChangeInterval = 100] Change interval in milliseconds
+     * @param {string[]|undefined} [indicatorValues] Animated indicator characters
      */
     __construct(output, format = undefined, indicatorChangeInterval = 100, indicatorValues = undefined) {
+        /**
+         * @type {boolean}
+         *
+         * @private
+         */
         this._started = false;
+
+        /**
+         * @type {Jymfony.Component.Console.Output.OutputInterface}
+         *
+         * @private
+         */
         this._output = output;
 
         if (! format) {
@@ -33,9 +44,32 @@ class ProgressIndicator {
             throw new InvalidArgumentException('Must have at least 2 indicator value characters.');
         }
 
+        /**
+         * @type {string}
+         *
+         * @private
+         */
         this._format = ProgressIndicator.getFormatDefinition(format);
+
+        /**
+         * @type {int}
+         *
+         * @private
+         */
         this._indicatorChangeInterval = indicatorChangeInterval;
+
+        /**
+         * @type {string[]}
+         *
+         * @private
+         */
         this._indicatorValues = indicatorValues;
+
+        /**
+         * @type {int}
+         *
+         * @private
+         */
         this._startTime = DateTime.unixTime;
     }
 
@@ -53,7 +87,7 @@ class ProgressIndicator {
     /**
      * Starts the indicator output.
      *
-     * @param {string|undefined} message
+     * @param {string|undefined} [message = '']
      */
     start(message = '') {
         if (this._started) {
@@ -95,7 +129,7 @@ class ProgressIndicator {
     /**
      * Finish the indicator with message.
      *
-     * @param {string|undefined} message
+     * @param {string|undefined} [message = '']
      */
     finish(message = '') {
         if (! this._started) {
@@ -154,6 +188,9 @@ class ProgressIndicator {
         return ProgressIndicator.formatters[name];
     }
 
+    /**
+     * @private
+     */
     _display() {
         if (OutputInterface.VERBOSITY_QUIET === this._output.verbosity) {
             return;
@@ -169,6 +206,11 @@ class ProgressIndicator {
         }));
     }
 
+    /**
+     * @returns {string}
+     *
+     * @private
+     */
     _determineBestFormat() {
         switch (this._output.verbosity) {
             // OutputInterface::VERBOSITY_QUIET: display is disabled anyway
@@ -196,11 +238,21 @@ class ProgressIndicator {
         }
     }
 
+    /**
+     * @returns {int}
+     *
+     * @private
+     */
     _getCurrentTimeInMilliseconds() {
         const now = DateTime.now;
         return ~~(now.timestamp * 1000 + now.millisecond);
     }
 
+    /**
+     * @returns {string[]}
+     *
+     * @private
+     */
     _getDefaultIndicators() {
         if (this._output.decorated && Terminal.hasUnicodeSupport) {
             return [ '⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏' ];
@@ -209,6 +261,9 @@ class ProgressIndicator {
         return [ '-', '\\', '|', '/' ];
     }
 
+    /**
+     * @returns {Object.<string, Function>}
+     */
     static initPlaceholderFormatters() {
         return {
             /**
@@ -245,6 +300,9 @@ class ProgressIndicator {
         };
     }
 
+    /**
+     * @returns {Object.<string, string>}
+     */
     static initFormats() {
         return {
             normal: ' %indicator% %message%',

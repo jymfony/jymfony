@@ -14,6 +14,7 @@ class Application extends BaseApplication {
     __construct(kernel) {
         /**
          * @type {Jymfony.Component.Kernel.KernelInterface}
+         *
          * @private
          */
         this._kernel = kernel;
@@ -34,7 +35,7 @@ class Application extends BaseApplication {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     async shutdown(exitCode) {
         await this._kernel.shutdown();
@@ -43,7 +44,7 @@ class Application extends BaseApplication {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     getLongVersion() {
         return super.getLongVersion() + __jymfony.sprintf(

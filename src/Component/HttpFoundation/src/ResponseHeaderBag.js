@@ -5,6 +5,11 @@ const HeaderBag = Jymfony.Component.HttpFoundation.HeaderBag;
  * @memberOf Jymfony.Component.HttpFoundation
  */
 class ResponseHeaderBag extends HeaderBag {
+    /**
+     * Constructor.
+     *
+     * @param {Object} [headers = {}]
+     */
     __construct(headers = {}) {
         super.__construct(headers);
 
@@ -18,6 +23,9 @@ class ResponseHeaderBag extends HeaderBag {
         }
     }
 
+    /**
+     * @private
+     */
     _initDate() {
         const now = new DateTime(undefined, 'UTC');
         this.set('Date', now.format('D, d M Y H:i:s')+' GMT');

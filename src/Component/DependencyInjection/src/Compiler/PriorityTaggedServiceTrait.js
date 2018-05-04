@@ -7,10 +7,10 @@ class PriorityTaggedServiceTrait {
     /**
      * Finds all services with the given tag name and order them by their priority.
      *
-     * @param {String} tagName
+     * @param {string} tagName
      * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
      *
-     * @returns {Generator|[Jymfony.Component.DependencyInjection.Reference]}
+     * @returns {Generator|Jymfony.Component.DependencyInjection.Reference[]}
      */
     * findAndSortTaggedServices(tagName, container) {
         let services = {};

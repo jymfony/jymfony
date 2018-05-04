@@ -7,12 +7,13 @@ const AbstractRenderer = Jymfony.Component.Console.Question.Renderer.AbstractRen
  * This class is internal and should be considered private
  * DO NOT USE this directly.
  *
- * @internal
  * @memberOf Jymfony.Component.Console.Question.Renderer
+ *
+ * @internal
  */
 class RawListRenderer extends AbstractRenderer {
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     doAsk() {
         this._print();
@@ -63,6 +64,9 @@ class RawListRenderer extends AbstractRenderer {
         });
     }
 
+    /**
+     * @private
+     */
     _print() {
         const spaces = this._question._choices.length.toString().length;
         for (let key = 0; key < this._question._choices.length; key++) {

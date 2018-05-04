@@ -4,5 +4,7 @@ const ExceptionInterface = Jymfony.Component.DependencyInjection.Exception.Excep
 /**
  * @memberOf Jymfony.Component.DependencyInjection.Exception
  */
-module.exports = class BadMethodCallException extends mix(BaseException, ExceptionInterface) {
-};
+class BadMethodCallException extends mix(BaseException, ExceptionInterface) {
+}
+
+module.exports = BadMethodCallException;

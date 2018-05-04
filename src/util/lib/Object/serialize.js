@@ -2,6 +2,11 @@
 
 global.__jymfony = global.__jymfony || {};
 
+/**
+ * @param {*} value
+ *
+ * @returns {string}
+ */
 function serialize(value) {
     if (null === value) {
         return 'N';
@@ -58,6 +63,9 @@ function serialize(value) {
     return 'C[' + reflClass.name + ']:{' + vals.join(';') + (vals.length ? ';' : '') + '}';
 }
 
+/**
+ * @param {string} serialized
+ */
 function unserialize(serialized) {
     serialized = serialized.toString();
     let i = 0;

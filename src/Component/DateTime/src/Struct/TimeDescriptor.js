@@ -8,11 +8,15 @@ const daysPerMonth = [
 
 /**
  * @memberOf Jymfony.Component.DateTime.Struct
- * @type tm_desc
  *
  * @internal
  */
-class tm_desc {
+class TimeDescriptor {
+    /**
+     * Constructor.
+     *
+     * @param {string|DateTimeZone} [tz]
+     */
     __construct(tz = undefined) {
         if (undefined === tz) {
             tz = DEFAULT_TZ;
@@ -23,30 +27,36 @@ class tm_desc {
         }
 
         /**
-         * @type {DateTimeZone}
+         * @type {Jymfony.Component.DateTime.DateTimeZone}
          */
-        this.tm_tz = tz;
+        this.timeZone = tz;
 
         const d = new Date();
-        this.unix_timestamp = ~~(d.getTime() / 1000);
-        this._tm_msec = d.getMilliseconds();
+        this.unixTimestamp = ~~(d.getTime() / 1000);
+
+        /**
+         * @type {int}
+         *
+         * @private
+         */
+        this._milliseconds = d.getMilliseconds();
     }
 
     /**
-     * Sets the year in short version (70-69 = 1970-2069)
+     * Sets the year in short version (70-69 = 1970-2069).
      *
-     * @param {number} year
+     * @param {int} year
      */
-    set short_year(year) {
+    set shortYear(year) {
         year = ~~year;
         if (0 > year || 99 < year) {
-            throw new InvalidArgumentException('Short year cannot be greater than 99 or less than 0');
+            throw new InvalidArgumentException('Short _year cannot be greater than 99 or less than 0');
         }
 
         if (70 > year) {
-            this.tm_year = 2000 + year;
+            this._year = 2000 + year;
         } else {
-            this.tm_year = 1900 + year;
+            this._year = 1900 + year;
         }
 
         this._makeTime();
@@ -55,143 +65,152 @@ class tm_desc {
     /**
      * Gets the day.
      *
-     * @returns {number}
+     * @returns {int}
      */
-    get tm_mday() {
-        return this._tm_mday;
+    get day() {
+        return this._day;
     }
 
     /**
      * Sets the day.
      *
-     * @param {number} day
+     * @param {int} day
+     *
      * @throws {InvalidArgumentException} If trying to set an invalid value
      */
-    set tm_mday(day) {
+    set day(day) {
         day = ~~day;
+
         if (1 > day || 31 < day) {
             throw new InvalidArgumentException('Cannot set day greater than 31 or less than 1');
         }
 
-        this._tm_mday = day;
+        this._day = day;
         this._makeTime();
     }
 
     /**
      * Gets the month.
      *
-     * @returns {number}
+     * @returns {int}
      */
-    get tm_mon() {
-        return this._tm_mon;
+    get month() {
+        return this._month;
     }
 
     /**
      * Sets the month.
      *
-     * @param {number} month
+     * @param {int} month
+     *
      * @throws {InvalidArgumentException} If trying to set an invalid value
      */
-    set tm_mon(month) {
+    set month(month) {
         month = ~~month;
+
         if (1 > month || 12 < month) {
             throw new InvalidArgumentException('Cannot set month greater than 12 or less than 1');
         }
 
-        this._tm_mon = month;
+        this._month = month;
         this._makeTime();
     }
 
     /**
      * Get the seconds.
      *
-     * @returns {number}
+     * @returns {int}
      */
-    get tm_sec() {
-        return this._tm_sec;
+    get seconds() {
+        return this._seconds;
     }
 
     /**
      * Set the seconds.
      *
-     * @param {number} sec
+     * @param {int} sec
+     *
      * @throws {InvalidArgumentException} If trying to set an invalid value
      */
-    set tm_sec(sec) {
+    set seconds(sec) {
         sec = ~~sec;
+
         if (0 > sec || 59 < sec) {
             throw new InvalidArgumentException('Cannot set seconds greater than 59 or less than 0');
         }
 
-        this._tm_sec = sec;
+        this._seconds = sec;
         this._makeTime();
     }
 
     /**
      * Get the milliseconds.
      *
-     * @returns {number}
+     * @returns {int}
      */
-    get tm_msec() {
-        return this._tm_msec;
+    get milliseconds() {
+        return this._milliseconds;
     }
 
     /**
      * Set the milliseconds.
      *
-     * @param {number} msec
+     * @param {int} msec
      */
-    set tm_msec(msec) {
-        this._tm_msec = ~~msec.toString().substr(0, 3);
+    set milliseconds(msec) {
+        this._milliseconds = ~~msec.toString().substr(0, 3);
     }
 
     /**
-     * Get the seconds.
+     * Get the minutes.
      *
-     * @returns {number}
+     * @returns {int}
      */
-    get tm_min() {
-        return this._tm_min;
+    get minutes() {
+        return this._minutes;
     }
 
     /**
      * Set the minutes.
      *
-     * @param {number} min
+     * @param {int} min
+     *
      * @throws {InvalidArgumentException} If trying to set an invalid value
      */
-    set tm_min(min) {
+    set minutes(min) {
         min = ~~min;
         if (0 > min || 59 < min) {
             throw new InvalidArgumentException('Cannot set minute greater than 59 or less than 0');
         }
 
-        this._tm_min = min;
+        this._minutes = min;
         this._makeTime();
     }
 
     /**
      * Get the hour.
      *
-     * @returns {number}
+     * @returns {int}
      */
-    get tm_hour() {
-        return this._tm_hour;
+    get hour() {
+        return this._hour;
     }
 
     /**
      * Set the hour.
      *
-     * @param {number} hour
+     * @param {int} hour
+     *
      * @throws {InvalidArgumentException} If trying to set an invalid value
      */
-    set tm_hour(hour) {
+    set hour(hour) {
         hour = ~~hour;
+
         if (23 < hour || 0 > hour) {
             throw new InvalidArgumentException('Cannot set hour greater than 23 or less than 0');
         }
 
-        this._tm_hour = hour;
+        this._hour = hour;
         this._makeTime();
     }
 
@@ -201,20 +220,20 @@ class tm_desc {
      *
      * @returns {int}
      */
-    get tm_wday() {
+    get weekDay() {
         /*
          Here is a formula for finding the day of the week for ANY date.
 
          N = d + 2m + [3(m+1)/5] + y + [y/4] - [y/100] + [y/400] + 2
 
          where d is the number or the day of the month, m is the number of the
-         month, and y is the year. The brackets around the divisions mean to
+         month, and y is the _year. The brackets around the divisions mean to
          drop the remainder and just use the integer part that you get.
 
          Also, a VERY IMPORTANT RULE is the number to use for the months for
          January and February. The numbers of these months are 13 and 14 of the
          PREVIOUS YEAR. This means that to find the day of the week of New
-         Year's Day this year, 1/1/98, you must use the date 13/1/97. (It
+         Year's Day this _year, 1/1/98, you must use the date 13/1/97. (It
          sounds complicated, but I will do a couple of examples for you.)
 
          After you find the number N, divide it by 7, and the REMAINDER of that
@@ -223,47 +242,51 @@ class tm_desc {
          that is: 0 = Saturday.
          */
 
-        let month = this.tm_mon;
-        let year = this.tm_year;
+        let month = this.month;
+        let year = this._year;
+
         if (3 > month) {
             month += 12;
             year--;
         }
 
-        const N = this.tm_mday + 2 * month + ~~(3 * (month + 1) / 5) + year + ~~(year / 4) - ~~(year / 100) + ~~(year / 400) + 2;
+        const N = this.day + 2 * month + ~~(3 * (month + 1) / 5) + year + ~~(year / 4) - ~~(year / 100) + ~~(year / 400) + 2;
+
         return (N + 5) % 7 + 1;
     }
 
     /**
-     * Gets the first weekday of the year.
+     * Gets the first weekday of the _year.
      * 1 = Monday, 7 = Sunday
      *
      * @returns {int}
      */
-    get first_day_of_year() {
-        const y = this.tm_year - 1;
+    get firstDayOfYear() {
+        const y = this._year - 1;
+
         return (37 + y + ~~(y / 4) - ~~(y / 100) + ~~(y / 400) + 5) % 7 + 1;
     }
 
     /**
-     * Gets the day no. in the year.
+     * Gets the day no. in the _year.
      *
-     * @returns {number}
+     * @returns {int}
      */
-    get tm_yday() {
-        const target = daysPerMonth[this.tm_leap ? 1 : 0];
-        const months = target.slice(0, this.tm_mon - 1);
+    get yearDay() {
+        const target = daysPerMonth[this.leap ? 1 : 0];
+        const months = target.slice(0, this.month - 1);
 
-        return months.reduce((acc, val) => acc + val, 0) + this.tm_mday;
+        return months.reduce((acc, val) => acc + val, 0) + this.day;
     }
 
     /**
      * Gets the ISO week number.
      *
-     * @returns {number}
+     * @returns {int}
      */
-    get tm_week() {
-        let w = ~~((this.tm_yday - this.tm_wday + 10) / 7);
+    get isoWeekNumber() {
+        let w = ~~((this.yearDay - this.weekDay + 10) / 7);
+
         if (1 > w) {
             w += 52;
         }
@@ -272,53 +295,53 @@ class tm_desc {
     }
 
     /**
-     * Gets the ISO-week year
-     *
-     * @returns {number|*}
-     */
-    get iso_year() {
-        const target = this.copy();
-        target._addDays(-target.tm_wday + 3);
-
-        return target.tm_year;
-    }
-
-    /**
-     * Is this tm representing a leap year?
-     *
-     * @returns {boolean}
-     */
-    get tm_leap() {
-        return (0 === this.tm_year % 4) && (0 !== this.tm_year % 100 || 0 === this.tm_year % 400);
-    }
-
-    /**
-     * Gets the number of days in the current month
+     * Gets the ISO-week _year.
      *
      * @returns {int}
      */
-    get tm_dim() {
-        return daysPerMonth[this.tm_leap][this.tm_mon - 1];
+    get isoYear() {
+        const target = this.copy();
+        target._addDays(-target.weekDay + 3);
+
+        return target._year;
     }
 
     /**
-     * Gets meridian (am/pm)
+     * Is this tm representing a leap _year?
+     *
+     * @returns {boolean}
+     */
+    get leap() {
+        return (0 === this._year % 4) && (0 !== this._year % 100 || 0 === this._year % 400);
+    }
+
+    /**
+     * Gets the number of days in the current month.
+     *
+     * @returns {int}
+     */
+    get daysInMonth() {
+        return daysPerMonth[this.leap][this.month - 1];
+    }
+
+    /**
+     * Gets meridian (am/pm).
      *
      * @returns {string}
      */
-    get tm_meridian() {
-        return 12 > this._tm_hour ? 'am' : 'pm';
+    get meridian() {
+        return 12 > this._hour ? 'am' : 'pm';
     }
 
     /**
      * Gets the number of days from epoch.
      *
-     * @returns {number}
+     * @returns {int}
      */
-    get days_from_epoch() {
-        let y = this.tm_year;
-        const m = this.tm_mon;
-        const d = this.tm_mday;
+    get daysFromEpoch() {
+        let y = this._year;
+        const m = this.month;
+        const d = this.day;
 
         y -= 2 >= m ? 1 : 0;
 
@@ -331,54 +354,57 @@ class tm_desc {
     }
 
     /**
-     * @param {number} days
+     * Sets the number of days from epoch.
+     *
+     * @param {int} days
      */
-    set days_from_epoch(days) {
+    set daysFromEpoch(days) {
         const z = days + 719468;
         const era = ~~((0 <= z ? z : z - 146096) / 146097);
         const doe = Math.abs(z - era * 146097);
         const yoe = ~~((doe - ~~(doe/1460) + ~~(doe/36524) - ~~(doe/146096)) / 365);
 
-        this.tm_year = yoe + era * 400;
+        this._year = yoe + era * 400;
         const doy = Math.abs(doe - (365*yoe + ~~(yoe/4) - ~~(yoe/100)));
         const mp = ~~((5 * doy + 2)/153);
-        this._tm_mday = doy - ~~((153 * mp + 2)/5) + 1;
-        this._tm_mon = mp + (10 > mp ? 3 : -9);
+        this._day = doy - ~~((153 * mp + 2)/5) + 1;
+        this._month = mp + (10 > mp ? 3 : -9);
 
-        if (2 >= this._tm_mon) {
-            this.tm_year++;
+        if (2 >= this._month) {
+            this._year++;
         }
     }
 
     /**
      * Gets the unix timestamp for this tm.
      *
-     * @returns {number}
+     * @returns {int}
      */
-    get unix_timestamp() {
-        return this._unix_time;
+    get unixTimestamp() {
+        return this._unixTime;
     }
 
     /**
      * Sets the unix timestamp for this tm.
      *
-     * @param {number} timestamp
+     * @param {int} timestamp
      */
-    set unix_timestamp(timestamp) {
-        this._unix_time = ~~timestamp;
-        this._tm_msec = 0;
-        this._makeTm();
+    set unixTimestamp(timestamp) {
+        this._unixTime = ~~timestamp;
+        this._milliseconds = 0;
+        this._updateTime();
     }
 
     /**
-     * Gets the swatch internet time
+     * Gets the swatch internet time.
      *
      * @see https://en.wikipedia.org/wiki/Swatch_Internet_Time
      *
      * @returns {int}
      */
-    get swatch_internet_time() {
-        const utc1 = (this.unix_timestamp + 3600) % 86400;
+    get swatchInternetTime() {
+        const utc1 = (this.unixTimestamp + 3600) % 86400;
+
         return ~~(utc1 / 86.4);
     }
 
@@ -388,12 +414,13 @@ class tm_desc {
      * @returns {boolean}
      */
     get valid() {
-        const days_in_month = daysPerMonth[this.tm_leap ? 1 : 0][this.tm_mon - 1];
-        return this.tm_mday <= days_in_month;
+        const days_in_month = daysPerMonth[this.leap ? 1 : 0][this.month - 1];
+
+        return this.day <= days_in_month;
     }
 
     /**
-     * Adds a timespan
+     * Adds a timespan.
      *
      * @param {Jymfony.Component.DateTime.TimeSpan} timespan
      */
@@ -413,135 +440,173 @@ class tm_desc {
      * Clones this object.
      */
     copy() {
-        const retVal = new tm_desc(this.tm_tz.name);
+        const retVal = new TimeDescriptor(this.timeZone.name);
 
-        retVal.unix_timestamp = this.unix_timestamp;
+        retVal.unixTimestamp = this.unixTimestamp;
+
         return retVal;
     }
 
     /**
      * Gets the wall clock timestamp for this tm.
      *
-     * @returns {number}
+     * @returns {int}
      */
-    get _wallclock_timestamp() {
-        return this.days_from_epoch * 86400 + this._tm_hour * 3600 + this._tm_min * 60 + this._tm_sec;
+    get _wallClockTimestamp() {
+        return this.daysFromEpoch * 86400 + this._hour * 3600 + this._minutes * 60 + this._seconds;
     }
 
     /**
      * Use a Date object to populate this struct.
      *
      * @param {Date} date
+     *
      * @private
      */
     _fromDate(date) {
-        this._tm_msec = date.getMilliseconds(); /* Milliseconds */
-        this._tm_sec = date.getSeconds(); /* Seconds */
-        this._tm_min = date.getMinutes(); /* Minutes */
-        this._tm_hour = date.getHours(); /* Hours */
-        this._tm_mday = date.getDate(); /* Day of the month */
-        this._tm_mon = date.getMonth() + 1; /* Month */
-        this.tm_year = date.getFullYear(); /* Year */
+        this._milliseconds = date.getMilliseconds(); /* Milliseconds */
+        this._seconds = date.getSeconds(); /* Seconds */
+        this._minutes = date.getMinutes(); /* Minutes */
+        this._hour = date.getHours(); /* Hours */
+        this._day = date.getDate(); /* Day of the month */
+        this._month = date.getMonth() + 1; /* Month */
+        this._year = date.getFullYear(); /* Year */
 
         this._makeTime();
     }
 
+    /**
+     * @private
+     */
     _makeTime() {
-        const wall_ts = this._wallclock_timestamp;
-        const offset = this.tm_tz._getOffsetForWallClock(wall_ts);
+        const wallTimestamp = this._wallClockTimestamp;
+        const offset = this.timeZone._getOffsetForWallClock(wallTimestamp);
 
-        this._unix_time = wall_ts - offset;
+        this._unixTime = wallTimestamp - offset;
     }
 
-    _makeTm() {
-        const wall_ts = this._unix_time + this.tm_tz.getOffset(this._unix_time);
+    /**
+     * @private
+     */
+    _updateTime() {
+        const wall_ts = this._unixTime + this.timeZone.getOffset(this._unixTime);
 
-        this._tm_sec = wall_ts % 60;
-        this._tm_min = ~~((wall_ts % 3600 - this._tm_sec) / 60);
-        this._tm_hour = ~~((wall_ts % 86400 - (this._tm_min % 3600)) / 3600);
+        this._seconds = wall_ts % 60;
+        this._minutes = ~~((wall_ts % 3600 - this._seconds) / 60);
+        this._hour = ~~((wall_ts % 86400 - (this._minutes % 3600)) / 3600);
 
-        this.days_from_epoch = ~~(wall_ts / 86400);
+        this.daysFromEpoch = ~~(wall_ts / 86400);
     }
 
-    _addMilliseconds(msecs) {
-        msecs = ~~msecs;
-        if (! msecs) {
+    /**
+     * @param {int} milliseconds
+     *
+     * @private
+     */
+    _addMilliseconds(milliseconds) {
+        milliseconds = ~~milliseconds;
+
+        if (! milliseconds) {
             return;
         }
 
-        this._tm_msec += msecs;
+        this._milliseconds += milliseconds;
 
-        this._addSeconds(~~(this._tm_msec / 1000));
-        this._tm_msec %= 1000;
+        this._addSeconds(~~(this._milliseconds / 1000));
+        this._milliseconds %= 1000;
     }
 
-    _addSeconds(secs) {
-        secs = ~~secs;
-        if (! secs) {
+    /**
+     * @param {int} seconds
+     *
+     * @private
+     */
+    _addSeconds(seconds) {
+        seconds = ~~seconds;
+
+        if (! seconds) {
             return;
         }
 
-        this._unix_time += secs;
-        this._makeTm();
+        this._unixTime += seconds;
+        this._updateTime();
     }
 
+    /**
+     * @param {int} days
+     *
+     * @private
+     */
     _addDays(days) {
         days = ~~days;
+
         if (! days) {
             return;
         }
 
-        this._tm_mday += days;
-        const month = () => 1 < this._tm_mon ? this._tm_mon - 1 : 11;
+        this._day += days;
+        const month = () => 1 < this._month ? this._month - 1 : 11;
 
-        while (this._tm_mday >= daysPerMonth[this.tm_leap ? 1 : 0][month()]) {
-            this._tm_mday -= daysPerMonth[this.tm_leap ? 1 : 0][month()];
+        while (this._day >= daysPerMonth[this.leap ? 1 : 0][month()]) {
+            this._day -= daysPerMonth[this.leap ? 1 : 0][month()];
             this._addMonths(1);
         }
 
-        while (1 > this._tm_mday) {
-            this._tm_mday += daysPerMonth[this.tm_leap ? 1 : 0][month()];
+        while (1 > this._day) {
+            this._day += daysPerMonth[this.leap ? 1 : 0][month()];
             this._addMonths(-1);
         }
     }
 
+    /**
+     * @param {int} months
+     *
+     * @private
+     */
     _addMonths(months) {
         months = ~~months;
+
         if (! months) {
             return;
         }
 
-        const month = () => 1 < this._tm_mon ? this._tm_mon - 1 : 11;
-        this._tm_mon += months;
+        const month = () => 1 < this._month ? this._month - 1 : 11;
+        this._month += months;
 
-        while (12 < this._tm_mon) {
-            this._tm_mon -= 12;
+        while (12 < this._month) {
+            this._month -= 12;
             this._addYears(1);
         }
 
-        while (1 > this._tm_mon) {
-            this._tm_mon += 12;
+        while (1 > this._month) {
+            this._month += 12;
             this._addYears(-1);
         }
 
-        if (this._tm_mday > daysPerMonth[this.tm_leap ? 1 : 0][month()]) {
-            this._tm_mday = daysPerMonth[this.tm_leap ? 1 : 0][month()];
+        if (this._day > daysPerMonth[this.leap ? 1 : 0][month()]) {
+            this._day = daysPerMonth[this.leap ? 1 : 0][month()];
         }
     }
 
+    /**
+     * @param {int} years
+     *
+     * @private
+     */
     _addYears(years) {
         years = ~~years;
+
         if (! years) {
             return;
         }
 
-        const month = () => 1 < this._tm_mon ? this._tm_mon - 1 : 11;
-        this.tm_year += years;
+        const month = () => 1 < this._month ? this._month - 1 : 11;
+        this._year += years;
 
-        if (this._tm_mday > daysPerMonth[this.tm_leap ? 1 : 0][month()]) {
-            this._tm_mday = daysPerMonth[this.tm_leap ? 1 : 0][month()];
+        if (this._day > daysPerMonth[this.leap ? 1 : 0][month()]) {
+            this._day = daysPerMonth[this.leap ? 1 : 0][month()];
         }
     }
 }
 
-module.exports = tm_desc;
+module.exports = TimeDescriptor;

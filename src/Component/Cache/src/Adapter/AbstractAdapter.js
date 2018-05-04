@@ -11,9 +11,16 @@ const NullLogger = Jymfony.Component.Logger.NullLogger;
  * @abstract
  */
 class AbstractAdapter extends implementationOf(CacheItemPoolInterface, LoggerAwareInterface, AbstractTrait) {
+    /**
+     * Constructor.
+     *
+     * @param {string} [namespace = '']
+     * @param {int} [defaultLifetime = 0]
+     */
     __construct(namespace = '', defaultLifetime = 0) {
         /**
          * @type {string}
+         *
          * @private
          */
         this._namespace = '' === namespace ? '' : (CacheItem.validateKey(namespace) + ':');
@@ -24,9 +31,9 @@ class AbstractAdapter extends implementationOf(CacheItemPoolInterface, LoggerAwa
         /**
          * Create a cache item for the current adapter.
          *
-         * @param key
-         * @param value
-         * @param isHit
+         * @param {string} key
+         * @param {*} value
+         * @param {boolean} isHit
          *
          * @returns {Jymfony.Component.Cache.CacheItem}
          *
@@ -49,7 +56,7 @@ class AbstractAdapter extends implementationOf(CacheItemPoolInterface, LoggerAwa
      * @param {string} namespace
      * @param {int} defaultLifetime
      * @param {string} directory
-     * @param {Jymfony.Component.Logger.LoggerInterface} logger
+     * @param {Jymfony.Component.Logger.LoggerInterface} [logger = new NullLogger()]
      */
     static createSystemCache(namespace, defaultLifetime, directory, logger = new NullLogger()) {
         const arr = new ArrayAdapter(defaultLifetime);

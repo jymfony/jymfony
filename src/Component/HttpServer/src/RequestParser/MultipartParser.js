@@ -6,7 +6,9 @@ const BadRequestException = Jymfony.Component.HttpServer.Exception.BadRequestExc
 
 /**
  * @memberOf Jymfony.Component.HttpServer.RequestParser
+ *
  * @internal
+ *
  * @final
  */
 class MultipartParser extends AbstractParser {
@@ -16,6 +18,8 @@ class MultipartParser extends AbstractParser {
      * @param {IncomingMessage} req
      * @param {Jymfony.Component.HttpFoundation.Header.ContentType} contentType
      * @param {undefined|int} contentLength
+     *
+     * @inheritdoc
      */
     __construct(req, contentType, contentLength) {
         if ('form-data' !== contentType.subtype) {
@@ -26,6 +30,7 @@ class MultipartParser extends AbstractParser {
          * Multipart boundary
          *
          * @type {string}
+         *
          * @private
          */
         this._boundary = contentType.get('boundary');
@@ -34,7 +39,7 @@ class MultipartParser extends AbstractParser {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     decode(buffer) {
         const params = [];

@@ -12,6 +12,8 @@ Storage.prototype = {};
  */
 class ClassLoader {
     /**
+     * Constructor
+     *
      * @param {Finder} finder
      * @param {path} path
      * @param {vm} vm
@@ -19,29 +21,39 @@ class ClassLoader {
     constructor(finder, path, vm) {
         /**
          * @type {Finder}
+         *
          * @private
          */
         this._finder = finder;
 
         /**
          * @type {path}
+         *
          * @private
          */
         this._path = path;
 
         /**
          * @type {vm}
+         *
          * @private
          */
         this._vm = vm;
 
         /**
          * @type {Object}
+         *
          * @private
          */
         this._cache = new Storage();
     }
 
+    /**
+     * @param {string} fn
+     * @param {*} self
+     *
+     * @returns {*}
+     */
     load(fn, self) {
         if (this._cache[fn]) {
             return this._cache[fn];

@@ -1,13 +1,13 @@
 /**
- * Compilation passes must implement this interface
+ * Compilation passes must implement this interface.
  *
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
  */
 class CompilerPassInterface {
     /**
-     * Modify container
+     * Modify container.
      *
-     * @param {ContainerBuilder} container
+     * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
      */
     process(container) { }
 }

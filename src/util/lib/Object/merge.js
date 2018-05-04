@@ -2,6 +2,11 @@
 
 global.__jymfony = global.__jymfony || {};
 
+/**
+ * @param {...} args
+ *
+ * @returns {Object}
+ */
 const objectMerge = function (...args) {
     let retArray = args.every(T => isArray(T));
 

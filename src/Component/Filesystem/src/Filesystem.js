@@ -16,7 +16,7 @@ class Filesystem {
      *
      * @param {string} originFile The original filename
      * @param {string} targetFile The target filename
-     * @param {boolean} overwriteNewerFiles If true, target files newer than origin files are overwritten
+     * @param {boolean} [overwriteNewerFiles = false] If true, target files newer than origin files are overwritten
      *
      * @throws {Jymfony.Component.Filesystem.Exception.IOException} When copy fails
      */
@@ -62,8 +62,8 @@ class Filesystem {
     /**
      * Creates a directory recursively.
      *
-     * @param {string|[string]} dirs The directory path
-     * @param {int} mode The directory mode
+     * @param {string|string[]} dirs The directory path
+     * @param {int} [mode = 0o777] The directory mode
      *
      * @throws {Jymfony.Component.Filesystem.Exception.IOException} On any directory creation failure
      */
@@ -91,7 +91,7 @@ class Filesystem {
     /**
      * Checks the existence of files or directories.
      *
-     * @param {string|[string]} files A filename, an array of files to check
+     * @param {string|string[]} files A filename, an array of files to check
      *
      * @returns {boolean} true if the file exists, false otherwise
      */
@@ -112,7 +112,7 @@ class Filesystem {
     /**
      * Removes files or directories.
      *
-     * @param {string|[string]} files A filename, an array of files to remove
+     * @param {string|string[]} files A filename, an array of files to remove
      *
      * @throws {Jymfony.Component.Filesystem.Exception.IOException} When removal fails
      */
@@ -145,11 +145,11 @@ class Filesystem {
      *
      * @param {string} originDir The origin directory
      * @param {string} targetDir The target directory
-     * @param {Object} options An array of boolean options
-     *                         Valid options are:
-     *                            - options['override'] Whether to override an existing file on copy or not (see copy())
-     *                            - options['copy_on_windows'] Whether to copy files instead of links on Windows (see symlink())
-     *                            - options['delete'] Whether to delete files that are not in the source directory (defaults to false)
+     * @param {Object} [options = {}] An array of boolean options
+     *     Valid options are:
+     *     - options['override'] Whether to override an existing file on copy or not (see copy())
+     *     - options['copy_on_windows'] Whether to copy files instead of links on Windows (see symlink())
+     *     - options['delete'] Whether to delete files that are not in the source directory (defaults to false)
      *
      * @throws {Jymfony.Component.Filesystem.Exception.IOException} When file type is unknown
      */
@@ -207,7 +207,7 @@ class Filesystem {
      *
      * @param {string} origin The origin filename or directory
      * @param {string} target The new filename or directory
-     * @param {boolean} overwrite Whether to overwrite the target if it already exists
+     * @param {boolean} [overwrite = false] Whether to overwrite the target if it already exists
      *
      * @returns {Promise<void>}
      *
@@ -235,9 +235,9 @@ class Filesystem {
     /**
      * Creates a symbolic link or copy a directory.
      *
-     * @param {string} originDir     The origin directory path
-     * @param {string} targetDir     The symbolic link name
-     * @param {boolean} copyOnWindows Whether to copy files if on Windows
+     * @param {string} originDir The origin directory path
+     * @param {string} targetDir The symbolic link name
+     * @param {boolean} [copyOnWindows = false] Whether to copy files if on Windows
      *
      * @throws {Jymfony.Component.Filesystem.Exception.IOException} When symlink fails
      */
@@ -278,15 +278,15 @@ class Filesystem {
      * Resolves links in paths.
      *
      * With canonicalize = false (default)
-     *      - if path does not exist or is not a link, returns null
-     *      - if path is a link, returns the next direct target of the link without considering the existence of the target
+     * - if path does not exist or is not a link, returns null
+     * - if path is a link, returns the next direct target of the link without considering the existence of the target
      *
      * With canonicalize = true
-     *      - if path does not exist, returns null
-     *      - if path exists, returns its absolute fully resolved final version
+     * - if path does not exist, returns null
+     * - if path exists, returns its absolute fully resolved final version
      *
      * @param {string} path A filesystem path
-     * @param {boolean} canonicalize Whether or not to return a canonicalized path
+     * @param {boolean} [canonicalize = false] Whether or not to return a canonicalized path
      *
      * @returns {string|null}
      */
@@ -319,7 +319,7 @@ class Filesystem {
      *
      * @param path
      *
-     * @return {[string]}
+     * @returns {string[]}
      */
     async readdir(path) {
         return await internal.readdir(path);

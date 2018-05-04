@@ -10,6 +10,9 @@ const ExceptionInterface = Jymfony.Component.DependencyInjection.Exception.Excep
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
  */
 class ResolveChildDefinitionsPass extends AbstractRecursivePass {
+    /**
+     * @inheritdoc
+     */
     _processValue(value, isRoot = false) {
         if (! (value instanceof Definition)) {
             return super._processValue(value, isRoot);

@@ -32,7 +32,7 @@ class ArrayAdapter extends implementationOf(CacheItemPoolInterface, LoggerAwareI
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     async getItem(key) {
         let value;
@@ -57,7 +57,7 @@ class ArrayAdapter extends implementationOf(CacheItemPoolInterface, LoggerAwareI
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     async getItems(keys = []) {
         const map = new Map();
@@ -71,7 +71,7 @@ class ArrayAdapter extends implementationOf(CacheItemPoolInterface, LoggerAwareI
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     async deleteItems(keys) {
         for (const key of keys) {
@@ -82,7 +82,7 @@ class ArrayAdapter extends implementationOf(CacheItemPoolInterface, LoggerAwareI
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     async save(item) {
         if (! (item instanceof CacheItem)) {

@@ -2,10 +2,20 @@ const Mixins = require('./Mixins');
 const CLASS_TYPE = 'Trait';
 
 class Traits {
+    /**
+     * @param {Object} mixin
+     *
+     * @returns {boolean}
+     */
     static isTrait(mixin) {
         return mixin[Mixins.classTypeSymbol] === CLASS_TYPE;
     }
 
+    /**
+     * @param {Object} definition
+     *
+     * @returns {Function}
+     */
     static create(definition) {
         const inherits = new Map();
         let parent = definition;

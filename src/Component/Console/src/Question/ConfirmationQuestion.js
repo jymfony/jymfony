@@ -7,6 +7,8 @@ const Question = Jymfony.Component.Console.Question.Question;
  */
 class ConfirmationQuestion extends Question {
     /**
+     * Constructor.
+     *
      * @param {string} question The question to ask to the user
      * @param {boolean} [defaultAnswer = true] The default answer to return, true or false
      * @param {string} [trueAnswerRegex = /^y/i] A regex to match the "yes" answer
@@ -16,6 +18,7 @@ class ConfirmationQuestion extends Question {
 
         /**
          * @type {string}
+         *
          * @private
          */
         this._trueAnswerRegex = trueAnswerRegex;
@@ -25,7 +28,7 @@ class ConfirmationQuestion extends Question {
     /**
      * Returns the default answer normalizer.
      *
-     * @return {function(*): *}
+     * @returns {Function}
      */
     _getDefaultNormalizer() {
         const defaultAnswer = this._default;

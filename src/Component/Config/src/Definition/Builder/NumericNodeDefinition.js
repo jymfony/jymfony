@@ -5,23 +5,26 @@ const InvalidDefinitionException = Jymfony.Component.Config.Definition.Exception
  * Abstract class that contains common code of integer and float node definitions.
  *
  * @memberOf Jymfony.Component.Config.Definition.Builder
+ *
  * @abstract
  */
 class NumericNodeDefinition extends ScalarNodeDefinition {
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     __construct(name, parent = undefined) {
         super.__construct(name, parent);
 
         /**
-         * @type {number}
+         * @type {number|undefined}
+         *
          * @protected
          */
         this._min = undefined;
 
         /**
-         * @type {number}
+         * @type {number|number}
+         *
          * @protected
          */
         this._max = undefined;
@@ -30,7 +33,7 @@ class NumericNodeDefinition extends ScalarNodeDefinition {
     /**
      * Ensures that the value is smaller than the given reference.
      *
-     * @param max
+     * @param {number} max
      *
      * @returns {Jymfony.Component.Config.Definition.Builder.NumericNodeDefinition}
      *
@@ -48,7 +51,7 @@ class NumericNodeDefinition extends ScalarNodeDefinition {
     /**
      * Ensures that the value is bigger than the given reference.
      *
-     * @param min
+     * @param {number} min
      *
      * @returns {Jymfony.Component.Config.Definition.Builder.NumericNodeDefinition}
      *
@@ -64,9 +67,9 @@ class NumericNodeDefinition extends ScalarNodeDefinition {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      *
-     * @throws {InvalidDefinitionException}
+     * @throws {Jymfony.Component.Config.Definition.Exception.InvalidDefinitionException}
      */
     cannotBeEmpty() {
         throw new InvalidDefinitionException('cannotBeEmpty() is not applicable to BooleanNodeDefinition.');

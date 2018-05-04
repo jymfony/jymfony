@@ -14,6 +14,8 @@ class StreamHandler extends AbstractProcessingHandler {
      * @param {int} [level = LogLevel.DEBUG]
      * @param {boolean} [bubble = true]
      * @param {string} [filePermission]
+     *
+     * @inheritdoc
      */
     __construct(stream, level = LogLevel.DEBUG, bubble = true, filePermission = undefined) {
         super.__construct(level, bubble);
@@ -25,6 +27,12 @@ class StreamHandler extends AbstractProcessingHandler {
              * @private
              */
             this._file = stream;
+
+            /**
+             * @type {string}
+             *
+             * @private
+             */
             this._filePermission = filePermission;
         } else {
             /**
@@ -70,7 +78,7 @@ class StreamHandler extends AbstractProcessingHandler {
     /**
      * Writes a record to the stream
      *
-     * @param {Object<string, *>} record
+     * @param {Object.<string, *>} record
      *
      * @private
      */

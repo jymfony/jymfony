@@ -6,10 +6,14 @@ const AbstractRenderer = Jymfony.Component.Console.Question.Renderer.AbstractRen
  * This class is internal and should be considered private
  * DO NOT USE this directly.
  *
- * @internal
  * @memberOf Jymfony.Component.Console.Question.Renderer
+ *
+ * @internal
  */
 class ListRenderer extends AbstractRenderer {
+    /**
+     * @inheritdoc
+     */
     __construct(question) {
         super.__construct(question);
 
@@ -35,6 +39,7 @@ class ListRenderer extends AbstractRenderer {
          * Carriage-Return received.
          *
          * @type {boolean}
+         *
          * @private
          */
         this._cr = false;
@@ -42,7 +47,7 @@ class ListRenderer extends AbstractRenderer {
         /**
          * Input data event listener.
          *
-         * @type {function(*)|undefined}
+         * @type {Function|undefined}
          *
          * @private
          */
@@ -50,7 +55,7 @@ class ListRenderer extends AbstractRenderer {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     doAsk() {
         this._print();

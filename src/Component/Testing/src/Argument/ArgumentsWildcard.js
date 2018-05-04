@@ -7,9 +7,14 @@ class ArgumentsWildcard {
     /**
      * Constructor.
      *
-     * @param {[*]} args
+     * @param {*[]} args
      */
     __construct(args) {
+        /**
+         * @type {Jymfony.Component.Testing.Argument.Token.TokenInterface[]}
+         *
+         * @private
+         */
         this._tokens = [];
 
         for (let argument of args) {
@@ -21,6 +26,11 @@ class ArgumentsWildcard {
         }
     }
 
+    /**
+     * @param {Array} args
+     *
+     * @returns {int|boolean}
+     */
     scoreArguments(args) {
         if (0 === args.length && 0 === this._tokens.length) {
             return 1;
@@ -47,6 +57,9 @@ class ArgumentsWildcard {
         return totalScore;
     }
 
+    /**
+     * @returns {string}
+     */
     toString() {
         if (undefined === this._string) {
             this._string = this._tokens.map(token => token.toString()).join(', ');

@@ -5,7 +5,7 @@
  */
 class Choice {
     /**
-     * Choice constructor.
+     * Constructor.
      *
      * @param {string} label
      * @param {*} value

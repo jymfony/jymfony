@@ -11,12 +11,37 @@ const QuestionType = Jymfony.Component.Console.Question.QuestionType;
  * @memberOf Jymfony.Component.Console.Question.Builder
  */
 class PasswordQuestionBuilder extends QuestionBuilder {
+    /**
+     * Constructor.
+     *
+     * @param {Jymfony.Component.Console.Question.Builder.QuestionBuilder} builder
+     *
+     * @inheritdoc
+     */
     __construct(builder) {
         super.__construct(builder.input, builder.output);
+
+        /**
+         * @type {string}
+         *
+         * @private
+         */
         this._type = QuestionType.PASSWORD;
+
+        /**
+         * @type {string}
+         *
+         * @private
+         */
         this._prompt = builder._prompt;
 
         this.setHidden('win32' !== os.platform());
+
+        /**
+         * @type {string}
+         *
+         * @private
+         */
         this._mask = '*';
     }
 
@@ -47,9 +72,9 @@ class PasswordQuestionBuilder extends QuestionBuilder {
     }
 
     /**
-     * Builds the Question object.
-     *
      * @returns {Jymfony.Component.Console.Question.PasswordQuestion}
+     *
+     * @inheritdoc
      */
     build() {
         const question = new PasswordQuestion(this.input, this.output);

@@ -2,16 +2,20 @@ const OutOfBoundsException = Jymfony.Component.PropertyAccess.Exception.OutOfBou
 const PropertyPathInterface = Jymfony.Component.PropertyAccess.PropertyPathInterface;
 
 /**
- * @namespace Jymfony.Component.PropertyAccess
- * @type {Jymfony.Component.PropertyAccess.PropertyPath}
+ * @memberOf Jymfony.Component.PropertyAccess
  */
-module.exports = class PropertyPath extends implementationOf(PropertyPathInterface) {
+class PropertyPath extends implementationOf(PropertyPathInterface) {
+    /**
+     * Constructor.
+     *
+     * @param {string|Jymfony.Component.PropertyAccess.PropertyPath} propertyPath
+     */
     __construct(propertyPath) {
         if (propertyPath instanceof PropertyPath) {
             this._elements = Array.from(propertyPath._elements);
         } else if (isString(propertyPath)) {
             if (! /[a-zA-Z0-9._]+/.test(propertyPath)) {
-                throw new InvalidArgumentException(propertyPath + ' is not a valid path');
+                throw new InvalidArgumentException(`${propertyPath} is not a valid path`);
             }
 
             this._elements = propertyPath.split('.');
@@ -25,34 +29,36 @@ module.exports = class PropertyPath extends implementationOf(PropertyPathInterfa
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     toString() {
         return this._elements.join('.');
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     getElement(index) {
         if (index >= this.length) {
-            throw new OutOfBoundsException('The index ' + index + ' is not within the path');
+            throw new OutOfBoundsException(`The index ${index} is not within the path`);
         }
 
         return this._elements[index];
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     get length() {
         return this._elements.length;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     get last() {
         return this._elements[this.length - 1];
     }
-};
+}
+
+module.exports = PropertyPath;

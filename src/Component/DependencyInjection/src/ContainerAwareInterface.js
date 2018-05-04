@@ -3,7 +3,7 @@
  */
 class ContainerAwareInterface {
     /**
-     * Sets the container
+     * Sets the container.
      *
      * @param {Jymfony.Component.DependencyInjection.Container} container
      */

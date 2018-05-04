@@ -14,13 +14,14 @@ class ServiceRouterLoader extends Loader {
     __construct(container) {
         /**
          * @type {Jymfony.Component.DependencyInjection.Container}
+         *
          * @private
          */
         this._container = container;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     load(resource) {
         const parts = resource.split(':');
@@ -49,7 +50,7 @@ class ServiceRouterLoader extends Loader {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     supports(resource, type = undefined) {
         return 'service' === type;

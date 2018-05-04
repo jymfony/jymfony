@@ -3,7 +3,10 @@ const RuntimeException = Jymfony.Component.DependencyInjection.Exception.Runtime
 /**
  * @memberOf Jymfony.Component.DependencyInjection.Exception
  */
-module.exports = class ServiceCircularReferenceException extends RuntimeException {
+class ServiceCircularReferenceException extends RuntimeException {
+    /**
+     * @inheritdoc
+     */
     __construct(id, path) {
         super.__construct('');
 
@@ -14,11 +17,19 @@ module.exports = class ServiceCircularReferenceException extends RuntimeExceptio
         this._path = params;
     }
 
+    /**
+     * @returns {string}
+     */
     get serviceId() {
         return this._serviceId;
     }
 
+    /**
+     * @returns {string}
+     */
     get path() {
         return this._path;
     }
-};
+}
+
+module.exports = ServiceCircularReferenceException;

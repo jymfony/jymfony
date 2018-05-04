@@ -1,6 +1,9 @@
 const BarClass = Foo.BarClass;
 
 class FooClass {
+    /**
+     * Constructor.
+     */
     __construct() {
         this.bar = new BarClass(this);
     }

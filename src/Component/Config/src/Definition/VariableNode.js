@@ -5,6 +5,9 @@ const InvalidConfigurationException = Jymfony.Component.Config.Definition.Except
  * @memberOf Jymfony.Component.Config.Definition
  */
 class VariableNode extends BaseNode {
+    /**
+     * @inheritdoc
+     */
     __construct(name, parent = undefined) {
         super.__construct(name, parent);
 
@@ -28,7 +31,7 @@ class VariableNode extends BaseNode {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     setDefaultValue(value) {
         this._defaultValueSet = true;
@@ -36,14 +39,14 @@ class VariableNode extends BaseNode {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     hasDefaultValue() {
         return this._defaultValueSet;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     getDefaultValue() {
         const v = this._defaultValue;
@@ -61,20 +64,20 @@ class VariableNode extends BaseNode {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     setName(name) {
         this._name = name;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     validateType() {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     finalizeValue(value) {
         if (! this._allowEmptyValue && this.isValueEmpty(value)) {
@@ -98,14 +101,14 @@ class VariableNode extends BaseNode {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     normalizeValue(value) {
         return value;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     mergeValues(leftSide, rightSide) {
         return rightSide;

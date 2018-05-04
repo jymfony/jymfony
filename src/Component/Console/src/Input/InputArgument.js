@@ -6,12 +6,12 @@ const LogicException = Jymfony.Component.Console.Exception.LogicException;
  */
 class InputArgument {
     /**
-     * Constructor
+     * Constructor.
      *
      * @param {string} name
-     * @param {int} mode
-     * @param {string} description
-     * @param {*} defaultValue
+     * @param {int|undefined} [mode]
+     * @param {string} [description = '']
+     * @param {*} [defaultValue]
      */
     __construct(name, mode = undefined, description = '', defaultValue = undefined) {
         if (undefined === mode) {
@@ -22,18 +22,21 @@ class InputArgument {
 
         /**
          * @type string
+         *
          * @private
          */
         this._name = name;
 
         /**
-         * @type int
+         * @type {int|undefined}
+         *
          * @private
          */
         this._mode = mode;
 
         /**
-         * @type string
+         * @type {string|undefined}
+         *
          * @private
          */
         this._description = description;
@@ -89,7 +92,8 @@ class InputArgument {
         }
 
         /**
-         * @type *
+         * @type {*}
+         *
          * @private
          */
         this._default = defaultValue;

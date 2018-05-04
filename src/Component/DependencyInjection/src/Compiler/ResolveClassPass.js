@@ -3,9 +3,11 @@ const ChildDefinition = Jymfony.Component.DependencyInjection.ChildDefinition;
 
 /**
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
- * @type {Jymfony.Component.DependencyInjection.Compiler.ResolveInvalidReferencesPass}
  */
 class ResolveClassPass extends implementationOf(CompilerPassInterface) {
+    /**
+     * @inheritdoc
+     */
     process(container) {
         for (const [ id, definition ] of __jymfony.getEntries(container.getDefinitions())) {
             if (definition.isSynthetic() || definition.getClass()) {

@@ -10,14 +10,14 @@ class VariableNodeDefinition extends NodeDefinition {
     /**
      * Instantiate a Node.
      *
-     * @return VariableNode The node
+     * @returns {Jymfony.Component.Config.Definition.VariableNode} The node
      */
     instantiateNode() {
         return new VariableNode(this._name, this._parent);
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     createNode() {
         const node = this.instantiateNode();

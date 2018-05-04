@@ -10,6 +10,8 @@ class LineFormatter extends NormalizerFormatter {
      * @param {string} [format]
      * @param {string} [dateFormat]
      * @param {boolean} [allowInlineLineBreaks = false]
+     *
+     * @inheritdoc
      */
     __construct(format = undefined, dateFormat = undefined, allowInlineLineBreaks = false) {
         /**
@@ -86,6 +88,11 @@ class LineFormatter extends NormalizerFormatter {
         return output;
     }
 
+    /**
+     * @param {*} value
+     *
+     * @returns {string}
+     */
     stringify(value) {
         return this._replaceNewlines(this._convertToString(value));
     }

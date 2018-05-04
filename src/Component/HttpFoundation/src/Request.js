@@ -1,19 +1,20 @@
+const urlModule = require('url');
+const net = require('net');
+
 const ConflictingHeadersException = Jymfony.Component.HttpFoundation.Exception.ConflictingHeadersException;
 const SuspiciousOperationException = Jymfony.Component.HttpFoundation.Exception.SuspiciousOperationException;
 const HeaderBag = Jymfony.Component.HttpFoundation.HeaderBag;
 const Ip = Jymfony.Component.HttpFoundation.Ip;
 const ParameterBag = Jymfony.Component.HttpFoundation.ParameterBag;
-const urlModule = require('url');
-const net = require('net');
 
-let $trustedProxies = [];
-let $trustedHeaderSet = 0;
-let $trustedHostPatterns = [];
-let $trustedHosts = [];
-let $httpMethodParameterOverride = false;
+let _trustedProxies = [];
+let _trustedHeaderSet = 0;
+let _trustedHostPatterns = [];
+let _trustedHosts = [];
+let _httpMethodParameterOverride = false;
 
-const $trustedHeaders = {};
-const $forwardedParams = {};
+const _trustedHeaders = {};
+const _forwardedParams = {};
 
 let formats = undefined;
 
@@ -40,11 +41,11 @@ class Request {
      * Constructor.
      *
      * @param {string} url Request URL
-     * @param {Object<string, string>} request Request parameters (POST)
-     * @param {Object<string, *>} attributes Request attributes (parameters parsed from path info, etc)
-     * @param {Object<string, string>} headers Headers or parameters injected by the web server
-     * @param {Object<string, string>} server Request server paramters (remote address, etc)
-     * @param {undefined|Buffer} content Request content.
+     * @param {Object.<string, string>} [request = {}] Request parameters (POST)
+     * @param {Object.<string, *>} [attributes = {}] Request attributes (parameters parsed from path info, etc)
+     * @param {Object.<string, string>} [headers = {}] Headers or parameters injected by the web server
+     * @param {Object.<string, string>} [server = {}] Request server paramters (remote address, etc)
+     * @param {undefined|Buffer} [content] Request content.
      */
     __construct(url, request = {}, attributes = {}, headers = {}, server = {}, content = undefined) {
         this.initialize(url, request, attributes, headers, server, content);
@@ -55,7 +56,7 @@ class Request {
      *
      * You should only list the reverse proxies that you manage directly.
      *
-     * @param {[string]} proxies A list of trusted proxies
+     * @param {string[]} proxies A list of trusted proxies
      * @param {int} trustedHeaderSet A bit field of Request.HEADER_*, to set which headers to trust from your proxies
      *
      * @throws {InvalidArgumentException} When trustedHeaderSet is invalid
@@ -65,8 +66,8 @@ class Request {
             throw new InvalidArgumentException('Invalid trusted header set');
         }
 
-        $trustedProxies = proxies;
-        $trustedHeaderSet = trustedHeaderSet;
+        _trustedProxies = proxies;
+        _trustedHeaderSet = trustedHeaderSet;
     }
 
     /**
@@ -75,7 +76,7 @@ class Request {
      * @returns {int} A bit field of Request.HEADER_* that defines which headers are trusted from your proxies
      */
     static getTrustedHeaderSet() {
-        return $trustedHeaderSet;
+        return _trustedHeaderSet;
     }
 
     /**
@@ -83,12 +84,12 @@ class Request {
      *
      * You should only list the hosts you manage using regexs.
      *
-     * @param {[string]} hostPatterns A list of trusted host patterns
+     * @param {string[]} hostPatterns A list of trusted host patterns
      */
     static setTrustedHosts(hostPatterns) {
-        $trustedHostPatterns = hostPatterns.map(pattern => new RegExp(pattern, 'i'));
+        _trustedHostPatterns = hostPatterns.map(pattern => new RegExp(pattern, 'i'));
         // We need to reset trusted hosts on trusted host patterns change
-        $trustedHosts = [];
+        _trustedHosts = [];
     }
 
     /**
@@ -103,7 +104,7 @@ class Request {
      * The HTTP method can only be overridden when the real HTTP method is POST.
      */
     static enableHttpMethodParameterOverride() {
-        $httpMethodParameterOverride = true;
+        _httpMethodParameterOverride = true;
     }
 
     /**
@@ -126,42 +127,90 @@ class Request {
      * This will re-initialize all the properties.
      *
      * @param {string} url Request URL
-     * @param {Object<string, string>} request Request parameters (POST)
-     * @param {Object<string, *>} attributes Request attributes (parameters parsed from path info, etc)
-     * @param {Object<string, string>} headers Headers or parameters injected by the web server
-     * @param {Object<string, string>} server Request server paramters (remote address, etc)
-     * @param {undefined|Buffer} content Request content.
+     * @param {Object.<string, string>} [request = {}] Request parameters (POST)
+     * @param {Object.<string, *>} [attributes = {}] Request attributes (parameters parsed from path info, etc)
+     * @param {Object.<string, string>} [headers = {}] Headers or parameters injected by the web server
+     * @param {Object.<string, string>} [server = {}] Request server paramters (remote address, etc)
+     * @param {undefined|Buffer} [content] Request content.
      */
     initialize(url, request = {}, attributes = {}, headers = {}, server = {}, content = undefined) {
         /**
          * @type {boolean}
+         *
          * @private
          */
         this._isHostValid = true;
 
         /**
          * @type {string}
+         *
          * @protected
          */
         this._format = undefined;
 
         /**
          * @type {Url}
+         *
          * @private
          */
         this._url = urlModule.parse(url);
 
+        /**
+         * @type {Jymfony.Component.HttpFoundation.ParameterBag}
+         *
+         * @public
+         */
         this.query = new ParameterBag(__jymfony.parse_query_string(this._url.query));
+
+        /**
+         * @type {Jymfony.Component.HttpFoundation.ParameterBag}
+         *
+         * @public
+         */
         this.request = new ParameterBag(request);
+
+        /**
+         * @type {Jymfony.Component.HttpFoundation.ParameterBag}
+         *
+         * @public
+         */
         this.attributes = new ParameterBag(attributes);
+
+        /**
+         * @type {Jymfony.Component.HttpFoundation.HeaderBag}
+         *
+         * @public
+         */
         this.headers = new HeaderBag(headers);
+
+        /**
+         * @type {Jymfony.Component.HttpFoundation.ParameterBag}
+         *
+         * @public
+         */
         this.cookies = new ParameterBag(this.headers.cookies);
+
+        /**
+         * @type {Jymfony.Component.HttpFoundation.ParameterBag}
+         *
+         * @public
+         */
         this.server = new ParameterBag(server);
+
+        /**
+         * @type {Buffer}
+         */
         this.content = content;
     }
 
     /**
      * Clones a request and overrides some of its parameters.
+     *
+     * @param {string} [url] Request URL
+     * @param {Object.<string, string>} [request] Request parameters (POST)
+     * @param {Object.<string, *>} [attributes] Request attributes (parameters parsed from path info, etc)
+     * @param {Object.<string, string>} [headers] Headers or parameters injected by the web server
+     * @param {Object.<string, string>} [server] Request server paramters (remote address, etc)
      *
      * @returns {Jymfony.Component.HttpFoundation.Request}
      */
@@ -244,7 +293,7 @@ class Request {
      *
      * @returns {string|undefined} The client IP address
      *
-     * @see getClientIps()
+     * @see _getClientIps()
      * @see http://en.wikipedia.org/wiki/X-Forwarded-For
      */
     get clientIp() {
@@ -278,7 +327,7 @@ class Request {
      *
      * The "X-Forwarded-Host" header must contain the client host name.
      *
-     * @return string
+     * @returns {string}
      *
      * @throws SuspiciousOperationException when the host name is invalid or not trusted
      */
@@ -311,16 +360,16 @@ class Request {
             throw new SuspiciousOperationException(__jymfony.sprintf('Invalid Host "%s".', host));
         }
 
-        if (0 < $trustedHostPatterns.length) {
+        if (0 < _trustedHostPatterns.length) {
             // To avoid host header injection attacks, you should provide a list of trusted host patterns
 
-            if (-1 !== $trustedHosts.indexOf(host)) {
+            if (-1 !== _trustedHosts.indexOf(host)) {
                 return host;
             }
 
-            for (const regex of $trustedHostPatterns) {
+            for (const regex of _trustedHostPatterns) {
                 if (regex.test(host)) {
-                    $trustedHosts.push(host);
+                    _trustedHosts.push(host);
 
                     return host;
                 }
@@ -343,7 +392,7 @@ class Request {
      *
      * The port name will be appended to the host if it's non-standard.
      *
-     * @return string
+     * @returns {string}
      */
     get httpHost() {
         const scheme = this.scheme;
@@ -363,7 +412,7 @@ class Request {
      * If the URL was called with basic authentication, the user
      * and the password are not added to the generated string.
      *
-     * @return string The scheme and HTTP host
+     * @returns {string} The scheme and HTTP host
      */
     get schemeAndHttpHost() {
         return this.scheme + '://' + this.httpHost;
@@ -372,7 +421,7 @@ class Request {
     /**
      * Gets the full URI for this request.
      *
-     * @return {string}
+     * @returns {string}
      */
     get uri() {
         return this._url.href;
@@ -443,7 +492,7 @@ class Request {
                 const method = this.headers.get('X-HTTP-METHOD-OVERRIDE');
                 if (method) {
                     this._method = method.toUpperCase();
-                } else if ($httpMethodParameterOverride) {
+                } else if (_httpMethodParameterOverride) {
                     this._method = this.request.get('_method', this.query.get('_method', 'POST')).toUpperCase();
                 }
             }
@@ -455,7 +504,7 @@ class Request {
     /**
      * Gets the "real" request method.
      *
-     * @return string The request method
+     * @returns string The request method
      *
      * @see getMethod()
      */
@@ -536,7 +585,7 @@ class Request {
      * @returns {boolean} true if the request came from a trusted proxy, false otherwise
      */
     get isFromTrustedProxy() {
-        return $trustedProxies.length && Ip.check(this.server.get('REMOTE_ADDR'), $trustedProxies);
+        return _trustedProxies.length && Ip.check(this.server.get('REMOTE_ADDR'), _trustedProxies);
     }
 
     /**
@@ -548,7 +597,9 @@ class Request {
      *
      * Use this method carefully; you should use getClientIp() instead.
      *
-     * @returns {[string]} The client IP addresses
+     * @returns {string[]} The client IP addresses
+     *
+     * @private
      *
      * @see getClientIp()
      */
@@ -565,9 +616,9 @@ class Request {
      * Returns an array of trusted forwarded values
      *
      * @param {int} type
-     * @param {undefined|string} ip
+     * @param {undefined|string} [ip]
      *
-     * @returns {[string]}
+     * @returns {string[]}
      *
      * @private
      */
@@ -575,16 +626,16 @@ class Request {
         let clientValues = [];
         let forwardedValues = [];
 
-        if ($trustedHeaders[type] && this.headers.has($trustedHeaders[type])) {
-            for (const v of this.headers.get($trustedHeaders[type]).split(',')) {
+        if (_trustedHeaders[type] && this.headers.has(_trustedHeaders[type])) {
+            for (const v of this.headers.get(_trustedHeaders[type]).split(',')) {
                 clientValues.push((__self.HEADER_X_FORWARDED_PORT === type ? '0.0.0.0:' : '') + __jymfony.trim(v));
             }
         }
 
-        if ($trustedHeaders[__self.HEADER_FORWARDED] && this.headers.has($trustedHeaders[__self.HEADER_FORWARDED])) {
-            forwardedValues = this.headers.get($trustedHeaders[__self.HEADER_FORWARDED]);
+        if (_trustedHeaders[__self.HEADER_FORWARDED] && this.headers.has(_trustedHeaders[__self.HEADER_FORWARDED])) {
+            forwardedValues = this.headers.get(_trustedHeaders[__self.HEADER_FORWARDED]);
 
-            const regex = new RegExp(__jymfony.sprintf('{(?:%s)=(?:"?\\[?)([a-zA-Z0-9\\.:_\\-/]*+)}', $forwardedParams[type]), 'g');
+            const regex = new RegExp(__jymfony.sprintf('{(?:%s)=(?:"?\\[?)([a-zA-Z0-9\\.:_\\-/]*+)}', _forwardedParams[type]), 'g');
             const matches = forwardedValues.match(regex);
             forwardedValues = matches ? [ matches[1] ] : [];
         }
@@ -608,12 +659,12 @@ class Request {
 
         this.isForwardedValid = false;
 
-        throw new ConflictingHeadersException(__jymfony.sprintf('The request has both a trusted "%s" header and a trusted "%s" header, conflicting with each other. You should either configure your proxy to remove one of them, or configure your project to distrust the offending one.', $trustedHeaders[__self.HEADER_FORWARDED], $trustedHeaders[type]));
+        throw new ConflictingHeadersException(__jymfony.sprintf('The request has both a trusted "%s" header and a trusted "%s" header, conflicting with each other. You should either configure your proxy to remove one of them, or configure your project to distrust the offending one.', _trustedHeaders[__self.HEADER_FORWARDED], _trustedHeaders[type]));
     }
 
     /**
      *
-     * @param {[string]} clientIps
+     * @param {string[]} clientIps
      * @param {string} ip
      *
      * @returns {*}
@@ -622,7 +673,7 @@ class Request {
      */
     _normalizeAndFilterClientIps(clientIps, ip) {
         if (0 === clientIps.length) {
-            return array();
+            return [];
         }
 
         clientIps = [ ...clientIps, ip ];
@@ -641,7 +692,7 @@ class Request {
                 continue;
             }
 
-            if (Ip.check(clientIp, $trustedProxies)) {
+            if (Ip.check(clientIp, _trustedProxies)) {
                 delete clientIps[key];
 
                 // Fallback to this when the client IP falls into the range of trusted proxies
@@ -685,15 +736,15 @@ Request.HEADER_X_FORWARDED_AWS_ELB = 0b11010; // AWS ELB doesn't send X-Forwarde
  * by popular reverse proxies (like Apache mod_proxy or Amazon EC2).
  */
 
-$trustedHeaders[Request.HEADER_FORWARDED] = 'FORWARDED';
-$trustedHeaders[Request.HEADER_X_FORWARDED_FOR] = 'X_FORWARDED_FOR';
-$trustedHeaders[Request.HEADER_X_FORWARDED_HOST] = 'X_FORWARDED_HOST';
-$trustedHeaders[Request.HEADER_X_FORWARDED_PROTO] = 'X_FORWARDED_PROTO';
-$trustedHeaders[Request.HEADER_X_FORWARDED_PORT] = 'X_FORWARDED_PORT';
+_trustedHeaders[Request.HEADER_FORWARDED] = 'FORWARDED';
+_trustedHeaders[Request.HEADER_X_FORWARDED_FOR] = 'X_FORWARDED_FOR';
+_trustedHeaders[Request.HEADER_X_FORWARDED_HOST] = 'X_FORWARDED_HOST';
+_trustedHeaders[Request.HEADER_X_FORWARDED_PROTO] = 'X_FORWARDED_PROTO';
+_trustedHeaders[Request.HEADER_X_FORWARDED_PORT] = 'X_FORWARDED_PORT';
 
-$forwardedParams[Request.HEADER_X_FORWARDED_FOR] = 'for';
-$forwardedParams[Request.HEADER_X_FORWARDED_HOST] = 'host';
-$forwardedParams[Request.HEADER_X_FORWARDED_PROTO] = 'proto';
-$forwardedParams[Request.HEADER_X_FORWARDED_PORT] = 'host';
+_forwardedParams[Request.HEADER_X_FORWARDED_FOR] = 'for';
+_forwardedParams[Request.HEADER_X_FORWARDED_HOST] = 'host';
+_forwardedParams[Request.HEADER_X_FORWARDED_PROTO] = 'proto';
+_forwardedParams[Request.HEADER_X_FORWARDED_PORT] = 'host';
 
 module.exports = Request;

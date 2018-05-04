@@ -3,7 +3,7 @@
  */
 class PrependExtensionInterface {
     /**
-     * Allow an extension to prepend the extension configurations
+     * Allows an extension to prepend the extension configurations.
      *
      * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
      */

@@ -8,10 +8,8 @@ class MongoDBFormatter extends implementationOf(FormatterInterface) {
     /**
      * Constructor.
      *
-     * @param {int} [maxNestingLevel = 3] means infinite nesting, the record itself is level 1,
-     *                                    record.context is 2
-     * @param {boolean} exceptionTraceAsString set to false to log exception traces as a sub documents
-     *                                         instead of strings
+     * @param {int} [maxNestingLevel = 3] means infinite nesting, the record itself is level 1, record.context is 2
+     * @param {boolean} [exceptionTraceAsString = true] set to false to log exception traces as a sub documents instead of strings
      */
     __construct(maxNestingLevel = 3, exceptionTraceAsString = true) {
         this._maxNestingLevel = Math.max(maxNestingLevel, 0);
@@ -41,9 +39,9 @@ class MongoDBFormatter extends implementationOf(FormatterInterface) {
      * Treat and format the given record as an array.
      *
      * @param {*} record
-     * @param {int} nestingLevel
+     * @param {int} [nestingLevel = 0]
      *
-     * @return {[]|string} Array except when max nesting level is reached then a string "[...]"
+     * @returns {[]|string} Array except when max nesting level is reached then a string "[...]"
      *
      * @protected
      */
@@ -110,7 +108,7 @@ class MongoDBFormatter extends implementationOf(FormatterInterface) {
     /**
      * Treat and format the given record as a date.
      *
-     * @param {DateTime} record
+     * @param {Jymfony.Component.DateTime.DateTime} record
      *
      * @protected
      */

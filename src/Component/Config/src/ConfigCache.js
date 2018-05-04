@@ -7,7 +7,7 @@ const fs = require('fs');
  */
 class ConfigCache extends ResourceCheckerConfigCache {
     /**
-     * Creates a ConfigCache class
+     * Constructor. Creates a ConfigCache class.
      *
      * @param {string} file
      * @param {boolean} debug
@@ -23,7 +23,7 @@ class ConfigCache extends ResourceCheckerConfigCache {
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritdoc
      */
     isFresh() {
         if (! this._debug && fs.existsSync(this._file)) {

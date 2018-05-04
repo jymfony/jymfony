@@ -2,6 +2,11 @@
 
 global.__jymfony = global.__jymfony || {};
 
+/**
+ * @param {Object} params
+ *
+ * @returns {Object}
+ */
 global.__jymfony.internal_parse_query_string = (params) => {
     const bag = new HashTable();
     for (const [ key, value ] of params) {
@@ -46,6 +51,11 @@ global.__jymfony.internal_parse_query_string = (params) => {
     return bag.toObject();
 };
 
+/**
+ * @param {string} str
+ *
+ * @returns {Object}
+ */
 global.__jymfony.parse_query_string = function parse_query_string(str) {
     if (null === str) {
         return {};

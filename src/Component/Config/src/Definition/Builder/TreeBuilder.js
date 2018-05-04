@@ -11,12 +11,12 @@ class TreeBuilder extends implementationOf(NodeParentInterface) {
      * Creates the root node.
      *
      * @param {string} name The name of the root node
-     * @param {string} type The type of the root node
-     * @param {Jymfony.Component.Config.Definition.Builder.NodeBuilder} builder A custom node builder instance
+     * @param {string} [type = 'array'] The type of the root node
+     * @param {Jymfony.Component.Config.Definition.Builder.NodeBuilder} [builder] A custom node builder instance
      *
-     * @return {Jymfony.Component.Config.Definition.Builder.ArrayNodeDefinition|Jymfony.Component.Config.Definition.Builder.NodeDefinition} The root node (as an ArrayNodeDefinition when the type is 'array')
+     * @returns {Jymfony.Component.Config.Definition.Builder.ArrayNodeDefinition|Jymfony.Component.Config.Definition.Builder.NodeDefinition} The root node (as an ArrayNodeDefinition when the type is 'array')
      *
-     * @throws \RuntimeException When the node type is not supported
+     * @throws {RuntimeException} When the node type is not supported
      */
     root(name, type = 'array', builder = undefined) {
         builder = builder || new NodeBuilder();

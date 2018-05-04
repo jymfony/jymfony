@@ -5,7 +5,7 @@ const InstantiatorInterface = Jymfony.Component.DependencyInjection.LazyProxy.In
  */
 class RealServiceInstantiator extends implementationOf(InstantiatorInterface) {
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     instantiateProxy(container, definition, id, initializer) {
         initializer.call(null);

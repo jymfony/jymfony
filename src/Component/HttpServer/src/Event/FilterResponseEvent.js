@@ -10,12 +10,15 @@ class FilterResponseEvent extends HttpEvent {
      * @param {Jymfony.Component.HttpServer.HttpServer} server
      * @param {Jymfony.Component.HttpFoundation.Request} request
      * @param {Jymfony.Component.HttpFoundation.Response} response
+     *
+     * @inheritdoc
      */
     __construct(server, request, response) {
         super.__construct(server, request);
 
         /**
          * @type {Jymfony.Component.HttpFoundation.Response}
+         *
          * @private
          */
         this._response = response;

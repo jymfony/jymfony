@@ -8,24 +8,35 @@ const Reference = Jymfony.Component.DependencyInjection.Reference;
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
  */
 class InlineServiceDefinitionsPass extends mix(AbstractRecursivePass, RepeatablePassInterface) {
+    /**
+     * Constructor.
+     */
     __construct() {
+        /**
+         * @type {Object}
+         *
+         * @private
+         */
         this._inlinedServiceIds = {};
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     setRepeatedPass() {
         // No-op
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     get inlinedServiceIds() {
         return Object.assign({}, this._inlinedServiceIds);
     }
 
+    /**
+     * @inheritdoc
+     */
     _processValue(value, isRoot = false) {
         if (value instanceof ArgumentInterface) {
             return value;

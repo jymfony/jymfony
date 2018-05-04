@@ -5,19 +5,24 @@ const fs = require('fs');
  * @memberOf Jymfony.Component.Config.Resource
  */
 class FileResource extends implementationOf(SelfCheckingResourceInterface) {
+    /**
+     * Constructor.
+     *
+     * @param {*} resource
+     */
     __construct(resource) {
         this._resource = fs.realpathSync(resource);
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritdoc
      */
     toString() {
         return this._resource;
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritdoc
      */
     isFresh(timestamp) {
         return fs.existsSync(this._resource) && fs.statSync(this._resource).mtime <= timestamp;

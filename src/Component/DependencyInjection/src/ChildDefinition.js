@@ -12,7 +12,18 @@ class ChildDefinition extends Definition {
     __construct(parent) {
         super.__construct();
 
+        /**
+         * @type {Jymfony.Component.DependencyInjection.Definition}
+         *
+         * @private
+         */
         this._parent = parent;
+
+        /**
+         * @type {Object}
+         *
+         * @private
+         */
         this._replacedArguments = {};
     }
 
@@ -26,7 +37,7 @@ class ChildDefinition extends Definition {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     setArguments(args) {
         for (const [ k, v ] of __jymfony.getEntries(args)) {
@@ -37,7 +48,7 @@ class ChildDefinition extends Definition {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     getArguments() {
         const args = [ ...this._arguments ];
@@ -53,7 +64,7 @@ class ChildDefinition extends Definition {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     getArgument(index) {
         if (this._replacedArguments.hasOwnProperty(index)) {
@@ -64,7 +75,7 @@ class ChildDefinition extends Definition {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     replaceArgument(index, argument) {
         this._replacedArguments[index] = argument;

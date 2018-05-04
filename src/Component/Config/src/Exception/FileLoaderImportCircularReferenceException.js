@@ -6,6 +6,13 @@ const FileLoaderLoadException = Jymfony.Component.Config.Exception.FileLoaderLoa
  * @memberOf Jymfony.Component.Config.Exception
  */
 class FileLoaderImportCircularReferenceException extends FileLoaderLoadException {
+    /**
+     * Constructor.
+     *
+     * @param {*[]} resources
+     * @param {null|int} [code = null]
+     * @param {Exception} [previous]
+     */
     __construct(resources, code = null, previous = undefined) {
         const message = __jymfony.sprintf('Circular reference detected in "%s" ("%s" > "%s").', FileLoaderLoadException.varToString(resources[0]), resources.join('" > "'), resources[0]);
 

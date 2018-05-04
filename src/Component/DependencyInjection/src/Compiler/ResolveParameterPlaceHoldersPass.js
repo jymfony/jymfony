@@ -6,9 +6,13 @@ const ParameterNotFoundException = Jymfony.Component.DependencyInjection.Excepti
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
  */
 class ResolveParameterPlaceHoldersPass extends AbstractRecursivePass {
+    /**
+     * @inheritdoc
+     */
     process(container) {
         /**
          * @type {Jymfony.Component.DependencyInjection.ParameterBag.ParameterBag}
+         *
          * @private
          */
         this._bag = container.parameterBag;
@@ -35,6 +39,9 @@ class ResolveParameterPlaceHoldersPass extends AbstractRecursivePass {
         this._bag = undefined;
     }
 
+    /**
+     * @inheritdoc
+     */
     _processValue(value, isRoot = false) {
         if (isString(value)) {
             return this._bag.resolveValue(value);

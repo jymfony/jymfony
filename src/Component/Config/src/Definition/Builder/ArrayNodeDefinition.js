@@ -9,6 +9,9 @@ const InvalidDefinitionException = Jymfony.Component.Config.Definition.Exception
  * @memberOf Jymfony.Component.Config.Definition.Builder
  */
 class ArrayNodeDefinition extends mix(NodeDefinition, ParentNodeDefinitionInterface) {
+    /**
+     * @inheritdoc
+     */
     __construct(name, parent = undefined) {
         super.__construct(name, parent);
 
@@ -17,78 +20,91 @@ class ArrayNodeDefinition extends mix(NodeDefinition, ParentNodeDefinitionInterf
 
         /**
          * @type {boolean}
+         *
          * @protected
          */
         this._performDeepMerging = true;
 
         /**
          * @type {boolean}
+         *
          * @protected
          */
         this._ignoreExtraKeys = false;
 
         /**
          * @type {boolean}
+         *
          * @protected
          */
         this._removeExtraKeys = true;
 
         /**
          * @type {Object}
+         *
          * @protected
          */
         this._children = {};
 
         /**
          * @type {Jymfony.Component.Config.Definition.Builder.NodeDefinition}
+         *
          * @protected
          */
         this._prototype = undefined;
 
         /**
          * @type {boolean}
+         *
          * @protected
          */
         this._atLeastOne = false;
 
         /**
          * @type {boolean}
+         *
          * @protected
          */
         this._allowNewKeys = true;
 
         /**
          * @type {string}
+         *
          * @private
          */
         this._key = undefined;
 
         /**
          * @type {boolean}
+         *
          * @private
          */
         this._removeKeyItem = undefined;
 
         /**
          * @type {boolean}
+         *
          * @protected
          */
         this._addDefaults = false;
 
         /**
          * @type {boolean}
+         *
          * @protected
          */
         this._addDefaultChildren = false;
 
         /**
          * @type {Jymfony.Component.Config.Definition.Builder.NodeBuilder}
+         *
          * @protected
          */
         this._nodeBuilder = undefined;
 
         /**
          * @type {boolean}
+         *
          * @private
          */
         this._normalizeKeys = true;
@@ -192,7 +208,7 @@ class ArrayNodeDefinition extends mix(NodeDefinition, ParentNodeDefinitionInterf
      *
      * This method is applicable to prototype nodes only.
      *
-     * @param {int|string|[string]|null|undefined} children The number of children|The child name|The children names to be added
+     * @param {int|string|string[]|null|undefined} children The number of children|The child name|The children names to be added
      *
      * @returns {Jymfony.Component.Config.Definition.Builder.ArrayNodeDefinition}
      */
@@ -250,7 +266,7 @@ class ArrayNodeDefinition extends mix(NodeDefinition, ParentNodeDefinitionInterf
      * This method is applicable to prototype nodes only.
      *
      * @param {string} name The name of the key
-     * @param {boolean} removeKeyItem Whether or not the key item should be removed
+     * @param {boolean} [removeKeyItem = true] Whether or not the key item should be removed
      *
      * @returns {Jymfony.Component.Config.Definition.Builder.ArrayNodeDefinition}
      */
@@ -264,7 +280,7 @@ class ArrayNodeDefinition extends mix(NodeDefinition, ParentNodeDefinitionInterf
     /**
      * Sets whether the node can be unset.
      *
-     * @param {boolean} allow
+     * @param {boolean} [allow = true]
      *
      * @returns {Jymfony.Component.Config.Definition.Builder.ArrayNodeDefinition}
      */
@@ -349,7 +365,7 @@ class ArrayNodeDefinition extends mix(NodeDefinition, ParentNodeDefinitionInterf
      * you want to send an entire configuration array through a special
      * tree that processes only part of the array.
      *
-     * @param {boolean} remove Whether to remove the extra keys
+     * @param {boolean} [remove = true] Whether to remove the extra keys
      *
      * @returns {Jymfony.Component.Config.Definition.Builder.ArrayNodeDefinition}
      */
@@ -376,13 +392,15 @@ class ArrayNodeDefinition extends mix(NodeDefinition, ParentNodeDefinitionInterf
     /**
      * Appends a node definition.
      *
-     *     $node = new ArrayNodeDefinition()
+     *     node = new ArrayNodeDefinition()
      *         .children()
      *             .scalarNode('foo').end()
      *             .scalarNode('baz').end()
      *         .end()
      *         .append(this.getBarNodeDefinition())
      *     ;
+     *
+     * @param {Jymfony.Component.Config.Definition.Builder.NodeParentInterface} node
      *
      * @returns {Jymfony.Component.Config.Definition.Builder.ArrayNodeDefinition}
      */
@@ -406,7 +424,7 @@ class ArrayNodeDefinition extends mix(NodeDefinition, ParentNodeDefinitionInterf
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     createNode() {
         let node;
@@ -475,6 +493,8 @@ class ArrayNodeDefinition extends mix(NodeDefinition, ParentNodeDefinitionInterf
     /**
      * Validate the configuration of a concrete node.
      *
+     * @param {Jymfony.Component.Config.Definition.Builder.NodeDefinition} node
+     *
      * @throws {Jymfony.Component.Config.Definition.Exception.InvalidDefinitionException}
      */
     validateConcreteNode(node) {
@@ -512,6 +532,8 @@ class ArrayNodeDefinition extends mix(NodeDefinition, ParentNodeDefinitionInterf
 
     /**
      * Validate the configuration of a prototype node.
+     *
+     * @param {Jymfony.Component.Config.Definition.Builder.NodeDefinition} node
      *
      * @throws {Jymfony.Component.Config.Definition.Exception.InvalidDefinitionException}
      */

@@ -12,7 +12,7 @@ class ParserInterface {
     /**
      * Parses the content of the request.
      *
-     * @returns {Promise<Object<string, *>>}
+     * @returns {Promise<Object.<string, *>>}
      */
     parse() { }
 }
