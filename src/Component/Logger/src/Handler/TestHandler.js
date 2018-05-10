@@ -8,6 +8,14 @@ const LogLevel = Jymfony.Component.Logger.LogLevel;
  * @memberOf Jymfony.Component.Logger.Handler
  */
 class TestHandler extends AbstractProcessingHandler {
+    /**
+     * @param {int} [level = LogLevel.DEBUG]
+     * @param {boolean} [bubble = true]
+     *
+     * @return {Jymfony.Component.Logger.Handler.TestHandler}
+     *
+     * @private
+     */
     __construct(level = LogLevel.DEBUG, bubble = true) {
         super.__construct(level, bubble);
 
@@ -68,7 +76,7 @@ class TestHandler extends AbstractProcessingHandler {
     /**
      * Checks whether we have at least one record for the given level
      *
-     * @param level
+     * @param {int} level
      *
      * @returns {boolean}
      */
@@ -80,7 +88,7 @@ class TestHandler extends AbstractProcessingHandler {
      * Whether a record with the same message has been recorded.
      *
      * @param {string|Object} record
-     * @param {number} level
+     * @param {int} level
      *
      * @returns {boolean}
      */
@@ -98,7 +106,7 @@ class TestHandler extends AbstractProcessingHandler {
      * Whether a record in which the given message is contained has been recorded.
      *
      * @param {string} message
-     * @param {number} level
+     * @param {int} level
      *
      * @returns {boolean}
      */
@@ -112,9 +120,9 @@ class TestHandler extends AbstractProcessingHandler {
      * Whether a record with message that matches the given regex has been recorded.
      *
      * @param {RegExp} regex
-     * @param {number} level
+     * @param {int} level
      *
-     * @returns {*}
+     * @returns {boolean}
      */
     hasRecordThatMatches(regex, level) {
         return this.hasRecordThatPasses((rec) => {
@@ -126,9 +134,11 @@ class TestHandler extends AbstractProcessingHandler {
      * Checks whether a recorded record matches the given predicate.
      *
      * @param {Function} predicate
-     * @param {number} level
+     * @param {int} level
      *
      * @return {boolean}
+     *
+     * @throws InvalidArgumentException
      */
     hasRecordThatPasses(predicate, level) {
         if (! isFunction(predicate)) {
@@ -149,7 +159,7 @@ class TestHandler extends AbstractProcessingHandler {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     _write(record) {
         if (undefined === this._recordsByLevel[record.level]) {

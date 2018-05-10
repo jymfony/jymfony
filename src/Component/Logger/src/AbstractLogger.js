@@ -6,56 +6,56 @@ const LogLevel = Jymfony.Component.Logger.LogLevel;
  */
 class AbstractLogger extends implementationOf(LoggerInterface) {
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     emergency(message, context = {}) {
         this.log(LogLevel.EMERGENCY, message, context);
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     alert(message, context = {}) {
         this.log(LogLevel.ALERT, message, context);
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     critical(message, context = {}) {
         this.log(LogLevel.CRITICAL, message, context);
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     error(message, context = {}) {
         this.log(LogLevel.ERROR, message, context);
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     warning(message, context = {}) {
         this.log(LogLevel.WARNING, message, context);
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     notice(message, context = {}) {
         this.log(LogLevel.NOTICE, message, context);
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     info(message, context = {}) {
         this.log(LogLevel.INFO, message, context);
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     debug(message, context = {}) {
         this.log(LogLevel.DEBUG, message, context);

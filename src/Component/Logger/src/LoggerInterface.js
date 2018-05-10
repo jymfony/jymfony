@@ -107,7 +107,7 @@ class LoggerInterface {
     /**
      * Logs with an arbitrary level.
      *
-     * @param {*} level
+     * @param {int} level
      * @param {string} message
      * @param {object} [context = {}]
      *

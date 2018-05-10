@@ -7,7 +7,7 @@ const AbstractHandler = Jymfony.Component.Logger.Handler.AbstractHandler;
  */
 class NullHandler extends AbstractHandler {
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     handle(record) {
         return this.isHandling(record);

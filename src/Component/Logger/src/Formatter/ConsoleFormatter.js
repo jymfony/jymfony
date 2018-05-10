@@ -36,7 +36,7 @@ class ConsoleFormatter extends NormalizerFormatter {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     format(record) {
         const levelColor = levelColorMap[record.level];
@@ -63,6 +63,13 @@ class ConsoleFormatter extends NormalizerFormatter {
         });
     }
 
+    /**
+     * @param {Object} record
+     *
+     * @returns {*}
+     *
+     * @private
+     */
     _replacePlaceHolder(record) {
         const message = record.message;
 

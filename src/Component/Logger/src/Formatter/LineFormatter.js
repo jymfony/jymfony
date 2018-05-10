@@ -57,7 +57,7 @@ class LineFormatter extends NormalizerFormatter {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     format(record) {
         const vars = super.format(record);
@@ -91,7 +91,7 @@ class LineFormatter extends NormalizerFormatter {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     _normalizeError(record) {
         let previousText = '', previous = record;
@@ -110,6 +110,13 @@ class LineFormatter extends NormalizerFormatter {
         return str;
     }
 
+    /**
+     * @param {*} data
+     *
+     * @return {string}
+     *
+     * @private
+     */
     _convertToString(data) {
         if (null === data) {
             return 'null';

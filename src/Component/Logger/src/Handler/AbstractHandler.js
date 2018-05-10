@@ -18,13 +18,13 @@ class AbstractHandler extends implementationOf(HandlerInterface) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     close() {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     handleBatch(records) {
         for (const record of records) {
@@ -33,7 +33,7 @@ class AbstractHandler extends implementationOf(HandlerInterface) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     isHandling(record) {
         return record.level >= this._level;
@@ -42,7 +42,7 @@ class AbstractHandler extends implementationOf(HandlerInterface) {
     /**
      * Gets the minimum logger level.
      *
-     * @returns {number}
+     * @returns {int}
      */
     get level() {
         return this._level;
@@ -51,7 +51,7 @@ class AbstractHandler extends implementationOf(HandlerInterface) {
     /**
      * Sets the minimum logger level.
      *
-     * @param {number} value
+     * @param {int} value
      */
     set level(value) {
         this._level = value;

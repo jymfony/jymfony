@@ -12,7 +12,7 @@ class AbstractProcessingHandler extends mix(AbstractHandler,
     FormattableHandlerTrait, ProcessableHandlerTrait
 ) {
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     handle(record) {
         if (! this.isHandling(record)) {

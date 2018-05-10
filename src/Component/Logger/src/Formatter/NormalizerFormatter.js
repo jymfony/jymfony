@@ -22,14 +22,14 @@ class NormalizerFormatter extends implementationOf(FormatterInterface) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     format(record) {
         return this._normalize(record);
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     formatBatch(records) {
         records = __jymfony.deepClone(records);
@@ -44,7 +44,7 @@ class NormalizerFormatter extends implementationOf(FormatterInterface) {
      * Normalizes a log record
      *
      * @param {*} record
-     * @param {number} depth
+     * @param {int} depth
      *
      * @protected
      */
@@ -120,7 +120,7 @@ class NormalizerFormatter extends implementationOf(FormatterInterface) {
      * Normalizes an Error object.
      *
      * @param {Error} record
-     * @param {number} depth
+     * @param {int} depth
      *
      * @protected
      */

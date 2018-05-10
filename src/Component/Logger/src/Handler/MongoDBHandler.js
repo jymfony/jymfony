@@ -19,14 +19,14 @@ class MongoDBHandler extends AbstractProcessingHandler {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     getDefaultFormatter() {
         return new MongoDBFormatter();
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     _write(record) {
         this._client.db().collection(this._collection)

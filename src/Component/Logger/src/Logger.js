@@ -161,7 +161,7 @@ class Logger extends AbstractLogger {
     /**
      * Adds a record to the log.
      *
-     * @param {number} level
+     * @param {int} level
      * @param {string} message
      * @param {Object.<*>} [context = {}]
      *
@@ -307,7 +307,7 @@ class Logger extends AbstractLogger {
     /**
      * Checks if there's a handler that listen on level
      *
-     * @param {number} level
+     * @param {int} level
      */
     isHandling(level) {
         const record = { level: level };
@@ -326,7 +326,7 @@ class Logger extends AbstractLogger {
     /**
      * Adds a record to the log
      *
-     * @param {number} level
+     * @param {int} level
      * @param {string} message
      * @param {Object.<*>} [context = {}]
      */
