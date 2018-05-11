@@ -20,6 +20,8 @@ class JsFileLoader extends FileLoader {
      */
     load(resource) {
         const filePath = this._locator.locate(resource);
+        const previousCurrentDir = this.currentDir;
+
         this.currentDir = path.dirname(filePath);
 
         const code = '(function (loader) {\n'+fs.readFileSync(filePath)+'\n})';
@@ -34,6 +36,8 @@ class JsFileLoader extends FileLoader {
         script.runInThisContext({
             filename: filePath,
         })(collection, this);
+
+        this.currentDir = previousCurrentDir;
 
         return collection;
     }
