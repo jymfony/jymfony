@@ -21,9 +21,9 @@ class ConsoleHandler extends mix(AbstractProcessingHandler, EventSubscriberInter
     /**
      * Constructor.
      *
-     * @param {Jymfony.Component.Console.Output.OutputInterface} output
-     * @param {boolean} bubble
-     * @param {Object} verbosityLevelMap
+     * @param {Jymfony.Component.Console.Output.OutputInterface} [output]
+     * @param {boolean} [bubble = true]
+     * @param {Object} [verbosityLevelMap]
      */
     __construct(output = undefined, bubble = true, verbosityLevelMap = undefined) {
         super.__construct(LogLevel.DEBUG, bubble);
@@ -33,14 +33,14 @@ class ConsoleHandler extends mix(AbstractProcessingHandler, EventSubscriberInter
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     isHandling(record) {
         return this._updateLevel() && super.isHandling(record);
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     handle(record) {
         // We have to update the logging level each time because the verbosity of the
@@ -78,7 +78,7 @@ class ConsoleHandler extends mix(AbstractProcessingHandler, EventSubscriberInter
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     static getSubscribedEvents() {
         return {
@@ -88,7 +88,7 @@ class ConsoleHandler extends mix(AbstractProcessingHandler, EventSubscriberInter
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     getDefaultFormatter() {
         if (undefined === this._output) {
@@ -102,7 +102,7 @@ class ConsoleHandler extends mix(AbstractProcessingHandler, EventSubscriberInter
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     _write(record) {
         // At this point we've determined for sure that we want to output the record, so use the output's own verbosity

@@ -19,6 +19,11 @@ const levelColorMap = {
  * @memberOf Jymfony.Component.Logger.Formatter
  */
 class ConsoleFormatter extends NormalizerFormatter {
+    /**
+     * Constructor.
+     *
+     * @param {Object} [options = {}]
+     */
     __construct(options = {}) {
         this._options = Object.assign({}, {
             format: ConsoleFormatter.SIMPLE_FORMAT,
@@ -31,7 +36,7 @@ class ConsoleFormatter extends NormalizerFormatter {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     format(record) {
         const levelColor = levelColorMap[record.level];
@@ -58,6 +63,13 @@ class ConsoleFormatter extends NormalizerFormatter {
         });
     }
 
+    /**
+     * @param {Object} record
+     *
+     * @returns {*}
+     *
+     * @private
+     */
     _replacePlaceHolder(record) {
         const message = record.message;
 

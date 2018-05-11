@@ -8,17 +8,27 @@ const LogLevel = Jymfony.Component.Logger.LogLevel;
  * @memberOf Jymfony.Component.Logger.Handler
  */
 class TestHandler extends AbstractProcessingHandler {
+    /**
+     * @param {int} [level = LogLevel.DEBUG]
+     * @param {boolean} [bubble = true]
+     *
+     * @return {Jymfony.Component.Logger.Handler.TestHandler}
+     *
+     * @private
+     */
     __construct(level = LogLevel.DEBUG, bubble = true) {
         super.__construct(level, bubble);
 
         /**
-         * @type {[Object]}
+         * @type {Object[]}
+         *
          * @protected
          */
         this._records = [];
 
         /**
-         * @type {Object<int, [Object]>}
+         * @type {Object<int, Object[]>}
+         *
          * @protected
          */
         this._recordsByLevel = {};
@@ -49,7 +59,7 @@ class TestHandler extends AbstractProcessingHandler {
     /**
      * Gets all the registered records.
      *
-     * @returns {[Object]}
+     * @returns {Object[]}
      */
     get records() {
         return [ ...this._records ];
@@ -66,7 +76,7 @@ class TestHandler extends AbstractProcessingHandler {
     /**
      * Checks whether we have at least one record for the given level
      *
-     * @param level
+     * @param {int} level
      *
      * @returns {boolean}
      */
@@ -112,7 +122,7 @@ class TestHandler extends AbstractProcessingHandler {
      * @param {RegExp} regex
      * @param {int} level
      *
-     * @returns {*}
+     * @returns {boolean}
      */
     hasRecordThatMatches(regex, level) {
         return this.hasRecordThatPasses((rec) => {
@@ -127,6 +137,8 @@ class TestHandler extends AbstractProcessingHandler {
      * @param {int} level
      *
      * @return {boolean}
+     *
+     * @throws InvalidArgumentException
      */
     hasRecordThatPasses(predicate, level) {
         if (! isFunction(predicate)) {

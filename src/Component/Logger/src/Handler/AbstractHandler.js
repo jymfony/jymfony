@@ -18,13 +18,13 @@ class AbstractHandler extends implementationOf(HandlerInterface) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     close() {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     handleBatch(records) {
         for (const record of records) {
@@ -33,7 +33,7 @@ class AbstractHandler extends implementationOf(HandlerInterface) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     isHandling(record) {
         return record.level >= this._level;

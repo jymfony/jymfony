@@ -4,6 +4,13 @@ const NormalizerFormatter = Jymfony.Component.Logger.Formatter.NormalizerFormatt
  * @memberOf Jymfony.Component.Logger.Formatter
  */
 class LineFormatter extends NormalizerFormatter {
+    /**
+     * Constructor.
+     *
+     * @param {string} [format]
+     * @param {string} [dateFormat]
+     * @param {boolean} [allowInlineLineBreaks = false]
+     */
     __construct(format = undefined, dateFormat = undefined, allowInlineLineBreaks = false) {
         /**
          * The format for a single record.
@@ -50,7 +57,7 @@ class LineFormatter extends NormalizerFormatter {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     format(record) {
         const vars = super.format(record);
@@ -84,7 +91,7 @@ class LineFormatter extends NormalizerFormatter {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     _normalizeError(record) {
         let previousText = '', previous = record;
@@ -103,6 +110,13 @@ class LineFormatter extends NormalizerFormatter {
         return str;
     }
 
+    /**
+     * @param {*} data
+     *
+     * @return {string}
+     *
+     * @private
+     */
     _convertToString(data) {
         if (null === data) {
             return 'null';

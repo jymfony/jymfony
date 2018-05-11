@@ -13,14 +13,14 @@ class JsonFormatter extends NormalizerFormatter {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     format(record) {
         return JSON.stringify(this._normalize(record)) + '\n';
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     _normalize(record, depth = 0) {
         if (isNumber(record)) {

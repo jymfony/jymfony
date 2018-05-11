@@ -12,6 +12,7 @@ class LoggerAwareTrait {
     setLogger(logger) {
         /**
          * @type {Jymfony.Component.Logger.LoggerInterface}
+         *
          * @protected
          */
         this._logger = logger;

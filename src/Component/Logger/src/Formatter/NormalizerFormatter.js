@@ -5,6 +5,11 @@ const FormatterInterface = Jymfony.Component.Logger.Formatter.FormatterInterface
  * @memberOf Jymfony.Component.Logger.Formatter
  */
 class NormalizerFormatter extends implementationOf(FormatterInterface) {
+    /**
+     * Constructor.
+     *
+     * @param {string} [dateFormat]
+     */
     __construct(dateFormat = undefined) {
         /**
          * The date format.
@@ -17,14 +22,14 @@ class NormalizerFormatter extends implementationOf(FormatterInterface) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     format(record) {
         return this._normalize(record);
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     formatBatch(records) {
         records = __jymfony.deepClone(records);
@@ -115,6 +120,7 @@ class NormalizerFormatter extends implementationOf(FormatterInterface) {
      * Normalizes an Error object.
      *
      * @param {Error} record
+     * @param {int} depth
      *
      * @protected
      */

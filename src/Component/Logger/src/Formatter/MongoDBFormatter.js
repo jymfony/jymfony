@@ -9,10 +9,10 @@ class MongoDBFormatter extends implementationOf(FormatterInterface) {
     /**
      * Constructor.
      *
-     * @param {number} [maxNestingLevel = 3] - means infinite nesting, the record itself is level 1,
-     *                                         record.context is 2
-     * @param {boolean} exceptionTraceAsString - set to false to log exception traces as a sub documents
-     *                                           instead of strings
+     * @param {int} [maxNestingLevel = 3] means infinite nesting, the record itself is level 1,
+     *                                    record.context is 2
+     * @param {boolean} exceptionTraceAsString set to false to log exception traces as a sub documents
+     *                                         instead of strings
      */
     __construct(maxNestingLevel = 3, exceptionTraceAsString = true) {
         this._maxNestingLevel = Math.max(maxNestingLevel, 0);
@@ -20,14 +20,14 @@ class MongoDBFormatter extends implementationOf(FormatterInterface) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     format(record) {
         return this._formatArray(record);
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     formatBatch(records) {
         records = __jymfony.deepClone(records);
@@ -42,9 +42,9 @@ class MongoDBFormatter extends implementationOf(FormatterInterface) {
      * Treat and format the given record as an array.
      *
      * @param {*} record
-     * @param {number} nestingLevel
+     * @param {int} nestingLevel
      *
-     * @return {[]|string} - Array except when max nesting level is reached then a string "[...]"
+     * @return {[]|string} Array except when max nesting level is reached then a string "[...]"
      *
      * @protected
      */
@@ -75,7 +75,7 @@ class MongoDBFormatter extends implementationOf(FormatterInterface) {
      * Treat and format the given record as an object.
      *
      * @param {*} record
-     * @param {number} nestingLevel
+     * @param {int} nestingLevel
      *
      * @protected
      */
@@ -91,7 +91,7 @@ class MongoDBFormatter extends implementationOf(FormatterInterface) {
      * Treat and format the given record as an error.
      *
      * @param {Error} record
-     * @param {number} nestingLevel
+     * @param {int} nestingLevel
      *
      * @protected
      */
