@@ -339,7 +339,7 @@ class HashTable extends mix(undefined, GenericCollectionTrait) {
      */
     static fromObject(obj) {
         const table = new HashTable();
-        for (const [ key, value ] of __jymfony.getEntries(obj)) {
+        for (const [ key, value ] of Object.entries(obj)) {
             table.put(key, value);
         }
 
