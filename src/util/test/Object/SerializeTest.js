@@ -53,3 +53,53 @@ describe('Serialize', function () {
         expect(foo.sleepCalled).to.be.true;
     });
 });
+
+describe('Unerialize', function () {
+    it('should unserialize undefined', () => {
+        expect(__jymfony.unserialize('U')).to.be.undefined;
+    });
+
+    it('should unserialize null', () => {
+        expect(__jymfony.unserialize('N')).to.be.null;
+    });
+
+    it('should unserialize booleans', () => {
+        expect(__jymfony.unserialize('B:1')).to.be.true;
+        expect(__jymfony.unserialize('B:0')).to.be.false;
+    });
+
+    it('should unserialize numbers', () => {
+        expect(__jymfony.unserialize('D(1):0')).to.be.equal(0);
+        expect(__jymfony.unserialize('D(2):42')).to.be.equal(42);
+        expect(__jymfony.unserialize('D(4):47.3')).to.be.equal(47.3);
+    });
+
+    it('should unserialize strings', () => {
+        expect(__jymfony.unserialize('S(2):""')).to.be.equal('');
+        expect(__jymfony.unserialize('S(13):"hello world"')).to.be.equal('hello world');
+    });
+
+    it('should unserialize arrays', () => {
+        expect(__jymfony.unserialize('A(6):{0:D(1):1;1:D(3):1.1;2:S(7):"hallo";3:N;4:B:1;5:A(0):{};}'))
+            .to.be.deep.equal([ 1, 1.1, 'hallo', null, true, [] ]);
+    });
+
+    it('should unserialize object literals', () => {
+        expect(__jymfony.unserialize('O(6):{S(3):"a":D(1):1;S(3):"b":D(3):1.1;S(3):"c":S(7):"hallo";S(3):"d":N;S(3):"e":B:1;S(3):"f":A(0):{};}'))
+            .to.be.deep.equal({a: 1, b: 1.1, c: 'hallo', d: null, e: true, f: []});
+    });
+
+    it('should unserialize objects', () => {
+        const obj = __jymfony.unserialize('C[UtilFixtures.BarClass]:{S(7):"hello":S(7):"world";}');
+        expect(obj).to.be.instanceOf(UtilFixtures.BarClass);
+        expect(obj.hello).to.be.equal('world');
+
+        const foo = __jymfony.unserialize('C[UtilFixtures.FooClass]:{S(3):"a":S(7):"hello";S(3):"c":S(7):"world";}');
+        expect(foo).to.be.instanceOf(UtilFixtures.FooClass);
+        expect(foo.a).to.be.equal('hello');
+        expect(foo.b).to.be.undefined;
+        expect(foo.c).to.be.equal('world');
+        expect(foo.d).to.be.undefined;
+        expect(foo.wakeupCalled).to.be.true;
+    });
+});
