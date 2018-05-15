@@ -27,7 +27,7 @@ class PasswordRenderer extends AbstractRenderer {
          * @type {Buffer}
          * @private
          */
-        this._buffer = new Buffer(0);
+        this._buffer = Buffer.allocUnsafe(0);
     }
 
     /**
@@ -64,7 +64,7 @@ class PasswordRenderer extends AbstractRenderer {
         this._output.write('\n');
 
         this._promiseResolve(this._buffer.toString());
-        this._buffer = new Buffer(0);
+        this._buffer = Buffer.allocUnsafe(0);
     }
 
     /**
@@ -81,13 +81,13 @@ class PasswordRenderer extends AbstractRenderer {
             let offset = 0;
             const char = data[offset];
             if (0xF0 === (char & 0xF0)) {
-                buf = new Buffer([ char, data[++offset], data[++offset], data[++offset] ]);
+                buf = Buffer.from([ char, data[++offset], data[++offset], data[++offset] ]);
             } else if (0xE0 === (char & 0xE0)) {
-                buf = new Buffer([ char, data[++offset], data[++offset] ]);
+                buf = Buffer.from([ char, data[++offset], data[++offset] ]);
             } else if (0xC0 === (char & 0xC0)) {
-                buf = new Buffer([ char, data[++offset] ]);
+                buf = Buffer.from([ char, data[++offset] ]);
             } else {
-                buf = new Buffer([ char ]);
+                buf = Buffer.from([ char ]);
             }
 
             this._onChar(buf.toString());
@@ -104,7 +104,7 @@ class PasswordRenderer extends AbstractRenderer {
             case '\r': {
                 setTimeout(() => {
                     if (this._cr) {
-                        this._buffer = Buffer.concat([ this._buffer, new Buffer(char) ]);
+                        this._buffer = Buffer.concat([ this._buffer, Buffer.from(char) ]);
                         this._resolve();
                     }
 
@@ -116,12 +116,12 @@ class PasswordRenderer extends AbstractRenderer {
 
             case '\n': {
                 this._cr = false;
-                this._buffer = Buffer.concat([ this._buffer, new Buffer(char) ]);
+                this._buffer = Buffer.concat([ this._buffer, Buffer.from(char) ]);
                 this._resolve();
             } break;
 
             default: {
-                this._buffer = Buffer.concat([ this._buffer, new Buffer(char) ]);
+                this._buffer = Buffer.concat([ this._buffer, Buffer.from(char) ]);
 
                 if (! this._question.hidden) {
                     this._output.write(this._question.mask);
