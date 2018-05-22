@@ -11,7 +11,7 @@ module.exports = class CheckDefinitionValidityPass extends implementationOf(Comp
                 throw new RuntimeException(`A synthetic service ("${id}") must be public`);
             }
 
-            if (! definition.isAbstract() && ! definition.isSynthetic() && ! definition.getFactory() && ! definition.getClass()) {
+            if (! definition.isAbstract() && ! definition.isSynthetic() && ! definition.getFactory() && ! definition.getClass() && ! definition.getModule()) {
                 throw new RuntimeException(
                     `The definition for service "${id}" has no class. If you intend to inject this service ` +
                     'dynamically at runtime, please mark it as synthetic. If this is an abstract definition ' +

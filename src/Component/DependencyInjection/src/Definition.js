@@ -6,7 +6,7 @@ class Definition {
         this._class = undefined;
         this._arguments = args;
 
-        this._file = undefined;
+        this._module = undefined;
         this._factory = undefined;
         this._shared = true;
         this._deprecated = false;
@@ -414,26 +414,29 @@ class Definition {
     }
 
     /**
-     * Sets a file to be required before creating the service
+     * Use a module require as a factory for this service (with optional property).
+     * The "new" operator is used only if a property is defined, otherwise
+     * the result of the require call is used as service.
      *
-     * @param {string} file
+     * @param {string} module The module to be required.
+     * @param {string} [property] The property to be used as service in module.
      *
      * @returns {Jymfony.Component.DependencyInjection.Definition}
      */
-    setFile(file) {
-        this._changes['file'] = true;
-        this._file = file;
+    setModule(module, property = undefined) {
+        this._changes['module'] = true;
+        this._module = [ module, property ];
 
         return this;
     }
 
     /**
-     * Gets the file to be required before creating the service
+     * Gets the module to be used as service.
      *
-     * @returns {string}
+     * @returns {[string, string]}
      */
-    getFile() {
-        return this._file;
+    getModule() {
+        return this._module;
     }
 
     /**

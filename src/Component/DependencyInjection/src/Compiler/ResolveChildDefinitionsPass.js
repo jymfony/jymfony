@@ -88,13 +88,18 @@ class ResolveChildDefinitionsPass extends AbstractRecursivePass {
 
         def.setFactory(parentDef.getFactory());
         def.setConfigurator(parentDef.getConfigurator());
-        def.setFile(parentDef.getFile());
         def.setPublic(parentDef.isPublic());
         def.setLazy(parentDef.isLazy());
         def.setChanges(parentDef.getChanges());
         def.setProperties(parentDef.getProperties());
 
+        const parentModule = parentDef.getModule();
+        if (parentModule) {
+            def.setModule(parentModule[0], parentModule[1]);
+        }
+
         const changes = definition.getChanges();
+
         if (changes.class) {
             def.setClass(definition.getClass());
         }
@@ -107,8 +112,8 @@ class ResolveChildDefinitionsPass extends AbstractRecursivePass {
             def.setConfigurator(definition.getConfigurator());
         }
 
-        if (changes.file) {
-            def.setFile(definition.getFile());
+        if (changes.module) {
+            def.setModule(definition.getModule()[0], definition.getModule()[1]);
         }
 
         if (changes['public']) {

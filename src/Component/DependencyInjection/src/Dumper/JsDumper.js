@@ -234,7 +234,7 @@ module.exports = global.${className} = ${className};
             returns.push('@throws {Jymfony.Component.DependencyInjection.RuntimeException} always since this service is expected to be injected dynamically');
         } else if (class_ = definition.getClass()) {
             returns.push('@returns {' + (-1 != class_.indexOf('%') ? '*' : class_) + '}');
-        } else if (definition.getFactory()) {
+        } else if (definition.getFactory() || definition.getModule()) {
             returns.push('@returns {Object}');
         }
 
@@ -272,7 +272,6 @@ module.exports = global.${className} = ${className};
 ${doc}     * ${returns}
      */
     ${methodName}(${lazyInitialization}) {
-${this._addServiceInclude(id, definition)}\
 ${this._addLocalTempVariables(id, definition)}\
 ${this._addInlinedDefinitions(id, definition)}\
 ${this._addServiceInstance(id, definition)}\
@@ -283,25 +282,6 @@ ${this._addConfigurator(id, definition)}\
 ${this._addReturn(id, definition)}\
     }
 `;
-    }
-
-    _addServiceInclude(id, definition) {
-        const template = '        require(%s);\n';
-        let code = '';
-
-        let file;
-        if (file = definition.getFile()) {
-            code += __jymfony.sprintf(template, this._dumpValue(file));
-        }
-
-        for (const def of this._getInlinedDefinitions(definition)) {
-            file = def.getFile();
-            if (file) {
-                code += __jymfony.sprintf(template, this._dumpValue(file));
-            }
-        }
-
-        return code;
     }
 
     _addLocalTempVariables(cId, definition) {
@@ -743,7 +723,14 @@ ${this._addReturn(id, definition)}\
         let class_ = this._dumpValue(definition.getClass());
         const args = Array.from(definition.getArguments().map(T => this._dumpValue(T)));
 
-        if (definition.getFactory()) {
+        if (definition.getModule()) {
+            const [ module, property ] = definition.getModule();
+            if (property) {
+                return __jymfony.sprintf(`        ${ret}${instantiation}new (require(%s)[%s])(%s);`, this._dumpValue(module), this._dumpValue(property), args.join(', '));
+            }
+
+            return __jymfony.sprintf(`        ${ret}${instantiation}require(%s);`, this._dumpValue(module));
+        } else if (definition.getFactory()) {
             const callable = definition.getFactory();
             if (isArray(callable)) {
                 if (callable[0] instanceof Reference || (callable[0] instanceof Definition && this._definitionVariables.has(callable[0]))) {

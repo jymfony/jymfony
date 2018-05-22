@@ -661,17 +661,20 @@ class ContainerBuilder extends Container {
 
         const parameterBag = this.parameterBag;
 
-        const file = definition.getFile();
-        if (file) {
-            require(parameterBag.resolveValue(file));
-        }
-
         const args = this._resolveServices(parameterBag.unescapeValue(parameterBag.resolveValue(definition.getArguments())));
         let factory = definition.getFactory();
+        const module = definition.getModule();
 
         let service;
 
-        if (factory) {
+        if (module) {
+            const [ m, property ] = module;
+
+            service = require(m);
+            if (undefined !== property) {
+                service = new service[property](...args);
+            }
+        } else if (factory) {
             if (isArray(factory)) {
                 factory = getCallableFromArray([ this._resolveServices(parameterBag.resolveValue(factory[0])), factory[1] ]);
             } else if (!isFunction(factory)) {

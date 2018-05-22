@@ -42,11 +42,11 @@ class ResolveParameterPlaceHoldersPass extends AbstractRecursivePass {
 
         if (value instanceof Definition) {
             const changes = value.getChanges();
-            if (changes['class']) {
+            if (changes.class) {
                 value.setClass(this._bag.resolveValue(value.getClass()));
             }
-            if (changes['file']) {
-                value.setFile(this._bag.resolveValue(value.getFile()));
+            if (changes.module) {
+                value.setModule(this._bag.resolveValue(value.getModule()[0]), this._bag.resolveValue(value.getModule()[1]));
             }
         }
 
