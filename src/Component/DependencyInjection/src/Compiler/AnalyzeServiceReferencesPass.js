@@ -93,11 +93,11 @@ class AnalyzeServiceReferencesPass extends mix(AbstractRecursivePass, Repeatable
         }
 
         this._lazy = lazy;
+
+        return value;
     }
 
     _getDefinition(id) {
-        id = this._getDefinitionId(id);
-
         return undefined === id ? undefined : this._container.getDefinition(id);
     }
 
