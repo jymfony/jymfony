@@ -16,6 +16,15 @@ class Configuration extends implementationOf(ConfigurationInterface) {
         const treeBuilder = new TreeBuilder();
         const rootNode = treeBuilder.root('framework');
 
+        rootNode
+            .children()
+                .booleanNode('test')
+                    .defaultFalse()
+                    .info('Enable test utilities')
+                .end()
+            .end()
+        ;
+
         this._addConsoleSection(rootNode);
         this._addLoggerSection(rootNode);
         this._addRouterSection(rootNode);

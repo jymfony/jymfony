@@ -22,12 +22,12 @@ class FrameworkExtension extends Extension {
         const loader = new JsFileLoader(container, new FileLocator(path.join(__dirname, '..', 'Resources', 'config')));
         loader.load('services.js');
 
-        if ('test' === container.getParameter('kernel.environment')) {
-            loader.load('test.js');
-        }
-
         const configuration = this.getConfiguration(container);
         const config = this._processConfiguration(configuration, configs);
+
+        if (config.test) {
+            loader.load('test.js');
+        }
 
         this._registerConsoleConfiguration(config.console, container, loader);
         this._registerLoggerConfiguration(config.logger, container, loader);
