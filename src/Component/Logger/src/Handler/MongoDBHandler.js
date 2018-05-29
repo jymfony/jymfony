@@ -15,6 +15,10 @@ class MongoDBHandler extends AbstractProcessingHandler {
         this._client = client;
         this._collection = collection;
 
+        this._client.on('close', () => {
+            this._connection = undefined;
+        });
+
         super.__construct(level, bubble);
     }
 
@@ -25,16 +29,34 @@ class MongoDBHandler extends AbstractProcessingHandler {
         return new MongoDBFormatter();
     }
 
+    close() {
+        if (undefined !== this._connection) {
+            this._client.close();
+            this._connection = undefined;
+        }
+    }
+
     /**
      * @inheritdoc
      */
     _write(record) {
-        this._client.db().collection(this._collection)
-            .insertOne(record.formatted, {w: 0, j: false}, (err) => {
-                if (err) {
-                    this.close();
-                }
-            });
+        if (undefined === this._connection) {
+            this._connection = this._client.connect()
+                .catch(() => this._connection = undefined);
+        }
+
+        this._connection.then(() => {
+            if (undefined === this._connection) {
+                return;
+            }
+
+            this._client.db().collection(this._collection)
+                .insertOne(record.formatted, {w: 0, j: false}, (err) => {
+                    if (err) {
+                        this.close();
+                    }
+                });
+        });
     }
 
 }

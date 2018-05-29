@@ -23,6 +23,7 @@ class AbstractProcessingHandler extends mix(AbstractHandler,
             record = this._processRecord($record);
         }
 
+        record = __jymfony.deepClone(record);
         record.formatted = this.formatter.format(record);
 
         this._write(record);

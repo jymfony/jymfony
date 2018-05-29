@@ -140,15 +140,13 @@ class FrameworkExtension extends Extension {
                 if (!!handler.mongo.id) {
                     container.setAlias('jymfony.logger.mongodb.connection.'+name, new Alias(handler.mongo.id));
                 } else {
-                    const connections = container.hasParameter('jymfony.logger.mongodb.connections') ?
-                        container.getParameter('jymfony.logger.mongodb.connections') : [];
-
-                    connections.push([ name, handler.mongo.url ]);
-                    container.setParameter('jymfony.logger.mongodb.connections', connections);
-
                     container.register('jymfony.logger.mongodb.connection.'+name)
-                        .setSynthetic(true)
-                        .setPublic(true);
+                        .setModule('mongodb', 'MongoClient')
+                        .setArguments(handler.mongo.url, {
+                            auto_reconnect: false,
+                        })
+                        .setPublic(true)
+                    ;
                 }
                 break;
 

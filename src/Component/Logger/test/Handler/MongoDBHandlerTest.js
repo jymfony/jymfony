@@ -1,5 +1,4 @@
 const Collection = require('mongodb').Collection;
-const BSON = require('bson').BSON;
 const Db = require('mongodb').Db;
 const MongoClient = require('mongodb').MongoClient;
 const DateTime = Jymfony.Component.DateTime.DateTime;
@@ -21,7 +20,17 @@ describe('[Logger] MongoDBHandler', function () {
         const mongodb = this._prophet.prophesize(MongoClient);
         const db = this._prophet.prophesize(Db);
         const collection = this._prophet.prophesize(Collection);
+        const connection = this._prophet.prophesize(Promise);
 
+        connection.catch(Argument.any()).willReturn(connection);
+        connection.then(Argument.any())
+            .will(cb => {
+                cb();
+
+                return connection;
+            });
+
+        mongodb.connect().willReturn(connection);
         mongodb.db().willReturn(db);
         db.collection('foobar').willReturn(collection);
 
@@ -39,11 +48,12 @@ describe('[Logger] MongoDBHandler', function () {
             message: 'some log message',
             context: {},
             level: LogLevel.WARNING,
-            datetime: BSON.Timestamp.fromInt(1524498450),
+            datetime: new Date('2018-04-23T15:47:30Z'),
             extra: {},
         };
 
-        collection.insertOne(expected, {w: 0, j: false}, Argument.any()).shouldBeCalled();
+        collection.insertOne(expected, {w: 0, j: false}, Argument.any())
+            .shouldBeCalled();
 
         const handler = new MongoDBHandler(mongodb.reveal(), 'foobar');
         handler.handle(record);
