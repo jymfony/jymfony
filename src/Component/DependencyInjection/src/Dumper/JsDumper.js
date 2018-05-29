@@ -651,28 +651,46 @@ ${this._addReturn(id, definition)}\
     }
 
     _getServiceCall(id, reference = undefined) {
+        while (this._container.hasAlias(id)) {
+            id = this._container.getAlias(id).toString();
+        }
+
         if ('service_container' === id) {
             return 'this';
         }
 
+        let code;
         if (this._container.hasDefinition(id)) {
             const definition = this._container.getDefinition(id);
-            if (definition.isPublic()) {
-                return '(this._services[' + this._dumpValue(id) + '] || this.' + this._generateMethodName(id) + '())';
+            if (! definition.isSynthetic()) {
+                if (undefined !== reference && Container.IGNORE_ON_UNINITIALIZED_REFERENCE === reference.invalidBehavior) {
+                    code = 'undefined';
+                    if (! definition.isShared()) {
+                        return code;
+                    }
+                } else {
+                    code = 'this.' + this._generateMethodName(id) + '()';
+                }
+
+                if (definition.isShared()) {
+                    code = __jymfony.sprintf('(this._%s[%s] || %s)', definition.isPublic() ? 'services' : 'privates', this._dumpValue(id), code);
+                }
+
+                return code;
             }
-
-            return '(this._privates[' + this._dumpValue(id) + '] || this.' + this._generateMethodName(id) + '())';
         }
 
-        if (reference && Container.EXCEPTION_ON_INVALID_REFERENCE !== reference.invalidBehavior) {
-            return __jymfony.sprintf('this.get(%s, Container.NULL_ON_INVALID_REFERENCE)', this._export(id));
+        if (undefined !== reference && Container.IGNORE_ON_UNINITIALIZED_REFERENCE === reference.invalidBehavior) {
+            return 'undefined';
         }
 
-        if (this._container.hasAlias(id)) {
-            id = this._container.getAlias(id).toString();
+        if (undefined !== reference && Container.EXCEPTION_ON_INVALID_REFERENCE !== reference.invalidBehavior) {
+            code = __jymfony.sprintf('this.get(%s, Container.NULL_ON_INVALID_REFERENCE)', this._export(id));
+        } else {
+            code = __jymfony.sprintf('this.get(%s)', this._export(id));
         }
 
-        return __jymfony.sprintf('this.get(%s)', this._export(id));
+        return __jymfony.sprintf('(this._services[%s] || %s)', this._export(id), code);
     }
 
     _dumpLiteralClass(class_) {

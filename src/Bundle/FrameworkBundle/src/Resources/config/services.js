@@ -1,8 +1,12 @@
-/** @global container */
-/** @var {Jymfony.Component.DependencyInjection.ContainerBuilder} container */
+/** @global {Jymfony.Component.DependencyInjection.ContainerBuilder} container */
 
 const Alias = Jymfony.Component.DependencyInjection.Alias;
 const Reference = Jymfony.Component.DependencyInjection.Reference;
+
+container.register('parameter_bag', Jymfony.Component.DependencyInjection.ParameterBag.ContainerBag)
+    .addArgument(new Reference('service_container'))
+;
+container.setAlias(Jymfony.Component.DependencyInjection.ParameterBag.ContainerBagInterface, 'parameter_bag');
 
 container
     .register(Jymfony.Component.EventDispatcher.EventDispatcher)

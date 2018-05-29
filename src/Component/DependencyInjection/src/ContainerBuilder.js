@@ -1,8 +1,10 @@
 const Alias = Jymfony.Component.DependencyInjection.Alias;
+const ServiceClosureArgument = Jymfony.Component.DependencyInjection.Argument.ServiceClosureArgument;
 const Compiler = Jymfony.Component.DependencyInjection.Compiler.Compiler;
 const PassConfig = Jymfony.Component.DependencyInjection.Compiler.PassConfig;
 const Container = Jymfony.Component.DependencyInjection.Container;
 const Definition = Jymfony.Component.DependencyInjection.Definition;
+const Parameter = Jymfony.Component.DependencyInjection.Parameter;
 const BadMethodCallException = Jymfony.Component.DependencyInjection.Exception.BadMethodCallException;
 const InvalidArgumentException = Jymfony.Component.DependencyInjection.Exception.InvalidArgumentException;
 const ServiceNotFoundException = Jymfony.Component.DependencyInjection.Exception.ServiceNotFoundException;
@@ -305,7 +307,31 @@ class ContainerBuilder extends Container {
      * @returns {*}
      */
     get(id, invalidBehavior = Container.EXCEPTION_ON_INVALID_REFERENCE) {
+        if (this.frozen && Container.EXCEPTION_ON_INVALID_REFERENCE !== invalidBehavior) {
+            return super.get(id, invalidBehavior);
+        }
+
+        return this._doGet(id, invalidBehavior);
+    }
+
+    /**
+     * @param {string} id
+     * @param {int} invalidBehavior
+     *
+     * @returns {*}
+     *
+     * @private
+     */
+    _doGet(id, invalidBehavior = Container.EXCEPTION_ON_INVALID_REFERENCE) {
         id = Container.normalizeId(id);
+
+        if (inlineServices.has(id)) {
+            return inlineServices[id];
+        }
+
+        if (Container.IGNORE_ON_UNINITIALIZED_REFERENCE === invalidBehavior) {
+            return super.get(id, invalidBehavior);
+        }
 
         let service = super.get(id, Container.NULL_ON_INVALID_REFERENCE);
         if (undefined !== service) {
@@ -313,7 +339,7 @@ class ContainerBuilder extends Container {
         }
 
         if (undefined === this._definitions[id] && undefined !== this._aliasDefinitions[id]) {
-            return this.get(this._aliasDefinitions[id], invalidBehavior);
+            return this._doGet(this._aliasDefinitions[id], invalidBehavior);
         }
 
         let definition;
@@ -780,9 +806,32 @@ class ContainerBuilder extends Container {
 
         if (isArray(value)) {
             for (const v of value) {
-                ContainerBuilder.getServiceConditionals(v).forEach(service => services.add(service));
+                __self.getServiceConditionals(v).forEach(service => services.add(service));
             }
         } else if (value instanceof Reference && value.invalidBehavior === Container.IGNORE_ON_INVALID_REFERENCE) {
+            services.add(value.toString());
+        }
+
+        return Array.from(services);
+    }
+
+    /**
+     * Returns the initialized conditionals
+     *
+     * @param {*} value
+     *
+     * @returns {Array}
+     *
+     * @internal
+     */
+    static getInitializedConditionals(value) {
+        const services = new Set();
+
+        if (isArray(value)) {
+            for (const v of value) {
+                __self.getInitializedConditionals(v).forEach(service => services.add(service));
+            }
+        } else if (value instanceof Reference && Container.IGNORE_ON_UNINITIALIZED_REFERENCE === value.invalidBehavior) {
             services.add(value.toString());
         }
 
@@ -813,10 +862,15 @@ class ContainerBuilder extends Container {
      * @private
      */
     _callMethod(service, call) {
-        const services = ContainerBuilder.getServiceConditionals(call[1]);
-
+        const services = __self.getServiceConditionals(call[1]);
         for (const service of services) {
             if (! this.has(service)) {
+                return;
+            }
+        }
+
+        for (const service of __self.getInitializedConditionals(call[1])) {
+            if (! this._doGet(service, Container.IGNORE_ON_UNINITIALIZED_REFERENCE)) {
                 return;
             }
         }
@@ -856,10 +910,16 @@ class ContainerBuilder extends Container {
             for (const [ k, v ] of value.entries()) {
                 value.set(k, this._resolveServices(v));
             }
+        } else if (value instanceof ServiceClosureArgument) {
+            value = () => {
+                return this._resolveServices(value.values[0]);
+            };
         } else if (value instanceof Reference) {
-            value = this.get(value.toString(), value.invalidBehavior);
+            value = this._doGet(value.toString(), value.invalidBehavior);
         } else if (value instanceof Definition) {
             value = this._createService(value, undefined);
+        } else if (value instanceof Parameter) {
+            value = this.getParameter(value.toString());
         }
 
         return value;

@@ -1,8 +1,5 @@
-/** @global loader */
-/** @var {Jymfony.Component.DependencyInjection.Loader.JsFileLoader} loader */
-
-/** @global container */
-/** @var {Jymfony.Component.DependencyInjection.Container} container */
+/** @global {Jymfony.Component.DependencyInjection.Loader.JsFileLoader} loader */
+/** @global {Jymfony.Component.DependencyInjection.ContainerBuilder} container */
 
 container.register('command_1', Jymfony.Bundle.FrameworkBundle.Tests.Fixtures.MyCommand)
     .setPublic(true)

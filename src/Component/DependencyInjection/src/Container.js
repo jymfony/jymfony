@@ -1,3 +1,4 @@
+const ContainerInterface = Jymfony.Component.DependencyInjection.ContainerInterface;
 const ServiceNotFoundException = Jymfony.Component.DependencyInjection.Exception.ServiceNotFoundException;
 const ServiceCircularReferenceException = Jymfony.Component.DependencyInjection.Exception.ServiceCircularReferenceException;
 const FrozenParameterBag = Jymfony.Component.DependencyInjection.ParameterBag.FrozenParameterBag;
@@ -8,13 +9,18 @@ const underscoreMap = {'_': '', '.': '_', '\\': '_'};
 /**
  * @memberOf Jymfony.Component.DependencyInjection
  */
-class Container {
+class Container extends implementationOf(ContainerInterface) {
     /**
      * Constructor.
      *
-     * @param parameterBag
+     * @param {Jymfony.Component.DependencyInjection.ParameterBag.ParameterBag} [parameterBag]
      */
-    __construct(parameterBag) {
+    __construct(parameterBag = undefined) {
+        /**
+         * @type {Jymfony.Component.DependencyInjection.ParameterBag.ParameterBag}
+         *
+         * @protected
+         */
         this._parameterBag = parameterBag || new ParameterBag();
 
         this._services = {};
@@ -158,22 +164,12 @@ class Container {
             throw new ServiceCircularReferenceException(id, Object.keys(this._loading));
         }
 
-        let method;
-        if (this._methodMap[id]) {
-            method = this._methodMap[id];
-        } else {
-            if (Container.EXCEPTION_ON_INVALID_REFERENCE === invalidBehavior) {
-                throw new ServiceNotFoundException(id);
-            }
-
-            return;
-        }
-
         this._loading[id] = true;
 
-        let service;
         try {
-            service = this[method]();
+            if (this._methodMap[id]) {
+                return __self.IGNORE_ON_UNINITIALIZED_REFERENCE === invalidBehavior ? undefined : this[this._methodMap[id]]();
+            }
         } catch (e) {
             delete this._services[id];
 
@@ -182,7 +178,11 @@ class Container {
             delete this._loading[id];
         }
 
-        return service;
+        if (Container.EXCEPTION_ON_INVALID_REFERENCE === invalidBehavior) {
+            throw new ServiceNotFoundException(id);
+        }
+
+        return null;
     }
 
     /**
@@ -270,5 +270,6 @@ class Container {
 Container.EXCEPTION_ON_INVALID_REFERENCE = 1;
 Container.NULL_ON_INVALID_REFERENCE = 2;
 Container.IGNORE_ON_INVALID_REFERENCE = 3;
+Container.IGNORE_ON_UNINITIALIZED_REFERENCE = 4;
 
 module.exports = Container;

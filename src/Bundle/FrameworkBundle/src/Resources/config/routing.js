@@ -1,5 +1,4 @@
-/** @global container */
-/** @var {Jymfony.Component.DependencyInjection.ContainerBuilder} container */
+/** @global {Jymfony.Component.DependencyInjection.ContainerBuilder} container */
 
 const Alias = Jymfony.Component.DependencyInjection.Alias;
 const Reference = Jymfony.Component.DependencyInjection.Reference;

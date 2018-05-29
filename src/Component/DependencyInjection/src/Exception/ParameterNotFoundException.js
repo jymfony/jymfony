@@ -1,9 +1,10 @@
 const InvalidArgumentException = Jymfony.Component.DependencyInjection.Exception.InvalidArgumentException;
+const NotFoundExceptionInterface = Jymfony.Component.DependencyInjection.Exception.NotFoundExceptionInterface;
 
 /**
  * @memberOf Jymfony.Component.DependencyInjection.Exception
  */
-class ParameterNotFoundException extends InvalidArgumentException {
+class ParameterNotFoundException extends mix(InvalidArgumentException, NotFoundExceptionInterface) {
     __construct(key, sourceId = undefined, sourceKey = undefined) {
         super.__construct('');
 
