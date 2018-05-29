@@ -142,9 +142,12 @@ class FrameworkExtension extends Extension {
                 } else {
                     container.register('jymfony.logger.mongodb.connection.'+name)
                         .setModule('mongodb', 'MongoClient')
-                        .setArguments(handler.mongo.url, {
-                            auto_reconnect: false,
-                        })
+                        .setArguments([
+                            handler.mongo.url,
+                            {
+                                auto_reconnect: false,
+                            },
+                        ])
                         .setPublic(true)
                     ;
                 }
