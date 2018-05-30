@@ -34,7 +34,7 @@ class ArrayAdapter extends implementationOf(CacheItemPoolInterface, LoggerAwareI
     /**
      * @inheritDoc
      */
-    getItem(key) {
+    async getItem(key) {
         let value;
         let isHit = this.hasItem(key);
 
@@ -59,7 +59,7 @@ class ArrayAdapter extends implementationOf(CacheItemPoolInterface, LoggerAwareI
     /**
      * @inheritDoc
      */
-    getItems(keys = []) {
+    async getItems(keys = []) {
         const that = this;
 
         return new Map((function * () {
@@ -73,7 +73,7 @@ class ArrayAdapter extends implementationOf(CacheItemPoolInterface, LoggerAwareI
     /**
      * @inheritDoc
      */
-    deleteItems(keys) {
+    async deleteItems(keys) {
         for (const key of keys) {
             this.deleteItem(key);
         }
@@ -84,7 +84,7 @@ class ArrayAdapter extends implementationOf(CacheItemPoolInterface, LoggerAwareI
     /**
      * @inheritDoc
      */
-    save(item) {
+    async save(item) {
         if (! (item instanceof CacheItem)) {
             return false;
         }

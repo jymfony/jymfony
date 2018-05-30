@@ -31,7 +31,7 @@ class AbstractTrait extends mix(undefined, LoggerAwareTrait) {
      * @abstract
      * @protected
      */
-    * _doFetch(ids) { } // eslint-disable-line no-unused-vars
+    async _doFetch(ids) { } // eslint-disable-line no-unused-vars
 
     /**
      * Confirms if the cache contains specified cache item.
@@ -43,7 +43,7 @@ class AbstractTrait extends mix(undefined, LoggerAwareTrait) {
      * @abstract
      * @protected
      */
-    * _doHave(id) { } // eslint-disable-line no-unused-vars
+    async _doHave(id) { } // eslint-disable-line no-unused-vars
 
     /**
      * Deletes all items in the pool.
@@ -55,7 +55,7 @@ class AbstractTrait extends mix(undefined, LoggerAwareTrait) {
      * @abstract
      * @protected
      */
-    * _doClear(namespace) { } // eslint-disable-line no-unused-vars
+    async _doClear(namespace) { } // eslint-disable-line no-unused-vars
 
     /**
      * Removes multiple items from the pool.
@@ -67,7 +67,7 @@ class AbstractTrait extends mix(undefined, LoggerAwareTrait) {
      * @abstract
      * @protected
      */
-    * _doDelete(ids) { } // eslint-disable-line no-unused-vars
+    async _doDelete(ids) { } // eslint-disable-line no-unused-vars
 
     /**
      * Persists several cache items immediately.
@@ -80,16 +80,16 @@ class AbstractTrait extends mix(undefined, LoggerAwareTrait) {
      * @abstract
      * @protected
      */
-    * _doSave(values, lifetime) { } // eslint-disable-line no-unused-vars
+    async _doSave(values, lifetime) { } // eslint-disable-line no-unused-vars
 
     /**
      * @inheritDoc
      */
-    * hasItem(key) {
-        const id = yield this._getId(key);
+    async hasItem(key) {
+        const id = await this._getId(key);
 
         try {
-            return yield this._doHave(id);
+            return await this._doHave(id);
         } catch (e) {
             this._logger.warning('Failed to check if key "{key}" is cached', {key: key, exception: e});
 
@@ -100,21 +100,21 @@ class AbstractTrait extends mix(undefined, LoggerAwareTrait) {
     /**
      * @inheritDoc
      */
-    * clear() {
+    async clear() {
         let cleared = undefined !== this._namespaceVersion;
         if (cleared) {
             this._namespaceVersion = 2;
 
-            for (const v of yield this._doFetch([ '@' + this._namespace ])) {
+            for (const v of await this._doFetch([ '@' + this._namespace ])) {
                 this._namespaceVersion = 1 + ~~v;
             }
 
             this._namespaceVersion += ':';
-            cleared = yield this._doSave({['@' + this._namespace]: this._namespaceVersion}, 0);
+            cleared = await this._doSave({['@' + this._namespace]: this._namespaceVersion}, 0);
         }
 
         try {
-            return yield * this._doClear(this._namespace) || cleared;
+            return await this._doClear(this._namespace) || cleared;
         } catch (e) {
             this._logger.warning('Failed to clear the cache', {exception: e});
 
@@ -125,21 +125,21 @@ class AbstractTrait extends mix(undefined, LoggerAwareTrait) {
     /**
      * @inheritDoc
      */
-    * deleteItem(key) {
-        return yield * this._deleteItems([ key ]);
+    async deleteItem(key) {
+        return await this._deleteItems([ key ]);
     }
 
     /**
      * @inheritDoc
      */
-    * deleteItems(keys) {
+    async deleteItems(keys) {
         const ids = [];
         for (const key of keys) {
-            ids.push(yield this._getId(key));
+            ids.push(await this._getId(key));
         }
 
         try {
-            if (yield this._doDelete(ids)) {
+            if (await this._doDelete(ids)) {
                 return true;
             }
         } catch (e) {
@@ -151,7 +151,7 @@ class AbstractTrait extends mix(undefined, LoggerAwareTrait) {
         for (const [ key, id ] of __jymfony.getEntries(ids)) {
             try {
                 e = undefined;
-                if (yield this._doDelete([ id ])) {
+                if (await this._doDelete([ id ])) {
                     continue;
                 }
             } catch (e) {
@@ -183,12 +183,12 @@ class AbstractTrait extends mix(undefined, LoggerAwareTrait) {
         return wasEnabled;
     }
 
-    * _getId(key) {
+    async _getId(key) {
         CacheItem.validateKey(key);
 
         if ('' === this._namespaceVersion) {
             this._namespaceVersion = '1:';
-            for (const v of yield this._doFetch([ '@' + this._namespace ])) {
+            for (const v of await this._doFetch([ '@' + this._namespace ])) {
                 this._namespaceVersion = v;
             }
         }

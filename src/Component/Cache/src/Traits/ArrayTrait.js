@@ -32,7 +32,7 @@ class ArrayTrait extends mix(undefined, LoggerAwareTrait) {
     /**
      * @inheritDoc
      */
-    hasItem(key) {
+    async hasItem(key) {
         CacheItem.validateKey(key);
 
         return undefined !== this._expiries[key] && this._expiries[key] >= DateTime.unixTime || ! this.deleteItem(key);
@@ -41,7 +41,7 @@ class ArrayTrait extends mix(undefined, LoggerAwareTrait) {
     /**
      * @inheritDoc
      */
-    clear() {
+    async clear() {
         this._values = {};
         this._expiries = {};
 
@@ -51,7 +51,7 @@ class ArrayTrait extends mix(undefined, LoggerAwareTrait) {
     /**
      * @inheritDoc
      */
-    deleteItem(key) {
+    async deleteItem(key) {
         CacheItem.validateKey(key);
 
         delete this._values[key];

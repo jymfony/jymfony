@@ -24,7 +24,7 @@ class CacheItemPoolInterface {
      *
      * @returns {Jymfony.Component.Cache.CacheItemInterface} The corresponding Cache Item.
      */
-    * getItem(key) { }
+    async getItem(key) { }
 
     /**
      * Returns a traversable set of cache items.
@@ -42,7 +42,7 @@ class CacheItemPoolInterface {
      *   key is not found. However, if no keys are specified then an empty
      *   traversable MUST be returned instead.
      */
-    * getItems(keys = []) { }
+    async getItems(keys = []) { }
 
     /**
      * Confirms if the cache contains specified cache item.
@@ -59,14 +59,14 @@ class CacheItemPoolInterface {
      *
      * @returns {boolean} True if item exists in the cache, false otherwise.
      */
-    * hasItem(key) { }
+    async hasItem(key) { }
 
     /**
      * Deletes all items in the pool.
      *
      * @returns {boolean} True if the pool was successfully cleared. False if there was an error.
      */
-    * clear() { }
+    async clear() { }
 
     /**
      * Removes the item from the pool.
@@ -79,7 +79,7 @@ class CacheItemPoolInterface {
      *
      * @returns {boolean} True if the item was successfully removed. False if there was an error.
      */
-    * deleteItem(key) { }
+    async deleteItem(key) { }
 
     /**
      * Removes multiple items from the pool.
@@ -93,7 +93,7 @@ class CacheItemPoolInterface {
      *
      * @returns {boolean} True if the items were successfully removed. False if there was an error.
      */
-    * deleteItems(keys) { }
+    async deleteItems(keys) { }
 
     /**
      * Persists a cache item.
@@ -102,7 +102,7 @@ class CacheItemPoolInterface {
      *
      * @returns {boolean} True if the item was successfully persisted. False if there was an error.
      */
-    * save(item) { }
+    async save(item) { }
 }
 
 module.exports = getInterface(CacheItemPoolInterface);
