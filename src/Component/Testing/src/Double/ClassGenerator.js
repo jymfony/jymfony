@@ -19,7 +19,7 @@ class ClassGenerator {
     generate() {
         const self = this;
         const mirrorClass = class extends mix(this._superClass, ...this._interfaces) { };
-        const proto = Object.getPrototypeOf(mirrorClass);
+        const proto = mirrorClass.prototype;
 
         const methods = {};
         const readableProperties = {};
@@ -43,10 +43,6 @@ class ClassGenerator {
         }
 
         for (const [ methodName, reflMethod ] of __jymfony.getEntries(methods)) {
-            if (Reflect.has(proto, methodName)) {
-                continue;
-            }
-
             let method;
             if (reflMethod.isGenerator) {
                 method = function * (...$args) {
@@ -62,7 +58,7 @@ class ClassGenerator {
                 };
             }
 
-            Object.defineProperty(proto, methodName, { value: method });
+            proto[methodName] = method;
         }
 
         for (const propName of Object.keys(readableProperties)) {
@@ -86,7 +82,6 @@ class ClassGenerator {
             });
         }
 
-        Object.setPrototypeOf(mirrorClass, proto);
         return mirrorClass;
     }
 }
