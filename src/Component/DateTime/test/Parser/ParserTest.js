@@ -302,6 +302,7 @@ describe('[DateTime] Parser', function () {
         '17-03-09',
         '@1489017600',
         '+2017-03-09',
+        '2017-03-09T00:00:00+0000',
     ];
 
     for (const index of tests.keys()) {

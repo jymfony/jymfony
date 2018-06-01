@@ -100,7 +100,11 @@ class Parser {
             }
 
             if (Lexer.T_SIGNED_YEAR === token.type) {
-                this._parseDate();
+                if (this._dateParsed) {
+                    this._parseTimezone();
+                } else {
+                    this._parseDate();
+                }
                 continue;
             }
 
@@ -149,7 +153,7 @@ class Parser {
             return 0;
         }
 
-        const regex = /(?:GMT|UTC)?([+-])(0?[1-9]|1[0-2]):?([0-5][0-9])?/;
+        const regex = /(?:GMT|UTC)?([+-])(0?[0-9]|1[0-2]):?([0-5][0-9])?/;
 
         correction = correction.trim();
         const matches = correction.match(regex);
