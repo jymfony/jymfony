@@ -537,7 +537,7 @@ ${this._addReturn(id, definition)}\
                     }
 
                     if (factory[0] instanceof Definition) {
-                        return __jymfony.sprintf('getCallableFromArray(%s, \'%s\')(%s)', this._dumpValue(factory[0]), factory[1], args.join(', '));
+                        return __jymfony.sprintf('getCallableFromArray([%s, \'%s\'])(%s)', this._dumpValue(factory[0]), factory[1], args.join(', '));
                     }
 
                     if (factory[0] instanceof Reference) {
