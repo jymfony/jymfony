@@ -36,7 +36,7 @@ class ArrayAdapter extends implementationOf(CacheItemPoolInterface, LoggerAwareI
      */
     async getItem(key) {
         let value;
-        let isHit = this.hasItem(key);
+        let isHit = await this.hasItem(key);
 
         try {
             if (! isHit) {
@@ -60,14 +60,14 @@ class ArrayAdapter extends implementationOf(CacheItemPoolInterface, LoggerAwareI
      * @inheritDoc
      */
     async getItems(keys = []) {
-        const that = this;
+        const map = new Map();
 
-        return new Map((function * () {
-            for (const key of keys) {
-                CacheItem.validateKey(key);
-                yield [ key, that.getItem(key) ];
-            }
-        })());
+        for (const key of keys) {
+            CacheItem.validateKey(key);
+            map.set(key, await this.getItem(key));
+        }
+
+        return map;
     }
 
     /**
@@ -75,7 +75,7 @@ class ArrayAdapter extends implementationOf(CacheItemPoolInterface, LoggerAwareI
      */
     async deleteItems(keys) {
         for (const key of keys) {
-            this.deleteItem(key);
+            await this.deleteItem(key);
         }
 
         return true;
@@ -94,7 +94,7 @@ class ArrayAdapter extends implementationOf(CacheItemPoolInterface, LoggerAwareI
         let expiry = item._expiry;
 
         if (expiry && expiry <= DateTime.unixTime) {
-            this.deleteItem(key);
+            await this.deleteItem(key);
 
             return true;
         }
