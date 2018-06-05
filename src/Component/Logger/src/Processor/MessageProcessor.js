@@ -10,7 +10,7 @@ class MessageProcessor {
      * @returns {Object<*>}
      */
     __invoke(record) {
-        if (record.message.indexOf('{')) {
+        if (-1 === record.message.indexOf('{')) {
             return record;
         }
 
