@@ -24,7 +24,7 @@ class CacheClearCommand extends mix(Command, ContainerAwareInterface, ContainerA
     /**
      * @inheritDoc
      */
-    * execute(input, output) {
+    async execute(input, output) {
         const io = new JymfonyStyle(input, output);
         const fs = new Filesystem();
 
@@ -33,26 +33,26 @@ class CacheClearCommand extends mix(Command, ContainerAwareInterface, ContainerA
         // The maximum length of a directory or file path within it (esp. Windows MAX_PATH)
         const oldCacheDir = realCacheDir.substring(0, realCacheDir.length - 1) + ('~' === realCacheDir.substr(realCacheDir.length - 1) ? '+' : '~');
 
-        if (! (yield fs.isWritable(realCacheDir))) {
+        if (! (await fs.isWritable(realCacheDir))) {
             throw new RuntimeException(__jymfony.sprintf('Unable to write in the "%s" directory', realCacheDir));
         }
 
-        if (yield fs.exists(oldCacheDir)) {
-            yield fs.remove(oldCacheDir);
+        if (await fs.exists(oldCacheDir)) {
+            await fs.remove(oldCacheDir);
         }
 
         const kernel = this._container.get('kernel');
         io.comment(__jymfony.sprintf('Clearing the cache for the <info>%s</info> environment with debug <info>%s</info>', kernel.environment, kernel.debug));
 
         // This._container.get('cache_clearer').clear(realCacheDir);
-        yield fs.rename(realCacheDir, oldCacheDir);
+        await fs.rename(realCacheDir, oldCacheDir);
 
         const isOutputVerbose = output.isVerbose();
         if (isOutputVerbose) {
             io.comment('Removing old cache directory...');
         }
 
-        yield fs.remove(oldCacheDir);
+        await fs.remove(oldCacheDir);
 
         if (isOutputVerbose) {
             io.comment('Finished');

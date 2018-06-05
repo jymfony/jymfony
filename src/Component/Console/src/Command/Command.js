@@ -71,7 +71,7 @@ class Command {
      * @param {Jymfony.Component.Console.Input.InputInterface} input An InputInterface instance
      * @param {Jymfony.Component.Console.Output.OutputInterface} output An OutputInterface instance
      *
-     * @returns {undefined|int} undefined or 0 if everything went fine, or an error code
+     * @returns {Promise<void|int>|undefined|int} undefined or 0 if everything went fine, or an error code
      *
      * @throws {LogicException} When this abstract method is not implemented
      */

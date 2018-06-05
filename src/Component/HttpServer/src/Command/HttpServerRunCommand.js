@@ -38,7 +38,7 @@ Starts the server and listen on port 8080 on localhost address only.`
         this.addArgument('port', InputArgument.OPTIONAL, 'The port', 80);
     }
 
-    * execute(input, output) {
+    async execute(input, output) {
         const io = new JymfonyStyle(input, output);
         io.title('Http server');
 
@@ -46,7 +46,7 @@ Starts the server and listen on port 8080 on localhost address only.`
         io.success('Listening...');
 
         try {
-            yield p;
+            await p;
         } catch (e) {
             io.error(e.message);
         }

@@ -16,6 +16,10 @@ class Async {
      * @returns {Promise}
      */
     static run(generator, ...args) {
+        if (isAsyncFunction(generator)) {
+            return generator(...args);
+        }
+
         if (isGeneratorFunction(generator)) {
             return Async.run(generator(...args));
         }
