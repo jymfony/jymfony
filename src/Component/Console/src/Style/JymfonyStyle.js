@@ -65,7 +65,7 @@ class JymfonyStyle extends OutputStyle {
      * @param {boolean} escape   Whether to escape the message
      */
     block(messages, type = undefined, style = undefined, prefix = ' ', padding = false, escape = true) {
-        messages = isArray(messages) ? Object.values(messages) : [ messages ];
+        messages = isArray(messages) ? messages : [ messages ];
 
         this._autoPrependBlock();
         this.writeln(this._createBlock(messages, type, style, prefix, padding, escape));
@@ -113,7 +113,7 @@ class JymfonyStyle extends OutputStyle {
     text(messages) {
         this._autoPrependText();
 
-        messages = isArray(messages) ? Object.values(messages) : [ messages ];
+        messages = isArray(messages) ? messages : [ messages ];
         for (const message of messages) {
             this.writeln(' ' + message);
         }
@@ -369,12 +369,12 @@ class JymfonyStyle extends OutputStyle {
         }
 
         // Wrap and add newlines for each element
-        for (let [ key, message ] of messages) {
+        for (let [ key, message ] of __jymfony.getEntries(messages)) {
             if (escape) {
                 message = OutputFormatter.escape(message);
             }
 
-            lines = [ ...lines, ...__jymfony.wordwrap(messages, this._lineLength - prefixLength - indentLength, os.EOL, true).split(os.EOL) ];
+            lines = [ ...lines, ...__jymfony.wordwrap(message, this._lineLength - prefixLength - indentLength, os.EOL, true).split(os.EOL) ];
 
             if (1 < messages.length && key < messages.length - 1) {
                 lines.push('');
