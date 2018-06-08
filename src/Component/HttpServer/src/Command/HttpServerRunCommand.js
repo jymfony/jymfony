@@ -21,6 +21,9 @@ class HttpServerRunCommand extends Command {
         this._server = server;
     }
 
+    /**
+     * @inheritdoc
+     */
     configure() {
         this.description = 'Run the http server and listen for incoming connections';
         this.help = `The <info>%command.name%</info> command will run the http server and listen for connections on the given address and port:
@@ -38,12 +41,20 @@ Starts the server and listen on port 8080 on localhost address only.`
         this.addArgument('port', InputArgument.OPTIONAL, 'The port', 80);
     }
 
+    /**
+     * @inheritdoc
+     */
     async execute(input, output) {
         const io = new JymfonyStyle(input, output);
         io.title('Http server');
 
         const p = this._server.listen({ port: input.getArgument('port'), host: input.getArgument('address') });
-        io.success('Listening...');
+        io.success([
+            'Listening...',
+            'Press Ctrl-C to exit',
+        ]);
+
+        process.on('SIGINT', () => this._server.close());
 
         try {
             await p;
