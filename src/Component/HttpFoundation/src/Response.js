@@ -129,13 +129,17 @@ class Response {
      * @param {*} content
      */
     set content(content) {
-        this._content = content.toString();
+        if (isFunction(content)) {
+            this._content = content;
+        } else {
+            this._content = content.toString();
+        }
     }
 
     /**
      * Gets the response content.
      *
-     * @returns {string}
+     * @returns {Function|string}
      */
     get content() {
         return this._content;
