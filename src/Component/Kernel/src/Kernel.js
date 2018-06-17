@@ -50,18 +50,13 @@ class Kernel extends implementationOf(KernelInterface) {
         this._name = this.getName();
 
         /**
-         * @type {undefined|Date}
+         * @type {Jymfony.Component.DateTime.DateTime}
          *
          * @protected
          */
         this._startTime = undefined;
 
         if (this._debug) {
-            /**
-             * @type {Jymfony.Component.DateTime.DateTime}
-             *
-             * @protected
-             */
             this._startTime = new DateTime();
         }
 

@@ -6,7 +6,11 @@ const NotFoundExceptionInterface = Jymfony.Component.DependencyInjection.Excepti
  */
 class ParameterNotFoundException extends mix(InvalidArgumentException, NotFoundExceptionInterface) {
     /**
-     * @inheritdoc
+     * Constructor.
+     *
+     * @param {string} key
+     * @param {string} [sourceId]
+     * @param {string} [sourceKey]
      */
     __construct(key, sourceId = undefined, sourceKey = undefined) {
         super.__construct('');

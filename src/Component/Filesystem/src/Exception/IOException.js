@@ -12,8 +12,6 @@ class IOException extends mix(BaseException, ExceptionInterface) {
      * @param {null|int} [code = null]
      * @param {string} [previous]
      * @param {string} [path]
-     *
-     * @inheritdoc
      */
     __construct(message, code = null, previous = undefined, path = undefined) {
         super.__construct(message, code, previous);

@@ -33,9 +33,11 @@ class FrameworkExtension extends Extension {
     }
 
     /**
-     * @inheritdoc
+     * Returns the extension configuration object.
      *
      * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
+     *
+     * @returns {Jymfony.Component.Config.Definition.ConfigurationInterface}
      */
     getConfiguration(container) {
         return new Configuration(container.getParameter('kernel.debug'));

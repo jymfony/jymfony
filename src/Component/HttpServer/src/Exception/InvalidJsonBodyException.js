@@ -11,8 +11,6 @@ class InvalidJsonBodyException extends BadRequestException {
      * @param {string} [message = 'Invalid JSON request body']
      * @param {null|int} [code = null]
      * @param {Exception} [previous]
-     *
-     * @inheritdoc
      */
     __construct(invalidBody, message = 'Invalid JSON request body', code = null, previous = undefined) {
         /**

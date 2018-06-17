@@ -15,8 +15,6 @@ class NotFoundHttpException extends HttpException {
      * @param {Exception} [previous]
      * @param {Object} [headers = {}]
      * @param {int} [code = 0]
-     *
-     * @inheritdoc
      */
     __construct(message, previous = undefined, headers = {}, code = 0) {
         super.__construct(Response.HTTP_NOT_FOUND, message, previous, headers, code);

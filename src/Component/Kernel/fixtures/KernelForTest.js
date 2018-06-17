@@ -1,8 +1,5 @@
 const Kernel = Jymfony.Component.Kernel.Kernel;
 
-/**
- * @memberOf Fixtures
- */
 class KernelForTest extends Kernel {
     /**
      * @returns {Object}

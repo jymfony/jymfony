@@ -10,8 +10,6 @@ class BadContentLengthRequestException extends BadRequestException {
      * @param {string} [message = 'Content-Length mismatch']
      * @param {null|int} [code = null]
      * @param {Exception} [previous]
-     *
-     * @inheritdoc
      */
     __construct(message = 'Content-Length mismatch', code = null, previous = undefined) {
         super.__construct(message, code, previous);

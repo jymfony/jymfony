@@ -15,8 +15,6 @@ class BadRequestHttpException extends HttpException {
      * @param {Exception} [previous]
      * @param {Object} [headers = {}]
      * @param {int} [code = 0]
-     *
-     * @inheritdoc
      */
     __construct(message, previous = undefined, headers = {}, code = 0) {
         super.__construct(Response.HTTP_BAD_REQUEST, message, previous, headers, code);

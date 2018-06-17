@@ -1,11 +1,11 @@
-const urlModule = require('url');
-const net = require('net');
-
 const ConflictingHeadersException = Jymfony.Component.HttpFoundation.Exception.ConflictingHeadersException;
 const SuspiciousOperationException = Jymfony.Component.HttpFoundation.Exception.SuspiciousOperationException;
 const HeaderBag = Jymfony.Component.HttpFoundation.HeaderBag;
 const Ip = Jymfony.Component.HttpFoundation.Ip;
 const ParameterBag = Jymfony.Component.HttpFoundation.ParameterBag;
+
+const urlModule = require('url');
+const net = require('net');
 
 let _trustedProxies = [];
 let _trustedHeaderSet = 0;
@@ -157,43 +157,31 @@ class Request {
 
         /**
          * @type {Jymfony.Component.HttpFoundation.ParameterBag}
-         *
-         * @public
          */
         this.query = new ParameterBag(__jymfony.parse_query_string(this._url.query));
 
         /**
          * @type {Jymfony.Component.HttpFoundation.ParameterBag}
-         *
-         * @public
          */
         this.request = new ParameterBag(request);
 
         /**
          * @type {Jymfony.Component.HttpFoundation.ParameterBag}
-         *
-         * @public
          */
         this.attributes = new ParameterBag(attributes);
 
         /**
          * @type {Jymfony.Component.HttpFoundation.HeaderBag}
-         *
-         * @public
          */
         this.headers = new HeaderBag(headers);
 
         /**
          * @type {Jymfony.Component.HttpFoundation.ParameterBag}
-         *
-         * @public
          */
         this.cookies = new ParameterBag(this.headers.cookies);
 
         /**
          * @type {Jymfony.Component.HttpFoundation.ParameterBag}
-         *
-         * @public
          */
         this.server = new ParameterBag(server);
 
@@ -504,7 +492,7 @@ class Request {
     /**
      * Gets the "real" request method.
      *
-     * @returns string The request method
+     * @returns {string} The request method
      *
      * @see getMethod()
      */

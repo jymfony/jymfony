@@ -25,7 +25,9 @@ class BooleanNodeDefinition extends ScalarNodeDefinition {
     }
 
     /**
-     * @inheritdoc
+     * Denies the node value being empty.
+     *
+     * @returns {Jymfony.Component.Config.Definition.Builder.NodeDefinition}
      *
      * @throws {Jymfony.Component.Config.Definition.Exception.InvalidDefinitionException}
      */

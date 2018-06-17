@@ -5,7 +5,10 @@ const RuntimeException = Jymfony.Component.DependencyInjection.Exception.Runtime
  */
 class ServiceCircularReferenceException extends RuntimeException {
     /**
-     * @inheritdoc
+     * Constructor.
+     *
+     * @param {string} id
+     * @param {string} path
      */
     __construct(id, path) {
         super.__construct('');

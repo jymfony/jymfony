@@ -55,7 +55,7 @@ class Route {
      * @returns {Jymfony.Component.Routing.Route}
      */
     setPath(path) {
-        this._path = `/${__jymfony.ltrim(__jymfony.trim(path), '/')}`;
+        this._path = '/' + __jymfony.ltrim(__jymfony.trim(path), '/');
         this._compiled = undefined;
 
         return this;

@@ -9,8 +9,6 @@ class CallbackToken extends implementationOf(TokenInterface) {
      * Constructor.
      *
      * @param {Function} callback
-     *
-     * @private
      */
     __construct(callback) {
         if (! isFunction(callback)) {

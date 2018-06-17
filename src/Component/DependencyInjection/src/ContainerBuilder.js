@@ -712,7 +712,7 @@ class ContainerBuilder extends Container {
             if (isArray(factory)) {
                 factory = getCallableFromArray([ this._resolveServices(parameterBag.resolveValue(factory[0])), factory[1] ]);
             } else if (!isFunction(factory)) {
-                throw new RuntimeException(`'Cannot create service "${id}" because of invalid factory'`);
+                throw new RuntimeException('Cannot create service "' + id + '" because of invalid factory');
             }
 
             service = factory(...args);
@@ -751,7 +751,7 @@ class ContainerBuilder extends Container {
             }
 
             if (! isFunction(configurator)) {
-                throw new InvalidArgumentException(`'The configure callable for class "${service.constructor.name}" is not a callable.'`);
+                throw new InvalidArgumentException('The configure callable for class "' + service.constructor.name + '" is not a callable.');
             }
 
             configurator(service);

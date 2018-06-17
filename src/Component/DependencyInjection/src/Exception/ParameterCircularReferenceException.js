@@ -5,7 +5,9 @@ const RuntimeException = Jymfony.Component.DependencyInjection.Exception.Runtime
  */
 class ParameterCircularReferenceException extends RuntimeException {
     /**
-     * @inheritdoc
+     * Constructor.
+     *
+     * @param {string[]} parameters
      */
     __construct(parameters) {
         const params = Array.from(parameters);

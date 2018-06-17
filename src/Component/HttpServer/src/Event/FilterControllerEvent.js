@@ -18,8 +18,6 @@ class FilterControllerEvent extends HttpEvent {
      * @param {Jymfony.Component.HttpServer.HttpServer} server
      * @param {Function} controller
      * @param {Jymfony.Component.HttpFoundation.Request} request
-     *
-     * @inheritdoc
      */
     __construct(server, controller, request) {
         super.__construct(server, request);

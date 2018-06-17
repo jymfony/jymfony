@@ -14,8 +14,6 @@ class NumericNode extends ScalarNode {
      * @param {Jymfony.Component.Config.Definition.NodeInterface} [parent]
      * @param {number} [min]
      * @param {number} [max]
-     *
-     * @inheritdoc
      */
     __construct(name, parent = undefined, min = undefined, max = undefined) {
         super.__construct(name, parent);

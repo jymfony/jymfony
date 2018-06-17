@@ -11,8 +11,6 @@ class UnexpectedCallException extends ObjectProphecyException {
      * @param {Jymfony.Component.Testing.Prophecy.ObjectProphecy} objectProphecy
      * @param {string} methodName
      * @param {*[]} args
-     *
-     * @inheritdoc
      */
     __construct(message, objectProphecy, methodName, args) {
         super.__construct(message, objectProphecy);

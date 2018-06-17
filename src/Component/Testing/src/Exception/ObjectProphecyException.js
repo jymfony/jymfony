@@ -9,8 +9,6 @@ class ObjectProphecyException extends mix(RuntimeException, ExceptionInterface) 
      *
      * @param {string} message
      * @param {Jymfony.Component.Testing.Prophecy.ObjectProphecy} objectProphecy
-     *
-     * @inheritdoc
      */
     __construct(message, objectProphecy) {
         super.__construct(message);

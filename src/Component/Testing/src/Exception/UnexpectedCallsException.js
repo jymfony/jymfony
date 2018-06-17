@@ -10,8 +10,6 @@ class UnexpectedCallsException extends MethodProphecyException {
      * @param {string} message
      * @param {Jymfony.Component.Testing.Prophecy.MethodProphecy} methodProphecy
      * @param {*[]} calls
-     *
-     * @inheritdoc
      */
     __construct(message, methodProphecy, calls) {
         super.__construct(message, methodProphecy);

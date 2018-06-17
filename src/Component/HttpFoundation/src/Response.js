@@ -9,24 +9,16 @@ class Response {
      * Constructor.
      *
      * @param {string} [content = '']
-     * @param {int } [status = Jymfony.Component.HttpFoundation.Response.HTTP_OK]
+     * @param {int} [status = Jymfony.Component.HttpFoundation.Response.HTTP_OK]
      * @param {Object} [headers = {}]
      */
     __construct(content = '', status = __self.HTTP_OK, headers = {}) {
         /**
          * @type {Jymfony.Component.HttpFoundation.ResponseHeaderBag}
-         *
-         * @public
          */
         this.headers = new ResponseHeaderBag(headers);
 
-        /**
-         * @type {string}
-         *
-         * @public
-         */
         this.content = content;
-
         this.setStatusCode(status);
         this.protocolVersion = '1.0';
 

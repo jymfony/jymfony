@@ -15,8 +15,6 @@ class PasswordQuestionBuilder extends QuestionBuilder {
      * Constructor.
      *
      * @param {Jymfony.Component.Console.Question.Builder.QuestionBuilder} builder
-     *
-     * @inheritdoc
      */
     __construct(builder) {
         super.__construct(builder.input, builder.output);

@@ -29,7 +29,7 @@ class Extension extends implementationOf(ExtensionInterface) {
         const reflClass = new ReflectionClass(this);
 
         const nsName = reflClass.namespaceName;
-        const confClass = `${nsName}.Configuration`;
+        const confClass = nsName + '.Configuration';
 
         if (ReflectionClass.exists(confClass)) {
             const reflected = new ReflectionClass(confClass);
@@ -43,7 +43,7 @@ class Extension extends implementationOf(ExtensionInterface) {
      * @inheritdoc
      */
     get namespace() {
-        return `http://example.org/schema/dic/${this.alias}`;
+        return 'http://example.org/schema/dic/' + this.alias;
     }
 
     /**

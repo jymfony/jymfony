@@ -19,8 +19,6 @@ class ChoiceQuestion extends Question {
      * @param {Jymfony.Component.Console.Output.OutputInterface} output
      * @param {Jymfony.Component.Console.Question.Choice[]} choices
      * @param {string} [mode = Jymfony.Component.Console.Question.ChoiceQuestion.MODE_LIST]
-     *
-     * @inheritdoc
      */
     __construct(input, output, choices, mode = ChoiceQuestion.MODE_LIST) {
         super.__construct(input, output);

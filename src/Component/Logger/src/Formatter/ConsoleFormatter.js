@@ -23,8 +23,6 @@ class ConsoleFormatter extends NormalizerFormatter {
      * Constructor.
      *
      * @param {Object} [options = {}]
-     *
-     * @inheritdoc
      */
     __construct(options = {}) {
         this._options = Object.assign({}, {

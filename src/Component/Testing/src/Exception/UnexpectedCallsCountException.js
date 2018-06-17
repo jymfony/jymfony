@@ -11,8 +11,6 @@ class UnexpectedCallsCountException extends UnexpectedCallsException {
      * @param {Jymfony.Component.Testing.Prophecy.MethodProphecy} methodProphecy
      * @param {int} count
      * @param {*[]} calls
-     *
-     * @inheritdoc
      */
     __construct(message, methodProphecy, count, calls) {
         super.__construct(message, methodProphecy, calls);

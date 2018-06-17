@@ -5,6 +5,8 @@ const CacheClearerInterface = Jymfony.Component.Kernel.CacheClearer.CacheClearer
  */
 class ChainCacheClearer extends implementationOf(CacheClearerInterface) {
     /**
+     * Constructor.
+     *
      * @param {Jymfony.Component.Kernel.CacheClearer.CacheClearerInterface[]} [clearers = []]
      */
     __construct(clearers = []) {

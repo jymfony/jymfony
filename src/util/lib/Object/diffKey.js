@@ -4,7 +4,7 @@ global.__jymfony = global.__jymfony || {};
 
 /**
  * @param {Array} arr1
- * @param {...[]} arrays
+ * @param {...Array} arrays
  *
  * @returns {Array|boolean}
  */

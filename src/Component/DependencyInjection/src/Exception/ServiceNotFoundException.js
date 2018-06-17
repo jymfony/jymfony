@@ -6,7 +6,9 @@ const NotFoundExceptionInterface = Jymfony.Component.DependencyInjection.Excepti
  */
 class ServiceNotFoundException extends mix(InvalidArgumentException, NotFoundExceptionInterface) {
     /**
-     * @inheritdoc
+     * Constructor.
+     *
+     * @param {string} id
      */
     __construct(id) {
         super.__construct('Service \''+id+'\' could not be found');

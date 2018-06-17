@@ -12,8 +12,6 @@ class FileLocator extends BaseLocator {
      * @param {Jymfony.Component.Kernel.KernelInterface} kernel
      * @param {string} [path]
      * @param {string[]|string} [paths = []]
-     *
-     * @inheritdoc
      */
     __construct(kernel, path = undefined, paths = []) {
         /**

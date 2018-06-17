@@ -10,12 +10,12 @@ if (! isFunction(global.isObject)) {
 }
 
 for (const name of [ 'Arguments', 'Boolean', 'String', 'Number', 'Date', 'RegExp', 'Error', 'Symbol', 'Map', 'WeakMap', 'Set', 'WeakSet' ]) {
-    if (isFunction(global[`is${name}`])) {
+    if (isFunction(global['is' + name])) {
         continue;
     }
 
     global['is' + name] = function (obj) {
-        return toString.call(obj) === `[object ${name}]`;
+        return toString.call(obj) === '[object ' + name + ']';
     };
 }
 

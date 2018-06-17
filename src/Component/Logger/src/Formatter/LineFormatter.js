@@ -10,8 +10,6 @@ class LineFormatter extends NormalizerFormatter {
      * @param {string} [format]
      * @param {string} [dateFormat]
      * @param {boolean} [allowInlineLineBreaks = false]
-     *
-     * @inheritdoc
      */
     __construct(format = undefined, dateFormat = undefined, allowInlineLineBreaks = false) {
         /**

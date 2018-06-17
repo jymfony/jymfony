@@ -49,15 +49,13 @@ class Autoloader {
         /**
          * @type {Object}
          *
-         * @public
+         * @private
          */
         this._global = globalObject;
         this._global.__jymfony = this._global.__jymfony || {};
 
         /**
          * @type {Jymfony.Component.Autoloader.Autoloader}
-         *
-         * @public
          */
         this._global.__jymfony.autoload = this;
     }

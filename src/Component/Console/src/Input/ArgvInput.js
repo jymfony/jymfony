@@ -29,10 +29,10 @@ const Input = Jymfony.Component.Console.Input.Input;
  */
 class ArgvInput extends Input {
     /**
+     * Constructor.
+     *
      * @param {string[]} argv
      * @param {Jymfony.Component.Console.Input.InputDefinition} [definition]]
-     *
-     * @inheritdoc
      */
     __construct(argv = process.argv, definition = undefined) {
         // Skip application name

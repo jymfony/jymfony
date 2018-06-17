@@ -13,10 +13,10 @@ const Input = Jymfony.Component.Console.Input.Input;
  */
 class ArrayInput extends Input {
     /**
+     * Constructor.
+     *
      * @param {Object.<string, string>} parameters
      * @param {Jymfony.Component.Console.Input.InputDefinition} [definition]
-     *
-     * @inheritdoc
      */
     __construct(parameters, definition = undefined) {
         this._parameters = parameters;

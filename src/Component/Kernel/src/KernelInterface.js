@@ -42,7 +42,7 @@ class KernelInterface {
     /**
      * Gets the registered bundle instances.
      *
-     * @returns {Object.<Jymfony.Component.Kernel.Bundle>} An array of registered bundle instances
+     * @returns {Jymfony.Component.Kernel.Bundle[]} An array of registered bundle instances
      */
     getBundles() { }
 

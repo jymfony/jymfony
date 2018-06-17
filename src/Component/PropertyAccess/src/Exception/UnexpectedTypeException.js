@@ -10,8 +10,6 @@ class UnexpectedTypeException extends RuntimeException {
      * @param {*} value
      * @param {Jymfony.Component.PropertyAccess.PropertyPath} propertyPath
      * @param {int} index
-     *
-     * @inheritdoc
      */
     __construct(value, propertyPath, index) {
         super.__construct(

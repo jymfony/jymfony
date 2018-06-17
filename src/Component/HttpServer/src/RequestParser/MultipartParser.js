@@ -18,8 +18,6 @@ class MultipartParser extends AbstractParser {
      * @param {IncomingMessage} req
      * @param {Jymfony.Component.HttpFoundation.Header.ContentType} contentType
      * @param {undefined|int} contentLength
-     *
-     * @inheritdoc
      */
     __construct(req, contentType, contentLength) {
         if ('form-data' !== contentType.subtype) {

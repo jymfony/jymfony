@@ -8,8 +8,6 @@ class AggregateException extends mix(RuntimeException, PredictionException) {
      * Constructor.
      *
      * @param {string} message
-     *
-     * @inheritdoc
      */
     __construct(message) {
         super.__construct(message);

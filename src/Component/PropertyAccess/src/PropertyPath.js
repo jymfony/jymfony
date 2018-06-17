@@ -15,7 +15,7 @@ class PropertyPath extends implementationOf(PropertyPathInterface) {
             this._elements = Array.from(propertyPath._elements);
         } else if (isString(propertyPath)) {
             if (! /[a-zA-Z0-9._]+/.test(propertyPath)) {
-                throw new InvalidArgumentException(`${propertyPath} is not a valid path`);
+                throw new InvalidArgumentException(propertyPath + ' is not a valid path');
             }
 
             this._elements = propertyPath.split('.');
@@ -40,7 +40,7 @@ class PropertyPath extends implementationOf(PropertyPathInterface) {
      */
     getElement(index) {
         if (index >= this.length) {
-            throw new OutOfBoundsException(`The index ${index} is not within the path`);
+            throw new OutOfBoundsException('The index ' + index + ' is not within the path');
         }
 
         return this._elements[index];
