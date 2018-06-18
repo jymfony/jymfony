@@ -4,13 +4,19 @@ const Container = Jymfony.Component.DependencyInjection.Container;
  * @memberOf Jymfony.Component.DependencyInjection
  */
 class Alias {
+    /**
+     * Constructor.
+     *
+     * @param {string} id
+     * @param {boolean} [public_ = false]
+     */
     __construct(id, public_ = false) {
         this._id = Container.normalizeId(id);
         this._public = public_;
     }
 
     /**
-     * Checks if should be public
+     * Checks if should be public.
      *
      * @returns {boolean}
      */
@@ -19,9 +25,9 @@ class Alias {
     }
 
     /**
-     * Sets if this Alias is public
+     * Sets if this Alias is public.
      *
-     * @param public_
+     * @param {boolean} public_
      *
      * @returns {Jymfony.Component.DependencyInjection.Alias}
      */
@@ -32,9 +38,9 @@ class Alias {
     }
 
     /**
-     * Returns the Id of this alias
+     * Returns the Id of this alias.
      *
-     * @returns {*}
+     * @returns {string}
      */
     toString() {
         return this._id;

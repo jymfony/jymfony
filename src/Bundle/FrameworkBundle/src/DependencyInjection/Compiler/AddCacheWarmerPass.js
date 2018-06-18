@@ -6,8 +6,7 @@ const PriorityTaggedServiceTrait = Jymfony.Component.DependencyInjection.Compile
  */
 class AddCacheWarmerPass extends implementationOf(CompilerPassInterface, PriorityTaggedServiceTrait) {
     /**
-     *
-     * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
+     * @inheritdoc
      */
     process(container) {
         if (! container.hasDefinition('cache_warmer')) {

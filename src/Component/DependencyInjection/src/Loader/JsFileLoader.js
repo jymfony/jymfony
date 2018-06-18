@@ -23,6 +23,7 @@ class JsFileLoader extends FileLoader {
     __construct(container, locator) {
         /**
          * @type {Jymfony.Component.DependencyInjection.ContainerBuilder}
+         *
          * @private
          */
         this._container = container;
@@ -31,7 +32,7 @@ class JsFileLoader extends FileLoader {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     load(resource) {
         const oldCWD = this.currentDir;
@@ -54,7 +55,7 @@ class JsFileLoader extends FileLoader {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     supports(resource, type = undefined) {
         if (! isString(resource)) {

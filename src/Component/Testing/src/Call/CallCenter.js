@@ -11,7 +11,8 @@ class CallCenter {
      */
     __construct() {
         /**
-         * @type {[Jymfony.Component.Testing.Call.Call]}
+         * @type {Jymfony.Component.Testing.Call.Call[]}
+         *
          * @private
          */
         this._recordedCalls = [];
@@ -22,11 +23,11 @@ class CallCenter {
      *
      * @param {Jymfony.Component.Testing.Prophecy.ObjectProphecy} prophecy
      * @param {string} methodName
-     * @param {[*]} args
+     * @param {*[]} args
      *
      * @returns {*} Returns null if no promise for prophecy found or promise return value.
      *
-     * @throws \Prophecy\Exception\Call\UnexpectedCallException If no appropriate method prophecy found
+     * @throws {Jymfony.Component.Testing.Exception.UnexpectedCallException} If no appropriate method prophecy found
      */
     makeCall(prophecy, methodName, args) {
         const backtrace = (new Exception()).stackTrace;
@@ -80,7 +81,7 @@ class CallCenter {
      * @param {string} methodName
      * @param {Jymfony.Component.Testing.Argument.ArgumentsWildcard} wildcard
      *
-     * @returns {[Jymfony.Component.Testing.Call.Call]}
+     * @returns {Jymfony.Component.Testing.Call.Call[]}
      */
     findCalls(methodName, wildcard) {
         return this._recordedCalls
@@ -93,7 +94,9 @@ class CallCenter {
      *
      * @param {Jymfony.Component.Testing.Prophecy.ObjectProphecy} prophecy
      * @param {string} methodName
-     * @param {[*]} args
+     * @param {*[]} args
+     *
+     * @returns {Jymfony.Component.Testing.Exception.UnexpectedCallException}
      */
     createUnexpectedCallException(prophecy, methodName, args) {
         const className = (new ReflectionClass(prophecy.reveal())).name;

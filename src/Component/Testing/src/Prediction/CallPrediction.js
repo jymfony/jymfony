@@ -8,7 +8,7 @@ const AnyValuesToken = Jymfony.Component.Testing.Argument.Token.AnyValuesToken;
  */
 class CallPrediction extends implementationOf(PredictionInterface) {
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     check(calls, object, method) {
         if (calls.length) {

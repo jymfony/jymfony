@@ -5,14 +5,14 @@ class HttpExceptionInterface {
     /**
      * Returns the status code.
      *
-     * @return int An HTTP response status code
+     * @returns {int} An HTTP response status code
      */
     get statusCode() { }
 
     /**
      * Returns response headers.
      *
-     * @return array Response headers
+     * @returns {Array} Response headers
      */
     get headers() { }
 }

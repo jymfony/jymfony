@@ -8,7 +8,7 @@ const ScalarNodeDefinition = Jymfony.Component.Config.Definition.Builder.ScalarN
  */
 class EnumNodeDefinition extends ScalarNodeDefinition {
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     __construct(name, parent = undefined) {
         super.__construct(name, parent);
@@ -40,9 +40,7 @@ class EnumNodeDefinition extends ScalarNodeDefinition {
     }
 
     /**
-     * Instantiate a Node.
-     *
-     * @returns {Jymfony.Component.Config.Definition.EnumNode} The node
+     * @inheritdoc
      */
     instantiateNode() {
         if (undefined === this._values) {

@@ -3,9 +3,11 @@ const CompilerPassInterface = Jymfony.Component.DependencyInjection.Compiler.Com
 
 /**
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
- * @type {Jymfony.Component.DependencyInjection.Compiler.DecoratorServicePass}
  */
-module.exports = class DecoratorServicePass extends implementationOf(CompilerPassInterface) {
+class DecoratorServicePass extends implementationOf(CompilerPassInterface) {
+    /**
+     * @inheritdoc
+     */
     process(container) {
         const definitions = new PriorityQueue();
 
@@ -43,4 +45,6 @@ module.exports = class DecoratorServicePass extends implementationOf(CompilerPas
             container.setAlias(inner, new Alias(id, public_));
         }
     }
-};
+}
+
+module.exports = DecoratorServicePass;

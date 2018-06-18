@@ -8,31 +8,33 @@ const ScalarNode = Jymfony.Component.Config.Definition.ScalarNode;
  */
 class NumericNode extends ScalarNode {
     /**
-     * Constructor
+     * Constructor.
      *
      * @param {string} name
-     * @param {Jymfony.Component.Config.Definition.NodeInterface} parent
-     * @param {number} min
-     * @param {number} max
+     * @param {Jymfony.Component.Config.Definition.NodeInterface} [parent]
+     * @param {number} [min]
+     * @param {number} [max]
      */
     __construct(name, parent = undefined, min = undefined, max = undefined) {
         super.__construct(name, parent);
 
         /**
          * @type {number}
+         *
          * @protected
          */
         this._min = min;
 
         /**
          * @type {number}
+         *
          * @protected
          */
         this._max = max;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     finalizeValue(value) {
         value = super.finalizeValue(value);

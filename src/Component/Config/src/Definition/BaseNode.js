@@ -5,11 +5,17 @@ const ForbiddenOverwriteException = Jymfony.Component.Config.Definition.Exceptio
  * The base node class.
  *
  * @memberOf Jymfony.Component.Config.Definition
+ *
  * @abstract
  */
 class BaseNode extends implementationOf(NodeInterface) {
     /**
-     * @throws \InvalidArgumentException if the name contains a period
+     * Constructor.
+     *
+     * @param {string} name
+     * @param {Jymfony.Component.Config.Definition.NodeInterface} [parent]
+     *
+     * @throws {InvalidArgumentException} if the name contains a period
      */
     __construct(name, parent = undefined) {
         if (isString(name) && -1 !== name.indexOf('.')) {
@@ -18,44 +24,109 @@ class BaseNode extends implementationOf(NodeInterface) {
 
         /**
          * @type {string}
+         *
          * @protected
          */
         this._name = name;
 
         /**
-         * @type {Jymfony.Component.Config.Definition.NodeInterface}
+         * @type {Jymfony.Component.Config.Definition.NodeInterface|undefined}
+         *
          * @protected
          */
         this._parent = parent;
+
+        /**
+         * @type {Function[]}
+         *
+         * @private
+         */
         this._normalizationClosures = [];
+
+        /**
+         * @type {Function[]}
+         *
+         * @private
+         */
         this._finalValidationClosures = [];
+
+        /**
+         * @type {boolean}
+         *
+         * @private
+         */
         this._allowOverwrite = true;
+
+        /**
+         * @type {boolean}
+         *
+         * @private
+         */
         this._required = false;
+
+        /**
+         * @type {string|undefined}
+         *
+         * @private
+         */
         this._deprecationMessage = undefined;
+
+        /**
+         * @type {Array}
+         *
+         * @private
+         */
         this._equivalentValues = [];
+
+        /**
+         * @type {Object}
+         *
+         * @private
+         */
         this._attributes = {};
     }
 
+    /**
+     * @param {*} key
+     * @param {*} value
+     */
     setAttribute(key, value) {
         this._attributes[key] = value;
     }
-
+    /**
+     * @param {*} key
+     * @param {*} [defaultValue]
+     */
     getAttribute(key, defaultValue = undefined) {
         return this._attributes[key] || defaultValue;
     }
 
+    /**
+     * @param {*} key
+     *
+     * @returns {boolean}
+     */
     hasAttribute(key) {
         return undefined !== this._attributes[key];
     }
 
+    /**
+     * @returns {Object}
+     */
     getAttributes() {
         return this._attributes;
     }
 
+    /**
+     * @param {Object} _attributes
+     */
     setAttributes(_attributes) {
         this._attributes = _attributes;
     }
 
+    /**
+     * @param {*} key
+     */
     removeAttribute(key) {
         delete this._attributes[key];
     }
@@ -81,7 +152,7 @@ class BaseNode extends implementationOf(NodeInterface) {
     /**
      * Sets the example configuration for this node.
      *
-     * @param {string|[string]} example
+     * @param {string|string[]} example
      */
     setExample(example) {
         this.setAttribute('example', example);
@@ -90,7 +161,7 @@ class BaseNode extends implementationOf(NodeInterface) {
     /**
      * Retrieves the example configuration for this node.
      *
-     * @returns {string|[string]} The example
+     * @returns {string|string[]} The example
      */
     getExample() {
         return this.getAttribute('example');
@@ -139,7 +210,7 @@ class BaseNode extends implementationOf(NodeInterface) {
     /**
      * Sets the closures used for normalization.
      *
-     * @param {[Function]} closures An array of Closures used for normalization
+     * @param {Function[]} closures An array of Closures used for normalization
      */
     setNormalizationClosures(closures) {
         this._normalizationClosures = closures;
@@ -148,7 +219,7 @@ class BaseNode extends implementationOf(NodeInterface) {
     /**
      * Sets the closures used for final validation.
      *
-     * @param {[Function]} closures An array of Closures used for final validation
+     * @param {Function[]} closures An array of Closures used for final validation
      */
     setFinalValidationClosures(closures) {
         this._finalValidationClosures = closures;
@@ -322,6 +393,7 @@ class BaseNode extends implementationOf(NodeInterface) {
      * @param {*} value The value to validate
      *
      * @throws {Jymfony.Component.Config.Definition.Exception.InvalidTypeException} when the value is invalid
+     *
      * @abstract
      */
     validateType(value) { // eslint-disable-line no-unused-vars
@@ -333,7 +405,8 @@ class BaseNode extends implementationOf(NodeInterface) {
      *
      * @param {*} value The value to normalize
      *
-     * @return mixed The normalized value
+     * @returns {*} The normalized value
+     *
      * @abstract
      */
     normalizeValue(value) { // eslint-disable-line no-unused-vars
@@ -347,6 +420,7 @@ class BaseNode extends implementationOf(NodeInterface) {
      * @param {*} rightSide
      *
      * @returns {*} The merged value
+     *
      * @abstract
      */
     mergeValues(leftSide, rightSide) { // eslint-disable-line no-unused-vars
@@ -359,6 +433,7 @@ class BaseNode extends implementationOf(NodeInterface) {
      * @param {*} value The value to finalize
      *
      * @returns {*} The finalized value
+     *
      * @abstract
      */
     finalizeValue(value) { // eslint-disable-line no-unused-vars

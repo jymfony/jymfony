@@ -13,10 +13,7 @@ const path = require('path');
  */
 class FrameworkExtension extends Extension {
     /**
-     * Load a configuration
-     *
-     * @param {*} configs
-     * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
+     * @inheritdoc
      */
     load(configs, container) {
         const loader = new JsFileLoader(container, new FileLocator(path.join(__dirname, '..', 'Resources', 'config')));
@@ -36,18 +33,22 @@ class FrameworkExtension extends Extension {
     }
 
     /**
-     * @inheritDoc
+     * Returns the extension configuration object.
      *
      * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
+     *
+     * @returns {Jymfony.Component.Config.Definition.ConfigurationInterface}
      */
     getConfiguration(container) {
         return new Configuration(container.getParameter('kernel.debug'));
     }
 
     /**
-     * @param {*} config
+     * @param {Object} config
      * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
      * @param {Jymfony.Component.DependencyInjection.Loader.LoaderInterface} loader
+     *
+     * @private
      */
     _registerConsoleConfiguration(config, container, loader) {
         if (! this._isConfigEnabled(container, config)) {
@@ -62,9 +63,11 @@ class FrameworkExtension extends Extension {
     }
 
     /**
-     * @param {*} config
+     * @param {Object} config
      * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
-     * @param loader
+     * @param {Jymfony.Component.DependencyInjection.Loader.LoaderInterface} loader
+     *
+     * @private
      */
     _registerLoggerConfiguration(config, container, loader) {
         if (! this._isConfigEnabled(container, config) || ! config.handlers) {
@@ -99,6 +102,15 @@ class FrameworkExtension extends Extension {
         container.setDefinition('jymfony.logger', definition);
     }
 
+    /**
+     * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
+     * @param {string} name
+     * @param {PriorityQueue} handler
+     *
+     * @returns {string}
+     *
+     * @private
+     */
     _buildLoggerHandler(container, name, handler) {
         const handlerId = 'jymfony.logger.handler.'+name;
         if ('service' === handler.type) {
@@ -176,9 +188,11 @@ class FrameworkExtension extends Extension {
     }
 
     /**
-     * @param {*} config
+     * @param {Object} config
      * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
      * @param {Jymfony.Component.DependencyInjection.Loader.LoaderInterface} loader
+     *
+     * @private
      */
     _registerRouterConfiguration(config, container, loader) {
         if (! this._isConfigEnabled(container, config)) {
@@ -206,9 +220,11 @@ class FrameworkExtension extends Extension {
     }
 
     /**
-     * @param {*} config
+     * @param {Object} config
      * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
      * @param {Jymfony.Component.DependencyInjection.Loader.LoaderInterface} loader
+     *
+     * @private
      */
     _registerHttpServerConfiguration(config, container, loader) {
         if (! this._isConfigEnabled(container, config)) {

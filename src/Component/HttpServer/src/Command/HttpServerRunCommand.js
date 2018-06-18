@@ -16,6 +16,7 @@ class HttpServerRunCommand extends Command {
 
         /**
          * @type {Jymfony.Component.HttpServer.HttpServer}
+         *
          * @private
          */
         this._server = server;

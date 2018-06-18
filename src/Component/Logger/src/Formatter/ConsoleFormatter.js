@@ -66,7 +66,7 @@ class ConsoleFormatter extends NormalizerFormatter {
     /**
      * @param {Object} record
      *
-     * @returns {*}
+     * @returns {Object}
      *
      * @private
      */

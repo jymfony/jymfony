@@ -6,15 +6,20 @@ const LoggerAwareTrait = Jymfony.Component.Logger.LoggerAwareTrait;
  * @memberOf Jymfony.Component.Cache.Traits
  */
 class ArrayTrait extends mix(undefined, LoggerAwareTrait) {
+    /**
+     * Constructor.
+     */
     __construct() {
         /**
-         * @type {Object<string, string>}
+         * @type {Object.<string, string>}
+         *
          * @private
          */
         this._values = {};
 
         /**
-         * @type {Object<string, number>}
+         * @type {Object.<string, number>}
+         *
          * @private
          */
         this._expiries = {};
@@ -23,14 +28,14 @@ class ArrayTrait extends mix(undefined, LoggerAwareTrait) {
     /**
      * Returns all cached values, with cache miss as null.
      *
-     * @returns {Object<string, string>}
+     * @returns {Object.<string, string>}
      */
     get values() {
         return this._values;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     async hasItem(key) {
         CacheItem.validateKey(key);
@@ -39,7 +44,7 @@ class ArrayTrait extends mix(undefined, LoggerAwareTrait) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     async clear() {
         this._values = {};
@@ -49,7 +54,7 @@ class ArrayTrait extends mix(undefined, LoggerAwareTrait) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     async deleteItem(key) {
         CacheItem.validateKey(key);

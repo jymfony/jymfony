@@ -2,15 +2,22 @@
  * @memberOf Jymfony.Component.HttpFoundation
  */
 class HeaderBag {
+    /**
+     * Constructor.
+     *
+     * @param {Object.<string, string[]>} [headers = {}]
+     */
     __construct(headers = {}) {
         /**
-         * @type {Object<string, [string]>}
+         * @type {Object.<string, string[]>}
+         *
          * @private
          */
         this._headers = {};
 
         /**
-         * @type {Object<string, int|string|boolean>}
+         * @type {Object.<string, int|string|boolean>}
+         *
          * @private
          */
         this._cacheControl = {};
@@ -44,7 +51,7 @@ class HeaderBag {
     /**
      * Gets a copy of the parameters collection.
      *
-     * @returns {Object<string, *>}
+     * @returns {Object.<string, *>}
      */
     get all() {
         return Object.assign({}, this._headers);
@@ -53,7 +60,7 @@ class HeaderBag {
     /**
      * Gets the parameters keys.
      *
-     * @returns {[string]}
+     * @returns {string[]}
      */
     get keys() {
         return Object.keys(this._headers);
@@ -62,7 +69,7 @@ class HeaderBag {
     /**
      * Adds/replaces parameters in the bag.
      *
-     * @param {Object<string, *>} parameters
+     * @param {Object.<string, *>} parameters
      */
     add(parameters) {
         Object.assign(this._headers, parameters);
@@ -72,8 +79,8 @@ class HeaderBag {
      * Gets a parameter or returns the default if the parameter is non existent.
      *
      * @param {string} key
-     * @param {*} defaultValue
-     * @param {boolean} first
+     * @param {*} [defaultValue]
+     * @param {boolean} [first = true]
      *
      * @returns {*|string|undefined}
      */
@@ -95,7 +102,7 @@ class HeaderBag {
      *
      * @param {string} key
      * @param {*} values
-     * @param {boolean} replace
+     * @param {boolean} [replace = true]
      */
     set(key, values, replace = true) {
         key = key.toLowerCase().replace(/_/g, '-');
@@ -163,6 +170,9 @@ class HeaderBag {
         return Object.keys(this._headers).length;
     }
 
+    /**
+     * @returns {Object}
+     */
     get cookies() {
         return this.get('cookie', '')
             .split('; ')
@@ -170,6 +180,9 @@ class HeaderBag {
             .reduce((res, val) => (res[val[0]] = val[1], res), {});
     }
 
+    /**
+     * @returns {string}
+     */
     get cacheControlHeader() {
         const parts = [];
         Object.ksort(this._cacheControl);
@@ -193,7 +206,7 @@ class HeaderBag {
      *
      * @param {string} header The value of the Cache-Control HTTP header
      *
-     * @returns {Object<string, int|string|boolean>} An array representing the attribute values
+     * @returns {Object.<string, int|string|boolean>} An array representing the attribute values
      *
      * @protected
      */

@@ -5,13 +5,30 @@ const PriorityTaggedServiceTrait = Jymfony.Component.DependencyInjection.Compile
  * @memberOf Jymfony.Component.Routing.DependencyInjection
  */
 class RoutingResolverPass extends implementationOf(CompilerPassInterface, PriorityTaggedServiceTrait) {
+    /**
+     * Constructor.
+     *
+     * @param {string} [resolverServiceId = 'routing.resolver']
+     * @param {string} [loaderTag = 'routing.loader']
+     */
     __construct(resolverServiceId = 'routing.resolver', loaderTag = 'routing.loader') {
+        /**
+         * @type {string}
+         *
+         * @private
+         */
         this._resolverServiceId = resolverServiceId;
+
+        /**
+         * @type {string}
+         *
+         * @private
+         */
         this._loaderTag = loaderTag;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     process(container) {
         if (false === container.hasDefinition(this._resolverServiceId)) {

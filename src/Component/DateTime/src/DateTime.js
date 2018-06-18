@@ -1,6 +1,6 @@
 const DateTimeFormatter = Jymfony.Component.DateTime.Formatter.DateTimeFormatter;
 const Parser = Jymfony.Component.DateTime.Parser.Parser;
-const tm_desc = Jymfony.Component.DateTime.Struct.tm_desc;
+const TimeDescriptor = Jymfony.Component.DateTime.Struct.TimeDescriptor;
 const TimeSpan = Jymfony.Component.DateTime.TimeSpan;
 
 /**
@@ -11,36 +11,35 @@ const TimeSpan = Jymfony.Component.DateTime.TimeSpan;
  * returned.
  *
  * @memberOf Jymfony.Component.DateTime
- * @type DateTime
  */
 class DateTime {
     /**
      * Constructor.
      *
-     * @param {undefined|string|int|Date} datetime The datetime string or unix timestamp
-     * @param {undefined|string|Jymfony.Component.DateTime.DateTimeZone} timezone The timezone of the datetime
+     * @param {undefined|string|int|Date} [datetime] The datetime string or unix timestamp
+     * @param {undefined|string|Jymfony.Component.DateTime.DateTimeZone} [timezone] The timezone of the datetime
      */
     __construct(datetime = undefined, timezone = undefined) {
         if (undefined === datetime) {
-            this._tm = new tm_desc(timezone);
+            this._tm = new TimeDescriptor(timezone);
         } else if (isString(datetime)) {
             const p = new Parser();
             this._tm = p.parse(datetime, timezone);
         } else if (isNumber(datetime)) {
-            this._tm = new tm_desc(timezone);
-            this._tm.unix_timestamp = datetime;
+            this._tm = new TimeDescriptor(timezone);
+            this._tm.unixTimestamp = datetime;
         } else if (datetime instanceof Date) {
             const val = datetime.valueOf();
-            this._tm = new tm_desc(timezone);
-            this._tm.unix_timestamp = ~~(val / 1000);
-            this._tm.tm_msec = val % 1000;
+            this._tm = new TimeDescriptor(timezone);
+            this._tm.unixTimestamp = ~~(val / 1000);
+            this._tm.milliseconds = val % 1000;
         } else {
             throw new InvalidArgumentException('Argument 1 passed to new DateTime should be a string, a number or undefined');
         }
     }
 
     /**
-     * Gets a new DateTime object representing the current datetime.
+     * Gets a new DateTime representing the current datetime.
      *
      * @returns {Jymfony.Component.DateTime.DateTime}
      */
@@ -79,93 +78,93 @@ class DateTime {
     }
 
     /**
-     * Gets the Year component of this datetime instance
+     * Gets the year.
      *
      * @returns {int}
      */
     get year() {
-        return this._tm.tm_year;
+        return this._tm._year;
     }
 
     /**
-     * Gets the Month component of this datetime instance
+     * Gets the month.
      *
      * @returns {int}
      */
     get month() {
-        return this._tm.tm_mon;
+        return this._tm.month;
     }
 
     /**
-     * Gets the Day component of this datetime instance
+     * Gets the day.
      *
      * @returns {int}
      */
     get day() {
-        return this._tm.tm_mday;
+        return this._tm.day;
     }
 
     /**
-     * Gets the Hour component of this datetime instance
+     * Gets the hour.
      *
      * @returns {int}
      */
     get hour() {
-        return this._tm.tm_hour;
+        return this._tm.hour;
     }
 
     /**
-     * Gets the Minute component of this datetime instance
+     * Gets the minutes.
      *
      * @returns {int}
      */
     get minute() {
-        return this._tm.tm_min;
+        return this._tm.minutes;
     }
 
     /**
-     * Gets the Second component of this datetime instance
+     * Gets the seconds.
      *
      * @returns {int}
      */
     get second() {
-        return this._tm.tm_sec;
+        return this._tm.seconds;
     }
 
     /**
-     * Gets the Millisecond component of this datetime instance
+     * Gets the milliseconds.
      *
      * @returns {int}
      */
     get millisecond() {
-        return this._tm.tm_msec;
+        return this._tm.milliseconds;
     }
 
     /**
-     * Gets the timezone of this datetime instance
+     * Gets the timezone.
      *
      * @returns {Jymfony.Component.DateTime.DateTimeZone}
      */
     get timezone() {
-        return this._tm.tm_tz;
+        return this._tm.timeZone;
     }
 
     /**
-     * Gets the UNIX timestamp of this instance
+     * Gets the UNIX timestamp.
      *
      * @returns {int}
      */
     get timestamp() {
-        return this._tm.unix_timestamp;
+        return this._tm.unixTimestamp;
     }
 
     /**
      * Gets the UNIX timestamp with milliseconds.
      *
-     * @return {float}
+     * @returns {float}
      */
     get microtime() {
-        return this._tm.unix_timestamp + (this._tm.tm_msec / 1000);
+        return this._tm.unixTimestamp + (this._tm.milliseconds / 1000);
     }
 
     /**
@@ -175,7 +174,7 @@ class DateTime {
      * @returns {int}
      */
     get dayOfWeek() {
-        return this._tm.tm_wday;
+        return this._tm.weekDay;
     }
 
     /**
@@ -184,7 +183,7 @@ class DateTime {
      * @returns {int}
      */
     get dayOfYear() {
-        return this._tm.tm_yday;
+        return this._tm.yearDay;
     }
 
     /**
@@ -194,44 +193,43 @@ class DateTime {
      * @returns {boolean}
      */
     get isDST() {
-        return this._tm.tm_tz.isDST(this);
+        return this._tm.timeZone.isDST(this);
     }
 
     /**
-     * Indicates whether the year of this instance of DateTime
-     * is a leap year.
+     * Indicates whether the year of this instance of DateTime is a leap year.
      *
      * @returns {boolean}
      */
     get isLeapYear() {
-        return this._tm.tm_leap;
+        return this._tm.leap;
     }
 
     /**
      * Modify the time.
      *
-     * @param {number} hours
-     * @param {number} minutes
-     * @param {number} seconds
-     * @param {number} milliseconds
+     * @param {int} hours
+     * @param {int} minutes
+     * @param {int} seconds
+     * @param {int} [milliseconds = 0]
      *
      * @returns {Jymfony.Component.DateTime.DateTime}
      */
     setTime(hours, minutes, seconds, milliseconds = 0) {
         if (
-            hours === this._tm.tm_hour &&
-            minutes === this._tm.tm_min &&
-            seconds === this._tm.tm_sec &&
-            milliseconds === this._tm.tm_msec
+            hours === this._tm.hour &&
+            minutes === this._tm.minutes &&
+            seconds === this._tm.seconds &&
+            milliseconds === this._tm.milliseconds
         ) {
             return this;
         }
 
         const val = this.copy();
-        val._tm.tm_hour = hours;
-        val._tm.tm_min = minutes;
-        val._tm.tm_sec = seconds;
-        val._tm.tm_msec = milliseconds;
+        val._tm.hour = hours;
+        val._tm.minutes = minutes;
+        val._tm.seconds = seconds;
+        val._tm.milliseconds = milliseconds;
 
         return val;
     }
@@ -239,25 +237,25 @@ class DateTime {
     /**
      * Modify the date.
      *
-     * @param {number} year
-     * @param {number} month
-     * @param {number} day
+     * @param {int} year
+     * @param {int} month
+     * @param {int} day
      *
      * @returns {Jymfony.Component.DateTime.DateTime}
      */
     setDate(year, month, day) {
         if (
-            year === this._tm.tm_year &&
-            month === this._tm.tm_mon &&
-            day === this._tm.tm_mday
+            year === this._tm._year &&
+            month === this._tm.month &&
+            day === this._tm.day
         ) {
             return this;
         }
 
         const val = this.copy();
-        val._tm.tm_year = year;
-        val._tm.tm_mon = month;
-        val._tm.tm_mday = day;
+        val._tm._year = year;
+        val._tm.month = month;
+        val._tm.day = day;
 
         if (! val._tm.valid) {
             throw new InvalidArgumentException('Invalid date.');
@@ -267,7 +265,7 @@ class DateTime {
     }
 
     /**
-     * Adds or subtracts a TimeSpan interval
+     * Adds or subtracts a TimeSpan interval.
      *
      * @param {Jymfony.Component.DateTime.TimeSpan} interval
      *
@@ -281,7 +279,7 @@ class DateTime {
     }
 
     /**
-     * Returns a copy of this object
+     * Returns a copy of the current instance.
      *
      * @returns {Jymfony.Component.DateTime.DateTime}
      */
@@ -293,7 +291,7 @@ class DateTime {
     }
 
     /**
-     * Formats a date time
+     * Formats a DateTime.
      *
      * @param {string} format
      *
@@ -305,9 +303,10 @@ class DateTime {
 
     /**
      * Returns a value indicating whether this object has
-     * the same date time value of the specified instance
+     * the same date time value of the specified instance.
      *
      * @param {Jymfony.Component.DateTime.DateTime} instance
+     *
      * @returns {boolean}
      */
     equals(instance) {
@@ -317,14 +316,14 @@ class DateTime {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     toString() {
         return this.format(DateTime.ISO8601);
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     get [Symbol.toStringTag]() {
         return 'DateTime';

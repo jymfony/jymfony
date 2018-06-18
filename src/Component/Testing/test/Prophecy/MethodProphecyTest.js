@@ -15,12 +15,14 @@ describe('[Testing] MethodProphecy', function () {
     beforeEach(() => {
         /**
          * @type {Jymfony.Component.Testing.Prophet}
+         *
          * @private
          */
         this._prophet = new Prophet();
 
         /**
          * @type {Jymfony.Component.Testing.Prophecy.ObjectProphecy}
+         *
          * @private
          */
         this._objectProphecy = this._prophet.prophesize(ObjectProphecy);
@@ -33,6 +35,7 @@ describe('[Testing] MethodProphecy', function () {
 
         /**
          * @type {Jymfony.Component.Testing.Prophecy.ObjectProphecy}
+         *
          * @private
          */
         this._methodProphecy = new MethodProphecy(this._objectProphecy.reveal(), 'name', undefined);

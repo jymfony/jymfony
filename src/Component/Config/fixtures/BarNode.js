@@ -1,4 +1,6 @@
 const ArrayNode = Jymfony.Component.Config.Definition.ArrayNode;
 
-module.exports = class BarNode extends ArrayNode {
-};
+class BarNode extends ArrayNode {
+}
+
+module.exports = BarNode;

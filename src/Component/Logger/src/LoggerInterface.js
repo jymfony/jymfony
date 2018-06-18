@@ -18,8 +18,6 @@ class LoggerInterface {
      *
      * @param {string} message
      * @param {object} [context = {}]
-     *
-     * @returns {void}
      */
     emergency(message, context = {}) { }
 
@@ -31,8 +29,6 @@ class LoggerInterface {
      *
      * @param {string} message
      * @param {object} [context = {}]
-     *
-     * @returns {void}
      */
     alert(message, context = {}) { }
 
@@ -43,8 +39,6 @@ class LoggerInterface {
      *
      * @param {string} message
      * @param {object} [context = {}]
-     *
-     * @returns {void}
      */
     critical(message, context = {}) { }
 
@@ -54,8 +48,6 @@ class LoggerInterface {
      *
      * @param {string} message
      * @param {object} [context = {}]
-     *
-     * @returns {void}
      */
     error(message, context = {}) { }
 
@@ -67,8 +59,6 @@ class LoggerInterface {
      *
      * @param {string} message
      * @param {object} [context = {}]
-     *
-     * @returns {void}
      */
     warning(message, context = {}) { }
 
@@ -77,8 +67,6 @@ class LoggerInterface {
      *
      * @param {string} message
      * @param {object} [context = {}]
-     *
-     * @returns {void}
      */
     notice(message, context = {}) { }
 
@@ -89,8 +77,6 @@ class LoggerInterface {
      *
      * @param {string} message
      * @param {object} [context = {}]
-     *
-     * @returns {void}
      */
     info(message, context = {}) { }
 
@@ -99,8 +85,6 @@ class LoggerInterface {
      *
      * @param {string} message
      * @param {object} [context = {}]
-     *
-     * @returns {void}
      */
     debug(message, context = {}) { }
 
@@ -110,8 +94,6 @@ class LoggerInterface {
      * @param {int} level
      * @param {string} message
      * @param {object} [context = {}]
-     *
-     * @returns {void}
      */
     log(level, message, context = {}) { }
 }

@@ -8,7 +8,7 @@ const FunctionPrototype = new Function();
  */
 class Namespace {
     /**
-     * Namespace constructor
+     * Constructor.
      *
      * @param {Jymfony.Component.Autoloader.Autoloader} autoloader
      * @param {string} fqn
@@ -56,7 +56,7 @@ class Namespace {
     /**
      * Add a base directory to search classes in
      *
-     * @param directory
+     * @param {string} directory
      *
      * @returns {Jymfony.Component.Autoloader.Namespace}
      */
@@ -116,6 +116,7 @@ class Namespace {
      * class/namespace and returns it if found
      *
      * @param {string} name
+     *
      * @returns {*}
      *
      * @private
@@ -141,6 +142,13 @@ class Namespace {
         return this._require(stat.filename);
     }
 
+    /**
+     * @param {string} filename
+     *
+     * @returns {Function}
+     *
+     * @private
+     */
     _require(filename) {
         const fn = this._internalRequire.resolve(filename);
         let realTarget = undefined, self = undefined;

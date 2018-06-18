@@ -6,6 +6,7 @@ describe('[HttpFoundation] Ip', function () {
     beforeEach(() => {
         /**
          * @type {Jymfony.Component.Testing.Prophet}
+         *
          * @private
          */
         this._prophet = new Prophet();

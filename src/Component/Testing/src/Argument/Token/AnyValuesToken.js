@@ -5,14 +5,14 @@ const TokenInterface = Jymfony.Component.Testing.Argument.Token.TokenInterface;
  */
 class AnyValuesToken extends implementationOf(TokenInterface) {
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     scoreArgument() {
         return 2;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     isLast() {
         return true;

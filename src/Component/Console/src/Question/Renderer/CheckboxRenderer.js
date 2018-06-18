@@ -6,16 +6,23 @@ const ListRenderer = Jymfony.Component.Console.Question.Renderer.ListRenderer;
  * This class is internal and should be considered private
  * DO NOT USE this directly.
  *
- * @internal
  * @memberOf Jymfony.Component.Console.Question.Renderer
+ *
+ * @internal
  */
 class CheckboxRenderer extends ListRenderer {
+    /**
+     * @inheritdoc
+     */
     __construct(question) {
         super.__construct(question);
 
         this._selected = [ ...this._question._choices ].fill(false);
     }
 
+    /**
+     * @inheritdoc
+     */
     _onData(data) {
         if (' ' === data.toString()) {
             this._selected[this._current] = ! this._selected[this._current];
@@ -25,6 +32,9 @@ class CheckboxRenderer extends ListRenderer {
         return super._onData(data);
     }
 
+    /**
+     * @inheritdoc
+     */
     _getValue() {
         const choices = [];
         for (let key = 0; key < this._selected.length; key++) {
@@ -36,10 +46,20 @@ class CheckboxRenderer extends ListRenderer {
         return choices.map(T => T.value);
     }
 
+    /**
+     * @inheritdoc
+     */
     _renderChoice(choice, key) {
         return ' ' + (this._current === key ? '>' : ' ') + ' ' + this._getCheckbox(this._selected[key]) + ' ' + choice.label;
     }
 
+    /**
+     * @param {boolean} selected
+     *
+     * @returns {string}
+     *
+     * @private
+     */
     _getCheckbox(selected) {
         if (__jymfony.Platform.isWindows()) {
             return selected ? '[x]' : '[ ]';

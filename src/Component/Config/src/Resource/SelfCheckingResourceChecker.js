@@ -6,14 +6,14 @@ const SelfCheckingResourceInterface = Jymfony.Component.Config.Resource.SelfChec
  */
 class SelfCheckingResourceChecker extends implementationOf(ResourceCheckerInterface) {
     /**
-     * {@inheritDoc}
+     * @inheritdoc
      */
     supports(metadata) {
         return metadata instanceof SelfCheckingResourceInterface;
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritdoc
      */
     isFresh(resource, timestamp) {
         return resource.isFresh(timestamp);

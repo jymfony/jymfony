@@ -42,7 +42,7 @@ class KernelInterface {
     /**
      * Gets the registered bundle instances.
      *
-     * @returns {[Jymfony.Component.Kernel.Bundle]} An array of registered bundle instances
+     * @returns {Jymfony.Component.Kernel.Bundle[]} An array of registered bundle instances
      */
     getBundles() { }
 
@@ -50,11 +50,11 @@ class KernelInterface {
      * Returns a bundle and optionally its descendants by its name.
      *
      * @param {string} name Bundle name
-     * @param {boolean} first Whether to return the first bundle only or together with its descendants
+     * @param {boolean} [first = true] Whether to return the first bundle only or together with its descendants
      *
-     * @returns {Jymfony.Component.Kernel.Bundle|[Jymfony.Component.Kernel.Bundle]} A BundleInterface instance or an array of BundleInterface instances if first is false
+     * @returns {Jymfony.Component.Kernel.Bundle|Jymfony.Component.Kernel.Bundle[]} A BundleInterface instance or an array of BundleInterface instances if first is false
      *
-     * @throws InvalidArgumentException when the bundle is not enabled
+     * @throws {InvalidArgumentException} when the bundle is not enabled
      */
     getBundle(name, first = true) { }
 
@@ -78,10 +78,10 @@ class KernelInterface {
      * before looking in the bundle resource folder.
      *
      * @param {string} name A resource name to locate
-     * @param {undefined|string} dir A directory where to look for the resource first
-     * @param {boolean} first Whether to return the first path or paths for all matching bundles
+     * @param {undefined|string} [dir] A directory where to look for the resource first
+     * @param {boolean} [first = true] Whether to return the first path or paths for all matching bundles
      *
-     * @returns {string|[string]} The absolute path of the resource or an array if first is false
+     * @returns {string|string[]} The absolute path of the resource or an array if first is false
      *
      * @throws {InvalidArgumentException} if the file cannot be found or the name is not valid
      * @throws {RuntimeException} if the name contains invalid/unsafe characters

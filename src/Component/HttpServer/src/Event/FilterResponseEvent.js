@@ -16,6 +16,7 @@ class FilterResponseEvent extends HttpEvent {
 
         /**
          * @type {Jymfony.Component.HttpFoundation.Response}
+         *
          * @private
          */
         this._response = response;

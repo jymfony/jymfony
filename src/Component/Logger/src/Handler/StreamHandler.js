@@ -8,7 +8,7 @@ const LogLevel = Jymfony.Component.Logger.LogLevel;
  */
 class StreamHandler extends AbstractProcessingHandler {
     /**
-     * @inheritdoc
+     * Constructor.
      *
      * @param {Writable|string} stream
      * @param {int} [level = LogLevel.DEBUG]
@@ -25,6 +25,12 @@ class StreamHandler extends AbstractProcessingHandler {
              * @private
              */
             this._file = stream;
+
+            /**
+             * @type {string}
+             *
+             * @private
+             */
             this._filePermission = filePermission;
         } else {
             /**
@@ -70,7 +76,7 @@ class StreamHandler extends AbstractProcessingHandler {
     /**
      * Writes a record to the stream
      *
-     * @param {Object<string, *>} record
+     * @param {Object.<string, *>} record
      *
      * @private
      */

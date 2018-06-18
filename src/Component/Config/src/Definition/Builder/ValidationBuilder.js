@@ -14,6 +14,7 @@ class ValidationBuilder {
     __construct(node) {
         /**
          * @type {Jymfony.Component.Config.Definition.Builder.NodeDefinition}
+         *
          * @protected
          */
         this._node = node;
@@ -24,7 +25,7 @@ class ValidationBuilder {
     /**
      * Sets whether the node can be unset.
      *
-     * @param {Function|undefined} closure
+     * @param {Function} [closure]
      *
      * @returns {Jymfony.Component.Config.Definition.Builder.ExprBuilder|Jymfony.Component.Config.Definition.Builder.ValidationBuilder}
      */

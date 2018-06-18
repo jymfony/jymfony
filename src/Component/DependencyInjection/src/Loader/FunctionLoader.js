@@ -14,20 +14,21 @@ class FunctionLoader extends Loader {
     __construct(container) {
         /**
          * @type {Jymfony.Component.DependencyInjection.ContainerBuilder}
+         *
          * @private
          */
         this._container = container;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     load(resource) {
         resource(this._container);
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     supports(resource) {
         return isFunction(resource);

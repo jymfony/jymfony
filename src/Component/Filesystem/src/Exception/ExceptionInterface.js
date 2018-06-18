@@ -1,7 +1,5 @@
 /**
  * @memberOf Jymfony.Component.Filesystem.Exception
- *
- * @interface
  */
 class ExceptionInterface {
 }

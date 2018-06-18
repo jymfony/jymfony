@@ -11,11 +11,14 @@ const StreamOutput = Jymfony.Component.Console.Output.StreamOutput;
  */
 class ApplicationTester {
     /**
+     * Constructor.
+     *
      * @param {Jymfony.Component.Console.Application} application
      */
     __construct(application) {
         /**
          * @type {Jymfony.Component.Console.Application}
+         *
          * @private
          */
         this._application = application;
@@ -31,29 +34,33 @@ class ApplicationTester {
      *  * stderr           Whether to capture stderr separately from stdout [false]
      *
      * @param {Object.<string, *>} input
-     * @param {Object<string, boolean|*>} options
+     * @param {Object<string, boolean|*>} [options = {}]
      */
     run(input, options = {}) {
         /**
          * @type {string}
+         *
          * @private
          */
         this._readOutput = '';
 
         /**
          * @type {string}
+         *
          * @private
          */
         this._readStdErr = '';
 
         /**
          * @type {Jymfony.Component.Console.Input.ArrayInput}
+         *
          * @private
          */
         this._input = new ArrayInput(input);
 
         /**
          * @type {int}
+         *
          * @private
          */
         this._statusCode = undefined;
@@ -102,7 +109,7 @@ class ApplicationTester {
     /**
      * Gets the display returned by the last execution of the application.
      *
-     * @param {boolean} normalize Whether to normalize end of lines to \n or not
+     * @param {boolean} [normalize = false] Whether to normalize end of lines to \n or not
      *
      * @returns {string}
      */
@@ -119,7 +126,7 @@ class ApplicationTester {
     /**
      * Gets the output written to STDERR by the application.
      *
-     * @param {boolean} normalize Whether to normalize end of lines to \n or not
+     * @param {boolean} [normalize = false] Whether to normalize end of lines to \n or not
      *
      * @returns {string}
      *

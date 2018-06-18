@@ -12,6 +12,8 @@ class RouteCompiler {
      * Compiles a route.
      *
      * @param {Jymfony.Component.Routing.Route} route
+     *
+     * @returns {Jymfony.Component.Routing.CompiledRoute}
      */
     static compile(route) {
         let hostVariables = [];
@@ -138,6 +140,14 @@ class RouteCompiler {
         };
     }
 
+    /**
+     * @param {string} route
+     * @param {string[]} tokens
+     *
+     * @returns {string}
+     *
+     * @private
+     */
     static _determineStaticPrefix(route, tokens) {
         if ('text' !== tokens[0][0]) {
             return (route.hasDefault(tokens[0][3]) || '/' === tokens[0][1]) ? '' : tokens[0][1];
@@ -151,6 +161,13 @@ class RouteCompiler {
         return prefix;
     }
 
+    /**
+     * @param {string} pattern
+     *
+     * @returns {string}
+     *
+     * @private
+     */
     static _findNextSeparator(pattern) {
         if ('' === pattern) {
             // Return empty string if pattern is empty or false (false which can be returned by substr)
@@ -166,6 +183,15 @@ class RouteCompiler {
         return -1 !== SEPARATORS.indexOf(pattern.charAt(0)) ? pattern.charAt(0) : '';
     }
 
+    /**
+     * @param {string[]} tokens
+     * @param {int} index
+     * @param {int} firstOptional
+     *
+     * @returns {string}
+     *
+     * @private
+     */
     static _computeRegexp(tokens, index, firstOptional) {
         const token = tokens[index];
         if ('text' === token[0]) {

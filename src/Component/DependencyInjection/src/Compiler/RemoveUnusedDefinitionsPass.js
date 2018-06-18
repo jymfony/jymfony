@@ -2,9 +2,11 @@ const RepeatablePassInterface = Jymfony.Component.DependencyInjection.Compiler.R
 
 /**
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
- * @type {Jymfony.Component.DependencyInjection.Compiler.RemoveUnusedDefinitionsPass}
  */
-module.exports = class RemoveUnusedDefinitionsPass extends implementationOf(RepeatablePassInterface) {
+class RemoveUnusedDefinitionsPass extends implementationOf(RepeatablePassInterface) {
+    /**
+     * @inheritdoc
+     */
     process(container) {
         const compiler = container.getCompiler();
         const formatter = compiler.logFormatter;
@@ -55,9 +57,11 @@ module.exports = class RemoveUnusedDefinitionsPass extends implementationOf(Repe
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     setRepeatedPass(pass) {
         this._repeatedPass = pass;
     }
-};
+}
+
+module.exports = RemoveUnusedDefinitionsPass;

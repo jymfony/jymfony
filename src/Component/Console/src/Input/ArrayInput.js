@@ -7,14 +7,16 @@ const Input = Jymfony.Component.Console.Input.Input;
  *
  * Usage:
  *
- *     $input = new ArrayInput(array('name' => 'foo', '--bar' => 'foobar'));
+ *     input = new ArrayInput(['name' => 'foo', '--bar' => 'foobar']);
  *
  * @memberOf Jymfony.Component.Console.Input
  */
 class ArrayInput extends Input {
     /**
+     * Constructor.
+     *
      * @param {Object.<string, string>} parameters
-     * @param {Jymfony.Component.Console.Input.InputDefinition} definition
+     * @param {Jymfony.Component.Console.Input.InputDefinition} [definition]
      */
     __construct(parameters, definition = undefined) {
         this._parameters = parameters;
@@ -23,7 +25,7 @@ class ArrayInput extends Input {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     get firstArgument() {
         for (const [ key, value ] of __jymfony.getEntries(this._parameters)) {
@@ -36,7 +38,7 @@ class ArrayInput extends Input {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     hasParameterOption(values, onlyParams = false) {
         if (! isArray(values) && ! isObjectLiteral(values)) {
@@ -61,7 +63,7 @@ class ArrayInput extends Input {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     getParameterOption(values, defaultValue = false, onlyParams = false) {
         if (! isArray(values) || ! isObjectLiteral(values)) {
@@ -86,7 +88,7 @@ class ArrayInput extends Input {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     toString() {
         const params = [];
@@ -102,7 +104,7 @@ class ArrayInput extends Input {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     parse() {
         for (const [ key, value ] of __jymfony.getEntries(this._parameters)) {

@@ -19,29 +19,33 @@ class HttpServer {
      *
      * @param {Jymfony.Component.EventDispatcher.EventDispatcherInterface} dispatcher
      * @param {Jymfony.Component.HttpFoundation.Controller.ControllerResolverInterface} resolver
-     * @param {http} http
+     * @param {http} [http = require('http')]
      */
     __construct(dispatcher, resolver, http = require('http')) {
         /**
          * @type {Jymfony.Component.EventDispatcher.EventDispatcherInterface}
+         *
          * @protected
          */
         this._dispatcher = dispatcher;
 
         /**
          * @type {Jymfony.Component.HttpFoundation.Controller.ControllerResolverInterface}
+         *
          * @protected
          */
         this._resolver = resolver;
 
         /**
          * @type {http.Server}
+         *
          * @protected
          */
         this._http = new http.Server(this._incomingRequest.bind(this));
 
         /**
          * @type {Jymfony.Component.Logger.LoggerInterface}
+         *
          * @private
          */
         this._logger = new NullLogger();
@@ -175,7 +179,7 @@ class HttpServer {
      * and do its best to convert them to a Response instance.
      *
      * @param {Jymfony.Component.HttpFoundation.Request} request A Request instance
-     * @param {boolean} catchExceptions Whether to catch exceptions or not
+     * @param {boolean} [catchExceptions = true] Whether to catch exceptions or not
      *
      * @returns {Jymfony.Component.HttpFoundation.Response} A Response instance
      *
@@ -208,7 +212,7 @@ class HttpServer {
      * @param {Jymfony.Component.HttpFoundation.Header.ContentType} contentType
      *
      * @returns {Array} An array composed by the request params object
-     *                  and the content as Buffer
+     *     and the content as Buffer
      *
      * @protected
      */
@@ -316,7 +320,7 @@ class HttpServer {
     /**
      * Gets the request scheme.
      *
-     * @return {string}
+     * @returns {string}
      *
      * @protected
      */

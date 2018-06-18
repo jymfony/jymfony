@@ -5,7 +5,7 @@ const PromiseInterface = Jymfony.Component.Testing.Promise.PromiseInterface;
  */
 class ReturnThisPromise extends implementationOf(PromiseInterface) {
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     execute(args, object) {
         return object;

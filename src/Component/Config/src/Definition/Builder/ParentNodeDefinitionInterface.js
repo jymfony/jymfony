@@ -7,8 +7,14 @@ class ParentNodeDefinitionInterface
 {
     children() { }
 
+    /**
+     * @param {Jymfony.Component.Config.Definition.Builder.NodeDefinition} node
+     */
     append(node) { }
 
+    /**
+     * @param {Jymfony.Component.Config.Definition.Builder.TreeBuilder} builder
+     */
     setBuilder(builder) { }
 }
 

@@ -8,8 +8,7 @@ const Reference = Jymfony.Component.DependencyInjection.Reference;
  */
 class LoggerChannelPass extends AbstractRecursivePass {
     /**
-     *
-     * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
+     * @inheritdoc
      */
     process(container) {
         if (! container.hasDefinition('jymfony.logger')) {
@@ -18,18 +17,21 @@ class LoggerChannelPass extends AbstractRecursivePass {
 
         /**
          * @type {string}
+         *
          * @protected
          */
         this._currentId = undefined;
 
         /**
          * @type {Jymfony.Component.DependencyInjection.ContainerBuilder}
+         *
          * @protected
          */
         this._container = container;
 
         /**
          * @type {Set<string>}
+         *
          * @private
          */
         this._channels = new Set();
@@ -77,6 +79,9 @@ class LoggerChannelPass extends AbstractRecursivePass {
         container.setAlias('logger', new Alias('jymfony.logger', true));
     }
 
+    /**
+     * @inheritdoc
+     */
     _processValue(value, isRoot = false) {
         if (value instanceof Reference && 'logger' === value.toString()) {
             return new Reference(this._loggerId, value.invalidBehavior);
@@ -85,6 +90,13 @@ class LoggerChannelPass extends AbstractRecursivePass {
         return super._processValue(value, isRoot);
     }
 
+    /**
+     * @param {Object} configuration
+     *
+     * @returns {Generator}
+     *
+     * @private
+     */
     * _processChannels(configuration) {
         if (! configuration) {
             yield * this._channels;

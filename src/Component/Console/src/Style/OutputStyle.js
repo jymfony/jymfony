@@ -16,97 +16,98 @@ class OutputStyle extends implementationOf(OutputInterface) {
     __construct(output) {
         /**
          * @type {Jymfony.Component.Console.Output.OutputInterface}
+         *
          * @private
          */
         this._output = output;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     newLine(count = 1) {
         this._output.write(os.EOL.repeat(count));
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     write(messages, newline = false, options = 0) {
         return this._output.write(messages, newline, options);
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     writeln(messages = '', options = 0) {
         return this._output.writeln(messages, options);
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     set verbosity(level) {
         this._output.verbosity = level;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     get verbosity() {
         return this._output.verbosity;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     isQuiet() {
         return this._output.isQuiet();
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     isVerbose() {
         return this._output.isVerbose();
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     isVeryVerbose() {
         return this._output.isVeryVerbose();
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     isDebug() {
         return this._output.isDebug();
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     set decorated(decorated) {
         this._output.decorated = decorated;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     get decorated() {
         return this._output.decorated;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     set formatter(formatter) {
         this._output.formatter = formatter;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     get formatter() {
         return this._output.formatter;
@@ -116,6 +117,7 @@ class OutputStyle extends implementationOf(OutputInterface) {
      * Gets the error output.
      *
      * @returns {Jymfony.Component.Console.Output.OutputInterface}
+     *
      * @protected
      */
     _getErrorOutput() {

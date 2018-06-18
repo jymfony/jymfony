@@ -2,6 +2,13 @@
  * @memberOf Jymfony.Component.Autoloader
  */
 class Finder {
+    /**
+     * Constructor.
+     *
+     * @param {fs} fs
+     * @param {path} path
+     * @param {module} [currentModule = module]
+     */
     constructor(fs = require('fs'), path = require('path'), currentModule = module) {
         this._fs = fs;
         this._path = path;
@@ -14,10 +21,10 @@ class Finder {
     /**
      * Searches for file/folder in base dir
      *
-     * @param baseDir
-     * @param name
+     * @param {string} baseDir
+     * @param {string} name
      *
-     * @returns object
+     * @returns {Object}
      */
     find(baseDir, name) {
         let fileName = this._path.normalize(baseDir + this._path.sep + name);
@@ -47,6 +54,9 @@ class Finder {
         return undefined;
     }
 
+    /**
+     * @param {string} fn
+     */
     load(fn) {
         return this._fs.readFileSync(fn, 'utf-8');
     }
@@ -146,6 +156,11 @@ class Finder {
         return [];
     }
 
+    /**
+     * @returns {Object}
+     *
+     * @private
+     */
     _getMainModule() {
         let current = this._currentModule;
         while (current.parent) {
@@ -155,6 +170,14 @@ class Finder {
         return current;
     }
 
+    /**
+     * @param {string[]} parts
+     * @param {string} fileName
+     *
+     * @returns {string}
+     *
+     * @private
+     */
     _normalizePath(parts, fileName) {
         const joined = this._path.join(...parts, (fileName || ''));
         if ('/' !== this._path.sep) {

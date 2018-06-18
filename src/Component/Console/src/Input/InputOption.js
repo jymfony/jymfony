@@ -9,10 +9,10 @@ class InputOption {
      * Constructor
      *
      * @param {string} name
-     * @param {string|Array} shortcut
-     * @param {int} mode
-     * @param {string} description
-     * @param {*} defaultValue
+     * @param {string|Array|undefined} [shortcut]
+     * @param {int|undefined} [mode]
+     * @param {string} [description = '']
+     * @param {*} [defaultValue]
      */
     __construct(name, shortcut = undefined, mode = undefined, description = '', defaultValue = undefined) {
         if (0 === name.indexOf('--')) {
@@ -45,25 +45,29 @@ class InputOption {
         }
 
         /**
-         * @type string
+         * @type {string}
+         *
          * @private
          */
         this._name = name;
 
         /**
-         * @type string
+         * @type {string}
+         *
          * @private
          */
         this._shortcut = shortcut;
 
         /**
-         * @type int
+         * @type {int}
+         *
          * @private
          */
         this._mode = mode;
 
         /**
-         * @type string
+         * @type {string}
+         *
          * @private
          */
         this._description = description;
@@ -150,7 +154,8 @@ class InputOption {
         }
 
         /**
-         * @type *
+         * @type {*}
+         *
          * @private
          */
         this._default = this.acceptValue() ? defaultValue : false;
@@ -178,6 +183,8 @@ class InputOption {
      * Whether this option equals another option
      *
      * @param {Jymfony.Component.Console.Input.InputOption} option
+     *
+     * @returns {boolean}
      */
     equals(option) {
         return option.getName() === this.getName()

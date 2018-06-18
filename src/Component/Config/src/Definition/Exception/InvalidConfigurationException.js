@@ -7,10 +7,16 @@ const Exception = Jymfony.Component.Config.Definition.Exception.Exception;
  * @memberOf Jymfony.Component.Config.Definition.Exception
  */
 class InvalidConfigurationException extends Exception {
+    /**
+     * @param {string} path
+     */
     setPath(path) {
         this._path = path;
     }
 
+    /**
+     * @returns {string}
+     */
     getPath() {
         return this._path;
     }

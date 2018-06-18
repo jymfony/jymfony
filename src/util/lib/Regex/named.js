@@ -6,6 +6,12 @@ if (! __jymfony.Platform.hasModernRegex()) {
     __jymfony.RegExp = RegExp;
 
     const regexpClass = class RegExp extends __jymfony.RegExp {
+        /**
+         * Constructor.
+         *
+         * @param {string} pattern
+         * @param {string} flags
+         */
         constructor(pattern, flags = undefined) {
             const names = [];
             const sanitized = pattern
@@ -27,10 +33,18 @@ if (! __jymfony.Platform.hasModernRegex()) {
             this._names = names;
         }
 
+        /**
+         * @returns {string}
+         */
         get source() {
             return this._source;
         }
 
+        /**
+         * @param {string} string
+         *
+         * @returns {Object}
+         */
         exec(string) {
             const result = super.exec(string);
             if (! result || ! /\(\?<(\w+)>/.test(this._source)) {

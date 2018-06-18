@@ -1,6 +1,11 @@
 const FooClass = Foo.FooClass;
 
-module.exports = class BarClass {
+class BarClass {
+    /**
+     * Constructor.
+     *
+     * @param {FooClass} fooClass
+     */
     __construct(fooClass) {
         this.fooClass = fooClass;
     }
@@ -8,4 +13,6 @@ module.exports = class BarClass {
     test() {
         return FooClass.HELLO;
     }
-};
+}
+
+module.exports = BarClass;

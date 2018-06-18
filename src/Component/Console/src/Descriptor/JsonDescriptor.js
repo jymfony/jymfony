@@ -6,35 +6,35 @@ const ApplicationDescription = Jymfony.Component.Console.Descriptor.ApplicationD
  */
 class JsonDescriptor extends Descriptor {
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     describeInputArgument(argument, options = {}) {
         this._writeData(this._getInputArgumentData(argument), options);
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     describeInputOption(option, options = {}) {
         this._writeData(this._getInputOptionData(option), options);
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     describeInputDefinition(definition, options = {}) {
         this._writeData(this._getInputDefinitionData(definition), options);
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     describeCommand(command, options = {}) {
         this._writeData(this._getCommandData(command), options);
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     describeApplication(application, options = {}) {
         const describedNamespace = options.namespace;
@@ -99,7 +99,7 @@ class JsonDescriptor extends Descriptor {
     /**
      * @param {Jymfony.Component.Console.Input.InputDefinition} definition
      *
-     * @returns Object
+     * @returns {Object}
      */
     _getInputDefinitionData(definition) {
         const inputArguments = {};

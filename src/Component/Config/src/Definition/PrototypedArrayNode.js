@@ -7,6 +7,9 @@ const Exception = Jymfony.Component.Config.Definition.Exception;
  * @memberOf Jymfony.Component.Config.Definition
  */
 class PrototypedArrayNode extends ArrayNode {
+    /**
+     * @inheritdoc
+     */
     __construct(name, parent = undefined) {
         super.__construct(name, parent);
 
@@ -18,7 +21,8 @@ class PrototypedArrayNode extends ArrayNode {
         this._defaultChildren = undefined;
 
         /**
-         * @type {Object<string, Jymfony.Component.Config.Definition.NodeInterface>}
+         * @type {Object.<string, Jymfony.Component.Config.Definition.NodeInterface>}
+         *
          * @private
          */
         this._valuePrototypes = {};
@@ -87,7 +91,7 @@ class PrototypedArrayNode extends ArrayNode {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     hasDefaultValue() {
         return true;
@@ -107,7 +111,7 @@ class PrototypedArrayNode extends ArrayNode {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      *
      * The default value could be either explicited or derived from the prototype
      * default value.
@@ -147,10 +151,10 @@ class PrototypedArrayNode extends ArrayNode {
     /**
      * Disable adding concrete children for prototyped nodes.
      *
-     * @throws {Exception}
+     * @throws {Jymfony.Component.Config.Definition.Exception.Exception}
      */
     addChild(node) { // eslint-disable-line no-unused-vars
-        throw new Exception('A prototyped array node can not have concrete children.');
+        throw new Exception.Exception('A prototyped array node can not have concrete children.');
     }
 
     /**
@@ -158,7 +162,7 @@ class PrototypedArrayNode extends ArrayNode {
      *
      * @param {*} value
      *
-     * @return {*} The finalized value
+     * @returns {*} The finalized value
      *
      * @throws {Jymfony.Component.Config.Definition.Exception.UnsetKeyException}
      * @throws {Jymfony.Component.Config.Definition.Exception.InvalidConfigurationException} if the node doesn't have enough children
@@ -200,7 +204,7 @@ class PrototypedArrayNode extends ArrayNode {
      *
      * @param {*} value The value to normalize
      *
-     * @return {*} The normalized value
+     * @returns {*} The normalized value
      *
      * @throws {Jymfony.Component.Config.Definition.Exception.InvalidConfigurationException}
      * @throws {Jymfony.Component.Config.Definition.Exception.DuplicateKeyException}
@@ -269,7 +273,7 @@ class PrototypedArrayNode extends ArrayNode {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      *
      * @throws {Jymfony.Component.Config.Definition.Exception.InvalidConfigurationException}
      * @throws {RuntimeException}

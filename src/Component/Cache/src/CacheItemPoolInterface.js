@@ -19,7 +19,7 @@ class CacheItemPoolInterface {
      * @param {string} key The key for which to return the corresponding Cache Item.
      *
      * @throws {Jymfony.Component.Cache.Exception.InvalidArgumentException}
-     *   If the key string is not a legal value a \Psr\Cache\InvalidArgumentException
+     *   If the key string is not a legal value a InvalidArgumentException
      *   MUST be thrown.
      *
      * @returns {Jymfony.Component.Cache.CacheItemInterface} The corresponding Cache Item.
@@ -29,7 +29,7 @@ class CacheItemPoolInterface {
     /**
      * Returns a traversable set of cache items.
      *
-     * @param {[string]} keys
+     * @param {string[]} [keys = []]
      *   An indexed array of keys of items to retrieve.
      *
      * @throws {Jymfony.Component.Cache.Exception.InvalidArgumentException}
@@ -84,7 +84,7 @@ class CacheItemPoolInterface {
     /**
      * Removes multiple items from the pool.
      *
-     * @param {[string]} keys
+     * @param {string[]} keys
      *   An array of keys that should be removed from the pool.
 
      * @throws {Jymfony.Component.Cache.Exception.InvalidArgumentException}

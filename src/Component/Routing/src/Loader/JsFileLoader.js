@@ -16,7 +16,7 @@ const vm = require('vm');
  */
 class JsFileLoader extends FileLoader {
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     load(resource) {
         const filePath = this._locator.locate(resource);
@@ -43,7 +43,7 @@ class JsFileLoader extends FileLoader {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     supports(resource, type = undefined) {
         if (! isString(resource)) {

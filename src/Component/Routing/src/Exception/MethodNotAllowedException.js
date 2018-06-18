@@ -10,12 +10,12 @@ class MethodNotAllowedException extends mix(RuntimeException, ExceptionInterface
     /**
      * Constructor.
      *
-     * @param {[string]} allowedMethods
-     * @param {string} message
-     * @param {int} code
-     * @param {Exception} previous
+     * @param {string[]} allowedMethods
+     * @param {string} [message]
+     * @param {int|null} [code = null]
+     * @param {Exception} [previous]
      */
-    __construct(allowedMethods, message = undefined, code = 0, previous = null) {
+    __construct(allowedMethods, message = undefined, code = null, previous = undefined) {
         this._allowedMethods = allowedMethods.map(m => m.toUpperCase());
 
         super.__construct(message, code, previous);
@@ -24,7 +24,7 @@ class MethodNotAllowedException extends mix(RuntimeException, ExceptionInterface
     /**
      * Gets the allowed HTTP methods.
      *
-     * @return {[string]}
+     * @returns {string[]}
      */
     get allowedMethods() {
         return [ ...this._allowedMethods ];

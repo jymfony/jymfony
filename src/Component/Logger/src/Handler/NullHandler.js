@@ -1,7 +1,7 @@
 const AbstractHandler = Jymfony.Component.Logger.Handler.AbstractHandler;
 
 /**
- * Blackhole
+ * Blackhole.
  *
  * @memberOf Jymfony.Component.Logger.Handler
  */

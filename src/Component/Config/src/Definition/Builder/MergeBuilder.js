@@ -12,6 +12,7 @@ class MergeBuilder {
     __construct(node) {
         /**
          * @type {Jymfony.Component.Config.Definition.Builder.NodeDefinition}
+         *
          * @protected
          */
         this._node = node;
@@ -23,7 +24,7 @@ class MergeBuilder {
     /**
      * Sets whether the node can be unset.
      *
-     * @param {boolean} allow
+     * @param {boolean} [allow = true]
      *
      * @returns {Jymfony.Component.Config.Definition.Builder.MergeBuilder}
      */
@@ -36,7 +37,7 @@ class MergeBuilder {
     /**
      * Sets whether the node can be overwritten.
      *
-     * @param {boolean} deny Whether the overwriting is forbidden or not
+     * @param {boolean} [deny = true] Whether the overwriting is forbidden or not
      *
      * @returns {Jymfony.Component.Config.Definition.Builder.MergeBuilder}
      */

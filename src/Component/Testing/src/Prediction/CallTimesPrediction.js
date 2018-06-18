@@ -6,12 +6,17 @@ const PredictionInterface = Jymfony.Component.Testing.Prediction.PredictionInter
  * @memberOf Jymfony.Component.Testing.Prediction
  */
 class CallTimesPrediction extends implementationOf(PredictionInterface) {
+    /**
+     * Constructor.
+     *
+     * @param {int} times
+     */
     __construct(times) {
         this._times = ~~times;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     check(calls, object, method) {
         if (this._times === calls.length) {

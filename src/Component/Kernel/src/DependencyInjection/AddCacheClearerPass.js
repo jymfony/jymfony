@@ -5,6 +5,12 @@ const Reference = Jymfony.Component.DependencyInjection.Reference;
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
  */
 class AddCacheClearerPass extends implementationOf(CompilerPassInterface) {
+    /**
+     * Constructor.
+     *
+     * @param {string} [cacheClearerId = 'cache_clearer']
+     * @param {string} [cacheClearerTag = 'kernel.cache_clearer']
+     */
     __construct(cacheClearerId = 'cache_clearer', cacheClearerTag = 'kernel.cache_clearer') {
         /**
          * @type {string}
@@ -22,7 +28,7 @@ class AddCacheClearerPass extends implementationOf(CompilerPassInterface) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     process(container) {
         if (! container.hasDefinition(this._cacheClearerId)) {

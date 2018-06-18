@@ -23,7 +23,18 @@ class BoundFunction {
             throw new LogicException('Trying to bind a non-function object');
         }
 
+        /**
+         * @type {Object}
+         *
+         * @private
+         */
         this._thisArg = thisArg;
+
+        /**
+         * @type {Function|GeneratorFunction}
+         *
+         * @private
+         */
         this._func = func;
 
         const self = this;

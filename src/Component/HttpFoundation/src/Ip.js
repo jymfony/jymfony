@@ -21,6 +21,7 @@ class Ip {
 
         /**
          * @type {int}
+         *
          * @private
          */
         this._type = net.isIPv4(ip) ? __self.IPV4 : __self.IPV6;
@@ -30,6 +31,7 @@ class Ip {
         } else {
             /**
              * @type {Buffer}
+             *
              * @private
              */
             this._ip = net.isIPv4(ip) ? __self._parseIPv4(ip) : __self._parseIPv6(ip);
@@ -38,8 +40,7 @@ class Ip {
     }
 
     /**
-     * Returns Ip.IPV4 if containing an IPv4
-     * or Ip.IPV6 if containing an IPv6
+     * Returns Ip.IPV4 if containing an IPv4 or Ip.IPV6 if containing an IPv6.
      *
      * @returns {int}
      */
@@ -48,7 +49,7 @@ class Ip {
     }
 
     /**
-     * Checks whether this ip address matches the given cidr or address
+     * Checks whether this ip address matches the given CIDR or address.
      *
      * @param {string} cidr
      */
@@ -70,7 +71,7 @@ class Ip {
      * Checks an ip against an array of ips or CIDRs.
      *
      * @param {string|Jymfony.Component.HttpFoundation.Ip} clientIp
-     * @param {string|[string]} ips
+     * @param {string|string[]} ips
      *
      * @returns {boolean}
      */

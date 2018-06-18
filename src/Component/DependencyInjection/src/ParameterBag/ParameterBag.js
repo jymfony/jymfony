@@ -11,11 +11,28 @@ class ParameterBag {
     /**
      * Constructor.
      *
-     * @param {Object} params
+     * @param {Object} [params = {}]
      */
     __construct(params = {}) {
+        /**
+         * @type {Object}
+         *
+         * @private
+         */
         this._params = {};
+
+        /**
+         * @type {Object}
+         *
+         * @private
+         */
         this._env = {};
+
+        /**
+         * @type {boolean}
+         *
+         * @private
+         */
         this._resolved = false;
 
         for (const [ name, value ] of __jymfony.getEntries(params)) {
@@ -24,17 +41,17 @@ class ParameterBag {
     }
 
     /**
-     * Empties the parameter bag
+     * Empties the parameter bag.
      */
     clear() {
         this._params = {};
     }
 
     /**
-     * Add parameters to the parameter bag
+     * Adds parameters to the parameter bag.
      *
-     * @param {Object<string, string>} params
-     * @param {boolean} overwrite
+     * @param {Object.<string, string>} params
+     * @param {boolean} [overwrite = true]
      */
     add(params, overwrite = true) {
         for (const [ key, value ] of __jymfony.getEntries(params)) {
@@ -47,7 +64,7 @@ class ParameterBag {
     }
 
     /**
-     * Get a copy of the parameters map
+     * Gets a copy of the parameters map.
      *
      * @returns {Map}
      */
@@ -58,7 +75,7 @@ class ParameterBag {
     /**
      * Gets a parameter.
      *
-     * @param name
+     * @param {string} name
      *
      * @returns {*}
      */
@@ -79,7 +96,7 @@ class ParameterBag {
     }
 
     /**
-     * Add a parameter
+     * Adds a parameter.
      *
      * @param {string} name
      * @param {string} value
@@ -89,9 +106,10 @@ class ParameterBag {
     }
 
     /**
-     * Returns true if the specified parameter is defined
+     * Returns true if the specified parameter is defined.
      *
-     * @param name
+     * @param {string} name
+     *
      * @returns {boolean}
      */
     has(name) {
@@ -99,7 +117,7 @@ class ParameterBag {
     }
 
     /**
-     * Removes a parameter
+     * Removes a parameter.
      *
      * @param name
      */
@@ -108,7 +126,7 @@ class ParameterBag {
     }
 
     /**
-     * Replaces parameter placeholders (%name%) by their values for all parameters
+     * Replaces parameter placeholders (%name%) by their values for all parameters.
      */
     resolve() {
         if (this._resolved) {
@@ -138,7 +156,7 @@ class ParameterBag {
      *
      * @param {*} value
      * @param {boolean} [resolveEnv = false]
-     * @param {Set} resolving
+     * @param {Set} [resolving = new Set()]
      *
      * @returns {*}
      */
@@ -160,7 +178,7 @@ class ParameterBag {
     }
 
     /**
-     * Resolves parameters inside a string
+     * Resolves parameters inside a string.
      *
      * @param {string} value
      * @param {boolean} resolveEnv
@@ -215,12 +233,17 @@ class ParameterBag {
         });
     }
 
+    /**
+     * Whether is resolved or not.
+     *
+     * @returns {boolean}
+     */
     get resolved() {
         return this._resolved;
     }
 
     /**
-     * Escape parameter placeholders %
+     * Escapes parameter placeholders %.
      *
      * @param {*} value
      *
@@ -244,7 +267,7 @@ class ParameterBag {
     }
 
     /**
-     * Unescape parameter placeholders %
+     * Unescapes parameter placeholders %.
      *
      * @param {*} value
      *
@@ -271,7 +294,7 @@ class ParameterBag {
      * Gets a parameter from the parameter list.
      *
      * @param {string} name
-     * @param {boolean} strictlyScalar
+     * @param {boolean} [strictlyScalar = false]
      *
      * @returns {*}
      *

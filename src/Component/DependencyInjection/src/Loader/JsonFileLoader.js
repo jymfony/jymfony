@@ -18,6 +18,7 @@ class JsonFileLoader extends FileLoader {
     __construct(container, locator) {
         /**
          * @type {Jymfony.Component.DependencyInjection.ContainerBuilder}
+         *
          * @private
          */
         this._container = container;
@@ -26,7 +27,7 @@ class JsonFileLoader extends FileLoader {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     load(resource) {
         const filePath = this._locator.locate(resource);
@@ -38,7 +39,7 @@ class JsonFileLoader extends FileLoader {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     supports(resource, type = undefined) {
         if (! isString(resource)) {
@@ -52,6 +53,11 @@ class JsonFileLoader extends FileLoader {
         return 'json' === type;
     }
 
+    /**
+     * @param {string} content
+     *
+     * @private
+     */
     _loadFromExtensions(content) {
         for (const [ name, values ] of __jymfony.getEntries(content)) {
             if (0 < [ 'imports', 'parameters', 'services' ].indexOf(name)) {

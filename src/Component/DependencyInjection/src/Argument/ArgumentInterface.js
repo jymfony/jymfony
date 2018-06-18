@@ -3,12 +3,12 @@
  */
 class ArgumentInterface {
     /**
-     * @returns {[*]}
+     * @returns {*[]}
      */
     get values() {}
 
     /**
-     * @param {[*]} values
+     * @param {*[]} values
      */
     set values(values) {}
 }

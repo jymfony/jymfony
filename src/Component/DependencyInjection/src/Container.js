@@ -23,15 +23,44 @@ class Container extends implementationOf(ContainerInterface) {
          */
         this._parameterBag = parameterBag || new ParameterBag();
 
+        /**
+         * @type {Object}
+         *
+         * @private
+         */
         this._services = {};
+
+        /**
+         * @type {Object}
+         *
+         * @private
+         */
         this._methodMap = {};
+
+        /**
+         * @type {Object}
+         *
+         * @private
+         */
         this._privates = {};
+
+        /**
+         * @type {Object}
+         *
+         * @private
+         */
         this._aliases = {};
+
+        /**
+         * @type {Object}
+         *
+         * @private
+         */
         this._loading = {};
     }
 
     /**
-     * Compiles the container
+     * Compiles the container.
      */
     compile() {
         this._parameterBag.resolve();
@@ -40,7 +69,7 @@ class Container extends implementationOf(ContainerInterface) {
     }
 
     /**
-     * True if parameter bag is frozen
+     * True if parameter bag is frozen.
      *
      * @returns {boolean}
      */
@@ -49,7 +78,7 @@ class Container extends implementationOf(ContainerInterface) {
     }
 
     /**
-     * Get the container parameter bag
+     * Gets the container parameter bag.
      *
      * @returns {Jymfony.Component.DependencyInjection.ParameterBag.ParameterBag}
      */
@@ -58,9 +87,9 @@ class Container extends implementationOf(ContainerInterface) {
     }
 
     /**
-     * Get a parameter
+     * Gets a parameter.
      *
-     * @param name
+     * @param {string} name
      *
      * @returns {string}
      */
@@ -69,9 +98,9 @@ class Container extends implementationOf(ContainerInterface) {
     }
 
     /**
-     * Check if a parameter exists
+     * Checks if a parameter exists.
      *
-     * @param name
+     * @param {string} name
      *
      * @returns {boolean}
      */
@@ -80,7 +109,7 @@ class Container extends implementationOf(ContainerInterface) {
     }
 
     /**
-     * Sets a parameter
+     * Sets a parameter.
      *
      * @param {string} name
      * @param {string} value
@@ -90,7 +119,7 @@ class Container extends implementationOf(ContainerInterface) {
     }
 
     /**
-     * Sets a service
+     * Sets a service.
      *
      * @param {string} id
      * @param {*} service
@@ -113,7 +142,7 @@ class Container extends implementationOf(ContainerInterface) {
     }
 
     /**
-     * Checks if a service is defined
+     * Checks if a service is defined.
      *
      * @param {string} id
      *
@@ -138,10 +167,10 @@ class Container extends implementationOf(ContainerInterface) {
     }
 
     /**
-     * Gets a service
+     * Gets a service.
      *
      * @param {string} id
-     * @param invalidBehavior
+     * @param {int} [invalidBehavior = Jymfony.Component.DependencyInjection.Container.EXCEPTION_ON_INVALID_REFERENCE]
      *
      * @returns {*}
      */
@@ -186,7 +215,7 @@ class Container extends implementationOf(ContainerInterface) {
     }
 
     /**
-     * Checks if a given service has been initialized
+     * Checks if a given service has been initialized.
      *
      * @param {string} id
      *
@@ -207,14 +236,14 @@ class Container extends implementationOf(ContainerInterface) {
     }
 
     /**
-     * Resets the container
+     * Resets the container.
      */
     reset() {
         this._services = {};
     }
 
     /**
-     * Get all service ids
+     * Gets all service ids.
      *
      * @returns {string[]}
      */
@@ -226,9 +255,9 @@ class Container extends implementationOf(ContainerInterface) {
     /**
      * Normalizes a class definition (Function) to its class name.
      *
-     * @param id
+     * @param {string} id
      *
-     * @returns {*}
+     * @returns {string}
      */
     static normalizeId(id) {
         if (isFunction(id)) {
@@ -241,7 +270,7 @@ class Container extends implementationOf(ContainerInterface) {
     }
 
     /**
-     * Underscorize a string
+     * Underscorizes a string.
      *
      * @param {string} id
      *
@@ -256,7 +285,7 @@ class Container extends implementationOf(ContainerInterface) {
     }
 
     /**
-     * Camelizes a string
+     * Camelizes a string.
      *
      * @param {string} id
      *

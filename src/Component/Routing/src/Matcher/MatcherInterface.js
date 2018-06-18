@@ -12,7 +12,7 @@ class MatcherInterface {
      *
      * @param {Jymfony.Component.HttpFoundation.Request} request
      *
-     * @returns {Object<string, *>} A set of parameters
+     * @returns {Object.<string, *>} A set of parameters
      *
      * @throws {Jymfony.Component.Routing.Exception.NoConfigurationException} If no routing configuration could be found
      * @throws {Jymfony.Component.Routing.Exception.ResourceNotFoundException} If no matching resource could be found

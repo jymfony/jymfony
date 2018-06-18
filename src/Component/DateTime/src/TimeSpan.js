@@ -6,15 +6,66 @@ const InvalidDateTimeStringException = Jymfony.Component.DateTime.Exception.Inva
  * @memberOf Jymfony.Component.DateTime
  */
 class TimeSpan {
+    /**
+     * Constructor.
+     *
+     * @param {string} [duration]
+     */
     __construct(duration = undefined) {
+        /**
+         * @type {int}
+         *
+         * @private
+         */
         this._milliseconds = 0;
+
+        /**
+         * @type {int}
+         *
+         * @private
+         */
         this._seconds = 0;
+
+        /**
+         * @type {int}
+         *
+         * @private
+         */
         this._minutes = 0;
+
+        /**
+         * @type {int}
+         *
+         * @private
+         */
         this._hours = 0;
+
+        /**
+         * @type {int}
+         *
+         * @private
+         */
         this._days = 0;
+
+        /**
+         * @type {int}
+         *
+         * @private
+         */
         this._months = 0;
+
+        /**
+         * @type {int}
+         *
+         * @private
+         */
         this._years = 0;
 
+        /**
+         * @type {boolean}
+         *
+         * @private
+         */
         this._inverse = false;
 
         if (undefined !== duration) {
@@ -22,18 +73,30 @@ class TimeSpan {
         }
     }
 
+    /**
+     * @returns {boolean}
+     */
     get inverse() {
         return this._inverse;
     }
 
+    /**
+     * @param {boolean} inverse
+     */
     set inverse(inverse) {
         this._inverse = !! inverse;
     }
 
+    /**
+     * @returns {int}
+     */
     get milliseconds() {
         return this._milliseconds;
     }
 
+    /**
+     * @param {int} millis
+     */
     set milliseconds(millis) {
         if (0 > millis || 1000 <= millis) {
             throw new InvalidArgumentException('Invalid value for milliseconds: ' + millis);
@@ -42,10 +105,16 @@ class TimeSpan {
         this._milliseconds = ~~millis;
     }
 
+    /**
+     * @returns {int}
+     */
     get seconds() {
         return this._seconds;
     }
 
+    /**
+     * @param {int} seconds
+     */
     set seconds(seconds) {
         if (0 > seconds || 60 <= seconds) {
             throw new InvalidArgumentException('Invalid value for seconds: ' + seconds);
@@ -54,10 +123,16 @@ class TimeSpan {
         this._seconds = ~~seconds;
     }
 
+    /**
+     * @returns {int}
+     */
     get minutes() {
         return this._minutes;
     }
 
+    /**
+     * @param {int} mins
+     */
     set minutes(mins) {
         if (0 > mins || 60 <= mins) {
             throw new InvalidArgumentException('Invalid value for minutes: ' + mins);
@@ -66,10 +141,16 @@ class TimeSpan {
         this._minutes = ~~mins;
     }
 
+    /**
+     * @returns {int}
+     */
     get hours() {
         return this._hours;
     }
 
+    /**
+     * @param {int} hours
+     */
     set hours(hours) {
         if (0 > hours || 23 <= hours) {
             throw new InvalidArgumentException('Invalid value for hours: ' + hours);
@@ -78,10 +159,16 @@ class TimeSpan {
         this._hours = ~~hours;
     }
 
+    /**
+     * @returns {int}
+     */
     get days() {
         return this._days;
     }
 
+    /**
+     * @param {int} days
+     */
     set days(days) {
         if (0 > days) {
             throw new InvalidArgumentException('Invalid value for days: ' + days);
@@ -90,10 +177,16 @@ class TimeSpan {
         this._days = ~~days;
     }
 
+    /**
+     * @returns {int}
+     */
     get months() {
         return this._months;
     }
 
+    /**
+     * @param {int} months
+     */
     set months(months) {
         if (0 > months) {
             throw new InvalidArgumentException('Invalid value for months: ' + months);
@@ -102,10 +195,16 @@ class TimeSpan {
         this._months = ~~months;
     }
 
+    /**
+     * @returns {int}
+     */
     get years() {
         return this._years;
     }
 
+    /**
+     * @param {int} years
+     */
     set years(years) {
         if (0 > years) {
             throw new InvalidArgumentException('Invalid value for years: ' + years);
@@ -114,6 +213,11 @@ class TimeSpan {
         this._years = ~~years;
     }
 
+    /**
+     * @param {string} isoDuration
+     *
+     * @private
+     */
     _parse(isoDuration) {
         const regex = /^P([+\-])?(?:(\d+)Y)?(?:(\d+)M)?(?:(\d+)D)?(?:T)?(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?$/;
         const matches = isoDuration.match(regex);

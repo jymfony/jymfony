@@ -8,7 +8,7 @@ class ApplicationDescription {
      * Constructor.
      *
      * @param {Jymfony.Component.Console.Application} application
-     * @param {string|undefined} namespace
+     * @param {string|undefined} [namespace]
      */
     __construct(application, namespace = undefined) {
         this._application = application;
@@ -83,7 +83,7 @@ class ApplicationDescription {
     /**
      * @param {Object.<string, Jymfony.Component.Console.Command.Command>} commands
      *
-     * @returns array
+     * @returns {Jymfony.Component.Console.Command.Command[]}
      */
     * _sortCommands(commands) {
         const namespacedCommands = {};

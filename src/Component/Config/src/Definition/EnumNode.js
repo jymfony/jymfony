@@ -7,6 +7,15 @@ const InvalidConfigurationException = Jymfony.Component.Config.Definition.Except
  * @memberOf Jymfony.Component.Config.Definition
  */
 class EnumNode extends ScalarNode {
+    /**
+     * Constructor.
+     *
+     * @param {string} name
+     * @param {Jymfony.Component.Config.Definition.NodeInterface} [parent]
+     * @param {Array} [values = []]
+     *
+     * @inheritdoc
+     */
     __construct(name, parent = undefined, values = []) {
         values = [ ...new Set(values) ];
         if (0 === values.length) {
@@ -17,15 +26,22 @@ class EnumNode extends ScalarNode {
 
         /**
          * @type {Array}
+         *
          * @private
          */
         this._values = values;
     }
 
+    /**
+     * @returns {Array}
+     */
     getValues() {
         return this._values;
     }
 
+    /**
+     * @inheritdoc
+     */
     finalizeValue(value) {
         value = super.finalizeValue(value);
 

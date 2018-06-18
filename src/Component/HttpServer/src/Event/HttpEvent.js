@@ -13,12 +13,14 @@ class HttpEvent extends Event {
     __construct(server, request) {
         /**
          * @type {Jymfony.Component.HttpServer.HttpServer}
+         *
          * @private
          */
         this._server = server;
 
         /**
          * @type {Jymfony.Component.HttpFoundation.Request}
+         *
          * @private
          */
         this._request = request;

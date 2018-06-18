@@ -2,11 +2,16 @@
 
 global.__jymfony = global.__jymfony || {};
 
-/*
+/**
  * Adapted from locutus.io
  * Originally released under MIT license
  *
  * Do not strip <?php tags
+ *
+ * @param {string} input
+ * @param {string} allowed
+ *
+ * @returns {string}
  */
 global.__jymfony.strip_tags = function strip_tags(input, allowed) {
     //  Discuss at: http://locutus.io/php/strip_tags/

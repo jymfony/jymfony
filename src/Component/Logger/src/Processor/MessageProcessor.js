@@ -5,9 +5,9 @@ class MessageProcessor {
     /**
      * Handle placeholders in message and replaces with context properties.
      *
-     * @param {Object<*>} record
+     * @param {Object.<*>} record
      *
-     * @returns {Object<*>}
+     * @returns {Object.<*>}
      */
     __invoke(record) {
         if (-1 === record.message.indexOf('{')) {

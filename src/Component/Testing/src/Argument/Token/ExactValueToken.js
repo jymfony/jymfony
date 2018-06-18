@@ -15,14 +15,14 @@ class ExactValueToken extends implementationOf(TokenInterface) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     scoreArgument(argument) {
         return __jymfony.equal(argument, this._value, false) ? 10 : false;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     isLast() {
         return false;

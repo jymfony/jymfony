@@ -7,11 +7,31 @@ const Helper = Jymfony.Component.Console.Helper.Helper;
  * @memberOf Jymfony.Component.Console.Helper
  */
 class DebugFormatterHelper extends Helper {
+    /**
+     * Constructor.
+     */
     __construct() {
         super.__construct();
 
+        /**
+         * @type {string[]}
+         *
+         * @private
+         */
         this._colors = [ 'black', 'red', 'green', 'yellow', 'blue', 'magenta', 'cyan', 'white', 'default' ];
+
+        /**
+         * @type {Object}
+         *
+         * @private
+         */
         this._started = {};
+
+        /**
+         * @type {int}
+         *
+         * @private
+         */
         this._count = -1;
     }
 
@@ -20,7 +40,7 @@ class DebugFormatterHelper extends Helper {
      *
      * @param {string} id The id of the formatting session
      * @param {string} message The message to display
-     * @param {string} prefix The prefix to use
+     * @param {string} [prefix = 'RUN'] The prefix to use
      *
      * @returns {string}
      */
@@ -35,9 +55,9 @@ class DebugFormatterHelper extends Helper {
      *
      * @param {string} id The id of the formatting session
      * @param {string} buffer The message to display
-     * @param {boolean} error Whether to consider the buffer as error
-     * @param {string} prefix The prefix for output
-     * @param {string} errorPrefix The prefix for error output
+     * @param {boolean} [error = false] Whether to consider the buffer as error
+     * @param {string} [prefix = 'OUT'] The prefix for output
+     * @param {string} [errorPrefix 'ERR'] The prefix for error output
      *
      * @returns {string}
      */
@@ -79,7 +99,7 @@ class DebugFormatterHelper extends Helper {
      * @param {string} id The id of the formatting session
      * @param {string} message The message to display
      * @param {boolean} successful Whether to consider the result as success
-     * @param {string} prefix The prefix for the end output
+     * @param {string} [prefix = 'RES'] The prefix for the end output
      *
      * @returns {string}
      */

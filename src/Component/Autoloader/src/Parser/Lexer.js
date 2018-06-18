@@ -8,6 +8,9 @@ const ValueHolder = require('./ValueHolder');
  * @memberOf Jymfony.Component.Autoloader.Parser
  */
 class Lexer {
+    /**
+     * Constructor.
+     */
     constructor() {
         /**
          * @type {RegExp}
@@ -236,6 +239,9 @@ class Lexer {
         yield * this._tokens;
     }
 
+    /**
+     * @returns {string[]}
+     */
     getPatterns() {
         return [
             '[`](?:\\\\|(?:\\\\(?=`)`)*?|[^`])*?[`]',
@@ -253,6 +259,11 @@ class Lexer {
         ];
     }
 
+    /**
+     * @param {Object} holder
+     *
+     * @returns {number}
+     */
     getType(holder) {
         if (holder.value.match(this._spaces)) {
             return Lexer.T_SPACE;

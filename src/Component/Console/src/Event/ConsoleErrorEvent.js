@@ -8,12 +8,12 @@ const InvalidArgumentException = Jymfony.Component.Console.Exception.InvalidArgu
  */
 class ConsoleErrorEvent extends ConsoleEvent {
     /**
-     * Constructor
+     * Constructor.
      *
-     * @param {Jymfony.Component.Console.Input.InputInterface} input
-     * @param {Jymfony.Component.Console.Output.OutputInterface} output
+     * @param {Jymfony.Component.Console.Command.Input.InputInterface} input
+     * @param {Jymfony.Component.Console.Command.Output.OutputInterface} output
      * @param {Error} error
-     * @param {Jymfony.Component.Console.Command.Command} command
+     * @param {Jymfony.Component.Console.Command.Command} [command]
      */
     __construct(input, output, error, command = undefined) {
         super.__construct(command, input, output);
@@ -24,6 +24,7 @@ class ConsoleErrorEvent extends ConsoleEvent {
          * The process exit code.
          *
          * @type {int}
+         *
          * @private
          */
         this._exitCode = undefined;

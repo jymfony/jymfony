@@ -30,7 +30,7 @@ class DescriptorHelper extends Helper {
      *
      * @param {Jymfony.Component.Console.Output.OutputInterface} output
      * @param {Object} object
-     * @param {*} options
+     * @param {*} [options = {}]
      *
      * @throws {Jymfony.Component.Console.Exception.InvalidArgumentException} when the given format is not supported
      */

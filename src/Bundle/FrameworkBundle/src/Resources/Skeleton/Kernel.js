@@ -2,7 +2,7 @@ const BaseKernel = Jymfony.Component.Kernel.Kernel;
 
 class Kernel extends BaseKernel {
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     * registerBundles() {
         yield new Jymfony.Bundle.FrameworkBundle.FrameworkBundle();

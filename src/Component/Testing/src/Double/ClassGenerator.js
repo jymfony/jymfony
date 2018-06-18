@@ -2,20 +2,31 @@
  * @memberOf Jymfony.Component.Testing.Double
  */
 class ClassGenerator {
+    /**
+     * Constructor.
+     *
+     * @param {Function} superClass
+     * @param {Function[]} interfaces
+     */
     __construct(superClass, interfaces) {
         /**
          * @type {Function}
+         *
          * @private
          */
         this._superClass = superClass;
 
         /**
-         * @type {[Function]}
+         * @type {Function[]}
+         *
          * @private
          */
         this._interfaces = interfaces || [];
     }
 
+    /**
+     * @returns {Object}
+     */
     generate() {
         const self = this;
         const mirrorClass = class extends mix(this._superClass, ...this._interfaces) { };

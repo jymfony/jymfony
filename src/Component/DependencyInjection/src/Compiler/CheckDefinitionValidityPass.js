@@ -2,9 +2,11 @@ const CompilerPassInterface = Jymfony.Component.DependencyInjection.Compiler.Com
 
 /**
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
- * @type {Jymfony.Component.DependencyInjection.Compiler.CheckDefinitionValidityPass}
  */
-module.exports = class CheckDefinitionValidityPass extends implementationOf(CompilerPassInterface) {
+class CheckDefinitionValidityPass extends implementationOf(CompilerPassInterface) {
+    /**
+     * @inheritdoc
+     */
     process(container) {
         for (const [ id, definition ] of __jymfony.getEntries(container.getDefinitions())) {
             if (definition.isSynthetic() && ! definition.isPublic()) {
@@ -30,4 +32,6 @@ module.exports = class CheckDefinitionValidityPass extends implementationOf(Comp
             }
         }
     }
-};
+}
+
+module.exports = CheckDefinitionValidityPass;

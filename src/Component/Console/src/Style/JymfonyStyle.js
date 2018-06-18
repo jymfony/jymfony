@@ -18,7 +18,7 @@ const os = require('os');
  */
 class JymfonyStyle extends OutputStyle {
     /**
-     * Constructor
+     * Constructor.
      *
      * @param {Jymfony.Component.Console.Input.InputInterface} input
      * @param {Jymfony.Component.Console.Output.OutputInterface} output
@@ -26,12 +26,14 @@ class JymfonyStyle extends OutputStyle {
     __construct(input, output) {
         /**
          * @type {Jymfony.Component.Console.Input.InputInterface}
+         *
          * @private
          */
         this._input = input;
 
         /**
          * @type {Jymfony.Component.Console.Output.BufferedOutput}
+         *
          * @private
          */
         this._bufferedOutput = new BufferedOutput(output.verbosity, false, __jymfony.clone(output.formatter));
@@ -41,12 +43,14 @@ class JymfonyStyle extends OutputStyle {
 
         /**
          * @type {int}
+         *
          * @private
          */
         this._lineLength = Math.min(width - (__jymfony.Platform.isWindows ? 1 : 0), JymfonyStyle.MAX_LINE_LENGTH);
 
         /**
          * @type {undefined|Jymfony.Component.Console.Helper.ProgressBar|Jymfony.Component.Console.Helper.ProgressIndicator}
+         *
          * @private
          */
         this._progress = undefined;
@@ -57,12 +61,12 @@ class JymfonyStyle extends OutputStyle {
     /**
      * Formats a message as a block of text.
      *
-     * @param {string|[string]} messages The message to write in the block
-     * @param {undefined|string} type     The block type (added in [] on first line)
-     * @param {undefined|string} style    The style to apply to the whole block
-     * @param {string} prefix The prefix for the block
-     * @param {boolean} padding  Whether to add vertical padding
-     * @param {boolean} escape   Whether to escape the message
+     * @param {string|string[]} messages The message to write in the block
+     * @param {undefined|string} [type] The block type (added in [] on first line)
+     * @param {undefined|string} [style] The style to apply to the whole block
+     * @param {string} [prefix = ' '] The prefix for the block
+     * @param {boolean} [padding = false] Whether to add vertical padding
+     * @param {boolean} [escape = true] Whether to escape the message
      */
     block(messages, type = undefined, style = undefined, prefix = ' ', padding = false, escape = true) {
         messages = isArray(messages) ? messages : [ messages ];
@@ -73,7 +77,7 @@ class JymfonyStyle extends OutputStyle {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     title(message) {
         this._autoPrependBlock();
@@ -85,7 +89,7 @@ class JymfonyStyle extends OutputStyle {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     section(message) {
         this._autoPrependBlock();
@@ -97,7 +101,7 @@ class JymfonyStyle extends OutputStyle {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     listing(elements) {
         this._autoPrependText();
@@ -108,7 +112,7 @@ class JymfonyStyle extends OutputStyle {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     text(messages) {
         this._autoPrependText();
@@ -122,49 +126,49 @@ class JymfonyStyle extends OutputStyle {
     /**
      * Formats a command comment.
      *
-     * @param {string|[string]} message
+     * @param {string|string[]} message
      */
     comment(message) {
         this.block(message, undefined, undefined, '<fg=default;bg=default> // </>', false, false);
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     success(message) {
         this.block(message, 'OK', 'fg=black;bg=green', ' ', true);
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     error(message) {
         this.block(message, 'ERROR', 'fg=white;bg=red', ' ', true);
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     warning(message) {
         this.block(message, 'WARNING', 'fg=white;bg=red', ' ', true);
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     note(message) {
         this.block(message, 'NOTE', 'fg=yellow', ' ! ');
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     caution(message) {
         this.block(message, 'CAUTION', 'fg=white;bg=red', ' ! ', true);
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     table(headers, rows) {
         const style = __jymfony.clone(Table.getStyleDefinition('symfony-style-guide'));
@@ -180,7 +184,7 @@ class JymfonyStyle extends OutputStyle {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     ask(question, defaultAnswer = undefined, validator = undefined) {
         return (new QuestionBuilder(this._input, this))
@@ -192,7 +196,7 @@ class JymfonyStyle extends OutputStyle {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     askHidden(question, validator = undefined) {
         return (new QuestionBuilder(this._input, this))
@@ -216,7 +220,7 @@ class JymfonyStyle extends OutputStyle {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     choice(question, choices, multiple) {
         return (new QuestionBuilder(this._input, this))
@@ -229,7 +233,7 @@ class JymfonyStyle extends OutputStyle {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     progressStart(max = undefined, message = '') {
         if (undefined === max) {
@@ -250,7 +254,7 @@ class JymfonyStyle extends OutputStyle {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     progressAdvance(step = 1, message = undefined) {
         const progress = this._getProgress();
@@ -269,7 +273,7 @@ class JymfonyStyle extends OutputStyle {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     progressFinish(message = undefined) {
         const progress = this._getProgress();
@@ -288,7 +292,7 @@ class JymfonyStyle extends OutputStyle {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     writeln(messages, type = OutputInterface.OUTPUT_NORMAL) {
         super.writeln(messages, type);
@@ -296,7 +300,7 @@ class JymfonyStyle extends OutputStyle {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     write(messages, newline = false, type = OutputInterface.OUTPUT_NORMAL) {
         super.write(messages, newline, type);
@@ -304,7 +308,7 @@ class JymfonyStyle extends OutputStyle {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     newLine(count = 1) {
         super.newLine(count);
@@ -314,7 +318,7 @@ class JymfonyStyle extends OutputStyle {
     /**
      * Returns a new instance which makes use of stderr if available.
      *
-     * @return self
+     * @returns self
      */
     getErrorStyle() {
         return new __self(this._input, this._getErrorOutput());
@@ -331,6 +335,9 @@ class JymfonyStyle extends OutputStyle {
         return this._progress;
     }
 
+    /**
+     * @private
+     */
     _autoPrependBlock() {
         const chars = this._bufferedOutput.fetch().replace(os.EOL, '\n').substr(-2);
 
@@ -342,6 +349,9 @@ class JymfonyStyle extends OutputStyle {
         this.newLine(2 - (chars.split('\n').length - 1));
     }
 
+    /**
+     * @private
+     */
     _autoPrependText() {
         const fetched = this._bufferedOutput.fetch();
 
@@ -351,12 +361,27 @@ class JymfonyStyle extends OutputStyle {
         }
     }
 
+    /**
+     * @param {string[]} messages
+     *
+     * @private
+     */
     _reduceBuffer(messages) {
         // We need to know if the two last chars are PHP_EOL
         // Preserve the last 4 chars inserted (PHP_EOL on windows is two chars) in the history buffer
         return [ this._bufferedOutput.fetch(), ...messages ].map(value => value.substr(-4));
     }
 
+    /**
+     * @param {string[]} messages
+     * @param {string} [type]
+     * @param {undefined|string} style
+     * @param {string} [prefix = ' ']
+     * @param {boolean} [padding = false]
+     * @param {boolean} [escape = false]
+     *
+     * @private
+     */
     _createBlock(messages, type = undefined, style = undefined, prefix = ' ', padding = false, escape = false) {
         let indentLength = 0, lineIndentation;
         const prefixLength = Helper.strlenWithoutDecoration(this.formatter, prefix);

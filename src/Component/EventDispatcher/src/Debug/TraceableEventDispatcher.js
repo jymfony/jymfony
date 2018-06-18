@@ -10,23 +10,26 @@ class TraceableEventDispatcher extends implementationOf(TraceableEventDispatcher
      * Constructor.
      *
      * @param {Jymfony.Component.EventDispatcher.EventDispatcherInterface} dispatcher
-     * @param {undefined|Jymfony.Component.Logger.LoggerInterface} logger
+     * @param {undefined|Jymfony.Component.Logger.LoggerInterface} [logger]
      */
     __construct(dispatcher, logger = undefined) {
         /**
          * @type {Jymfony.Component.EventDispatcher.EventDispatcherInterface}
+         *
          * @private
          */
         this._dispatcher = dispatcher;
 
         /**
          * @type {undefined|Jymfony.Component.Logger.LoggerInterface}
+         *
          * @private
          */
         this._logger = logger;
 
         /**
-         * @type {Object<string, Set<Function>>}
+         * @type {Object.<string, Set<Function>>}
+         *
          * @private
          */
         this._called = {};
@@ -51,7 +54,7 @@ class TraceableEventDispatcher extends implementationOf(TraceableEventDispatcher
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     dispatch(eventName, event = new Event()) {
         if (undefined !== this._logger && event.isPropagationStopped()) {
@@ -71,7 +74,7 @@ class TraceableEventDispatcher extends implementationOf(TraceableEventDispatcher
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     get calledListeners() {
         const self = this;
@@ -83,7 +86,7 @@ class TraceableEventDispatcher extends implementationOf(TraceableEventDispatcher
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     get notCalledListeners() {
         let allListeners;
@@ -146,6 +149,7 @@ class TraceableEventDispatcher extends implementationOf(TraceableEventDispatcher
      * Wrap event listeners to track calls.
      *
      * @param {string} eventName
+     *
      * @private
      */
     _preProcess(eventName) {
@@ -162,6 +166,7 @@ class TraceableEventDispatcher extends implementationOf(TraceableEventDispatcher
      * Events post-processing.
      *
      * @param {string} eventName
+     *
      * @private
      */
     _postProcess(eventName) {

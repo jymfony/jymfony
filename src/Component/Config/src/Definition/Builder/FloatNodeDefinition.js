@@ -8,9 +8,7 @@ const NumericNodeDefinition = Jymfony.Component.Config.Definition.Builder.Numeri
  */
 class FloatNodeDefinition extends NumericNodeDefinition {
     /**
-     * Instantiate a Node.
-     *
-     * @returns {Jymfony.Component.Config.Definition.FloatNode} The node
+     * @inheritdoc
      */
     instantiateNode() {
         return new FloatNode(this._name, this._parent, this._min, this._max);

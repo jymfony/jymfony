@@ -14,12 +14,14 @@ class GetResponseForExceptionEvent extends GetResponseEvent {
     __construct(server, request, e) {
         /**
          * @type {Error}
+         *
          * @private
          */
         this._exception = e;
 
         /**
          * @type {boolean}
+         *
          * @private
          */
         this._allowCustomResponseCode = false;
@@ -53,6 +55,7 @@ class GetResponseForExceptionEvent extends GetResponseEvent {
     allowCustomResponseCode() {
         /**
          * @type {boolean}
+         *
          * @private
          */
         this._allowCustomResponseCode = true;

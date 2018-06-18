@@ -6,10 +6,14 @@ const AbstractRenderer = Jymfony.Component.Console.Question.Renderer.AbstractRen
  * This class is internal and should be considered private
  * DO NOT USE this directly.
  *
- * @internal
  * @memberOf Jymfony.Component.Console.Question.Renderer
+ *
+ * @internal
  */
 class PasswordRenderer extends AbstractRenderer {
+    /**
+     * @inheritdoc
+     */
     __construct(question) {
         super.__construct(question);
 
@@ -17,6 +21,7 @@ class PasswordRenderer extends AbstractRenderer {
          * Carriage-Return received.
          *
          * @type {boolean}
+         *
          * @private
          */
         this._cr = false;
@@ -25,13 +30,14 @@ class PasswordRenderer extends AbstractRenderer {
          * Received data buffer.
          *
          * @type {Buffer}
+         *
          * @private
          */
         this._buffer = Buffer.allocUnsafe(0);
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     doAsk() {
         this._output.write('[<info>?</info>] ' + this._question._question + ' ');
@@ -54,6 +60,9 @@ class PasswordRenderer extends AbstractRenderer {
         return p;
     }
 
+    /**
+     * @private
+     */
     _resolve() {
         if (this._input.isTTY) {
             this._input.setRawMode(false);
@@ -71,6 +80,7 @@ class PasswordRenderer extends AbstractRenderer {
      * Callback for stream "data" event.
      *
      * @param {Buffer} data
+     *
      * @private
      */
     _onData(data) {
@@ -95,6 +105,11 @@ class PasswordRenderer extends AbstractRenderer {
         }
     }
 
+    /**
+     * @param {string} char
+     *
+     * @private
+     */
     _onChar(char) {
         switch (char) {
             case '\x03': {

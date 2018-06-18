@@ -8,7 +8,7 @@ const InvalidTypeException = Jymfony.Component.Config.Definition.Exception.Inval
  */
 class BooleanNode extends ScalarNode {
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     validateType(value) {
         if (! isBoolean(value)) {
@@ -29,7 +29,7 @@ class BooleanNode extends ScalarNode {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     isValueEmpty() {
         // A boolean value cannot be empty

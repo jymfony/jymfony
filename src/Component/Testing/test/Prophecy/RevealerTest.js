@@ -9,12 +9,14 @@ describe('[Testing] Revealer', function () {
     beforeEach(() => {
         /**
          * @type {Jymfony.Component.Testing.Prophecy.Revealer}
+         *
          * @private
          */
         this._revealer = new Revealer();
 
         /**
          * @type {Jymfony.Component.Testing.Prophet}
+         *
          * @private
          */
         this._prophet = new Prophet();

@@ -1,4 +1,3 @@
-
 /**
  * Base exception for all configuration exceptions.
  *

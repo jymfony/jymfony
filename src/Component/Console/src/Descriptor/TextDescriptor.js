@@ -9,7 +9,7 @@ const InputDefinition = Jymfony.Component.Console.Input.InputDefinition;
  */
 class TextDescriptor extends Descriptor {
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     describeInputArgument(argument, options = {}) {
         let defaultValue;
@@ -32,7 +32,7 @@ class TextDescriptor extends Descriptor {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     describeInputOption(option, options = {}) {
         let defaultValue;
@@ -70,7 +70,7 @@ class TextDescriptor extends Descriptor {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     describeInputDefinition(definition, options = {}) {
         let totalWidth = this._calculateTotalWidthForOptions(definition.getOptions());
@@ -113,7 +113,7 @@ class TextDescriptor extends Descriptor {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     describeCommand(command, options = {}) {
         command.getSynopsis(true);
@@ -146,7 +146,7 @@ class TextDescriptor extends Descriptor {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     describeApplication(application, options = {}) {
         const describedNamespace = options.namespace;

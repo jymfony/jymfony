@@ -2,9 +2,13 @@
  * @memberOf Jymfony.Component.Console.Question
  *
  * @enum
+ *
  * @final
  */
 class QuestionType {
+    /**
+     * Constructor.
+     */
     constructor() {
         throw new LogicException('This class cannot be constructed');
     }

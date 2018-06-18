@@ -3,7 +3,7 @@ const UnknownTimeZoneException = Jymfony.Component.DateTime.Exception.UnknownTim
 const Parser = Jymfony.Component.DateTime.Parser.Parser;
 
 /**
- * @type {[string]}
+ * @type {string[]}
  */
 const zones = require('../data/zones.json');
 const abbreviations = require('../data/abbrevs.json');
@@ -14,17 +14,20 @@ const instances = new BTree();
  * To get one please use DateTimeZone.get method.
  *
  * @memberOf Jymfony.Component.DateTime
- * @type DateTimeZone
  */
 class DateTimeZone {
+    /**
+     * Constructor.
+     */
     __construct() {
         throw new Error('Object DateTimeZone cannot be constructed with new. Please use DateTimeZone.get instead');
     }
 
     /**
-     * Gets a DateTimeZone object for the specified timezone
+     * Gets a DateTimeZone object for the specified timezone.
      *
      * @param {string} timezone
+     *
      * @returns {DateTimeZone}
      */
     static get(timezone) {
@@ -41,8 +44,7 @@ class DateTimeZone {
     }
 
     /**
-     *
-     * @returns {[string]}
+     * @returns {string[]}
      */
     static get identifiers() {
         return [ ...zones ];
@@ -58,7 +60,7 @@ class DateTimeZone {
     }
 
     /**
-     * Get the offset for a given datetime or timestamp
+     * Get the offset for a given datetime or timestamp.
      *
      * @param {Jymfony.Component.DateTime.DateTime|int} datetime
      *
@@ -74,7 +76,7 @@ class DateTimeZone {
     }
 
     /**
-     * Gets the timezone abbrev name for a given datetime/timestamp
+     * Gets the timezone abbrev name for a given timestamp or DateTime.
      *
      * @param {Jymfony.Component.DateTime.DateTime|int} datetime
      *
@@ -90,9 +92,10 @@ class DateTimeZone {
     }
 
     /**
-     * Checks if DST is applicable for given timestamp or DateTime
+     * Checks if DST is applicable for a given timestamp or DateTime.
      *
      * @param {Jymfony.Component.DateTime.DateTime|int} datetime
+     *
      * @returns {boolean}
      */
     isDST(datetime) {
@@ -105,11 +108,12 @@ class DateTimeZone {
     }
 
     /**
-     * Get the GMT offset for wall clock time
+     * Get the GMT offset for wall clock time.
      *
      * @param {int} wallTimestamp
      *
      * @returns {int}
+     *
      * @internal
      */
     _getOffsetForWallClock(wallTimestamp) {
@@ -122,11 +126,12 @@ class DateTimeZone {
     }
 
     /**
-     * Gets the data for a given datetime/timestamp
+     * Gets the data for a given timestamp or DateTime.
      *
      * @param {Jymfony.Component.DateTime.DateTime|int} datetime
      *
      * @returns {Array}
+     *
      * @private
      */
     _getData(datetime) {
@@ -142,6 +147,7 @@ class DateTimeZone {
      * a timezone correction.
      *
      * @param timezone
+     *
      * @private
      */
     _load(timezone) {
@@ -167,6 +173,7 @@ class DateTimeZone {
             }
         } else if (-1 !== abbreviations.indexOf(timezone)) {
             const descriptor = require(`../data/abbrev/${timezone}.json`);
+
             this._data.push(-Infinity, {
                 gmt_offset: ~~(descriptor.gmt_offset),
                 dst: !! descriptor.dst,
@@ -184,6 +191,7 @@ class DateTimeZone {
 
         this._transitions = new BTree();
         let previous = 0;
+
         for (const [ timestamp, descriptor ] of this._data) {
             const wall_clock = timestamp + previous;
             previous = ~~descriptor.gmt_offset;

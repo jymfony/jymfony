@@ -6,6 +6,7 @@ class StringUtil {
      * Gives a string representation of the value (to be printed out in exceptions)
      *
      * @param {*} value
+     *
      * @returns {string}
      */
     static stringify(value) {

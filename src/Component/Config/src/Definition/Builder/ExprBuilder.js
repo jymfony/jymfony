@@ -15,6 +15,7 @@ class ExprBuilder {
     __construct(node) {
         /**
          * @type {Jymfony.Component.Config.Definition.Builder.NodeDefinition}
+         *
          * @protected
          */
         this._node = node;
@@ -26,7 +27,7 @@ class ExprBuilder {
     /**
      * Marks the expression as being always used.
      *
-     * @param {Function} then
+     * @param {Function} [then]
      *
      * @returns {Jymfony.Component.Config.Definition.Builder.ExprBuilder}
      */
@@ -45,7 +46,7 @@ class ExprBuilder {
      *
      * The default one tests if the value is true.
      *
-     * @param {Function} closure
+     * @param {Function} [closure]
      *
      * @returns {Jymfony.Component.Config.Definition.Builder.ExprBuilder}
      */
@@ -189,7 +190,7 @@ class ExprBuilder {
      *
      * @returns {Jymfony.Component.Config.Definition.Builder.ExprBuilder}
      *
-     * @throws {InvalidArgumentException}
+     * @throws {Jymfony.Component.Config.Definition.Exception.InvalidConfigurationException}
      */
     thenInvalid(message) {
         this.thenPart = (v) => {
@@ -204,7 +205,7 @@ class ExprBuilder {
      *
      * @returns {Jymfony.Component.Config.Definition.Builder.ExprBuilder}
      *
-     * @throws UnsetKeyException
+     * @throws {Jymfony.Component.Config.Definition.Exception.UnsetKeyException}
      */
     thenUnset() {
         this.thenPart = () => {
@@ -236,9 +237,9 @@ class ExprBuilder {
     /**
      * Builds the expressions.
      *
-     * @param {[Jymfony.Component.Config.Definition.Builder.ExprBuilder]} expressions An array of ExprBuilder instances to build
+     * @param {Jymfony.Component.Config.Definition.Builder.ExprBuilder[]} expressions An array of ExprBuilder instances to build
      *
-     * @returns {[Function]}
+     * @returns {Function[]}
      */
     static buildExpressions(expressions) {
         const result = new HashTable();

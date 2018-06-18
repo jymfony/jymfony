@@ -7,6 +7,15 @@ const Response = Jymfony.Component.HttpFoundation.Response;
  * @memberOf Jymfony.Component.HttpFoundation.Exception
  */
 class MethodNotAllowedHttpException extends HttpException {
+    /**
+     * Constructor.
+     *
+     * @param {string[]} allow
+     * @param {string} message
+     * @param {Exception} [previous]
+     * @param {Object} [headers = {}]
+     * @param {int} [code = 0]
+     */
     __construct(allow, message, previous = undefined, headers = {}, code = 0) {
         headers['Allow'] = allow.join(', ').toUpperCase();
 

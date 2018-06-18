@@ -5,9 +5,11 @@ const RuntimeException = Jymfony.Component.DependencyInjection.Exception.Runtime
 
 /**
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
- * @type {Jymfony.Component.DependencyInjection.Compiler.ResolveInvalidReferencesPass}
  */
-module.exports = class ResolveInvalidReferencesPass extends implementationOf(CompilerPassInterface) {
+class ResolveInvalidReferencesPass extends implementationOf(CompilerPassInterface) {
+    /**
+     * @inheritdoc
+     */
     process(container) {
         this._container = container;
 
@@ -43,7 +45,16 @@ module.exports = class ResolveInvalidReferencesPass extends implementationOf(Com
         }
     }
 
-    _processArguments(args, inMethodCall, inCollection) {
+    /**
+     * @param args
+     * @param {boolean} inMethodCall
+     * @param {boolean|undefined} [inCollection]
+     *
+     * @returns {*}
+     *
+     * @private
+     */
+    _processArguments(args, inMethodCall, inCollection = undefined) {
         for (const [ k, argument ] of __jymfony.getEntries(args)) {
             if (isArray(argument) || isObjectLiteral(argument)) {
                 args[k] = this._processArguments(argument, inMethodCall, true);
@@ -75,4 +86,6 @@ module.exports = class ResolveInvalidReferencesPass extends implementationOf(Com
 
         return args;
     }
-};
+}
+
+module.exports = ResolveInvalidReferencesPass;

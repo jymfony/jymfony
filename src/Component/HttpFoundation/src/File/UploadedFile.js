@@ -7,23 +7,26 @@ class UploadedFile {
      *
      * @param {Buffer} buf
      * @param {string} originalName
-     * @param {string} mimeType
+     * @param {string} [mimeType]
      */
     __construct(buf, originalName, mimeType = undefined) {
         /**
          * @type {Buffer}
+         *
          * @private
          */
         this._buf = buf;
 
         /**
          * @type {string}
+         *
          * @private
          */
         this._originalName = originalName;
 
         /**
          * @type {string}
+         *
          * @private
          */
         this._mimeType = mimeType || 'application/octet-stream';

@@ -10,15 +10,13 @@ const AddConsoleCommandPass = Jymfony.Component.Console.DependencyInjection.AddC
 const AddCacheClearerPass = Jymfony.Component.Kernel.DependencyInjection.AddCacheClearerPass;
 
 /**
- * Bundle
+ * FrameworkBundle.
  *
  * @memberOf Jymfony.Bundle.FrameworkBundle
  */
 class FrameworkBundle extends Bundle {
     /**
-     * Builds the bundle
-     *
-     * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
+     * @inheritdoc
      */
     build(container) {
         container
@@ -34,14 +32,14 @@ class FrameworkBundle extends Bundle {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     async shutdown() {
         await this._closeLogger();
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     async boot() {
         if (this._container.hasParameter('jymfony.logger.mongodb.connections')) {
@@ -58,7 +56,8 @@ class FrameworkBundle extends Bundle {
     /**
      * Closes all the logger handlers.
      *
-     * @return {Promise<void>}
+     * @returns {Promise<void>}
+     *
      * @private
      */
     async _closeLogger() {

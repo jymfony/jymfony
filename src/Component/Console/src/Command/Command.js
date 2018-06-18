@@ -11,6 +11,11 @@ const InputDefinition = Jymfony.Component.Console.Input.InputDefinition;
  * @memberOf Jymfony.Component.Console.Command
  */
 class Command {
+    /**
+     * Constructor.
+     *
+     * @param {string} name
+     */
     __construct(name) {
         this._name = undefined;
         this._synopsis = {};
@@ -73,7 +78,7 @@ class Command {
      *
      * @returns {Promise<void|int>|undefined|int} undefined or 0 if everything went fine, or an error code
      *
-     * @throws {LogicException} When this abstract method is not implemented
+     * @throws {Jymfony.Component.Console.Exception.LogicException.LogicException} When this abstract method is not implemented
      */
     async execute(input, output) { // eslint-disable-line no-unused-vars
         throw new LogicException('You must override the execute() method in the concrete command class.');
@@ -114,7 +119,7 @@ class Command {
      * @param {Jymfony.Component.Console.Input.InputInterface} input An InputInterface instance
      * @param {Jymfony.Component.Console.Output.OutputInterface} output An OutputInterface instance
      *
-     * @returns int The command exit code
+     * @returns {int} The command exit code
      *
      * @see execute()
      */
@@ -245,9 +250,9 @@ class Command {
      * Adds an argument.
      *
      * @param {string} name The argument name
-     * @param {int} mode The argument mode: InputArgument.REQUIRED or InputArgument.OPTIONAL
-     * @param {string} description A description text
-     * @param {*} defaultValue The default value (for InputArgument::OPTIONAL mode only)
+     * @param {int} [mode] The argument mode: InputArgument.REQUIRED or InputArgument.OPTIONAL
+     * @param {string} [description = ''] A description text
+     * @param {*} [defaultValue] The default value (for InputArgument::OPTIONAL mode only)
      *
      * @returns {Jymfony.Component.Console.Command.Command} The current instance
      */
@@ -261,10 +266,10 @@ class Command {
      * Adds an option.
      *
      * @param {string} name The option name
-     * @param {string} shortcut The shortcut (can be null)
-     * @param {int} mode The option mode: One of the InputOption.VALUE_* constants
-     * @param {string} description A description text
-     * @param {*} defaultValue The default value (must be undefined for InputOption.VALUE_NONE)
+     * @param {string} [shortcut] The shortcut (can be null)
+     * @param {int} [mode] The option mode: One of the InputOption.VALUE_* constants
+     * @param {string} [description = ''] A description text
+     * @param {*} [defaultValue] The default value (must be undefined for InputOption.VALUE_NONE)
      *
      * @returns {Jymfony.Component.Console.Command.Command} The current instance
      */
@@ -306,8 +311,6 @@ class Command {
      *
      * This feature should be used only when creating a long process command,
      * like a daemon.
-     *
-     * PHP 5.5+ or the proctitle PECL library is required
      *
      * @param {string} title The process title
      */
@@ -411,7 +414,7 @@ class Command {
     /**
      * Returns the synopsis for the command.
      *
-     * @param {boolean} short Whether to show the short version of the synopsis (with options folded) or not
+     * @param {boolean} [short = false] Whether to show the short version of the synopsis (with options folded) or not
      *
      * @returns {string} The synopsis
      */

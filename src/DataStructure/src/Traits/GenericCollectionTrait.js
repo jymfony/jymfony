@@ -21,8 +21,9 @@ class GenericCollectionTrait {
     /**
      * Returns an array copy of the collection.
      *
-     * @abstract
      * @returns {Array}
+     *
+     * @abstract
      */
     toArray() {
         /* istanbul ignore next: abstract method */

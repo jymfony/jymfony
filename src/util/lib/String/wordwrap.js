@@ -7,9 +7,11 @@ global.__jymfony = global.__jymfony || {};
  * Wraps a string to a given number of characters.
  *
  * @param {string} str
- * @param {int} width
- * @param {string} strBreak
- * @param {boolean} cut
+ * @param {int} [width = 75]
+ * @param {string} [strBreak = '\n']
+ * @param {boolean} [cut = false]
+ *
+ * @returns {string}
  */
 __jymfony.wordwrap = function wordwrap (str, width = 75, strBreak = '\n', cut = false) {
     //  Discuss at: http://locutus.io/php/wordwrap/

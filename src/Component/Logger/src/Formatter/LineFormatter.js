@@ -86,6 +86,11 @@ class LineFormatter extends NormalizerFormatter {
         return output;
     }
 
+    /**
+     * @param {*} value
+     *
+     * @returns {string}
+     */
     stringify(value) {
         return this._replaceNewlines(this._convertToString(value));
     }

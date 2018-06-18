@@ -9,7 +9,7 @@ class FileLocatorInterface {
      * @param {undefined|string} currentPath The current path
      * @param {boolean} first Whether to return the first occurrence or an array of filenames
      *
-     * @returns {[string]|string} The full path to the file or an array of file paths
+     * @returns {string[]|string} The full path to the file or an array of file paths
      *
      * @throws {InvalidArgumentException} If name is empty
      * @throws {Jymfony.Component.Config.Exception.FileLocatorFileNotFoundException} If a file is not found

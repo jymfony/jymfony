@@ -8,7 +8,7 @@ const DescriptorHelper = Jymfony.Component.Console.Helper.DescriptorHelper;
  */
 class HelpCommand extends Command {
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     configure() {
         this.ignoreValidationError();
@@ -42,7 +42,7 @@ To display the list of available commands, please use the <info>list</info> comm
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     execute(input, output) {
         if (! this._command) {

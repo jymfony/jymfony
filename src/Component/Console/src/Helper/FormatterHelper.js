@@ -10,7 +10,7 @@ class FormatterHelper extends Helper {
      *
      * @param {string} section The section name
      * @param {string} message The message
-     * @param {string} style The style to apply to the section
+     * @param {string} [style = 'info'] The style to apply to the section
      *
      * @returns {string} The format section
      */
@@ -23,7 +23,7 @@ class FormatterHelper extends Helper {
      *
      * @param {string|string[]} messages The message to write in the block
      * @param {string} style The style to apply to the whole block
-     * @param {boolean} large Whether to return a large block
+     * @param {boolean} [large = false] Whether to return a large block
      *
      * @returns {string} The formatter message
      */
@@ -62,7 +62,7 @@ class FormatterHelper extends Helper {
      *
      * @param {string} message
      * @param {int} length
-     * @param {string} suffix
+     * @param {string} [suffix = '...']
      *
      * @returns {string}
      */

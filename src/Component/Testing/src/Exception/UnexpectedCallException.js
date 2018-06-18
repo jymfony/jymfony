@@ -10,19 +10,36 @@ class UnexpectedCallException extends ObjectProphecyException {
      * @param {string} message
      * @param {Jymfony.Component.Testing.Prophecy.ObjectProphecy} objectProphecy
      * @param {string} methodName
-     * @param {[*]} args
+     * @param {*[]} args
      */
     __construct(message, objectProphecy, methodName, args) {
         super.__construct(message, objectProphecy);
 
+        /**
+         * @type {string}
+         *
+         * @private
+         */
         this._methodName = methodName;
+
+        /**
+         * @type {*[]}
+         *
+         * @private
+         */
         this._args = args;
     }
 
+    /**
+     * @returns {string}
+     */
     get methodName() {
         return this._methodName;
     }
 
+    /**
+     * @returns {*[]}
+     */
     get args() {
         return this._args;
     }

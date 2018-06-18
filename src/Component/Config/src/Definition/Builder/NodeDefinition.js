@@ -11,87 +11,109 @@ const ValidationBuilder = Jymfony.Component.Config.Definition.Builder.Validation
  * @abstract
  */
 class NodeDefinition extends implementationOf(NodeParentInterface) {
+    /**
+     * Constructor.
+     *
+     * @param {string} name
+     * @param {Jymfony.Component.Config.Definition.Builder.NodeParentInterface} [parent]
+     *
+     * @private
+     */
     __construct(name, parent = undefined) {
         /**
          * @type {Jymfony.Component.Config.Definition.Builder.NodeParentInterface|undefined}
+         *
          * @protected
          */
         this._parent = parent;
 
         /**
          * @type {string}
+         *
          * @protected
          */
         this._name = name;
 
         /**
          * @type {Jymfony.Component.Config.Definition.Builder.NormalizationBuilder|undefined}
+         *
          * @protected
          */
         this._normalization = undefined;
 
         /**
          * @type {Jymfony.Component.Config.Definition.Builder.ValidationBuilder|undefined}
+         *
          * @protected
          */
         this._validation = undefined;
 
         /**
          * @type {*}
+         *
          * @protected
          */
         this._default = undefined;
 
         /**
          * @type {boolean}
+         *
          * @protected
          */
         this._isDefault = false;
 
         /**
          * @type {boolean}
+         *
          * @protected
          */
         this._required = false;
 
         /**
          * @type {string|undefined}
+         *
          * @protected
          */
         this._deprecationMessage = undefined;
 
         /**
          * @type {Jymfony.Component.Config.Definition.Builder.MergeBuilder|undefined}
+         *
          * @protected
          */
         this._merge = undefined;
 
         /**
          * @type {boolean}
+         *
          * @protected
          */
         this._allowEmptyValue = true;
 
         /**
          * @type {*}
+         *
          * @protected
          */
         this._nullEquivalent = undefined;
 
         /**
          * @type {*}
+         *
          * @protected
          */
         this._trueEquivalent = true;
 
         /**
          * @type {*}
+         *
          * @protected
          */
         this._falseEquivalent = false;
 
         /**
          * @type {Object}
+         *
          * @protected
          */
         this._attributes = {};
@@ -146,6 +168,8 @@ class NodeDefinition extends implementationOf(NodeParentInterface) {
 
     /**
      * Returns the parent node.
+     *
+     * @returns {Jymfony.Component.Config.Definition.Builder.NodeParentInterface|undefined}
      */
     end() {
         return this._parent;
@@ -154,7 +178,7 @@ class NodeDefinition extends implementationOf(NodeParentInterface) {
     /**
      * Creates the node.
      *
-     * @param {boolean} forceRootNode Whether to force this node as the root node
+     * @param {boolean} [forceRootNode = false] Whether to force this node as the root node
      *
      * @returns {Jymfony.Component.Config.Definition.NodeInterface}
      */
@@ -208,7 +232,7 @@ class NodeDefinition extends implementationOf(NodeParentInterface) {
      * You can use %node% and %path% placeholders in your message to display,
      * respectively, the node name and its complete path.
      *
-     * @param {string} message Deprecation message
+     * @param {string} [message = 'The child node "%node%" at path "%path%" is deprecated.'] Deprecation message
      *
      * @returns {Jymfony.Component.Config.Definition.Builder.NodeDefinition}
      */
@@ -296,7 +320,7 @@ class NodeDefinition extends implementationOf(NodeParentInterface) {
     /**
      * Sets an expression to run before the normalization.
      *
-     * @return ExprBuilder
+     * @returns {Jymfony.Component.Config.Definition.Builder.ExprBuilder}
      */
     beforeNormalization() {
         return this.normalization().before();
@@ -319,7 +343,7 @@ class NodeDefinition extends implementationOf(NodeParentInterface) {
      * The expression receives the value of the node and must return it. It can modify it.
      * An exception should be thrown when the node is not valid.
      *
-     * @return {Jymfony.Component.Config.Definition.Builder.ExprBuilder}
+     * @returns {Jymfony.Component.Config.Definition.Builder.ExprBuilder}
      */
     validate() {
         return this.validation().rule();
@@ -341,7 +365,8 @@ class NodeDefinition extends implementationOf(NodeParentInterface) {
     /**
      * Gets the builder for validation rules.
      *
-     * @return ValidationBuilder
+     * @returns {Jymfony.Component.Config.Definition.Builder.ValidationBuilder}
+     *
      * @protected
      */
     validation() {
@@ -356,6 +381,7 @@ class NodeDefinition extends implementationOf(NodeParentInterface) {
      * Gets the builder for merging rules.
      *
      * @returns {Jymfony.Component.Config.Definition.Builder.MergeBuilder}
+     *
      * @protected
      */
     merge() {
@@ -369,7 +395,8 @@ class NodeDefinition extends implementationOf(NodeParentInterface) {
     /**
      * Gets the builder for normalization rules.
      *
-     * @return NormalizationBuilder
+     * @returns {Jymfony.Component.Config.Definition.Builder.NormalizationBuilder}
+     *
      * @protected
      */
     normalization() {
@@ -388,6 +415,7 @@ class NodeDefinition extends implementationOf(NodeParentInterface) {
      * @throws {Jymfony.Component.Config.Exception.InvalidDefinitionException} When the definition is invalid
      *
      * @abstract
+     *
      * @protected
      */
     createNode() {

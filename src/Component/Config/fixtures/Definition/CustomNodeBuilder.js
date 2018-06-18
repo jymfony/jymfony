@@ -1,16 +1,27 @@
 const NodeBuilder = Jymfony.Component.Config.Definition.Builder.NodeBuilder;
 
-module.exports = class CustomNodeBuilder extends NodeBuilder {
+class CustomNodeBuilder extends NodeBuilder {
+    /**
+     * @inheritdoc
+     */
     __construct(fixturesNs) {
         super.__construct();
 
         this._fixturesNs = fixturesNs;
     }
 
+    /**
+     * @param {string} name
+     *
+     * @returns {Jymfony.Component.Config.Definition.Builder.NodeDefinition}
+     */
     barNode(name) {
         return this.node(name, 'bar');
     }
 
+    /**
+     * @inheritdoc
+     */
     node(name, type) {
         const n = super.node(name, type);
         if ('bar' === type) {
@@ -20,6 +31,9 @@ module.exports = class CustomNodeBuilder extends NodeBuilder {
         return n;
     }
 
+    /**
+     * @inheritdoc
+     */
     _getNodeClass(type) {
         switch (type) {
             case 'bar': {
@@ -32,4 +46,6 @@ module.exports = class CustomNodeBuilder extends NodeBuilder {
 
         return super._getNodeClass(type);
     }
-};
+}
+
+module.exports = CustomNodeBuilder;

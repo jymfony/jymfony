@@ -20,7 +20,7 @@ class DelegatingLoader extends Loader {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     load(resource, type = undefined) {
         let loader;
@@ -32,7 +32,7 @@ class DelegatingLoader extends Loader {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     supports(resource, type = undefined) {
         return false !== this._resolver.resolve(resource, type);

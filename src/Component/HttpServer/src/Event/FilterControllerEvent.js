@@ -24,6 +24,7 @@ class FilterControllerEvent extends HttpEvent {
 
         /**
          * @type {Function}
+         *
          * @private
          */
         this._controller = controller;

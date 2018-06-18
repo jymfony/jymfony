@@ -20,12 +20,13 @@ const shell_exec = (command) => {
  * This class is internal and should be considered private
  * DO NOT USE this directly.
  *
- * @internal
  * @memberOf Jymfony.Component.Console.Question.Renderer
+ *
+ * @internal
  */
 class SttyPasswordRenderer extends AbstractRenderer {
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     doAsk() {
         const sttyMode = shell_exec('stty -g');

@@ -16,15 +16,14 @@ class Matcher extends implementationOf(MatcherInterface) {
     __construct(routes) {
         /**
          * @type {Jymfony.Component.Routing.RouteCollection}
+         *
          * @private
          */
         this._routes = routes;
     }
 
     /**
-     * @inheritDoc
-     *
-     * @param {Jymfony.Component.HttpFoundation.Request} request
+     * @inheritdoc
      */
     matchRequest(request) {
         if (0 === this._routes.length && '/' === request.pathInfo) {
@@ -90,9 +89,9 @@ class Matcher extends implementationOf(MatcherInterface) {
      *
      * @param {Jymfony.Component.Routing.Route} route
      * @param {string} name
-     * @param {Object<string, string>} attributes
+     * @param {Object.<string, string>} attributes
      *
-     * @returns {Object<string, *>}
+     * @returns {Object.<string, *>}
      *
      * @protected
      */

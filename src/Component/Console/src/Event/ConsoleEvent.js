@@ -6,23 +6,33 @@ const Event = Jymfony.Component.EventDispatcher.Event;
  * @memberOf Jymfony.Component.Console.Event
  */
 class ConsoleEvent extends Event {
+    /**
+     * Constructor.
+     *
+     * @param {Jymfony.Component.Console.Command.Command} [command]
+     * @param {Jymfony.Component.Console.Command.Input.InputInterface} input
+     * @param {Jymfony.Component.Console.Command.Output.OutputInterface} output
+     */
     __construct(command = undefined, input, output) {
         super.__construct();
 
         /**
          * @type {Jymfony.Component.Console.Command.Command}
+         *
          * @protected
          */
         this._command = command;
 
         /**
          * @type {Jymfony.Component.Console.Input.InputInterface}
+         *
          * @private
          */
         this._input = input;
 
         /**
          * @type {Jymfony.Component.Console.Output.OutputInterface}
+         *
          * @private
          */
         this._output = output;

@@ -5,14 +5,26 @@ const ResponseHeaderBag = Jymfony.Component.HttpFoundation.ResponseHeaderBag;
  * @memberOf Jymfony.Component.HttpFoundation
  */
 class Response {
-    __construct(content = '', status = 200, headers = {}) {
+    /**
+     * Constructor.
+     *
+     * @param {string} [content = '']
+     * @param {int} [status = Jymfony.Component.HttpFoundation.Response.HTTP_OK]
+     * @param {Object} [headers = {}]
+     */
+    __construct(content = '', status = __self.HTTP_OK, headers = {}) {
+        /**
+         * @type {Jymfony.Component.HttpFoundation.ResponseHeaderBag}
+         */
         this.headers = new ResponseHeaderBag(headers);
+
         this.content = content;
         this.setStatusCode(status);
         this.protocolVersion = '1.0';
 
         /**
          * @type {undefined|string}
+         *
          * @protected
          */
         this._charset = undefined;
@@ -20,6 +32,8 @@ class Response {
 
     /**
      * Is response invalid?
+     *
+     * @returns {boolean}
      *
      * @see http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
      *
@@ -32,6 +46,8 @@ class Response {
     /**
      * Is response informative?
      *
+     * @returns {boolean}
+     *
      * @final
      */
     get isInformational() {
@@ -40,6 +56,8 @@ class Response {
 
     /**
      * Is response successful?
+     *
+     * @returns {boolean}
      *
      * @final
      */
@@ -50,6 +68,8 @@ class Response {
     /**
      * Is the response a redirect?
      *
+     * @returns {boolean}
+     *
      * @final
      */
     get isRedirection() {
@@ -58,6 +78,8 @@ class Response {
 
     /**
      * Is there a client error?
+     *
+     * @returns {boolean}
      *
      * @final
      */
@@ -68,6 +90,8 @@ class Response {
     /**
      * Was there a server side error?
      *
+     * @returns {boolean}
+     *
      * @final
      */
     get isServerError() {
@@ -76,6 +100,8 @@ class Response {
 
     /**
      * Is the response OK?
+     *
+     * @returns {boolean}
      *
      * @final
      */
@@ -86,6 +112,8 @@ class Response {
     /**
      * Is the response forbidden?
      *
+     * @returns {boolean}
+     *
      * @final
      */
     get isForbidden() {
@@ -94,6 +122,8 @@ class Response {
 
     /**
      * Is the response a not found error?
+     *
+     * @returns {boolean}
      *
      * @final
      */
@@ -104,7 +134,9 @@ class Response {
     /**
      * Is the response a redirect of some form?
      *
-     * @param {undefined|string} location
+     * @param {undefined|string} [location]
+     *
+     * @returns {boolean}
      *
      * @final
      */
@@ -115,6 +147,8 @@ class Response {
 
     /**
      * Is the response empty?
+     *
+     * @returns {boolean}
      *
      * @final
      */
@@ -167,7 +201,7 @@ class Response {
      * Sets the response status code and text.
      *
      * @param {int} code
-     * @param {string} text
+     * @param {string} [text]
      */
     setStatusCode(code, text = undefined) {
         this._statusCode = code;
@@ -182,6 +216,7 @@ class Response {
 
         /**
          * @type {string}
+         *
          * @private
          */
         this._statusText = text;
@@ -190,7 +225,7 @@ class Response {
     /**
      * Retrieves the response charset.
      *
-     * @return {string}
+     * @returns {string}
      */
     get charset() {
         return this._charset;
@@ -209,6 +244,7 @@ class Response {
      * Sets the HTTP protocol version (1.0 or 1.1).
      *
      * @param {string} version
+     *
      * @final
      */
     set protocolVersion(version) {
@@ -292,6 +328,7 @@ class Response {
      * @see http://support.microsoft.com/kb/323308
      *
      * @param {Jymfony.Component.HttpFoundation.Request} request
+     *
      * @final
      */
     _ensureIEOverSSLCompatibility(request) {

@@ -18,6 +18,12 @@ const Terminal = Jymfony.Component.Console.Terminal;
  * @memberOf Jymfony.Component.Console
  */
 class Application {
+    /**
+     * Constructor.
+     *
+     * @param {string} [name = 'UNKNOWN']
+     * @param {string} [version = 'UNKNOWN']
+     */
     __construct(name = 'UNKNOWN', version = 'UNKNOWN') {
         this._name = name;
         this._version = version;
@@ -101,8 +107,8 @@ class Application {
     /**
      * Run the application
      *
-     * @param {Jymfony.Component.Console.Input.InputInterface} input
-     * @param {Jymfony.Component.Console.Output.OutputInterface} output
+     * @param {Jymfony.Component.Console.Input.InputInterface} [input = new ArgvInput()]
+     * @param {Jymfony.Component.Console.Output.OutputInterface} [output new ConsoleOutput()]
      *
      * @returns {Promise} Promise executing the application
      */
@@ -351,7 +357,7 @@ class Application {
      *
      * The object keys are the full names and the values the command instances.
      *
-     * @param {string} namespace A namespace name
+     * @param {string} [namespace] A namespace name
      *
      * @returns {Object.<string, Jymfony.Component.Console.Command.Command>} An array of Command instances
      */
@@ -392,7 +398,7 @@ class Application {
             let message = `There are no commands defined in the "${namespace}" namespace.`, alternatives;
 
             if (alternatives = this._findAlternatives(namespace, allNamespaces)) {
-                if (1 == alternatives.length) {
+                if (1 === alternatives.length) {
                     message += '\n\nDid you mean this?\n    ';
                 } else {
                     message += '\n\nDid you mean one of these?\n    ';
@@ -418,7 +424,7 @@ class Application {
      * This method is not part of public API and should not be used directly.
      *
      * @param {string} name The full name of the command
-     * @param {int} limit The maximum number of parts of the namespace
+     * @param {int} [limit] The maximum number of parts of the namespace
      *
      * @returns {string} The namespace of the command
      */
