@@ -101,7 +101,8 @@ class BinaryFileResponse extends Response {
 
         /**
          * @type {Jymfony.Component.HttpFoundation.File.File}
-         * @private
+         *
+         * @protected
          */
         this._file = file;
 
