@@ -1,3 +1,5 @@
+const DateTime = Jymfony.Component.DateTime.DateTime;
+const DateTimeZone = Jymfony.Component.DateTime.DateTimeZone;
 const Request = Jymfony.Component.HttpFoundation.Request;
 const ResponseHeaderBag = Jymfony.Component.HttpFoundation.ResponseHeaderBag;
 
@@ -220,6 +222,103 @@ class Response {
          * @private
          */
         this._statusText = text;
+    }
+
+    /**
+     * Marks the response as "private".
+     *
+     * It makes the response ineligible for serving other clients.
+     *
+     * @returns {Jymfony.Component.HttpFoundation.Response}
+     *
+     * @final
+     */
+    setPrivate() {
+        this.headers.removeCacheControlDirective('public');
+        this.headers.addCacheControlDirective('private');
+
+        return this;
+    }
+
+    /**
+     * Marks the response as "public".
+     *
+     * It makes the response eligible for serving other clients.
+     *
+     * @returns {Jymfony.Component.HttpFoundation.Response}
+     *
+     * @final
+     */
+    setPublic() {
+        this.headers.addCacheControlDirective('public');
+        this.headers.removeCacheControlDirective('private');
+
+        return this;
+    }
+
+
+    /**
+     * Returns the Last-Modified HTTP header as a DateTime instance.
+     *
+     * @returns {Jymfony.Component.DateTime.DateTime}
+     *
+     * @throws {RuntimeException} When the HTTP header is not parseable
+     *
+     * @final
+     */
+    get lastModified() {
+        return this.headers.getDate('Last-Modified');
+    }
+
+    /**
+     * Sets the Last-Modified HTTP header with a DateTime instance.
+     *
+     * Passing undefined as value will remove the header.
+     *
+     * @final
+     */
+    set lastModified(date) {
+        if (undefined === date) {
+            this.headers.remove('Last-Modified');
+
+            return this;
+        }
+
+        date = new DateTime(date.timestamp, DateTimeZone.get('UTC'));
+        this.headers.set('Last-Modified', date.format('D, d M Y H:i:s') + ' GMT');
+    }
+
+    /**
+     * Returns the literal value of the ETag HTTP header.
+     *
+     * @returns {string}
+     *
+     * @final
+     */
+    getEtag() {
+        return this.headers.get('ETag');
+    }
+
+    /**
+     * Sets the ETag value.
+     *
+     * @param {string|undefined} etag The ETag unique identifier or null to remove the header
+     * @param {boolean} weak Whether you want a weak ETag or not
+     *
+     * @final
+     */
+    setEtag(etag = undefined, weak = false) {
+        if (undefined === etag) {
+            this.headers.remove('Etag');
+        } else {
+            if (0 !== etag.indexOf('"')) {
+                etag = '"' + etag + '"';
+            }
+
+            this.headers.set('ETag', (true === weak ? 'W/' : '') + etag);
+        }
+
+        return this;
     }
 
     /**

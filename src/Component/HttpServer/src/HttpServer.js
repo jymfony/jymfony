@@ -152,9 +152,12 @@ class HttpServer {
             'SERVER_PROTOCOL': 'HTTP/'+req.httpVersion,
         }, content);
 
-        const response = await __jymfony.Async.run(this.handle.bind(this), request);
-        response.prepare(request);
+        let response = await __jymfony.Async.run(this.handle.bind(this), request);
+        if (response instanceof Promise) {
+            response = await response;
+        }
 
+        response.prepare(request);
         res.writeHead(response.statusCode, response.statusText, response.headers.all);
 
         if (! response.isEmpty) {

@@ -1,3 +1,6 @@
+const DateTime = Jymfony.Component.DateTime.DateTime;
+const HeaderUtils = Jymfony.Component.HttpFoundation.HeaderUtils;
+
 /**
  * @memberOf Jymfony.Component.HttpFoundation
  */
@@ -11,14 +14,14 @@ class HeaderBag {
         /**
          * @type {Object.<string, string[]>}
          *
-         * @private
+         * @protected
          */
         this._headers = {};
 
         /**
          * @type {Object.<string, int|string|boolean>}
          *
-         * @private
+         * @protected
          */
         this._cacheControl = {};
 
@@ -153,6 +156,30 @@ class HeaderBag {
     }
 
     /**
+     * Returns the HTTP header value converted to a date.
+     *
+     * @param {string} key The parameter key
+     * @param {Jymfony.Component.DateTime.DateTime} defaultValue The default value
+     *
+     * @return {Jymfony.Component.DateTime.DateTime} The parsed DateTime or the default value if the header does not exist
+     *
+     * @throws {RuntimeException} When the HTTP header is not parseable
+     */
+    getDate(key, defaultValue = undefined) {
+        const value = this.get(key);
+        if (undefined === value) {
+            return defaultValue;
+        }
+
+        const date = DateTime.createFromFormat(DateTime.RFC_2822, value);
+        if (! date) {
+            throw new RuntimeException(__jymfony.sprintf('The %s HTTP header is not parseable (%s).', key, value));
+        }
+
+        return date;
+    }
+
+    /**
      * Gets a key/value iterator.
      *
      * @returns {Generator}
@@ -181,24 +208,55 @@ class HeaderBag {
     }
 
     /**
+     * Adds a custom Cache-Control directive.
+     *
+     * @param {string} key   The Cache-Control directive name
+     * @param {*} value The Cache-Control directive value
+     */
+    addCacheControlDirective(key, value = true) {
+        this._cacheControl[key] = value;
+
+        this.set('Cache-Control', this.cacheControlHeader);
+    }
+
+    /**
+     * Returns true if the Cache-Control directive is defined.
+     *
+     * @param {string} key The Cache-Control directive
+     *
+     * @returns {boolean} true if the directive exists, false otherwise
+     */
+    hasCacheControlDirective(key) {
+        return undefined !== this._cacheControl[key];
+    }
+
+    /**
+     * Returns a Cache-Control directive value by name.
+     *
+     * @param {string} key The directive name
+     *
+     * @returns {*} The directive value if defined, undefined otherwise
+     */
+    getCacheControlDirective(key) {
+        return this._cacheControl[key];
+    }
+
+    /**
+     * Removes a Cache-Control directive.
+     *
+     * @param {string} key The Cache-Control directive
+     */
+    removeCacheControlDirective(key) {
+        delete this._cacheControl[key];
+
+        this.set('Cache-Control', this.cacheControlHeader);
+    }
+
+    /**
      * @returns {string}
      */
     get cacheControlHeader() {
-        const parts = [];
-        Object.ksort(this._cacheControl);
-        for (let [ key, value ] of this._cacheControl) {
-            if (true === value) {
-                parts.push(key);
-            } else {
-                if (value.match(/[^a-zA-Z0-9._-]/)) {
-                    value = '"'+value+'"';
-                }
-
-                parts.push(key + '=' + value);
-            }
-        }
-
-        return parts.join(', ');
+        return HeaderUtils.toString(this._cacheControl, ',');
     }
 
     /**

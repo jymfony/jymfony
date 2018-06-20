@@ -39,6 +39,25 @@ class DateTime {
     }
 
     /**
+     * Parse a string into a new DateTime object according to the specified format
+     *
+     * @param {string} format
+     * @param {string} time
+     * @param {undefined|string|Jymfony.Component.DateTime.DateTimeZone} [timezone]
+     *
+     * @returns {Jymfony.Component.DateTime.DateTime}
+     */
+    static createFromFormat(format, time, timezone = undefined) {
+        const obj = new __self();
+        obj._tm = DateTimeFormatter.parse(format, time);
+        if (timezone) {
+            obj._tm.timeZone = timezone;
+        }
+
+        return obj;
+    }
+
+    /**
      * Gets a new DateTime representing the current datetime.
      *
      * @returns {Jymfony.Component.DateTime.DateTime}

@@ -1,7 +1,11 @@
+const File = Jymfony.Component.HttpFoundation.File.File;
+
+const { Readable } = require('stream');
+
 /**
  * @memberOf Jymfony.Component.HttpFoundation.File
  */
-class UploadedFile {
+class UploadedFile extends File {
     /**
      * Constructor.
      *
@@ -30,15 +34,20 @@ class UploadedFile {
          * @private
          */
         this._mimeType = mimeType || 'application/octet-stream';
+
+        super.__construct(null, false);
     }
 
     /**
-     * Gets the file content.
-     *
-     * @returns {Buffer}
+     * @inheritdoc
      */
-    get buffer() {
-        return this._buf;
+    get content() {
+        return new Readable({
+            read: () => {
+                stream.push(this._buf);
+                stream.push(null);
+            },
+        });
     }
 
     /**
