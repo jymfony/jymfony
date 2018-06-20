@@ -10,6 +10,8 @@ const Event = Jymfony.Component.HttpServer.Event;
 const RequestParser = Jymfony.Component.HttpServer.RequestParser;
 const NullLogger = Jymfony.Component.Logger.NullLogger;
 
+const urlModule = require('url');
+
 /**
  * @memberOf Jymfony.Component.HttpServer
  */
@@ -49,6 +51,20 @@ class HttpServer {
          * @private
          */
         this._logger = new NullLogger();
+
+        /**
+         * @type {string|undefined}
+         *
+         * @private
+         */
+        this._host = undefined;
+
+        /**
+         * @type {string|undefined}
+         *
+         * @private
+         */
+        this._port = undefined;
     }
 
     /**
@@ -74,11 +90,18 @@ class HttpServer {
                 reject(e);
             });
 
-            this._http.on('close', resolve);
+            this._http.on('close', () => {
+                this._host = undefined;
+                this._port = undefined;
+
+                resolve();
+            });
 
             if (!! path) {
                 this._http.listen({ path });
             } else {
+                this._host = host;
+                this._port = port;
                 this._http.listen({ host, port });
             }
 
@@ -90,6 +113,9 @@ class HttpServer {
         if (! this._http.listening) {
             return;
         }
+
+        this._http.close();
+        this._http.listening = false;
     }
 
     /**
@@ -145,7 +171,7 @@ class HttpServer {
             return;
         }
 
-        const request = new Request(req.url, requestParams, {}, req.headers, {
+        const request = new Request(this._getUrl(req), requestParams, {}, req.headers, {
             'REQUEST_METHOD': req.method,
             'REMOTE_ADDR': req.connection.remoteAddress,
             'SCHEME': this._getScheme(),
@@ -329,6 +355,50 @@ class HttpServer {
      */
     _getScheme() {
         return 'http';
+    }
+
+    /**
+     * Whether the given port number is the default port.
+     *
+     * @param {int} port
+     *
+     * @returns {boolean}
+     *
+     * @protected
+     */
+    _isDefaultPort(port) {
+        return 80 === port;
+    }
+
+    /**
+     * Completes the server url with host and port, if necessary.
+     *
+     * @param {IncomingMessage} req
+     *
+     * @returns {string}
+     *
+     * @private
+     */
+    _getUrl(req) {
+        const url = urlModule.parse(req.url);
+
+        if (! url.hostname) {
+            url.hostname = this._host;
+        }
+
+        if (req.headers.host) {
+            url.hostname = req.headers.host;
+        }
+
+        if (! url.protocol) {
+            url.protocol = this._getScheme();
+        }
+
+        if (! url.port && ! this._isDefaultPort(this._port)) {
+            url.port = this._port;
+        }
+
+        return urlModule.format(url);
     }
 
     /**
