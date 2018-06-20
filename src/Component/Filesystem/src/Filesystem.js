@@ -1,5 +1,6 @@
 const IOException = Jymfony.Component.Filesystem.Exception.IOException;
 const RecursiveDirectoryIterator = Jymfony.Component.Filesystem.Iterator.RecursiveDirectoryIterator;
+
 const fs = require('fs');
 const path = require('path');
 const internal = require('./internal');
