@@ -2,6 +2,8 @@ const FileException = Jymfony.Component.HttpFoundation.File.Exception.FileExcept
 const File = Jymfony.Component.HttpFoundation.File.File;
 const Response = Jymfony.Component.HttpFoundation.Response;
 
+const crypto = require('crypto');
+
 /**
  * Represents an HTTP response delivering a file.
  *
