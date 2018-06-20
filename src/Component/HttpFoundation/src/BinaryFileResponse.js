@@ -29,6 +29,9 @@ class BinaryFileResponse extends Response {
         return this.setFile(file, contentDisposition, autoEtag, autoLastModified);
     }
 
+    /**
+     * @inheritdoc
+     */
     set content(content) {
         super.content = content;
     }
@@ -50,6 +53,32 @@ class BinaryFileResponse extends Response {
     }
 
     /**
+     * @inheritdoc
+     *
+     * @param {Jymfony.Component.HttpFoundation.Request} request
+     */
+    prepare(request) {
+        if (! this.headers.has('Content-Type')) {
+            this.headers.set('Content-Type', this._file.getMimeType() || 'application/octet-stream');
+        }
+
+        if ('HTTP/1.0' !== request.server.get('SERVER_PROTOCOL')) {
+            this.protocolVersion = '1.1';
+        }
+
+        this._ensureIEOverSSLCompatibility(request);
+        const fileSize = this._file.size;
+
+        if (false === fileSize) {
+            return this;
+        }
+
+        this.headers.set('Content-Length', fileSize);
+
+        return this;
+    }
+
+    /**
      * Sets the file to stream.
      *
      * @param {Jymfony.Component.HttpFoundation.File.File|string} file
@@ -66,7 +95,7 @@ class BinaryFileResponse extends Response {
             file = new File(file.toString());
         }
 
-        if (! file.isReadable()) {
+        if (! file.isReadable) {
             throw new FileException('File must be readable');
         }
 

@@ -1,4 +1,5 @@
 const DateTime = Jymfony.Component.DateTime.DateTime;
+const Cookie = Jymfony.Component.HttpFoundation.Cookie;
 const HeaderBag = Jymfony.Component.HttpFoundation.HeaderBag;
 const HeaderUtils = Jymfony.Component.HttpFoundation.HeaderUtils;
 
@@ -24,11 +25,11 @@ class ResponseHeaderBag extends HeaderBag {
         /**
          * Cookies of the response.
          *
-         * @type {Array}
+         * @type {Object.<Object.<Object.<Jymfony.Component.HttpFoundation.Cookie>>>}
          *
          * @private
          */
-        this._cookies = [];
+        this._cookies = {};
 
         /**
          * Computed cache-control header.
@@ -97,6 +98,19 @@ class ResponseHeaderBag extends HeaderBag {
      */
     getCacheControlDirective(key) {
         return this._computedCacheControl[key];
+    }
+
+    /**
+     * Sets a cookie.
+     *
+     * @param {Jymfony.Component.HttpFoundation.Cookie} cookie
+     */
+    setCookie(cookie) {
+        this._cookies[cookie.domain] = this._cookies[cookie.domain] || {};
+        this._cookies[cookie.domain][cookie.path] = this._cookies[cookie.domain][cookie.path] || {};
+        this._cookies[cookie.domain][cookie.path][cookie.name] = cookie;
+
+        this._headerNames['set-cookie'] = 'Set-Cookie';
     }
 
     /**

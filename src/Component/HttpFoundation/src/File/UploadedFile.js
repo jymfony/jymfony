@@ -1,3 +1,4 @@
+const DateTime = Jymfony.Component.DateTime.DateTime;
 const File = Jymfony.Component.HttpFoundation.File.File;
 
 const { Readable } = require('stream');
@@ -42,12 +43,14 @@ class UploadedFile extends File {
      * @inheritdoc
      */
     get content() {
-        return new Readable({
+        const stream = new Readable({
             read: () => {
                 stream.push(this._buf);
                 stream.push(null);
             },
         });
+
+        return stream;
     }
 
     /**
@@ -75,6 +78,20 @@ class UploadedFile extends File {
      */
     get mimeType() {
         return this._mimeType;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    get isReadable() {
+        return true;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    get modificationTime() {
+        return DateTime.now;
     }
 }
 

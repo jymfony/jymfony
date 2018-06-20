@@ -281,7 +281,7 @@ class Response {
         if (undefined === date) {
             this.headers.remove('Last-Modified');
 
-            return this;
+            return;
         }
 
         date = new DateTime(date.timestamp, DateTimeZone.get('UTC'));

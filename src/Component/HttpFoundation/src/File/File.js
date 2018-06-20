@@ -28,8 +28,21 @@ class File {
      *
      * @returns {string}
      */
-    fileName() {
+    get fileName() {
         return path.basename(this._fileName);
+    }
+
+    /**
+     * Gets the file size in bytes.
+     *
+     * @returns {int}
+     */
+    get size() {
+        if (undefined === this._stat && ! this.exists()) {
+            return false;
+        }
+
+        return this._stat.size;
     }
 
     /**
@@ -52,7 +65,7 @@ class File {
      *
      * @returns {boolean}
      */
-    isReadable() {
+    get isReadable() {
         try {
             fs.accessSync(this._fileName, fs.constants.R_OK);
         } catch (e) {
