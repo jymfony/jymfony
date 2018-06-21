@@ -183,7 +183,7 @@ class HttpServer {
         await __jymfony.Async.run(response.prepare.bind(response), request);
         res.writeHead(response.statusCode, response.statusText, response.headers.all);
 
-        if (! response.isEmpty) {
+        if (! response.isEmpty && response.content) {
             if (isFunction(response.content)) {
                 await __jymfony.Async.run(response.content, res);
             } else {
