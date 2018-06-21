@@ -438,6 +438,7 @@ class Request {
             return ~~this.server.get('SERVER_PORT');
         }
 
+        host = host.toString();
         if ('[' === host[0]) {
             host = host.substr(host.lastIndexOf(']'));
         }
