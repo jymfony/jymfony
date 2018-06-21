@@ -322,6 +322,53 @@ class Response {
     }
 
     /**
+     * Returns true if the response includes a Vary header.
+     *
+     * @returns {boolean}
+     *
+     * @final
+     */
+    hasVary() {
+        return this.headers.has('Vary');
+    }
+
+    /**
+     * Returns an array of header names given in the Vary header.
+     *
+     * @returns {string[]}
+     *
+     * @final
+     */
+    getVary() {
+        if (! this.hasVary()) {
+            return [];
+        }
+
+        const vary = this.headers.get('Vary');
+
+        let ret = [];
+        for (const item of vary) {
+            ret = ret.concat(item.split(', '));
+        }
+
+        return ret;
+    }
+
+    /**
+     * Sets the Vary header.
+     *
+     * @param {string|string[]} headers
+     * @param {boolean} [replace = true] Whether to replace the actual value or not (true by default)
+     *
+     * @final
+     */
+    setVary(headers, replace = true) {
+        this.headers.set('Vary', headers, replace);
+
+        return this;
+    }
+
+    /**
      * Retrieves the response charset.
      *
      * @returns {string}
