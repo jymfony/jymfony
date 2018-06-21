@@ -113,7 +113,6 @@ class HttpServer {
         }
 
         this._http.close();
-        this._http.listening = false;
     }
 
     /**
