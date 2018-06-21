@@ -151,6 +151,26 @@ class Request {
         /**
          * @type {Jymfony.Component.HttpFoundation.ParameterBag}
          */
+        this.server = new ParameterBag(server);
+
+        /**
+         * @type {Jymfony.Component.HttpFoundation.HeaderBag}
+         */
+        this.headers = new HeaderBag(headers);
+
+        /**
+         * @type {Url}
+         *
+         * @private
+         */
+        url = urlModule.parse(url);
+        url.protocol = this.scheme;
+        url.hostname = this.httpHost;
+        this._url = urlModule.parse(urlModule.format(url));
+
+        /**
+         * @type {Jymfony.Component.HttpFoundation.ParameterBag}
+         */
         this.query = new ParameterBag(__jymfony.parse_query_string(this._url.query));
 
         /**
@@ -164,33 +184,14 @@ class Request {
         this.attributes = new ParameterBag(attributes);
 
         /**
-         * @type {Jymfony.Component.HttpFoundation.HeaderBag}
-         */
-        this.headers = new HeaderBag(headers);
-
-        /**
          * @type {Jymfony.Component.HttpFoundation.ParameterBag}
          */
         this.cookies = new ParameterBag(this.headers.cookies);
 
         /**
-         * @type {Jymfony.Component.HttpFoundation.ParameterBag}
-         */
-        this.server = new ParameterBag(server);
-
-        /**
          * @type {Buffer}
          */
         this.content = content;
-
-        /**
-         * @type {Url}
-         *
-         * @private
-         */
-        this._url = urlModule.parse(url);
-        this._url.protocol = this.scheme;
-        this._url.hostname = this.httpHost;
     }
 
     /**
