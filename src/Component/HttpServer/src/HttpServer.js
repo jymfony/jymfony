@@ -10,8 +10,6 @@ const Event = Jymfony.Component.HttpServer.Event;
 const RequestParser = Jymfony.Component.HttpServer.RequestParser;
 const NullLogger = Jymfony.Component.Logger.NullLogger;
 
-const urlModule = require('url');
-
 /**
  * @memberOf Jymfony.Component.HttpServer
  */
@@ -171,7 +169,7 @@ class HttpServer {
             return;
         }
 
-        const request = new Request(this._getUrl(req), requestParams, {}, req.headers, {
+        const request = new Request(req.url, requestParams, {}, req.headers, {
             'REQUEST_METHOD': req.method,
             'REMOTE_ADDR': req.connection.remoteAddress,
             'SCHEME': this._getScheme(),
@@ -183,7 +181,7 @@ class HttpServer {
             response = await response;
         }
 
-        response.prepare(request);
+        await __jymfony.Async.run(response.prepare, request);
         res.writeHead(response.statusCode, response.statusText, response.headers.all);
 
         if (! response.isEmpty) {
@@ -355,50 +353,6 @@ class HttpServer {
      */
     _getScheme() {
         return 'http';
-    }
-
-    /**
-     * Whether the given port number is the default port.
-     *
-     * @param {int} port
-     *
-     * @returns {boolean}
-     *
-     * @protected
-     */
-    _isDefaultPort(port) {
-        return 80 === port;
-    }
-
-    /**
-     * Completes the server url with host and port, if necessary.
-     *
-     * @param {IncomingMessage} req
-     *
-     * @returns {string}
-     *
-     * @private
-     */
-    _getUrl(req) {
-        const url = urlModule.parse(req.url);
-
-        if (! url.hostname) {
-            url.hostname = this._host;
-        }
-
-        if (req.headers.host) {
-            url.hostname = req.headers.host;
-        }
-
-        if (! url.protocol) {
-            url.protocol = this._getScheme();
-        }
-
-        if (! url.port && ! this._isDefaultPort(this._port)) {
-            url.port = this._port;
-        }
-
-        return urlModule.format(url);
     }
 
     /**

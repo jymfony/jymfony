@@ -149,13 +149,6 @@ class Request {
         this._format = undefined;
 
         /**
-         * @type {Url}
-         *
-         * @private
-         */
-        this._url = urlModule.parse(url);
-
-        /**
          * @type {Jymfony.Component.HttpFoundation.ParameterBag}
          */
         this.query = new ParameterBag(__jymfony.parse_query_string(this._url.query));
@@ -189,6 +182,15 @@ class Request {
          * @type {Buffer}
          */
         this.content = content;
+
+        /**
+         * @type {Url}
+         *
+         * @private
+         */
+        this._url = urlModule.parse(url);
+        this._url.protocol = this.scheme;
+        this._url.hostname = this.httpHost;
     }
 
     /**

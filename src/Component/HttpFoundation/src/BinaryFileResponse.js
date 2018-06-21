@@ -28,7 +28,7 @@ class BinaryFileResponse extends Response {
             this.setPublic();
         }
 
-        return this.setFile(file, contentDisposition, autoEtag, autoLastModified);
+        this.setFile(file, contentDisposition, autoEtag, autoLastModified);
     }
 
     /**
@@ -59,9 +59,26 @@ class BinaryFileResponse extends Response {
      *
      * @param {Jymfony.Component.HttpFoundation.Request} request
      */
-    prepare(request) {
+    async prepare(request) {
         if (! this.headers.has('Content-Type')) {
             this.headers.set('Content-Type', this._file.getMimeType() || 'application/octet-stream');
+        }
+
+        if (this._autoLastModified && ! this.headers.has('Last-Modified')) {
+            this.lastModified = this._file.modificationTime.timestamp;
+        }
+
+        if (this._autoEtag && ! this.headers.has('Etag')) {
+            const p = new Promise((resolve, reject) => {
+                const hash = crypto.createHash('sha256');
+                const stream = this._file.content;
+
+                stream.on('error', err => reject(err));
+                stream.on('data', chunk => hash.update(chunk));
+                stream.on('end', () => resolve(hash.digest('base64')));
+            });
+
+            this.setEtag(await p);
         }
 
         if ('HTTP/1.0' !== request.server.get('SERVER_PROTOCOL')) {
@@ -88,11 +105,11 @@ class BinaryFileResponse extends Response {
      * @param {boolean} autoEtag
      * @param {boolean} autoLastModified
      *
-     * @returns {Promise<Jymfony.Component.HttpFoundation.BinaryFileResponse>}
+     * @returns {Jymfony.Component.HttpFoundation.BinaryFileResponse}
      *
      * @throws {Jymfony.Component.HttpFoundation.File.Exception.FileException}
      */
-    async setFile(file, contentDisposition = null, autoEtag = false, autoLastModified = true) {
+    setFile(file, contentDisposition = null, autoEtag = false, autoLastModified = true) {
         if (! (file instanceof File)) {
             file = new File(file.toString());
         }
@@ -109,7 +126,7 @@ class BinaryFileResponse extends Response {
         this._file = file;
 
         if (autoEtag) {
-            await this.setAutoEtag();
+            this.setAutoEtag();
         }
 
         if (autoLastModified) {
@@ -126,19 +143,15 @@ class BinaryFileResponse extends Response {
     /**
      * Automatically sets the ETag header according to the checksum of the file.
      *
-     * @returns {Promise<Jymfony.Component.HttpFoundation.BinaryFileResponse>}
+     * @returns {Jymfony.Component.HttpFoundation.BinaryFileResponse}
      */
-    async setAutoEtag() {
-        const p = new Promise((resolve, reject) => {
-            const hash = crypto.createHash('sha256');
-            const stream = this._file.content;
-
-            stream.on('error', err => reject(err));
-            stream.on('data', chunk => hash.update(chunk));
-            stream.on('end', () => resolve(hash.digest('base64')));
-        });
-
-        this.setEtag(await p);
+    setAutoEtag() {
+        /**
+         * @type {boolean}
+         *
+         * @private
+         */
+        this._autoEtag = true;
 
         return this;
     }
@@ -149,7 +162,12 @@ class BinaryFileResponse extends Response {
      * @returns {Jymfony.Component.HttpFoundation.BinaryFileResponse}
      */
     setAutoLastModified() {
-        this.lastModified = this._file.modificationTime.timestamp;
+        /**
+         * @type {boolean}
+         *
+         * @private
+         */
+        this._autoLastModified = true;
 
         return this;
     }
