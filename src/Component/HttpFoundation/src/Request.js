@@ -323,8 +323,8 @@ class Request {
      * @throws SuspiciousOperationException when the host name is invalid or not trusted
      */
     get host() {
-        let host;
-        if (this.isFromTrustedProxy && (host = this._getTrustedValues(__self.HEADER_X_FORWARDED_HOST))) {
+        let host = '';
+        if (this.isFromTrustedProxy && 0 < (host = this._getTrustedValues(__self.HEADER_X_FORWARDED_HOST)).length) {
             host = host[0];
         } else if (! (host = this.headers.get('HOST'))) {
             if (! (host = this.server.get('SERVER_NAME'))) {
@@ -430,9 +430,9 @@ class Request {
      */
     get port() {
         let host;
-        if (this.isFromTrustedProxy && (host = this._getTrustedValues(__self.HEADER_X_FORWARDED_PORT))) {
+        if (this.isFromTrustedProxy && 0 < (host = this._getTrustedValues(__self.HEADER_X_FORWARDED_PORT)).length) {
             host = ~~host[0];
-        } else if (this.isFromTrustedProxy && (host = this._getTrustedValues(__self.HEADER_X_FORWARDED_HOST))) {
+        } else if (this.isFromTrustedProxy && 0 < (host = this._getTrustedValues(__self.HEADER_X_FORWARDED_HOST)).length) {
             host = ~~host[0];
         } else if (! (host = this.headers.get('HOST'))) {
             return ~~this.server.get('SERVER_PORT');
@@ -601,7 +601,9 @@ class Request {
             return [ ip ];
         }
 
-        return this._getTrustedValues(Request.HEADER_X_FORWARDED_FOR, ip) || [ ip ];
+        const forwarded = this._getTrustedValues(Request.HEADER_X_FORWARDED_FOR, ip);
+
+        return 0 < forwarded.length ? forwarded : [ ip ];
     }
 
     /**
