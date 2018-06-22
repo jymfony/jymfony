@@ -319,7 +319,7 @@ class JymfonyStyle extends OutputStyle {
     /**
      * Returns a new instance which makes use of stderr if available.
      *
-     * @returns self
+     * @returns {Jymfony.Component.Console.Style.JymfonyStyle}
      */
     getErrorStyle() {
         return new __self(this._input, this._getErrorOutput());

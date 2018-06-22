@@ -23,7 +23,7 @@ class Table {
         this._headers = [];
 
         /**
-         * @type {Array}
+         * @type {string[]}
          *
          * @private
          */
@@ -35,6 +35,20 @@ class Table {
          * @private
          */
         this._numberOfColumns = 0;
+
+        /**
+         * @type {int}
+         *
+         * @private
+         */
+        this._numberOfHeaders = 0;
+
+        /**
+         * @type {int}
+         *
+         * @private
+         */
+        this._numberOfRows = 0;
 
         /**
          * @type {int[]}
@@ -288,15 +302,23 @@ class Table {
      */
     render() {
         this._calculateNumberOfColumns();
-        let rows = this._buildEmptyTableRows(this._rows);
-        rows = this._fillTableRows(rows, this._rows);
+        this._calculateNumberOfRows();
+        this._calculateNumberOfHeaders();
 
-        let headers = this._buildEmptyTableRows(this._headers);
-        headers = this._fillTableRows(headers, this._headers);
+        let headers = this._buildEmptyTableRows(this._numberOfHeaders);
+        let rows = this._buildEmptyTableRows(this._numberOfRows);
+
+        if (0 < this._numberOfHeaders) {
+            headers = this._fillTableRows(headers, this._headers);
+        }
+
+        rows = this._fillTableRows(rows, this._rows);
 
         this._calculateColumnsWidth(__jymfony.deepClone([].concat(headers, rows)));
 
-        if (0 < headers.length) {
+        this._renderRowSeparator();
+
+        if (0 < this._numberOfHeaders) {
             for (const header of headers) {
                 this._renderRow(header, this.style.getCellHeaderFormat());
                 this._renderRowSeparator();
@@ -460,47 +482,121 @@ class Table {
     }
 
     /**
-     * @param {Array} rows
+     * Gets number of columns by row.
      *
+     * @param {Array} row
+     *
+     * @returns {int}
+     *
+     * @private
+     */
+    _getNumberOfColumns(row) {
+        let columns = row.length;
+
+        for (const cell of row) {
+            columns += cell instanceof TableCell ? cell.getColspan() - 1 : 0;
+        }
+
+        return columns;
+    }
+
+    /**
+     * Calculate number of rows for this table.
+     *
+     * @private
+     */
+    _calculateNumberOfRows() {
+        if (this._numberOfRows) {
+            return;
+        }
+
+        let rows = 0;
+
+        for (const row of this._rows) {
+            if (row instanceof TableSeparator) {
+                ++rows;
+                continue;
+            }
+
+            rows += this._getNumberOfRows(row);
+        }
+
+        this._numberOfRows = rows;
+    }
+
+    /**
+     * Gets number of rows by cell.
+     *
+     * @param {Array} row
+     *
+     * @returns {int}
+     *
+     * @private
+     */
+    _getNumberOfRows(row) {
+        let rows = 1;
+
+        for (const cell of row) {
+            rows += cell instanceof TableCell ? cell.getRowspan() - 1 : 0;
+            rows += (cell.toString().match(/\\n/g) || []).length;
+        }
+
+        return rows;
+    }
+
+    /**
+     * Calculate number of headers for this table.
+     *
+     * @private
+     */
+    _calculateNumberOfHeaders() {
+        if (this._numberOfHeaders) {
+            return;
+        }
+
+        let headers = 0;
+
+        for (const header of this._headers) {
+            if (header instanceof TableSeparator) {
+                continue;
+            }
+
+            headers += this._getNumberOfHeaders(header);
+        }
+
+        this._numberOfHeaders = headers;
+    }
+
+    /**
+     * Gets number of headers by cell.
+     *
+     * @param {Array} header
+     *
+     * @returns {int}
+     *
+     * @private
+     */
+    _getNumberOfHeaders(header) {
+        let headers = 1;
+
+        for (const cell of header) {
+            headers += (cell.toString().match(/\\n/g) || []).length;
+        }
+
+        return headers;
+    }
+
+    /**
      * @returns {Array}
      *
      * @private
      */
-    _buildEmptyTableRows(rows) {
-        let howManyRows = 0;
-        let howManyColumns = 0;
-
-        for (let rowNumber = 0; rowNumber < rows.length; ++rowNumber) {
-            ++howManyRows;
-
-            const row = rows[rowNumber];
-
-            for (let columnNumber = 0; columnNumber < row.length; ++columnNumber) {
-                ++howManyColumns;
-
-                const cell = row[columnNumber];
-                if (-1 < cell.toString().indexOf('\n')) {
-                    ++howManyRows;
-                }
-
-                if (cell instanceof TableCell) {
-                    const colspan = cell.getColspan();
-                    if (colspan > 1) {
-                        howManyColumns += colspan - 1;
-                    }
-
-                    const rowspan = cell.getRowspan();
-                    if (rowspan > 1) {
-                        howManyRows += rowspan - 1;
-                    }
-                }
-            }
-        }
-
+    _buildEmptyTableRows(numberOfRows) {
         const tableRows = [];
-        for (let r = 0; r < howManyRows; ++r) {
+        for (let rowNumber = 0; rowNumber < numberOfRows; ++rowNumber) {
             const row = [];
-            for (let c = 0; c < howManyColumns; ++c) {
+
+            for (let columnNumber = 0; columnNumber < this._numberOfColumns; ++columnNumber) {
                 row.push('');
             }
 
@@ -513,9 +609,13 @@ class Table {
     _fillTableRows(renderedTableRows, rows) {
         for (let rowNumber = 0; rowNumber < rows.length; ++rowNumber) {
             let row = rows[rowNumber];
+            if (row instanceof TableSeparator) {
+                renderedTableRows[rowNumber] = row;
+                continue;
+            }
 
             for (const [column, cell] of __jymfony.getEntries(row)) {
-                renderedTableRows[rowNumber][column] = cell.toString();
+                renderedTableRows[rowNumber][column] = cell;
             }
         }
 
@@ -716,25 +816,6 @@ class Table {
     }
 
     /**
-     * Gets number of columns by row.
-     *
-     * @param {Array} row
-     *
-     * @returns {int}
-     *
-     * @private
-     */
-    _getNumberOfColumns(row) {
-        let columns = row.length;
-
-        for (const cell of row) {
-            columns += cell instanceof TableCell ? cell.getColspan() - 1 : 0;
-        }
-
-        return columns;
-    }
-
-    /**
      * Gets list of columns for the given row.
      *
      * @param {Array} row
@@ -838,7 +919,9 @@ class Table {
      */
     _cleanup() {
         this._effectiveColumnWidths = [];
-        this._numberOfColumns = undefined;
+        this._numberOfColumns = 0;
+        this._numberOfRows = 0;
+        this._numberOfHeaders = 0;
     }
 
     /**

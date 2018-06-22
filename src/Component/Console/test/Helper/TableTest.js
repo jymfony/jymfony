@@ -113,100 +113,100 @@ describe('[Console] Table', function () {
         expect(outputContent).to.be.equal(expected);
     });
 
-//    it('should render row separators', () => {
-//        let output = this._getOutputStream();
-//
-//        let table = new Table(output);
-//        table
-//            .setHeaders(['Foo'])
-//            .setRows([
-//                ['Bar1'],
-//                new TableSeparator(),
-//                ['Bar2'],
-//                new TableSeparator(),
-//                ['Bar3'],
-//            ])
-//        ;
-//        table.render();
-//
-//        const outputContent = this._getOutputContent(output);
-//
-//        let expected =
-//`+------+
-//| Foo  |
-//+------+
-//| Bar1 |
-//+------+
-//| Bar2 |
-//+------+
-//| Bar3 |
-//+------+
-//`;
-//
-//        expect(outputContent).to.be.equal(expected);
-//        expect(table).to.be.equal(table.addRow(new TableSeparator()));
-//    });
-//
-//    it('should render multi calls', () => {
-//        let output = this._getOutputStream();
-//
-//        let table = new Table(output);
-//        table.setRows([
-//            [new TableCell('foo', {colspan: 2})],
-//        ]);
-//        table.render();
-//        table.render();
-//        table.render();
-//
-//        const outputContent = this._getOutputContent(output);
-//
-//        let expected =
-//`+----+---+
-//| foo    |
-//+----+---+
-//+----+---+
-//| foo    |
-//+----+---+
-//+----+---+
-//| foo    |
-//+----+---+
-//`;
-//
-//        expect(outputContent).to.be.equal(expected);
-//    });
-//
-//    it('should render 4th column with custom style', () => {
-//        let output = this._getOutputStream();
-//
-//        let table = new Table(output);
-//        table
-//            .setHeaders(['ISBN', 'Title', 'Author', 'Price'])
-//            .setRows([
-//                ['99921-58-10-7', 'Divine Comedy', 'Dante Alighieri', '9.95'],
-//                ['9971-5-0210-0', 'A Tale of Two Cities', 'Charles Dickens', '139.25'],
-//            ])
-//        ;
-//
-//        let style = new TableStyle();
-//        style.setPadType(__jymfony.str_pad.LEFT);
-//        table.setColumnStyle(3, style);
-//
-//        table.render();
-//
-//        const outputContent = this._getOutputContent(output);
-//
-//        let expected =
-//`+---------------+----------------------+-----------------+--------+
-//| ISBN          | Title                | Author          |  Price |
-//+---------------+----------------------+-----------------+--------+
-//| 99921-58-10-7 | Divine Comedy        | Dante Alighieri |   9.95 |
-//| 9971-5-0210-0 | A Tale of Two Cities | Charles Dickens | 139.25 |
-//+---------------+----------------------+-----------------+--------+
-//`;
-//
-//        expect(outputContent).to.be.equal(expected);
-//    });
-//
+    it('should render row separators', () => {
+        let output = this._getOutputStream();
+
+        let table = new Table(output);
+        table
+            .setHeaders(['Foo'])
+            .setRows([
+                ['Bar1'],
+                new TableSeparator(),
+                ['Bar2'],
+                new TableSeparator(),
+                ['Bar3'],
+            ])
+        ;
+        table.render();
+
+        const outputContent = this._getOutputContent(output);
+
+        let expected =
+`+------+
+| Foo  |
++------+
+| Bar1 |
++------+
+| Bar2 |
++------+
+| Bar3 |
++------+
+`;
+
+        expect(outputContent).to.be.equal(expected);
+        expect(table).to.be.equal(table.addRow(new TableSeparator()));
+    });
+
+    it('should render multi calls', () => {
+        let output = this._getOutputStream();
+
+        let table = new Table(output);
+        table.setRows([
+            [new TableCell('foo', { colspan: 2 })],
+        ]);
+        table.render();
+        table.render();
+        table.render();
+
+        const outputContent = this._getOutputContent(output);
+
+        let expected =
+`+----+---+
+| foo    |
++----+---+
++----+---+
+| foo    |
++----+---+
++----+---+
+| foo    |
++----+---+
+`;
+
+        expect(outputContent).to.be.equal(expected);
+    });
+
+    it('should render 4th column with custom style', () => {
+        let output = this._getOutputStream();
+
+        let table = new Table(output);
+        table
+            .setHeaders(['ISBN', 'Title', 'Author', 'Price'])
+            .setRows([
+                ['99921-58-10-7', 'Divine Comedy', 'Dante Alighieri', '9.95'],
+                ['9971-5-0210-0', 'A Tale of Two Cities', 'Charles Dickens', '139.25'],
+            ])
+        ;
+
+        let style = new TableStyle();
+        style.setPadType(__jymfony.str_pad.LEFT);
+        table.setColumnStyle(3, style);
+
+        table.render();
+
+        const outputContent = this._getOutputContent(output);
+
+        let expected =
+`+---------------+----------------------+-----------------+--------+
+| ISBN          | Title                | Author          |  Price |
++---------------+----------------------+-----------------+--------+
+| 99921-58-10-7 | Divine Comedy        | Dante Alighieri |   9.95 |
+| 9971-5-0210-0 | A Tale of Two Cities | Charles Dickens | 139.25 |
++---------------+----------------------+-----------------+--------+
+`;
+
+        expect(outputContent).to.be.equal(expected);
+    });
+
 //    it('should throw when a cell is an array', () => {
 //        let output = this._getOutputStream();
 //
