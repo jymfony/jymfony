@@ -536,10 +536,14 @@ class Table {
     _getNumberOfRows(row) {
         let rows = 1;
 
+        let breaks = [];
         for (const cell of row) {
             rows += cell instanceof TableCell ? cell.getRowspan() - 1 : 0;
-            rows += (cell.toString().match(/\\n/g) || []).length;
+
+            breaks.push((cell.toString().match(/\n/g) || []).length);
         }
+
+        rows += Math.max(...breaks);
 
         return rows;
     }
@@ -607,212 +611,45 @@ class Table {
     }
 
     _fillTableRows(renderedTableRows, rows) {
+        let renderedRowNumber = 0;
+        let piecesCount = [0];
+
         for (let rowNumber = 0; rowNumber < rows.length; ++rowNumber) {
             let row = rows[rowNumber];
             if (row instanceof TableSeparator) {
-                renderedTableRows[rowNumber] = row;
+                renderedTableRows[renderedRowNumber] = row;
+                ++renderedRowNumber;
+
                 continue;
             }
 
             for (const [column, cell] of __jymfony.getEntries(row)) {
-                renderedTableRows[rowNumber][column] = cell;
+                if (! isScalar(cell) && ! (cell instanceof TableCell)) {
+                    throw new InvalidArgumentException(__jymfony.sprintf(
+                        'A cell must be an instance of TableCell or a scalar, %s given.',
+                        typeof cell
+                    ));
+                }
+
+                let match = cell.toString().match(/\n/g);
+                if (match) {
+                    const pieces = cell.toString().split('\n');
+                    for (let i = 0; i < pieces.length; ++i) {
+                        renderedTableRows[renderedRowNumber + i][column] = pieces[i];
+                    }
+
+                    piecesCount.push(pieces.length - 1);
+                } else {
+                    renderedTableRows[renderedRowNumber][column] = cell;
+                }
             }
+
+            ++renderedRowNumber;
+            renderedRowNumber += Math.max(...piecesCount);
+            piecesCount = [0];
         }
 
         return renderedTableRows
-    }
-
-    /**
-     * @param {Array} rows
-     *
-     * @returns {Array}
-     *
-     * @private
-     */
-    _buildTableRows(rows) {
-        const unmergedRows = [];
-
-        for (let rowNumber = 0; rowNumber < rows.length; ++rowNumber) {
-            rows = this._fillNextRows(rows, rowNumber);
-
-            // Remove any new line breaks and replace it with a new line
-            for (const [ column, cell ] of __jymfony.getEntries(rows[rowNumber])) {
-                if (-1 === cell.toString().indexOf('\n')) {
-                    continue;
-                }
-
-                const lines = cell.toString().replace('\n', '<fg=default;bg=default>\n</>').split('\n');
-                for (let [ lineKey, line ] of __jymfony.getEntries(lines)) {
-                    if (cell instanceof TableCell) {
-                        line = new TableCell(line, { colspan: cell.getColspan() });
-                    }
-
-                    if (0 === lineKey) {
-                        rows[rowNumber][column] = line;
-                    } else {
-                        if (! unmergedRows[rowNumber]) {
-                            unmergedRows[rowNumber] = [];
-
-                            for (let i = 0; i < this._numberOfColumns; ++i) {
-                                unmergedRows[rowNumber][i] = '';
-                            }
-                        }
-
-                        if (! unmergedRows[rowNumber][lineKey]) {
-                            unmergedRows[rowNumber][lineKey] = [];
-
-                            for (let i = 0; i < this._numberOfColumns; ++i) {
-                                unmergedRows[rowNumber][lineKey][i] = '';
-                            }
-                        }
-
-                        unmergedRows[rowNumber][lineKey][column] = line;
-                    }
-                }
-            }
-        }
-
-        let temp = [];
-
-        for (let rowNumber = 0; rowNumber < rows.length; ++rowNumber) {
-            temp.push(this._fillCells(rows[rowNumber]));
-            if (!!unmergedRows[rowNumber] && '' !== unmergedRows[rowNumber]) {
-                temp = [].concat(temp, unmergedRows[rowNumber]);
-            }
-        }
-
-        let tableRows = [];
-        for (let rowNumber = 0; rowNumber < temp.length; ++rowNumber) {
-            if ('' === temp[rowNumber]) {
-                continue;
-            }
-
-            tableRows.push(temp[rowNumber]);
-        }
-
-        return tableRows;
-    }
-
-    /**
-     * Fill rows that contains rowspan > 1.
-     *
-     * @param {Array} rows
-     * @param {int} line
-     *
-     * @returns {Array}
-     *
-     * @private
-     */
-    _fillNextRows(rows, line) {
-        const unmergedRows = [];
-
-        for (const [ column, cell ] of __jymfony.getEntries(rows[line])) {
-            if (rows[line] instanceof TableSeparator) {
-                continue;
-            }
-
-            if (null !== cell && !(cell instanceof TableCell) && !isScalar(cell)) {
-                throw new InvalidArgumentException(__jymfony.sprintf('A cell must be a TableCell or a scalar, %s given.', typeof(cell)));
-            }
-
-            if (cell instanceof TableCell && 1 < cell.getRowspan()) {
-                let nbLines = cell.getRowspan() - 1;
-                const lines = [ cell ];
-
-                let cellValue = cell.toString();
-                if (-1 < cellValue.indexOf('\n')) {
-                    const lines = cellValue.replace('\n', '<fg=default;bg=default>\n</>').split('\n');
-                    nbLines = cellValue.split('\n').length - 1;
-
-                    rows[line][column] = new TableCell(lines[0], { colspan: cell.getColspan() });
-                    lines[0].shift();
-                }
-
-                // Create a two dimensional array (rowspan x colspan)
-                for (let i = 0; i <= nbLines; ++i) {
-                    unmergedRows[i + line] = [];
-                }
-
-                for (const [ unmergedRowKey, unmergedRow ] of __jymfony.getEntries(unmergedRows)) {
-                    const value = undefined !== lines[unmergedRowKey - line] ? lines[unmergedRowKey - line] : '';
-
-                    unmergedRows[unmergedRowKey][column] = new TableCell(value, { colspan: cell.getColspan() });
-                    if (nbLines === unmergedRowKey - line) {
-                        break;
-                    }
-                }
-            }
-        }
-
-        for (const [ unmergedRowKey, unmergedRow ] of __jymfony.getEntries(unmergedRows)) {
-            // We need to know if unmergedRow will be merged or inserted into rows
-            if (!!rows[unmergedRowKey] && isArray(rows[unmergedRowKey]) &&
-                this._getNumberOfColumns(rows[unmergedRowKey]) + this._getNumberOfColumns(unmergedRows[unmergedRowKey]) <= this._numberOfColumns) {
-
-                for (const [ cellKey, cell ] of __jymfony.getEntries(unmergedRow)) {
-                    // Insert cell into row at cellKey position
-                    rows[unmergedRowKey].splice(cellKey, 0, [ cell ]);
-                }
-            } else {
-                const row = this._copyRow(rows, unmergedRowKey - 1);
-                for (const [ column, cell ] of __jymfony.getEntries(unmergedRow)) {
-                    if (!!cell) {
-                        row[column] = unmergedRow[column];
-                    }
-                }
-
-                rows.splice(unmergedRowKey, 0, [ row ]);
-            }
-        }
-
-        return rows;
-    }
-
-    /**
-     * Fill cells for a row that contains colspan > 1.
-     *
-     * @param {Array} row
-     *
-     * @returns {Array}
-     *
-     * @private
-     */
-    _fillCells(row) {
-        const newRow = [];
-
-        for (const [ cellKey, cell ] of __jymfony.getEntries(row)) {
-            newRow.push(cell);
-
-            if (cell instanceof TableCell && 1 < cell.getColspan()) {
-                for (let position = cellKey; position < cellKey + cell.getColspan() - 1; ++position) {
-                    // Insert empty value at column position
-                    newRow.push('');
-                }
-            }
-        }
-
-        return 0 === newRow.length ? newRow : row;
-    }
-
-    /**
-     * @param {Array} rows
-     * @param {int} line
-     *
-     * @returns {Array}
-     *
-     * @private
-     */
-    _copyRow(rows, line) {
-        const row = rows[line];
-        for (const [ cellKey, cell ] of __jymfony.getEntries(row)) {
-            row[cellKey] = '';
-
-            if (cell instanceof TableCell) {
-                row[cellKey] = new TableCell('', { colspan: cell.getColspan() });
-            }
-        }
-
-        return row;
     }
 
     /**
