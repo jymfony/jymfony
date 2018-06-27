@@ -196,6 +196,9 @@ class HttpServer {
         }
 
         res.end();
+
+        const event = new Event.PostResponseEvent(this, request, response);
+        await __jymfony.Async.run(this._dispatcher.dispatch.bind(this._dispatcher), Event.HttpServerEvents.TERMINATE, event);
     }
 
     /**
