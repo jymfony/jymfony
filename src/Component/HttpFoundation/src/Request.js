@@ -577,6 +577,10 @@ class Request {
      * @returns {boolean} true if the request came from a trusted proxy, false otherwise
      */
     get isFromTrustedProxy() {
+        if (! this.server.has('REMOTE_ADDR')) {
+            return false;
+        }
+
         return _trustedProxies.length && Ip.check(this.server.get('REMOTE_ADDR'), _trustedProxies);
     }
 
