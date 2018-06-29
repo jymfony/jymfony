@@ -338,33 +338,6 @@ class Table {
         }
 
         this._cleanup();
-
-        //rows = this._buildTableRows(rows);
-        //const headers = this._buildTableRows(this._headers);
-        //
-        //this._calculateColumnsWidth(__jymfony.deepClone([].concat(headers, rows)));
-        //
-        //this._renderRowSeparator();
-        //if (0 < headers.length) {
-        //    for (const header of headers) {
-        //        this._renderRow(header, this.style.getCellHeaderFormat());
-        //        this._renderRowSeparator();
-        //    }
-        //}
-        //
-        //for (const row of rows) {
-        //    if (row instanceof TableSeparator) {
-        //        this._renderRowSeparator();
-        //    } else {
-        //        this._renderRow(row, this.style.getCellRowFormat());
-        //    }
-        //}
-        //
-        //if (0 < rows.length) {
-        //    this._renderRowSeparator();
-        //}
-        //
-        //this._cleanup();
     }
 
     /**
@@ -538,12 +511,11 @@ class Table {
 
         let breaks = [];
         for (const cell of row) {
-            rows += cell instanceof TableCell ? cell.getRowspan() - 1 : 0;
-
+            breaks.push(cell instanceof TableCell ? cell.getRowspan() - 1 : 0);
             breaks.push((cell.toString().match(/\n/g) || []).length);
         }
 
-        rows += Math.max(...breaks);
+        rows += 0 < breaks.length ? Math.max(...breaks) : 0;
 
         return rows;
     }
@@ -623,6 +595,7 @@ class Table {
                 continue;
             }
 
+            let lastRenderedColumnNumber = 0;
             for (const [column, cell] of __jymfony.getEntries(row)) {
                 if (! isScalar(cell) && ! (cell instanceof TableCell)) {
                     throw new InvalidArgumentException(__jymfony.sprintf(
@@ -635,12 +608,22 @@ class Table {
                 if (match) {
                     const pieces = cell.toString().split('\n');
                     for (let i = 0; i < pieces.length; ++i) {
-                        renderedTableRows[renderedRowNumber + i][column] = pieces[i];
+                        let cellValue = pieces[i];
+                        if (cell instanceof TableCell) {
+                            cellValue = new TableCell(cellValue, { colspan: cell.getColspan() });
+                        }
+
+                        renderedTableRows[renderedRowNumber + i][lastRenderedColumnNumber] = cellValue;
                     }
 
                     piecesCount.push(pieces.length - 1);
                 } else {
-                    renderedTableRows[renderedRowNumber][column] = cell;
+                    renderedTableRows[renderedRowNumber][lastRenderedColumnNumber] = cell;
+                }
+
+                lastRenderedColumnNumber = column + 1;
+                if (cell instanceof TableCell) {
+                    lastRenderedColumnNumber += cell.getColspan() - 1;
                 }
             }
 

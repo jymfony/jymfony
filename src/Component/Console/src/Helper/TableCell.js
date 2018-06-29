@@ -3,8 +3,8 @@
  */
 class TableCell {
     /**
-     * @param {string} value
-     * @param {Object} options
+     * @param {string} [value = '']
+     * @param {Object} [options = {}]
      */
     __construct(value = '', options = {}) {
         /**
