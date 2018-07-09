@@ -1,5 +1,6 @@
 const AbstractProcessingHandler = Jymfony.Component.Logger.Handler.AbstractProcessingHandler;
 const LogLevel = Jymfony.Component.Logger.LogLevel;
+const SlackRecord = Jymfony.Component.Logger.Handler.Slack.SlackRecord;
 
 const https = require('https');
 const url = require('url');
@@ -30,7 +31,7 @@ class SlackWebhookHandler extends AbstractProcessingHandler {
             undefined === options.shortAttachment ? false : options.shortAttachment,
             undefined === options.includeContextAndExtra ? false : options.includeContextAndExtra,
             options.excludeFields || [],
-            this._formatter
+            this._formatter || this.getDefaultFormatter()
         );
 
         this._webhookUrl = url.parse(options.webhookUrl);

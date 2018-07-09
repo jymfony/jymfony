@@ -244,4 +244,4 @@ SlackRecord.COLOR_WARNING = 'warning';
 SlackRecord.COLOR_GOOD = 'good';
 SlackRecord.COLOR_DEFAULT = '#e3e4e6';
 
-module.export = SlackRecord;
+module.exports = SlackRecord;

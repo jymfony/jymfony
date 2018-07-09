@@ -18,7 +18,7 @@ class SlackHandler extends SocketHandler {
             undefined === options.shortAttachment ? false : options.shortAttachment,
             undefined === options.includeContextAndExtra ? false : options.includeContextAndExtra,
             options.excludeFields || [],
-            this._formatter
+            this._formatter || this.getDefaultFormatter()
         );
 
         this._token = options.token;

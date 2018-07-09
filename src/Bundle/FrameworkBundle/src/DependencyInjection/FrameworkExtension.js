@@ -85,11 +85,6 @@ class FrameworkExtension extends Extension {
         for (const [ name, handler ] of __jymfony.getEntries(config.handlers)) {
             const serviceId = this._buildLoggerHandler(container, name, handler);
             handlers.push(new Reference(serviceId), handler.priority);
-
-            if (undefined === handler.channels) {
-                continue;
-            }
-
             handlersToChannels[serviceId] = handler.channels;
         }
 
