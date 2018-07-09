@@ -92,6 +92,12 @@ class Configuration extends implementationOf(ConfigurationInterface) {
                                         })
                                     .end()
                                 .end()
+                                .scalarNode('channel').defaultUndefined().end() // Slack
+                                .scalarNode('bot_name').defaultValue('Jymfony').end() // Slack
+                                .scalarNode('use_attachment').defaultTrue().end() // Slack
+                                .scalarNode('use_short_attachment').defaultFalse().end() // Slack
+                                .scalarNode('include_extra').defaultFalse().end() // Slack
+                                .scalarNode('icon_emoji').defaultUndefined().end() // Slack
                                 .arrayNode('mongo')
                                     .canBeUnset()
                                     .beforeNormalization()

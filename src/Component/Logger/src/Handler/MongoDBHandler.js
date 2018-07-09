@@ -2,6 +2,9 @@ const MongoDBFormatter = Jymfony.Component.Logger.Formatter.MongoDBFormatter;
 const AbstractProcessingHandler = Jymfony.Component.Logger.Handler.AbstractProcessingHandler;
 const LogLevel = Jymfony.Component.Logger.LogLevel;
 
+/**
+ * @memberOf Jymfony.Component.Logger.Handler
+ */
 class MongoDBHandler extends AbstractProcessingHandler {
     /**
      * Constructor.
