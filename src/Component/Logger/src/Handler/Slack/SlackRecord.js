@@ -188,7 +188,7 @@ class SlackRecord {
      * @returns {Object.<string, *>}
      */
     _generateAttachmentField(title, value) {
-        if (isArray(value) || isObjectLiteral(value)) {
+        if (! isScalar(value)) {
             value = __jymfony.sprintf('```%s```', JSON.stringify(this._normalizerFormatter.format(value), undefined, 4));
         }
 

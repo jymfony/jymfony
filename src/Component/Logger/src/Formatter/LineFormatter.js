@@ -106,7 +106,7 @@ class LineFormatter extends NormalizerFormatter {
         }
 
         const trace = Exception.parseStackTrace(record);
-        let str = '[object] (' + (new ReflectionClass(record)).name + ': ' + previous.message + ' at ' + trace[0].file + ':' + trace[0].line + previousText + ')';
+        let str = '[object] (' + (new ReflectionClass(record)).name + ': ' + record.message + ' at ' + trace[0].file + ':' + trace[0].line + previousText + ')';
 
         if (this._includeStacktraces) {
             str += '\n[stacktrace]\n' + record.stack + '\n';
