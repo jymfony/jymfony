@@ -100,6 +100,7 @@ class LoggerChannelPass extends AbstractRecursivePass {
     * _processChannels(configuration) {
         if (! configuration) {
             yield * this._channels;
+            return;
         }
 
         if ('inclusive' === configuration.type) {
