@@ -92,6 +92,7 @@ class Configuration extends implementationOf(ConfigurationInterface) {
                                         })
                                     .end()
                                 .end()
+                                .scalarNode('webhook_url').defaultUndefined().end() // Slack
                                 .scalarNode('channel').defaultUndefined().end() // Slack
                                 .scalarNode('bot_name').defaultValue('Jymfony').end() // Slack
                                 .scalarNode('use_attachment').defaultTrue().end() // Slack

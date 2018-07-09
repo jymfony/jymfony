@@ -45,3 +45,21 @@ container.register('jymfony.logger.handler_prototype.mongodb', Jymfony.Component
     ])
     .setAbstract(true)
 ;
+
+container.register('jymfony.logger.handler_prototype.slack', Jymfony.Component.Logger.Handler.SlackHandler)
+    .setArguments([
+        null,
+        Jymfony.Component.Logger.LogLevel.DEBUG,
+        true,
+    ])
+    .setAbstract(true)
+;
+
+container.register('jymfony.logger.handler_prototype.slack_webhook', Jymfony.Component.Logger.Handler.SlackWebhookHandler)
+    .setArguments([
+        null,
+        Jymfony.Component.Logger.LogLevel.DEBUG,
+        true,
+    ])
+    .setAbstract(true)
+;

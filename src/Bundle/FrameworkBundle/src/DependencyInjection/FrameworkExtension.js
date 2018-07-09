@@ -181,6 +181,22 @@ class FrameworkExtension extends Extension {
                 ]);
                 break;
 
+            case 'slack_webhook':
+                definition.setArguments([
+                    {
+                        webhookUrl: handler.webhook_url,
+                        channel: handler.channel,
+                        username: handler.bot_name,
+                        useAttachment: handler.use_attachment,
+                        icon: handler.icon_emoji,
+                        shortAttachment: handler.use_short_attachment,
+                        includeContextAndExtra: handler.include_extra,
+                    },
+                    handler.level,
+                    handler.bubble,
+                ]);
+                break;
+
             case 'null':
                 definition.setArguments([
                     handler.level,
