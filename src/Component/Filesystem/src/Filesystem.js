@@ -156,8 +156,8 @@ class Filesystem {
      * @throws {Jymfony.Component.Filesystem.Exception.IOException} When file type is unknown
      */
     async mirror(originDir, targetDir, options = {}) {
-        targetDir = __jymfony.rtrim(targetDir, '/\\');
-        originDir = __jymfony.rtrim(await internal.realpath(originDir), '/\\');
+        targetDir = __jymfony.rtrim(targetDir, '/\\\\');
+        originDir = __jymfony.rtrim(await internal.realpath(originDir), '/\\\\');
 
         // Iterate in destination folder to remove obsolete entries
         if ((await this.exists(targetDir)) && options['delete']) {

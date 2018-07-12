@@ -13,10 +13,10 @@ global.__jymfony.rtrim = function rtrim(str, charList) {
     if (undefined === charList) {
         charList = ' \\x09\\x0A\\x0D\\x00\\x0B';
     } else {
-        charList.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+        __jymfony.regex_quote(charList);
     }
 
-    const re = new RegExp(`[${__jymfony.regex_quote(charList)}]+$`, 'g');
+    const re = new RegExp(`[${charList}]+$`, 'g');
     return str.replace(re, '');
 };
 
