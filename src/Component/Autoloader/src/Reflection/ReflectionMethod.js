@@ -11,24 +11,28 @@ class ReflectionMethod {
     constructor(reflectionClass, methodName) {
         /**
          * @type {ReflectionClass}
+         *
          * @private
          */
         this._class = reflectionClass;
 
         /**
          * @type {string}
+         *
          * @private
          */
         this._name = methodName;
 
         /**
          * @type {Function}
+         *
          * @private
          */
         this._method = undefined;
 
         /**
          * @type {boolean}
+         *
          * @private
          */
         this._static = false;
@@ -45,18 +49,21 @@ class ReflectionMethod {
 
         /**
          * @type {string}
+         *
          * @private
          */
         this._type = isGeneratorFunction(this._method) ? ReflectionMethod.GENERATOR : ReflectionMethod.FUNCTION;
 
         /**
          * @type {boolean}
+         *
          * @private
          */
         this._async = isAsyncFunction(this._method);
 
         /**
          * @type {string}
+         *
          * @private
          */
         this._docblock = reflectionClass._docblock ? reflectionClass._docblock.methods[(this._static ? 'static#' : '') + methodName] : undefined;
@@ -65,7 +72,7 @@ class ReflectionMethod {
     /**
      * Gets the reflection class.
      *
-     * @return {ReflectionClass}
+     * @returns {ReflectionClass}
      */
     get reflectionClass() {
         return this._class;
@@ -74,7 +81,7 @@ class ReflectionMethod {
     /**
      * Gets the method name.
      *
-     * @return {string}
+     * @returns {string}
      */
     get name() {
         return this._name;

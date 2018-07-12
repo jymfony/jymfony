@@ -7,12 +7,40 @@ const QuestionType = Jymfony.Component.Console.Question.QuestionType;
  * @memberOf Jymfony.Component.Console.Question.Builder
  */
 class ChoiceQuestionBuilder extends QuestionBuilder {
+    /**
+     * Constructor.
+     *
+     * @param {Jymfony.Component.Console.Question.Builder.QuestionBuilder} builder
+     */
     __construct(builder) {
         super.__construct(builder.input, builder.output);
+
+        /**
+         * @type {string}
+         *
+         * @private
+         */
         this._type = QuestionType.CHOICE;
+
+        /**
+         * @type {Jymfony.Component.Console.Question.Choice[]}
+         *
+         * @private
+         */
         this._choices = [];
+
+        /**
+         * @type {Jymfony.Component.Console.Question.Choice|undefined}
+         *
+         * @private
+         */
         this._default = undefined;
 
+        /**
+         * @type {string}
+         *
+         * @private
+         */
         this._prompt = builder._prompt;
     }
 
@@ -20,7 +48,7 @@ class ChoiceQuestionBuilder extends QuestionBuilder {
      * Adds a choice to the builder.
      *
      * @param {string|Jymfony.Component.Console.Question.Choice} choice
-     * @param {*} value
+     * @param {*} [value]
      *
      * @returns {Jymfony.Component.Console.Question.Builder.ChoiceQuestionBuilder}
      */
@@ -37,7 +65,7 @@ class ChoiceQuestionBuilder extends QuestionBuilder {
     /**
      * Sets the choices of the builder.
      *
-     * @param {[Jymfony.Component.Console.Question.Choice]} choices
+     * @param {Jymfony.Component.Console.Question.Choice[]} choices
      *
      * @returns {Jymfony.Component.Console.Question.Builder.ChoiceQuestionBuilder}
      */
@@ -63,6 +91,8 @@ class ChoiceQuestionBuilder extends QuestionBuilder {
      * @param {*} defaultChoice
      *
      * @returns {Jymfony.Component.Console.Question.Builder.ChoiceQuestionBuilder}
+     *
+     * @inheritdoc
      */
     setDefault(defaultChoice) {
         this._default = defaultChoice;
@@ -97,6 +127,11 @@ class ChoiceQuestionBuilder extends QuestionBuilder {
         return this;
     }
 
+    /**
+     * @returns {Jymfony.Component.Console.Question.ChoiceQuestion}
+     *
+     * @inheritdoc
+     */
     build() {
         const question = new ChoiceQuestion(this.input, this.output, this._choices, this._mode);
         question.multiple = this._multiple;

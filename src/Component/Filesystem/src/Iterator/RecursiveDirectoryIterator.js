@@ -9,15 +9,34 @@ class RecursiveDirectoryIterator {
      * Constructor.
      *
      * @param {string} path
-     * @param {int} flags
+     * @param {int} [flags = 0]
      */
     __construct(path, flags = 0) {
+        /**
+         * @type {string}
+         *
+         * @private
+         */
         this._path = fs.realpathSync(path);
+
+        /**
+         * @type {int}
+         *
+         * @private
+         */
         this._flags = flags;
 
+        /**
+         * @type {int}
+         *
+         * @private
+         */
         this._followSymlinks = flags & __self.FOLLOW_SYMLINKS;
     }
 
+    /**
+     * @returns {Generator}
+     */
     * [Symbol.iterator]() {
         const dir = fs.readdirSync(this._path);
         const secondStep = [];

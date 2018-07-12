@@ -8,79 +8,90 @@ const TimeSpan = Jymfony.Component.DateTime.TimeSpan;
  * @final
  */
 class CacheItem extends implementationOf(CacheItemInterface) {
+    /**
+     * Constructor.
+     */
     __construct() {
         /**
          * @type {string}
+         *
          * @private
          */
         this._key = undefined;
 
         /**
          * @type {*}
+         *
          * @private
          */
         this._value = undefined;
 
         /**
          * @type {boolean}
+         *
          * @private
          */
         this._isHit = false;
 
         /**
          * @type {int}
+         *
          * @private
          */
         this._expiry = undefined;
 
         /**
          * @type {int}
+         *
          * @private
          */
         this._defaultLifetime = undefined;
 
         /**
-         * @type {[string]}
+         * @type {string[]}
+         *
          * @private
          */
         this._tags = [];
 
         /**
          * @type {*}
+         *
          * @private
          */
         this._innerItem = undefined;
 
         /**
          * @type {*}
+         *
          * @private
          */
         this._poolHash = undefined;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     get key() {
         return this._key;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     get() {
         return this._value;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     get isHit() {
         return this._isHit;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     set(value) {
         this._value = value;
@@ -89,7 +100,7 @@ class CacheItem extends implementationOf(CacheItemInterface) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     expiresAt(expiration) {
         if (null === expiration || undefined === expiration) {
@@ -107,7 +118,7 @@ class CacheItem extends implementationOf(CacheItemInterface) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     expiresAfter(time) {
         if (null === time || undefined === time) {
@@ -129,7 +140,7 @@ class CacheItem extends implementationOf(CacheItemInterface) {
     /**
      * Adds a tag to a cache item.
      *
-     * @param {string|[string]} tags A tag or array of tags
+     * @param {string|string[]} tags A tag or array of tags
      *
      * @returns {Jymfony.Component.Cache.CacheItem}
      *
@@ -166,6 +177,11 @@ class CacheItem extends implementationOf(CacheItemInterface) {
         return this;
     }
 
+    /**
+     * @param {string} key
+     *
+     * @throws {Jymfony.Component.Cache.Exception.InvalidArgumentException} When key is not a valid string key.
+     */
     static validateKey(key) {
         if (! isString(key)) {
             throw new InvalidArgumentException(__jymfony.sprintf(

@@ -2,14 +2,12 @@ const LogicException = Jymfony.Component.Console.Exception.LogicException;
 const InvalidArgumentException = Jymfony.Component.Console.Exception.InvalidArgumentException;
 const InputOption = Jymfony.Component.Console.Input.InputOption;
 
-const util = require('util');
-
 /**
  * @memberOf Jymfony.Component.Console.Input
  */
 class InputDefinition {
     /**
-     * @param {Array} definition An array of InputArgument or InputOption
+     * @param {Array} [definition = []] An array of InputArgument or InputOption
      */
     __construct(definition = []) {
         this.setDefinition(definition);
@@ -45,7 +43,8 @@ class InputDefinition {
         /**
          * The arguments array
          *
-         * @type Object.<string, Jymfony.Component.Console.Input.InputArgument>
+         * @type {Object.<string, Jymfony.Component.Console.Input.InputArgument>}
+         *
          * @private
          */
         this._arguments = {};
@@ -125,6 +124,7 @@ class InputDefinition {
      * Returns true if an argument exists
      *
      * @param {string|int} name
+     *
      * @returns {boolean}
      */
     hasArgument(name) {
@@ -174,7 +174,7 @@ class InputDefinition {
         /**
          * The options array
          *
-         * @type Object.<string, Jymfony.Component.Console.Input.InputOption>
+         * @type {Object.<string, Jymfony.Component.Console.Input.InputOption>}
          * @private
          */
         this._options = {};
@@ -182,10 +182,11 @@ class InputDefinition {
         /**
          * Shortcut to name array
          *
-         * @type Object.<string, string>
+         * @type {Object.<string, string>}
          * @private
          */
         this._shortcuts = {};
+
         this.addOptions(options);
     }
 
@@ -274,9 +275,8 @@ class InputDefinition {
     }
 
     /**
+     * @param {string} shortcut
      *
-     *
-     * @param shortcut
      * @returns {Jymfony.Component.Console.Input.InputOption}
      */
     getOptionForShortcut(shortcut) {
@@ -304,7 +304,7 @@ class InputDefinition {
     /**
      * Gets the synopsis
      *
-     * @param short Whether to return the short version
+     * @param {boolean} [short = false] Whether to return the short version
      *
      * @returns {string}
      */
@@ -317,7 +317,7 @@ class InputDefinition {
             for (const option of this.getOptions()) {
                 let value = '';
                 if (option.acceptValue()) {
-                    value = util.format(
+                    value = __jymfony.sprintf(
                         ' %s%s%s',
                         option.isValueOptional() ? '[' : '',
                         option.getName().toUpperCase(),
@@ -325,8 +325,8 @@ class InputDefinition {
                     );
                 }
 
-                const shortcut = option.getShortcut() ? util.format('-%s|', option.getShortcut()) : '';
-                elements.push(util.format('[%s--%s%s]', shortcut, option.getName(), value));
+                const shortcut = option.getShortcut() ? __jymfony.sprintf('-%s|', option.getShortcut()) : '';
+                elements.push(__jymfony.sprintf('[%s--%s%s]', shortcut, option.getName(), value));
             }
         }
 

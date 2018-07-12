@@ -1,21 +1,34 @@
+const Processor = Jymfony.Component.Config.Definition.Processor;
 const Container = Jymfony.Component.DependencyInjection.Container;
 const BadMethodCallException = Jymfony.Component.DependencyInjection.Exception.BadMethodCallException;
 const InvalidArgumentException = Jymfony.Component.DependencyInjection.Exception.InvalidArgumentException;
 const ExtensionInterface = Jymfony.Component.DependencyInjection.Extension.ExtensionInterface;
 
 /**
- * Abstract extension
+ * Abstract extension.
  *
  * @memberOf Jymfony.Component.DependencyInjection.Extension
  */
 class Extension extends implementationOf(ExtensionInterface) {
     /**
-     * @inheritDoc
+     * Constructor.
+     */
+    __construct() {
+        /**
+         * @type {Object[]}
+         *
+         * @private
+         */
+        this._processedConfigs = [];
+    }
+
+    /**
+     * @inheritdoc
      */
     getConfiguration() {
         const reflClass = new ReflectionClass(this);
 
-        const nsName = reflClass.namespaceName();
+        const nsName = reflClass.namespaceName;
         const confClass = nsName + '.Configuration';
 
         if (ReflectionClass.exists(confClass)) {
@@ -27,21 +40,21 @@ class Extension extends implementationOf(ExtensionInterface) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     get namespace() {
-        return 'http://example.org/schema/dic/'+this.alias;
+        return 'http://example.org/schema/dic/' + this.alias;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     get xsdValidationBasePath() {
         return false;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     get alias() {
         const className = this.constructor.name;
@@ -55,14 +68,23 @@ class Extension extends implementationOf(ExtensionInterface) {
 
     /**
      * @todo
+     *
+     * @param {Jymfony.Component.Config.Definition.ConfigurationInterface} configuration
+     * @param {Object[]} configs
+     *
+     * @returns {Object[]}
      */
-    _processConfiguration(configuration, configs) { // eslint-disable-line no-unused-vars
-        throw new Exception('Unimplemented');
+    _processConfiguration(configuration, configs) {
+        const processor = new Processor();
+        const processed = processor.processConfiguration(configuration, configs);
+        this._processedConfigs.push(processed);
+
+        return processed;
     }
 
     /**
      * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
-     * @param {*} config
+     * @param {Object} config
      *
      * @returns {*}
      *

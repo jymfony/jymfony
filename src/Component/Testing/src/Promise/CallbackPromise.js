@@ -5,6 +5,11 @@ const InvalidArgumentException = Jymfony.Component.Testing.Exception.InvalidArgu
  * @memberOf Jymfony.Component.Testing.Promise
  */
 class CallbackPromise extends implementationOf(PromiseInterface) {
+    /**
+     * Constructor.
+     *
+     * @param {Function} callback
+     */
     __construct(callback) {
         if (! isFunction(callback)) {
             throw new InvalidArgumentException(__jymfony.sprintf(
@@ -13,11 +18,16 @@ class CallbackPromise extends implementationOf(PromiseInterface) {
             ));
         }
 
+        /**
+         * @type {Function}
+         *
+         * @private
+         */
         this._callback = callback;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     execute(args, object) {
         const cb = new BoundFunction(object, this._callback);

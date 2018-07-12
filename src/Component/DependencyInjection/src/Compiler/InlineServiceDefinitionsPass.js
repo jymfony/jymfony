@@ -8,51 +8,74 @@ const Reference = Jymfony.Component.DependencyInjection.Reference;
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
  */
 class InlineServiceDefinitionsPass extends mix(AbstractRecursivePass, RepeatablePassInterface) {
+    /**
+     * Constructor.
+     */
     __construct() {
-        this._repeatedPass = undefined;
+        /**
+         * @type {Object}
+         *
+         * @private
+         */
         this._inlinedServiceIds = {};
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
-    setRepeatedPass(pass) {
-        this._repeatedPass = pass;
+    setRepeatedPass() {
+        // No-op
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     get inlinedServiceIds() {
         return Object.assign({}, this._inlinedServiceIds);
     }
 
+    /**
+     * @inheritdoc
+     */
     _processValue(value, isRoot = false) {
         if (value instanceof ArgumentInterface) {
             return value;
         }
 
-        if (value instanceof Reference && this._container.hasDefinition(value.toString())) {
-            const id = value.toString();
-            const definition = this._container.getDefinition(id);
-
-            if (this._isInlineableDefinition(id, definition, this._container.getCompiler().getServiceReferenceGraph())) {
-                this._container.log(this, __jymfony.sprintf('Inlined service "%s" to "%s".', id, this._currentId));
-
-                if (undefined === this._inlinedServiceIds[id]) {
-                    this._inlinedServiceIds[id] = [];
-                }
-                this._inlinedServiceIds[id].push(this._currentId);
-
-                if (definition.isShared()) {
-                    return definition;
-                }
-
-                value = __jymfony.deepClone(definition);
+        if (value instanceof Definition && 0 < Object.keys(this._inlinedServiceIds).length) {
+            if (value.isShared()) {
+                return value;
             }
+
+            value = __jymfony.deepClone(definition);
         }
 
-        return super._processValue(value, isRoot);
+        if (!(value instanceof Reference) || !this._container.hasDefinition(value.toString())) {
+            return super._processValue(value, isRoot);
+        }
+
+        const id = value.toString();
+        const definition = this._container.getDefinition(id);
+        if (! this._isInlineableDefinition(id, definition, this._container.getCompiler().getServiceReferenceGraph())) {
+            return value;
+        }
+
+        this._container.log(this, __jymfony.sprintf('Inlined service "%s" to "%s".', id, this._currentId));
+
+        if (definition.isShared()) {
+            return definition;
+        }
+
+        if (undefined === this._inlinedServiceIds[id]) {
+            this._inlinedServiceIds[id] = [];
+        }
+        this._inlinedServiceIds[id].push(this._currentId);
+
+        try {
+            return super._processValue(value, isRoot);
+        } finally {
+            delete this._inlinedServiceIds[id];
+        }
     }
 
     /**
@@ -60,13 +83,14 @@ class InlineServiceDefinitionsPass extends mix(AbstractRecursivePass, Repeatable
      *
      * @param {string} id
      * @param {Jymfony.Component.DependencyInjection.Definition} definition
+     * @param {Jymfony.Component.DependencyInjection.Compiler.ServiceReferenceGraph} graph
      *
      * @returns {boolean}
      *
      * @private
      */
     _isInlineableDefinition(id, definition, graph) {
-        if (definition.isDeprecated()) {
+        if (definition.isDeprecated() || definition.isLazy() || definition.isSynthetic()) {
             return false;
         }
 
@@ -74,7 +98,7 @@ class InlineServiceDefinitionsPass extends mix(AbstractRecursivePass, Repeatable
             return true;
         }
 
-        if (definition.isPublic() || definition.isLazy()) {
+        if (definition.isPublic()) {
             return false;
         }
 
@@ -100,7 +124,7 @@ class InlineServiceDefinitionsPass extends mix(AbstractRecursivePass, Repeatable
             return false;
         }
 
-        return true;
+        return 0 === Object.keys(ids).length || this._container.getDefinition(ids[0]).isShared();
     }
 }
 

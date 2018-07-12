@@ -13,4 +13,10 @@ describe('Strtr', function () {
         expect(__jymfony.strtr('# \\hi? (all), I said hello world! #', trans))
             .to.be.equal('# hello# )All), I said hi planet! #');
     });
+
+    it('should work correctly with no replace pairs', () => {
+        const trans = {};
+        expect(__jymfony.strtr('# \\hi? (all), I said hello world! #', trans))
+            .to.be.equal('# \\hi? (all), I said hello world! #');
+    });
 });

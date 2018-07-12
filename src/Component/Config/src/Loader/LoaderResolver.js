@@ -12,11 +12,12 @@ class LoaderResolver extends implementationOf(LoaderResolverInterface) {
     /**
      * Constructor.
      *
-     * @param {[Jymfony.Component.Config.Loader.LoaderInterface]} loaders An array of loaders
+     * @param {Jymfony.Component.Config.Loader.LoaderInterface[]} [loaders = []] An array of loaders
      */
     __construct(loaders = []) {
         /**
-         * @type {[Jymfony.Component.Config.Loader.LoaderInterface]}
+         * @type {Jymfony.Component.Config.Loader.LoaderInterface[]}
+         *
          * @private
          */
         this._loaders = [];
@@ -27,7 +28,7 @@ class LoaderResolver extends implementationOf(LoaderResolverInterface) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     resolve(resource, type = undefined) {
         for (const loader of this._loaders) {
@@ -52,7 +53,7 @@ class LoaderResolver extends implementationOf(LoaderResolverInterface) {
     /**
      * Returns the registered loaders.
      *
-     * @return {[Jymfony.Component.Config.Loader.LoaderInterface]} An array of LoaderInterface instances
+     * @returns {Jymfony.Component.Config.Loader.LoaderInterface[]} An array of LoaderInterface instances
      */
     get loaders() {
         return [ ...this._loaders ];

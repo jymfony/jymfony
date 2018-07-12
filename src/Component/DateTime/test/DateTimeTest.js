@@ -63,4 +63,9 @@ describe('[DateTime] Parser', function () {
             expect(dt.toString()).to.be.equal(expected);
         });
     }
+
+    it('createFromFormat should correctly parse a date', () => {
+        const dt = DateTime.createFromFormat(DateTime.RFC2822, 'Wed, 20 Jun 2018 10:19:32 GMT');
+        expect(dt.toString()).to.be.equal('2018-06-20T10:19:32+0000');
+    });
 });

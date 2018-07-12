@@ -16,18 +16,21 @@ describe('[Testing] ObjectProphecy', function () {
     beforeEach(() => {
         /**
          * @type {Jymfony.Component.Testing.Prophet}
+         *
          * @private
          */
         this._prophet = new Prophet();
 
         /**
          * @type {Jymfony.Component.Testing.Double.Doubler|Jymfony.Component.Testing.Prophecy.ObjectProphecy}
+         *
          * @private
          */
         this._doubler = this._prophet.prophesize(Doubler);
 
         /**
          * @type {Jymfony.Component.Testing.Prophecy.Revealer|Jymfony.Component.Testing.Prophecy.ObjectProphecy}
+         *
          * @private
          */
         this._revealer = this._prophet.prophesize(Revealer);
@@ -36,12 +39,14 @@ describe('[Testing] ObjectProphecy', function () {
 
         /**
          * @type {Jymfony.Component.Testing.Call.CallCenter|Jymfony.Component.Testing.Prophecy.ObjectProphecy}
+         *
          * @private
          */
         this._callCenter = this._prophet.prophesize(CallCenter);
 
         /**
          * @type {Jymfony.Component.Testing.Prophecy.ObjectProphecy}
+         *
          * @private
          */
         this._objectProphecy = new ObjectProphecy(this._doubler.reveal(), this._revealer.reveal(), this._callCenter.reveal());

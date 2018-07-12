@@ -1,12 +1,12 @@
-const crypto = require('crypto');
-const os = require('os');
-const path = require('path');
-
 const ConfigCache = Jymfony.Component.Config.ConfigCache;
 const FileLocator = Jymfony.Component.Config.FileLocator;
 const ContainerBuilder = Jymfony.Component.DependencyInjection.ContainerBuilder;
 const JsFileLoader = Jymfony.Component.DependencyInjection.Loader.JsFileLoader;
 const Kernel = Jymfony.Component.Kernel.Kernel;
+
+const crypto = require('crypto');
+const os = require('os');
+const path = require('path');
 
 class TestKernel extends Kernel {
     /**
@@ -19,6 +19,7 @@ class TestKernel extends Kernel {
     __construct(environment, debug, addTestCommands) {
         /**
          * @type {boolean}
+         *
          * @private
          */
         this._addTestCommands = addTestCommands;
@@ -31,21 +32,28 @@ class TestKernel extends Kernel {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
+     */
+    * registerBundles() {
+        yield new Jymfony.Bundle.FrameworkBundle.FrameworkBundle();
+    }
+
+    /**
+     * @inheritdoc
      */
     getLogsDir() {
         return path.normalize(path.join(os.tmpdir(), 'jymfony_tests', this._prefixCacheLogDir, 'var', 'logs'));
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     getCacheDir() {
         return path.normalize(path.join(os.tmpdir(), 'jymfony_tests', this._prefixCacheLogDir, 'var', 'cache'));
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     _getContainerBuilder() {
         const container = new ContainerBuilder();
@@ -61,7 +69,7 @@ class TestKernel extends Kernel {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     _initializeContainer() {
         let container;

@@ -10,6 +10,12 @@ const PasswordQuestionBuilder = Jymfony.Component.Console.Question.Builder.Passw
  * @memberOf Jymfony.Component.Console.Question.Builder
  */
 class QuestionBuilder {
+    /**
+     * Constructor.
+     *
+     * @param {Jymfony.Component.Console.Input.InputInterface} input
+     * @param {Jymfony.Component.Console.Output.OutputInterface} output
+     */
     __construct(input, output) {
         /**
          * @type {Jymfony.Component.Console.Input.InputInterface}
@@ -25,6 +31,7 @@ class QuestionBuilder {
          * Question type from QuestionType enum.
          *
          * @type {string}
+         *
          * @private
          */
         this._type = QuestionType.QUESTION;
@@ -97,6 +104,7 @@ class QuestionBuilder {
          * Value normalizer.
          *
          * @type {Function}
+         *
          * @protected
          */
         this._normalizer = normalizer;
@@ -122,6 +130,7 @@ class QuestionBuilder {
          * Value validator.
          *
          * @type {Function}
+         *
          * @protected
          */
         this._validator = validator;

@@ -5,26 +5,31 @@ const LoaderInterface = Jymfony.Component.Config.Loader.LoaderInterface;
  * Loader is the abstract class used by all built-in loaders.
  *
  * @memberOf Jymfony.Component.Config.Loader
+ *
  * @abstract
  */
 class Loader extends implementationOf(LoaderInterface) {
+    /**
+     * Constructor.
+     */
     __construct() {
         /**
          * @type {undefined}
+         *
          * @protected
          */
         this._resolver = undefined;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     get resolver() {
         return this._resolver;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     set resolver(resolver) {
         this._resolver = resolver;

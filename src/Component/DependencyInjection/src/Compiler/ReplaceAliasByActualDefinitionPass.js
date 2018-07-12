@@ -4,7 +4,10 @@ const Reference = Jymfony.Component.DependencyInjection.Reference;
 /**
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
  */
-module.exports = class ReplaceAliasByActualDefinitionPass extends AbstractRecursivePass {
+class ReplaceAliasByActualDefinitionPass extends AbstractRecursivePass {
+    /**
+     * @inheritdoc
+     */
     process(container) {
         // First collect all alias targets that need to be replaced
         const seenAliasTargets = {};
@@ -49,12 +52,21 @@ module.exports = class ReplaceAliasByActualDefinitionPass extends AbstractRecurs
             replacements[targetId] = definitionId;
         }
 
+        /**
+         * @type {Object}
+         *
+         * @private
+         */
         this._replacements = replacements;
 
         super.process(container);
+
         this._replacements = {};
     }
 
+    /**
+     * @inheritdoc
+     */
     _processValue(value, isRoot = false) {
         if (value instanceof Reference && undefined !== this._replacements[value.toString()]) {
             // Perform the replacement.
@@ -66,4 +78,6 @@ module.exports = class ReplaceAliasByActualDefinitionPass extends AbstractRecurs
 
         return super._processValue(value, isRoot);
     }
-};
+}
+
+module.exports = ReplaceAliasByActualDefinitionPass;

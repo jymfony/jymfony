@@ -6,9 +6,13 @@ const ParameterNotFoundException = Jymfony.Component.DependencyInjection.Excepti
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
  */
 class ResolveParameterPlaceHoldersPass extends AbstractRecursivePass {
+    /**
+     * @inheritdoc
+     */
     process(container) {
         /**
          * @type {Jymfony.Component.DependencyInjection.ParameterBag.ParameterBag}
+         *
          * @private
          */
         this._bag = container.parameterBag;
@@ -35,6 +39,9 @@ class ResolveParameterPlaceHoldersPass extends AbstractRecursivePass {
         this._bag = undefined;
     }
 
+    /**
+     * @inheritdoc
+     */
     _processValue(value, isRoot = false) {
         if (isString(value)) {
             return this._bag.resolveValue(value);
@@ -42,11 +49,11 @@ class ResolveParameterPlaceHoldersPass extends AbstractRecursivePass {
 
         if (value instanceof Definition) {
             const changes = value.getChanges();
-            if (changes['class']) {
+            if (changes.class) {
                 value.setClass(this._bag.resolveValue(value.getClass()));
             }
-            if (changes['file']) {
-                value.setFile(this._bag.resolveValue(value.getFile()));
+            if (changes.module) {
+                value.setModule(this._bag.resolveValue(value.getModule()[0]), this._bag.resolveValue(value.getModule()[1]));
             }
         }
 
@@ -55,6 +62,10 @@ class ResolveParameterPlaceHoldersPass extends AbstractRecursivePass {
         if (isObjectLiteral(value)) {
             const res = {};
             for (const [ k, v ] of __jymfony.getEntries(value)) {
+                if ('%env()%' !== k && '%env(' === k.substr(0, 5) && ')%' === k.substr(-2, 2)) {
+                    throw new InvalidArgumentException('Cannot use environment variable '+k.substr(5, k.length-7) + ' as object key.');
+                }
+
                 res[this._bag.resolveValue(k)] = v;
             }
 

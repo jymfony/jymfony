@@ -1,14 +1,12 @@
-/** @global loader */
-/** @var {Jymfony.Component.DependencyInjection.Loader.JsFileLoader} loader */
+/** @global {Jymfony.Component.DependencyInjection.Loader.JsFileLoader} loader */
+/** @global {Jymfony.Component.DependencyInjection.ContainerBuilder} container */
 
-/** @global container */
-/** @var {Jymfony.Component.DependencyInjection.Containercontainer} container */
-
-container.setParameter('console.command.ids', [ 'command_1', 'command_2' ]);
-container.register('command_1', 'Jymfony.Bundle.FrameworkBundle.Tests.Fixtures.MyCommand')
+container.register('command_1', Jymfony.Bundle.FrameworkBundle.Tests.Fixtures.MyCommand)
     .setPublic(true)
+    .addTag('console.command')
 ;
 
-container.register('command_2', 'Jymfony.Bundle.FrameworkBundle.Tests.Fixtures.MyCommand2')
+container.register('command_2', Jymfony.Bundle.FrameworkBundle.Tests.Fixtures.MyCommand2)
     .setPublic(true)
+    .addTag('console.command')
 ;

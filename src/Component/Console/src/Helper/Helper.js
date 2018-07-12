@@ -4,6 +4,11 @@
  * @memberOf Jymfony.Component.Console.Helper
  */
 class Helper {
+    /**
+     * @param {int} secs
+     *
+     * @returns {string}
+     */
     static formatTime(secs) {
         const timeFormats = [
             [ 0, '< 1 sec' ],
@@ -32,6 +37,11 @@ class Helper {
         }
     }
 
+    /**
+     * @param {int} memory
+     *
+     * @returns {string}
+     */
     static formatMemory(memory) {
         if (memory >= 1024 * 1024 * 1024) {
             return `${(memory / 1024 / 1024 / 1024).toFixed(1)} GiB`;
@@ -48,6 +58,12 @@ class Helper {
         return `${memory} B`;
     }
 
+    /**
+     * @param {Jymfony.Component.Console.Formatter.OutputFormatterInterface} formatter
+     * @param {string} string
+     *
+     * @returns {number}
+     */
     static strlenWithoutDecoration(formatter, string) {
         return Helper.removeDecoration(formatter, string).length;
     }

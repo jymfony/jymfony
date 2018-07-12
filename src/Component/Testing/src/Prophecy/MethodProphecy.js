@@ -13,7 +13,7 @@ class MethodProphecy {
      *
      * @param {Jymfony.Component.Testing.Prophecy.ObjectProphecy} objectProphecy
      * @param {string} methodName
-     * @param {undefined|[*]} args
+     * @param {undefined|*[]} [args]
      */
     __construct(objectProphecy, methodName, args = undefined) {
         const reflection = new ReflectionClass(objectProphecy.reveal());
@@ -23,8 +23,25 @@ class MethodProphecy {
             ), reflection.name, methodName, args);
         }
 
+        /**
+         * @type {Jymfony.Component.Testing.Prophecy.ObjectProphecy}
+         *
+         * @private
+         */
         this._objectProphecy = objectProphecy;
+
+        /**
+         * @type {string}
+         *
+         * @private
+         */
         this._methodName = methodName;
+
+        /**
+         * @type {undefined}
+         *
+         * @private
+         */
         this._args = undefined;
 
         this._prediction = undefined;
@@ -76,7 +93,7 @@ class MethodProphecy {
     /**
      * Gets the checked predictions for this prophecy.
      *
-     * @returns {[Jymfony.Component.Testing.Prediction.PredictionInterface]}
+     * @returns {Jymfony.Component.Testing.Prediction.PredictionInterface[]}
      */
     get checkedPredictions() {
         return [ ...this._checkedPredictions ];
@@ -85,7 +102,7 @@ class MethodProphecy {
     /**
      * Sets argument wildcard.
      *
-     * @param {[*]|Jymfony.Component.Testing.Argument.ArgumentsWildcard} args
+     * @param {*[]|Jymfony.Component.Testing.Argument.ArgumentsWildcard} args
      *
      * @returns {Jymfony.Component.Testing.Prophecy.MethodProphecy}
      *
@@ -139,12 +156,12 @@ class MethodProphecy {
     /**
      * Sets return promise to the prophecy.
      *
-     * @param {[*]} $args
+     * @param {*[]} args
      *
      * @returns {Jymfony.Component.Testing.Prophecy.MethodProphecy}
      */
-    willReturn(...$args) {
-        this.will(new Promise.ReturnPromise($args));
+    willReturn(...args) {
+        this.will(new Promise.ReturnPromise(args));
 
         return this;
     }
@@ -320,6 +337,9 @@ class MethodProphecy {
         this.shouldHave(this._prediction);
     }
 
+    /**
+     * @private
+     */
     _bindToObjectProphecy() {
         if (this._bound) {
             return;

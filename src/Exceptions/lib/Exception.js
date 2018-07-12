@@ -1,9 +1,24 @@
 const UNKNOWN_FUNCTION = '?';
 
 class Exception extends Error {
-    constructor(message, code = null, previous = undefined) {
-        super(message);
+    /**
+     * @param {...} args
+     */
+    constructor(...args) {
+        super();
+        delete this.message;
 
+        return this.__construct(...args);
+    }
+
+    /**
+     * Constructor.
+     *
+     * @param {string} message
+     * @param {int|null} [code = null]
+     * @param {Exception} [previous]
+     */
+    __construct(message, code = null, previous = undefined) {
         /**
          * @type {string}
          */
@@ -25,29 +40,38 @@ class Exception extends Error {
         this._message = message;
 
         Error.captureStackTrace(this, this.constructor);
-        this._originalStack = this.stack.split('\n').slice(2).join('\n');
+        this._originalStack = this.stack.split('\n').join('\n');
 
-        delete this.message;
+        this._updateStack();
     }
 
     /**
      * Get the parsed stack trace for this exception.
      *
-     * @returns {[Object<string, string>]}
+     * @returns {Object.<string, string>[]}
      */
     get stackTrace() {
         return Exception.parseStackTrace(this);
     }
 
+    /**
+     * @returns {string}
+     */
+    get message() {
+        return this._message;
+    }
+
+    /**
+     * @param {string} message
+     */
     set message(message) {
         this._message = message;
         this._updateStack();
     }
 
-    get message() {
-        return this._message;
-    }
-
+    /**
+     * @private
+     */
     _updateStack() {
         this.stack = this.constructor.name + ': ' + this.message + '\n\n' + this._originalStack;
     }
@@ -57,7 +81,7 @@ class Exception extends Error {
      *
      * @param {Error} error
      *
-     * @returns {[Object<string, string>]}
+     * @returns {Object.<string, string>[]}
      */
     static parseStackTrace(error) {
         const regex = /^\s*at (?:((?:\[object object])?\S+(?: \[as \S+])?) )?\(?(.*?):(\d+)(?::(\d+))?\)?\s*$/i,

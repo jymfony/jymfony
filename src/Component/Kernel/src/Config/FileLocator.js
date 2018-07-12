@@ -10,18 +10,20 @@ class FileLocator extends BaseLocator {
      * Constructor.
      *
      * @param {Jymfony.Component.Kernel.KernelInterface} kernel
-     * @param {string} path
-     * @param {[string]|string} paths
+     * @param {string} [path]
+     * @param {string[]|string} [paths = []]
      */
     __construct(kernel, path = undefined, paths = []) {
         /**
          * @type {Jymfony.Component.Kernel.KernelInterface}
+         *
          * @private
          */
         this._kernel = kernel;
 
         /**
          * @type {string}
+         *
          * @private
          */
         this._path = path;
@@ -30,7 +32,7 @@ class FileLocator extends BaseLocator {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     locate(file, currentPath = undefined, first = true) {
         if ('@' === file.charAt(0)) {

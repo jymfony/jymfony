@@ -6,9 +6,13 @@ const ObjectProphecy = Jymfony.Component.Testing.Prophecy.ObjectProphecy;
  * @memberOf Jymfony.Component.Testing
  */
 class Prophet {
+    /**
+     * Constructor.
+     */
     __construct() {
         /**
-         * @type {[Jymfony.Component.Testing.Prophecy.ObjectProphecy]}
+         * @type {Jymfony.Component.Testing.Prophecy.ObjectProphecy[]}
+         *
          * @private
          */
         this._prophecies = [];

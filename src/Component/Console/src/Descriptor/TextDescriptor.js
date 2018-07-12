@@ -1,7 +1,6 @@
 const ApplicationDescription = Jymfony.Component.Console.Descriptor.ApplicationDescription;
 const Descriptor = Jymfony.Component.Console.Descriptor.Descriptor;
 const InputDefinition = Jymfony.Component.Console.Input.InputDefinition;
-const util = require('util');
 
 /**
  * @memberOf Jymfony.Component.Console.Descriptor
@@ -10,12 +9,12 @@ const util = require('util');
  */
 class TextDescriptor extends Descriptor {
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     describeInputArgument(argument, options = {}) {
         let defaultValue;
         if (argument.getDefault() && (! isArray(argument.getDefault()) || argument.getDefault().length)) {
-            defaultValue = util.format('<comment> [default: %s]</comment>', this._formatDefaultValue(argument.getDefault()));
+            defaultValue = __jymfony.sprintf('<comment> [default: %s]</comment>', this._formatDefaultValue(argument.getDefault()));
         } else {
             defaultValue = '';
         }
@@ -23,7 +22,7 @@ class TextDescriptor extends Descriptor {
         const totalWidth = options['total_width'] || argument.getName().length;
         const spacingWidth = totalWidth - argument.getName().length;
 
-        this._writeText(util.format('  <info>%s</info>  %s%s%s',
+        this._writeText(__jymfony.sprintf('  <info>%s</info>  %s%s%s',
             argument.getName(),
             ' '.repeat(spacingWidth),
             // + 4 = 2 spaces before <info>, 2 spaces after </info>
@@ -33,12 +32,12 @@ class TextDescriptor extends Descriptor {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     describeInputOption(option, options = {}) {
         let defaultValue;
         if (option.acceptValue() && option.getDefault() && (! isArray(option.getDefault()) || option.getDefault().length)) {
-            defaultValue = util.format('<comment> [default: %s]</comment>', this._formatDefaultValue(option.getDefault()));
+            defaultValue = __jymfony.sprintf('<comment> [default: %s]</comment>', this._formatDefaultValue(option.getDefault()));
         } else {
             defaultValue = '';
         }
@@ -53,14 +52,14 @@ class TextDescriptor extends Descriptor {
         }
 
         const totalWidth = options.total_width || this._calculateTotalWidthForOptions([ option ]);
-        const synopsis = util.format('%s%s',
-            option.getShortcut() ? util.format('-%s, ', option.getShortcut()) : '    ',
-            util.format('--%s%s', option.getName(), value)
+        const synopsis = __jymfony.sprintf('%s%s',
+            option.getShortcut() ? __jymfony.sprintf('-%s, ', option.getShortcut()) : '    ',
+            __jymfony.sprintf('--%s%s', option.getName(), value)
         );
 
         const spacingWidth = totalWidth - synopsis.length;
 
-        this._writeText(util.format('  <info>%s</info>  %s%s%s%s',
+        this._writeText(__jymfony.sprintf('  <info>%s</info>  %s%s%s%s',
             synopsis,
             ' '.repeat(spacingWidth),
             // + 4 = 2 spaces before <info>, 2 spaces after </info>
@@ -71,7 +70,7 @@ class TextDescriptor extends Descriptor {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     describeInputDefinition(definition, options = {}) {
         let totalWidth = this._calculateTotalWidthForOptions(definition.getOptions());
@@ -114,7 +113,7 @@ class TextDescriptor extends Descriptor {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     describeCommand(command, options = {}) {
         command.getSynopsis(true);
@@ -147,7 +146,7 @@ class TextDescriptor extends Descriptor {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     describeApplication(application, options = {}) {
         const describedNamespace = options.namespace;
@@ -157,7 +156,7 @@ class TextDescriptor extends Descriptor {
             const width = this._getColumnWidth(Object.values(description.commands));
 
             for (const command of Object.values(description.commands)) {
-                this._writeText(util.format('%s %s', (' '.repeat(width) + command.name).slice(-width), command.description), options);
+                this._writeText(__jymfony.sprintf('%s %s', (' '.repeat(width) + command.name).slice(-width), command.description), options);
                 this._writeText('\n');
             }
         } else {
@@ -177,7 +176,7 @@ class TextDescriptor extends Descriptor {
             const width = this._getColumnWidth(Object.values(description.commands));
 
             if (describedNamespace) {
-                this._writeText(util.format('<comment>Available commands for the "%s" namespace:</comment>', describedNamespace), options);
+                this._writeText(__jymfony.sprintf('<comment>Available commands for the "%s" namespace:</comment>', describedNamespace), options);
             } else {
                 this._writeText('<comment>Available commands:</comment>', options);
             }
@@ -197,7 +196,7 @@ class TextDescriptor extends Descriptor {
                         const spacingWidth = width - name.length;
                         const command = commands[name];
                         const commandAliases = this._getCommandAliasesText(command);
-                        this._writeText(util.format('  <info>%s</info>%s%s', name, ' '.repeat(spacingWidth), commandAliases + command.description), options);
+                        this._writeText(__jymfony.sprintf('  <info>%s</info>%s%s', name, ' '.repeat(spacingWidth), commandAliases + command.description), options);
                     }
                 }
             }

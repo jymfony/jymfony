@@ -8,12 +8,12 @@ class FileLoaderLoadException extends Exception {
      * Constructor.
      *
      * @param {*} resource
-     * @param {*} sourceResource
-     * @param {null|int} code
-     * @param {Exception} previous
-     * @param {string} type
+     * @param {*} [sourceResource]
+     * @param {null|int} [code = null]
+     * @param {Exception} [previous]
+     * @param {string} [type]
      */
-    constructor(resource, sourceResource = undefined, code = null, previous = undefined, type = undefined) {
+    __construct(resource, sourceResource = undefined, code = null, previous = undefined, type = undefined) {
         let message = '';
         if (previous) {
             // Include the previous exception, to help the user see what might be the underlying cause
@@ -50,24 +50,29 @@ class FileLoaderLoadException extends Exception {
             message += __jymfony.sprintf(' Make sure there is a loader supporting the "%s" type.', type);
         }
 
-        super(message, code, previous);
+        super.__construct(message, code, previous);
     }
 
-    static varToString($var) {
-        if (isObject($var)) {
-            return __jymfony.sprintf('Object(%s)', $var.constructor.name);
+    /**
+     * @param {*} variable
+     *
+     * @returns {string}
+     */
+    static varToString(variable) {
+        if (isObject(variable)) {
+            return __jymfony.sprintf('Object(%s)', variable.constructor.name);
         }
 
-        if (isArray($var)) {
+        if (isArray(variable)) {
             const a = [];
-            for (const [ k, v ] of $var) {
+            for (const [ k, v ] of variable) {
                 a.push(__jymfony.sprintf('%s => %s', k, FileLoaderLoadException.varToString(v)));
             }
 
             return __jymfony.sprintf('Array(%s)', a.join(', '));
         }
 
-        return $var.toString();
+        return variable.toString();
     }
 }
 

@@ -12,12 +12,12 @@ class Bundle extends implementationOf(ContainerAwareInterface, ContainerAwareTra
     /**
      * Boots the bundle
      */
-    boot() { }
+    async boot() { }
 
     /**
      * Shutdowns the Bundle.
      */
-    shutdown() { }
+    async shutdown() { }
 
     /**
      * Builds the bundle
@@ -47,6 +47,9 @@ class Bundle extends implementationOf(ContainerAwareInterface, ContainerAwareTra
         return this._path;
     }
 
+    /**
+     * @returns {string}
+     */
     getName() {
         if (! this._name) {
             this._parseClassName();
@@ -55,6 +58,9 @@ class Bundle extends implementationOf(ContainerAwareInterface, ContainerAwareTra
         return this._name;
     }
 
+    /**
+     * @returns {string}
+     */
     getNamespace() {
         if (! this._namespace) {
             this._parseClassName();
@@ -63,10 +69,16 @@ class Bundle extends implementationOf(ContainerAwareInterface, ContainerAwareTra
         return this._namespace;
     }
 
+    /**
+     * @returns {Jymfony.Component.Kernel.Bundle|undefined}
+     */
     getParent() {
         return undefined;
     }
 
+    /**
+     * @returns {string|undefined}
+     */
     getContainerExtension() {
         if (undefined === this._extension) {
             const extension = this._createContainerExtension();
@@ -89,7 +101,7 @@ class Bundle extends implementationOf(ContainerAwareInterface, ContainerAwareTra
 
                 this._extension = extension;
             } else {
-                this._extension = null;
+                this._extension = undefined;
             }
         }
 
@@ -98,6 +110,11 @@ class Bundle extends implementationOf(ContainerAwareInterface, ContainerAwareTra
         }
     }
 
+    /**
+     * @returns {Jymfony.Component.DependencyInjection.Extension.ExtensionInterface}
+     *
+     * @private
+     */
     _createContainerExtension() {
         const className = this._getContainerExtensionClass();
         if (ReflectionClass.exists(className)) {
@@ -106,11 +123,19 @@ class Bundle extends implementationOf(ContainerAwareInterface, ContainerAwareTra
         }
     }
 
+    /**
+     * @returns {string}
+     *
+     * @private
+     */
     _getContainerExtensionClass() {
         const basename = this.getName().replace(/Bundle$/, '');
         return this.getNamespace() + '.DependencyInjection.' + basename + 'Extension';
     }
 
+    /**
+     * @private
+     */
     _parseClassName() {
         const refl = new ReflectionClass(this);
 

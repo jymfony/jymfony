@@ -1,6 +1,10 @@
+const DateTimeZone = Jymfony.Component.DateTime.DateTimeZone;
+const TimeDescriptor = Jymfony.Component.DateTime.Struct.TimeDescriptor;
+
 const months = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ];
-const day_of_week = [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday' ];
-const day_suffix = n => {
+const short_months = [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ];
+const dayOfWeek = [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday' ];
+const daySuffix = n => {
     switch (n) {
         case 1:
         case 21:
@@ -25,7 +29,6 @@ const day_suffix = n => {
  */
 class DateTimeFormatter {
     /**
-     *
      * @param {Jymfony.Component.DateTime.DateTime} datetime
      * @param {string} format
      */
@@ -37,199 +40,356 @@ class DateTimeFormatter {
         for (let i = 0; i < fmt.length; ++i) {
             const cur = fmt[i];
             switch (cur) {
-                case '\\': {
+                case '\\':
                     ++i;
                     result += (fmt[i] || '');
-                } break;
+                    break;
 
                 case 'D':
                     // Mon-Sun
                 case 'l': {
                     // Monday-Sunday
-                    const dow = day_of_week[tm.tm_wday % 7];
+                    const dow = dayOfWeek[tm.weekDay % 7];
                     result += 'D' === cur ? dow.substr(0, 3) : dow;
-                } break;
+                    break;
+                }
 
                 case 'd':
                     // 01-31
-                case 'j': {
+                case 'j':
                     // 1-31
-                    if ('d' === cur && 10 > tm.tm_mday) {
+                    if ('d' === cur && 10 > tm.day) {
                         result += '0';
                     }
 
-                    result += tm.tm_mday;
-                } break;
+                    result += tm.day;
+                    break;
 
-                case 'N': {
+                case 'N':
                     // 1 (mon) - 7 (sun)
-                    result += tm.tm_wday;
-                } break;
+                    result += tm.weekDay;
+                    break;
 
-                case 'w': {
+                case 'w':
                     // 0 (sun) - 6 (sat)
-                    result += tm.tm_wday % 7;
-                } break;
+                    result += tm.weekDay % 7;
+                    break;
 
-                case 'S': {
+                case 'S':
                     // St, nd, rd, th
-                    result += day_suffix(tm.tm_mday);
-                } break;
+                    result += daySuffix(tm.day);
+                    break;
 
-                case 'z': {
+                case 'z':
                     // 0-365
-                    result += tm.tm_yday;
-                } break;
+                    result += tm.yearDay;
+                    break;
 
-                case 'W': {
-                    result += tm.tm_week;
-                } break;
+                case 'W':
+                    result += tm.isoWeekNumber;
+                    break;
 
                 /* Months */
                 case 'F':
                     // January - December
-                case 'M': {
+                case 'M':
                     // Jan - Dec
-                    result += 'M' === cur ? months[tm.tm_mon - 1] : months[tm.tm_mon - 1].substr(0, 3);
-                } break;
+                    result += 'M' === cur ? months[tm.month - 1] : months[tm.month - 1].substr(0, 3);
+                    break;
 
                 case 'n':
                     // 1 - 12
-                case 'm': {
+                case 'm':
                     // 01 - 12
-                    if ('m' === cur && 10 > tm.tm_mon) {
+                    if ('m' === cur && 10 > tm.month) {
                         result += '0';
                     }
 
-                    result += tm.tm_mon;
-                } break;
+                    result += tm.month;
+                    break;
 
-                case 't': {
+                case 't':
                     // Number of days in month (28/31)
-                    result += tm.tm_dim;
-                } break;
+                    result += tm.daysInMonth;
+                    break;
 
                 /* Years */
-                case 'L': {
+                case 'L':
                     // Is leap? (0/1)
-                    result += tm.tm_leap ? '1' : '0';
-                } break;
+                    result += tm.leap ? '1' : '0';
+                    break;
 
-                case 'o': {
-                    // ISO8601 week-numbering year.
-                    result += tm.iso_year;
-                } break;
+                case 'o':
+                    // ISO8601 week-numbering _year.
+                    result += tm.isoYear;
+                    break;
 
-                case 'Y': {
+                case 'Y':
                     // Year (1999-2003)
-                    result += tm.tm_year;
-                } break;
+                    result += tm._year;
+                    break;
 
-                case 'y': {
+                case 'y':
                     // Year (99-03)
-                    result += ('' + tm.tm_year).substr(2, 2);
-                } break;
+                    result += ('' + tm._year).substr(2, 2);
+                    break;
 
                 /* Time */
-                case 'a': {
+                case 'a':
                     // Am-pm
-                    result += tm.tm_meridian;
-                } break;
+                    result += tm.meridian;
+                    break;
 
-                case 'A': {
+                case 'A':
                     // AM-PM
-                    result += tm.tm_meridian.toUpperCase();
-                } break;
+                    result += tm.meridian.toUpperCase();
+                    break;
 
-                case 'B': {
+                case 'B':
                     // Swatch internet time
-                    result += tm.swatch_internet_time;
-                } break;
+                    result += tm.swatchInternetTime;
+                    break;
 
                 case 'g':
                     // Hours 1 - 12
                 case 'h': {
                     // Hours 01 - 12
-                    let hrs = tm.tm_hour % 12;
-                    if (hrs = 0) {
+                    let hrs = tm.hour % 12;
+                    if (0 === hrs) {
                         hrs = 12;
                     }
 
                     if ('h' === cur && 10 > hrs) {
                         result += '0';
                     }
+
                     result += '' + hrs;
-                } break;
+                    break;
+                }
 
                 case 'G':
                     // Hours 0 - 23
-                case 'H': {
+                case 'H':
                     // Hours 00 - 23
-                    if ('H' === cur && 10 > tm.tm_hour) {
+                    if ('H' === cur && 10 > tm.hour) {
                         result += '0';
                     }
 
-                    result += '' + tm.tm_hour;
-                } break;
+                    result += '' + tm.hour;
+                    break;
 
-                case 'i': {
+                case 'i':
                     // Minutes 00 - 59
-                    result += ('00' + tm.tm_min).slice(-2);
-                } break;
+                    result += ('00' + tm.minutes).slice(-2);
+                    break;
 
-                case 's': {
+                case 's':
                     // Seconds 00 - 59
-                    result += ('00' + tm.tm_sec).slice(-2);
-                } break;
+                    result += ('00' + tm.seconds).slice(-2);
+                    break;
 
-                case 'v': {
+                case 'v':
                     // Milliseconds
-                    result += ('000' + tm.tm_msec).slice(-3);
-                } break;
+                    result += ('000' + tm.milliseconds).slice(-3);
+                    break;
 
-                case 'e': {
+                case 'e':
                     // Timezone
-                    result += tm.tm_tz.name;
-                } break;
+                    result += tm.timeZone.name;
+                    break;
 
-                case 'I': {
+                case 'I':
                     // DST (1/0)
-                    result += tm.tm_tz.isDST(datetime) ? '1' : '0';
-                } break;
+                    result += tm.timeZone.isDST(datetime) ? '1' : '0';
+                    break;
 
                 case 'O':
                     // Difference to GMT +0200
                 case 'P': {
                     // Difference to GMT +02:00
-                    const offset = tm.tm_tz.getOffset(datetime);
+                    const offset = tm.timeZone.getOffset(datetime);
                     result += 0 > offset ? '-' : '+';
                     result += ('00' + ~~(offset / 3600)).slice(-2);
                     result += 'P' === cur ? ':' : '';
                     result += ('00' + ~~(offset % 3600)).slice(-2);
-                } break;
+                    break;
+                }
 
-                case 'T': {
+                case 'T':
                     // Timezone abbrev
-                    result += tm.tm_tz.getAbbrev(datetime);
-                } break;
+                    result += tm.timeZone.getAbbrev(datetime);
+                    break;
 
-                case 'Z': {
+                case 'Z':
                     // Timezone offset in seconds
-                    result += '' + (tm.tm_tz.getOffset(datetime) || 0);
-                } break;
+                    result += '' + (tm.timeZone.getOffset(datetime) || 0);
+                    break;
 
-                case 'U': {
+                case 'U':
                     // Unix timestamp
-                    result += '' + tm.unix_timestamp;
-                } break;
+                    result += '' + tm.unixTimestamp;
+                    break;
 
-                default: {
+                default:
                     result += cur;
-                } break;
+                    break;
             }
         }
 
         return result;
+    }
+
+    static parse(format, time) {
+        const formatRegexp = format.replace(/(\\.|.)/g, (cur) => {
+            if ('\\' === cur[0]) {
+                return __jymfony.regex_quote(cur);
+            }
+
+            switch (cur) {
+                case 'D':
+                    return '(?<short_day>\\w{3})';
+                case 'l':
+                    return '(?<week_day>\\w+)';
+                case 'N':
+                    return '(?<num_week_day>\\d{2})';
+                case 'w':
+                    return '(?<num_week_day_minus_one>\\d{2})';
+                case 'S':
+                    return '(?<day_suffix>\\w{2})';
+                case 'W':
+                    return '(?<iso_week_number>\\d{2})';
+                case 't':
+                    return '(?<days_in_month>\\d{2})';
+                case 'L':
+                    return '(?<leap_year>\\d)';
+                case 'o':
+                    return '(?<iso_year>\\d{4})';
+                case 'B':
+                    return '(?<swatch_internet_time>\\d+)';
+                case 'I':
+                    return '(?<is_dst>\\d)';
+
+                case 'd':
+                    return '(?<day>\\d{2})';
+                case 'j':
+                    return '(?<day>\\d{1,2})';
+                case 'z':
+                    return '(?<year_day>\\d{2})';
+
+                case 'F':
+                    return '(?<literal_month>\\w+)';
+                case 'M':
+                    return '(?<short_month>\\w{3})';
+                case 'n':
+                    return '(?<month>\\d{1,2})';
+                case 'm':
+                    return '(?<month>\\d{2})';
+
+                case 'Y':
+                    return '(?<year>\\d{4})';
+                case 'y':
+                    return '(?<short_year>\\w{2})';
+
+                case 'a':
+                case 'A':
+                    return '(?<meridian>\\w{2})';
+
+                case 'g':
+                    return '(?<mid_hours>\\d{1,2})';
+                case 'h':
+                    return '(?<mid_hours>\\d{2})';
+                case 'G':
+                    return '(?<hours>\\d{1,2})';
+                case 'H':
+                    return '(?<hours>\\d{2})';
+
+                case 'i':
+                    return '(?<minutes>\\d{2})';
+                case 's':
+                    return '(?<seconds>\\d{2})';
+                case 'v':
+                    return '(?<milliseconds>\\d{3})';
+
+                case 'e':
+                case 'T':
+                    return '(?<timezone>\\w+)';
+                case 'O':
+                case 'P':
+                    return '(?<timezone>(?:GMT|\\d{2}:?\\d{2}))';
+                case 'Z':
+                    return '(?<timezone>\\d{2}:?\\{2})';
+                case 'U':
+                    return '(?<timestamp>\\d+)';
+
+                default:
+                    return cur;
+            }
+        });
+
+        const matches = (new RegExp(formatRegexp)).exec(time);
+        if (! matches) {
+            throw new RuntimeException('Unparsable date time');
+        }
+
+        const desc = new TimeDescriptor(matches.groups.timezone ? DateTimeZone.get(matches.groups.timezone) : undefined);
+        if (matches.groups.timestamp) {
+            desc.unixTimestamp = ~~matches.groups.timestamp;
+
+            return desc;
+        }
+
+        const day = ~~(matches.groups.day || 1);
+
+        let month = 1;
+        if (matches.groups.month) {
+            month = ~~matches.groups.month;
+        } else if (matches.groups.literal_month) {
+            month = months.indexOf(matches.groups.literal_month);
+            if (-1 === month) {
+                throw new RuntimeException(__jymfony.sprintf('Unknown month "%s"', matches.groups.literal_month));
+            }
+
+            month++;
+        } else if (matches.groups.short_month) {
+            month = short_months.indexOf(matches.groups.short_month);
+            if (-1 === month) {
+                throw new RuntimeException(__jymfony.sprintf('Unknown month "%s"', matches.groups.short_month));
+            }
+
+            month++;
+        }
+
+        let year = 1970;
+        if (matches.groups.year) {
+            year = ~~matches.groups.year;
+        } else if (matches.groups.short_year) {
+            year = ~~matches.groups.short_year;
+            year += 30 < year ? 1900 : 2000;
+        }
+
+        let hours = 0;
+        if (matches.groups.mid_hours) {
+            hours = ~~matches.groups.mid_hours;
+            if (matches.groups.meridian && 'p' === matches.groups.meridian.charAt(0).toLowerCase()) {
+                hours += 12;
+            }
+        } else if (matches.groups.hours) {
+            hours = ~~matches.groups.hours;
+        }
+
+        const minutes = ~~(matches.groups.minutes || 0);
+        const seconds = ~~(matches.groups.seconds || 0);
+        const milliseconds = ~~(matches.groups.milliseconds || 0);
+
+        desc.day = day;
+        desc.month = month;
+        desc._year = year;
+        desc.hour = hours;
+        desc.minutes = minutes;
+        desc.seconds = seconds;
+        desc.milliseconds = milliseconds;
+
+        return desc;
     }
 }
 

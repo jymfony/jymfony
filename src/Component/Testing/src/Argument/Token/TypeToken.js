@@ -14,14 +14,14 @@ class TypeToken extends implementationOf(TokenInterface) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     scoreArgument(argument) {
         return argument instanceof this._type ? 5 : false;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     isLast() {
         return false;

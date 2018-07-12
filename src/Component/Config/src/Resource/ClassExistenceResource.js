@@ -4,20 +4,25 @@ const SelfCheckingResourceInterface = Jymfony.Component.Config.Resource.SelfChec
  * @memberOf Jymfony.Component.Config.Resource
  */
 class ClassExistenceResource extends implementationOf(SelfCheckingResourceInterface) {
+    /**
+     * Constructor.
+     *
+     * @param {*} resource
+     */
     __construct(resource) {
         this._resource = resource;
         this._exists = ReflectionClass.exists(resource);
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritdoc
      */
     toString() {
         return this._resource;
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritdoc
      */
     isFresh(/* timestamp */) {
         return this._exists === ReflectionClass.exists(this._resource);

@@ -17,7 +17,6 @@ const nonFirstChars = 'abcdefghijklmnopqrstuvwxyz0123456789_';
  * Dumps container in a js class.
  *
  * @memberOf Jymfony.Component.DependencyInjection.Dumper
- * @type {Jymfony.Component.DependencyInjection.Dumper.JsDumper}
  */
 class JsDumper {
     /**
@@ -41,7 +40,7 @@ class JsDumper {
      *  * class_name: The class name [default: ProjectContainer]
      *  * base_class: The base class name [default: Jymfony.Component.DependencyInjection.Container]
      *
-     * @param {Object<string, *>} options
+     * @param {Object.<string, *>} [options = {}]
      *
      * @returns {string}
      */
@@ -61,6 +60,11 @@ class JsDumper {
         return code;
     }
 
+    /**
+     * @param {string} baseClass
+     *
+     * @private
+     */
     _initMethodNamesMap(baseClass) {
         this._serviceIdToMethodNameMap = new Map();
         this._usedMethodNames = new Set();
@@ -75,6 +79,14 @@ class JsDumper {
         }
     }
 
+    /**
+     * @param {string} className
+     * @param {string} baseClass
+     *
+     * @returns {string}
+     *
+     * @private
+     */
     _startClass(className, baseClass) {
         return `const Container = Jymfony.Component.DependencyInjection.Container;
 const LogicException = Jymfony.Component.DependencyInjection.Exception.LogicException;
@@ -99,6 +111,13 @@ class ${className} extends ${baseClass} {
 `;
     }
 
+    /**
+     * @param {string} className
+     *
+     * @returns {string}
+     *
+     * @private
+     */
     _endClass(className) {
         return `
 }
@@ -107,6 +126,11 @@ module.exports = global.${className} = ${className};
 `;
     }
 
+    /**
+     * @returns {string}
+     *
+     * @private
+     */
     _getMethodMap() {
         let code = `this._methodMap = {
 `;
@@ -125,6 +149,11 @@ module.exports = global.${className} = ${className};
         return code + '        };\n';
     }
 
+    /**
+     * @returns {string}
+     *
+     * @private
+     */
     _getAliases() {
         let code = `this._aliases = {
 `;
@@ -143,6 +172,13 @@ module.exports = global.${className} = ${className};
         return code + '        };\n';
     }
 
+    /**
+     * @param {*} value
+     *
+     * @returns {string}
+     *
+     * @private
+     */
     _export(value) {
         if (isScalar(value) || isArray(value) || isObjectLiteral(value)) {
             return JSON.stringify(value);
@@ -159,6 +195,13 @@ module.exports = global.${className} = ${className};
         throw new Error('Unimplemented exporting value "' + value + '"');
     }
 
+    /**
+     * @param {string} id
+     *
+     * @returns {string}
+     *
+     * @private
+     */
     _generateMethodName(id) {
         if (this._serviceIdToMethodNameMap[id]) {
             return this._serviceIdToMethodNameMap[id];
@@ -181,6 +224,11 @@ module.exports = global.${className} = ${className};
         return methodName;
     }
 
+    /**
+     * @returns {string}
+     *
+     * @private
+     */
     _getServices() {
         let publicServices = '', privateServices = '';
         const serviceIds = Object.keys(this._container.getDefinitions()).sort();
@@ -196,11 +244,16 @@ module.exports = global.${className} = ${className};
         return publicServices + privateServices;
     }
 
+    /**
+     * @returns {string}
+     *
+     * @private
+     */
     _getDefaultParametersMethod() {
         let code = '{\n';
         const parameters = this._container.parameterBag.all();
         for (const key of Object.keys(parameters)) {
-            code += `            "${key}": ${this._dumpParameter(key)},` + '\n';
+            code += `            "${key}": ${this._dumpParameter(key, false)},` + '\n';
         }
         code += '        }';
 
@@ -211,7 +264,7 @@ module.exports = global.${className} = ${className};
     }
 
     /**
-     * Generate a service
+     * Generate a service.
      *
      * @param {string} id
      * @param {Jymfony.Component.DependencyInjection.Definition} definition
@@ -234,7 +287,7 @@ module.exports = global.${className} = ${className};
             returns.push('@throws {Jymfony.Component.DependencyInjection.RuntimeException} always since this service is expected to be injected dynamically');
         } else if (class_ = definition.getClass()) {
             returns.push('@returns {' + (-1 != class_.indexOf('%') ? '*' : class_) + '}');
-        } else if (definition.getFactory()) {
+        } else if (definition.getFactory() || definition.getModule()) {
             returns.push('@returns {Object}');
         }
 
@@ -272,7 +325,6 @@ module.exports = global.${className} = ${className};
 ${doc}     * ${returns}
      */
     ${methodName}(${lazyInitialization}) {
-${this._addServiceInclude(id, definition)}\
 ${this._addLocalTempVariables(id, definition)}\
 ${this._addInlinedDefinitions(id, definition)}\
 ${this._addServiceInstance(id, definition)}\
@@ -285,25 +337,14 @@ ${this._addReturn(id, definition)}\
 `;
     }
 
-    _addServiceInclude(id, definition) {
-        const template = '        require(%s);\n';
-        let code = '';
-
-        let file;
-        if (file = definition.getFile()) {
-            code += __jymfony.sprintf(template, this._dumpValue(file));
-        }
-
-        for (const def of this._getInlinedDefinitions(definition)) {
-            file = def.getFile();
-            if (file) {
-                code += __jymfony.sprintf(template, this._dumpValue(file));
-            }
-        }
-
-        return code;
-    }
-
+    /**
+     * @param {string} cId
+     * @param {Jymfony.Component.DependencyInjection.Definition} definition
+     *
+     * @returns {string}
+     *
+     * @private
+     */
     _addLocalTempVariables(cId, definition) {
         const template = '        let %s = %s;\n';
 
@@ -345,6 +386,14 @@ ${this._addReturn(id, definition)}\
         return code;
     }
 
+    /**
+     * @param {string} id
+     * @param {Jymfony.Component.DependencyInjection.Definition} definition
+     *
+     * @returns {string}
+     *
+     * @private
+     */
     _addInlinedDefinitions(id, definition) {
         let code = '';
         const nbOccurrences = new Map();
@@ -366,7 +415,7 @@ ${this._addReturn(id, definition)}\
             }
             processed.add(sDefinition);
 
-            if (1 < nbOccurrences.get(sDefinition) || sDefinition.getMethodCalls().length || sDefinition.getProperties().length || sDefinition.getConfigurator()) {
+            if (1 < nbOccurrences.get(sDefinition) || sDefinition.getMethodCalls().length || Object.keys(sDefinition.getProperties()).length || sDefinition.getConfigurator()) {
                 const name = this._getNextVariableName();
                 this._definitionVariables.set(sDefinition, new Variable(name));
 
@@ -374,7 +423,7 @@ ${this._addReturn(id, definition)}\
                     throw new ServiceCircularReferenceException(id, [ id ]);
                 }
 
-                code += this._addNewInstance(sDefinition, name, ' = ');
+                code += this._addNewInstance(sDefinition, 'let ' + name, ' = ');
 
                 if (! this._hasReference(id, sDefinition.getMethodCalls(), true) && ! this._hasReference(id, sDefinition.getProperties(), true)) {
                     code += this._addProperties(undefined, sDefinition, name);
@@ -396,6 +445,7 @@ ${this._addReturn(id, definition)}\
      * @param {Jymfony.Component.DependencyInjection.Definition} definition
      *
      * @returns {string}
+     *
      * @private
      */
     _addServiceInstance(id, definition) {
@@ -427,6 +477,14 @@ ${this._addReturn(id, definition)}\
         return code;
     }
 
+    /**
+     * @param {string} id
+     * @param {Jymfony.Component.DependencyInjection.Definition} definition
+     *
+     * @returns {string}
+     *
+     * @private
+     */
     _addInlinedDefinitionsSetup(id, definition) {
         this._referenceVariables[id] = 'instance';
         let code = '';
@@ -462,6 +520,15 @@ ${this._addReturn(id, definition)}\
         return code;
     }
 
+    /**
+     * @param {string} id
+     * @param {Jymfony.Component.DependencyInjection.Definition} definition
+     * @param {string} [variableName = instance]
+     *
+     * @returns {string}
+     *
+     * @private
+     */
     _addProperties(id, definition, variableName = 'instance') {
         let code = '';
         for (const [ name, value ] of __jymfony.getEntries(definition.getProperties())) {
@@ -471,6 +538,15 @@ ${this._addReturn(id, definition)}\
         return code;
     }
 
+    /**
+     * @param {string} id
+     * @param {Jymfony.Component.DependencyInjection.Definition} definition
+     * @param {string} [variableName = instance]
+     *
+     * @returns {string}
+     *
+     * @private
+     */
     _addMethodCalls(id, definition, variableName = 'instance') {
         let code = '';
 
@@ -486,6 +562,15 @@ ${this._addReturn(id, definition)}\
         return code;
     }
 
+    /**
+     * @param {string} id
+     * @param {Jymfony.Component.DependencyInjection.Definition} definition
+     * @param {string} [variableName = instance]
+     *
+     * @returns {string}
+     *
+     * @private
+     */
     _addConfigurator(id, definition, variableName = 'instance') {
         const callable = definition.getConfigurator();
         if (! callable) {
@@ -504,6 +589,14 @@ ${this._addReturn(id, definition)}\
         return __jymfony.sprintf('        %s(%s);\n', callable, variableName);
     }
 
+    /**
+     * @param {string} id
+     * @param {Jymfony.Component.DependencyInjection.Definition} definition
+     *
+     * @returns {string}
+     *
+     * @private
+     */
     _addReturn(id, definition) {
         if (this._isSimpleInstance(id, definition)) {
             return '';
@@ -512,6 +605,16 @@ ${this._addReturn(id, definition)}\
         return '        return instance;\n';
     }
 
+    /**
+     * @param {*} value
+     * @param {boolean} [interpolate = true]
+     *
+     * @returns {string}
+     *
+     * @throws {Jymfony.Component.DependencyInjection.Exception.RuntimeException}
+     *
+     * @private
+     */
     _dumpValue(value, interpolate = true) {
         if (value instanceof ArgumentInterface) {
             const scope = [ this._definitionVariables, this._referenceVariables, this._variableCount ];
@@ -557,7 +660,7 @@ ${this._addReturn(id, definition)}\
                     }
 
                     if (factory[0] instanceof Definition) {
-                        return __jymfony.sprintf('getCallableFromArray(%s, \'%s\')(%s)', this._dumpValue(factory[0]), factory[1], args.join(', '));
+                        return __jymfony.sprintf('getCallableFromArray([%s, \'%s\'])(%s)', this._dumpValue(factory[0]), factory[1], args.join(', '));
                     }
 
                     if (factory[0] instanceof Reference) {
@@ -588,14 +691,14 @@ ${this._addReturn(id, definition)}\
         } else if (interpolate && isString(value)) {
             let match;
             if (match = /^%([^%]+)%$/.exec(value)) {
-                return this._dumpParameter(match[1].toLowerCase());
+                return this._dumpParameter(match[1]);
             }
 
             const replaceParameters = (match, p1, p2) => {
-                return '\'+' + this._dumpParameter(p2.toLowerCase()) + '+\'';
+                return '"+' + this._dumpParameter(p2) + '+"';
             };
 
-            return this._export(value).replace(/(%)?(%)([^%]+)\1/g, replaceParameters).replace(/%%/g, '%');
+            return this._export(value).replace(RegExp('(?<!%)(%)([^%]+)\\1', 'g'), replaceParameters).replace(/%%/g, '%');
         } else if (isArray(value) || isObjectLiteral(value)) {
             const code = [];
             for (const [ k, v ] of __jymfony.getEntries(value)) {
@@ -612,6 +715,13 @@ ${this._addReturn(id, definition)}\
         return value;
     }
 
+    /**
+     * @param {Jymfony.Component.DependencyInjection.Definition} definition
+     *
+     * @returns {string}
+     *
+     * @private
+     */
     _getInlinedDefinitions(definition) {
         if (! this._inlinedDefinitions.has(definition)) {
             const definitions = [
@@ -628,6 +738,13 @@ ${this._addReturn(id, definition)}\
         return this._inlinedDefinitions.get(definition);
     }
 
+    /**
+     * @param {*} args
+     *
+     * @returns {IterableIterator<Jymfony.Component.DependencyInjection.Definition>}
+     *
+     * @private
+     */
     * _getDefinitionsFromArguments(args) {
         for (const argument of Object.values(args)) {
             if (argument instanceof Definition) {
@@ -643,17 +760,19 @@ ${this._addReturn(id, definition)}\
      * Dumps a parameter.
      *
      * @param {string} name
+     * @param {boolean} [resolveEnv = true]
      *
      * @returns {string}
      *
      * @private
      */
-    _dumpParameter(name) {
-        if ('env()' !== name && 'env(' === name.substr(0, 4) && ')' === name.substr(-1, 1)) {
+    _dumpParameter(name, resolveEnv = true) {
+        if (resolveEnv && 'env()' !== name && 'env(' === name.substr(0, 4) && ')' === name.substr(-1, 1)) {
             const matches = /env\((.+)\)/.exec(name);
             const envVarName = matches[1];
 
             this._container.addResource(new EnvVariableResource(envVarName));
+            return 'this.getParameter(\"env('+envVarName+')\")';
         }
 
         const parameter = this._container.getParameter(name);
@@ -665,34 +784,67 @@ ${this._addReturn(id, definition)}\
             throw new InvalidArgumentException(__jymfony.sprintf('You cannot dump a container with parameters that contain variable references. Variable "%s" found in "%s".', parameter.toString(), name));
         }
 
-        return this._export(parameter, false);
+        return this._export(parameter);
     }
 
+    /**
+     * @param {string} id
+     * @param {Jymfony.Component.DependencyInjection.Reference} [reference]
+     *
+     * @returns {string}
+     *
+     * @private
+     */
     _getServiceCall(id, reference = undefined) {
+        while (this._container.hasAlias(id)) {
+            id = this._container.getAlias(id).toString();
+        }
+
         if ('service_container' === id) {
             return 'this';
         }
 
+        let code;
         if (this._container.hasDefinition(id)) {
             const definition = this._container.getDefinition(id);
-            if (definition.isPublic()) {
-                return '(this._services[' + this._dumpValue(id) + '] || this.' + this._generateMethodName(id) + '())';
+            if (! definition.isSynthetic()) {
+                if (undefined !== reference && Container.IGNORE_ON_UNINITIALIZED_REFERENCE === reference.invalidBehavior) {
+                    code = 'undefined';
+                    if (! definition.isShared()) {
+                        return code;
+                    }
+                } else {
+                    code = 'this.' + this._generateMethodName(id) + '()';
+                }
+
+                if (definition.isShared()) {
+                    code = __jymfony.sprintf('(this._%s[%s] || %s)', definition.isPublic() ? 'services' : 'privates', this._dumpValue(id), code);
+                }
+
+                return code;
             }
-
-            return '(this._privates[' + this._dumpValue(id) + '] || this.' + this._generateMethodName(id) + '())';
         }
 
-        if (reference && Container.EXCEPTION_ON_INVALID_REFERENCE !== reference.invalidBehavior) {
-            return __jymfony.sprintf('this.get(%s, Container.NULL_ON_INVALID_REFERENCE)', this._export(id));
+        if (undefined !== reference && Container.IGNORE_ON_UNINITIALIZED_REFERENCE === reference.invalidBehavior) {
+            return 'undefined';
         }
 
-        if (this._container.hasAlias(id)) {
-            id = this._container.getAlias(id).toString();
+        if (undefined !== reference && Container.EXCEPTION_ON_INVALID_REFERENCE !== reference.invalidBehavior) {
+            code = __jymfony.sprintf('this.get(%s, Container.NULL_ON_INVALID_REFERENCE)', this._export(id));
+        } else {
+            code = __jymfony.sprintf('this.get(%s)', this._export(id));
         }
 
-        return __jymfony.sprintf('this.get(%s)', this._export(id));
+        return __jymfony.sprintf('(this._services[%s] || %s)', this._export(id), code);
     }
 
+    /**
+     * @param {string} class_
+     *
+     * @returns {string}
+     *
+     * @private
+     */
     _dumpLiteralClass(class_) {
         if ('"' !== class_.charAt(0)) {
             throw new RuntimeException('Invalid class name');
@@ -701,6 +853,13 @@ ${this._addReturn(id, definition)}\
         return class_.substring(1, class_.length-1);
     }
 
+    /**
+     * @param {*} args
+     * @param {Object[]} calls
+     * @param {Object} behavior
+     *
+     * @private
+     */
     _getServiceCallsFromArguments(args, calls, behavior) {
         for (const argument of Object.values(args)) {
             if (argument instanceof Reference) {
@@ -723,6 +882,14 @@ ${this._addReturn(id, definition)}\
         }
     }
 
+    /**
+     * @param {string} id
+     * @param {Jymfony.Component.DependencyInjection.Definition} definition
+     *
+     * @returns {string}
+     *
+     * @private
+     */
     _isSimpleInstance(id, definition) {
         for (const sDefinition of [ definition, ...this._getInlinedDefinitions(definition) ]) {
             if (definition !== sDefinition && ! this._hasReference(id, sDefinition.getMethodCalls())) {
@@ -737,11 +904,27 @@ ${this._addReturn(id, definition)}\
         return true;
     }
 
+    /**
+     * @param {Jymfony.Component.DependencyInjection.Definition} definition
+     * @param {string} ret
+     * @param {string} instantiation
+     *
+     * @returns {string}
+     *
+     * @private
+     */
     _addNewInstance(definition, ret, instantiation) {
         let class_ = this._dumpValue(definition.getClass());
         const args = Array.from(definition.getArguments().map(T => this._dumpValue(T)));
 
-        if (definition.getFactory()) {
+        if (definition.getModule()) {
+            const [ module, property ] = definition.getModule();
+            if (property) {
+                return __jymfony.sprintf(`        ${ret}${instantiation}new (require(%s)[%s])(%s);`, this._dumpValue(module), this._dumpValue(property), args.join(', '));
+            }
+
+            return __jymfony.sprintf(`        ${ret}${instantiation}require(%s);`, this._dumpValue(module));
+        } else if (definition.getFactory()) {
             const callable = definition.getFactory();
             if (isArray(callable)) {
                 if (callable[0] instanceof Reference || (callable[0] instanceof Definition && this._definitionVariables.has(callable[0]))) {
@@ -766,6 +949,11 @@ ${this._addReturn(id, definition)}\
         return __jymfony.sprintf(`        ${ret}${instantiation}new %s(%s);\n`, this._dumpLiteralClass(class_), args.join(', '));
     }
 
+    /**
+     * @returns {string}
+     *
+     * @private
+     */
     _getNextVariableName() {
         let name = '';
         let i = this._variableCount;
@@ -785,6 +973,16 @@ ${this._addReturn(id, definition)}\
         return '$' + name;
     }
 
+    /**
+     * @param {string} id
+     * @param {*} args
+     * @param {boolean} [deep = false]
+     * @param {Set} [visited = new Set()]
+     *
+     * @returns {boolean}
+     *
+     * @private
+     */
     _hasReference(id, args, deep = false, visited = new Set()) {
         for (const argument of Object.values(args)) {
             if (argument instanceof Reference) {
@@ -800,7 +998,7 @@ ${this._addReturn(id, definition)}\
                     // Todo
                     // If (service.isLazy() && ! (this._getProxyDumper instanceof NullDumper))
 
-                    args = [ ...service.getMethodCalls(), ...service.getArguments(), ...service.getProperties() ];
+                    args = [ ...service.getMethodCalls(), ...service.getArguments(), ...Object.values(service.getProperties()) ];
                     if (this._hasReference(id, args, deep, visited)) {
                         return true;
                     }
@@ -815,6 +1013,14 @@ ${this._addReturn(id, definition)}\
         return false;
     }
 
+    /**
+     * @param {*} value
+     * @param {string} code
+     *
+     * @returns {string}
+     *
+     * @private
+     */
     _wrapServiceConditionals(value, code) {
         const conditionals = ContainerBuilder.getServiceConditionals(value);
         if (! conditionals.length) {

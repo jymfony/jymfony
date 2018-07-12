@@ -2,9 +2,15 @@
  * @memberOf Jymfony.Component.HttpFoundation
  */
 class ParameterBag {
+    /**
+     * Constructor.
+     *
+     * @param {Object.<string, *>} [parameters = {}]
+     */
     __construct(parameters = {}) {
         /**
-         * @type {Object<string, *>}
+         * @type {Object.<string, *>}
+         *
          * @private
          */
         this._parameters = Object.assign({}, parameters);
@@ -13,7 +19,7 @@ class ParameterBag {
     /**
      * Gets a copy of the parameters collection.
      *
-     * @returns {Object<string, *>}
+     * @returns {Object.<string, *>}
      */
     get all() {
         return Object.assign({}, this._parameters);
@@ -22,7 +28,7 @@ class ParameterBag {
     /**
      * Gets the parameters keys.
      *
-     * @returns {[string]}
+     * @returns {string[]}
      */
     get keys() {
         return Object.keys(this._parameters);
@@ -31,7 +37,7 @@ class ParameterBag {
     /**
      * Adds/replaces parameters in the bag.
      *
-     * @param {Object<string, *>} parameters
+     * @param {Object.<string, *>} parameters
      */
     add(parameters) {
         Object.assign(this._parameters, parameters);
@@ -41,7 +47,7 @@ class ParameterBag {
      * Gets a parameter or returns the default if the parameter is non existent.
      *
      * @param {string} key
-     * @param {*} defaultValue
+     * @param {*} [defaultValue]
      *
      * @returns {*|undefined}
      */

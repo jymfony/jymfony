@@ -7,8 +7,8 @@ class Async {
     /**
      * Run an async generator.
      * Using this function you can use a generator to wait a promise
-     * to be completed simply yield-ing it
-     * This function always returns a Promise object
+     * to be completed simply yield-ing it.
+     * This function always returns a Promise object.
      *
      * @param {Generator|GeneratorFunction|AsyncFunction|Function} generator
      * @param {...*} args
@@ -16,6 +16,10 @@ class Async {
      * @returns {Promise}
      */
     static run(generator, ...args) {
+        if (isAsyncFunction(generator)) {
+            return generator(...args);
+        }
+
         if (isGeneratorFunction(generator)) {
             return Async.run(generator(...args));
         }
@@ -77,6 +81,11 @@ class Async {
         });
     }
 
+    /**
+     * @param {Object} obj
+     *
+     * @returns {Promise}
+     */
     static toPromise(obj) {
         if (! obj || isPromise(obj)) {
             return obj;
@@ -105,6 +114,10 @@ class Async {
         return obj;
     }
 
+    /**
+     * @param {Function} fn
+     * @returns {Promise}
+     */
     static functionToPromise(fn) {
         return new Promise((resolve, reject) => {
             const retVal = fn(function (err, res) {
@@ -126,6 +139,11 @@ class Async {
         });
     }
 
+    /**
+     * @param {Object} obj
+     *
+     * @returns {Promise}
+     */
     static objectToPromise(obj) {
         const results = {};
         const promises = [];
@@ -141,4 +159,4 @@ class Async {
     }
 }
 
-global.__jymfony.Async = Async;
+module.exports = global.__jymfony.Async = Async;

@@ -1,6 +1,12 @@
 const fs = require('fs');
 
-module.exports = function stat (file, followSymlink = false) {
+/**
+ * @param {string} file
+ * @param {boolean} [followSymlink = false]
+ *
+ * @returns {Promise}
+ */
+function stat(file, followSymlink = false) {
     return new Promise((resolve, reject) => {
         fs[followSymlink ? 'stat' : 'lstat'](file, (err, stats) => {
             if (err) {
@@ -14,4 +20,6 @@ module.exports = function stat (file, followSymlink = false) {
             }
         });
     });
-};
+}
+
+module.exports = stat;

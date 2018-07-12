@@ -3,11 +3,17 @@ const RuntimeException = Jymfony.Component.DependencyInjection.Exception.Runtime
 /**
  * @memberOf Jymfony.Component.DependencyInjection.Exception
  */
-module.exports = class ParameterCircularReferenceException extends RuntimeException {
-    constructor(parameters) {
-        super('');
-
+class ParameterCircularReferenceException extends RuntimeException {
+    /**
+     * Constructor.
+     *
+     * @param {string[]} parameters
+     */
+    __construct(parameters) {
         const params = Array.from(parameters);
-        this.message = `Circular reference detected for parameter "${params[0]}" ("${params.join('" > "')}" > "${params[0]}")`;
+
+        super.__construct(`Circular reference detected for parameter "${params[0]}" ("${params.join('" > "')}" > "${params[0]}")`);
     }
-};
+}
+
+module.exports = ParameterCircularReferenceException;

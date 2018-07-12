@@ -1,13 +1,13 @@
 const CompilerPassInterface = Jymfony.Component.DependencyInjection.Compiler.CompilerPassInterface;
 
 /**
- * A pass that might be run repeatedly
+ * A pass that might be run repeatedly.
  *
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
  */
 class RepeatablePassInterface extends CompilerPassInterface.definition {
     /**
-     * Sets the RepeatedPass interface
+     * Sets the RepeatedPass interface.
      *
      * @function
      * @name RepeatablePassInterface#setRepeatedPass

@@ -11,9 +11,9 @@ class Logger extends AbstractLogger {
      * Construct the logger
      *
      * @param {string} name
-     * @param {[Jymfony.Component.Logger.Handler.HandlerInterface]} handlers
-     * @param {[Function]} processors
-     * @param {undefined|string|Jymfony.Component.DateTime.DateTimeZone} timezone
+     * @param {Jymfony.Component.Logger.Handler.HandlerInterface[]} [handlers = []]
+     * @param {Function[]} [processors = []]
+     * @param {undefined|string|Jymfony.Component.DateTime.DateTimeZone} [timezone]
      */
     __construct(name, handlers = [], processors = [], timezone = undefined) {
         /**
@@ -24,14 +24,14 @@ class Logger extends AbstractLogger {
         this._name = name;
 
         /**
-         * @type {[Jymfony.Component.Logger.Handler.HandlerInterface]}
+         * @type {Jymfony.Component.Logger.Handler.HandlerInterface[]}
          *
          * @protected
          */
         this._handlers = handlers;
 
         /**
-         * @type {[Function]}
+         * @type {Function[]}
          *
          * @protected
          */
@@ -58,10 +58,11 @@ class Logger extends AbstractLogger {
      * Returns a new cloned instance with name changed.
      *
      * @param {string} name
+     *
      * @returns {Jymfony.Component.Logger.Logger}
      */
     withName(name) {
-        return new Logger(name, [ ...this._handlers ], [ ...this._processors ]);
+        return new Logger(name, [ ...this._handlers ], [ ...this._processors ], this._timezone);
     }
 
     /**
@@ -80,6 +81,7 @@ class Logger extends AbstractLogger {
      * Pops out an handler off the stack.
      *
      * @returns {Jymfony.Component.Logger.Handler.HandlerInterface}
+     *
      * @throws {Jymfony.Component.Logger.Exception.LogicException}
      */
     popHandler() {
@@ -96,6 +98,8 @@ class Logger extends AbstractLogger {
      * @param {Jymfony.Component.Logger.Handler.HandlerInterface[]} handlers
      */
     set handlers(handlers) {
+        this._handlers = [];
+
         if (! isArray(handlers)) {
             handlers = Object.values(handlers);
         }
@@ -122,6 +126,10 @@ class Logger extends AbstractLogger {
      * @returns {Jymfony.Component.Logger.Logger}
      */
     pushProcessor(processor) {
+        if (! isFunction(processor)) {
+            throw new InvalidArgumentException('Processors must be valid callables.');
+        }
+
         this._processors.unshift(processor);
         return this;
     }
@@ -130,6 +138,7 @@ class Logger extends AbstractLogger {
      * Pops out a processor off the stack.
      *
      * @returns {Jymfony.Component.Logger.Handler.HandlerInterface}
+     *
      * @throws {Jymfony.Component.Logger.Exception.LogicException}
      */
     popProcessor() {
@@ -154,11 +163,11 @@ class Logger extends AbstractLogger {
      *
      * @param {int} level
      * @param {string} message
-     * @param {Object.<*>} context
+     * @param {Object.<*>} [context = {}]
      *
      * @returns {boolean}
      */
-    addRecord(level, message, context) {
+    addRecord(level, message, context = {}) {
         const levelName = this.constructor.levels[level];
 
         const it = __jymfony.getEntries(this._handlers);
@@ -200,6 +209,102 @@ class Logger extends AbstractLogger {
     }
 
     /**
+     * Adds a log record at the DEBUG level.
+     *
+     * @param {string} message
+     * @param {Object.<*>} [context = {}]
+     *
+     * @returns {boolean}
+     */
+    addDebug(message, context = {}) {
+        return this.addRecord(LogLevel.DEBUG, message, context);
+    }
+
+    /**
+     * Adds a log record at the INFO level.
+     *
+     * @param {string} message
+     * @param {Object.<*>} [context = {}]
+     *
+     * @returns {boolean}
+     */
+    addInfo(message, context = {}) {
+        return this.addRecord(LogLevel.INFO, message, context);
+    }
+
+    /**
+     * Adds a log record at the NOTICE level.
+     *
+     * @param {string} message
+     * @param {Object.<*>} [context = {}]
+     *
+     * @returns {boolean}
+     */
+    addNotice(message, context = {}) {
+        return this.addRecord(LogLevel.NOTICE, message, context);
+    }
+
+    /**
+     * Adds a log record at the WARNING level.
+     *
+     * @param {string} message
+     * @param {Object.<*>} [context = {}]
+     *
+     * @returns {boolean}
+     */
+    addWarning(message, context = {}) {
+        return this.addRecord(LogLevel.WARNING, message, context);
+    }
+
+    /**
+     * Adds a log record at the ERROR level.
+     *
+     * @param {string} message
+     * @param {Object.<*>} [context = {}]
+     *
+     * @returns {boolean}
+     */
+    addError(message, context = {}) {
+        return this.addRecord(LogLevel.ERROR, message, context);
+    }
+
+    /**
+     * Adds a log record at the CRITICAL level.
+     *
+     * @param {string} message
+     * @param {Object.<*>} [context = {}]
+     *
+     * @returns {boolean}
+     */
+    addCritical(message, context = {}) {
+        return this.addRecord(LogLevel.CRITICAL, message, context);
+    }
+
+    /**
+     * Adds a log record at the ALERT level.
+     *
+     * @param {string} message
+     * @param {Object.<*>} [context = {}]
+     *
+     * @returns {boolean}
+     */
+    addAlert(message, context = {}) {
+        return this.addRecord(LogLevel.ALERT, message, context);
+    }
+
+    /**
+     * Adds a log record at the EMERGENCY level.
+     *
+     * @param {string} message
+     * @param {Object.<*>} [context = {}]
+     *
+     * @returns {boolean}
+     */
+    addEmergency(message, context = {}) {
+        return this.addRecord(LogLevel.EMERGENCY, message, context);
+    }
+
+    /**
      * Checks if there's a handler that listen on level
      *
      * @param {int} level
@@ -223,7 +328,7 @@ class Logger extends AbstractLogger {
      *
      * @param {int} level
      * @param {string} message
-     * @param {Object.<*>} context
+     * @param {Object.<*>} [context = {}]
      */
     log(level, message, context = {}) {
         this.addRecord(level, message.toString(), context);

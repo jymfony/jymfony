@@ -5,6 +5,13 @@ const right = index => (index * 2) + 2;
 const parent = index => Math.floor((index - 1) / 2);
 
 class PriorityNode {
+    /**
+     * Constructor.
+     *
+     * @param {*} value
+     * @param {int} priority
+     * @param {int} stamp
+     */
     constructor(value, priority, stamp) {
         this.value = value;
         this.priority = priority;
@@ -19,23 +26,36 @@ class PriorityNode {
  * removed from the queue
  */
 class PriorityQueue extends mix(undefined, GenericCollectionTrait) {
+    /**
+     * Constructor.
+     */
     constructor() {
         super();
 
-        this._heap = [];
-        this._stamp = 0;
+        this.clear();
     }
 
     /**
-     * Empties the queue
+     * Empties the queue.
      */
     clear() {
+        /**
+         * @type {Array}
+         *
+         * @private
+         */
         this._heap = [];
+
+        /**
+         * @type {int}
+         *
+         * @private
+         */
         this._stamp = 0;
     }
 
     /**
-     * Make a copy queue
+     * Make a copy queue.
      *
      * @returns {PriorityQueue}
      */
@@ -49,16 +69,16 @@ class PriorityQueue extends mix(undefined, GenericCollectionTrait) {
     }
 
     /**
-     * Returns how many elements are in the queue
+     * Returns how many elements are in the queue.
      *
-     * @returns {Number}
+     * @returns {int}
      */
     get length() {
         return this._heap.length;
     }
 
     /**
-     * Gets the first element without modifying the queue
+     * Gets the first element without modifying the queue.
      *
      * @returns {*}
      */
@@ -71,7 +91,7 @@ class PriorityQueue extends mix(undefined, GenericCollectionTrait) {
     }
 
     /**
-     * Pop the higher priority value from the queue
+     * Pop the higher priority value from the queue.
      *
      * @returns {*}
      */
@@ -93,7 +113,7 @@ class PriorityQueue extends mix(undefined, GenericCollectionTrait) {
     }
 
     /**
-     * Push a value into the queue
+     * Push a value into the queue.
      *
      * @param {*} value
      * @param {int} priority
@@ -126,6 +146,14 @@ class PriorityQueue extends mix(undefined, GenericCollectionTrait) {
         }
     }
 
+    /**
+     * @param {*} a
+     * @param {*} b
+     *
+     * @returns {int}
+     *
+     * @private
+     */
     _compare(a, b) {
         const x = this._heap[a];
         const y = this._heap[b];
@@ -133,12 +161,25 @@ class PriorityQueue extends mix(undefined, GenericCollectionTrait) {
         return Math.sign(x.priority - y.priority) || Math.sign(y.stamp - x.stamp);
     }
 
+    /**
+     * @param {*} a
+     * @param {*} b
+     *
+     * @private
+     */
     _swap(a, b) {
         const tmp = this._heap[a];
         this._heap[a] = this._heap[b];
         this._heap[b] = tmp;
     }
 
+    /**
+     * @param {int} parent
+     *
+     * @returns {*}
+     *
+     * @private
+     */
     _getLargestLeaf(parent) {
         const l = left(parent);
         const r = right(parent);
@@ -150,6 +191,11 @@ class PriorityQueue extends mix(undefined, GenericCollectionTrait) {
         return l;
     }
 
+    /**
+     * @param {int} node
+     *
+     * @private
+     */
     _siftDown(node) {
         const last = Math.floor(this._heap.length / 2);
 
@@ -166,6 +212,11 @@ class PriorityQueue extends mix(undefined, GenericCollectionTrait) {
         }
     }
 
+    /**
+     * @param {int} leaf
+     *
+     * @private
+     */
     _siftUp(leaf) {
         let p;
         for(; 0 < leaf; leaf = p) {
@@ -179,11 +230,21 @@ class PriorityQueue extends mix(undefined, GenericCollectionTrait) {
         }
     }
 
+    /**
+     * @param {int} node
+     *
+     * @private
+     */
     _setRoot(node) {
         this._heap[0] = node;
         this._siftDown(0);
     }
 
+    /**
+     * @returns {*}
+     *
+     * @private
+     */
     _getRoot() {
         return this._heap[0];
     }

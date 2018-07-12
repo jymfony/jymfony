@@ -7,23 +7,26 @@ const path = require('path');
  * FileLoader is the abstract class used by all built-in loaders that are file based.
  *
  * @memberOf Jymfony.Component.Config.Loader
+ *
  * @abstract
  */
 class FileLoader extends Loader {
     /**
-     * Constructor.
+     * Constructor
      *
      * @param {Jymfony.Component.Config.FileLoaderInterface} locator
      */
     __construct(locator) {
         /**
          * @type {Jymfony.Component.Config.FileLoaderInterface}
+         *
          * @protected
          */
         this._locator = locator;
 
         /**
          * @type {undefined|string}
+         *
          * @private
          */
         this._currentDir = undefined;
@@ -32,7 +35,7 @@ class FileLoader extends Loader {
     /**
      * Gets the current directory.
      *
-     * @return {string}
+     * @returns {string}
      */
     get currentDir() {
         return this._currentDir;
@@ -60,15 +63,15 @@ class FileLoader extends Loader {
      * Imports a resource.
      *
      * @param {*} resource
-     * @param {undefined|string} type
-     * @param {boolean} ignoreErrors
-     * @param {undefined|string} sourceResource
+     * @param {undefined|string} [type]
+     * @param {boolean} [ignoreErrors = false]
+     * @param {undefined|string} [sourceResource]
      *
      * @returns {*}
      *
-     * @throws FileLoaderLoadException
-     * @throws FileLoaderImportCircularReferenceException
-     * @throws FileLocatorFileNotFoundException
+     * @throws {Jymfony.Component.Config.Exception.FileLoaderLoadException}
+     * @throws {Jymfony.Component.Config.Exception.FileLoaderImportCircularReferenceException}
+     * @throws {Jymfony.Component.Config.Exception.FileLocatorFileNotFoundException}
      */
     importResource(resource, type = undefined, ignoreErrors = false, sourceResource = undefined) {
         let i;
@@ -93,6 +96,8 @@ class FileLoader extends Loader {
     }
 
     /**
+     * @protected
+     *
      * @internal
      */
     * _glob(pattern, recursive, ignoreErrors = false) {
@@ -120,6 +125,16 @@ class FileLoader extends Loader {
         yield * resource;
     }
 
+    /**
+     * @param {*} resource
+     * @param {undefined|string} [type]
+     * @param {boolean} [ignoreErrors = false]
+     * @param {undefined|string} [sourceResource]
+     *
+     * @returns {*}
+     *
+     * @private
+     */
     _doImport(resource, type = undefined, ignoreErrors = false, sourceResource = undefined) {
         try {
             const loader = this.resolve(resource, type);

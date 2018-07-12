@@ -8,7 +8,7 @@ class Call {
      * Constructor.
      *
      * @param {string} methodName
-     * @param {[*]} args
+     * @param {*[]} args
      * @param {*} returnValue
      * @param {Error} exception
      * @param {string} file
@@ -17,36 +17,42 @@ class Call {
     __construct(methodName, args, returnValue, exception, file, line) {
         /**
          * @type {string}
+         *
          * @private
          */
         this._methodName = methodName;
 
         /**
-         * @type {[*]}
+         * @type {*[]}
+         *
          * @private
          */
         this._args = args;
 
         /**
          * @type {*}
+         *
          * @private
          */
         this._returnValue = returnValue;
 
         /**
          * @type {Error}
+         *
          * @private
          */
         this._exception = exception;
 
         /**
          * @type {string}
+         *
          * @private
          */
         this._file = file;
 
         /**
          * @type {int}
+         *
          * @private
          */
         this._line = ~~line;
@@ -64,7 +70,7 @@ class Call {
     /**
      * Gets the passed arguments.
      *
-     * @returns {[*]}
+     * @returns {*[]}
      */
     get args() {
         return [ ...this._args ];
@@ -119,6 +125,9 @@ class Call {
         return this._file + ':' + this._line;
     }
 
+    /**
+     * @returns {string}
+     */
     toString() {
         return __jymfony.sprintf('  - %s(%s) @ %s',
             this._methodName,

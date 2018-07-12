@@ -8,12 +8,20 @@ const isPrimitive = function isPrimitive(value) {
 };
 
 class MemoizeMap extends WeakMap {
+    /**
+     * @param {*} left
+     * @param {*} right
+     * @param {*} result
+     * @returns {MemoizeMap}
+     */
     set(left, right, result) {
         if (isPrimitive(left) || isPrimitive(right)) {
             return this;
         }
 
-        /** @type {WeakMap} */
+        /**
+         * @type {WeakMap}
+         */
         let leftMap = super.get(left);
         if (! leftMap) {
             super.set(left, leftMap = new WeakMap());
@@ -24,6 +32,12 @@ class MemoizeMap extends WeakMap {
         return this;
     }
 
+    /**
+     * @param {*} left
+     * @param {*} right
+     *
+     * @returns {boolean|null}
+     */
     get(left, right) {
         if (isPrimitive(left) || isPrimitive(right)) {
             return null;
@@ -40,6 +54,14 @@ class MemoizeMap extends WeakMap {
     }
 }
 
+/**
+ * @param {*} left
+ * @param {*} right
+ * @param {*} strict
+ * @param {MemoizeMap} memoizeMap
+ *
+ * @returns {boolean}
+ */
 const iterableEqual = (left, right, strict, memoizeMap) => {
     if (left.length !== right.length) {
         return false;
@@ -54,6 +76,11 @@ const iterableEqual = (left, right, strict, memoizeMap) => {
     return true;
 };
 
+/**
+ * @param {Array} val
+ *
+ * @returns {*[]}
+ */
 const enumerableKeys = function enumerableKeys(val) {
     return Array.from((function * () {
         for (const key in val) {
@@ -62,6 +89,14 @@ const enumerableKeys = function enumerableKeys(val) {
     })());
 };
 
+/**
+ * @param {*} left
+ * @param {*} right
+ * @param {*} strict
+ * @param {MemoizeMap} memoizeMap
+ *
+ * @returns {boolean}
+ */
 const objectEqual = (left, right, strict, memoizeMap) => {
     const ka = enumerableKeys(left);
     const kb = enumerableKeys(right);
@@ -90,6 +125,11 @@ const objectEqual = (left, right, strict, memoizeMap) => {
     return true;
 };
 
+/**
+ * @param {Object} obj
+ *
+ * @returns {string}
+ */
 const type = function type(obj) {
     const str = toString.call(obj);
 
@@ -100,6 +140,13 @@ const type = function type(obj) {
     return str;
 };
 
+/**
+ * @param {*} left
+ * @param {*} right
+ * @param {*} strict
+ *
+ * @returns {boolean}
+ */
 const simpleEqual = function simpleEqual(left, right, strict) {
     if (! strict && left == right) {
         // Simplest case.
@@ -123,6 +170,14 @@ const simpleEqual = function simpleEqual(left, right, strict) {
     return null;
 };
 
+/**
+ * @param {*} left
+ * @param {*} right
+ * @param {*} strict
+ * @param {MemoizeMap} memoizeMap
+ *
+ * @returns {boolean}
+ */
 const entriesEqual = function entriesEqual(left, right, strict, memoizeMap) {
     if (left.size !== right.size) {
         return false;
@@ -131,6 +186,15 @@ const entriesEqual = function entriesEqual(left, right, strict, memoizeMap) {
     return 0 === left.size || iterableEqual(Array.from(left).sort(), Array.from(right).sort(), strict, memoizeMap);
 };
 
+/**
+ * @param {*} left
+ * @param {*} right
+ * @param {*} leftType
+ * @param {*} strict
+ * @param {MemoizeMap} memoizeMap
+ *
+ * @returns {boolean}
+ */
 const deepEqualByType = function deepEqualByType(left, right, leftType, strict, memoizeMap) {
     switch (leftType) {
         case 'String':
@@ -184,6 +248,14 @@ const deepEqualByType = function deepEqualByType(left, right, leftType, strict, 
     }
 };
 
+/**
+ * @param {*} left
+ * @param {*} right
+ * @param {*} strict
+ * @param {MemoizeMap} memoizeMap
+ *
+ * @returns {boolean}
+ */
 const deepEqual = function deepEqual(left, right, strict, memoizeMap) {
     let result = memoizeMap.get(left, right);
     if (result) {
@@ -204,6 +276,14 @@ const deepEqual = function deepEqual(left, right, strict, memoizeMap) {
     return result;
 };
 
+/**
+ * @param {*} left
+ * @param {*} right
+ * @param {*} strict
+ * @param {MemoizeMap} [memoizeMap]
+ *
+ * @returns {boolean}
+ */
 __jymfony.equal = (left, right, strict = true, memoizeMap = undefined) => {
     let result;
     if (null !== (result = simpleEqual(left, right, strict))) {

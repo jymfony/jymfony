@@ -7,14 +7,14 @@ const AbstractHandler = Jymfony.Component.Logger.Handler.AbstractHandler;
  */
 class NoopHandler extends AbstractHandler {
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     isHandling() {
         return true;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     handle() {
         return false;

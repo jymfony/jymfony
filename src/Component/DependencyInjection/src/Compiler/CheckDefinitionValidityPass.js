@@ -2,16 +2,18 @@ const CompilerPassInterface = Jymfony.Component.DependencyInjection.Compiler.Com
 
 /**
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
- * @type {Jymfony.Component.DependencyInjection.Compiler.CheckDefinitionValidityPass}
  */
-module.exports = class CheckDefinitionValidityPass extends implementationOf(CompilerPassInterface) {
+class CheckDefinitionValidityPass extends implementationOf(CompilerPassInterface) {
+    /**
+     * @inheritdoc
+     */
     process(container) {
         for (const [ id, definition ] of __jymfony.getEntries(container.getDefinitions())) {
             if (definition.isSynthetic() && ! definition.isPublic()) {
                 throw new RuntimeException(`A synthetic service ("${id}") must be public`);
             }
 
-            if (! definition.isAbstract() && ! definition.isSynthetic() && ! definition.getFactory() && ! definition.getClass()) {
+            if (! definition.isAbstract() && ! definition.isSynthetic() && ! definition.getFactory() && ! definition.getClass() && ! definition.getModule()) {
                 throw new RuntimeException(
                     `The definition for service "${id}" has no class. If you intend to inject this service ` +
                     'dynamically at runtime, please mark it as synthetic. If this is an abstract definition ' +
@@ -30,4 +32,6 @@ module.exports = class CheckDefinitionValidityPass extends implementationOf(Comp
             }
         }
     }
-};
+}
+
+module.exports = CheckDefinitionValidityPass;

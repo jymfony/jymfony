@@ -5,6 +5,11 @@ const FormatterInterface = Jymfony.Component.Logger.Formatter.FormatterInterface
  * @memberOf Jymfony.Component.Logger.Formatter
  */
 class NormalizerFormatter extends implementationOf(FormatterInterface) {
+    /**
+     * Constructor.
+     *
+     * @param {string} [dateFormat]
+     */
     __construct(dateFormat = undefined) {
         /**
          * The date format.
@@ -17,14 +22,14 @@ class NormalizerFormatter extends implementationOf(FormatterInterface) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     format(record) {
         return this._normalize(record);
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     formatBatch(records) {
         records = __jymfony.deepClone(records);
@@ -39,7 +44,7 @@ class NormalizerFormatter extends implementationOf(FormatterInterface) {
      * Normalizes a log record
      *
      * @param {*} record
-     * @param {int} depth
+     * @param {int} [depth = 0]
      *
      * @protected
      */
@@ -93,7 +98,7 @@ class NormalizerFormatter extends implementationOf(FormatterInterface) {
 
         if (isObject(record)) {
             if (record instanceof Error) {
-                return this._normalizeError(record);
+                return this._normalizeError(record, depth);
             }
 
             const reflClass = new ReflectionClass(record);
@@ -115,10 +120,11 @@ class NormalizerFormatter extends implementationOf(FormatterInterface) {
      * Normalizes an Error object.
      *
      * @param {Error} record
+     * @param {int} depth
      *
      * @protected
      */
-    _normalizeError(record) {
+    _normalizeError(record, depth) {
         const trace = Exception.parseStackTrace(record);
         const reflClass = new ReflectionClass(trace);
 

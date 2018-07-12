@@ -5,6 +5,13 @@ const OutputInterface = Jymfony.Component.Console.Output.OutputInterface;
  * @memberOf Jymfony.Component.Console.Output
  */
 class Output extends implementationOf(OutputInterface) {
+    /**
+     * Constructor.
+     *
+     * @param {string} [verbosity = Jymfony.Component.Console.Output.ConsoleOutputInterface.VERBOSITY_NORMAL]
+     * @param {boolean} [decorated = false]
+     * @param {Jymfony.Component.Console.Output.OutputFormatterInterface} [formatter = new Jymfony.Component.Console.Output.OutputFormatter()]
+     */
     __construct(verbosity = OutputInterface.VERBOSITY_NORMAL, decorated = false, formatter = new OutputFormatter()) {
         this._verbosity = undefined === verbosity ? OutputInterface.VERBOSITY_NORMAL : verbosity;
         this._formatter = formatter;
@@ -12,7 +19,7 @@ class Output extends implementationOf(OutputInterface) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     write(messages, newline = false, options = 0) {
         if (! isArray(messages)) {
@@ -46,77 +53,77 @@ class Output extends implementationOf(OutputInterface) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     writeln(messages = '', options = 0) {
         this.write(messages, true, options);
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     set verbosity(level) {
         this._verbosity = ~~level;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     get verbosity() {
         return this._verbosity;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     isQuiet() {
         return OutputInterface.VERBOSITY_QUIET === this._verbosity;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     isVerbose() {
         return OutputInterface.VERBOSITY_VERBOSE <= this._verbosity;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     isVeryVerbose() {
         return OutputInterface.VERBOSITY_VERY_VERBOSE <= this._verbosity;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     isDebug() {
         return OutputInterface.VERBOSITY_DEBUG <= this._verbosity;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     set decorated(decorated) {
         this._formatter.decorated = decorated;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     get decorated() {
         return this._formatter.decorated;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     set formatter(formatter) {
         this._formatter = formatter;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     get formatter() {
         return this._formatter;

@@ -1,12 +1,12 @@
 /**
- * Lazy proxy instantiator
+ * Lazy proxy instantiator.
  *
  * @memberOf Jymfony.Component.DependencyInjection.LazyProxy
  * @type {Jymfony.Component.DependencyInjection.LazyProxy.InstantiatorInterface}
  */
 class InstantiatorInterface {
     /**
-     * Instantiate a proxy object
+     * Instantiate a proxy object.
      *
      * @param {Jymfony.Component.DependencyInjection.Container} container
      * @param {Jymfony.Component.DependencyInjection.Definition} definition

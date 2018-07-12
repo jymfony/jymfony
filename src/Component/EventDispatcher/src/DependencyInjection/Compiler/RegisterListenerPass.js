@@ -9,6 +9,13 @@ const NotStaticMethodException = Jymfony.Component.EventDispatcher.Exception.Not
  * @memberOf Jymfony.Component.EventDispatcher.DependencyInjection.Compiler
  */
 class RegisterListenerPass extends implementationOf(CompilerPassInterface) {
+    /**
+     * Constructor.
+     *
+     * @param {string} [dispatcherService = 'event_dispatcher']
+     * @param {string} [listenerTag = 'kernel.event_listener']
+     * @param {string} [subscriberTag = 'kernel.event_subscriber']
+     */
     __construct(dispatcherService = 'event_dispatcher', listenerTag = 'kernel.event_listener', subscriberTag = 'kernel.event_subscriber') {
         this.dispatcherService = dispatcherService;
         this.listenerTag = listenerTag;
@@ -16,7 +23,7 @@ class RegisterListenerPass extends implementationOf(CompilerPassInterface) {
     }
 
     /**
-     * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
+     * @inheritdoc
      */
     process(container) {
         if (! container.hasDefinition(this.dispatcherService) && !container.hasAlias(this.dispatcherService)) {
@@ -89,11 +96,23 @@ class RegisterListenerPass extends implementationOf(CompilerPassInterface) {
 }
 
 class ExtractingEventDispatcher extends mix(EventDispatcher, EventSubscriberInterface) {
+    /**
+     * @inheritdoc
+     */
     __construct() {
         super.__construct();
+
+        /**
+         * @type {Object[]}
+         *
+         * @private
+         */
         this._listeners = [];
     }
 
+    /**
+     * @param {Jymfony.Component.EventDispatcher.EventSubscriberInterface} subscriber
+     */
     set subscriber(subscriber) {
         this._listeners = [];
 
@@ -101,14 +120,25 @@ class ExtractingEventDispatcher extends mix(EventDispatcher, EventSubscriberInte
         this.addSubscriber(this);
     }
 
+    /**
+     * @returns {Object[]}
+     */
     get listeners() {
         return this._listeners;
     }
 
+    /**
+     * @param {string} eventName
+     * @param {Object} listener
+     * @param {int} [priority = 0]
+     */
     addListener(eventName, listener, priority = 0) {
         this._listeners.push([ eventName, listener[1], priority ]);
     }
 
+    /**
+     * @inheritdoc
+     */
     getSubscribedEvents() {
         const reflClass = new ReflectionClass(this._subscriber);
         const class_ = reflClass.getConstructor();

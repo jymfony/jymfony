@@ -17,9 +17,7 @@ class LoggerInterface {
      * System is unusable.
      *
      * @param {string} message
-     * @param {object} context
-     *
-     * @returns {void}
+     * @param {object} [context = {}]
      */
     emergency(message, context = {}) { }
 
@@ -30,9 +28,7 @@ class LoggerInterface {
      * trigger the SMS alerts and wake you up.
      *
      * @param {string} message
-     * @param {object} context
-     *
-     * @returns {void}
+     * @param {object} [context = {}]
      */
     alert(message, context = {}) { }
 
@@ -42,9 +38,7 @@ class LoggerInterface {
      * Example: Application component unavailable, unexpected exception.
      *
      * @param {string} message
-     * @param {object} context
-     *
-     * @returns {void}
+     * @param {object} [context = {}]
      */
     critical(message, context = {}) { }
 
@@ -53,9 +47,7 @@ class LoggerInterface {
      * be logged and monitored.
      *
      * @param {string} message
-     * @param {object} context
-     *
-     * @returns {void}
+     * @param {object} [context = {}]
      */
     error(message, context = {}) { }
 
@@ -66,9 +58,7 @@ class LoggerInterface {
      * that are not necessarily wrong.
      *
      * @param {string} message
-     * @param {object} context
-     *
-     * @returns {void}
+     * @param {object} [context = {}]
      */
     warning(message, context = {}) { }
 
@@ -76,9 +66,7 @@ class LoggerInterface {
      * Normal but significant events.
      *
      * @param {string} message
-     * @param {object} context
-     *
-     * @returns {void}
+     * @param {object} [context = {}]
      */
     notice(message, context = {}) { }
 
@@ -88,9 +76,7 @@ class LoggerInterface {
      * Example: User logs in, SQL logs.
      *
      * @param {string} message
-     * @param {object} context
-     *
-     * @returns {void}
+     * @param {object} [context = {}]
      */
     info(message, context = {}) { }
 
@@ -98,20 +84,16 @@ class LoggerInterface {
      * Detailed debug information.
      *
      * @param {string} message
-     * @param {object} context
-     *
-     * @returns {void}
+     * @param {object} [context = {}]
      */
     debug(message, context = {}) { }
 
     /**
      * Logs with an arbitrary level.
      *
-     * @param {*} level
+     * @param {int} level
      * @param {string} message
-     * @param {object} context
-     *
-     * @returns {void}
+     * @param {object} [context = {}]
      */
     log(level, message, context = {}) { }
 }

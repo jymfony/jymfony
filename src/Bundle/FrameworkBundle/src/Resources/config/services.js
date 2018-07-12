@@ -1,15 +1,36 @@
-/** @global container */
-/** @var {Jymfony.Component.DependencyInjection.ContainerBuilder} container */
+/** @global {Jymfony.Component.DependencyInjection.ContainerBuilder} container */
 
-container.register('event_dispatcher', 'Jymfony.Component.EventDispatcher.EventDispatcher')
-    .setPublic(true)
+const Alias = Jymfony.Component.DependencyInjection.Alias;
+const Reference = Jymfony.Component.DependencyInjection.Reference;
+
+container.register('parameter_bag', Jymfony.Component.DependencyInjection.ParameterBag.ContainerBag)
+    .addArgument(new Reference('service_container'))
 ;
+container.setAlias(Jymfony.Component.DependencyInjection.ParameterBag.ContainerBagInterface, 'parameter_bag');
+
+container
+    .register(Jymfony.Component.EventDispatcher.EventDispatcher)
+    .setPublic(true);
+container.setAlias(Jymfony.Component.EventDispatcher.EventDispatcherInterface, new Alias(Jymfony.Component.EventDispatcher.EventDispatcher, true));
+container.setAlias('event_dispatcher', new Alias(Jymfony.Component.EventDispatcher.EventDispatcher, true));
 
 container.register('kernel')
     .setPublic(true)
     .setSynthetic(true)
 ;
 
-container.register('cache_warmer', 'Jymfony.Component.Kernel.CacheWarmer.CacheWarmerAggregate')
+container.register('cache_warmer', Jymfony.Component.Kernel.CacheWarmer.CacheWarmerAggregate)
     .setPublic(true)
 ;
+
+container.register('cache_clearer', Jymfony.Component.Kernel.CacheClearer.ChainCacheClearer)
+    .setPublic(true)
+;
+
+container.register(Jymfony.Component.Kernel.Config.FileLocator)
+    .setPublic(true)
+    .addArgument(new Reference('kernel'))
+    .addArgument('%kernel.root_dir%/Resources')
+    .addArgument([ '%kernel.root_dir%' ])
+;
+container.setAlias('file_locator', new Alias(Jymfony.Component.Kernel.Config.FileLocator, true));

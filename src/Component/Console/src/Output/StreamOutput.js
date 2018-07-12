@@ -10,6 +10,14 @@ const os = require('os');
  * @memberOf Jymfony.Component.Console.Output
  */
 class StreamOutput extends Output {
+    /**
+     * Constructor.
+     *
+     * @param {stream} stream
+     * @param {string} [verbosity = Jymfony.Component.Console.Output.ConsoleOutputInterface.VERBOSITY_NORMAL]
+     * @param {boolean} [decorated]
+     * @param {Jymfony.Component.Console.Output.OutputFormatterInterface} [formatter = new Jymfony.Component.Console.Output.OutputFormatter()]
+     */
     __construct(stream, verbosity = OutputInterface.VERBOSITY_NORMAL, decorated = undefined, formatter = new OutputFormatter()) {
         if (! isStream(stream) || ! stream.writable) {
             throw new InvalidArgumentException('Argument 1 should be an instance of stream.Writable');
@@ -18,7 +26,7 @@ class StreamOutput extends Output {
         super.__construct(verbosity, decorated, formatter);
 
         /**
-         * @type stream.Writable
+         * @type {stream.Writable}
          */
         this._stream = stream;
         this._deferUncork = true;
@@ -48,7 +56,7 @@ class StreamOutput extends Output {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     _doWrite(message, newline) {
         this._stream.cork();

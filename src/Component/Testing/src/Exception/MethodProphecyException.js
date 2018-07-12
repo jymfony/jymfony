@@ -10,8 +10,8 @@ class MethodProphecyException extends ObjectProphecyException {
      * @param {string} message
      * @param {Jymfony.Component.Testing.Prophecy.MethodProphecy} methodProphecy
      */
-    constructor(message, methodProphecy) {
-        super(message, methodProphecy.objectProphecy);
+    __construct(message, methodProphecy) {
+        super.__construct(message, methodProphecy.objectProphecy);
 
         this._methodProphecy = methodProphecy;
     }

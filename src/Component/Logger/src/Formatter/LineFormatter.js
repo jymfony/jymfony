@@ -1,6 +1,16 @@
 const NormalizerFormatter = Jymfony.Component.Logger.Formatter.NormalizerFormatter;
 
+/**
+ * @memberOf Jymfony.Component.Logger.Formatter
+ */
 class LineFormatter extends NormalizerFormatter {
+    /**
+     * Constructor.
+     *
+     * @param {string} [format]
+     * @param {string} [dateFormat]
+     * @param {boolean} [allowInlineLineBreaks = false]
+     */
     __construct(format = undefined, dateFormat = undefined, allowInlineLineBreaks = false) {
         /**
          * The format for a single record.
@@ -47,7 +57,7 @@ class LineFormatter extends NormalizerFormatter {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     format(record) {
         const vars = super.format(record);
@@ -76,12 +86,17 @@ class LineFormatter extends NormalizerFormatter {
         return output;
     }
 
+    /**
+     * @param {*} value
+     *
+     * @returns {string}
+     */
     stringify(value) {
         return this._replaceNewlines(this._convertToString(value));
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     _normalizeError(record) {
         let previousText = '', previous = record;
@@ -91,7 +106,7 @@ class LineFormatter extends NormalizerFormatter {
         }
 
         const trace = Exception.parseStackTrace(record);
-        let str = '[object] (' + (new ReflectionClass(record)).name + ': ' + previous.message + ' at ' + trace[0].file + ':' + trace[0].line + previousText + ')';
+        let str = '[object] (' + (new ReflectionClass(record)).name + ': ' + record.message + ' at ' + trace[0].file + ':' + trace[0].line + previousText + ')';
 
         if (this._includeStacktraces) {
             str += '\n[stacktrace]\n' + record.stack + '\n';
@@ -100,6 +115,13 @@ class LineFormatter extends NormalizerFormatter {
         return str;
     }
 
+    /**
+     * @param {*} data
+     *
+     * @return {string}
+     *
+     * @private
+     */
     _convertToString(data) {
         if (null === data) {
             return 'null';

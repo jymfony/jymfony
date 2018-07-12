@@ -14,12 +14,16 @@ const OutputInterface = Jymfony.Component.Console.Output.OutputInterface;
 const OutputFormatter = Jymfony.Component.Console.Formatter.OutputFormatter;
 const Terminal = Jymfony.Component.Console.Terminal;
 
-const util = require('util');
-
 /**
  * @memberOf Jymfony.Component.Console
  */
 class Application {
+    /**
+     * Constructor.
+     *
+     * @param {string} [name = 'UNKNOWN']
+     * @param {string} [version = 'UNKNOWN']
+     */
     __construct(name = 'UNKNOWN', version = 'UNKNOWN') {
         this._name = name;
         this._version = version;
@@ -103,8 +107,8 @@ class Application {
     /**
      * Run the application
      *
-     * @param {Jymfony.Component.Console.Input.InputInterface} input
-     * @param {Jymfony.Component.Console.Output.OutputInterface} output
+     * @param {Jymfony.Component.Console.Input.InputInterface} [input = new ArgvInput()]
+     * @param {Jymfony.Component.Console.Output.OutputInterface} [output new ConsoleOutput()]
      *
      * @returns {Promise} Promise executing the application
      */
@@ -136,7 +140,9 @@ class Application {
                 .then(exitCode => {
                     if (this._autoExit) {
                         // Wait for next uncork call.
-                        process.nextTick(() => process.exit(exitCode));
+                        process.nextTick(async () => {
+                            await this.shutdown(exitCode);
+                        });
                     }
 
                     return process.exitCode = exitCode;
@@ -148,6 +154,13 @@ class Application {
     }
 
     /**
+     * Shuts down the application.
+     */
+    shutdown(exitCode) {
+        process.exit(exitCode);
+    }
+
+    /**
      * Returns the long version of the application.
      *
      * @returns {string} The long application version
@@ -155,7 +168,7 @@ class Application {
     getLongVersion() {
         if ('UNKNOWN' !== this.name) {
             if ('UNKNOWN' !== this.version) {
-                return util.format('%s <info>%s</info>', this.name, this.version);
+                return __jymfony.sprintf('%s <info>%s</info>', this.name, this.version);
             }
 
             return this.name;
@@ -208,9 +221,9 @@ class Application {
         }
 
         if (! command.definition) {
-            throw new LogicException(util.format(
+            throw new LogicException(__jymfony.sprintf(
                 'Command class "%s" is not correctly initialized. You probably forgot to call the parent constructor.',
-                (new ReflectionClass(command)).name
+                ReflectionClass.getClassName(command)
             ));
         }
 
@@ -344,7 +357,7 @@ class Application {
      *
      * The object keys are the full names and the values the command instances.
      *
-     * @param {string} namespace A namespace name
+     * @param {string} [namespace] A namespace name
      *
      * @returns {Object.<string, Jymfony.Component.Console.Command.Command>} An array of Command instances
      */
@@ -385,7 +398,7 @@ class Application {
             let message = `There are no commands defined in the "${namespace}" namespace.`, alternatives;
 
             if (alternatives = this._findAlternatives(namespace, allNamespaces)) {
-                if (1 == alternatives.length) {
+                if (1 === alternatives.length) {
                     message += '\n\nDid you mean this?\n    ';
                 } else {
                     message += '\n\nDid you mean one of these?\n    ';
@@ -411,7 +424,7 @@ class Application {
      * This method is not part of public API and should not be used directly.
      *
      * @param {string} name The full name of the command
-     * @param {int} limit The maximum number of parts of the namespace
+     * @param {int} [limit] The maximum number of parts of the namespace
      *
      * @returns {string} The namespace of the command
      */
@@ -698,8 +711,8 @@ class Application {
         output.writeln('', OutputInterface.VERBOSITY_QUIET);
 
         do {
-            const title = util.format('  [%s%s]  ',
-                (new ReflectionClass(exception)).name || exception.constructor.name || 'Error',
+            const title = __jymfony.sprintf('  [%s%s]  ',
+                ReflectionClass.getClassName(exception) || exception.constructor.name || 'Error',
                 output.isVerbose() && exception.code ? ` (${exception.code})` : ''
             );
             let len = title.length;
@@ -720,10 +733,10 @@ class Application {
 
             const messages = [];
             let emptyLine;
-            messages.push(emptyLine = formatter.format(util.format('<error>%s</error>', ' '.repeat(len))));
-            messages.push(formatter.format(util.format('<error>%s%s</error>', title, ' '.repeat(Math.max(0, len - title.length)))));
+            messages.push(emptyLine = formatter.format(__jymfony.sprintf('<error>%s</error>', ' '.repeat(len))));
+            messages.push(formatter.format(__jymfony.sprintf('<error>%s%s</error>', title, ' '.repeat(Math.max(0, len - title.length)))));
             for (const line of lines) {
-                messages.push(formatter.format(util.format('<error>  %s  %s</error>', OutputFormatter.escape(line[0]), ' '.repeat(len - line[1]))));
+                messages.push(formatter.format(__jymfony.sprintf('<error>  %s  %s</error>', OutputFormatter.escape(line[0]), ' '.repeat(len - line[1]))));
             }
             messages.push(emptyLine);
             messages.push('');
@@ -739,7 +752,7 @@ class Application {
                     const func = current['function'];
                     const file = current['file'] || 'n/a';
                     const line = current['line'] || 'n/a';
-                    output.writeln(util.format('   %s() at <info>%s:%s</info>', func, file, line), OutputInterface.VERBOSITY_QUIET);
+                    output.writeln(__jymfony.sprintf('   %s() at <info>%s:%s</info>', func, file, line), OutputInterface.VERBOSITY_QUIET);
                 }
 
                 output.writeln('', OutputInterface.VERBOSITY_QUIET);
@@ -747,7 +760,7 @@ class Application {
         } while (exception = exception.previous);
 
         if (this._runningCommand) {
-            output.writeln(util.format('<info>%s</info>', this._runningCommand.getSynopsis()), OutputInterface.VERBOSITY_QUIET);
+            output.writeln(__jymfony.sprintf('<info>%s</info>', this._runningCommand.getSynopsis()), OutputInterface.VERBOSITY_QUIET);
             output.writeln('', OutputInterface.VERBOSITY_QUIET);
         }
     }

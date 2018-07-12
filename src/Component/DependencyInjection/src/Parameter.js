@@ -1,17 +1,24 @@
 /**
  * @memberOf Jymfony.Component.DependencyInjection
  */
-module.exports = class Parameter {
+class Parameter {
+    /**
+     * Constructor.
+     *
+     * @param {string} id
+     */
     __construct(id) {
         this._id = id;
     }
 
     /**
-     * Returns the variable name
+     * Returns the variable name.
      *
      * @returns {string}
      */
     toString() {
         return this._id;
     }
-};
+}
+
+module.exports = Parameter;

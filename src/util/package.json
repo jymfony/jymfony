@@ -13,12 +13,13 @@
   "author": "Alessandro Chitolina <alekitto@gmail.com>",
   "license": "MIT",
   "engines": {
-    "node": ">=6.0.0"
+    "node": ">=8.10.0"
   },
   "dependencies": {
     "@jymfony/exceptions": "0.1.0-alpha.9"
   },
   "devDependencies": {
+    "@jymfony/autoloader": "https://github.com/jymfony/autoloader.git",
     "@jymfony/datastructure": "0.1.0-alpha.9",
     "chai": "^3.5.0",
     "mocha": "^3.0"

@@ -1,6 +1,11 @@
 const fs = require('fs');
 
-module.exports = function readlink (file) {
+/**
+ * @param {string} file
+ *
+ * @returns {Promise}
+ */
+function readlink(file) {
     return new Promise((resolve, reject) => {
         fs.readlink(file, {}, (err, linkString) => {
             if (err) {
@@ -11,4 +16,6 @@ module.exports = function readlink (file) {
             resolve(linkString);
         });
     });
-};
+}
+
+module.exports = readlink;

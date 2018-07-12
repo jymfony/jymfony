@@ -2,14 +2,16 @@
 
 require('@jymfony/autoloader');
 
-const Application = Jymfony.Bundle.FrameworkBundle.Console.Application;
 const ArgvInput = Jymfony.Component.Console.Input.ArgvInput;
 const Kernel = App.Kernel;
 
-let input = new ArgvInput();
-let env = input.getParameterOption([ '--env', '-e' ], process.env.APP_ENV ? process.env.APP_ENV : 'dev');
-let debug = '0' !== process.env.APP_DEBUG && ! input.hasParameterOption([ '--no-debug', '' ]) && 'prod' !== env;
+const input = new ArgvInput();
+const env = input.getParameterOption([ '--env', '-e' ], process.env.APP_ENV ? process.env.APP_ENV : 'dev');
+const debug = '0' !== process.env.APP_DEBUG && ! input.hasParameterOption([ '--no-debug', '' ]) && 'prod' !== env;
 
-let kernel = new Kernel(env, debug);
-let application = new Application(kernel);
-application.run(input);
+const kernel = new Kernel(env, debug);
+kernel.boot()
+    .then(() => {
+        const application = kernel.container.get('console.application');
+        application.run(input);
+    });

@@ -11,11 +11,28 @@ class ParameterBag {
     /**
      * Constructor.
      *
-     * @param {Object} params
+     * @param {Object} [params = {}]
      */
     __construct(params = {}) {
+        /**
+         * @type {Object}
+         *
+         * @private
+         */
         this._params = {};
+
+        /**
+         * @type {Object}
+         *
+         * @private
+         */
         this._env = {};
+
+        /**
+         * @type {boolean}
+         *
+         * @private
+         */
         this._resolved = false;
 
         for (const [ name, value ] of __jymfony.getEntries(params)) {
@@ -24,17 +41,17 @@ class ParameterBag {
     }
 
     /**
-     * Empties the parameter bag
+     * Empties the parameter bag.
      */
     clear() {
         this._params = {};
     }
 
     /**
-     * Add parameters to the parameter bag
+     * Adds parameters to the parameter bag.
      *
-     * @param {Object<string, string>} params
-     * @param {boolean} overwrite
+     * @param {Object.<string, string>} params
+     * @param {boolean} [overwrite = true]
      */
     add(params, overwrite = true) {
         for (const [ key, value ] of __jymfony.getEntries(params)) {
@@ -47,7 +64,7 @@ class ParameterBag {
     }
 
     /**
-     * Get a copy of the parameters map
+     * Gets a copy of the parameters map.
      *
      * @returns {Map}
      */
@@ -58,12 +75,11 @@ class ParameterBag {
     /**
      * Gets a parameter.
      *
-     * @param name
+     * @param {string} name
      *
      * @returns {*}
      */
     get(name) {
-        name = name.toLowerCase();
         if ('env()' !== name && 'env(' === name.substr(0, 4) && ')' === name.substr(-1, 1)) {
             const matches = /env\((.+)\)/.exec(name);
             const envVarName = matches[1];
@@ -73,14 +89,14 @@ class ParameterBag {
                 return this._env[envVarName] = process.env[envVarName];
             }
 
-            return this._env[envVarName] = this._get(name, true);
+            return this._env[envVarName] = this._get(name.toLowerCase(), true);
         }
 
-        return this._get(name);
+        return this._get(name.toLowerCase());
     }
 
     /**
-     * Add a parameter
+     * Adds a parameter.
      *
      * @param {string} name
      * @param {string} value
@@ -90,9 +106,10 @@ class ParameterBag {
     }
 
     /**
-     * Returns true if the specified parameter is defined
+     * Returns true if the specified parameter is defined.
      *
-     * @param name
+     * @param {string} name
+     *
      * @returns {boolean}
      */
     has(name) {
@@ -100,7 +117,7 @@ class ParameterBag {
     }
 
     /**
-     * Removes a parameter
+     * Removes a parameter.
      *
      * @param name
      */
@@ -109,7 +126,7 @@ class ParameterBag {
     }
 
     /**
-     * Replaces parameter placeholders (%name%) by their values for all parameters
+     * Replaces parameter placeholders (%name%) by their values for all parameters.
      */
     resolve() {
         if (this._resolved) {
@@ -138,15 +155,16 @@ class ParameterBag {
      * Replaces parameter placeholders (%name%) by their values for all parameters.
      *
      * @param {*} value
-     * @param {Set} resolving
+     * @param {boolean} [resolveEnv = false]
+     * @param {Set} [resolving = new Set()]
      *
      * @returns {*}
      */
-    resolveValue(value, resolving = new Set()) {
+    resolveValue(value, resolveEnv = false, resolving = new Set()) {
         if (isArray(value) || isObjectLiteral(value)) {
             const args = isArray(value) ? [] : {};
             for (const [ k, v ] of __jymfony.getEntries(value)) {
-                args[this.resolveValue(k, new Set(resolving))] = this.resolveValue(v, new Set(resolving));
+                args[this.resolveValue(k, resolveEnv, new Set(resolving))] = this.resolveValue(v, resolveEnv, new Set(resolving));
             }
 
             return args;
@@ -156,18 +174,29 @@ class ParameterBag {
             return value;
         }
 
-        return this.resolveString(value, new Set(resolving));
+        return this.resolveString(value, resolveEnv, new Set(resolving));
     }
 
     /**
-     * Resolves parameters inside a string
+     * Resolves parameters inside a string.
      *
      * @param {string} value
+     * @param {boolean} resolveEnv
      * @param {Set} resolving
      *
      * @returns {*}
      */
-    resolveString(value, resolving) {
+    resolveString(value, resolveEnv, resolving) {
+        if ('%env()%' !== value && '%env(' === value.substr(0, 5) && ')%' === value.substr(-2, 2)) {
+            if (resolveEnv) {
+                const paramName = value.substr(1, value.length - 2);
+
+                return this.get(paramName);
+            }
+
+            return value;
+        }
+
         const match = /^%([^%\s]+)%$/.exec(value);
         if (match) {
             const key = match[1].toLowerCase();
@@ -177,7 +206,8 @@ class ParameterBag {
             }
 
             resolving.add(key);
-            return this._resolved ? this.get(key) : this.resolveValue(this.get(key), resolving);
+
+            return this._resolved ? this.get(match[1]) : this.resolveValue(this.get(match[1]), resolveEnv, resolving);
         }
 
         return value.replace(/%%|%([^%\s]+)%/g, (match, p1) => {
@@ -190,7 +220,7 @@ class ParameterBag {
                 throw new ParameterCircularReferenceException(Array.from(resolving));
             }
 
-            let resolved = this.get(key);
+            let resolved = this.get(p1);
 
             if (! isString(resolved) && ! isNumber(resolved)) {
                 throw new RuntimeException(`A string value must be composed of strings and/or numbers, but found parameter "${key}" of type ${typeof resolved} inside string value "${value}".`);
@@ -199,16 +229,21 @@ class ParameterBag {
             resolved = resolved.toString();
             resolving.add(key);
 
-            return this._resolved ? resolved : this.resolveString(resolved, resolving);
+            return this._resolved ? resolved : this.resolveString(resolved, resolveEnv, resolving);
         });
     }
 
+    /**
+     * Whether is resolved or not.
+     *
+     * @returns {boolean}
+     */
     get resolved() {
         return this._resolved;
     }
 
     /**
-     * Escape parameter placeholders %
+     * Escapes parameter placeholders %.
      *
      * @param {*} value
      *
@@ -232,7 +267,7 @@ class ParameterBag {
     }
 
     /**
-     * Unescape parameter placeholders %
+     * Unescapes parameter placeholders %.
      *
      * @param {*} value
      *
@@ -259,7 +294,7 @@ class ParameterBag {
      * Gets a parameter from the parameter list.
      *
      * @param {string} name
-     * @param {boolean} strictlyScalar
+     * @param {boolean} [strictlyScalar = false]
      *
      * @returns {*}
      *

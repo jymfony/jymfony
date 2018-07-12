@@ -1,6 +1,11 @@
 const fs = require('fs');
 
-module.exports = function unlink (file) {
+/**
+ * @param {string} file
+ *
+ * @returns {Promise}
+ */
+module.exports = function unlink(file) {
     return new Promise((resolve, reject) => {
         fs.unlink(file, (err) => {
             if (err) {

@@ -7,6 +7,9 @@ const Reference = Jymfony.Component.DependencyInjection.Reference;
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
  */
 class CheckExceptionOnInvalidReferenceBehaviorPass extends AbstractRecursivePass {
+    /**
+     * @inheritdoc
+     */
     _processValue(value, isRoot = false) {
         if (value instanceof Reference && Container.EXCEPTION_ON_INVALID_REFERENCE === value.invalidBehavior) {
             const destId = value.toString();

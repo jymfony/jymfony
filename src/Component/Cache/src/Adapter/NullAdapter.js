@@ -11,16 +11,16 @@ const createCacheItem = (key) => {
 
 class NullAdapter extends implementationOf(CacheItemPoolInterface) {
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
-    getItem(key) {
+    async getItem(key) {
         return createCacheItem(key);
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
-    getItems(keys = []) {
+    async getItems(keys = []) {
         return new Map((function * () {
             for (const key of keys) {
                 yield [ key, createCacheItem(key) ];
@@ -29,37 +29,37 @@ class NullAdapter extends implementationOf(CacheItemPoolInterface) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
-    hasItem(/* key */) {
+    async hasItem(/* key */) {
         return false;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
-    clear() {
+    async clear() {
         return true;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
-    deleteItem(/* key */) {
+    async deleteItem(/* key */) {
         return true;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
-    deleteItems(/* keys */) {
+    async deleteItems(/* keys */) {
         return true;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
-    save(/* item */) {
+    async save(/* item */) {
         return false;
     }
 }

@@ -5,12 +5,37 @@ const LogFormatter = Jymfony.Component.DependencyInjection.Compiler.LogFormatter
 /**
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
  */
-module.exports = class Compiler {
+class Compiler {
+    /**
+     * Constructor.
+     */
     __construct() {
+        /**
+         * @type {Jymfony.Component.DependencyInjection.Compiler.PassConfig}
+         *
+         * @private
+         */
         this._passConfig = new PassConfig();
+
+        /**
+         * @type {Jymfony.Component.DependencyInjection.Compiler.ServiceReferenceGraph}
+         *
+         * @private
+         */
         this._referenceGraph = new ServiceReferenceGraph();
+
+        /**
+         * @type {Jymfony.Component.DependencyInjection.Compiler.LogFormatter}
+         *
+         * @private
+         */
         this._logFormatter = new LogFormatter();
 
+        /**
+         * @type {Array}
+         *
+         * @private
+         */
         this._logs = [];
     }
 
@@ -33,7 +58,7 @@ module.exports = class Compiler {
      * Add a compilation pass
      *
      * @param {CompilerPassInterface} pass
-     * @param type
+     * @param {string} type
      * @param {int} priority
      */
     addPass(pass, type, priority) {
@@ -50,6 +75,9 @@ module.exports = class Compiler {
     }
 
     /**
+     * @param {Jymfony.Component.DependencyInjection.Compiler.CompilerPassInterface} pass
+     * @param {string} message
+     *
      * @final
      */
     log(pass, message) {
@@ -84,4 +112,6 @@ module.exports = class Compiler {
     get logFormatter() {
         return this._logFormatter;
     }
-};
+}
+
+module.exports = Compiler;

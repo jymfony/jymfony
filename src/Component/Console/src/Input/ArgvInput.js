@@ -1,4 +1,5 @@
 const RuntimeException = Jymfony.Component.Console.Exception.RuntimeException;
+const InvalidOptionException = Jymfony.Component.Console.Exception.InvalidOptionException;
 const Input = Jymfony.Component.Console.Input.Input;
 
 /**
@@ -27,6 +28,12 @@ const Input = Jymfony.Component.Console.Input.Input;
  * @memberOf Jymfony.Component.Console.Input
  */
 class ArgvInput extends Input {
+    /**
+     * Constructor.
+     *
+     * @param {string[]} argv
+     * @param {Jymfony.Component.Console.Input.InputDefinition} [definition]]
+     */
     __construct(argv = process.argv, definition = undefined) {
         // Skip application name
         this._tokens = argv.slice(2);
@@ -35,7 +42,7 @@ class ArgvInput extends Input {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     parse() {
         let parseOptions = true, token;
@@ -57,7 +64,7 @@ class ArgvInput extends Input {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     get firstArgument() {
         for (const token of this._tokens) {
@@ -70,7 +77,7 @@ class ArgvInput extends Input {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     hasParameterOption(values, onlyParams = false) {
         if (! isArray(values)) {
@@ -93,7 +100,7 @@ class ArgvInput extends Input {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     getParameterOption(values, defaultValue = false, onlyParams = false) {
         if (! isArray(values)) {
@@ -206,13 +213,13 @@ class ArgvInput extends Input {
      * @param {string} name The long option key
      * @param {*} value The value for the option
      *
-     * @throws {Jymfony.Component.Console.Exception.RuntimeException} When option given doesn't exist
+     * @throws {Jymfony.Component.Console.Exception.InvalidOptionException} When option given doesn't exist
      *
      * @private
      */
     _addLongOption(name, value) {
         if (! this._definition.hasOption(name)) {
-            throw new RuntimeException(`The "--${name}" option does not exist.`);
+            throw new InvalidOptionException(`The "--${name}" option does not exist.`);
         }
 
         const option = this._definition.getOption(name);
@@ -223,7 +230,7 @@ class ArgvInput extends Input {
         }
 
         if (undefined !== value && ! option.acceptValue()) {
-            throw new RuntimeException(`The "--${name}" option does not accept a value.`);
+            throw new InvalidOptionException(`The "--${name}" option does not accept a value.`);
         }
 
         if (undefined === value && option.acceptValue() && this._parsed.length) {
@@ -241,7 +248,7 @@ class ArgvInput extends Input {
 
         if (undefined === value) {
             if (option.isValueRequired()) {
-                throw new RuntimeException(`The "--${name}" option requires a value.`);
+                throw new InvalidOptionException(`The "--${name}" option requires a value.`);
             }
 
             if (! option.isArray()) {
@@ -284,13 +291,13 @@ class ArgvInput extends Input {
      * @param {string} shortcut The short option key
      * @param {*} value The value for the option
      *
-     * @throws RuntimeException When option given doesn't exist
+     * @throws {Jymfony.Component.Console.Exception.InvalidOptionException} When option given doesn't exist
      *
      * @private
      */
     _addShortOption(shortcut, value) {
         if (! this._definition.hasShortcut(shortcut)) {
-            throw new RuntimeException(`The "-${shortcut}" option does not exist.`);
+            throw new InvalidOptionException(`The "-${shortcut}" option does not exist.`);
         }
 
         this._addLongOption(this._definition.getOptionForShortcut(shortcut).getName(), value);
@@ -301,7 +308,7 @@ class ArgvInput extends Input {
      *
      * @param {string} name The current token
      *
-     * @throws RuntimeException When option given doesn't exist
+     * @throws {Jymfony.Component.Console.Exception.InvalidOptionException} When option given doesn't exist
      *
      * @private
      */
@@ -309,7 +316,7 @@ class ArgvInput extends Input {
         const length = name.length;
         for (let i = 0; i < length; ++i) {
             if (! this._definition.hasShortcut(name[i])) {
-                throw new RuntimeException(`The "-${name[i]}" option does not exist.`);
+                throw new InvalidOptionException(`The "-${name[i]}" option does not exist.`);
             }
 
             const option = this._definition.getOptionForShortcut(name[i]);

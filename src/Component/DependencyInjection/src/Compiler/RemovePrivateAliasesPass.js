@@ -2,9 +2,11 @@ const CompilerPassInterface = Jymfony.Component.DependencyInjection.Compiler.Com
 
 /**
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
- * @type {Jymfony.Component.DependencyInjection.Compiler.RemovePrivateAliasesPass}
  */
-module.exports = class RemovePrivateAliasesPass extends implementationOf(CompilerPassInterface) {
+class RemovePrivateAliasesPass extends implementationOf(CompilerPassInterface) {
+    /**
+     * @inheritdoc
+     */
     process(container) {
         const compiler = container.getCompiler();
         const formatter = compiler.logFormatter;
@@ -18,4 +20,6 @@ module.exports = class RemovePrivateAliasesPass extends implementationOf(Compile
             compiler.addLogMessage(formatter.formatRemoveService(this, id, 'private alias'));
         }
     }
-};
+}
+
+module.exports = RemovePrivateAliasesPass;

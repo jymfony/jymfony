@@ -1,7 +1,12 @@
 const Command = Jymfony.Component.Console.Command.Command;
 
-module.exports = class Foo4Command extends Command {
+class Foo4Command extends Command {
+    /**
+     * @inheritdoc
+     */
     configure() {
         this.name = 'foo3:bar:toh';
     }
-};
+}
+
+module.exports = Foo4Command;

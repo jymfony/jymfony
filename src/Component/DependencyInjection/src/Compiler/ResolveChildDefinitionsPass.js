@@ -9,7 +9,10 @@ const ExceptionInterface = Jymfony.Component.DependencyInjection.Exception.Excep
  *
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
  */
-class ResolveDefinitionTemplatesPass extends AbstractRecursivePass {
+class ResolveChildDefinitionsPass extends AbstractRecursivePass {
+    /**
+     * @inheritdoc
+     */
     _processValue(value, isRoot = false) {
         if (! (value instanceof Definition)) {
             return super._processValue(value, isRoot);
@@ -88,12 +91,18 @@ class ResolveDefinitionTemplatesPass extends AbstractRecursivePass {
 
         def.setFactory(parentDef.getFactory());
         def.setConfigurator(parentDef.getConfigurator());
-        def.setFile(parentDef.getFile());
         def.setPublic(parentDef.isPublic());
         def.setLazy(parentDef.isLazy());
         def.setChanges(parentDef.getChanges());
+        def.setProperties(parentDef.getProperties());
+
+        const parentModule = parentDef.getModule();
+        if (parentModule) {
+            def.setModule(parentModule[0], parentModule[1]);
+        }
 
         const changes = definition.getChanges();
+
         if (changes.class) {
             def.setClass(definition.getClass());
         }
@@ -106,8 +115,8 @@ class ResolveDefinitionTemplatesPass extends AbstractRecursivePass {
             def.setConfigurator(definition.getConfigurator());
         }
 
-        if (changes.file) {
-            def.setFile(definition.getFile());
+        if (changes.module) {
+            def.setModule(definition.getModule()[0], definition.getModule()[1]);
         }
 
         if (changes['public']) {
@@ -131,7 +140,7 @@ class ResolveDefinitionTemplatesPass extends AbstractRecursivePass {
             }
         }
 
-        definition.setArguments(parentDef.getArguments());
+        definition._arguments = parentDef.getArguments();
         for (const argument of definition.getArguments()) {
             def.addArgument(argument);
         }
@@ -154,4 +163,4 @@ class ResolveDefinitionTemplatesPass extends AbstractRecursivePass {
     }
 }
 
-module.exports = ResolveDefinitionTemplatesPass;
+module.exports = ResolveChildDefinitionsPass;

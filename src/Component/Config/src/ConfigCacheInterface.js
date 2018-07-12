@@ -24,7 +24,7 @@ class ConfigCacheInterface {
      * @param {string} content The content to write into the cache
      * @param {Jymfony.Component.Config.Resource.ResourceInterface[]} metadata An array of ResourceInterface instances
      *
-     * @throws \RuntimeException When the cache file cannot be written
+     * @throws {RuntimeException} When the cache file cannot be written
      */
     write(content, metadata = undefined) { }
 }

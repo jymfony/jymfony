@@ -6,7 +6,7 @@ const PredictionInterface = Jymfony.Component.Testing.Prediction.PredictionInter
  */
 class NoCallsPrediction extends implementationOf(PredictionInterface) {
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     check(calls, object, method) {
         if (0 === calls.length) {
@@ -19,9 +19,9 @@ class NoCallsPrediction extends implementationOf(PredictionInterface) {
             'No calls expected that match:\n' +
             '  %s.%s(%s)\n' +
             'but %d %s made:\n%s',
-            (new ReflectionClass(object.reveal()).name,
-                method.methodName,
-                method.argumentsWildcard),
+            (new ReflectionClass(object.reveal())).name,
+            method.methodName,
+            method.argumentsWildcard,
             calls.length,
             verb,
             calls.map(call => call.toString())

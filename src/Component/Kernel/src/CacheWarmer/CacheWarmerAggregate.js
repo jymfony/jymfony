@@ -9,17 +9,19 @@ class CacheWarmerAggregate extends implementationOf(CacheWarmerInterface) {
     /**
      * Constructor.
      *
-     * @param {[Jymfony.Component.Kernel.CacheWarmer.CacheWarmerInterface]} warmers
+     * @param {Jymfony.Component.Kernel.CacheWarmer.CacheWarmerInterface[]} warmers
      */
     __construct(warmers = []) {
         /**
-         * @type {[Jymfony.Component.Kernel.CacheWarmer.CacheWarmerInterface]}
+         * @type {Jymfony.Component.Kernel.CacheWarmer.CacheWarmerInterface[]}
+         *
          * @private
          */
         this._warmers = warmers;
 
         /**
          * @type {boolean}
+         *
          * @private
          */
         this._optionalsEnabled = false;
@@ -32,7 +34,7 @@ class CacheWarmerAggregate extends implementationOf(CacheWarmerInterface) {
     /**
      * Warms up the cache.
      *
-     * @param {String} cacheDir
+     * @param {string} cacheDir
      */
     warmUp(cacheDir) {
         for (const warmer of this._warmers) {
@@ -45,13 +47,16 @@ class CacheWarmerAggregate extends implementationOf(CacheWarmerInterface) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     get optional() {
         return false;
     }
 
-    set warmers (warmers) {
+    /**
+     * @param {Jymfony.Component.Kernel.CacheWarmer.CacheWarmerInterface[]} warmers
+     */
+    set warmers(warmers) {
         this._warmers = warmers;
     }
 

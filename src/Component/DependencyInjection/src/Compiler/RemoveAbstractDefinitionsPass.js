@@ -2,9 +2,11 @@ const CompilerPassInterface = Jymfony.Component.DependencyInjection.Compiler.Com
 
 /**
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
- * @type {Jymfony.Component.DependencyInjection.Compiler.RemoveAbstractDefinitionsPass}
  */
-module.exports = class RemoveAbstractDefinitionsPass extends implementationOf(CompilerPassInterface) {
+class RemoveAbstractDefinitionsPass extends implementationOf(CompilerPassInterface) {
+    /**
+     * @inheritdoc
+     */
     process(container) {
         const compiler = container.getCompiler();
         const formatter = compiler.logFormatter;
@@ -18,4 +20,6 @@ module.exports = class RemoveAbstractDefinitionsPass extends implementationOf(Co
             compiler.addLogMessage(formatter.formatRemoveService(this, id, 'abstract'));
         }
     }
-};
+}
+
+module.exports = RemoveAbstractDefinitionsPass;

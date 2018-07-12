@@ -2,8 +2,10 @@ const FlattenException = Jymfony.Component.Debug.Exception.FlattenException;
 const EventSubscriberInterface = Jymfony.Component.EventDispatcher.EventSubscriberInterface;
 const Events = Jymfony.Component.HttpServer.Event.HttpServerEvents;
 const HttpExceptionInterface = Jymfony.Component.HttpFoundation.Exception.HttpExceptionInterface;
+const NotFoundHttpException = Jymfony.Component.HttpFoundation.Exception.NotFoundHttpException;
 const Request = Jymfony.Component.HttpFoundation.Request;
 const DebugLoggerInterface = Jymfony.Component.Kernel.Log.DebugLoggerInterface;
+const NullLogger = Jymfony.Component.Logger.NullLogger;
 
 /**
  * @memberOf Jymfony.Component.HttpServer.EventListener
@@ -13,12 +15,29 @@ class ExceptionListener extends implementationOf(EventSubscriberInterface) {
      * Constructor.
      *
      * @param {Function|string} controller
-     * @param {Jymfony.Component.Logger.LoggerInterface} logger
-     * @param {boolean} debug
+     * @param {Jymfony.Component.Logger.LoggerInterface} [logger = new Jymfony.Component.Logger.NullLogger()]
+     * @param {boolean} [debug = false]
      */
     __construct(controller, logger = new NullLogger(), debug = false) {
+        /**
+         * @type {Function|string}
+         *
+         * @private
+         */
         this._controller = controller;
+
+        /**
+         * @type {Jymfony.Component.Logger.LoggerInterface}
+         *
+         * @private
+         */
         this._logger = logger;
+
+        /**
+         * @type {boolean}
+         *
+         * @private
+         */
         this._debug = debug;
     }
 
@@ -35,10 +54,12 @@ class ExceptionListener extends implementationOf(EventSubscriberInterface) {
 
         let exceptionClass = exception.constructor.name;
         try {
-            exceptionClass = new ReflectionClass(exception).name;
+            exceptionClass = new ReflectionClass(exception).name || exceptionClass;
         } catch (e) { }
 
-        this._logException(exception, __jymfony.sprintf('Uncaught Exception %s: "%s"', exceptionClass, exception.message));
+        if (! (exception instanceof NotFoundHttpException)) {
+            this._logException(exception, __jymfony.sprintf('Uncaught Exception %s: "%s"', exceptionClass, exception.message));
+        }
 
         let response;
         request = this._duplicateRequest(exception, request);
@@ -64,7 +85,7 @@ class ExceptionListener extends implementationOf(EventSubscriberInterface) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     static getSubscribedEvents() {
         return {

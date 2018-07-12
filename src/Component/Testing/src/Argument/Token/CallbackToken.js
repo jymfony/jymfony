@@ -5,6 +5,11 @@ const InvalidArgumentException = Jymfony.Component.Testing.Exception.InvalidArgu
  * @memberOf Jymfony.Component.Testing.Argument.Token
  */
 class CallbackToken extends implementationOf(TokenInterface) {
+    /**
+     * Constructor.
+     *
+     * @param {Function} callback
+     */
     __construct(callback) {
         if (! isFunction(callback)) {
             throw new InvalidArgumentException(
@@ -14,20 +19,21 @@ class CallbackToken extends implementationOf(TokenInterface) {
 
         /**
          * @type {Function}
+         *
          * @private
          */
         this._callback = callback;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     scoreArgument(argument) {
         return this._callback.call(undefined, argument) ? 7 : false;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     isLast() {
         return false;

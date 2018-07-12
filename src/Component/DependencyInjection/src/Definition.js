@@ -2,24 +2,130 @@
  * @memberOf Jymfony.Component.DependencyInjection
  */
 class Definition {
+    /**
+     * Constructor.
+     *
+     * @param {string} [class_]
+     * @param {Array} [args = []]
+     */
     __construct(class_ = undefined, args = []) {
+        /**
+         * @type {string|undefined}
+         *
+         * @private
+         */
         this._class = undefined;
+
+        /**
+         * @type {Array}
+         *
+         * @private
+         */
         this._arguments = args;
 
-        this._file = undefined;
+        /**
+         * @type {string[]|undefined}
+         *
+         * @private
+         */
+        this._module = undefined;
+
+        /**
+         * @type {string|Array|undefined}
+         *
+         * @private
+         */
         this._factory = undefined;
+
+        /**
+         * @type {boolean}
+         *
+         * @private
+         */
         this._shared = true;
+
+        /**
+         * @type {boolean}
+         *
+         * @private
+         */
         this._deprecated = false;
+
+        /**
+         * @type {string}
+         *
+         * @private
+         */
         this._deprecationTemplate = 'The "%service_id%" service is deprecated. You should stop using it';
+
+        /**
+         * @type {Object}
+         *
+         * @private
+         */
         this._properties = {};
+
+        /**
+         * @type {Array}
+         *
+         * @private
+         */
         this._calls = [];
+
+        /**
+         * @type {string|Array|Function|undefined}
+         *
+         * @private
+         */
         this._configurator = undefined;
+
+        /**
+         * @type {Object.<string, string>}
+         *
+         * @private
+         */
         this._tags = {};
+
+        /**
+         * @type {boolean}
+         *
+         * @private
+         */
         this._public = false;
+
+        /**
+         * @type {boolean}
+         *
+         * @private
+         */
         this._synthetic = false;
+
+        /**
+         * @type {boolean}
+         *
+         * @private
+         */
         this._abstract = false;
+
+        /**
+         * @type {boolean}
+         *
+         * @private
+         */
         this._lazy = false;
+
+        /**
+         * @type {*}
+         *
+         * @private
+         */
         this._decoratedService = undefined;
+
+        /**
+         * @type {Object}
+         *
+         * @private
+         */
         this._changes = {};
 
         if (undefined !== class_) {
@@ -41,7 +147,7 @@ class Definition {
     }
 
     /**
-     * Return all changes tracked for the Definition object
+     * Returns all changes tracked for the Definition object.
      *
      * @returns {Object}
      */
@@ -50,7 +156,7 @@ class Definition {
     }
 
     /**
-     * Set the service factory
+     * Sets the service factory.
      *
      * @param {string|Array} factory
      *
@@ -68,7 +174,7 @@ class Definition {
     }
 
     /**
-     * Get the current factory
+     * Gets the current factory.
      *
      * @returns {string|Array|undefined}
      */
@@ -77,11 +183,11 @@ class Definition {
     }
 
     /**
-     * Set the service that this service is decorating
+     * Sets the service that this service is decorating.
      *
      * @param {string} id
-     * @param {string} renamedId
-     * @param {int} priority
+     * @param {string} [renamedId]
+     * @param {int} [priority = 0]
      *
      * @returns {Jymfony.Component.DependencyInjection.Definition}
      */
@@ -102,7 +208,7 @@ class Definition {
     }
 
     /**
-     * Get the decorated service definition (id, inner id, priority)
+     * Gets the decorated service definition (id, inner id, priority).
      *
      * @returns {Array}
      */
@@ -115,7 +221,7 @@ class Definition {
     }
 
     /**
-     * Set the service class
+     * Sets the service class.
      *
      * @param {string|Function} className
      *
@@ -135,7 +241,7 @@ class Definition {
     }
 
     /**
-     * Get service class name
+     * Gets service class name.
      *
      * @returns {string}
      */
@@ -144,7 +250,7 @@ class Definition {
     }
 
     /**
-     * Sets the arguments to pass to the service constructor/factory
+     * Sets the arguments to pass to the service constructor/factory.
      *
      * @param {Array} args
      *
@@ -157,7 +263,7 @@ class Definition {
     }
 
     /**
-     * Adds an argument to the list
+     * Adds an argument to the list.
      *
      * @param {*} argument
      *
@@ -170,7 +276,7 @@ class Definition {
     }
 
     /**
-     * Replaces an argument
+     * Replaces an argument.
      *
      * @param {int} index
      * @param {*} argument
@@ -188,7 +294,7 @@ class Definition {
     }
 
     /**
-     * Gets the argument list
+     * Gets the argument list.
      *
      * @returns {Array}
      */
@@ -197,7 +303,7 @@ class Definition {
     }
 
     /**
-     * Gets a single argument
+     * Gets a single argument.
      *
      * @param {int} index
      *
@@ -212,7 +318,7 @@ class Definition {
     }
 
     /**
-     * Define properties to set at service creation
+     * Defines properties to set at service creation.
      *
      * @param {Object} properties
      *
@@ -225,7 +331,7 @@ class Definition {
     }
 
     /**
-     * Set a property to set to the service
+     * Sets a property to set to the service.
      *
      * @param {string} property
      * @param {*} value
@@ -239,7 +345,7 @@ class Definition {
     }
 
     /**
-     * Get the properties to set on the service
+     * Gets the properties to set on the service.
      *
      * @returns {Object}
      */
@@ -248,9 +354,9 @@ class Definition {
     }
 
     /**
-     * Set the methods to call after service construction
+     * Sets the methods to call after service construction.
      *
-     * @param {Array} calls
+     * @param {Array} [calls = []]
      *
      * @returns {Jymfony.Component.DependencyInjection.Definition}
      */
@@ -264,10 +370,10 @@ class Definition {
     }
 
     /**
-     * Add a method to call
+     * Adds a method to call.
      *
      * @param {string} method
-     * @param {Array} args
+     * @param {Array} [args = []]
      *
      * @returns {Jymfony.Component.DependencyInjection.Definition}
      */
@@ -282,7 +388,7 @@ class Definition {
     }
 
     /**
-     * Removes a method to call after service initialization
+     * Removes a method to call after service initialization.
      *
      * @param {string} method
      *
@@ -301,7 +407,7 @@ class Definition {
     }
 
     /**
-     * Checks if the definition has a given method call
+     * Checks if the definition has a given method call.
      *
      * @param {string} method
      *
@@ -318,7 +424,7 @@ class Definition {
     }
 
     /**
-     * Gets the methods to call
+     * Gets the methods to call.
      *
      * @returns {Array}
      */
@@ -327,7 +433,7 @@ class Definition {
     }
 
     /**
-     * Sets the service tags
+     * Sets the service tags.
      *
      * @param {Object} tags
      *
@@ -340,7 +446,7 @@ class Definition {
     }
 
     /**
-     * Gets all tags
+     * Gets all tags.
      *
      * @returns {Object}
      */
@@ -349,7 +455,7 @@ class Definition {
     }
 
     /**
-     * Get a tag by name
+     * Gets a tag by name.
      *
      * @param {string} name
      *
@@ -364,7 +470,7 @@ class Definition {
     }
 
     /**
-     * Add a tag
+     * Adds a tag.
      *
      * @param {string} name
      * @param {Object} attributes
@@ -379,7 +485,7 @@ class Definition {
     }
 
     /**
-     * Checks if a tag is present
+     * Checks if a tag is present.
      *
      * @param {string} name
      *
@@ -390,7 +496,7 @@ class Definition {
     }
 
     /**
-     * Clears all the tags for a given name
+     * Clears all the tags for a given name.
      *
      * @param {string} name
      *
@@ -403,7 +509,7 @@ class Definition {
     }
 
     /**
-     * Clears all the tags
+     * Clears all the tags.
      *
      * @returns {Jymfony.Component.DependencyInjection.Definition}
      */
@@ -414,30 +520,33 @@ class Definition {
     }
 
     /**
-     * Sets a file to be required before creating the service
+     * Use a module require as a factory for this service (with optional property).
+     * The "new" operator is used only if a property is defined, otherwise
+     * the result of the require call is used as service.
      *
-     * @param {string} file
+     * @param {string} module The module to be required.
+     * @param {string} [property] The property to be used as service in module.
      *
      * @returns {Jymfony.Component.DependencyInjection.Definition}
      */
-    setFile(file) {
-        this._changes['file'] = true;
-        this._file = file;
+    setModule(module, property = undefined) {
+        this._changes['module'] = true;
+        this._module = [ module, property ];
 
         return this;
     }
 
     /**
-     * Gets the file to be required before creating the service
+     * Gets the module to be used as service.
      *
-     * @returns {string}
+     * @returns {string[]}
      */
-    getFile() {
-        return this._file;
+    getModule() {
+        return this._module;
     }
 
     /**
-     * Sets if this service must be shared
+     * Sets if this service must be shared.
      *
      * @param {boolean} shared
      *
@@ -451,7 +560,7 @@ class Definition {
     }
 
     /**
-     * Checks if this service is shared
+     * Checks if this service is shared.
      *
      * @returns {boolean}
      */
@@ -460,7 +569,7 @@ class Definition {
     }
 
     /**
-     * Sets if this service is public (can be retrieved by Container#get)
+     * Sets if this service is public (can be retrieved by Container#get).
      *
      * @param {boolean} _public
      *
@@ -474,7 +583,7 @@ class Definition {
     }
 
     /**
-     * Checks if this service should be public
+     * Checks if this service should be public.
      *
      * @returns {boolean}
      */
@@ -483,7 +592,7 @@ class Definition {
     }
 
     /**
-     * Sets the lazy flag for this service
+     * Sets the lazy flag for this service.
      *
      * @param {boolean} lazy
      *
@@ -507,7 +616,7 @@ class Definition {
 
     /**
      * Sets if this is a synthetic service (cannot be constructed,
-     * but must be injected)
+     * but must be injected).
      *
      * @param {boolean} synthetic
      *
@@ -520,7 +629,7 @@ class Definition {
     }
 
     /**
-     * Checks if this service is synthetic
+     * Checks if this service is synthetic.
      *
      * @returns {boolean}
      */
@@ -543,7 +652,7 @@ class Definition {
     }
 
     /**
-     * Checks if this is an abstract service
+     * Checks if this is an abstract service.
      *
      * @returns {boolean}
      */
@@ -556,10 +665,10 @@ class Definition {
      * If marked as deprecated, a deprecation warning will be triggered
      * during its initialization. The deprecation message is defined by
      * the template parameter and could contain '%service_id%' that will
-     * be replaced by the real service id
+     * be replaced by the real service id.
      *
-     * @param {boolean} status
-     * @param {string} template
+     * @param {boolean} [status = true]
+     * @param {string} [template]
      *
      * @returns {Jymfony.Component.DependencyInjection.Definition}
      */
@@ -579,7 +688,7 @@ class Definition {
     }
 
     /**
-     * Checks whether this service is deprecated
+     * Checks whether this service is deprecated.
      *
      * @returns {boolean}
      */
@@ -588,7 +697,7 @@ class Definition {
     }
 
     /**
-     * Build the deprecation message for a given service id
+     * Build the deprecation message for a given service id.
      *
      * @param {string} id
      *
@@ -599,7 +708,7 @@ class Definition {
     }
 
     /**
-     * Sets a configurator to be called after the service is initialized
+     * Sets a configurator to be called after the service is initialized.
      *
      * @param {string|Array|Function} configurator
      *
@@ -617,9 +726,9 @@ class Definition {
     }
 
     /**
-     * Gets the configurator for this service
+     * Gets the configurator for this service.
      *
-     * @returns {string|Array|Function}
+     * @returns {string|Array|Function|undefined}
      */
     getConfigurator() {
         return this._configurator;

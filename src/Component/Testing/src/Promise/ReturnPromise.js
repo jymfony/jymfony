@@ -4,12 +4,17 @@ const PromiseInterface = Jymfony.Component.Testing.Promise.PromiseInterface;
  * @memberOf Jymfony.Component.Testing.Promise
  */
 class ReturnPromise extends implementationOf(PromiseInterface) {
+    /**
+     * Constructor.
+     *
+     * @param {*[]} [returnValues = []]
+     */
     __construct(returnValues = []) {
         this._returnValues = returnValues;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     execute() {
         const value = this._returnValues.shift();

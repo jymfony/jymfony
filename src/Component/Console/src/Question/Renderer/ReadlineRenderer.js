@@ -7,12 +7,13 @@ const readline = require('readline');
  * This class is internal and should be considered private
  * DO NOT USE this directly.
  *
- * @internal
  * @memberOf Jymfony.Component.Console.Question.Renderer
+ *
+ * @internal
  */
 class ReadlineRenderer extends AbstractRenderer {
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     doAsk() {
         const rl = readline.createInterface({

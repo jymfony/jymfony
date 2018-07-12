@@ -6,11 +6,15 @@ const InvalidArgumentException = Jymfony.Component.EventDispatcher.Exception.Inv
  * @memberOf Jymfony.Component.EventDispatcher
  */
 class EventDispatcher extends implementationOf(EventDispatcherInterface) {
+    /**
+     * Constructor.
+     */
     __construct() {
         /**
          * Listeners map.
          *
-         * @type {Object.<string, [Object]>}
+         * @type {Object.<string, Object[]>}
+         *
          * @private
          */
         this._listeners = {};
@@ -18,19 +22,20 @@ class EventDispatcher extends implementationOf(EventDispatcherInterface) {
         /**
          * Listeners map sorted by priority.
          *
-         * @type {Object.<string, [Object]>}
+         * @type {Object.<string, Object[]>}
+         *
          * @private
          */
         this._sorted = {};
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     dispatch(eventName, event = new Event()) {
         const self = this;
 
-        return __jymfony.Async.run(function * () {
+        return __jymfony.Async.run(function * dispatch() {
             for (const listener of self.getListeners(eventName)) {
                 if (event.isPropagationStopped()) {
                     return event;
@@ -44,7 +49,7 @@ class EventDispatcher extends implementationOf(EventDispatcherInterface) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     * getListeners(eventName = undefined) {
         if (eventName) {
@@ -67,7 +72,7 @@ class EventDispatcher extends implementationOf(EventDispatcherInterface) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     addListener(eventName, listener, priority = 0) {
         let listeners = this._listeners[eventName];
@@ -80,14 +85,14 @@ class EventDispatcher extends implementationOf(EventDispatcherInterface) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     hasListeners(eventName) {
         return (!! this._listeners[eventName]) && 0 < this._listeners[eventName].length;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     removeListener(eventName, listener) {
         if (! this._listeners[eventName]) {
@@ -121,7 +126,7 @@ class EventDispatcher extends implementationOf(EventDispatcherInterface) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     addSubscriber(subscriber) {
         const events = __jymfony.getFunction(subscriber, 'getSubscribedEvents')();
@@ -140,7 +145,7 @@ class EventDispatcher extends implementationOf(EventDispatcherInterface) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     removeSubscriber(subscriber) {
         const events = __jymfony.getFunction(subscriber, 'getSubscribedEvents')();
@@ -157,7 +162,7 @@ class EventDispatcher extends implementationOf(EventDispatcherInterface) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     getListenerPriority(eventName, listener) {
         if (! this._listeners[eventName]) {
@@ -219,6 +224,13 @@ class EventDispatcher extends implementationOf(EventDispatcherInterface) {
         }
     }
 
+    /**
+     * @param {Function} func1
+     * @param {Function} func2
+     * @returns {boolean}
+     *
+     * @private
+     */
     static _funcEquals(func1, func2) {
         if (func1.innerObject) {
             func1 = func1.innerObject;

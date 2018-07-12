@@ -1,8 +1,9 @@
 /**
  * An abstract renderer.
  *
- * @internal
  * @memberOf Jymfony.Component.Console.Question.Renderer
+ *
+ * @internal
  */
 class RendererInterface {
     /**

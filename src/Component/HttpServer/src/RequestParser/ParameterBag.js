@@ -8,11 +8,16 @@ class ParameterBag {
     __construct() {
         /**
          * @type {Map}
+         *
          * @private
          */
         this._bag = new Map();
     }
 
+    /**
+     * @param {string} key
+     * @param {*} value
+     */
     set(key, value) {
         if (this._bag.has(key)) {
             const prev = this._bag.get(key);
@@ -27,10 +32,18 @@ class ParameterBag {
         }
     }
 
+    /**
+     * @param {string} key
+     *
+     * @returns {*}
+     */
     get(key) {
         return this._bag.get(key);
     }
 
+    /**
+     * @returns {Object}
+     */
     toObject() {
         const obj = {};
         this._bag.forEach((v, k) => obj[k] = v);

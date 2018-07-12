@@ -15,14 +15,14 @@ class ServiceClosureArgument extends implementationOf(ArgumentInterface) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     get values() {
         return this._values;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     set values(values) {
         if (! values[0] || ! values[0] instanceof Reference) {

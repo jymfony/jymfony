@@ -9,7 +9,7 @@ class DescriptorInterface {
      *
      * @param {Jymfony.Component.Console.Output.OutputInterface} output
      * @param {Object} object
-     * @param {*} options
+     * @param {*} [options = {}]
      */
     describe(output, object, options = {}) { }
 }

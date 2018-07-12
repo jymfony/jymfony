@@ -1,3 +1,4 @@
+const LineFormatter = Jymfony.Component.Logger.Formatter.LineFormatter;
 const HandlerInterface = Jymfony.Component.Logger.Handler.HandlerInterface;
 const LogLevel = Jymfony.Component.Logger.LogLevel;
 
@@ -8,8 +9,8 @@ class AbstractHandler extends implementationOf(HandlerInterface) {
     /**
      * Constructor.
      *
-     * @param {int} level
-     * @param {boolean} bubble
+     * @param {int} [level = LogLevel.DEBUG] The minimum logging level at which this handler will be triggered
+     * @param {boolean} [bubble = true] Whether the messages that are handled can bubble up the stack or not
      */
     __construct(level = LogLevel.DEBUG, bubble = true) {
         this._level = level;
@@ -17,13 +18,13 @@ class AbstractHandler extends implementationOf(HandlerInterface) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     close() {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     handleBatch(records) {
         for (const record of records) {
@@ -32,7 +33,7 @@ class AbstractHandler extends implementationOf(HandlerInterface) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     isHandling(record) {
         return record.level >= this._level;
@@ -72,6 +73,15 @@ class AbstractHandler extends implementationOf(HandlerInterface) {
      */
     set bubble(value) {
         this._bubble = value;
+    }
+
+    /**
+     * Gets the default formatter.
+     *
+     * @returns {Jymfony.Component.Logger.Formatter.FormatterInterface}
+     */
+    getDefaultFormatter() {
+        return new LineFormatter();
     }
 }
 

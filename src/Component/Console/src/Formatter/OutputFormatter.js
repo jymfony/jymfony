@@ -7,12 +7,22 @@ const OutputFormatterStyleStack = Jymfony.Component.Console.Formatter.OutputForm
  * @memberOf Jymfony.Component.Console.Formatter
  */
 class OutputFormatter extends implementationOf(OutputFormatterInterface) {
+    /**
+     * @param {string} text
+     *
+     * @returns {string}
+     */
     static escape(text) {
         text = text.replace(/([^\\\\]?)</g, '$1\\<');
 
         return OutputFormatter.escapeTrailingBackslash(text);
     }
 
+    /**
+     * @param {string} text
+     *
+     * @returns {string}
+     */
     static escapeTrailingBackslash(text) {
         if ('\\' === text.substr(text.length - 1)) {
             const len = text.length;
@@ -23,6 +33,12 @@ class OutputFormatter extends implementationOf(OutputFormatterInterface) {
         return text;
     }
 
+    /**
+     * Constructor.
+     *
+     * @param {boolean} [decorated = false]
+     * @param {Object<string, Jymfony.Component.Console.Formatter.OutputFormatterStyleStack>} [styles = {}]
+     */
     __construct(decorated = false, styles = {}) {
         this._decorated = !! decorated;
         this._styles = {};
@@ -40,35 +56,35 @@ class OutputFormatter extends implementationOf(OutputFormatterInterface) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     set decorated(decorated) {
         this._decorated = !! decorated;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     get decorated() {
         return this._decorated;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     setStyle(name, style) {
         this._styles[name] = style;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     hasStyle(name) {
         return !! this._styles[name];
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     getStyle(name) {
         if (! this.hasStyle(name)) {
@@ -79,7 +95,7 @@ class OutputFormatter extends implementationOf(OutputFormatterInterface) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     format(message) {
         message = message.toString();

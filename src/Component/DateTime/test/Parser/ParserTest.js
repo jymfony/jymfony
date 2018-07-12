@@ -20,28 +20,28 @@ describe('[DateTime] Parser', function () {
             const parser = new Parser();
 
             tm = parser.parse(t[0]);
-            expect(tm.tm_hour).to.be.equal(4);
-            expect(tm.tm_min).to.be.equal(8);
-            expect(tm.tm_sec).to.be.equal(0);
-            expect(tm.tm_msec).to.be.equal(0);
+            expect(tm.hour).to.be.equal(4);
+            expect(tm.minutes).to.be.equal(8);
+            expect(tm.seconds).to.be.equal(0);
+            expect(tm.milliseconds).to.be.equal(0);
 
             tm = parser.parse(t[1]);
-            expect(tm.tm_hour).to.be.equal(12);
-            expect(tm.tm_min).to.be.equal(45);
-            expect(tm.tm_sec).to.be.equal(0);
-            expect(tm.tm_msec).to.be.equal(0);
+            expect(tm.hour).to.be.equal(12);
+            expect(tm.minutes).to.be.equal(45);
+            expect(tm.seconds).to.be.equal(0);
+            expect(tm.milliseconds).to.be.equal(0);
 
             tm = parser.parse(t[2]);
-            expect(tm.tm_hour).to.be.equal(19);
-            expect(tm.tm_min).to.be.equal(19);
-            expect(tm.tm_sec).to.be.equal(0);
-            expect(tm.tm_msec).to.be.equal(0);
+            expect(tm.hour).to.be.equal(19);
+            expect(tm.minutes).to.be.equal(19);
+            expect(tm.seconds).to.be.equal(0);
+            expect(tm.milliseconds).to.be.equal(0);
 
             tm = parser.parse(t[3]);
-            expect(tm.tm_hour).to.be.equal(23);
-            expect(tm.tm_min).to.be.equal(43);
-            expect(tm.tm_sec).to.be.equal(0);
-            expect(tm.tm_msec).to.be.equal(0);
+            expect(tm.hour).to.be.equal(23);
+            expect(tm.minutes).to.be.equal(43);
+            expect(tm.seconds).to.be.equal(0);
+            expect(tm.milliseconds).to.be.equal(0);
         });
     }
 
@@ -59,28 +59,28 @@ describe('[DateTime] Parser', function () {
             const parser = new Parser();
 
             tm = parser.parse(t[0]);
-            expect(tm.tm_hour).to.be.equal(4);
-            expect(tm.tm_min).to.be.equal(8);
-            expect(tm.tm_sec).to.be.equal(37);
-            expect(tm.tm_msec).to.be.equal(0);
+            expect(tm.hour).to.be.equal(4);
+            expect(tm.minutes).to.be.equal(8);
+            expect(tm.seconds).to.be.equal(37);
+            expect(tm.milliseconds).to.be.equal(0);
 
             tm = parser.parse(t[1]);
-            expect(tm.tm_hour).to.be.equal(12);
-            expect(tm.tm_min).to.be.equal(45);
-            expect(tm.tm_sec).to.be.equal(45);
-            expect(tm.tm_msec).to.be.equal(0);
+            expect(tm.hour).to.be.equal(12);
+            expect(tm.minutes).to.be.equal(45);
+            expect(tm.seconds).to.be.equal(45);
+            expect(tm.milliseconds).to.be.equal(0);
 
             tm = parser.parse(t[2]);
-            expect(tm.tm_hour).to.be.equal(19);
-            expect(tm.tm_min).to.be.equal(19);
-            expect(tm.tm_sec).to.be.equal(19);
-            expect(tm.tm_msec).to.be.equal(0);
+            expect(tm.hour).to.be.equal(19);
+            expect(tm.minutes).to.be.equal(19);
+            expect(tm.seconds).to.be.equal(19);
+            expect(tm.milliseconds).to.be.equal(0);
 
             tm = parser.parse(t[3]);
-            expect(tm.tm_hour).to.be.equal(23);
-            expect(tm.tm_min).to.be.equal(43);
-            expect(tm.tm_sec).to.be.equal(57);
-            expect(tm.tm_msec).to.be.equal(0);
+            expect(tm.hour).to.be.equal(23);
+            expect(tm.minutes).to.be.equal(43);
+            expect(tm.seconds).to.be.equal(57);
+            expect(tm.milliseconds).to.be.equal(0);
         });
     }
 
@@ -101,10 +101,10 @@ describe('[DateTime] Parser', function () {
             const parser = new Parser();
 
             const tm = parser.parse(t);
-            expect(tm.tm_hour).to.be.equal(4);
-            expect(tm.tm_min).to.be.equal(0);
-            expect(tm.tm_sec).to.be.equal(0);
-            expect(tm.tm_msec).to.be.equal(0);
+            expect(tm.hour).to.be.equal(4);
+            expect(tm.minutes).to.be.equal(0);
+            expect(tm.seconds).to.be.equal(0);
+            expect(tm.milliseconds).to.be.equal(0);
         });
     }
 
@@ -125,10 +125,10 @@ describe('[DateTime] Parser', function () {
             const parser = new Parser();
 
             const tm = parser.parse(t);
-            expect(tm.tm_hour).to.be.equal(16);
-            expect(tm.tm_min).to.be.equal(0);
-            expect(tm.tm_sec).to.be.equal(0);
-            expect(tm.tm_msec).to.be.equal(0);
+            expect(tm.hour).to.be.equal(16);
+            expect(tm.minutes).to.be.equal(0);
+            expect(tm.seconds).to.be.equal(0);
+            expect(tm.milliseconds).to.be.equal(0);
         });
     }
 
@@ -149,10 +149,10 @@ describe('[DateTime] Parser', function () {
             const parser = new Parser();
 
             const tm = parser.parse(t);
-            expect(tm.tm_hour).to.be.equal(4);
-            expect(tm.tm_min).to.be.equal(8);
-            expect(tm.tm_sec).to.be.equal(0);
-            expect(tm.tm_msec).to.be.equal(0);
+            expect(tm.hour).to.be.equal(4);
+            expect(tm.minutes).to.be.equal(8);
+            expect(tm.seconds).to.be.equal(0);
+            expect(tm.milliseconds).to.be.equal(0);
         });
     }
 
@@ -173,10 +173,10 @@ describe('[DateTime] Parser', function () {
             const parser = new Parser();
 
             const tm = parser.parse(t);
-            expect(tm.tm_hour).to.be.equal(16);
-            expect(tm.tm_min).to.be.equal(36);
-            expect(tm.tm_sec).to.be.equal(0);
-            expect(tm.tm_msec).to.be.equal(0);
+            expect(tm.hour).to.be.equal(16);
+            expect(tm.minutes).to.be.equal(36);
+            expect(tm.seconds).to.be.equal(0);
+            expect(tm.milliseconds).to.be.equal(0);
         });
     }
 
@@ -197,10 +197,10 @@ describe('[DateTime] Parser', function () {
             const parser = new Parser();
 
             const tm = parser.parse(t);
-            expect(tm.tm_hour).to.be.equal(4);
-            expect(tm.tm_min).to.be.equal(8);
-            expect(tm.tm_sec).to.be.equal(14);
-            expect(tm.tm_msec).to.be.equal(0);
+            expect(tm.hour).to.be.equal(4);
+            expect(tm.minutes).to.be.equal(8);
+            expect(tm.seconds).to.be.equal(14);
+            expect(tm.milliseconds).to.be.equal(0);
         });
     }
 
@@ -221,10 +221,10 @@ describe('[DateTime] Parser', function () {
             const parser = new Parser();
 
             const tm = parser.parse(t);
-            expect(tm.tm_hour).to.be.equal(16);
-            expect(tm.tm_min).to.be.equal(36);
-            expect(tm.tm_sec).to.be.equal(27);
-            expect(tm.tm_msec).to.be.equal(0);
+            expect(tm.hour).to.be.equal(16);
+            expect(tm.minutes).to.be.equal(36);
+            expect(tm.seconds).to.be.equal(27);
+            expect(tm.milliseconds).to.be.equal(0);
         });
     }
 
@@ -245,10 +245,10 @@ describe('[DateTime] Parser', function () {
             const parser = new Parser();
 
             const tm = parser.parse(t);
-            expect(tm.tm_hour).to.be.equal(4);
-            expect(tm.tm_min).to.be.equal(8);
-            expect(tm.tm_sec).to.be.equal(14);
-            expect(tm.tm_msec).to.be.equal(345);
+            expect(tm.hour).to.be.equal(4);
+            expect(tm.minutes).to.be.equal(8);
+            expect(tm.seconds).to.be.equal(14);
+            expect(tm.milliseconds).to.be.equal(345);
         });
     }
 
@@ -269,10 +269,10 @@ describe('[DateTime] Parser', function () {
             const parser = new Parser();
 
             const tm = parser.parse(t);
-            expect(tm.tm_hour).to.be.equal(16);
-            expect(tm.tm_min).to.be.equal(36);
-            expect(tm.tm_sec).to.be.equal(27);
-            expect(tm.tm_msec).to.be.equal(345);
+            expect(tm.hour).to.be.equal(16);
+            expect(tm.minutes).to.be.equal(36);
+            expect(tm.seconds).to.be.equal(27);
+            expect(tm.milliseconds).to.be.equal(345);
         });
     }
 
@@ -290,8 +290,8 @@ describe('[DateTime] Parser', function () {
             const parser = new Parser();
 
             const tm = parser.parse(t);
-            expect(tm.tm_tz).to.be.instanceOf(DateTimeZone);
-            expect(tm.tm_tz.name).to.be.equal(t);
+            expect(tm.timeZone).to.be.instanceOf(DateTimeZone);
+            expect(tm.timeZone.name).to.be.equal(t);
         });
     }
 
@@ -302,6 +302,7 @@ describe('[DateTime] Parser', function () {
         '17-03-09',
         '@1489017600',
         '+2017-03-09',
+        '2017-03-09T00:00:00+0000',
     ];
 
     for (const index of tests.keys()) {
@@ -310,13 +311,13 @@ describe('[DateTime] Parser', function () {
             const parser = new Parser();
 
             const tm = parser.parse(t);
-            expect(tm.tm_hour).to.be.equal(0);
-            expect(tm.tm_min).to.be.equal(0);
-            expect(tm.tm_sec).to.be.equal(0);
-            expect(tm.tm_msec).to.be.equal(0);
-            expect(tm.tm_year).to.be.equal(2017);
-            expect(tm.tm_mon).to.be.equal(3);
-            expect(tm.tm_mday).to.be.equal(9);
+            expect(tm.hour).to.be.equal(0);
+            expect(tm.minutes).to.be.equal(0);
+            expect(tm.seconds).to.be.equal(0);
+            expect(tm.milliseconds).to.be.equal(0);
+            expect(tm._year).to.be.equal(2017);
+            expect(tm.month).to.be.equal(3);
+            expect(tm.day).to.be.equal(9);
         });
     }
 
@@ -324,11 +325,11 @@ describe('[DateTime] Parser', function () {
         const parser = new Parser();
 
         const tm = parser.parse('2017-03-09', 'Etc/UTC');
-        expect(tm.tm_wday).to.be.equal(4);
-        expect(tm.tm_yday).to.be.equal(68);
-        expect(tm.tm_week).to.be.equal(10);
-        expect(tm.tm_leap).to.be.equal(false);
-        expect(tm.days_from_epoch).to.be.equal(17234);
-        expect(tm.unix_timestamp).to.be.equal(1489017600);
+        expect(tm.weekDay).to.be.equal(4);
+        expect(tm.yearDay).to.be.equal(68);
+        expect(tm.isoWeekNumber).to.be.equal(10);
+        expect(tm.leap).to.be.equal(false);
+        expect(tm.daysFromEpoch).to.be.equal(17234);
+        expect(tm.unixTimestamp).to.be.equal(1489017600);
     });
 });

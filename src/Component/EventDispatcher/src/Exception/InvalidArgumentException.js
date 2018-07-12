@@ -4,5 +4,7 @@ const ExceptionInterface = Jymfony.Component.DependencyInjection.Exception.Excep
 /**
  * @memberOf Jymfony.Component.EventDispatcher.Exception
  */
-module.exports = class InvalidArgumentException extends mix(BaseException, ExceptionInterface) {
-};
+class InvalidArgumentException extends mix(BaseException, ExceptionInterface) {
+}
+
+module.exports = InvalidArgumentException;

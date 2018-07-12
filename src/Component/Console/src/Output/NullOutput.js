@@ -8,74 +8,74 @@ const OutputFormatter = Jymfony.Component.Console.Formatter.OutputFormatter;
  */
 class NullOutput extends implementationOf(OutputInterface) {
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     write() { }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     writeln() { }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     set verbosity(level) { }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     get verbosity() {
         return OutputInterface.VERBOSITY_QUIET;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     isQuiet() {
         return true;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     isVerbose() {
         return false;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     isVeryVerbose() {
         return false;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     isDebug() {
         return false;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     set decorated(decorated) { }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     get decorated() {
         return false;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     set formatter(formatter) { }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     get formatter() {
         return new OutputFormatter();

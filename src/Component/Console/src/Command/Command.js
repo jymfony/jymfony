@@ -11,6 +11,11 @@ const InputDefinition = Jymfony.Component.Console.Input.InputDefinition;
  * @memberOf Jymfony.Component.Console.Command
  */
 class Command {
+    /**
+     * Constructor.
+     *
+     * @param {string} name
+     */
     __construct(name) {
         this._name = undefined;
         this._synopsis = {};
@@ -28,7 +33,9 @@ class Command {
         this.configure();
 
         if (! this.name) {
-            throw new LogicException(`The command defined in "${(new ReflectionClass(this)).name}" cannot have an empty name.`);
+            throw new LogicException(
+                __jymfony.sprintf('The command defined in "%s" cannot have an empty name.', ReflectionClass.getClassName(this))
+            );
         }
     }
 
@@ -69,11 +76,11 @@ class Command {
      * @param {Jymfony.Component.Console.Input.InputInterface} input An InputInterface instance
      * @param {Jymfony.Component.Console.Output.OutputInterface} output An OutputInterface instance
      *
-     * @returns {undefined|int} undefined or 0 if everything went fine, or an error code
+     * @returns {Promise<void|int>|undefined|int} undefined or 0 if everything went fine, or an error code
      *
-     * @throws {LogicException} When this abstract method is not implemented
+     * @throws {Jymfony.Component.Console.Exception.LogicException.LogicException} When this abstract method is not implemented
      */
-    * execute(input, output) { // eslint-disable-line no-unused-vars
+    async execute(input, output) { // eslint-disable-line no-unused-vars
         throw new LogicException('You must override the execute() method in the concrete command class.');
     }
 
@@ -87,7 +94,7 @@ class Command {
      * @param {Jymfony.Component.Console.Input.InputInterface} input An InputInterface instance
      * @param {Jymfony.Component.Console.Output.OutputInterface} output An OutputInterface instance
      */
-    * interact(input, output) { // eslint-disable-line no-unused-vars
+    async interact(input, output) { // eslint-disable-line no-unused-vars
     }
 
     /**
@@ -99,7 +106,7 @@ class Command {
      * @param {Jymfony.Component.Console.Input.InputInterface} input An InputInterface instance
      * @param {Jymfony.Component.Console.Output.OutputInterface} output An OutputInterface instance
      */
-    * initialize(input, output) { // eslint-disable-line no-unused-vars
+    async initialize(input, output) { // eslint-disable-line no-unused-vars
     }
 
 
@@ -112,11 +119,11 @@ class Command {
      * @param {Jymfony.Component.Console.Input.InputInterface} input An InputInterface instance
      * @param {Jymfony.Component.Console.Output.OutputInterface} output An OutputInterface instance
      *
-     * @returns int The command exit code
+     * @returns {int} The command exit code
      *
      * @see execute()
      */
-    * run(input, output) {
+    async run(input, output) {
         // Force the creation of the synopsis before the merge with the app definition
         this.getSynopsis(true);
         this.getSynopsis(false);
@@ -133,14 +140,14 @@ class Command {
             }
         }
 
-        yield __jymfony.Async.run(getCallableFromArray([ this, 'initialize' ]), input, output);
+        await __jymfony.Async.run(getCallableFromArray([ this, 'initialize' ]), input, output);
 
         if (undefined !== this._processTitle) {
             process.title = this._processTitle;
         }
 
         if (input.interactive) {
-            yield __jymfony.Async.run(getCallableFromArray([ this, 'interact' ]), input, output);
+            await __jymfony.Async.run(getCallableFromArray([ this, 'interact' ]), input, output);
         }
 
         // The command name argument is often omitted when a command is executed directly with its run() method.
@@ -152,7 +159,7 @@ class Command {
 
         input.validate();
 
-        const statusCode = yield __jymfony.Async.run(getCallableFromArray([ this, 'execute' ]), input, output);
+        const statusCode = await __jymfony.Async.run(getCallableFromArray([ this, 'execute' ]), input, output);
 
         return ! Number.isNaN(statusCode) ? ~~statusCode : 0;
     }
@@ -243,9 +250,9 @@ class Command {
      * Adds an argument.
      *
      * @param {string} name The argument name
-     * @param {int} mode The argument mode: InputArgument.REQUIRED or InputArgument.OPTIONAL
-     * @param {string} description A description text
-     * @param {*} defaultValue The default value (for InputArgument::OPTIONAL mode only)
+     * @param {int} [mode] The argument mode: InputArgument.REQUIRED or InputArgument.OPTIONAL
+     * @param {string} [description = ''] A description text
+     * @param {*} [defaultValue] The default value (for InputArgument::OPTIONAL mode only)
      *
      * @returns {Jymfony.Component.Console.Command.Command} The current instance
      */
@@ -259,10 +266,10 @@ class Command {
      * Adds an option.
      *
      * @param {string} name The option name
-     * @param {string} shortcut The shortcut (can be null)
-     * @param {int} mode The option mode: One of the InputOption.VALUE_* constants
-     * @param {string} description A description text
-     * @param {*} defaultValue The default value (must be undefined for InputOption.VALUE_NONE)
+     * @param {string} [shortcut] The shortcut (can be null)
+     * @param {int} [mode] The option mode: One of the InputOption.VALUE_* constants
+     * @param {string} [description = ''] A description text
+     * @param {*} [defaultValue] The default value (must be undefined for InputOption.VALUE_NONE)
      *
      * @returns {Jymfony.Component.Console.Command.Command} The current instance
      */
@@ -304,8 +311,6 @@ class Command {
      *
      * This feature should be used only when creating a long process command,
      * like a daemon.
-     *
-     * PHP 5.5+ or the proctitle PECL library is required
      *
      * @param {string} title The process title
      */
@@ -409,7 +414,7 @@ class Command {
     /**
      * Returns the synopsis for the command.
      *
-     * @param {boolean} short Whether to show the short version of the synopsis (with options folded) or not
+     * @param {boolean} [short = false] Whether to show the short version of the synopsis (with options folded) or not
      *
      * @returns {string} The synopsis
      */

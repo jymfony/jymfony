@@ -1,11 +1,11 @@
 const CacheItem = Jymfony.Component.Cache.CacheItem;
 const CacheItemPoolInterface = Jymfony.Component.Cache.CacheItemPoolInterface;
 const ArrayTrait = Jymfony.Component.Cache.Traits.ArrayTrait;
+const DateTime = Jymfony.Component.DateTime.DateTime;
 const LoggerAwareInterface = Jymfony.Component.Logger.LoggerAwareInterface;
 
 /**
  * @memberOf Jymfony.Component.Cache.Adapter
- * @abstract
  */
 class ArrayAdapter extends implementationOf(CacheItemPoolInterface, LoggerAwareInterface, ArrayTrait) {
     __construct(defaultLifetime = 0) {
@@ -32,11 +32,11 @@ class ArrayAdapter extends implementationOf(CacheItemPoolInterface, LoggerAwareI
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
-    getItem(key) {
+    async getItem(key) {
         let value;
-        let isHit = this.hasItem(key);
+        let isHit = await this.hasItem(key);
 
         try {
             if (! isHit) {
@@ -57,34 +57,34 @@ class ArrayAdapter extends implementationOf(CacheItemPoolInterface, LoggerAwareI
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
-    getItems(keys = []) {
-        const that = this;
+    async getItems(keys = []) {
+        const map = new Map();
 
-        return new Map((function * () {
-            for (const key of keys) {
-                CacheItem.validateKey(key);
-                yield [ key, that.getItem(key) ];
-            }
-        })());
+        for (const key of keys) {
+            CacheItem.validateKey(key);
+            map.set(key, await this.getItem(key));
+        }
+
+        return map;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
-    deleteItems(keys) {
+    async deleteItems(keys) {
         for (const key of keys) {
-            this.deleteItem(key);
+            await this.deleteItem(key);
         }
 
         return true;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
-    save(item) {
+    async save(item) {
         if (! (item instanceof CacheItem)) {
             return false;
         }
@@ -94,7 +94,7 @@ class ArrayAdapter extends implementationOf(CacheItemPoolInterface, LoggerAwareI
         let expiry = item._expiry;
 
         if (expiry && expiry <= DateTime.unixTime) {
-            this.deleteItem(key);
+            await this.deleteItem(key);
 
             return true;
         }

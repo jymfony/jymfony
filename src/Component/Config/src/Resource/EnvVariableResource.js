@@ -4,22 +4,28 @@ const SelfCheckingResourceInterface = Jymfony.Component.Config.Resource.SelfChec
  * @memberOf Jymfony.Component.Config.Resource
  */
 class EnvVariableResource extends implementationOf(SelfCheckingResourceInterface) {
+    /**
+     * Constructor.
+     *
+     * @param {string} name
+     */
     __construct(name) {
         this._resource = process.env[name];
+        this._name = name;
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritdoc
      */
     toString() {
         return this._resource;
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritdoc
      */
     isFresh(/* timestamp */) {
-        return this._resource === process.env[name];
+        return this._resource === process.env[this._name];
     }
 }
 

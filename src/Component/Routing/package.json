@@ -1,0 +1,36 @@
+{
+  "name": "@jymfony/routing",
+  "version": "0.1.0-dev",
+  "description": "Jymfony Routing component",
+  "scripts": {
+    "test": "node ./tests.js test/**"
+  },
+  "keywords": [
+    "routing",
+    "jymfony"
+  ],
+  "author": "Alessandro Chitolina <alekitto@gmail.com>",
+  "license": "MIT",
+  "engines": {
+    "node": ">=8.10.0"
+  },
+  "dependencies": {
+    "@jymfony/autoloader": "https://github.com/jymfony/autoloader.git",
+    "@jymfony/config": "https://github.com/jymfony/config.git",
+    "@jymfony/exceptions": "https://github.com/jymfony/exceptions.git",
+    "@jymfony/http-foundation": "https://github.com/jymfony/http-foundation.git",
+    "@jymfony/util": "https://github.com/jymfony/util.git"
+  },
+  "devDependencies": {
+    "@jymfony/debug": "https://github.com/jymfony/debug.git",
+    "chai": "^3.5.0",
+    "mocha": "^3.0"
+  },
+  "config": {
+    "jymfony-autoload": {
+      "namespaces": {
+        "Jymfony.Component.Routing": "src/"
+      }
+    }
+  }
+}

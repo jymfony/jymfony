@@ -11,6 +11,9 @@ const Terminal = Jymfony.Component.Console.Terminal;
  * @memberOf Jymfony.Component.Console.Question
  */
 class PasswordQuestion extends Question {
+    /**
+     * @inheritdoc
+     */
     __construct(input, output) {
         super.__construct(input, output);
 
@@ -29,6 +32,9 @@ class PasswordQuestion extends Question {
         this.mask = '*';
     }
 
+    /**
+     * @inheritdoc
+     */
     _getRenderer() {
         if (! this.hidden || ! this._output.stream.isTTY || ! Terminal.hasSttyAvailable()) {
             return new PasswordRenderer(this);

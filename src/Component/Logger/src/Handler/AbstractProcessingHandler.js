@@ -7,12 +7,15 @@ const ProcessableHandlerTrait = Jymfony.Component.Logger.Handler.ProcessableHand
 /**
  * @memberOf Jymfony.Component.Logger.Handler
  */
-class AbstractProcessingHandler extends mix(AbstractHandler,
-    FormattableHandlerInterface, ProcessableHandlerInterface,
-    FormattableHandlerTrait, ProcessableHandlerTrait
+class AbstractProcessingHandler extends mix(
+    AbstractHandler,
+    FormattableHandlerInterface,
+    ProcessableHandlerInterface,
+    FormattableHandlerTrait,
+    ProcessableHandlerTrait
 ) {
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     handle(record) {
         if (! this.isHandling(record)) {
@@ -23,6 +26,7 @@ class AbstractProcessingHandler extends mix(AbstractHandler,
             record = this._processRecord($record);
         }
 
+        record = __jymfony.deepClone(record);
         record.formatted = this.formatter.format(record);
 
         this._write(record);
@@ -34,7 +38,6 @@ class AbstractProcessingHandler extends mix(AbstractHandler,
      * Writes the record down to the log of the implementing handler
      *
      * @param {*} record
-     * @returns void
      *
      * @abstract
      */

@@ -7,6 +7,8 @@ global.__jymfony = global.__jymfony || {};
  *
  * @param {string} string
  * @param {string} delimiter
+ *
+ * @returns {string}
  */
 global.__jymfony.ucwords = function ucwords(string, delimiter = '\\s') {
     return string.toString()

@@ -4,10 +4,20 @@ const CLASS_TYPE = 'Interface';
 const checkedClassesCache = new Set();
 
 class Interfaces {
+    /**
+     * @param {*} mixin
+     *
+     * @returns {boolean}
+     */
     static isInterface(mixin) {
         return mixin[Mixins.classTypeSymbol] === CLASS_TYPE;
     }
 
+    /**
+     * @param {Object} definition
+     *
+     * @returns {Function}
+     */
     static create(definition) {
         const checks = obj => {
             if (checkedClassesCache.has(obj.constructor)) {
@@ -58,6 +68,13 @@ class Interfaces {
         return mixin;
     }
 
+    /**
+     * @param {Object} mixin
+     *
+     * @returns {Function}
+     *
+     * @private
+     */
     static _createHasInstance(mixin) {
         return o => {
             if (! isObject(o)) {

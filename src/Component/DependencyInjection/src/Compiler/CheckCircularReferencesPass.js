@@ -4,7 +4,10 @@ const ServiceCircularReferenceException = Jymfony.Component.DependencyInjection.
 /**
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
  */
-module.exports = class CheckCircularReferencesPass extends implementationOf(CompilerPassInterface) {
+class CheckCircularReferencesPass extends implementationOf(CompilerPassInterface) {
+    /**
+     * @inheritdoc
+     */
     process(container) {
         const graph = container.getCompiler().getServiceReferenceGraph();
 
@@ -15,9 +18,14 @@ module.exports = class CheckCircularReferencesPass extends implementationOf(Comp
         }
     }
 
+    /**
+     * @param {*[]} edges
+     *
+     * @private
+     */
     _checkOutEdges(edges) {
         for (const edge of edges) {
-            const node = edge.getDestNode();
+            const node = edge.getDestinationNode();
             const id = node.getId();
 
             if (! this._checkedNodes[id] || 0 === this._checkedNodes[id].length) {
@@ -38,4 +46,7 @@ module.exports = class CheckCircularReferencesPass extends implementationOf(Comp
             }
         }
     }
-};
+}
+
+module.exports = CheckCircularReferencesPass;
+

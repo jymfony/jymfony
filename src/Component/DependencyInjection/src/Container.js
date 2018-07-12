@@ -1,3 +1,4 @@
+const ContainerInterface = Jymfony.Component.DependencyInjection.ContainerInterface;
 const ServiceNotFoundException = Jymfony.Component.DependencyInjection.Exception.ServiceNotFoundException;
 const ServiceCircularReferenceException = Jymfony.Component.DependencyInjection.Exception.ServiceCircularReferenceException;
 const FrozenParameterBag = Jymfony.Component.DependencyInjection.ParameterBag.FrozenParameterBag;
@@ -8,24 +9,58 @@ const underscoreMap = {'_': '', '.': '_', '\\': '_'};
 /**
  * @memberOf Jymfony.Component.DependencyInjection
  */
-class Container {
+class Container extends implementationOf(ContainerInterface) {
     /**
      * Constructor.
      *
-     * @param parameterBag
+     * @param {Jymfony.Component.DependencyInjection.ParameterBag.ParameterBag} [parameterBag]
      */
-    __construct(parameterBag) {
+    __construct(parameterBag = undefined) {
+        /**
+         * @type {Jymfony.Component.DependencyInjection.ParameterBag.ParameterBag}
+         *
+         * @protected
+         */
         this._parameterBag = parameterBag || new ParameterBag();
 
+        /**
+         * @type {Object}
+         *
+         * @private
+         */
         this._services = {};
+
+        /**
+         * @type {Object}
+         *
+         * @private
+         */
         this._methodMap = {};
+
+        /**
+         * @type {Object}
+         *
+         * @private
+         */
         this._privates = {};
+
+        /**
+         * @type {Object}
+         *
+         * @private
+         */
         this._aliases = {};
+
+        /**
+         * @type {Object}
+         *
+         * @private
+         */
         this._loading = {};
     }
 
     /**
-     * Compiles the container
+     * Compiles the container.
      */
     compile() {
         this._parameterBag.resolve();
@@ -34,7 +69,7 @@ class Container {
     }
 
     /**
-     * True if parameter bag is frozen
+     * True if parameter bag is frozen.
      *
      * @returns {boolean}
      */
@@ -43,7 +78,7 @@ class Container {
     }
 
     /**
-     * Get the container parameter bag
+     * Gets the container parameter bag.
      *
      * @returns {Jymfony.Component.DependencyInjection.ParameterBag.ParameterBag}
      */
@@ -52,9 +87,9 @@ class Container {
     }
 
     /**
-     * Get a parameter
+     * Gets a parameter.
      *
-     * @param name
+     * @param {string} name
      *
      * @returns {string}
      */
@@ -63,9 +98,9 @@ class Container {
     }
 
     /**
-     * Check if a parameter exists
+     * Checks if a parameter exists.
      *
-     * @param name
+     * @param {string} name
      *
      * @returns {boolean}
      */
@@ -74,7 +109,7 @@ class Container {
     }
 
     /**
-     * Sets a parameter
+     * Sets a parameter.
      *
      * @param {string} name
      * @param {string} value
@@ -84,14 +119,12 @@ class Container {
     }
 
     /**
-     * Sets a service
+     * Sets a service.
      *
      * @param {string} id
      * @param {*} service
      */
     set(id, service) {
-        id = id.toLowerCase();
-
         if ('service_container' === id) {
             throw new InvalidArgumentException('A service with name "service_container" cannot be set');
         }
@@ -109,7 +142,7 @@ class Container {
     }
 
     /**
-     * Checks if a service is defined
+     * Checks if a service is defined.
      *
      * @param {string} id
      *
@@ -118,89 +151,71 @@ class Container {
     has(id) {
         id = __self.normalizeId(id);
 
-        for (let i = 2;;) {
-            if ('service_container' === id || undefined !== this._aliases[id] || undefined !== this._services[id]) {
-                return true;
-            }
-
-            if (undefined !== this._methodMap[id]) {
-                return true;
-            }
-
-            const lcId = id.toLowerCase();
-            if (--i && id !== lcId) {
-                id = lcId;
-                continue;
-            } else if (this.constructor instanceof Jymfony.Component.DependencyInjection.ContainerBuilder) {
-                return this['get' + __jymfony.strtr(id, underscoreMap) + 'Service'] !== undefined;
-            }
-
-            return false;
+        if ('service_container' === id || undefined !== this._aliases[id] || undefined !== this._services[id]) {
+            return true;
         }
+
+        if (undefined !== this._methodMap[id]) {
+            return true;
+        }
+
+        if (this.constructor instanceof Jymfony.Component.DependencyInjection.ContainerBuilder) {
+            return this['get' + __jymfony.strtr(id, underscoreMap) + 'Service'] !== undefined;
+        }
+
+        return false;
     }
 
     /**
-     * Gets a service
+     * Gets a service.
      *
      * @param {string} id
-     * @param invalidBehavior
+     * @param {int} [invalidBehavior = Jymfony.Component.DependencyInjection.Container.EXCEPTION_ON_INVALID_REFERENCE]
      *
      * @returns {*}
      */
     get(id, invalidBehavior = Container.EXCEPTION_ON_INVALID_REFERENCE) {
         id = __self.normalizeId(id);
 
-        for (let i = 2;;) {
-            if ('service_container' === id) {
-                return this;
-            }
-
-            if (this._aliases[id]) {
-                id = this._aliases[id];
-            }
-
-            if (this._services.hasOwnProperty(id)) {
-                return this._services[id];
-            }
-
-            if (this._loading[id]) {
-                throw new ServiceCircularReferenceException(id, Object.keys(this._loading));
-            }
-
-            let method;
-            let lcId;
-            if (this._methodMap[id]) {
-                method = this._methodMap[id];
-            } else if (--i && id !== (lcId = id.toLowerCase())) {
-                id = lcId;
-                continue;
-            } else {
-                if (Container.EXCEPTION_ON_INVALID_REFERENCE === invalidBehavior) {
-                    throw new ServiceNotFoundException(id);
-                }
-
-                return;
-            }
-
-            this._loading[id] = true;
-
-            let service;
-            try {
-                service = this[method]();
-            } catch (e) {
-                delete this._services[id];
-
-                throw e;
-            } finally {
-                delete this._loading[id];
-            }
-
-            return service;
+        if ('service_container' === id) {
+            return this;
         }
+
+        if (this._aliases[id]) {
+            id = this._aliases[id];
+        }
+
+        if (this._services.hasOwnProperty(id)) {
+            return this._services[id];
+        }
+
+        if (this._loading[id]) {
+            throw new ServiceCircularReferenceException(id, Object.keys(this._loading));
+        }
+
+        this._loading[id] = true;
+
+        try {
+            if (this._methodMap[id]) {
+                return __self.IGNORE_ON_UNINITIALIZED_REFERENCE === invalidBehavior ? undefined : this[this._methodMap[id]]();
+            }
+        } catch (e) {
+            delete this._services[id];
+
+            throw e;
+        } finally {
+            delete this._loading[id];
+        }
+
+        if (Container.EXCEPTION_ON_INVALID_REFERENCE === invalidBehavior) {
+            throw new ServiceNotFoundException(id);
+        }
+
+        return null;
     }
 
     /**
-     * Checks if a given service has been initialized
+     * Checks if a given service has been initialized.
      *
      * @param {string} id
      *
@@ -208,7 +223,6 @@ class Container {
      */
     initialized(id) {
         id = __self.normalizeId(id);
-        id = id.toLowerCase();
 
         if ('service_container' === id) {
             return false;
@@ -222,14 +236,14 @@ class Container {
     }
 
     /**
-     * Resets the container
+     * Resets the container.
      */
     reset() {
         this._services = {};
     }
 
     /**
-     * Get all service ids
+     * Gets all service ids.
      *
      * @returns {string[]}
      */
@@ -241,9 +255,9 @@ class Container {
     /**
      * Normalizes a class definition (Function) to its class name.
      *
-     * @param id
+     * @param {string} id
      *
-     * @returns {*}
+     * @returns {string}
      */
     static normalizeId(id) {
         if (isFunction(id)) {
@@ -256,7 +270,7 @@ class Container {
     }
 
     /**
-     * Underscorize a string
+     * Underscorizes a string.
      *
      * @param {string} id
      *
@@ -271,7 +285,7 @@ class Container {
     }
 
     /**
-     * Camelizes a string
+     * Camelizes a string.
      *
      * @param {string} id
      *
@@ -285,5 +299,6 @@ class Container {
 Container.EXCEPTION_ON_INVALID_REFERENCE = 1;
 Container.NULL_ON_INVALID_REFERENCE = 2;
 Container.IGNORE_ON_INVALID_REFERENCE = 3;
+Container.IGNORE_ON_UNINITIALIZED_REFERENCE = 4;
 
 module.exports = Container;

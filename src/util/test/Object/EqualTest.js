@@ -362,11 +362,11 @@ describe('Equal', function () {
 
     describe('buffers', function () {
         it('returns true for same buffers', () => {
-            expect(__jymfony.equal(new Buffer([ 1 ]), new Buffer([ 1 ]))).to.be.true;
+            expect(__jymfony.equal(Buffer.from([ 1 ]), Buffer.from([ 1 ]))).to.be.true;
         });
 
         it('returns false for different buffers', () => {
-            expect(__jymfony.equal(new Buffer([ 1 ]), new Buffer([ 2 ]))).to.be.false;
+            expect(__jymfony.equal(Buffer.from([ 1 ]), Buffer.from([ 2 ]))).to.be.false;
         });
     });
 

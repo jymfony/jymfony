@@ -1,13 +1,13 @@
 const AbstractHandler = Jymfony.Component.Logger.Handler.AbstractHandler;
 
 /**
- * Blackhole
+ * Blackhole.
  *
  * @memberOf Jymfony.Component.Logger.Handler
  */
 class NullHandler extends AbstractHandler {
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     handle(record) {
         return this.isHandling(record);

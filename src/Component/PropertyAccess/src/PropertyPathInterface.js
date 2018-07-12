@@ -1,17 +1,16 @@
 /**
- * @namespace Jymfony.Component.PropertyAccess
- * @type {Jymfony.Component.PropertyAccess.PropertyPathInterface}
+ * @memberOf Jymfony.Component.PropertyAccess
  */
 class PropertyPathInterface {
     /**
-     * Returns the path as string
+     * Returns the path as string.
      *
      * @returns {string}
      */
     toString() { }
 
     /**
-     * Returns the element at given index
+     * Returns the element at given index.
      *
      * @param {int} index
      *
@@ -22,20 +21,14 @@ class PropertyPathInterface {
     getElement(index) { }
 
     /**
-     * Returns the path length
-     *
-     * @property
-     * @readonly
+     * Returns the path length.
      *
      * @returns {int}
      */
     get length() { }
 
     /**
-     * Returns the last element of the path
-     *
-     * @property
-     * @readonly
+     * Returns the last element of the path.
      *
      * @returns {int}
      */

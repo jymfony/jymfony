@@ -14,7 +14,6 @@ const vm = require('vm');
  * @memberOf Jymfony.Component.DependencyInjection.Loader
  */
 class JsFileLoader extends FileLoader {
-
     /**
      * Constructor.
      *
@@ -24,6 +23,7 @@ class JsFileLoader extends FileLoader {
     __construct(container, locator) {
         /**
          * @type {Jymfony.Component.DependencyInjection.ContainerBuilder}
+         *
          * @private
          */
         this._container = container;
@@ -32,9 +32,11 @@ class JsFileLoader extends FileLoader {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
-    load(resource ) {
+    load(resource) {
+        const oldCWD = this.currentDir;
+
         const filePath = this._locator.locate(resource);
         this.currentDir = path.dirname(filePath);
         this._container.addResource(new FileResource(filePath));
@@ -48,10 +50,12 @@ class JsFileLoader extends FileLoader {
         script.runInThisContext({
             filename: filePath,
         })(this._container, this);
+
+        this.currentDir = oldCWD;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     supports(resource, type = undefined) {
         if (! isString(resource)) {

@@ -2,6 +2,11 @@
 
 global.__jymfony = global.__jymfony || {};
 
+/**
+ * @param {Object} obj
+ *
+ * @returns {Map}
+ */
 const obj2map = function (obj) {
     if (Object.getPrototypeOf(obj) !== Object.prototype) {
         return obj;

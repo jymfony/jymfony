@@ -2,6 +2,11 @@ const Lexer = require('./Lexer');
 const lexer = new Lexer();
 
 class Patcher {
+    /**
+     * Constructor.
+     *
+     * @param {string} code
+     */
     constructor(code) {
         lexer.input = code;
 
@@ -10,6 +15,7 @@ class Patcher {
 
     /**
      * @param {Jymfony.Component.Autoloader.Parser.Lexer} lexer
+     *
      * @private
      */
     * _process(lexer) {
@@ -42,12 +48,14 @@ class Patcher {
     /**
      * @param {Jymfony.Component.Autoloader.Parser.Lexer} lexer
      * @param {undefined|string} classDocblock
+     *
      * @private
      */
     _processClass(lexer, classDocblock) {
         classDocblock = {
             ['class']: classDocblock,
             methods: {},
+            properties: {},
         };
 
         let docblock = undefined, code = '', patchRemoval = () => {};
@@ -94,6 +102,7 @@ class Patcher {
         code += lexer.token.value; // {
 
         let level = 1;
+        let currentMethodName;
         while (level && false !== lexer.moveNext()) {
             const token = lexer.token;
 
@@ -114,7 +123,10 @@ class Patcher {
 
                 case Lexer.T_CURLY_BRACKET_CLOSE:
                 case Lexer.T_CLOSED_PARENTHESIS:
-                    level--;
+                    if (0 === --level) {
+                        currentMethodName = undefined;
+                    }
+
                     docblock = undefined;
                     break;
 
@@ -135,6 +147,7 @@ class Patcher {
                         }
 
                         classDocblock.methods[methodName] = docblock;
+                        currentMethodName = methodName;
                     }
 
                     break;
@@ -146,6 +159,19 @@ class Patcher {
 
                         if (methodToken.type === Lexer.T_IDENTIFIER) {
                             classDocblock.methods[token.value + '#' + methodToken.value] = docblock;
+                        }
+                    }
+
+                    if (docblock && 'this' === token.value &&
+                        ('__construct' === currentMethodName || 'constructor' === currentMethodName)) {
+                        let next;
+                        while ((next = lexer.peek()).type === Lexer.T_SPACE) { }
+
+                        if (next.type === Lexer.T_DOT) {
+                            while ((next = lexer.peek()).type === Lexer.T_SPACE) { }
+                            if (next.type === Lexer.T_IDENTIFIER) {
+                                classDocblock.properties[next.value] = docblock;
+                            }
                         }
                     }
 
@@ -163,11 +189,7 @@ class Patcher {
 
             if (0 === level) {
                 const docblock = JSON.stringify(classDocblock);
-                code += `
-    static [Symbol.docblock]() {
-        return ${docblock};
-    }
-`;
+                code += ` static [Symbol.docblock]() { return ${docblock}; } `;
             }
 
             code += token.value;
@@ -180,6 +202,9 @@ class Patcher {
         return code;
     }
 
+    /**
+     * @private
+     */
     _parse() {
         this._code = '';
         for (const block of this._process(lexer)) {
@@ -187,6 +212,9 @@ class Patcher {
         }
     }
 
+    /**
+     * @returns {string}
+     */
     get code() {
         return this._code;
     }

@@ -1,5 +1,8 @@
 global.__jymfony = global.__jymfony || {};
 
+let _asyncSupport = undefined;
+let _modernRegex = undefined;
+
 /**
  * @memberOf __jymfony
  */
@@ -10,13 +13,13 @@ class Platform {
      * @returns {boolean}
      */
     static hasAsyncFunctionSupport() {
-        if (undefined === this._asyncSupport) {
-            this._asyncSupport = false;
+        if (undefined === _asyncSupport) {
+            _asyncSupport = false;
 
             try {
                 let fn;
                 eval('fn = async function () { }');
-                this._asyncSupport = 'AsyncFunction' === (fn.constructor.name || fn.constructor.displayName);
+                _asyncSupport = 'AsyncFunction' === (fn.constructor.name || fn.constructor.displayName);
             } catch (e) {
                 if (!(e instanceof SyntaxError)) {
                     throw e;
@@ -24,7 +27,7 @@ class Platform {
             }
         }
 
-        return this._asyncSupport;
+        return _asyncSupport;
     }
 
     /**
@@ -34,6 +37,28 @@ class Platform {
      */
     static isWindows() {
         return 'win32' === process.platform;
+    }
+
+    /**
+     * Checks if this node version has modern regex (named groups) support.
+     *
+     * @returns {boolean}
+     */
+    static hasModernRegex() {
+        if (undefined === _modernRegex) {
+            _modernRegex = false;
+
+            try {
+                RegExp('(?<test>.+)');
+                _modernRegex = true;
+            } catch (e) {
+                if (!(e instanceof SyntaxError)) {
+                    throw e;
+                }
+            }
+        }
+
+        return _modernRegex;
     }
 }
 

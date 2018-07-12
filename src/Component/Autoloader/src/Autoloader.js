@@ -13,8 +13,8 @@ class Autoloader {
     /**
      * Constructor.
      *
-     * @param {undefined|Jymfony.Component.Autoloader.Finder} finder
-     * @param {Object} globalObject
+     * @param {undefined|Jymfony.Component.Autoloader.Finder} [finder]
+     * @param {Object} [globalObject = global]
      */
     constructor(finder = undefined, globalObject = global) {
         if (globalObject.__jymfony && globalObject.__jymfony.autoload) {
@@ -27,24 +27,28 @@ class Autoloader {
 
         /**
          * @type {boolean}
+         *
          * @private
          */
         this._debug = false;
 
         /**
          * @type {boolean}
+         *
          * @private
          */
         this._registered = false;
 
         /**
          * @type {Jymfony.Component.Autoloader.Finder}
+         *
          * @private
          */
         this._finder = finder;
 
         /**
          * @type {Object}
+         *
          * @private
          */
         this._global = globalObject;
@@ -104,14 +108,64 @@ class Autoloader {
          */
         this._global.__jymfony.JObject = class JObject {
             constructor(...$args) {
-                return this.__construct(...$args);
+                const retVal = this.__construct(...$args);
+                if (undefined !== retVal && this !== retVal) {
+                    return retVal;
+                }
+
+                if (undefined !== this.__invoke) {
+                    return new Proxy(this.__invoke, {
+                        get: (target, key) => {
+                            return Reflect.get(this, key);
+                        },
+                        set: (target, key, value) => {
+                            return Reflect.set(this, key, value);
+                        },
+                        has: (target, key) => {
+                            return Reflect.has(this, key);
+                        },
+                        deleteProperty: (target, key) => {
+                            return Reflect.deleteProperty(this, key);
+                        },
+                        defineProperty: (target, key, descriptor) => {
+                            return Reflect.defineProperty(this, key, descriptor);
+                        },
+                        enumerate: () => {
+                            return Reflect.enumerate(this);
+                        },
+                        ownKeys: () => {
+                            return Reflect.ownKeys(this);
+                        },
+                        apply: (target, ctx, args) => {
+                            return this.__invoke(...args);
+                        },
+                        construct: (target, argumentsList, newTarget) => {
+                            return Reflect.construct(this, argumentsList, newTarget);
+                        },
+                        getPrototypeOf: () => {
+                            return Reflect.getPrototypeOf(this);
+                        },
+                        setPrototypeOf: (target, proto) => {
+                            return Reflect.setPrototypeOf(this, proto);
+                        },
+                        isExtensible: () => {
+                            return Reflect.isExtensible(this);
+                        },
+                        preventExtensions: () => {
+                            return Reflect.preventExtensions(this);
+                        },
+                        getOwnPropertyDescriptor: (target, key) => {
+                            return Reflect.getOwnPropertyDescriptor(this, key);
+                        },
+                    });
+                }
             }
 
             __construct() { }
         };
 
-        Symbol.reflection = Symbol('reflection');
-        Symbol.docblock = Symbol('docblock');
+        this._global.Symbol.reflection = Symbol('reflection');
+        this._global.Symbol.docblock = Symbol('docblock');
 
         const rootDir = this._finder.findRoot();
         for (const module of this._finder.listModules()) {
@@ -131,6 +185,12 @@ class Autoloader {
         this._processPackageInfo(require(rootDir + '/package.json'), rootDir);
     }
 
+    /**
+     * @param {Object} packageInfo
+     * @param {string} baseDir
+     *
+     * @private
+     */
     _processPackageInfo(packageInfo, baseDir) {
         if (! packageInfo.config || ! packageInfo.config['jymfony-autoload']) {
             return;
@@ -146,6 +206,12 @@ class Autoloader {
         }
     }
 
+    /**
+     * @param {Object} config
+     * @param {string} baseDir
+     *
+     * @private
+     */
     _processNamespaces(config, baseDir) {
         for (const namespace in config) {
             if (! config.hasOwnProperty(namespace)) {
@@ -169,12 +235,26 @@ class Autoloader {
         }
     }
 
+    /**
+     * @param {Object} config
+     * @param {string} baseDir
+     *
+     * @private
+     */
     _processIncludes(config, baseDir) {
         for (const fileName of config) {
             require(baseDir + '/' + fileName);
         }
     }
 
+    /**
+     * @param {Object} namespace
+     * @param {Object} parent
+     *
+     * @returns {Object}
+     *
+     * @private
+     */
     _ensureNamespace(namespace, parent) {
         if (parent[namespace] === undefined) {
             return parent[namespace] = new Namespace(this, this._generateFqn(parent, namespace));
@@ -183,6 +263,14 @@ class Autoloader {
         return parent[namespace];
     }
 
+    /**
+     * @param {Object} parent
+     * @param {Object} namespace
+     *
+     * @returns {string}
+     *
+     * @private
+     */
     _generateFqn(parent, namespace) {
         return (parent === this._global ? '' : parent.__namespace.name + '.') + namespace;
     }

@@ -5,7 +5,7 @@ class PromiseInterface {
     /**
      * Evaluates promise.
      *
-     * @param {[*]} args
+     * @param {*[]} args
      * @param {Jymfony.Component.Testing.Prophecy.ObjectProphecy} object
      * @param {Jymfony.Component.Testing.Prophecy.MethodProphecy} method
      *

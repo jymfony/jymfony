@@ -1,4 +1,3 @@
-const util = require('util');
 const expect = require('chai').expect;
 
 const special_forms = [ '-dev', 'a1', 'b1', 'RC1', 'rc1', '', 'pl1' ];
@@ -109,7 +108,7 @@ describe('Version Compare', function () {
                     const v1 = `1.0${f1}`;
                     const v2 = `1.0${f2}`;
                     const test = __jymfony.version_compare(v1, v2, op) ? 'true' : 'false';
-                    result += util.format(
+                    result += __jymfony.sprintf(
                         '%s %s %s : %s\n',
                         (`       ${v1}`).slice(-7),
                         (`  ${op}`).slice(-2),

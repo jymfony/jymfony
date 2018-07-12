@@ -12,11 +12,15 @@ const UndefinedOptionsException = Jymfony.Component.OptionsResolver.Exception.Un
  * @memberOf Jymfony.Component.OptionsResolver
  */
 class OptionsResolver {
+    /**
+     * Constructor.
+     */
     __construct() {
         /**
          * The names of all defined options.
          *
-         * @type {Object<string, boolean>}
+         * @type {Object.<string, boolean>}
+         *
          * @private
          */
         this._defined = {};
@@ -24,7 +28,8 @@ class OptionsResolver {
         /**
          * The default option values.
          *
-         * @type {Object<string, *>}
+         * @type {Object.<string, *>}
+         *
          * @private
          */
         this._defaults = {};
@@ -32,7 +37,8 @@ class OptionsResolver {
         /**
          * The names of required options.
          *
-         * @type {Object<string, boolean>}
+         * @type {Object.<string, boolean>}
+         *
          * @private
          */
         this._required = {};
@@ -40,7 +46,8 @@ class OptionsResolver {
         /**
          * The resolved option values.
          *
-         * @type {Object<string, *>}
+         * @type {Object.<string, *>}
+         *
          * @private
          */
         this._resolved = {};
@@ -48,7 +55,8 @@ class OptionsResolver {
         /**
          * A list of normalizer closures.
          *
-         * @type {Object<string, Function>}
+         * @type {Object.<string, Function>}
+         *
          * @private
          */
         this._normalizers = {};
@@ -56,7 +64,8 @@ class OptionsResolver {
         /**
          * A list of accepted values for each option.
          *
-         * @type {Object<string, [*]>}
+         * @type {Object.<string, *[]>}
+         *
          * @private
          */
         this._allowedValues = {};
@@ -64,7 +73,8 @@ class OptionsResolver {
         /**
          * A list of accepted types for each option.
          *
-         * @type {Object<string, [string|Function]>}
+         * @type {Object.<string, string[]|Function[]>}
+         *
          * @private
          */
         this._allowedTypes = {};
@@ -72,17 +82,18 @@ class OptionsResolver {
         /**
          * A list of closures for evaluating lazy options.
          *
-         * @type {Object<string, [Function]>}
+         * @type {Object.<string, Function[]>}
+         *
          * @private
          */
         this._lazy = {};
 
         /**
          * A list of lazy options whose closure is currently being called.
-         *
          * This list helps detecting circular dependencies between lazy options.
          *
-         * @type {Object<string, boolean>}
+         * @type {Object.<string, boolean>}
+         *
          * @private
          */
         this._calling = {};
@@ -96,6 +107,7 @@ class OptionsResolver {
          * lazy options that depend on this option would become invalid.
          *
          * @type {boolean}
+         *
          * @private
          */
         this._locked = false;
@@ -136,7 +148,7 @@ class OptionsResolver {
      *
      * @param {string} option The name of the option
      * @param {*} value The default value of the option
-     * @param {boolean} lazy If the option should be lazy-evaluated
+     * @param {boolean} [lazy = false] If the option should be lazy-evaluated
      *
      * @returns {Jymfony.Component.OptionsResolver.OptionsResolver}
      *
@@ -178,7 +190,7 @@ class OptionsResolver {
     /**
      * Sets a list of default values.
      *
-     * @param {Object<string, *>} defaults The default values to set
+     * @param {Object.<string, *>} defaults The default values to set
      *
      * @returns {Jymfony.Component.OptionsResolver.OptionsResolver}
      *
@@ -209,7 +221,7 @@ class OptionsResolver {
     /**
      * Marks one or more options as required.
      *
-     * @param {string|[string]} optionNames One or more option names
+     * @param {string|string[]} optionNames One or more option names
      *
      * @returns {Jymfony.Component.OptionsResolver.OptionsResolver}
      *
@@ -248,7 +260,7 @@ class OptionsResolver {
     /**
      * Returns the names of all required options.
      *
-     * @returns {[string]} The names of the required options
+     * @returns {string[]} The names of the required options
      *
      * @see isRequired()
      */
@@ -274,7 +286,7 @@ class OptionsResolver {
     /**
      * Returns the names of all options missing a default value.
      *
-     * @returns {[string]} The names of the missing options
+     * @returns {string[]} The names of the missing options
      *
      * @see isMissing()
      */
@@ -289,7 +301,7 @@ class OptionsResolver {
      * be accepted when passed to {@link resolve()}. When not passed, the
      * option will not be included in the resolved options.
      *
-     * @param {string|[string]} optionNames One or more option names
+     * @param {string|string[]} optionNames One or more option names
      *
      * @returns {Jymfony.Component.OptionsResolver.OptionsResolver}
      *
@@ -328,7 +340,7 @@ class OptionsResolver {
     /**
      * Returns the names of all defined options.
      *
-     * @returns {[string]} The names of the defined options
+     * @returns {string[]} The names of the defined options
      *
      * @see isDefined()
      */
@@ -356,7 +368,7 @@ class OptionsResolver {
      *
      * The resolved option value is set to the return value of the closure.
      *
-     * @param {string} option     The option name
+     * @param {string} option The option name
      * @param {Function} normalizer The normalizer
      *
      * @returns {Jymfony.Component.OptionsResolver.OptionsResolver}
@@ -390,9 +402,11 @@ class OptionsResolver {
      * Instead of passing values, you may also pass a closures with the
      * following signature:
      *
-     *     function (value) {
-     *         // return true or false
-     *     }
+     * ```js
+     * function (value) {
+     *     // return true or false
+     * }
+     * ```
      *
      * The closure receives the value as argument and should return true to
      * accept the value and false to reject the value.
@@ -433,14 +447,16 @@ class OptionsResolver {
      * Instead of passing values, you may also pass a closures with the
      * following signature:
      *
-     *     function (value) {
-     *         // return true or false
-     *     }
+     * ```js
+     * function (value) {
+     *     // return true or false
+     * }
+     * ```
      *
      * The closure receives the value as argument and should return true to
      * accept the value and false to reject the value.
      *
-     * @param {string} option        The option name
+     * @param {string} option The option name
      * @param {*} allowedValues One or more acceptable values/closures
      *
      * @returns {Jymfony.Component.OptionsResolver.OptionsResolver}
@@ -483,8 +499,8 @@ class OptionsResolver {
      * acceptable. Additionally, fully-qualified class or interface names may
      * be passed.
      *
-     * @param {string} option       The option name
-     * @param {string|[string]} allowedTypes One or more accepted types
+     * @param {string} option The option name
+     * @param {string|string[]} allowedTypes One or more accepted types
      *
      * @returns {Jymfony.Component.OptionsResolver.OptionsResolver}
      *
@@ -521,7 +537,7 @@ class OptionsResolver {
      * be passed.
      *
      * @param {string} option The option name
-     * @param {string|[string]} allowedTypes One or more accepted types
+     * @param {string|string[]} allowedTypes One or more accepted types
      *
      * @returns {Jymfony.Component.OptionsResolver.OptionsResolver}
      *
@@ -561,7 +577,7 @@ class OptionsResolver {
      *
      * Undefined options are ignored.
      *
-     * @param {string|[string]} optionNames One or more option names
+     * @param {string|string[]} optionNames One or more option names
      *
      * @returns {Jymfony.Component.OptionsResolver.OptionsResolver}
      *
@@ -625,9 +641,9 @@ class OptionsResolver {
      *  - Options have invalid types;
      *  - Options have invalid values.
      *
-     * @param {Object<string, *>} options A map of option names to values
+     * @param {Object.<string, *>} options A map of option names to values
      *
-     * @returns {Object<string, *>} The merged and validated options
+     * @returns {Object.<string, *>} The merged and validated options
      *
      * @throws {Jymfony.Component.OptionsResolver.Exception.UndefinedOptionsException} If an option name is undefined
      * @throws {Jymfony.Component.OptionsResolver.Exception.InvalidOptionsException} If an option doesn't fulfill the specified validation rules
@@ -944,7 +960,7 @@ class OptionsResolver {
      * Each of the values is converted to a string using
      * {@link formatValue()}. The values are then concatenated with commas.
      *
-     * @params {[*]} values A list of values
+     * @params {*[]} values A list of values
      *
      * @returns {string} The string representation of the value list
      *

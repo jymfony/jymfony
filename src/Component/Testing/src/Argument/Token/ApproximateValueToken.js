@@ -5,6 +5,12 @@ const InvalidArgumentException = Jymfony.Component.Testing.Exception.InvalidArgu
  * @memberOf Jymfony.Component.Testing.Argument.Token
  */
 class ApproximateValueToken extends implementationOf(TokenInterface) {
+    /**
+     * Constructor.
+     *
+     * @param {number} value
+     * @param {int} [precision = 0]
+     */
     __construct(value, precision = 0) {
         if (! isNumber(value)) {
             throw new InvalidArgumentException(
@@ -14,6 +20,7 @@ class ApproximateValueToken extends implementationOf(TokenInterface) {
 
         /**
          * @type {number}
+         *
          * @private
          */
         this._value = value;
@@ -26,7 +33,7 @@ class ApproximateValueToken extends implementationOf(TokenInterface) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     scoreArgument(argument) {
         if (! isNumber(argument)) {
@@ -37,7 +44,7 @@ class ApproximateValueToken extends implementationOf(TokenInterface) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     isLast() {
         return false;

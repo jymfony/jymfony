@@ -1,3 +1,5 @@
+const DateTime = Jymfony.Component.DateTime.DateTime;
+const DateTimeZone = Jymfony.Component.DateTime.DateTimeZone;
 const Request = Jymfony.Component.HttpFoundation.Request;
 const ResponseHeaderBag = Jymfony.Component.HttpFoundation.ResponseHeaderBag;
 
@@ -5,14 +7,26 @@ const ResponseHeaderBag = Jymfony.Component.HttpFoundation.ResponseHeaderBag;
  * @memberOf Jymfony.Component.HttpFoundation
  */
 class Response {
-    __construct(content = '', status = 200, headers = {}) {
+    /**
+     * Constructor.
+     *
+     * @param {string} [content = '']
+     * @param {int} [status = Jymfony.Component.HttpFoundation.Response.HTTP_OK]
+     * @param {Object} [headers = {}]
+     */
+    __construct(content = '', status = __self.HTTP_OK, headers = {}) {
+        /**
+         * @type {Jymfony.Component.HttpFoundation.ResponseHeaderBag}
+         */
         this.headers = new ResponseHeaderBag(headers);
+
         this.content = content;
         this.setStatusCode(status);
         this.protocolVersion = '1.0';
 
         /**
          * @type {undefined|string}
+         *
          * @protected
          */
         this._charset = undefined;
@@ -20,6 +34,8 @@ class Response {
 
     /**
      * Is response invalid?
+     *
+     * @returns {boolean}
      *
      * @see http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
      *
@@ -32,6 +48,8 @@ class Response {
     /**
      * Is response informative?
      *
+     * @returns {boolean}
+     *
      * @final
      */
     get isInformational() {
@@ -40,6 +58,8 @@ class Response {
 
     /**
      * Is response successful?
+     *
+     * @returns {boolean}
      *
      * @final
      */
@@ -50,6 +70,8 @@ class Response {
     /**
      * Is the response a redirect?
      *
+     * @returns {boolean}
+     *
      * @final
      */
     get isRedirection() {
@@ -58,6 +80,8 @@ class Response {
 
     /**
      * Is there a client error?
+     *
+     * @returns {boolean}
      *
      * @final
      */
@@ -68,6 +92,8 @@ class Response {
     /**
      * Was there a server side error?
      *
+     * @returns {boolean}
+     *
      * @final
      */
     get isServerError() {
@@ -76,6 +102,8 @@ class Response {
 
     /**
      * Is the response OK?
+     *
+     * @returns {boolean}
      *
      * @final
      */
@@ -86,6 +114,8 @@ class Response {
     /**
      * Is the response forbidden?
      *
+     * @returns {boolean}
+     *
      * @final
      */
     get isForbidden() {
@@ -94,6 +124,8 @@ class Response {
 
     /**
      * Is the response a not found error?
+     *
+     * @returns {boolean}
      *
      * @final
      */
@@ -104,7 +136,9 @@ class Response {
     /**
      * Is the response a redirect of some form?
      *
-     * @param {undefined|string} location
+     * @param {undefined|string} [location]
+     *
+     * @returns {boolean}
      *
      * @final
      */
@@ -115,6 +149,8 @@ class Response {
 
     /**
      * Is the response empty?
+     *
+     * @returns {boolean}
      *
      * @final
      */
@@ -129,13 +165,17 @@ class Response {
      * @param {*} content
      */
     set content(content) {
-        this._content = content.toString();
+        if (isFunction(content)) {
+            this._content = content;
+        } else {
+            this._content = content.toString();
+        }
     }
 
     /**
      * Gets the response content.
      *
-     * @returns {string}
+     * @returns {Function|string}
      */
     get content() {
         return this._content;
@@ -163,7 +203,7 @@ class Response {
      * Sets the response status code and text.
      *
      * @param {int} code
-     * @param {string} text
+     * @param {string} [text]
      */
     setStatusCode(code, text = undefined) {
         this._statusCode = code;
@@ -178,15 +218,160 @@ class Response {
 
         /**
          * @type {string}
+         *
          * @private
          */
         this._statusText = text;
     }
 
     /**
+     * Marks the response as "private".
+     *
+     * It makes the response ineligible for serving other clients.
+     *
+     * @returns {Jymfony.Component.HttpFoundation.Response}
+     *
+     * @final
+     */
+    setPrivate() {
+        this.headers.removeCacheControlDirective('public');
+        this.headers.addCacheControlDirective('private');
+
+        return this;
+    }
+
+    /**
+     * Marks the response as "public".
+     *
+     * It makes the response eligible for serving other clients.
+     *
+     * @returns {Jymfony.Component.HttpFoundation.Response}
+     *
+     * @final
+     */
+    setPublic() {
+        this.headers.addCacheControlDirective('public');
+        this.headers.removeCacheControlDirective('private');
+
+        return this;
+    }
+
+
+    /**
+     * Returns the Last-Modified HTTP header as a DateTime instance.
+     *
+     * @returns {Jymfony.Component.DateTime.DateTime}
+     *
+     * @throws {RuntimeException} When the HTTP header is not parseable
+     *
+     * @final
+     */
+    get lastModified() {
+        return this.headers.getDate('Last-Modified');
+    }
+
+    /**
+     * Sets the Last-Modified HTTP header with a DateTime instance.
+     *
+     * Passing undefined as value will remove the header.
+     *
+     * @final
+     */
+    set lastModified(date) {
+        if (undefined === date) {
+            this.headers.remove('Last-Modified');
+
+            return;
+        }
+
+        date = new DateTime(date.timestamp, DateTimeZone.get('UTC'));
+        this.headers.set('Last-Modified', date.format('D, d M Y H:i:s') + ' GMT');
+    }
+
+    /**
+     * Returns the literal value of the ETag HTTP header.
+     *
+     * @returns {string}
+     *
+     * @final
+     */
+    getEtag() {
+        return this.headers.get('ETag');
+    }
+
+    /**
+     * Sets the ETag value.
+     *
+     * @param {string|undefined} etag The ETag unique identifier or null to remove the header
+     * @param {boolean} weak Whether you want a weak ETag or not
+     *
+     * @final
+     */
+    setEtag(etag = undefined, weak = false) {
+        if (undefined === etag) {
+            this.headers.remove('Etag');
+        } else {
+            if (0 !== etag.indexOf('"')) {
+                etag = '"' + etag + '"';
+            }
+
+            this.headers.set('ETag', (true === weak ? 'W/' : '') + etag);
+        }
+
+        return this;
+    }
+
+    /**
+     * Returns true if the response includes a Vary header.
+     *
+     * @returns {boolean}
+     *
+     * @final
+     */
+    hasVary() {
+        return this.headers.has('Vary');
+    }
+
+    /**
+     * Returns an array of header names given in the Vary header.
+     *
+     * @returns {string[]}
+     *
+     * @final
+     */
+    getVary() {
+        if (! this.hasVary()) {
+            return [];
+        }
+
+        const vary = this.headers.get('Vary');
+
+        let ret = [];
+        for (const item of vary) {
+            ret = ret.concat(item.split(', '));
+        }
+
+        return ret;
+    }
+
+    /**
+     * Sets the Vary header.
+     *
+     * @param {string|string[]} headers
+     * @param {boolean} [replace = true] Whether to replace the actual value or not (true by default)
+     *
+     * @final
+     */
+    setVary(headers, replace = true) {
+        this.headers.set('Vary', headers, replace);
+
+        return this;
+    }
+
+    /**
      * Retrieves the response charset.
      *
-     * @return {string}
+     * @returns {string}
      */
     get charset() {
         return this._charset;
@@ -205,6 +390,7 @@ class Response {
      * Sets the HTTP protocol version (1.0 or 1.1).
      *
      * @param {string} version
+     *
      * @final
      */
     set protocolVersion(version) {
@@ -288,6 +474,7 @@ class Response {
      * @see http://support.microsoft.com/kb/323308
      *
      * @param {Jymfony.Component.HttpFoundation.Request} request
+     *
      * @final
      */
     _ensureIEOverSSLCompatibility(request) {

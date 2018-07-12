@@ -17,8 +17,8 @@ class ChoiceQuestion extends Question {
      *
      * @param {Jymfony.Component.Console.Input.InputInterface} input
      * @param {Jymfony.Component.Console.Output.OutputInterface} output
-     * @param {[Jymfony.Component.Console.Question.Choice]} choices
-     * @param {string} mode
+     * @param {Jymfony.Component.Console.Question.Choice[]} choices
+     * @param {string} [mode = Jymfony.Component.Console.Question.ChoiceQuestion.MODE_LIST]
      */
     __construct(input, output, choices, mode = ChoiceQuestion.MODE_LIST) {
         super.__construct(input, output);
@@ -38,13 +38,14 @@ class ChoiceQuestion extends Question {
     /**
      * Sets the choices.
      *
-     * @param {[Jymfony.Component.Console.Question.Choice]} choices
+     * @param {Jymfony.Component.Console.Question.Choice[]} choices
      */
     set choices(choices) {
         /**
          * The current question choices.
          *
-         * @type {[Jymfony.Component.Console.Question.Choice]}
+         * @type {Jymfony.Component.Console.Question.Choice[]}
+         *
          * @private
          */
         this._choices = choices;
@@ -53,7 +54,7 @@ class ChoiceQuestion extends Question {
     /**
      * Gets the choices.
      *
-     * @returns {[Jymfony.Component.Console.Question.Choice]}
+     * @returns {Jymfony.Component.Console.Question.Choice[]}
      */
     get choices() {
         return [ ...this._choices ];
@@ -85,7 +86,7 @@ class ChoiceQuestion extends Question {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     ask() {
         const input = (this._input instanceof StreamableInputInterface ? this._input.stream : undefined) || process.stdin;
@@ -98,7 +99,7 @@ class ChoiceQuestion extends Question {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     _getRenderer() {
         switch (this.mode) {

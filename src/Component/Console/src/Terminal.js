@@ -5,6 +5,9 @@ const child_process = require('child_process');
  * @memberOf Jymfony.Component.Console
  */
 class Terminal {
+    /**
+     * @returns {boolean}
+     */
     static get hasANSISupport() {
         if ('win32' === os.platform()) {
             return (
@@ -18,6 +21,9 @@ class Terminal {
         return true;
     }
 
+    /**
+     * @returns {boolean}
+     */
     static get hasUnicodeSupport() {
         if ('win32' === os.platform()) {
             // Now we don't have a method that returns this information reliably
@@ -32,6 +38,9 @@ class Terminal {
         Terminal.stty = false;
     }
 
+    /**
+     * @returns {boolean}
+     */
     static hasSttyAvailable() {
         if (undefined !== Terminal.stty) {
             return Terminal.stty;
@@ -54,10 +63,16 @@ class Terminal {
         return Terminal.stty = 0 === obj.status;
     }
 
+    /**
+     * @returns {int}
+     */
     get width() {
         return process.env.COLUMNS || process.stdout.columns || 80;
     }
 
+    /**
+     * @returns {int}
+     */
     get height() {
         return process.env.LINES || process.stdout.rows || 50;
     }

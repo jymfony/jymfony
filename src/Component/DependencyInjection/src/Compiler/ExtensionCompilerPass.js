@@ -2,9 +2,11 @@ const CompilerPassInterface = Jymfony.Component.DependencyInjection.Compiler.Com
 
 /**
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
- * @type {Jymfony.Component.DependencyInjection.Compiler.ExtensionCompilerPass}
  */
-module.exports = class ExtensionCompilerPass extends implementationOf(CompilerPassInterface) {
+class ExtensionCompilerPass extends implementationOf(CompilerPassInterface) {
+    /**
+     * @inheritdoc
+     */
     process(container) {
         for (const extension of Object.values(container.getExtensions())) {
             if (extension instanceof CompilerPassInterface) {
@@ -12,4 +14,6 @@ module.exports = class ExtensionCompilerPass extends implementationOf(CompilerPa
             }
         }
     }
-};
+}
+
+module.exports = ExtensionCompilerPass;

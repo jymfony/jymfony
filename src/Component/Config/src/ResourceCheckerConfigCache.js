@@ -19,14 +19,14 @@ class ResourceCheckerConfigCache extends implementationOf(ConfigCacheInterface) 
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritdoc
      */
     getPath() {
         return this._file;
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritdoc
      */
     isFresh() {
         if (! fs.existsSync(this._file)) {
@@ -66,7 +66,7 @@ class ResourceCheckerConfigCache extends implementationOf(ConfigCacheInterface) 
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritdoc
      */
     write(content, metadata = undefined) {
         const umask = process.umask();

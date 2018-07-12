@@ -1,15 +1,23 @@
 const RuntimeException = Jymfony.Component.PropertyAccess.Exception.RuntimeException;
 
 /**
- * @namespace Jymfony.Component.PropertyAccess
- * @type {Jymfony.Component.PropertyAccess.Exception.UnexpectedTypeException}
+ * @memberOf Jymfony.Component.PropertyAccess.Exception
  */
-module.exports = class UnexpectedTypeException extends RuntimeException {
-    constructor(value, propertyPath, index) {
-        super();
-
-        this.message = 'PropertyAccessor requires a graph of objects or arrays to operate on, ' +
+class UnexpectedTypeException extends RuntimeException {
+    /**
+     * Constructor.
+     *
+     * @param {*} value
+     * @param {Jymfony.Component.PropertyAccess.PropertyPath} propertyPath
+     * @param {int} index
+     */
+    __construct(value, propertyPath, index) {
+        super.__construct(
+            'PropertyAccessor requires a graph of objects or arrays to operate on, ' +
             'but it found type "' + (typeof value) + '" while trying to traverse path "' +
-            propertyPath.toString() + '" at property "' + propertyPath.getElement(index) + '".';
+            propertyPath.toString() + '" at property "' + propertyPath.getElement(index) + '".'
+        );
     }
-};
+}
+
+module.exports = UnexpectedTypeException;

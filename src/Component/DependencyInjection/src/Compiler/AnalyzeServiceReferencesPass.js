@@ -8,12 +8,17 @@ const Reference = Jymfony.Component.DependencyInjection.Reference;
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
  */
 class AnalyzeServiceReferencesPass extends mix(AbstractRecursivePass, RepeatablePassInterface) {
+    /**
+     * Constructor.
+     *
+     * @param {boolean} [onlyConstructorArguments = false]
+     */
     __construct(onlyConstructorArguments = false) {
         this._onlyConstructorArguments = onlyConstructorArguments;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     setRepeatedPass(pass) {
         this._repeatedPass = pass;
@@ -25,16 +30,24 @@ class AnalyzeServiceReferencesPass extends mix(AbstractRecursivePass, Repeatable
     process(container) {
         /**
          * @type {Jymfony.Component.DependencyInjection.ContainerBuilder}
+         *
          * @protected
          */
         this._container = container;
 
         /**
          * @type {Jymfony.Component.DependencyInjection.Compiler.ServiceReferenceGraph}
+         *
          * @private
          */
         this._graph = container.getCompiler().getServiceReferenceGraph();
         this._graph.clear();
+
+        /**
+         * @type {boolean}
+         *
+         * @private
+         */
         this._lazy = false;
 
         for (const [ id, alias ] of __jymfony.getEntries(container.getAliases())) {
@@ -44,6 +57,14 @@ class AnalyzeServiceReferencesPass extends mix(AbstractRecursivePass, Repeatable
         super.process(container);
     }
 
+    /**
+     * @param {*} value
+     * @param {boolean} [isRoot = false]
+     *
+     * @returns {*}
+     *
+     * @private
+     */
     _processValue(value, isRoot = false) {
         const lazy = this._lazy;
 
@@ -93,14 +114,28 @@ class AnalyzeServiceReferencesPass extends mix(AbstractRecursivePass, Repeatable
         }
 
         this._lazy = lazy;
+
+        return value;
     }
 
+    /**
+     * @param {string|undefined} id
+     *
+     * @returns {Jymfony.Component.DependencyInjection.Definition|undefined}
+     *
+     * @private
+     */
     _getDefinition(id) {
-        id = this._getDefinitionId(id);
-
         return undefined === id ? undefined : this._container.getDefinition(id);
     }
 
+    /**
+     * @param {string} id
+     *
+     * @returns {string}
+     *
+     * @private
+     */
     _getDefinitionId(id) {
         while (this._container.hasAlias(id)) {
             id = this._container.getAlias(id).toString();

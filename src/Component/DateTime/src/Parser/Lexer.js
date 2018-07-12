@@ -2,11 +2,10 @@ const AbstractLexer = Jymfony.Component.Lexer.AbstractLexer;
 
 /**
  * @memberOf Jymfony.Component.DateTime.Parser
- * @type Lexer
  */
 class Lexer extends AbstractLexer {
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     getCatchablePatterns() {
         return [
@@ -22,34 +21,47 @@ class Lexer extends AbstractLexer {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     getNonCatchablePatterns() {
         return [];
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     getType(holder) {
         const value = holder.value.toString();
 
         switch (true) {
-            case !! value.match(/^[+-]\d{4,}$/): return Lexer.T_SIGNED_YEAR;
-            case !! value.match(/^\d+$/): return Lexer.T_NUMBER;
-            case !! value.match(/^\s+$/): return Lexer.T_SPACE;
-            case 't' === value || 'T' === value: {
+            case !! value.match(/^[+-]\d{4,}$/):
+                return Lexer.T_SIGNED_YEAR;
+
+            case !! value.match(/^\d+$/):
+                return Lexer.T_NUMBER;
+
+            case !! value.match(/^\s+$/):
+                return Lexer.T_SPACE;
+
+            case 't' === value || 'T' === value:
                 holder.value = 't';
                 return Lexer.T_SEPARATOR;
-            }
-            case !! value.match(/^[-/ \t.:]$/): return Lexer.T_SEPARATOR;
-            case !! value.match(/^[ap][.]?m?[.]?$/i): {
+
+            case !! value.match(/^[-/ \t.:]$/):
+                return Lexer.T_SEPARATOR;
+
+            case !! value.match(/^[ap][.]?m?[.]?$/i):
                 holder.value = value.toLowerCase();
                 return Lexer.T_MERIDIAN;
-            }
-            case !! value.match(/^gmt[+-]$/i): return Lexer.T_GMT;
-            case !! value.match(/^[a-z]+$/i): return Lexer.T_IDENTIFIER;
-            case !! value.match(/^@$/i): return Lexer.T_AT;
+
+            case !! value.match(/^gmt[+-]$/i):
+                return Lexer.T_GMT;
+
+            case !! value.match(/^[a-z]+$/i):
+                return Lexer.T_IDENTIFIER;
+
+            case !! value.match(/^@$/i):
+                return Lexer.T_AT;
         }
 
         throw new InvalidArgumentException(value);

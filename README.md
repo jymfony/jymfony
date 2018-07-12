@@ -7,7 +7,7 @@ Jymfony was born from an idea of [Alessandro Chitolina](https://github.com/aleki
 
 Requirements
 ------------
-- Node.js >= 6.0.0
+- Node.js >= 8.10.0
 
 Installation
 ------------
@@ -24,21 +24,26 @@ $ npm install jymfony
 Components available:
 ---------------------
 As said, Jymfony is made of reusable Javascript components:
-- `@jymfony/autoloader`
-- `@jymfony/cache`
-- `@jymfony/config`
-- `@jymfony/console`
-- `@jymfony/datetime`
-- `@jymfony/dependency-injection`
-- `@jymfony/event-dispatcher`
-- `@jymfony/filesystem`
-- `@jymfony/lexer`
-- `@jymfony/logger`
-- `@jymfomy/options-resolver`
-- `@jymfony/property-access`
-- `@jymfony/testing`
+- [@jymfony/autoloader](https://github.com/jymfony/jymfony/tree/master/src/Component/Autoloader)
+- [@jymfony/cache](https://github.com/jymfony/jymfony/tree/master/src/Component/Cache)
+- [@jymfony/config](https://github.com/jymfony/jymfony/tree/master/src/Component/Config)
+- [@jymfony/console](https://github.com/jymfony/jymfony/tree/master/src/Component/Console)
+- [@jymfony/datetime](https://github.com/jymfony/jymfony/tree/master/src/Component/DateTime)
+- [@jymfony/debug](https://github.com/jymfony/jymfony/tree/master/src/Component/Debug)
+- [@jymfony/dependency-injection](https://github.com/jymfony/jymfony/tree/master/src/Component/DependencyInjection)
+- [@jymfony/event-dispatcher](https://github.com/jymfony/jymfony/tree/master/src/Component/EventDispatcher)
+- [@jymfony/filesystem](https://github.com/jymfony/jymfony/tree/master/src/Component/Filesystem)
+- [@jymfony/http-foundation](https://github.com/jymfony/jymfony/tree/master/src/Component/HttpFoundation)
+- [@jymfony/http-server](https://github.com/jymfony/jymfony/tree/master/src/Component/HttpServer)
+- [@jymfony/kernel](https://github.com/jymfony/jymfony/tree/master/src/Component/Kernel)
+- [@jymfony/lexer](https://github.com/jymfony/jymfony/tree/master/src/Component/Lexer)
+- [@jymfony/logger](https://github.com/jymfony/jymfony/tree/master/src/Component/Logger)
+- [@jymfony/options-resolver](https://github.com/jymfony/jymfony/tree/master/src/Component/OptionsResolver)
+- [@jymfony/property-access](https://github.com/jymfony/jymfony/tree/master/src/Component/PropertyAccess)
+- [@jymfony/routing](https://github.com/jymfony/jymfony/tree/master/src/Component/Routing)
+- [@jymfony/testing](https://github.com/jymfony/jymfony/tree/master/src/Component/Testing)
 
-Each component have its own `README.md`, you can read more about those there.
+Each component has its own `README.md`, you can read more about those there.
 
 Also, it comes with some `DataStructures`. With Jymfony you can declare:
 - interfaces
@@ -55,7 +60,15 @@ class ThisIsATrait {
     // ...
 }
 
-module.exports = getInterface(ThisIsATrait);
+module.exports = getTrait(ThisIsATrait);
+```
+
+Testing
+-------
+In order to test Jymfony, just run:
+
+```sh
+$ yarn test
 ```
 
 Contributing

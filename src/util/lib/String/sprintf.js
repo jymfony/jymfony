@@ -6,6 +6,9 @@ global.__jymfony = global.__jymfony || {};
  * Adapted from locutus.io
  * Originally released under MIT license
  *
+ * @param {string} format
+ * @param {...} a
+ *
  * @returns {string}
  */
 global.__jymfony.sprintf = function sprintf (format, ...a) {

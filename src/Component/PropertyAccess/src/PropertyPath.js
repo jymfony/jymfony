@@ -2,10 +2,14 @@ const OutOfBoundsException = Jymfony.Component.PropertyAccess.Exception.OutOfBou
 const PropertyPathInterface = Jymfony.Component.PropertyAccess.PropertyPathInterface;
 
 /**
- * @namespace Jymfony.Component.PropertyAccess
- * @type {Jymfony.Component.PropertyAccess.PropertyPath}
+ * @memberOf Jymfony.Component.PropertyAccess
  */
-module.exports = class PropertyPath extends implementationOf(PropertyPathInterface) {
+class PropertyPath extends implementationOf(PropertyPathInterface) {
+    /**
+     * Constructor.
+     *
+     * @param {string|Jymfony.Component.PropertyAccess.PropertyPath} propertyPath
+     */
     __construct(propertyPath) {
         if (propertyPath instanceof PropertyPath) {
             this._elements = Array.from(propertyPath._elements);
@@ -25,14 +29,14 @@ module.exports = class PropertyPath extends implementationOf(PropertyPathInterfa
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     toString() {
         return this._elements.join('.');
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     getElement(index) {
         if (index >= this.length) {
@@ -43,16 +47,18 @@ module.exports = class PropertyPath extends implementationOf(PropertyPathInterfa
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     get length() {
         return this._elements.length;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     get last() {
         return this._elements[this.length - 1];
     }
-};
+}
+
+module.exports = PropertyPath;

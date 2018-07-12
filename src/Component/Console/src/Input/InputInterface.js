@@ -18,7 +18,7 @@ class InputInterface {
      * before they have been validated. It must be used carefully.
      *
      * @param {string|string[]} values The values to look for in the raw parameters (can be an array)
-     * @param {boolean} onlyParams Only check real parameters, skip those following an end of options (--) signal
+     * @param {boolean} [onlyParams = false] Only check real parameters, skip those following an end of options (--) signal
      *
      * @returns {boolean} true if the value is contained in the raw parameters
      */
@@ -31,8 +31,8 @@ class InputInterface {
      * before they have been validated. It must be used carefully.
      *
      * @param {string|string[]} values The value(s) to look for in the raw parameters (can be an array)
-     * @param {*} defaultValue The default value to return if no result is found
-     * @param {boolean} onlyParams Only check real parameters, skip those following an end of options (--) signal
+     * @param {*} [defaultValue = false] The default value to return if no result is found
+     * @param {boolean} [onlyParams = false] Only check real parameters, skip those following an end of options (--) signal
      *
      * @returns {*} The option value
      */

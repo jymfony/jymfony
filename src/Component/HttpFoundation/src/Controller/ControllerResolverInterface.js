@@ -14,7 +14,7 @@ class ControllerResolverInterface {
      * @param {Jymfony.Component.HttpFoundation.Request} request
      *
      * @returns {Function|false} A function representing the Controller,
-     *                           or false if this resolver is not able to determine the controller
+     *    or false if this resolver is not able to determine the controller
      *
      * @throws {LogicException} If the controller can't be found
      */
