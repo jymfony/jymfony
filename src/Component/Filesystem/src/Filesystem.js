@@ -3,6 +3,7 @@ const RecursiveDirectoryIterator = Jymfony.Component.Filesystem.Iterator.Recursi
 
 const fs = require('fs');
 const path = require('path');
+const promisify = require('util').promisify;
 const internal = require('./internal');
 
 /**
@@ -23,7 +24,7 @@ class Filesystem {
      */
     async copy(originFile, targetFile, overwriteNewerFiles = false) {
         await this.mkdir(path.dirname(targetFile));
-        const originStat = await internal.stat(targetFile);
+        const originStat = await internal.stat(originFile);
 
         let doCopy = true;
         if (! overwriteNewerFiles && (await this.isFile(targetFile))) {
@@ -52,7 +53,7 @@ class Filesystem {
                 throw new IOException(__jymfony.sprintf('Failed to copy "%s" to "%s".', originFile, targetFile), null, undefined, originFile);
             }
 
-            fs.chmod(targetFile, originStat.mode);
+            await promisify(fs.chmod)(targetFile, originStat.mode);
             const targetStat = await internal.stat(targetFile);
             if (targetStat.size !== originStat.size) {
                 throw new IOException(__jymfony.sprintf('Failed to copy the whole content of "%s" to "%s" (%g of %g bytes copied).', originFile, targetFile, targetStat.size, originStat.size), null, undefined, originFile);
@@ -156,17 +157,17 @@ class Filesystem {
      */
     async mirror(originDir, targetDir, options = {}) {
         targetDir = __jymfony.rtrim(targetDir, '/\\');
-        originDir = __jymfony.rtrim(originDir, '/\\');
+        originDir = __jymfony.rtrim(await internal.realpath(originDir), '/\\');
 
         // Iterate in destination folder to remove obsolete entries
         if ((await this.exists(targetDir)) && options['delete']) {
             const deleteIterator = new RecursiveDirectoryIterator(targetDir, RecursiveDirectoryIterator.CHILD_FIRST);
-            for (const file of deleteIterator) {
+            await __jymfony.forAwait(deleteIterator, async file => {
                 const origin = file.replace(targetDir, originDir);
                 if (! (await this.exists(origin))) {
                     await this.remove(file);
                 }
-            }
+            });
         }
 
         const copyOnWindows = __jymfony.Platform.isWindows() && !! options.copy_on_windows;
@@ -177,7 +178,7 @@ class Filesystem {
             await this.mkdir(targetDir);
         }
 
-        for (const file of iterator) {
+        await __jymfony.forAwait(iterator, async file => {
             const target = file.replace(originDir, targetDir);
             const stat = await internal.stat(file, copyOnWindows);
 
@@ -200,7 +201,7 @@ class Filesystem {
                     throw new IOException(__jymfony.sprintf('Unable to guess "%s" file type.', file), null, undefined, file);
                 }
             }
-        }
+        });
     }
 
     /**
