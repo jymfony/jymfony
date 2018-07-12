@@ -1,6 +1,6 @@
 {
   "name": "@jymfony/datastructure",
-  "version": "0.1.0-alpha.9",
+  "version": "0.1.0-alpha.10",
   "description": "Jymfony Data Structures",
   "scripts": {
     "test": "node ./tests.js test/**"
@@ -18,11 +18,11 @@
     "node": ">=8.10.0"
   },
   "dependencies": {
-    "@jymfony/exceptions": "0.1.0-alpha.9",
-    "@jymfony/util": "0.1.0-alpha.9"
+    "@jymfony/exceptions": "0.1.0-alpha.10",
+    "@jymfony/util": "0.1.0-alpha.10"
   },
   "devDependencies": {
-    "@jymfony/autoloader": "https://github.com/jymfony/autoloader.git",
+    "@jymfony/autoloader": "0.1.0-alpha.10",
     "chai": "^3.5.0",
     "mocha": "^3.0"
   },
