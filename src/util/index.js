@@ -39,4 +39,5 @@ require('./lib/Regex/named');
 require('./lib/mixins');
 
 require('./lib/Async/Async');
+require('./lib/Async/ForAwait');
 require('./lib/Async/sleep');

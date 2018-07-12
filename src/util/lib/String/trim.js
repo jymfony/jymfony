@@ -16,7 +16,7 @@ global.__jymfony.rtrim = function rtrim(str, charList) {
         charList.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
     }
 
-    const re = new RegExp(`[${charList}]+$`, 'g');
+    const re = new RegExp(`[${__jymfony.regex_quote(charList)}]+$`, 'g');
     return str.replace(re, '');
 };
 
