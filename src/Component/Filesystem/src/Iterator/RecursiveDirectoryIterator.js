@@ -1,6 +1,6 @@
-const fs = require('fs');
+const File = Jymfony.Component.Filesystem.File;
+const StreamWrapper = Jymfony.Component.Filesystem.StreamWrapper.StreamWrapper;
 const path = require('path');
-const promisify = require('util').promisify;
 
 /**
  * @memberOf Jymfony.Component.Filesystem.Iterator
@@ -9,16 +9,21 @@ class RecursiveDirectoryIterator {
     /**
      * Constructor.
      *
-     * @param {string} path
+     * @param {string} filepath
      * @param {int} [flags = 0]
      */
-    __construct(path, flags = 0) {
+    __construct(filepath, flags = 0) {
+        const url = File.resolve(filepath);
+
         /**
          * @type {string}
          *
          * @private
          */
-        this._path = path;
+        this._path = url.href;
+        if ('file:' === url.protocol && __jymfony.Platform.isWindows() && url.host) {
+            this._path = url.protocol + '//' + url.host.toUpperCase() + ':' + url.path.replace(/\//g, path.sep);
+        }
 
         /**
          * @type {int}
@@ -35,16 +40,20 @@ class RecursiveDirectoryIterator {
         this._followSymlinks = flags & __self.FOLLOW_SYMLINKS;
     }
 
+    /**
+     * Iterates over values.
+     *
+     * @returns {Promise<{done: boolean, value: string}>}
+     */
     async next() {
+        const streamWrapper = StreamWrapper.get(this._path);
         if (undefined === this._dir) {
-            this._path = await promisify(fs.realpath)(this._path);
-
             /**
              * @type {string[]}
              *
              * @private
              */
-            this._dir = await promisify(fs.readdir)(this._path);
+            this._dir = await streamWrapper.readdir(this._path);
 
             /**
              * @type {string[]}
@@ -54,7 +63,7 @@ class RecursiveDirectoryIterator {
             this._after = [];
         }
 
-        if (0 === this._dir.length) {
+        if (undefined === this._current && 0 === this._dir.length) {
             if (0 === this._after.length) {
                 delete this._dir;
                 delete this._after;
@@ -77,8 +86,8 @@ class RecursiveDirectoryIterator {
         }
 
         if (undefined === this._current) {
-            this._current = path.join(this._path, this._dir.shift());
-            const stat = await promisify(this._followSymlinks ? fs.stat : fs.lstat)(this._current);
+            this._current = this._path + path.sep + this._dir.shift();
+            const stat = await streamWrapper.stat(this._current, { stat_link: ! this._followSymlinks });
             this._current = stat.isDirectory() ? new __self(this._current, this._flags) : this._current;
         }
 

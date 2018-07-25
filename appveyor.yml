@@ -8,22 +8,26 @@ platform:
     - x86
     - x64
 
+cache:
+    - node_modules                        # local npm modules
+    - '%APPDATA%\npm-cache'               # npm cache
+
 install:
-  - ps: Install-Product node $env:nodejs_version
-  - set CI=true
-  - npm -g install npm@latest
-  - npm -g install eslint
-  - set PATH=%APPDATA%\npm;%PATH%
-  - npm install
+    - ps: Install-Product node $env:nodejs_version
+    - set CI=true
+    - npm -g install npm@latest
+    - npm -g install eslint
+    - set PATH=%APPDATA%\npm;%PATH%
+    - npm install
 
 matrix:
-  fast_finish: true
+    fast_finish: true
 
 build: off
 
 shallow_clone: true
 
 test_script:
-  - node --version
-  - npm --version
-  - npm test
+    - node --version
+    - npm --version
+    - npm test
