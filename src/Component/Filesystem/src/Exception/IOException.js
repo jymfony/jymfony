@@ -1,10 +1,9 @@
-const BaseException = global.RuntimeException;
 const ExceptionInterface = Jymfony.Component.Filesystem.Exception.ExceptionInterface;
 
 /**
  * @memberOf Jymfony.Component.Filesystem.Exception
  */
-class IOException extends mix(BaseException, ExceptionInterface) {
+class IOException extends mix(RuntimeException, ExceptionInterface) {
     /**
      * Constructor.
      *

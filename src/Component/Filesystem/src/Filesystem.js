@@ -1,10 +1,15 @@
 const IOException = Jymfony.Component.Filesystem.Exception.IOException;
+const UnsupportedOperationException = Jymfony.Component.Filesystem.Exception.UnsupportedOperationException;
 const RecursiveDirectoryIterator = Jymfony.Component.Filesystem.Iterator.RecursiveDirectoryIterator;
+const StreamWrapper = Jymfony.Component.Filesystem.StreamWrapper.StreamWrapper;
+const StreamWrapperInterface = Jymfony.Component.Filesystem.StreamWrapper.StreamWrapperInterface;
 
-const fs = require('fs');
-const path = require('path');
-const promisify = require('util').promisify;
-const internal = require('./internal');
+const S_IRUSR = 0o0400; // Owner has read permission
+const S_IWUSR = 0o0200; // Owner has write permission
+const S_IRGRP = 0o0040; // Group has read permission
+const S_IWGRP = 0o0020; // Group has write permission
+const S_IROTH = 0o0004; // Others have read permission
+const S_IWOTH = 0o0002; // Others have write permission
 
 /**
  * @memberOf Jymfony.Component.Filesystem
@@ -23,18 +28,42 @@ class Filesystem {
      * @throws {Jymfony.Component.Filesystem.Exception.IOException} When copy fails
      */
     async copy(originFile, targetFile, overwriteNewerFiles = false) {
-        await this.mkdir(path.dirname(targetFile));
-        const originStat = await internal.stat(originFile);
+        const originWrapper = StreamWrapper.get(originFile);
+        const targetWrapper = StreamWrapper.get(targetFile);
 
         let doCopy = true;
-        if (! overwriteNewerFiles && (await this.isFile(targetFile))) {
-            const targetStat = await internal.stat(targetFile);
-            doCopy = originStat.mtime > targetStat.mtime;
+        let fileMode = 0o666;
+
+        try {
+            await this.mkdir(targetFile.split(/[\\\/]/g).slice(0, -1).join('/'));
+        } catch (e) {
+            if (! (e instanceof UnsupportedOperationException)) {
+                throw e;
+            }
+        }
+
+        let originStat;
+        try {
+            originStat = await originWrapper.stat(originFile);
+
+            if (!overwriteNewerFiles && (await this.isFile(targetFile))) {
+                const targetStat = await targetWrapper.stat(targetFile);
+                doCopy = (originStat.mtime || 0) > (targetStat.mtime || Date.now());
+            }
+
+            fileMode = originStat.mode & 0o777;
+        } catch (e) {
+            if (! (e instanceof UnsupportedOperationException)) {
+                throw e;
+            }
         }
 
         if (doCopy) {
-            const rs = fs.createReadStream(originFile);
-            const ws = fs.createWriteStream(targetFile);
+            const origin = await originWrapper.streamOpen(originFile, 'r');
+            const target = await targetWrapper.streamOpen(targetFile, 'w');
+
+            const rs = originWrapper.createReadableStream(origin);
+            const ws = targetWrapper.createWritableStream(target);
 
             try {
                 await new Promise((resolve, reject) => {
@@ -53,10 +82,18 @@ class Filesystem {
                 throw new IOException(__jymfony.sprintf('Failed to copy "%s" to "%s".', originFile, targetFile), null, undefined, originFile);
             }
 
-            await promisify(fs.chmod)(targetFile, originStat.mode);
-            const targetStat = await internal.stat(targetFile);
-            if (targetStat.size !== originStat.size) {
-                throw new IOException(__jymfony.sprintf('Failed to copy the whole content of "%s" to "%s" (%g of %g bytes copied).', originFile, targetFile, targetStat.size, originStat.size), null, undefined, originFile);
+            await targetWrapper.metadata(targetFile, StreamWrapperInterface.META_ACCESS, fileMode);
+
+            try {
+                const targetStat = await targetWrapper.stat(targetFile);
+
+                if (originStat && undefined !== originStat.size && targetStat.size !== originStat.size) {
+                    throw new IOException(__jymfony.sprintf('Failed to copy the whole content of "%s" to "%s" (%g of %g bytes copied).', originFile, targetFile, targetStat.size, originStat.size), null, undefined, originFile);
+                }
+            } catch (e) {
+                if (! (e instanceof UnsupportedOperationException)) {
+                    throw e;
+                }
             }
         }
     }
@@ -80,11 +117,11 @@ class Filesystem {
             }
 
             try {
-                await internal.mkdir(dir, mode);
+                await StreamWrapper.get(dir).mkdir(dir, mode, true);
             } catch (err) {
                 if (! (await this.isDir(dir))) {
                     // The directory was not created by a concurrent process. Let's throw an exception with a developer friendly error message if we have one
-                    throw new IOException(__jymfony.sprintf('Failed to create "%s": %s.', dir, err.message), null, undefined, dir);
+                    throw new IOException(__jymfony.sprintf('Failed to create "%s": %s.', dir, err.message), null, err, dir);
                 }
             }
         }
@@ -103,7 +140,7 @@ class Filesystem {
         }
 
         for (const file of files) {
-            if (false === (await internal.stat(file))) {
+            if (false === (await StreamWrapper.get(file).stat(file))) {
                 return false;
             }
         }
@@ -125,16 +162,16 @@ class Filesystem {
 
         for (const file of files.reverse()) {
             if (await this.isDir(file)) {
-                await this.remove((await this.readdir(file)).map(f => path.join(file, f)));
+                await this.remove((await this.readdir(file)).map(f => file + '/' + f));
 
                 try {
-                    await internal.rmdir(file);
+                    await StreamWrapper.get(file).rmdir(file);
                 } catch (err) {
                     throw new IOException(__jymfony.sprintf('Failed to remove directory "%s": %s.', file, err.message));
                 }
             } else {
                 try {
-                    await internal.unlink(file);
+                    await StreamWrapper.get(file).unlink(file);
                 } catch (err) {
                     throw new IOException(__jymfony.sprintf('Failed to remove file "%s": %s.', file, err.message));
                 }
@@ -157,7 +194,7 @@ class Filesystem {
      */
     async mirror(originDir, targetDir, options = {}) {
         targetDir = __jymfony.rtrim(targetDir, '/\\\\');
-        originDir = __jymfony.rtrim(await internal.realpath(originDir), '/\\\\');
+        originDir = __jymfony.rtrim(originDir, '/\\\\');
 
         // Iterate in destination folder to remove obsolete entries
         if ((await this.exists(targetDir)) && options['delete']) {
@@ -178,9 +215,12 @@ class Filesystem {
             await this.mkdir(targetDir);
         }
 
+        const originWrapper = StreamWrapper.get(originDir);
         await __jymfony.forAwait(iterator, async file => {
             const target = file.replace(originDir, targetDir);
-            const stat = await internal.stat(file, copyOnWindows);
+            const stat = await originWrapper.stat(file, {
+                stat_link: ! copyOnWindows,
+            });
 
             if (copyOnWindows) {
                 if (stat.isFile()) {
@@ -222,15 +262,29 @@ class Filesystem {
             throw new IOException(__jymfony.sprintf('Cannot rename because the target "%s" already exists.', target), null, undefined, target);
         }
 
-        try {
-            await internal.rename(origin, target);
-        } catch (err) {
-            if (! (await this.isDir(origin))) {
-                throw new IOException(__jymfony.sprintf('Cannot rename "%s" to "%s".', origin, target), null, undefined, target);
-            }
+        const originWrapper = StreamWrapper.get(origin);
+        const targetWrapper = StreamWrapper.get(target);
 
-            await this.mirror(origin, target, { override: overwrite, 'delete': overwrite });
-            await this.remove(origin);
+        if (originWrapper === targetWrapper) {
+            try {
+                await originWrapper.rename(origin, target);
+            } catch (err) {
+                if (! (await this.isDir(origin))) {
+                    throw new IOException(__jymfony.sprintf('Cannot rename "%s" to "%s".', origin, target), null, undefined, target);
+                }
+
+                await this.mirror(origin, target, { override: overwrite, 'delete': overwrite });
+                await this.remove(origin);
+            }
+        } else {
+            await this.copy(origin, target);
+            try {
+                await originWrapper.unlink(origin);
+            } catch (e) {
+                if (! (e instanceof UnsupportedOperationException)) {
+                    throw e;
+                }
+            }
         }
     }
 
@@ -244,7 +298,14 @@ class Filesystem {
      * @throws {Jymfony.Component.Filesystem.Exception.IOException} When symlink fails
      */
     async symlink(originDir, targetDir, copyOnWindows = false) {
-        if (__jymfony.Platform.isWindows()) {
+        const targetWrapper = StreamWrapper.get(targetDir);
+        const sourceWrapper = StreamWrapper.get(originDir);
+
+        if (targetWrapper !== sourceWrapper) {
+            throw new UnsupportedOperationException('Symlink between two different protocols is not supported');
+        }
+
+        if ('file' === targetWrapper.protocol && __jymfony.Platform.isWindows()) {
             originDir = originDir.replace('/', '\\');
             targetDir = targetDir.replace('/', '\\');
 
@@ -254,26 +315,13 @@ class Filesystem {
             }
         }
 
-        await this.mkdir(path.dirname(targetDir));
+        await this.mkdir(targetDir.split(/[\\\/]/g).slice(0, -1).join('/'));
 
-        let ok = false;
-        if (await this.isLink(targetDir)) {
-            if ((await this.readlink(targetDir)) !== originDir) {
-                this.remove(targetDir);
-            } else {
-                ok = true;
-            }
+        if (await this.isLink(targetDir) && await this.readlink(targetDir) !== originDir) {
+            await this.remove(targetDir);
         }
 
-        const promise = new Promise(resolve => {
-            fs.symlink(originDir, targetDir, 'dir', err => {
-                resolve(! err);
-            });
-        });
-
-        if (! ok && ! (await promise)) {
-            throw new IOException(__jymfony.sprintf('Failed to create symbolic link from "%s" to "%s".', originDir, targetDir), null, undefined, targetDir);
-        }
+        await targetWrapper.symlink(originDir, targetDir);
     }
 
     /**
@@ -293,6 +341,7 @@ class Filesystem {
      * @returns {string|null}
      */
     async readlink(path, canonicalize = false) {
+        const streamWrapper = StreamWrapper.get(path);
         if (! canonicalize && ! (await this.isLink(path))) {
             return null;
         }
@@ -303,17 +352,17 @@ class Filesystem {
             }
 
             if (__jymfony.Platform.isWindows()) {
-                path = await internal.readlink(path);
+                path = await streamWrapper.readlink(path);
             }
 
-            return await internal.realpath(path);
+            return await streamWrapper.realpath(path);
         }
 
         if (__jymfony.Platform.isWindows()) {
-            return await internal.realpath(path);
+            return await streamWrapper.realpath(path);
         }
 
-        return await internal.readlink(path);
+        return await streamWrapper.readlink(path);
     }
 
     /**
@@ -324,7 +373,7 @@ class Filesystem {
      * @returns {string[]}
      */
     async readdir(path) {
-        return await internal.readdir(path);
+        return await StreamWrapper.get(path).readdir(path);
     }
 
     /**
@@ -335,7 +384,15 @@ class Filesystem {
      * @returns {boolean}
      */
     async isReadable(filename) {
-        return await internal.access(filename, fs.constants.R_OK);
+        const stat = await StreamWrapper.get(filename).stat(filename);
+
+        if (process.getuid() === stat.uid) {
+            return (stat.mode & S_IRUSR) === S_IRUSR;
+        } else if (process.getgid() === stat.gid) {
+            return (stat.mode & S_IRGRP) === S_IRGRP;
+        }
+
+        return (stat.mode & S_IROTH) === S_IROTH;
     }
 
     /**
@@ -346,7 +403,15 @@ class Filesystem {
      * @returns {boolean}
      */
     async isWritable(filename) {
-        return await internal.access(filename, fs.constants.W_OK);
+        const stat = await StreamWrapper.get(filename).stat(filename);
+
+        if (process.getuid() === stat.uid) {
+            return (stat.mode & S_IWUSR) === S_IWUSR;
+        } else if (process.getgid() === stat.gid) {
+            return (stat.mode & S_IWGRP) === S_IWGRP;
+        }
+
+        return (stat.mode & S_IWOTH) === S_IWOTH;
     }
 
     /**
@@ -357,7 +422,7 @@ class Filesystem {
      * @returns {boolean}
      */
     async isDir(path) {
-        const stat = await internal.stat(path);
+        const stat = await StreamWrapper.get(path).stat(path);
 
         return stat ? stat.isDirectory() : false;
     }
@@ -370,7 +435,7 @@ class Filesystem {
      * @returns {boolean}
      */
     async isFile(path) {
-        const stat = await internal.stat(path);
+        const stat = await StreamWrapper.get(path).stat(path);
 
         return stat ? stat.isFile() : false;
     }
@@ -383,7 +448,7 @@ class Filesystem {
      * @returns {boolean}
      */
     async isLink(path) {
-        const stat = await internal.stat(path);
+        const stat = await StreamWrapper.get(path).stat(path);
 
         return stat ? stat.isSymbolicLink() : false;
     }
