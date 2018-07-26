@@ -252,7 +252,7 @@ class HttpServer {
         if ('application/x-www-form-urlencoded' === contentType.essence) {
             parser = new RequestParser.UrlEncodedParser(req, contentLength);
         } else if ('application/json' === contentType.essence) {
-            parser = new RequestParser.JsonEncodedParser(req, contentLength);
+            parser = new RequestParser.JsonEncodedParser(req, contentLength, contentType.get('charset', 'utf-8'));
         } else if ('multipart' === contentType.type) {
             parser = new RequestParser.MultipartParser(req, contentType, contentLength);
         } else {
