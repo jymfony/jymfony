@@ -238,12 +238,12 @@ class FrameworkExtension extends Extension {
         container.setParameter('router.resource', config['resource']);
         const definition = container.getDefinition('router.default');
 
-        const options = definition.getArgument(3);
+        const options = definition.getArgument(2);
         if (config.type) {
             options.resource_type = config.type;
         }
 
-        definition.replaceArgument(3, options);
+        definition.replaceArgument(2, options);
     }
 
     /**

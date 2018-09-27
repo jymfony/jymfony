@@ -6,6 +6,7 @@ const ParameterBag = Jymfony.Component.HttpFoundation.ParameterBag;
 
 const urlModule = require('url');
 const net = require('net');
+const qs = require('querystring');
 
 let _trustedProxies = [];
 let _trustedHeaderSet = 0;
@@ -49,6 +50,60 @@ class Request {
      */
     __construct(url, request = {}, attributes = {}, headers = {}, server = {}, content = undefined) {
         this.initialize(url, request, attributes, headers, server, content);
+    }
+
+    /**
+     * Creates a new Request object
+     *
+     * @param {string} url The url of the request
+     * @param {string} [method = 'GET'] The HTTP method of the request
+     * @param {Object.<string, string>} [parameters = {}] Request parameters (POST)
+     * @param {Object.<string, string>} [headers = {}] Headers or parameters injected by the web server
+     * @param {Object.<string, string>} [server = {}] Request server paramters (remote address, etc)
+     * @param {undefined|Buffer} [content] Request content.
+     */
+    static create(url, method = __self.METHOD_GET, parameters = {}, headers = {}, server = {}, content = undefined) {
+        const parsedUrl = urlModule.parse(url);
+        const hostname = parsedUrl.hostname;
+
+        server = Object.assign({
+            SERVER_NAME: hostname,
+            SERVER_PORT: 80,
+            REMOTE_ADDR: '127.0.0.1',
+            SERVER_PROTOCOL: 'HTTP/1.1',
+        }, server);
+        server.REQUEST_METHOD = method;
+
+        headers = Object.assign({
+            Host: hostname,
+            'User-Agent': 'Jymfony',
+            Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+            'Accept-Language': 'en-us,en;q=0.5',
+            'Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.7',
+        }, headers);
+
+        let request, query;
+        switch (method.toUpperCase()) {
+            case __self.METHOD_GET:
+                request = {};
+                query = parameters;
+                break;
+
+            default:
+                if (! server.CONTENT_TYPE) {
+                    server.CONTENT_TYPE = 'application/x-www-form-urlencoded';
+                }
+
+                request = parameters;
+                query = {};
+                break;
+        }
+
+        query = Object.assign(__jymfony.parse_query_string(parsedUrl.query), query);
+        parsedUrl.query = qs.stringify(query);
+        url = urlModule.format(parsedUrl);
+
+        return new __self(url, request, {}, headers, server, content);
     }
 
     /**
@@ -723,6 +778,8 @@ Request.HEADER_X_FORWARDED_PROTO = 0b01000;
 Request.HEADER_X_FORWARDED_PORT = 0b10000;
 Request.HEADER_X_FORWARDED_ALL = 0b11110; // All "X-Forwarded-*" headers
 Request.HEADER_X_FORWARDED_AWS_ELB = 0b11010; // AWS ELB doesn't send X-Forwarded-Host
+
+Request.ATTRIBUTE_PARENT_REQUEST = '_parent_request';
 
 /**
  * Names for headers that can be trusted when

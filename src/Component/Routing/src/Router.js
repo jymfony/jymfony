@@ -1,7 +1,6 @@
 const MatcherInterface = Jymfony.Component.Routing.Matcher.MatcherInterface;
 const UrlGeneratorInterface = Jymfony.Component.Routing.Generator.UrlGeneratorInterface;
 const RouterInterface = Jymfony.Component.Routing.RouterInterface;
-const NullLogger = Jymfony.Component.Logger.NullLogger;
 
 /**
  * @memberOf Jymfony.Component.Routing
@@ -12,10 +11,9 @@ class Router extends implementationOf(RouterInterface, MatcherInterface, UrlGene
      *
      * @param {Jymfony.Component.Config.Loader.LoaderInterface} loader
      * @param {*} resource
-     * @param {Jymfony.Component.Logger.LoggerInterface} [logger = new Jymfony.Component.Logger.NullLogger()]
      * @param {Object} [options = {}]
      */
-    __construct(loader, resource, logger = new NullLogger(), options = {}) {
+    __construct(loader, resource, options = {}) {
         /**
          * @type {Jymfony.Component.Config.Loader.LoaderInterface}
          *
@@ -31,13 +29,6 @@ class Router extends implementationOf(RouterInterface, MatcherInterface, UrlGene
         this._resource = resource;
 
         /**
-         * @type {Jymfony.Component.Logger.LoggerInterface}
-         *
-         * @private
-         */
-        this._logger = logger;
-
-        /**
          * @type {Jymfony.Component.Routing.RouteCollection}
          *
          * @private
@@ -45,6 +36,20 @@ class Router extends implementationOf(RouterInterface, MatcherInterface, UrlGene
         this._collection = undefined;
 
         this.options = options;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    withContext(request) {
+        return this.generator.withContext(request);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    generate(name, parameters = {}, referenceType = UrlGeneratorInterface.ABSOLUTE_PATH) {
+        return this.generator.generate(name, parameters, referenceType);
     }
 
     /**
@@ -76,6 +81,17 @@ class Router extends implementationOf(RouterInterface, MatcherInterface, UrlGene
         }
 
         return this._matcher;
+    }
+
+    /**
+     * @returns {Jymfony.Component.Routing.Generator.UrlGeneratorInterface}
+     */
+    get generator() {
+        if (undefined === this._generator) {
+            this._generator = new Jymfony.Component.Routing.Generator.UrlGenerator(this.routeCollection);
+        }
+
+        return this._generator;
     }
 
     /**

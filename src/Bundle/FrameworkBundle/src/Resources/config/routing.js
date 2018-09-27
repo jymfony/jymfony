@@ -22,7 +22,6 @@ container.register('routing.loader', Jymfony.Component.Config.Loader.DelegatingL
 container.register('router.default', Jymfony.Component.Routing.Router)
     .addArgument(new Reference('routing.loader'))
     .addArgument('%router.resource%')
-    .addArgument(new Reference('logger'))
     .addArgument({})
 ;
 

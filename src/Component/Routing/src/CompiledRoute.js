@@ -7,10 +7,10 @@ class CompiledRoute {
      *
      * @param {string} staticPrefix
      * @param {RegExp} regex
-     * @param {string[]} tokens
+     * @param {string[][]} tokens
      * @param {string[]} pathVariables
      * @param {RegExp} hostRegex
-     * @param {string[]} hostTokens
+     * @param {string[][]} hostTokens
      * @param {string[]} hostVariables
      * @param {string[]} variables
      */
@@ -30,7 +30,7 @@ class CompiledRoute {
         this._regex = regex;
 
         /**
-         * @type {string[]}
+         * @type {string[][]}
          *
          * @private
          */
@@ -51,7 +51,7 @@ class CompiledRoute {
         this._hostRegex = hostRegex;
 
         /**
-         * @type {string[]}
+         * @type {string[][]}
          *
          * @private
          */
@@ -98,7 +98,7 @@ class CompiledRoute {
     }
 
     /**
-     * @returns {string[]}
+     * @returns {string[][]}
      */
     get tokens() {
         return this._tokens;
@@ -109,6 +109,13 @@ class CompiledRoute {
      */
     get variables() {
         return this._variables;
+    }
+
+    /**
+     * @returns {string[][]}
+     */
+    get hostTokens() {
+        return this._hostTokens;
     }
 
     /**

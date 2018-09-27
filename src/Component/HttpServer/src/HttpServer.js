@@ -121,6 +121,8 @@ class HttpServer {
      * @param {IncomingMessage} req
      * @param {ServerResponse} res
      *
+     * @returns {Promise<void>}
+     *
      * @private
      */
     _incomingRequest(req, res) {
@@ -144,6 +146,8 @@ class HttpServer {
      *
      * @param {IncomingMessage} req
      * @param {ServerResponse} res
+     *
+     * @returns {Promise<void>}
      *
      * @protected
      */
@@ -210,7 +214,7 @@ class HttpServer {
      * @param {Jymfony.Component.HttpFoundation.Request} request A Request instance
      * @param {boolean} [catchExceptions = true] Whether to catch exceptions or not
      *
-     * @returns {Jymfony.Component.HttpFoundation.Response} A Response instance
+     * @returns {Promise<Jymfony.Component.HttpFoundation.Response>} A Response instance
      *
      * @throws {Exception} When an Exception occurs during processing
      */
@@ -240,7 +244,7 @@ class HttpServer {
      * @param {IncomingMessage} req
      * @param {Jymfony.Component.HttpFoundation.Header.ContentType} contentType
      *
-     * @returns {Array} An array composed by the request params object
+     * @returns {Promise<Array>} An array composed by the request params object
      *     and the content as Buffer
      *
      * @protected
@@ -269,7 +273,7 @@ class HttpServer {
      *
      * @param {Jymfony.Component.HttpFoundation.Request} request
      *
-     * @returns {Jymfony.Component.HttpFoundation.Response}
+     * @returns {Promise<Jymfony.Component.HttpFoundation.Response>}
      *
      * @protected
      */
@@ -310,6 +314,8 @@ class HttpServer {
      *
      * @param {Error} e An Error instance
      * @param {Jymfony.Component.HttpFoundation.Request} request A Request instance
+     *
+     * @returns {Promise<Jymfony.Component.HttpFoundation.Response>}
      *
      * @protected
      */
@@ -363,7 +369,7 @@ class HttpServer {
      * @param {Jymfony.Component.HttpFoundation.Response} response
      * @param {Jymfony.Component.HttpFoundation.Request} request
      *
-     * @returns {Jymfony.Component.HttpFoundation.Response}
+     * @returns {Promise<Jymfony.Component.HttpFoundation.Response>}
      *
      * @private
      */

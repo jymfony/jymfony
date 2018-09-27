@@ -56,7 +56,7 @@ class RouteCollection {
      *
      * @param {string} name
      *
-     * @returns {Object.<string, Jymfony.Component.Routing.Route>|undefined}
+     * @returns {Jymfony.Component.Routing.Route|undefined}
      */
     get(name) {
         return this._routes[name];
