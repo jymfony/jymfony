@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@jymfony/autoloader": "https://github.com/jymfony/autoloader.git",
+    "@jymfony/cache": "https://github.com/jymfony/cache.git",
     "@jymfony/config": "https://github.com/jymfony/config.git",
     "@jymfony/console": "https://github.com/jymfony/console.git",
     "@jymfony/datetime": "https://github.com/jymfony/date-time.git",
