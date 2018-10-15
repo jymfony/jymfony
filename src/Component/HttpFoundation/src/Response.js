@@ -256,6 +256,271 @@ class Response {
         return this;
     }
 
+    /**
+     * Marks the response as "immutable".
+     *
+     * @returns {Jymfony.Component.HttpFoundation.Response}
+     *
+     * @final
+     */
+    setImmutable(immutable = true) {
+        if (immutable) {
+            this.headers.addCacheControlDirective('immutable');
+        } else {
+            this.headers.removeCacheControlDirective('immutable');
+        }
+
+        return this;
+    }
+
+    /**
+     * Returns true if the response is marked as "immutable".
+     *
+     * @returns {boolean}
+     *
+     * @final
+     */
+    get immutable() {
+        return this.headers.hasCacheControlDirective('immutable');
+    }
+
+
+    /**
+     * Returns true if the response must be revalidated by caches.
+     *
+     * This method indicates that the response must not be served stale by a
+     * cache in any circumstance without first revalidating with the origin.
+     * When present, the TTL of the response should not be overridden to be
+     * greater than the value provided by the origin.
+     *
+     * @returns {boolean}
+     *
+     * @final
+     */
+    get mustRevalidate() {
+        return this.headers.hasCacheControlDirective('must-revalidate') || this.headers.hasCacheControlDirective('proxy-revalidate');
+    }
+
+    /**
+     * Returns the Date header as a DateTime instance.
+     *
+     * @returns {Jymfony.Component.DateTime.DateTime}
+     *
+     * @throws {RuntimeException} When the header is not parseable
+     *
+     * @final
+     */
+    get date() {
+        return this.headers.getDate('Date');
+    }
+
+    /**
+     * Sets the Date header.
+     *
+     * @param {Jymfony.Component.DateTime.DateTime} date
+     *
+     * @returns {Jymfony.Component.HttpFoundation.Response}
+     *
+     * @final
+     */
+    setDate(date) {
+        if (date instanceof DateTime) {
+            date = date.timestamp;
+        }
+
+        date = new DateTime(date, new DateTimeZone('UTC'));
+        this.headers.set('Date', date.format('D, d M Y H:i:s') + ' GMT');
+
+        return this;
+    }
+
+    /**
+     * Returns the age of the response in seconds.
+     *
+     * @returns {int}
+     *
+     * @final
+     */
+    get age() {
+        const age = this.headers.get('Age');
+        if (age) {
+            return ~~age;
+        }
+
+        return Math.max(DateTime.unixTime - this.date.timestamp, 0);
+    }
+
+    /**
+     * Marks the response stale by setting the Age header to be equal to the maximum age of the response.
+     *
+     * @returns {Jymfony.Component.HttpFoundation.Response}
+     */
+    expire() {
+        if (this.isFresh) {
+            this.headers.set('Age', this.maxAge);
+            this.headers.remove('Expires');
+        }
+
+        return this;
+    }
+
+    /**
+     * Returns the value of the Expires header as a DateTime instance.
+     *
+     * @returns {undefined|Jymfony.Component.DateTime.DateTime}
+     *
+     * @final
+     */
+    get expires() {
+        try {
+            return this.headers.getDate('Expires');
+        } catch (e) {
+            // According to RFC 2616 invalid date formats (e.g. "0" and "-1") must be treated as in the past
+            return new DateTime(DateTime.unixTime - 172800);
+        }
+    }
+
+    /**
+     * Sets the Expires HTTP header with a DateTime instance.
+     *
+     * Passing null as value will remove the header.
+     *
+     * @param {int|Jymfony.Component.DateTime.DateTime} [date]
+     *
+     * @returns {Jymfony.Component.HttpFoundation.Response}
+     *
+     * @final
+     */
+    setExpires(date = undefined) {
+        if (! date) {
+            this.headers.remove('Expires');
+
+            return this;
+        }
+
+        if (date instanceof DateTime) {
+            date = date.timestamp;
+        }
+
+        date = new DateTime(date, new DateTimeZone('UTC'));
+        this.headers.set('Expires', date.format('D, d M Y H:i:s') + ' GMT');
+
+        return this;
+    }
+
+    /**
+     * Returns the number of seconds after the time specified in the response's Date
+     * header when the response should no longer be considered fresh.
+     *
+     * First, it checks for a s-maxage directive, then a max-age directive, and then it falls
+     * back on an expires header. It returns undefined when no maximum age can be established.
+     *
+     * @returns {undefined|int}
+     *
+     * @final
+     */
+    get maxAge() {
+        if (this.headers.hasCacheControlDirective('s-maxage')) {
+            return ~~(this.headers.getCacheControlDirective('s-maxage'));
+        }
+
+        if (this.headers.hasCacheControlDirective('max-age')) {
+            return ~~(this.headers.getCacheControlDirective('max-age'));
+        }
+
+        if (this.expires) {
+            return this.expires.timestamp - this.date.timestamp;
+        }
+
+        return undefined;
+    }
+
+    /**
+     * Sets the number of seconds after which the response should no longer be considered fresh.
+     *
+     * This methods sets the Cache-Control max-age directive.
+     *
+     * @param {int} value
+     *
+     * @returns {Jymfony.Component.HttpFoundation.Response}
+     *
+     * @final
+     */
+    setMaxAge(value) {
+        this.headers.addCacheControlDirective('max-age', value);
+
+        return this;
+    }
+
+    /**
+     * Sets the number of seconds after which the response should no longer be considered fresh by shared caches.
+     *
+     * This methods sets the Cache-Control s-maxage directive.
+     *
+     * @param {int} value
+     *
+     * @returns {Jymfony.Component.HttpFoundation.Response}
+     *
+     * @final
+     */
+    setSharedMaxAge(value) {
+        this.setPublic();
+        this.headers.addCacheControlDirective('s-maxage', value);
+
+        return this;
+    }
+
+    /**
+     * Returns the response's time-to-live in seconds.
+     *
+     * It returns undefined when no freshness information is present in the response.
+     *
+     * When the responses TTL is <= 0, the response may not be served from cache without first
+     * revalidating with the origin.
+     *
+     * @returns {undefined|int}
+     *
+     * @final
+     */
+    get ttl() {
+        const maxAge = this.maxAge;
+
+        return undefined !== maxAge ? maxAge - this.age : undefined;
+    }
+
+    /**
+     * Sets the response's time-to-live for shared caches in seconds.
+     *
+     * This method adjusts the Cache-Control/s-maxage directive.
+     *
+     * @param {int} seconds
+     *
+     * @returns {Jymfony.Component.HttpFoundation.Response}
+     *
+     * @final
+     */
+    setTtl(seconds) {
+        this.setSharedMaxAge(this.age + seconds);
+
+        return this;
+    }
+
+    /**
+     * Sets the response's time-to-live for private/client caches in seconds.
+     *
+     * This method adjusts the Cache-Control/max-age directive.
+     *
+     * @param {int} seconds
+     *
+     * @returns {Jymfony.Component.HttpFoundation.Response}
+     *
+     * @final
+     */
+    setClientTtl(seconds) {
+        this.setMaxAge(this.age + seconds);
+
+        return this;
+    }
 
     /**
      * Returns the Last-Modified HTTP header as a DateTime instance.
@@ -295,7 +560,7 @@ class Response {
      *
      * @final
      */
-    getEtag() {
+    get etag() {
         return this.headers.get('ETag');
     }
 
@@ -339,7 +604,7 @@ class Response {
      *
      * @final
      */
-    getVary() {
+    get vary() {
         if (! this.hasVary()) {
             return [];
         }

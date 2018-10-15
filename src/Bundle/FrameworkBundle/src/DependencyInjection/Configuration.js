@@ -30,6 +30,7 @@ class Configuration extends implementationOf(ConfigurationInterface) {
         this._addRouterSection(rootNode);
         this._addHttpServerSection(rootNode);
         this._addCacheSection(rootNode);
+        this._addSessionSection(rootNode);
 
         return treeBuilder;
     }
@@ -332,6 +333,34 @@ class Configuration extends implementationOf(ConfigurationInterface) {
                                 .thenInvalid('"cache.app" and "cache.system" are reserved names')
                             .end()
                         .end()
+                    .end()
+                .end()
+            .end()
+        ;
+    }
+
+    _addSessionSection(rootNode) {
+        rootNode
+            .children()
+                .arrayNode('session')
+                    .info('session configuration')
+                    .canBeEnabled()
+                    .children()
+                        .scalarNode('storage_id').defaultValue('session.storage.filesystem').end()
+                        .scalarNode('name')
+                            .validate()
+                                .ifTrue(v => Object.keys(__jymfony.parse_query_string(v.toString())).join('&') !== v.toString())
+                                .thenInvalid('Session name %s contains illegal character(s)')
+                            .end()
+                        .end()
+                        .scalarNode('cookie_lifetime').end()
+                        .scalarNode('cookie_path').end()
+                        .scalarNode('cookie_domain').end()
+                        .booleanNode('cookie_secure').end()
+                        .booleanNode('cookie_httponly').defaultTrue().end()
+                        .booleanNode('use_cookies').end()
+                        .scalarNode('max_lifetime').end()
+                        .scalarNode('save_path').defaultValue('%kernel.cache_dir%/sessions').end()
                     .end()
                 .end()
             .end()

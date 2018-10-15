@@ -908,7 +908,7 @@ class OptionsResolver {
     /**
      * Returns a string representation of the value.
      *
-     * This method returns the equivalent PHP tokens for most scalar types
+     * This method returns the equivalent JS tokens for most scalar types
      * (i.e. "false" for false, "1" for 1 etc.). Strings are always wrapped
      * in double quotes (").
      *

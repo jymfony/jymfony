@@ -26,6 +26,7 @@ class FrameworkExtension extends Extension {
             loader.load('test.js');
         }
 
+        this._registerSessionConfiguration(config.session, container, loader);
         this._registerConsoleConfiguration(config.console, container, loader);
         this._registerLoggerConfiguration(config.logger, container, loader);
         this._registerRouterConfiguration(config.router, container, loader);
@@ -42,6 +43,17 @@ class FrameworkExtension extends Extension {
      */
     getConfiguration(container) {
         return new Configuration(container.getParameter('kernel.debug'));
+    }
+
+    _registerSessionConfiguration(config, container, loader) {
+        this._sessionConfigEnabled = this._isConfigEnabled(container, config);
+        if (! this._sessionConfigEnabled) {
+            return;
+        }
+
+        loader.load('session.js');
+        container.getDefinition(Jymfony.Component.HttpServer.EventListener.SessionListener).replaceArgument(1, config.storage_id);
+        container.getDefinition(config.storage_id).replaceArgument(0, config);
     }
 
     /**
