@@ -132,7 +132,7 @@ class Filesystem {
      *
      * @param {string|string[]} files A filename, an array of files to check
      *
-     * @returns {boolean} true if the file exists, false otherwise
+     * @returns {Promise<boolean>} true if the file exists, false otherwise
      */
     async exists(files) {
         if (! isArray(files)) {
@@ -400,7 +400,7 @@ class Filesystem {
      *
      * @param {string} filename Path to the file
      *
-     * @returns {boolean}
+     * @returns {Promise<boolean>}
      */
     async isWritable(filename) {
         const stat = await StreamWrapper.get(filename).stat(filename);
