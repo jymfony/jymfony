@@ -126,7 +126,7 @@ class CacheItem extends implementationOf(CacheItemInterface) {
         } else if (time instanceof TimeSpan) {
             this._expiry = DateTime.now.modify(time).timestamp;
         } else if (isNumber(time)) {
-            this._expiry = DateTime.now.modify(new TimeSpan('PT' + ~~time + 'S'));
+            this._expiry = new DateTime(DateTime.unixTime + time).timestamp;
         } else {
             throw new InvalidArgumentException(__jymfony.sprintf(
                 'Expiration date must an instance of TimeSpan, a Number or be null or undefined, "%s" given',

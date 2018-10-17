@@ -29,6 +29,7 @@ class Configuration extends implementationOf(ConfigurationInterface) {
         this._addLoggerSection(rootNode);
         this._addRouterSection(rootNode);
         this._addHttpServerSection(rootNode);
+        this._addCacheSection(rootNode);
 
         return treeBuilder;
     }
@@ -282,6 +283,57 @@ class Configuration extends implementationOf(ConfigurationInterface) {
                 .arrayNode('http_server')
                 .info('http server configuration')
                 .canBeEnabled()
+            .end()
+        ;
+    }
+
+    /**
+     * @param {Jymfony.Component.Config.Definition.Builder.ArrayNodeDefinition} rootNode
+     *
+     * @private
+     */
+    _addCacheSection(rootNode) {
+        rootNode
+            .children()
+                .arrayNode('cache')
+                    .info('Cache configuration')
+                    .addDefaultsIfNotSet()
+                    .children()
+                        .scalarNode('prefix_seed')
+                            .info('Used to namespace cache keys when using several apps with the same shared backend')
+                            .example('my-application-name')
+                        .end()
+                        .scalarNode('app')
+                            .info('App related cache pools configuration')
+                            .defaultValue('cache.adapter.filesystem')
+                        .end()
+                        .scalarNode('system')
+                            .info('System related cache pools configuration')
+                            .defaultValue('cache.adapter.system')
+                        .end()
+                        .scalarNode('directory').defaultValue('%kernel.cache_dir%/pools').end()
+                        // .scalarNode('default_redis_provider').defaultValue('redis://localhost').end()
+                        // .scalarNode('default_memcached_provider').defaultValue('memcached://localhost').end()
+                        .arrayNode('pools')
+                            .useAttributeAsKey('name')
+                            .prototype('array')
+                                .children()
+                                    .scalarNode('adapter').defaultValue('cache.app').end()
+                                    .booleanNode('public').defaultFalse().end()
+                                    .integerNode('default_lifetime').end()
+                                    .scalarNode('provider')
+                                        .info('The service name to use as provider when the specified adapter needs one.')
+                                    .end()
+                                    .scalarNode('clearer').end()
+                                .end()
+                            .end()
+                            .validate()
+                                .ifTrue(v => v['cache.app'] || v['cache.system'])
+                                .thenInvalid('"cache.app" and "cache.system" are reserved names')
+                            .end()
+                        .end()
+                    .end()
+                .end()
             .end()
         ;
     }

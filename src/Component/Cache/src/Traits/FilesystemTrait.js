@@ -29,7 +29,7 @@ class FilesystemTrait {
             let h;
 
             try {
-                h = await file.openFile('rb');
+                h = await file.openFile('r');
             } catch (e) {
                 return;
             }
@@ -51,19 +51,17 @@ class FilesystemTrait {
     async _doFetch(ids) {
         const values = {};
         const now = DateTime.unixTime;
+        const filesystem = new Filesystem();
 
         for (let id of ids) {
             id = id.toString();
 
             const file = this._getFile(id);
-            let h;
-
-            try {
-                h = new OpenFile(file, 'rb');
-            } catch (e) {
+            if (! await filesystem.exists(file)) {
                 continue;
             }
 
+            const h = new OpenFile(file, 'r');
             const expiresAt = await h.fgets();
             if (now >= expiresAt) {
                 await h.close();
@@ -149,6 +147,7 @@ class FilesystemTrait {
             }
         }
 
+        directory = __jymfony.rtrim(directory, path.sep);
         directory += path.sep;
         // On Windows the whole path is limited to 258 chars
         if ('\\' === path.sep && 234 < directory.length) {
@@ -215,7 +214,7 @@ class FilesystemTrait {
         const tmp = this._directory + (Math.random() * 10000000);
         const filesystem = new Filesystem();
 
-        const openFile = new OpenFile(tmp, 'wb');
+        const openFile = new OpenFile(tmp, 'w');
         await openFile.fwrite(Buffer.from(data));
         await openFile.close();
 
