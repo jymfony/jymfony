@@ -47,6 +47,24 @@ class OpenFile extends File {
     }
 
     /**
+     * Reads a line from the file.
+     *
+     * @returns {Promise<string>}
+     */
+    async fgets() {
+        this._assertOpen();
+
+        const resource = await this._resource;
+        let buf = '', c;
+
+        while ('\n' !== (c = (await this._streamWrapper.streamRead(resource, 1)).toString())) {
+            buf += c;
+        }
+
+        return buf;
+    }
+
+    /**
      * Reads "count" bytes from the stream.
      *
      * @param {int} count

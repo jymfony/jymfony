@@ -225,6 +225,15 @@ class File {
     }
 
     /**
+     * Unlinks the current file.
+     *
+     * @returns {Promise<void>}
+     */
+    async unlink() {
+        await this._streamWrapper.unlink(this.filename);
+    }
+
+    /**
      * Returns the path to the file as a string.
      *
      * @returns {string}
