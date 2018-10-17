@@ -30,6 +30,7 @@ class FrameworkExtension extends Extension {
         this._registerLoggerConfiguration(config.logger, container, loader);
         this._registerRouterConfiguration(config.router, container, loader);
         this._registerHttpServerConfiguration(config.http_server, container, loader);
+        this._registerCacheConfiguration(config.cache, container, loader);
     }
 
     /**
@@ -263,6 +264,47 @@ class FrameworkExtension extends Extension {
         }
 
         loader.load('http-server.js');
+    }
+
+    /**
+     * @param {Object} config
+     * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
+     * @param {Jymfony.Component.DependencyInjection.Loader.LoaderInterface} loader
+     *
+     * @private
+     */
+    _registerCacheConfiguration(config, container, loader) {
+        loader.load('cache.js');
+        // Const version = new Parameter('container.build_id');
+        // Container.getDefinition('cache.adapter.system').replaceArgument(2, version);
+        container.getDefinition('cache.adapter.filesystem').replaceArgument(2, config.directory);
+
+        if (config.prefix_seed) {
+            container.setParameter('cache.prefix.seed', config.prefix_seed);
+        }
+
+        if (container.hasParameter('cache.prefix.seed')) {
+            // Inline any env vars referenced in the parameter
+            container.setParameter('cache.prefix.seed', container.parameterBag.resolveValue(container.getParameter('cache.prefix.seed'), true));
+        }
+
+        for (const name of [ 'app' /* , 'system'*/]) {
+            config.pools['cache.' + name] = {
+                adapter: config[name],
+                'public': true,
+            };
+        }
+
+        for (const [ name, pool ] of __jymfony.getEntries(config.pools)) {
+            const definition = new ChildDefinition(pool.adapter);
+            definition.setPublic(pool['public']);
+
+            delete pool.adapter;
+            delete pool['public'];
+
+            definition.addTag('cache.pool', pool);
+            container.setDefinition(name, definition);
+        }
     }
 }
 

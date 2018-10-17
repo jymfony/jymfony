@@ -115,7 +115,7 @@ class AbstractTrait extends mix(undefined, LoggerAwareTrait) {
         if (cleared) {
             this._namespaceVersion = 2;
 
-            for (const v of await this._doFetch([ '@' + this._namespace ])) {
+            for (const v of Object.values(await this._doFetch([ '@' + this._namespace ]))) {
                 this._namespaceVersion = 1 + ~~v;
             }
 
@@ -205,21 +205,24 @@ class AbstractTrait extends mix(undefined, LoggerAwareTrait) {
 
         if ('' === this._namespaceVersion) {
             this._namespaceVersion = '1:';
-            for (const v of await this._doFetch([ '@' + this._namespace ])) {
+            for (const v of Object.values(await this._doFetch([ '@' + this._namespace ]))) {
                 this._namespaceVersion = v;
             }
         }
 
+        const namespace = undefined === this._namespace ? '' : this._namespace;
+        const nsVersion = undefined === this._namespaceVersion ? '' : this._namespaceVersion;
+
         if (undefined === this.constructor.MAX_ID_LENGTH) {
-            return this._namespace + this._namespaceVersion + key;
+            return namespace + nsVersion + key;
         }
 
-        let id = this._namespace + this._namespaceVersion + key;
+        let id = namespace + nsVersion + key;
         if (id.length > this.constructor.MAX_ID_LENGTH) {
             const hash = crypto.createHash('sha256');
             hash.update(key);
             key = hash.digest('base64');
-            id = this._namespace + this._namespaceVersion + key;
+            id = namespace + nsVersion + key;
         }
 
         return id;
