@@ -11,7 +11,7 @@ describe('[Filesystem] OpenFile', function () {
     });
 
     it('fgetc should read one byte from stream', async () => {
-        const file = new OpenFile(__dirname + '/../fixtures/TESTFILE', 'r');
+        const file = new OpenFile(__dirname + '/../fixtures/TESTFILE.txt', 'r');
         expect(await file.fgetc()).to.be.equal('T'.charCodeAt(0));
         expect(await file.fgetc()).to.be.equal('H'.charCodeAt(0));
         expect(await file.fgetc()).to.be.equal('I'.charCodeAt(0));
@@ -20,7 +20,7 @@ describe('[Filesystem] OpenFile', function () {
     });
 
     it('fread should read from stream', async () => {
-        const file = new OpenFile(__dirname + '/../fixtures/TESTFILE', 'r');
+        const file = new OpenFile(__dirname + '/../fixtures/TESTFILE.txt', 'r');
         expect(await file.fread(7)).to.be.deep.equal(Buffer.from('THIS IS'));
         expect(await file.fread(7)).to.be.deep.equal(Buffer.from(' A TEST'));
         expect(await file.fread(7)).to.be.deep.equal(Buffer.from('\n'));
@@ -30,7 +30,7 @@ describe('[Filesystem] OpenFile', function () {
     });
 
     it('createReadableStream should return a stream', async () => {
-        const file = new OpenFile(__dirname + '/../fixtures/TESTFILE', 'r');
+        const file = new OpenFile(__dirname + '/../fixtures/TESTFILE.txt', 'r');
         const readable = await file.createReadableStream();
 
         expect(readable).to.be.instanceOf(stream.Readable);

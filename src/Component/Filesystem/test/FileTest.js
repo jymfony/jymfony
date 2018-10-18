@@ -35,17 +35,17 @@ describe('[Filesystem] File', function () {
     });
 
     it('getRealpath should return the resolved path', async () => {
-        expect(await new File(__dirname + '/../fixtures/TESTFILE').getRealpath())
-            .to.be.equal(path.resolve(__dirname + '/../fixtures/TESTFILE'));
+        expect(await new File(__dirname + '/../fixtures/TESTFILE.txt').getRealpath())
+            .to.be.equal(path.resolve(__dirname + '/../fixtures/TESTFILE.txt'));
 
         if (! __jymfony.Platform.isWindows()) {
             expect(await new File(__dirname + '/../fixtures/LINKFILE').getRealpath())
-                .to.be.equal(path.resolve(__dirname + '/../fixtures/TESTFILE'));
+                .to.be.equal(path.resolve(__dirname + '/../fixtures/TESTFILE.txt'));
         }
     });
 
     it('getSize should return the file size', async () => {
-        expect(await new File(__dirname + '/../fixtures/TESTFILE').getSize()).to.be.equal(15);
+        expect(await new File(__dirname + '/../fixtures/TESTFILE.txt').getSize()).to.be.equal(15);
 
         if (! __jymfony.Platform.isWindows()) {
             expect(await new File(__dirname + '/../fixtures/LINKFILE').getSize()).to.be.equal(15);
@@ -68,6 +68,6 @@ describe('[Filesystem] File', function () {
     });
 
     it('openFile should return an OpenFile instance', async () => {
-        expect(await new File(__dirname + '/../fixtures/TESTFILE').openFile()).to.be.instanceOf(OpenFile);
+        expect(await new File(__dirname + '/../fixtures/TESTFILE.txt').openFile()).to.be.instanceOf(OpenFile);
     });
 });

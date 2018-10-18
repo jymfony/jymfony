@@ -33,7 +33,7 @@ describe('[Filesystem] FileStreamWrapper', function () {
     it('readdir should work', async () => {
         /** @var string[] dir */
         const dir = await this._wrapper.readdir(fixturesDir);
-        expect(dir.sort()).to.be.deep.equal([ '.gitignore', 'LINKFILE', 'RENAMEBLE_FILE', 'TESTFILE', 'Testdir' ]);
+        expect(dir.sort()).to.be.deep.equal([ '.gitignore', 'LINKFILE', 'RENAMEBLE_FILE', 'TESTFILE.txt', 'Testdir' ]);
     });
 
     it('mkdir should throw if recursive flag is not set', async () => {
@@ -115,14 +115,14 @@ describe('[Filesystem] FileStreamWrapper', function () {
     });
 
     it('streamOpen/streamClose should work', async () => {
-        const resource = await this._wrapper.streamOpen(fixturesDir+'/TESTFILE', 'r');
+        const resource = await this._wrapper.streamOpen(fixturesDir+'/TESTFILE.txt', 'r');
         expect(resource).to.be.instanceOf(Resource);
 
         await this._wrapper.streamClose(resource);
     });
 
     it('createReadableStream/createWritableStream should work', async () => {
-        const resource = await this._wrapper.streamOpen(fixturesDir+'/TESTFILE', 'r+');
+        const resource = await this._wrapper.streamOpen(fixturesDir+'/TESTFILE.txt', 'r+');
         expect(this._wrapper.createReadableStream(resource)).to.be.instanceOf(stream.Readable);
         expect(this._wrapper.createWritableStream(resource)).to.be.instanceOf(stream.Writable);
 
@@ -130,7 +130,7 @@ describe('[Filesystem] FileStreamWrapper', function () {
     });
 
     it('streamRead should work', async () => {
-        const resource = await this._wrapper.streamOpen(fixturesDir+'/TESTFILE', 'r');
+        const resource = await this._wrapper.streamOpen(fixturesDir+'/TESTFILE.txt', 'r');
         await expect(
             await this._wrapper.streamRead(resource, 1)
         ).to.be.deep.equal(Buffer.from('T'));
