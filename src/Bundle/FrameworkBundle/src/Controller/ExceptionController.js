@@ -19,7 +19,14 @@ class ExceptionController {
      * @param {Jymfony.Component.HttpFoundation.Request} request
      */
     showAction(request) {
-        const exception = request.attributes.get('exception');
+        let exception = request.attributes.get('exception');
+
+        if (! this._debug) {
+            exception = {
+                code: exception.code,
+                message: exception.message,
+            };
+        }
 
         return new Response(JSON.stringify(exception), 200, {
             'content-type': 'application/json',

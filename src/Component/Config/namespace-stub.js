@@ -5,4 +5,34 @@
 /**
  * @namespace
  */
-global.Jymfony.Component.Config = {};
+Jymfony.Component.Config = {
+    /**
+     * @namespace
+     */
+    Definition: {
+        /**
+         * @namespace
+         */
+        Builder: {},
+
+        /**
+         * @namespace
+         */
+        Exception: {},
+    },
+
+    /**
+     * @namespace
+     */
+    Exception: {},
+
+    /**
+     * @namespace
+     */
+    Loader: {},
+
+    /**
+     * @namespace
+     */
+    Resource: {},
+};

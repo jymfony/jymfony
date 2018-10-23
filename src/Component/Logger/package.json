@@ -23,7 +23,7 @@
     "@jymfony/debug": "https://github.com/jymfony/debug.git",
     "bson": "^2.0",
     "chai": "^3.5.0",
-    "mocha": "^3.0",
+    "mocha": "^5.0",
     "mongodb": "^3.0"
   },
   "config": {

@@ -5,4 +5,9 @@
 /**
  * @namespace
  */
-global.Jymfony.Component.Debug = {};
+Jymfony.Component.Debug = {
+    /**
+     * @namespace
+     */
+    Exception: {},
+};

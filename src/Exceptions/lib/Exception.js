@@ -100,10 +100,14 @@ class Exception extends Error {
                 continue;
             }
 
+            if ('Object.construct' === element.function && element.file.match(/Namespace\.js$/)) {
+                continue;
+            }
+
             stack.push(element);
         }
 
-        if (!stack.length) {
+        if (! stack.length) {
             return null;
         }
 

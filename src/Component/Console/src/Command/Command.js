@@ -26,7 +26,7 @@ class Command {
         this._help = '';
         this._description = '';
 
-        if (name) {
+        if (name || (name = this.constructor.defaultName)) {
             this.name = name;
         }
 

@@ -22,7 +22,7 @@
     "@jymfony/autoloader": "https://github.com/jymfony/autoloader.git",
     "@jymfony/datastructure": "https://github.com/jymfony/data-structure.git",
     "chai": "^3.5.0",
-    "mocha": "^3.0"
+    "mocha": "^5.0"
   },
   "config": {
     "jymfony-autoload": {

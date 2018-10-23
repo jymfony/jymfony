@@ -11,6 +11,7 @@ describe('[Logger] Logger', function () {
     beforeEach(() => {
         /**
          * @type {Jymfony.Component.Testing.Prophet}
+         *
          * @private
          */
         this._prophet = new Prophet();

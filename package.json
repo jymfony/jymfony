@@ -23,15 +23,16 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
-    "mocha": "^3.4.2",
+    "mocha": "^5.2.0",
     "mongodb": "^3.0",
-    "nyc": "^11.2.1"
+    "nyc": "^13.0.0"
   },
   "flat": true,
   "config": {
     "jymfony-autoload": {
       "namespaces": {
         "Jymfony.Bundle.FrameworkBundle": "src/Bundle/FrameworkBundle/src",
+        "Jymfony.Bundle.SecurityBundle": "src/Bundle/SecurityBundle/src",
         "Jymfony.Component.Autoloader": "src/Component/Autoloader/src",
         "Jymfony.Component.Cache": "src/Component/Cache/src",
         "Jymfony.Component.Config": "src/Component/Config/src",
@@ -49,6 +50,7 @@
         "Jymfony.Component.OptionsResolver": "src/Component/OptionsResolver/src",
         "Jymfony.Component.PropertyAccess": "src/Component/PropertyAccess/src",
         "Jymfony.Component.Routing": "src/Component/Routing/src",
+        "Jymfony.Component.Security": "src/Component/Security/src",
         "Jymfony.Component.Testing": "src/Component/Testing/src"
       },
       "includes": [

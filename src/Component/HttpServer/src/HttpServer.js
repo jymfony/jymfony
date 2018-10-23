@@ -125,19 +125,19 @@ class HttpServer {
      *
      * @private
      */
-    _incomingRequest(req, res) {
-        return __jymfony.Async
-            .run(this._handleRequest(req, res))
-            .catch((e) => {
-                res.writeHead(500, { 'Content-Type': 'text/plain' });
-                res.write('Unknown error while handling your request.\r\n');
-                res.end();
+    async _incomingRequest(req, res) {
+        try {
+            await this._handleRequest(req, res);
+        } catch (e) {
+            res.writeHead(500, { 'Content-Type': 'text/plain' });
+            res.write('Unknown error while handling your request.\r\n');
+            res.end();
 
-                this._logger.error('Error while processing request: ' + e.message, {
-                    exception: e,
-                    request: req,
-                });
+            this._logger.error('Error while processing request: ' + e.message, {
+                exception: e,
+                request: req,
             });
+        }
     }
 
     /**

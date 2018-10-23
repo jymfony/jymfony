@@ -246,12 +246,33 @@ class ReflectionClass {
     /**
      * Checks whether this class is a subclass of a given subclass.
      *
-     * @param {Function} parentClass
+     * @param {Function|string} superClass
      *
      * @returns {boolean}
      */
-    isSubclassOf(parentClass) {
-        return this._constructor.prototype instanceof parentClass;
+    isSubclassOf(superClass) {
+        if ('string' === typeof superClass) {
+            superClass = ReflectionClass._recursiveGet(global, superClass.split('.'));
+        }
+
+        return this._constructor.prototype instanceof superClass;
+    }
+
+    /**
+     * Checks whether this class is an instance of the given class.
+     *
+     * @param {Function|string} superClass
+     *
+     * @returns {boolean}
+     */
+    isInstanceOf(superClass) {
+        if ('string' === typeof superClass) {
+            superClass = ReflectionClass._recursiveGet(global, superClass.split('.'));
+        }
+
+        return this._constructor === superClass
+            || this._constructor === new ReflectionClass(superClass).getConstructor()
+            || this._constructor.prototype instanceof superClass;
     }
 
     /**
@@ -465,6 +486,11 @@ class ReflectionClass {
 
         let parent = this._constructor;
         const chain = [ this._constructor.prototype ];
+
+        if (! this._isInterface) {
+            chain.push(Object.getPrototypeOf(this._constructor));
+        }
+
         while (parent = Object.getPrototypeOf(parent)) {
             if (parent.prototype) {
                 chain.unshift(parent.prototype);
