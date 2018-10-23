@@ -22,7 +22,7 @@ class ReplaceAliasByActualDefinitionPass extends AbstractRecursivePass {
 
             // Check if target needs to be replaces
             if (replacements[targetId]) {
-                container.setAlias(definitionId, replacements[targetId]);
+                container.setAlias(definitionId, replacements[targetId]).setPublic(target.isPublic());
             }
 
             // No need to process the same target twice
@@ -45,7 +45,7 @@ class ReplaceAliasByActualDefinitionPass extends AbstractRecursivePass {
             }
 
             // Remove private definition and schedule for replacement
-            definition.setPublic(true);
+            definition.setPublic(target.isPublic());
             container.setDefinition(definitionId, definition);
             container.removeDefinition(targetId);
 
@@ -68,12 +68,15 @@ class ReplaceAliasByActualDefinitionPass extends AbstractRecursivePass {
      * @inheritdoc
      */
     _processValue(value, isRoot = false) {
+        const compiler = this._container.getCompiler();
+        const formatter = compiler.logFormatter;
+
         if (value instanceof Reference && undefined !== this._replacements[value.toString()]) {
             // Perform the replacement.
             const newId = this._replacements[value.toString()];
             value = new Reference(newId, value.invalidBehavior);
 
-            this._container.log(this, __jymfony.sprintf('Changed reference of service "%s" previously pointing to "%s" to "%s".', this._currentId, value.toString(), newId));
+            compiler.addLogMessage(formatter.formatUpdateReference(this, this._currentId, value.toString(), newId));
         }
 
         return super._processValue(value, isRoot);

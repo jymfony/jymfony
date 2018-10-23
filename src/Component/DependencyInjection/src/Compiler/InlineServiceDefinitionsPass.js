@@ -60,7 +60,10 @@ class InlineServiceDefinitionsPass extends mix(AbstractRecursivePass, Repeatable
             return value;
         }
 
-        this._container.log(this, __jymfony.sprintf('Inlined service "%s" to "%s".', id, this._currentId));
+        const compiler = this._container.getCompiler();
+        const formatter = compiler.logFormatter;
+
+        compiler.addLogMessage(formatter.formatInlineService(this, id, this._currentId));
 
         if (definition.isShared()) {
             return definition;
