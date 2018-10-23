@@ -5,4 +5,9 @@
 /**
  * @namespace
  */
-global.Jymfony.Component.PropertyAccess = {};
+Jymfony.Component.PropertyAccess = {
+    /**
+     * @namespace
+     */
+    Exception: {},
+};

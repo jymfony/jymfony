@@ -5,4 +5,44 @@
 /**
  * @namespace
  */
-global.Jymfony.Component.HttpFoundation = {};
+Jymfony.Component.HttpFoundation = {
+    /**
+     * @namespace
+     */
+    Controller: {},
+
+    /**
+     * @namespace
+     */
+    Exception: {},
+
+    /**
+     * @namespace
+     */
+    File: {
+        /**
+         * @namespace
+         */
+        Exception: {},
+    },
+
+    /**
+     * @namespace
+     */
+    Header: {},
+
+    /**
+     * @namespace
+     */
+    Session: {
+        /**
+         * @namespace
+         */
+        Flash: {},
+
+        /**
+         * @namespace
+         */
+        Storage: {},
+    },
+};

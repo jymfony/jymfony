@@ -366,24 +366,56 @@ class Kernel extends implementationOf(KernelInterface) {
      * The cached version of the service container is used when fresh, otherwise a
      * new container is built.
      *
+     * @param {boolean} [refresh = false] Force rebuild the container.
+     *
      * @protected
      */
-    _initializeContainer() {
+    _initializeContainer(refresh = false) {
         let container;
         const class_ = this._getContainerClass();
         const cache = new ConfigCache(this.getCacheDir() + '/' + class_ + '.js', this._debug);
 
-        const fresh = cache.isFresh();
-        if (! fresh) {
-            container = this._buildContainer();
-            container.compile();
+        const fresh = cache.isFresh() && ! refresh;
+        if (fresh) {
+            this._container = require(cache.getPath());
+            this._container.set('kernel', this);
 
-            this._dumpContainer(container, cache);
+            return;
         }
 
-        container = new (require(cache.getPath()))();
+        const collectedLogs = {};
+        let fnWarning;
+        if (this._debug) {
+            process.addListener('warning', fnWarning = warning => {
+                if ('DeprecationWarning' !== warning.name) {
+                    return;
+                }
 
-        this._container = container;
+                collectedLogs[warning.message] = {
+                    message: warning.message,
+                    code: warning.code,
+                    stack: warning.stack,
+                    detail: warning.detail,
+                };
+            });
+        }
+
+        container = undefined;
+        try {
+            container = this._buildContainer();
+            container.compile();
+        } finally {
+            if (this._debug) {
+                process.removeListener('warning', fnWarning);
+
+                fs.writeFileSync(this.getCacheDir() + '/' + class_ + 'Deprecations.log', JSON.stringify(Object.values(collectedLogs)), null, 2);
+                fs.writeFileSync(this.getCacheDir() + '/' + class_ + 'Compiler.log', undefined !== container ? container.getCompiler().getLogs().join('\n') : '');
+            }
+        }
+
+        this._dumpContainer(container, cache);
+
+        this._container = require(cache.getPath());
         this._container.set('kernel', this);
 
         if (! fresh && this._container.has('cache_warmer')) {
@@ -404,9 +436,28 @@ class Kernel extends implementationOf(KernelInterface) {
         const options = {
             class_name: this._getContainerClass(),
             debug: this._debug,
+            build_time: container.hasParameter('kernel.container_build_time') ? container.getParameter('kernel.container_build_time') : DateTime.unixTime,
         };
 
-        cache.write(dumper.dump(options), container.getResources());
+        const codes = Array.from(__jymfony.getEntries(dumper.dump(options)));
+        const rootCode = codes.pop();
+
+        const dir = path.dirname(cache.getPath()) + '/';
+        for (const [ file, code ] of codes) {
+            const target = dir+file;
+
+            try {
+                fs.mkdirSync(path.dirname(target));
+            } catch (e) {
+                // Do nothing
+            }
+
+            fs.writeFileSync(target, code, {
+                mode: 0o666,
+            });
+        }
+
+        cache.write(rootCode[1], container.getResources());
     }
 
     /**

@@ -5,4 +5,24 @@
 /**
  * @namespace
  */
-global.Jymfony.Component.EventDispatcher = {};
+Jymfony.Component.EventDispatcher = {
+    /**
+     * @namespace
+     */
+    Debug: {},
+
+    /**
+     * @namespace
+     */
+    DependencyInjection: {
+        /**
+         * @namespace
+         */
+        Compiler: {},
+    },
+
+    /**
+     * @namespace
+     */
+    Exception: {},
+};

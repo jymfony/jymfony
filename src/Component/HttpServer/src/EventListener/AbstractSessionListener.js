@@ -39,7 +39,6 @@ class AbstractSessionListener extends implementationOf(EventSubscriberInterface)
         }).call(request);
 
         if (! session) {
-
             return;
         }
 

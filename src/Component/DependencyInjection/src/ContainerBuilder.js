@@ -1,5 +1,7 @@
 const FileResource = Jymfony.Component.Config.Resource.FileResource;
 const Alias = Jymfony.Component.DependencyInjection.Alias;
+const IteratorArgument = Jymfony.Component.DependencyInjection.Argument.IteratorArgument;
+const RewindableGenerator = Jymfony.Component.DependencyInjection.Argument.RewindableGenerator;
 const ServiceClosureArgument = Jymfony.Component.DependencyInjection.Argument.ServiceClosureArgument;
 const Compiler = Jymfony.Component.DependencyInjection.Compiler.Compiler;
 const PassConfig = Jymfony.Component.DependencyInjection.Compiler.PassConfig;
@@ -12,6 +14,7 @@ const ServiceNotFoundException = Jymfony.Component.DependencyInjection.Exception
 const RealServiceInstantiator = Jymfony.Component.DependencyInjection.LazyProxy.RealServiceInstantiator;
 const Reference = Jymfony.Component.DependencyInjection.Reference;
 
+const crypto = require('crypto');
 const fs = require('fs');
 
 /**
@@ -335,10 +338,6 @@ class ContainerBuilder extends Container {
     _doGet(id, invalidBehavior = Container.EXCEPTION_ON_INVALID_REFERENCE) {
         id = Container.normalizeId(id);
 
-        if (inlineServices.has(id)) {
-            return inlineServices[id];
-        }
-
         if (Container.IGNORE_ON_UNINITIALIZED_REFERENCE === invalidBehavior) {
             return super.get(id, invalidBehavior);
         }
@@ -596,7 +595,7 @@ class ContainerBuilder extends Container {
      * Sets a service definition.
      *
      * @param {string} id
-     * @param {Definition} definition
+     * @param {Jymfony.Component.DependencyInjection.Definition} definition
      *
      * @returns {Jymfony.Component.DependencyInjection.Definition} the service definition
      *
@@ -850,6 +849,23 @@ class ContainerBuilder extends Container {
     }
 
     /**
+     * Computes a reasonably unique hash of a value.
+     *
+     * @param {*} value A serializable value
+     *
+     * @returns {string}
+     */
+    static hash(value) {
+        const hash = crypto.createHash('sha256');
+        hash.update(__jymfony.serialize(value));
+
+        return __jymfony.strtr(hash.digest('base64').substr(0, 7), {
+            '/': '.',
+            '+': '_',
+        });
+    }
+
+    /**
      * Retrieve the currently set proxy instantiator or create a new one.
      *
      * @returns {Jymfony.Component.DependencyInjection.LazyProxy.InstantiatorInterface}
@@ -925,6 +941,68 @@ class ContainerBuilder extends Container {
             value = () => {
                 return this._resolveServices(value.values[0]);
             };
+        } else if (value instanceof IteratorArgument) {
+            const self = this;
+            value = new RewindableGenerator(function * () {
+                for (const [ k, v ] of __jymfony.getEntries(value.values)) {
+                    const conditionals = __self.getServiceConditionals(v);
+                    let y = true;
+                    for (const s of conditionals) {
+                        if (! self.has(s)) {
+                            y = false;
+                            break;
+                        }
+                    }
+
+                    if (! y) {
+                        continue;
+                    }
+
+                    for (const s of conditionals) {
+                        if (! self._doGet(s, Container.IGNORE_ON_UNINITIALIZED_REFERENCE)) {
+                            y = false;
+                            break;
+                        }
+                    }
+
+                    if (! y) {
+                        continue;
+                    }
+
+                    yield [ k, self._resolveServices(v) ];
+                }
+            }, () => {
+                let count = 0;
+                for (const v of value.values) {
+                    const conditionals = __self.getServiceConditionals(v);
+                    let y = true;
+                    for (const s of conditionals) {
+                        if (! this.has(s)) {
+                            y = false;
+                            break;
+                        }
+                    }
+
+                    if (! y) {
+                        continue;
+                    }
+
+                    for (const s of conditionals) {
+                        if (! this._doGet(s, Container.IGNORE_ON_UNINITIALIZED_REFERENCE)) {
+                            y = false;
+                            break;
+                        }
+                    }
+
+                    if (! y) {
+                        continue;
+                    }
+
+                    ++count;
+                }
+
+                return count;
+            });
         } else if (value instanceof Reference) {
             value = this._doGet(value.toString(), value.invalidBehavior);
         } else if (value instanceof Definition) {

@@ -148,6 +148,7 @@ describe('[Autoloader] ReflectionClass', function () {
     it('isSubclassOf should work', () => {
         let reflClass = new ReflectionClass(Son2);
 
+        expect(reflClass.isSubclassOf(Son2)).to.be.false;
         expect(reflClass.isSubclassOf(ISon2)).to.be.true;
         expect(reflClass.isSubclassOf(ISon)).to.be.true;
         expect(reflClass.isSubclassOf(Parent)).to.be.true;
@@ -155,10 +156,29 @@ describe('[Autoloader] ReflectionClass', function () {
 
         reflClass = new ReflectionClass(Son);
 
+        expect(reflClass.isSubclassOf(Son)).to.be.false;
         expect(reflClass.isSubclassOf(ISon2)).to.be.false;
         expect(reflClass.isSubclassOf(ISon)).to.be.true;
         expect(reflClass.isSubclassOf(Parent)).to.be.true;
         expect(reflClass.isSubclassOf(GrandParent)).to.be.true;
+    });
+
+    it('isInstanceOf should work', () => {
+        let reflClass = new ReflectionClass(Son2);
+
+        expect(reflClass.isInstanceOf(Son2)).to.be.true;
+        expect(reflClass.isInstanceOf(ISon2)).to.be.true;
+        expect(reflClass.isInstanceOf(ISon)).to.be.true;
+        expect(reflClass.isInstanceOf(Parent)).to.be.true;
+        expect(reflClass.isInstanceOf(GrandParent)).to.be.true;
+
+        reflClass = new ReflectionClass(Son);
+
+        expect(reflClass.isInstanceOf(Son)).to.be.true;
+        expect(reflClass.isInstanceOf(ISon2)).to.be.false;
+        expect(reflClass.isInstanceOf(ISon)).to.be.true;
+        expect(reflClass.isInstanceOf(Parent)).to.be.true;
+        expect(reflClass.isInstanceOf(GrandParent)).to.be.true;
     });
 
     it('isInterface should work', () => {

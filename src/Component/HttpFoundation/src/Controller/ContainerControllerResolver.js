@@ -9,9 +9,9 @@ class ContainerControllerResolver extends implementationOf(ControllerResolverInt
      * Constructor.
      *
      * @param {Jymfony.Component.DependencyInjection.Container} container
-     * @param {Jymfony.Component.Logger.LoggerInterface} [logger = new Jymfony.Component.Logger.NullLogger()]
+     * @param {Jymfony.Component.Logger.LoggerInterface} [logger]
      */
-    __construct(container, logger = new NullLogger()) {
+    __construct(container, logger = undefined) {
         /**
          * @type {Jymfony.Component.DependencyInjection.Container}
          *
@@ -24,7 +24,7 @@ class ContainerControllerResolver extends implementationOf(ControllerResolverInt
          *
          * @private
          */
-        this._logger = logger;
+        this._logger = logger || new NullLogger();
     }
 
     /**

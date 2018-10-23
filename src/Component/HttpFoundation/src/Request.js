@@ -203,6 +203,10 @@ class Request {
          */
         this._format = undefined;
 
+        if (undefined === server.REMOTE_ADDR) {
+            server.REMOTE_ADDR = '127.0.0.1';
+        }
+
         /**
          * @type {Jymfony.Component.HttpFoundation.ParameterBag}
          */
@@ -571,6 +575,39 @@ class Request {
     }
 
     /**
+     * Checks whether or not the method is safe.
+     *
+     * @see https://tools.ietf.org/html/rfc7231#section-4.2.1
+     *
+     * @returns {boolean}
+     */
+    get isMethodSafe() {
+        switch (this.method) {
+            case 'GET':
+            case 'HEAD':
+            case 'OPTIONS':
+            case 'TRACE':
+                return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Returns true if the request is a XMLHttpRequest.
+     *
+     * It works if your JavaScript library sets an X-Requested-With HTTP header.
+     * It is known to work with common JavaScript frameworks:
+     *
+     * @see http://en.wikipedia.org/wiki/List_of_Ajax_frameworks#JavaScript
+     *
+     * @returns {boolean} true if the request is an XMLHttpRequest, false otherwise
+     */
+    get isXmlHttpRequest() {
+        return 'XMLHttpRequest' === this.headers.get('X-Requested-With');
+    }
+
+    /**
      * Returns the protocol version.
      *
      * If the application is behind a proxy, the protocol version used in the
@@ -637,6 +674,57 @@ class Request {
         }
 
         return _trustedProxies.length && Ip.check(this.server.get('REMOTE_ADDR'), _trustedProxies);
+    }
+
+    /**
+     * Gets the Session.
+     *
+     * @returns {undefined|Jymfony.Component.HttpFoundation.Session.SessionInterface} The session
+     */
+    get session() {
+        const session = this._session;
+        if (isFunction(session)) {
+            this._session = session();
+        }
+
+        if (! session) {
+            throw new BadMethodCallException('Session has not been set');
+        }
+
+        return this._session;
+    }
+
+    /**
+     * Sets the Session.
+     *
+     * @param {Jymfony.Component.HttpFoundation.Session.SessionInterface} session The Session
+     */
+    set session(session) {
+        this._session = session;
+    }
+
+    /**
+     * Whether the request contains a Session which was started in one of the
+     * previous requests.
+     *
+     * @returns {boolean}
+     */
+    hasPreviousSession() {
+        // The check for this.session avoids malicious users trying to fake a session cookie with proper name
+        return this.hasSession() && this.cookies.has(this.session.name);
+    }
+
+    /**
+     * Whether the request contains a Session object.
+     *
+     * This method does not give any information about the state of the session object,
+     * like whether the session is started or not. It is just a way to check if this Request
+     * is associated with a Session instance.
+     *
+     * @returns {boolean} true when the Request contains a Session object, false otherwise
+     */
+    hasSession() {
+        return !! this._session;
     }
 
     /**

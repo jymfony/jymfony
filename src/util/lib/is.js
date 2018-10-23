@@ -1,4 +1,5 @@
 global.isArray = Array.isArray;
+global.isBuffer = Buffer.isBuffer;
 const toString = Object.prototype.toString;
 
 require('./Is/functions');

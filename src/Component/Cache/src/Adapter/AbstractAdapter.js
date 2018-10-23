@@ -57,11 +57,11 @@ class AbstractAdapter extends implementationOf(CacheItemPoolInterface, LoggerAwa
      * @param {string} namespace
      * @param {int} defaultLifetime
      * @param {string} directory
-     * @param {Jymfony.Component.Logger.LoggerInterface} [logger = new NullLogger()]
+     * @param {Jymfony.Component.Logger.LoggerInterface} [logger]
      */
-    static createSystemCache(namespace, defaultLifetime, directory, logger = new NullLogger()) {
+    static createSystemCache(namespace, defaultLifetime, directory, logger = undefined) {
         const arr = new ArrayAdapter(defaultLifetime);
-        arr.setLogger(logger);
+        arr.setLogger(logger || new NullLogger());
 
         return arr;
     }

@@ -9,6 +9,10 @@ const Prophet = Jymfony.Component.Testing.Prophet;
 
 describe('[Logger] MongoDBHandler', function () {
     beforeEach(() => {
+        /**
+         * @type {Jymfony.Component.Testing.Prophet}
+         * @private
+         */
         this._prophet = new Prophet();
     });
 

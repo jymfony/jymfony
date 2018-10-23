@@ -10,6 +10,7 @@ require('./lib/Object/diffKey');
 require('./lib/Object/entries');
 require('./lib/Object/equal');
 require('./lib/Object/filter');
+require('./lib/Object/intersectKey');
 require('./lib/Object/merge');
 require('./lib/Object/obj2map');
 require('./lib/Object/serialize');
@@ -20,6 +21,7 @@ require('./lib/Filesystem/mkdir');
 require('./lib/Function/callableArray');
 require('./lib/Function/getFunction');
 
+require('./lib/String/crc32');
 require('./lib/String/escapeshellarg');
 require('./lib/String/levenshtein');
 require('./lib/String/querystring');

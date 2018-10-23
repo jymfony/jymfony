@@ -14,10 +14,10 @@ class RouterListener extends implementationOf(EventSubscriberInterface) {
      * Constructor.
      *
      * @param {Jymfony.Component.Routing.Matcher.MatcherInterface} matcher
-     * @param {Jymfony.Component.Logger.LoggerInterface} [logger = new Jymfony.Component.Logger.NullLogger()]
+     * @param {Jymfony.Component.Logger.LoggerInterface} [logger]
      * @param {boolean} [debug = false]
      */
-    __construct(matcher, logger = new NullLogger(), debug = false) {
+    __construct(matcher, logger = undefined, debug = false) {
         /**
          * @type {Jymfony.Component.Routing.Matcher.MatcherInterface}
          *
@@ -30,7 +30,7 @@ class RouterListener extends implementationOf(EventSubscriberInterface) {
          *
          * @private
          */
-        this._logger = logger;
+        this._logger = logger || new NullLogger();
 
         /**
          * @type {boolean}

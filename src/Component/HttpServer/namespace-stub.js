@@ -5,4 +5,29 @@
 /**
  * @namespace
  */
-global.Jymfony.Component.HttpServer = {};
+Jymfony.Component.HttpServer = {
+    /**
+     * @namespace
+     */
+    Command: {},
+
+    /**
+     * @namespace
+     */
+    Event: {},
+
+    /**
+     * @namespace
+     */
+    EventListener: {},
+
+    /**
+     * @namespace
+     */
+    Exception: {},
+
+    /**
+     * @namespace
+     */
+    RequestParser: {},
+};

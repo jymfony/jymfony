@@ -15,10 +15,10 @@ class ExceptionListener extends implementationOf(EventSubscriberInterface) {
      * Constructor.
      *
      * @param {Function|string} controller
-     * @param {Jymfony.Component.Logger.LoggerInterface} [logger = new Jymfony.Component.Logger.NullLogger()]
+     * @param {Jymfony.Component.Logger.LoggerInterface} [logger]
      * @param {boolean} [debug = false]
      */
-    __construct(controller, logger = new NullLogger(), debug = false) {
+    __construct(controller, logger = undefined, debug = false) {
         /**
          * @type {Function|string}
          *
@@ -31,7 +31,7 @@ class ExceptionListener extends implementationOf(EventSubscriberInterface) {
          *
          * @private
          */
-        this._logger = logger;
+        this._logger = logger || new NullLogger();
 
         /**
          * @type {boolean}
@@ -124,6 +124,7 @@ class ExceptionListener extends implementationOf(EventSubscriberInterface) {
             '_controller': this._controller,
             'exception': FlattenException.create(exception),
             'logger': this._logger instanceof DebugLoggerInterface ? this._logger : null,
+            [Request.ATTRIBUTE_PARENT_REQUEST]: request,
         };
 
         request = request.duplicate(undefined, undefined, attributes);
