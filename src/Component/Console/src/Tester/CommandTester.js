@@ -39,8 +39,10 @@ class CommandTester {
      *
      * @param {Object.<string, *>} input
      * @param {Object<string, boolean|*>} [options = {}]
+     *
+     * @returns {Promise<int>}
      */
-    run(input, options = {}) {
+    async run(input, options = {}) {
         /**
          * @type {string}
          *
@@ -84,11 +86,7 @@ class CommandTester {
             this._output.verbosity = options.verbosity;
         }
 
-        return __jymfony.Async.run(this._command.run(this._input, this._output))
-            .then(statusCode => {
-                return this._statusCode = statusCode;
-            })
-        ;
+        return this._statusCode = await this._command.run(this._input, this._output);
     }
 
     /**

@@ -140,14 +140,14 @@ class Command {
             }
         }
 
-        await __jymfony.Async.run(getCallableFromArray([ this, 'initialize' ]), input, output);
+        await this.initialize(input, output);
 
         if (undefined !== this._processTitle) {
             process.title = this._processTitle;
         }
 
         if (input.interactive) {
-            await __jymfony.Async.run(getCallableFromArray([ this, 'interact' ]), input, output);
+            await this.interact(input, output);
         }
 
         // The command name argument is often omitted when a command is executed directly with its run() method.
@@ -159,7 +159,7 @@ class Command {
 
         input.validate();
 
-        const statusCode = await __jymfony.Async.run(getCallableFromArray([ this, 'execute' ]), input, output);
+        const statusCode = await this.execute(input, output);
 
         return ! Number.isNaN(statusCode) ? ~~statusCode : 0;
     }

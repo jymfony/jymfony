@@ -156,7 +156,7 @@ class HttpServer {
         let requestParams, content;
 
         try {
-            [ requestParams, content ] = await __jymfony.Async.run(this._parseRequestContent.bind(this), req, contentType);
+            [ requestParams, content ] = await this._parseRequestContent(req, contentType);
         } catch (e) {
             if (e instanceof BadRequestException) {
                 res.writeHead(400, {'Content-Type': 'text/plain'});
@@ -179,17 +179,17 @@ class HttpServer {
             'SERVER_PROTOCOL': 'HTTP/'+req.httpVersion,
         }, content);
 
-        let response = await __jymfony.Async.run(this.handle.bind(this), request);
+        let response = await this.handle(request);
         if (response instanceof Promise) {
             response = await response;
         }
 
-        await __jymfony.Async.run(response.prepare.bind(response), request);
+        await response.prepare(request);
         res.writeHead(response.statusCode, response.statusText, response.headers.all);
 
         if (! response.isEmpty && response.content) {
             if (isFunction(response.content)) {
-                await __jymfony.Async.run(response.content, res);
+                await response.content(res);
             } else {
                 await new Promise((resolve) => {
                     res.write(response.content, 'utf8', () => {
@@ -202,7 +202,7 @@ class HttpServer {
         res.end();
 
         const event = new Event.PostResponseEvent(this, request, response);
-        await __jymfony.Async.run(this._dispatcher.dispatch.bind(this._dispatcher), Event.HttpServerEvents.TERMINATE, event);
+        await this._dispatcher.dispatch(Event.HttpServerEvents.TERMINATE, event);
     }
 
     /**
@@ -222,7 +222,7 @@ class HttpServer {
         let response;
 
         try {
-            response = await __jymfony.Async.run(this._handleRaw.bind(this), request);
+            response = await this._handleRaw(request);
         } catch (e) {
             if (e instanceof RequestExceptionInterface) {
                 e = new BadRequestHttpException(e.message, e);
@@ -263,7 +263,7 @@ class HttpServer {
             parser = new RequestParser.OctetStreamParser(req, contentLength);
         }
 
-        const params = await __jymfony.Async.run(parser.parse());
+        const params = await parser.parse();
 
         return [ params, parser.buffer ];
     }
@@ -279,7 +279,7 @@ class HttpServer {
      */
     async _handleRaw(request) {
         let event = new Event.GetResponseEvent(this, request);
-        await __jymfony.Async.run(this._dispatcher.dispatch.bind(this._dispatcher), Event.HttpServerEvents.REQUEST, event);
+        await this._dispatcher.dispatch(Event.HttpServerEvents.REQUEST, event);
 
         if (event.hasResponse()) {
             return await this._filterResponse(event.response, request);
@@ -291,10 +291,10 @@ class HttpServer {
         }
 
         event = new Event.FilterControllerEvent(this, controller, request);
-        await __jymfony.Async.run(this._dispatcher.dispatch.bind(this._dispatcher), Event.HttpServerEvents.CONTROLLER, event);
+        await this._dispatcher.dispatch(Event.HttpServerEvents.CONTROLLER, event);
         controller = event.controller;
 
-        const response = await __jymfony.Async.run(controller, request);
+        const response = await controller(request);
         if (! (response instanceof Response)) {
             let msg = 'The controller must return a response.';
 
@@ -321,12 +321,12 @@ class HttpServer {
      */
     async _handleException(e, request) {
         const event = new Event.GetResponseForExceptionEvent(this, request, e);
-        await __jymfony.Async.run(this._dispatcher.dispatch.bind(this._dispatcher), Event.HttpServerEvents.EXCEPTION, event);
+        await this._dispatcher.dispatch(Event.HttpServerEvents.EXCEPTION, event);
 
         // A listener might have replaced the exception
         e = event.exception;
         if (! event.hasResponse()) {
-            await __jymfony.Async.run(this._dispatcher.dispatch.bind(this._dispatcher), Event.HttpServerEvents.FINISH_REQUEST, new Event.FinishRequestEvent(this, request));
+            await this._dispatcher.dispatch(Event.HttpServerEvents.FINISH_REQUEST, new Event.FinishRequestEvent(this, request));
 
             throw e;
         }
@@ -375,8 +375,8 @@ class HttpServer {
      */
     async _filterResponse(response, request) {
         const event = new Event.FilterResponseEvent(this, request, response);
-        await __jymfony.Async.run(this._dispatcher.dispatch.bind(this._dispatcher), Event.HttpServerEvents.RESPONSE, event);
-        await __jymfony.Async.run(this._dispatcher.dispatch.bind(this._dispatcher), Event.HttpServerEvents.FINISH_REQUEST, new Event.FinishRequestEvent(this, request));
+        await this._dispatcher.dispatch(Event.HttpServerEvents.RESPONSE, event);
+        await this._dispatcher.dispatch(Event.HttpServerEvents.FINISH_REQUEST, new Event.FinishRequestEvent(this, request));
 
         return event.response;
     }

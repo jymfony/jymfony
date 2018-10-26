@@ -96,7 +96,7 @@ class AuthenticationProviderManager extends implementationOf(AuthenticationManag
             }
 
             if (undefined !== this._eventDispatcher) {
-                await __jymfony.Async.run(this._eventDispatcher.dispatch.bind(this._eventDispatcher), AuthenticationEvents.AUTHENTICATION_SUCCESS, new AuthenticationEvent(result));
+                await this._eventDispatcher.dispatch(AuthenticationEvents.AUTHENTICATION_SUCCESS, new AuthenticationEvent(result));
             }
 
             return result;
@@ -107,7 +107,7 @@ class AuthenticationProviderManager extends implementationOf(AuthenticationManag
         }
 
         if (undefined !== this._eventDispatcher) {
-            await __jymfony.Async.run(this._eventDispatcher.dispatch.bind(this._eventDispatcher), AuthenticationEvents.AUTHENTICATION_FAILURE, new AuthenticationFailureEvent(token, lastException));
+            await this._eventDispatcher.dispatch(AuthenticationEvents.AUTHENTICATION_FAILURE, new AuthenticationFailureEvent(token, lastException));
         }
 
         lastException.token = token;

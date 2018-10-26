@@ -14,7 +14,7 @@ class EventDispatcherInterface {
      *
      * @returns {Promise.<Jymfony.Component.EventDispatcher.Event>}
      */
-    dispatch(eventName, event = new Event()) { }
+    async dispatch(eventName, event = new Event()) { }
 
     /**
      * Attach a listener to an event.

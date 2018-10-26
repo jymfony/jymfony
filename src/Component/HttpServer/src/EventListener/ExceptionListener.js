@@ -47,8 +47,10 @@ class ExceptionListener extends implementationOf(EventSubscriberInterface) {
      * @param {Jymfony.Component.HttpServer.Event.GetResponseForExceptionEvent} event
      * @param {string} eventName
      * @param {Jymfony.Component.EventDispatcher.EventDispatcherInterface} eventDispatcher
+     *
+     * @returns {Promise<void>}
      */
-    * onException(event, eventName, eventDispatcher) {
+    async onException(event, eventName, eventDispatcher) {
         const exception = event.exception;
         let request = event.request;
 
@@ -65,7 +67,7 @@ class ExceptionListener extends implementationOf(EventSubscriberInterface) {
         request = this._duplicateRequest(exception, request);
 
         try {
-            response = yield event.server.handle(request, false);
+            response = await event.server.handle(request, false);
         } catch (e) {
             this._logException(e, __jymfony.sprintf('Exception thrown when handling an exception (%s)', e.constructor.name));
 

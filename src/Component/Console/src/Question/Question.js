@@ -151,32 +151,12 @@ class Question {
      *
      * @returns {Promise}
      */
-    ask() {
-        return __jymfony.Async.run(this._doAsk());
-    }
-
-    /**
-     * Returns a question renderer.
-     *
-     * @returns {Jymfony.Component.Console.Question.Renderer.RendererInterface}
-     *
-     * @protected
-     */
-    _getRenderer() {
-        return new ReadlineRenderer(this);
-    }
-
-    /**
-     * Ask and validate the answer.
-     *
-     * @private
-     */
-    * _doAsk() {
+    async ask() {
         const formatter = new FormatterHelper();
         const renderer = this._getRenderer();
 
         do {
-            let value = yield renderer.doAsk();
+            let value = await renderer.doAsk();
 
             value = this._normalizer(value);
             try {
@@ -191,6 +171,17 @@ class Question {
                 this._output.writeln(err);
             }
         } while (true);
+    }
+
+    /**
+     * Returns a question renderer.
+     *
+     * @returns {Jymfony.Component.Console.Question.Renderer.RendererInterface}
+     *
+     * @protected
+     */
+    _getRenderer() {
+        return new ReadlineRenderer(this);
     }
 }
 
