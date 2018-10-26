@@ -11,11 +11,15 @@ const path = require('path');
 class Bundle extends implementationOf(ContainerAwareInterface, ContainerAwareTrait) {
     /**
      * Boots the bundle
+     *
+     * @returns {Promise<void>}
      */
     async boot() { }
 
     /**
      * Shutdowns the Bundle.
+     *
+     * @returns {Promise<void>}
      */
     async shutdown() { }
 

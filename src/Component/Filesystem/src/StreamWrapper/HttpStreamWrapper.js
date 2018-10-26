@@ -166,6 +166,9 @@ class HttpStreamWrapper extends AbstractStreamWrapper {
         return stat;
     }
 
+    /**
+     * @inheritdoc
+     */
     async readlink(path) {
         const resource = new Resource(path, __self.head(path));
 

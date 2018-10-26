@@ -180,6 +180,8 @@ class CacheSessionStorage extends implementationOf(SessionStorageInterface) {
     /**
      * Loads the session attributes.
      *
+     * @returns {Promise<void>}
+     *
      * @private
      */
     async _loadSession() {

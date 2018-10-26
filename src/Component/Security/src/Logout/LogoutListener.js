@@ -53,8 +53,6 @@ class LogoutListener extends implementationOf(ListenerInterface) {
 
     /**
      * @inheritdoc
-     *
-     * @param {Jymfony.Component.HttpServer.Event.GetResponseEvent} event
      */
     async handle(event) {
         const request = event.request;

@@ -56,8 +56,6 @@ class BinaryFileResponse extends Response {
 
     /**
      * @inheritdoc
-     *
-     * @param {Jymfony.Component.HttpFoundation.Request} request
      */
     async prepare(request) {
         if (! this.headers.has('Content-Type')) {

@@ -12,7 +12,7 @@ class EventDispatcherInterface {
      * @param {string} eventName
      * @param {Jymfony.Component.EventDispatcher.Event} [event = new Jymfony.Component.EventDispatcher.Event()]
      *
-     * @returns {Promise.<Jymfony.Component.EventDispatcher.Event>}
+     * @returns {Promise<Jymfony.Component.EventDispatcher.Event>}
      */
     async dispatch(eventName, event = new Event()) { }
 

@@ -83,7 +83,7 @@ class Kernel extends implementationOf(KernelInterface) {
     }
 
     /**
-     * Boots the kernel
+     * @inheritdoc
      */
     async boot() {
         if (this._booted) {

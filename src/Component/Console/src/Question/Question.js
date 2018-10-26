@@ -149,7 +149,7 @@ class Question {
     /**
      * Ask the user for input and return the answer.
      *
-     * @returns {Promise}
+     * @returns {Promise<*>}
      */
     async ask() {
         const formatter = new FormatterHelper();

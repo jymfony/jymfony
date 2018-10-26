@@ -31,7 +31,7 @@ class AbstractTrait extends mix(undefined, LoggerAwareTrait) {
      *
      * @param {string[]} ids The cache identifiers to fetch
      *
-     * @returns {*[]} The corresponding values found in the cache
+     * @returns {Promise<*[]>} The corresponding values found in the cache
      *
      * @abstract
      *
@@ -44,7 +44,7 @@ class AbstractTrait extends mix(undefined, LoggerAwareTrait) {
      *
      * @param {string} id The identifier for which to check existence
      *
-     * @returns {boolean} True if item exists in the cache, false otherwise
+     * @returns {Promise<boolean>} True if item exists in the cache, false otherwise
      *
      * @abstract
      *
@@ -57,7 +57,7 @@ class AbstractTrait extends mix(undefined, LoggerAwareTrait) {
      *
      * @param {string} namespace The prefix used for all identifiers managed by this pool
      *
-     * @returns {boolean} True if the pool was successfully cleared, false otherwise
+     * @returns {Promise<boolean>} True if the pool was successfully cleared, false otherwise
      *
      * @abstract
      *
@@ -70,7 +70,7 @@ class AbstractTrait extends mix(undefined, LoggerAwareTrait) {
      *
      * @param {string[]} ids An array of identifiers that should be removed from the pool
      *
-     * @returns {boolean} True if the items were successfully removed, false otherwise
+     * @returns {Promise<boolean>} True if the items were successfully removed, false otherwise
      *
      * @abstract
      *
@@ -84,7 +84,7 @@ class AbstractTrait extends mix(undefined, LoggerAwareTrait) {
      * @param {Object.<string, *>} values   The values to cache, indexed by their cache identifier
      * @param {int} lifetime The lifetime of the cached values, 0 for persisting until manual cleaning
      *
-     * @returns {Object.<string, *>|boolean} The identifiers that failed to be cached or a boolean stating if caching succeeded or not
+     * @returns {Promise<Object.<string, *>|boolean>} The identifiers that failed to be cached or a boolean stating if caching succeeded or not
      *
      * @abstract
      *

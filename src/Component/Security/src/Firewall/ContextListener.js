@@ -63,6 +63,8 @@ class ContextListener extends implementationOf(ListenerInterface, EventSubscribe
 
     /**
      * @param {Jymfony.Component.HttpServer.Event.GetResponseEvent} event
+     *
+     * @returns {Promise<void>}
      */
     async handle(event) {
         const request = event.request;

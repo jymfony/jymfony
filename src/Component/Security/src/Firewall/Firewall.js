@@ -68,6 +68,8 @@ class Firewall extends implementationOf(EventSubscriberInterface, TargetPathTrai
 
     /**
      * @param {Jymfony.Component.HttpServer.Event.GetResponseEvent} event
+     *
+     * @returns {Promise<void>}
      */
     async onRequest(event) {
         const request = event.request;
@@ -91,6 +93,8 @@ class Firewall extends implementationOf(EventSubscriberInterface, TargetPathTrai
 
     /**
      * @param {Jymfony.Component.HttpServer.Event.GetResponseForExceptionEvent} event
+     *
+     * @returns {Promise<void>}
      */
     async onException(event) {
         const request = event.request;
@@ -172,6 +176,8 @@ class Firewall extends implementationOf(EventSubscriberInterface, TargetPathTrai
      * @param {Jymfony.Component.HttpServer.Event.GetResponseForExceptionEvent} event
      * @param {Jymfony.Component.Security.Firewall.FirewallConfig} firewall
      * @param {Jymfony.Component.Security.Exception.AccessDeniedException} exception
+     *
+     * @returns {Promise<void>}
      */
     async _handleAccessDeniedException(event, firewall, exception) {
         event.exception = new AccessDeniedHttpException(exception.message, exception);

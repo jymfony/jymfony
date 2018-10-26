@@ -184,7 +184,7 @@ class Resource {
      *
      * @param {string} path
      *
-     * @returns {Object} The headers.
+     * @returns {Promise<Object>} The headers.
      */
     static async head(path) {
         const url = urlParse(path);

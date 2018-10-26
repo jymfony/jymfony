@@ -25,6 +25,8 @@ class Filesystem {
      * @param {string} targetFile The target filename
      * @param {boolean} [overwriteNewerFiles = false] If true, target files newer than origin files are overwritten
      *
+     * @returns {Promise<void>}
+     *
      * @throws {Jymfony.Component.Filesystem.Exception.IOException} When copy fails
      */
     async copy(originFile, targetFile, overwriteNewerFiles = false) {
@@ -104,6 +106,8 @@ class Filesystem {
      * @param {string|string[]} dirs The directory path
      * @param {int} [mode = 0o777] The directory mode
      *
+     * @returns {Promise<void>}
+     *
      * @throws {Jymfony.Component.Filesystem.Exception.IOException} On any directory creation failure
      */
     async mkdir(dirs, mode = 0o777) {
@@ -153,6 +157,8 @@ class Filesystem {
      *
      * @param {string|string[]} files A filename, an array of files to remove
      *
+     * @returns {Promise<void>}
+     *
      * @throws {Jymfony.Component.Filesystem.Exception.IOException} When removal fails
      */
     async remove(files) {
@@ -189,6 +195,8 @@ class Filesystem {
      *     - options['override'] Whether to override an existing file on copy or not (see copy())
      *     - options['copy_on_windows'] Whether to copy files instead of links on Windows (see symlink())
      *     - options['delete'] Whether to delete files that are not in the source directory (defaults to false)
+     *
+     * @returns {Promise<void>}
      *
      * @throws {Jymfony.Component.Filesystem.Exception.IOException} When file type is unknown
      */
@@ -295,6 +303,8 @@ class Filesystem {
      * @param {string} targetDir The symbolic link name
      * @param {boolean} [copyOnWindows = false] Whether to copy files if on Windows
      *
+     * @returns {Promise<void>}
+     *
      * @throws {Jymfony.Component.Filesystem.Exception.IOException} When symlink fails
      */
     async symlink(originDir, targetDir, copyOnWindows = false) {
@@ -338,7 +348,7 @@ class Filesystem {
      * @param {string} path A filesystem path
      * @param {boolean} [canonicalize = false] Whether or not to return a canonicalized path
      *
-     * @returns {string|null}
+     * @returns {Promise<string|null>}
      */
     async readlink(path, canonicalize = false) {
         const streamWrapper = StreamWrapper.get(path);
@@ -370,7 +380,7 @@ class Filesystem {
      *
      * @param path
      *
-     * @returns {string[]}
+     * @returns {Promise<string[]>}
      */
     async readdir(path) {
         return await StreamWrapper.get(path).readdir(path);
@@ -381,7 +391,7 @@ class Filesystem {
      *
      * @param {string} filename Path to the file
      *
-     * @returns {boolean}
+     * @returns {Promise<boolean>}
      */
     async isReadable(filename) {
         const stat = await StreamWrapper.get(filename).stat(filename);
@@ -419,7 +429,7 @@ class Filesystem {
      *
      * @param {string} path Path to the file
      *
-     * @returns {boolean}
+     * @returns {Promise<boolean>}
      */
     async isDir(path) {
         const stat = await StreamWrapper.get(path).stat(path);
@@ -432,7 +442,7 @@ class Filesystem {
      *
      * @param {string} path Path to the file
      *
-     * @returns {boolean}
+     * @returns {Promise<boolean>}
      */
     async isFile(path) {
         const stat = await StreamWrapper.get(path).stat(path);
@@ -445,7 +455,7 @@ class Filesystem {
      *
      * @param {string} path Path to the file
      *
-     * @returns {boolean}
+     * @returns {Promise<boolean>}
      */
     async isLink(path) {
         const stat = await StreamWrapper.get(path).stat(path);

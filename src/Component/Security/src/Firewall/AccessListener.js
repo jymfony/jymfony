@@ -48,6 +48,8 @@ class AccessListener extends implementationOf(ListenerInterface) {
 
     /**
      * @param {Jymfony.Component.HttpServer.Event.GetResponseEvent} event
+     *
+     * @returns {Promise<void>}
      */
     async handle(event) {
         const request = event.request;

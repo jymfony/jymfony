@@ -50,6 +50,8 @@ class AnonymousAuthenticationListener extends implementationOf(ListenerInterface
 
     /**
      * @param {Jymfony.Component.HttpServer.Event.GetResponseEvent} event
+     *
+     * @returns {Promise<void>}
      */
     async handle(event) {
         let token = this._tokenStorage.getToken(event.request);

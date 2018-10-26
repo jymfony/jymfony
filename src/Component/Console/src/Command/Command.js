@@ -119,7 +119,7 @@ class Command {
      * @param {Jymfony.Component.Console.Input.InputInterface} input An InputInterface instance
      * @param {Jymfony.Component.Console.Output.OutputInterface} output An OutputInterface instance
      *
-     * @returns {int} The command exit code
+     * @returns {Promise<int>} The command exit code
      *
      * @see execute()
      */
