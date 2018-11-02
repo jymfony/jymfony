@@ -50,6 +50,10 @@ class StreamWrapper {
      * @throws {Jymfony.Component.Filesystem.Exception.StreamWrapperNotAvailableException}
      */
     get(path) {
+        if (path.match(/^[a-z]:[\/\\]/i, path)) {
+            return this._wrappers['file'];
+        }
+
         const url = parse(path);
         if (! url.protocol) {
             return this._wrappers['file'];
