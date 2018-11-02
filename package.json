@@ -25,7 +25,7 @@
     "chai": "^3.5.0",
     "mocha": "^5.2.0",
     "mongodb": "^3.0",
-    "nyc": "^13.0.0"
+    "nyc": "^13.1.0"
   },
   "flat": true,
   "config": {
@@ -62,11 +62,15 @@
   },
   "nyc": {
     "per-file": true,
+    "hookRequire": false,
+    "hookRunInContext": true,
+    "hookRunInThisContext": true,
     "include": [
       "src/**/*.js"
     ],
     "exclude": [
       "**/tests.js",
+      "**/*Interface.js",
       "**/namespace-stub.js",
       "**/fixtures/**",
       "**/test/**"

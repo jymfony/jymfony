@@ -49,6 +49,13 @@ class AbstractAdapter extends implementationOf(CacheItemPoolInterface, LoggerAwa
 
             return item;
         };
+
+        /**
+         * @type {Jymfony.Component.Logger.LoggerInterface}
+         *
+         * @private
+         */
+        this._logger = new NullLogger();
     }
 
     /**
@@ -116,8 +123,12 @@ class AbstractAdapter extends implementationOf(CacheItemPoolInterface, LoggerAwa
             return false;
         }
 
-        const lifetime = item._expiry - DateTime.unixTime;
-        if (0 > lifetime) {
+        let lifetime = item._expiry - DateTime.unixTime;
+        if (undefined === item._expiry) {
+            lifetime = item._defaultLifetime;
+        }
+
+        if (undefined !== lifetime && 0 > lifetime) {
             return;
         }
 

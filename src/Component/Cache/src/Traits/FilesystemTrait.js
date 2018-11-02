@@ -62,8 +62,8 @@ class FilesystemTrait {
             }
 
             const h = new OpenFile(file, 'r');
-            const expiresAt = await h.fgets();
-            if (now >= expiresAt) {
+            const expiresAt = ~~(await h.fgets());
+            if (expiresAt && now >= expiresAt) {
                 await h.close();
                 await h.unlink();
             } else {

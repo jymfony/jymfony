@@ -136,7 +136,7 @@ class AbstractTrait extends mix(undefined, LoggerAwareTrait) {
      * @inheritdoc
      */
     async deleteItem(key) {
-        return await this._deleteItems([ key ]);
+        return await this.deleteItems([ key ]);
     }
 
     /**
