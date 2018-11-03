@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@jymfony/autoloader": "https://github.com/jymfony/autoloader.git",
+    "@jymfony/config": "https://github.com/jymfony/config.git",
     "@jymfony/dependency-injection": "https://github.com/jymfony/dependency-injection.git",
     "@jymfony/exceptions": "https://github.com/jymfony/exceptions.git",
     "@jymfony/framework-bundle": "https://github.com/jymfony/framework-bundle.git",

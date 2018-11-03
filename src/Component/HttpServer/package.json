@@ -19,10 +19,13 @@
   },
   "dependencies": {
     "@jymfony/autoloader": "https://github.com/jymfony/autoloader.git",
+    "@jymfony/console": "https://github.com/jymfony/console.git",
     "@jymfony/event-dispatcher": "https://github.com/jymfony/event-dispatcher.git",
     "@jymfony/exceptions": "https://github.com/jymfony/exceptions.git",
     "@jymfony/http-foundation": "https://github.com/jymfony/http-foundation.git",
+    "@jymfony/kernel": "https://github.com/jymfony/kernel.git",
     "@jymfony/logger": "https://github.com/jymfony/logger.git",
+    "@jymfony/routing": "https://github.com/jymfony/routing.git",
     "@jymfony/util": "https://github.com/jymfony/util.git"
   },
   "devDependencies": {

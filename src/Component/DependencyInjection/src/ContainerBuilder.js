@@ -67,7 +67,7 @@ class ContainerBuilder extends Container {
          *
          * @private
          */
-        this._trackResources = ReflectionClass.exists('Jymfony.Component.Config.Resource.ResourceInterface');
+        this._trackResources = true;
 
         this.setDefinition(
             'service_container',
@@ -79,7 +79,6 @@ class ContainerBuilder extends Container {
 
     /**
      * Sets the track resources flag.
-     * Set this to false if you don't want to depend on the config package.
      *
      * @param {boolean} track
      */

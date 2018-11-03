@@ -27,6 +27,7 @@
     "mongodb": "^3.0",
     "nyc": "^13.1.0"
   },
+  "repository": "https://github.com/jymfony/jymfony.git",
   "flat": true,
   "config": {
     "jymfony-autoload": {

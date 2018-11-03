@@ -20,6 +20,7 @@
     "@jymfony/util": "https://github.com/jymfony/util.git"
   },
   "devDependencies": {
+    "@jymfony/http-foundation": "https://github.com/jymfony/http-foundation.git",
     "chai": "^3.5.0",
     "mocha": "^5.0"
   },

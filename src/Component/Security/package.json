@@ -19,7 +19,10 @@
     "@jymfony/autoloader": "https://github.com/jymfony/autoloader.git",
     "@jymfony/event-dispatcher": "https://github.com/jymfony/event-dispatcher.git",
     "@jymfony/exceptions": "https://github.com/jymfony/exceptions.git",
+    "@jymfony/http-foundation": "https://github.com/jymfony/http-foundation.git",
+    "@jymfony/http-server": "https://github.com/jymfony/http-server.git",
     "@jymfony/logger": "https://github.com/jymfony/logger.git",
+    "@jymfony/routing": "https://github.com/jymfony/routing.git",
     "@jymfony/util": "https://github.com/jymfony/util.git"
   },
   "devDependencies": {
