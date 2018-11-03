@@ -37,7 +37,7 @@ class AbstractTrait extends mix(undefined, LoggerAwareTrait) {
      *
      * @protected
      */
-    async _doFetch(ids) { } // eslint-disable-line no-unused-vars
+    _doFetch(ids) { } // eslint-disable-line no-unused-vars
 
     /**
      * Confirms if the cache contains specified cache item.
@@ -50,7 +50,7 @@ class AbstractTrait extends mix(undefined, LoggerAwareTrait) {
      *
      * @protected
      */
-    async _doHave(id) { } // eslint-disable-line no-unused-vars
+    _doHave(id) { } // eslint-disable-line no-unused-vars
 
     /**
      * Deletes all items in the pool.
@@ -63,7 +63,7 @@ class AbstractTrait extends mix(undefined, LoggerAwareTrait) {
      *
      * @protected
      */
-    async _doClear(namespace) { } // eslint-disable-line no-unused-vars
+    _doClear(namespace) { } // eslint-disable-line no-unused-vars
 
     /**
      * Removes multiple items from the pool.
@@ -76,7 +76,7 @@ class AbstractTrait extends mix(undefined, LoggerAwareTrait) {
      *
      * @protected
      */
-    async _doDelete(ids) { } // eslint-disable-line no-unused-vars
+    _doDelete(ids) { } // eslint-disable-line no-unused-vars
 
     /**
      * Persists several cache items immediately.
@@ -90,7 +90,7 @@ class AbstractTrait extends mix(undefined, LoggerAwareTrait) {
      *
      * @protected
      */
-    async _doSave(values, lifetime) { } // eslint-disable-line no-unused-vars
+    _doSave(values, lifetime) { } // eslint-disable-line no-unused-vars
 
     /**
      * @inheritdoc
@@ -135,8 +135,8 @@ class AbstractTrait extends mix(undefined, LoggerAwareTrait) {
     /**
      * @inheritdoc
      */
-    async deleteItem(key) {
-        return await this.deleteItems([ key ]);
+    deleteItem(key) {
+        return this.deleteItems([ key ]);
     }
 
     /**
@@ -149,26 +149,21 @@ class AbstractTrait extends mix(undefined, LoggerAwareTrait) {
         }
 
         try {
-            if (await this._doDelete(ids)) {
-                return true;
-            }
+            await this._doDelete(ids);
+            return true;
         } catch (e) {
         }
 
-        let ok = true, e;
+        let ok = true;
 
         // When bulk-delete failed, retry each item individually
         for (const [ key, id ] of __jymfony.getEntries(ids)) {
             try {
-                e = undefined;
-                if (await this._doDelete([ id ])) {
-                    continue;
-                }
+                await this._doDelete([ id ]);
             } catch (e) {
+                this._logger.warning('Failed to delete key "{key}"', { key: key, exception: e });
+                ok = false;
             }
-
-            this._logger.warning('Failed to delete key "{key}"', { key: key, exception: e });
-            ok = false;
         }
 
         return ok;

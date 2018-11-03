@@ -92,7 +92,7 @@ class FilesystemTrait {
             return false;
         }
 
-        return await (new File(file)).getMtime() > DateTime.unixTime || await this._doFetch([ id ]);
+        return await (new File(file)).getMtime() > DateTime.unixTime || !! (await this._doFetch([ id ]));
     }
 
     /**
@@ -104,8 +104,15 @@ class FilesystemTrait {
         const expiresAt = lifetime ? (DateTime.unixTime + lifetime) : 0;
 
         for (const [ id, value ] of __jymfony.getEntries(values)) {
-            ok = await this._write(this._getFile(id, true), expiresAt + '\n' + encodeURIComponent(id) + '\n' +
-                __jymfony.serialize(value), expiresAt) && ok;
+            try {
+                await this._write(
+                    this._getFile(id, true),
+                    expiresAt + '\n' + encodeURIComponent(id) + '\n' + __jymfony.serialize(value),
+                    expiresAt
+                );
+            } catch (e) {
+                ok = false;
+            }
         }
 
         if (! ok && ! await filesystem.isWritable(this._directory)) {
@@ -193,18 +200,18 @@ class FilesystemTrait {
 
         for (const id of ids) {
             const file = new File(this._getFile(id));
-            if (await file.isDirectory()) {
-                return;
+            if (!await filesystem.exists(file.filename) || await file.isDirectory()) {
+                continue;
             }
 
             try {
                 await file.unlink();
-                return;
+                continue;
             } catch (e) {
                 // Do nothing
             }
 
-            ok = !await filesystem.exists(file.filename) && ok;
+            ok = !(await filesystem.exists(file.filename)) && ok;
         }
 
         return ok;

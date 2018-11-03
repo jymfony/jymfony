@@ -129,7 +129,7 @@ class AbstractAdapter extends implementationOf(CacheItemPoolInterface, LoggerAwa
         }
 
         if (undefined !== lifetime && 0 > lifetime) {
-            return;
+            return this._doDelete([ item.key ]);
         }
 
         return this._doSave({ [item.key]: item.get() }, lifetime);
