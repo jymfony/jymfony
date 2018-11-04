@@ -2,7 +2,7 @@
     <img src="https://s3.amazonaws.com/jymfony.com/jymfony-logo.svg" height="150">
 </p>
 
-[![Build Status](https://travis-ci.org/jymfony/jymfony.svg?branch=master)](https://travis-ci.org/jymfony/jymfony) [![Build status](https://ci.appveyor.com/api/projects/status/u0pha9iab9dr3kwj/branch/master?svg=true)](https://ci.appveyor.com/project/alekitto/jymfony-354c2/branch/master) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/jymfony/jymfony/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/jymfony/jymfony/?branch=master) [![Code Coverage](https://scrutinizer-ci.com/g/jymfony/jymfony/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/jymfony/jymfony/?branch=master)
+[![Build Status](https://travis-ci.org/jymfony/jymfony.svg?branch=master)](https://travis-ci.org/jymfony/jymfony) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/jymfony/jymfony/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/jymfony/jymfony/?branch=master) [![Code Coverage](https://scrutinizer-ci.com/g/jymfony/jymfony/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/jymfony/jymfony/?branch=master)
 
 Jymfony is a **Node.js framework** for applications and a set of reusable **Javascript components**.
 Jymfony was born from an idea of [Alessandro Chitolina](https://github.com/alekitto) as a port of the popular PHP framework, Symfony.
@@ -89,3 +89,5 @@ The Jymfony team:
 - Massimiliano Braglia [@massimilianobraglia](https://github.com/massimilianobraglia) (contributor)
 - Giovanni Albero [@giovannialbero1992](https://github.com/giovannialbero1992) (contributor)
 - Stefano Rainieri [@stefano-rainieri](https://github.com/stefano-rainieri) (contributor)
+
+The logo is an artwork made by Daniele Tognetti
