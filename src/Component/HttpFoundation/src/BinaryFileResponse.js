@@ -56,12 +56,10 @@ class BinaryFileResponse extends Response {
 
     /**
      * @inheritdoc
-     *
-     * @param {Jymfony.Component.HttpFoundation.Request} request
      */
     async prepare(request) {
         if (! this.headers.has('Content-Type')) {
-            this.headers.set('Content-Type', this._file.getMimeType() || 'application/octet-stream');
+            this.headers.set('Content-Type', this._file.mimeType || 'application/octet-stream');
         }
 
         if (this._autoLastModified && ! this.headers.has('Last-Modified')) {

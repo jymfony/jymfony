@@ -26,10 +26,12 @@ class FrameworkExtension extends Extension {
             loader.load('test.js');
         }
 
+        this._registerSessionConfiguration(config.session, container, loader);
         this._registerConsoleConfiguration(config.console, container, loader);
         this._registerLoggerConfiguration(config.logger, container, loader);
         this._registerRouterConfiguration(config.router, container, loader);
         this._registerHttpServerConfiguration(config.http_server, container, loader);
+        this._registerCacheConfiguration(config.cache, container, loader);
     }
 
     /**
@@ -41,6 +43,17 @@ class FrameworkExtension extends Extension {
      */
     getConfiguration(container) {
         return new Configuration(container.getParameter('kernel.debug'));
+    }
+
+    _registerSessionConfiguration(config, container, loader) {
+        this._sessionConfigEnabled = this._isConfigEnabled(container, config);
+        if (! this._sessionConfigEnabled) {
+            return;
+        }
+
+        loader.load('session.js');
+        container.getDefinition(Jymfony.Component.HttpServer.EventListener.SessionListener).replaceArgument(1, config.storage_id);
+        container.getDefinition(config.storage_id).replaceArgument(0, config);
     }
 
     /**
@@ -238,12 +251,12 @@ class FrameworkExtension extends Extension {
         container.setParameter('router.resource', config['resource']);
         const definition = container.getDefinition('router.default');
 
-        const options = definition.getArgument(3);
+        const options = definition.getArgument(2);
         if (config.type) {
             options.resource_type = config.type;
         }
 
-        definition.replaceArgument(3, options);
+        definition.replaceArgument(2, options);
     }
 
     /**
@@ -263,6 +276,47 @@ class FrameworkExtension extends Extension {
         }
 
         loader.load('http-server.js');
+    }
+
+    /**
+     * @param {Object} config
+     * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
+     * @param {Jymfony.Component.DependencyInjection.Loader.LoaderInterface} loader
+     *
+     * @private
+     */
+    _registerCacheConfiguration(config, container, loader) {
+        loader.load('cache.js');
+        // Const version = new Parameter('container.build_id');
+        // Container.getDefinition('cache.adapter.system').replaceArgument(2, version);
+        container.getDefinition('cache.adapter.filesystem').replaceArgument(2, config.directory);
+
+        if (config.prefix_seed) {
+            container.setParameter('cache.prefix.seed', config.prefix_seed);
+        }
+
+        if (container.hasParameter('cache.prefix.seed')) {
+            // Inline any env vars referenced in the parameter
+            container.setParameter('cache.prefix.seed', container.parameterBag.resolveValue(container.getParameter('cache.prefix.seed'), true));
+        }
+
+        for (const name of [ 'app' /* , 'system'*/]) {
+            config.pools['cache.' + name] = {
+                adapter: config[name],
+                'public': true,
+            };
+        }
+
+        for (const [ name, pool ] of __jymfony.getEntries(config.pools)) {
+            const definition = new ChildDefinition(pool.adapter);
+            definition.setPublic(pool['public']);
+
+            delete pool.adapter;
+            delete pool['public'];
+
+            definition.addTag('cache.pool', pool);
+            container.setDefinition(name, definition);
+        }
     }
 }
 

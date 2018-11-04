@@ -285,7 +285,7 @@ class Definition {
      */
     replaceArgument(index, argument) {
         if (0 > index || index >= this._arguments.length) {
-            throw new InvalidArgumentException('Index is not in the range [0, ' + this._arguments.length.toString() + ']');
+            throw new InvalidArgumentException('Index is not in the range [0, ' + (this._arguments.length - 1).toString() + ']');
         }
 
         this._arguments[index] = argument;
@@ -311,7 +311,7 @@ class Definition {
      */
     getArgument(index) {
         if (0 > index || index >= this._arguments.length) {
-            throw new InvalidArgumentException('Index is not in the range [0, ' + this._arguments.length.toString() + ']');
+            throw new InvalidArgumentException('Index is not in the range [0, ' + (this._arguments.length - 1).toString() + ']');
         }
 
         return this._arguments[index];

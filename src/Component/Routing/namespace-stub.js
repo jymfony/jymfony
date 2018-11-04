@@ -5,4 +5,10 @@
 /**
  * @namespace
  */
-global.Jymfony.Component.Routing = {};
+Jymfony.Component.Routing = {
+    DependencyInjection: {},
+    Exception: {},
+    Generator: {},
+    Loader: {},
+    Matcher: {},
+};

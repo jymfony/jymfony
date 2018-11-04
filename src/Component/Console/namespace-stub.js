@@ -5,4 +5,74 @@
 /**
  * @namespace
  */
-global.Jymfony.Component.Console = {};
+Jymfony.Component.Console = {
+    /**
+     * @namespace
+     */
+    Command: {},
+
+    /**
+     * @namespace
+     */
+    DependencyInjection: {},
+
+    /**
+     * @namespace
+     */
+    Descriptor: {},
+
+    /**
+     * @namespace
+     */
+    Event: {},
+
+    /**
+     * @namespace
+     */
+    Exception: {},
+
+    /**
+     * @namespace
+     */
+    Formatter: {},
+
+    /**
+     * @namespace
+     */
+    Helper: {},
+
+    /**
+     * @namespace
+     */
+    Input: {},
+
+    /**
+     * @namespace
+     */
+    Output: {},
+
+    /**
+     * @namespace
+     */
+    Question: {
+        /**
+         * @namespace
+         */
+        Builder: {},
+
+        /**
+         * @namespace
+         */
+        Renderer: {},
+    },
+
+    /**
+     * @namespace
+     */
+    Style: {},
+
+    /**
+     * @namespace
+     */
+    Tester: {},
+};

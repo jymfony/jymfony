@@ -387,38 +387,36 @@ describe('[Console] Application', function () {
         ;
     });
 
-    it('renderException should work', () => {
+    it('renderException should work', async () => {
         const application = new Application();
         application.autoExit = false;
         delete process.env.COLUMNS;
 
         const tester = new ApplicationTester(application);
-        return __jymfony.Async.run(function * () {
-            yield tester.run({'command': 'foo'}, {decorated: false, stderr: true});
-            expect(tester.getErrorDisplay(true))
-                .to.be.equal(fs.readFileSync(path.join(fixtures_path, 'application_renderexception1.txt'), { encoding: 'utf-8' }));
+        await tester.run({'command': 'foo'}, {decorated: false, stderr: true});
+        expect(tester.getErrorDisplay(true))
+            .to.be.equal(fs.readFileSync(path.join(fixtures_path, 'application_renderexception1.txt'), { encoding: 'utf-8' }));
 
-            yield tester.run({'command': 'foo'}, {decorated: false, verbosity: OutputInterface.VERBOSITY_VERBOSE, stderr: true});
-            expect(tester.getErrorDisplay(true)).to.match(/Exception trace/);
+        await tester.run({'command': 'foo'}, {decorated: false, verbosity: OutputInterface.VERBOSITY_VERBOSE, stderr: true});
+        expect(tester.getErrorDisplay(true)).to.match(/Exception trace/);
 
-            yield tester.run({'command': 'list', '--foo': true}, {decorated: false, stderr: true});
-            expect(tester.getErrorDisplay(true))
-                .to.be.equal(fs.readFileSync(path.join(fixtures_path, 'application_renderexception2.txt'), { encoding: 'utf-8' }));
+        await tester.run({'command': 'list', '--foo': true}, {decorated: false, stderr: true});
+        expect(tester.getErrorDisplay(true))
+            .to.be.equal(fs.readFileSync(path.join(fixtures_path, 'application_renderexception2.txt'), { encoding: 'utf-8' }));
 
-            application.add(new Fixtures.Foo3Command());
-            yield tester.run({'command': 'foo3:bar'}, {decorated: false, stderr: true});
-            expect(tester.getErrorDisplay(true))
-                .to.be.equal(fs.readFileSync(path.join(fixtures_path, 'application_renderexception3.txt'), { encoding: 'utf-8' }));
+        application.add(new Fixtures.Foo3Command());
+        await tester.run({'command': 'foo3:bar'}, {decorated: false, stderr: true});
+        expect(tester.getErrorDisplay(true))
+            .to.be.equal(fs.readFileSync(path.join(fixtures_path, 'application_renderexception3.txt'), { encoding: 'utf-8' }));
 
-            yield tester.run({'command': 'foo3:bar'}, {decorated: false, verbosity: OutputInterface.VERBOSITY_VERBOSE, stderr: true});
-            const err = tester.getErrorDisplay(true);
-            expect(err).to.match(/\[Exception]\s*First exception/);
-            expect(err).to.match(/\[Exception]\s*Second exception/);
-            expect(err).to.match(/\[Exception \(404\)]\s*Third exception/);
-        });
+        await tester.run({'command': 'foo3:bar'}, {decorated: false, verbosity: OutputInterface.VERBOSITY_VERBOSE, stderr: true});
+        const err = tester.getErrorDisplay(true);
+        expect(err).to.match(/\[Exception]\s*First exception/);
+        expect(err).to.match(/\[Exception]\s*Second exception/);
+        expect(err).to.match(/\[Exception \(404\)]\s*Third exception/);
     });
 
-    it('renderException should escape lines', () => {
+    it('renderException should escape lines', async () => {
         const application = new Application();
         application.autoExit = false;
         process.env.COLUMNS = 22;
@@ -428,189 +426,173 @@ describe('[Console] Application', function () {
         };
 
         const tester = new ApplicationTester(application);
-        return __jymfony.Async.run(function * () {
-            yield tester.run({'command': 'foo'}, {decorated: false});
-            try {
-                expect(tester.getDisplay(true))
-                    .to.be.equal(fs.readFileSync(path.join(fixtures_path, 'application_renderexception_escapeslines.txt'), {encoding: 'utf-8'}));
-            } finally {
-                delete process.env.COLUMNS;
-            }
-        });
+        await tester.run({'command': 'foo'}, {decorated: false});
+        try {
+            expect(tester.getDisplay(true))
+                .to.be.equal(fs.readFileSync(path.join(fixtures_path, 'application_renderexception_escapeslines.txt'), {encoding: 'utf-8'}));
+        } finally {
+            delete process.env.COLUMNS;
+        }
     });
 
-    it('run should work', () => {
+    it('run should work', async () => {
         let command, application = new Application();
         application.autoExit = false;
         application.add(command = new Fixtures.Foo1Command());
 
-        return __jymfony.Async.run(function * () {
-            const prevArgv = process.argv;
-            process.argv = [ 'node', 'cli.js', 'foo:bar1' ];
+        const prevArgv = process.argv;
+        process.argv = [ 'node', 'cli.js', 'foo:bar1' ];
 
-            yield application.run();
+        await application.run();
 
-            process.argv = prevArgv;
+        process.argv = prevArgv;
 
-            expect(command.input).to.be.instanceOf(Jymfony.Component.Console.Input.ArgvInput);
-            expect(command.output).to.be.instanceOf(Jymfony.Component.Console.Output.ConsoleOutput);
+        expect(command.input).to.be.instanceOf(Jymfony.Component.Console.Input.ArgvInput);
+        expect(command.output).to.be.instanceOf(Jymfony.Component.Console.Output.ConsoleOutput);
 
-            application = new Application();
-            application.autoExit = false;
-            ensureStaticCommandHelp(application);
-            let tester = new ApplicationTester(application);
+        application = new Application();
+        application.autoExit = false;
+        ensureStaticCommandHelp(application);
+        let tester = new ApplicationTester(application);
 
-            yield tester.run({}, {decorated: false});
-            expect(tester.getDisplay(true))
-                .to.be.equal(fs.readFileSync(path.join(fixtures_path, 'application_run1.txt'), { encoding: 'utf-8' }));
+        await tester.run({}, {decorated: false});
+        expect(tester.getDisplay(true))
+            .to.be.equal(fs.readFileSync(path.join(fixtures_path, 'application_run1.txt'), { encoding: 'utf-8' }));
 
-            yield tester.run({'--help': true}, {decorated: false});
-            expect(tester.getDisplay(true))
-                .to.be.equal(fs.readFileSync(path.join(fixtures_path, 'application_run2.txt'), { encoding: 'utf-8' }));
+        await tester.run({'--help': true}, {decorated: false});
+        expect(tester.getDisplay(true))
+            .to.be.equal(fs.readFileSync(path.join(fixtures_path, 'application_run2.txt'), { encoding: 'utf-8' }));
 
-            yield tester.run({'-h': true}, {decorated: false});
-            expect(tester.getDisplay(true))
-                .to.be.equal(fs.readFileSync(path.join(fixtures_path, 'application_run2.txt'), { encoding: 'utf-8' }));
+        await tester.run({'-h': true}, {decorated: false});
+        expect(tester.getDisplay(true))
+            .to.be.equal(fs.readFileSync(path.join(fixtures_path, 'application_run2.txt'), { encoding: 'utf-8' }));
 
-            yield tester.run({'command': 'list', '--help': true}, {decorated: false});
-            expect(tester.getDisplay(true))
-                .to.be.equal(fs.readFileSync(path.join(fixtures_path, 'application_run3.txt'), { encoding: 'utf-8' }));
+        await tester.run({'command': 'list', '--help': true}, {decorated: false});
+        expect(tester.getDisplay(true))
+            .to.be.equal(fs.readFileSync(path.join(fixtures_path, 'application_run3.txt'), { encoding: 'utf-8' }));
 
-            yield tester.run({'command': 'list', '-h': true}, {decorated: false});
-            expect(tester.getDisplay(true))
-                .to.be.equal(fs.readFileSync(path.join(fixtures_path, 'application_run3.txt'), { encoding: 'utf-8' }));
+        await tester.run({'command': 'list', '-h': true}, {decorated: false});
+        expect(tester.getDisplay(true))
+            .to.be.equal(fs.readFileSync(path.join(fixtures_path, 'application_run3.txt'), { encoding: 'utf-8' }));
 
-            yield tester.run({'command': 'list', '--quiet': true}, {decorated: false});
-            expect(tester.getDisplay(true)).to.be.equal('');
-            expect(tester.input.interactive).to.be.false;
+        await tester.run({'command': 'list', '--quiet': true}, {decorated: false});
+        expect(tester.getDisplay(true)).to.be.equal('');
+        expect(tester.input.interactive).to.be.false;
 
-            yield tester.run({'command': 'list', '-q': true}, {decorated: false});
-            expect(tester.getDisplay(true)).to.be.equal('');
-            expect(tester.input.interactive).to.be.false;
+        await tester.run({'command': 'list', '-q': true}, {decorated: false});
+        expect(tester.getDisplay(true)).to.be.equal('');
+        expect(tester.input.interactive).to.be.false;
 
-            application = new Application();
-            application.autoExit = false;
-            application.add(new Fixtures.FooCommand());
+        application = new Application();
+        application.autoExit = false;
+        application.add(new Fixtures.FooCommand());
 
-            tester = new ApplicationTester(application);
-            yield tester.run({'command': 'foo:bar', '--no-interaction': true}, {decorated: false});
-            expect(tester.getDisplay()).to.be.equal('called'+os.EOL);
+        tester = new ApplicationTester(application);
+        await tester.run({'command': 'foo:bar', '--no-interaction': true}, {decorated: false});
+        expect(tester.getDisplay()).to.be.equal('called'+os.EOL);
 
-            yield tester.run({'command': 'foo:bar', '-n': true}, {decorated: false});
-            expect(tester.getDisplay()).to.be.equal('called'+os.EOL);
-        });
+        await tester.run({'command': 'foo:bar', '-n': true}, {decorated: false});
+        expect(tester.getDisplay()).to.be.equal('called'+os.EOL);
     });
 
-    it('verbosity should be set correctly', () => {
-        return __jymfony.Async.run(function * () {
-            const application = new Application();
-            application.autoExit = false;
-            ensureStaticCommandHelp(application);
-            const tester = new ApplicationTester(application);
+    it('verbosity should be set correctly', async () => {
+        const application = new Application();
+        application.autoExit = false;
+        ensureStaticCommandHelp(application);
+        const tester = new ApplicationTester(application);
 
-            yield tester.run({'command': 'list', '--verbose': true}, {decorated: false});
-            expect(tester.output.verbosity).to.be.equal(OutputInterface.VERBOSITY_VERBOSE);
+        await tester.run({'command': 'list', '--verbose': true}, {decorated: false});
+        expect(tester.output.verbosity).to.be.equal(OutputInterface.VERBOSITY_VERBOSE);
 
-            yield tester.run({'command': 'list', '--verbose': 1}, {decorated: false});
-            expect(tester.output.verbosity).to.be.equal(OutputInterface.VERBOSITY_VERBOSE);
+        await tester.run({'command': 'list', '--verbose': 1}, {decorated: false});
+        expect(tester.output.verbosity).to.be.equal(OutputInterface.VERBOSITY_VERBOSE);
 
-            yield tester.run({'command': 'list', '--verbose': 2}, {decorated: false});
-            expect(tester.output.verbosity).to.be.equal(OutputInterface.VERBOSITY_VERY_VERBOSE);
+        await tester.run({'command': 'list', '--verbose': 2}, {decorated: false});
+        expect(tester.output.verbosity).to.be.equal(OutputInterface.VERBOSITY_VERY_VERBOSE);
 
-            yield tester.run({'command': 'list', '--verbose': 3}, {decorated: false});
-            expect(tester.output.verbosity).to.be.equal(OutputInterface.VERBOSITY_DEBUG);
+        await tester.run({'command': 'list', '--verbose': 3}, {decorated: false});
+        expect(tester.output.verbosity).to.be.equal(OutputInterface.VERBOSITY_DEBUG);
 
-            yield tester.run({'command': 'list', '--verbose': 4}, {decorated: false});
-            expect(tester.output.verbosity).to.be.equal(OutputInterface.VERBOSITY_VERBOSE);
+        await tester.run({'command': 'list', '--verbose': 4}, {decorated: false});
+        expect(tester.output.verbosity).to.be.equal(OutputInterface.VERBOSITY_VERBOSE);
 
-            yield tester.run({'command': 'list', '-v': true}, {decorated: false});
-            expect(tester.output.verbosity).to.be.equal(OutputInterface.VERBOSITY_VERBOSE);
+        await tester.run({'command': 'list', '-v': true}, {decorated: false});
+        expect(tester.output.verbosity).to.be.equal(OutputInterface.VERBOSITY_VERBOSE);
 
-            yield tester.run({'command': 'list', '-vv': 2}, {decorated: false});
-            expect(tester.output.verbosity).to.be.equal(OutputInterface.VERBOSITY_VERY_VERBOSE);
+        await tester.run({'command': 'list', '-vv': 2}, {decorated: false});
+        expect(tester.output.verbosity).to.be.equal(OutputInterface.VERBOSITY_VERY_VERBOSE);
 
-            yield tester.run({'command': 'list', '-vvv': 3}, {decorated: false});
-            expect(tester.output.verbosity).to.be.equal(OutputInterface.VERBOSITY_DEBUG);
-        });
+        await tester.run({'command': 'list', '-vvv': 3}, {decorated: false});
+        expect(tester.output.verbosity).to.be.equal(OutputInterface.VERBOSITY_DEBUG);
     });
 
-    it('version options should work', () => {
-        return __jymfony.Async.run(function * () {
-            const application = new Application();
-            application.autoExit = false;
-            ensureStaticCommandHelp(application);
-            const tester = new ApplicationTester(application);
+    it('version options should work', async () => {
+        const application = new Application();
+        application.autoExit = false;
+        ensureStaticCommandHelp(application);
+        const tester = new ApplicationTester(application);
 
-            yield tester.run({'--version': true}, { decorated: false });
-            expect(tester.getDisplay(true))
-                .to.be.equal(fs.readFileSync(path.join(fixtures_path, 'application_run4.txt'), { encoding: 'utf-8' }));
+        await tester.run({'--version': true}, { decorated: false });
+        expect(tester.getDisplay(true))
+            .to.be.equal(fs.readFileSync(path.join(fixtures_path, 'application_run4.txt'), { encoding: 'utf-8' }));
 
-            yield tester.run({'-V': true}, { decorated: false });
-            expect(tester.getDisplay(true))
-                .to.be.equal(fs.readFileSync(path.join(fixtures_path, 'application_run4.txt'), { encoding: 'utf-8' }));
-        });
+        await tester.run({'-V': true}, { decorated: false });
+        expect(tester.getDisplay(true))
+            .to.be.equal(fs.readFileSync(path.join(fixtures_path, 'application_run4.txt'), { encoding: 'utf-8' }));
     });
 
-    it('ansi/no-ansi options should work', () => {
-        return __jymfony.Async.run(function * () {
-            const application = new Application();
-            application.autoExit = false;
-            ensureStaticCommandHelp(application);
-            const tester = new ApplicationTester(application);
+    it('ansi/no-ansi options should work', async () => {
+        const application = new Application();
+        application.autoExit = false;
+        ensureStaticCommandHelp(application);
+        const tester = new ApplicationTester(application);
 
-            yield tester.run({'--ansi': true});
-            expect(tester.output.decorated).to.be.true;
+        await tester.run({'--ansi': true});
+        expect(tester.output.decorated).to.be.true;
 
-            yield tester.run({'--no-ansi': true});
-            expect(tester.output.decorated).to.be.false;
-        });
+        await tester.run({'--no-ansi': true});
+        expect(tester.output.decorated).to.be.false;
     });
 
-    it('verbosity flag should not break argument', () => {
+    it('verbosity flag should not break argument', async () => {
         const application = new Application();
         application.autoExit = false;
         application.add(new Fixtures.FooCommand());
 
         const output = new NullOutput(new stream.PassThrough());
 
-        return __jymfony.Async.run(function * () {
-            let input = new ArgvInput([ 'node', 'cli', '--verbose', 'foo:bar' ]);
-            let code = yield application.run(input, output);
-            expect(code).to.be.equal(0);
+        let input = new ArgvInput([ 'node', 'cli', '--verbose', 'foo:bar' ]);
+        let code = await application.run(input, output);
+        expect(code).to.be.equal(0);
 
-            input = new ArgvInput([ 'node', 'cli', '-v', 'foo:bar' ]);
-            code = yield application.run(input, output);
-            expect(code).to.be.equal(0);
-        });
+        input = new ArgvInput([ 'node', 'cli', '-v', 'foo:bar' ]);
+        code = await application.run(input, output);
+        expect(code).to.be.equal(0);
     });
 
-    it('should return exit code', () => {
+    it('should return exit code', async () => {
         const application = new Application();
         application.autoExit = false;
-        application._doRun = function * () {
+        application._doRun = () => {
             throw new Exception('', 4);
         };
 
-        return __jymfony.Async.run(function * () {
-            const code = yield application.run(undefined, new NullOutput());
-            expect(code).to.be.equal(4);
-        });
+        const code = await application.run(undefined, new NullOutput());
+        expect(code).to.be.equal(4);
     });
 
-    it('should return exit code 1 when exception code is 0', () => {
+    it('should return exit code 1 when exception code is 0', async () => {
         const application = new Application();
         application.autoExit = false;
-        application._doRun = function * () {
+        application._doRun = () => {
             throw new Exception('', 0);
         };
 
-        return __jymfony.Async.run(function * () {
-            const code = yield application.run(undefined, new NullOutput());
-            expect(code).to.be.equal(1);
-        });
+        const code = await application.run(undefined, new NullOutput());
+        expect(code).to.be.equal(1);
     });
 
-    it('should throw trying to add option with duplicate shortcut', ReflectionClass.exists('Jymfony.Component.EventDispatcher.EventDispatcher') ? () => {
+    it('should throw trying to add option with duplicate shortcut', ReflectionClass.exists('Jymfony.Component.EventDispatcher.EventDispatcher') ? async () => {
         const eventDispatcher = new Jymfony.Component.EventDispatcher.EventDispatcher();
         const application = new Application();
         application.autoExit = false;
@@ -622,20 +604,17 @@ describe('[Console] Application', function () {
         command.execute = () => {};
         command.addOption('survey', 'e', InputOption.VALUE_NONE, 'e shortcut');
 
-        return __jymfony.Async.run(function * () {
-            let ex;
-            try {
-                yield application.run(new ArrayInput({command: 'foo'}), new NullOutput());
-            } catch (e) {
-                ex = e;
-            }
+        let ex;
+        try {
+            await application.run(new ArrayInput({command: 'foo'}), new NullOutput());
+        } catch (e) {
+            ex = e;
+        }
 
-            expect(ex)
-                .to.be.instanceOf(LogicException)
-                .that.has.property('message')
-                .that.equals('An option with shortcut "e" already exists.');
-        });
-
+        expect(ex)
+            .to.be.instanceOf(LogicException)
+            .that.has.property('message')
+            .that.equals('An option with shortcut "e" already exists.');
     } : undefined);
 
     const tests = function * () {
@@ -645,7 +624,7 @@ describe('[Console] Application', function () {
     };
 
     for (const [ key, def ] of tests()) {
-        it('should throw on adding already set definition #'+key, () => {
+        it('should throw on adding already set definition #'+key, async () => {
             const application = new Application();
             application.autoExit = false;
             application.catchExceptions = false;
@@ -653,17 +632,15 @@ describe('[Console] Application', function () {
             command.definition = [ def ];
             command.execute = () => {};
 
-            return __jymfony.Async.run(function * () {
-                let ex;
+            let ex;
 
-                try {
-                    yield application.run(new ArrayInput({'command': 'foo'}), new NullOutput());
-                } catch (e) {
-                    ex = e;
-                }
+            try {
+                await application.run(new ArrayInput({'command': 'foo'}), new NullOutput());
+            } catch (e) {
+                ex = e;
+            }
 
-                expect(ex).to.be.instanceOf(LogicException);
-            });
+            expect(ex).to.be.instanceOf(LogicException);
         });
     }
 });

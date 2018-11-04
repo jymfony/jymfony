@@ -5,4 +5,9 @@
 /**
  * @namespace
  */
-Jymfony.Component.OptionsResolver = {};
+Jymfony.Component.OptionsResolver = {
+    /**
+     * @namespace
+     */
+    Exception: {},
+};

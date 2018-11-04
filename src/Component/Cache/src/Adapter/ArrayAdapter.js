@@ -3,6 +3,7 @@ const CacheItemPoolInterface = Jymfony.Component.Cache.CacheItemPoolInterface;
 const ArrayTrait = Jymfony.Component.Cache.Traits.ArrayTrait;
 const DateTime = Jymfony.Component.DateTime.DateTime;
 const LoggerAwareInterface = Jymfony.Component.Logger.LoggerAwareInterface;
+const NullLogger = Jymfony.Component.Logger.NullLogger;
 
 /**
  * @memberOf Jymfony.Component.Cache.Adapter
@@ -29,6 +30,13 @@ class ArrayAdapter extends implementationOf(CacheItemPoolInterface, LoggerAwareI
 
             return item;
         };
+
+        /**
+         * @type {Jymfony.Component.Logger.LoggerInterface}
+         *
+         * @private
+         */
+        this._logger = new NullLogger();
     }
 
     /**

@@ -1,4 +1,4 @@
-const BadRequestException = Jymfony.Component.HttpServer.Exception.BadRequestException;
+const BadRequestException = Jymfony.Component.HttpFoundation.Exception.BadRequestException;
 const httpTokenCodePointRegex = /^[!#$%&'*+\-.^_`|~a-z0-9]+$/i;
 
 /**

@@ -13,6 +13,7 @@
       "url": "https://github.com/jymfony/jymfony/graphs/contributors"
     }
   ],
+  "repository": "https://github.com/jymfony/jymfony.git",
   "license": "MIT",
   "engines": {
     "node": ">=8.10.0"
@@ -38,6 +39,8 @@
     "@jymfony/options-resolver": "0.1.0-alpha.10",
     "@jymfony/property-access": "0.1.0-alpha.10",
     "@jymfony/routing": "0.1.0-alpha.10",
+    "@jymfony/security": "0.1.0-alpha.10",
+    "@jymfony/security-bundle": "0.1.0-alpha.10",
     "@jymfony/testing": "0.1.0-alpha.10",
     "@jymfony/util": "0.1.0-alpha.10"
   },

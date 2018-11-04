@@ -1,4 +1,3 @@
-const ConfigCache = Jymfony.Component.Config.ConfigCache;
 const FileLocator = Jymfony.Component.Config.FileLocator;
 const ContainerBuilder = Jymfony.Component.DependencyInjection.ContainerBuilder;
 const JsFileLoader = Jymfony.Component.DependencyInjection.Loader.JsFileLoader;
@@ -72,23 +71,7 @@ class TestKernel extends Kernel {
      * @inheritdoc
      */
     _initializeContainer() {
-        let container;
-        const class_ = this._getContainerClass();
-        const cache = new ConfigCache(path.join(this.getCacheDir(), class_ + '.js'), this._debug);
-
-        container = this._buildContainer();
-        container.compile();
-
-        this._dumpContainer(container, cache);
-
-        container = new (require(cache.getPath()))();
-
-        this._container = container;
-        this._container.set('kernel', this);
-
-        if (this._container.has('cache_warmer')) {
-            this._container.get('cache_warmer').warmUp(this._container.getParameter('kernel.cache_dir'));
-        }
+        super._initializeContainer(true);
     }
 }
 

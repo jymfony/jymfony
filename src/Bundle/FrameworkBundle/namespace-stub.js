@@ -5,4 +5,29 @@
 /**
  * @namespace
  */
-global.Jymfony.Bundle.FrameworkBundle = {};
+Jymfony.Bundle.FrameworkBundle = {
+    /**
+     * @namespace
+     */
+    Command: {},
+
+    /**
+     * @namespace
+     */
+    Console: {},
+
+    /**
+     * @namespace
+     */
+    Controller: {},
+
+    /**
+     * @namespace
+     */
+    DependencyInjection: {},
+
+    /**
+     * @namespace
+     */
+    Test: {},
+};

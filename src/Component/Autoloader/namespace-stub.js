@@ -5,4 +5,19 @@
 /**
  * @namespace
  */
-global.Jymfony.Component.Autoloader = {};
+Jymfony.Component.Autoloader = {
+    /**
+     * @namespace
+     */
+    Exception: {},
+
+    /**
+     * @namespace
+     */
+    Parser: {},
+
+    /**
+     * @namespace
+     */
+    Reflection: {},
+};

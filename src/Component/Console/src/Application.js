@@ -110,47 +110,46 @@ class Application {
      * @param {Jymfony.Component.Console.Input.InputInterface} [input = new ArgvInput()]
      * @param {Jymfony.Component.Console.Output.OutputInterface} [output new ConsoleOutput()]
      *
-     * @returns {Promise} Promise executing the application
+     * @returns {Promise<int>} Promise executing the application
      */
-    run(input = new ArgvInput(), output = new ConsoleOutput()) {
+    async run(input = new ArgvInput(), output = new ConsoleOutput()) {
         this._configureIO(input, output);
 
-        let promise = __jymfony.Async.run(this._doRun(input, output));
+        let exitCode;
 
-        if (this._catchExceptions) {
-            promise = promise
-                .catch((exception) => {
-                    if (output instanceof ConsoleOutputInterface) {
-                        this._renderException(exception, output.errorOutput);
-                    } else {
-                        this._renderException(exception, output);
-                    }
+        try {
+            exitCode = await this._doRun(input, output);
+        } catch (exception) {
+            if (! this._catchExceptions) {
+                throw exception;
+            }
 
-                    let exitCode = exception.code || 1;
-                    if (! isNumber(exitCode)) {
-                        exitCode = 1;
-                    }
+            if (output instanceof ConsoleOutputInterface) {
+                this._renderException(exception, output.errorOutput);
+            } else {
+                this._renderException(exception, output);
+            }
 
-                    if (255 < exitCode) {
-                        exitCode = 255;
-                    }
+            exitCode = exception.code || 1;
+            if (! isNumber(exitCode)) {
+                exitCode = 1;
+            }
 
-                    return exitCode;
-                })
-                .then(exitCode => {
-                    if (this._autoExit) {
-                        // Wait for next uncork call.
-                        process.nextTick(async () => {
-                            await this.shutdown(exitCode);
-                        });
-                    }
+            if (255 < exitCode) {
+                exitCode = 255;
+            }
 
-                    return process.exitCode = exitCode;
-                })
-            ;
+            return exitCode;
         }
 
-        return promise;
+        if (this._autoExit) {
+            // Wait for next uncork call.
+            process.nextTick(async () => {
+                await this.shutdown(exitCode);
+            });
+        }
+
+        return process.exitCode = exitCode;
     }
 
     /**
@@ -497,11 +496,11 @@ class Application {
      * @param {Jymfony.Component.Console.Input.InputInterface} input An Input instance
      * @param {Jymfony.Component.Console.Output.OutputInterface} output An Output instance
      *
-     * @returns {int} 0 if everything went fine, or an error code
+     * @returns {Promise<int>} 0 if everything went fine, or an error code
      *
      * @protected
      */
-    * _doRun(input, output) {
+    async _doRun(input, output) {
         if (true === input.hasParameterOption([ '--version', '-V' ], true)) {
             output.writeln(this.getLongVersion());
 
@@ -530,7 +529,7 @@ class Application {
         } catch (e) {
             if (this._eventDispatcher) {
                 const event = new Jymfony.Component.Console.Event.ConsoleErrorEvent(input, output, e, command);
-                yield this._eventDispatcher.dispatch(ConsoleEvents.ERROR, event);
+                await this._eventDispatcher.dispatch(ConsoleEvents.ERROR, event);
 
                 e = event.error;
                 if (0 === event.exitCode) {
@@ -542,7 +541,7 @@ class Application {
         }
 
         this._runningCommand = command;
-        const exitCode = yield __jymfony.Async.run(getCallableFromArray([ this, '_doRunCommand' ]), command, input, output);
+        const exitCode = await this._doRunCommand(command, input, output);
         this._runningCommand = undefined;
 
         return exitCode;
@@ -558,13 +557,13 @@ class Application {
      * @param {Jymfony.Component.Console.Input.InputInterface} input An Input instance
      * @param {Jymfony.Component.Console.Output.OutputInterface} output An Output instance
      *
-     * @returns {int} 0 if everything went fine, or an error code
+     * @returns {Promise<int>} 0 if everything went fine, or an error code
      *
      * @throws {Exception} when the command being run threw an exception
      */
-    * _doRunCommand(command, input, output) {
+    async _doRunCommand(command, input, output) {
         if (! this._eventDispatcher) {
-            return yield __jymfony.Async.run(getCallableFromArray([ command, 'run' ]), input, output);
+            return await command.run(input, output);
         }
 
         // Bind before the console.command event, so the listeners have access to input options/arguments
@@ -581,18 +580,18 @@ class Application {
         let exitCode;
         let e;
         let event = new Jymfony.Component.Console.Event.ConsoleCommandEvent(command, input, output);
-        yield this._eventDispatcher.dispatch(ConsoleEvents.COMMAND, event);
+        await this._eventDispatcher.dispatch(ConsoleEvents.COMMAND, event);
 
         if (event.commandShouldRun) {
             try {
-                exitCode = yield __jymfony.Async.run(getCallableFromArray([ command, 'run' ]), input, output);
+                exitCode = await command.run(input, output);
             } catch (x) {
                 e = x;
             }
 
             if (undefined !== e) {
                 event = new Jymfony.Component.Console.Event.ConsoleErrorEvent(input, output, e, command);
-                yield this._eventDispatcher.dispatch(ConsoleEvents.ERROR, event);
+                await this._eventDispatcher.dispatch(ConsoleEvents.ERROR, event);
                 e = event.error;
 
                 if (0 === (exitCode = event.exitCode)) {
@@ -604,7 +603,7 @@ class Application {
         }
 
         event = new Jymfony.Component.Console.Event.ConsoleTerminateEvent(command, input, output, exitCode);
-        yield this._eventDispatcher.dispatch(ConsoleEvents.TERMINATE, event);
+        await this._eventDispatcher.dispatch(ConsoleEvents.TERMINATE, event);
 
         if (undefined !== e) {
             throw e;

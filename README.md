@@ -1,6 +1,8 @@
-Jymfony
-=======
-[![Build Status](https://travis-ci.org/jymfony/jymfony.svg?branch=master)](https://travis-ci.org/jymfony/jymfony) [![Build status](https://ci.appveyor.com/api/projects/status/u0pha9iab9dr3kwj/branch/master?svg=true)](https://ci.appveyor.com/project/alekitto/jymfony-354c2/branch/master) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/jymfony/jymfony/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/jymfony/jymfony/?branch=master) [![Code Coverage](https://scrutinizer-ci.com/g/jymfony/jymfony/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/jymfony/jymfony/?branch=master)
+<p align="center">
+    <img src="https://s3.amazonaws.com/jymfony.com/jymfony-logo.svg" height="150">
+</p>
+
+[![Build Status](https://travis-ci.org/jymfony/jymfony.svg?branch=master)](https://travis-ci.org/jymfony/jymfony) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/jymfony/jymfony/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/jymfony/jymfony/?branch=master) [![Code Coverage](https://scrutinizer-ci.com/g/jymfony/jymfony/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/jymfony/jymfony/?branch=master)
 
 Jymfony is a **Node.js framework** for applications and a set of reusable **Javascript components**.
 Jymfony was born from an idea of [Alessandro Chitolina](https://github.com/alekitto) as a port of the popular PHP framework, Symfony.
@@ -24,24 +26,25 @@ $ npm install jymfony
 Components available:
 ---------------------
 As said, Jymfony is made of reusable Javascript components:
-- [@jymfony/autoloader](https://github.com/jymfony/jymfony/tree/master/src/Component/Autoloader)
-- [@jymfony/cache](https://github.com/jymfony/jymfony/tree/master/src/Component/Cache)
-- [@jymfony/config](https://github.com/jymfony/jymfony/tree/master/src/Component/Config)
-- [@jymfony/console](https://github.com/jymfony/jymfony/tree/master/src/Component/Console)
-- [@jymfony/datetime](https://github.com/jymfony/jymfony/tree/master/src/Component/DateTime)
-- [@jymfony/debug](https://github.com/jymfony/jymfony/tree/master/src/Component/Debug)
-- [@jymfony/dependency-injection](https://github.com/jymfony/jymfony/tree/master/src/Component/DependencyInjection)
-- [@jymfony/event-dispatcher](https://github.com/jymfony/jymfony/tree/master/src/Component/EventDispatcher)
-- [@jymfony/filesystem](https://github.com/jymfony/jymfony/tree/master/src/Component/Filesystem)
-- [@jymfony/http-foundation](https://github.com/jymfony/jymfony/tree/master/src/Component/HttpFoundation)
-- [@jymfony/http-server](https://github.com/jymfony/jymfony/tree/master/src/Component/HttpServer)
-- [@jymfony/kernel](https://github.com/jymfony/jymfony/tree/master/src/Component/Kernel)
-- [@jymfony/lexer](https://github.com/jymfony/jymfony/tree/master/src/Component/Lexer)
-- [@jymfony/logger](https://github.com/jymfony/jymfony/tree/master/src/Component/Logger)
-- [@jymfony/options-resolver](https://github.com/jymfony/jymfony/tree/master/src/Component/OptionsResolver)
-- [@jymfony/property-access](https://github.com/jymfony/jymfony/tree/master/src/Component/PropertyAccess)
-- [@jymfony/routing](https://github.com/jymfony/jymfony/tree/master/src/Component/Routing)
-- [@jymfony/testing](https://github.com/jymfony/jymfony/tree/master/src/Component/Testing)
+- [@jymfony/autoloader](https://github.com/jymfony/autoloader)
+- [@jymfony/cache](https://github.com/jymfony/cache)
+- [@jymfony/config](https://github.com/jymfony/config)
+- [@jymfony/console](https://github.com/jymfony/console)
+- [@jymfony/datetime](https://github.com/jymfony/date-time)
+- [@jymfony/debug](https://github.com/jymfony/debug)
+- [@jymfony/dependency-injection](https://github.com/jymfony/dependency-injection)
+- [@jymfony/event-dispatcher](https://github.com/jymfony/event-dispatcher)
+- [@jymfony/filesystem](https://github.com/jymfony/filesystem)
+- [@jymfony/http-foundation](https://github.com/jymfony/http-foundation)
+- [@jymfony/http-server](https://github.com/jymfony/http-server)
+- [@jymfony/kernel](https://github.com/jymfony/kernel)
+- [@jymfony/lexer](https://github.com/jymfony/lexer)
+- [@jymfony/logger](https://github.com/jymfony/logger)
+- [@jymfony/options-resolver](https://github.com/jymfony/options-resolver)
+- [@jymfony/property-access](https://github.com/jymfony/property-access)
+- [@jymfony/routing](https://github.com/jymfony/routing)
+- [@jymfony/security](https://github.com/jymfony/security)
+- [@jymfony/testing](https://github.com/jymfony/testing)
 
 Each component has its own `README.md`, you can read more about those there.
 
@@ -85,3 +88,6 @@ The Jymfony team:
 - Alessandro Chitolina [@alekitto](https://github.com/alekitto) (project leader)
 - Massimiliano Braglia [@massimilianobraglia](https://github.com/massimilianobraglia) (contributor)
 - Giovanni Albero [@giovannialbero1992](https://github.com/giovannialbero1992) (contributor)
+- Stefano Rainieri [@stefano-rainieri](https://github.com/stefano-rainieri) (contributor)
+
+The logo is an artwork made by Daniele Tognetti

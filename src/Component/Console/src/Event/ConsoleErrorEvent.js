@@ -46,7 +46,10 @@ class ConsoleErrorEvent extends ConsoleEvent {
      */
     set error(error) {
         if (! (error instanceof Error)) {
-            throw new InvalidArgumentException(sprintf('The error passed to ConsoleErrorEvent must be an instance of \Throwable or \Exception, "%s" was passed instead.', is_object($error) ? get_class($error) : gettype($error)));
+            throw new InvalidArgumentException(__jymfony.sprintf(
+                'The error passed to ConsoleErrorEvent must be an instance of Error, "%s" was passed instead.',
+                ReflectionClass.getClassName(error)
+            ));
         }
 
         /**

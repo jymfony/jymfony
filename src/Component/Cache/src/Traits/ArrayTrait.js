@@ -31,7 +31,7 @@ class ArrayTrait extends mix(undefined, LoggerAwareTrait) {
      * @returns {Object.<string, string>}
      */
     get values() {
-        return this._values;
+        return Object.assign({}, this._values);
     }
 
     /**

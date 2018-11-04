@@ -23,7 +23,7 @@
   "devDependencies": {
     "@jymfony/debug": "0.1.0-alpha.10",
     "chai": "^3.5.0",
-    "mocha": "^3.0"
+    "mocha": "^5.0"
   },
   "config": {
     "jymfony-autoload": {

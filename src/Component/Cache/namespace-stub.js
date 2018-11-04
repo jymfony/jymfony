@@ -5,4 +5,19 @@
 /**
  * @namespace
  */
-global.Jymfony.Component.Cache = {};
+Jymfony.Component.Cache = {
+    /**
+     * @namespace
+     */
+    Adapter: {},
+
+    /**
+     * @namespace
+     */
+    Exception: {},
+
+    /**
+     * @namespace
+     */
+    Traits: {},
+};

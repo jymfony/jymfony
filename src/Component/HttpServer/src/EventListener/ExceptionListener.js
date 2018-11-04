@@ -15,10 +15,10 @@ class ExceptionListener extends implementationOf(EventSubscriberInterface) {
      * Constructor.
      *
      * @param {Function|string} controller
-     * @param {Jymfony.Component.Logger.LoggerInterface} [logger = new Jymfony.Component.Logger.NullLogger()]
+     * @param {Jymfony.Component.Logger.LoggerInterface} [logger]
      * @param {boolean} [debug = false]
      */
-    __construct(controller, logger = new NullLogger(), debug = false) {
+    __construct(controller, logger = undefined, debug = false) {
         /**
          * @type {Function|string}
          *
@@ -31,7 +31,7 @@ class ExceptionListener extends implementationOf(EventSubscriberInterface) {
          *
          * @private
          */
-        this._logger = logger;
+        this._logger = logger || new NullLogger();
 
         /**
          * @type {boolean}
@@ -47,8 +47,10 @@ class ExceptionListener extends implementationOf(EventSubscriberInterface) {
      * @param {Jymfony.Component.HttpServer.Event.GetResponseForExceptionEvent} event
      * @param {string} eventName
      * @param {Jymfony.Component.EventDispatcher.EventDispatcherInterface} eventDispatcher
+     *
+     * @returns {Promise<void>}
      */
-    * onException(event, eventName, eventDispatcher) {
+    async onException(event, eventName, eventDispatcher) {
         const exception = event.exception;
         let request = event.request;
 
@@ -65,7 +67,7 @@ class ExceptionListener extends implementationOf(EventSubscriberInterface) {
         request = this._duplicateRequest(exception, request);
 
         try {
-            response = yield event.server.handle(request, false);
+            response = await event.server.handle(request, false);
         } catch (e) {
             this._logException(e, __jymfony.sprintf('Exception thrown when handling an exception (%s)', e.constructor.name));
 
@@ -124,6 +126,7 @@ class ExceptionListener extends implementationOf(EventSubscriberInterface) {
             '_controller': this._controller,
             'exception': FlattenException.create(exception),
             'logger': this._logger instanceof DebugLoggerInterface ? this._logger : null,
+            [Request.ATTRIBUTE_PARENT_REQUEST]: request,
         };
 
         request = request.duplicate(undefined, undefined, attributes);

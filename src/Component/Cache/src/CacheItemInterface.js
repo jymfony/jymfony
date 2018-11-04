@@ -56,7 +56,7 @@ class CacheItemInterface {
     /**
      * Sets the value represented by this cache item.
      *
-     * The $value argument may be any item that can be serialized by PHP,
+     * The value argument may be any item that can be serialized,
      * although the method of serialization is left up to the Implementing
      * Library.
      *

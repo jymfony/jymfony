@@ -39,7 +39,7 @@ describe('Equal', function () {
         });
 
         it('returns false for literal vs instance with same value', () => {
-            expect(__jymfony.equal(true, new Boolean(true))).to.be.faòse;
+            expect(__jymfony.equal(true, new Boolean(true))).to.be.false;
         });
 
         it('returns false for literal vs instance with different values', () => {

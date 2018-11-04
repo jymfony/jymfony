@@ -35,8 +35,10 @@ class ApplicationTester {
      *
      * @param {Object.<string, *>} input
      * @param {Object<string, boolean|*>} [options = {}]
+     *
+     * @returns {Promise<int>}
      */
-    run(input, options = {}) {
+    async run(input, options = {}) {
         /**
          * @type {string}
          *
@@ -98,12 +100,10 @@ class ApplicationTester {
             this._output._stream = new stream.PassThrough();
         }
 
-        return this._application.run(this._input, this._output)
-            .then(statusCode => {
-                process.exitCode = undefined;
+        const statusCode = await this._application.run(this._input, this._output);
+        process.exitCode = undefined;
 
-                return this._statusCode = statusCode;
-            });
+        return this._statusCode = statusCode;
     }
 
     /**

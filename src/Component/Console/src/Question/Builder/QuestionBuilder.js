@@ -114,7 +114,7 @@ class QuestionBuilder {
 
     /**
      * Sets the validator function.
-     * The function should throw an instance of \InvalidArgumentException.
+     * The function should throw an instance of InvalidArgumentException.
      * In case another exception or error is thrown it will be propagated
      * to the Application.
      *

@@ -78,7 +78,11 @@ class ResolveChildDefinitionsPass extends AbstractRecursivePass {
             this._currentId = id;
         }
 
-        this._container.log(this, __jymfony.sprintf('Resolving inheritance for "%s" (parent: %s).', this._currentId, parent.toString()));
+        const compiler = this._container.getCompiler();
+        const formatter = compiler.logFormatter;
+
+        compiler.addLogMessage(formatter.formatResolveInheritance(this, this._currentId, parent.toString()));
+
         const def = new Definition();
 
         def.setClass(parentDef.getClass());

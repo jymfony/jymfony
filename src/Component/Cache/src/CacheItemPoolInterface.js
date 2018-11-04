@@ -22,9 +22,9 @@ class CacheItemPoolInterface {
      *   If the key string is not a legal value a InvalidArgumentException
      *   MUST be thrown.
      *
-     * @returns {Jymfony.Component.Cache.CacheItemInterface} The corresponding Cache Item.
+     * @returns {Promise<Jymfony.Component.Cache.CacheItemInterface>} The corresponding Cache Item.
      */
-    async getItem(key) { }
+    getItem(key) { }
 
     /**
      * Returns a traversable set of cache items.
@@ -36,13 +36,13 @@ class CacheItemPoolInterface {
      *   If any of the keys in keys are not a legal value a InvalidArgumentException
      *   MUST be thrown.
      *
-     * @returns {Map}
+     * @returns {Promise<Map<string, Jymfony.Component.Cache.CacheItemInterface>>}
      *   A collection (Map) of Cache Items keyed by the cache keys of
      *   each item. A Cache item will be returned for each key, even if that
      *   key is not found. However, if no keys are specified then an empty
      *   traversable MUST be returned instead.
      */
-    async getItems(keys = []) { }
+    getItems(keys = []) { }
 
     /**
      * Confirms if the cache contains specified cache item.
@@ -57,16 +57,16 @@ class CacheItemPoolInterface {
      *   If the key string is not a legal value a InvalidArgumentException
      *   MUST be thrown.
      *
-     * @returns {boolean} True if item exists in the cache, false otherwise.
+     * @returns {Promise<boolean>} True if item exists in the cache, false otherwise.
      */
-    async hasItem(key) { }
+    hasItem(key) { }
 
     /**
      * Deletes all items in the pool.
      *
-     * @returns {boolean} True if the pool was successfully cleared. False if there was an error.
+     * @returns {Promise<boolean>} True if the pool was successfully cleared. False if there was an error.
      */
-    async clear() { }
+    clear() { }
 
     /**
      * Removes the item from the pool.
@@ -77,9 +77,9 @@ class CacheItemPoolInterface {
      *   If the key string is not a legal value a InvalidArgumentException
      *   MUST be thrown.
      *
-     * @returns {boolean} True if the item was successfully removed. False if there was an error.
+     * @returns {Promise<boolean>} True if the item was successfully removed. False if there was an error.
      */
-    async deleteItem(key) { }
+    deleteItem(key) { }
 
     /**
      * Removes multiple items from the pool.
@@ -91,18 +91,18 @@ class CacheItemPoolInterface {
      *   If any of the keys in keys are not a legal value a InvalidArgumentException
      *   MUST be thrown.
      *
-     * @returns {boolean} True if the items were successfully removed. False if there was an error.
+     * @returns {Promise<boolean>} True if the items were successfully removed. False if there was an error.
      */
-    async deleteItems(keys) { }
+    deleteItems(keys) { }
 
     /**
      * Persists a cache item.
      *
      * @param {Jymfony.Component.Cache.CacheItemInterface} item The cache item to save.
      *
-     * @returns {boolean} True if the item was successfully persisted. False if there was an error.
+     * @returns {Promise<boolean>} True if the item was successfully persisted. False if there was an error.
      */
-    async save(item) { }
+    save(item) { }
 }
 
 module.exports = getInterface(CacheItemPoolInterface);

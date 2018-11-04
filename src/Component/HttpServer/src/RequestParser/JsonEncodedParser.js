@@ -15,8 +15,9 @@ class JsonEncodedParser extends implementationOf(ParserInterface) {
      *
      * @param {IncomingMessage} req
      * @param {int} contentLength
+     * @param {string} charset
      */
-    __construct(req, contentLength) {
+    __construct(req, contentLength, charset) {
         /**
          * @type {IncomingMessage}
          *
@@ -30,6 +31,13 @@ class JsonEncodedParser extends implementationOf(ParserInterface) {
          * @private
          */
         this._contentLength = contentLength;
+
+        /**
+         * @type {string}
+         *
+         * @private
+         */
+        this._charset = charset;
 
         /**
          * @type {Buffer}
@@ -59,7 +67,7 @@ class JsonEncodedParser extends implementationOf(ParserInterface) {
                     throw new BadContentLengthRequestException();
                 }
 
-                const body = this._buffer.toString('ascii');
+                const body = this._buffer.toString(this._charset);
                 try {
                     resolve(JSON.parse(body));
                 } catch (e) {

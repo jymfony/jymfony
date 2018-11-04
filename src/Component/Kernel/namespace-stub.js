@@ -5,4 +5,29 @@
 /**
  * @namespace
  */
-global.Jymfony.Component.Kernel = {};
+Jymfony.Component.Kernel = {
+    /**
+     * @namespace
+     */
+    CacheClearer: {},
+
+    /**
+     * @namespace
+     */
+    CacheWarmer: {},
+
+    /**
+     * @namespace
+     */
+    Config: {},
+
+    /**
+     * @namespace
+     */
+    DependencyInjection: {},
+
+    /**
+     * @namespace
+     */
+    Log: {},
+};

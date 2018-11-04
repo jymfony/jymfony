@@ -41,6 +41,9 @@ class PasswordQuestionBuilder extends QuestionBuilder {
          * @private
          */
         this._mask = '*';
+
+        this._validator = builder._validator;
+        this._normalizer = builder._normalizer;
     }
 
     /**
