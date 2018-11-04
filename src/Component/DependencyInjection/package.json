@@ -1,6 +1,6 @@
 {
   "name": "@jymfony/dependency-injection",
-  "version": "0.1.0-alpha.10",
+  "version": "0.1.0-alpha.11",
   "description": "Jymfony Dependency Injection",
   "scripts": {
     "test": "node ./tests.js test/**"
@@ -16,15 +16,15 @@
     "node": ">=8.10.0"
   },
   "dependencies": {
-    "@jymfony/autoloader": "0.1.0-alpha.10",
-    "@jymfony/config": "0.1.0-alpha.10",
-    "@jymfony/datastructure": "0.1.0-alpha.10",
-    "@jymfony/exceptions": "0.1.0-alpha.10",
-    "@jymfony/property-access": "0.1.0-alpha.10",
-    "@jymfony/util": "0.1.0-alpha.10"
+    "@jymfony/autoloader": "0.1.0-alpha.11",
+    "@jymfony/config": "0.1.0-alpha.11",
+    "@jymfony/datastructure": "0.1.0-alpha.11",
+    "@jymfony/exceptions": "0.1.0-alpha.11",
+    "@jymfony/property-access": "0.1.0-alpha.11",
+    "@jymfony/util": "0.1.0-alpha.11"
   },
   "devDependencies": {
-    "@jymfony/debug": "0.1.0-alpha.10",
+    "@jymfony/debug": "*",
     "chai": "^3.5.0",
     "mocha": "^5.0"
   },

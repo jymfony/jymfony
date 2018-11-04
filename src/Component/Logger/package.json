@@ -1,6 +1,6 @@
 {
   "name": "@jymfony/logger",
-  "version": "0.1.0-alpha.10",
+  "version": "0.1.0-alpha.11",
   "description": "Jymfony Logger",
   "scripts": {
     "test": "node ./tests.js"
@@ -15,13 +15,13 @@
     "node": ">=8.10.0"
   },
   "dependencies": {
-    "@jymfony/autoloader": "0.1.0-alpha.10",
-    "@jymfony/exceptions": "0.1.0-alpha.10",
-    "@jymfony/util": "0.1.0-alpha.10"
+    "@jymfony/autoloader": "0.1.0-alpha.11",
+    "@jymfony/exceptions": "0.1.0-alpha.11",
+    "@jymfony/util": "0.1.0-alpha.11"
   },
   "devDependencies": {
-    "@jymfony/console": "0.1.0-alpha.10",
-    "@jymfony/debug": "0.1.0-alpha.10",
+    "@jymfony/console": "*",
+    "@jymfony/debug": "*",
     "bson": "^2.0",
     "chai": "^3.5.0",
     "mocha": "^5.0",
