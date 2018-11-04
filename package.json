@@ -5,9 +5,10 @@
   "description": "Jymfony",
   "main": "index.js",
   "scripts": {
-    "test": "node ./tests.js \"src/*/test/**/*.js\" \"src/{Component,Bundle}/*/test/**/*.js\" && eslint src/",
-    "coverage": "nyc npm test",
-    "coverage-html": "nyc --reporter=lcov npm test"
+    "test": "npm run run-tests && eslint src/",
+    "run-tests": "node ./tests.js \"src/*/test/**/*.js\" \"src/{Component,Bundle}/*/test/**/*.js\"",
+    "coverage": "nyc npm run run-tests && eslint src/",
+    "coverage-html": "nyc --reporter=lcov npm run run-tests && eslint src/"
   },
   "keywords": [
     "jymfony",
