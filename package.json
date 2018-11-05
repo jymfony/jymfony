@@ -12,7 +12,12 @@
   },
   "keywords": [
     "jymfony",
-    "framework"
+    "framework",
+    "web",
+    "rest",
+    "router",
+    "api",
+    "http"
   ],
   "author": "Alessandro Chitolina <alekitto@gmail.com>",
   "contributors": [
