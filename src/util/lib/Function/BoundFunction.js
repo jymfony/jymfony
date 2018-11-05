@@ -5,8 +5,6 @@
  *
  * To access the BoundFunction object use the innerObject property
  * of the returned value
- *
- * @type BoundFunction
  */
 class BoundFunction {
     /**
@@ -37,50 +35,23 @@ class BoundFunction {
          */
         this._func = func;
 
-        const self = this;
-        const ret = function () {
-            /* eslint prefer-spread: "off" */
-            /* eslint prefer-rest-params: "off" */
-            return self.apply(undefined, arguments);
-        };
+        return new Proxy(func, {
+            get: (target, name, receiver) => {
+                switch (name) {
+                    case 'innerObject':
+                        return this;
 
-        ret.apply = this.apply.bind(this);
-        ret.call = this.call.bind(this);
-        ret.equals = this.equals.bind(this);
-        ret.innerObject = this;
+                    case 'equals':
+                        return this.equals.bind(this);
 
-        return ret;
-    }
-
-    /**
-     * Call the function. It works exacly the same of
-     * Function.apply, except that it ignores the first argument since
-     * "this" is already defined
-     *
-     * @param {Object} thisArg Ignored
-     * @param {Arguments|Array} argArray
-     *
-     * @returns {*}
-     */
-    apply(thisArg, argArray) {
-        return this._func.apply(this._thisArg, argArray);
-    }
-
-    /**
-     * Call the function with arguments.
-     * NOTE: The only difference with {@see apply} is that call() accepts
-     * an argument list, instead of a single array of arguments
-     *
-     * @param {Object} thisArg
-     * @param {...*} args
-     *
-     * @returns {*}
-     */
-    call(thisArg, args) {
-        args = [].slice.call(arguments, 1);
-
-        /* eslint prefer-spread: "off" */
-        return this.apply(undefined, args);
+                    default:
+                        return Reflect.get(target, name, receiver);
+                }
+            },
+            apply: (target, thisArg1, argArray) => {
+                return this._func.apply(this._thisArg, argArray);
+            },
+        });
     }
 
     /**
