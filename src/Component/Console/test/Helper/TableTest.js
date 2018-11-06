@@ -557,7 +557,7 @@ describe('[Console] Table', function () {
             decorated: true,
             expected:
 `+-----------------+------------------+---------+
-|${'\033'}[32m ${'\033'}[39m${'\033'}[33mLong Title${'\033'}[39m${'\033'}[32m                                   ${'\033'}[39m|
+|${'\u001b'}[32m ${'\u001b'}[39m${'\u001b'}[33mLong Title${'\u001b'}[39m                                   |
 +-----------------+------------------+---------+
 | 9971-5-0210-0                                |
 +-----------------+------------------+---------+
@@ -574,7 +574,6 @@ describe('[Console] Table', function () {
                     'foo',
                     new TableCell('<error>Dont break \n here</error>', { colspan: 2 }),
                 ],
-                ['bar']
             ],
             style: 'default',
             decorated: true,
@@ -584,7 +583,7 @@ describe('[Console] Table', function () {
 [39;49m| [39;49m[37;41mhere[39;49m               |
 +-------+------------+
 [39;49m| foo   | [39;49m[37;41mDont break[39;49m[39;49m |[39;49m
-[39;49m| bar   | [39;49m[37;41mhere[39;49m       |
+[39;49m|       | [39;49m[37;41mhere[39;49m       |
 +-------+------------+
 `
         },

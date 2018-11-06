@@ -410,7 +410,7 @@ class Table {
      * @private
      */
     _renderCell(row, column, cellFormat) {
-        const cell = !!row[column] ? row[column] : '';
+        const cell = undefined !== row[column] ? row[column] : '';
         let width = this._effectiveColumnWidths[column];
 
         if (cell instanceof TableCell && 1 < cell.getColspan()) {
@@ -428,7 +428,7 @@ class Table {
         width += cell.toString().length - Helper.strlenWithoutDecoration(this._output.formatter, cell);
         const content = __jymfony.sprintf(style.getCellRowContentFormat(), cell);
 
-        return __jymfony.sprintf(cellFormat, __jymfony.str_pad(content, width, style.getPaddingChar(), style.getPadType()));
+        return __jymfony.sprintf(cellFormat, __jymfony.str_pad(content.trim(), width, style.getPaddingChar(), style.getPadType()));
     }
 
     /**
