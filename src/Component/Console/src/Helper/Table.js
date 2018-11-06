@@ -511,7 +511,6 @@ class Table {
 
         let breaks = [];
         for (const cell of row) {
-            breaks.push(cell instanceof TableCell ? cell.getRowspan() - 1 : 0);
             breaks.push((cell.toString().match(/\n/g) || []).length);
         }
 

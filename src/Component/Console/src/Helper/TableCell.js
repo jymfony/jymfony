@@ -19,7 +19,7 @@ class TableCell {
          *
          * @private
          */
-        this._options = Object.assign({ rowspan: 1, colspan: 1 }, this._options, options);
+        this._options = Object.assign({ colspan: 1 }, this._options, options);
     }
 
     /**
@@ -38,15 +38,6 @@ class TableCell {
      */
     getColspan() {
         return this._options.colspan;
-    }
-
-    /**
-     * Gets number of rowspan.
-     *
-     * @return {int}
-     */
-    getRowspan() {
-        return this._options.rowspan;
     }
 }
 
