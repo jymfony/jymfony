@@ -2,12 +2,7 @@
  * @memberOf Jymfony.Component.DependencyInjection
  */
 class ContainerAwareTrait {
-    /**
-     * Sets the container.
-     *
-     * @param {Jymfony.Component.DependencyInjection.Container} container
-     */
-    setContainer(container) {
+    __construct() {
         /**
          * Service container.
          *
@@ -15,6 +10,15 @@ class ContainerAwareTrait {
          *
          * @protected
          */
+        this._container = undefined;
+    }
+
+    /**
+     * Sets the container.
+     *
+     * @param {Jymfony.Component.DependencyInjection.Container} container
+     */
+    setContainer(container) {
         this._container = container;
     }
 }

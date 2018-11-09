@@ -55,8 +55,7 @@ class BTree extends mix(undefined, GenericCollectionTrait) {
      *
      * @param {Function} cmp_function
      */
-    constructor(cmp_function = compare_func) {
-        super();
+    __construct(cmp_function = compare_func) {
         this.clear();
 
         /**

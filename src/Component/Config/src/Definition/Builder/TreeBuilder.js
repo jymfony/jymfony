@@ -7,6 +7,22 @@ const NodeBuilder = Jymfony.Component.Config.Definition.Builder.NodeBuilder;
  * @memberOf Jymfony.Component.Config.Definition.Builder
  */
 class TreeBuilder extends implementationOf(NodeParentInterface) {
+    __construct() {
+        /**
+         * @type {Jymfony.Component.Config.Definition.Builder.ArrayNodeDefinition|Jymfony.Component.Config.Definition.Builder.NodeDefinition}
+         *
+         * @private
+         */
+        this._root = undefined;
+
+        /**
+         * @type {Jymfony.Component.Config.Definition.NodeInterface}
+         *
+         * @private
+         */
+        this._tree = undefined;
+    }
+
     /**
      * Creates the root node.
      *

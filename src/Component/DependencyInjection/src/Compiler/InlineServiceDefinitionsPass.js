@@ -12,6 +12,8 @@ class InlineServiceDefinitionsPass extends mix(AbstractRecursivePass, Repeatable
      * Constructor.
      */
     __construct() {
+        super.__construct();
+
         /**
          * @type {Object}
          *

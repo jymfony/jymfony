@@ -80,6 +80,13 @@ class Kernel extends implementationOf(KernelInterface) {
          * @private
          */
         this._booted = false;
+
+        /**
+         * @type {Object}
+         *
+         * @private
+         */
+        this._bundleMap = {};
     }
 
     /**
@@ -338,10 +345,6 @@ class Kernel extends implementationOf(KernelInterface) {
         }
 
         // Inheritance
-        /**
-         * @type {Object}
-         * @protected
-         */
         this._bundleMap = {};
         for (let [ name, bundle ] of __jymfony.getEntries(topMostBundles)) {
             const bundleMap = [ bundle ];

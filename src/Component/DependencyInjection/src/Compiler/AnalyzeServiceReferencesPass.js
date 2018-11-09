@@ -14,7 +14,38 @@ class AnalyzeServiceReferencesPass extends mix(AbstractRecursivePass, Repeatable
      * @param {boolean} [onlyConstructorArguments = false]
      */
     __construct(onlyConstructorArguments = false) {
+        super.__construct();
+
         this._onlyConstructorArguments = onlyConstructorArguments;
+        this._repeatedPass = undefined;
+
+        /**
+         * @type {Jymfony.Component.DependencyInjection.ContainerBuilder}
+         *
+         * @protected
+         */
+        this._container = undefined;
+
+        /**
+         * @type {Jymfony.Component.DependencyInjection.Compiler.ServiceReferenceGraph}
+         *
+         * @private
+         */
+        this._graph = undefined;
+
+        /**
+         * @type {boolean}
+         *
+         * @private
+         */
+        this._lazy = false;
+
+        /**
+         * @type {Jymfony.Component.DependencyInjection.Definition}
+         *
+         * @protected
+         */
+        this._currentDefinition = undefined;
     }
 
     /**
@@ -28,26 +59,9 @@ class AnalyzeServiceReferencesPass extends mix(AbstractRecursivePass, Repeatable
      * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
      */
     process(container) {
-        /**
-         * @type {Jymfony.Component.DependencyInjection.ContainerBuilder}
-         *
-         * @protected
-         */
         this._container = container;
-
-        /**
-         * @type {Jymfony.Component.DependencyInjection.Compiler.ServiceReferenceGraph}
-         *
-         * @private
-         */
         this._graph = container.getCompiler().getServiceReferenceGraph();
         this._graph.clear();
-
-        /**
-         * @type {boolean}
-         *
-         * @private
-         */
         this._lazy = false;
 
         for (const [ id, alias ] of __jymfony.getEntries(container.getAliases())) {

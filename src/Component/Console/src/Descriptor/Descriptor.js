@@ -10,6 +10,15 @@ const OutputInterface = Jymfony.Component.Console.Output.OutputInterface;
  * @memberOf Jymfony.Component.Console.Descriptor
  */
 class Descriptor extends implementationOf(DescriptorInterface) {
+    __construct() {
+        /**
+         * @type {Jymfony.Component.Console.Output.OutputInterface}
+         *
+         * @private
+         */
+        this._output = undefined;
+    }
+
     /**
      * @inheritdoc
      */

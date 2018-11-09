@@ -251,6 +251,8 @@ class Request {
          * @type {Buffer}
          */
         this.content = content;
+
+        this._method = undefined;
     }
 
     /**

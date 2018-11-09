@@ -19,6 +19,7 @@ class RepeatedPass extends implementationOf(CompilerPassInterface) {
         }
 
         this._passes = passes;
+        this._repeat = undefined;
     }
 
     /**

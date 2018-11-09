@@ -25,6 +25,24 @@ class Command {
         this._definition = new InputDefinition();
         this._help = '';
         this._description = '';
+        this._hidden = false;
+        this._applicationDefinitionMerged = false;
+        this._applicationDefinitionMergedWithArgs = false;
+        this._code = undefined;
+
+        /**
+         * @type {string}
+         *
+         * @private
+         */
+        this._processTitle = undefined;
+
+        /**
+         * @type {Jymfony.Component.Console.Application}
+         *
+         * @private
+         */
+        this._application = undefined;
 
         if (name || (name = this.constructor.defaultName)) {
             this.name = name;
@@ -82,6 +100,24 @@ class Command {
      */
     async execute(input, output) { // eslint-disable-line no-unused-vars
         throw new LogicException('You must override the execute() method in the concrete command class.');
+    }
+
+    /**
+     * Sets the code to execute when running this command.
+     *
+     * If this method is used, it overrides the code defined
+     * in the execute() method.
+     *
+     * @param {Function} code A callable accepting (input, output)
+     *
+     * @throws {InvalidArgumentException}
+     */
+    set code(code) {
+        if (! isFunction(code)) {
+            throw new InvalidArgumentException('Code is not a function');
+        }
+
+        this._code = new BoundFunction(this, code);
     }
 
     /**
@@ -159,7 +195,7 @@ class Command {
 
         input.validate();
 
-        const statusCode = await this.execute(input, output);
+        const statusCode = await (undefined !== this._code ? this._code(input, output) : this.execute(input, output));
 
         return ! Number.isNaN(statusCode) ? ~~statusCode : 0;
     }

@@ -29,9 +29,7 @@ class PriorityQueue extends mix(undefined, GenericCollectionTrait) {
     /**
      * Constructor.
      */
-    constructor() {
-        super();
-
+    __construct() {
         this.clear();
     }
 

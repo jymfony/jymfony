@@ -9,6 +9,13 @@ const path = require('path');
  * @memberOf Jymfony.Component.Kernel
  */
 class Bundle extends implementationOf(ContainerAwareInterface, ContainerAwareTrait) {
+    __construct() {
+        this._namespace = undefined;
+        this._name = undefined;
+        this._extension = undefined;
+        this._path = undefined;
+    }
+
     /**
      * Boots the bundle
      *

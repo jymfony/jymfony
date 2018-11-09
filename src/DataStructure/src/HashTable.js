@@ -62,9 +62,7 @@ class HashTable extends mix(undefined, GenericCollectionTrait) {
      *
      * @param {int} [bucketSize = INITIAL_SIZE]
      */
-    constructor(bucketSize = INITIAL_SIZE) {
-        super();
-
+    __construct(bucketSize = INITIAL_SIZE) {
         /**
          * @type {int}
          *

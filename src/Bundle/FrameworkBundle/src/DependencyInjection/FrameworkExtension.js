@@ -12,6 +12,12 @@ const path = require('path');
  * @memberOf Jymfony.Bundle.FrameworkBundle.DependencyInjection
  */
 class FrameworkExtension extends Extension {
+    __construct() {
+        super.__construct();
+
+        this._sessionConfigEnabled = false;
+    }
+
     /**
      * @inheritdoc
      */

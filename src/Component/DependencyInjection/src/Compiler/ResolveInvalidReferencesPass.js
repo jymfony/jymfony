@@ -7,6 +7,15 @@ const RuntimeException = Jymfony.Component.DependencyInjection.Exception.Runtime
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
  */
 class ResolveInvalidReferencesPass extends implementationOf(CompilerPassInterface) {
+    __construct() {
+        /**
+         * @type {Jymfony.Component.DependencyInjection.ContainerBuilder}
+         *
+         * @private
+         */
+        this._container = undefined;
+    }
+
     /**
      * @inheritdoc
      */

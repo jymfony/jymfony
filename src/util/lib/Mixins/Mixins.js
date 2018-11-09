@@ -3,6 +3,7 @@ const FunctionProps = Object.getOwnPropertyNames(Function.prototype);
 const symOuterMixin = Symbol('outerMixin');
 const symAppliedInterfaces = Symbol('appliedInterfaces');
 const symClassType = Symbol('classType');
+const symInitalizer = Symbol('Initializer');
 
 /**
  * @internal
@@ -20,12 +21,12 @@ class Mixins {
     static createMixin(definition, cb = undefined, constructCb = undefined) {
         const mixin = (superclass) => {
             const m = class extends superclass {
-                constructor(...args) {
-                    super(...args);
-
-                    if (undefined !== constructCb) {
-                        constructCb(this);
+                [symInitalizer]() {
+                    if (undefined !== super[symInitalizer]) {
+                        super[symInitalizer](this);
                     }
+
+                    constructCb(this);
                 }
             };
 
@@ -163,5 +164,6 @@ class Mixins {
 
 Mixins.appliedInterfacesSymbol = symAppliedInterfaces;
 Mixins.classTypeSymbol = symClassType;
+Mixins.initializerSymbol = symInitalizer;
 
 module.exports = Mixins;

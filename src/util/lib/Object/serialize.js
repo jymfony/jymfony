@@ -197,6 +197,10 @@ function unserialize(serialized) {
                     obj.__wakeup();
                 }
 
+                if (__jymfony.autoload.debug) {
+                    Reflect.preventExtensions(obj);
+                }
+
                 return obj;
             }
         }

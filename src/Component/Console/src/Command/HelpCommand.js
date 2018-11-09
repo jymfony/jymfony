@@ -7,6 +7,11 @@ const DescriptorHelper = Jymfony.Component.Console.Helper.DescriptorHelper;
  * @memberOf Jymfony.Component.Console.Command
  */
 class HelpCommand extends Command {
+    __construct(name = undefined) {
+        super.__construct(name);
+        this._command = undefined;
+    }
+
     /**
      * @inheritdoc
      */

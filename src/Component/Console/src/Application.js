@@ -34,6 +34,8 @@ class Application {
         this._terminal = new Terminal();
         this._catchExceptions = true;
         this._autoExit = true;
+        this._runningCommand = undefined;
+        this._wantHelps = false;
 
         for (const command of this._getDefaultCommands()) {
             this.add(command);

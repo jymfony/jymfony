@@ -27,6 +27,34 @@ class CommandTester {
          * @private
          */
         this._inputs = [];
+
+        /**
+         * @type {string}
+         *
+         * @private
+         */
+        this._readOutput = '';
+
+        /**
+         * @type {Jymfony.Component.Console.Input.ArrayInput}
+         *
+         * @private
+         */
+        this._input = undefined;
+
+        /**
+         * @type {int}
+         *
+         * @private
+         */
+        this._statusCode = undefined;
+
+        /**
+         * @type {Jymfony.Component.Console.Output.OutputInterface}
+         *
+         * @private
+         */
+        this._output = undefined;
     }
 
     /**
@@ -43,11 +71,6 @@ class CommandTester {
      * @returns {Promise<int>}
      */
     async run(input, options = {}) {
-        /**
-         * @type {string}
-         *
-         * @private
-         */
         this._readOutput = '';
 
         // Set the command name automatically if the application requires
@@ -59,22 +82,12 @@ class CommandTester {
             input = Object.assign({}, { command: this._command.name }, input);
         }
 
-        /**
-         * @type {Jymfony.Component.Console.Input.ArrayInput}
-         *
-         * @private
-         */
         this._input = new ArrayInput(input);
 
         if (this._inputs.length) {
             this._input.stream = CommandTester._createStream(this._inputs);
         }
 
-        /**
-         * @type {int}
-         *
-         * @private
-         */
         this._statusCode = undefined;
         this._input.interactive = !! options.interactive;
 

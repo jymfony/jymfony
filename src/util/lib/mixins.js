@@ -24,6 +24,11 @@ global.mixins = {
     isInterface: Interfaces.isInterface,
     isTrait: Traits.isTrait,
     getInterfaces: (Class) => Class[Mixins.appliedInterfacesSymbol] || [],
+
+    /**
+     * @internal
+     */
+    initializerSymbol: Mixins.initializerSymbol,
 };
 
 /**

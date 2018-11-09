@@ -17,6 +17,13 @@ class ArgumentsWildcard {
          */
         this._tokens = [];
 
+        /**
+         * @type {string}
+         *
+         * @private
+         */
+        this._string = undefined;
+
         for (let argument of args) {
             if (! (argument instanceof Token.TokenInterface)) {
                 argument = new Token.ExactValueToken(argument);

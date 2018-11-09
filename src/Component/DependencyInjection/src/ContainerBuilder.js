@@ -69,9 +69,16 @@ class ContainerBuilder extends Container {
          */
         this._trackResources = true;
 
+        /**
+         * @type {Jymfony.Component.DependencyInjection.Compiler}
+         *
+         * @private
+         */
+        this._compiler = undefined;
+
         this.setDefinition(
             'service_container',
-            (new Definition('Jymfony.Component.DependencyInjection.Container'))
+            (new Definition(Container))
                 .setSynthetic(true)
                 .setPublic(true)
         );

@@ -45,6 +45,15 @@ class AbstractToken extends implementationOf(TokenInterface) {
          */
         this._user = undefined;
 
+        /**
+         * Used in serialization
+         *
+         * @type {Jymfony.Component.Security.Role.Role[]}
+         *
+         * @private
+         */
+        this._rolesArray = undefined;
+
         for (const role of roles) {
             if (role instanceof Role) {
                 this._roles.add(role);
@@ -199,7 +208,7 @@ class AbstractToken extends implementationOf(TokenInterface) {
             }
         }
 
-        delete this._rolesArray;
+        this._rolesArray = undefined;
     }
 
     /**

@@ -17,6 +17,8 @@ class FileLoader extends Loader {
      * @param {Jymfony.Component.Config.FileLoaderInterface} locator
      */
     __construct(locator) {
+        super.__construct();
+
         /**
          * @type {Jymfony.Component.Config.FileLoaderInterface}
          *

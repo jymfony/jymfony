@@ -421,7 +421,7 @@ describe('[Console] Application', function () {
         application.autoExit = false;
         process.env.COLUMNS = 22;
 
-        application.register('foo').execute = () => {
+        application.register('foo').code = () => {
             throw new Exception('dont break here <info>!</info>');
         };
 
@@ -571,22 +571,32 @@ describe('[Console] Application', function () {
     });
 
     it('should return exit code', async () => {
-        const application = new Application();
-        application.autoExit = false;
-        application._doRun = () => {
-            throw new Exception('', 4);
-        };
+        const application = new class extends Application {
+            __construct() {
+                super.__construct();
+                this.autoExit = false;
+            }
+
+            _doRun() {
+                throw new Exception('', 4);
+            }
+        }();
 
         const code = await application.run(undefined, new NullOutput());
         expect(code).to.be.equal(4);
     });
 
     it('should return exit code 1 when exception code is 0', async () => {
-        const application = new Application();
-        application.autoExit = false;
-        application._doRun = () => {
-            throw new Exception('', 0);
-        };
+        const application = new class extends Application {
+            __construct() {
+                super.__construct();
+                this.autoExit = false;
+            }
+
+            _doRun() {
+                throw new Exception('', 0);
+            }
+        }();
 
         const code = await application.run(undefined, new NullOutput());
         expect(code).to.be.equal(1);
@@ -601,7 +611,7 @@ describe('[Console] Application', function () {
         application.definition.addOption(new InputOption('env', 'e', InputOption.VALUE_REQUIRED, 'Environment'));
 
         const command = application.register('foo');
-        command.execute = () => {};
+        command.code = () => {};
         command.addOption('survey', 'e', InputOption.VALUE_NONE, 'e shortcut');
 
         let ex;
@@ -630,7 +640,7 @@ describe('[Console] Application', function () {
             application.catchExceptions = false;
             const command = application.register('foo');
             command.definition = [ def ];
-            command.execute = () => {};
+            command.code = () => {};
 
             let ex;
 

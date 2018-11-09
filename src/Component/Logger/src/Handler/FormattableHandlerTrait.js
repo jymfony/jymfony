@@ -3,6 +3,13 @@
  */
 class FormattableHandlerTrait {
     /**
+     * Constructor.
+     */
+    __construct() {
+        this._formatter = undefined;
+    }
+
+    /**
      * Set the formatter.
      *
      * @param {Jymfony.Component.Logger.Formatter.FormatterInterface} formatter

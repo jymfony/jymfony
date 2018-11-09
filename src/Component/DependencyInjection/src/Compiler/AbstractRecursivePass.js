@@ -8,10 +8,7 @@ const Definition = Jymfony.Component.DependencyInjection.Definition;
  * @abstract
  */
 class AbstractRecursivePass extends implementationOf(CompilerPassInterface) {
-    /**
-     * @inheritdoc
-     */
-    process(container) {
+    __construct() {
         /**
          * @type {string}
          *
@@ -24,6 +21,14 @@ class AbstractRecursivePass extends implementationOf(CompilerPassInterface) {
          *
          * @protected
          */
+        this._container = undefined;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    process(container) {
+        this._currentId = undefined;
         this._container = container;
 
         try {

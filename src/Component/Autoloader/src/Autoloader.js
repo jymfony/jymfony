@@ -109,53 +109,72 @@ class Autoloader {
         this._global.__jymfony.JObject = class JObject {
             constructor(...$args) {
                 const retVal = this.__construct(...$args);
+                if (undefined !== this[mixins.initializerSymbol]) {
+                    this[mixins.initializerSymbol]();
+                }
+
                 if (undefined !== retVal && this !== retVal) {
                     return retVal;
                 }
 
+                let self = this;
+                if (__jymfony.autoload.debug) {
+                    Reflect.preventExtensions(this);
+
+                    self = new Proxy(self, {
+                        get: (target, p) => {
+                            if (p !== Symbol.toStringTag && ! Reflect.has(target, p)) {
+                                throw new TypeError('Undefined property ' + p.toString());
+                            }
+
+                            return Reflect.get(target, p);
+                        },
+                    });
+                }
+
                 if (undefined !== this.__invoke) {
-                    return new Proxy(this.__invoke, {
+                    return new Proxy(self.__invoke, {
                         get: (target, key) => {
-                            return Reflect.get(this, key);
+                            return Reflect.get(self, key);
                         },
                         set: (target, key, value) => {
-                            return Reflect.set(this, key, value);
+                            return Reflect.set(self, key, value);
                         },
                         has: (target, key) => {
-                            return Reflect.has(this, key);
+                            return Reflect.has(self, key);
                         },
                         deleteProperty: (target, key) => {
-                            return Reflect.deleteProperty(this, key);
+                            return Reflect.deleteProperty(self, key);
                         },
                         defineProperty: (target, key, descriptor) => {
-                            return Reflect.defineProperty(this, key, descriptor);
+                            return Reflect.defineProperty(self, key, descriptor);
                         },
                         enumerate: () => {
-                            return Reflect.enumerate(this);
+                            return Reflect.enumerate(self);
                         },
                         ownKeys: () => {
-                            return Reflect.ownKeys(this);
+                            return Reflect.ownKeys(self);
                         },
                         apply: (target, ctx, args) => {
-                            return this.__invoke(...args);
+                            return self.__invoke(...args);
                         },
                         construct: (target, argumentsList, newTarget) => {
-                            return Reflect.construct(this, argumentsList, newTarget);
+                            return Reflect.construct(self, argumentsList, newTarget);
                         },
                         getPrototypeOf: () => {
-                            return Reflect.getPrototypeOf(this);
+                            return Reflect.getPrototypeOf(self);
                         },
                         setPrototypeOf: (target, proto) => {
-                            return Reflect.setPrototypeOf(this, proto);
+                            return Reflect.setPrototypeOf(self, proto);
                         },
                         isExtensible: () => {
-                            return Reflect.isExtensible(this);
+                            return Reflect.isExtensible(self);
                         },
                         preventExtensions: () => {
-                            return Reflect.preventExtensions(this);
+                            return Reflect.preventExtensions(self);
                         },
                         getOwnPropertyDescriptor: (target, key) => {
-                            return Reflect.getOwnPropertyDescriptor(this, key);
+                            return Reflect.getOwnPropertyDescriptor(self, key);
                         },
                     });
                 }

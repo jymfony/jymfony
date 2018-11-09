@@ -6,7 +6,7 @@ const crypto = require('crypto');
 /**
  * @memberOf Jymfony.Component.Cache.Traits
  */
-class AbstractTrait extends mix(undefined, LoggerAwareTrait) {
+class AbstractTrait extends LoggerAwareTrait.definition {
     /**
      * Constructor.
      */

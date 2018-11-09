@@ -17,6 +17,7 @@ class MongoDBHandler extends AbstractProcessingHandler {
     __construct(client, collection, level = LogLevel.DEBUG, bubble = true) {
         this._client = client;
         this._collection = collection;
+        this._connection = undefined;
 
         this._client.on('close', () => {
             this._connection = undefined;

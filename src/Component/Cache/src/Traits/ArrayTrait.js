@@ -5,7 +5,7 @@ const LoggerAwareTrait = Jymfony.Component.Logger.LoggerAwareTrait;
 /**
  * @memberOf Jymfony.Component.Cache.Traits
  */
-class ArrayTrait extends mix(undefined, LoggerAwareTrait) {
+class ArrayTrait extends LoggerAwareTrait.definition {
     /**
      * Constructor.
      */

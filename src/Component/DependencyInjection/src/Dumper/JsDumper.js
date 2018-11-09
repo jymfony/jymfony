@@ -33,6 +33,11 @@ class JsDumper {
 
         this._container = container;
         this._inlinedDefinitions = new Map();
+        this._serviceIdToMethodNameMap = undefined;
+        this._usedMethodNames = undefined;
+        this._definitionVariables = undefined;
+        this._referenceVariables = undefined;
+        this._variableCount = undefined;
     }
 
     /**
