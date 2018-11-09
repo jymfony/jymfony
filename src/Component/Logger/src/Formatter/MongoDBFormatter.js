@@ -94,7 +94,7 @@ class MongoDBFormatter extends implementationOf(FormatterInterface) {
      */
     _formatError(record, nestingLevel) {
         const trace = Exception.parseStackTrace(record);
-        const reflClass = new ReflectionClass(trace);
+        const reflClass = new ReflectionClass(record);
 
         const formatted = {
             'class': reflClass.name,

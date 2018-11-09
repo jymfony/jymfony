@@ -435,6 +435,24 @@ describe('[Console] Application', function () {
         }
     });
 
+    it('renderException handle errors without backtrace', async () => {
+        const application = new Application();
+        application.autoExit = false;
+
+        application.register('foo').code = () => {
+            const ex = new Exception('ERROR');
+            ex.stackTrace = null;
+            ex.stack = '';
+
+            throw ex;
+        };
+
+        const tester = new ApplicationTester(application);
+        await tester.run({'command': 'foo'}, {decorated: false, verbosity: OutputInterface.VERBOSITY_VERBOSE});
+        expect(tester.getDisplay(true))
+            .to.be.equal(fs.readFileSync(path.join(fixtures_path, 'application_renderexception_notrace.txt'), {encoding: 'utf-8'}));
+    });
+
     it('run should work', async () => {
         let command, application = new Application();
         application.autoExit = false;

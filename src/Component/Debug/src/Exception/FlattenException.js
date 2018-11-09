@@ -37,7 +37,7 @@ class FlattenException {
         e.headers = headers;
         e.trace = exception instanceof Exception ?
             exception.stackTrace :
-            Exception.parseStackTrace(exception);
+            (Exception.parseStackTrace(exception) || []);
 
         e.trace = e.trace.filter(t => {
             return t.file !== asyncReflection.filename;
@@ -49,8 +49,11 @@ class FlattenException {
         } catch (ex) { }
 
         e.class = className;
-        e.file = e.trace[0].file;
-        e.line = e.trace[0].line;
+
+        if (0 < e.trace.length) {
+            e.file = e.trace[0].file;
+            e.line = e.trace[0].line;
+        }
 
         if (exception.previous) {
             e.previous = __self.create(exception.previous);
