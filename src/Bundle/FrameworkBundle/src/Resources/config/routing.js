@@ -25,6 +25,7 @@ container.register('router.default', Jymfony.Component.Routing.Router)
     .addArgument({
         'cache_dir': '%kernel.cache_dir%',
         'debug': '%kernel.debug%',
+        'matcher_cache_class': '%router.cache_class_prefix%UrlMatcher',
     })
     .addTag('kernel.cache_warmer')
 ;

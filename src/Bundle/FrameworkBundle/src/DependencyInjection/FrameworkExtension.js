@@ -255,6 +255,7 @@ class FrameworkExtension extends Extension {
         loader.load('routing.js');
 
         container.setParameter('router.resource', config['resource']);
+        container.setParameter('router.cache_class_prefix', container.getParameter('kernel.container_class'));
         const definition = container.getDefinition('router.default');
 
         const options = definition.getArgument(2);
