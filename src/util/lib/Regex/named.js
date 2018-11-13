@@ -53,9 +53,7 @@ if (! __jymfony.Platform.hasModernRegex()) {
 
             const groups = {};
             for (let i = 1; i <= this._names.length; i++) {
-                if (undefined !== result[i]) {
-                    groups[this._names[i - 1]] = result[i];
-                }
+                groups[this._names[i - 1]] = result[i];
             }
 
             result.groups = groups;

@@ -118,9 +118,17 @@ class Matcher extends implementationOf(MatcherInterface) {
      * @protected
      */
     _getAttributes(route, name, attributes) {
-        return Object.assign({
+        const ret = Object.assign({
             _route: name,
-        }, route.defaults, attributes);
+        }, route.defaults);
+
+        for (const [ k, v ] of __jymfony.getEntries(attributes)) {
+            if (undefined !== v) {
+                ret[k] = v;
+            }
+        }
+
+        return ret;
     }
 }
 

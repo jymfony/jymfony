@@ -460,7 +460,7 @@ ${this._compileSwitchDefault(true, matchHost)}
             const marks = [];
 
             for (const [ k, v ] of __jymfony.getEntries(matches.groups)) {
-                if (0 === k.indexOf('MARK_')) {
+                if (0 === k.indexOf('MARK_') && undefined !== v) {
                     marks.push(~~(k.replace('MARK_', '')));
                 } else {
                     res[k] = v;
@@ -602,7 +602,7 @@ ${combine}${this._compileRoute(route, name, false)}
                 }
                 if (hostMatches) {
                     hostMatches['_route'] = ret['_route'];
-                    ret = Object.assign({}, hostMatches.groups, ret);
+                    ret = Object.assign({}, Object.filter(hostMatches.groups, v => undefined !== v), ret);
                 }
             }
 `;
@@ -691,10 +691,10 @@ ${combine}${this._compileRoute(route, name, false)}
         if (matches || hostMatches) {
             const vars = ["{ '_route': '" + name + "'}"];
             if (matches || (hostMatches && ! checkHost)) {
-                vars.push('matches');
+                vars.push('Object.filter(matches, v => undefined !== v)');
             }
             if (hostMatches && checkHost) {
-                vars.push('hostMatches');
+                vars.push('Object.filter(hostMatches, v => undefined !== v)');
             }
 
             code += __jymfony.sprintf(
