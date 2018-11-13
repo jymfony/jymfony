@@ -154,7 +154,7 @@ class RouteCollection {
     addResource(resource) {
         const key = resource.toString();
 
-        if (undefined !== this._resources[key]) {
+        if (undefined === this._resources[key]) {
             this._resources[key] = resource;
         }
     }
