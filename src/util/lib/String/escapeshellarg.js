@@ -8,7 +8,7 @@ global.__jymfony = global.__jymfony || {};
  *
  * @param {string} arg
  */
-global.__jymfony.escapeshellarg = function escapeshellarg(arg) {
+__jymfony.escapeshellarg = function escapeshellarg(arg) {
     //  Discuss at: http://locutus.io/php/escapeshellarg/
     // Original by: Felix Geisendoerfer (http://www.debuggable.com/felix)
     // Improved by: Brett Zamir (http://brett-zamir.me)

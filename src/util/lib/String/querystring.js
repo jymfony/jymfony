@@ -7,7 +7,7 @@ global.__jymfony = global.__jymfony || {};
  *
  * @returns {Object}
  */
-global.__jymfony.internal_parse_query_string = (params) => {
+__jymfony.internal_parse_query_string = (params) => {
     const bag = new HashTable();
     for (const [ key, value ] of params) {
         if (-1 === key.indexOf('[')) {
@@ -56,7 +56,7 @@ global.__jymfony.internal_parse_query_string = (params) => {
  *
  * @returns {Object}
  */
-global.__jymfony.parse_query_string = function parse_query_string(str) {
+__jymfony.parse_query_string = function parse_query_string(str) {
     if (null === str) {
         return {};
     }

@@ -31,4 +31,4 @@ const diffKey = function (arr1, ...arrays) {
     return retArr;
 };
 
-global.__jymfony.diff_key = diffKey;
+__jymfony.diff_key = diffKey;

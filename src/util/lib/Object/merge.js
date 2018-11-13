@@ -34,4 +34,4 @@ const objectMerge = function (...args) {
     return retObj;
 };
 
-global.__jymfony.objectMerge = objectMerge;
+__jymfony.objectMerge = objectMerge;

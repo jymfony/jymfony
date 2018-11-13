@@ -29,5 +29,10 @@ Jymfony.Bundle.FrameworkBundle = {
     /**
      * @namespace
      */
+    Routing: {},
+
+    /**
+     * @namespace
+     */
     Test: {},
 };

@@ -1,7 +1,11 @@
+const WarmableInterface = Jymfony.Component.Kernel.CacheWarmer.WarmableInterface;
+
 /**
+ * Interface for classes able to warm up the cache.
+ *
  * @memberOf Jymfony.Component.Kernel.CacheWarmer
  */
-class CacheWarmerInterface {
+class CacheWarmerInterface extends WarmableInterface.definition {
     /**
      * Checks whether this warmer is optional or not.
      *

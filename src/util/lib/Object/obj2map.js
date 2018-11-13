@@ -20,4 +20,4 @@ const obj2map = function (obj) {
     return result;
 };
 
-global.__jymfony.obj2map = obj2map;
+__jymfony.obj2map = obj2map;

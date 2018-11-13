@@ -15,7 +15,18 @@ class MongoDBHandler extends AbstractProcessingHandler {
      * @param {boolean} [bubble = true] Whether the messages that are handled can bubble up the stack or not.
      */
     __construct(client, collection, level = LogLevel.DEBUG, bubble = true) {
+        /**
+         * @type {MongoClient}
+         *
+         * @private
+         */
         this._client = client;
+
+        /**
+         * @type {string}
+         *
+         * @private
+         */
         this._collection = collection;
         this._connection = undefined;
 
@@ -35,7 +46,7 @@ class MongoDBHandler extends AbstractProcessingHandler {
 
     close() {
         if (undefined !== this._connection) {
-            this._client.close();
+            this._client.close(false);
             this._connection = undefined;
         }
     }

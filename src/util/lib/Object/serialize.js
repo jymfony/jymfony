@@ -209,5 +209,5 @@ function unserialize(serialized) {
     return doUnserialize();
 }
 
-global.__jymfony.serialize = serialize;
-global.__jymfony.unserialize = unserialize;
+__jymfony.serialize = serialize;
+__jymfony.unserialize = unserialize;

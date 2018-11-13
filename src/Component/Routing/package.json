@@ -19,6 +19,7 @@
     "@jymfony/config": "https://github.com/jymfony/config.git",
     "@jymfony/exceptions": "https://github.com/jymfony/exceptions.git",
     "@jymfony/http-foundation": "https://github.com/jymfony/http-foundation.git",
+    "@jymfony/options-resolver": "https://github.com/jymfony/options-resolver.git",
     "@jymfony/util": "https://github.com/jymfony/util.git"
   },
   "devDependencies": {

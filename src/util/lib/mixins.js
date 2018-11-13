@@ -32,8 +32,8 @@ global.mixins = {
 };
 
 /**
- * @param {string} superclass
- * @param {...} mixins
+ * @param {*} superclass
+ * @param {...*} mixins
  *
  * @returns {Object}
  */

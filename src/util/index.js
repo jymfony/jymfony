@@ -4,6 +4,8 @@ require('./lib/Platform');
 require('./lib/Function/BoundFunction');
 require('./lib/is');
 
+require('./lib/Iterator/EmptyIterator');
+
 require('./lib/Object/polyfills/values');
 require('./lib/Object/clone');
 require('./lib/Object/diffKey');
@@ -29,6 +31,7 @@ require('./lib/String/sprintf');
 require('./lib/String/strcspn');
 require('./lib/String/strip_tags');
 require('./lib/String/strtr');
+require('./lib/String/substr_replace');
 require('./lib/String/trim');
 require('./lib/String/ucfirst');
 require('./lib/String/ucwords');

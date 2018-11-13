@@ -1,2 +1,3 @@
+src/Component/Routing/src/Dumper/JsMatcherDumper.js
 src/Component/DependencyInjection/fixtures/js
 src/**/*Interface.js

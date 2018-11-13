@@ -71,6 +71,7 @@ class Request {
             SERVER_PORT: 80,
             REMOTE_ADDR: '127.0.0.1',
             SERVER_PROTOCOL: 'HTTP/1.1',
+            SCHEME: parsedUrl.protocol ? parsedUrl.protocol.replace(/:$/, '') : 'http',
         }, server);
         server.REQUEST_METHOD = method;
 

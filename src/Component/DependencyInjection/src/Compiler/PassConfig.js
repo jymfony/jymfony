@@ -15,8 +15,6 @@ class PassConfig {
          */
         this._mergePass = new Compiler.MergeExtensionConfigurationPass();
 
-        const minus1000 = -1000;
-
         /**
          * @type {Object}
          *
@@ -26,7 +24,7 @@ class PassConfig {
             100: [
                 new Compiler.ResolveClassPass(),
             ],
-            [minus1000]: [
+            [(-1000)]: [
                 new Compiler.ExtensionCompilerPass(),
             ],
         };
@@ -42,6 +40,7 @@ class PassConfig {
                 new Compiler.DecoratorServicePass(),
                 new Compiler.ResolveParameterPlaceHoldersPass(),
                 new Compiler.CheckDefinitionValidityPass(),
+                new Compiler.ResolveTaggedIteratorArgumentPass(),
                 new Compiler.ResolveReferencesToAliasesPass(),
                 new Compiler.ResolveInvalidReferencesPass(),
                 new Compiler.AnalyzeServiceReferencesPass(true),

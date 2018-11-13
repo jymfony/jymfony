@@ -62,4 +62,4 @@ class Platform {
     }
 }
 
-global.__jymfony.Platform = Platform;
+__jymfony.Platform = Platform;

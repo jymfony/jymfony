@@ -1,6 +1,7 @@
 /** @global {Jymfony.Component.DependencyInjection.ContainerBuilder} container */
 
 const Alias = Jymfony.Component.DependencyInjection.Alias;
+const TaggedIteratorArgument = Jymfony.Component.DependencyInjection.Argument.TaggedIteratorArgument;
 const Reference = Jymfony.Component.DependencyInjection.Reference;
 
 container.register('parameter_bag', Jymfony.Component.DependencyInjection.ParameterBag.ContainerBag)
@@ -20,10 +21,12 @@ container.register('kernel')
 ;
 
 container.register('cache_warmer', Jymfony.Component.Kernel.CacheWarmer.CacheWarmerAggregate)
+    .addArgument(new TaggedIteratorArgument('kernel.cache_warmer'))
     .setPublic(true)
 ;
 
 container.register('cache_clearer', Jymfony.Component.Kernel.CacheClearer.ChainCacheClearer)
+    .addArgument(new TaggedIteratorArgument('kernel.cache_clearer'))
     .setPublic(true)
 ;
 
