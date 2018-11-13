@@ -27,6 +27,9 @@ class CacheWarmerAggregate extends implementationOf(CacheWarmerInterface) {
         this._optionalsEnabled = false;
     }
 
+    /**
+     * Enables optional cache warmers.
+     */
     enableOptionalWarmers() {
         this._optionalsEnabled = true;
     }
@@ -38,7 +41,7 @@ class CacheWarmerAggregate extends implementationOf(CacheWarmerInterface) {
      */
     warmUp(cacheDir) {
         for (const warmer of this._warmers) {
-            if (! this._optionalsEnabled && warmer.isOptional()) {
+            if (! this._optionalsEnabled && warmer.optional) {
                 continue;
             }
 

@@ -37,6 +37,27 @@ class Router extends implementationOf(RouterInterface, MatcherInterface, UrlGene
          */
         this._collection = undefined;
 
+        /**
+         * @type {Jymfony.Component.Routing.Matcher.MatcherInterface}
+         *
+         * @private
+         */
+        this._matcher = undefined;
+
+        /**
+         * @type {Jymfony.Component.Routing.Generator.UrlGeneratorInterface}
+         *
+         * @private
+         */
+        this._generator = undefined;
+
+        /**
+         * @type {Jymfony.Component.Config.ConfigCacheFactoryInterface}
+         *
+         * @private
+         */
+        this._configCacheFactory = undefined;
+
         this.options = options;
     }
 

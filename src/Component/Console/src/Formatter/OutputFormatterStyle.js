@@ -63,6 +63,20 @@ class OutputFormatterStyle extends implementationOf(OutputFormatterStyleInterfac
          * @private
          */
         this._options = new Set();
+
+        /**
+         * @type {Object}
+         *
+         * @private
+         */
+        this._background = undefined;
+
+        /**
+         * @type {Object}
+         *
+         * @private
+         */
+        this._foreground = undefined;
     }
 
     /**

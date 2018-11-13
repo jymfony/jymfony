@@ -15,3 +15,9 @@ container.register('framework.cache_clear_command', Jymfony.Bundle.FrameworkBund
     .setPublic(true)
     .addTag('console.command')
 ;
+
+container.register('framework.cache_warmup_command', Jymfony.Bundle.FrameworkBundle.Command.CacheWarmupCommand)
+    .addArgument(new Reference('cache_warmer'))
+    .setPublic(true)
+    .addTag('console.command')
+;

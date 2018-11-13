@@ -16,7 +16,7 @@ class Command {
      *
      * @param {string} name
      */
-    __construct(name) {
+    __construct(name = undefined) {
         this._name = undefined;
         this._synopsis = {};
         this._aliases = [];

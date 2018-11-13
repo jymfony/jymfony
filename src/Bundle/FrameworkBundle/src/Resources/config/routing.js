@@ -27,7 +27,11 @@ container.register('router.default', Jymfony.Component.Routing.Router)
         'debug': '%kernel.debug%',
         'matcher_cache_class': '%router.cache_class_prefix%UrlMatcher',
     })
-    .addTag('kernel.cache_warmer')
 ;
 
 container.setAlias('router', new Alias('router.default', true));
+
+container.register(Jymfony.Bundle.FrameworkBundle.CacheWarmer.RouterCacheWarmer)
+    .addTag('kernel.cache_warmer')
+    .addArgument(new Reference('service_container'))
+;
