@@ -21,6 +21,7 @@
   },
   "devDependencies": {
     "@jymfony/console": "https://github.com/jymfony/console.git",
+    "@jymfony/datetime": "https://github.com/jymfony/date-time.git",
     "@jymfony/debug": "https://github.com/jymfony/debug.git",
     "@jymfony/testing": "https://github.com/jymfony/testing.git",
     "bson": "^2.0",
