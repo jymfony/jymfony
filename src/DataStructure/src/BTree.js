@@ -47,7 +47,7 @@ class Node {
 /**
  * BTree
  */
-class BTree extends mix(undefined, GenericCollectionTrait) {
+class BTree extends mix(Object, GenericCollectionTrait) {
     /**
      * Comparison function can be defined passing it to cmp_function parameter.
      * The function should return 0 if elements are equals, 1 if the first argument
@@ -55,7 +55,8 @@ class BTree extends mix(undefined, GenericCollectionTrait) {
      *
      * @param {Function} cmp_function
      */
-    __construct(cmp_function = compare_func) {
+    constructor(cmp_function = compare_func) {
+        super();
         this.clear();
 
         /**

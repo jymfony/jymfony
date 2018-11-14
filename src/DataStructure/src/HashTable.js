@@ -56,20 +56,21 @@ class Entry {
     }
 }
 
-class HashTable extends mix(undefined, GenericCollectionTrait) {
+class HashTable extends mix(Object, GenericCollectionTrait) {
     /**
      * Constructor.
      *
      * @param {int} [bucketSize = INITIAL_SIZE]
      */
-    __construct(bucketSize = INITIAL_SIZE) {
+    constructor(bucketSize = INITIAL_SIZE) {
+        super();
+
         /**
          * @type {int}
          *
          * @private
          */
         this._bucketSize = bucketSize;
-
         this.clear();
     }
 

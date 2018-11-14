@@ -22,6 +22,7 @@
   "devDependencies": {
     "@jymfony/console": "https://github.com/jymfony/console.git",
     "@jymfony/debug": "https://github.com/jymfony/debug.git",
+    "@jymfony/testing": "https://github.com/jymfony/testing.git",
     "bson": "^2.0",
     "chai": "^3.5.0",
     "mocha": "^5.0",

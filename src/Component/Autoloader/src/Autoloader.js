@@ -99,6 +99,7 @@ class Autoloader {
         }
 
         this._registered = true;
+        const autoloader = this;
 
         /**
          * This is the base class of all the autoloaded classes.
@@ -109,8 +110,8 @@ class Autoloader {
         this._global.__jymfony.JObject = class JObject {
             constructor(...$args) {
                 const retVal = this.__construct(...$args);
-                if (undefined !== this[mixins.initializerSymbol]) {
-                    this[mixins.initializerSymbol]();
+                if (undefined !== global.mixins && undefined !== this[global.mixins.initializerSymbol]) {
+                    this[global.mixins.initializerSymbol]();
                 }
 
                 if (undefined !== retVal && this !== retVal) {
@@ -118,7 +119,7 @@ class Autoloader {
                 }
 
                 let self = this;
-                if (__jymfony.autoload.debug) {
+                if (!! autoloader.debug) {
                     Reflect.preventExtensions(this);
 
                     self = new Proxy(self, {

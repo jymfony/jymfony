@@ -25,11 +25,12 @@ class PriorityNode {
  * lowest. The iterator is destructive: elements are popped out and
  * removed from the queue
  */
-class PriorityQueue extends mix(undefined, GenericCollectionTrait) {
+class PriorityQueue extends mix(Object, GenericCollectionTrait) {
     /**
      * Constructor.
      */
-    __construct() {
+    constructor() {
+        super();
         this.clear();
     }
 

@@ -1,2 +1,2 @@
-require('@jymfony/exceptions');
+require('@jymfony/autoloader');
 require('mocha/bin/_mocha');
