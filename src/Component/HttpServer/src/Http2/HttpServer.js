@@ -14,7 +14,6 @@ const fs = require('fs');
 const http2 = require('http2');
 const {
     HTTP2_HEADER_AUTHORITY,
-    HTTP2_HEADER_CONTENT_LENGTH,
     HTTP2_HEADER_CONTENT_TYPE,
     HTTP2_HEADER_METHOD,
     HTTP2_HEADER_PATH,
@@ -114,7 +113,7 @@ class HttpServer extends BaseServer {
         let requestParams, content;
 
         try {
-            [ requestParams, content ] = await this._parseRequestContent(stream, ~~headers[HTTP2_HEADER_CONTENT_LENGTH], contentType);
+            [ requestParams, content ] = await this._parseRequestContent(stream, headers, contentType);
         } catch (e) {
             if (e instanceof BadRequestException) {
                 stream.respond({ [HTTP2_HEADER_STATUS]: 400, [HTTP2_HEADER_CONTENT_TYPE]: 'text/plain' });
@@ -130,19 +129,15 @@ class HttpServer extends BaseServer {
             return;
         }
 
-        const scheme = headers[HTTP2_HEADER_SCHEME];
+        const scheme = this._getScheme(headers);
         const path = headers[HTTP2_HEADER_PATH];
         const authority = headers[HTTP2_HEADER_AUTHORITY];
 
-        const protocol = 'websocket' === headers[HTTP2_HEADER_PROTOCOL] ?
-            ('https' === scheme ? 'wss' : 'ws') :
-            scheme;
-
         const socket = stream.session.socket;
-        const request = new Request(protocol+'://'+authority+path, requestParams, {}, headers, {
+        const request = new Request(scheme+'://'+authority+path, requestParams, {}, headers, {
             'REQUEST_METHOD': headers[HTTP2_HEADER_METHOD],
             'REMOTE_ADDR': socket.remoteAddress,
-            'SCHEME': headers[HTTP2_HEADER_SCHEME],
+            'SCHEME': scheme,
             'SERVER_NAME': this._host,
             'SERVER_PORT': this._port,
             'SERVER_PROTOCOL': 'HTTP/2',
@@ -154,27 +149,30 @@ class HttpServer extends BaseServer {
         }
 
         await response.prepare(request);
-
-        const responseHeaders = response.headers.all;
-        responseHeaders[HTTP2_HEADER_STATUS] = response.statusCode;
-        stream.respond(responseHeaders);
-
-        if (! response.isEmpty && response.content) {
-            if (isFunction(response.content)) {
-                await response.content(stream);
-            } else {
-                await new Promise((resolve) => {
-                    stream.write(response.content, 'utf8', () => {
-                        resolve();
-                    });
-                });
-            }
-        }
-
-        stream.end();
+        await response.sendResponse(stream, stream);
 
         const event = new Event.PostResponseEvent(this, request, response);
         await this._dispatcher.dispatch(Event.HttpServerEvents.TERMINATE, event);
+    }
+
+    /**
+     * Gets the request scheme.
+     *
+     * @param {Object} headers
+     *
+     * @returns {string}
+     */
+    _getScheme(headers) {
+        if (! headers[HTTP2_HEADER_SCHEME]) {
+            // HTTP1 request has been passed as argument.
+            return super._getScheme(headers);
+        }
+
+        const scheme = headers[HTTP2_HEADER_SCHEME];
+
+        return 'websocket' === headers[HTTP2_HEADER_PROTOCOL] ?
+            ('https' === scheme ? 'wss' : 'ws') :
+            scheme;
     }
 
     /**
@@ -189,6 +187,10 @@ class HttpServer extends BaseServer {
      * @private
      */
     async _incomingRequest(req, res) {
+        req.socket.on('error', () => {
+            req.socket.end();
+        });
+
         if (__jymfony.version_compare(req.httpVersion, '2.0', '>=')) {
             return;
         }

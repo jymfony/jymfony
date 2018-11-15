@@ -10,14 +10,28 @@ const AccessDecisionManager = Jymfony.Component.Security.Authorization.AccessDec
  */
 class Configuration extends implementationOf(ConfigurationInterface) {
     /**
-     * @param {Jymfony.Bundle.SecurityBundle.DependencyInjection.UserProvider.UserProviderFactoryInterface[]} factories
+     * Constructor.
      */
-    set userProviderFactories(factories) {
+    __construct() {
         /**
          * @type {Jymfony.Bundle.SecurityBundle.DependencyInjection.UserProvider.UserProviderFactoryInterface[]}
          *
          * @private
          */
+        this._userProviderFactories = undefined;
+
+        /**
+         * @type {Object.<string, Jymfony.Bundle.SecurityBundle.DependencyInjection.Security.Factory.SecurityFactoryInterface>}
+         *
+         * @private
+         */
+        this._factories = undefined;
+    }
+
+    /**
+     * @param {Jymfony.Bundle.SecurityBundle.DependencyInjection.UserProvider.UserProviderFactoryInterface[]} factories
+     */
+    set userProviderFactories(factories) {
         this._userProviderFactories = factories;
     }
 
@@ -25,11 +39,6 @@ class Configuration extends implementationOf(ConfigurationInterface) {
      * @param {Object.<string, Jymfony.Bundle.SecurityBundle.DependencyInjection.Security.Factory.SecurityFactoryInterface>} factories
      */
     set factories(factories) {
-        /**
-         * @type {Object.<string, Jymfony.Bundle.SecurityBundle.DependencyInjection.Security.Factory.SecurityFactoryInterface>}
-         *
-         * @private
-         */
         this._factories = factories;
     }
 

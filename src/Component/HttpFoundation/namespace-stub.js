@@ -45,4 +45,14 @@ Jymfony.Component.HttpFoundation = {
          */
         Storage: {},
     },
+
+    /**
+     * @namespace
+     */
+    Websocket: {
+        /**
+         * @namespace
+         */
+        Exception: {},
+    },
 };

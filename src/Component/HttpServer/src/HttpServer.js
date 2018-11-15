@@ -138,6 +138,33 @@ class HttpServer {
                 resolve();
             });
 
+            this._http.on('upgrade', (request, socket) => {
+                socket.writeHead = (statusCode, reason = undefined, obj = undefined) => {
+                    if (! isString(reason)) {
+                        obj = reason;
+                        reason = Response.statusTexts[statusCode];
+                    }
+
+                    statusCode |= 0;
+                    if (100 > statusCode || 999 < statusCode) {
+                        throw new RangeError(`Invalid status code: ${statusCode}`);
+                    }
+
+                    socket.write('HTTP/1.1 ' + statusCode.toString() + ' ' + reason + '\r\n');
+                    for (const [ key, value ] of __jymfony.getEntries(obj || {})) {
+                        if (! isArray(value)) {
+                            socket.write(key + ': ' + value + '\r\n');
+                        } else {
+                            value.forEach(v => socket.write(key + ': ' + v + '\r\n'));
+                        }
+                    }
+
+                    socket.write('\r\n');
+                };
+
+                return this._incomingRequest(request, socket);
+            });
+
             if (!! path) {
                 this._http.listen({ path });
             } else {
@@ -150,11 +177,12 @@ class HttpServer {
         });
     }
 
-    close() {
+    async close() {
         if (! this._http.listening) {
             return;
         }
 
+        await this._dispatcher.dispatch(Event.HttpServerEvents.SERVER_TERMINATE);
         this._http.close();
     }
 
@@ -180,6 +208,10 @@ class HttpServer {
      * @private
      */
     async _incomingRequest(req, res) {
+        req.socket.on('error', () => {
+            req.socket.end();
+        });
+
         try {
             await this._handleRequest(req, res);
         } catch (e) {
@@ -210,7 +242,7 @@ class HttpServer {
         let requestParams, content;
 
         try {
-            [ requestParams, content ] = await this._parseRequestContent(req, ~~req.headers['content-length'], contentType);
+            [ requestParams, content ] = await this._parseRequestContent(req, req.headers, contentType);
         } catch (e) {
             if (e instanceof BadRequestException) {
                 res.writeHead(400, {'Content-Type': 'text/plain'});
@@ -229,7 +261,7 @@ class HttpServer {
         const request = new Request(req.url, requestParams, {}, req.headers, {
             'REQUEST_METHOD': req.method,
             'REMOTE_ADDR': req.connection.remoteAddress,
-            'SCHEME': this._getScheme(),
+            'SCHEME': this._getScheme(req.headers),
             'SERVER_NAME': this._host,
             'SERVER_PORT': this._port,
             'SERVER_PROTOCOL': 'HTTP/'+req.httpVersion,
@@ -241,21 +273,7 @@ class HttpServer {
         }
 
         await response.prepare(request);
-        res.writeHead(response.statusCode, response.statusText, response.headers.all);
-
-        if (! response.isEmpty && response.content) {
-            if (isFunction(response.content)) {
-                await response.content(res);
-            } else {
-                await new Promise((resolve) => {
-                    res.write(response.content, 'utf8', () => {
-                        resolve();
-                    });
-                });
-            }
-        }
-
-        res.end();
+        await response.sendResponse(req, res);
 
         const event = new Event.PostResponseEvent(this, request, response);
         await this._dispatcher.dispatch(Event.HttpServerEvents.TERMINATE, event);
@@ -298,7 +316,7 @@ class HttpServer {
      * Parse request content.
      *
      * @param {stream.Duplex} stream
-     * @param {int} contentLength
+     * @param {Object} headers
      * @param {Jymfony.Component.HttpFoundation.Header.ContentType} contentType
      *
      * @returns {Promise<Array>} An array composed by the request params object
@@ -306,7 +324,12 @@ class HttpServer {
      *
      * @protected
      */
-    async _parseRequestContent(stream, contentLength, contentType) {
+    async _parseRequestContent(stream, headers, contentType) {
+        if (headers['sec-websocket-key']) {
+            return [ {}, undefined ];
+        }
+
+        const contentLength = ~~headers['content-length'];
         let parser;
         if ('application/x-www-form-urlencoded' === contentType.essence) {
             parser = new RequestParser.UrlEncodedParser(stream, contentLength);
@@ -349,16 +372,23 @@ class HttpServer {
         await this._dispatcher.dispatch(Event.HttpServerEvents.CONTROLLER, event);
         controller = event.controller;
 
-        const response = await controller(request);
+        let response = await controller(request);
         if (! (response instanceof Response)) {
-            let msg = 'The controller must return a response.';
+            const event = new Event.GetResponseForControllerResultEvent(this, request, response);
+            await this._dispatcher.dispatch(Event.HttpServerEvents.VIEW, event);
 
-            // The user may have forgotten to return something
-            if (undefined === response) {
-                msg += ' Did you forget to add a return statement somewhere in your controller?';
+            if (event.hasResponse()) {
+                response = event.response;
+            } else {
+                let msg = 'The controller must return a response.';
+
+                // The user may have forgotten to return something
+                if (undefined === response) {
+                    msg += ' Did you forget to add a return statement somewhere in your controller?';
+                }
+
+                throw new LogicException(msg);
             }
-
-            throw new LogicException(msg);
         }
 
         return await this._filterResponse(response, request);
@@ -410,11 +440,17 @@ class HttpServer {
     /**
      * Gets the request scheme.
      *
+     * @param {Object} headers
+     *
      * @returns {string}
      *
      * @protected
      */
-    _getScheme() {
+    _getScheme(headers) {
+        if (headers['sec-websocket-key']) {
+            return 'ws';
+        }
+
         return 'http';
     }
 
