@@ -10,6 +10,18 @@ const asyncReflection = new ReflectionClass(__jymfony.Async);
  * @memberOf Jymfony.Component.Debug.Exception
  */
 class FlattenException {
+    __construct() {
+        this.message = undefined;
+        this.code = undefined;
+        this.statusCode = undefined;
+        this.headers = undefined;
+        this.trace = undefined;
+        this.class = undefined;
+        this.file = undefined;
+        this.line = undefined;
+        this.previous = undefined;
+    }
+
     /**
      * Creates a new FlattenException object
      *

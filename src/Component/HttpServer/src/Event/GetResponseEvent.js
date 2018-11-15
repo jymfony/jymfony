@@ -4,6 +4,17 @@ const HttpEvent = Jymfony.Component.HttpServer.Event.HttpEvent;
  * @memberOf Jymfony.Component.HttpServer.Event
  */
 class GetResponseEvent extends HttpEvent {
+    __construct(server, request) {
+        super.__construct(server, request);
+
+        /**
+         * @type {Jymfony.Component.HttpFoundation.Response}
+         *
+         * @private
+         */
+        this._response = undefined;
+    }
+
     /**
      * Checks whether a Response is set on the event.
      *

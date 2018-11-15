@@ -108,6 +108,13 @@ class ExtractingEventDispatcher extends mix(EventDispatcher, EventSubscriberInte
          * @private
          */
         this._listeners = [];
+
+        /**
+         * @type {Jymfony.Component.EventDispatcher.EventSubscriberInterface}
+         *
+         * @private
+         */
+        this._subscriber = undefined;
     }
 
     /**
