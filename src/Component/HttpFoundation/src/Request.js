@@ -225,7 +225,7 @@ class Request {
          */
         url = urlModule.parse(url);
         url.protocol = this.scheme;
-        url.hostname = this.httpHost;
+        url.hostname = url.host = this.httpHost;
         this._url = urlModule.parse(urlModule.format(url));
 
         /**
