@@ -11,4 +11,6 @@ HttpServerEvents.RESPONSE = 'http.response';
 HttpServerEvents.TERMINATE = 'http.terminate';
 HttpServerEvents.FINISH_REQUEST = 'http.finish_request';
 
+HttpServerEvents.SERVER_TERMINATE = 'http.server_terminate';
+
 module.exports = HttpServerEvents;

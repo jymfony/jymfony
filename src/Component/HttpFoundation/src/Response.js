@@ -735,6 +735,36 @@ class Response {
     }
 
     /**
+     * Sends the response through the given ServerResponse object.
+     *
+     * @param {IncomingMessage} req
+     * @param {ServerResponse} res
+     *
+     * @returns {Promise<void>}
+     */
+    async sendResponse(req, res) {
+        if (res.respond) {
+            res.respond(Object.assign({ ':status': this.statusCode }, this.headers.all));
+        } else {
+            res.writeHead(this.statusCode, this.statusText, this.headers.all);
+        }
+
+        if (! this.isEmpty && this.content) {
+            if (isFunction(this.content)) {
+                await this.content(res);
+            } else {
+                await new Promise((resolve) => {
+                    res.write(this.content, 'utf8', () => {
+                        resolve();
+                    });
+                });
+            }
+        }
+
+        res.end();
+    }
+
+    /**
      * Checks if we need to remove Cache-Control for SSL encrypted downloads when using IE < 9.
      * @see http://support.microsoft.com/kb/323308
      *

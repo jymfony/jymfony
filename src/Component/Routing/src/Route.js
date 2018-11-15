@@ -12,7 +12,7 @@ class Route {
      * @param {Object.<string, string>} [requirements = {}]
      * @param {Object.<string, *>} [options = {}]
      * @param {string} [host]
-     * @param {string[]} [schemes = []]
+     * @param {string[]} [schemes = [ 'http', 'https' ]]
      * @param {string[]} [methods = [ 'GET', 'POST' ]]
      * @param {string} [condition]
      */
@@ -22,7 +22,7 @@ class Route {
         requirements = {},
         options = {},
         host = undefined,
-        schemes = [],
+        schemes = [ 'http', 'https' ],
         methods = [ 'GET', 'POST' ],
         condition = undefined
     ) {

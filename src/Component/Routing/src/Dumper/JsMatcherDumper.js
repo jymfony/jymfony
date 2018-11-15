@@ -107,7 +107,7 @@ module.exports = ${options['class']};
         const host = request.host.toLowerCase();
         const scheme = request.scheme;
         
-        let ret, requiredHost, requiredMethods, requiredSchemes;
+        let ret, requiredHost, requiredMethods, requiredSchemes, hasRequiredScheme;
 
         const requestMethod = request.method;
         let canonicalMethod = request.method;
@@ -719,7 +719,7 @@ ${combine}${this._compileRoute(route, name, false)}
             schemes = __self.export(schemes);
             if (0 < methods.length) {
                 code += `
-            requiredSchemes = schemes;
+            requiredSchemes = ${schemes};
             hasRequiredScheme = -1 !== requiredSchemes.indexOf(request.scheme);
             
             if (-1 === ${methods}.indexOf(${methodVariable})) {

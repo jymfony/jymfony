@@ -58,7 +58,7 @@ class Patcher {
             properties: {},
         };
 
-        let docblock = undefined, code = '', patchRemoval = () => {};
+        let docblock = undefined, code = ' ', patchRemoval = () => {};
         let hasConstructor = false;
 
         lexer.moveNext();

@@ -55,7 +55,9 @@ Starts the server and listen on port 8080 on localhost address only.`
             'Press Ctrl-C to exit',
         ]);
 
-        process.on('SIGINT', () => this._server.close());
+        process.on('SIGINT', async () => {
+            await this._server.close();
+        });
 
         try {
             await p;

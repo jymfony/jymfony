@@ -40,3 +40,7 @@ container.register(Jymfony.Component.HttpServer.Command.HttpServerRunCommand)
     .addTag('console.command')
     .addArgument(new Reference(Jymfony.Component.HttpServer.HttpServer))
 ;
+
+container.register(Jymfony.Component.HttpServer.EventListener.WebsocketListener)
+    .addTag('kernel.event_subscriber')
+;
