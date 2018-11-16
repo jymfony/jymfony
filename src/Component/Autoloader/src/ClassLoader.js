@@ -84,7 +84,7 @@ class ClassLoader {
             require: require,
         };
 
-        code = `(function(exports, require, module, __filename, __dirname, __self) { ${code} });`;
+        code = `(function(exports, require, module, __filename, __dirname, __self) { 'use strict'; ${code} });`;
 
         const opts = isNyc ? fn : {
             filename: fn,
