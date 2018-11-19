@@ -65,6 +65,33 @@ class HeaderUtils {
         return s.replace(/\\(.)|"/, '$1');
     }
 
+    /**
+     * Combines an array of arrays into one object.
+     *
+     * Each of the nested arrays should have one or two elements. The first
+     * value will be used as the keys in the associative array, and the second
+     * will be used as the values, or true if the nested array only contains one
+     * element. Object keys are lowercased.
+     *
+     * Example:
+     *
+     *     HeaderUtils.combine([["foo", "abc"], ["bar"]])
+     *     // => {"foo": "abc", "bar": true}
+     *
+     * @param {Array} parts
+     *
+     * @returns {Object}
+     */
+    static combine(parts) {
+        const assoc = {};
+        for (const part of parts) {
+            const name = part[0].toLowerCase();
+            assoc[name] = part[1] || true;
+        }
+
+        return assoc;
+    }
+
     static _groupParts(matches, separators) {
         const separator = separators.charAt(0);
         const partSeparators = separators.substr(1);
