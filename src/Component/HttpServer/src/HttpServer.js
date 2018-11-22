@@ -1,3 +1,5 @@
+const EventDispatcher = Jymfony.Component.EventDispatcher.EventDispatcher;
+const FunctionControllerResolver = Jymfony.Component.HttpFoundation.Controller.FunctionControllerResolver;
 const BadRequestException = Jymfony.Component.HttpFoundation.Exception.BadRequestException;
 const BadRequestHttpException = Jymfony.Component.HttpFoundation.Exception.BadRequestHttpException;
 const HttpExceptionInterface = Jymfony.Component.HttpFoundation.Exception.HttpExceptionInterface;
@@ -7,8 +9,11 @@ const ContentType = Jymfony.Component.HttpFoundation.Header.ContentType;
 const Request = Jymfony.Component.HttpFoundation.Request;
 const Response = Jymfony.Component.HttpFoundation.Response;
 const Event = Jymfony.Component.HttpServer.Event;
+const EventListener = Jymfony.Component.HttpServer.EventListener;
 const RequestParser = Jymfony.Component.HttpServer.RequestParser;
 const NullLogger = Jymfony.Component.Logger.NullLogger;
+const Router = Jymfony.Component.Routing.Router;
+const FunctionLoader = Jymfony.Component.Routing.Loader.FunctionLoader;
 
 /**
  * @memberOf Jymfony.Component.HttpServer
@@ -63,6 +68,43 @@ class HttpServer {
          * @private
          */
         this._port = undefined;
+    }
+
+    /**
+     * Creates a new Http server instance.
+     *
+     * @param {Jymfony.Component.Routing.RouteCollection} routes
+     * @param {Jymfony.Component.Logger.LoggerInterface} logger
+     *
+     * @returns {Jymfony.Component.HttpServer.HttpServer}
+     */
+    static create(routes, logger = undefined) {
+        const router = new Router(new FunctionLoader(), () => routes);
+        const eventDispatcher = new EventDispatcher();
+        eventDispatcher.addSubscriber(new EventListener.RouterListener(router));
+        eventDispatcher.addSubscriber(new EventListener.ExceptionListener(
+            (request) => {
+                return new Response(JSON.stringify(request.attributes.get('exception')), Response.HTTP_OK, {
+                    'content-type': 'application/json',
+                });
+            })
+        );
+
+        const server = new __self(eventDispatcher, new FunctionControllerResolver(logger));
+        if (logger !== undefined) {
+            server.setLogger(logger);
+        }
+
+        return server;
+    }
+
+    /**
+     * Gets the current event dispatcher.
+     *
+     * @returns {Jymfony.Component.EventDispatcher.EventDispatcherInterface}
+     */
+    get eventDispatcher() {
+        return this._dispatcher;
     }
 
     /**
