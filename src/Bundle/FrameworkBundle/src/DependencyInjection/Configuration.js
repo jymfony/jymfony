@@ -283,7 +283,16 @@ class Configuration extends implementationOf(ConfigurationInterface) {
             .children()
                 .arrayNode('http_server')
                 .info('http server configuration')
+                .addDefaultsIfNotSet()
                 .canBeEnabled()
+                .children()
+                    .scalarNode('key').info('Encryption key for secure server').end()
+                    .scalarNode('certificate').info('Certificate for secure server').end()
+                .end()
+                .validate()
+                    .ifTrue(v => (! v.key && v.certificate) || (v.key && ! v.certificate))
+                    .thenInvalid('"key" and "certificate" option must be both set or null')
+                .end()
             .end()
         ;
     }

@@ -283,6 +283,15 @@ class FrameworkExtension extends Extension {
         }
 
         loader.load('http-server.js');
+
+        if (config.key && config.certificate) {
+            container.getDefinition(Jymfony.Component.HttpServer.HttpServer)
+                .setClass(Jymfony.Component.HttpServer.Http2.HttpServer)
+                .addArgument({
+                    key: config.key,
+                    cert: config.certificate,
+                });
+        }
     }
 
     /**
