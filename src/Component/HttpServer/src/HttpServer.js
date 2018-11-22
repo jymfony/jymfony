@@ -15,6 +15,8 @@ const NullLogger = Jymfony.Component.Logger.NullLogger;
 const Router = Jymfony.Component.Routing.Router;
 const FunctionLoader = Jymfony.Component.Routing.Loader.FunctionLoader;
 
+const http = require('http');
+
 /**
  * @memberOf Jymfony.Component.HttpServer
  */
@@ -24,9 +26,8 @@ class HttpServer {
      *
      * @param {Jymfony.Component.EventDispatcher.EventDispatcherInterface} dispatcher
      * @param {Jymfony.Component.HttpFoundation.Controller.ControllerResolverInterface} resolver
-     * @param {http} [http = require('http')]
      */
-    __construct(dispatcher, resolver, http = require('http')) {
+    __construct(dispatcher, resolver) {
         /**
          * @type {Jymfony.Component.EventDispatcher.EventDispatcherInterface}
          *
@@ -46,7 +47,7 @@ class HttpServer {
          *
          * @protected
          */
-        this._http = new http.Server(this._incomingRequest.bind(this));
+        this._http = this._createServer();
 
         /**
          * @type {Jymfony.Component.Logger.LoggerInterface}
@@ -58,14 +59,14 @@ class HttpServer {
         /**
          * @type {string|undefined}
          *
-         * @private
+         * @protected
          */
         this._host = undefined;
 
         /**
          * @type {string|undefined}
          *
-         * @private
+         * @protected
          */
         this._port = undefined;
     }
@@ -158,6 +159,17 @@ class HttpServer {
     }
 
     /**
+     * Creates a new http server.
+     *
+     * @returns {http.Server}
+     *
+     * @protected
+     */
+    _createServer() {
+        return new http.Server(this._incomingRequest.bind(this));
+    }
+
+    /**
      * Handles an incoming request from the http server.
      *
      * @param {IncomingMessage} req
@@ -198,7 +210,7 @@ class HttpServer {
         let requestParams, content;
 
         try {
-            [ requestParams, content ] = await this._parseRequestContent(req, contentType);
+            [ requestParams, content ] = await this._parseRequestContent(req, ~~req.headers['content-length'], contentType);
         } catch (e) {
             if (e instanceof BadRequestException) {
                 res.writeHead(400, {'Content-Type': 'text/plain'});
@@ -218,6 +230,8 @@ class HttpServer {
             'REQUEST_METHOD': req.method,
             'REMOTE_ADDR': req.connection.remoteAddress,
             'SCHEME': this._getScheme(),
+            'SERVER_NAME': this._host,
+            'SERVER_PORT': this._port,
             'SERVER_PROTOCOL': 'HTTP/'+req.httpVersion,
         }, content);
 
@@ -283,7 +297,8 @@ class HttpServer {
     /**
      * Parse request content.
      *
-     * @param {IncomingMessage} req
+     * @param {stream.Duplex} stream
+     * @param {int} contentLength
      * @param {Jymfony.Component.HttpFoundation.Header.ContentType} contentType
      *
      * @returns {Promise<Array>} An array composed by the request params object
@@ -291,18 +306,16 @@ class HttpServer {
      *
      * @protected
      */
-    async _parseRequestContent(req, contentType) {
-        const contentLength = ~~req.headers['content-length'] || undefined;
-
+    async _parseRequestContent(stream, contentLength, contentType) {
         let parser;
         if ('application/x-www-form-urlencoded' === contentType.essence) {
-            parser = new RequestParser.UrlEncodedParser(req, contentLength);
+            parser = new RequestParser.UrlEncodedParser(stream, contentLength);
         } else if ('application/json' === contentType.essence) {
-            parser = new RequestParser.JsonEncodedParser(req, contentLength, contentType.get('charset', 'utf-8'));
+            parser = new RequestParser.JsonEncodedParser(stream, contentLength, contentType.get('charset', 'utf-8'));
         } else if ('multipart' === contentType.type) {
-            parser = new RequestParser.MultipartParser(req, contentType, contentLength);
+            parser = new RequestParser.MultipartParser(stream, contentType, contentLength);
         } else {
-            parser = new RequestParser.OctetStreamParser(req, contentLength);
+            parser = new RequestParser.OctetStreamParser(stream, contentLength);
         }
 
         const params = await parser.parse();

@@ -13,17 +13,17 @@ class JsonEncodedParser extends implementationOf(ParserInterface) {
     /**
      * Constructor.
      *
-     * @param {IncomingMessage} req
+     * @param {stream.Duplex} stream
      * @param {int} contentLength
      * @param {string} charset
      */
-    __construct(req, contentLength, charset) {
+    __construct(stream, contentLength, charset) {
         /**
-         * @type {IncomingMessage}
+         * @type {stream.Duplex}
          *
          * @private
          */
-        this._request = req;
+        this._request = stream;
 
         /**
          * @type {int}

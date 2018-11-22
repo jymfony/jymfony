@@ -388,7 +388,7 @@ class Request {
         let host = '';
         if (this.isFromTrustedProxy && 0 < (host = this._getTrustedValues(__self.HEADER_X_FORWARDED_HOST)).length) {
             host = host[0];
-        } else if (! (host = this.headers.get('HOST'))) {
+        } else if (! (host = this.headers.get('HOST') || this.headers.get(':authority'))) {
             if (! (host = this.server.get('SERVER_NAME'))) {
                 host = this.server.get('SERVER_ADDR', '');
             }
@@ -496,7 +496,7 @@ class Request {
             host = ~~host[0];
         } else if (this.isFromTrustedProxy && 0 < (host = this._getTrustedValues(__self.HEADER_X_FORWARDED_HOST)).length) {
             host = ~~host[0];
-        } else if (! (host = this.headers.get('HOST'))) {
+        } else if (! (host = this.headers.get('HOST') || this.headers.get(':authority'))) {
             return ~~this.server.get('SERVER_PORT');
         }
 

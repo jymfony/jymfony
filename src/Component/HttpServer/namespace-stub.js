@@ -29,5 +29,10 @@ Jymfony.Component.HttpServer = {
     /**
      * @namespace
      */
+    Http2: {},
+
+    /**
+     * @namespace
+     */
     RequestParser: {},
 };

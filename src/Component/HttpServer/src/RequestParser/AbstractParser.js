@@ -12,16 +12,16 @@ class AbstractParser extends implementationOf(ParserInterface) {
     /**
      * Constructor.
      *
-     * @param {IncomingMessage} req
+     * @param {stream.Duplex} stream
      * @param {int} contentLength
      */
-    __construct(req, contentLength) {
+    __construct(stream, contentLength) {
         /**
-         * @type {IncomingMessage}
+         * @type {stream.Duplex}
          *
          * @private
          */
-        this._request = req;
+        this._request = stream;
 
         /**
          * @type {int}
