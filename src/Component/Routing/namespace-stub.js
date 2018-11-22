@@ -29,7 +29,17 @@ Jymfony.Component.Routing = {
     /**
      * @namespace
      */
-    Loader: {},
+    Loader: {
+        /**
+         * @namespace
+         */
+        Configurator: {
+            /**
+             * @namespace
+             */
+            Traits: {},
+        },
+    },
 
     /**
      * @namespace

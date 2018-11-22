@@ -3,10 +3,10 @@
 global.__jymfony = global.__jymfony || {};
 
 /**
- * @param {Array} arr1
- * @param {...Array} arrays
+ * @param {Object} arr1
+ * @param {...Object} arrays
  *
- * @returns {Array|boolean}
+ * @returns {Object|boolean}
  */
 const diffKey = function (arr1, ...arrays) {
     const inArrays = key => {

@@ -703,7 +703,7 @@ ${combine}${this._compileRoute(route, name, false)}
                 __self.export($defaults)
             );
         } else if (Object.keys($defaults).length) {
-            code += __jymfony.sprintf("            ret = %s;\n", __self.export(Object.assign({'_route': name} + $defaults)));
+            code += __jymfony.sprintf("            ret = %s;\n", __self.export(Object.assign({'_route': name}, $defaults)));
         } else {
             code += __jymfony.sprintf("            ret = {'_route': '%s'};\n", name);
         }
@@ -782,7 +782,9 @@ ${combine}${this._compileRoute(route, name, false)}
         }
 
         if (isScalar(value) || isArray(value) || isObjectLiteral(value)) {
-            return JSON.stringify(value);
+            if (__jymfony.equal(JSON.parse(JSON.stringify(value)), value)) {
+                return JSON.stringify(value);
+            }
         }
 
         throw new InvalidArgumentException('Jymfony.Component.Routing.Route cannot contain objects.');
