@@ -1,8 +1,3 @@
-const CollectionConfigurator = Jymfony.Component.Routing.Loader.Configurator.CollectionConfigurator;
-const RouteConfigurator = Jymfony.Component.Routing.Loader.Configurator.RouteConfigurator;
-const RouteCollection = Jymfony.Component.Routing.RouteCollection;
-const Route = Jymfony.Component.Routing.Route;
-
 /**
  * @memberOf Jymfony.Component.Routing.Loader.Configurator.Traits
  */

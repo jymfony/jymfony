@@ -85,22 +85,22 @@ module.exports = ${options['class']};
         let matchHost = false;
         let routes = new StaticPrefixCollection();
 
-        for (const [name, route] of __jymfony.getEntries(this._routes.all())) {
+        for (const [ name, route ] of __jymfony.getEntries(this._routes.all())) {
             let host = route.host;
             if (host) {
                 matchHost = true;
                 host = '/' + __jymfony.strtr(host.split('').reverse().join(''), {
                     '}': '(',
                     '.': '/',
-                    '{': ')'
+                    '{': ')',
                 });
             }
 
-            routes.addRoute(host || '/(.*)', [name, route]);
+            routes.addRoute(host || '/(.*)', [ name, route ]);
         }
 
         routes = matchHost ? routes.populateCollection(new RouteCollection()) : this._routes;
-        let code = __jymfony.rtrim(this._compileRoutes(routes, matchHost), "\n");
+        let code = __jymfony.rtrim(this._compileRoutes(routes, matchHost), '\n');
 
         code = ` {
         const pathinfo = decodeURIComponent(request.pathInfo);
@@ -119,7 +119,7 @@ ${code}
 
 `;
 
-            return `
+        return `
     matchRequest(request)
     {
         const allow = new Set();
@@ -173,15 +173,15 @@ ${code}
      * @param {boolean} matchHost
      */
     _compileRoutes(routes, matchHost) {
-        let [staticRoutes, dynamicRoutes] = this._groupStaticRoutes(routes);
+        const [ staticRoutes, dynamicRoutes ] = this._groupStaticRoutes(routes);
 
         let code = this._compileStaticRoutes(staticRoutes, matchHost);
         code += this._compileDynamicRoutes(dynamicRoutes, matchHost);
 
-        // used to display the Welcome Page in apps that don't define a homepage
-        code += "        if ('/' === pathinfo && ! allow.size && ! allowSchemes.size) {\n";
-        code += "            throw new Jymfony.Component.Routing.Exception.NoConfigurationException();\n";
-        code += "        }\n";
+        // Used to display the Welcome Page in apps that don't define a homepage
+        code += '        if (\'/\' === pathinfo && ! allow.size && ! allowSchemes.size) {\n';
+        code += '            throw new Jymfony.Component.Routing.Exception.NoConfigurationException();\n';
+        code += '        }\n';
 
         return code;
     }
@@ -196,7 +196,7 @@ ${code}
         const dynamicRegex = [];
         const dynamicRoutes = new RouteCollection();
 
-begin:  for (const [name, route] of __jymfony.getEntries(collection.all())) {
+        begin: for (const [ name, route ] of __jymfony.getEntries(collection.all())) {
             const compiledRoute = route.compile();
             const hostRegex = compiledRoute.hostRegex;
             const regex = compiledRoute.regex;
@@ -205,9 +205,9 @@ begin:  for (const [name, route] of __jymfony.getEntries(collection.all())) {
                 const host = 0 === compiledRoute.hostVariables.length ? route.host : '';
                 const url = route.path;
 
-                for (const [hostRx, rx] of dynamicRegex) {
+                for (const [ hostRx, rx ] of dynamicRegex) {
                     if (url.match(rx) && (! host || ! hostRx || host.match(hostRx))) {
-                        dynamicRegex.push([hostRegex, regex]);
+                        dynamicRegex.push([ hostRegex, regex ]);
                         dynamicRoutes.add(name, route);
                         continue begin;
                     }
@@ -219,12 +219,12 @@ begin:  for (const [name, route] of __jymfony.getEntries(collection.all())) {
 
                 staticRoutes[url][name] = route;
             } else {
-                dynamicRegex.push([hostRegex, regex]);
+                dynamicRegex.push([ hostRegex, regex ]);
                 dynamicRoutes.add(name, route);
             }
         }
 
-        return [staticRoutes, dynamicRoutes];
+        return [ staticRoutes, dynamicRoutes ];
     }
 
     /**
@@ -246,7 +246,7 @@ begin:  for (const [name, route] of __jymfony.getEntries(collection.all())) {
         let code = '';
         let $default = '';
 
-        for (const [url, routes] of __jymfony.getEntries(staticRoutes)) {
+        for (const [ url, routes ] of __jymfony.getEntries(staticRoutes)) {
             if (1 === Object.keys(routes).length) {
                 let name = Object.keys(routes)[0];
                 const route = Object.values(routes)[0];
@@ -271,7 +271,7 @@ begin:  for (const [name, route] of __jymfony.getEntries(collection.all())) {
                     }
 
                     $default += __jymfony.sprintf(
-                        "%s: [%s, %s, %s, %s],\n",
+                        '%s: [%s, %s, %s, %s],\n',
                         __self.export(url),
                         __self.export(Object.assign({}, defaults, { _route: name })),
                         host,
@@ -282,11 +282,11 @@ begin:  for (const [name, route] of __jymfony.getEntries(collection.all())) {
                 }
             }
 
-            code += __jymfony.sprintf("        case %s:\n", __self.export(url));
-            for (const [name, route] of __jymfony.getEntries(routes)) {
+            code += __jymfony.sprintf('        case %s:\n', __self.export(url));
+            for (const [ name, route ] of __jymfony.getEntries(routes)) {
                 code += this._compileRoute(route, name, true);
             }
-            code += "            break;\n";
+            code += '            break;\n';
         }
 
         if ($default) {
@@ -304,7 +304,7 @@ ${this._compileSwitchDefault(false, matchHost)}
 `;
         }
 
-        return __jymfony.sprintf("        let hostMatches;\n        switch (pathinfo) {\n%s        }\n\n", this._indent(code));
+        return __jymfony.sprintf('        let hostMatches;\n        switch (pathinfo) {\n%s        }\n\n', this._indent(code));
     }
 
     /**
@@ -345,34 +345,34 @@ ${this._compileSwitchDefault(false, matchHost)}
             'vars': {},
             getVars: (...m) => {
                 if ('_route' === m[1]) {
-                    return ' || '
+                    return ' || ';
                 }
 
                 const varName = this._getNextVariableName();
                 state.vars[varName] = m[1];
                 return '?<'+varName+'>';
-            }
+            },
         };
 
         let prev = null;
         const perModifiers = [];
         let routes;
 
-        for (const [name, route] of __jymfony.getEntries(collection.all())) {
+        for (const [ name, route ] of __jymfony.getEntries(collection.all())) {
             const rx = route.compile().regex;
             if (prev !== rx.flags && route.compile().pathVariables) {
                 routes = new RouteCollection();
-                perModifiers.push([rx.flags, routes]);
+                perModifiers.push([ rx.flags, routes ]);
                 prev = rx.flags;
             }
 
             routes.add(name, route);
         }
 
-        for (let [modifiers, routes] of perModifiers) {
+        for (let [ modifiers, routes ] of perModifiers) {
             let prev = false;
             const perHost = [];
-            for (const [name, route] of __jymfony.getEntries(routes.all())) {
+            for (const [ name, route ] of __jymfony.getEntries(routes.all())) {
                 const regex = route.compile().hostRegex;
                 if (prev !== '' + regex) {
                     routes = new RouteCollection();
@@ -389,7 +389,7 @@ ${this._compileSwitchDefault(false, matchHost)}
             state.mark += rx.length;
             state.regex = rx;
 
-            for (let [hostRegex, routes] of perHost) {
+            for (let [ hostRegex, routes ] of perHost) {
                 if (matchHost) {
                     if (hostRegex) {
                         rx = hostRegex.toString().match(/^.\^(.*)\$.[a-zA-Z]*$/);
@@ -410,18 +410,18 @@ ${this._compileSwitchDefault(false, matchHost)}
                 }
 
                 const tree = new StaticPrefixCollection();
-                for (const [name, route] of __jymfony.getEntries(routes.all())) {
+                for (const [ name, route ] of __jymfony.getEntries(routes.all())) {
                     const rx = route.compile().regex.toString().match(/^.\^(.*)\$.[a-zA-Z]*$/);
 
                     state.vars = {};
                     const regex = rx[1].replace(/\?<([^>]+)>/g, state.getVars);
-                    tree.addRoute(regex, [name, regex, state.vars, route]);
+                    tree.addRoute(regex, [ name, regex, state.vars, route ]);
                 }
 
                 code += this._compileStaticPrefixCollection(tree, state);
             }
             if (matchHost) {
-                code += "\n        +')'";
+                code += '\n        +\')\'';
                 state.regex += ')';
             }
 
@@ -505,44 +505,44 @@ ${this._indent(state.switch, 3)}                }
     _compileStaticPrefixCollection(tree, state, prefixLen = 0) {
         let code = '';
         let prevRegex = null;
-        let routes = tree.routes;
+        const routes = tree.routes;
 
-        for (let [i, route] of __jymfony.getEntries(routes)) {
+        for (let [ i, route ] of __jymfony.getEntries(routes)) {
             if (route instanceof StaticPrefixCollection) {
                 prevRegex = null;
-                let prefix = route.prefix.substr(prefixLen);
+                const prefix = route.prefix.substr(prefixLen);
                 const rx = prefix + '(?:';
                 state.mark += rx.length;
-                code += "\n        +" + __self.export(rx);
+                code += '\n        +' + __self.export(rx);
                 state.regex += rx;
                 code += this._indent(this._compileStaticPrefixCollection(route, state, prefixLen + prefix.length));
-                code += "\n        +')'";
+                code += '\n        +\')\'';
                 state.regex += ')';
                 ++state.markTail;
                 continue;
             }
 
             let name, regex, vars;
-            [name, regex, vars, route] = route;
+            [ name, regex, vars, route ] = route;
             const compiledRoute = route.compile();
 
             if (compiledRoute.regex === prevRegex) {
-                state.switch = __jymfony.substr_replace(state.switch, this._compileRoute(route, name, false) + "\n", -19, 0);
+                state.switch = __jymfony.substr_replace(state.switch, this._compileRoute(route, name, false) + '\n', -19, 0);
                 continue;
             }
 
             state.mark += 3 + state.markTail + regex.length - prefixLen;
             state.markTail = 2 + state.mark;
-            const prev = code !== '';
-            let rx = __jymfony.sprintf((prev ? '|' : '') + '%s(?<MARK_%s>)', regex.substr(prefixLen), state.mark);
-            code += "\n       + "+__self.export(rx);
+            const prev = '' !== code;
+            const rx = __jymfony.sprintf((prev ? '|' : '') + '%s(?<MARK_%s>)', regex.substr(prefixLen), state.mark);
+            code += '\n       + '+__self.export(rx);
             state.regex += rx;
             vars = Object.assign({}, state.hostVars, vars);
 
             let next;
             if (! route.condition && (! isArray(next = routes[1 + i] || null) || regex !== next[1])) {
-                let prevRegex = null;
-                let $defaults = route.defaults;
+                prevRegex = null;
+                const $defaults = route.defaults;
 
                 if ($defaults._canonical_route) {
                     name = $defaults._canonical_route;
@@ -550,7 +550,7 @@ ${this._indent(state.switch, 3)}                }
                 }
 
                 state['default'] += __jymfony.sprintf(
-                    "%s: [%s, %s, %s, %s],\n",
+                    '%s: [%s, %s, %s, %s],\n',
                     state.mark,
                     __self.export(Object.assign({'_route': name}, $defaults)),
                     __self.export(vars),
@@ -560,10 +560,10 @@ ${this._indent(state.switch, 3)}                }
             } else {
                 prevRegex = compiledRoute.regex.toString();
                 let combine = '            matches = {';
-                for (const [j, m] of __jymfony.getEntries(vars)) {
+                for (const [ j, m ] of __jymfony.getEntries(vars)) {
                     combine += __jymfony.sprintf('%s: matches[%d] || undefined, ', __self.export(m), 1 + j);
                 }
-                combine = Object.keys(vars).length ? __jymfony.substr_replace(combine, ");\n\n", -2) : '';
+                combine = Object.keys(vars).length ? __jymfony.substr_replace(combine, ');\n\n', -2) : '';
 
                 state.switch += `
         case ${state.mark}:
@@ -654,14 +654,14 @@ ${combine}${this._compileRoute(route, name, false)}
             // TODO
             // $expression = $this->getExpressionLanguage()->compile($route->getCondition(), array('context', 'request'));
             //
-            // if (false !== strpos($expression, '$request')) {
+            // If (false !== strpos($expression, '$request')) {
             //     $conditions[] = '($request = $request ?? $this->request ?: $this->createRequest($pathinfo))';
             // }
             // $conditions[] = $expression;
         }
 
         if (! checkHost || ! compiledRoute.hostRegex) {
-            // no-op
+            // No-op
         } else if (hostMatches) {
             conditions.push(__jymfony.sprintf('hostMatches = host.match(%s)', __self.export(compiledRoute.hostRegex)));
         } else {
@@ -679,7 +679,7 @@ ${combine}${this._compileRoute(route, name, false)}
             code += `            // ${name}\n`;
         }
 
-        // the offset where the return value is appended below, with indendation
+        // The offset where the return value is appended below, with indendation
         const retOffset = 12 + code.length;
         const $defaults = route.defaults;
         if ($defaults._canonical_route) {
@@ -687,9 +687,9 @@ ${combine}${this._compileRoute(route, name, false)}
             delete $defaults._canonical_route;
         }
 
-        // optimize parameters array
+        // Optimize parameters array
         if (matches || hostMatches) {
-            const vars = ["{ '_route': '" + name + "'}"];
+            const vars = [ '{ \'_route\': \'' + name + '\'}' ];
             if (matches || (hostMatches && ! checkHost)) {
                 vars.push('Object.filter(matches, v => undefined !== v)');
             }
@@ -698,14 +698,14 @@ ${combine}${this._compileRoute(route, name, false)}
             }
 
             code += __jymfony.sprintf(
-                "            ret = Object.assign({}, %s, %s);\n",
+                '            ret = Object.assign({}, %s, %s);\n',
                 vars.join(', '),
                 __self.export($defaults)
             );
         } else if (Object.keys($defaults).length) {
-            code += __jymfony.sprintf("            ret = %s;\n", __self.export(Object.assign({'_route': name}, $defaults)));
+            code += __jymfony.sprintf('            ret = %s;\n', __self.export(Object.assign({'_route': name}, $defaults)));
         } else {
-            code += __jymfony.sprintf("            ret = {'_route': '%s'};\n", name);
+            code += __jymfony.sprintf('            ret = {\'_route\': \'%s\'};\n', name);
         }
 
         let methodVariable;
@@ -747,13 +747,13 @@ ${combine}${this._compileRoute(route, name, false)}
         }
 
         if (0 < schemes.length || 0 < methods.length) {
-            code += "                return ret;\n";
+            code += '                return ret;\n';
         } else {
             code = __jymfony.substr_replace(code, 'return', retOffset, 6);
         }
 
         if (0 < conditions.length) {
-            code += "        }\n";
+            code += '        }\n';
         } else if (0 < schemes.length || 0 < methods.length) {
             code += '    ';
         }
