@@ -63,8 +63,7 @@ describe('[Filesystem] File', function () {
     });
 
     it('getPerms should return the correct value', async () => {
-        expect(await new File(__filename).getPerms() & 0o777)
-            .to.be.equal(__jymfony.Platform.isWindows() ? 0o666 : 0o644);
+        expect(await new File(__filename).getPerms() & 0o700).to.be.equal(0o600);
     });
 
     it('openFile should return an OpenFile instance', async () => {
