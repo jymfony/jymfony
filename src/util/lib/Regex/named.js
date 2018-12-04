@@ -14,7 +14,7 @@ if (! __jymfony.Platform.hasModernRegex()) {
          */
         constructor(pattern, flags = undefined) {
             const names = [];
-            const sanitized = pattern
+            const sanitized = pattern.toString()
                 .replace(/\(\?<(\w+)>/g, (_, name) => {
                     names.push(name);
                     return '(';
