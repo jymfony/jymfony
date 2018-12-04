@@ -35,9 +35,7 @@ class FileStreamWrapper extends AbstractStreamWrapper {
             return path;
         }
 
-        const url = urlParse(path);
-
-        return url.pathname;
+        return decodeURIComponent(urlParse(path).pathname);
     }
 
     /**
