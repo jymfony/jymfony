@@ -38,6 +38,7 @@ class FrameworkExtension extends Extension {
         this._registerRouterConfiguration(config.router, container, loader);
         this._registerHttpServerConfiguration(config.http_server, container, loader);
         this._registerCacheConfiguration(config.cache, container, loader);
+        this._registerDevServer(container, loader);
     }
 
     /**
@@ -333,6 +334,20 @@ class FrameworkExtension extends Extension {
             definition.addTag('cache.pool', pool);
             container.setDefinition(name, definition);
         }
+    }
+
+    /**
+     * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
+     * @param {Jymfony.Component.DependencyInjection.Loader.LoaderInterface} loader
+     *
+     * @private
+     */
+    _registerDevServer(container, loader) {
+        if (! ReflectionClass.exists('Jymfony.Component.DevServer.DevServer')) {
+            return;
+        }
+
+        loader.load('dev-server.js');
     }
 }
 

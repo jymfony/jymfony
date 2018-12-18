@@ -45,6 +45,13 @@ class Kernel extends implementationOf(KernelInterface) {
         /**
          * @type {string}
          *
+         * @protected
+         */
+        this._projectDir = undefined;
+
+        /**
+         * @type {string}
+         *
          * @private
          */
         this._warmupDir = undefined;
@@ -221,6 +228,29 @@ class Kernel extends implementationOf(KernelInterface) {
         }
 
         return this._rootDir;
+    }
+
+    /**
+     * Gets the application root dir (path of the project's package.json file).
+     *
+     * @returns {string} The project root dir
+     */
+    getProjectDir() {
+        if (undefined === this._projectDir) {
+            let dir, rootDir;
+            dir = rootDir = this.getRootDir();
+            while (! fs.existsSync(dir + '/package.json')) {
+                if (dir === path.dirname(dir)) {
+                    return this._projectDir = rootDir;
+                }
+
+                dir = path.dirname(dir);
+            }
+
+            this._projectDir = dir;
+        }
+
+        return this._projectDir;
     }
 
     /**
@@ -641,6 +671,7 @@ class Kernel extends implementationOf(KernelInterface) {
 
         return {
             'kernel.root_dir': this.getRootDir(),
+            'kernel.project_dir': this.getProjectDir(),
             'kernel.environment': this._environment,
             'kernel.debug': this._debug,
             'kernel.cache_dir': this._warmupDir || this.getCacheDir(),

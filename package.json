@@ -47,6 +47,7 @@
         "Jymfony.Component.DateTime": "src/Component/DateTime/src",
         "Jymfony.Component.Debug": "src/Component/Debug/src",
         "Jymfony.Component.DependencyInjection": "src/Component/DependencyInjection/src",
+        "Jymfony.Component.DevServer": "src/Component/DevServer/src",
         "Jymfony.Component.EventDispatcher": "src/Component/EventDispatcher/src",
         "Jymfony.Component.Filesystem": "src/Component/Filesystem/src",
         "Jymfony.Component.HttpFoundation": "src/Component/HttpFoundation/src",

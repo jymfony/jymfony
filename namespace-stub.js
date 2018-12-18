@@ -63,6 +63,11 @@ Jymfony = {
         /**
          * @namespace
          */
+        DevServer: {},
+
+        /**
+         * @namespace
+         */
         EventDispatcher: {},
 
         /**

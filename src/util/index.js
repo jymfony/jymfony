@@ -2,6 +2,7 @@ require('./lib/Error/trigger_deprecated');
 require('./lib/Platform');
 
 require('./lib/Function/BoundFunction');
+require('./lib/Function/Debounce');
 require('./lib/is');
 
 require('./lib/Iterator/EmptyIterator');
