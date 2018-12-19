@@ -208,9 +208,27 @@ class HttpServer {
      * @private
      */
     async _incomingRequest(req, res) {
-        req.socket.on('error', () => {
-            req.socket.end();
-        });
+        const socket = req.socket;
+
+        let attachListener = true;
+        for (const l of socket.listeners('error')) {
+            if (l.__jymfony_req_error) {
+                attachListener = false;
+                break;
+            }
+        }
+
+        if (attachListener) {
+            const listener = (err) => {
+                socket.destroy(err);
+            };
+            listener.__jymfony_req_error = true;
+
+            socket.on('error', listener);
+            socket.on('end', () => {
+                socket.removeAllListeners();
+            });
+        }
 
         try {
             await this._handleRequest(req, res);
