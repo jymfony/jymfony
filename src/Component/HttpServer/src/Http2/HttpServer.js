@@ -187,10 +187,6 @@ class HttpServer extends BaseServer {
      * @private
      */
     async _incomingRequest(req, res) {
-        req.socket.on('error', () => {
-            req.socket.end();
-        });
-
         if (__jymfony.version_compare(req.httpVersion, '2.0', '>=')) {
             return;
         }
