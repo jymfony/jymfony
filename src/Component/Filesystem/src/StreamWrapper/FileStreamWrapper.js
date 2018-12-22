@@ -9,6 +9,23 @@ const pathResolve = require('path').resolve;
 const urlParse = require('url').parse;
 const promisify = require('util').promisify;
 
+const readlink = promisify(fs.readlink);
+const lstat = promisify(fs.lstat);
+const readdir = promisify(fs.readdir);
+const rmdir = promisify(fs.rmdir);
+const mkdir = promisify(fs.mkdir);
+const rename = promisify(fs.rename);
+const fopen = promisify(fs.open);
+const fclose = promisify(fs.close);
+const fwrite = promisify(fs.write);
+const ftruncate = promisify(fs.ftruncate);
+const futimes = promisify(fs.futimes);
+const chown = promisify(fs.chown);
+const chmod = promisify(fs.chmod);
+const unlink = promisify(fs.unlink);
+const symlink = promisify(fs.symlink);
+const realpath = promisify(fs.realpath);
+
 const Storage = function () {};
 Storage.prototype = {};
 
@@ -48,7 +65,6 @@ class FileStreamWrapper extends AbstractStreamWrapper {
      * @private
      */
     static async _readlink(path) {
-        const readlink = promisify(fs.readlink);
         if (0 > __self.stat_cache_ttl) {
             return await readlink(path);
         }
@@ -82,8 +98,6 @@ class FileStreamWrapper extends AbstractStreamWrapper {
      * @private
      */
     static async _stat(path) {
-        const lstat = promisify(fs.lstat);
-
         if (0 > __self.stat_cache_ttl) {
             return await lstat(path);
         }
@@ -121,14 +135,13 @@ class FileStreamWrapper extends AbstractStreamWrapper {
      * @inheritdoc
      */
     readdir(path) {
-        return promisify(fs.readdir)(__self._getPath(path), {});
+        return readdir(__self._getPath(path), {});
     }
 
     /**
      * @inheritdoc
      */
     mkdir(path, mode = 0o777, recursive = false) {
-        const mkdir = promisify(fs.mkdir);
         const mkdirRecursive = async function mkdirRecursive(dir, mode) {
             for (let i = 2; 0 < i; i--) {
                 try {
@@ -156,7 +169,7 @@ class FileStreamWrapper extends AbstractStreamWrapper {
      * @inheritdoc
      */
     async rmdir(path) {
-        const result = await promisify(fs.rmdir)(__self._getPath(path));
+        const result = await rmdir(__self._getPath(path));
         __self.clearStatCache();
 
         return result;
@@ -166,7 +179,7 @@ class FileStreamWrapper extends AbstractStreamWrapper {
      * @inheritdoc
      */
     rename(fromPath, toPath) {
-        return promisify(fs.rename)(__self._getPath(fromPath), __self._getPath(toPath));
+        return rename(__self._getPath(fromPath), __self._getPath(toPath));
     }
 
     /**
@@ -175,14 +188,14 @@ class FileStreamWrapper extends AbstractStreamWrapper {
     async streamOpen(path, mode) {
         path = __self._getPath(path);
 
-        return new Resource(await promisify(fs.open)(path, mode, 0o666), await __self._stat(path));
+        return new Resource(await fopen(path, mode, 0o666), await __self._stat(path));
     }
 
     /**
      * @inheritdoc
      */
     async streamClose(resource) {
-        await promisify(fs.close)(resource.fd);
+        await fclose(resource.fd);
     }
 
     /**
@@ -235,7 +248,7 @@ class FileStreamWrapper extends AbstractStreamWrapper {
      */
     async streamWrite(resource, buffer, position = 0, whence = File.SEEK_CUR) {
         resource.seek(position, whence);
-        const result = await promisify(fs.write)(resource.fd, buffer, 0, buffer.length, resource.position);
+        const result = await fwrite(resource.fd, buffer, 0, buffer.length, resource.position);
         resource.advance(buffer.length);
 
         return result.bytesWritten;
@@ -247,7 +260,7 @@ class FileStreamWrapper extends AbstractStreamWrapper {
     streamTruncate(resource, length = 0) {
         resource.seek(0, File.SEEK_SET);
 
-        return promisify(fs.ftruncate)(resource.fd, length);
+        return ftruncate(resource.fd, length);
     }
 
     /**
@@ -260,16 +273,16 @@ class FileStreamWrapper extends AbstractStreamWrapper {
         const p = (() => {
             switch (option) {
                 case StreamWrapperInterface.META_TOUCH:
-                    return promisify(fs.futimes)(path, new Date(), new Date());
+                    return futimes(path, new Date(), new Date());
 
                 case StreamWrapperInterface.META_OWNER:
-                    return promisify(fs.chown)(path, value, stat.gid);
+                    return chown(path, value, stat.gid);
 
                 case StreamWrapperInterface.META_GROUP:
-                    return promisify(fs.chown)(path, stat.uid, value);
+                    return chown(path, stat.uid, value);
 
                 case StreamWrapperInterface.META_ACCESS:
-                    return promisify(fs.chmod)(path, value);
+                    return chmod(path, value);
             }
         })();
 
@@ -314,7 +327,7 @@ class FileStreamWrapper extends AbstractStreamWrapper {
      * @inheritdoc
      */
     async unlink(path) {
-        const result = await promisify(fs.unlink)(__self._getPath(path));
+        const result = await unlink(__self._getPath(path));
         __self.clearStatCache();
 
         return result;
@@ -327,21 +340,21 @@ class FileStreamWrapper extends AbstractStreamWrapper {
         origin = __self._getPath(origin);
         target = __self._getPath(target);
 
-        return promisify(fs.symlink)(origin, target);
+        return symlink(origin, target);
     }
 
     /**
      * @inheritdoc
      */
     readlink(path) {
-        return promisify(fs.readlink)(__self._getPath(path));
+        return readlink(__self._getPath(path));
     }
 
     /**
      * @inheritdoc
      */
     realpath(path) {
-        return promisify(fs.realpath)(__self._getPath(path));
+        return realpath(__self._getPath(path));
     }
 
     /**

@@ -9,6 +9,9 @@ const urlParse = require('url').parse;
 const promisify = require('util').promisify;
 const zlib = require('zlib');
 
+const resolve6 = promisify(dns.resolve6);
+const resolve4 = promisify(dns.resolve4);
+
 /**
  * @memberOf Jymfony.Component.Filesystem.StreamWrapper.Http
  */
@@ -272,7 +275,7 @@ class Resource {
         const socket = 'https:' === url.protocol ? new TlsSocket(connSocket) : connSocket;
 
         const tryConnect = async (resolveMethod) => {
-            for (const addr of await promisify(resolveMethod)(url.hostname)) {
+            for (const addr of await resolveMethod(url.hostname)) {
                 try {
                     return await new Promise(((resolve, reject) => {
                         connSocket.on('error', reject);
@@ -293,12 +296,12 @@ class Resource {
             return undefined;
         };
 
-        const v6 = await tryConnect(dns.resolve6);
+        const v6 = await tryConnect(resolve6);
         if (undefined !== v6) {
             return v6;
         }
 
-        const v4 = await tryConnect(dns.resolve4);
+        const v4 = await tryConnect(resolve4);
         if (undefined !== v4) {
             return v4;
         }
