@@ -1,8 +1,5 @@
 const net = require('net');
 
-const checkCache = new WeakMap();
-const parseCache = new WeakMap();
-
 /**
  * Represents an IP address
  *
@@ -26,17 +23,12 @@ class Ip {
          */
         this._type = net.isIPv4(ip) ? __self.IPV4 : __self.IPV6;
 
-        if (parseCache.has(ip)) {
-            this._ip = Buffer.from(parseCache[ip]);
-        } else {
-            /**
-             * @type {Buffer}
-             *
-             * @private
-             */
-            this._ip = net.isIPv4(ip) ? __self._parseIPv4(ip) : __self._parseIPv6(ip);
-            parseCache[ip] = Buffer.from(this._ip);
-        }
+        /**
+         * @type {Buffer}
+         *
+         * @private
+         */
+        this._ip = this._type === __self.IPV4 ? __self._parseIPv4(ip) : __self._parseIPv6(ip);
     }
 
     /**
@@ -54,17 +46,12 @@ class Ip {
      * @param {string} cidr
      */
     match(cidr) {
-        const cacheKey = this._ip.toString('base64') + '-' + cidr;
-        if (checkCache.has(cacheKey)) {
-            return checkCache[cacheKey];
-        }
-
         const parts = cidr.split('/', 2);
         if (1 === parts.length) {
             parts.push(this._type === __self.IPV4 ? '32' : '128');
         }
 
-        return checkCache[cacheKey] = this._check(parts[0], ~~parts[1]);
+        return this._check(parts[0], ~~parts[1]);
     }
 
     /**
