@@ -123,6 +123,11 @@ Jymfony = {
         /**
          * @namespace
          */
+        Templating: {},
+
+        /**
+         * @namespace
+         */
         Testing: {},
     },
 };

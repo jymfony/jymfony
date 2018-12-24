@@ -21,3 +21,19 @@ const obj2map = function (obj) {
 };
 
 __jymfony.obj2map = obj2map;
+
+/**
+ * @param {Map} map
+ *
+ * @returns {Object}
+ */
+const map2obj = function (map) {
+    if (! (map instanceof Map)) {
+        return map;
+    }
+
+    return Array.from(map.entries())
+        .reduce( (res, entry) => (res[entry[0]] = entry[1], res), {} );
+};
+
+__jymfony.map2obj = map2obj;

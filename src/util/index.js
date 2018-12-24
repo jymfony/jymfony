@@ -24,6 +24,8 @@ require('./lib/Filesystem/mkdir');
 require('./lib/Function/callableArray');
 require('./lib/Function/getFunction');
 
+require('./lib/Stream/StreamBuffer');
+
 require('./lib/String/crc32');
 require('./lib/String/escapeshellarg');
 require('./lib/String/levenshtein');
