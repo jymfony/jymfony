@@ -1,2 +1,3 @@
 src/Component/DependencyInjection/fixtures/js
+src/Component/Templating/fixtures
 src/**/*Interface.js

@@ -75,7 +75,7 @@ class ClassLoader {
         const dirname = this._path.dirname(fn);
         const moduleObj = {
             children: [],
-            exports: undefined,
+            exports: {},
             filename: fn,
             id: fn,
             loaded: false,

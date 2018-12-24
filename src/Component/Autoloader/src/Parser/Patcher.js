@@ -58,7 +58,7 @@ class Patcher {
             properties: {},
         };
 
-        let docblock = undefined, code = ' ', patchRemoval = () => {};
+        let docblock = undefined, code = '', patchRemoval = () => {};
         let hasConstructor = false;
 
         lexer.moveNext();
@@ -86,11 +86,12 @@ class Patcher {
             code += lexer.token.value;
         } else {
             const currentPosition = code.length;
+            const extension = ' extends __jymfony.JObject ';
             patchRemoval = () => {
-                code = code.slice(0, currentPosition - 1) + code.slice(currentPosition + ' extends __jymfony.JObject '.length - 1);
+                code = code.slice(0, currentPosition - 1) + code.slice(currentPosition + extension.length - 1);
             };
 
-            code += ' extends __jymfony.JObject ';
+            code += extension;
         }
 
         while (! lexer.isNextToken(Lexer.T_CURLY_BRACKET_OPEN)) {
@@ -183,16 +184,16 @@ class Patcher {
                     break;
             }
 
-            if (lexer.isNextToken(Lexer.T_CLASS)) {
-                code += this._processClass(lexer, docblock);
-            }
-
             if (0 === level) {
                 const docblock = JSON.stringify(classDocblock);
                 code += ` static [Symbol.docblock]() { return ${docblock}; } `;
             }
 
             code += token.value;
+
+            if (lexer.isNextToken(Lexer.T_CLASS)) {
+                code += this._processClass(lexer, docblock);
+            }
         }
 
         if (hasConstructor) {
