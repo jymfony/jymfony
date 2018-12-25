@@ -7,13 +7,24 @@ const NodeBuilder = Jymfony.Component.Config.Definition.Builder.NodeBuilder;
  * @memberOf Jymfony.Component.Config.Definition.Builder
  */
 class TreeBuilder extends implementationOf(NodeParentInterface) {
-    __construct() {
+    /**
+     * Constructor.
+     *
+     * @param {string} name The name of the root node
+     * @param {string} [type = 'array'] The type of the root node
+     * @param {Jymfony.Component.Config.Definition.Builder.NodeBuilder} [builder] A custom node builder instance
+     *
+     * @throws {RuntimeException} When the node type is not supported
+     */
+    __construct(name, type = 'array', builder = undefined) {
+        builder = builder || new NodeBuilder();
+
         /**
          * @type {Jymfony.Component.Config.Definition.Builder.ArrayNodeDefinition|Jymfony.Component.Config.Definition.Builder.NodeDefinition}
          *
          * @private
          */
-        this._root = undefined;
+        this._root = builder.node(name, type).setParent(this);
 
         /**
          * @type {Jymfony.Component.Config.Definition.NodeInterface}
@@ -24,20 +35,12 @@ class TreeBuilder extends implementationOf(NodeParentInterface) {
     }
 
     /**
-     * Creates the root node.
+     * Gets the root node definition.
      *
-     * @param {string} name The name of the root node
-     * @param {string} [type = 'array'] The type of the root node
-     * @param {Jymfony.Component.Config.Definition.Builder.NodeBuilder} [builder] A custom node builder instance
-     *
-     * @returns {Jymfony.Component.Config.Definition.Builder.ArrayNodeDefinition|Jymfony.Component.Config.Definition.Builder.NodeDefinition} The root node (as an ArrayNodeDefinition when the type is 'array')
-     *
-     * @throws {RuntimeException} When the node type is not supported
+     * @returns {Jymfony.Component.Config.Definition.Builder.ArrayNodeDefinition|Jymfony.Component.Config.Definition.Builder.NodeDefinition}
      */
-    root(name, type = 'array', builder = undefined) {
-        builder = builder || new NodeBuilder();
-
-        return this._root = builder.node(name, type).setParent(this);
+    get rootNode() {
+        return this._root;
     }
 
     /**

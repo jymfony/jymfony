@@ -88,7 +88,7 @@ class Extension extends implementationOf(ExtensionInterface) {
      *
      * @returns {*}
      *
-     * @private
+     * @protected
      */
     _isConfigEnabled(container, config) {
         if (! config.hasOwnProperty('enabled')) {

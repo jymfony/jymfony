@@ -7,11 +7,11 @@ class LoaderInterface {
     /**
      * Loads a template.
      *
-     * @param {Jymfony.Component.Templating.TemplateReferenceInterface} name The template reference.
+     * @param {Jymfony.Component.Templating.TemplateReferenceInterface} template The template reference.
      *
      * @returns {Promise<Jymfony.Component.Templating.Template.TemplateInterface>}
      */
-    async load(name) { }
+    async load(template) { }
 }
 
 module.exports = getInterface(LoaderInterface);
