@@ -1,4 +1,4 @@
-const EngineInterface = Jymfony.Component.Templating.EngineInterface;
+const EngineInterface = Jymfony.Component.Templating.Engine.EngineInterface;
 const View = Jymfony.Component.Templating.View.View;
 
 /**

@@ -13,8 +13,8 @@ class Configuration extends implementationOf(ConfigurationInterface) {
      * @inheritdoc
      */
     get configTreeBuilder() {
-        const treeBuilder = new TreeBuilder();
-        const rootNode = treeBuilder.root('framework');
+        const treeBuilder = new TreeBuilder('framework');
+        const rootNode = treeBuilder.rootNode;
 
         rootNode
             .children()
@@ -25,12 +25,13 @@ class Configuration extends implementationOf(ConfigurationInterface) {
             .end()
         ;
 
+        this._addCacheSection(rootNode);
         this._addConsoleSection(rootNode);
+        this._addHttpServerSection(rootNode);
         this._addLoggerSection(rootNode);
         this._addRouterSection(rootNode);
-        this._addHttpServerSection(rootNode);
-        this._addCacheSection(rootNode);
         this._addSessionSection(rootNode);
+        this._addTemplatingSection(rootNode);
 
         return treeBuilder;
     }
@@ -348,6 +349,11 @@ class Configuration extends implementationOf(ConfigurationInterface) {
         ;
     }
 
+    /**
+     * @param {Jymfony.Component.Config.Definition.Builder.ArrayNodeDefinition} rootNode
+     *
+     * @private
+     */
     _addSessionSection(rootNode) {
         rootNode
             .children()
@@ -370,6 +376,54 @@ class Configuration extends implementationOf(ConfigurationInterface) {
                         .booleanNode('use_cookies').end()
                         .scalarNode('max_lifetime').end()
                         .scalarNode('save_path').defaultValue('%kernel.cache_dir%/sessions').end()
+                    .end()
+                .end()
+            .end()
+        ;
+    }
+
+    /**
+     * @param {Jymfony.Component.Config.Definition.Builder.ArrayNodeDefinition} rootNode
+     *
+     * @private
+     */
+    _addTemplatingSection(rootNode) {
+        rootNode
+            .children()
+                .arrayNode('templating')
+                    .info('templating configuration')
+                    .canBeEnabled()
+                    .beforeNormalization()
+                        .ifTrue((v) => false === v || false === v['enabled'])
+                        .then(() => {
+                            return { enabled: false, engines: false };
+                        })
+                    .end()
+                    .children()
+                        .scalarNode('hinclude_default_template').defaultNull().end()
+                        .scalarNode('cache').end()
+                    .end()
+                    .children()
+                        .arrayNode('engines')
+                            .example([ 'handlebars' ])
+                            .isRequired()
+                            .requiresAtLeastOneElement()
+                            .canBeUnset()
+                            .beforeNormalization()
+                                .ifTrue((v) => ! isArray(v) && false !== v)
+                                .then((v) => [ v ])
+                            .end()
+                            .prototype('scalar').end()
+                        .end()
+                    .end()
+                    .children()
+                        .arrayNode('loaders')
+                            .beforeNormalization()
+                                .ifTrue((v) => ! isArray(v))
+                                .then((v) => [ v ])
+                            .end()
+                            .prototype('scalar').end()
+                        .end()
                     .end()
                 .end()
             .end()

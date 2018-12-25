@@ -46,8 +46,8 @@ class Configuration extends implementationOf(ConfigurationInterface) {
      * @inheritdoc
      */
     get configTreeBuilder() {
-        const treeBuilder = new TreeBuilder();
-        const rootNode = treeBuilder.root('security');
+        const treeBuilder = new TreeBuilder('security');
+        const rootNode = treeBuilder.rootNode;
 
         rootNode
             .canBeEnabled()

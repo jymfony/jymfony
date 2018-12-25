@@ -11,7 +11,7 @@
  * Each template loader uses the logical template name to look for
  * the template.
  *
- * @memberOf Jymfony.Component.Templating
+ * @memberOf Jymfony.Component.Templating.Engine
  */
 class EngineInterface {
     /**
