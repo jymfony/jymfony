@@ -25,4 +25,9 @@ Jymfony.Component.Templating = {
      * @namespace
      */
     Template: {},
+
+    /**
+     * @namespace
+     */
+    View: {},
 };
