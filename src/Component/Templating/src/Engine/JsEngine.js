@@ -1,6 +1,5 @@
 const EngineInterface = Jymfony.Component.Templating.EngineInterface;
-const RequestAwareInterface = Jymfony.Component.Templating.Helper.RequestAwareInterface;
-const ResponseAwareInterface = Jymfony.Component.Templating.Helper.ResponseAwareInterface;
+const View = Jymfony.Component.Templating.View.View;
 
 /**
  * JsEngine is an engine able to render JS templates.
@@ -54,7 +53,7 @@ class JsEngine extends implementationOf(EngineInterface) {
      */
     async exists(name) {
         try {
-            await this._load(name);
+            await this.load(name);
         } catch (e) {
             return false;
         }
@@ -69,6 +68,24 @@ class JsEngine extends implementationOf(EngineInterface) {
         const template = this._parser.parse(name);
 
         return 'js' === template.get('engine');
+    }
+
+    /**
+     * Gets a copy of the helpers map.
+     *
+     * @returns {Object<string, Jymfony.Component.Templating.Helper.HelperInterface>}
+     */
+    get helpers() {
+        return Object.assign({}, this._helpers);
+    }
+
+    /**
+     * Gets a copy of the escapers map.
+     *
+     * @returns {Object.<string, Function>}
+     */
+    get escapers() {
+        return Object.assign({}, this._escapers);
     }
 
     /**
@@ -103,63 +120,6 @@ class JsEngine extends implementationOf(EngineInterface) {
         if (undefined !== alias) {
             this._helpers[alias] = helper;
         }
-    }
-
-    /**
-     * Gets an helper.
-     *
-     * @param {string} name
-     * @param {Object.<string, *>} parameters
-     *
-     * @returns {Jymfony.Component.Templating.Helper.HelperInterface}
-     */
-    getHelper(name, parameters = {}) {
-        if (undefined === this._helpers[name]) {
-            throw new InvalidArgumentException(__jymfony.sprintf('The helper "%s" is not defined.', name));
-        }
-
-        let helper = this._helpers[name];
-        if (undefined !== parameters._request && helper instanceof RequestAwareInterface) {
-            helper = helper.withRequest(parameters._request);
-        }
-        if (undefined !== parameters._response && helper instanceof ResponseAwareInterface) {
-            helper = helper.withResponse(parameters._response);
-        }
-
-        return helper;
-    }
-
-    /**
-     * Escapes a string by using the current charset.
-     *
-     * @param {*} value A variable to escape
-     * @param {string} context The context name
-     *
-     * @returns {string} The escaped value
-     */
-    escape(value, context = 'html') {
-        if (isNumber(value)) {
-            return value;
-        }
-
-        return this.getEscaper(context)(value);
-    }
-
-    /**
-     * Gets an escaper for a given context.
-     *
-     * @param {string} context The context name
-     *
-     * @returns {Function}
-     *
-     * @throws {InvalidArgumentException}
-     */
-    getEscaper(context) {
-        if (undefined === this._escapers[context]) {
-            throw new InvalidArgumentException(__jymfony.sprintf('No registered escaper for context "%s".', context));
-        }
-
-        return this._escapers[context];
     }
 
     /**
@@ -240,20 +200,8 @@ class JsEngine extends implementationOf(EngineInterface) {
             throw new InvalidArgumentException('Invalid parameter (view)');
         }
 
-        parameters.view = new Proxy(this, {
-            get(target, p, receiver) {
-                if (! Reflect.has(target, p)) {
-                    return this.getHelper(p, parameters);
-                }
-
-                return Reflect.get(target, p, receiver);
-            },
-            has(target, p) {
-                return Reflect.has(target, p) || undefined !== this._helpers[p];
-            },
-        });
-
-        await (await this._load(name)).stream(out, parameters);
+        const view = new View(out, name, this, parameters);
+        await view.stream();
     }
 
     /**
@@ -264,10 +212,8 @@ class JsEngine extends implementationOf(EngineInterface) {
      * @returns {Promise<Jymfony.Component.Templating.Template.TemplateInterface>}
      *
      * @throws {InvalidArgumentException} if the template cannot be found
-     *
-     * @protected
      */
-    _load(name) {
+    load(name) {
         return this._loader.load(this._parser.parse(name));
     }
 }

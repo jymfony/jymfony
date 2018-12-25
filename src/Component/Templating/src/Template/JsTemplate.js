@@ -1,6 +1,5 @@
 const TemplateInterface = Jymfony.Component.Templating.Template.TemplateInterface;
 const fs = require('fs');
-const promisify = require('util').promisify;
 const vm = require('vm');
 
 /**
@@ -24,7 +23,7 @@ class JsTemplate extends implementationOf(TemplateInterface) {
     /**
      * Renders a template.
      *
-     * @param {stream.Writable} out Stream to write the rendered template into.
+     * @param {Function} out Function that streams out data from rendered template.
      * @param {Object.<string, *>} [parameters = {}] A set of parameters to pass to the template
      *
      * @throws {RuntimeException} if the template cannot be rendered
@@ -36,9 +35,9 @@ class JsTemplate extends implementationOf(TemplateInterface) {
             const code = '(async function(out, { ' + Object.keys(parameters).join(', ') + ' }) { ' +
                 fs.readFileSync(this._file) + ' });';
 
-            const outFn = promisify(out.write).bind(out);
-            await vm.runInNewContext(code, {filename: this._file})(outFn, parameters);
+            await vm.runInNewContext(code, {filename: this._file})(out, parameters);
         } catch (e) {
+            throw e;
             throw new RuntimeException(__jymfony.sprintf('Error while rendering template: %s', e.message), null, e);
         }
     }
