@@ -76,6 +76,13 @@ class HttpServer extends BaseServer {
     /**
      * @inheritdoc
      */
+    get scheme() {
+        return 'https';
+    }
+
+    /**
+     * @inheritdoc
+     */
     _createServer() {
         const options = Object.assign({
             allowHTTP1: true,

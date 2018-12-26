@@ -19,6 +19,13 @@ class OutputFormatterStyleInterface {
     set background(color) { }
 
     /**
+     * Sets link href.
+     *
+     * @param {string} link The target url.
+     */
+    set href(link) { }
+
+    /**
      * Sets some specific style option.
      *
      * @param {string} option The option name

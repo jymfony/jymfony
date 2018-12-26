@@ -309,6 +309,15 @@ class HttpServer {
     }
 
     /**
+     * Get the public scheme for this server (http/https)
+     *
+     * @returns {string}
+     */
+    get scheme() {
+        return 'http';
+    }
+
+    /**
      * Parse request content.
      *
      * @param {stream.Duplex} stream
