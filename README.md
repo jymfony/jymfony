@@ -33,6 +33,7 @@ As said, Jymfony is made of reusable Javascript components:
 - [@jymfony/datetime](https://github.com/jymfony/date-time)
 - [@jymfony/debug](https://github.com/jymfony/debug)
 - [@jymfony/dependency-injection](https://github.com/jymfony/dependency-injection)
+- [@jymfony/dev-server](https://github.com/jymfony/dev-server)
 - [@jymfony/event-dispatcher](https://github.com/jymfony/event-dispatcher)
 - [@jymfony/filesystem](https://github.com/jymfony/filesystem)
 - [@jymfony/http-foundation](https://github.com/jymfony/http-foundation)
@@ -44,6 +45,7 @@ As said, Jymfony is made of reusable Javascript components:
 - [@jymfony/property-access](https://github.com/jymfony/property-access)
 - [@jymfony/routing](https://github.com/jymfony/routing)
 - [@jymfony/security](https://github.com/jymfony/security)
+- [@jymfony/templating](https://github.com/jymfony/templating)
 - [@jymfony/testing](https://github.com/jymfony/testing)
 
 Each component has its own `README.md`, you can read more about those there.
