@@ -68,7 +68,7 @@ class TestContainer extends Container {
      * @inheritdoc
      */
     reset() {
-        this._publicContainer.reset();
+        return this._publicContainer.reset();
     }
 }
 

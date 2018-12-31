@@ -31,7 +31,7 @@ class AbstractTrait extends LoggerAwareTrait.definition {
      *
      * @param {string[]} ids The cache identifiers to fetch
      *
-     * @returns {Promise<*[]>} The corresponding values found in the cache
+     * @returns {Promise<Object.<string, *>>} The corresponding values found in the cache
      *
      * @abstract
      *

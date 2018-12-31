@@ -154,6 +154,13 @@ class AbstractAdapter extends implementationOf(CacheItemPoolInterface, LoggerAwa
             yield [ key, this._createCacheItem(key, undefined, false) ];
         }
     }
+
+    /**
+     * @inheritdoc
+     */
+    async close() {
+        // Nothing to do.
+    }
 }
 
 module.exports = AbstractAdapter;

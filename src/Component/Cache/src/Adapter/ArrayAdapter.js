@@ -125,6 +125,13 @@ class ArrayAdapter extends implementationOf(CacheItemPoolInterface, LoggerAwareI
 
         return true;
     }
+
+    /**
+     * @inheritdoc
+     */
+    async close() {
+        // Nothing to do.
+    }
 }
 
 module.exports = ArrayAdapter;

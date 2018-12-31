@@ -29,6 +29,7 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
+    "ioredis": "^4.0",
     "mocha": "^5.2.0",
     "mongodb": "^3.0",
     "nyc": "^13.1.0"

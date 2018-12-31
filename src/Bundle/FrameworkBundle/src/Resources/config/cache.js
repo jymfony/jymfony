@@ -27,6 +27,16 @@ container.register('cache.adapter.filesystem', Jymfony.Component.Cache.Adapter.F
     .addMethodCall('setLogger', [ new Reference('logger', Container.IGNORE_ON_INVALID_REFERENCE) ])
 ;
 
+container.register('cache.adapter.redis', Jymfony.Component.Cache.Adapter.RedisAdapter)
+    .setAbstract(true)
+    .addTag('jymfony.logger', { channel: 'cache' })
+    .addArgument(undefined) // Client
+    .addArgument(undefined) // Namespace
+    .addArgument(0)
+    .addMethodCall('setLogger', [ new Reference('logger', Container.IGNORE_ON_INVALID_REFERENCE) ])
+    .addShutdownCall('close')
+;
+
 container.register('cache.adapter.null', Jymfony.Component.Cache.Adapter.NullAdapter)
     .setAbstract(true)
     .addTag('cache.pool', { clearer: 'cache.default_clearer' })

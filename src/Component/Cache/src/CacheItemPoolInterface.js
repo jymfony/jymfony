@@ -103,6 +103,13 @@ class CacheItemPoolInterface {
      * @returns {Promise<boolean>} True if the item was successfully persisted. False if there was an error.
      */
     save(item) { }
+
+    /**
+     * Closes the pool (disconnects from server, cleans up, etc).
+     *
+     * @returns {Promise<void>}
+     */
+    close() { }
 }
 
 module.exports = getInterface(CacheItemPoolInterface);

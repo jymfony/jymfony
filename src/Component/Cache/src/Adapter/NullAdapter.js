@@ -62,6 +62,13 @@ class NullAdapter extends implementationOf(CacheItemPoolInterface) {
     async save(/* item */) {
         return false;
     }
+
+    /**
+     * @inheritdoc
+     */
+    async close() {
+        // Nothing to do.
+    }
 }
 
 module.exports = NullAdapter;

@@ -7,11 +7,15 @@ node_js:
     - 11
 
 os:
-  - windows
-  - linux
-  - osx
+    - windows
+    - linux
+    - osx
 
-sudo: false
+services:
+    - redis-server
+
+env:
+    - REDIS_HOST=localhost:6379
 
 install:
     - npm install -g eslint

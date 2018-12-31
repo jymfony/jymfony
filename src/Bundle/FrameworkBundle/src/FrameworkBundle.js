@@ -26,29 +26,6 @@ class FrameworkBundle extends Bundle {
             .addCompilerPass(new TestServiceContainerRealRefPass(), PassConfig.TYPE_AFTER_REMOVING)
         ;
     }
-
-    /**
-     * @inheritdoc
-     */
-    async shutdown() {
-        await this._closeLogger();
-    }
-
-    /**
-     * Closes all the logger handlers.
-     *
-     * @returns {Promise<void>}
-     *
-     * @private
-     */
-    async _closeLogger() {
-        if (! this._container.has('jymfony.logger')) {
-            return;
-        }
-
-        const logger = this._container.get('jymfony.logger');
-        await Promise.all(logger.handlers.map(handler => handler.close()));
-    }
 }
 
 module.exports = FrameworkBundle;
