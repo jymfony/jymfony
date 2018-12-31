@@ -57,6 +57,13 @@ class Container extends implementationOf(ContainerInterface) {
          * @private
          */
         this._loading = {};
+
+        /**
+         * @type {Array}
+         *
+         * @private
+         */
+        this._shutdownCalls = [];
     }
 
     /**
@@ -236,9 +243,19 @@ class Container extends implementationOf(ContainerInterface) {
     }
 
     /**
+     * Executes all the shutdown functions.
+     *
+     * @returns {Promise<any[]>}
+     */
+    shutdown() {
+        return Promise.all(this._shutdownCalls);
+    }
+
+    /**
      * Resets the container.
      */
-    reset() {
+    async reset() {
+        await this.shutdown();
         this._services = {};
     }
 
@@ -250,6 +267,15 @@ class Container extends implementationOf(ContainerInterface) {
     getServiceIds() {
         const set = new Set([ ...Object.keys(this._methodMap), ...Object.keys(this._services), 'service_container' ]);
         return Array.from(set);
+    }
+
+    /**
+     * Register a function to call at shutdown.
+     *
+     * @param {AsyncFunction|Function} call
+     */
+    registerShutdownCall(call) {
+        this._shutdownCalls.push(call);
     }
 
     /**

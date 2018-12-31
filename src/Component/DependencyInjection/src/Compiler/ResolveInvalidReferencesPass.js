@@ -40,6 +40,17 @@ class ResolveInvalidReferencesPass extends implementationOf(CompilerPassInterfac
 
             definition.setMethodCalls(calls);
 
+            const shutdownCalls = [];
+            for (const call of definition.getShutdownCalls()) {
+                try {
+                    shutdownCalls.push([ call[0], this._processArguments(call[1], true) ]);
+                } catch (e) {
+                    // Call is removed
+                }
+            }
+
+            definition.setShutdownCalls(shutdownCalls);
+
             const properties = {};
             for (let [ name, value ] of __jymfony.getEntries(definition.getProperties())) {
                 try {

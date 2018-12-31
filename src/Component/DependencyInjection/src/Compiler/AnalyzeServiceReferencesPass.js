@@ -124,6 +124,7 @@ class AnalyzeServiceReferencesPass extends mix(AbstractRecursivePass, Repeatable
         if (! this._onlyConstructorArguments) {
             this._processValue(value.getProperties());
             this._processValue(value.getMethodCalls());
+            this._processValue(value.getShutdownCalls());
             this._processValue(value.getConfigurator());
         }
 

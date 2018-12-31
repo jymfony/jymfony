@@ -151,6 +151,7 @@ class Kernel extends implementationOf(KernelInterface) {
             bundle.setContainer(undefined);
         }
 
+        await this._container.shutdown();
         this._container = undefined;
     }
 

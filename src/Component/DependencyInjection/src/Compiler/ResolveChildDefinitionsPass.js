@@ -87,6 +87,7 @@ class ResolveChildDefinitionsPass extends AbstractRecursivePass {
 
         def.setClass(parentDef.getClass());
         def.setMethodCalls(parentDef.getMethodCalls());
+        def.setShutdownCalls(parentDef.getShutdownCalls());
         def.setProperties(parentDef.getProperties());
 
         if (parentDef.isDeprecated()) {
@@ -157,6 +158,11 @@ class ResolveChildDefinitionsPass extends AbstractRecursivePass {
         const calls = definition.getMethodCalls();
         if (0 < calls.length) {
             def.setMethodCalls([ ...def.getMethodCalls(), ...calls ]);
+        }
+
+        const shutdownCalls = definition.getShutdownCalls();
+        if (0 < shutdownCalls.length) {
+            def.setShutdownCalls([ ...def.getShutdownCalls(), ...shutdownCalls ]);
         }
 
         def.setAbstract(definition.isAbstract());

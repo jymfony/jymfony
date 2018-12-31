@@ -94,7 +94,7 @@ module.exports = new Containerv6h9PTp({
         container.compile();
 
         const dumper = new JsDumper(container);
-        expect(dumper.dump({ build_time: 1536621245 })['Containera0v8b3l/ProjectContainer.js'])
+        expect(dumper.dump({ build_time: 1536621245 })['Container4MxUoRe/ProjectContainer.js'])
             .to.be.equal(fs.readFileSync(path.join(fixturesPath, 'js', 'services9.js')).toString());
     });
 

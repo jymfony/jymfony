@@ -669,6 +669,7 @@ class ContainerBuilder extends Container {
 
         return this.getDefinition(id);
     }
+
     /**
      * Creates a service for a service definition.
      *
@@ -760,6 +761,10 @@ class ContainerBuilder extends Container {
             }
 
             configurator(service);
+        }
+
+        for (const call of definition.getShutdownCalls()) {
+            this.registerShutdownCall(this._getFunctionCall(service, call));
         }
 
         return service;
@@ -895,6 +900,20 @@ class ContainerBuilder extends Container {
      * @private
      */
     _callMethod(service, call) {
+        this._getFunctionCall(service, call)();
+    }
+
+    /**
+     * Gets a method call bound to a service and its arguments.
+     *
+     * @param {*} service
+     * @param {Array} call
+     *
+     * @returns {Function}
+     *
+     * @private
+     */
+    _getFunctionCall(service, call) {
         const services = __self.getServiceConditionals(call[1]);
         for (const service of services) {
             if (! this.has(service)) {
@@ -909,7 +928,7 @@ class ContainerBuilder extends Container {
         }
 
         call = getCallableFromArray([ service, call[0] ]);
-        call.apply(service, this._resolveServices(this.parameterBag.unescapeValue(this.parameterBag.resolveValue(call[1]))));
+        return () => call.apply(service, this._resolveServices(this.parameterBag.unescapeValue(this.parameterBag.resolveValue(call[1]))));
     }
 
     /**

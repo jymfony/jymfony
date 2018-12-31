@@ -1,4 +1,5 @@
 const Namespace = Jymfony.Component.Autoloader.Namespace;
+const ContainerBuilder = Jymfony.Component.DependencyInjection.ContainerBuilder;
 const DateTime = Jymfony.Component.DateTime.DateTime;
 const Bundle = Jymfony.Component.Kernel.Bundle;
 const Kernel = Jymfony.Component.Kernel.Kernel;
@@ -107,6 +108,7 @@ describe('[Kernel] Kernel', function () {
     it('shutdown should call shutdown on all bundles', async () => {
         const bundle = prophet.prophesize(Bundle);
         const kernel = getKernel([ '_initializeContainer' ], [ bundle.reveal() ]);
+        kernel._container = new ContainerBuilder();
 
         await kernel.boot();
         await kernel.shutdown();

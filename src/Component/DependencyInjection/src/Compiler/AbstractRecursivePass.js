@@ -64,6 +64,7 @@ class AbstractRecursivePass extends implementationOf(CompilerPassInterface) {
             value.setArguments(this._processValue(value.getArguments()));
             value.setProperties(this._processValue(value.getProperties()));
             value.setMethodCalls(this._processValue(value.getMethodCalls()));
+            value.setShutdownCalls(this._processValue(value.getShutdownCalls()));
 
             const changes = value.getChanges();
             if (changes['factory']) {
