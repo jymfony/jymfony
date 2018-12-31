@@ -1,7 +1,7 @@
 const AdapterTestCase = require('./AdapterTestCase');
 const RedisAdapter = Jymfony.Component.Cache.Adapter.RedisAdapter;
 
-const hosts = 'redis:?host[' + process.env['REDIS_CLUSTER_HOSTS'].replace(/ /g, ']&host[') + ']&redis_cluster=1';
+const hosts = 'redis:?host[' + (process.env['REDIS_CLUSTER_HOSTS'] || 'localhost').replace(/ /g, ']&host[') + ']&redis_cluster=1';
 const redis = RedisAdapter.createConnection(hosts);
 
 describe('[Cache] RedisAdapter - Cluster', function () {
