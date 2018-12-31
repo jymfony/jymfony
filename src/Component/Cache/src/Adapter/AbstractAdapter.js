@@ -104,6 +104,7 @@ class AbstractAdapter extends implementationOf(CacheItemPoolInterface, LoggerAwa
         try {
             items = await this._doFetch(ids);
         } catch (e) {
+            throw e;
             this._logger.warning('Failed to fetch requested items', { keys, exception: e });
 
             items = [];

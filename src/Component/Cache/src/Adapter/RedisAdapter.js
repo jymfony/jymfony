@@ -5,10 +5,11 @@ const Redis = require('ioredis');
 const RedisCluster = Redis.Cluster;
 const url = require('url');
 
-const parseHosts = (params) => {
+const parseHosts = (params, dsn) => {
     let hosts = {};
     if (params.query) {
         const query = __jymfony.parse_query_string(params.query);
+        params.query = query;
         if (query.host) {
             if (! isObjectLiteral(query.host)) {
                 throw new InvalidArgumentException(__jymfony.sprintf('Invalid Redis DSN: %s', dsn));
@@ -90,15 +91,16 @@ class RedisAdapter extends mix(AbstractAdapter, RedisTrait) {
             throw new InvalidArgumentException(__jymfony.sprintf('Invalid Redis DSN: %s does not start with "redis:"', dsn));
         }
 
-        if (params.path) {
-            const match = params.path.match(/(\d+)$/);
+        params.path = undefined;
+        if (params.pathname) {
+            const match = params.pathname.match(/(\d+)$/);
             if (match) {
                 options.dbindex = match[1];
-                params.path = params.path.substr(0, params.path.length - m[0].length);
+                params.pathname = params.pathname.substr(0, params.pathname.length - match[0].length);
             }
         }
 
-        const hosts = parseHosts(params);
+        const hosts = parseHosts(params, dsn);
         if (0 === hosts.length) {
             throw new InvalidArgumentException(__jymfony.sprintf('Invalid Redis DSN: %s', dsn));
         }
@@ -107,8 +109,12 @@ class RedisAdapter extends mix(AbstractAdapter, RedisTrait) {
 
         let redis;
         if (params.redis_cluster) {
-            redis = new RedisCluster(hosts.map(url.format), {
-                scaleReads: true,
+            redis = new RedisCluster(hosts.map(v => {
+                return {
+                    host: v.hostname,
+                    port: v.port,
+                };
+            }), {
                 showFriendlyErrorStack: true,
                 connectTimeout: params.timeout,
                 lazyConnect: true,
@@ -132,8 +138,8 @@ class RedisAdapter extends mix(AbstractAdapter, RedisTrait) {
         }
 
         redis.on('error', async (e) => {
-            if ('ENOTFOUND' === e.code || 'ECONNREFUSED' === e.code) {
-                await redis.disconnect();
+            if ('ENOTFOUND' === e.code || 'ECONNREFUSED' === e.code || 'EADDRNOTAVAIL' === e.code) {
+                await redis.quit();
             }
         });
 

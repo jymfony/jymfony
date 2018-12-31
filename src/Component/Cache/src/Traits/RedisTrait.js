@@ -41,14 +41,25 @@ class RedisTrait {
             return {};
         }
 
-        return (await this._redis.mget(...ids))
-            .reduce((res, val, idx) => {
-                if (null !== val) {
-                    res[ids[idx]] = __jymfony.unserialize(val);
-                }
+        let results;
+        if (this._redis instanceof RedisCluster) {
+            const promises = [];
+            for (const key of ids) {
+                promises.push(this._redis.get(key).catch(() => null));
+            }
 
-                return res;
-            }, {});
+            results = await Promise.all(promises);
+        } else {
+            results = await this._redis.mget(...ids);
+        }
+
+        return results.reduce((res, val, idx) => {
+            if (null !== val) {
+                res[ids[idx]] = __jymfony.unserialize(val);
+            }
+
+            return res;
+        }, {});
     }
 
     /**
