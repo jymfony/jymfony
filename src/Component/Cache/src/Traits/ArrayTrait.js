@@ -70,6 +70,9 @@ class ArrayTrait extends LoggerAwareTrait.definition {
     async clear() {
         this._values = {};
         this._expiries = {};
+        if (undefined !== this._pruneInterval) {
+            clearInterval(this._pruneInterval);
+        }
 
         return true;
     }
