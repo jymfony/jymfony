@@ -23,6 +23,27 @@ class ArrayTrait extends LoggerAwareTrait.definition {
          * @private
          */
         this._expiries = {};
+
+        /**
+         * @type {number}
+         *
+         * @private
+         */
+        this._pruneInterval = undefined;
+    }
+
+    /**
+     * @returns {Promise<boolean>}
+     */
+    async prune() {
+        const time = DateTime.unixTime;
+        for (const key of Object.keys(this._expiries)) {
+            if (time < this._expiries[key]) {
+                continue;
+            }
+
+            await this.deleteItem(key);
+        }
     }
 
     /**
@@ -61,6 +82,11 @@ class ArrayTrait extends LoggerAwareTrait.definition {
 
         delete this._values[key];
         delete this._expiries[key];
+
+        if (undefined !== this._pruneInterval && 0 === Object.keys(this._expiries).length) {
+            clearInterval(this._pruneInterval);
+            this._pruneInterval = undefined;
+        }
 
         return true;
     }

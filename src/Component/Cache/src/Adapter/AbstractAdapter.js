@@ -1,4 +1,5 @@
 const ArrayAdapter = Jymfony.Component.Cache.Adapter.ArrayAdapter;
+const FilesystemAdapter = Jymfony.Component.Cache.Adapter.FilesystemAdapter;
 const CacheItem = Jymfony.Component.Cache.CacheItem;
 const CacheItemPoolInterface = Jymfony.Component.Cache.CacheItemPoolInterface;
 const InvalidArgumentException = Jymfony.Component.Cache.Exception.InvalidArgumentException;
@@ -6,6 +7,8 @@ const AbstractTrait = Jymfony.Component.Cache.Traits.AbstractTrait;
 const DateTime = Jymfony.Component.DateTime.DateTime;
 const LoggerAwareInterface = Jymfony.Component.Logger.LoggerAwareInterface;
 const NullLogger = Jymfony.Component.Logger.NullLogger;
+
+const fs = require('fs');
 
 /**
  * @memberOf Jymfony.Component.Cache.Adapter
@@ -67,10 +70,18 @@ class AbstractAdapter extends implementationOf(CacheItemPoolInterface, LoggerAwa
      * @param {Jymfony.Component.Logger.LoggerInterface} [logger]
      */
     static createSystemCache(namespace, defaultLifetime, directory, logger = undefined) {
-        const arr = new ArrayAdapter(defaultLifetime);
-        arr.setLogger(logger || new NullLogger());
+        const cache = (() => {
+            const fsAdapter = new FilesystemAdapter(namespace, defaultLifetime, directory);
+            if (fs.accessSync(directory, fs.constants.W_OK)) {
+                return fsAdapter;
+            }
 
-        return arr;
+            return new ArrayAdapter(defaultLifetime);
+        })();
+
+        cache.setLogger(logger || new NullLogger());
+
+        return cache;
     }
 
     /**
@@ -104,7 +115,6 @@ class AbstractAdapter extends implementationOf(CacheItemPoolInterface, LoggerAwa
         try {
             items = await this._doFetch(ids);
         } catch (e) {
-            throw e;
             this._logger.warning('Failed to fetch requested items', { keys, exception: e });
 
             items = [];
