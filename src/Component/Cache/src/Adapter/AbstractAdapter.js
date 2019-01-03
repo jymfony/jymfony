@@ -1,5 +1,6 @@
 const ArrayAdapter = Jymfony.Component.Cache.Adapter.ArrayAdapter;
 const FilesystemAdapter = Jymfony.Component.Cache.Adapter.FilesystemAdapter;
+const RedisAdapter = Jymfony.Component.Cache.Adapter.RedisAdapter;
 const CacheItem = Jymfony.Component.Cache.CacheItem;
 const CacheItemPoolInterface = Jymfony.Component.Cache.CacheItemPoolInterface;
 const InvalidArgumentException = Jymfony.Component.Cache.Exception.InvalidArgumentException;
@@ -88,6 +89,25 @@ class AbstractAdapter extends implementationOf(CacheItemPoolInterface, LoggerAwa
         cache.setLogger(logger || new NullLogger());
 
         return cache;
+    }
+
+    /**
+     * Creates a connection for cache adapter.
+     *
+     * @param {string} dsn
+     * @param {Object.<string, *>} options
+     */
+    static createConnection(dsn, options = undefined) {
+        options = options || {};
+
+        if (! isString(dsn)) {
+            throw new InvalidArgumentException(__jymfony.sprintf('The createConnection() method expect argument #1 to be string, %s given.', typeof dsn));
+        }
+        if (0 === dsn.indexOf('redis:')) {
+            return RedisAdapter.createConnection(dsn, options);
+        }
+
+        throw new InvalidArgumentException(__jymfony.sprintf('Unsupported DSN: %s.', dsn));
     }
 
     /**

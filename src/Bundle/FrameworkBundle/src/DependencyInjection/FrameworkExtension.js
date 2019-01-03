@@ -1,8 +1,10 @@
 const Configuration = Jymfony.Bundle.FrameworkBundle.DependencyInjection.Configuration;
+const CachePoolPass = Jymfony.Component.Cache.DependencyInjection.CachePoolPass;
 const InvalidConfigurationException = Jymfony.Component.Config.Definition.Exception.InvalidConfigurationException;
 const FileLocator = Jymfony.Component.Config.FileLocator;
 const Alias = Jymfony.Component.DependencyInjection.Alias;
 const ChildDefinition = Jymfony.Component.DependencyInjection.ChildDefinition;
+const Parameter = Jymfony.Component.DependencyInjection.Parameter;
 const Reference = Jymfony.Component.DependencyInjection.Reference;
 const JsFileLoader = Jymfony.Component.DependencyInjection.Loader.JsFileLoader;
 const Extension = Jymfony.Component.DependencyInjection.Extension.Extension;
@@ -304,8 +306,9 @@ class FrameworkExtension extends Extension {
      */
     _registerCacheConfiguration(config, container, loader) {
         loader.load('cache.js');
-        // Const version = new Parameter('container.build_id');
-        // Container.getDefinition('cache.adapter.system').replaceArgument(2, version);
+
+        const version = new Parameter('container.build_id');
+        container.getDefinition('cache.adapter.system').replaceArgument(2, version);
         container.getDefinition('cache.adapter.filesystem').replaceArgument(2, config.directory);
 
         if (config.prefix_seed) {
@@ -317,7 +320,13 @@ class FrameworkExtension extends Extension {
             container.setParameter('cache.prefix.seed', container.parameterBag.resolveValue(container.getParameter('cache.prefix.seed'), true));
         }
 
-        for (const name of [ 'app' /* , 'system'*/]) {
+        for (let name of [ 'redis'/* , 'memcached' */ ]) {
+            if (config[name = 'default_' + name + '_provider']) {
+                container.setAlias('cache.' + name, new Alias(CachePoolPass.getServiceProvider(container, config[name]), false));
+            }
+        }
+
+        for (const name of [ 'app', 'system' ]) {
             config.pools['cache.' + name] = {
                 adapter: config[name],
                 'public': true,

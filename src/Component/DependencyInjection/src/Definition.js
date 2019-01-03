@@ -466,11 +466,11 @@ class Definition {
      *
      * @param {string} name
      *
-     * @returns {Object}
+     * @returns {Object[]}
      */
     getTag(name) {
         if (! this._tags[name]) {
-            return {};
+            return [];
         }
 
         return __jymfony.deepClone(this._tags[name]);

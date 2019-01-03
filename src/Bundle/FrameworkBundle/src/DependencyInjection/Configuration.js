@@ -322,7 +322,7 @@ class Configuration extends implementationOf(ConfigurationInterface) {
                             .defaultValue('cache.adapter.system')
                         .end()
                         .scalarNode('directory').defaultValue('%kernel.cache_dir%/pools').end()
-                        // .scalarNode('default_redis_provider').defaultValue('redis://localhost').end()
+                        .scalarNode('default_redis_provider').defaultValue('redis://localhost').end()
                         // .scalarNode('default_memcached_provider').defaultValue('memcached://localhost').end()
                         .arrayNode('pools')
                             .useAttributeAsKey('name')

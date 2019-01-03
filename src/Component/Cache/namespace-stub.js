@@ -14,6 +14,11 @@ Jymfony.Component.Cache = {
     /**
      * @namespace
      */
+    DependencyInjection: {},
+
+    /**
+     * @namespace
+     */
     Exception: {},
 
     /**
