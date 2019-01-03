@@ -112,6 +112,7 @@ class CachePoolPass extends implementationOf(CompilerPassInterface) {
      * @internal
      */
     static getServiceProvider(container, name) {
+        name = container.parameterBag.resolveValue(name, true);
         if (name.match(/^[a-z]+:/)) {
             const dsn = name;
 
