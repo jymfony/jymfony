@@ -214,7 +214,7 @@ class Kernel extends implementationOf(KernelInterface) {
      * @returns {string}
      */
     getCacheDir() {
-        return path.normalize(path.join(this.getRootDir(), '..', 'var', 'cache'));
+        return path.normalize(path.join(this.getRootDir(), '..', 'var', 'cache', this.environment));
     }
 
     /**
