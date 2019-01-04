@@ -779,7 +779,7 @@ class Request {
         if (_trustedHeaders[__self.HEADER_FORWARDED] && this.headers.has(_trustedHeaders[__self.HEADER_FORWARDED])) {
             forwardedValues = this.headers.get(_trustedHeaders[__self.HEADER_FORWARDED]);
 
-            const regex = new RegExp(__jymfony.sprintf('{(?:%s)=(?:"?\\[?)([a-zA-Z0-9\\.:_\\-/]*+)}', _forwardedParams[type]), 'g');
+            const regex = new RegExp(__jymfony.sprintf('{(?:%s)=(?:"?\\[?)([a-zA-Z0-9\\.:_\\-/]*)}', _forwardedParams[type]), 'g');
             const matches = forwardedValues.match(regex);
             forwardedValues = matches ? [ matches[1] ] : [];
         }
