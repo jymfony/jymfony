@@ -33,8 +33,6 @@ class EngineInterface {
      * @param {string|Jymfony.Component.Templating.TemplateReferenceInterface} name A template name or a TemplateReferenceInterface instance
      *
      * @returns {Promise<boolean>} true if the template exists, false otherwise
-     *
-     * @throws {RuntimeException} if the engine cannot handle the template name
      */
     async exists(name) { }
 

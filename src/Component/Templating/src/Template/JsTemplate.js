@@ -37,7 +37,6 @@ class JsTemplate extends implementationOf(TemplateInterface) {
 
             await vm.runInNewContext(code, {filename: this._file})(out, parameters);
         } catch (e) {
-            throw e;
             throw new RuntimeException(__jymfony.sprintf('Error while rendering template: %s', e.message), null, e);
         }
     }

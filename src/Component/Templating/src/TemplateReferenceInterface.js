@@ -1,5 +1,5 @@
 /**
- * Interface to be implemented by all templates.
+ * Internal representation of a template.
  *
  * @memberOf Jymfony.Component.Templating
  */

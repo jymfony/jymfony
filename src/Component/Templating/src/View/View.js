@@ -201,6 +201,15 @@ class View {
         this._parent = name;
     }
 
+    /**
+     * Do the stream operation.
+     *
+     * @param {string|Jymfony.Component.Templating.TemplateReferenceInterface} name
+     *
+     * @returns {Promise<void>}
+     *
+     * @private
+     */
     async _doStream(name) {
         const template = await this._engine.load(name);
         await template.stream(this._out.bind(this), this._parameters);
@@ -213,8 +222,10 @@ class View {
     }
 
     /**
+     * Outputs the value.
      *
-     * @param buffer
+     * @param {string|Buffer} buffer
+     *
      * @returns {Promise<void>}
      *
      * @private

@@ -1,7 +1,7 @@
 const TemplateReferenceInterface = Jymfony.Component.Templating.TemplateReferenceInterface;
 
 /**
- * Interface to be implemented by all templates.
+ * Internal representation of a template.
  *
  * @memberOf Jymfony.Component.Templating
  */
@@ -9,22 +9,22 @@ class TemplateReference extends implementationOf(TemplateReferenceInterface) {
     /**
      * Constructor.
      *
-     * @param {string} [name]
-     * @param {string} [engine]
+     * @param {string} [name] The logical name of the template
+     * @param {string} [engine] The name of the engine
      */
     __construct(name = undefined, engine = undefined) {
         this._parameters = { name, engine };
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     all() {
         return __jymfony.clone(this._parameters);
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     set(name, value) {
         if (this._parameters.hasOwnProperty(name)) {
@@ -37,7 +37,7 @@ class TemplateReference extends implementationOf(TemplateReferenceInterface) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     get(name) {
         if (this._parameters.hasOwnProperty(name)) {
@@ -48,14 +48,14 @@ class TemplateReference extends implementationOf(TemplateReferenceInterface) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     get name() {
         return this._parameters.name;
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     toString() {
         return this.name;

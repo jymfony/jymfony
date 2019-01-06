@@ -9,7 +9,7 @@ class DelegatingEngine extends implementationOf(EngineInterface) {
     /**
      * Constructor.
      *
-     * @param {Jymfony.Component.Templating.Engine.EngineInterface[]} engines An array of EngineInterface instances to add
+     * @param {Jymfony.Component.Templating.Engine.EngineInterface[]} [engines=[]] An array of EngineInterface instances to add
      */
     __construct(engines = []) {
         /**
@@ -34,15 +34,7 @@ class DelegatingEngine extends implementationOf(EngineInterface) {
     }
 
     /**
-     * Renders a template.
-     *
-     * @param {stream.Writable} out Stream to write the rendered template into.
-     * @param {string|Jymfony.Component.Templating.TemplateReferenceInterface} name A template name or a TemplateReferenceInterface instance
-     * @param {Object.<string, *>} [parameters = {}] A set of parameters to pass to the template
-     *
-     * @throws {RuntimeException} if the template cannot be rendered
-     *
-     * @returns {Promise<void>}
+     * @inheritdoc
      */
     render(out, name, parameters = {}) {
         return this.getEngine(name)
@@ -50,13 +42,7 @@ class DelegatingEngine extends implementationOf(EngineInterface) {
     }
 
     /**
-     * Returns true if the template exists.
-     *
-     * @param {string|Jymfony.Component.Templating.TemplateReferenceInterface} name A template name or a TemplateReferenceInterface instance
-     *
-     * @returns {Promise<boolean>} true if the template exists, false otherwise
-     *
-     * @throws {RuntimeException} if the engine cannot handle the template name
+     * @inheritdoc
      */
     async exists(name) {
         try {
@@ -67,11 +53,7 @@ class DelegatingEngine extends implementationOf(EngineInterface) {
     }
 
     /**
-     * Returns true if this class is able to render the given template.
-     *
-     * @param {string|Jymfony.Component.Templating.TemplateReferenceInterface} name A template name or a TemplateReferenceInterface instance
-     *
-     * @returns {boolean} true if this class supports the given template, false otherwise
+     * @inheritdoc
      */
     supports(name) {
         return this.getEngine(name).supports(name);

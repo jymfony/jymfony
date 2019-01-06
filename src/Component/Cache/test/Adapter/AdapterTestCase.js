@@ -287,11 +287,11 @@ exports.shouldPassAdapterTests = function () {
         item.set('value');
         await cache.save(item);
 
-        await __jymfony.sleep(1000);
+        await __jymfony.sleep(1);
         item = await cache.getItem('key.dlt');
         expect(item.isHit).to.be.true;
 
-        await __jymfony.sleep(2000);
+        await __jymfony.sleep(3000);
         item = await cache.getItem('key.dlt');
         expect(item.isHit).to.be.false;
     };

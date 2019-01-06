@@ -136,9 +136,6 @@ class JsEngine extends implementationOf(EngineInterface) {
      * it would be right to leave the string as-is, but c-escape the apostrophe and
      * the new line.
      *
-     * For each function there is a define to avoid problems with strings being
-     * incorrectly specified.
-     *
      * @protected
      */
     _initializeEscapers() {
@@ -151,7 +148,7 @@ class JsEngine extends implementationOf(EngineInterface) {
              * @returns {string} the escaped value
              */
             html: (value) => {
-                if (!isString(value)) {
+                if (! isString(value)) {
                     return value;
                 }
 
@@ -186,7 +183,7 @@ class JsEngine extends implementationOf(EngineInterface) {
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     async render(out, name, parameters = {}) {
         // Attach the global variables

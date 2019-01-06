@@ -12,7 +12,7 @@ class ChainLoader extends implementationOf(LoaderInterface, LoggerAwareInterface
     /**
      * Constructor.
      *
-     * @param {Jymfony.Component.Templating.Loader.LoaderInterface[]} loaders An array of loader instances
+     * @param {Jymfony.Component.Templating.Loader.LoaderInterface[]} [loaders=[]] An array of loader instances
      */
     __construct(loaders = []) {
         /**
