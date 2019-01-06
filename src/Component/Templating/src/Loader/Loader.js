@@ -36,7 +36,7 @@ class Loader extends implementationOf(LoaderInterface, LoggerAwareInterface, Log
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      *
      * @param {Jymfony.Component.Templating.TemplateReferenceInterface} template The template reference.
      */

@@ -394,13 +394,12 @@ class Configuration extends implementationOf(ConfigurationInterface) {
                     .info('templating configuration')
                     .canBeEnabled()
                     .beforeNormalization()
-                        .ifTrue((v) => false === v || false === v['enabled'])
+                        .ifTrue((v) => false === v || false === v.enabled)
                         .then(() => {
                             return { enabled: false, engines: false };
                         })
                     .end()
                     .children()
-                        .scalarNode('hinclude_default_template').defaultNull().end()
                         .scalarNode('cache').end()
                     .end()
                     .children()
