@@ -1,7 +1,14 @@
 const InvalidArgumentException = Jymfony.Component.Cache.Exception.InvalidArgumentException;
 
-const Redis = require('ioredis');
-const RedisCluster = Redis.Cluster;
+let Redis;
+let RedisCluster;
+
+try {
+    Redis = require('ioredis');
+    RedisCluster = Redis.Cluster;
+} catch (e) {
+    // Do nothing
+}
 
 /**
  * @memberOf Jymfony.Component.Cache.Traits
