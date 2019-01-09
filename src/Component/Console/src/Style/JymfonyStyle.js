@@ -294,7 +294,7 @@ class JymfonyStyle extends OutputStyle {
     /**
      * @inheritdoc
      */
-    writeln(messages, type = OutputInterface.OUTPUT_NORMAL) {
+    writeln(messages = '', type = OutputInterface.OUTPUT_NORMAL) {
         super.writeln(messages, type);
         this._bufferedOutput.writeln(this._reduceBuffer(messages), type);
     }

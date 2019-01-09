@@ -45,18 +45,6 @@ class OutputFormatterStyle extends implementationOf(OutputFormatterStyleInterfac
      * @param {Array} [options = []]
      */
     __construct(foreground = undefined, background = undefined, options = []) {
-        if (foreground) {
-            this.foreground = foreground;
-        }
-
-        if (background) {
-            this.background = background;
-        }
-
-        if (options.length) {
-            this.setOptions(options);
-        }
-
         /**
          * @type {Set<*>}
          *
@@ -84,6 +72,18 @@ class OutputFormatterStyle extends implementationOf(OutputFormatterStyleInterfac
          * @private
          */
         this._href = undefined;
+
+        if (foreground) {
+            this.foreground = foreground;
+        }
+
+        if (background) {
+            this.background = background;
+        }
+
+        if (options.length) {
+            this.setOptions(options);
+        }
     }
 
     /**
