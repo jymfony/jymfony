@@ -9,6 +9,7 @@ require('./lib/Iterator/EmptyIterator');
 
 require('./lib/Object/polyfills/values');
 require('./lib/Object/clone');
+require('./lib/Object/deepMerge');
 require('./lib/Object/diffKey');
 require('./lib/Object/entries');
 require('./lib/Object/equal');
