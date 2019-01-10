@@ -23,6 +23,10 @@ But you can also install Jymfony via [npm](https://npmjs.com/):
 $ npm install jymfony
 ```
 
+Basic usage
+-----------
+You can find a fully working base example project [here](https://github.com/jymfony/example).
+
 Components available:
 ---------------------
 As said, Jymfony is made of reusable Javascript components:
