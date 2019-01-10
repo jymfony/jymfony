@@ -35,17 +35,15 @@ class CacheWarmerAggregate extends implementationOf(CacheWarmerInterface) {
     }
 
     /**
-     * Warms up the cache.
-     *
-     * @param {string} cacheDir
+     * @inheritdoc
      */
-    warmUp(cacheDir) {
+    async warmUp(cacheDir) {
         for (const warmer of this._warmers) {
             if (! this._optionalsEnabled && warmer.optional) {
                 continue;
             }
 
-            warmer.warmUp(cacheDir);
+            await warmer.warmUp(cacheDir);
         }
     }
 

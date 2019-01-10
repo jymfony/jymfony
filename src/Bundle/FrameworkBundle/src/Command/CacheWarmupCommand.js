@@ -56,7 +56,7 @@ Before running this command, the cache must be empty.
             this._cacheWarmer.enableOptionalWarmers();
         }
 
-        this._cacheWarmer.warmUp(kernel.container.getParameter('kernel.cache_dir'));
+        await this._cacheWarmer.warmUp(kernel.container.getParameter('kernel.cache_dir'));
 
         io.success(__jymfony.sprintf(
             'Cache for the "%s" environment (debug=%s) was successfully warmed.',

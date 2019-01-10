@@ -8,6 +8,8 @@ class WarmableInterface {
      * Warms up the cache.
      *
      * @param {string} cacheDir The cache directory
+     *
+     * @returns {Promise<void>}
      */
     warmUp(cacheDir) { }
 }
