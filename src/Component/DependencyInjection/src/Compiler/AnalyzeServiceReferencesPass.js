@@ -141,7 +141,7 @@ class AnalyzeServiceReferencesPass extends mix(AbstractRecursivePass, Repeatable
      * @private
      */
     _getDefinition(id) {
-        return undefined === id ? undefined : this._container.getDefinition(id);
+        return undefined === id ? undefined : (this._container.hasDefinition(id) ? this._container.getDefinition(id) : undefined);
     }
 
     /**

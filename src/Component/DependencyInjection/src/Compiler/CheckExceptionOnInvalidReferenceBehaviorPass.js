@@ -15,7 +15,7 @@ class CheckExceptionOnInvalidReferenceBehaviorPass extends AbstractRecursivePass
             const destId = value.toString();
 
             if (! this._container.has(destId)) {
-                throw new ServiceNotFoundException(destId, this._sourceId);
+                throw new ServiceNotFoundException(destId, this._currentId);
             }
         }
 

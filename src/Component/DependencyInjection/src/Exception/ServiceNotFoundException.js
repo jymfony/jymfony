@@ -9,9 +9,17 @@ class ServiceNotFoundException extends mix(InvalidArgumentException, NotFoundExc
      * Constructor.
      *
      * @param {string} id
+     * @param {string} [sourceId]
      */
-    __construct(id) {
-        super.__construct('Service \''+id+'\' could not be found');
+    __construct(id, sourceId = undefined) {
+        let msg;
+        if (! sourceId) {
+            msg = __jymfony.sprintf('You have requested a non-existent service "%s".', id);
+        } else {
+            msg = __jymfony.sprintf('The service "%s" has a dependency on a non-existent service "%s".', sourceId, id);
+        }
+
+        super.__construct(msg);
     }
 }
 
