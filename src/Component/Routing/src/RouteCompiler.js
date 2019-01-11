@@ -86,7 +86,7 @@ class RouteCompiler {
             }
 
             if (isSeparator && precedingText !== precedingChar) {
-                tokens.push([ 'text', precedingText.substr(0, -precedingChar.length) ]);
+                tokens.push([ 'text', precedingText.substr(0, precedingText.length - precedingChar.length) ]);
             } else if (! isSeparator && 0 < precedingText.length) {
                 tokens.push([ 'text', precedingText ]);
             }
@@ -96,13 +96,13 @@ class RouteCompiler {
                 const followingPattern = pattern.substr(pos);
                 const nextSeparator = __self._findNextSeparator(followingPattern);
 
-                const regPattern = __jymfony.sprintf(
+                regexp = __jymfony.sprintf(
                     '[^%s%s]+',
                     __jymfony.regex_quote(defaultSeparator),
                     defaultSeparator !== nextSeparator && '' !== nextSeparator ? __jymfony.regex_quote(nextSeparator) : ''
                 );
-
-                regexp = regPattern;
+            } else {
+                regexp = __self._transformCapturingGroupsToNonCapturings(regexp.source);
             }
 
             tokens.push([ 'variable', isSeparator ? precedingChar : '', regexp, varName ]);
@@ -209,6 +209,37 @@ class RouteCompiler {
             if (nbTokens - 1 === index) {
                 regexp += ')?'.repeat(nbTokens - firstOptional - (0 === firstOptional ? 1 : 0));
             }
+        }
+
+        return regexp;
+    }
+
+    /**
+     * Transforms capturing groups in requirements to non-capturing groups
+     *
+     * @param {string} regexp
+     * @returns {string}
+     *
+     * @private
+     */
+    static _transformCapturingGroupsToNonCapturings(regexp) {
+        for (let i = 0; i < regexp.length; ++i) {
+            if ('\\' === regexp[i]) {
+                ++i;
+                continue;
+            }
+
+            if ('(' !== regexp[i] || ! regexp[i + 2]) {
+                continue;
+            }
+
+            if ('*' === regexp[++i] || '?' === regexp[i]) {
+                ++i;
+                continue;
+            }
+
+            regexp = __jymfony.substr_replace(regexp, '?:', i, 0);
+            ++i;
         }
 
         return regexp;

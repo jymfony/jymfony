@@ -126,7 +126,7 @@ class NormalizerFormatter extends implementationOf(FormatterInterface) {
      */
     _normalizeError(record, depth) {
         const trace = Exception.parseStackTrace(record);
-        const reflClass = new ReflectionClass(trace);
+        const reflClass = new ReflectionClass(record);
 
         const data = {
             'class': reflClass.name,

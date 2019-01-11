@@ -3,9 +3,9 @@ const expect = require('chai').expect;
 
 describe('[Config] ExprBuilder', function () {
     const testBuilder = () => {
-        const builder = new TreeBuilder();
+        const builder = new TreeBuilder('root');
 
-        return builder.root('root')
+        return builder.rootNode
             .children()
             .variableNode('key')
             .validate();

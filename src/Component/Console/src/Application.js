@@ -34,6 +34,8 @@ class Application {
         this._terminal = new Terminal();
         this._catchExceptions = true;
         this._autoExit = true;
+        this._runningCommand = undefined;
+        this._wantHelps = false;
 
         for (const command of this._getDefaultCommands()) {
             this.add(command);
@@ -743,18 +745,20 @@ class Application {
             output.writeln(messages, OutputInterface.OUTPUT_RAW | OutputInterface.VERBOSITY_QUIET);
 
             if (OutputInterface.VERBOSITY_VERBOSE <= output.verbosity) {
-                output.writeln('<comment>Exception trace:</comment>', OutputInterface.VERBOSITY_QUIET);
+                const trace = exception.stackTrace || Exception.parseStackTrace(exception) || [];
+                if (trace && trace.length) {
+                    output.writeln('<comment>Exception trace:</comment>', OutputInterface.VERBOSITY_QUIET);
 
-                // Exception related properties
-                const trace = Exception.parseStackTrace(exception);
-                for (const current of trace) {
-                    const func = current['function'];
-                    const file = current['file'] || 'n/a';
-                    const line = current['line'] || 'n/a';
-                    output.writeln(__jymfony.sprintf('   %s() at <info>%s:%s</info>', func, file, line), OutputInterface.VERBOSITY_QUIET);
+                    // Exception related properties
+                    for (const current of trace) {
+                        const func = current['function'];
+                        const file = current['file'] || 'n/a';
+                        const line = current['line'] || 'n/a';
+                        output.writeln(__jymfony.sprintf('   %s() at <info>%s:%s</info>', func, file, line), OutputInterface.VERBOSITY_QUIET);
+                    }
+
+                    output.writeln('', OutputInterface.VERBOSITY_QUIET);
                 }
-
-                output.writeln('', OutputInterface.VERBOSITY_QUIET);
             }
         } while (exception = exception.previous);
 

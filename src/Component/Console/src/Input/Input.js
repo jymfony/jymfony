@@ -164,7 +164,7 @@ class Input extends implementationOf(StreamableInputInterface) {
      * @inheritdoc
      */
     hasOption(name) {
-        return this._definition._hasOption(name);
+        return this._definition.hasOption(name);
     }
 
     /**

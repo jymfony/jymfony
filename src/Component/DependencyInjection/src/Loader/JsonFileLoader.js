@@ -35,6 +35,18 @@ class JsonFileLoader extends FileLoader {
         this._container.addResource(new FileResource(filePath));
 
         const content = require(filePath);
+
+        // Parameters
+        if (undefined !== content.parameters) {
+            if (! isObjectLiteral(content.parameters)) {
+                throw new InvalidArgumentException(__jymfony.sprintf('The "parameters" key should contain a key-value object in %s.', filePath));
+            }
+
+            for (const [ key, value ] of __jymfony.getEntries(content.parameters)) {
+                this._container.setParameter(key, value);
+            }
+        }
+
         this._loadFromExtensions(content);
     }
 

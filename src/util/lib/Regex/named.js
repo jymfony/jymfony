@@ -14,7 +14,7 @@ if (! __jymfony.Platform.hasModernRegex()) {
          */
         constructor(pattern, flags = undefined) {
             const names = [];
-            const sanitized = pattern
+            const sanitized = pattern.toString()
                 .replace(/\(\?<(\w+)>/g, (_, name) => {
                     names.push(name);
                     return '(';
@@ -53,9 +53,7 @@ if (! __jymfony.Platform.hasModernRegex()) {
 
             const groups = {};
             for (let i = 1; i <= this._names.length; i++) {
-                if (result[i]) {
-                    groups[this._names[i - 1]] = result[i];
-                }
+                groups[this._names[i - 1]] = result[i];
             }
 
             result.groups = groups;

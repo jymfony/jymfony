@@ -100,20 +100,20 @@ class OutputFormatter extends implementationOf(OutputFormatterInterface) {
     format(message) {
         message = message.toString();
         let offset = 0, output = '', match;
-        const regex = /<(([a-z][a-z0-9_=;-]+)|\/([a-z][a-z0-9_=;-]+)?)>/ig;
+        const regex = /<(([a-z][^<>]+)|\/([a-z][^<>]+)?)>/ig;
 
-        while (match = regex.exec(message)) {
+        while ((match = regex.exec(message))) {
             const pos = match.index;
             const text = match[0];
 
-            if (pos && '\\' == message[pos - 1]) {
+            if (pos && '\\' === message[pos - 1]) {
                 continue;
             }
 
             output += this._applyCurrentStyle(message.substr(offset, pos - offset));
             offset = pos + text.length;
 
-            const open = '/' != text[1];
+            const open = '/' !== text[1];
             const tag = open ? match[1] : match[3];
 
             let style;
@@ -178,11 +178,13 @@ class OutputFormatter extends implementationOf(OutputFormatterInterface) {
         }
 
         regexp.lastIndex = 0;
-        while (match = regexp.exec(string)) {
-            if ('fg' == match[1]) {
+        while ((match = regexp.exec(string))) {
+            if ('fg' === match[1]) {
                 style.foreground = match[2];
-            } else if ('bg' == match[1]) {
+            } else if ('bg' === match[1]) {
                 style.background = match[2];
+            } else if ('href' === match[1]) {
+                style.href = match[2];
             } else {
                 try {
                     style.setOption(match[2]);

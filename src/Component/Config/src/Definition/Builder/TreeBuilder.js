@@ -8,20 +8,39 @@ const NodeBuilder = Jymfony.Component.Config.Definition.Builder.NodeBuilder;
  */
 class TreeBuilder extends implementationOf(NodeParentInterface) {
     /**
-     * Creates the root node.
+     * Constructor.
      *
      * @param {string} name The name of the root node
      * @param {string} [type = 'array'] The type of the root node
      * @param {Jymfony.Component.Config.Definition.Builder.NodeBuilder} [builder] A custom node builder instance
      *
-     * @returns {Jymfony.Component.Config.Definition.Builder.ArrayNodeDefinition|Jymfony.Component.Config.Definition.Builder.NodeDefinition} The root node (as an ArrayNodeDefinition when the type is 'array')
-     *
      * @throws {RuntimeException} When the node type is not supported
      */
-    root(name, type = 'array', builder = undefined) {
+    __construct(name, type = 'array', builder = undefined) {
         builder = builder || new NodeBuilder();
 
-        return this._root = builder.node(name, type).setParent(this);
+        /**
+         * @type {Jymfony.Component.Config.Definition.Builder.ArrayNodeDefinition|Jymfony.Component.Config.Definition.Builder.NodeDefinition}
+         *
+         * @private
+         */
+        this._root = builder.node(name, type).setParent(this);
+
+        /**
+         * @type {Jymfony.Component.Config.Definition.NodeInterface}
+         *
+         * @private
+         */
+        this._tree = undefined;
+    }
+
+    /**
+     * Gets the root node definition.
+     *
+     * @returns {Jymfony.Component.Config.Definition.Builder.ArrayNodeDefinition|Jymfony.Component.Config.Definition.Builder.NodeDefinition}
+     */
+    get rootNode() {
+        return this._root;
     }
 
     /**

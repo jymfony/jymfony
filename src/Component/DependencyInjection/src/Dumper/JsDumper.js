@@ -33,6 +33,11 @@ class JsDumper {
 
         this._container = container;
         this._inlinedDefinitions = new Map();
+        this._serviceIdToMethodNameMap = undefined;
+        this._usedMethodNames = undefined;
+        this._definitionVariables = undefined;
+        this._referenceVariables = undefined;
+        this._variableCount = undefined;
     }
 
     /**
@@ -357,6 +362,7 @@ ${this._addServiceInstance(id, definition)}\
 ${this._addInlinedDefinitionsSetup(id, definition)}\
 ${this._addProperties(id, definition)}\
 ${this._addMethodCalls(id, definition)}\
+${this._addShutdownCalls(id, definition)}\
 ${this._addConfigurator(id, definition)}\
 ${this._addReturn(id, definition)}\
     }
@@ -382,6 +388,7 @@ ${this._addReturn(id, definition)}\
         for (const iDefinition of localDefinitions) {
             this._getServiceCallsFromArguments(iDefinition.getArguments(), calls, behavior);
             this._getServiceCallsFromArguments(iDefinition.getMethodCalls(), calls, behavior);
+            this._getServiceCallsFromArguments(iDefinition.getShutdownCalls(), calls, behavior);
             this._getServiceCallsFromArguments(iDefinition.getProperties(), calls, behavior);
             this._getServiceCallsFromArguments([ iDefinition.getConfigurator() ], calls, behavior);
             this._getServiceCallsFromArguments([ iDefinition.getFactory() ], calls, behavior);
@@ -441,7 +448,9 @@ ${this._addReturn(id, definition)}\
             }
             processed.add(sDefinition);
 
-            if (1 < nbOccurrences.get(sDefinition) || sDefinition.getMethodCalls().length || Object.keys(sDefinition.getProperties()).length || sDefinition.getConfigurator()) {
+            if (1 < nbOccurrences.get(sDefinition) || sDefinition.getMethodCalls().length ||
+                sDefinition.getShutdownCalls().length || Object.keys(sDefinition.getProperties()).length ||
+                sDefinition.getConfigurator()) {
                 const name = this._getNextVariableName();
                 this._definitionVariables.set(sDefinition, new Variable(name));
 
@@ -454,6 +463,7 @@ ${this._addReturn(id, definition)}\
                 if (! this._hasReference(id, sDefinition.getMethodCalls(), true) && ! this._hasReference(id, sDefinition.getProperties(), true)) {
                     code += this._addProperties(undefined, sDefinition, name);
                     code += this._addMethodCalls(undefined, sDefinition, name);
+                    code += this._addShutdownCalls(undefined, sDefinition, name);
                     code += this._addConfigurator(undefined, sDefinition, name);
                 }
 
@@ -523,7 +533,9 @@ ${this._addReturn(id, definition)}\
 
             processed.add(iDefinition);
 
-            if (! this._hasReference(id, iDefinition.getMethodCalls(), true) && ! this._hasReference(id, iDefinition.getProperties(), true)) {
+            if (! this._hasReference(id, iDefinition.getMethodCalls(), true) &&
+                ! this._hasReference(id, iDefinition.getShutdownCalls(), true) &&
+                ! this._hasReference(id, iDefinition.getProperties(), true)) {
                 continue;
             }
 
@@ -535,6 +547,7 @@ ${this._addReturn(id, definition)}\
 
             const name = this._definitionVariables.get(iDefinition);
             code += this._addMethodCalls(null, iDefinition, name);
+            code += this._addShutdownCalls(null, iDefinition, name);
             code += this._addProperties(null, iDefinition, name);
             code += this._addConfigurator(null, iDefinition, name);
         }
@@ -583,6 +596,30 @@ ${this._addReturn(id, definition)}\
             }
 
             code += this._wrapServiceConditionals(call[1], __jymfony.sprintf('        %s.%s(%s);\n', variableName, call[0], args.join(', ')));
+        }
+
+        return code;
+    }
+
+    /**
+     * @param {string} id
+     * @param {Jymfony.Component.DependencyInjection.Definition} definition
+     * @param {string} [variableName = instance]
+     *
+     * @returns {string}
+     *
+     * @private
+     */
+    _addShutdownCalls(id, definition, variableName = 'instance') {
+        let code = '';
+
+        for (const call of definition.getShutdownCalls()) {
+            const args = [];
+            for (const value of call[1]) {
+                args.push(this._dumpValue(value));
+            }
+
+            code += this._wrapServiceConditionals(call[1], __jymfony.sprintf('        this.registerShutdownCall(%s.%s.bind(%s, %s));\n', variableName, call[0], variableName, args.join(', ')));
         }
 
         return code;
@@ -701,6 +738,10 @@ ${this._addReturn(id, definition)}\
                 throw new RuntimeException('Cannot dump definitions which have method calls');
             }
 
+            if (0 < value.getShutdownCalls().length) {
+                throw new RuntimeException('Cannot dump definitions which have shutdown calls');
+            }
+
             if (value.getConfigurator()) {
                 throw new RuntimeException('Cannot dump definitions which have configurator');
             }
@@ -789,6 +830,7 @@ ${this._addReturn(id, definition)}\
             const definitions = [
                 ...this._getDefinitionsFromArguments(definition.getArguments()),
                 ...this._getDefinitionsFromArguments(definition.getMethodCalls()),
+                ...this._getDefinitionsFromArguments(definition.getShutdownCalls()),
                 ...this._getDefinitionsFromArguments(definition.getProperties()),
                 ...this._getDefinitionsFromArguments([ definition.getConfigurator() ]),
                 ...this._getDefinitionsFromArguments([ definition.getFactory() ]),
@@ -952,17 +994,22 @@ ${this._addReturn(id, definition)}\
      * @param {string} id
      * @param {Jymfony.Component.DependencyInjection.Definition} definition
      *
-     * @returns {string}
+     * @returns {boolean}
      *
      * @private
      */
     _isSimpleInstance(id, definition) {
         for (const sDefinition of [ definition, ...this._getInlinedDefinitions(definition) ]) {
-            if (definition !== sDefinition && ! this._hasReference(id, sDefinition.getMethodCalls())) {
+            if (definition !== sDefinition &&
+                ! this._hasReference(id, sDefinition.getMethodCalls()) &&
+                ! this._hasReference(id, sDefinition.getShutdownCalls())) {
                 continue;
             }
 
-            if (0 < sDefinition.getMethodCalls().length || 0 < Object.keys(sDefinition.getProperties()).length || sDefinition.getConfigurator()) {
+            if (0 < sDefinition.getMethodCalls().length ||
+                0 < Object.keys(sDefinition.getShutdownCalls()).length ||
+                0 < Object.keys(sDefinition.getProperties()).length ||
+                sDefinition.getConfigurator()) {
                 return false;
             }
         }
@@ -1064,7 +1111,7 @@ ${this._addReturn(id, definition)}\
                     // Todo
                     // If (service.isLazy() && ! (this._getProxyDumper instanceof NullDumper))
 
-                    args = [ ...service.getMethodCalls(), ...service.getArguments(), ...Object.values(service.getProperties()) ];
+                    args = [ ...service.getMethodCalls(), ...service.getShutdownCalls(), ...service.getArguments(), ...Object.values(service.getProperties()) ];
                     if (this._hasReference(id, args, deep, visited)) {
                         return true;
                     }

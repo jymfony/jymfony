@@ -21,7 +21,9 @@
   },
   "devDependencies": {
     "@jymfony/console": "*",
+    "@jymfony/datetime": "*",
     "@jymfony/debug": "*",
+    "@jymfony/testing": "*",
     "bson": "^2.0",
     "chai": "^3.5.0",
     "mocha": "^5.0",

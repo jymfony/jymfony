@@ -37,6 +37,7 @@ class ArgvInput extends Input {
     __construct(argv = process.argv, definition = undefined) {
         // Skip application name
         this._tokens = argv.slice(2);
+        this._parsed = undefined;
 
         super.__construct(definition);
     }

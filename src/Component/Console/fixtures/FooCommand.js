@@ -1,6 +1,13 @@
 const Command = Jymfony.Component.Console.Command.Command;
 
 class FooCommand extends Command {
+    __construct(name) {
+        super.__construct(name);
+
+        this.input = undefined;
+        this.output = undefined;
+    }
+
     /**
      * @inheritdoc
      */

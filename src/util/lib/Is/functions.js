@@ -1,5 +1,7 @@
 global.isGenerator = function isGenerator(value) {
-    return value && 'function' === typeof value.next && 'function' === typeof value.throw;
+    return isObject(value) &&
+        Reflect.has(value, 'next') && Reflect.has(value, 'throw') &&
+        'function' === typeof value.next && 'function' === typeof value.throw;
 };
 
 /**
@@ -71,5 +73,5 @@ global.isFunction = function isFunction(obj) {
         return true;
     }
 
-    return '[object Function]' === toString.call(obj);
+    return '[object Function]' === Object.prototype.toString.call(obj);
 };

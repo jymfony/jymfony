@@ -11,8 +11,8 @@ class Route {
      * @param {Object.<string, *>} [defaults = {}]
      * @param {Object.<string, string>} [requirements = {}]
      * @param {Object.<string, *>} [options = {}]
-     * @param {string[]} [host]
-     * @param {string[]} [schemes = []]
+     * @param {string} [host]
+     * @param {string[]} [schemes = [ 'http', 'https' ]]
      * @param {string[]} [methods = [ 'GET', 'POST' ]]
      * @param {string} [condition]
      */
@@ -22,7 +22,7 @@ class Route {
         requirements = {},
         options = {},
         host = undefined,
-        schemes = [],
+        schemes = [ 'http', 'https' ],
         methods = [ 'GET', 'POST' ],
         condition = undefined
     ) {
@@ -232,7 +232,7 @@ class Route {
      * @returns {Object.<string, *>}
      */
     get defaults() {
-        return this._defaults;
+        return Object.assign({}, this._defaults);
     }
 
     /**
@@ -309,6 +309,15 @@ class Route {
         // @todo
 
         return this;
+    }
+
+    /**
+     * Gets the condition for this route.
+     *
+     * @returns {undefined}
+     */
+    get condition() {
+        return undefined;
     }
 
     /**
@@ -412,7 +421,7 @@ class Route {
      * @private
      */
     _sanitizeRequirement(key, regex) {
-        if (regex instanceof RegExp) {
+        if (isRegExp(regex)) {
             regex = regex.source;
         }
 
@@ -424,8 +433,8 @@ class Route {
             regex = regex.substr(1);
         }
 
-        if ('$' !== regex.substr(-1)) {
-            regex = regex.substr(0, -1);
+        if ('$' === regex.charAt(regex.length - 1)) {
+            regex = regex.substr(0, regex.length - 1);
         }
 
         if ('' === regex) {

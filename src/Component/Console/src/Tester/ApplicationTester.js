@@ -22,23 +22,7 @@ class ApplicationTester {
          * @private
          */
         this._application = application;
-    }
 
-    /**
-     * Executes the application.
-     *
-     * Options:
-     *  * interactive      Sets the input interactive flag [false]
-     *  * decorated        Sets the decorated flag [false]
-     *  * verbosity        Sets the output verbosity level [VERBOSITY_NORMAL]
-     *  * stderr           Whether to capture stderr separately from stdout [false]
-     *
-     * @param {Object.<string, *>} input
-     * @param {Object<string, boolean|*>} [options = {}]
-     *
-     * @returns {Promise<int>}
-     */
-    async run(input, options = {}) {
         /**
          * @type {string}
          *
@@ -58,13 +42,48 @@ class ApplicationTester {
          *
          * @private
          */
-        this._input = new ArrayInput(input);
+        this._input = undefined;
 
         /**
          * @type {int}
          *
          * @private
          */
+        this._statusCode = undefined;
+
+        /**
+         * @type {boolean}
+         *
+         * @private
+         */
+        this._captureStdErrSeparately = false;
+
+        /**
+         * @type {Jymfony.Component.Console.Output.OutputInterface}
+         *
+         * @private
+         */
+        this._output = undefined;
+    }
+
+    /**
+     * Executes the application.
+     *
+     * Options:
+     *  * interactive      Sets the input interactive flag [false]
+     *  * decorated        Sets the decorated flag [false]
+     *  * verbosity        Sets the output verbosity level [VERBOSITY_NORMAL]
+     *  * stderr           Whether to capture stderr separately from stdout [false]
+     *
+     * @param {Object.<string, *>} input
+     * @param {Object<string, boolean|*>} [options = {}]
+     *
+     * @returns {Promise<int>}
+     */
+    async run(input, options = {}) {
+        this._readOutput = '';
+        this._readStdErr = '';
+        this._input = new ArrayInput(input);
         this._statusCode = undefined;
 
         if (options.interactive) {

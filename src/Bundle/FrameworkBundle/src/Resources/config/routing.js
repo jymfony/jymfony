@@ -22,7 +22,16 @@ container.register('routing.loader', Jymfony.Component.Config.Loader.DelegatingL
 container.register('router.default', Jymfony.Component.Routing.Router)
     .addArgument(new Reference('routing.loader'))
     .addArgument('%router.resource%')
-    .addArgument({})
+    .addArgument({
+        'cache_dir': '%kernel.cache_dir%',
+        'debug': '%kernel.debug%',
+        'matcher_cache_class': '%router.cache_class_prefix%UrlMatcher',
+    })
 ;
 
 container.setAlias('router', new Alias('router.default', true));
+
+container.register(Jymfony.Bundle.FrameworkBundle.CacheWarmer.RouterCacheWarmer)
+    .addTag('kernel.cache_warmer')
+    .addArgument(new Reference('service_container'))
+;

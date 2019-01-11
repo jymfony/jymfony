@@ -1,4 +1,5 @@
 const Namespace = Jymfony.Component.Autoloader.Namespace;
+const ContainerBuilder = Jymfony.Component.DependencyInjection.ContainerBuilder;
 const DateTime = Jymfony.Component.DateTime.DateTime;
 const Bundle = Jymfony.Component.Kernel.Bundle;
 const Kernel = Jymfony.Component.Kernel.Kernel;
@@ -12,56 +13,37 @@ const Fixtures = new Namespace(__jymfony.autoload, 'Jymfony.Component.Kernel.Fix
     path.join(__dirname, '..', 'fixtures'),
 ]);
 
+class CallTracingKernel extends Kernel {
+    __construct(methods = [], bundles = []) {
+        super.__construct('test', false);
+
+        this._calls = {
+            'registerBundles': 0,
+        };
+
+        for (const method of methods) {
+            this._calls[method] = 0;
+            this[method] = function () {
+                this._calls[method]++;
+            };
+        }
+
+        this._bundles = bundles;
+    }
+
+    getCallCount(method) {
+        return ~~this._calls[method];
+    }
+
+    registerBundles() {
+        this._calls['registerBundles']++;
+
+        return this._bundles;
+    }
+}
+
 const getKernel = function (methods = [], bundles = []) {
-    const kernel = new Kernel('test', false);
-    kernel.getCallCount = function (method) {
-        return ~~ (this._calls[method]);
-    };
-
-    kernel._calls = {
-        'registerBundles': 0,
-    };
-
-    for (const method of methods) {
-        kernel._calls[method] = 0;
-        kernel[method] = function () {
-            this._calls[method]++;
-        };
-    }
-
-    kernel.registerBundles = function () {
-        this._calls['registerBundles']++;
-
-        return bundles;
-    };
-
-    return kernel;
-};
-
-const getKernelForTest = function (methods = [], bundles = []) {
-    const kernel = new Fixtures.KernelForTest('test', false);
-    kernel.getCallCount = function (method) {
-        return ~~ (this._calls[method]);
-    };
-
-    kernel._calls = {
-        'registerBundles': 0,
-    };
-
-    for (const method of methods) {
-        kernel._calls[method] = 0;
-        kernel[method] = function () {
-            this._calls[method]++;
-        };
-    }
-
-    kernel.registerBundles = function () {
-        this._calls['registerBundles']++;
-
-        return bundles;
-    };
-
-    return kernel;
+    return new CallTracingKernel(methods, bundles);
 };
 
 /**
@@ -96,23 +78,22 @@ describe('[Kernel] Kernel', function () {
         expect(kernel.getCallCount('_initializeContainer')).to.be.equal(1);
     });
 
-    it('boot sets the container to bundles', () => {
+    it('boot sets the container to bundles', async () => {
         const bundle = prophet.prophesize(Bundle);
         bundle.setContainer(Argument.any()).willReturn();
         bundle.boot().willReturn();
 
-        const kernel = getKernel([ '_initializeBundles', '_initializeContainer' ]);
-        kernel.getBundles = () => [ bundle.reveal() ];
-        kernel.boot();
+        const kernel = getKernel([ '_initializeBundles', '_initializeContainer' ], [ bundle.reveal() ]);
+        await kernel.boot();
 
         bundle.setContainer(kernel.container).shouldHaveBeenCalled();
     });
 
     it('boot should set the booted flag', () => {
-        const kernel = getKernelForTest([ '_initializeBundles', '_initializeContainer' ]);
+        const kernel = getKernel([ '_initializeBundles', '_initializeContainer' ]);
         kernel.boot();
 
-        expect(kernel.booted).to.be.true;
+        expect(kernel._booted).to.be.true;
     });
 
     it('boot should initialize bundles once if multiple boot has called', async () => {
@@ -127,6 +108,7 @@ describe('[Kernel] Kernel', function () {
     it('shutdown should call shutdown on all bundles', async () => {
         const bundle = prophet.prophesize(Bundle);
         const kernel = getKernel([ '_initializeContainer' ], [ bundle.reveal() ]);
+        kernel._container = new ContainerBuilder();
 
         await kernel.boot();
         await kernel.shutdown();

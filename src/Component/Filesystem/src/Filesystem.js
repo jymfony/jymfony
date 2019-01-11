@@ -396,6 +396,10 @@ class Filesystem {
     async isReadable(filename) {
         const stat = await StreamWrapper.get(filename).stat(filename);
 
+        if (__jymfony.Platform.isWindows()) {
+            return 0 !== (stat.mode & (S_IRUSR | S_IRGRP | S_IWGRP));
+        }
+
         if (process.getuid() === stat.uid) {
             return (stat.mode & S_IRUSR) === S_IRUSR;
         } else if (process.getgid() === stat.gid) {

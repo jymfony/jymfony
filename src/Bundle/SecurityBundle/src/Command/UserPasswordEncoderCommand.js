@@ -9,6 +9,7 @@ const SelfSaltingEncoderInterface = Jymfony.Component.Security.Encoder.SelfSalti
 const crypto = require('crypto');
 const os = require('os');
 const promisify = require('util').promisify;
+const randomBytes = promisify(crypto.randomBytes);
 
 /**
  * Encodes a user password.
@@ -187,8 +188,6 @@ In case your encoder doesn't require a salt, add the <comment>empty-salt</commen
      * @private
      */
     static async _generateSalt() {
-        const randomBytes = promisify(crypto.randomBytes);
-
         return (await randomBytes(30)).toString('hex');
     }
 

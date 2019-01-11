@@ -27,6 +27,10 @@ class IteratorArgument extends implementationOf(ArgumentInterface) {
      * @inheritdoc
      */
     set values(values) {
+        if (! isArray(values)) {
+            values = Array.from(values);
+        }
+
         for (const v of values) {
             if (v && ! (v instanceof Reference)) {
                 throw new InvalidArgumentException(__jymfony.sprintf('An IteratorArgument must hold only Reference instances, "%s" given.', isObject(v) ? ReflectionClass.getClassName(v) : typeof v));

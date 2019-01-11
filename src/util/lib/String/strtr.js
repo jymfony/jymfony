@@ -10,7 +10,7 @@ global.__jymfony = global.__jymfony || {};
  *
  * @returns {string}
  */
-global.__jymfony.strtr = function strtr(string, replacePairs) {
+__jymfony.strtr = function strtr(string, replacePairs) {
     const keys = Object.keys(replacePairs);
     if (0 === keys.length) {
         return string;

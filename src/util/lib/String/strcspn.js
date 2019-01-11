@@ -34,7 +34,7 @@ const _strcspn = function _strcspn(str, mask) {
  *
  * @returns {int}
  */
-global.__jymfony.strcspn = function strcspn (str, mask, start = 0, length = undefined) {
+__jymfony.strcspn = function strcspn (str, mask, start = 0, length = undefined) {
     if (0 !== start) {
         str = str.substr(start);
     }

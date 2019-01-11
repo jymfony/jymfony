@@ -6,10 +6,7 @@ const ValueHolder = Jymfony.Component.Lexer.ValueHolder;
  * @abstract
  */
 class AbstractLexer {
-    /**
-     * Reset the lexer
-     */
-    reset() {
+    __construct() {
         /**
          * @type {int|string|undefined}
          */
@@ -25,13 +22,37 @@ class AbstractLexer {
          *
          * @private
          */
-        this._peek = 0;
+        this._peek = undefined;
 
         /**
          * @type {int}
          *
          * @private
          */
+        this._position = undefined;
+
+        /**
+         * @type {string}
+         *
+         * @private
+         */
+        this._input = undefined;
+
+        /**
+         * @type {Object[]}
+         *
+         * @private
+         */
+        this._tokens = undefined;
+    }
+
+    /**
+     * Reset the lexer
+     */
+    reset() {
+        this.token = undefined;
+        this.lookahead = undefined;
+        this._peek = 0;
         this._position = 0;
     }
 

@@ -2,10 +2,14 @@ require('./lib/Error/trigger_deprecated');
 require('./lib/Platform');
 
 require('./lib/Function/BoundFunction');
+require('./lib/Function/Debounce');
 require('./lib/is');
+
+require('./lib/Iterator/EmptyIterator');
 
 require('./lib/Object/polyfills/values');
 require('./lib/Object/clone');
+require('./lib/Object/deepMerge');
 require('./lib/Object/diffKey');
 require('./lib/Object/entries');
 require('./lib/Object/equal');
@@ -21,6 +25,8 @@ require('./lib/Filesystem/mkdir');
 require('./lib/Function/callableArray');
 require('./lib/Function/getFunction');
 
+require('./lib/Stream/StreamBuffer');
+
 require('./lib/String/crc32');
 require('./lib/String/escapeshellarg');
 require('./lib/String/levenshtein');
@@ -29,6 +35,7 @@ require('./lib/String/sprintf');
 require('./lib/String/strcspn');
 require('./lib/String/strip_tags');
 require('./lib/String/strtr');
+require('./lib/String/substr_replace');
 require('./lib/String/trim');
 require('./lib/String/ucfirst');
 require('./lib/String/ucwords');

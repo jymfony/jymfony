@@ -69,7 +69,7 @@ const TABLE = new Uint32Array([
 
 global.__jymfony = global.__jymfony || {};
 
-global.__jymfony.crc32 = function (stringOrBuffer) {
+__jymfony.crc32 = function (stringOrBuffer) {
     if (! isBuffer(stringOrBuffer)) {
         stringOrBuffer = Buffer.from(stringOrBuffer);
     }

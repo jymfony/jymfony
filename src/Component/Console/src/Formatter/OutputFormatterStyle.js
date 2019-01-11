@@ -45,6 +45,34 @@ class OutputFormatterStyle extends implementationOf(OutputFormatterStyleInterfac
      * @param {Array} [options = []]
      */
     __construct(foreground = undefined, background = undefined, options = []) {
+        /**
+         * @type {Set<*>}
+         *
+         * @private
+         */
+        this._options = new Set();
+
+        /**
+         * @type {Object}
+         *
+         * @private
+         */
+        this._background = undefined;
+
+        /**
+         * @type {Object}
+         *
+         * @private
+         */
+        this._foreground = undefined;
+
+        /**
+         * @type {string}
+         *
+         * @private
+         */
+        this._href = undefined;
+
         if (foreground) {
             this.foreground = foreground;
         }
@@ -56,13 +84,6 @@ class OutputFormatterStyle extends implementationOf(OutputFormatterStyleInterfac
         if (options.length) {
             this.setOptions(options);
         }
-
-        /**
-         * @type {Set<*>}
-         *
-         * @private
-         */
-        this._options = new Set();
     }
 
     /**
@@ -99,6 +120,13 @@ class OutputFormatterStyle extends implementationOf(OutputFormatterStyleInterfac
         }
 
         this._background = availableBackgroundColors[color];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    set href(link) {
+        this._href = link;
     }
 
     /**
@@ -155,11 +183,13 @@ class OutputFormatterStyle extends implementationOf(OutputFormatterStyleInterfac
             unsetCodes.push(this._background['unset']);
         }
 
-        if (this._options.length) {
-            for (const opt of this._options) {
-                setCodes.push(opt['set']);
-                unsetCodes.push(opt['unset']);
-            }
+        for (const opt of this._options) {
+            setCodes.push(opt['set']);
+            unsetCodes.push(opt['unset']);
+        }
+
+        if (this._href) {
+            text = '\x1B]8;;' + this._href + '\x1B\\' + text + '\x1B]8;;\x1B\\';
         }
 
         if (0 === setCodes.length) {

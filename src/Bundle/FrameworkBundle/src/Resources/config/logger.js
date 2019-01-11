@@ -24,6 +24,7 @@ container.register('jymfony.logger.handler_prototype.stream', Jymfony.Component.
         true,
         undefined,
     ])
+    .addShutdownCall('close')
     .setAbstract(true)
 ;
 
@@ -33,6 +34,7 @@ container.register('jymfony.logger.handler_prototype.console', Jymfony.Component
         true,
         undefined,
     ])
+    .addShutdownCall('close')
     .setAbstract(true)
 ;
 
@@ -43,6 +45,7 @@ container.register('jymfony.logger.handler_prototype.mongodb', Jymfony.Component
         Jymfony.Component.Logger.LogLevel.DEBUG,
         true,
     ])
+    .addShutdownCall('close')
     .setAbstract(true)
 ;
 
@@ -52,6 +55,7 @@ container.register('jymfony.logger.handler_prototype.slack', Jymfony.Component.L
         Jymfony.Component.Logger.LogLevel.DEBUG,
         true,
     ])
+    .addShutdownCall('close')
     .setAbstract(true)
 ;
 

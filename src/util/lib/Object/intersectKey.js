@@ -24,4 +24,4 @@ const intersectKey = function (obj, ...arrays) {
         .reduce( (res, key) => (res[key] = obj[key], res), {} );
 };
 
-global.__jymfony.intersect_key = intersectKey;
+__jymfony.intersect_key = intersectKey;

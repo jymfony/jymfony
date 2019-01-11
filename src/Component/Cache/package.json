@@ -27,6 +27,7 @@
     "@jymfony/debug": "*",
     "@jymfony/filesystem": "*",
     "chai": "^3.5.0",
+    "ioredis": "^4.0",
     "mocha": "^5.0"
   },
   "config": {

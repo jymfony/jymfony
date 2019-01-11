@@ -71,6 +71,7 @@ class Request {
             SERVER_PORT: 80,
             REMOTE_ADDR: '127.0.0.1',
             SERVER_PROTOCOL: 'HTTP/1.1',
+            SCHEME: parsedUrl.protocol ? parsedUrl.protocol.replace(/:$/, '') : 'http',
         }, server);
         server.REQUEST_METHOD = method;
 
@@ -224,7 +225,7 @@ class Request {
          */
         url = urlModule.parse(url);
         url.protocol = this.scheme;
-        url.hostname = this.httpHost;
+        url.hostname = url.host = this.httpHost;
         this._url = urlModule.parse(urlModule.format(url));
 
         /**
@@ -251,6 +252,8 @@ class Request {
          * @type {Buffer}
          */
         this.content = content;
+
+        this._method = undefined;
     }
 
     /**
@@ -385,7 +388,7 @@ class Request {
         let host = '';
         if (this.isFromTrustedProxy && 0 < (host = this._getTrustedValues(__self.HEADER_X_FORWARDED_HOST)).length) {
             host = host[0];
-        } else if (! (host = this.headers.get('HOST'))) {
+        } else if (! (host = this.headers.get('HOST') || this.headers.get(':authority'))) {
             if (! (host = this.server.get('SERVER_NAME'))) {
                 host = this.server.get('SERVER_ADDR', '');
             }
@@ -493,7 +496,7 @@ class Request {
             host = ~~host[0];
         } else if (this.isFromTrustedProxy && 0 < (host = this._getTrustedValues(__self.HEADER_X_FORWARDED_HOST)).length) {
             host = ~~host[0];
-        } else if (! (host = this.headers.get('HOST'))) {
+        } else if (! (host = this.headers.get('HOST') || this.headers.get(':authority'))) {
             return ~~this.server.get('SERVER_PORT');
         }
 
@@ -776,7 +779,7 @@ class Request {
         if (_trustedHeaders[__self.HEADER_FORWARDED] && this.headers.has(_trustedHeaders[__self.HEADER_FORWARDED])) {
             forwardedValues = this.headers.get(_trustedHeaders[__self.HEADER_FORWARDED]);
 
-            const regex = new RegExp(__jymfony.sprintf('{(?:%s)=(?:"?\\[?)([a-zA-Z0-9\\.:_\\-/]*+)}', _forwardedParams[type]), 'g');
+            const regex = new RegExp(__jymfony.sprintf('{(?:%s)=(?:"?\\[?)([a-zA-Z0-9\\.:_\\-/]*)}', _forwardedParams[type]), 'g');
             const matches = forwardedValues.match(regex);
             forwardedValues = matches ? [ matches[1] ] : [];
         }

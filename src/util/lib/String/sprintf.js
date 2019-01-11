@@ -11,7 +11,7 @@ global.__jymfony = global.__jymfony || {};
  *
  * @returns {string}
  */
-global.__jymfony.sprintf = function sprintf (format, ...a) {
+__jymfony.sprintf = function sprintf (format, ...a) {
     //  Discuss at: http://locutus.io/php/sprintf/
     // Original by: Ash Searle (http://hexmen.com/blog/)
     // Improved by: Michael White (http://getsprink.com)

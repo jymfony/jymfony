@@ -159,4 +159,4 @@ class Async {
     }
 }
 
-module.exports = global.__jymfony.Async = Async;
+__jymfony.Async = Async;

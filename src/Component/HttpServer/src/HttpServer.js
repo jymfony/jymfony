@@ -1,3 +1,5 @@
+const EventDispatcher = Jymfony.Component.EventDispatcher.EventDispatcher;
+const FunctionControllerResolver = Jymfony.Component.HttpFoundation.Controller.FunctionControllerResolver;
 const BadRequestException = Jymfony.Component.HttpFoundation.Exception.BadRequestException;
 const BadRequestHttpException = Jymfony.Component.HttpFoundation.Exception.BadRequestHttpException;
 const HttpExceptionInterface = Jymfony.Component.HttpFoundation.Exception.HttpExceptionInterface;
@@ -7,8 +9,13 @@ const ContentType = Jymfony.Component.HttpFoundation.Header.ContentType;
 const Request = Jymfony.Component.HttpFoundation.Request;
 const Response = Jymfony.Component.HttpFoundation.Response;
 const Event = Jymfony.Component.HttpServer.Event;
+const EventListener = Jymfony.Component.HttpServer.EventListener;
 const RequestParser = Jymfony.Component.HttpServer.RequestParser;
 const NullLogger = Jymfony.Component.Logger.NullLogger;
+const Router = Jymfony.Component.Routing.Router;
+const FunctionLoader = Jymfony.Component.Routing.Loader.FunctionLoader;
+
+const http = require('http');
 
 /**
  * @memberOf Jymfony.Component.HttpServer
@@ -19,9 +26,8 @@ class HttpServer {
      *
      * @param {Jymfony.Component.EventDispatcher.EventDispatcherInterface} dispatcher
      * @param {Jymfony.Component.HttpFoundation.Controller.ControllerResolverInterface} resolver
-     * @param {http} [http = require('http')]
      */
-    __construct(dispatcher, resolver, http = require('http')) {
+    __construct(dispatcher, resolver) {
         /**
          * @type {Jymfony.Component.EventDispatcher.EventDispatcherInterface}
          *
@@ -41,7 +47,7 @@ class HttpServer {
          *
          * @protected
          */
-        this._http = new http.Server(this._incomingRequest.bind(this));
+        this._http = this._createServer();
 
         /**
          * @type {Jymfony.Component.Logger.LoggerInterface}
@@ -53,16 +59,53 @@ class HttpServer {
         /**
          * @type {string|undefined}
          *
-         * @private
+         * @protected
          */
         this._host = undefined;
 
         /**
          * @type {string|undefined}
          *
-         * @private
+         * @protected
          */
         this._port = undefined;
+    }
+
+    /**
+     * Creates a new Http server instance.
+     *
+     * @param {Jymfony.Component.Routing.RouteCollection} routes
+     * @param {Jymfony.Component.Logger.LoggerInterface} logger
+     *
+     * @returns {Jymfony.Component.HttpServer.HttpServer}
+     */
+    static create(routes, logger = undefined) {
+        const router = new Router(new FunctionLoader(), () => routes);
+        const eventDispatcher = new EventDispatcher();
+        eventDispatcher.addSubscriber(new EventListener.RouterListener(router));
+        eventDispatcher.addSubscriber(new EventListener.ExceptionListener(
+            (request) => {
+                return new Response(JSON.stringify(request.attributes.get('exception')), Response.HTTP_OK, {
+                    'content-type': 'application/json',
+                });
+            })
+        );
+
+        const server = new __self(eventDispatcher, new FunctionControllerResolver(logger));
+        if (logger !== undefined) {
+            server.setLogger(logger);
+        }
+
+        return server;
+    }
+
+    /**
+     * Gets the current event dispatcher.
+     *
+     * @returns {Jymfony.Component.EventDispatcher.EventDispatcherInterface}
+     */
+    get eventDispatcher() {
+        return this._dispatcher;
     }
 
     /**
@@ -95,6 +138,33 @@ class HttpServer {
                 resolve();
             });
 
+            this._http.on('upgrade', (request, socket) => {
+                socket.writeHead = (statusCode, reason = undefined, obj = undefined) => {
+                    if (! isString(reason)) {
+                        obj = reason;
+                        reason = Response.statusTexts[statusCode];
+                    }
+
+                    statusCode |= 0;
+                    if (100 > statusCode || 999 < statusCode) {
+                        throw new RangeError(`Invalid status code: ${statusCode}`);
+                    }
+
+                    socket.write('HTTP/1.1 ' + statusCode.toString() + ' ' + reason + '\r\n');
+                    for (const [ key, value ] of __jymfony.getEntries(obj || {})) {
+                        if (! isArray(value)) {
+                            socket.write(key + ': ' + value + '\r\n');
+                        } else {
+                            value.forEach(v => socket.write(key + ': ' + v + '\r\n'));
+                        }
+                    }
+
+                    socket.write('\r\n');
+                };
+
+                return this._incomingRequest(request, socket);
+            });
+
             if (!! path) {
                 this._http.listen({ path });
             } else {
@@ -107,12 +177,24 @@ class HttpServer {
         });
     }
 
-    close() {
+    async close() {
         if (! this._http.listening) {
             return;
         }
 
+        await this._dispatcher.dispatch(Event.HttpServerEvents.SERVER_TERMINATE);
         this._http.close();
+    }
+
+    /**
+     * Creates a new http server.
+     *
+     * @returns {http.Server}
+     *
+     * @protected
+     */
+    _createServer() {
+        return new http.Server(this._incomingRequest.bind(this));
     }
 
     /**
@@ -156,7 +238,7 @@ class HttpServer {
         let requestParams, content;
 
         try {
-            [ requestParams, content ] = await this._parseRequestContent(req, contentType);
+            [ requestParams, content ] = await this._parseRequestContent(req, req.headers, contentType);
         } catch (e) {
             if (e instanceof BadRequestException) {
                 res.writeHead(400, {'Content-Type': 'text/plain'});
@@ -175,7 +257,9 @@ class HttpServer {
         const request = new Request(req.url, requestParams, {}, req.headers, {
             'REQUEST_METHOD': req.method,
             'REMOTE_ADDR': req.connection.remoteAddress,
-            'SCHEME': this._getScheme(),
+            'SCHEME': this._getScheme(req.headers),
+            'SERVER_NAME': this._host,
+            'SERVER_PORT': this._port,
             'SERVER_PROTOCOL': 'HTTP/'+req.httpVersion,
         }, content);
 
@@ -185,21 +269,7 @@ class HttpServer {
         }
 
         await response.prepare(request);
-        res.writeHead(response.statusCode, response.statusText, response.headers.all);
-
-        if (! response.isEmpty && response.content) {
-            if (isFunction(response.content)) {
-                await response.content(res);
-            } else {
-                await new Promise((resolve) => {
-                    res.write(response.content, 'utf8', () => {
-                        resolve();
-                    });
-                });
-            }
-        }
-
-        res.end();
+        await response.sendResponse(req, res);
 
         const event = new Event.PostResponseEvent(this, request, response);
         await this._dispatcher.dispatch(Event.HttpServerEvents.TERMINATE, event);
@@ -239,9 +309,19 @@ class HttpServer {
     }
 
     /**
+     * Get the public scheme for this server (http/https)
+     *
+     * @returns {string}
+     */
+    get scheme() {
+        return 'http';
+    }
+
+    /**
      * Parse request content.
      *
-     * @param {IncomingMessage} req
+     * @param {stream.Duplex} stream
+     * @param {Object} headers
      * @param {Jymfony.Component.HttpFoundation.Header.ContentType} contentType
      *
      * @returns {Promise<Array>} An array composed by the request params object
@@ -249,18 +329,21 @@ class HttpServer {
      *
      * @protected
      */
-    async _parseRequestContent(req, contentType) {
-        const contentLength = ~~req.headers['content-length'] || undefined;
+    async _parseRequestContent(stream, headers, contentType) {
+        if (headers['sec-websocket-key']) {
+            return [ {}, undefined ];
+        }
 
+        const contentLength = ~~headers['content-length'];
         let parser;
         if ('application/x-www-form-urlencoded' === contentType.essence) {
-            parser = new RequestParser.UrlEncodedParser(req, contentLength);
+            parser = new RequestParser.UrlEncodedParser(stream, contentLength);
         } else if ('application/json' === contentType.essence) {
-            parser = new RequestParser.JsonEncodedParser(req, contentLength, contentType.get('charset', 'utf-8'));
+            parser = new RequestParser.JsonEncodedParser(stream, contentLength, contentType.get('charset', 'utf-8'));
         } else if ('multipart' === contentType.type) {
-            parser = new RequestParser.MultipartParser(req, contentType, contentLength);
+            parser = new RequestParser.MultipartParser(stream, contentType, contentLength);
         } else {
-            parser = new RequestParser.OctetStreamParser(req, contentLength);
+            parser = new RequestParser.OctetStreamParser(stream, contentLength);
         }
 
         const params = await parser.parse();
@@ -294,16 +377,23 @@ class HttpServer {
         await this._dispatcher.dispatch(Event.HttpServerEvents.CONTROLLER, event);
         controller = event.controller;
 
-        const response = await controller(request);
+        let response = await controller(request);
         if (! (response instanceof Response)) {
-            let msg = 'The controller must return a response.';
+            const event = new Event.GetResponseForControllerResultEvent(this, request, response);
+            await this._dispatcher.dispatch(Event.HttpServerEvents.VIEW, event);
 
-            // The user may have forgotten to return something
-            if (undefined === response) {
-                msg += ' Did you forget to add a return statement somewhere in your controller?';
+            if (event.hasResponse()) {
+                response = event.response;
+            } else {
+                let msg = 'The controller must return a response.';
+
+                // The user may have forgotten to return something
+                if (undefined === response) {
+                    msg += ' Did you forget to add a return statement somewhere in your controller?';
+                }
+
+                throw new LogicException(msg);
             }
-
-            throw new LogicException(msg);
         }
 
         return await this._filterResponse(response, request);
@@ -355,11 +445,17 @@ class HttpServer {
     /**
      * Gets the request scheme.
      *
+     * @param {Object} headers
+     *
      * @returns {string}
      *
      * @protected
      */
-    _getScheme() {
+    _getScheme(headers) {
+        if (headers['sec-websocket-key']) {
+            return 'ws';
+        }
+
         return 'http';
     }
 

@@ -5,6 +5,17 @@ const Reference = Jymfony.Component.DependencyInjection.Reference;
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
  */
 class ReplaceAliasByActualDefinitionPass extends AbstractRecursivePass {
+    __construct() {
+        super.__construct();
+
+        /**
+         * @type {Object}
+         *
+         * @private
+         */
+        this._replacements = {};
+    }
+
     /**
      * @inheritdoc
      */
@@ -52,11 +63,6 @@ class ReplaceAliasByActualDefinitionPass extends AbstractRecursivePass {
             replacements[targetId] = definitionId;
         }
 
-        /**
-         * @type {Object}
-         *
-         * @private
-         */
         this._replacements = replacements;
 
         super.process(container);

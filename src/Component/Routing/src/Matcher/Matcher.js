@@ -44,13 +44,14 @@ class Matcher extends implementationOf(MatcherInterface) {
 
         for (const [ name, route ] of this._routes) {
             const compiledRoute = route.compile();
+            const path = decodeURIComponent(pathinfo);
 
             // Check the static prefix of the URL first. Only use the more expensive regex when it matches
-            if ('' !== compiledRoute.staticPrefix && 0 !== pathinfo.indexOf(compiledRoute.staticPrefix)) {
+            if ('' !== compiledRoute.staticPrefix && 0 !== path.indexOf(compiledRoute.staticPrefix)) {
                 continue;
             }
 
-            const matches = compiledRoute.regex.exec(pathinfo);
+            const matches = compiledRoute.regex.exec(path);
             if (! matches) {
                 continue;
             }
@@ -85,6 +86,27 @@ class Matcher extends implementationOf(MatcherInterface) {
     }
 
     /**
+     * Redirects the user to another URL.
+     *
+     * @param {Jymfony.Component.HttpFoundation.Request} request The request originating the redirect
+     * @param {string} path The path info to redirect to
+     * @param {string} route The route that matched
+     * @param {string} scheme The URL scheme (null to keep the current one)
+     *
+     * @returns {Object} Parameters
+     */
+    redirect(request, path, route, scheme = null) { // eslint-disable-line no-unused-vars
+        throw new Jymfony.Component.HttpFoundation.Exception.HttpException(
+            301,
+            'Redirect to: ' + path,
+            undefined,
+            {
+                Location: path,
+            },
+        );
+    }
+
+    /**
      * Returns a set of values to use as request attributes.
      *
      * @param {Jymfony.Component.Routing.Route} route
@@ -96,9 +118,17 @@ class Matcher extends implementationOf(MatcherInterface) {
      * @protected
      */
     _getAttributes(route, name, attributes) {
-        return Object.assign({
+        const ret = Object.assign({
             _route: name,
-        }, route.defaults, attributes);
+        }, route.defaults);
+
+        for (const [ k, v ] of __jymfony.getEntries(attributes)) {
+            if (undefined !== v) {
+                ret[k] = v;
+            }
+        }
+
+        return ret;
     }
 }
 

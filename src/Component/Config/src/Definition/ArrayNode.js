@@ -368,11 +368,11 @@ class ArrayNode extends BaseNode {
         // No conflict
             if (! leftSide.hasOwnProperty(k)) {
                 if (! this._allowNewKeys) {
-                    const ex = new InvalidConfigurationException(sprintf(
+                    const ex = new InvalidConfigurationException(__jymfony.sprintf(
                         'You are not allowed to define new elements for path "%s". ' +
-                    'Please define all elements for this path in one config file. ' +
-                    'If you are trying to overwrite an element, make sure you redefine it ' +
-                    'with the same name.',
+                        'Please define all elements for this path in one config file. ' +
+                        'If you are trying to overwrite an element, make sure you redefine it ' +
+                        'with the same name.',
                         this.getPath()
                     ));
                     ex.setPath(this.getPath());

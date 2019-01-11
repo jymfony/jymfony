@@ -7,6 +7,24 @@ const Reference = Jymfony.Component.DependencyInjection.Reference;
  * @memberOf Jymfony.FrameworkBundle.DependencyInjection.Compiler
  */
 class LoggerChannelPass extends AbstractRecursivePass {
+    __construct() {
+        super.__construct();
+
+        /**
+         * @type {Set<string>}
+         *
+         * @private
+         */
+        this._channels = undefined;
+
+        /**
+         * @type {string}
+         *
+         * @private
+         */
+        this._loggerId = undefined;
+    }
+
     /**
      * @inheritdoc
      */
@@ -15,25 +33,9 @@ class LoggerChannelPass extends AbstractRecursivePass {
             return;
         }
 
-        /**
-         * @type {string}
-         *
-         * @protected
-         */
         this._currentId = undefined;
-
-        /**
-         * @type {Jymfony.Component.DependencyInjection.ContainerBuilder}
-         *
-         * @protected
-         */
         this._container = container;
 
-        /**
-         * @type {Set<string>}
-         *
-         * @private
-         */
         this._channels = new Set();
         this._channels.add('app');
 

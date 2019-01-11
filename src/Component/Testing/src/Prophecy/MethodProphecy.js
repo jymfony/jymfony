@@ -46,6 +46,7 @@ class MethodProphecy {
 
         this._prediction = undefined;
         this._checkedPredictions = [];
+        this._promise = undefined;
 
         this._bound = false;
 

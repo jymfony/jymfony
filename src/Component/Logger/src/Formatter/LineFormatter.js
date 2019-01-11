@@ -99,14 +99,18 @@ class LineFormatter extends NormalizerFormatter {
      * @inheritdoc
      */
     _normalizeError(record) {
+        const formatError = (error) => {
+            const trace = Exception.parseStackTrace(error);
+            return (new ReflectionClass(error)).name + ': ' + error.message +
+                (null !== trace && 0 < trace.length ? ' at ' + trace[0].file + ':' + trace[0].line : '');
+        };
+
         let previousText = '', previous = record;
         while (previous = previous.previous) {
-            const trace = Exception.parseStackTrace(previous);
-            previousText += ', ' + (new ReflectionClass(previous)).name + ': ' + previous.message + ' at ' + trace[0].file + ':' + trace[0].line;
+            previousText += ', ' + formatError(previous);
         }
 
-        const trace = Exception.parseStackTrace(record);
-        let str = '[object] (' + (new ReflectionClass(record)).name + ': ' + record.message + ' at ' + trace[0].file + ':' + trace[0].line + previousText + ')';
+        let str = '[object] (' + formatError(record) + previousText + ')';
 
         if (this._includeStacktraces) {
             str += '\n[stacktrace]\n' + record.stack + '\n';

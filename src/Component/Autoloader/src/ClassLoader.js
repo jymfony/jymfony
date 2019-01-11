@@ -75,7 +75,7 @@ class ClassLoader {
         const dirname = this._path.dirname(fn);
         const moduleObj = {
             children: [],
-            exports: undefined,
+            exports: {},
             filename: fn,
             id: fn,
             loaded: false,
@@ -84,7 +84,7 @@ class ClassLoader {
             require: require,
         };
 
-        code = `(function(exports, require, module, __filename, __dirname, __self) { ${code} });`;
+        code = `(function(exports, require, module, __filename, __dirname, __self) { 'use strict'; ${code} });`;
 
         const opts = isNyc ? fn : {
             filename: fn,

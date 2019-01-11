@@ -1,6 +1,7 @@
 const FileLoader = Jymfony.Component.Config.Loader.FileLoader;
 const FileResource = Jymfony.Component.Config.Resource.FileResource;
 const RouteCollection = Jymfony.Component.Routing.RouteCollection;
+const RoutingConfigurator = Jymfony.Component.Routing.Loader.Configurator.RoutingConfigurator;
 
 const fs = require('fs');
 const path = require('path');
@@ -24,19 +25,27 @@ class JsFileLoader extends FileLoader {
 
         this.currentDir = path.dirname(filePath);
 
-        const code = '(function (loader) {\n'+fs.readFileSync(filePath)+'\n})';
+        const code = '(function (loader, __filename, __dirname) {\n'+fs.readFileSync(filePath)+'\n})';
         const script = new vm.Script(code, {
             filename: filePath,
             produceCachedData: false,
         });
 
-        const collection = new RouteCollection();
-        collection.addResource(new FileResource(filePath));
-
-        script.runInThisContext({
+        let collection;
+        const result = script.runInThisContext({
             filename: filePath,
-        })(collection, this);
+        })(this, filePath, this.currentDir);
 
+        if (isFunction(result)) {
+            const configurator = new RoutingConfigurator(new RouteCollection(), this, this.currentDir, filePath);
+            result(configurator, this);
+
+            collection = configurator.build();
+        } else {
+            collection = result;
+        }
+
+        collection.addResource(new FileResource(filePath));
         this.currentDir = previousCurrentDir;
 
         return collection;

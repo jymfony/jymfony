@@ -5,6 +5,7 @@ class Foo5Command extends Command {
      * @inheritdoc
      */
     __construct() {
+        this._application = undefined;
     }
 }
 

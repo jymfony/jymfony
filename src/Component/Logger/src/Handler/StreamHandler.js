@@ -18,26 +18,38 @@ class StreamHandler extends AbstractProcessingHandler {
     __construct(stream, level = LogLevel.DEBUG, bubble = true, filePermission = undefined) {
         super.__construct(level, bubble);
 
-        if (isString(stream)) {
-            /**
-             * @type {string}
-             *
-             * @private
-             */
-            this._file = stream;
+        /**
+         * @type {string}
+         *
+         * @private
+         */
+        this._file = undefined;
 
-            /**
-             * @type {string}
-             *
-             * @private
-             */
+        /**
+         * @type {string}
+         *
+         * @private
+         */
+        this._filePermission = undefined;
+
+        /**
+         * @type {Writable}
+         *
+         * @private
+         */
+        this._stream = undefined;
+
+        /**
+         * @type {boolean}
+         *
+         * @private
+         */
+        this._dirCreated = false;
+
+        if (isString(stream)) {
+            this._file = stream;
             this._filePermission = filePermission;
         } else {
-            /**
-             * @type {Writable}
-             *
-             * @private
-             */
             this._stream = stream;
         }
     }

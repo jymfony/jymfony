@@ -19,6 +19,7 @@
     "@jymfony/config": "0.1.0-alpha.11",
     "@jymfony/exceptions": "0.1.0-alpha.11",
     "@jymfony/http-foundation": "0.1.0-alpha.11",
+    "@jymfony/options-resolver": "0.1.0-alpha.11",
     "@jymfony/util": "0.1.0-alpha.11"
   },
   "devDependencies": {

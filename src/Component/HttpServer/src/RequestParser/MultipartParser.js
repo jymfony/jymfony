@@ -15,11 +15,11 @@ class MultipartParser extends AbstractParser {
     /**
      * Constructor.
      *
-     * @param {IncomingMessage} req
+     * @param {stream.Duplex} stream
      * @param {Jymfony.Component.HttpFoundation.Header.ContentType} contentType
      * @param {undefined|int} contentLength
      */
-    __construct(req, contentType, contentLength) {
+    __construct(stream, contentType, contentLength) {
         if ('form-data' !== contentType.subtype) {
             throw new BadRequestException('Multipart requests must have "form-data" subtype');
         }
@@ -33,7 +33,7 @@ class MultipartParser extends AbstractParser {
          */
         this._boundary = contentType.get('boundary');
 
-        super.__construct(req, contentLength);
+        super.__construct(stream, contentLength);
     }
 
     /**

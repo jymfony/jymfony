@@ -3,41 +3,31 @@
 global.__jymfony = global.__jymfony || {};
 
 /**
- * Get [Key, Value] pairs for an object
+ * @template <K, V>
+ * Get key, value pairs from any object.
  *
- * @param {Object} object
+ * @param {Object.<K, V>|Map<K, V>|V[]} object
  *
- * @returns {Generator}
+ * @returns {IterableIterator.<[K, V]>}
  */
-const entries = function * objentries(object) {
+__jymfony.getEntries = function * getEntries(object) {
     if (isArray(object)) {
         for (const k of object.keys()) {
             yield [ k, object[k] ];
         }
-
-        return;
-    }
-
-    if (object instanceof Map) {
-        return object.entries();
-    }
-
-    if (! isObject(object)) {
+    } else if (object instanceof Map) {
+        yield * object.entries();
+    } else if (! isObject(object)) {
         throw new InvalidArgumentException('Argument 1 is not an object');
-    }
-
-    if (Object.entries) {
+    } else if (Object.entries) {
         yield * Object.entries(object);
-        return;
-    }
+    } else {
+        for (const key in object) {
+            if (!object.hasOwnProperty(key)) {
+                continue;
+            }
 
-    for (const key in object) {
-        if (! object.hasOwnProperty(key)) {
-            continue;
+            yield [ key, object[key] ];
         }
-
-        yield [ key, object[key] ];
     }
 };
-
-global.__jymfony.getEntries = entries;

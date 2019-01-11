@@ -38,6 +38,27 @@ class RecursiveDirectoryIterator {
          * @private
          */
         this._followSymlinks = flags & __self.FOLLOW_SYMLINKS;
+
+        /**
+         * @type {string[]}
+         *
+         * @private
+         */
+        this._dir = undefined;
+
+        /**
+         * @type {string[]}
+         *
+         * @private
+         */
+        this._after = undefined;
+
+        /**
+         * @type {string[]}
+         *
+         * @private
+         */
+        this._current = undefined;
     }
 
     /**
@@ -48,25 +69,14 @@ class RecursiveDirectoryIterator {
     async next() {
         const streamWrapper = StreamWrapper.get(this._path);
         if (undefined === this._dir) {
-            /**
-             * @type {string[]}
-             *
-             * @private
-             */
             this._dir = await streamWrapper.readdir(this._path);
-
-            /**
-             * @type {string[]}
-             *
-             * @private
-             */
             this._after = [];
         }
 
         if (undefined === this._current && 0 === this._dir.length) {
             if (0 === this._after.length) {
-                delete this._dir;
-                delete this._after;
+                this._dir = undefined;
+                this._after = undefined;
 
                 return { done: true };
             }
@@ -96,7 +106,7 @@ class RecursiveDirectoryIterator {
                 if (this._current instanceof __self) {
                     const next = await this._current.next();
                     if (next.done) {
-                        delete this._current;
+                        this._current = undefined;
 
                         return await this.next();
                     }
@@ -105,7 +115,7 @@ class RecursiveDirectoryIterator {
                 }
 
                 const current = this._current;
-                delete this._current;
+                this._current = undefined;
 
                 return { value: current, done: false };
             }
@@ -113,13 +123,13 @@ class RecursiveDirectoryIterator {
             case __self.CHILD_LAST: {
                 if (this._current instanceof __self) {
                     this._after.push(this._current);
-                    delete this._current;
+                    this._current = undefined;
 
                     return await this.next();
                 }
 
                 const current = this._current;
-                delete this._current;
+                this._current = undefined;
 
                 return { value: current, done: false };
             }
@@ -128,7 +138,7 @@ class RecursiveDirectoryIterator {
                 if (this._current instanceof __self) {
                     const next = await this._current.next();
                     if (next.done) {
-                        delete this._current;
+                        this._current = undefined;
 
                         return await this.next();
                     }
@@ -137,7 +147,7 @@ class RecursiveDirectoryIterator {
                 }
 
                 this._after.push(this._current);
-                delete this._current;
+                this._current = undefined;
 
                 return await this.next();
             }

@@ -6,7 +6,7 @@ const crypto = require('crypto');
 /**
  * @memberOf Jymfony.Component.Cache.Traits
  */
-class AbstractTrait extends mix(undefined, LoggerAwareTrait) {
+class AbstractTrait extends LoggerAwareTrait.definition {
     /**
      * Constructor.
      */
@@ -31,7 +31,7 @@ class AbstractTrait extends mix(undefined, LoggerAwareTrait) {
      *
      * @param {string[]} ids The cache identifiers to fetch
      *
-     * @returns {Promise<*[]>} The corresponding values found in the cache
+     * @returns {Promise<Object.<string, *>>} The corresponding values found in the cache
      *
      * @abstract
      *

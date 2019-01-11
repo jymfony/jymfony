@@ -33,6 +33,11 @@ class RegisterListenerPass extends implementationOf(CompilerPassInterface) {
         const definition = container.findDefinition(this.dispatcherService);
 
         for (const [ id, events ] of __jymfony.getEntries(container.findTaggedServiceIds(this.listenerTag))) {
+            const def = container.getDefinition(id);
+            if (def.isAbstract()) {
+                continue;
+            }
+
             for (const event of events) {
                 const priority = event.priority !== undefined ? event.priority : 0;
 
@@ -59,6 +64,9 @@ class RegisterListenerPass extends implementationOf(CompilerPassInterface) {
 
         for (const [ id ] of __jymfony.getEntries(container.findTaggedServiceIds(this.subscriberTag))) {
             const def = container.getDefinition(id);
+            if (def.isAbstract()) {
+                continue;
+            }
 
             const myclass = container.parameterBag.resolveValue(def.getClass());
             let myReflectionClass;
@@ -108,6 +116,13 @@ class ExtractingEventDispatcher extends mix(EventDispatcher, EventSubscriberInte
          * @private
          */
         this._listeners = [];
+
+        /**
+         * @type {Jymfony.Component.EventDispatcher.EventSubscriberInterface}
+         *
+         * @private
+         */
+        this._subscriber = undefined;
     }
 
     /**

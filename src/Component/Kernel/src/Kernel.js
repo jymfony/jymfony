@@ -47,6 +47,20 @@ class Kernel extends implementationOf(KernelInterface) {
          *
          * @protected
          */
+        this._projectDir = undefined;
+
+        /**
+         * @type {string}
+         *
+         * @private
+         */
+        this._warmupDir = undefined;
+
+        /**
+         * @type {string}
+         *
+         * @protected
+         */
         this._name = this.getName();
 
         /**
@@ -80,6 +94,27 @@ class Kernel extends implementationOf(KernelInterface) {
          * @private
          */
         this._booted = false;
+
+        /**
+         * @type {Object}
+         *
+         * @private
+         */
+        this._bundleMap = {};
+    }
+
+    /**
+     * Reboots a kernel.
+     *
+     * The getCacheDir() method of a rebootable kernel should not be called
+     * while building the container. Use the %kernel.cache_dir% parameter instead.
+     *
+     * @param {undefined|string} warmupDir pass undefined to reboot in the regular cache directory
+     */
+    async reboot(warmupDir) {
+        await this.shutdown();
+        this._warmupDir = warmupDir;
+        await this.boot();
     }
 
     /**
@@ -116,6 +151,7 @@ class Kernel extends implementationOf(KernelInterface) {
             bundle.setContainer(undefined);
         }
 
+        await this._container.shutdown();
         this._container = undefined;
     }
 
@@ -178,7 +214,7 @@ class Kernel extends implementationOf(KernelInterface) {
      * @returns {string}
      */
     getCacheDir() {
-        return path.normalize(path.join(this.getRootDir(), '..', 'var', 'cache'));
+        return path.normalize(path.join(this.getRootDir(), '..', 'var', 'cache', this.environment));
     }
 
     /**
@@ -193,6 +229,29 @@ class Kernel extends implementationOf(KernelInterface) {
         }
 
         return this._rootDir;
+    }
+
+    /**
+     * Gets the application root dir (path of the project's package.json file).
+     *
+     * @returns {string} The project root dir
+     */
+    getProjectDir() {
+        if (undefined === this._projectDir) {
+            let dir, rootDir;
+            dir = rootDir = this.getRootDir();
+            while (! fs.existsSync(dir + '/package.json')) {
+                if (dir === path.dirname(dir)) {
+                    return this._projectDir = rootDir;
+                }
+
+                dir = path.dirname(dir);
+            }
+
+            this._projectDir = dir;
+        }
+
+        return this._projectDir;
     }
 
     /**
@@ -338,10 +397,6 @@ class Kernel extends implementationOf(KernelInterface) {
         }
 
         // Inheritance
-        /**
-         * @type {Object}
-         * @protected
-         */
         this._bundleMap = {};
         for (let [ name, bundle ] of __jymfony.getEntries(topMostBundles)) {
             const bundleMap = [ bundle ];
@@ -373,7 +428,8 @@ class Kernel extends implementationOf(KernelInterface) {
     _initializeContainer(refresh = false) {
         let container;
         const class_ = this._getContainerClass();
-        const cache = new ConfigCache(this.getCacheDir() + '/' + class_ + '.js', this._debug);
+        const cacheDir = this._warmupDir || this.getCacheDir();
+        const cache = new ConfigCache(cacheDir + '/' + class_ + '.js', this._debug);
 
         const fresh = cache.isFresh() && ! refresh;
         if (fresh) {
@@ -408,8 +464,8 @@ class Kernel extends implementationOf(KernelInterface) {
             if (this._debug) {
                 process.removeListener('warning', fnWarning);
 
-                fs.writeFileSync(this.getCacheDir() + '/' + class_ + 'Deprecations.log', JSON.stringify(Object.values(collectedLogs)), null, 2);
-                fs.writeFileSync(this.getCacheDir() + '/' + class_ + 'Compiler.log', undefined !== container ? container.getCompiler().getLogs().join('\n') : '');
+                fs.writeFileSync(cacheDir + '/' + class_ + 'Deprecations.log', JSON.stringify(Object.values(collectedLogs)), null, 2);
+                fs.writeFileSync(cacheDir + '/' + class_ + 'Compiler.log', undefined !== container ? container.getCompiler().getLogs().join('\n') : '');
             }
         }
 
@@ -524,7 +580,7 @@ class Kernel extends implementationOf(KernelInterface) {
         };
 
         createDir('logs', this.getLogsDir());
-        createDir('cache', this.getCacheDir());
+        createDir('cache', this._warmupDir || this.getCacheDir());
 
         const container = this._getContainerBuilder();
         container.addObjectResource(this);
@@ -616,9 +672,10 @@ class Kernel extends implementationOf(KernelInterface) {
 
         return {
             'kernel.root_dir': this.getRootDir(),
+            'kernel.project_dir': this.getProjectDir(),
             'kernel.environment': this._environment,
             'kernel.debug': this._debug,
-            'kernel.cache_dir': this.getCacheDir(),
+            'kernel.cache_dir': this._warmupDir || this.getCacheDir(),
             'kernel.logs_dir': this.getLogsDir(),
             'kernel.bundles': Object.keys(bundles),
             'kernel.container_class': this._getContainerClass(),

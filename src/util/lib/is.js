@@ -1,5 +1,5 @@
 global.isArray = Array.isArray;
-global.isBuffer = Buffer.isBuffer;
+global.isBuffer = !! global.Buffer ? Buffer.isBuffer : () => false;
 const toString = Object.prototype.toString;
 
 require('./Is/functions');

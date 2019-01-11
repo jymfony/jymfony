@@ -208,7 +208,7 @@ describe('[Console] Command', function () {
 
     it('should return integer exit code', () => {
         const cmd = new Fixtures.TestCommand();
-        cmd.execute = function () {
+        cmd.code = function () {
             return '2.3';
         };
 

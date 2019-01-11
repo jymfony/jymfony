@@ -122,6 +122,13 @@ class Definition {
         this._decoratedService = undefined;
 
         /**
+         * @type {Array}
+         *
+         * @private
+         */
+        this._shutdown = [];
+
+        /**
          * @type {Object}
          *
          * @private
@@ -459,11 +466,11 @@ class Definition {
      *
      * @param {string} name
      *
-     * @returns {Object}
+     * @returns {Object[]}
      */
     getTag(name) {
         if (! this._tags[name]) {
-            return {};
+            return [];
         }
 
         return __jymfony.deepClone(this._tags[name]);
@@ -732,6 +739,85 @@ class Definition {
      */
     getConfigurator() {
         return this._configurator;
+    }
+
+    /**
+     * Sets the methods to call at container shutdown.
+     *
+     * @param {Array} [calls = []]
+     *
+     * @returns {Jymfony.Component.DependencyInjection.Definition}
+     */
+    setShutdownCalls(calls = []) {
+        this._shutdown = [];
+        for (const call of calls) {
+            this.addShutdownCall(call[0], (call[1] || []));
+        }
+
+        return this;
+    }
+
+    /**
+     * Adds a method to call at shutdown.
+     *
+     * @param {string} method
+     * @param {Array} [args = []]
+     *
+     * @returns {Jymfony.Component.DependencyInjection.Definition}
+     */
+    addShutdownCall(method, args = []) {
+        if (! method) {
+            throw new InvalidArgumentException('Method name cannot be empty');
+        }
+
+        this._shutdown.push([ method, args ]);
+
+        return this;
+    }
+
+    /**
+     * Removes a method to call at container shutdown.
+     *
+     * @param {string} method
+     *
+     * @returns {Jymfony.Component.DependencyInjection.Definition}
+     */
+    removeShutdownCall(method) {
+        for (let i = 0; i < this._shutdown.length; i++) {
+            const call = this._shutdown[i];
+            if (call[0] === method) {
+                this._shutdown.splice(i, 1);
+                break;
+            }
+        }
+
+        return this;
+    }
+
+    /**
+     * Checks if the definition has a given shutdown method call.
+     *
+     * @param {string} method
+     *
+     * @returns {boolean}
+     */
+    hasShutdownCall(method) {
+        for (const call of this._shutdown) {
+            if (call[0] === method) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Gets the methods to call at shutdown.
+     *
+     * @returns {Array}
+     */
+    getShutdownCalls() {
+        return __jymfony.deepClone(this._shutdown);
     }
 }
 

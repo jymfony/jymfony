@@ -16,6 +16,7 @@ container.register('foo', 'Bar.Foo')
     .setProperties({foo: 'bar', moo: new Reference('foo.baz'), qux: {'%foo%': 'foo is %foo%', 'foobar': '%foo%'}})
     .addMethodCall('setBar', [ new Reference('bar') ])
     .addMethodCall('initialize')
+    .addShutdownCall('shut', [ 'shut_arg' ])
     .setConfigurator('sc_configure')
     .setPublic(true)
 ;

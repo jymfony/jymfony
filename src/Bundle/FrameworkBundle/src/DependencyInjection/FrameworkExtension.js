@@ -1,8 +1,11 @@
 const Configuration = Jymfony.Bundle.FrameworkBundle.DependencyInjection.Configuration;
+const CachePoolPass = Jymfony.Component.Cache.DependencyInjection.CachePoolPass;
 const InvalidConfigurationException = Jymfony.Component.Config.Definition.Exception.InvalidConfigurationException;
 const FileLocator = Jymfony.Component.Config.FileLocator;
 const Alias = Jymfony.Component.DependencyInjection.Alias;
 const ChildDefinition = Jymfony.Component.DependencyInjection.ChildDefinition;
+const Container = Jymfony.Component.DependencyInjection.Container;
+const Parameter = Jymfony.Component.DependencyInjection.Parameter;
 const Reference = Jymfony.Component.DependencyInjection.Reference;
 const JsFileLoader = Jymfony.Component.DependencyInjection.Loader.JsFileLoader;
 const Extension = Jymfony.Component.DependencyInjection.Extension.Extension;
@@ -12,6 +15,12 @@ const path = require('path');
  * @memberOf Jymfony.Bundle.FrameworkBundle.DependencyInjection
  */
 class FrameworkExtension extends Extension {
+    __construct() {
+        super.__construct();
+
+        this._sessionConfigEnabled = false;
+    }
+
     /**
      * @inheritdoc
      */
@@ -26,12 +35,32 @@ class FrameworkExtension extends Extension {
             loader.load('test.js');
         }
 
+        if (! container.hasParameter('debug.file_link_format')) {
+            if (! container.hasParameter('templating.helper.code.file_link_format')) {
+                const links = {
+                    textmate: 'txmt://open?url=file://%%f&line=%%l',
+                    macvim: 'mvim://open?url=file://%%f&line=%%l',
+                    emacs: 'emacs://open?url=file://%%f&line=%%l',
+                    sublime: 'subl://open?url=file://%%f&line=%%l',
+                    phpstorm: 'phpstorm://open?file=%%f&line=%%l',
+                    atom: 'atom://core/open/file?filename=%%f&line=%%l',
+                };
+
+                const ide = config['ide'];
+                container.setParameter('templating.helper.code.file_link_format', (links[ide] || ide || '').toString().replace(/%/g, '%%'));
+            }
+
+            container.setParameter('debug.file_link_format', '%templating.helper.code.file_link_format%');
+        }
+
         this._registerSessionConfiguration(config.session, container, loader);
         this._registerConsoleConfiguration(config.console, container, loader);
         this._registerLoggerConfiguration(config.logger, container, loader);
         this._registerRouterConfiguration(config.router, container, loader);
         this._registerHttpServerConfiguration(config.http_server, container, loader);
         this._registerCacheConfiguration(config.cache, container, loader);
+        this._registerDevServer(container, loader);
+        this._registerTemplatingConfiguration(config.templating, container, loader);
     }
 
     /**
@@ -78,7 +107,7 @@ class FrameworkExtension extends Extension {
     /**
      * @param {Object} config
      * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
-     * @param {Jymfony.Component.DependencyInjection.Loader.LoaderInterface} loader
+     * @param {Jymfony.Component.Config.Loader.LoaderInterface} loader
      *
      * @private
      */
@@ -230,7 +259,7 @@ class FrameworkExtension extends Extension {
     /**
      * @param {Object} config
      * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
-     * @param {Jymfony.Component.DependencyInjection.Loader.LoaderInterface} loader
+     * @param {Jymfony.Component.Config.Loader.LoaderInterface} loader
      *
      * @private
      */
@@ -249,6 +278,7 @@ class FrameworkExtension extends Extension {
         loader.load('routing.js');
 
         container.setParameter('router.resource', config['resource']);
+        container.setParameter('router.cache_class_prefix', container.getParameter('kernel.container_class'));
         const definition = container.getDefinition('router.default');
 
         const options = definition.getArgument(2);
@@ -262,7 +292,7 @@ class FrameworkExtension extends Extension {
     /**
      * @param {Object} config
      * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
-     * @param {Jymfony.Component.DependencyInjection.Loader.LoaderInterface} loader
+     * @param {Jymfony.Component.Config.Loader.LoaderInterface} loader
      *
      * @private
      */
@@ -276,19 +306,29 @@ class FrameworkExtension extends Extension {
         }
 
         loader.load('http-server.js');
+
+        if (config.key && config.certificate) {
+            container.getDefinition(Jymfony.Component.HttpServer.HttpServer)
+                .setClass(Jymfony.Component.HttpServer.Http2.HttpServer)
+                .addArgument({
+                    key: config.key,
+                    cert: config.certificate,
+                });
+        }
     }
 
     /**
      * @param {Object} config
      * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
-     * @param {Jymfony.Component.DependencyInjection.Loader.LoaderInterface} loader
+     * @param {Jymfony.Component.Config.Loader.LoaderInterface} loader
      *
      * @private
      */
     _registerCacheConfiguration(config, container, loader) {
         loader.load('cache.js');
-        // Const version = new Parameter('container.build_id');
-        // Container.getDefinition('cache.adapter.system').replaceArgument(2, version);
+
+        const version = new Parameter('container.build_id');
+        container.getDefinition('cache.adapter.system').replaceArgument(2, version);
         container.getDefinition('cache.adapter.filesystem').replaceArgument(2, config.directory);
 
         if (config.prefix_seed) {
@@ -300,7 +340,13 @@ class FrameworkExtension extends Extension {
             container.setParameter('cache.prefix.seed', container.parameterBag.resolveValue(container.getParameter('cache.prefix.seed'), true));
         }
 
-        for (const name of [ 'app' /* , 'system'*/]) {
+        for (let name of [ 'redis'/* , 'memcached' */ ]) {
+            if (config[name = 'default_' + name + '_provider']) {
+                container.setAlias('cache.' + name, new Alias(CachePoolPass.getServiceProvider(container, config[name]), false));
+            }
+        }
+
+        for (const name of [ 'app', 'system' ]) {
             config.pools['cache.' + name] = {
                 adapter: config[name],
                 'public': true,
@@ -316,6 +362,78 @@ class FrameworkExtension extends Extension {
 
             definition.addTag('cache.pool', pool);
             container.setDefinition(name, definition);
+        }
+    }
+
+    /**
+     * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
+     * @param {Jymfony.Component.Config.Loader.LoaderInterface} loader
+     *
+     * @private
+     */
+    _registerDevServer(container, loader) {
+        if (! ReflectionClass.exists('Jymfony.Component.DevServer.DevServer')) {
+            return;
+        }
+
+        loader.load('dev-server.js');
+    }
+
+    /**
+     * @param {Object} config
+     * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
+     * @param {Jymfony.Component.Config.Loader.LoaderInterface} loader
+     *
+     * @private
+     */
+    _registerTemplatingConfiguration(config, container, loader) {
+        if (! this._isConfigEnabled(container, config)) {
+            return;
+        }
+
+        if (! ReflectionClass.exists('Jymfony.Component.Templating.Engine.JsEngine')) {
+            throw new LogicException('Templating support cannot be enabled as the Templating component is not installed. Try running "yarn add @jymfony/templating".');
+        }
+
+        loader.load('templating.xml');
+
+        if (container.getParameter('kernel.debug')) {
+            const logger = new Reference('logger', Container.IGNORE_ON_INVALID_REFERENCE);
+
+            container.getDefinition('templating.loader.chain')
+                .addTag('jymfony.logger', { channel: 'templating' })
+                .addMethodCall('setLogger', [ logger ]);
+        }
+
+        if (0 !== config.loaders.length) {
+            const loaders = config.loaders.map((loader) => new Reference(loader));
+
+            // Use a delegation unless only a single loader was registered
+            if (1 === loaders.length) {
+                container.setAlias('templating.loader', loaders[0].toString()).setPublic(false);
+            } else {
+                container.getDefinition('templating.loader.chain').addArgument(loaders);
+                container.setAlias('templating.loader', 'templating.loader.chain').setPublic(false);
+            }
+        }
+
+        const engines = config.engines.map((engine) => new Reference('templating.engine.'+engine));
+
+        // Use a delegation unless only a single engine was registered
+        if (1 === engines.length) {
+            container.setAlias('templating', engines[0].toString()).setPublic(true);
+        } else {
+            const templateEngineDefinition = container.getDefinition('templating.engine.delegating');
+            for (const engine of engines) {
+                templateEngineDefinition.addMethodCall('addEngine', [ engine ]);
+            }
+
+            container.setAlias('templating', 'templating.engine.delegating').setPublic(true);
+        }
+
+        // Configure the js engine if needed
+        if (-1 !== config.engines.indexOf('js')) {
+            loader.load('templating_js.xml');
         }
     }
 }

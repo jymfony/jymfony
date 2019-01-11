@@ -12,6 +12,8 @@ class ServiceRouterLoader extends Loader {
      * @param {Jymfony.Component.DependencyInjection.Container} container
      */
     __construct(container) {
+        super.__construct();
+
         /**
          * @type {Jymfony.Component.DependencyInjection.Container}
          *

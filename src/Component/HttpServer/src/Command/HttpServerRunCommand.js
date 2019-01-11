@@ -2,6 +2,8 @@ const Command = Jymfony.Component.Console.Command.Command;
 const JymfonyStyle = Jymfony.Component.Console.Style.JymfonyStyle;
 const InputArgument = Jymfony.Component.Console.Input.InputArgument;
 
+const url = require('url');
+
 /**
  * @memberOf Jymfony.Component.HttpServer.Command
  */
@@ -49,13 +51,29 @@ Starts the server and listen on port 8080 on localhost address only.`
         const io = new JymfonyStyle(input, output);
         io.title('Http server');
 
-        const p = this._server.listen({ port: input.getArgument('port'), host: input.getArgument('address') });
+        let port = input.getArgument('port');
+        const address = input.getArgument('address');
+        const p = this._server.listen({ port, host: address });
         io.success([
             'Listening...',
             'Press Ctrl-C to exit',
         ]);
 
-        process.on('SIGINT', () => this._server.close());
+        if (('http' === this._server.scheme && 80 === port) || ('https' === this._server.scheme && 443 === port)) {
+            port = undefined;
+        }
+
+        const serverAddress = url.format({
+            protocol: this._server.scheme + ':',
+            hostname: -1 !== [ '0.0.0.0', '::' ].indexOf(address) ? 'localhost' : address,
+            port,
+            pathname: '/',
+        });
+
+        io.comment('<href=' + serverAddress + '>Open ' + serverAddress + '</>');
+        process.on('SIGINT', async () => {
+            await this._server.close();
+        });
 
         try {
             await p;

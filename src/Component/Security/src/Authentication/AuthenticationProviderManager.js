@@ -44,6 +44,13 @@ class AuthenticationProviderManager extends implementationOf(AuthenticationManag
          * @private
          */
         this._eraseCredentials = eraseCredentials;
+
+        /**
+         * @type {Jymfony.Component.EventDispatcher.EventDispatcherInterface}
+         *
+         * @private
+         */
+        this._eventDispatcher = undefined;
     }
 
     /**

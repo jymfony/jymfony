@@ -12,6 +12,8 @@ class FunctionLoader extends Loader {
      * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container A ContainerBuilder instance
      */
     __construct(container) {
+        super.__construct();
+
         /**
          * @type {Jymfony.Component.DependencyInjection.ContainerBuilder}
          *

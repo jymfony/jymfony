@@ -118,7 +118,7 @@ class RouteCollection {
             return this;
         }
 
-        for (const route of this._routes) {
+        for (const route of Object.values(this._routes)) {
             route.setPath('/' + prefix + route.path);
             route.addDefaults(defaults);
             route.addRequirements(requirements);
@@ -154,7 +154,7 @@ class RouteCollection {
     addResource(resource) {
         const key = resource.toString();
 
-        if (undefined !== this._resources[key]) {
+        if (undefined === this._resources[key]) {
             this._resources[key] = resource;
         }
     }

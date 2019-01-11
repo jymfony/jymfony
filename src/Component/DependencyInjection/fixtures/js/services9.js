@@ -59,6 +59,7 @@ class ProjectContainer extends Jymfony.Component.DependencyInjection.Container {
         instance.qux = {"bar": "foo is bar", "foobar": "bar"};
         instance.setBar((this._services["bar"] || this.getBarService()));
         instance.initialize();
+        this.registerShutdownCall(instance.shut.bind(instance, "shut_arg"));
         sc_configure(instance);
         return instance;
     }

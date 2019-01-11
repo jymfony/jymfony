@@ -27,6 +27,9 @@ class Parser {
          * @private
          */
         this._tm = undefined;
+
+        this._timeParsed = false;
+        this._dateParsed = false;
     }
 
     /**

@@ -56,7 +56,7 @@ class Entry {
     }
 }
 
-class HashTable extends mix(undefined, GenericCollectionTrait) {
+class HashTable extends mix(Object, GenericCollectionTrait) {
     /**
      * Constructor.
      *
@@ -71,7 +71,6 @@ class HashTable extends mix(undefined, GenericCollectionTrait) {
          * @private
          */
         this._bucketSize = bucketSize;
-
         this.clear();
     }
 

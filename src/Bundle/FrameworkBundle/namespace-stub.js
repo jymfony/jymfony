@@ -9,6 +9,11 @@ Jymfony.Bundle.FrameworkBundle = {
     /**
      * @namespace
      */
+    CacheWarmer: {},
+
+    /**
+     * @namespace
+     */
     Command: {},
 
     /**
@@ -25,6 +30,11 @@ Jymfony.Bundle.FrameworkBundle = {
      * @namespace
      */
     DependencyInjection: {},
+
+    /**
+     * @namespace
+     */
+    Routing: {},
 
     /**
      * @namespace

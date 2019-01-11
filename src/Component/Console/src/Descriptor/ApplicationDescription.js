@@ -13,6 +13,10 @@ class ApplicationDescription {
     __construct(application, namespace = undefined) {
         this._application = application;
         this._namespace = namespace;
+
+        this._aliases = undefined;
+        this._commands = undefined;
+        this._namespaces = undefined;
     }
 
     /**

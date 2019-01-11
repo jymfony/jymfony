@@ -39,6 +39,13 @@ class Exception extends Error {
          */
         this._message = message;
 
+        /**
+         * @type {Object.<string, string>[]}
+         *
+         * @private
+         */
+        this._stackTrace = undefined;
+
         Error.captureStackTrace(this, this.constructor);
         this._originalStack = this.stack.split('\n').join('\n');
 
@@ -51,7 +58,11 @@ class Exception extends Error {
      * @returns {Object.<string, string>[]}
      */
     get stackTrace() {
-        return Exception.parseStackTrace(this);
+        if (undefined === this._stackTrace) {
+            this._stackTrace = Exception.parseStackTrace(this);
+        }
+
+        return this._stackTrace;
     }
 
     /**
@@ -73,6 +84,7 @@ class Exception extends Error {
      * @private
      */
     _updateStack() {
+        this._stackTrace = undefined;
         this.stack = this.constructor.name + ': ' + this.message + '\n\n' + this._originalStack;
     }
 
@@ -90,6 +102,7 @@ class Exception extends Error {
         let parts, element;
 
         for (let i = 0, j = lines.length; i < j; ++i) {
+            regex.lastIndex = 0;
             if ((parts = regex.exec(lines[i]))) {
                 element = {
                     file: parts[2],

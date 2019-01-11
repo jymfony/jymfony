@@ -1,6 +1,7 @@
 const SessionStorageInterface = Jymfony.Component.HttpFoundation.Session.Storage.SessionStorageInterface;
 const crypto = require('crypto');
 const promisify = require('util').promisify;
+const randomBytes = promisify(crypto.randomBytes);
 
 /**
  * Cache storage backend for session.
@@ -199,8 +200,6 @@ class CacheSessionStorage extends implementationOf(SessionStorageInterface) {
      * @private
      */
     async _generateId() {
-        const randomBytes = promisify(crypto.randomBytes);
-
         return (await randomBytes(16)).toString('hex');
     }
 

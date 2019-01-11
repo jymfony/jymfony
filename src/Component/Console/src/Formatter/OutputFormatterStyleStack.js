@@ -33,13 +33,13 @@ class OutputFormatterStyleStack {
     /**
      * Pops a style from the stack.
      *
-     * @param {Jymfony.Component.Console.Formatter.OutputFormatterStyleInterface|undefined} style
+     * @param {Jymfony.Component.Console.Formatter.OutputFormatterStyleInterface|undefined} [style]
      *
      * @returns {Jymfony.Component.Console.Formatter.OutputFormatterStyleInterface}
      *
      * @throws {InvalidArgumentException} When style tags incorrectly nested
      */
-    pop(style) {
+    pop(style = undefined) {
         if (! this._styles.length) {
             return this._emptyStyle;
         }

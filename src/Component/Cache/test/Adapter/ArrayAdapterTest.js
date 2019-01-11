@@ -5,6 +5,10 @@ const expect = require('chai').expect;
 describe('[Cache] ArrayAdapter', function () {
     AdapterTestCase.shouldPassAdapterTests.call(this);
 
+    afterEach(async () => {
+        await this._cache.clear();
+    });
+
     it('values should return all the values', async () => {
         let item = await this._cache.getItem('key');
         item.set('4711');
