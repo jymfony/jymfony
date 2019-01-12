@@ -52,7 +52,7 @@ class Cookie {
      *
      * @throws \InvalidArgumentException
      */
-    __construct(name, value = null, expire = 0, path = '/', domain = undefined, secure = false, httpOnly = true, raw = false, sameSite = null) {
+    __construct(name, value = null, expire = 0, path = '/', domain = undefined, secure = true, httpOnly = true, raw = false, sameSite = __self.SAMESITE_LAX) {
         // From PHP source code
         if (name.match(/[=,; \t\r\n\013\014]/)) {
             throw new InvalidArgumentException(__jymfony.sprintf('The cookie name "%s" contains invalid characters.', name));
