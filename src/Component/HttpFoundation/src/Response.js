@@ -549,7 +549,7 @@ class Response {
             return;
         }
 
-        date = new DateTime(date.timestamp, DateTimeZone.get('UTC'));
+        date = new DateTime(date instanceof DateTime ? date.timestamp : date, DateTimeZone.get('UTC'));
         this.headers.set('Last-Modified', date.format('D, d M Y H:i:s') + ' GMT');
     }
 

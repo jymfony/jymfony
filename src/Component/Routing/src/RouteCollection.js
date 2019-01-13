@@ -128,6 +128,23 @@ class RouteCollection {
     }
 
     /**
+     * Adds a prefix to the name of all the routes within in the collection.
+     */
+    addNamePrefix(prefix) {
+        const prefixedRoutes = {};
+
+        let name, route;
+        for ([ name, route ] of __jymfony.getEntries(this._routes)) {
+            prefixedRoutes[prefix + name] = route;
+            if (undefined !== (name = route.getDefault('_canonical_route'))) {
+                route.setDefault('_canonical_route', prefix + name);
+            }
+        }
+
+        this._routes = prefixedRoutes;
+    }
+
+    /**
      * Sets the host pattern on all routes.
      *
      * @param {string} pattern The pattern
