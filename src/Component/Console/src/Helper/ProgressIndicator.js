@@ -26,6 +26,13 @@ class ProgressIndicator {
         this._started = false;
 
         /**
+         * @type {string}
+         *
+         * @private
+         */
+        this._message = undefined;
+
+        /**
          * @type {Jymfony.Component.Console.Output.OutputInterface}
          *
          * @private
