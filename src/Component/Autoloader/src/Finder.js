@@ -14,7 +14,13 @@ class Finder {
         this._path = path;
         this._currentModule = currentModule;
 
-        // Cache root dir value
+        /**
+         * Cache root dir value
+         *
+         * @type {string}
+         *
+         * @private
+         */
         this._root = undefined;
     }
 
@@ -78,6 +84,10 @@ class Finder {
                     this._root = root;
                     break;
                 }
+            }
+
+            if (undefined === this._root && process.env.LAMBDA_TASK_ROOT) {
+                this._root = process.env.LAMBDA_TASK_ROOT;
             }
         }
 
