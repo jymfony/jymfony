@@ -35,4 +35,9 @@ Jymfony.Component.HttpServer = {
      * @namespace
      */
     RequestParser: {},
+
+    /**
+     * @namespace
+     */
+    Serverless: {},
 };
