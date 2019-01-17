@@ -68,7 +68,7 @@ class ReflectionClass {
             this._docblock = value[Symbol.docblock]();
         }
 
-        if (undefined !== value[Symbol.reflection]) {
+        if (undefined !== value[Symbol.reflection] && value[Symbol.reflection].isModule(value)) {
             this._loadFromMetadata(value);
         } else {
             this._loadWithoutMetadata(value);

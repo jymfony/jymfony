@@ -224,7 +224,11 @@ class Kernel extends implementationOf(KernelInterface) {
      */
     getRootDir() {
         if (undefined === this._rootDir) {
-            const r = new ReflectionClass(this);
+            let r = new ReflectionClass(this);
+            if (undefined === r.filename) {
+                r = new ReflectionClass(__self);
+            }
+
             this._rootDir = path.dirname(r.filename);
         }
 
@@ -364,6 +368,7 @@ class Kernel extends implementationOf(KernelInterface) {
     _initializeBundles() {
         const directChildren = {};
         const topMostBundles = {};
+        this._bundles = {};
 
         for (const bundle of this.registerBundles()) {
             const name = bundle.getName();
@@ -373,7 +378,7 @@ class Kernel extends implementationOf(KernelInterface) {
 
             this._bundles[name] = bundle;
             let parentName;
-            if (parentName = bundle.getParent()) {
+            if ((parentName = bundle.getParent())) {
                 if (directChildren[parentName]) {
                     throw new LogicException(`Bundle "${parentName}" is directly extended by two bundles "${name}" and "${directChildren[parentName]}".`);
                 }

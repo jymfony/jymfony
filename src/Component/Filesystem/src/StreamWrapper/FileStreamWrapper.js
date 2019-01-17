@@ -178,8 +178,11 @@ class FileStreamWrapper extends AbstractStreamWrapper {
     /**
      * @inheritdoc
      */
-    rename(fromPath, toPath) {
-        return rename(__self._getPath(fromPath), __self._getPath(toPath));
+    async rename(fromPath, toPath) {
+        const result = await rename(__self._getPath(fromPath), __self._getPath(toPath));
+        __self.clearStatCache();
+
+        return result;
     }
 
     /**

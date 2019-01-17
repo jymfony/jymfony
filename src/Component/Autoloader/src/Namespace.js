@@ -179,6 +179,9 @@ class Namespace {
                 module: this._internalRequire.cache[fn],
                 constructor: mod,
                 namespace: this,
+                isModule: (val) => {
+                    return self === val || mod === val || mod.definition === val;
+                },
             };
 
             if (! mod.hasOwnProperty('arguments')) {

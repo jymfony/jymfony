@@ -28,6 +28,7 @@ class CallTracingKernel extends Kernel {
             };
         }
 
+        this._registeredBundles = bundles;
         this._bundles = bundles;
     }
 
@@ -38,7 +39,7 @@ class CallTracingKernel extends Kernel {
     registerBundles() {
         this._calls['registerBundles']++;
 
-        return this._bundles;
+        return this._registeredBundles;
     }
 }
 

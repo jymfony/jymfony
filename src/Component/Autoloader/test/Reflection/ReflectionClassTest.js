@@ -46,6 +46,9 @@ Son2[Symbol.reflection] = {
     filename: __filename,
     module: module,
     constructor: Son2,
+    isModule: (val) => {
+        return val === Son2;
+    }
 };
 
 Parent.CONST_1 = 'foobar';

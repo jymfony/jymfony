@@ -253,6 +253,11 @@ class Request {
          */
         this.content = content;
 
+        /**
+         * @type {string}
+         *
+         * @private
+         */
         this._method = undefined;
     }
 
