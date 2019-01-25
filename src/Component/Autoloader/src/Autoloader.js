@@ -1,5 +1,6 @@
 const Finder = require('./Finder');
 const Namespace = require('./Namespace');
+const fs = require('fs');
 const path = require('path');
 
 /**
@@ -193,7 +194,7 @@ class Autoloader {
             const packageJson = path.join(rootDir, 'node_modules', module, 'package.json');
 
             try {
-                packageInfo = require(packageJson);
+                packageInfo = JSON.parse(fs.readFileSync(packageJson, { encoding: 'utf8' }));
             } catch (e) {
                 continue;
             }
@@ -202,7 +203,7 @@ class Autoloader {
             this._processPackageInfo(packageInfo, dir);
         }
 
-        this._processPackageInfo(require(rootDir + '/package.json'), rootDir);
+        this._processPackageInfo(JSON.parse(fs.readFileSync(rootDir + '/package.json', { encoding: 'utf8' })), rootDir);
     }
 
     /**

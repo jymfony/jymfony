@@ -98,7 +98,7 @@ class Finder {
      * Get module names list
      * Note that this will return top-level modules ONLY
      *
-     * @returns {Array}
+     * @returns {IterableIterator|Array}
      */
     listModules() {
         const root = this.findRoot();
@@ -107,28 +107,28 @@ class Finder {
         const self = this;
         let currentDir;
 
-        const rd = function * (dir, ignoreErrors = false) {
+        const rd = function (dir, ignoreErrors = false) {
             let stat;
 
             try {
                 dir = self._fs.realpathSync(dir);
                 stat = self._fs.statSync(dir);
-            } catch (e) {
-                if (! ignoreErrors) {
-                    throw e;
+
+                if (stat.isDirectory()) {
+                    return self._fs.readdirSync(dir);
                 }
 
-                return;
-            }
-
-            if (! stat.isDirectory()) {
                 const e = new Error();
                 e.code = 'ENOENT';
 
                 throw e;
+            } catch (e) {
+                if (! ignoreErrors || 'ENOENT' === e.code) {
+                    throw e;
+                }
             }
 
-            yield * self._fs.readdirSync(dir);
+            return [];
         };
 
         const processor = function * (list) {
@@ -155,9 +155,9 @@ class Finder {
             currentDir = this._normalizePath(parts, 'node_modules');
 
             try {
-                return Array.from(processor(rd(currentDir)));
+                return processor(rd(currentDir));
             } catch (e) {
-                if (! e.code || 'ENOENT' !== e.code) {
+                if ('ENOENT' !== e.code) {
                     throw e;
                 }
             }

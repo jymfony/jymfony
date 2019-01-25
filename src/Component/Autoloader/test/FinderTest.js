@@ -194,7 +194,7 @@ describe('[Autoloader] Finder', function () {
         };
 
         const finder = new Finder(fs, mockedPath, module);
-        expect(finder.listModules()).to.be.deep.equal([
+        expect(Array.from(finder.listModules())).to.be.deep.equal([
             'jymfony-autoloader',
             'chai',
             'jymfony-event-dispatcher',
@@ -238,7 +238,7 @@ describe('[Autoloader] Finder', function () {
         };
 
         const finder = new Finder(fs, mockedPath, module);
-        expect(finder.listModules.bind(finder)).to.throw('TEST_ERROR');
+        expect(() => Array.from(finder.listModules())).to.throw('TEST_ERROR');
     });
 
     it('listModules with no modules installed', function () {
@@ -267,7 +267,7 @@ describe('[Autoloader] Finder', function () {
         };
 
         const finder = new Finder(fs, mockedPath, module);
-        const mods = finder.listModules();
+        const mods = Array.from(finder.listModules());
 
         expect(mods).to.be.deep.equal([]);
     });
