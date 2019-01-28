@@ -88,13 +88,19 @@ class AwsLambdaHandler extends RequestHandler {
                 context,
             });
 
-            return {
+            const response = {
                 statusCode: 500,
                 headers: {
                     'Content-type': 'text/plain',
                 },
                 body: 'Unknown error while handling your request.',
             };
+
+            if (event.requestContext.elb) {
+                response.statusDescription = '500 Internal Server Error';
+            }
+
+            return response;
         }
     }
 
@@ -117,21 +123,22 @@ class AwsLambdaHandler extends RequestHandler {
         try {
             [ requestParams, content ] = await this._parseRequestContent(event, headers, contentType);
         } catch (e) {
-            if (e instanceof BadRequestException) {
-                return {
-                    statusCode: 200,
-                    headers: {
-                        'Content-type': 'text/plain',
-                    },
-                };
-            }
-
-            return {
+            const response = {
                 statusCode: 500,
                 headers: {
                     'Content-type': 'text/plain',
                 },
             };
+
+            if (e instanceof BadRequestException) {
+                response.statusCode = 400;
+            }
+
+            if (event.requestContext.elb) {
+                response.statusDescription = response.statusCode + ' ' + (Response.statusTexts[response.statusCode] || 'Unknown');
+            }
+
+            return response;
         }
 
         const requestUrl = url.format({ pathname: event.path, query: event.queryStringParameters });
@@ -166,6 +173,10 @@ class AwsLambdaHandler extends RequestHandler {
             headers: responseHeaders,
             body: content,
         };
+
+        if (event.requestContext.elb) {
+            result.statusDescription = result.statusCode + ' ' + (Response.statusTexts[result.statusCode] || 'Unknown');
+        }
 
         const postResponseEvent = new Event.PostResponseEvent(this, request, response);
         await this._dispatcher.dispatch(Event.HttpServerEvents.TERMINATE, postResponseEvent);
