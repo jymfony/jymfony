@@ -11,6 +11,7 @@ const ServiceCircularReferenceException = Jymfony.Component.DependencyInjection.
 const Parameter = Jymfony.Component.DependencyInjection.Parameter;
 const Reference = Jymfony.Component.DependencyInjection.Reference;
 const Variable = Jymfony.Component.DependencyInjection.Variable;
+const path = require('path');
 
 const firstChars = 'abcdefghijklmnopqrstuvwxyz';
 const nonFirstChars = 'abcdefghijklmnopqrstuvwxyz0123456789_';
@@ -38,6 +39,8 @@ class JsDumper {
         this._definitionVariables = undefined;
         this._referenceVariables = undefined;
         this._variableCount = undefined;
+        this._targetDirMaxMatches = undefined;
+        this._targetDirRegex = undefined;
     }
 
     /**
@@ -60,6 +63,28 @@ class JsDumper {
         }, options);
 
         (new AnalyzeServiceReferencesPass()).process(this._container);
+
+        if (options.dir) {
+            const dir = __jymfony.rtrim(options.dir, '/').split(path.sep);
+            let i = dir.length;
+
+            if (3 <= i) {
+                let regex = '';
+                const lastOptionalDir = 8 < i ? i - 5 : 3;
+                this._targetDirMaxMatches = i - lastOptionalDir;
+
+                while (--i >= lastOptionalDir) {
+                    regex = __jymfony.sprintf('(%s%s)?', __jymfony.regex_quote(path.sep + dir[i]), regex);
+                }
+
+                do {
+                    regex = __jymfony.regex_quote(path.sep + dir[i]) + regex;
+                } while (0 < --i);
+
+                this._targetDirRegex = new RegExp(__jymfony.regex_quote(dir[0]) + regex);
+            }
+        }
+
         this._initMethodNamesMap(options.base_class);
 
         let code = this._startClass(options.class_name, options.base_class);
@@ -118,14 +143,24 @@ module.exports = new Container${hash}({
      * @private
      */
     _startClass(className, baseClass) {
+        const targetDirs = undefined === this._targetDirMaxMatches ? '' : `
+        let dir = path.dirname(__dirname);
+        this._targetDirs = [ dir ];
+        for (let i = 1; i <= ${this._targetDirMaxMatches}; ++i) {
+            this._targetDirs.push(dir = path.dirname(dir));
+        }
+
+`;
+
         return `const Container = Jymfony.Component.DependencyInjection.Container;
 const LogicException = Jymfony.Component.DependencyInjection.Exception.LogicException;
 const FrozenParameterBag = Jymfony.Component.DependencyInjection.ParameterBag.FrozenParameterBag;
 const RewindableGenerator = Jymfony.Component.DependencyInjection.Argument.RewindableGenerator;
+const path = require('path');
 
 class ${className} extends ${baseClass} {
-    __construct(buildParameters = {}) {
-        super.__construct(new FrozenParameterBag(Object.assign({}, ${className}._getDefaultsParameters(), buildParameters)));
+    __construct(buildParameters = {}) {${targetDirs}
+        super.__construct(new FrozenParameterBag(Object.assign({}, this._getDefaultsParameters(), buildParameters)));
 
         ${this._getMethodMap()}
         ${this._getAliases()}
@@ -211,6 +246,32 @@ module.exports = ${className};
      * @private
      */
     _export(value) {
+        if (undefined !== this._targetDirRegex && isString(value) && value.match(this._targetDirRegex)) {
+            value = JSON.stringify(value);
+            value = value.replace(this._targetDirRegex, (...args) => {
+                for (let i = this._targetDirMaxMatches; 1 <= i; --i) {
+                    if (undefined === args[i]) {
+                        continue;
+                    }
+
+                    return '" + this._targetDirs[' + (this._targetDirMaxMatches - i) + '] + "';
+                }
+            });
+
+            return value.replace(/"" \+ /g, '').replace(/ \+ ""/g, '');
+        }
+
+        return this._doExport(value);
+    }
+
+    /**
+     * @param {*} value
+     *
+     * @returns {string}
+     *
+     * @private
+     */
+    _doExport(value) {
         if (isScalar(value) || isArray(value) || isObjectLiteral(value)) {
             return JSON.stringify(value);
         }
@@ -289,7 +350,7 @@ module.exports = ${className};
         code += '        }';
 
         return `
-    static _getDefaultsParameters() {
+    _getDefaultsParameters() {
         return ${code};
     }`;
     }

@@ -494,16 +494,17 @@ class Kernel extends implementationOf(KernelInterface) {
      */
     _dumpContainer(container, cache) {
         const dumper = new Jymfony.Component.DependencyInjection.Dumper.JsDumper(container);
+        const dir = path.dirname(cache.getPath()) + '/';
         const options = {
             class_name: this._getContainerClass(),
             debug: this._debug,
             build_time: container.hasParameter('kernel.container_build_time') ? container.getParameter('kernel.container_build_time') : DateTime.unixTime,
+            dir,
         };
 
         const codes = Array.from(__jymfony.getEntries(dumper.dump(options)));
         const rootCode = codes.pop();
 
-        const dir = path.dirname(cache.getPath()) + '/';
         for (const [ file, code ] of codes) {
             const target = dir+file;
 

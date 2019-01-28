@@ -2,10 +2,11 @@ const Container = Jymfony.Component.DependencyInjection.Container;
 const LogicException = Jymfony.Component.DependencyInjection.Exception.LogicException;
 const FrozenParameterBag = Jymfony.Component.DependencyInjection.ParameterBag.FrozenParameterBag;
 const RewindableGenerator = Jymfony.Component.DependencyInjection.Argument.RewindableGenerator;
+const path = require('path');
 
 class ProjectContainer extends Jymfony.Component.DependencyInjection.Container {
     __construct(buildParameters = {}) {
-        super.__construct(new FrozenParameterBag(Object.assign({}, ProjectContainer._getDefaultsParameters(), buildParameters)));
+        super.__construct(new FrozenParameterBag(Object.assign({}, this._getDefaultsParameters(), buildParameters)));
 
         this._methodMap = {
         };
@@ -24,7 +25,7 @@ class ProjectContainer extends Jymfony.Component.DependencyInjection.Container {
         return true;
     }
 
-    static _getDefaultsParameters() {
+    _getDefaultsParameters() {
         return {
             "foo": "bar",
             "baz": "bar",
