@@ -202,6 +202,47 @@ class ContainerBuilder extends Container {
     }
 
     /**
+     * Retrieves the requested reflection class and registers it for resource tracking.
+     *
+     * @param {string} Class
+     * @param {boolean} Throw
+     *
+     * @returns {ReflectionClass}
+     *
+     * @throws {ReflectionException} when a parent class/interface/trait is not found and $throw is true
+     *
+     * @final
+     */
+    getReflectionClass(Class, Throw = true) {
+        if (! (Class = this.parameterBag.resolveValue(Class))) {
+            return null;
+        }
+
+        let resource = null;
+        let classReflector = null;
+
+        try {
+            if (ReflectionClass.exists('Jymfony.Component.Config.Resource.ClassExistenceResource')) {
+                resource = new Jymfony.Component.Config.Resource.ClassExistenceResource(Class);
+            }
+
+            classReflector = ReflectionClass.exists(Class) ? new ReflectionClass(Class) : false;
+        } catch (e) {
+            if (Throw || ! (e instanceof ReflectionException)) {
+                throw e;
+            }
+
+            classReflector = false;
+        }
+
+        if (resource && this._trackResources) {
+            this.addResource(resource);
+        }
+
+        return classReflector || null;
+    }
+
+    /**
      * Adds the given class hierarchy as resources.
      *
      * @param {ReflectionClass} reflClass
@@ -502,7 +543,7 @@ class ContainerBuilder extends Container {
         }
 
         delete this._definitions[alias];
-        this._aliasDefinitions[alias] = id;
+        return this._aliasDefinitions[alias] = id;
     }
 
     /**

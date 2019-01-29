@@ -2,11 +2,11 @@ const ArgumentInterface = Jymfony.Component.DependencyInjection.Argument.Argumen
 const ReferenceSetArgumentTrait = Jymfony.Component.DependencyInjection.Argument.ReferenceSetArgumentTrait;
 
 /**
- * Represents a collection of values to lazily iterate over.
+ * Represents a closure acting as a service locator.
  *
  * @memberOf Jymfony.Component.DependencyInjection.Argument
  */
-class IteratorArgument extends implementationOf(ArgumentInterface, ReferenceSetArgumentTrait) {
+class ServiceLocatorArgument extends implementationOf(ArgumentInterface, ReferenceSetArgumentTrait) {
     /**
      * Constructor.
      *
@@ -17,4 +17,4 @@ class IteratorArgument extends implementationOf(ArgumentInterface, ReferenceSetA
     }
 }
 
-module.exports = IteratorArgument;
+module.exports = ServiceLocatorArgument;

@@ -2,6 +2,7 @@ const EnvVariableResource = Jymfony.Component.Config.Resource.EnvVariableResourc
 const ArgumentInterface = Jymfony.Component.DependencyInjection.Argument.ArgumentInterface;
 const IteratorArgument = Jymfony.Component.DependencyInjection.Argument.IteratorArgument;
 const ServiceClosureArgument = Jymfony.Component.DependencyInjection.Argument.ServiceClosureArgument;
+const ServiceLocatorArgument = Jymfony.Component.DependencyInjection.Argument.ServiceLocatorArgument;
 const AnalyzeServiceReferencesPass = Jymfony.Component.DependencyInjection.Compiler.AnalyzeServiceReferencesPass;
 const Container = Jymfony.Component.DependencyInjection.Container;
 const ContainerBuilder = Jymfony.Component.DependencyInjection.ContainerBuilder;
@@ -10,6 +11,7 @@ const RuntimeException = Jymfony.Component.DependencyInjection.Exception.Runtime
 const ServiceCircularReferenceException = Jymfony.Component.DependencyInjection.Exception.ServiceCircularReferenceException;
 const Parameter = Jymfony.Component.DependencyInjection.Parameter;
 const Reference = Jymfony.Component.DependencyInjection.Reference;
+const ServiceLocator = Jymfony.Component.DependencyInjection.ServiceLocator;
 const Variable = Jymfony.Component.DependencyInjection.Variable;
 const path = require('path');
 
@@ -787,6 +789,22 @@ ${this._addReturn(id, definition)}\
 
                     return code.join('\n');
                 }
+
+                if (value instanceof ServiceLocatorArgument) {
+                    let serviceMap = '';
+                    for (const [ k, v ] of __jymfony.getEntries(value.values)) {
+                        if (! v) {
+                            continue;
+                        }
+
+                        serviceMap += __jymfony.sprintf('\n            %s: %s,',
+                            this._export(__jymfony.ltrim(k, '?')),
+                            this._dumpValue(new ServiceClosureArgument(v)).replace(/^/mg, '    ').trim(),
+                        );
+                    }
+
+                    return __jymfony.sprintf('new \%s({%s\n        })', ReflectionClass.getClassName(ServiceLocator), serviceMap);
+                }
             } finally {
                 [ this._definitionVariables, this._referenceVariables, this._variableCount ] = scope;
             }
@@ -1088,16 +1106,25 @@ ${this._addReturn(id, definition)}\
      * @private
      */
     _addNewInstance(definition, ret, instantiation) {
+        if ('Jymfony.Component.DependencyInjection.ServiceLocator' === definition.getClass() && definition.hasTag('container.service_locator')) {
+            const args = {};
+            for (const [ k, argument ] of __jymfony.getEntries(definition.getArgument(0))) {
+                args[k] = argument.values[0];
+            }
+
+            return __jymfony.sprintf(`        ${ret}%s;\n`, this._dumpValue(new ServiceLocatorArgument(args)));
+        }
+
         let class_ = this._dumpValue(definition.getClass());
         const args = Array.from(definition.getArguments().map(T => this._dumpValue(T)));
 
         if (definition.getModule()) {
             const [ module, property ] = definition.getModule();
             if (property) {
-                return __jymfony.sprintf(`        ${ret}${instantiation}new (require(%s)[%s])(%s);`, this._dumpValue(module), this._dumpValue(property), args.join(', '));
+                return __jymfony.sprintf(`        ${ret}${instantiation}new (require(%s)[%s])(%s);\n`, this._dumpValue(module), this._dumpValue(property), args.join(', '));
             }
 
-            return __jymfony.sprintf(`        ${ret}${instantiation}require(%s);`, this._dumpValue(module));
+            return __jymfony.sprintf(`        ${ret}${instantiation}require(%s);\n`, this._dumpValue(module));
         } else if (definition.getFactory()) {
             const callable = definition.getFactory();
             if (isArray(callable)) {

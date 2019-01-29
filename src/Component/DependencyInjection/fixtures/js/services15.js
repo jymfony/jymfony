@@ -45,6 +45,7 @@ class ProjectContainer extends Jymfony.Component.DependencyInjection.Container {
     getFooService() {
         let instance;
         this._services["foo"] = instance = require("module1");
+
         instance.foo = "bar";
         instance.qux = {"bar": "foo is bar", "foobar": "bar"};
         instance.setBar((this._services["bar"] || this.getBarService()));
@@ -61,6 +62,7 @@ class ProjectContainer extends Jymfony.Component.DependencyInjection.Container {
     getFoo_BazService() {
         let instance;
         this._services["foo.baz"] = instance = new (require("BazClass")["prop"])("foo", (this._services["foo"] || this.getFooService()), {"bar": "foo is bar", "foobar": "bar"}, true, this);
+
         BazClass.configureStatic1(instance);
         return instance;
     }

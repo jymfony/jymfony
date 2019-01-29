@@ -25,7 +25,7 @@ class ServiceClosureArgument extends implementationOf(ArgumentInterface) {
      * @inheritdoc
      */
     set values(values) {
-        if (! values[0] || ! (values[0] instanceof Reference)) {
+        if (1 === values.length && ! (undefined === values[0] || null === values[0] || values[0] instanceof Reference)) {
             throw new InvalidArgumentException('A ServiceClosureArgument must hold one and only one Reference.');
         }
 

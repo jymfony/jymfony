@@ -37,10 +37,13 @@ class PassConfig {
         this._optimizationPasses = {
             0: [
                 new Compiler.ResolveChildDefinitionsPass(),
+                new Compiler.ServiceLocatorTagPass(),
+                new Compiler.RegisterServiceSubscribersPass(),
                 new Compiler.DecoratorServicePass(),
                 new Compiler.ResolveParameterPlaceHoldersPass(),
                 new Compiler.CheckDefinitionValidityPass(),
                 new Compiler.ResolveTaggedIteratorArgumentPass(),
+                new Compiler.ResolveServiceSubscribersPass(),
                 new Compiler.ResolveReferencesToAliasesPass(),
                 new Compiler.ResolveInvalidReferencesPass(),
                 new Compiler.AnalyzeServiceReferencesPass(true),
