@@ -1,5 +1,6 @@
 const AbstractNegotiator = Jymfony.Component.HttpFoundation.Negotiation.AbstractNegotiator;
 const Accept = Jymfony.Component.HttpFoundation.Negotiation.Accept;
+const Match = Jymfony.Component.HttpFoundation.Negotiation.Match;
 
 /**
  * @memberOf Jymfony.Component.HttpFoundation.Negotiation

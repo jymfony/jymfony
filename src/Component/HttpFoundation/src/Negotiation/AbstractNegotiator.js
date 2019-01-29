@@ -74,7 +74,7 @@ class AbstractNegotiator {
 
         // Sort based on quality and then original order. This is necessary as
         // To ensure that the first in the list for two items with the same
-        // Quality stays in that order in both PHP5 and PHP7.
+        // Quality stays in that order.
         orderKeys.sort((a, b) => {
             const qA = a[0];
             const qB = b[0];
@@ -131,7 +131,7 @@ class AbstractNegotiator {
     /**
      * @param {string} header A string that contains an `Accept*` header.
      *
-     * @return {Jymfony.Component.HttpFoundation.Negotiation.AcceptHeader[]}
+     * @return {string[]}
      *
      * @private
      */
@@ -141,14 +141,14 @@ class AbstractNegotiator {
             throw new InvalidHeaderException(__jymfony.sprintf('Failed to parse accept header: "%s"', header));
         }
 
-        return Array.from(matches).map(__jymfony.trim).filter(v => !! v);
+        return Array.from(matches).map(v => __jymfony.trim(v)).filter(v => !! v);
     }
 
     /**
      * Finds all the matches against a list of priorities.
      *
      * @param {Jymfony.Component.HttpFoundation.Negotiation.AcceptHeader[]} headerParts
-     * @param {Jymfony.Component.HttpFoundation.Negotiation.Priority[]} priorities Configured priorities
+     * @param {Jymfony.Component.HttpFoundation.Negotiation.AcceptHeader[]} priorities Configured priorities
      *
      * @returns {Jymfony.Component.HttpFoundation.Negotiation.Match[]} Headers matched
      *
@@ -156,7 +156,7 @@ class AbstractNegotiator {
      */
     _findMatches(headerParts, priorities) {
         const matches = [];
-        for (const [ index, p ] of Object.getEntries(priorities)) {
+        for (const [ index, p ] of __jymfony.getEntries(priorities)) {
             for (const h of headerParts) {
                 let match;
                 if (null !== (match = this._match(h, p, index))) {
