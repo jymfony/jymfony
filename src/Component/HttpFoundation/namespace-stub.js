@@ -34,6 +34,16 @@ Jymfony.Component.HttpFoundation = {
     /**
      * @namespace
      */
+    Negotiation: {
+        /**
+         * @namespace
+         */
+        Exception: {},
+    },
+
+    /**
+     * @namespace
+     */
     Session: {
         /**
          * @namespace
