@@ -275,7 +275,14 @@ class Resource {
         const socket = 'https:' === url.protocol ? new TlsSocket(connSocket) : connSocket;
 
         const tryConnect = async (resolveMethod) => {
-            for (const addr of await resolveMethod(url.hostname)) {
+            let addresses;
+            try {
+                addresses = await resolveMethod(url.hostname);
+            } catch (e) {
+                return undefined;
+            }
+
+            for (const addr of addresses) {
                 try {
                     return await new Promise(((resolve, reject) => {
                         connSocket.on('error', reject);

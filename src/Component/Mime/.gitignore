@@ -14,9 +14,6 @@ lib-cov
 # Coverage directory used by tools like istanbul
 coverage
 
-# Binary files
-/bin
-
 # nyc test coverage
 .nyc_output
 
@@ -39,6 +36,3 @@ jspm_packages
 # Optional REPL history
 .node_repl_history
 package-lock.json
-yarn.lock
-
-var

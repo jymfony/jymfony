@@ -1,0 +1,36 @@
+{
+  "name": "@jymfony/mime",
+  "version": "0.1.0-dev",
+  "description": "Jymfony Mime Types Component",
+  "scripts": {
+    "test": "node ./tests.js"
+  },
+  "keywords": [
+    "mime",
+    "mime-types",
+    "jymfony"
+  ],
+  "author": "Alessandro Chitolina <alekitto@gmail.com>",
+  "license": "MIT",
+  "engines": {
+    "node": ">=8.10.0"
+  },
+  "dependencies": {
+    "@jymfony/autoloader": "https://github.com/jymfony/autoloader.git",
+    "@jymfony/exceptions": "https://github.com/jymfony/exceptions.git",
+    "@jymfony/util": "https://github.com/jymfony/util.git"
+  },
+  "devDependencies": {
+    "@jymfony/debug": "https://github.com/jymfony/debug.git",
+    "@jymfony/filesystem": "https://github.com/jymfony/filesystem.git",
+    "@jymfony/testing": "https://github.com/jymfony/testing.git",
+    "libxmljs": "^0.19"
+  },
+  "config": {
+    "jymfony-autoload": {
+      "namespaces": {
+        "Jymfony.Component.Mime": "src/"
+      }
+    }
+  }
+}

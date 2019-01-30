@@ -7,11 +7,11 @@ const Compiler = Jymfony.Component.DependencyInjection.Compiler.Compiler;
 const PassConfig = Jymfony.Component.DependencyInjection.Compiler.PassConfig;
 const Container = Jymfony.Component.DependencyInjection.Container;
 const Definition = Jymfony.Component.DependencyInjection.Definition;
-const Parameter = Jymfony.Component.DependencyInjection.Parameter;
 const BadMethodCallException = Jymfony.Component.DependencyInjection.Exception.BadMethodCallException;
 const InvalidArgumentException = Jymfony.Component.DependencyInjection.Exception.InvalidArgumentException;
 const ServiceNotFoundException = Jymfony.Component.DependencyInjection.Exception.ServiceNotFoundException;
 const RealServiceInstantiator = Jymfony.Component.DependencyInjection.LazyProxy.RealServiceInstantiator;
+const Parameter = Jymfony.Component.DependencyInjection.Parameter;
 const Reference = Jymfony.Component.DependencyInjection.Reference;
 
 const crypto = require('crypto');
@@ -219,7 +219,7 @@ class ContainerBuilder extends Container {
         }
 
         let resource = null;
-        let classReflector = null;
+        let classReflector;
 
         try {
             if (ReflectionClass.exists('Jymfony.Component.Config.Resource.ClassExistenceResource')) {

@@ -251,7 +251,7 @@ class FileStreamWrapper extends AbstractStreamWrapper {
      */
     async streamWrite(resource, buffer, position = 0, whence = File.SEEK_CUR) {
         resource.seek(position, whence);
-        const result = await fwrite(resource.fd, buffer, 0, buffer.length, resource.position);
+        const result = await fwrite(resource.fd, Buffer.from(buffer), 0, buffer.length, resource.position);
         resource.advance(buffer.length);
 
         return result.bytesWritten;
