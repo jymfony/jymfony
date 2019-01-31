@@ -37,6 +37,10 @@ class PropertyAccessor extends implementationOf(PropertyAccessorInterface) {
      * @inheritdoc
      */
     getValue(object, path) {
+        if (! String(path).match(/\[\./) && (isObject(object) || isArray(object))) {
+            return this._readProperty(object, path);
+        }
+
         path = this._getPropertyPath(path);
         const propertyValues = this._readPropertiesUntil(object, path, path.length);
 
@@ -47,6 +51,10 @@ class PropertyAccessor extends implementationOf(PropertyAccessorInterface) {
      * @inheritdoc
      */
     setValue(object, value, path) {
+        if (! String(path).match(/\[\./) && (isObject(object) || isArray(object))) {
+            return this._writeProperty(target, path, value);
+        }
+
         path = this._getPropertyPath(path);
         const propertyValues = this._readPropertiesUntil(object, path, path.length - 1);
         const target = propertyValues[propertyValues.length - 1];
