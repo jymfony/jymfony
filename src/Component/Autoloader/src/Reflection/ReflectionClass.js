@@ -534,8 +534,9 @@ class ReflectionClass {
                         return false;
                     }
 
-                    if ('function' === typeof parent[P]) {
-                        this._staticMethods[P] = Object.getOwnPropertyDescriptor(parent, P).value;
+                    const descriptor = Object.getOwnPropertyDescriptor(parent, P);
+                    if ('function' === typeof descriptor.value) {
+                        this._staticMethods[P] = descriptor.value;
                         return false;
                     }
 
@@ -543,8 +544,12 @@ class ReflectionClass {
                 });
 
             for (const name of names) {
-                if (! consts.hasOwnProperty(name)) {
-                    consts[name] = parent[name];
+                if (! consts.hasOwnProperty(name) && parent.hasOwnProperty(name)) {
+                    const descriptor = Object.getOwnPropertyDescriptor(parent, name);
+
+                    if (descriptor.hasOwnProperty('value')) {
+                        consts[name] = descriptor.value;
+                    }
                 }
             }
         }
@@ -566,7 +571,7 @@ class ReflectionClass {
             const original = parts.join('.');
             parts = [ ...parts ].reverse();
 
-            while (part = parts.pop()) {
+            while ((part = parts.pop())) {
                 if (undefined === start) {
                     throw new ReflectionException('Requesting non-existent class ' + original);
                 }
