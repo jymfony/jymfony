@@ -157,7 +157,43 @@ class HttpServer extends RequestHandler {
      * @protected
      */
     _createServer() {
-        return new http.Server(this._incomingRequest.bind(this));
+        const server = new http.Server(this._incomingRequest.bind(this));
+        server.on('clientError',
+            /**
+             * @param {Error} err
+             * @param {module:net.Socket} socket
+             *
+             * @returns {Promise<void>}
+             */
+            async (err, socket) => {
+                try {
+                    if (! err) {
+                        return;
+                    }
+
+                    let status = Response.HTTP_BAD_REQUEST;
+                    let message = 'Unexpected error on HTTP request';
+
+                    if ('HPE_INVALID_METHOD' === err.code) {
+                        status = Response.HTTP_METHOD_NOT_ALLOWED;
+                        message = 'Unsupported HTTP method';
+                    }
+
+                    let response = 'HTTP/1.1 ' + status + ' ' + Response.statusTexts[status] + '\r\n';
+                    response += 'Content-Type: text/plain' + '\r\n';
+                    response += 'Content-Length: ' + message.length + '\r\n';
+                    response += '\r\n';
+                    response += message;
+
+                    await new Promise(resolve => socket.write(response, 'UTF-8', resolve));
+                } catch (e) {
+                    // Do nothing.
+                } finally {
+                    socket.end();
+                }
+            });
+
+        return server;
     }
 
     /**
@@ -174,9 +210,11 @@ class HttpServer extends RequestHandler {
         try {
             await this._handleRequest(req, res);
         } catch (e) {
-            res.writeHead(500, { 'Content-Type': 'text/plain' });
-            res.write('Unknown error while handling your request.\r\n');
-            res.end();
+            if (! res.finished) {
+                res.writeHead(500, {'Content-Type': 'text/plain'});
+                res.write('Unknown error while handling your request.\r\n');
+                res.end();
+            }
 
             this._logger.error('Error while processing request: ' + e.message, {
                 exception: e,
