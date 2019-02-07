@@ -25,12 +25,10 @@ const pathJoin = function (...args) {
 
 describe('[Autoloader] Finder', function () {
     it('findRoot', function () {
-        const module = {
-            parent: {
-                parent: {
-                    parent: undefined,
-                    filename: '/var/node/foo/bar/app.js',
-                },
+        const require = {
+            main: {
+                parent: undefined,
+                filename: '/var/node/foo/bar/app.js',
             },
         };
 
@@ -53,17 +51,15 @@ describe('[Autoloader] Finder', function () {
             },
         };
 
-        const finder = new Finder(fs, mockedPath, module);
+        const finder = new Finder(require, fs, mockedPath);
         expect(finder.findRoot()).to.be.equal('/var/node/foo/bar');
     });
 
     it('findRoot caches result', function () {
-        const module = {
-            parent: {
-                parent: {
-                    parent: undefined,
-                    filename: '/var/node/foo/bar/app.js',
-                },
+        const require = {
+            main: {
+                parent: undefined,
+                filename: '/var/node/foo/bar/app.js',
             },
         };
 
@@ -85,7 +81,7 @@ describe('[Autoloader] Finder', function () {
             },
         };
 
-        const finder = new Finder(fs, mockedPath, module);
+        const finder = new Finder(require, fs, mockedPath);
 
         finder.findRoot();
         finder.findRoot();
@@ -94,12 +90,10 @@ describe('[Autoloader] Finder', function () {
     });
 
     it('findRoot should rethrow if error is not ENOENT', function () {
-        const module = {
-            parent: {
-                parent: {
-                    parent: undefined,
-                    filename: '/var/node/foo/bar/app.js',
-                },
+        const require = {
+            main: {
+                parent: undefined,
+                filename: '/var/node/foo/bar/app.js',
             },
         };
 
@@ -119,15 +113,17 @@ describe('[Autoloader] Finder', function () {
             },
         };
 
-        const finder = new Finder(fs, mockedPath, module);
+        const finder = new Finder(require, fs, mockedPath);
 
         expect(finder.findRoot.bind(finder)).to.throw();
     });
 
     it('listModules', function () {
-        const module = {
-            parent: undefined,
-            filename: '/var/node/foo/bar/app.js',
+        const require = {
+            main: {
+                parent: undefined,
+                filename: '/var/node/foo/bar/app.js',
+            },
         };
 
         const mockedPath = {
@@ -193,7 +189,7 @@ describe('[Autoloader] Finder', function () {
             },
         };
 
-        const finder = new Finder(fs, mockedPath, module);
+        const finder = new Finder(require, fs, mockedPath);
         expect(Array.from(finder.listModules())).to.be.deep.equal([
             'jymfony-autoloader',
             'chai',
@@ -204,9 +200,11 @@ describe('[Autoloader] Finder', function () {
     });
 
     it('listModules rethrows errors', function () {
-        const module = {
-            parent: undefined,
-            filename: '/var/node/foo/bar/app.js',
+        const require = {
+            main: {
+                parent: undefined,
+                filename: '/var/node/foo/bar/app.js',
+            },
         };
 
         const mockedPath = {
@@ -237,14 +235,16 @@ describe('[Autoloader] Finder', function () {
             },
         };
 
-        const finder = new Finder(fs, mockedPath, module);
+        const finder = new Finder(require, fs, mockedPath);
         expect(() => Array.from(finder.listModules())).to.throw('TEST_ERROR');
     });
 
     it('listModules with no modules installed', function () {
-        const module = {
-            parent: undefined,
-            filename: '/var/node/foo/bar/app.js',
+        const require = {
+            main: {
+                parent: undefined,
+                filename: '/var/node/foo/bar/app.js',
+            },
         };
 
         const mockedPath = {
@@ -266,7 +266,7 @@ describe('[Autoloader] Finder', function () {
             },
         };
 
-        const finder = new Finder(fs, mockedPath, module);
+        const finder = new Finder(require, fs, mockedPath);
         const mods = Array.from(finder.listModules());
 
         expect(mods).to.be.deep.equal([]);
@@ -283,7 +283,7 @@ describe('[Autoloader] Finder', function () {
             },
         };
 
-        const finder = new Finder(fs, { normalize: str => str, sep: '/' }, {});
+        const finder = new Finder({}, fs, { normalize: str => str, sep: '/' });
         const obj = finder.find('/var/node', 'package.json');
 
         expect(obj).to.be.deep.equal({
@@ -310,7 +310,7 @@ describe('[Autoloader] Finder', function () {
             },
         };
 
-        const finder = new Finder(fs, { normalize: str => str, sep: '/' }, {});
+        const finder = new Finder({}, fs, { normalize: str => str, sep: '/' });
         const obj = finder.find('/var/node', 'index');
 
         expect(obj).to.be.deep.equal({
@@ -329,7 +329,7 @@ describe('[Autoloader] Finder', function () {
             },
         };
 
-        const finder = new Finder(fs, { normalize: path.normalize, sep: '/' }, {});
+        const finder = new Finder({}, fs, { normalize: path.normalize, sep: '/' });
         const obj = finder.find('/var/node', 'index');
 
         expect(obj).to.be.deep.undefined;
@@ -345,7 +345,7 @@ describe('[Autoloader] Finder', function () {
             },
         };
 
-        const finder = new Finder(fs, { normalize: path.normalize, sep: '/' }, {});
+        const finder = new Finder({}, fs, { normalize: path.normalize, sep: '/' });
         expect(finder.find.bind(finder, '/var/node', 'index')).to.throw();
     });
 });

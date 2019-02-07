@@ -63,7 +63,6 @@ class FileBinaryMimeTypeGuesser extends implementationOf(MimeTypeGuesserInterfac
 
         const stdout = __jymfony.trim((await exec(__jymfony.sprintf(this._cmd, __jymfony.escapeshellarg(path)), { shell: true })).stdout);
         const match = stdout.match(/^([a-z0-9\-]+\/[a-z0-9\-.]+)/i);
-        console.log(match, stdout);
 
         if (! match) {
             // Not a type

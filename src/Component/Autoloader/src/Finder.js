@@ -5,14 +5,31 @@ class Finder {
     /**
      * Constructor.
      *
-     * @param {fs} fs
-     * @param {path} path
-     * @param {module} [currentModule = module]
+     * @param {NodeRequire} req
+     * @param {module:fs} fs
+     * @param {module:path} path
      */
-    constructor(fs = require('fs'), path = require('path'), currentModule = module) {
-        this._fs = fs;
-        this._path = path;
-        this._currentModule = currentModule;
+    constructor(req = require, fs = undefined, path = undefined) {
+        /**
+         * @type {NodeRequire}
+         *
+         * @private
+         */
+        this._require = req;
+
+        /**
+         * @type {module:fs}
+         *
+         * @private
+         */
+        this._fs = fs || req('fs');
+
+        /**
+         * @type {module:path}
+         *
+         * @private
+         */
+        this._path = path || req('path');
 
         /**
          * Cache root dir value
@@ -74,6 +91,10 @@ class Finder {
      */
     findRoot() {
         if (undefined === this._root) {
+            if (process.env.LAMBDA_TASK_ROOT) {
+                return this._root = process.env.LAMBDA_TASK_ROOT;
+            }
+
             const current = this._getMainModule();
 
             const parts = this._path.dirname(current.filename).split(this._path.sep);
@@ -84,10 +105,6 @@ class Finder {
                     this._root = root;
                     break;
                 }
-            }
-
-            if (undefined === this._root && process.env.LAMBDA_TASK_ROOT) {
-                this._root = process.env.LAMBDA_TASK_ROOT;
             }
         }
 
@@ -167,17 +184,12 @@ class Finder {
     }
 
     /**
-     * @returns {Object}
+     * @returns {NodeModule}
      *
      * @private
      */
     _getMainModule() {
-        let current = this._currentModule;
-        while (current.parent) {
-            current = current.parent;
-        }
-
-        return current;
+        return this._require.main;
     }
 
     /**
