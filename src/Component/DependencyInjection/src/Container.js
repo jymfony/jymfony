@@ -286,10 +286,19 @@ class Container extends implementationOf(ContainerInterface) {
      * @returns {string}
      */
     static normalizeId(id) {
+        const value = id;
+        if (undefined === id || null === id) {
+            throw new InvalidArgumentException('Invalid service id.');
+        }
+
         if (isFunction(id)) {
             try {
-                return (new ReflectionClass(id)).name;
+                id = (new ReflectionClass(id)).name;
             } catch (e) { }
+        }
+
+        if (undefined === id || null === id) {
+            return Symbol.for(value).description;
         }
 
         return id;
