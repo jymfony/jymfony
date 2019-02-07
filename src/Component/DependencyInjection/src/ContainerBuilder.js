@@ -390,12 +390,12 @@ class ContainerBuilder extends Container {
         }
 
         let service = super.get(id, Container.NULL_ON_INVALID_REFERENCE);
-        if (undefined !== service) {
+        if (null !== service) {
             return service;
         }
 
         if (undefined === this._definitions[id] && undefined !== this._aliasDefinitions[id]) {
-            return this._doGet(this._aliasDefinitions[id], invalidBehavior);
+            return this._doGet(this._aliasDefinitions[id].toString(), invalidBehavior);
         }
 
         let definition;
@@ -765,7 +765,7 @@ class ContainerBuilder extends Container {
             service = factory(...args);
         } else {
             const class_ = parameterBag.resolveValue(definition.getClass());
-            const constructor = ReflectionClass.getClass(class_);
+            const constructor = ReflectionClass.getClass(class_ || id);
 
             service = new constructor(...args);
         }
