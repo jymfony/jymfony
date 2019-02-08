@@ -75,6 +75,15 @@ class Namespace {
     }
 
     /**
+     * Gets the namespace base directories.
+     *
+     * @returns {string[]}
+     */
+    get directories() {
+        return [ ...this._baseDirs ];
+    }
+
+    /**
      * Autoload/get a class or namespace
      *
      * @param {object} target
