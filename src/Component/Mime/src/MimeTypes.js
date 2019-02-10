@@ -3,6 +3,11 @@ const MimeTypesInterface = Jymfony.Component.Mime.MimeTypesInterface;
 const { mimeTypes, extensions } = require('./mime_types_map');
 
 /**
+ * @type {Jymfony.Component.Mime.MimeTypes}
+ */
+let _instance = undefined;
+
+/**
  * @memberOf Jymfony.Component.Mime
  */
 class MimeTypes extends implementationOf(MimeTypesInterface) {
@@ -68,6 +73,28 @@ class MimeTypes extends implementationOf(MimeTypesInterface) {
         }
 
         return null;
+    }
+
+    /**
+     * Gets the default mime types instance.
+     *
+     * @returns {Jymfony.Component.Mime.MimeTypes}
+     */
+    get instance() {
+        if (! _instance) {
+            _instance = new self();
+        }
+
+        return _instance;
+    }
+
+    /**
+     * Sets the default mime types instance.
+     *
+     * @param {Jymfony.Component.Mime.MimeTypes} mimeTypes
+     */
+    set instance(mimeTypes) {
+        _instance = mimeTypes;
     }
 
     /**

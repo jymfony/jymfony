@@ -16,6 +16,16 @@ const AddConsoleCommandPass = Jymfony.Component.Console.DependencyInjection.AddC
  */
 class FrameworkBundle extends Bundle {
     /**
+     * @inheritDoc
+     */
+    async boot() {
+        if (this._container.has('mime_types')) {
+            const mt = this._container.get('mime_types');
+            mt.instance = mt;
+        }
+    }
+
+    /**
      * @inheritdoc
      */
     build(container) {
