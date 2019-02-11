@@ -1,5 +1,6 @@
 const FileException = Jymfony.Component.HttpFoundation.File.Exception.FileException;
 const File = Jymfony.Component.HttpFoundation.File.File;
+const Request = Jymfony.Component.HttpFoundation.Request;
 const Response = Jymfony.Component.HttpFoundation.Response;
 
 const crypto = require('crypto');
@@ -41,32 +42,9 @@ class BinaryFileResponse extends Response {
     /**
      * @inheritdoc
      */
-    set content(content) {
-        super.content = content;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    get content() {
-        return (res) => {
-            const stream = this._file.content;
-            const p = new Promise(((resolve, reject) => {
-                stream.on('end', resolve);
-                stream.on('error', reject);
-            }));
-
-            stream.pipe(res, { end: false });
-            return p;
-        };
-    }
-
-    /**
-     * @inheritdoc
-     */
     async prepare(request) {
         if (! this.headers.has('Content-Type')) {
-            this.headers.set('Content-Type', this._file.getMimeType());
+            this.headers.set('Content-Type', await this._file.getMimeType());
         }
 
         if (this._autoLastModified && ! this.headers.has('Last-Modified')) {
@@ -91,6 +69,23 @@ class BinaryFileResponse extends Response {
         }
 
         this._ensureIEOverSSLCompatibility(request);
+        if (request.isMethod(Request.METHOD_HEAD)) {
+            // Cf. RFC2616 14.13
+            this.content = '';
+        } else {
+            this._setEncodingForCompression(request);
+            this.content = (res) => {
+                const stream = this._file.content;
+                const p = new Promise((resolve, reject) => {
+                    stream.on('end', resolve);
+                    stream.on('error', reject);
+                });
+
+                stream.pipe(res, { end: false });
+                return p;
+            };
+        }
+
         const fileSize = this._file.size;
 
         if (false === fileSize) {

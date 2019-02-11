@@ -82,7 +82,7 @@ class MimeTypes extends implementationOf(MimeTypesInterface) {
      */
     static get instance() {
         if (! _instance) {
-            _instance = new self();
+            _instance = new __self();
         }
 
         return _instance;
