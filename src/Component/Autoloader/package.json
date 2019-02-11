@@ -23,6 +23,7 @@
     "chai": "^3.5.0",
     "mocha": "^5.0"
   },
+  "flat": true,
   "config": {
     "jymfony-autoload": {
       "namespaces": {
