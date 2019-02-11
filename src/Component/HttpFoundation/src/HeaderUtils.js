@@ -17,7 +17,7 @@ class HeaderUtils {
             if (true === value) {
                 parts.push(key);
             } else {
-                if (value.match(/[^a-zA-Z0-9._-]/)) {
+                if (String(value).match(/[^a-zA-Z0-9._-]/)) {
                     value = '"'+value+'"';
                 }
 
