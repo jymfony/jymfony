@@ -63,7 +63,7 @@ class MimeTypes extends implementationOf(MimeTypesInterface) {
             }
 
             const mimeType = await guesser.guessMimeType(path);
-            if (null !== mimeType) {
+            if (!! mimeType) {
                 return mimeType;
             }
         }
@@ -80,7 +80,7 @@ class MimeTypes extends implementationOf(MimeTypesInterface) {
      *
      * @returns {Jymfony.Component.Mime.MimeTypes}
      */
-    get instance() {
+    static get instance() {
         if (! _instance) {
             _instance = new self();
         }
@@ -93,7 +93,7 @@ class MimeTypes extends implementationOf(MimeTypesInterface) {
      *
      * @param {Jymfony.Component.Mime.MimeTypes} mimeTypes
      */
-    set instance(mimeTypes) {
+    static set instance(mimeTypes) {
         _instance = mimeTypes;
     }
 

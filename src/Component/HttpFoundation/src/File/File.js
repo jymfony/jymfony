@@ -24,6 +24,24 @@ class File {
     }
 
     /**
+     * Gets the file mime type as sent from the client.
+     *
+     * @returns {Promise<string>}
+     */
+    async getMimeType() {
+        if (ReflectionClass.exists('Jymfony.Component.Mime.MimeTypes')) {
+            const mimeTypes = Jymfony.Component.Mime.MimeTypes.instance;
+            try {
+                return await mimeTypes.guessMimeType(this._fileName);
+            } catch (e) {
+                // Do nothing
+            }
+        }
+
+        return 'application/octet-stream';
+    }
+
+    /**
      * Gets the filename.
      *
      * @returns {string}

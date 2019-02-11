@@ -28,6 +28,13 @@ class BinaryFileResponse extends Response {
             this.setPublic();
         }
 
+        /**
+         * @type {Jymfony.Component.HttpFoundation.File.File}
+         *
+         * @protected
+         */
+        this._file = undefined;
+
         this.setFile(file, contentDisposition, autoEtag, autoLastModified);
     }
 
@@ -59,7 +66,7 @@ class BinaryFileResponse extends Response {
      */
     async prepare(request) {
         if (! this.headers.has('Content-Type')) {
-            this.headers.set('Content-Type', this._file.mimeType || 'application/octet-stream');
+            this.headers.set('Content-Type', this._file.getMimeType());
         }
 
         if (this._autoLastModified && ! this.headers.has('Last-Modified')) {
@@ -116,13 +123,7 @@ class BinaryFileResponse extends Response {
             throw new FileException('File must be readable');
         }
 
-        /**
-         * @type {Jymfony.Component.HttpFoundation.File.File}
-         *
-         * @protected
-         */
         this._file = file;
-
         if (autoEtag) {
             this.setAutoEtag();
         }
