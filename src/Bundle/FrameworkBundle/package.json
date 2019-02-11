@@ -30,6 +30,7 @@
     "@jymfony/debug": "https://github.com/jymfony/debug.git",
     "@jymfony/http-server": "https://github.com/jymfony/http-server.git",
     "@jymfony/routing": "https://github.com/jymfony/routing.git",
+    "@jymfony/testing": "https://github.com/jymfony/testing.git",
     "chai": "^3.5.0",
     "mocha": "^5.0"
   },
