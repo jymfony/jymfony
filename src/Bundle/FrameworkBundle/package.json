@@ -1,6 +1,6 @@
 {
   "name": "@jymfony/framework-bundle",
-  "version": "0.1.0-alpha.12",
+  "version": "0.1.0-alpha.13",
   "description": "Jymfony Framework Bundle",
   "scripts": {
     "test": "node ./tests.js test/**"
@@ -14,17 +14,17 @@
     "node": ">=8.10.0"
   },
   "dependencies": {
-    "@jymfony/autoloader": "0.1.0-alpha.12",
-    "@jymfony/cache": "0.1.0-alpha.12",
-    "@jymfony/config": "0.1.0-alpha.12",
-    "@jymfony/console": "0.1.0-alpha.12",
-    "@jymfony/datetime": "0.1.0-alpha.12",
-    "@jymfony/dependency-injection": "0.1.0-alpha.12",
-    "@jymfony/event-dispatcher": "0.1.0-alpha.12",
-    "@jymfony/exceptions": "0.1.0-alpha.12",
-    "@jymfony/filesystem": "0.1.0-alpha.12",
-    "@jymfony/kernel": "0.1.0-alpha.12",
-    "@jymfony/util": "0.1.0-alpha.12"
+    "@jymfony/autoloader": "0.1.0-alpha.13",
+    "@jymfony/cache": "0.1.0-alpha.13",
+    "@jymfony/config": "0.1.0-alpha.13",
+    "@jymfony/console": "0.1.0-alpha.13",
+    "@jymfony/datetime": "0.1.0-alpha.13",
+    "@jymfony/dependency-injection": "0.1.0-alpha.13",
+    "@jymfony/event-dispatcher": "0.1.0-alpha.13",
+    "@jymfony/exceptions": "0.1.0-alpha.13",
+    "@jymfony/filesystem": "0.1.0-alpha.13",
+    "@jymfony/kernel": "0.1.0-alpha.13",
+    "@jymfony/util": "0.1.0-alpha.13"
   },
   "devDependencies": {
     "@jymfony/debug": "*",

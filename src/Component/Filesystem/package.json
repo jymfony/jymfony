@@ -1,6 +1,6 @@
 {
   "name": "@jymfony/filesystem",
-  "version": "0.1.0-alpha.12",
+  "version": "0.1.0-alpha.13",
   "description": "Jymfony Filesystem Component",
   "main": "src/Filesystem.js",
   "scripts": {
@@ -16,10 +16,10 @@
     "node": ">=8.10.0"
   },
   "dependencies": {
-    "@jymfony/autoloader": "0.1.0-alpha.12",
-    "@jymfony/datetime": "0.1.0-alpha.12",
-    "@jymfony/exceptions": "0.1.0-alpha.12",
-    "@jymfony/util": "0.1.0-alpha.12"
+    "@jymfony/autoloader": "0.1.0-alpha.13",
+    "@jymfony/datetime": "0.1.0-alpha.13",
+    "@jymfony/exceptions": "0.1.0-alpha.13",
+    "@jymfony/util": "0.1.0-alpha.13"
   },
   "devDependencies": {
     "@jymfony/debug": "*",

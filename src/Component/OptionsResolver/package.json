@@ -1,6 +1,6 @@
 {
   "name": "@jymfony/options-resolver",
-  "version": "0.1.0-alpha.12",
+  "version": "0.1.0-alpha.13",
   "description": "Jymfony OptionsResolver component",
   "scripts": {
     "test": "node ./tests.js test/**"
@@ -16,9 +16,9 @@
     "node": ">=8.10.0"
   },
   "dependencies": {
-    "@jymfony/autoloader": "0.1.0-alpha.12",
-    "@jymfony/exceptions": "0.1.0-alpha.12",
-    "@jymfony/util": "0.1.0-alpha.12"
+    "@jymfony/autoloader": "0.1.0-alpha.13",
+    "@jymfony/exceptions": "0.1.0-alpha.13",
+    "@jymfony/util": "0.1.0-alpha.13"
   },
   "devDependencies": {
     "@jymfony/debug": "*",

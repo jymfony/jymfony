@@ -1,6 +1,6 @@
 {
   "name": "@jymfony/mime",
-  "version": "0.1.0-dev",
+  "version": "0.1.0-alpha.13",
   "description": "Jymfony Mime Types Component",
   "scripts": {
     "test": "node ./tests.js"
@@ -16,9 +16,9 @@
     "node": ">=8.10.0"
   },
   "dependencies": {
-    "@jymfony/autoloader": "0.1.0-dev",
-    "@jymfony/exceptions": "0.1.0-dev",
-    "@jymfony/util": "0.1.0-dev"
+    "@jymfony/autoloader": "0.1.0-alpha.13",
+    "@jymfony/exceptions": "0.1.0-alpha.13",
+    "@jymfony/util": "0.1.0-alpha.13"
   },
   "devDependencies": {
     "@jymfony/debug": "*",
