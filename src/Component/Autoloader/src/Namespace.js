@@ -75,6 +75,15 @@ class Namespace {
     }
 
     /**
+     * Gets the namespace base directories.
+     *
+     * @returns {string[]}
+     */
+    get directories() {
+        return [ ...this._baseDirs ];
+    }
+
+    /**
      * Autoload/get a class or namespace
      *
      * @param {object} target
@@ -179,6 +188,9 @@ class Namespace {
                 module: this._internalRequire.cache[fn],
                 constructor: mod,
                 namespace: this,
+                isModule: (val) => {
+                    return self === val || mod === val || mod.definition === val;
+                },
             };
 
             if (! mod.hasOwnProperty('arguments')) {

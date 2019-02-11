@@ -149,20 +149,27 @@ class UrlGenerator extends implementationOf(UrlGeneratorInterface) {
 
         for (const token of tokens) {
             if ('variable' === token[0]) {
-                if (!optional || !defaults.hasOwnProperty(token[3]) || undefined !== mergedParams[token[3]] && String(mergedParams[token[3]]) !== String(defaults[token[3]])) {
+                let varName = token[3];
+                const important = '!' === varName[0];
+                if (important) {
+                    varName = varName.substr(1);
+                }
+
+                if (!optional || important || !defaults.hasOwnProperty(token[3]) ||
+                    undefined !== mergedParams[varName] && String(mergedParams[varName]) !== String(defaults[varName])) {
                     const regex = new RegExp('^' + token[2] + '$', !!token[4] ? 'u' : '');
-                    if (! regex.test(mergedParams[token[3]])) {
+                    if (! regex.test(mergedParams[varName])) {
                         throw new InvalidParameterException(
                             __jymfony.strtr(message, {
-                                '{parameter}': token[3],
+                                '{parameter}': varName,
                                 '{route}': name,
                                 '{expected}': token[2],
-                                '{given}': mergedParams[token[3]],
+                                '{given}': mergedParams[varName],
                             })
                         );
                     }
 
-                    url = token[1] + mergedParams[token[3]] + url;
+                    url = token[1] + mergedParams[varName] + url;
                     optional = false;
                 }
             } else {

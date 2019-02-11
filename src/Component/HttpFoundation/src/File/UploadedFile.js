@@ -74,10 +74,10 @@ class UploadedFile extends File {
     /**
      * Gets the file mime type as sent from the client.
      *
-     * @returns {string}
+     * @returns {Promise<string>}
      */
-    get mimeType() {
-        return this._mimeType;
+    async getMimeType() {
+        return this._mimeType || await super.getMimeType();
     }
 
     /**

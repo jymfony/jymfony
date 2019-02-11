@@ -1,5 +1,9 @@
 const DateTimeZone = Jymfony.Component.DateTime.DateTimeZone;
 
+if (':UTC' === process.env.TZ) {
+    delete process.env.TZ;
+}
+
 const DEFAULT_TZ = process.env.TZ || 'Etc/UTC';
 const daysPerMonth = [
     [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ],

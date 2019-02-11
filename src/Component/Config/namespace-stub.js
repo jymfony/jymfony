@@ -34,5 +34,10 @@ Jymfony.Component.Config = {
     /**
      * @namespace
      */
-    Resource: {},
+    Resource: {
+        /**
+         * @namespace
+         */
+        Iterator: {},
+    },
 };

@@ -68,9 +68,9 @@ class RouteCompiler {
         const tokens = [];
 
         let match;
-        const re = /{\w+}/g;
+        const re = /{!?\w+}/g;
         while (match = re.exec(pattern)) {
-            const varName = match[0].substr(1, match[0].length - 2);
+            let varName = match[0].substr(1, match[0].length - 2);
             const precedingText = pattern.substr(pos, match.index - pos);
             pos = match.index + match[0].length;
 
@@ -106,6 +106,10 @@ class RouteCompiler {
             }
 
             tokens.push([ 'variable', isSeparator ? precedingChar : '', regexp, varName ]);
+            if ('!' === varName[0]) {
+                varName = varName.substr(1);
+            }
+
             variables.push(varName);
         }
 
@@ -196,6 +200,10 @@ class RouteCompiler {
         const token = tokens[index];
         if ('text' === token[0]) {
             return __jymfony.regex_quote(token[1]);
+        }
+
+        if ('variable' === token[0] && '!' === token[3][0]) {
+            token[3] = token[3].substr(1);
         }
 
         if (0 === index && 0 === firstOptional) {

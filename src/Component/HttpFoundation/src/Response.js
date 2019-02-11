@@ -1,7 +1,14 @@
 const DateTime = Jymfony.Component.DateTime.DateTime;
 const DateTimeZone = Jymfony.Component.DateTime.DateTimeZone;
+const EncodingNegotiator = Jymfony.Component.HttpFoundation.Negotiation.EncodingNegotiator;
 const Request = Jymfony.Component.HttpFoundation.Request;
 const ResponseHeaderBag = Jymfony.Component.HttpFoundation.ResponseHeaderBag;
+const stream = require('stream');
+const zlib = require('zlib');
+
+const ENCODING_BROTLI = 'brotli';
+const ENCODING_GZIP = 'gzip';
+const ENCODING_DEFLATE = 'deflate';
 
 /**
  * @memberOf Jymfony.Component.HttpFoundation
@@ -30,6 +37,13 @@ class Response {
          * @protected
          */
         this._charset = undefined;
+
+        /**
+         * @type {string}
+         *
+         * @private
+         */
+        this._encoding = undefined;
     }
 
     /**
@@ -549,7 +563,7 @@ class Response {
             return;
         }
 
-        date = new DateTime(date.timestamp, DateTimeZone.get('UTC'));
+        date = new DateTime(date instanceof DateTime ? date.timestamp : date, DateTimeZone.get('UTC'));
         this.headers.set('Last-Modified', date.format('D, d M Y H:i:s') + ' GMT');
     }
 
@@ -715,6 +729,34 @@ class Response {
             if (request.isMethod('HEAD')) {
                 // Cf. RFC2616 14.13
                 this.content = '';
+            } else if (request.headers.has('Accept-Encoding') && ! this.headers.has('Content-Encoding')) {
+                const encodingNegotiator = new EncodingNegotiator();
+                const priorities = [ 'gzip', 'deflate' ];
+                if (undefined !== zlib.createBrotliCompress) {
+                    priorities.unshift('br');
+                }
+
+                const acceptEncoding = encodingNegotiator.getBest(request.headers.get('Accept-Encoding'), priorities) || { type: null };
+                switch (acceptEncoding.type) {
+                    case 'br':
+                        this._encoding = ENCODING_BROTLI;
+                        this.headers.set('Content-Encoding', 'br');
+                        break;
+
+                    case 'gzip':
+                        this._encoding = ENCODING_GZIP;
+                        this.headers.set('Content-Encoding', 'gzip');
+                        break;
+
+                    case 'deflate':
+                        this._encoding = ENCODING_DEFLATE;
+                        this.headers.set('Content-Encoding', 'deflate');
+                        break;
+
+                    default:
+                        this._encoding = undefined;
+                        break;
+                }
             }
         }
 
@@ -750,18 +792,48 @@ class Response {
         }
 
         if (! this.isEmpty && this.content) {
+            let responseStream;
+            switch (this._encoding) {
+                case ENCODING_DEFLATE:
+                    responseStream = zlib.createDeflate();
+                    break;
+
+                case ENCODING_GZIP:
+                    responseStream = zlib.createGzip();
+                    break;
+
+                case ENCODING_BROTLI:
+                    responseStream = zlib.createBrotliCompress();
+                    break;
+
+                default:
+                    responseStream = new stream.PassThrough();
+                    responseStream.flush = () => {};
+            }
+
             if (isFunction(this.content)) {
-                await this.content(res);
+                await this.content(responseStream);
             } else {
                 await new Promise((resolve) => {
-                    res.write(this.content, 'utf8', () => {
+                    responseStream.write(this.content, 'utf8', () => {
                         resolve();
                     });
                 });
             }
-        }
 
-        res.end();
+            const p = new Promise((resolve, reject) => {
+                responseStream.on('end', resolve);
+                responseStream.on('error', reject);
+            });
+
+            responseStream.pipe(res);
+            responseStream.flush();
+            responseStream.end();
+
+            await p;
+        } else {
+            res.end();
+        }
     }
 
     /**

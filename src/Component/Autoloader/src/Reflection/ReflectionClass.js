@@ -68,7 +68,7 @@ class ReflectionClass {
             this._docblock = value[Symbol.docblock]();
         }
 
-        if (undefined !== value[Symbol.reflection]) {
+        if (undefined !== value[Symbol.reflection] && value[Symbol.reflection].isModule(value)) {
             this._loadFromMetadata(value);
         } else {
             this._loadWithoutMetadata(value);
@@ -145,7 +145,7 @@ class ReflectionClass {
     /**
      * Checks if this class contains a method.
      *
-     * @param {string} name
+     * @param {string|Symbol} name
      *
      * @returns {boolean}
      */
@@ -156,7 +156,7 @@ class ReflectionClass {
     /**
      * Gets the reflection method instance for a given method name.
      *
-     * @param {string} name
+     * @param {string|Symbol} name
      *
      * @returns {ReflectionMethod}
      */
@@ -167,7 +167,7 @@ class ReflectionClass {
     /**
      * Checks if class has defined property (getter/setter).
      *
-     * @param name
+     * @param {string|Symbol} name
      *
      * @returns {boolean}
      */
@@ -178,7 +178,7 @@ class ReflectionClass {
     /**
      * Checks if class has readable property (getter).
      *
-     * @param {string} name
+     * @param {string|Symbol} name
      *
      * @returns {boolean}
      */
@@ -189,7 +189,7 @@ class ReflectionClass {
     /**
      * Checks if class has writable property (setter).
      *
-     * @param {string} name
+     * @param {string|Symbol} name
      *
      * @returns {boolean}
      */
@@ -200,7 +200,7 @@ class ReflectionClass {
     /**
      * Gets the property descriptor.
      *
-     * @param {string} name
+     * @param {string|Symbol} name
      *
      * @returns {*}
      */
@@ -219,7 +219,7 @@ class ReflectionClass {
      */
     getParentClass() {
         let parent = this._constructor;
-        while (parent = Object.getPrototypeOf(parent)) {
+        while ((parent = Object.getPrototypeOf(parent))) {
             if (parent.isMixin) {
                 continue;
             }
@@ -461,13 +461,20 @@ class ReflectionClass {
                 return;
             }
 
-            const properties = Object.getOwnPropertyNames(proto);
+            const properties = [ ...Object.getOwnPropertyNames(proto), ...Object.getOwnPropertySymbols(proto) ];
             for (const name of properties) {
                 if ('constructor' === name) {
                     continue;
                 }
 
-                const descriptor = Object.getOwnPropertyDescriptor(proto, name);
+                let descriptor;
+                try {
+                    descriptor = Object.getOwnPropertyDescriptor(proto, name);
+                } catch (e) {
+                    // Non-configurable property.
+                    continue;
+                }
+
                 if ('function' === typeof descriptor.value) {
                     this._methods[name] = descriptor;
                 } else {
@@ -511,7 +518,7 @@ class ReflectionClass {
      * @private
      */
     _loadStatics() {
-        const FunctionProps = Object.getOwnPropertyNames(Function.prototype);
+        const FunctionProps = [ ...Object.getOwnPropertyNames(Function.prototype), ...Object.getOwnPropertySymbols(Function.prototype) ];
 
         let parent = this._constructor;
         const chain = [ this._constructor ];
@@ -523,7 +530,7 @@ class ReflectionClass {
 
         const consts = {};
         for (parent of chain) {
-            const names = Object.getOwnPropertyNames(parent)
+            const names = [ ...Object.getOwnPropertyNames(parent), ...Object.getOwnPropertySymbols(parent) ]
                 .filter(P => {
                     if ('prototype' === P || 'isMixin' === P) {
                         return false;
@@ -534,8 +541,16 @@ class ReflectionClass {
                         return false;
                     }
 
-                    if ('function' === typeof parent[P]) {
-                        this._staticMethods[P] = Object.getOwnPropertyDescriptor(parent, P).value;
+                    let descriptor;
+                    try {
+                        descriptor = Object.getOwnPropertyDescriptor(parent, P);
+                    } catch (e) {
+                        // Non-configurable property.
+                        return false;
+                    }
+
+                    if ('function' === typeof descriptor.value) {
+                        this._staticMethods[P] = descriptor.value;
                         return false;
                     }
 
@@ -543,8 +558,12 @@ class ReflectionClass {
                 });
 
             for (const name of names) {
-                if (! consts.hasOwnProperty(name)) {
-                    consts[name] = parent[name];
+                if (! consts.hasOwnProperty(name) && parent.hasOwnProperty(name)) {
+                    const descriptor = Object.getOwnPropertyDescriptor(parent, name);
+
+                    if (descriptor.hasOwnProperty('value')) {
+                        consts[name] = descriptor.value;
+                    }
                 }
             }
         }
@@ -566,7 +585,7 @@ class ReflectionClass {
             const original = parts.join('.');
             parts = [ ...parts ].reverse();
 
-            while (part = parts.pop()) {
+            while ((part = parts.pop())) {
                 if (undefined === start) {
                     throw new ReflectionException('Requesting non-existent class ' + original);
                 }

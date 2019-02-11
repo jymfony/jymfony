@@ -56,6 +56,7 @@
         "Jymfony.Component.Kernel": "src/Component/Kernel/src",
         "Jymfony.Component.Lexer": "src/Component/Lexer/src",
         "Jymfony.Component.Logger": "src/Component/Logger/src",
+        "Jymfony.Component.Mime": "src/Component/Mime/src",
         "Jymfony.Component.OptionsResolver": "src/Component/OptionsResolver/src",
         "Jymfony.Component.PropertyAccess": "src/Component/PropertyAccess/src",
         "Jymfony.Component.Routing": "src/Component/Routing/src",

@@ -253,6 +253,11 @@ class Request {
          */
         this.content = content;
 
+        /**
+         * @type {string}
+         *
+         * @private
+         */
         this._method = undefined;
     }
 
@@ -297,6 +302,23 @@ class Request {
         }
 
         return dup;
+    }
+
+    /**
+     * Gets a serializable representation of this request.
+     *
+     * @returns {Object.<string, string|Object.<string, string>|string[]>}
+     */
+    toJson() {
+        return {
+            method: this.method,
+            uri: this.uri,
+            request: this.request.all,
+            attributes: this.attributes.all,
+            headers: this.headers.all,
+            server: this.server.all,
+            content: this.content.toString(),
+        };
     }
 
     /**

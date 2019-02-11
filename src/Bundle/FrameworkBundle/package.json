@@ -30,6 +30,7 @@
     "@jymfony/debug": "*",
     "@jymfony/http-server": "*",
     "@jymfony/routing": "*",
+    "@jymfony/testing": "*",
     "chai": "^3.5.0",
     "mocha": "^5.0"
   },

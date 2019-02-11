@@ -392,6 +392,15 @@ exports.MatcherTest = function () {
             .to.throw(ResourceNotFoundException);
     });
 
+    it('should match request with forced route parameter', () => {
+        const routeCollection = new RouteCollection();
+        routeCollection.add('foo', new Route('/foo/{!bar}'));
+
+        const matcher = this._getMatcher(routeCollection);
+        expect(matcher.matchRequest(Request.create('http://localhost/foo/baz')))
+            .to.be.deep.equal({ _route: 'foo', bar: 'baz' });
+    });
+
     /**
      * Gets a request matcher.
      *

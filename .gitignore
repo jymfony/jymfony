@@ -15,7 +15,7 @@ lib-cov
 coverage
 
 # Binary files
-bin
+/bin
 
 # nyc test coverage
 .nyc_output

@@ -60,6 +60,7 @@ class FrameworkExtension extends Extension {
         this._registerHttpServerConfiguration(config.http_server, container, loader);
         this._registerCacheConfiguration(config.cache, container, loader);
         this._registerDevServer(container, loader);
+        this._registerMime(loader);
         this._registerTemplatingConfiguration(config.templating, container, loader);
     }
 
@@ -435,6 +436,19 @@ class FrameworkExtension extends Extension {
         if (-1 !== config.engines.indexOf('js')) {
             loader.load('templating_js.xml');
         }
+    }
+
+    /**
+     * @param {Jymfony.Component.Config.Loader.LoaderInterface} loader
+     *
+     * @private
+     */
+    _registerMime(loader) {
+        if (! ReflectionClass.exists('Jymfony.Component.Mime.MimeTypes')) {
+            return;
+        }
+
+        loader.load('mime.js');
     }
 }
 

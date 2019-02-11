@@ -6,6 +6,7 @@ const LoggerChannelPass = Jymfony.Bundle.FrameworkBundle.DependencyInjection.Com
 const TestServiceContainerRealRefPass = Jymfony.Bundle.FrameworkBundle.DependencyInjection.Compiler.TestServiceContainerRealRefPass;
 const TestServiceContainerWeakRefPass = Jymfony.Bundle.FrameworkBundle.DependencyInjection.Compiler.TestServiceContainerWeakRefPass;
 const CachePoolPass = Jymfony.Component.Cache.DependencyInjection.CachePoolPass;
+const ClassExistenceResource = Jymfony.Component.Config.Resource.ClassExistenceResource;
 const AddConsoleCommandPass = Jymfony.Component.Console.DependencyInjection.AddConsoleCommandPass;
 
 /**
@@ -14,6 +15,15 @@ const AddConsoleCommandPass = Jymfony.Component.Console.DependencyInjection.AddC
  * @memberOf Jymfony.Bundle.FrameworkBundle
  */
 class FrameworkBundle extends Bundle {
+    /**
+     * @inheritDoc
+     */
+    async boot() {
+        if (this._container.has('mime_types')) {
+            Jymfony.Component.Mime.MimeTypes.instance = this._container.get('mime_types');
+        }
+    }
+
     /**
      * @inheritdoc
      */
@@ -27,6 +37,25 @@ class FrameworkBundle extends Bundle {
             .addCompilerPass(new TestServiceContainerRealRefPass(), PassConfig.TYPE_AFTER_REMOVING)
             .addCompilerPass(new CachePoolPass(), PassConfig.TYPE_BEFORE_OPTIMIZATION, 32)
         ;
+
+        this._addCompilerPassIfExists(container, 'Jymfony.Component.Mime.DependencyInjection.AddMimeTypeGuesserPass');
+    }
+
+    /**
+     * Adds a compiler pass if class exists.
+     *
+     * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
+     * @param {string} pass
+     * @param {string} [type = Jymfony.Component.DependencyInjection.Compiler.PassConfig.TYPE_BEFORE_OPTIMIZATION]
+     * @param {int} [priority = 0]
+     */
+    _addCompilerPassIfExists(container, pass, type = PassConfig.TYPE_BEFORE_OPTIMIZATION, priority = 0) {
+        container.addResource(new ClassExistenceResource(pass));
+
+        if (ReflectionClass.exists(pass)) {
+            const reflector = new ReflectionClass(pass);
+            container.addCompilerPass(reflector.newInstance(), type, priority);
+        }
     }
 }
 

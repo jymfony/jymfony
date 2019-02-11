@@ -5,16 +5,39 @@ class Finder {
     /**
      * Constructor.
      *
-     * @param {fs} fs
-     * @param {path} path
-     * @param {module} [currentModule = module]
+     * @param {NodeRequire} req
+     * @param {module:fs} fs
+     * @param {module:path} path
      */
-    constructor(fs = require('fs'), path = require('path'), currentModule = module) {
-        this._fs = fs;
-        this._path = path;
-        this._currentModule = currentModule;
+    constructor(req = require, fs = undefined, path = undefined) {
+        /**
+         * @type {NodeRequire}
+         *
+         * @private
+         */
+        this._require = req;
 
-        // Cache root dir value
+        /**
+         * @type {module:fs}
+         *
+         * @private
+         */
+        this._fs = fs || req('fs');
+
+        /**
+         * @type {module:path}
+         *
+         * @private
+         */
+        this._path = path || req('path');
+
+        /**
+         * Cache root dir value
+         *
+         * @type {string}
+         *
+         * @private
+         */
         this._root = undefined;
     }
 
@@ -68,6 +91,10 @@ class Finder {
      */
     findRoot() {
         if (undefined === this._root) {
+            if (process.env.LAMBDA_TASK_ROOT) {
+                return this._root = process.env.LAMBDA_TASK_ROOT;
+            }
+
             const current = this._getMainModule();
 
             const parts = this._path.dirname(current.filename).split(this._path.sep);
@@ -88,7 +115,7 @@ class Finder {
      * Get module names list
      * Note that this will return top-level modules ONLY
      *
-     * @returns {Array}
+     * @returns {IterableIterator|Array}
      */
     listModules() {
         const root = this.findRoot();
@@ -97,28 +124,28 @@ class Finder {
         const self = this;
         let currentDir;
 
-        const rd = function * (dir, ignoreErrors = false) {
+        const rd = function (dir, ignoreErrors = false) {
             let stat;
 
             try {
                 dir = self._fs.realpathSync(dir);
                 stat = self._fs.statSync(dir);
-            } catch (e) {
-                if (! ignoreErrors) {
-                    throw e;
+
+                if (stat.isDirectory()) {
+                    return self._fs.readdirSync(dir);
                 }
 
-                return;
-            }
-
-            if (! stat.isDirectory()) {
                 const e = new Error();
                 e.code = 'ENOENT';
 
                 throw e;
+            } catch (e) {
+                if (! ignoreErrors || 'ENOENT' === e.code) {
+                    throw e;
+                }
             }
 
-            yield * self._fs.readdirSync(dir);
+            return [];
         };
 
         const processor = function * (list) {
@@ -145,9 +172,9 @@ class Finder {
             currentDir = this._normalizePath(parts, 'node_modules');
 
             try {
-                return Array.from(processor(rd(currentDir)));
+                return processor(rd(currentDir));
             } catch (e) {
-                if (! e.code || 'ENOENT' !== e.code) {
+                if ('ENOENT' !== e.code) {
                     throw e;
                 }
             }
@@ -157,17 +184,12 @@ class Finder {
     }
 
     /**
-     * @returns {Object}
+     * @returns {NodeModule}
      *
      * @private
      */
     _getMainModule() {
-        let current = this._currentModule;
-        while (current.parent) {
-            current = current.parent;
-        }
-
-        return current;
+        return this._require.main;
     }
 
     /**

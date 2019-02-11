@@ -2,6 +2,7 @@ const EnvVariableResource = Jymfony.Component.Config.Resource.EnvVariableResourc
 const ArgumentInterface = Jymfony.Component.DependencyInjection.Argument.ArgumentInterface;
 const IteratorArgument = Jymfony.Component.DependencyInjection.Argument.IteratorArgument;
 const ServiceClosureArgument = Jymfony.Component.DependencyInjection.Argument.ServiceClosureArgument;
+const ServiceLocatorArgument = Jymfony.Component.DependencyInjection.Argument.ServiceLocatorArgument;
 const AnalyzeServiceReferencesPass = Jymfony.Component.DependencyInjection.Compiler.AnalyzeServiceReferencesPass;
 const Container = Jymfony.Component.DependencyInjection.Container;
 const ContainerBuilder = Jymfony.Component.DependencyInjection.ContainerBuilder;
@@ -10,7 +11,9 @@ const RuntimeException = Jymfony.Component.DependencyInjection.Exception.Runtime
 const ServiceCircularReferenceException = Jymfony.Component.DependencyInjection.Exception.ServiceCircularReferenceException;
 const Parameter = Jymfony.Component.DependencyInjection.Parameter;
 const Reference = Jymfony.Component.DependencyInjection.Reference;
+const ServiceLocator = Jymfony.Component.DependencyInjection.ServiceLocator;
 const Variable = Jymfony.Component.DependencyInjection.Variable;
+const path = require('path');
 
 const firstChars = 'abcdefghijklmnopqrstuvwxyz';
 const nonFirstChars = 'abcdefghijklmnopqrstuvwxyz0123456789_';
@@ -38,6 +41,8 @@ class JsDumper {
         this._definitionVariables = undefined;
         this._referenceVariables = undefined;
         this._variableCount = undefined;
+        this._targetDirMaxMatches = undefined;
+        this._targetDirRegex = undefined;
     }
 
     /**
@@ -60,6 +65,28 @@ class JsDumper {
         }, options);
 
         (new AnalyzeServiceReferencesPass()).process(this._container);
+
+        if (options.dir) {
+            const dir = __jymfony.rtrim(options.dir, '/').split(path.sep);
+            let i = dir.length;
+
+            if (3 <= i) {
+                let regex = '';
+                const lastOptionalDir = 8 < i ? i - 5 : 3;
+                this._targetDirMaxMatches = i - lastOptionalDir;
+
+                while (--i >= lastOptionalDir) {
+                    regex = __jymfony.sprintf('(%s%s)?', __jymfony.regex_quote(path.sep + dir[i]), regex);
+                }
+
+                do {
+                    regex = __jymfony.regex_quote(path.sep + dir[i]) + regex;
+                } while (0 < --i);
+
+                this._targetDirRegex = new RegExp(__jymfony.regex_quote(dir[0]) + regex);
+            }
+        }
+
         this._initMethodNamesMap(options.base_class);
 
         let code = this._startClass(options.class_name, options.base_class);
@@ -118,14 +145,24 @@ module.exports = new Container${hash}({
      * @private
      */
     _startClass(className, baseClass) {
+        const targetDirs = undefined === this._targetDirMaxMatches ? '' : `
+        let dir = path.dirname(__dirname);
+        this._targetDirs = [ dir ];
+        for (let i = 1; i <= ${this._targetDirMaxMatches}; ++i) {
+            this._targetDirs.push(dir = path.dirname(dir));
+        }
+
+`;
+
         return `const Container = Jymfony.Component.DependencyInjection.Container;
 const LogicException = Jymfony.Component.DependencyInjection.Exception.LogicException;
 const FrozenParameterBag = Jymfony.Component.DependencyInjection.ParameterBag.FrozenParameterBag;
 const RewindableGenerator = Jymfony.Component.DependencyInjection.Argument.RewindableGenerator;
+const path = require('path');
 
 class ${className} extends ${baseClass} {
-    __construct(buildParameters = {}) {
-        super.__construct(new FrozenParameterBag(Object.assign({}, ${className}._getDefaultsParameters(), buildParameters)));
+    __construct(buildParameters = {}) {${targetDirs}
+        super.__construct(new FrozenParameterBag(Object.assign({}, this._getDefaultsParameters(), buildParameters)));
 
         ${this._getMethodMap()}
         ${this._getAliases()}
@@ -211,6 +248,32 @@ module.exports = ${className};
      * @private
      */
     _export(value) {
+        if (undefined !== this._targetDirRegex && isString(value) && value.match(this._targetDirRegex)) {
+            value = JSON.stringify(value);
+            value = value.replace(this._targetDirRegex, (...args) => {
+                for (let i = this._targetDirMaxMatches; 1 <= i; --i) {
+                    if (undefined === args[i]) {
+                        continue;
+                    }
+
+                    return '" + this._targetDirs[' + (this._targetDirMaxMatches - i) + '] + "';
+                }
+            });
+
+            return value.replace(/"" \+ /g, '').replace(/ \+ ""/g, '');
+        }
+
+        return this._doExport(value);
+    }
+
+    /**
+     * @param {*} value
+     *
+     * @returns {string}
+     *
+     * @private
+     */
+    _doExport(value) {
         if (isScalar(value) || isArray(value) || isObjectLiteral(value)) {
             return JSON.stringify(value);
         }
@@ -289,7 +352,7 @@ module.exports = ${className};
         code += '        }';
 
         return `
-    static _getDefaultsParameters() {
+    _getDefaultsParameters() {
         return ${code};
     }`;
     }
@@ -726,6 +789,22 @@ ${this._addReturn(id, definition)}\
 
                     return code.join('\n');
                 }
+
+                if (value instanceof ServiceLocatorArgument) {
+                    let serviceMap = '';
+                    for (const [ k, v ] of __jymfony.getEntries(value.values)) {
+                        if (! v) {
+                            continue;
+                        }
+
+                        serviceMap += __jymfony.sprintf('\n            %s: %s,',
+                            this._export(__jymfony.ltrim(k, '?')),
+                            this._dumpValue(new ServiceClosureArgument(v)).replace(/^/mg, '    ').trim(),
+                        );
+                    }
+
+                    return __jymfony.sprintf('new \%s({%s\n        })', ReflectionClass.getClassName(ServiceLocator), serviceMap);
+                }
             } finally {
                 [ this._definitionVariables, this._referenceVariables, this._variableCount ] = scope;
             }
@@ -1027,16 +1106,25 @@ ${this._addReturn(id, definition)}\
      * @private
      */
     _addNewInstance(definition, ret, instantiation) {
+        if ('Jymfony.Component.DependencyInjection.ServiceLocator' === definition.getClass() && definition.hasTag('container.service_locator')) {
+            const args = {};
+            for (const [ k, argument ] of __jymfony.getEntries(definition.getArgument(0))) {
+                args[k] = argument.values[0];
+            }
+
+            return __jymfony.sprintf(`        ${ret}%s;\n`, this._dumpValue(new ServiceLocatorArgument(args)));
+        }
+
         let class_ = this._dumpValue(definition.getClass());
         const args = Array.from(definition.getArguments().map(T => this._dumpValue(T)));
 
         if (definition.getModule()) {
             const [ module, property ] = definition.getModule();
             if (property) {
-                return __jymfony.sprintf(`        ${ret}${instantiation}new (require(%s)[%s])(%s);`, this._dumpValue(module), this._dumpValue(property), args.join(', '));
+                return __jymfony.sprintf(`        ${ret}${instantiation}new (require(%s)[%s])(%s);\n`, this._dumpValue(module), this._dumpValue(property), args.join(', '));
             }
 
-            return __jymfony.sprintf(`        ${ret}${instantiation}require(%s);`, this._dumpValue(module));
+            return __jymfony.sprintf(`        ${ret}${instantiation}require(%s);\n`, this._dumpValue(module));
         } else if (definition.getFactory()) {
             const callable = definition.getFactory();
             if (isArray(callable)) {

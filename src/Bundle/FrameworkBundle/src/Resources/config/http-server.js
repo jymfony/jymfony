@@ -10,10 +10,8 @@ container.register(Jymfony.Component.HttpFoundation.Controller.ControllerResolve
 
 container.register(Jymfony.Component.HttpServer.HttpServer)
     .setPublic(true)
-    .setArguments([
-        new Reference('event_dispatcher'),
-        new Reference(Jymfony.Component.HttpFoundation.Controller.ControllerResolverInterface),
-    ])
+    .addArgument(new Reference('event_dispatcher'))
+    .addArgument(new Reference(Jymfony.Component.HttpFoundation.Controller.ControllerResolverInterface))
     .addMethodCall('setLogger', [ new Reference('logger', Container.IGNORE_ON_INVALID_REFERENCE) ])
 ;
 
@@ -44,4 +42,11 @@ container.register(Jymfony.Component.HttpServer.Command.HttpServerRunCommand)
 
 container.register(Jymfony.Component.HttpServer.EventListener.WebsocketListener)
     .addTag('kernel.event_subscriber')
+;
+
+container.register(Jymfony.Component.HttpServer.Serverless.AwsLambdaHandler)
+    .setPublic(true)
+    .addArgument(new Reference('event_dispatcher'))
+    .addArgument(new Reference(Jymfony.Component.HttpFoundation.Controller.ControllerResolverInterface))
+    .addMethodCall('setLogger', [ new Reference('logger', Container.IGNORE_ON_INVALID_REFERENCE) ])
 ;

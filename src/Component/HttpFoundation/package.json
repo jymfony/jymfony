@@ -25,6 +25,7 @@
   "devDependencies": {
     "@jymfony/cache": "*",
     "@jymfony/debug": "*",
+    "@jymfony/mime": "*",
     "@jymfony/testing": "*",
     "chai": "^3.5.0",
     "mocha": "^5.0"

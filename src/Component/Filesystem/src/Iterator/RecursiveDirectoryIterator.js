@@ -62,6 +62,15 @@ class RecursiveDirectoryIterator {
     }
 
     /**
+     * Make this object async-iterable.
+     *
+     * @returns {Jymfony.Component.Filesystem.Iterator.RecursiveDirectoryIterator}
+     */
+    [Symbol.asyncIterator]() {
+        return this;
+    }
+
+    /**
      * Iterates over values.
      *
      * @returns {Promise<{done: boolean, value: string}>}

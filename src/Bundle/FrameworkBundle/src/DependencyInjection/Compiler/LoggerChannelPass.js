@@ -2,6 +2,7 @@ const ChildDefinition = Jymfony.Component.DependencyInjection.ChildDefinition;
 const AbstractRecursivePass = Jymfony.Component.DependencyInjection.Compiler.AbstractRecursivePass;
 const Alias = Jymfony.Component.DependencyInjection.Alias;
 const Reference = Jymfony.Component.DependencyInjection.Reference;
+const LoggerInterface = Jymfony.Component.Logger.LoggerInterface;
 
 /**
  * @memberOf Jymfony.FrameworkBundle.DependencyInjection.Compiler
@@ -79,6 +80,7 @@ class LoggerChannelPass extends AbstractRecursivePass {
         }
 
         container.setAlias('logger', new Alias('jymfony.logger', true));
+        container.setAlias(LoggerInterface, new Alias('jymfony.logger', true));
     }
 
     /**

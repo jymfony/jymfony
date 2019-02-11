@@ -2,10 +2,11 @@ const Container = Jymfony.Component.DependencyInjection.Container;
 const LogicException = Jymfony.Component.DependencyInjection.Exception.LogicException;
 const FrozenParameterBag = Jymfony.Component.DependencyInjection.ParameterBag.FrozenParameterBag;
 const RewindableGenerator = Jymfony.Component.DependencyInjection.Argument.RewindableGenerator;
+const path = require('path');
 
 class ProjectContainer extends Jymfony.Component.DependencyInjection.Container {
     __construct(buildParameters = {}) {
-        super.__construct(new FrozenParameterBag(Object.assign({}, ProjectContainer._getDefaultsParameters(), buildParameters)));
+        super.__construct(new FrozenParameterBag(Object.assign({}, this._getDefaultsParameters(), buildParameters)));
 
         this._methodMap = {
             "bar": "getBarService",
@@ -44,6 +45,7 @@ class ProjectContainer extends Jymfony.Component.DependencyInjection.Container {
     getFooService() {
         let instance;
         this._services["foo"] = instance = require("module1");
+
         instance.foo = "bar";
         instance.qux = {"bar": "foo is bar", "foobar": "bar"};
         instance.setBar((this._services["bar"] || this.getBarService()));
@@ -60,11 +62,12 @@ class ProjectContainer extends Jymfony.Component.DependencyInjection.Container {
     getFoo_BazService() {
         let instance;
         this._services["foo.baz"] = instance = new (require("BazClass")["prop"])("foo", (this._services["foo"] || this.getFooService()), {"bar": "foo is bar", "foobar": "bar"}, true, this);
+
         BazClass.configureStatic1(instance);
         return instance;
     }
 
-    static _getDefaultsParameters() {
+    _getDefaultsParameters() {
         return {
             "baz.class": "BazClass",
             "foo_class": "Bar.FooClass",

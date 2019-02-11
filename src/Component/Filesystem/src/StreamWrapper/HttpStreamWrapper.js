@@ -153,7 +153,7 @@ class HttpStreamWrapper extends AbstractStreamWrapper {
                     break;
                 }
 
-                path = await __self.readlink(path);
+                path = await this.readlink(path);
             }
         } catch (e) {
             if ('ENOENT' === e.code) {
@@ -163,6 +163,7 @@ class HttpStreamWrapper extends AbstractStreamWrapper {
             throw e;
         }
 
+        stat.location = path;
         return stat;
     }
 
@@ -170,7 +171,7 @@ class HttpStreamWrapper extends AbstractStreamWrapper {
      * @inheritdoc
      */
     async readlink(path) {
-        const resource = new Resource(path, __self.head(path));
+        const resource = new Resource(path, await __self.head(path));
 
         return resource.location;
     }

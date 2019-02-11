@@ -7,11 +7,11 @@ const Compiler = Jymfony.Component.DependencyInjection.Compiler.Compiler;
 const PassConfig = Jymfony.Component.DependencyInjection.Compiler.PassConfig;
 const Container = Jymfony.Component.DependencyInjection.Container;
 const Definition = Jymfony.Component.DependencyInjection.Definition;
-const Parameter = Jymfony.Component.DependencyInjection.Parameter;
 const BadMethodCallException = Jymfony.Component.DependencyInjection.Exception.BadMethodCallException;
 const InvalidArgumentException = Jymfony.Component.DependencyInjection.Exception.InvalidArgumentException;
 const ServiceNotFoundException = Jymfony.Component.DependencyInjection.Exception.ServiceNotFoundException;
 const RealServiceInstantiator = Jymfony.Component.DependencyInjection.LazyProxy.RealServiceInstantiator;
+const Parameter = Jymfony.Component.DependencyInjection.Parameter;
 const Reference = Jymfony.Component.DependencyInjection.Reference;
 
 const crypto = require('crypto');
@@ -202,6 +202,47 @@ class ContainerBuilder extends Container {
     }
 
     /**
+     * Retrieves the requested reflection class and registers it for resource tracking.
+     *
+     * @param {string} Class
+     * @param {boolean} Throw
+     *
+     * @returns {ReflectionClass}
+     *
+     * @throws {ReflectionException} when a parent class/interface/trait is not found and $throw is true
+     *
+     * @final
+     */
+    getReflectionClass(Class, Throw = true) {
+        if (! (Class = this.parameterBag.resolveValue(Class))) {
+            return null;
+        }
+
+        let resource = null;
+        let classReflector;
+
+        try {
+            if (ReflectionClass.exists('Jymfony.Component.Config.Resource.ClassExistenceResource')) {
+                resource = new Jymfony.Component.Config.Resource.ClassExistenceResource(Class);
+            }
+
+            classReflector = ReflectionClass.exists(Class) ? new ReflectionClass(Class) : false;
+        } catch (e) {
+            if (Throw || ! (e instanceof ReflectionException)) {
+                throw e;
+            }
+
+            classReflector = false;
+        }
+
+        if (resource && this._trackResources) {
+            this.addResource(resource);
+        }
+
+        return classReflector || null;
+    }
+
+    /**
      * Adds the given class hierarchy as resources.
      *
      * @param {ReflectionClass} reflClass
@@ -349,12 +390,12 @@ class ContainerBuilder extends Container {
         }
 
         let service = super.get(id, Container.NULL_ON_INVALID_REFERENCE);
-        if (undefined !== service) {
+        if (null !== service) {
             return service;
         }
 
         if (undefined === this._definitions[id] && undefined !== this._aliasDefinitions[id]) {
-            return this._doGet(this._aliasDefinitions[id], invalidBehavior);
+            return this._doGet(this._aliasDefinitions[id].toString(), invalidBehavior);
         }
 
         let definition;
@@ -502,7 +543,7 @@ class ContainerBuilder extends Container {
         }
 
         delete this._definitions[alias];
-        this._aliasDefinitions[alias] = id;
+        return this._aliasDefinitions[alias] = id;
     }
 
     /**
@@ -724,7 +765,7 @@ class ContainerBuilder extends Container {
             service = factory(...args);
         } else {
             const class_ = parameterBag.resolveValue(definition.getClass());
-            const constructor = ReflectionClass.getClass(class_);
+            const constructor = ReflectionClass.getClass(class_ || id);
 
             service = new constructor(...args);
         }
