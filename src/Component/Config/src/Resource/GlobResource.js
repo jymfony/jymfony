@@ -1,4 +1,5 @@
 const RecursiveDirectoryIterator = Jymfony.Component.Config.Resource.Iterator.RecursiveDirectoryIterator;
+const crypto = require('crypto');
 const fs = require('fs');
 const pathModule = require('path');
 
