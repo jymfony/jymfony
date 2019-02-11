@@ -771,17 +771,22 @@ class Response {
 
         if (! this.isEmpty && this.content) {
             let responseStream;
+            const options = {
+                flush: zlib.constants.Z_SYNC_FLUSH,
+                finishFlush: zlib.constants.Z_SYNC_FLUSH,
+            };
+
             switch (this._encoding) {
                 case ENCODING_DEFLATE:
-                    responseStream = zlib.createDeflate();
+                    responseStream = zlib.createDeflate(options);
                     break;
 
                 case ENCODING_GZIP:
-                    responseStream = zlib.createGzip();
+                    responseStream = zlib.createGzip(options);
                     break;
 
                 case ENCODING_BROTLI:
-                    responseStream = zlib.createBrotliCompress();
+                    responseStream = zlib.createBrotliCompress({ flush: zlib.constants.BROTLI_OPERATION_FLUSH });
                     break;
 
                 default:
@@ -794,18 +799,18 @@ class Response {
 
             if (isFunction(content)) {
                 await content(responseStream);
-                responseStream.flush();
             } else {
                 await new Promise((resolve) => {
                     responseStream.write(content, 'utf8', () => {
-                        responseStream.flush();
                         resolve();
                     });
                 });
             }
 
-            responseStream.end(() => {
-                res.end();
+            responseStream.flush(() => {
+                responseStream.end(() => {
+                    res.end();
+                });
             });
         } else {
             res.end();
