@@ -740,6 +740,7 @@ class Response {
                 switch (acceptEncoding.type) {
                     case 'br':
                         this._encoding = ENCODING_BROTLI;
+                        this.headers.set('Content-Encoding', 'br');
                         break;
 
                     case 'gzip':
@@ -749,6 +750,7 @@ class Response {
 
                     case 'deflate':
                         this._encoding = ENCODING_DEFLATE;
+                        this.headers.set('Content-Encoding', 'deflate');
                         break;
 
                     default:
