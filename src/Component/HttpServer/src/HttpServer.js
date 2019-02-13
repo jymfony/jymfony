@@ -235,6 +235,10 @@ class HttpServer extends RequestHandler {
      * @protected
      */
     async _handleRequest(req, res) {
+        res.on('error', (err) => {
+            this._logger.error('Request encountered an error', { exception: err });
+        });
+
         const contentType = new ContentType(req.headers['content-type'] || 'application/x-www-form-urlencoded');
         let requestParams, content;
 

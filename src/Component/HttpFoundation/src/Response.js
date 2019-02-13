@@ -791,7 +791,7 @@ class Response {
 
                 default:
                     responseStream = new stream.PassThrough();
-                    responseStream.flush = () => {};
+                    responseStream.flush = (cb) => cb();
             }
 
             const content = this.content;
