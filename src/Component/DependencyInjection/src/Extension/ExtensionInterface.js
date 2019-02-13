@@ -13,13 +13,6 @@ class ExtensionInterface {
     load(configs, container) { }
 
     /**
-     * Returns the extension configuration object.
-     *
-     * @returns {Jymfony.Component.Config.Definition.ConfigurationInterface}
-     */
-    getConfiguration() { }
-
-    /**
      * Namespace to be used for this extension.
      *
      * @returns {string}

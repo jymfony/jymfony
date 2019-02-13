@@ -20,7 +20,7 @@ class RouteCollection {
         this._routes = {};
 
         /**
-         * @type {Object.<string, Jymfony.Component.Config.ResourceInterface>}
+         * @type {Object.<string, Jymfony.Component.Config.Resource.ResourceInterface>}
          *
          * @private
          */
@@ -129,6 +129,8 @@ class RouteCollection {
 
     /**
      * Adds a prefix to the name of all the routes within in the collection.
+     *
+     * @returns {Jymfony.Component.Routing.RouteCollection}
      */
     addNamePrefix(prefix) {
         const prefixedRoutes = {};
@@ -142,6 +144,8 @@ class RouteCollection {
         }
 
         this._routes = prefixedRoutes;
+
+        return this;
     }
 
     /**
@@ -166,7 +170,9 @@ class RouteCollection {
     /**
      * Adds a resource for this collection.
      *
-     * @param {Jymfony.Component.Config.ResourceInterface} resource
+     * @param {Jymfony.Component.Config.Resource.ResourceInterface} resource
+     *
+     * @returns {Jymfony.Component.Routing.RouteCollection}
      */
     addResource(resource) {
         const key = resource.toString();
@@ -174,6 +180,8 @@ class RouteCollection {
         if (undefined === this._resources[key]) {
             this._resources[key] = resource;
         }
+
+        return this;
     }
 
     /**
@@ -191,6 +199,8 @@ class RouteCollection {
      * An existing default value under the same name in a route will be overridden.
      *
      * @param {Object.<string, *>} defaults A set of default values
+     *
+     * @returns {Jymfony.Component.Routing.RouteCollection}
      */
     addDefaults(defaults) {
         if (0 === Object.keys(defaults).length) {
@@ -209,6 +219,8 @@ class RouteCollection {
      * An existing requirement under the same name in a route will be overridden.
      *
      * @param {Object.<string, string|RegExp>} requirements A set of requirements
+     *
+     * @returns {Jymfony.Component.Routing.RouteCollection}
      */
     addRequirements(requirements) {
         if (0 === Object.keys(requirements).length) {
@@ -227,6 +239,8 @@ class RouteCollection {
      * An existing option value under the same name in a route will be overridden.
      *
      * @param {Object.<string, *>} options An array of options
+     *
+     * @returns {Jymfony.Component.Routing.RouteCollection}
      */
     addOptions(options) {
         if (0 === Object.keys(options).length) {
@@ -265,7 +279,7 @@ class RouteCollection {
     /**
      * Returns the set of resources loaded to build this collection.
      *
-     * @returns {Jymfony.Component.Config.ResourceInterface[]}
+     * @returns {Jymfony.Component.Config.Resource.ResourceInterface[]}
      */
     get resources() {
         return Object.values(this._resources);

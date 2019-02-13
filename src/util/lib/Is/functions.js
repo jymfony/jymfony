@@ -18,8 +18,15 @@ global.isGeneratorFunction = function isGeneratorFunction(value) {
         return false;
     }
 
-    const constructor = value.constructor;
+    if ('[object AsyncGeneratorFunction]' === Object.prototype.toString.call(value)) {
+        return true;
+    }
 
+    if (isGeneratorFunction(value.__invoke)) {
+        return true;
+    }
+
+    const constructor = value.constructor;
     if (! constructor) {
         return false;
     }
@@ -61,6 +68,10 @@ if (__jymfony.Platform.hasAsyncFunctionSupport()) {
  * @returns {boolean}
  */
 global.isFunction = function isFunction(obj) {
+    if (! obj) {
+        return false;
+    }
+
     if (undefined !== global.BoundFunction && obj instanceof BoundFunction) {
         return true;
     }
@@ -70,6 +81,10 @@ global.isFunction = function isFunction(obj) {
     }
 
     if (isAsyncFunction(obj)) {
+        return true;
+    }
+
+    if (isFunction(obj.__invoke)) {
         return true;
     }
 

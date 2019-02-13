@@ -2,6 +2,7 @@
   "name": "@jymfony/logger",
   "version": "0.1.0-dev",
   "description": "Jymfony Logger",
+  "typings": "types/index.d.ts",
   "scripts": {
     "test": "node ./tests.js"
   },

@@ -10,15 +10,22 @@ class ConsoleErrorEvent extends ConsoleEvent {
     /**
      * Constructor.
      *
-     * @param {Jymfony.Component.Console.Command.Input.InputInterface} input
-     * @param {Jymfony.Component.Console.Command.Output.OutputInterface} output
+     * @param {Jymfony.Component.Console.Input.InputInterface} input
+     * @param {Jymfony.Component.Console.Output.OutputInterface} output
      * @param {Error} error
      * @param {Jymfony.Component.Console.Command.Command} [command]
      */
     __construct(input, output, error, command = undefined) {
         super.__construct(command, input, output);
 
-        this.error = error;
+        /**
+         * The thrown error.
+         *
+         * @type {Error}
+         *
+         * @private
+         */
+        this._error = undefined;
 
         /**
          * The process exit code.
@@ -28,6 +35,8 @@ class ConsoleErrorEvent extends ConsoleEvent {
          * @private
          */
         this._exitCode = undefined;
+
+        this.error = error;
     }
 
     /**
@@ -52,12 +61,6 @@ class ConsoleErrorEvent extends ConsoleEvent {
             ));
         }
 
-        /**
-         * The thrown error.
-         *
-         * @type {Error}
-         * @private
-         */
         this._error = error;
     }
 

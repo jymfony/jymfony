@@ -81,7 +81,7 @@ class BaseAccept {
     /**
      * The type.
      *
-     * @return string
+     * @returns {string}
      */
     get type() {
         return this._type;
@@ -90,7 +90,7 @@ class BaseAccept {
     /**
      * The accept quality.
      *
-     * @return number
+     * @returns {number}
      */
     get quality() {
         return this._quality;
@@ -133,7 +133,9 @@ class BaseAccept {
      *
      * @param {string} acceptPart
      *
-     * @returns {*[]}
+     * @returns {[string, Object.<string, string>]}
+     *
+     * @private
      */
     _parseParameters(acceptPart) {
         const parts = acceptPart.split(';');
@@ -160,6 +162,8 @@ class BaseAccept {
      * @param {Object.<string, string>} parameters
      *
      * @returns {string}
+     *
+     * @private
      */
     _buildParametersString(parameters) {
         const parts = [];

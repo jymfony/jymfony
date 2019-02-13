@@ -45,7 +45,7 @@ class Application {
     /**
      * Sets the event dispatcher.
      *
-     * @param {Jymfony.Component.EventDispatcher.EventDispatcher} dispatcher
+     * @param {Jymfony.Component.EventDispatcher.EventDispatcherInterface} dispatcher
      */
     set dispatcher(dispatcher) {
         this._eventDispatcher = dispatcher;
@@ -110,7 +110,7 @@ class Application {
      * Run the application
      *
      * @param {Jymfony.Component.Console.Input.InputInterface} [input = new ArgvInput()]
-     * @param {Jymfony.Component.Console.Output.OutputInterface} [output new ConsoleOutput()]
+     * @param {Jymfony.Component.Console.Output.OutputInterface} [output = new ConsoleOutput()]
      *
      * @returns {Promise<int>} Promise executing the application
      */
@@ -758,7 +758,7 @@ class Application {
                     output.writeln('', OutputInterface.VERBOSITY_QUIET);
                 }
             }
-        } while (exception = exception.previous);
+        } while ((exception = exception.previous));
 
         if (this._runningCommand) {
             output.writeln(__jymfony.sprintf('<info>%s</info>', this._runningCommand.getSynopsis()), OutputInterface.VERBOSITY_QUIET);
@@ -830,6 +830,8 @@ class Application {
      * @param {string[]} abbrevs Abbreviated suggestions to convert
      *
      * @returns {string} A formatted string of abbreviated suggestions
+     *
+     * @private
      */
     _getAbbreviationSuggestions(abbrevs) {
         return '    ' + abbrevs.join('\n    ');
@@ -841,6 +843,8 @@ class Application {
      * @param {string} name The full name of the command
      *
      * @returns {string[]} The namespaces of the command
+     *
+     * @private
      */
     _extractAllNamespaces(name) {
         const parts = name.split(':');

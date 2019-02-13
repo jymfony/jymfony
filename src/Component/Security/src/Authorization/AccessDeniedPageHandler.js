@@ -12,7 +12,7 @@ class AccessDeniedPageHandler extends implementationOf(AccessDeniedHandlerInterf
      * Constructor.
      *
      * @param {Jymfony.Component.Security.Http.HttpUtils} httpUtils
-     * @param {Jymfony.Component.HttpServer.HttpServer} httpServer
+     * @param {Jymfony.Component.HttpServer.RequestHandler} httpServer
      * @param {string} route
      */
     __construct(httpUtils, httpServer, route) {
@@ -24,11 +24,11 @@ class AccessDeniedPageHandler extends implementationOf(AccessDeniedHandlerInterf
         this._httpUtils = httpUtils;
 
         /**
-         * @type {Jymfony.Component.HttpServer.HttpServer}
+         * @type {Jymfony.Component.HttpServer.RequestHandler}
          *
          * @private
          */
-        this._httpServer = httpServer;
+        this._requestHandler = httpServer;
 
         /**
          * @type {string}
@@ -41,7 +41,7 @@ class AccessDeniedPageHandler extends implementationOf(AccessDeniedHandlerInterf
     /**
      * @inheritdoc
      */
-    handle(request, exception) {
+    async handle(request, exception) {
         if (request.attributes.has(Request.ATTRIBUTE_PARENT_REQUEST)) {
             return; // Avoid loops
         }
@@ -50,7 +50,7 @@ class AccessDeniedPageHandler extends implementationOf(AccessDeniedHandlerInterf
         const subRequest = Request.create(route, Request.METHOD_GET, {}, request.headers.all, request.server.all);
         subRequest.attributes.set(Security.ACCESS_DENIED_ERROR, exception);
 
-        return this._httpServer.handle(subRequest);
+        return this._requestHandler.handle(subRequest);
     }
 }
 

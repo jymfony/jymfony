@@ -74,9 +74,9 @@ class AbstractAdapter extends implementationOf(CacheItemPoolInterface, LoggerAwa
         const cache = (() => {
             try {
                 const fsAdapter = new FilesystemAdapter(namespace, defaultLifetime, directory);
-                if (fs.accessSync(directory, fs.constants.W_OK)) {
-                    return fsAdapter;
-                }
+                fs.accessSync(directory, fs.constants.W_OK);
+
+                return fsAdapter;
             } catch (e) {
                 if ('EROFS' !== e.code) {
                     throw e;

@@ -9,27 +9,27 @@ class FrozenParameterBag extends ParameterBag {
     /**
      * Constructor.
      *
-     * @param {Map} params
+     * @param {Object.<string, *>} params
      */
     __construct(params) {
         /**
-         * @type {Object}
+         * @type {Object.<string, *>}
          *
-         * @private
+         * @protected
          */
         this._env = {};
 
         /**
-         * @type {Map}
+         * @type {Object.<string, *>}
          *
-         * @private
+         * @protected
          */
         this._params = params;
 
         /**
          * @type {boolean}
          *
-         * @private
+         * @protected
          */
         this._resolved = true;
     }

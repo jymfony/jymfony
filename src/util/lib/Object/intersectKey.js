@@ -8,7 +8,7 @@ global.__jymfony = global.__jymfony || {};
  *
  * @returns {Object}
  */
-const intersectKey = function (obj, ...arrays) {
+const intersectKey = (obj, ...arrays) => {
     const inArrays = key => {
         for (const array of arrays) {
             if (key in array) {

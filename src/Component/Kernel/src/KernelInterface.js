@@ -1,7 +1,5 @@
 /**
  * @memberOf Jymfony.Component.Kernel
- *
- * @interface
  */
 class KernelInterface {
     /**

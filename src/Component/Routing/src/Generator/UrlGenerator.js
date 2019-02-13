@@ -111,7 +111,7 @@ class UrlGenerator extends implementationOf(UrlGeneratorInterface) {
             name,
             referenceType,
             compiledRoute.hostTokens,
-            compiledRoute.schemes
+            route.schemes
         );
     }
 

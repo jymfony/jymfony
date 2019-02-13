@@ -3,6 +3,7 @@
   "version": "0.1.0-dev",
   "description": "Jymfony Console component",
   "main": "src/Application.js",
+  "typings": "types/index.d.ts",
   "scripts": {
     "test": "node ./tests.js test/**"
   },

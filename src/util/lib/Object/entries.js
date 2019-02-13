@@ -3,12 +3,12 @@
 global.__jymfony = global.__jymfony || {};
 
 /**
- * @template <K, V>
  * Get key, value pairs from any object.
  *
  * @param {Object.<K, V>|Map<K, V>|V[]} object
  *
  * @returns {IterableIterator.<[K, V]>}
+ * @template K, V
  */
 __jymfony.getEntries = function * getEntries(object) {
     if (isArray(object)) {

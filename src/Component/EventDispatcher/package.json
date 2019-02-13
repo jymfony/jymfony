@@ -2,7 +2,7 @@
   "name": "@jymfony/event-dispatcher",
   "version": "0.1.0-dev",
   "description": "Jymfony EventDispatcher",
-  "main": "src/EventDispatcher.js",
+  "typings": "types/index.d.ts",
   "scripts": {
     "test": "node ./tests.js test/**"
   },

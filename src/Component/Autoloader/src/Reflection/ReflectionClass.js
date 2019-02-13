@@ -29,7 +29,7 @@ const getClass = function getClass(value) {
         if (undefined === value.prototype) {
             if (value.definition) {
                 // Interface or Trait
-                this._isInterface = mixins.isInterface(value);
+                this._isInterface = global.mixins.isInterface(value);
                 value = value.definition;
             } else {
                 throw new ReflectionException('Not a class');
@@ -332,7 +332,7 @@ class ReflectionClass {
     /**
      * Module object exporting this class.
      *
-     * @returns {Module}
+     * @returns {NodeJS.Module}
      */
     get module() {
         return this._module;
@@ -519,7 +519,7 @@ class ReflectionClass {
             loadFromPrototype(p);
         }
 
-        for (const IF of mixins.getInterfaces(this._constructor)) {
+        for (const IF of global.mixins.getInterfaces(this._constructor)) {
             const reflectionInterface = new ReflectionClass(IF);
             this._interfaces.push(reflectionInterface);
         }
@@ -583,6 +583,8 @@ class ReflectionClass {
     }
 
     /**
+     * @returns {Function}
+     *
      * @private
      */
     static _recursiveGet(start, parts) {

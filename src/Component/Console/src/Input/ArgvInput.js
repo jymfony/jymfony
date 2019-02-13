@@ -140,7 +140,7 @@ class ArgvInput extends Input {
     toString() {
         return this._tokens.map(token => {
             let match;
-            if (match = /^(-[^=]+=)(.+)/.exec(token)) {
+            if ((match = /^(-[^=]+=)(.+)/.exec(token))) {
                 return match[1] + this.escapeToken(match[2]);
             }
 

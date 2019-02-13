@@ -17,7 +17,7 @@ class UserInterface {
     /**
      * Returns the roles granted to the user.
      *
-     * @returns {string[]}
+     * @returns {Jymfony.Component.Security.Role.Role[]}
      */
     get roles() { }
 

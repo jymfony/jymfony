@@ -12,7 +12,7 @@ class AbstractNegotiator {
      * Gets the best match against a list of priority.
      *
      * @param {string} header A string containing an `Accept|Accept-*` header.
-     * @param {*[]} priorities A set of server priorities.
+     * @param {string[]} priorities A set of server priorities.
      * @param {boolean} [strict = false]
      *
      * @returns {Jymfony.Component.HttpFoundation.Negotiation.AcceptHeader|null} best matching type

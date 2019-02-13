@@ -75,7 +75,7 @@ class ServiceLocatorTagPass extends AbstractRecursivePass {
 
     static register(container, refMap, callerId) {
         for (const [ id, ref ] of __jymfony.getEntries(refMap)) {
-            if (! ref instanceof Reference) {
+            if (! (ref instanceof Reference)) {
                 throw new InvalidArgumentException(__jymfony.sprintf(
                     'Invalid service locator definition: only services can be referenced, "%s" found for key "%s". Inject parameter values using constructors instead.',
                     isObject(ref) ? ReflectionClass.getClassName(ref) : typeof ref,
@@ -100,6 +100,7 @@ class ServiceLocatorTagPass extends AbstractRecursivePass {
 
         if (callerId) {
             const locatorId = id;
+
             // Locators are shared when they hold the exact same list of factories;
             // To have them specialized per consumer service, we use a cloning factory
             // To derivate customized instances from the prototype one.

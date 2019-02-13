@@ -9,7 +9,7 @@ class AuthenticationFailureEvent extends AuthenticationEvent {
     /**
      * Constructor.
      *
-     * @param {Jymfony,Component.Security.Authentication.Token.TokenInterface} token
+     * @param {Jymfony.Component.Security.Authentication.Token.TokenInterface} token
      * @param {Jymfony.Component.Security.Exception.AuthenticationException} exception
      */
     __construct(token, exception) {

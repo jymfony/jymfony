@@ -26,7 +26,7 @@ class Firewall extends implementationOf(EventSubscriberInterface, TargetPathTrai
      * Constructor.
      *
      * @param {Jymfony.Component.Security.Firewall.FirewallMapInterface} map
-     * @param {Jymfony.Component.Security.Authentication.Token.Storage.TokenStorage} tokenStorage
+     * @param {Jymfony.Component.Security.Authentication.Token.Storage.TokenStorageInterface} tokenStorage
      * @param {Jymfony.Component.Security.Authentication.AuthenticationTrustResolverInterface} authenticationTrustResolver
      * @param {Jymfony.Component.Logger.LoggerInterface} [logger]
      */
@@ -39,7 +39,7 @@ class Firewall extends implementationOf(EventSubscriberInterface, TargetPathTrai
         this._map = map;
 
         /**
-         * @type {Jymfony.Component.Security.Authentication.Token.Storage.TokenStorage}
+         * @type {Jymfony.Component.Security.Authentication.Token.Storage.TokenStorageInterface}
          *
          * @private
          */
@@ -112,7 +112,7 @@ class Firewall extends implementationOf(EventSubscriberInterface, TargetPathTrai
             } else if (exception instanceof AccessDeniedException) {
                 return await this._handleAccessDeniedException(event, firewallConfig, exception);
             } else if (exception instanceof LogoutException) {
-                return await this._handleLogoutException(exception);
+                return await this._handleLogoutException(event, exception);
             }
         } while ((exception = exception.previous));
     }
@@ -120,7 +120,7 @@ class Firewall extends implementationOf(EventSubscriberInterface, TargetPathTrai
     /**
      * Handles an AuthenticationException.
      *
-     * @param {Jymfony.Component.HttpServer.Event.GetResponseEvent} event
+     * @param {Jymfony.Component.HttpServer.Event.GetResponseForExceptionEvent} event
      * @param {Jymfony.Component.Security.Firewall.FirewallConfig} config
      * @param {Jymfony.Component.Security.Exception.AuthenticationException} exception
      *
@@ -142,8 +142,8 @@ class Firewall extends implementationOf(EventSubscriberInterface, TargetPathTrai
     /**
      * Handles a logout exception.
      *
-     * @param {Jymfony.Component.HttpServer.Event.GetResponseEvent} event
-     * @param {Jymfony.Component.Security.Exception.AuthenticationException} exception
+     * @param {Jymfony.Component.HttpServer.Event.GetResponseForExceptionEvent} event
+     * @param {Jymfony.Component.Security.Exception.LogoutException} exception
      *
      * @returns {Promise<void>}
      *

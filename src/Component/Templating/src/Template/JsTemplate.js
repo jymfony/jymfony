@@ -21,14 +21,7 @@ class JsTemplate extends implementationOf(TemplateInterface) {
     }
 
     /**
-     * Renders a template.
-     *
-     * @param {Function} out Function that streams out data from rendered template.
-     * @param {Object.<string, *>} [parameters = {}] A set of parameters to pass to the template
-     *
-     * @throws {RuntimeException} if the template cannot be rendered
-     *
-     * @returns {Promise<void>}
+     * @inheritdoc
      */
     async stream(out, parameters = {}) {
         try {

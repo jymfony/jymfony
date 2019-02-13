@@ -56,9 +56,6 @@ class JsonDescriptor extends Descriptor {
      * Writes data as json.
      *
      * @param {Object} data
-     * @param {Object} options
-     *
-     * @returns {string}
      */
     _writeData(data/* , options */) {
         this._write(JSON.stringify(data));

@@ -2,7 +2,7 @@
   "name": "@jymfony/lexer",
   "version": "0.1.0-dev",
   "description": "Jymfony Lexer component",
-  "main": "src/AbstractLexer.js",
+  "typings": "types/index.d.ts",
   "scripts": {
     "test": "node ./tests.js test/**"
   },

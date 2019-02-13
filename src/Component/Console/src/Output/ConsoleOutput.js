@@ -1,3 +1,4 @@
+const OutputFormatter = Jymfony.Component.Console.Formatter.OutputFormatter;
 const ConsoleOutputInterface = Jymfony.Component.Console.Output.ConsoleOutputInterface;
 const StreamOutput = Jymfony.Component.Console.Output.StreamOutput;
 
@@ -8,11 +9,11 @@ class ConsoleOutput extends mix(StreamOutput, ConsoleOutputInterface) {
     /**
      * Constructor.
      *
-     * @param {string} [verbosity = Jymfony.Component.Console.Output.ConsoleOutputInterface.VERBOSITY_NORMAL]
+     * @param {int} [verbosity = Jymfony.Component.Console.Output.ConsoleOutputInterface.VERBOSITY_NORMAL]
      * @param {boolean} [decorated]
-     * @param {Jymfony.Component.Console.Output.OutputFormatterInterface} [formatter]
+     * @param {Jymfony.Component.Console.Formatter.OutputFormatterInterface} [formatter]
      */
-    __construct(verbosity = ConsoleOutputInterface.VERBOSITY_NORMAL, decorated = undefined, formatter = undefined) {
+    __construct(verbosity = ConsoleOutputInterface.VERBOSITY_NORMAL, decorated = undefined, formatter = new OutputFormatter()) {
         super.__construct(process.stdout, verbosity, decorated, formatter);
 
         const actualDecorated = this.decorated;

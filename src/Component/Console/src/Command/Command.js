@@ -145,7 +145,6 @@ class Command {
     async initialize(input, output) { // eslint-disable-line no-unused-vars
     }
 
-
     /**
      * Runs the command.
      *
@@ -498,6 +497,8 @@ class Command {
      * @param {string} name
      *
      * @throws {Jymfony.Component.Console.Exception.InvalidArgumentException} When the name is invalid
+     *
+     * @private
      */
     _validateName(name) {
         if (! /^[^\:]+(\:[^\:]+)*$/.test(name)) {

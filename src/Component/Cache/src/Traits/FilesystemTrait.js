@@ -66,7 +66,7 @@ class FilesystemTrait {
                 continue;
             }
 
-            const h = new OpenFile(file, 'r');
+            const h = await new OpenFile(file, 'r');
             const expiresAt = ~~(await h.fgets());
             if (expiresAt && now >= expiresAt) {
                 await h.close();
@@ -230,7 +230,7 @@ class FilesystemTrait {
         const tmp = this._directory + (Math.random() * 10000000);
         const filesystem = new Filesystem();
 
-        const openFile = new OpenFile(tmp, 'w');
+        const openFile = await new OpenFile(tmp, 'w');
         await openFile.fwrite(Buffer.from(data));
         await openFile.close();
 

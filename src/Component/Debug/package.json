@@ -2,6 +2,7 @@
   "name": "@jymfony/debug",
   "version": "0.1.0-dev",
   "description": "Jymfony Debug component",
+  "typings": "types/index.d.ts",
   "scripts": {
     "test": "node ./tests.js test/**"
   },

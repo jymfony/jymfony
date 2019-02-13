@@ -20,7 +20,7 @@ class AuthenticationProviderManager extends implementationOf(AuthenticationManag
      * @param {Jymfony.Component.Security.Authentication.Provider.AuthenticationProviderInterface[]} providers An iterable with AuthenticationProviderInterface instances as values
      * @param {boolean} [eraseCredentials = true] Whether to erase credentials after authentication or not
      *
-     * @throws InvalidArgumentException
+     * @throws {InvalidArgumentException}
      */
     __construct(providers, eraseCredentials = true) {
         if (! isArray(providers)) {

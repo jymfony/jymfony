@@ -163,7 +163,7 @@ class Router extends implementationOf(RouterInterface, MatcherInterface, UrlGene
     /**
      * @inheritdoc
      */
-    warmUp(cacheDir) {
+    async warmUp(cacheDir) {
         const currentDir = this._options.cache_dir;
 
         // Force cache generation

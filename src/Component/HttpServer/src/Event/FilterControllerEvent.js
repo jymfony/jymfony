@@ -40,7 +40,7 @@ class FilterControllerEvent extends HttpEvent {
     }
 
     /**
-     * Sets the response for the current event.
+     * Sets the controller for the current event.
      *
      * @param {Function} controller
      */

@@ -137,7 +137,7 @@ class Logger extends AbstractLogger {
     /**
      * Pops out a processor off the stack.
      *
-     * @returns {Jymfony.Component.Logger.Handler.HandlerInterface}
+     * @returns {Function}
      *
      * @throws {Jymfony.Component.Logger.Exception.LogicException}
      */
@@ -168,7 +168,8 @@ class Logger extends AbstractLogger {
      * @returns {boolean}
      */
     addRecord(level, message, context = {}) {
-        const levelName = this.constructor.levels[level];
+        /** @var {string} levelName */
+        const levelName = __self.levels[level];
 
         const it = __jymfony.getEntries(this._handlers);
         let handlerKey, handler, current;
@@ -314,7 +315,7 @@ class Logger extends AbstractLogger {
         const it = __jymfony.getEntries(this._handlers);
         let handler;
 
-        while (handler = it.value[1]) {
+        while ((handler = it.value[1])) {
             if (handler.isHandling(record)) {
                 return true;
             }

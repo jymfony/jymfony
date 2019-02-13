@@ -608,7 +608,7 @@ class Kernel extends implementationOf(KernelInterface) {
             this._configureContainer(container, loader);
             container.addObjectResource(this);
         });
-    };
+    }
 
     /**
      * Get Container class name

@@ -2,6 +2,7 @@ const EventSubscriberInterface = Jymfony.Component.EventDispatcher.EventSubscrib
 const Request = Jymfony.Component.HttpFoundation.Request;
 const Events = Jymfony.Component.HttpServer.Event.HttpServerEvents;
 const NullLogger = Jymfony.Component.Logger.NullLogger;
+const TokenInterface = Jymfony.Component.Security.Authentication.Token.TokenInterface;
 const UnsupportedUserException = Jymfony.Component.Security.Exception.UnsupportedUserException;
 const UsernameNotFoundException = Jymfony.Component.Security.Exception.UsernameNotFoundException;
 const ListenerInterface = Jymfony.Component.Security.Firewall.ListenerInterface;

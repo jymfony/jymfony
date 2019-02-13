@@ -63,6 +63,8 @@ class CollectionConfigurator extends implementationOf(
         }
 
         this._parent.addCollection(this._collection);
+
+        return this._collection;
     }
 
     /**

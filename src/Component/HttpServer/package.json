@@ -2,7 +2,7 @@
   "name": "@jymfony/http-server",
   "version": "0.1.0-dev",
   "description": "Jymfony Http Server",
-  "main": "src/HttpServer.js",
+  "typings": "types/index.d.ts",
   "scripts": {
     "test": "node ./tests.js test/**"
   },

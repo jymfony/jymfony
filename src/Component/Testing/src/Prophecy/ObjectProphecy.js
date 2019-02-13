@@ -42,7 +42,7 @@ class ObjectProphecy extends implementationOf(ProphecyInterface) {
         this._callCenter = callCenter || new CallCenter();
 
         /**
-         * @type {Object}
+         * @type {Object.<string | symbol, Jymfony.Component.Testing.Prophecy.MethodProphecy[]>}
          *
          * @private
          */
@@ -90,10 +90,10 @@ class ObjectProphecy extends implementationOf(ProphecyInterface) {
     /**
      * Gets the registered method prophecies.
      *
-     * @returns {Object<string, Jymfony.Component.Testing.Prophecy.MethodProphecy[]>}
+     * @returns {Object<string | symbol, Jymfony.Component.Testing.Prophecy.MethodProphecy[]>}
      */
     get methodProphecies() {
-        return this._methodProphecies;
+        return Object.assign({}, this._methodProphecies);
     }
 
     /**

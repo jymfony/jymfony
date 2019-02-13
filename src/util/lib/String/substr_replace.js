@@ -21,13 +21,6 @@ const substr_replace_internal = (search, replacement, start, length) => {
 
 /**
  * Replace text within a portion of a string
- *
- * @param {string|string[]} search
- * @param {string|string[]} replacement
- * @param {int|int[]} start
- * @param {int|int[]} [length]
- *
- * @returns {string|string[]}
  */
 __jymfony.substr_replace = (search, replacement, start, length = undefined) => {
     if (isArray(search)) {

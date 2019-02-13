@@ -43,7 +43,7 @@ class EventDispatcherInterface {
     /**
      * Detaches all the listeners from a subscriber
      *
-     * @param {*} subscriber
+     * @param {Jymfony.Component.EventDispatcher.EventSubscriberInterface} subscriber
      */
     removeSubscriber(subscriber) { }
 

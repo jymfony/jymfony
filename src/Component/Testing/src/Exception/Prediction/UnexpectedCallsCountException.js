@@ -8,7 +8,7 @@ class UnexpectedCallsCountException extends UnexpectedCallsException {
      * Constructor.
      *
      * @param {string} message
-     * @param {Jymfony.Component.Testing.Prophecy.ObjectProphecy} methodProphecy
+     * @param {Jymfony.Component.Testing.Prophecy.MethodProphecy} methodProphecy
      * @param {int} count
      * @param {*[]} calls
      */

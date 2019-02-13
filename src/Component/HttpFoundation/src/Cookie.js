@@ -11,7 +11,7 @@ class Cookie {
      * @param {string} cookie
      * @param {boolean} [decode = false]
      *
-     * @returns static
+     * @returns {Jymfony.Component.HttpFoundation.Cookie}
      */
     static fromString(cookie, decode = false) {
         let data = {
@@ -40,9 +40,11 @@ class Cookie {
     }
 
     /**
+     * Constructor.
+     *
      * @param {string} name The name of the cookie
      * @param {string|null} [value = null] The value of the cookie
-     * @param {int|string|Jymfony.Component.DateTime.DateTime} [expire = 0] The time the cookie expires
+     * @param {int|Jymfony.Component.DateTime.DateTime} [expire = 0] The time the cookie expires
      * @param {string} [path = '/'] The path on the server in which the cookie will be available on
      * @param {string|undefined} [domain] The domain that the cookie is available to
      * @param {boolean} [secure = false] Whether the cookie should only be transmitted over a secure HTTPS connection from the client
@@ -50,7 +52,7 @@ class Cookie {
      * @param {boolean} [raw = false] Whether the cookie value should be sent with no url encoding
      * @param {string|null} [sameSite = null] Whether the cookie will be available for cross-site requests
      *
-     * @throws \InvalidArgumentException
+     * @throws {InvalidArgumentException}
      */
     __construct(name, value = null, expire = 0, path = '/', domain = undefined, secure = true, httpOnly = true, raw = false, sameSite = __self.SAMESITE_LAX) {
         // From PHP source code
@@ -149,7 +151,7 @@ class Cookie {
      * @returns {string}
      */
     get value() {
-        return this._value.toString();
+        return String(this._value);
     }
 
     /**

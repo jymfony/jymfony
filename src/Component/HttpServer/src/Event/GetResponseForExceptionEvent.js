@@ -53,11 +53,6 @@ class GetResponseForExceptionEvent extends GetResponseEvent {
      * Mark the event as allowing a custom response code.
      */
     allowCustomResponseCode() {
-        /**
-         * @type {boolean}
-         *
-         * @private
-         */
         this._allowCustomResponseCode = true;
     }
 

@@ -1,4 +1,5 @@
 const RecursiveDirectoryIterator = Jymfony.Component.Config.Resource.Iterator.RecursiveDirectoryIterator;
+const SelfCheckingResourceInterface = Jymfony.Component.Config.Resource.SelfCheckingResourceInterface;
 const crypto = require('crypto');
 const fs = require('fs');
 const pathModule = require('path');
@@ -6,7 +7,7 @@ const pathModule = require('path');
 /**
  * @memberOf Jymfony.Component.Config.Resource
  */
-class GlobResource {
+class GlobResource extends implementationOf(SelfCheckingResourceInterface) {
     /**
      * Constructor.
      *

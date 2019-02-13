@@ -7,7 +7,7 @@ global.__jymfony = global.__jymfony || {};
  *
  * @returns {string}
  */
-__jymfony.regex_quote = function (str) {
+__jymfony.regex_quote = (str) => {
     return str.toString()
         .replace(/[.\\+*?\[\^\]$(){}=!<>|:-]/g, '\\$&');
 };

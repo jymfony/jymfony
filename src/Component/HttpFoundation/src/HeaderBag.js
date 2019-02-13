@@ -54,7 +54,7 @@ class HeaderBag {
     /**
      * Gets a copy of the parameters collection.
      *
-     * @returns {Object.<string, *>}
+     * @returns {Object.<string, string[]>}
      */
     get all() {
         return Object.assign({}, this._headers);
@@ -75,6 +75,15 @@ class HeaderBag {
      * @param {Object.<string, *>} parameters
      */
     add(parameters) {
+        parameters = Object.assign({}, parameters);
+        for (const key of Object.keys(parameters)) {
+            if (isArray(parameters[key])) {
+                continue;
+            }
+
+            parameters[key] = [ parameters[key] ];
+        }
+
         Object.assign(this._headers, parameters);
     }
 
@@ -159,7 +168,7 @@ class HeaderBag {
      * Returns the HTTP header value converted to a date.
      *
      * @param {string} key The parameter key
-     * @param {Jymfony.Component.DateTime.DateTime} defaultValue The default value
+     * @param {Jymfony.Component.DateTime.DateTime} [defaultValue] The default value
      *
      * @return {Jymfony.Component.DateTime.DateTime} The parsed DateTime or the default value if the header does not exist
      *
@@ -210,7 +219,7 @@ class HeaderBag {
     /**
      * Adds a custom Cache-Control directive.
      *
-     * @param {string} key   The Cache-Control directive name
+     * @param {string} key The Cache-Control directive name
      * @param {*} value The Cache-Control directive value
      */
     addCacheControlDirective(key, value = true) {
@@ -264,7 +273,7 @@ class HeaderBag {
      *
      * @param {string} header The value of the Cache-Control HTTP header
      *
-     * @returns {Object.<string, int|string|boolean>} An array representing the attribute values
+     * @returns {Object.<string, int|string|boolean>} An object representing the attribute values
      *
      * @protected
      */

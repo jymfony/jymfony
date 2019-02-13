@@ -28,7 +28,7 @@ class StreamBuffer extends Writable {
     /**
      * The size of the data contained in the buffer.
      *
-     * @returns {number}
+     * @returns {int}
      */
     get size() {
         return this._size;

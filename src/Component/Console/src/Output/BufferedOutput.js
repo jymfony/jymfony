@@ -1,4 +1,6 @@
+const OutputFormatter = Jymfony.Component.Console.Formatter.OutputFormatter;
 const Output = Jymfony.Component.Console.Output.Output;
+const OutputInterface = Jymfony.Component.Console.Output.OutputInterface;
 const os = require('os');
 
 /**

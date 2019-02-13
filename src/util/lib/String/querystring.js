@@ -56,7 +56,7 @@ __jymfony.internal_parse_query_string = (params) => {
  *
  * @returns {Object}
  */
-__jymfony.parse_query_string = function parse_query_string(str) {
+__jymfony.parse_query_string = (str) => {
     if (null === str) {
         return {};
     }

@@ -14,7 +14,7 @@ class OpenFile extends File {
          *
          * @private
          */
-        this._resource = this._streamWrapper.streamOpen(this.filename, mode);
+        this._resource = undefined;
 
         /**
          * Whether the file is closed or not.
@@ -24,6 +24,12 @@ class OpenFile extends File {
          * @private
          */
         this._closed = false;
+
+        return (async () => {
+            this._resource = await this._streamWrapper.streamOpen(this.filename, mode);
+
+            return this;
+        })();
     }
 
     /**

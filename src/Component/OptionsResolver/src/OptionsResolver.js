@@ -73,7 +73,7 @@ class OptionsResolver {
         /**
          * A list of accepted types for each option.
          *
-         * @type {Object.<string, string[]|Function[]>}
+         * @type {Object.<string, (string|Function)[]>}
          *
          * @private
          */
@@ -457,7 +457,7 @@ class OptionsResolver {
      * accept the value and false to reject the value.
      *
      * @param {string} option The option name
-     * @param {*} allowedValues One or more acceptable values/closures
+     * @param {*[]} allowedValues One or more acceptable values/closures
      *
      * @returns {Jymfony.Component.OptionsResolver.OptionsResolver}
      *
@@ -483,7 +483,7 @@ class OptionsResolver {
         if (! this._allowedValues[option]) {
             this._allowedValues[option] = [ ...allowedValues ];
         } else {
-            this._allowedValues.splice(-1, 0, allowedValues);
+            this._allowedValues[option].splice(-1, 0, ...allowedValues);
         }
 
         // Make sure the option is processed
@@ -513,7 +513,7 @@ class OptionsResolver {
         }
 
         if (! this._defined[option]) {
-            throw new UndefinedOptionsException(sprintf(
+            throw new UndefinedOptionsException(__jymfony.sprintf(
                 'The option "%s" does not exist. Defined options are: "%s".',
                 option, Object.keys(this._defined).join('", "')
             ));
@@ -537,7 +537,7 @@ class OptionsResolver {
      * be passed.
      *
      * @param {string} option The option name
-     * @param {string|string[]} allowedTypes One or more accepted types
+     * @param {string|Function|(string|Function)[]} allowedTypes One or more accepted types
      *
      * @returns {Jymfony.Component.OptionsResolver.OptionsResolver}
      *
@@ -560,10 +560,11 @@ class OptionsResolver {
             allowedTypes = [ allowedTypes ];
         }
 
+        /** @type {(string|Function)[]} allowedTypes */
         if (! this._allowedTypes[option]) {
             this._allowedTypes[option] = [ ...allowedTypes ];
         } else {
-            this._allowedTypes[option].splice(-1, 0, allowedTypes);
+            this._allowedTypes[option].splice(-1, 0, ...allowedTypes);
         }
 
         // Make sure the option is processed
@@ -745,7 +746,7 @@ class OptionsResolver {
             // If the closure is already being called, we have a cyclic
             // Dependency
             if (this._calling[option]) {
-                throw new OptionDefinitionException(sprintf(
+                throw new OptionDefinitionException(__jymfony.sprintf(
                     'The options "%s" have a cyclic dependency.',
                     Object.keys(this._calling).join('", "')
                 ));
@@ -958,7 +959,7 @@ class OptionsResolver {
      * Returns a string representation of a list of values.
      *
      * Each of the values is converted to a string using
-     * {@link formatValue()}. The values are then concatenated with commas.
+     * {@link _formatValue()}. The values are then concatenated with commas.
      *
      * @params {*[]} values A list of values
      *

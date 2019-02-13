@@ -1,3 +1,5 @@
+const CommandNotFoundException = Jymfony.Component.Console.Exception.CommandNotFoundException;
+
 /**
  * @memberOf Jymfony.Component.Console.Descriptor
  *
@@ -20,7 +22,7 @@ class ApplicationDescription {
     }
 
     /**
-     * @returns {string[]}
+     * @returns {{ id: string, commands: string[] }[]}
      */
     get namespaces() {
         if (undefined === this._namespaces) {
@@ -31,7 +33,7 @@ class ApplicationDescription {
     }
 
     /**
-     * @returns {Jymfony.Component.Console.Command.Command[]}
+     * @returns {Object.<string, Jymfony.Component.Console.Command.Command>}
      */
     get commands() {
         if (undefined === this._commands) {
@@ -87,10 +89,14 @@ class ApplicationDescription {
     /**
      * @param {Object.<string, Jymfony.Component.Console.Command.Command>} commands
      *
-     * @returns {Jymfony.Component.Console.Command.Command[]}
+     * @returns {IterableIterator.<[string, [string, Jymfony.Component.Console.Command.Command][]]>}
      */
     * _sortCommands(commands) {
         const namespacedCommands = {};
+
+        /**
+         * @type {{ _global?: Record<string, Jymfony.Component.Console.Command.Command> }}
+         */
         const globalCommands = {};
         for (const [ name, command ] of __jymfony.getEntries(commands)) {
             const key = this._application.extractNamespace(name, 1);
@@ -109,6 +115,13 @@ class ApplicationDescription {
             }
         }
 
+        /**
+         * Internal generator.
+         *
+         * @param {Record<string, Jymfony.Component.Console.Command.Command>} ns
+         *
+         * @returns {IterableIterator<[string, Jymfony.Component.Console.Command.Command]>}
+         */
         const y = function * (ns) {
             for (const name of Object.keys(ns).sort()) {
                 yield [ name, ns[name] ];

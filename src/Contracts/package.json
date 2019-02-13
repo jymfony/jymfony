@@ -1,0 +1,31 @@
+{
+  "name": "@jymfony/contracts",
+  "version": "0.1.0-dev",
+  "description": "Jymfony Contracts and Types",
+  "typings": "types/index.d.ts",
+  "scripts": {
+    "test": "node ./tests.js test/**"
+  },
+  "keywords": [
+    "types",
+    "contracts",
+    "jymfony"
+  ],
+  "author": "Alessandro Chitolina <alekitto@gmail.com>",
+  "license": "MIT",
+  "engines": {
+    "node": ">=8.10.0"
+  },
+  "devDependencies": {
+    "@types/node": "*",
+    "chai": "^3.5.0",
+    "mocha": "^5.0"
+  },
+  "config": {
+    "jymfony-autoload": {
+      "namespaces": {
+        "Jymfony.Contracts": "src/"
+      }
+    }
+  }
+}

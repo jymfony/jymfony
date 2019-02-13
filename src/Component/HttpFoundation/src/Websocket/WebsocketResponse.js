@@ -69,8 +69,8 @@ class WebsocketResponse extends mix(Response, EventSubscriberInterface) {
     /**
      * @inheritdoc
      */
-    prepare(request) {
-        super.prepare(request);
+    async prepare(request) {
+        await super.prepare(request);
 
         this.headers.set('Upgrade', 'websocket');
         this.headers.set('Connection', 'upgrade');
@@ -85,7 +85,7 @@ class WebsocketResponse extends mix(Response, EventSubscriberInterface) {
     /**
      * @inheritdoc
      */
-    sendResponse(req, res) {
+    async sendResponse(req, res) {
         this._socket = req.socket;
         if (res.respond) {
             res.respond(Object.assign({ ':status': this.statusCode }, this.headers.all));

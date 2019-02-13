@@ -2,7 +2,7 @@
   "name": "@jymfony/kernel",
   "version": "0.1.0-dev",
   "description": "Jymfony Application Kernel",
-  "main": "src/Kernel.js",
+  "typings": "types/index.d.ts",
   "scripts": {
     "test": "node ./tests.js test/**"
   },

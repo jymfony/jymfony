@@ -1,6 +1,7 @@
 global.__jymfony = global.__jymfony || {};
 
 let _asyncSupport = undefined;
+let _asyncGeneratorSupport = undefined;
 let _modernRegex = undefined;
 
 /**
@@ -28,6 +29,29 @@ class Platform {
         }
 
         return _asyncSupport;
+    }
+
+    /**
+     * Checks if this node version has async function support.
+     *
+     * @returns {boolean}
+     */
+    static hasAsyncGeneratorFunctionSupport() {
+        if (undefined === _asyncGeneratorSupport) {
+            _asyncGeneratorSupport = false;
+
+            try {
+                let fn;
+                eval('fn = async function * () { }');
+                _asyncGeneratorSupport = 'AsyncGeneratorFunction' === (fn.constructor.name || fn.constructor.displayName);
+            } catch (e) {
+                if (!(e instanceof SyntaxError)) {
+                    throw e;
+                }
+            }
+        }
+
+        return _asyncGeneratorSupport;
     }
 
     /**

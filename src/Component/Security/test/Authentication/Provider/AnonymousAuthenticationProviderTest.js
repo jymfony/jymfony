@@ -38,24 +38,36 @@ describe('[Security] AnonymousAuthenticationProvider', function () {
         expect(provider.supports(this._prophet.prophesize(TokenInterface).reveal())).to.be.false;
     });
 
-    it('authenticate should throw if token is not supported', () => {
+    it('authenticate should throw if token is not supported', async () => {
         const provider = getProvider('foo');
 
-        expect(provider.authenticate.bind(provider, this._prophet.prophesize(TokenInterface).reveal()))
-            .to.throw(AuthenticationException);
+        try {
+            await provider.authenticate(this._prophet.prophesize(TokenInterface).reveal());
+        } catch(e) {
+            expect(e).to.be.instanceOf(AuthenticationException);
+            return;
+        }
+
+        throw new Error('FAIL');
     });
 
-    it('authenticate should throw if secret is wrong', () => {
+    it('authenticate should throw if secret is wrong', async () => {
         const provider = getProvider('foo');
 
-        expect(provider.authenticate.bind(provider, getSupportedToken('bar')))
-            .to.throw(BadCredentialsException);
+        try {
+            await provider.authenticate(getSupportedToken('bar'));
+        } catch (e) {
+            expect(e).to.be.instanceOf(BadCredentialsException);
+            return;
+        }
+
+        throw new Error('FAIL');
     });
 
-    it('authenticate should work', () => {
+    it('authenticate should work', async () => {
         const provider = getProvider('foo');
         const token = getSupportedToken('foo');
 
-        expect(provider.authenticate(token)).to.be.equal(token);
+        expect(await provider.authenticate(token)).to.be.equal(token);
     });
 });

@@ -195,7 +195,7 @@ class HttpServer extends BaseServer {
      *
      * @returns {Promise<void>}
      *
-     * @private
+     * @protected
      */
     async _incomingRequest(req, res) {
         if (__jymfony.version_compare(req.httpVersion, '2.0', '>=')) {

@@ -78,11 +78,12 @@ class TraceableEventDispatcher extends implementationOf(TraceableEventDispatcher
      */
     get calledListeners() {
         const self = this;
-        return new Map(function * () {
+
+        return (function * () {
             for (const [ k, set ] of __jymfony.getEntries(self._called)) {
                 yield [ k, new Set(set) ];
             }
-        });
+        }());
     }
 
     /**
@@ -183,9 +184,7 @@ class TraceableEventDispatcher extends implementationOf(TraceableEventDispatcher
                 const ctx = { event: eventName, listener: listener.pretty };
 
                 if (listener.wasCalled) {
-                    if (undefined !== this._logger) {
-                        this._logger.debug('Notified event "{event}" to listener "{listener}"', ctx);
-                    }
+                    this._logger.debug('Notified event "{event}" to listener "{listener}"', ctx);
 
                     if (undefined === this._called[eventName]) {
                         this._called[eventName] = new Set();

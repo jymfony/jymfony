@@ -2,6 +2,7 @@
   "name": "@jymfony/datetime",
   "version": "0.1.0-dev",
   "description": "Jymfony DateTime Component",
+  "typings": "types/index.d.ts",
   "scripts": {
     "test": "node ./tests.js test/**"
   },

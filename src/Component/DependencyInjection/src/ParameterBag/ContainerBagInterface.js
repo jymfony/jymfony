@@ -7,7 +7,7 @@ class ContainerBagInterface extends ContainerInterface.definition {
     /**
      * Gets the service container parameters.
      *
-     * @returns {Array} An array of parameters
+     * @returns {Object.<string, *>} An array of parameters
      */
     all() { }
 

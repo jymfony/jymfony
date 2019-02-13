@@ -3,7 +3,7 @@
  */
 class HeaderUtils {
     /**
-     * Joins an object into a string for use in an HTTP header
+     * Joins an object into a string for use in an HTTP header.
      *
      * @param {Object.<string, string>} obj
      * @param {string} separator
@@ -31,9 +31,9 @@ class HeaderUtils {
     /**
      * Splits an HTTP header by one or more separators.
      *
-     * @param {string} header     HTTP header value
+     * @param {string} header HTTP header value
      * @param {string} separators List of characters to split on, ordered by
-     *                           precedence, e.g. ",", ";=", or ",;="
+     *                            precedence, e.g. ",", ";=", or ",;="
      *
      * @returns {Array} Nested array with as many levels as there are characters in separators
      */

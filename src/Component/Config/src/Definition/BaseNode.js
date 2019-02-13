@@ -342,6 +342,8 @@ class BaseNode extends implementationOf(NodeInterface) {
      * @param {*} value
      *
      * @returns {*} The normalized array value
+     *
+     * @protected
      */
     _preNormalize(value) {
         return value;

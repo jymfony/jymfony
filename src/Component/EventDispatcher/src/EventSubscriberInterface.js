@@ -1,6 +1,4 @@
 /**
- * Container extension
- *
  * @memberOf Jymfony.Component.EventDispatcher
  */
 class EventSubscriberInterface {
@@ -19,7 +17,7 @@ class EventSubscriberInterface {
      *  * {'eventName': ['methodName', priority]}
      *  * {'eventName': [['methodName1', priority] ['methodName2']]}
      *
-     * @returns {Object} The events name to listen to
+     * @returns {Jymfony.Component.EventDispatcher.EventSubscriptions} The events name to listen to
      */
     static getSubscribedEvents() { }
 }

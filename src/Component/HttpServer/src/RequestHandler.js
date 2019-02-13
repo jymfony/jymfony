@@ -39,7 +39,7 @@ class RequestHandler extends implementationOf(LoggerAwareInterface) {
         /**
          * @type {Jymfony.Component.Logger.LoggerInterface}
          *
-         * @private
+         * @protected
          */
         this._logger = new NullLogger();
     }

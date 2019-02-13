@@ -694,9 +694,9 @@ class Response {
      *
      * @param {Jymfony.Component.HttpFoundation.Request} request
      *
-     * @returns {Jymfony.Component.HttpFoundation.Response}
+     * @returns {Promise<Jymfony.Component.HttpFoundation.Response>}
      */
-    prepare(request) {
+    async prepare(request) {
         if (this.isInformational || this.isEmpty) {
             this.content = '';
             this.headers.remove('Content-Type');

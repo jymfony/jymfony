@@ -105,8 +105,6 @@ class Autoloader {
         /**
          * This is the base class of all the autoloaded classes.
          * It is runtime-injected where needed.
-         *
-         * @type {JObject}
          */
         this._global.__jymfony.JObject = class JObject {
             constructor(...$args) {

@@ -37,13 +37,16 @@ class ArrayTrait extends LoggerAwareTrait.definition {
      */
     async prune() {
         const time = DateTime.unixTime;
+        let ok = true;
         for (const key of Object.keys(this._expiries)) {
             if (time < this._expiries[key]) {
                 continue;
             }
 
-            await this.deleteItem(key);
+            ok = await this.deleteItem(key) && ok;
         }
+
+        return ok;
     }
 
     /**

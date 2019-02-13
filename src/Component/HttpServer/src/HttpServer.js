@@ -204,7 +204,7 @@ class HttpServer extends RequestHandler {
      *
      * @returns {Promise<void>}
      *
-     * @private
+     * @protected
      */
     async _incomingRequest(req, res) {
         try {

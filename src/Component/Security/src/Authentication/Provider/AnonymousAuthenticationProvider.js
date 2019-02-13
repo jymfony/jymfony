@@ -27,7 +27,7 @@ class AnonymousAuthenticationProvider extends implementationOf(AuthenticationPro
     /**
      * @inheritdoc
      */
-    authenticate(token) {
+    async authenticate(token) {
         if (! this.supports(token)) {
             throw new AuthenticationException('The token is not supported by this authentication provider.');
         }

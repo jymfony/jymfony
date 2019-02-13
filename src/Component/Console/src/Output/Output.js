@@ -10,7 +10,7 @@ class Output extends implementationOf(OutputInterface) {
      *
      * @param {string} [verbosity = Jymfony.Component.Console.Output.ConsoleOutputInterface.VERBOSITY_NORMAL]
      * @param {boolean} [decorated = false]
-     * @param {Jymfony.Component.Console.Output.OutputFormatterInterface} [formatter = new Jymfony.Component.Console.Output.OutputFormatter()]
+     * @param {Jymfony.Component.Console.Formatter.OutputFormatterInterface} [formatter = new Jymfony.Component.Console.Formatter.OutputFormatter()]
      */
     __construct(verbosity = OutputInterface.VERBOSITY_NORMAL, decorated = false, formatter = new OutputFormatter()) {
         this._verbosity = undefined === verbosity ? OutputInterface.VERBOSITY_NORMAL : verbosity;

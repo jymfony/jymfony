@@ -7,7 +7,7 @@ global.__jymfony = global.__jymfony || {};
  *
  * @returns {Map}
  */
-const obj2map = function (obj) {
+const obj2map = (obj) => {
     if (Object.getPrototypeOf(obj) !== Object.prototype) {
         return obj;
     }
@@ -27,7 +27,7 @@ __jymfony.obj2map = obj2map;
  *
  * @returns {Object}
  */
-const map2obj = function (map) {
+const map2obj = (map) => {
     if (! (map instanceof Map)) {
         return map;
     }

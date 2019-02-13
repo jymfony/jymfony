@@ -15,7 +15,7 @@ class TemplateReferenceInterface {
      * Sets a template parameter.
      *
      * @param {string} name The parameter name
-     * @param {string} value The parameter value
+     * @param {*} value The parameter value
      *
      * @returns {Jymfony.Component.Templating.TemplateReferenceInterface}
      *

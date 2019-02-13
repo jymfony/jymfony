@@ -218,7 +218,7 @@ class SlackRecord {
     /**
      * Filters the record.
      *
-     * @param {Object.<string} record
+     * @param {Object.<string, *>} record
      * @param fields
      *
      * @private

@@ -20,7 +20,7 @@ class MimeTypesInterface extends MimeTypeGuesserInterface.definition {
      *
      * @returns {string[]} an array of MIME types (first one is the preferred one)
      */
-    getMimeTypes(ext) { };
+    getMimeTypes(ext) { }
 }
 
 module.exports = getInterface(MimeTypesInterface);

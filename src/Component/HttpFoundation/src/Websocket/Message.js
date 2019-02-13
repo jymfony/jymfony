@@ -51,7 +51,7 @@ class Message {
      *
      * @param {string} encoding
      *
-     * @returns {String}
+     * @returns {string}
      */
     asString(encoding = 'utf8') {
         return this._buffer.toString(encoding);

@@ -370,7 +370,7 @@ ${this._compileSwitchDefault(false, matchHost)}
         }
 
         for (let [ modifiers, routes ] of perModifiers) {
-            let prev = false;
+            let prev = null;
             const perHost = [];
             for (const [ name, route ] of __jymfony.getEntries(routes.all())) {
                 const regex = route.compile().hostRegex;
@@ -383,7 +383,7 @@ ${this._compileSwitchDefault(false, matchHost)}
                 routes.add(name, route);
             }
 
-            prev = false;
+            prev = null;
             let rx = '^(?:';
             code += `\n    ${state.mark}: new RegExp(${__self.export(rx)}`;
             state.mark += rx.length;

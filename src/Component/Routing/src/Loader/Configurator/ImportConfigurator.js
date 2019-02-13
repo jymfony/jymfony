@@ -32,6 +32,8 @@ class ImportConfigurator extends implementationOf(RouteTrait) {
      */
     build() {
         this._parent.addCollection(this._route);
+
+        return this._parent;
     }
 
     /**

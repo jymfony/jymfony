@@ -41,6 +41,15 @@ if (! __jymfony.Platform.hasModernRegex()) {
         }
 
         /**
+         * Check whether the instance argument is a regex.
+         *
+         * @param {*} instance
+         */
+        [Symbol.hasInstance](instance) {
+            return instance.constructor === RegExp || instance.constructor === __jymfony.RegExp;
+        }
+
+        /**
          * @param {string} string
          *
          * @returns {Object}
@@ -62,7 +71,9 @@ if (! __jymfony.Platform.hasModernRegex()) {
         }
     };
 
-    global.RegExp = function RegExp (pattern, flags = undefined) {
-        return new regexpClass(pattern, flags);
-    };
+    global.RegExp = new Proxy(regexpClass, {
+        apply(target, thisArg, argArray) {
+            return new target(...argArray);
+        },
+    });
 }

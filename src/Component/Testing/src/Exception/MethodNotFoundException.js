@@ -12,7 +12,7 @@ class MethodNotFoundException extends DoubleException {
      * @param {string} methodName
      * @param {Array} [args]
      */
-    __construct(message, className, methodName, args = undefined) {
+    __construct(message, className, methodName, args = []) {
         super.__construct(message);
 
         /**
@@ -30,7 +30,7 @@ class MethodNotFoundException extends DoubleException {
         this._methodName = methodName;
 
         /**
-         * @type {Array}
+         * @type {*[]}
          *
          * @private
          */
@@ -52,7 +52,7 @@ class MethodNotFoundException extends DoubleException {
     }
 
     /**
-     * @returns {Array}
+     * @returns {*[]}
      */
     get args() {
         return this._args;

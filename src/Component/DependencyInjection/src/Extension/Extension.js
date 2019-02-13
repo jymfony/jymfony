@@ -25,7 +25,7 @@ class Extension extends implementationOf(ExtensionInterface) {
     /**
      * @inheritdoc
      */
-    getConfiguration() {
+    getConfiguration(configs, container) { // eslint-disable-line no-unused-vars
         const reflClass = new ReflectionClass(this);
 
         const nsName = reflClass.namespaceName;
@@ -72,7 +72,9 @@ class Extension extends implementationOf(ExtensionInterface) {
      * @param {Jymfony.Component.Config.Definition.ConfigurationInterface} configuration
      * @param {Object[]} configs
      *
-     * @returns {Object[]}
+     * @returns {Object}
+     *
+     * @protected
      */
     _processConfiguration(configuration, configs) {
         const processor = new Processor();

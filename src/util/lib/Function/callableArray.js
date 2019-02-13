@@ -3,17 +3,17 @@
 /**
  * Check if arg is an array describing a callable
  *
- * @param {*} arg
+ * @param {*} value
  *
- * @returns {Boolean}
+ * @returns {boolean}
  */
-const isCallableArray = function isCallableArray(arg) {
-    if (! isArray(arg) || 2 !== arg.length) {
+global.isCallableArray = function isCallableArray(value) {
+    if (! isArray(value) || 2 !== value.length) {
         return false;
     }
 
-    const target = arg[0];
-    return isString(arg[1]) && isFunction(target[arg[1]]);
+    const target = value[0];
+    return isString(value[1]) && isFunction(target[value[1]]);
 };
 
 /**
@@ -21,10 +21,11 @@ const isCallableArray = function isCallableArray(arg) {
  * array. The function can be called via apply or
  * call methods.
  *
- * @param {Array} arg
- * @returns {Function|BoundFunction}
+ * @param {[string, string]} arg
+ *
+ * @returns {BoundFunction}
  */
-const getCallableFromArray = function getCallableFromArray(arg) {
+global.getCallableFromArray = function getCallableFromArray(arg) {
     if (! isCallableArray(arg)) {
         throw new LogicException(arg + ' is not a callable array');
     }
@@ -34,6 +35,3 @@ const getCallableFromArray = function getCallableFromArray(arg) {
 
     return new BoundFunction(target, func);
 };
-
-global.isCallableArray = isCallableArray;
-global.getCallableFromArray = getCallableFromArray;

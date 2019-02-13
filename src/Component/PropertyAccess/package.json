@@ -2,6 +2,7 @@
   "name": "@jymfony/property-access",
   "version": "0.1.0-dev",
   "description": "Jymfony Propery Access",
+  "typings": "types/index.d.ts",
   "scripts": {
     "test": "node ./tests.js"
   },

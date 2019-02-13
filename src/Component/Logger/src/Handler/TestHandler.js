@@ -15,8 +15,6 @@ class TestHandler extends AbstractProcessingHandler {
      * @param {boolean} [bubble = true]
      *
      * @return {Jymfony.Component.Logger.Handler.TestHandler}
-     *
-     * @private
      */
     __construct(level = LogLevel.DEBUG, bubble = true) {
         super.__construct(level, bubble);
@@ -151,7 +149,7 @@ class TestHandler extends AbstractProcessingHandler {
             return false;
         }
 
-        for (const [ i, rec ] of __jmfony.getEntries(this._recordsByLevel[level])) {
+        for (const [ i, rec ] of __jymfony.getEntries(this._recordsByLevel[level])) {
             if (predicate(rec, i)) {
                 return true;
             }

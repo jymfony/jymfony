@@ -9,14 +9,14 @@ class StreamableInputInterface extends InputInterface.definition {
      *
      * This is mainly useful for testing purpose.
      *
-     * @param {stream.Readable} stream The input stream
+     * @param {NodeJS.ReadableStream} stream The input stream
      */
     set stream(stream) { }
 
     /**
      * Returns the input stream.
      *
-     * @returns {stream.Readable|undefined}
+     * @returns {NodeJS.ReadableStream|undefined}
      */
     get stream() { }
 }

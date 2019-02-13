@@ -4,6 +4,7 @@
   "version": "0.1.0-dev",
   "description": "Jymfony",
   "main": "index.js",
+  "typings": "index.d.ts",
   "scripts": {
     "test": "npm run run-tests && eslint src/",
     "run-tests": "node ./tests.js \"src/*/test/**/*.js\" \"src/{Component,Bundle}/*/test/**/*.js\"",
@@ -28,6 +29,8 @@
     "node": ">=8.10.0"
   },
   "devDependencies": {
+    "@types/mocha": "^5.2.0",
+    "@types/node": "*",
     "chai": "^3.5.0",
     "ioredis": "^4.0",
     "mocha": "^5.2.0",

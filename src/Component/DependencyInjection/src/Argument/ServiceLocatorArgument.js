@@ -10,7 +10,7 @@ class ServiceLocatorArgument extends implementationOf(ArgumentInterface, Referen
     /**
      * Constructor.
      *
-     * @param {Array} values
+     * @param {Jymfony.Component.DependencyInjection.Reference[]} values
      */
     __construct(values) {
         this._values = values;
