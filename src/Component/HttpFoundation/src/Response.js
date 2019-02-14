@@ -771,47 +771,38 @@ class Response {
 
         if (! this.isEmpty && this.content) {
             let responseStream;
-            const options = {
-                flush: zlib.constants.Z_SYNC_FLUSH,
-                finishFlush: zlib.constants.Z_SYNC_FLUSH,
-            };
-
             switch (this._encoding) {
                 case ENCODING_DEFLATE:
-                    responseStream = zlib.createDeflate(options);
+                    responseStream = zlib.createDeflate();
                     break;
 
                 case ENCODING_GZIP:
-                    responseStream = zlib.createGzip(options);
+                    responseStream = zlib.createGzip();
                     break;
 
                 case ENCODING_BROTLI:
-                    responseStream = zlib.createBrotliCompress({ flush: zlib.constants.BROTLI_OPERATION_FLUSH });
+                    responseStream = zlib.createBrotliCompress();
                     break;
 
                 default:
                     responseStream = new stream.PassThrough();
-                    responseStream.flush = (cb) => cb();
             }
 
             const content = this.content;
-            responseStream.pipe(res, { end: false });
+            responseStream.pipe(res);
 
             if (isFunction(content)) {
                 await content(responseStream);
+                await new Promise((resolve) => {
+                    responseStream.end(resolve);
+                });
             } else {
                 await new Promise((resolve) => {
-                    responseStream.write(content, 'utf8', () => {
+                    responseStream.end(content, 'utf8', () => {
                         resolve();
                     });
                 });
             }
-
-            responseStream.flush(() => {
-                responseStream.end(() => {
-                    res.end();
-                });
-            });
         } else {
             res.end();
         }

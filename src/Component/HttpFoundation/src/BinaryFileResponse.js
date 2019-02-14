@@ -81,7 +81,7 @@ class BinaryFileResponse extends Response {
                     stream.on('error', reject);
                 });
 
-                stream.pipe(res, { end: false });
+                stream.pipe(res);
                 return p;
             };
         }
