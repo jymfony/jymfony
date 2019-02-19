@@ -393,7 +393,7 @@ class ReflectionClass {
 
         this._filename = metadata.filename;
         this._module = metadata.module;
-        this._constructor = value;
+        this._constructor = this._isInterface ? value : metadata.constructor;
 
         this._loadProperties();
         this._loadStatics();
