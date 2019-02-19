@@ -404,6 +404,7 @@ class ReflectionClass {
                 module: this._module,
                 constructor: this._constructor,
                 methods: this._methods,
+                staticMethods: this._staticMethods,
                 constants: this._constants,
                 properties: {
                     all: this._properties,
@@ -431,6 +432,7 @@ class ReflectionClass {
         this._module = data.module;
         this._constructor = data.constructor;
         this._methods = data.methods;
+        this._staticMethods = data.staticMethods;
         this._constants = data.constants;
         this._properties = data.properties.all;
         propFunc(this._readableProperties, data.properties.readable);
