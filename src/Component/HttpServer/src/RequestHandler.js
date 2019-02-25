@@ -211,7 +211,7 @@ class RequestHandler extends implementationOf(LoggerAwareInterface) {
         const response = event.response;
 
         // The developer asked for a specific status code
-        if (! event.isAllowingCustomResponseCode && ! response.isClientError && ! response.isServerError && ! response.isRedirect) {
+        if (! event.isAllowingCustomResponseCode && ! response.isClientError && ! response.isServerError && ! response.isRedirect()) {
             // Ensure that we actually have an error response
             if (e instanceof HttpExceptionInterface) {
                 // Keep the HTTP status code and headers
