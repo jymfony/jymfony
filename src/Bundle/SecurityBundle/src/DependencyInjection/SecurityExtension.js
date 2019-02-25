@@ -139,7 +139,7 @@ class SecurityExtension extends Extension {
 
         contextListenerDefinition.replaceArgument(1, new IteratorArgument(userProviders));
         if (1 === Object.keys(providerIds).length) {
-            container.setAlias(UserProviderInterface, providerIds[0]);
+            container.setAlias(UserProviderInterface, new Alias(Object.values(providerIds)[0]));
         }
 
         let customUserChecker = false;
