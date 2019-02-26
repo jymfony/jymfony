@@ -285,7 +285,7 @@ class ReflectionClass {
     }
 
     /**
-     * Get the fully qualified name of the reflected class.
+     * The fully qualified name of the reflected class.
      *
      * @returns {string|undefined}
      */
@@ -294,7 +294,16 @@ class ReflectionClass {
     }
 
     /**
-     * Get the Namespace object containing this class.
+     * The class short name (without namespace).
+     *
+     * @returns {string}
+     */
+    get shortName() {
+        return this._namespace ? this._className.substr(this.namespaceName.length) : this._className;
+    }
+
+    /**
+     * The Namespace object containing this class.
      *
      * @returns {Jymfony.Component.Autoloader.Namespace}
      */
@@ -303,7 +312,7 @@ class ReflectionClass {
     }
 
     /**
-     * Get the namespace name.
+     * The namespace name.
      *
      * @returns {string}
      */
