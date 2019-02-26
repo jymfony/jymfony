@@ -140,8 +140,6 @@ class Application {
             if (255 < exitCode) {
                 exitCode = 255;
             }
-
-            return exitCode;
         }
 
         if (this._autoExit) {
