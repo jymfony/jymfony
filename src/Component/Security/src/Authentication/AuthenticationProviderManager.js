@@ -79,7 +79,7 @@ class AuthenticationProviderManager extends implementationOf(AuthenticationManag
             }
 
             try {
-                result = await provider.authenticate(token);
+                result = await provider.authenticate(token) || null;
 
                 if (null !== result) {
                     break;
