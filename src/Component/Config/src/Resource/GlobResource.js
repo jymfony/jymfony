@@ -143,7 +143,7 @@ class GlobResource {
             firstByte = '/' === car;
 
             if (firstByte && strictWildcardSlash && undefined !== glob[i + 2] && '**' === glob[i + 1] + glob[i + 2] && (undefined === glob[i + 3] || '/' === glob[i + 3])) {
-                car = '[^/]++/';
+                car = '[^/]+/';
                 if (undefined === glob[i + 3]) {
                     car += '?';
                 }
