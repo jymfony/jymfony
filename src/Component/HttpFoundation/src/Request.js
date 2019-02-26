@@ -317,7 +317,7 @@ class Request {
             attributes: this.attributes.all,
             headers: this.headers.all,
             server: this.server.all,
-            content: this.content.toString(),
+            content: String(this.content),
         };
     }
 
@@ -867,6 +867,8 @@ class Request {
                 }
             }
         }
+
+        clientIps = clientIps.filter(v => !! v);
 
         // Now the IP chain contains only untrusted proxies and the client IP
         return 0 < clientIps.length ? clientIps.reverse() : [ firstTrustedIp ];
