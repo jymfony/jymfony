@@ -49,4 +49,5 @@ require('./lib/mixins');
 
 require('./lib/Async/Async');
 require('./lib/Async/ForAwait');
+require('./lib/Async/Mutex');
 require('./lib/Async/sleep');
