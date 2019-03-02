@@ -52,16 +52,14 @@ describe('Mutex', function () {
         const mutex = new __jymfony.Mutex();
         let flag = false;
 
-        await mutex.runExclusive(() => {
-            return new Promise(resolve => {
-                setTimeout(() => {
-                    flag = true;
-                    resolve();
-                }, 50);
-            });
+        const ex1 = mutex.runExclusive(async () => {
+            await __jymfony.sleep(100);
+            flag = true;
         });
 
-        await mutex.runExclusive(() => expect(flag).to.be.true);
+        const ex2 = mutex.runExclusive(() => expect(flag).to.be.true);
+
+        await Promise.all([ ex1, ex2 ]);
     });
 
     it('errors during runExclusive do not leave mutex locked', async () => {

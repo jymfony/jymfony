@@ -58,7 +58,7 @@ class Mutex {
         await this.acquire();
 
         try {
-            return callback();
+            return await callback();
         } finally {
             this.release();
         }
