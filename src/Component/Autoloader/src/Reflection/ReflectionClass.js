@@ -299,7 +299,7 @@ class ReflectionClass {
      * @returns {string}
      */
     get shortName() {
-        return this._namespace ? this._className.substr(this.namespaceName.length) : this._className;
+        return this._namespace ? this._className.substr(this.namespaceName.length + 1) : this._className;
     }
 
     /**
