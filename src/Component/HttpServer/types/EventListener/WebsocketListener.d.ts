@@ -1,6 +1,6 @@
 declare namespace Jymfony.Component.HttpServer.EventListener {
-    import EventDispatcherInterface = Jymfony.Component.EventDispatcher.EventDispatcherInterface;
-    import EventSubscriberInterface = Jymfony.Component.EventDispatcher.EventSubscriberInterface;
+    import EventDispatcherInterface = Jymfony.Contracts.EventDispatcher.EventDispatcherInterface;
+    import EventSubscriberInterface = Jymfony.Contracts.EventDispatcher.EventSubscriberInterface;
     import EventSubscriptions = Jymfony.Component.EventDispatcher.EventSubscriptions;
     import GetResponseEvent = Jymfony.Component.HttpServer.Event.GetResponseEvent;
     import GetResponseForControllerResultEvent = Jymfony.Component.HttpServer.Event.GetResponseForControllerResultEvent;
@@ -17,7 +17,7 @@ declare namespace Jymfony.Component.HttpServer.EventListener {
         /**
          * @param {Jymfony.Component.HttpServer.Event.FilterResponseEvent} event
          * @param {string} eventName
-         * @param {Jymfony.Component.EventDispatcher.EventDispatcherInterface} dispatcher
+         * @param {Jymfony.Contracts.EventDispatcher.EventDispatcherInterface} dispatcher
          */
         onResponse(event: FilterResponseEvent, eventName: string, dispatcher: EventDispatcherInterface): void;
 

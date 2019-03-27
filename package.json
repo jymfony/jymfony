@@ -65,7 +65,8 @@
         "Jymfony.Component.Routing": "src/Component/Routing/src",
         "Jymfony.Component.Security": "src/Component/Security/src",
         "Jymfony.Component.Templating": "src/Component/Templating/src",
-        "Jymfony.Component.Testing": "src/Component/Testing/src"
+        "Jymfony.Component.Testing": "src/Component/Testing/src",
+        "Jymfony.Contracts": "src/Contracts/src"
       },
       "includes": [
         "src/util/index.js",

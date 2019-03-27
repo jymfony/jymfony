@@ -1,5 +1,5 @@
 declare namespace Jymfony.Component.Console.Event {
-    import Event = Jymfony.Component.EventDispatcher.Event;
+    import Event = Jymfony.Contracts.EventDispatcher.Event;
     import Command = Jymfony.Component.Console.Command.Command;
     import InputInterface = Jymfony.Component.Console.Input.InputInterface;
     import OutputInterface = Jymfony.Component.Console.Output.OutputInterface;

@@ -1,6 +1,6 @@
 declare namespace Jymfony.Component.Security.Authentication {
     import AuthenticationProviderInterface = Jymfony.Component.Security.Authentication.Provider.AuthenticationProviderInterface;
-    import EventDispatcherInterface = Jymfony.Component.EventDispatcher.EventDispatcherInterface;
+    import EventDispatcherInterface = Jymfony.Contracts.EventDispatcher.EventDispatcherInterface;
     import TokenInterface = Jymfony.Component.Security.Authentication.Token.TokenInterface;
 
     /**

@@ -1,5 +1,5 @@
 declare namespace Jymfony.Component.Security.Event {
-    import Event = Jymfony.Component.EventDispatcher.Event;
+    import Event = Jymfony.Contracts.EventDispatcher.Event;
     import TokenInterface = Jymfony.Component.Security.Authentication.Token.TokenInterface;
 
     /**

@@ -1,4 +1,4 @@
-const EventSubscriberInterface = Jymfony.Component.EventDispatcher.EventSubscriberInterface;
+const EventSubscriberInterface = Jymfony.Contracts.EventDispatcher.EventSubscriberInterface;
 const Response = Jymfony.Component.HttpFoundation.Response;
 const CloseFrameException = Jymfony.Component.HttpFoundation.Websocket.Exception.CloseFrameException;
 const Frame = Jymfony.Component.HttpFoundation.Websocket.Frame;
@@ -49,7 +49,7 @@ class WebsocketResponse extends mix(Response, EventSubscriberInterface) {
         this._websocket = websocket;
 
         /**
-         * @type {Jymfony.Component.EventDispatcher.EventDispatcherInterface}
+         * @type {Jymfony.Contracts.EventDispatcher.EventDispatcherInterface}
          *
          * @private
          */
@@ -59,7 +59,7 @@ class WebsocketResponse extends mix(Response, EventSubscriberInterface) {
     /**
      * Subscribe to the given event dispatcher.
      *
-     * @param {Jymfony.Component.EventDispatcher.EventDispatcherInterface} dispatcher
+     * @param {Jymfony.Contracts.EventDispatcher.EventDispatcherInterface} dispatcher
      */
     set eventDispatcher(dispatcher) {
         this._eventDispatcher = dispatcher;

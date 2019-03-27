@@ -1,5 +1,5 @@
 declare namespace Jymfony.Component.HttpServer.Event {
-    import Event = Jymfony.Component.EventDispatcher.Event;
+    import Event = Jymfony.Contracts.EventDispatcher.Event;
     import Request = Jymfony.Component.HttpFoundation.Request;
     import HttpServer = Jymfony.Component.HttpServer.HttpServer;
 

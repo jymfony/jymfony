@@ -1,6 +1,6 @@
 declare namespace Jymfony.Component.HttpServer {
     import LoggerAwareInterface = Jymfony.Component.Logger.LoggerAwareInterface;
-    import EventDispatcherInterface = Jymfony.Component.EventDispatcher.EventDispatcherInterface;
+    import EventDispatcherInterface = Jymfony.Contracts.EventDispatcher.EventDispatcherInterface;
     import ControllerResolverInterface = Jymfony.Component.HttpFoundation.Controller.ControllerResolverInterface;
     import Request = Jymfony.Component.HttpFoundation.Request;
     import Response = Jymfony.Component.HttpFoundation.Response;

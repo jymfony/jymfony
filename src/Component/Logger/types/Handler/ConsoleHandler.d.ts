@@ -1,7 +1,7 @@
 declare namespace Jymfony.Component.Logger.Handler {
     import ConsoleCommandEvent = Jymfony.Component.Console.Event.ConsoleCommandEvent;
     import OutputInterface = Jymfony.Component.Console.Output.OutputInterface;
-    import EventSubscriberInterface = Jymfony.Component.EventDispatcher.EventSubscriberInterface;
+    import EventSubscriberInterface = Jymfony.Contracts.EventDispatcher.EventSubscriberInterface;
     import EventSubscriptions = Jymfony.Component.EventDispatcher.EventSubscriptions;
     import FormatterInterface = Jymfony.Component.Logger.Formatter.FormatterInterface;
 

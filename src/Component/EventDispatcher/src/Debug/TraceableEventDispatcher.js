@@ -1,6 +1,6 @@
 const TraceableEventDispatcherInterface = Jymfony.Component.EventDispatcher.Debug.TraceableEventDispatcherInterface;
 const WrappedListener = Jymfony.Component.EventDispatcher.Debug.WrappedListener;
-const Event = Jymfony.Component.EventDispatcher.Event;
+const Event = Jymfony.Contracts.EventDispatcher.Event;
 
 /**
  * @memberOf Jymfony.Component.EventDispatcher.Debug
@@ -9,12 +9,12 @@ class TraceableEventDispatcher extends implementationOf(TraceableEventDispatcher
     /**
      * Constructor.
      *
-     * @param {Jymfony.Component.EventDispatcher.EventDispatcherInterface} dispatcher
+     * @param {Jymfony.Contracts.EventDispatcher.EventDispatcherInterface} dispatcher
      * @param {undefined|Jymfony.Component.Logger.LoggerInterface} [logger]
      */
     __construct(dispatcher, logger = undefined) {
         /**
-         * @type {Jymfony.Component.EventDispatcher.EventDispatcherInterface}
+         * @type {Jymfony.Contracts.EventDispatcher.EventDispatcherInterface}
          *
          * @private
          */
@@ -130,7 +130,7 @@ class TraceableEventDispatcher extends implementationOf(TraceableEventDispatcher
      * Called before dispatching an event.
      *
      * @param {string} eventName
-     * @param {Jymfony.Component.EventDispatcher.Event} event
+     * @param {Jymfony.Contracts.EventDispatcher.Event} event
      *
      * @protected
      */
@@ -140,7 +140,7 @@ class TraceableEventDispatcher extends implementationOf(TraceableEventDispatcher
      * Called after dispatching an event.
      *
      * @param {string} eventName
-     * @param {Jymfony.Component.EventDispatcher.Event} event
+     * @param {Jymfony.Contracts.EventDispatcher.Event} event
      *
      * @protected
      */

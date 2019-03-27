@@ -53,6 +53,7 @@ class LoggerChannelPass extends AbstractRecursivePass {
                 if (! container.hasDefinition(loggerId)) {
                     const definition = new ChildDefinition('jymfony.logger_prototype');
                     definition.replaceArgument(0, resolvedChannel);
+                    definition.addTag('kernel.event_subscriber');
                     container.setDefinition(loggerId, definition);
                 }
 

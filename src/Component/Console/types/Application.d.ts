@@ -1,6 +1,6 @@
 declare namespace Jymfony.Component.Console {
     import Command = Jymfony.Component.Console.Command.Command;
-    import EventDispatcherInterface = Jymfony.Component.EventDispatcher.EventDispatcherInterface;
+    import EventDispatcherInterface = Jymfony.Contracts.EventDispatcher.EventDispatcherInterface;
     import InputDefinition = Jymfony.Component.Console.Input.InputDefinition;
     import InputInterface = Jymfony.Component.Console.Input.InputInterface;
     import OutputInterface = Jymfony.Component.Console.Output.OutputInterface;

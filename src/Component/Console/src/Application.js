@@ -45,7 +45,7 @@ class Application {
     /**
      * Sets the event dispatcher.
      *
-     * @param {Jymfony.Component.EventDispatcher.EventDispatcherInterface} dispatcher
+     * @param {Jymfony.Contracts.EventDispatcher.EventDispatcherInterface} dispatcher
      */
     set dispatcher(dispatcher) {
         this._eventDispatcher = dispatcher;

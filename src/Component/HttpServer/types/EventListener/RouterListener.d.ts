@@ -1,5 +1,5 @@
 declare namespace Jymfony.Component.HttpServer.EventListener {
-    import EventSubscriberInterface = Jymfony.Component.EventDispatcher.EventSubscriberInterface;
+    import EventSubscriberInterface = Jymfony.Contracts.EventDispatcher.EventSubscriberInterface;
     import LoggerInterface = Jymfony.Component.Logger.LoggerInterface;
     import MatcherInterface = Jymfony.Component.Routing.Matcher.MatcherInterface;
     import GetResponseEvent = Jymfony.Component.HttpServer.Event.GetResponseEvent;

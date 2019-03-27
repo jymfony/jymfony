@@ -20,6 +20,7 @@
   "dependencies": {
     "@jymfony/autoloader": "https://github.com/jymfony/autoloader.git",
     "@jymfony/console": "https://github.com/jymfony/console.git",
+    "@jymfony/contracts": "https://github.com/jymfony/contracts.git",
     "@jymfony/debug": "https://github.com/jymfony/debug.git",
     "@jymfony/event-dispatcher": "https://github.com/jymfony/event-dispatcher.git",
     "@jymfony/exceptions": "https://github.com/jymfony/exceptions.git",

@@ -148,7 +148,7 @@ declare namespace Jymfony.Component.DependencyInjection {
         /**
          * Adds a tag.
          */
-        addTag(name: string, attributes: any): this;
+        addTag(name: string, attributes?: any): this;
 
         /**
          * Checks if a tag is present.

@@ -1,6 +1,6 @@
 const CompilerPassInterface = Jymfony.Component.DependencyInjection.Compiler.CompilerPassInterface;
 const Reference = Jymfony.Component.DependencyInjection.Reference;
-const EventSubscriberInterface = Jymfony.Component.EventDispatcher.EventSubscriberInterface;
+const EventSubscriberInterface = Jymfony.Contracts.EventDispatcher.EventSubscriberInterface;
 const EventDispatcher = Jymfony.Component.EventDispatcher.EventDispatcher;
 const ServiceClosureArgument = Jymfony.Component.DependencyInjection.Argument.ServiceClosureArgument;
 const NotStaticMethodException = Jymfony.Component.EventDispatcher.Exception.NotStaticMethodException;
@@ -81,7 +81,7 @@ class RegisterListenerPass extends implementationOf(CompilerPassInterface) {
             }
 
             if (! myReflectionClass.isSubclassOf(EventSubscriberInterface)) {
-                throw new InvalidArgumentException(__jymfony.sprintf('Service "%s" must implement interface "Jymfony.Component.EventDispatcher.EventSubscriberInterface".', id));
+                throw new InvalidArgumentException(__jymfony.sprintf('Service "%s" must implement interface "Jymfony.Contracts.EventDispatcher.EventSubscriberInterface".', id));
             }
 
             container.addObjectResource(myclass);
@@ -118,7 +118,7 @@ class ExtractingEventDispatcher extends mix(EventDispatcher, EventSubscriberInte
         this._listeners = [];
 
         /**
-         * @type {Jymfony.Component.EventDispatcher.EventSubscriberInterface}
+         * @type {Jymfony.Contracts.EventDispatcher.EventSubscriberInterface}
          *
          * @private
          */
@@ -126,7 +126,7 @@ class ExtractingEventDispatcher extends mix(EventDispatcher, EventSubscriberInte
     }
 
     /**
-     * @param {Jymfony.Component.EventDispatcher.EventSubscriberInterface} subscriber
+     * @param {Jymfony.Contracts.EventDispatcher.EventSubscriberInterface} subscriber
      */
     set subscriber(subscriber) {
         this._listeners = [];

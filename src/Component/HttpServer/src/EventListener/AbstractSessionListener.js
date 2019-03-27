@@ -1,4 +1,4 @@
-const EventSubscriberInterface = Jymfony.Component.EventDispatcher.EventSubscriberInterface;
+const EventSubscriberInterface = Jymfony.Contracts.EventDispatcher.EventSubscriberInterface;
 
 /**
  * Sets the session onto the request on the "kernel.request" event and saves

@@ -1,6 +1,6 @@
 declare namespace Jymfony.Component.HttpFoundation.Websocket {
-    import EventDispatcherInterface = Jymfony.Component.EventDispatcher.EventDispatcherInterface;
-    import EventSubscriberInterface = Jymfony.Component.EventDispatcher.EventSubscriberInterface;
+    import EventDispatcherInterface = Jymfony.Contracts.EventDispatcher.EventDispatcherInterface;
+    import EventSubscriberInterface = Jymfony.Contracts.EventDispatcher.EventSubscriberInterface;
     import EventSubscriptions = Jymfony.Component.EventDispatcher.EventSubscriptions;
 
     export class WebsocketResponse extends mix(Response, EventSubscriberInterface) {

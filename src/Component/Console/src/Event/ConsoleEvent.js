@@ -1,4 +1,4 @@
-const Event = Jymfony.Component.EventDispatcher.Event;
+const Event = Jymfony.Contracts.EventDispatcher.Event;
 
 /**
  * Allows to inspect input and output of a command.

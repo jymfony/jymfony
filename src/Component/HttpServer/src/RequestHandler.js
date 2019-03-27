@@ -18,12 +18,12 @@ class RequestHandler extends implementationOf(LoggerAwareInterface) {
     /**
      * Constructor.
      *
-     * @param {Jymfony.Component.EventDispatcher.EventDispatcherInterface} dispatcher
+     * @param {Jymfony.Contracts.EventDispatcher.EventDispatcherInterface} dispatcher
      * @param {Jymfony.Component.HttpFoundation.Controller.ControllerResolverInterface} resolver
      */
     __construct(dispatcher, resolver) {
         /**
-         * @type {Jymfony.Component.EventDispatcher.EventDispatcherInterface}
+         * @type {Jymfony.Contracts.EventDispatcher.EventDispatcherInterface}
          *
          * @protected
          */
@@ -47,7 +47,7 @@ class RequestHandler extends implementationOf(LoggerAwareInterface) {
     /**
      * Gets the current event dispatcher.
      *
-     * @returns {Jymfony.Component.EventDispatcher.EventDispatcherInterface}
+     * @returns {Jymfony.Contracts.EventDispatcher.EventDispatcherInterface}
      */
     get eventDispatcher() {
         return this._dispatcher;

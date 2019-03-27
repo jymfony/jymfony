@@ -1,4 +1,4 @@
-const Event = Jymfony.Component.EventDispatcher.Event;
+const Event = Jymfony.Contracts.EventDispatcher.Event;
 
 /**
  * @memberOf Jymfony.Component.HttpServer.Event

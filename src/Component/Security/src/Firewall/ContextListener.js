@@ -1,4 +1,4 @@
-const EventSubscriberInterface = Jymfony.Component.EventDispatcher.EventSubscriberInterface;
+const EventSubscriberInterface = Jymfony.Contracts.EventDispatcher.EventSubscriberInterface;
 const Request = Jymfony.Component.HttpFoundation.Request;
 const Events = Jymfony.Component.HttpServer.Event.HttpServerEvents;
 const NullLogger = Jymfony.Component.Logger.NullLogger;

@@ -1,7 +1,7 @@
 const expect = require('chai').expect;
 
 const EventDispatcher = Jymfony.Component.EventDispatcher.EventDispatcher;
-const Event = Jymfony.Component.EventDispatcher.Event;
+const Event = Jymfony.Contracts.EventDispatcher.Event;
 
 const createEventDispatcher = function() {
     return new EventDispatcher();

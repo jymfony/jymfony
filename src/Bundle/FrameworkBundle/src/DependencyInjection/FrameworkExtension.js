@@ -135,6 +135,7 @@ class FrameworkExtension extends Extension {
         const definition = (new ChildDefinition('jymfony.logger_prototype'))
             .setPublic(false)
             .replaceArgument(0, 'app')
+            .addTag('kernel.event_subscriber')
         ;
 
         container.setParameter('jymfony.logger.handlers_to_channels', handlersToChannels);

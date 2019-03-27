@@ -1,5 +1,5 @@
-const Event = Jymfony.Component.EventDispatcher.Event;
-const EventDispatcherInterface = Jymfony.Component.EventDispatcher.EventDispatcherInterface;
+const Event = Jymfony.Contracts.EventDispatcher.Event;
+const EventDispatcherInterface = Jymfony.Contracts.EventDispatcher.EventDispatcherInterface;
 const InvalidArgumentException = Jymfony.Component.EventDispatcher.Exception.InvalidArgumentException;
 
 /**

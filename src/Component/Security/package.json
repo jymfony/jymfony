@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@jymfony/autoloader": "https://github.com/jymfony/autoloader.git",
+    "@jymfony/contracts": "https://github.com/jymfony/contracts.git",
     "@jymfony/event-dispatcher": "https://github.com/jymfony/event-dispatcher.git",
     "@jymfony/exceptions": "https://github.com/jymfony/exceptions.git",
     "@jymfony/http-foundation": "https://github.com/jymfony/http-foundation.git",

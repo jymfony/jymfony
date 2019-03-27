@@ -19,7 +19,7 @@ class HttpServer extends RequestHandler {
     /**
      * Constructor.
      *
-     * @param {Jymfony.Component.EventDispatcher.EventDispatcherInterface} dispatcher
+     * @param {Jymfony.Contracts.EventDispatcher.EventDispatcherInterface} dispatcher
      * @param {Jymfony.Component.HttpFoundation.Controller.ControllerResolverInterface} resolver
      */
     __construct(dispatcher, resolver) {
