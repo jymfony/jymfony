@@ -27,7 +27,7 @@ class RewindableGenerator {
     /**
      * Iterate through values.
      *
-     * @returns {IterableIterator<Generator>}
+     * @returns {IterableIterator<*>}
      */
     * [Symbol.iterator]() {
         yield * this._generator();

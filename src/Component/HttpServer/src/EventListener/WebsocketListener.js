@@ -1,4 +1,4 @@
-const EventSubscriberInterface = Jymfony.Component.EventDispatcher.EventSubscriberInterface;
+const EventSubscriberInterface = Jymfony.Contracts.EventDispatcher.EventSubscriberInterface;
 const HttpException = Jymfony.Component.HttpFoundation.Exception.HttpException;
 const Request = Jymfony.Component.HttpFoundation.Request;
 const Response = Jymfony.Component.HttpFoundation.Response;
@@ -51,7 +51,7 @@ class WebsocketListener extends implementationOf(EventSubscriberInterface) {
     /**
      * @param {Jymfony.Component.HttpServer.Event.FilterResponseEvent} event
      * @param {string} eventName
-     * @param {Jymfony.Component.EventDispatcher.EventDispatcherInterface} dispatcher
+     * @param {Jymfony.Contracts.EventDispatcher.EventDispatcherInterface} dispatcher
      */
     onResponse(event, eventName, dispatcher) {
         const request = event.request;

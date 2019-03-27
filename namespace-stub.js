@@ -135,4 +135,9 @@ Jymfony = {
          */
         Testing: {},
     },
+
+    /**
+     * @namespace
+     */
+    Contracts: {},
 };

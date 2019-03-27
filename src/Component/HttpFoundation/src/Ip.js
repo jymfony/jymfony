@@ -44,6 +44,8 @@ class Ip {
      * Checks whether this ip address matches the given CIDR or address.
      *
      * @param {string} cidr
+     *
+     * @returns {boolean}
      */
     match(cidr) {
         const parts = cidr.split('/', 2);

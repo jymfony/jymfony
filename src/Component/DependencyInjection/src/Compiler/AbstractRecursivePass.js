@@ -45,6 +45,8 @@ class AbstractRecursivePass extends implementationOf(CompilerPassInterface) {
      * @param {boolean} [isRoot = false]
      *
      * @returns {*} The processed value
+     *
+     * @protected
      */
     _processValue(value, isRoot = false) {
         if (isArray(value) || isObjectLiteral(value)) {

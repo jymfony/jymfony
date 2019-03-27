@@ -14,13 +14,13 @@ class FileLoader extends Loader {
     /**
      * Constructor
      *
-     * @param {Jymfony.Component.Config.FileLoaderInterface} locator
+     * @param {Jymfony.Component.Config.FileLocatorInterface} locator
      */
     __construct(locator) {
         super.__construct();
 
         /**
-         * @type {Jymfony.Component.Config.FileLoaderInterface}
+         * @type {Jymfony.Component.Config.FileLocatorInterface}
          *
          * @protected
          */
@@ -55,7 +55,7 @@ class FileLoader extends Loader {
     /**
      * Returns the file locator used by this loader.
      *
-     * @returns {Jymfony.Component.Config.FileLoaderInterface}
+     * @returns {Jymfony.Component.Config.FileLocatorInterface}
      */
     get locator() {
         return this._locator;

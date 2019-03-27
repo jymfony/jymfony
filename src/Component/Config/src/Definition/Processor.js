@@ -26,7 +26,7 @@ class Processor {
      * @param {Jymfony.Component.Config.Definition.ConfigurationInterface} configuration The configuration class
      * @param {Object[]} configs An array of configuration items to process
      *
-     * @returns {Object[]} The processed configuration
+     * @returns {Object} The processed configuration
      */
     processConfiguration(configuration, configs) {
         return this.process(configuration.configTreeBuilder.buildTree(), configs);

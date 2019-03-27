@@ -65,15 +65,6 @@ class ResolveInvalidReferencesPass extends implementationOf(CompilerPassInterfac
         }
     }
 
-    /**
-     * @param args
-     * @param {boolean} inMethodCall
-     * @param {boolean|undefined} [inCollection]
-     *
-     * @returns {*}
-     *
-     * @private
-     */
     _processArguments(args, inMethodCall, inCollection = undefined) {
         for (const [ k, argument ] of __jymfony.getEntries(args)) {
             if (isArray(argument) || isObjectLiteral(argument)) {

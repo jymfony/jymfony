@@ -14,33 +14,45 @@ class Lexer {
     constructor() {
         /**
          * @type {RegExp}
+         *
          * @private
          */
         this._spaces = new RegExp('^[' + Lexer.SPACES + ']+$', 'g');
 
         /**
          * @type {RegExp}
+         *
          * @private
          */
         this._reservedKeywords = new RegExp('^' + Lexer.RESERVED_WORDS + '$', 'g');
 
         /**
          * @type {RegExp}
+         *
          * @private
          */
         this._identifiers = new RegExp('^' + Lexer.IDENTIFIER + '$', 'g');
 
         /**
          * @type {RegExp}
+         *
          * @private
          */
         this._numbers = new RegExp('^' + Lexer.NUMBERS + '$', 'g');
 
         /**
          * @type {Object}
+         *
          * @private
          */
         this._last = undefined;
+
+        /**
+         * @type {string}
+         *
+         * @private
+         */
+        this._input = undefined;
     }
 
     /**
@@ -262,7 +274,7 @@ class Lexer {
     /**
      * @param {Object} holder
      *
-     * @returns {number}
+     * @returns {int}
      */
     getType(holder) {
         if (holder.value.match(this._spaces)) {

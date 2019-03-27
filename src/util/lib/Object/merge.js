@@ -3,11 +3,11 @@
 global.__jymfony = global.__jymfony || {};
 
 /**
- * @param {...} args
+ * @param {...*} args
  *
  * @returns {Object}
  */
-const objectMerge = function (...args) {
+const objectMerge = (...args) => {
     let retArray = args.every(T => isArray(T));
 
     if (retArray) {

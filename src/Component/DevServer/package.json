@@ -2,6 +2,7 @@
   "name": "@jymfony/dev-server",
   "version": "0.1.0-alpha.13",
   "description": "Jymfony Development Server component",
+  "typings": "types/index.d.ts",
   "scripts": {
     "test": "node ./tests.js test/**"
   },

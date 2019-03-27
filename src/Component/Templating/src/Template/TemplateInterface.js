@@ -8,7 +8,7 @@ class TemplateInterface {
     /**
      * Renders a template.
      *
-     * @param {stream.Writable} out Stream to write the rendered template into.
+     * @param {Function} out Function that streams out data from rendered template.
      * @param {Object.<string, *>} [parameters = {}] A set of parameters to pass to the template
      *
      * @throws {RuntimeException} if the template cannot be rendered

@@ -7,7 +7,7 @@ class ProphecyInterface {
      *
      * @returns {Object}
      */
-    reveal() { };
+    reveal() { }
 }
 
 module.exports = getInterface(ProphecyInterface);

@@ -12,7 +12,7 @@ class OctetStreamParser extends AbstractParser {
      * @inheritdoc
      */
     decode() {
-        return {};
+        return [];
     }
 }
 

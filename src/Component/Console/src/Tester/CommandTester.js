@@ -99,6 +99,9 @@ class CommandTester {
             this._output.verbosity = options.verbosity;
         }
 
+        this._command.configure();
+        this._input.bind(this._command.definition);
+
         return this._statusCode = await this._command.run(this._input, this._output);
     }
 

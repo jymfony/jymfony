@@ -27,7 +27,7 @@ class ConsoleFormatter extends NormalizerFormatter {
     __construct(options = {}) {
         this._options = Object.assign({}, {
             format: ConsoleFormatter.SIMPLE_FORMAT,
-            date_format: ConsoleFormatter.SIMPLE_DATE,
+            date_format: NormalizerFormatter.SIMPLE_DATE,
             colors: true,
             multiline: false,
         }, options);

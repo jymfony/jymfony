@@ -57,7 +57,7 @@ class DebugFormatterHelper extends Helper {
      * @param {string} buffer The message to display
      * @param {boolean} [error = false] Whether to consider the buffer as error
      * @param {string} [prefix = 'OUT'] The prefix for output
-     * @param {string} [errorPrefix 'ERR'] The prefix for error output
+     * @param {string} [errorPrefix = 'ERR'] The prefix for error output
      *
      * @returns {string}
      */
@@ -122,6 +122,8 @@ class DebugFormatterHelper extends Helper {
      * @param {string} id The id of the formatting session
      *
      * @returns {string}
+     *
+     * @private
      */
     _getBorder(id) {
         return __jymfony.sprintf('<bg=%s> </>', this._colors[this._started[id].border]);

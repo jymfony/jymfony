@@ -2,6 +2,7 @@
   "name": "@jymfony/routing",
   "version": "0.1.0-alpha.13",
   "description": "Jymfony Routing component",
+  "typings": "types/index.d.ts",
   "scripts": {
     "test": "node ./tests.js test/**"
   },

@@ -7,7 +7,7 @@ global.__jymfony = global.__jymfony || {};
  *
  * @returns {string}
  */
-function serialize(value) {
+const serialize = (value) => {
     if (null === value) {
         return 'N';
     }
@@ -61,12 +61,12 @@ function serialize(value) {
     }
 
     return 'C[' + reflClass.name + ']:{' + vals.join(';') + (vals.length ? ';' : '') + '}';
-}
+};
 
 /**
  * @param {string} serialized
  */
-function unserialize(serialized) {
+const unserialize = (serialized) => {
     serialized = serialized.toString();
     let i = 0;
     const readData = (length = 1) => {
@@ -207,7 +207,7 @@ function unserialize(serialized) {
     };
 
     return doUnserialize();
-}
+};
 
 __jymfony.serialize = serialize;
 __jymfony.unserialize = unserialize;

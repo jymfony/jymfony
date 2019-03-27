@@ -3,18 +3,18 @@ const Interfaces = require('./Mixins/Interfaces');
 const Traits = require('./Mixins/Traits');
 
 /**
- * @param {Function} definition
+ * @param {*} definition
  *
- * @returns {Function}
+ * @returns {* & MixinInterface}
  */
 global.getInterface = function getInterface(definition) {
     return Interfaces.create(definition);
 };
 
 /**
- * @param {Function} definition
+ * @param {*} definition
  *
- * @returns {Function}
+ * @returns {* & MixinInterface}
  */
 global.getTrait = function getTrait(definition) {
     return Traits.create(definition);
@@ -81,7 +81,7 @@ global.mix = function mix(superclass, ...mixins) {
 };
 
 /**
- * @param {...} interfaces
+ * @param {...MixinInterface} interfaces
  *
  * @returns {Object}
  */

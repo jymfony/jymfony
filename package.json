@@ -4,6 +4,7 @@
   "version": "0.1.0-alpha.13",
   "description": "Jymfony",
   "main": "index.js",
+  "typings": "index.d.ts",
   "scripts": {
     "test": "npm run run-tests && eslint src/",
     "run-tests": "node ./tests.js \"src/*/test/**/*.js\" \"src/{Component,Bundle}/*/test/**/*.js\"",
@@ -28,6 +29,8 @@
     "node": ">=8.10.0"
   },
   "devDependencies": {
+    "@types/mocha": "^5.2.0",
+    "@types/node": "*",
     "chai": "^3.5.0",
     "ioredis": "^4.0",
     "mocha": "^5.2.0",
@@ -62,7 +65,8 @@
         "Jymfony.Component.Routing": "src/Component/Routing/src",
         "Jymfony.Component.Security": "src/Component/Security/src",
         "Jymfony.Component.Templating": "src/Component/Templating/src",
-        "Jymfony.Component.Testing": "src/Component/Testing/src"
+        "Jymfony.Component.Testing": "src/Component/Testing/src",
+        "Jymfony.Contracts": "src/Contracts/src"
       },
       "includes": [
         "src/util/index.js",

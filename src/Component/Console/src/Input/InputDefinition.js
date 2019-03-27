@@ -199,6 +199,8 @@ class InputDefinition {
         for (const option of options) {
             this.addOption(option);
         }
+
+        return this;
     }
 
     /**

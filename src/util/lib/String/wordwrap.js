@@ -13,7 +13,7 @@ global.__jymfony = global.__jymfony || {};
  *
  * @returns {string}
  */
-__jymfony.wordwrap = function wordwrap (str, width = 75, strBreak = '\n', cut = false) {
+__jymfony.wordwrap = (str, width = 75, strBreak = '\n', cut = false) => {
     //  Discuss at: http://locutus.io/php/wordwrap/
     // Original by: Jonas Raoni Soares Silva (http://www.jsfromhell.com)
     // Improved by: Nick Callen

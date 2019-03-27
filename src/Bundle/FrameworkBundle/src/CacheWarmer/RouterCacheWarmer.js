@@ -29,9 +29,9 @@ class RouterCacheWarmer extends implementationOf(CacheWarmerInterface) {
      *
      * @param {string} cacheDir The cache directory
      */
-    warmUp(cacheDir) {
+    async warmUp(cacheDir) {
         const router = this._container.get('router');
-        router.warmUp(cacheDir);
+        await router.warmUp(cacheDir);
     }
 
     /**

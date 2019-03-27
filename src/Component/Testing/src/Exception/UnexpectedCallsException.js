@@ -9,13 +9,13 @@ class UnexpectedCallsException extends MethodProphecyException {
      *
      * @param {string} message
      * @param {Jymfony.Component.Testing.Prophecy.MethodProphecy} methodProphecy
-     * @param {*[]} calls
+     * @param {string[]} calls
      */
     __construct(message, methodProphecy, calls) {
         super.__construct(message, methodProphecy);
 
         /**
-         * @type {*[]}
+         * @type {string[]}
          *
          * @private
          */
@@ -23,7 +23,7 @@ class UnexpectedCallsException extends MethodProphecyException {
     }
 
     /**
-     * @returns {*[]}
+     * @returns {string[]}
      */
     get calls() {
         return [ ...this._calls ];

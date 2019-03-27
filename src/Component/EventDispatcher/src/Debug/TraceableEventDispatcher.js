@@ -1,6 +1,6 @@
 const TraceableEventDispatcherInterface = Jymfony.Component.EventDispatcher.Debug.TraceableEventDispatcherInterface;
 const WrappedListener = Jymfony.Component.EventDispatcher.Debug.WrappedListener;
-const Event = Jymfony.Component.EventDispatcher.Event;
+const Event = Jymfony.Contracts.EventDispatcher.Event;
 
 /**
  * @memberOf Jymfony.Component.EventDispatcher.Debug
@@ -9,12 +9,12 @@ class TraceableEventDispatcher extends implementationOf(TraceableEventDispatcher
     /**
      * Constructor.
      *
-     * @param {Jymfony.Component.EventDispatcher.EventDispatcherInterface} dispatcher
+     * @param {Jymfony.Contracts.EventDispatcher.EventDispatcherInterface} dispatcher
      * @param {undefined|Jymfony.Component.Logger.LoggerInterface} [logger]
      */
     __construct(dispatcher, logger = undefined) {
         /**
-         * @type {Jymfony.Component.EventDispatcher.EventDispatcherInterface}
+         * @type {Jymfony.Contracts.EventDispatcher.EventDispatcherInterface}
          *
          * @private
          */
@@ -78,11 +78,12 @@ class TraceableEventDispatcher extends implementationOf(TraceableEventDispatcher
      */
     get calledListeners() {
         const self = this;
-        return new Map(function * () {
+
+        return (function * () {
             for (const [ k, set ] of __jymfony.getEntries(self._called)) {
                 yield [ k, new Set(set) ];
             }
-        });
+        }());
     }
 
     /**
@@ -129,7 +130,7 @@ class TraceableEventDispatcher extends implementationOf(TraceableEventDispatcher
      * Called before dispatching an event.
      *
      * @param {string} eventName
-     * @param {Jymfony.Component.EventDispatcher.Event} event
+     * @param {Jymfony.Contracts.EventDispatcher.Event} event
      *
      * @protected
      */
@@ -139,7 +140,7 @@ class TraceableEventDispatcher extends implementationOf(TraceableEventDispatcher
      * Called after dispatching an event.
      *
      * @param {string} eventName
-     * @param {Jymfony.Component.EventDispatcher.Event} event
+     * @param {Jymfony.Contracts.EventDispatcher.Event} event
      *
      * @protected
      */
@@ -183,9 +184,7 @@ class TraceableEventDispatcher extends implementationOf(TraceableEventDispatcher
                 const ctx = { event: eventName, listener: listener.pretty };
 
                 if (listener.wasCalled) {
-                    if (undefined !== this._logger) {
-                        this._logger.debug('Notified event "{event}" to listener "{listener}"', ctx);
-                    }
+                    this._logger.debug('Notified event "{event}" to listener "{listener}"', ctx);
 
                     if (undefined === this._called[eventName]) {
                         this._called[eventName] = new Set();

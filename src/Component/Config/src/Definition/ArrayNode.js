@@ -74,11 +74,6 @@ class ArrayNode extends BaseNode {
      * @param {boolean} normalizeKeys
      */
     setNormalizeKeys(normalizeKeys) {
-        /**
-         * @type {boolean}
-         *
-         * @protected
-         */
         this._normalizeKeys = !! normalizeKeys;
     }
 

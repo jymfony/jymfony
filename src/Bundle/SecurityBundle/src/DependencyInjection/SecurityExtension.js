@@ -49,7 +49,7 @@ class SecurityExtension extends Extension {
      * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
      */
     load(configs, container) {
-        const configuration = this.getConfiguration(container);
+        const configuration = this.getConfiguration(configs, container);
         configuration.userProviderFactories = this._userProviderFactories;
         configuration.factories = this._factories;
 
@@ -139,7 +139,7 @@ class SecurityExtension extends Extension {
 
         contextListenerDefinition.replaceArgument(1, new IteratorArgument(userProviders));
         if (1 === Object.keys(providerIds).length) {
-            container.setAlias(UserProviderInterface, providerIds[0]);
+            container.setAlias(UserProviderInterface, new Alias(Object.values(providerIds)[0]));
         }
 
         let customUserChecker = false;
@@ -252,7 +252,7 @@ class SecurityExtension extends Extension {
      * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
      * @param {string} name
      * @param {Object.<string, *>} firewall
-     * @param {Set<Jymfony.Component.Security.Authentication.Provider.AuthenticationProviderInterface[]>} authenticationProviders
+     * @param {Set<Jymfony.Component.Security.Authentication.Provider.AuthenticationProviderInterface>} authenticationProviders
      * @param {Object.<string, string>} providerIds
      * @param {string} configId
      *
@@ -344,7 +344,7 @@ class SecurityExtension extends Extension {
      * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
      * @param {string} id
      * @param {Object.<string, *>} firewall
-     * @param {Set<Jymfony.Component.Security.Authentication.Provider.AuthenticationProviderInterface[]>} authenticationProviders
+     * @param {Set<Jymfony.Component.Security.Authentication.Provider.AuthenticationProviderInterface>} authenticationProviders
      * @param {string} defaultProvider
      * @param {Object.<string, string>} providerIds
      * @param {string} defaultEntryPoint
@@ -475,10 +475,8 @@ class SecurityExtension extends Extension {
                 access.ips
             );
 
-            const attributes = access.roles;
-
             container.getDefinition(Jymfony.Component.Security.Authorization.AccessMap)
-                .addMethodCall('add', [ matcher, attributes, access.requires_channel ]);
+                .addMethodCall('add', [ matcher, access.roles, access.requires_channel ]);
         }
     }
 

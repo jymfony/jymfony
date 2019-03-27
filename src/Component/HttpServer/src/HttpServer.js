@@ -19,7 +19,7 @@ class HttpServer extends RequestHandler {
     /**
      * Constructor.
      *
-     * @param {Jymfony.Component.EventDispatcher.EventDispatcherInterface} dispatcher
+     * @param {Jymfony.Contracts.EventDispatcher.EventDispatcherInterface} dispatcher
      * @param {Jymfony.Component.HttpFoundation.Controller.ControllerResolverInterface} resolver
      */
     __construct(dispatcher, resolver) {
@@ -204,7 +204,7 @@ class HttpServer extends RequestHandler {
      *
      * @returns {Promise<void>}
      *
-     * @private
+     * @protected
      */
     async _incomingRequest(req, res) {
         try {
@@ -235,6 +235,10 @@ class HttpServer extends RequestHandler {
      * @protected
      */
     async _handleRequest(req, res) {
+        res.on('error', (err) => {
+            this._logger.error('Request encountered an error', { exception: err });
+        });
+
         const contentType = new ContentType(req.headers['content-type'] || 'application/x-www-form-urlencoded');
         let requestParams, content;
 

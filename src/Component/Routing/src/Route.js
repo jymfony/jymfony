@@ -26,6 +26,62 @@ class Route {
         methods = [ 'GET', 'POST' ],
         condition = undefined
     ) {
+        /**
+         * @type {string}
+         *
+         * @private
+         */
+        this._path = undefined;
+
+        /**
+         * @type {Jymfony.Component.Routing.CompiledRoute}
+         *
+         * @private
+         */
+        this._compiled = undefined;
+
+        /**
+         * @type {string}
+         *
+         * @private
+         */
+        this._host = undefined;
+
+        /**
+         * @type {string[]}
+         *
+         * @private
+         */
+        this._schemes = undefined;
+
+        /**
+         * @type {string[]}
+         *
+         * @private
+         */
+        this._methods = undefined;
+
+        /**
+         * @type {Object.<string, *>}
+         *
+         * @private
+         */
+        this._options = {};
+
+        /**
+         * @type {Object.<string, *>}
+         *
+         * @private
+         */
+        this. _defaults = {};
+
+        /**
+         * @type {Object.<string, RegExp>}
+         *
+         * @private
+         */
+        this._requirements = {};
+
         this
             .setPath(path)
             .setHost(host)
@@ -406,8 +462,10 @@ class Route {
             return this._compiled;
         }
 
+        /** @type {typeof Jymfony.Component.Routing.RouteCompiler} class_ */
         const class_ = ReflectionClass.getClass(this.getOption('compiler_class'));
-        return this._compiled = class_['compile'](this);
+
+        return this._compiled = class_.compile(this);
     }
 
     /**

@@ -13,7 +13,7 @@ class CommandNotFoundException extends mix(BaseException, ExceptionInterface) {
      * @param {Exception} [previous]
      */
     __construct(message, alternatives, previous = undefined) {
-        super.__construct(message, previous);
+        super.__construct(message, null, previous);
 
         this._alternatives = alternatives;
     }

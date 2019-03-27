@@ -12,7 +12,7 @@ container.setAlias(Jymfony.Component.DependencyInjection.ParameterBag.ContainerB
 container
     .register(Jymfony.Component.EventDispatcher.EventDispatcher)
     .setPublic(true);
-container.setAlias(Jymfony.Component.EventDispatcher.EventDispatcherInterface, new Alias(Jymfony.Component.EventDispatcher.EventDispatcher, true));
+container.setAlias(Jymfony.Contracts.EventDispatcher.EventDispatcherInterface, new Alias(Jymfony.Component.EventDispatcher.EventDispatcher, true));
 container.setAlias('event_dispatcher', new Alias(Jymfony.Component.EventDispatcher.EventDispatcher, true));
 
 container.register('kernel')

@@ -15,23 +15,23 @@ class ParameterBag {
      */
     __construct(params = {}) {
         /**
-         * @type {Object}
+         * @type {Object.<string, *>}
          *
-         * @private
+         * @protected
          */
         this._params = {};
 
         /**
-         * @type {Object}
+         * @type {Object.<string, *>}
          *
-         * @private
+         * @protected
          */
         this._env = {};
 
         /**
          * @type {boolean}
          *
-         * @private
+         * @protected
          */
         this._resolved = false;
 
@@ -66,7 +66,7 @@ class ParameterBag {
     /**
      * Gets a copy of the parameters map.
      *
-     * @returns {Map}
+     * @returns {Object.<string, *>}
      */
     all() {
         return Object.assign({}, this._params);
@@ -156,7 +156,7 @@ class ParameterBag {
      *
      * @param {*} value
      * @param {boolean} [resolveEnv = false]
-     * @param {Set} [resolving = new Set()]
+     * @param {Set<string>} [resolving = new Set()]
      *
      * @returns {*}
      */
@@ -182,7 +182,7 @@ class ParameterBag {
      *
      * @param {string} value
      * @param {boolean} resolveEnv
-     * @param {Set} resolving
+     * @param {Set<string>} resolving
      *
      * @returns {*}
      */

@@ -16,8 +16,6 @@ class NodeDefinition extends implementationOf(NodeParentInterface) {
      *
      * @param {string} name
      * @param {Jymfony.Component.Config.Definition.Builder.NodeParentInterface} [parent]
-     *
-     * @private
      */
     __construct(name, parent = undefined) {
         /**
@@ -122,7 +120,7 @@ class NodeDefinition extends implementationOf(NodeParentInterface) {
     /**
      * Sets the parent node.
      *
-     * @returns {Jymfony.Component.Config.Definition.Builder.NodeParentInterface}
+     * @returns {Jymfony.Component.Config.Definition.Builder.NodeDefinition}
      */
     setParent(parent) {
         this._parent = parent;
@@ -352,7 +350,7 @@ class NodeDefinition extends implementationOf(NodeParentInterface) {
     /**
      * Sets whether the node can be overwritten.
      *
-     * @param {boolean} deny Whether the overwriting is forbidden or not
+     * @param {boolean} [deny = true] Whether the overwriting is forbidden or not
      *
      * @returns {Jymfony.Component.Config.Definition.Builder.NodeDefinition}
      */

@@ -27,6 +27,7 @@ class ApproximateValueToken extends implementationOf(TokenInterface) {
 
         /**
          * @type {int}
+         *
          * @private
          */
         this._precision = ~~precision;

@@ -47,13 +47,13 @@ class Patcher {
 
     /**
      * @param {Jymfony.Component.Autoloader.Parser.Lexer} lexer
-     * @param {undefined|string} classDocblock
+     * @param {undefined|string} ClassDocblock
      *
      * @private
      */
-    _processClass(lexer, classDocblock) {
-        classDocblock = {
-            ['class']: classDocblock,
+    _processClass(lexer, ClassDocblock) {
+        const classDocblock = {
+            ['class']: ClassDocblock,
             methods: {},
             properties: {},
         };

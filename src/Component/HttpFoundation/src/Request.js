@@ -317,7 +317,7 @@ class Request {
             attributes: this.attributes.all,
             headers: this.headers.all,
             server: this.server.all,
-            content: this.content.toString(),
+            content: String(this.content),
         };
     }
 
@@ -558,7 +558,7 @@ class Request {
      *
      * @returns {string} The request method
      *
-     * @see getRealMethod()
+     * @see realMethod
      */
     get method() {
         if (! this._method) {
@@ -582,7 +582,7 @@ class Request {
      *
      * @returns {string} The request method
      *
-     * @see getMethod()
+     * @see method
      */
     get realMethod() {
         return this.server.get('REQUEST_METHOD', 'GET').toUpperCase();
@@ -662,9 +662,9 @@ class Request {
      *
      *  * format defined by the user (with setRequestFormat())
      *  * _format request attribute
-     *  * $default
+     *  * defaultFormat
      *
-     * @param {string} defaultFormat The default format
+     * @param {string} [defaultFormat = 'html'] The default format
      *
      * @returns {string} The request format
      */
@@ -867,6 +867,8 @@ class Request {
                 }
             }
         }
+
+        clientIps = clientIps.filter(v => !! v);
 
         // Now the IP chain contains only untrusted proxies and the client IP
         return 0 < clientIps.length ? clientIps.reverse() : [ firstTrustedIp ];

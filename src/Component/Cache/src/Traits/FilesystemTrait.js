@@ -38,7 +38,12 @@ class FilesystemTrait {
             await h.close();
 
             if (time >= expiresAt) {
-                pruned = await file.unlink() && await filesystem.exists(file.toString()) && pruned;
+                try {
+                    await file.unlink();
+                    pruned = ! await filesystem.exists(file.toString()) && pruned;
+                } catch (e) {
+                    pruned = false;
+                }
             }
         });
 
@@ -61,11 +66,15 @@ class FilesystemTrait {
                 continue;
             }
 
-            const h = new OpenFile(file, 'r');
+            const h = await new OpenFile(file, 'r');
             const expiresAt = ~~(await h.fgets());
             if (expiresAt && now >= expiresAt) {
                 await h.close();
-                await h.unlink();
+                try {
+                    await h.unlink();
+                } catch (e) {
+                    // Do nothing
+                }
             } else {
                 const i = decodeURIComponent(__jymfony.rtrim(await h.fgets()));
                 const value = await h.fread(await h.getSize());
@@ -211,7 +220,7 @@ class FilesystemTrait {
                 // Do nothing
             }
 
-            ok = !(await filesystem.exists(file.filename)) && ok;
+            ok = ! (await filesystem.exists(file.filename)) && ok;
         }
 
         return ok;
@@ -221,7 +230,7 @@ class FilesystemTrait {
         const tmp = this._directory + (Math.random() * 10000000);
         const filesystem = new Filesystem();
 
-        const openFile = new OpenFile(tmp, 'w');
+        const openFile = await new OpenFile(tmp, 'w');
         await openFile.fwrite(Buffer.from(data));
         await openFile.close();
 

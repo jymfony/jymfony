@@ -2,7 +2,7 @@
   "name": "@jymfony/http-server",
   "version": "0.1.0-alpha.13",
   "description": "Jymfony Http Server",
-  "main": "src/HttpServer.js",
+  "typings": "types/index.d.ts",
   "scripts": {
     "test": "node ./tests.js test/**"
   },
@@ -20,6 +20,8 @@
   "dependencies": {
     "@jymfony/autoloader": "0.1.0-alpha.13",
     "@jymfony/console": "0.1.0-alpha.13",
+    "@jymfony/contracts": "https://github.com/jymfony/contracts.git",
+    "@jymfony/debug": "https://github.com/jymfony/debug.git",
     "@jymfony/event-dispatcher": "0.1.0-alpha.13",
     "@jymfony/exceptions": "0.1.0-alpha.13",
     "@jymfony/http-foundation": "0.1.0-alpha.13",

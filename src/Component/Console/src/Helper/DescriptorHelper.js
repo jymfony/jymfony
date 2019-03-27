@@ -11,6 +11,11 @@ class DescriptorHelper extends Helper {
      * Constructor.
      */
     __construct() {
+        /**
+         * @type {Object.<string, Jymfony.Component.Console.Descriptor.DescriptorInterface>}
+         *
+         * @private
+         */
         this._descriptors = {};
 
         this

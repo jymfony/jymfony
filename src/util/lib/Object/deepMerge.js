@@ -3,11 +3,11 @@
 global.__jymfony = global.__jymfony || {};
 
 /**
- * @param {...} args
+ * @param {...*} args
  *
  * @returns {Object}
  */
-const deepMerge = function (...args) {
+const deepMerge = (...args) => {
     if (2 === args.length) {
         if ((! isArray(args[0]) && ! isObjectLiteral(args[0])) || (! isArray(args[1]) && ! isObjectLiteral(args[1]))) {
             return args[1];

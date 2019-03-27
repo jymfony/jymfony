@@ -511,7 +511,7 @@ class ProgressBar {
              * @returns {string}
              */
             percent: (bar) => {
-                return ~~(bar.progressPercent * 100).toString();
+                return (~~(bar.progressPercent * 100)).toString();
             },
         };
     }
@@ -544,7 +544,7 @@ class ProgressBar {
         const regex = new RegExp('%([a-z\-_]+)(?:\:([^%]+))?%', 'ig');
         const callback = (string, match1, match2) => {
             let text, formatter;
-            if (formatter = ProgressBar.getPlaceholderFormatterDefinition(match1)) {
+            if ((formatter = ProgressBar.getPlaceholderFormatterDefinition(match1))) {
                 text = formatter(this, this._output);
             } else if (this._messages[match1]) {
                 text = this._messages[match1];

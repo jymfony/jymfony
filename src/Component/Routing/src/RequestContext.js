@@ -81,7 +81,7 @@ class RequestContext {
      *
      * @param {string} name A parameter name
      *
-     * @returns {*} The parameter value or null if nonexistent
+     * @returns {*} The parameter value or undefined if nonexistent
      */
     getParameter(name) {
         return this._parameters[name];
@@ -101,7 +101,7 @@ class RequestContext {
     /**
      * Sets a parameter value.
      *
-     * @param {string} name      A parameter name
+     * @param {string} name A parameter name
      * @param {*} parameter The parameter value
      *
      * @returns {Jymfony.Component.Routing.RequestContext}

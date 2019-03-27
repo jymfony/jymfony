@@ -1,5 +1,6 @@
 const Frame = Jymfony.Component.HttpFoundation.Websocket.Frame;
 const Message = Jymfony.Component.HttpFoundation.Websocket.Message;
+const WebsocketResponse = Jymfony.Component.HttpFoundation.Websocket.WebsocketResponse;
 
 /**
  * Base class for websocket handlers.
@@ -39,6 +40,17 @@ class Websocket {
         frame.buffer = message.asBuffer();
 
         return this._response._sendFrame(frame);
+    }
+
+    /**
+     * Closes the websocket.
+     *
+     * @param {int} [reason = WebsocketResponse.CLOSE_NORMAL]
+     *
+     * @returns {Promise<void>}
+     */
+    close(reason = WebsocketResponse.CLOSE_NORMAL) {
+        return this._response.closeConnection(reason);
     }
 
     /**

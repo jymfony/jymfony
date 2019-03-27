@@ -28,7 +28,7 @@ class FrameworkExtension extends Extension {
         const loader = new JsFileLoader(container, new FileLocator(path.join(__dirname, '..', 'Resources', 'config')));
         loader.load('services.js');
 
-        const configuration = this.getConfiguration(container);
+        const configuration = this.getConfiguration(configs, container);
         const config = this._processConfiguration(configuration, configs);
 
         if (config.test) {
@@ -67,11 +67,12 @@ class FrameworkExtension extends Extension {
     /**
      * Returns the extension configuration object.
      *
+     * @param {*[]} config
      * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
      *
      * @returns {Jymfony.Component.Config.Definition.ConfigurationInterface}
      */
-    getConfiguration(container) {
+    getConfiguration(config, container) {
         return new Configuration(container.getParameter('kernel.debug'));
     }
 
@@ -134,6 +135,7 @@ class FrameworkExtension extends Extension {
         const definition = (new ChildDefinition('jymfony.logger_prototype'))
             .setPublic(false)
             .replaceArgument(0, 'app')
+            .addTag('kernel.event_subscriber')
         ;
 
         container.setParameter('jymfony.logger.handlers_to_channels', handlersToChannels);
@@ -143,7 +145,7 @@ class FrameworkExtension extends Extension {
     /**
      * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
      * @param {string} name
-     * @param {PriorityQueue} handler
+     * @param {*} handler
      *
      * @returns {string}
      *

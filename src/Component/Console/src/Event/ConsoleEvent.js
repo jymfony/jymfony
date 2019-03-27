@@ -1,4 +1,4 @@
-const Event = Jymfony.Component.EventDispatcher.Event;
+const Event = Jymfony.Contracts.EventDispatcher.Event;
 
 /**
  * Allows to inspect input and output of a command.
@@ -10,8 +10,8 @@ class ConsoleEvent extends Event {
      * Constructor.
      *
      * @param {Jymfony.Component.Console.Command.Command} [command]
-     * @param {Jymfony.Component.Console.Command.Input.InputInterface} input
-     * @param {Jymfony.Component.Console.Command.Output.OutputInterface} output
+     * @param {Jymfony.Component.Console.Input.InputInterface} input
+     * @param {Jymfony.Component.Console.Output.OutputInterface} output
      */
     __construct(command = undefined, input, output) {
         super.__construct();

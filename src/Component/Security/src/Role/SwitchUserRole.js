@@ -11,11 +11,11 @@ class SwitchUserRole extends Role {
      * Constructor.
      *
      * @param {string} role
-     * @param {Jymfony.Component.Security.Authorization.Token.TokenInterface} token
+     * @param {Jymfony.Component.Security.Authentication.Token.TokenInterface} token
      */
     __construct(role, token) {
         /**
-         * @type {Jymfony.Component.Security.Authorization.Token.TokenInterface}
+         * @type {Jymfony.Component.Security.Authentication.Token.TokenInterface}
          *
          * @private
          */
@@ -27,7 +27,7 @@ class SwitchUserRole extends Role {
     /**
      * Gets the source token.
      *
-     * @returns {Jymfony.Component.Security.Authorization.Token.TokenInterface}
+     * @returns {Jymfony.Component.Security.Authentication.Token.TokenInterface}
      */
     get source() {
         return this._source;

@@ -29,7 +29,7 @@ const getClass = function getClass(value) {
         if (undefined === value.prototype) {
             if (value.definition) {
                 // Interface or Trait
-                this._isInterface = mixins.isInterface(value);
+                this._isInterface = global.mixins.isInterface(value);
                 value = value.definition;
             } else {
                 throw new ReflectionException('Not a class');
@@ -285,7 +285,7 @@ class ReflectionClass {
     }
 
     /**
-     * Get the fully qualified name of the reflected class.
+     * The fully qualified name of the reflected class.
      *
      * @returns {string|undefined}
      */
@@ -294,7 +294,16 @@ class ReflectionClass {
     }
 
     /**
-     * Get the Namespace object containing this class.
+     * The class short name (without namespace).
+     *
+     * @returns {string}
+     */
+    get shortName() {
+        return this._namespace ? this._className.substr(this.namespaceName.length + 1) : this._className;
+    }
+
+    /**
+     * The Namespace object containing this class.
      *
      * @returns {Jymfony.Component.Autoloader.Namespace}
      */
@@ -303,7 +312,7 @@ class ReflectionClass {
     }
 
     /**
-     * Get the namespace name.
+     * The namespace name.
      *
      * @returns {string}
      */
@@ -323,7 +332,7 @@ class ReflectionClass {
     /**
      * Module object exporting this class.
      *
-     * @returns {Module}
+     * @returns {NodeJS.Module}
      */
     get module() {
         return this._module;
@@ -393,7 +402,7 @@ class ReflectionClass {
 
         this._filename = metadata.filename;
         this._module = metadata.module;
-        this._constructor = value;
+        this._constructor = this._isInterface ? value : metadata.constructor;
 
         this._loadProperties();
         this._loadStatics();
@@ -404,6 +413,7 @@ class ReflectionClass {
                 module: this._module,
                 constructor: this._constructor,
                 methods: this._methods,
+                staticMethods: this._staticMethods,
                 constants: this._constants,
                 properties: {
                     all: this._properties,
@@ -431,6 +441,7 @@ class ReflectionClass {
         this._module = data.module;
         this._constructor = data.constructor;
         this._methods = data.methods;
+        this._staticMethods = data.staticMethods;
         this._constants = data.constants;
         this._properties = data.properties.all;
         propFunc(this._readableProperties, data.properties.readable);
@@ -508,7 +519,7 @@ class ReflectionClass {
             loadFromPrototype(p);
         }
 
-        for (const IF of mixins.getInterfaces(this._constructor)) {
+        for (const IF of global.mixins.getInterfaces(this._constructor)) {
             const reflectionInterface = new ReflectionClass(IF);
             this._interfaces.push(reflectionInterface);
         }
@@ -572,6 +583,8 @@ class ReflectionClass {
     }
 
     /**
+     * @returns {Function}
+     *
      * @private
      */
     static _recursiveGet(start, parts) {

@@ -246,7 +246,8 @@ class Namespace {
             },
             ownKeys: () => {
                 init();
-                return Reflect.ownKeys(realTarget);
+                return Reflect.ownKeys(realTarget)
+                    .filter(k => k !== Symbol.reflection);
             },
             apply: (target, thisArgument, args) => {
                 init();

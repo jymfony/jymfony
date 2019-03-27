@@ -14,13 +14,13 @@ class ClassLoader {
     /**
      * Constructor
      *
-     * @param {Finder} finder
+     * @param {Jymfony.Component.Autoloader.Finder} finder
      * @param {path} path
      * @param {vm} vm
      */
     constructor(finder, path, vm) {
         /**
-         * @type {Finder}
+         * @type {Jymfony.Component.Autoloader.Finder}
          *
          * @private
          */

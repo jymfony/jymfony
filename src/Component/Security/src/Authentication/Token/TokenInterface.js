@@ -29,14 +29,14 @@ class TokenInterface {
     /**
      * Gets the user, if any.
      *
-     * @returns {null|Jymfony.Component.Security.User.UserInterface}
+     * @returns {undefined|Jymfony.Component.Security.User.UserInterface}
      */
     get user() { }
 
     /**
      * Sets (or unset) a user.
      *
-     * @param {null|Jymfony.Component.Security.User.UserInterface} user
+     * @param {undefined|Jymfony.Component.Security.User.UserInterface} user
      */
     set user(user) { }
 

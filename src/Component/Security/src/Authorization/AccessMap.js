@@ -12,7 +12,7 @@ class AccessMap extends implementationOf(AccessMapInterface) {
      */
     __construct() {
         /**
-         * @type {[Jymfony.Component.HttpFoundation.RequestMatcherInterface, string[], undefined|string]}
+         * @type {[Jymfony.Component.HttpFoundation.RequestMatcherInterface, string[], undefined|string][]}
          *
          * @private
          */

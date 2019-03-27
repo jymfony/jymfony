@@ -3,6 +3,7 @@
   "version": "0.1.0-alpha.13",
   "description": "Jymfony Autoloader",
   "main": "index.js",
+  "typings": "types/index.d.ts",
   "scripts": {
     "test": "node ./tests.js"
   },
@@ -23,6 +24,7 @@
     "chai": "^3.5.0",
     "mocha": "^5.0"
   },
+  "flat": true,
   "config": {
     "jymfony-autoload": {
       "namespaces": {

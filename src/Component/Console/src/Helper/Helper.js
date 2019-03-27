@@ -62,7 +62,7 @@ class Helper {
      * @param {Jymfony.Component.Console.Formatter.OutputFormatterInterface} formatter
      * @param {string} string
      *
-     * @returns {number}
+     * @returns {int}
      */
     static strlenWithoutDecoration(formatter, string) {
         return Helper.removeDecoration(formatter, string).length;

@@ -32,8 +32,8 @@ class InputOption {
                 shortcut = shortcut.join('|');
             }
 
-            shortcut = shortcut.split('|').filter(T => !! T).join('|');
-            if (! shortcut) {
+            shortcut = shortcut.split('|').map(v => __jymfony.trim(v)).filter(T => !! T).join('|');
+            if (0 === shortcut.length) {
                 shortcut = undefined;
             }
         }

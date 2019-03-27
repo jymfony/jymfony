@@ -13,32 +13,6 @@ const Readable = require('stream').Readable;
 const url = require('url');
 
 /**
- * @typedef {Object} AwsLambdaEvent API Gateway Lambda Proxy Input Format
- * @property {string} resource Resource path.
- * @property {string} path Path parameter.
- * @property {string} httpMethod Incoming request's method name.
- * @property {Object} headers Incoming request headers.
- * @property {Object} queryStringParameters query string parameters.
- * @property {Object} pathParameters path parameters.
- * @property {Object} stageVariables Applicable stage variables.
- * @property {Object} requestContext Request context, including authorizer-returned key-value pairs, requestId, sourceIp, etc.
- * @property {Object} body A JSON string of the request payload.
- * @property {boolean} isBase64Encoded A boolean flag to indicate if the applicable request payload is Base64-encode
- */
-
-/**
- * @typedef {Object} AwsLambdaContext API Gateway Lambda Proxy context
- * @param {string} logGroupName Cloudwatch Log Group name
- * @param {string} logStreamName Cloudwatch Log stream name.
- * @param {string} functionName Lambda function name.
- * @param {string} memoryLimitInMB Function memory.
- * @param {string} functionVersion Function version identifier.
- * @param {Function} getRemainingTimeInMillis Time in milliseconds before function times out.
- * @param {string} awsRequestId Lambda request ID.
- * @param {string} invokedFunctionArn Function ARN.
- */
-
-/**
  * @memberOf Jymfony.Component.HttpServer.Serverless
  */
 class AwsLambdaHandler extends RequestHandler {
@@ -48,7 +22,7 @@ class AwsLambdaHandler extends RequestHandler {
      * @param {Jymfony.Component.Routing.RouteCollection} routes
      * @param {Jymfony.Component.Logger.LoggerInterface} logger
      *
-     * @returns {Jymfony.Component.HttpServer.HttpServer}
+     * @returns {Jymfony.Component.HttpServer.Serverless.AwsLambdaHandler}
      */
     static create(routes, logger = undefined) {
         const router = new Router(new FunctionLoader(), () => routes);
@@ -73,10 +47,10 @@ class AwsLambdaHandler extends RequestHandler {
     /**
      * Handles an incoming request from the http server.
      *
-     * @param {AwsLambdaEvent} event
-     * @param {AwsLambdaContext} context
+     * @param {APIGatewayProxyEvent|ALBEvent} event
+     * @param {Context} context
      *
-     * @returns {Promise<Object>}
+     * @returns {Promise<APIGatewayProxyResult|ALBResult>}
      */
     async handleEvent(event, context) {
         try {
@@ -108,10 +82,10 @@ class AwsLambdaHandler extends RequestHandler {
      * Converts an IncomingMessage to an HttpFoundation request
      * and sends it to the Kernel.
      *
-     * @param {AwsLambdaEvent} event
-     * @param {AwsLambdaContext} context
+     * @param {APIGatewayProxyEvent|ALBEvent} event
+     * @param {Context} context
      *
-     * @returns {Promise<Object>}
+     * @returns {Promise<APIGatewayProxyResult|ALBResult>}
      *
      * @protected
      */

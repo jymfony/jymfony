@@ -2,7 +2,7 @@
   "name": "@jymfony/event-dispatcher",
   "version": "0.1.0-alpha.13",
   "description": "Jymfony EventDispatcher",
-  "main": "src/EventDispatcher.js",
+  "typings": "types/index.d.ts",
   "scripts": {
     "test": "node ./tests.js test/**"
   },
@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@jymfony/autoloader": "0.1.0-alpha.13",
+    "@jymfony/contracts": "https://github.com/jymfony/contracts.git",
     "@jymfony/exceptions": "0.1.0-alpha.13",
     "@jymfony/util": "0.1.0-alpha.13"
   },

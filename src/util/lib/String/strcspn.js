@@ -10,7 +10,7 @@ global.__jymfony = global.__jymfony || {};
  *
  * @internal
  */
-const _strcspn = function _strcspn(str, mask) {
+const _strcspn = (str, mask) => {
     let lgth = 0;
     for (let i = 0; i < str.length; i++) {
         if (-1 !== mask.indexOf(str.charAt(i))) {
@@ -34,7 +34,7 @@ const _strcspn = function _strcspn(str, mask) {
  *
  * @returns {int}
  */
-__jymfony.strcspn = function strcspn (str, mask, start = 0, length = undefined) {
+__jymfony.strcspn = (str, mask, start = 0, length = undefined) => {
     if (0 !== start) {
         str = str.substr(start);
     }

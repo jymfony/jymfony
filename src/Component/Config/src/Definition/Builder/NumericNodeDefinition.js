@@ -23,7 +23,7 @@ class NumericNodeDefinition extends ScalarNodeDefinition {
         this._min = undefined;
 
         /**
-         * @type {number|number}
+         * @type {number|undefined}
          *
          * @protected
          */

@@ -153,7 +153,7 @@ describe('[Security] AbstractToken', function () {
         provider.supports(Argument.any()).willReturn(true);
         provider.authenticate(Argument.any()).willThrow(exception);
 
-        const dispatcher = this._prophet.prophesize(Jymfony.Component.EventDispatcher.EventDispatcherInterface);
+        const dispatcher = this._prophet.prophesize(Jymfony.Contracts.EventDispatcher.EventDispatcherInterface);
         dispatcher.dispatch(AuthenticationEvents.AUTHENTICATION_FAILURE, new AuthenticationFailureEvent(token, exception));
 
         const manager = new AuthenticationProviderManager([ provider.reveal() ]);
@@ -177,7 +177,7 @@ describe('[Security] AbstractToken', function () {
         provider.supports(Argument.any()).willReturn(true);
         provider.authenticate(Argument.any()).willReturn(token);
 
-        const dispatcher = this._prophet.prophesize(Jymfony.Component.EventDispatcher.EventDispatcherInterface);
+        const dispatcher = this._prophet.prophesize(Jymfony.Contracts.EventDispatcher.EventDispatcherInterface);
         dispatcher.dispatch(AuthenticationEvents.AUTHENTICATION_SUCCESS, new AuthenticationEvent(token));
 
         const manager = new AuthenticationProviderManager([ provider.reveal() ]);

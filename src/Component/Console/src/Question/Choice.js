@@ -41,7 +41,7 @@ class Choice {
      * @returns {boolean}
      */
     isEqual(choice) {
-        return choice._value === this._value;
+        return __jymfony.equal(choice._value, this._value);
     }
 }
 

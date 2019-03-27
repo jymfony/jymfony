@@ -51,7 +51,7 @@ class SessionInterface {
      *                             to expire with browser session. Time is in seconds, and is
      *                             not a Unix timestamp.
      *
-     * @returns {Promise<boolean>} True if session invalidated, false if error
+     * @returns {Promise<void>}
      */
     async invalidate(lifetime = 0) { }
 
@@ -64,7 +64,7 @@ class SessionInterface {
      *                             to expire with browser session. Time is in seconds, and is
      *                             not a Unix timestamp.
      *
-     * @returns {Promise<boolean>} True if session migrated, false if error
+     * @returns {Promise<void>}
      */
     async migrate(destroy = false, lifetime = 0) { }
 

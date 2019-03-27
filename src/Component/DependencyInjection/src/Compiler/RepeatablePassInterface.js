@@ -9,11 +9,9 @@ class RepeatablePassInterface extends CompilerPassInterface.definition {
     /**
      * Sets the RepeatedPass interface.
      *
-     * @function
-     * @name RepeatablePassInterface#setRepeatedPass
-     *
      * @param {Jymfony.Component.DependencyInjection.Compiler.RepeatedPass} container
      */
+    setRepeatedPass(container) { }
 }
 
 module.exports = getInterface(RepeatablePassInterface);

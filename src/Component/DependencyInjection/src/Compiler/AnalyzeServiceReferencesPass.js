@@ -16,8 +16,12 @@ class AnalyzeServiceReferencesPass extends mix(AbstractRecursivePass, Repeatable
     __construct(onlyConstructorArguments = false) {
         super.__construct();
 
+        /**
+         * @type {boolean}
+         *
+         * @private
+         */
         this._onlyConstructorArguments = onlyConstructorArguments;
-        this._repeatedPass = undefined;
 
         /**
          * @type {Jymfony.Component.DependencyInjection.ContainerBuilder}
@@ -51,8 +55,8 @@ class AnalyzeServiceReferencesPass extends mix(AbstractRecursivePass, Repeatable
     /**
      * @inheritdoc
      */
-    setRepeatedPass(pass) {
-        this._repeatedPass = pass;
+    setRepeatedPass(/* pass */) {
+        // No-op
     }
 
     /**
@@ -77,7 +81,7 @@ class AnalyzeServiceReferencesPass extends mix(AbstractRecursivePass, Repeatable
      *
      * @returns {*}
      *
-     * @private
+     * @protected
      */
     _processValue(value, isRoot = false) {
         const lazy = this._lazy;

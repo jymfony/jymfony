@@ -38,7 +38,7 @@ class UserProviderInterface {
      * object can just be merged into some internal array of users / identity
      * map.
      *
-     * @return {Promise<Jymfony.Component.Security.Exception.UserInterface>}
+     * @return {Promise<Jymfony.Component.Security.User.UserInterface>}
      *
      * @throws {Jymfony.Component.Security.Exception.UnsupportedUserException}  if the user is not supported
      * @throws {Jymfony.Component.Security.Exception.UsernameNotFoundException} if the user is not found

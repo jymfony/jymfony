@@ -88,7 +88,7 @@ class Bundle extends implementationOf(ContainerAwareInterface, ContainerAwareTra
     }
 
     /**
-     * @returns {string|undefined}
+     * @returns {Jymfony.Component.DependencyInjection.Extension.ExtensionInterface|undefined}
      */
     getContainerExtension() {
         if (undefined === this._extension) {

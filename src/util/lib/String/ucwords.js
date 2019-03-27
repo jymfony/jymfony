@@ -10,7 +10,7 @@ global.__jymfony = global.__jymfony || {};
  *
  * @returns {string}
  */
-__jymfony.ucwords = function ucwords(string, delimiter = '\\s') {
+__jymfony.ucwords = (string, delimiter = '\\s') => {
     return string.toString()
         .replace(new RegExp('^([a-z\\u00E0-\\u00FC])|' + delimiter + '([a-z\\u00E0-\\u00FC])', 'g'), $1 => $1.toUpperCase())
     ;

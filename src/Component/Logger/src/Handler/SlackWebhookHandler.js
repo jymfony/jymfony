@@ -26,7 +26,7 @@ class SlackWebhookHandler extends AbstractProcessingHandler {
         this._slackRecord = new SlackRecord(
             options.channel,
             options.username,
-            undefined === options.useAttachment ? true : options.useAttachments,
+            undefined === options.useAttachment ? true : options.useAttachment,
             options.icon,
             undefined === options.shortAttachment ? false : options.shortAttachment,
             undefined === options.includeContextAndExtra ? false : options.includeContextAndExtra,

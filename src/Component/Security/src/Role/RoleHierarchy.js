@@ -70,7 +70,7 @@ class RoleHierarchy extends implementationOf(RoleHierarchyInterface) {
                     this._map[main].add(roleToAdd);
                 }
 
-                for (const additionalRole of this._hierarchy[role].filter(r => ! visited.has(r))) {
+                for (const additionalRole of [ ...this._hierarchy[role] ].filter(r => ! visited.has(r))) {
                     additionalRoles.push(additionalRole);
                 }
             }

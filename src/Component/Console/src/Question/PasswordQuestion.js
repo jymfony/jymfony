@@ -39,8 +39,8 @@ class PasswordQuestion extends Question {
         if (! this.hidden || ! this._output.stream.isTTY || ! Terminal.hasSttyAvailable()) {
             return new PasswordRenderer(this);
         }
-        return new SttyPasswordRenderer(this);
 
+        return new SttyPasswordRenderer(this);
     }
 }
 

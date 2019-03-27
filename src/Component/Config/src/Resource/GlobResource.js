@@ -1,11 +1,13 @@
 const RecursiveDirectoryIterator = Jymfony.Component.Config.Resource.Iterator.RecursiveDirectoryIterator;
+const SelfCheckingResourceInterface = Jymfony.Component.Config.Resource.SelfCheckingResourceInterface;
+const crypto = require('crypto');
 const fs = require('fs');
 const pathModule = require('path');
 
 /**
  * @memberOf Jymfony.Component.Config.Resource
  */
-class GlobResource {
+class GlobResource extends implementationOf(SelfCheckingResourceInterface) {
     /**
      * Constructor.
      *
@@ -142,7 +144,7 @@ class GlobResource {
             firstByte = '/' === car;
 
             if (firstByte && strictWildcardSlash && undefined !== glob[i + 2] && '**' === glob[i + 1] + glob[i + 2] && (undefined === glob[i + 3] || '/' === glob[i + 3])) {
-                car = '[^/]++/';
+                car = '[^/]+/';
                 if (undefined === glob[i + 3]) {
                     car += '?';
                 }

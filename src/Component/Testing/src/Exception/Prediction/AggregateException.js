@@ -13,7 +13,7 @@ class AggregateException extends mix(RuntimeException, PredictionException) {
         super.__construct(message);
 
         /**
-         * @type {Array}
+         * @type {Jymfony.Component.Testing.Exception.Prediction.PredictionException[]}
          *
          * @private
          */
@@ -28,7 +28,7 @@ class AggregateException extends mix(RuntimeException, PredictionException) {
     /**
      * Appends an exception.
      *
-     * @param {Error} exception
+     * @param {Jymfony.Component.Testing.Exception.Prediction.PredictionException & Error} exception
      */
     append(exception) {
         let message = exception.message || '';
@@ -39,10 +39,10 @@ class AggregateException extends mix(RuntimeException, PredictionException) {
     }
 
     /**
-     * @returns {PredictionException[]}
+     * @returns {Jymfony.Component.Testing.Exception.Prediction.PredictionException[]}
      */
     get exceptions() {
-        return this._exceptions;
+        return [ ...this._exceptions ];
     }
 }
 

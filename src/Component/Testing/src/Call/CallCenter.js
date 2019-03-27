@@ -75,6 +75,7 @@ class CallCenter {
 
         return returnValue;
     }
+
     /**
      * Searches for calls by method name & arguments wildcard.
      *

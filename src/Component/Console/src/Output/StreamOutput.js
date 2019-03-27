@@ -13,10 +13,10 @@ class StreamOutput extends Output {
     /**
      * Constructor.
      *
-     * @param {stream} stream
-     * @param {string} [verbosity = Jymfony.Component.Console.Output.ConsoleOutputInterface.VERBOSITY_NORMAL]
+     * @param {NodeJS.WritableStream} stream
+     * @param {int} [verbosity = Jymfony.Component.Console.Output.ConsoleOutputInterface.VERBOSITY_NORMAL]
      * @param {boolean} [decorated]
-     * @param {Jymfony.Component.Console.Output.OutputFormatterInterface} [formatter = new Jymfony.Component.Console.Output.OutputFormatter()]
+     * @param {Jymfony.Component.Console.Formatter.OutputFormatterInterface} [formatter = new Jymfony.Component.Console.Output.OutputFormatter()]
      */
     __construct(stream, verbosity = OutputInterface.VERBOSITY_NORMAL, decorated = undefined, formatter = new OutputFormatter()) {
         if (! isStream(stream) || ! stream.writable) {
@@ -26,7 +26,7 @@ class StreamOutput extends Output {
         super.__construct(verbosity, decorated, formatter);
 
         /**
-         * @type {stream.Writable}
+         * @type {NodeJS.WritableStream}
          */
         this._stream = stream;
         this._deferUncork = true;
@@ -39,7 +39,7 @@ class StreamOutput extends Output {
     /**
      * Gets the underlying stream object.
      *
-     * @returns {stream.Writable}
+     * @returns {NodeJS.WritableStream}
      */
     get stream() {
         return this._stream;

@@ -7,7 +7,7 @@ global.__jymfony = global.__jymfony || {};
  *
  * @returns {Object}
  */
-__jymfony.clone = function clone(object) {
+__jymfony.clone = (object) => {
     if (! isObject(object)) {
         throw new InvalidArgumentException('Cannot clone a non-object');
     }
@@ -24,7 +24,7 @@ __jymfony.clone = function clone(object) {
 };
 
 /**
- * @param {Object} object
+ * @param {Object} object
  * @returns {Object}
  */
 __jymfony.deepClone = function deepClone(object) {

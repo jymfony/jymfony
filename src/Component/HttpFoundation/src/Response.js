@@ -694,9 +694,9 @@ class Response {
      *
      * @param {Jymfony.Component.HttpFoundation.Request} request
      *
-     * @returns {Jymfony.Component.HttpFoundation.Response}
+     * @returns {Promise<Jymfony.Component.HttpFoundation.Response>}
      */
-    prepare(request) {
+    async prepare(request) {
         if (this.isInformational || this.isEmpty) {
             this.content = '';
             this.headers.remove('Content-Type');
@@ -726,37 +726,11 @@ class Response {
                 this.headers.remove('Content-Length');
             }
 
-            if (request.isMethod('HEAD')) {
+            if (request.isMethod(Request.METHOD_HEAD)) {
                 // Cf. RFC2616 14.13
                 this.content = '';
-            } else if (request.headers.has('Accept-Encoding') && ! this.headers.has('Content-Encoding')) {
-                const encodingNegotiator = new EncodingNegotiator();
-                const priorities = [ 'gzip', 'deflate' ];
-                if (undefined !== zlib.createBrotliCompress) {
-                    priorities.unshift('br');
-                }
-
-                const acceptEncoding = encodingNegotiator.getBest(request.headers.get('Accept-Encoding'), priorities) || { type: null };
-                switch (acceptEncoding.type) {
-                    case 'br':
-                        this._encoding = ENCODING_BROTLI;
-                        this.headers.set('Content-Encoding', 'br');
-                        break;
-
-                    case 'gzip':
-                        this._encoding = ENCODING_GZIP;
-                        this.headers.set('Content-Encoding', 'gzip');
-                        break;
-
-                    case 'deflate':
-                        this._encoding = ENCODING_DEFLATE;
-                        this.headers.set('Content-Encoding', 'deflate');
-                        break;
-
-                    default:
-                        this._encoding = undefined;
-                        break;
-                }
+            } else {
+                this._setEncodingForCompression(request);
             }
         }
 
@@ -785,6 +759,10 @@ class Response {
      * @returns {Promise<void>}
      */
     async sendResponse(req, res) {
+        if (this._encoding) {
+            this.headers.remove('Content-Length');
+        }
+
         if (res.respond) {
             res.respond(Object.assign({ ':status': this.statusCode }, this.headers.all));
         } else {
@@ -808,31 +786,67 @@ class Response {
 
                 default:
                     responseStream = new stream.PassThrough();
-                    responseStream.flush = () => {};
             }
 
-            if (isFunction(this.content)) {
-                await this.content(responseStream);
+            const content = this.content;
+            responseStream.pipe(res);
+
+            if (isFunction(content)) {
+                await content(responseStream);
+                await new Promise((resolve) => {
+                    responseStream.end(resolve);
+                });
             } else {
                 await new Promise((resolve) => {
-                    responseStream.write(this.content, 'utf8', () => {
+                    responseStream.end(content, 'utf8', () => {
                         resolve();
                     });
                 });
             }
-
-            const p = new Promise((resolve, reject) => {
-                responseStream.on('end', resolve);
-                responseStream.on('error', reject);
-            });
-
-            responseStream.pipe(res);
-            responseStream.flush();
-            responseStream.end();
-
-            await p;
         } else {
             res.end();
+        }
+    }
+
+    /**
+     * Sets the encoding for this response.
+     *
+     * @param {Jymfony.Component.HttpFoundation.Request} request
+     *
+     * @protected
+     * @final
+     */
+    _setEncodingForCompression(request) {
+        if (this.isEmpty || ! request.headers.has('Accept-Encoding') || this.headers.has('Content-Encoding')) {
+            return;
+        }
+
+        const encodingNegotiator = new EncodingNegotiator();
+        const priorities = [ 'gzip', 'deflate' ];
+        if (undefined !== zlib.createBrotliCompress) {
+            priorities.unshift('br');
+        }
+
+        const acceptEncoding = encodingNegotiator.getBest(request.headers.get('Accept-Encoding'), priorities) || { type: null };
+        switch (acceptEncoding.type) {
+            case 'br':
+                this._encoding = ENCODING_BROTLI;
+                this.headers.set('Content-Encoding', 'br');
+                break;
+
+            case 'gzip':
+                this._encoding = ENCODING_GZIP;
+                this.headers.set('Content-Encoding', 'gzip');
+                break;
+
+            case 'deflate':
+                this._encoding = ENCODING_DEFLATE;
+                this.headers.set('Content-Encoding', 'deflate');
+                break;
+
+            default:
+                this._encoding = undefined;
+                break;
         }
     }
 
@@ -842,6 +856,7 @@ class Response {
      *
      * @param {Jymfony.Component.HttpFoundation.Request} request
      *
+     * @protected
      * @final
      */
     _ensureIEOverSSLCompatibility(request) {

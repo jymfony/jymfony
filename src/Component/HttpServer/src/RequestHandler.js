@@ -18,12 +18,12 @@ class RequestHandler extends implementationOf(LoggerAwareInterface) {
     /**
      * Constructor.
      *
-     * @param {Jymfony.Component.EventDispatcher.EventDispatcherInterface} dispatcher
+     * @param {Jymfony.Contracts.EventDispatcher.EventDispatcherInterface} dispatcher
      * @param {Jymfony.Component.HttpFoundation.Controller.ControllerResolverInterface} resolver
      */
     __construct(dispatcher, resolver) {
         /**
-         * @type {Jymfony.Component.EventDispatcher.EventDispatcherInterface}
+         * @type {Jymfony.Contracts.EventDispatcher.EventDispatcherInterface}
          *
          * @protected
          */
@@ -39,7 +39,7 @@ class RequestHandler extends implementationOf(LoggerAwareInterface) {
         /**
          * @type {Jymfony.Component.Logger.LoggerInterface}
          *
-         * @private
+         * @protected
          */
         this._logger = new NullLogger();
     }
@@ -47,7 +47,7 @@ class RequestHandler extends implementationOf(LoggerAwareInterface) {
     /**
      * Gets the current event dispatcher.
      *
-     * @returns {Jymfony.Component.EventDispatcher.EventDispatcherInterface}
+     * @returns {Jymfony.Contracts.EventDispatcher.EventDispatcherInterface}
      */
     get eventDispatcher() {
         return this._dispatcher;
@@ -211,7 +211,7 @@ class RequestHandler extends implementationOf(LoggerAwareInterface) {
         const response = event.response;
 
         // The developer asked for a specific status code
-        if (! event.isAllowingCustomResponseCode && ! response.isClientError && ! response.isServerError && ! response.isRedirect) {
+        if (! event.isAllowingCustomResponseCode && ! response.isClientError && ! response.isServerError && ! response.isRedirect()) {
             // Ensure that we actually have an error response
             if (e instanceof HttpExceptionInterface) {
                 // Keep the HTTP status code and headers

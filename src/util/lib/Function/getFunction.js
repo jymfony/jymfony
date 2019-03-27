@@ -2,7 +2,7 @@
 
 global.__jymfony = global.__jymfony || {};
 
-__jymfony.getFunction = function getFunction(object, funcName) {
+__jymfony.getFunction = (object, funcName) => {
     if (isFunction(object.constructor[funcName])) {
         return object.constructor[funcName];
     }

@@ -49,7 +49,7 @@ class InlineServiceDefinitionsPass extends mix(AbstractRecursivePass, Repeatable
                 return value;
             }
 
-            value = __jymfony.deepClone(definition);
+            value = __jymfony.deepClone(value);
         }
 
         if (!(value instanceof Reference) || !this._container.hasDefinition(value.toString())) {

@@ -11,7 +11,7 @@ describe('[Filesystem] OpenFile', function () {
     });
 
     it('fgetc should read one byte from stream', async () => {
-        const file = new OpenFile(__dirname + '/../fixtures/TESTFILE.txt', 'r');
+        const file = await new OpenFile(__dirname + '/../fixtures/TESTFILE.txt', 'r');
         expect(await file.fgetc()).to.be.equal('T'.charCodeAt(0));
         expect(await file.fgetc()).to.be.equal('H'.charCodeAt(0));
         expect(await file.fgetc()).to.be.equal('I'.charCodeAt(0));
@@ -20,7 +20,7 @@ describe('[Filesystem] OpenFile', function () {
     });
 
     it('fread should read from stream', async () => {
-        const file = new OpenFile(__dirname + '/../fixtures/TESTFILE.txt', 'r');
+        const file = await new OpenFile(__dirname + '/../fixtures/TESTFILE.txt', 'r');
         expect(await file.fread(7)).to.be.deep.equal(Buffer.from('THIS IS'));
         expect(await file.fread(7)).to.be.deep.equal(Buffer.from(' A TEST'));
         expect(await file.fread(7)).to.be.deep.equal(Buffer.from('\n'));
@@ -30,7 +30,7 @@ describe('[Filesystem] OpenFile', function () {
     });
 
     it('createReadableStream should return a stream', async () => {
-        const file = new OpenFile(__dirname + '/../fixtures/TESTFILE.txt', 'r');
+        const file = await new OpenFile(__dirname + '/../fixtures/TESTFILE.txt', 'r');
         const readable = await file.createReadableStream();
 
         expect(readable).to.be.instanceOf(stream.Readable);
@@ -39,7 +39,7 @@ describe('[Filesystem] OpenFile', function () {
     });
 
     it('createWritableStream should return a stream', async () => {
-        const file = new OpenFile(__dirname + '/../fixtures/WRITEFILE', 'w');
+        const file = await new OpenFile(__dirname + '/../fixtures/WRITEFILE', 'w');
         const writable = await file.createWritableStream();
 
         expect(writable).to.be.instanceOf(stream.Writable);
@@ -48,7 +48,7 @@ describe('[Filesystem] OpenFile', function () {
     });
 
     it('fwrite should write to file', async () => {
-        const file = new OpenFile(__dirname + '/../fixtures/WRITEFILE', 'w');
+        const file = await new OpenFile(__dirname + '/../fixtures/WRITEFILE', 'w');
         expect(await file.fwrite(Buffer.from('TEST FILE'))).to.be.equal(9);
         fs.fsyncSync((await file._resource).fd);
         expect(await file.getSize()).to.be.equal(9);
@@ -57,7 +57,7 @@ describe('[Filesystem] OpenFile', function () {
     });
 
     it('ftruncate should truncate to file', async () => {
-        const file = new OpenFile(__dirname + '/../fixtures/WRITEFILE', 'w');
+        const file = await new OpenFile(__dirname + '/../fixtures/WRITEFILE', 'w');
         await file.ftruncate(0);
         expect(await file.getSize()).to.be.equal(0);
 

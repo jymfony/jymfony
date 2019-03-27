@@ -17,21 +17,21 @@ describe('[Security] AccessDecisionManager', function () {
         this._prophet = new Prophet();
 
         this._httpUtils = this._prophet.prophesize(HttpUtils);
-        this._httpServer = this._prophet.prophesize(HttpServer);
-        this._handler = new AccessDeniedPageHandler(this._httpUtils.reveal(), this._httpServer.reveal(), 'test');
+        this._requestHandler = this._prophet.prophesize(HttpServer);
+        this._handler = new AccessDeniedPageHandler(this._httpUtils.reveal(), this._requestHandler.reveal(), 'test');
     });
 
     afterEach(() => {
         this._prophet.checkPredictions();
     });
 
-    it('should render error page', () => {
+    it('should render error page', async () => {
         const request = Request.create('/', Request.METHOD_GET);
         const response = new Response();
         const exception = new Exception();
 
         this._httpUtils.generateUri(request, 'test').shouldBeCalled().willReturn('/error');
-        this._httpServer.handle(Argument.that(arg => {
+        this._requestHandler.handle(Argument.that(arg => {
             expect(arg).to.be.instanceOf(Request);
             expect(arg.pathInfo).to.be.equal('/error');
             expect(arg.attributes.get('_security.403_error')).to.be.equal(exception);
@@ -39,6 +39,6 @@ describe('[Security] AccessDecisionManager', function () {
             return true;
         })).willReturn(response);
 
-        expect(this._handler.handle(request, exception)).to.be.equal(response);
+        expect(await this._handler.handle(request, exception)).to.be.equal(response);
     });
 });

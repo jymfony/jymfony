@@ -2,7 +2,7 @@
  * Value holder for lexer.
  * You can modify the value into your getType implementation.
  *
- * @memberOf Jymfony.Lexer
+ * @memberOf Jymfony.Component.Lexer
  */
 class ValueHolder {
     /**
@@ -15,7 +15,7 @@ class ValueHolder {
     }
 
     /**
-     * @returns {string}
+     * @returns {*}
      */
     get value() {
         return this._value;

@@ -8,12 +8,12 @@ const ValueHolder = Jymfony.Component.Lexer.ValueHolder;
 class AbstractLexer {
     __construct() {
         /**
-         * @type {int|string|undefined}
+         * @type {Token|undefined}
          */
         this.token = undefined;
 
         /**
-         * @type {Object}
+         * @type {Token|undefined}
          */
         this.lookahead = undefined;
 
@@ -39,11 +39,11 @@ class AbstractLexer {
         this._input = undefined;
 
         /**
-         * @type {Object[]}
+         * @type {Token[]}
          *
          * @private
          */
-        this._tokens = undefined;
+        this._tokens = [];
     }
 
     /**
@@ -97,7 +97,7 @@ class AbstractLexer {
     /**
      * Checks whether any of the given tokens matches the current lookahead.
      *
-     * @param {Array} tokens
+     * @param {(int|string)[]} tokens
      *
      * @returns {boolean}
      */
@@ -122,7 +122,7 @@ class AbstractLexer {
     /**
      * Tells the lexer to skip input tokens until it sees a token with the given value.
      *
-     * @param {string} type The token type to skip until.
+     * @param {int|string} type The token type to skip until.
      */
     skipUntil(type) {
         while (this.lookahead && this.lookahead.type !== type) {
@@ -134,7 +134,7 @@ class AbstractLexer {
      * Checks if given value is identical to the given token.
      *
      * @param {*} value
-     * @param {int} token
+     * @param {int|string} token
      *
      * @returns {boolean}
      */
@@ -145,7 +145,7 @@ class AbstractLexer {
     /**
      * Moves the lookahead token forward.
      *
-     * @returns {Object|undefined} The next token or undefined if there are no more tokens ahead.
+     * @returns {Token|undefined} The next token or undefined if there are no more tokens ahead.
      */
     peek() {
         if (this._tokens[this._position + this._peek]) {
@@ -158,7 +158,7 @@ class AbstractLexer {
     /**
      * Peeks at the next token, returns it and immediately resets the peek.
      *
-     * @returns {Object|undefined} The next token or undefined if there are no more tokens ahead.
+     * @returns {Token|undefined} The next token or undefined if there are no more tokens ahead.
      */
     glimpse() {
         const peek = this.peek();
@@ -230,7 +230,7 @@ class AbstractLexer {
         ), 'g' + this.getModifiers());
 
         let match;
-        while (match = regex.exec(input)) {
+        while ((match = regex.exec(input))) {
             if (undefined === match[1] && undefined === match[2]) {
                 continue;
             }
@@ -240,7 +240,7 @@ class AbstractLexer {
 
             this._tokens.push({
                 value: holder.value,
-                type: type,
+                type,
                 position: match.index,
             });
         }
@@ -267,7 +267,7 @@ class AbstractLexer {
     /**
      * Lexical catchable patterns.
      *
-     * @returns {Array}
+     * @returns {string[]}
      *
      * @protected
      *
@@ -280,7 +280,7 @@ class AbstractLexer {
     /**
      * Lexical non-catchable patterns.
      *
-     * @returns {Array}
+     * @returns {string[]}
      *
      * @protected
      *
@@ -293,9 +293,9 @@ class AbstractLexer {
     /**
      * Retrieve token type. Also processes the token value if necessary.
      *
-     * @param {Jymfony.Lexer.ValueHolder} holder
+     * @param {Jymfony.Component.Lexer.ValueHolder} holder
      *
-     * @returns {int}
+     * @returns {int|string}
      *
      * @protected
      *

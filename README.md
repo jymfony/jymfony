@@ -45,6 +45,7 @@ As said, Jymfony is made of reusable Javascript components:
 - [@jymfony/kernel](https://github.com/jymfony/kernel)
 - [@jymfony/lexer](https://github.com/jymfony/lexer)
 - [@jymfony/logger](https://github.com/jymfony/logger)
+- [@jymfony/mime](https://github.com/jymfony/mime)
 - [@jymfony/options-resolver](https://github.com/jymfony/options-resolver)
 - [@jymfony/property-access](https://github.com/jymfony/property-access)
 - [@jymfony/routing](https://github.com/jymfony/routing)

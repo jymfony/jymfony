@@ -235,6 +235,8 @@ class ProgressIndicator {
      * Overwrites a previous message to the output.
      *
      * @param {string} message The message
+     *
+     * @private
      */
     _overwrite(message) {
         if (this._output.decorated) {

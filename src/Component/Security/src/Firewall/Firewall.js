@@ -1,6 +1,7 @@
-const EventSubscriberInterface = Jymfony.Component.EventDispatcher.EventSubscriberInterface;
+const EventSubscriberInterface = Jymfony.Contracts.EventDispatcher.EventSubscriberInterface;
 const AccessDeniedHttpException = Jymfony.Component.HttpFoundation.Exception.AccessDeniedHttpException;
 const Request = Jymfony.Component.HttpFoundation.Request;
+const Response = Jymfony.Component.HttpFoundation.Response;
 const Events = Jymfony.Component.HttpServer.Event.HttpServerEvents;
 const NullLogger = Jymfony.Component.Logger.NullLogger;
 const AuthenticationException = Jymfony.Component.Security.Exception.AuthenticationException;
@@ -25,7 +26,7 @@ class Firewall extends implementationOf(EventSubscriberInterface, TargetPathTrai
      * Constructor.
      *
      * @param {Jymfony.Component.Security.Firewall.FirewallMapInterface} map
-     * @param {Jymfony.Component.Security.Authentication.Token.Storage.TokenStorage} tokenStorage
+     * @param {Jymfony.Component.Security.Authentication.Token.Storage.TokenStorageInterface} tokenStorage
      * @param {Jymfony.Component.Security.Authentication.AuthenticationTrustResolverInterface} authenticationTrustResolver
      * @param {Jymfony.Component.Logger.LoggerInterface} [logger]
      */
@@ -38,7 +39,7 @@ class Firewall extends implementationOf(EventSubscriberInterface, TargetPathTrai
         this._map = map;
 
         /**
-         * @type {Jymfony.Component.Security.Authentication.Token.Storage.TokenStorage}
+         * @type {Jymfony.Component.Security.Authentication.Token.Storage.TokenStorageInterface}
          *
          * @private
          */
@@ -107,11 +108,11 @@ class Firewall extends implementationOf(EventSubscriberInterface, TargetPathTrai
         let exception = event.exception;
         do {
             if (exception instanceof AuthenticationException) {
-                return await this._handleAuthenticationException(event, exception);
+                return await this._handleAuthenticationException(event, firewallConfig, exception);
             } else if (exception instanceof AccessDeniedException) {
                 return await this._handleAccessDeniedException(event, firewallConfig, exception);
             } else if (exception instanceof LogoutException) {
-                return await this._handleLogoutException(exception);
+                return await this._handleLogoutException(event, exception);
             }
         } while ((exception = exception.previous));
     }
@@ -119,18 +120,19 @@ class Firewall extends implementationOf(EventSubscriberInterface, TargetPathTrai
     /**
      * Handles an AuthenticationException.
      *
-     * @param {Jymfony.Component.HttpServer.Event.GetResponseEvent} event
+     * @param {Jymfony.Component.HttpServer.Event.GetResponseForExceptionEvent} event
+     * @param {Jymfony.Component.Security.Firewall.FirewallConfig} config
      * @param {Jymfony.Component.Security.Exception.AuthenticationException} exception
      *
      * @returns {Promise<void>}
      *
      * @protected
      */
-    async _handleAuthenticationException(event, exception) {
+    async _handleAuthenticationException(event, config, exception) {
         this._logger.info('An AuthenticationException was thrown; redirecting to authentication entry point.', { exception: exception });
 
         try {
-            event.response = this._startAuthentication(event.request, exception);
+            event.response = this._startAuthentication(event.request, config, exception);
             event.allowCustomResponseCode();
         } catch (e) {
             event.exception = e;
@@ -140,8 +142,8 @@ class Firewall extends implementationOf(EventSubscriberInterface, TargetPathTrai
     /**
      * Handles a logout exception.
      *
-     * @param {Jymfony.Component.HttpServer.Event.GetResponseEvent} event
-     * @param {Jymfony.Component.Security.Exception.AuthenticationException} exception
+     * @param {Jymfony.Component.HttpServer.Event.GetResponseForExceptionEvent} event
+     * @param {Jymfony.Component.Security.Exception.LogoutException} exception
      *
      * @returns {Promise<void>}
      *

@@ -14,7 +14,7 @@ class BoundFunction {
      * @param {Object} thisArg
      * @param {Function|GeneratorFunction} func
      *
-     * @returns {Function}
+     * @returns {Function|GeneratorFunction}
      */
     constructor(thisArg, func) {
         if (! isFunction(func)) {

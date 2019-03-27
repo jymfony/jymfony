@@ -29,7 +29,7 @@ class HttpServer extends BaseServer {
     /**
      * Constructor.
      *
-     * @param {Jymfony.Component.EventDispatcher.EventDispatcherInterface} dispatcher
+     * @param {Jymfony.Contracts.EventDispatcher.EventDispatcherInterface} dispatcher
      * @param {Jymfony.Component.HttpFoundation.Controller.ControllerResolverInterface} resolver
      * @param {Object} serverOptions
      */
@@ -116,6 +116,10 @@ class HttpServer extends BaseServer {
      * @protected
      */
     async _handleRequest(stream, headers) {
+        stream.on('error', (err) => {
+            this._logger.error('Request encountered an error', { exception: err });
+        });
+
         const contentType = new ContentType(headers[HTTP2_HEADER_CONTENT_TYPE] || 'application/x-www-form-urlencoded');
         let requestParams, content;
 
@@ -191,7 +195,7 @@ class HttpServer extends BaseServer {
      *
      * @returns {Promise<void>}
      *
-     * @private
+     * @protected
      */
     async _incomingRequest(req, res) {
         if (__jymfony.version_compare(req.httpVersion, '2.0', '>=')) {

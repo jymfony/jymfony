@@ -51,6 +51,8 @@ class Doubler {
      * Adds an interface to be implemented by the double.
      *
      * @param {Function} interface_
+     *
+     * @returns {Jymfony.Component.Testing.Double.Doubler}
      */
     addInterface(interface_) {
         if (undefined !== this._instance) {
@@ -60,6 +62,8 @@ class Doubler {
         if (-1 === this._interfaces.indexOf(interface_)) {
             this._interfaces.push(interface_);
         }
+
+        return this;
     }
 
     /**

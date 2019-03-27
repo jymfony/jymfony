@@ -36,6 +36,8 @@ class Exception extends Error {
 
         /**
          * @type {string}
+         *
+         * @private
          */
         this._message = message;
 

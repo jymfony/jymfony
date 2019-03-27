@@ -119,6 +119,7 @@ class QuestionBuilder {
      * to the Application.
      *
      * @param validator
+     *
      * @returns {Jymfony.Component.Console.Question.Builder.QuestionBuilder}
      */
     setValidator(validator) {

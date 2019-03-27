@@ -1,5 +1,5 @@
 const FlattenException = Jymfony.Component.Debug.Exception.FlattenException;
-const EventSubscriberInterface = Jymfony.Component.EventDispatcher.EventSubscriberInterface;
+const EventSubscriberInterface = Jymfony.Contracts.EventDispatcher.EventSubscriberInterface;
 const Events = Jymfony.Component.HttpServer.Event.HttpServerEvents;
 const HttpExceptionInterface = Jymfony.Component.HttpFoundation.Exception.HttpExceptionInterface;
 const NotFoundHttpException = Jymfony.Component.HttpFoundation.Exception.NotFoundHttpException;
@@ -46,7 +46,7 @@ class ExceptionListener extends implementationOf(EventSubscriberInterface) {
      *
      * @param {Jymfony.Component.HttpServer.Event.GetResponseForExceptionEvent} event
      * @param {string} eventName
-     * @param {Jymfony.Component.EventDispatcher.EventDispatcherInterface} eventDispatcher
+     * @param {Jymfony.Contracts.EventDispatcher.EventDispatcherInterface} eventDispatcher
      *
      * @returns {Promise<void>}
      */

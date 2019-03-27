@@ -1,3 +1,4 @@
+const Container = Jymfony.Component.DependencyInjection.Container;
 const Definition = Jymfony.Component.DependencyInjection.Definition;
 
 /**
@@ -7,17 +8,17 @@ class ChildDefinition extends Definition {
     /**
      * Constructor.
      *
-     * @param {Jymfony.Component.DependencyInjection.Definition} parent
+     * @param {*} parent
      */
     __construct(parent) {
         super.__construct();
 
         /**
-         * @type {Jymfony.Component.DependencyInjection.Definition}
+         * @type {string}
          *
          * @private
          */
-        this._parent = parent;
+        this._parent = Container.normalizeId(parent);
 
         /**
          * @type {Object}

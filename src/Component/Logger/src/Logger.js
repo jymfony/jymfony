@@ -1,4 +1,5 @@
 const DateTime = Jymfony.Component.DateTime.DateTime;
+const EventSubscriberInterface = Jymfony.Contracts.EventDispatcher.EventSubscriberInterface;
 const AbstractLogger = Jymfony.Component.Logger.AbstractLogger;
 const LogicException = Jymfony.Component.Logger.Exception.LogicException;
 const LogLevel = Jymfony.Component.Logger.LogLevel;
@@ -6,7 +7,7 @@ const LogLevel = Jymfony.Component.Logger.LogLevel;
 /**
  * @memberOf Jymfony.Component.Logger
  */
-class Logger extends AbstractLogger {
+class Logger extends mix(AbstractLogger, EventSubscriberInterface, __jymfony.ClsTrait) {
     /**
      * Construct the logger
      *
@@ -137,7 +138,7 @@ class Logger extends AbstractLogger {
     /**
      * Pops out a processor off the stack.
      *
-     * @returns {Jymfony.Component.Logger.Handler.HandlerInterface}
+     * @returns {Function}
      *
      * @throws {Jymfony.Component.Logger.Exception.LogicException}
      */
@@ -168,7 +169,8 @@ class Logger extends AbstractLogger {
      * @returns {boolean}
      */
     addRecord(level, message, context = {}) {
-        const levelName = this.constructor.levels[level];
+        /** @var {string} levelName */
+        const levelName = __self.levels[level];
 
         const it = __jymfony.getEntries(this._handlers);
         let handlerKey, handler, current;
@@ -186,7 +188,7 @@ class Logger extends AbstractLogger {
 
         let record = {
             message: message,
-            context: context,
+            context: Object.assign({}, this._activeContext, context),
             level: level,
             level_name: levelName,
             channel: this._name,
@@ -314,7 +316,7 @@ class Logger extends AbstractLogger {
         const it = __jymfony.getEntries(this._handlers);
         let handler;
 
-        while (handler = it.value[1]) {
+        while ((handler = it.value[1])) {
             if (handler.isHandling(record)) {
                 return true;
             }
@@ -332,6 +334,18 @@ class Logger extends AbstractLogger {
      */
     log(level, message, context = {}) {
         this.addRecord(level, message.toString(), context);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    static getSubscribedEvents() {
+        return {
+            'console.command': [ '_onConsoleCommand', 1024 ],
+            'console.terminate': [ '_onConsoleTerminate', -1024 ],
+            'http.request': [ '_onHttpRequest', 1024 ],
+            'http.finish_request': [ '_onHttpFinishRequest', -1024 ],
+        };
     }
 }
 

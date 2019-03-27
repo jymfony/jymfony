@@ -67,14 +67,14 @@ class Terminal {
      * @returns {int}
      */
     get width() {
-        return process.env.COLUMNS || process.stdout.columns || 80;
+        return ~~process.env.COLUMNS || process.stdout.columns || 80;
     }
 
     /**
      * @returns {int}
      */
     get height() {
-        return process.env.LINES || process.stdout.rows || 50;
+        return ~~process.env.LINES || process.stdout.rows || 50;
     }
 }
 

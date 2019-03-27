@@ -20,7 +20,7 @@ class AuthenticationProviderManager extends implementationOf(AuthenticationManag
      * @param {Jymfony.Component.Security.Authentication.Provider.AuthenticationProviderInterface[]} providers An iterable with AuthenticationProviderInterface instances as values
      * @param {boolean} [eraseCredentials = true] Whether to erase credentials after authentication or not
      *
-     * @throws InvalidArgumentException
+     * @throws {InvalidArgumentException}
      */
     __construct(providers, eraseCredentials = true) {
         if (! isArray(providers)) {
@@ -46,7 +46,7 @@ class AuthenticationProviderManager extends implementationOf(AuthenticationManag
         this._eraseCredentials = eraseCredentials;
 
         /**
-         * @type {Jymfony.Component.EventDispatcher.EventDispatcherInterface}
+         * @type {Jymfony.Contracts.EventDispatcher.EventDispatcherInterface}
          *
          * @private
          */
@@ -56,7 +56,7 @@ class AuthenticationProviderManager extends implementationOf(AuthenticationManag
     /**
      * Inject an event dispatcher.
      *
-     * @param {Jymfony.Component.EventDispatcher.EventDispatcherInterface} dispatcher
+     * @param {Jymfony.Contracts.EventDispatcher.EventDispatcherInterface} dispatcher
      */
     setEventDispatcher(dispatcher) {
         this._eventDispatcher = dispatcher;
@@ -79,7 +79,7 @@ class AuthenticationProviderManager extends implementationOf(AuthenticationManag
             }
 
             try {
-                result = await provider.authenticate(token);
+                result = await provider.authenticate(token) || null;
 
                 if (null !== result) {
                     break;

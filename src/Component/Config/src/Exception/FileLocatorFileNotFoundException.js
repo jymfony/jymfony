@@ -5,11 +5,12 @@
  */
 class FileLocatorFileNotFoundException extends InvalidArgumentException {
     /**
+     * Constructor.
+     *
      * @param {string} [message = '']
      * @param {null|int} [code = null]
      * @param {Exception} [previous]
      * @param {string[]} [paths = []]
-     * @private
      */
     __construct(message = '', code = null, previous = undefined, paths = []) {
         super.__construct(message, code, previous);

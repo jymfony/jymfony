@@ -8,7 +8,7 @@ global.__jymfony = global.__jymfony || {};
  *
  * @returns {Object|boolean}
  */
-const diffKey = function (arr1, ...arrays) {
+const diffKey = (arr1, ...arrays) => {
     const inArrays = key => {
         for (const array of arrays) {
             if (key in array) {

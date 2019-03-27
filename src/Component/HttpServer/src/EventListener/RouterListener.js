@@ -1,4 +1,4 @@
-const EventSubscriberInterface = Jymfony.Component.EventDispatcher.EventSubscriberInterface;
+const EventSubscriberInterface = Jymfony.Contracts.EventDispatcher.EventSubscriberInterface;
 const NotFoundHttpException = Jymfony.Component.HttpFoundation.Exception.NotFoundHttpException;
 const MethodNotAllowedHttpException = Jymfony.Component.HttpFoundation.Exception.MethodNotAllowedHttpException;
 const Events = Jymfony.Component.HttpServer.Event.HttpServerEvents;

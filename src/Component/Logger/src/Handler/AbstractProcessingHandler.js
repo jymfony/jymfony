@@ -39,6 +39,7 @@ class AbstractProcessingHandler extends mix(
      *
      * @param {*} record
      *
+     * @protected
      * @abstract
      */
     _write(record) { // eslint-disable-line no-unused-vars

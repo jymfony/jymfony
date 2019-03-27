@@ -9,6 +9,7 @@ container.register('jymfony.logger_prototype', Jymfony.Component.Logger.Logger)
     .addArgument(undefined)
     .addArgument([])
     .addArgument([ new Reference('jymfony.logger.processor.message_processor') ])
+    .addTag('kernel.event_subscriber')
 ;
 
 container.register('jymfony.logger.formatter.json', Jymfony.Component.Logger.Formatter.JsonFormatter);

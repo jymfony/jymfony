@@ -59,7 +59,7 @@ class SessionStorageInterface {
      *                             to expire with browser session. Time is in seconds, and is
      *                             not a Unix timestamp.
      *
-     * @returns {Promise<boolean>} True if session regenerated, false if error
+     * @returns {Promise<void>}
      *
      * @throws {RuntimeException} If an error occurs while regenerating this storage
      */

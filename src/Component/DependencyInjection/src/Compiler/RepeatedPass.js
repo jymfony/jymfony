@@ -45,7 +45,7 @@ class RepeatedPass extends implementationOf(CompilerPassInterface) {
     /**
      * Returns the passes.
      *
-     * @returns {Jymfony.Component.DependencyInjection.Compiler.RepeatablePassInterface[]}
+     * @returns {Jymfony.Component.DependencyInjection.Compiler.CompilerPassInterface[]}
      */
     getPasses() {
         return this._passes;
