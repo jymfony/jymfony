@@ -4,4 +4,6 @@
  * of a jymfony project.
  */
 
-/// <reference lib="es2015" />
+/// <reference path="EventDispatcher/Event.d.ts" />
+/// <reference path="EventDispatcher/EventDispatcherInterface.d.ts" />
+/// <reference path="EventDispatcher/EventSubscriberInterface.d.ts" />

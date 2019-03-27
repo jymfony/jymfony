@@ -1,5 +1,5 @@
-DependencyInjection Component
-=============================
+Contracts
+=========
 
 Work in progress
 
