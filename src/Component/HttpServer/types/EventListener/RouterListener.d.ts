@@ -3,7 +3,7 @@ declare namespace Jymfony.Component.HttpServer.EventListener {
     import LoggerInterface = Jymfony.Component.Logger.LoggerInterface;
     import MatcherInterface = Jymfony.Component.Routing.Matcher.MatcherInterface;
     import GetResponseEvent = Jymfony.Component.HttpServer.Event.GetResponseEvent;
-    import EventSubscriptions = Jymfony.Component.EventDispatcher.EventSubscriptions;
+    import EventSubscriptions = Jymfony.Contracts.EventDispatcher.EventSubscriptions;
 
     export class RouterListener extends implementationOf(EventSubscriberInterface) {
         /**

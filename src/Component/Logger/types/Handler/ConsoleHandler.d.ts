@@ -2,7 +2,7 @@ declare namespace Jymfony.Component.Logger.Handler {
     import ConsoleCommandEvent = Jymfony.Component.Console.Event.ConsoleCommandEvent;
     import OutputInterface = Jymfony.Component.Console.Output.OutputInterface;
     import EventSubscriberInterface = Jymfony.Contracts.EventDispatcher.EventSubscriberInterface;
-    import EventSubscriptions = Jymfony.Component.EventDispatcher.EventSubscriptions;
+    import EventSubscriptions = Jymfony.Contracts.EventDispatcher.EventSubscriptions;
     import FormatterInterface = Jymfony.Component.Logger.Formatter.FormatterInterface;
 
     export class ConsoleHandler extends mix(AbstractProcessingHandler, EventSubscriberInterface) {

@@ -1,5 +1,3 @@
-/// <reference lib="es2015" />
-
 declare namespace __jymfony {
     export class Async {
         /**

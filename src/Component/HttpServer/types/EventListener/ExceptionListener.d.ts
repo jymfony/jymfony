@@ -4,7 +4,7 @@ declare namespace Jymfony.Component.HttpServer.EventListener {
     import LoggerInterface = Jymfony.Component.Logger.LoggerInterface;
     import Request = Jymfony.Component.HttpFoundation.Request;
     import GetResponseForExceptionEvent = Jymfony.Component.HttpServer.Event.GetResponseForExceptionEvent;
-    import EventSubscriptions = Jymfony.Component.EventDispatcher.EventSubscriptions;
+    import EventSubscriptions = Jymfony.Contracts.EventDispatcher.EventSubscriptions;
 
     export class ExceptionListener extends implementationOf(EventSubscriberInterface) {
         private _controller: Invokable<any> | string;

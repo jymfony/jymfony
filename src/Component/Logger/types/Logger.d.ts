@@ -1,12 +1,14 @@
 declare namespace Jymfony.Component.Logger {
     import DateTimeZone = Jymfony.Component.DateTime.DateTimeZone;
     import HandlerInterface = Jymfony.Component.Logger.Handler.HandlerInterface;
+    import EventSubscriberInterface = Jymfony.Contracts.EventDispatcher.EventSubscriberInterface;
+    import EventSubscriptions = Jymfony.Contracts.EventDispatcher.EventSubscriptions;
 
     type InvokableProcessor = (record: LogRecord) => LogRecord | {
         __invoke(record: LogRecord): LogRecord;
     };
 
-    export class Logger extends AbstractLogger {
+    export class Logger extends mix(AbstractLogger, EventSubscriberInterface, __jymfony.ClsTrait) {
         public static readonly levels: Record<LogLevel, string>;
 
         public readonly name: string;
@@ -107,5 +109,10 @@ declare namespace Jymfony.Component.Logger {
          * Adds a record to the log.
          */
         log(level: number, message: string, context: Record<string, any>): void;
+
+        /**
+         * @inheritdoc
+         */
+        static getSubscribedEvents(): EventSubscriptions;
     }
 }

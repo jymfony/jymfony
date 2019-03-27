@@ -3,7 +3,7 @@ declare namespace Jymfony.Component.HttpServer.EventListener {
     import GetResponseEvent = Jymfony.Component.HttpServer.Event.GetResponseEvent;
     import FilterResponseEvent = Jymfony.Component.HttpServer.Event.FilterResponseEvent;
     import SessionInterface = Jymfony.Component.HttpFoundation.Session.SessionInterface;
-    import EventSubscriptions = Jymfony.Component.EventDispatcher.EventSubscriptions;
+    import EventSubscriptions = Jymfony.Contracts.EventDispatcher.EventSubscriptions;
 
     /**
      * Sets the session onto the request on the "kernel.request" event and saves
