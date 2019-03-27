@@ -1,6 +1,6 @@
 {
   "name": "@jymfony/console",
-  "version": "0.1.0-alpha.13",
+  "version": "0.1.0-alpha.14",
   "description": "Jymfony Console component",
   "main": "src/Application.js",
   "typings": "types/index.d.ts",
@@ -17,10 +17,10 @@
     "node": ">=8.10.0"
   },
   "dependencies": {
-    "@jymfony/autoloader": "0.1.0-alpha.13",
-    "@jymfony/contracts": "https://github.com/jymfony/contracts.git",
-    "@jymfony/exceptions": "0.1.0-alpha.13",
-    "@jymfony/util": "0.1.0-alpha.13"
+    "@jymfony/autoloader": "0.1.0-alpha.14",
+    "@jymfony/contracts": "0.1.0-alpha.14",
+    "@jymfony/exceptions": "0.1.0-alpha.14",
+    "@jymfony/util": "0.1.0-alpha.14"
   },
   "devDependencies": {
     "@jymfony/event-dispatcher": "*",
