@@ -58,7 +58,7 @@ class ClsTrait {
         this._contextSet.push(this._activeContext);
         this._consoleContext = this._activeContext = Object.create(this._activeContext);
 
-        this._activeContext[Symbol.for('command')] = event.command;
+        this._activeContext[__self.COMMAND_SYMBOL] = event.command;
     }
 
     /**
@@ -92,7 +92,7 @@ class ClsTrait {
 
         this._contextSet.push(this._activeContext);
         this._requestContexts.set(request, this._activeContext = Object.create(this._activeContext));
-        this._activeContext[Symbol.for('request')] = request;
+        this._activeContext[__self.REQUEST_SYMBOL] = request;
     }
 
     /**
@@ -160,5 +160,8 @@ class ClsTrait {
         });
     }
 }
+
+ClsTrait.COMMAND_SYMBOL = Symbol.for('command');
+ClsTrait.REQUEST_SYMBOL = Symbol.for('request');
 
 __jymfony.ClsTrait = getTrait(ClsTrait);

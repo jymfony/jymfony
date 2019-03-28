@@ -64,6 +64,7 @@
         "Jymfony.Component.PropertyAccess": "src/Component/PropertyAccess/src",
         "Jymfony.Component.Routing": "src/Component/Routing/src",
         "Jymfony.Component.Security": "src/Component/Security/src",
+        "Jymfony.Component.Stopwatch": "src/Component/Stopwatch/src",
         "Jymfony.Component.Templating": "src/Component/Templating/src",
         "Jymfony.Component.Testing": "src/Component/Testing/src",
         "Jymfony.Contracts": "src/Contracts/src"

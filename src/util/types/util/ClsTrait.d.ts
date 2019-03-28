@@ -5,6 +5,8 @@ declare namespace __jymfony {
 
     export class ClsTrait implements MixinInterface {
         public static readonly definition: Newable<ClsTrait>;
+        public static readonly COMMAND_SYMBOL: symbol;
+        public static readonly REQUEST_SYMBOL: symbol;
 
         private _currentUid: number;
         private _activeContext: any;
