@@ -9,16 +9,20 @@ class DebugLoggerInterface {
      * timestamp, message, priority, and priorityName.
      * It can also have an optional context key containing an array.
      *
+     * @param {Jymfony.Component.Console.Command.Command|Jymfony.Component.HttpFoundation.Request} subject
+     *
      * @returns {Array} An array of logs
      */
-    get logs() { }
+    getLogs(subject) { }
 
     /**
      * Returns the number of errors.
      *
+     * @param {Jymfony.Component.Console.Command.Command|Jymfony.Component.HttpFoundation.Request} subject
+     *
      * @returns {int} The number of errors
      */
-    get countErrors() { }
+    countErrors(subject) { }
 
     /**
      * Removes all log records.

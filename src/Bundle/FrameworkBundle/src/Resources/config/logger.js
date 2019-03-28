@@ -4,7 +4,7 @@ const Reference = Jymfony.Component.DependencyInjection.Reference;
 
 container.register('jymfony.logger.processor.message_processor', Jymfony.Component.Logger.Processor.MessageProcessor);
 
-container.register('jymfony.logger_prototype', Jymfony.Component.Logger.Logger)
+container.register('jymfony.logger_prototype', Jymfony.Component.Kernel.Log.Logger)
     .setAbstract(true)
     .addArgument(undefined)
     .addArgument([])

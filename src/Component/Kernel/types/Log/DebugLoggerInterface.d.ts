@@ -1,4 +1,7 @@
 declare namespace Jymfony.Component.Kernel.Log {
+    import Command = Jymfony.Component.Console.Command.Command;
+    import Request = Jymfony.Component.HttpFoundation.Request;
+
     interface Log {
         timestamp: number;
         message: string;
@@ -18,14 +21,14 @@ declare namespace Jymfony.Component.Kernel.Log {
          *
          * @returns An array of logs
          */
-        public readonly logs: Log[];
+        getLogs(subject: Command | Request): Log[];
 
         /**
          * Returns the number of errors.
          *
          * @returns The number of errors
          */
-        public readonly countErrors: number;
+        countErrors(subject: Command | Request): number;
 
         /**
          * Removes all log records.
