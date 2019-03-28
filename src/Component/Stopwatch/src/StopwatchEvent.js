@@ -11,7 +11,7 @@ class StopwatchEvent {
      * Constructor.
      *
      * @param {number} origin The origin time in milliseconds
-     * @param {string|null} category The event category or null to use the default
+     * @param {string|null} [category] The event category or null to use the default
      *
      * @throws {InvalidArgumentException} When the raw time is not valid
      */
@@ -23,6 +23,11 @@ class StopwatchEvent {
          */
         this._periods = [];
 
+        /**
+         * @type {number}
+         *
+         * @private
+         */
         this._origin = this._formatTime(origin);
 
         /**

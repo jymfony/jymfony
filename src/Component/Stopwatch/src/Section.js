@@ -10,7 +10,7 @@ class Section {
     /**
      * Constructor.
      *
-     * @param {number|null} origin Set the origin of the events in this section, use null to set their origin to their start time
+     * @param {number|null} [origin] Set the origin of the events in this section, use null to set their origin to their start time
      */
     __construct(origin = null) {
         /**

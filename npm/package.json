@@ -28,6 +28,7 @@
     "@jymfony/cache": "0.1.0-dev",
     "@jymfony/config": "0.1.0-dev",
     "@jymfony/console": "0.1.0-dev",
+    "@jymfony/contracts": "0.1.0-dev",
     "@jymfony/datetime": "0.1.0-dev",
     "@jymfony/datastructure": "0.1.0-dev",
     "@jymfony/debug": "0.1.0-dev",
@@ -47,6 +48,7 @@
     "@jymfony/routing": "0.1.0-dev",
     "@jymfony/security": "0.1.0-dev",
     "@jymfony/security-bundle": "0.1.0-dev",
+    "@jymfony/stopwatch": "0.1.0-dev",
     "@jymfony/testing": "0.1.0-dev",
     "@jymfony/util": "0.1.0-dev"
   },

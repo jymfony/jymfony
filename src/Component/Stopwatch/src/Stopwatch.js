@@ -34,7 +34,7 @@ class Stopwatch extends implementationOf(EventSubscriberInterface, ClsTrait) {
     /**
      * Gets the sections for the given subject.
      *
-     * @param {string|Jymfony.Component.HttpFoundation.Request|Jymfony.Component.Console.Command.Command} subject
+     * @param {string|Jymfony.Component.HttpFoundation.Request|Jymfony.Component.Console.Command.Command} [subject]
      *
      * @return Jymfony.Component.Stopwatch.Section[]
      */
@@ -49,7 +49,7 @@ class Stopwatch extends implementationOf(EventSubscriberInterface, ClsTrait) {
     /**
      * Creates a new section or re-opens an existing section.
      *
-     * @param {string|null} id The id of the session to re-open, null to create a new one
+     * @param {string|null} [id] The id of the session to re-open, null to create a new one
      *
      * @throws {LogicException} When the section to re-open is not reachable
      */
@@ -94,7 +94,7 @@ class Stopwatch extends implementationOf(EventSubscriberInterface, ClsTrait) {
      * Starts an event.
      *
      * @param {string} name The event name
-     * @param {string|null} category The event category
+     * @param {string|null} [category] The event category
      *
      * @returns {Jymfony.Component.Stopwatch.StopwatchEvent}
      */
