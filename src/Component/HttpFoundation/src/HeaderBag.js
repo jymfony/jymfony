@@ -213,7 +213,8 @@ class HeaderBag {
         return this.get('cookie', '')
             .split('; ')
             .map(str => str.split('=', 2))
-            .reduce((res, val) => (res[val[0]] = val[1], res), {});
+            .reduce((res, val) => ((val[1] ? res[val[0]] = val[1] : undefined), res), {})
+        ;
     }
 
     /**
