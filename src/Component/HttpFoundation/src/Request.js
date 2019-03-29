@@ -273,7 +273,7 @@ class Request {
      * @returns {Jymfony.Component.HttpFoundation.Request}
      */
     duplicate(url = undefined, request = undefined, attributes = undefined, headers = undefined, server = undefined) {
-        const dup = __jymfony.deepClone(this);
+        const dup = __jymfony.clone(this);
 
         if (undefined !== url) {
             dup._url = urlModule.parse(url);
