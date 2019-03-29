@@ -77,6 +77,12 @@ class Interfaces {
      */
     static _createHasInstance(mixin) {
         return o => {
+            if (null === o || undefined === o) {
+                return false;
+            } else if (o.__self__) {
+                o = o.__self__;
+            }
+
             if (! isObject(o)) {
                 return false;
             }

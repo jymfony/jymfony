@@ -135,6 +135,10 @@ class Autoloader {
                 if (undefined !== this.__invoke) {
                     return new Proxy(self.__invoke, {
                         get: (target, key) => {
+                            if ('__self__' === key) {
+                                return self;
+                            }
+
                             return Reflect.get(self, key);
                         },
                         set: (target, key, value) => {
