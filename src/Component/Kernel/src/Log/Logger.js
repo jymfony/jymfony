@@ -32,11 +32,33 @@ class Logger extends mix(BaseLogger, DebugLoggerInterface) {
     /**
      * @inheritdoc
      */
-    clear() {
+    clear(subject = null) {
         const logger = this._getDebugLogger();
         if (logger) {
-            logger.clear();
+            logger.clear(subject);
         }
+    }
+
+    /**
+     * Called on http server request finish.
+     *
+     * @param {Jymfony.Component.HttpServer.Event.FinishRequestEvent} event
+     */
+    onFinishHttpRequest(event) {
+        this.clear(event.request);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    static getSubscribedEvents() {
+        const events = BaseLogger.getSubscribedEvents();
+        events['http.finish_request'] = [
+            events['http.finish_request'],
+            [ 'onFinishHttpRequest', 25000 ],
+        ];
+
+        return events;
     }
 
     /**

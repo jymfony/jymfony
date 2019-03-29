@@ -17,7 +17,7 @@ declare namespace Jymfony.Component.Kernel.Log {
         /**
          * @inheritdoc
          */
-        clear(): void;
+        clear(subject?: Command | Request): void;
 
         /**
          * Returns a DebugLoggerInterface instance if one is registered with this logger.

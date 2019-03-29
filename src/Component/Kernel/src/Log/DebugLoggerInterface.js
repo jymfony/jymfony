@@ -25,9 +25,11 @@ class DebugLoggerInterface {
     countErrors(subject) { }
 
     /**
-     * Removes all log records.
+     * Removes all log records (optionally filtered).
+     *
+     * @param {Jymfony.Component.Console.Command.Command|Jymfony.Component.HttpFoundation.Request} subject
      */
-    clear() { }
+    clear(subject = null) { }
 }
 
 module.exports = getInterface(DebugLoggerInterface);

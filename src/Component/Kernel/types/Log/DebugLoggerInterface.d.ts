@@ -31,8 +31,8 @@ declare namespace Jymfony.Component.Kernel.Log {
         countErrors(subject: Command | Request): number;
 
         /**
-         * Removes all log records.
+         * Removes all log records (optionally filtered).
          */
-        clear(): void;
+        clear(subject?: Command | Request): void;
     }
 }
