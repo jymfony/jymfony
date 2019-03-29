@@ -86,7 +86,7 @@ class Interfaces {
                 return false;
             }
 
-            return -1 != mixins.indexOf(mixin);
+            return -1 !== mixins.indexOf(mixin);
         };
     }
 }

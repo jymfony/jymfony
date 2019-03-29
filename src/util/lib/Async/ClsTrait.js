@@ -58,7 +58,7 @@ class ClsTrait {
         this._contextSet.push(this._activeContext);
         this._consoleContext = this._activeContext = Object.create(this._activeContext);
 
-        this._activeContext[__self.COMMAND_SYMBOL] = event.command;
+        this._activeContext[ClsTrait.COMMAND_SYMBOL] = event.command;
     }
 
     /**
@@ -92,7 +92,7 @@ class ClsTrait {
 
         this._contextSet.push(this._activeContext);
         this._requestContexts.set(request, this._activeContext = Object.create(this._activeContext));
-        this._activeContext[__self.REQUEST_SYMBOL] = request;
+        this._activeContext[ClsTrait.REQUEST_SYMBOL] = request;
     }
 
     /**

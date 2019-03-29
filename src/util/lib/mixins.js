@@ -57,7 +57,7 @@ global.mix = function mix(superclass, ...mixins) {
                 definition = Object.getPrototypeOf(definition);
             }
         }
-    })());
+    })()).concat(...(superclass[Mixins.appliedInterfacesSymbol] || []));
 
     const mixed = (s => {
         const mixin = class extends s {};

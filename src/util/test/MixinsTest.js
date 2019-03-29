@@ -133,6 +133,19 @@ describe('Mixins.getInterface', function () {
             expect(o).to.be.instanceOf(iTest) &&
             expect(o).to.be.instanceOf(iTest2);
     });
+
+    it('should inherit interfaces from parent classes', () => {
+        const iTest = getInterface(class TestInterface {});
+        const iTest2 = getInterface(class Test2Interface {});
+
+        class Foo extends implementationOf(iTest) {}
+        class FooBar extends mix(Foo, iTest2) {}
+
+        const o = new FooBar();
+        expect(o).to.be.instanceOf(FooBar);
+        expect(o).to.be.instanceOf(iTest2);
+        expect(o).to.be.instanceOf(iTest);
+    });
 });
 
 describe('Mixins.getTrait', function () {
