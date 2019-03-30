@@ -79,7 +79,7 @@ class Interfaces {
         return o => {
             if (null === o || undefined === o) {
                 return false;
-            } else if (o.__self__) {
+            } else if (Object.prototype.hasOwnProperty.call(o, '__self__')) {
                 o = o.__self__;
             }
 
