@@ -29,6 +29,14 @@ container.register('jymfony.logger.handler_prototype.stream', Jymfony.Component.
     .setAbstract(true)
 ;
 
+container.register('jymfony.logger.handler_prototype.null', Jymfony.Component.Logger.Handler.NullHandler)
+    .setArguments([
+        Jymfony.Component.Logger.LogLevel.DEBUG,
+        true,
+    ])
+    .setAbstract(true)
+;
+
 container.register('jymfony.logger.handler_prototype.console', Jymfony.Component.Logger.Handler.ConsoleHandler)
     .setArguments([
         undefined,

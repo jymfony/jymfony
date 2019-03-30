@@ -33,7 +33,7 @@ class DebugProcessor extends implementationOf(DebugLoggerInterface) {
      * @returns {Jymfony.Component.Logger.LogRecord}
      */
     __invoke(record) {
-        const subject = record[ClsTrait.REQUEST_SYMBOL] || record[ClsTrait.COMMAND_SYMBOL];
+        const subject = record.context[ClsTrait.REQUEST_SYMBOL] || record.context[ClsTrait.COMMAND_SYMBOL];
         if (! subject) {
             return record;
         }
