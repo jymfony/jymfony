@@ -178,6 +178,10 @@ class Autoloader {
                             return Reflect.preventExtensions(self);
                         },
                         getOwnPropertyDescriptor: (target, key) => {
+                            if ('__self__' === key) {
+                                return { configurable: true, enumerable: false };
+                            }
+
                             return Reflect.getOwnPropertyDescriptor(self, key);
                         },
                     });
