@@ -32,6 +32,7 @@ container.register(Jymfony.Component.HttpServer.EventListener.RouterListener)
     .addTag('jymfony.logger', { channel: 'request' })
     .addArgument(new Reference('router'))
     .addArgument(new Reference('logger', Container.IGNORE_ON_INVALID_REFERENCE))
+    .addArgument('%kernel.project_dir%')
     .addArgument('%kernel.debug%')
 ;
 
