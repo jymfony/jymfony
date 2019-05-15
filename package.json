@@ -67,6 +67,7 @@
         "Jymfony.Component.Stopwatch": "src/Component/Stopwatch/src",
         "Jymfony.Component.Templating": "src/Component/Templating/src",
         "Jymfony.Component.Testing": "src/Component/Testing/src",
+        "Jymfony.Component.VarExporter": "src/Component/VarExporter/src",
         "Jymfony.Contracts": "src/Contracts/src"
       },
       "includes": [

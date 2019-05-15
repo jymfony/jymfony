@@ -139,6 +139,11 @@ Jymfony = {
          * @namespace
          */
         Testing: {},
+
+        /**
+         * @namespace
+         */
+        VarExporter: {},
     },
 
     /**

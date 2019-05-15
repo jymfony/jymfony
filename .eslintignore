@@ -1,3 +1,4 @@
 src/Component/DependencyInjection/fixtures/js
 src/Component/Templating/fixtures
+src/Component/VarExporter/fixtures
 src/**/*Interface.js
