@@ -1,6 +1,18 @@
 /// <reference types="node" />
 
 declare class ReflectionClass<T = any> {
+    private _isInterface: boolean;
+    private _methods: any;
+    private _staticMethods: any;
+    private _readableProperties: any;
+    private _writableProperties: any;
+    private _properties: any;
+    private _constants: any;
+    private _fields: any;
+    private _staticFields: any;
+    private _interfaces: any[];
+    private _docblock: any;
+
     /**
      * Constructor.
      */
@@ -56,6 +68,17 @@ declare class ReflectionClass<T = any> {
      * Checks if class has writable property (setter).
      */
     hasWritableProperty(name: string|symbol): boolean;
+
+
+    /**
+     * Checks if class has defined the given class field.
+     */
+    hasField(name: string): boolean;
+
+    /**
+     * Gets the reflection field instance for a given field name.
+     */
+    getField(name: string): ReflectionField;
 
     /**
      * Gets the property descriptor.
@@ -182,6 +205,62 @@ declare class ReflectionMethod {
      * Docblock.
      */
     readonly docblock: string;
+}
+
+/**
+ * Reflection utility for class field.
+ */
+declare class ReflectionField {
+    /**
+     * Constructor.
+     */
+    constructor(reflectionClass: ReflectionClass, methodName: string);
+
+    /**
+     * Gets the reflection class.
+     */
+    readonly reflectionClass: ReflectionClass;
+
+    /**
+     * Gets the field name.
+     */
+    readonly name: string;
+
+    /**
+     * If this field is private.
+     */
+    readonly isPrivate: boolean;
+
+    /**
+     * Gets if this field is static.
+     */
+    readonly isStatic: boolean;
+
+    /**
+     * Docblock.
+     */
+    readonly docblock: string;
+
+    /**
+     * Sets the accessible flag.
+     * Must be set to true to use the field accessors.
+     */
+    /* writeonly */ accesible: boolean;
+
+    /**
+     * Gets the field current value.
+     */
+    getValue(object: any): any;
+
+    /**
+     * Sets the field current value.
+     */
+    setValue(object: any, value: any): any;
+
+    /**
+     * Checks if the field is accessible by accessors.
+     */
+    private _checkAccessible(): void;
 }
 
 declare class ReflectionException extends Error {}

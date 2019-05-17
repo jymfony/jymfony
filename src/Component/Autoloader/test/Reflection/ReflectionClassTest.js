@@ -5,6 +5,8 @@ const expect = require('chai').expect;
  * cannot use the autoloader itself to load classes! :)
  */
 require('../../src/Reflection/ReflectionClass');
+const Namespace = require('../../src/Namespace');
+const path = require('path');
 
 class GrandParent {
     get readProp() { }
@@ -196,4 +198,51 @@ describe('[Autoloader] ReflectionClass', function () {
         const reflClass = new ReflectionClass(ISon);
         expect(reflClass.methods).to.be.deep.equal([ 'getFoo' ]);
     });
+
+    it('exposes public instance fields', __jymfony.Platform.hasPublicFieldSupport() ? () => {
+        const ns = new Namespace(__jymfony.autoload, 'Foo', path.join(__dirname, '..', '..', 'fixtures'), require);
+        const x = new ns.PublicFieldsClass();
+
+        const reflClass = new ReflectionClass(x);
+        expect(reflClass.hasField('field')).to.be.true;
+        expect(reflClass.hasField('bar')).to.be.true;
+
+        const field = reflClass.getField('field');
+        expect(field.isStatic).to.be.false;
+        expect(field.isPrivate).to.be.false;
+        expect(field.getValue(x)).to.be.equal('foobar');
+
+        const bar = reflClass.getField('bar');
+        expect(bar.isStatic).to.be.true;
+        expect(field.isPrivate).to.be.false;
+        expect(bar.getValue(null)).to.be.equal('bar');
+    } : undefined);
+
+    it('exposes private instance fields', __jymfony.Platform.hasPublicFieldSupport() ? () => {
+        const ns = new Namespace(__jymfony.autoload, 'Foo', path.join(__dirname, '..', '..', 'fixtures'), require);
+        const x = new ns.PrivateFieldsClass();
+
+        const reflClass = new ReflectionClass(x);
+        expect(reflClass.hasField('#field')).to.be.true;
+        expect(reflClass.hasField('#bar')).to.be.true;
+
+        const field = reflClass.getField('#field');
+        expect(field.isStatic).to.be.false;
+        expect(field.isPrivate).to.be.true;
+        try {
+            field.getValue(x);
+            throw new Error('FAIL');
+        } catch (e) {
+            expect(e).to.be.instanceOf(ReflectionException);
+        }
+
+        field.accessible = true;
+        expect(field.getValue(x)).to.be.equal('foobar');
+
+        const bar = reflClass.getField('#bar');
+        expect(bar.isStatic).to.be.true;
+        expect(bar.isPrivate).to.be.true;
+        bar.accessible = true;
+        expect(bar.getValue(null)).to.be.equal('bar');
+    } : undefined);
 });

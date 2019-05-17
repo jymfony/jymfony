@@ -119,8 +119,6 @@ class Autoloader {
 
                 let self = this;
                 if (!! autoloader.debug) {
-                    Reflect.preventExtensions(this);
-
                     self = new Proxy(self, {
                         get: (target, p) => {
                             if (p !== Symbol.toStringTag && ! Reflect.has(target, p)) {
@@ -175,7 +173,8 @@ class Autoloader {
                             return Reflect.isExtensible(self);
                         },
                         preventExtensions: () => {
-                            return Reflect.preventExtensions(self);
+                            Reflect.preventExtensions(self);
+                            return false;
                         },
                         getOwnPropertyDescriptor: (target, key) => {
                             if ('__self__' === key) {

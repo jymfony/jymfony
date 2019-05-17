@@ -1,4 +1,5 @@
 const ReflectionMethod = require('./ReflectionMethod');
+const ReflectionField = require('./ReflectionField');
 
 const Storage = function () {};
 Storage.prototype = {};
@@ -61,6 +62,8 @@ class ReflectionClass {
         this._writableProperties = new Storage();
         this._properties = new Storage();
         this._constants = new Storage();
+        this._fields = new Storage();
+        this._staticFields = new Storage();
         this._interfaces = [];
 
         this._docblock = undefined;
@@ -68,7 +71,7 @@ class ReflectionClass {
             this._docblock = value[Symbol.docblock]();
         }
 
-        if (undefined !== value[Symbol.reflection] && value[Symbol.reflection].isModule(value)) {
+        if (undefined !== value[Symbol.reflection] && 'function' === typeof value[Symbol.reflection].isModule && value[Symbol.reflection].isModule(value)) {
             this._loadFromMetadata(value);
         } else {
             this._loadWithoutMetadata(value);
@@ -195,6 +198,28 @@ class ReflectionClass {
      */
     hasWritableProperty(name) {
         return this._writableProperties[name] !== undefined;
+    }
+
+    /**
+     * Checks if class has defined the given class field.
+     *
+     * @param {string} name
+     *
+     * @returns {boolean}
+     */
+    hasField(name) {
+        return !! this._fields[name] || !! this._staticFields[name];
+    }
+
+    /**
+     * Gets the reflection field instance for a given field name.
+     *
+     * @param {string} name
+     *
+     * @returns {ReflectionField}
+     */
+    getField(name) {
+        return new ReflectionField(this, name);
     }
 
     /**
@@ -404,6 +429,14 @@ class ReflectionClass {
         this._module = metadata.module;
         this._constructor = this._isInterface ? value : metadata.constructor;
 
+        for (const [ k, v ] of __jymfony.getEntries(metadata.fields || {})) {
+            if (0 === k.indexOf('static::')) {
+                this._staticFields[k.substr(8)] = v;
+            } else {
+                this._fields[k] = v;
+            }
+        }
+
         this._loadProperties();
         this._loadStatics();
 
@@ -421,6 +454,8 @@ class ReflectionClass {
                     writable: Object.keys(this._writableProperties),
                 },
                 interfaces: this._interfaces,
+                fields: this._fields,
+                staticFields: this._staticFields,
             };
         }
     }
@@ -447,6 +482,8 @@ class ReflectionClass {
         propFunc(this._readableProperties, data.properties.readable);
         propFunc(this._writableProperties, data.properties.writable);
         this._interfaces = data.interfaces;
+        this._fields = data.fields;
+        this._staticFields = data.staticFields;
     }
 
     /**
@@ -474,7 +511,7 @@ class ReflectionClass {
 
             const properties = [ ...Object.getOwnPropertyNames(proto), ...Object.getOwnPropertySymbols(proto) ];
             for (const name of properties) {
-                if ('constructor' === name) {
+                if ('constructor' === name || 'arguments' === name || 'caller' === name) {
                     continue;
                 }
 
@@ -509,7 +546,7 @@ class ReflectionClass {
             chain.push(Object.getPrototypeOf(this._constructor));
         }
 
-        while (parent = Object.getPrototypeOf(parent)) {
+        while ((parent = Object.getPrototypeOf(parent))) {
             if (parent.prototype) {
                 chain.unshift(parent.prototype);
             }
@@ -533,7 +570,7 @@ class ReflectionClass {
 
         let parent = this._constructor;
         const chain = [ this._constructor ];
-        while (parent = Object.getPrototypeOf(parent)) {
+        while ((parent = Object.getPrototypeOf(parent))) {
             if (parent.prototype) {
                 chain.unshift(parent.prototype.constructor);
             }

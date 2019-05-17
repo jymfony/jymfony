@@ -38,9 +38,9 @@ class ReflectionMethod {
         this._static = false;
 
         let method;
-        if (method = reflectionClass._methods[methodName]) {
+        if ((method = reflectionClass._methods[methodName])) {
             this._method = method;
-        } else if (method = reflectionClass._staticMethods[methodName]) {
+        } else if ((method = reflectionClass._staticMethods[methodName])) {
             this._method = method;
             this._static = true;
         } else {
@@ -66,7 +66,7 @@ class ReflectionMethod {
          *
          * @private
          */
-        this._docblock = reflectionClass._docblock ? reflectionClass._docblock.methods[(this._static ? 'static#' : '') + methodName] : undefined;
+        this._docblock = reflectionClass._docblock ? reflectionClass._docblock.methods[(this._static ? 'static::' : '') + methodName] : undefined;
     }
 
     /**
