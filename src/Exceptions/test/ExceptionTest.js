@@ -20,7 +20,8 @@ describe('[Exceptions] Exception', function () {
         return expect(ex.stack).to.be.not.empty;
     });
 
-    it('should parse async stack traces', __jymfony.version_compare(process.versions.v8, '7.3', '>=') ? () => {
+    const [ major, minor ] = process.versions.v8.split('.', 3);
+    it('should parse async stack traces', 7 < ~~major || (7 === ~~major && 3 <= ~~minor) ? () => {
         async function functionOne() {
             await new Promise((resolve) => {
                 setTimeout(() => resolve(), 1);
