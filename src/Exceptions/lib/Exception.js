@@ -98,7 +98,7 @@ class Exception extends Error {
      * @returns {Object.<string, string>[]}
      */
     static parseStackTrace(error) {
-        const regex = /^\s*at (?:((?:\[object object])?\S+(?: \[as \S+])?) )?\(?(.*?):(\d+)(?::(\d+))?\)?\s*$/i,
+        const regex = /^\s*at (?:async )?(?:((?:\[object object])?\S+(?: \[as \S+])?) )?\(?(.*?):(\d+)(?::(\d+))?\)?\s*$/i,
             lines = error.stack.split('\n'),
             stack = [];
         let parts, element;
