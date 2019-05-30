@@ -77,6 +77,12 @@ class Interfaces {
      */
     static _createHasInstance(mixin) {
         return o => {
+            if (null === o || undefined === o) {
+                return false;
+            } else if (Object.prototype.hasOwnProperty.call(o, '__self__')) {
+                o = o.__self__;
+            }
+
             if (! isObject(o)) {
                 return false;
             }
@@ -86,7 +92,7 @@ class Interfaces {
                 return false;
             }
 
-            return -1 != mixins.indexOf(mixin);
+            return -1 !== mixins.indexOf(mixin);
         };
     }
 }

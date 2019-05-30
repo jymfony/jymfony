@@ -64,13 +64,14 @@ class TraceableEventDispatcher extends implementationOf(TraceableEventDispatcher
         this._preProcess(eventName);
         this._preDispatch(eventName, event);
 
-        return this._dispatcher.dispatch(eventName, event)
-            .then((event) => {
-                this._postDispatch(eventName, event);
-                this._postProcess(eventName);
+        return (async () => {
+            event = await this._dispatcher.dispatch(eventName, event);
 
-                return event;
-            });
+            this._postDispatch(eventName, event);
+            this._postProcess(eventName);
+
+            return event;
+        })();
     }
 
     /**

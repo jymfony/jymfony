@@ -3,6 +3,8 @@ global.__jymfony = global.__jymfony || {};
 let _asyncSupport = undefined;
 let _asyncGeneratorSupport = undefined;
 let _modernRegex = undefined;
+let _publicFields = undefined;
+let _privateFields = undefined;
 
 /**
  * @memberOf __jymfony
@@ -83,6 +85,56 @@ class Platform {
         }
 
         return _modernRegex;
+    }
+
+    /**
+     * Checks if this node version has public instance fields support.
+     *
+     * @returns {boolean}
+     */
+    static hasPublicFieldSupport() {
+        if (undefined === _publicFields) {
+            _publicFields = false;
+
+            try {
+                let c;
+                eval('c = class ev { field = "foobar"; }');
+
+                const i = new c();
+                return _publicFields = 'foobar' === i.field;
+            } catch (e) {
+                if (!(e instanceof SyntaxError)) {
+                    throw e;
+                }
+            }
+        }
+
+        return _publicFields;
+    }
+
+    /**
+     * Checks if this node version has private instance fields support.
+     *
+     * @returns {boolean}
+     */
+    static hasPrivateFieldSupport() {
+        if (undefined === _privateFields) {
+            _privateFields = false;
+
+            try {
+                let c;
+                eval('c = class ev { #field = "foobar"; get field() { return this.#field; } }');
+
+                const i = new c();
+                return _privateFields = 'foobar' === i.field;
+            } catch (e) {
+                if (!(e instanceof SyntaxError)) {
+                    throw e;
+                }
+            }
+        }
+
+        return _privateFields;
     }
 }
 

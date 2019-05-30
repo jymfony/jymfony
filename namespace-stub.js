@@ -128,12 +128,22 @@ Jymfony = {
         /**
          * @namespace
          */
+        Stopwatch: {},
+
+        /**
+         * @namespace
+         */
         Templating: {},
 
         /**
          * @namespace
          */
         Testing: {},
+
+        /**
+         * @namespace
+         */
+        VarExporter: {},
     },
 
     /**

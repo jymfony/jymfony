@@ -182,7 +182,9 @@ class Namespace {
             realTarget = mod;
 
             const name = mod.definition ? mod.definition.name : mod.name;
+            const modReflection = mod[Symbol.reflection] || (() => undefined);
             const meta = {
+                ...(modReflection() || {}),
                 filename: fn,
                 fqcn: this._fullyQualifiedName + '.' + name,
                 module: this._internalRequire.cache[fn],
@@ -255,7 +257,13 @@ class Namespace {
             },
             construct: (target, argumentsList, newTarget) => {
                 init();
-                return Reflect.construct(realTarget, argumentsList, newTarget);
+                const obj = Reflect.construct(realTarget, argumentsList, newTarget);
+
+                if (obj instanceof __jymfony.JObject) {
+                    Reflect.preventExtensions(obj);
+                }
+
+                return obj;
             },
             getPrototypeOf: () => {
                 init();

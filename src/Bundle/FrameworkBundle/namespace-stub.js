@@ -34,6 +34,16 @@ Jymfony.Bundle.FrameworkBundle = {
     /**
      * @namespace
      */
+    Log: {
+        /**
+         * @namespace
+         */
+        Processor: {},
+    },
+
+    /**
+     * @namespace
+     */
     Routing: {},
 
     /**

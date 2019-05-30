@@ -4,7 +4,7 @@ const Reference = Jymfony.Component.DependencyInjection.Reference;
 
 container.register('jymfony.logger.processor.message_processor', Jymfony.Component.Logger.Processor.MessageProcessor);
 
-container.register('jymfony.logger_prototype', Jymfony.Component.Logger.Logger)
+container.register('jymfony.logger_prototype', Jymfony.Component.Kernel.Log.Logger)
     .setAbstract(true)
     .addArgument(undefined)
     .addArgument([])
@@ -26,6 +26,14 @@ container.register('jymfony.logger.handler_prototype.stream', Jymfony.Component.
         undefined,
     ])
     .addShutdownCall('close')
+    .setAbstract(true)
+;
+
+container.register('jymfony.logger.handler_prototype.null', Jymfony.Component.Logger.Handler.NullHandler)
+    .setArguments([
+        Jymfony.Component.Logger.LogLevel.DEBUG,
+        true,
+    ])
     .setAbstract(true)
 ;
 

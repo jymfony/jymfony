@@ -154,7 +154,7 @@ class FrameworkExtension extends Extension {
     _buildLoggerHandler(container, name, handler) {
         const handlerId = 'jymfony.logger.handler.'+name;
         if ('service' === handler.type) {
-            container.setAlias(handler, handler.id);
+            container.setAlias(handlerId, handler.id);
 
             return handlerId;
         }

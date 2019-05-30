@@ -23,7 +23,7 @@ class AbstractProcessingHandler extends mix(
         }
 
         if (this._processors.length) {
-            record = this._processRecord($record);
+            record = this._processRecord(record);
         }
 
         record = __jymfony.deepClone(record);

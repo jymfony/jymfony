@@ -360,7 +360,7 @@ class ArrayNode extends BaseNode {
         }
 
         for (const [ k, v ] of __jymfony.getEntries(rightSide)) {
-        // No conflict
+            // No conflict
             if (! leftSide.hasOwnProperty(k)) {
                 if (! this._allowNewKeys) {
                     const ex = new InvalidConfigurationException(__jymfony.sprintf(

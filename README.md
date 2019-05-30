@@ -50,6 +50,7 @@ As said, Jymfony is made of reusable Javascript components:
 - [@jymfony/property-access](https://github.com/jymfony/property-access)
 - [@jymfony/routing](https://github.com/jymfony/routing)
 - [@jymfony/security](https://github.com/jymfony/security)
+- [@jymfony/stopwatch](https://github.com/jymfony/stopwatch)
 - [@jymfony/templating](https://github.com/jymfony/templating)
 - [@jymfony/testing](https://github.com/jymfony/testing)
 

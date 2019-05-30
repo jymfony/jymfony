@@ -1,6 +1,6 @@
 {
   "name": "jymfony",
-  "version": "0.1.0-alpha.14",
+  "version": "0.1.0-dev",
   "description": "Jymfony",
   "keywords": [
     "jymfony",
@@ -28,10 +28,12 @@
     "@jymfony/cache": "0.1.0-alpha.14",
     "@jymfony/config": "0.1.0-alpha.14",
     "@jymfony/console": "0.1.0-alpha.14",
+    "@jymfony/contracts": "0.1.0-dev",
     "@jymfony/datetime": "0.1.0-alpha.14",
     "@jymfony/datastructure": "0.1.0-alpha.14",
     "@jymfony/debug": "0.1.0-alpha.14",
     "@jymfony/dependency-injection": "0.1.0-alpha.14",
+    "@jymfony/dev-server": "0.1.0-alpha.14",
     "@jymfony/event-dispatcher": "0.1.0-alpha.14",
     "@jymfony/exceptions": "0.1.0-alpha.14",
     "@jymfony/filesystem": "0.1.0-alpha.14",
@@ -46,8 +48,11 @@
     "@jymfony/property-access": "0.1.0-alpha.14",
     "@jymfony/routing": "0.1.0-alpha.14",
     "@jymfony/security": "0.1.0-alpha.14",
-    "@jymfony/security-bundle": "0.1.0-alpha.14",
+    "@jymfony/security-bundle": "0.1.0-dev",
+    "@jymfony/stopwatch": "0.1.0-alpha.14",
+    "@jymfony/templating": "0.1.0-alpha.14",
     "@jymfony/testing": "0.1.0-alpha.14",
+    "@jymfony/var-exporter": "0.1.0-alpha.14",
     "@jymfony/util": "0.1.0-alpha.14"
   },
   "flat": true

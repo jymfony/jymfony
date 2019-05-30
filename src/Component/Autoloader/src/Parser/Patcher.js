@@ -32,12 +32,18 @@ class Patcher {
                     // Do nothing
                     break;
 
+                case Lexer.T_CLASS:
+                    yield this._processClass(lexer, docblock);
+                    break;
+
                 default:
                     docblock = undefined;
                     break;
             }
 
-            yield token.value;
+            if (Lexer.T_CLASS !== token.type) {
+                yield token.value;
+            }
 
             if (lexer.isNextToken(Lexer.T_CLASS)) {
                 yield this._processClass(lexer, docblock);
@@ -58,10 +64,16 @@ class Patcher {
             properties: {},
         };
 
+        const fields = {};
+
+        let className;
         let docblock = undefined, code = '', patchRemoval = () => {};
         let hasConstructor = false;
 
-        lexer.moveNext();
+        if (lexer.token.type !== Lexer.T_CLASS) {
+            lexer.moveNext();
+        }
+
         code += lexer.token.value; // Class
 
         if (! lexer.isNextToken(Lexer.T_SPACE)) {
@@ -73,12 +85,16 @@ class Patcher {
 
         if (lexer.isNextToken(Lexer.T_IDENTIFIER)) {
             lexer.moveNext();
+            className = lexer.token.value;
             code += lexer.token.value;
 
             if (lexer.isNextToken(Lexer.T_SPACE)) {
                 lexer.moveNext();
                 code += lexer.token.value;
             }
+        } else {
+            className = '_anonymous_x' + (~~(Math.random() * 1000000)).toString(16);
+            code += className + ' ';
         }
 
         if (lexer.isNextToken(Lexer.T_EXTENDS)) {
@@ -134,21 +150,30 @@ class Patcher {
                 case Lexer.T_IDENTIFIER:
                     if (1 === level) {
                         let methodName = token.value;
-                        if ('get' === methodName || 'set' === methodName) {
-                            if (lexer.isNextToken(Lexer.T_SPACE)) {
-                                lexer.peek();
-                                const propertyToken = lexer.peek();
 
-                                if (propertyToken.type === Lexer.T_IDENTIFIER) {
-                                    methodName = propertyToken.value + '#' + methodName;
+                        let next;
+                        while ((next = lexer.peek()) && next.type === Lexer.T_SPACE) {}
+
+                        if (next.type === Lexer.T_ASSIGNMENT_OP || next.type === Lexer.T_SEMICOLON) {
+                            classDocblock.properties[methodName] = docblock;
+                            fields[methodName] = `{ get: (obj) => { return obj.${methodName}; }, set: (value) => { obj.${methodName} = value; } }`;
+                        } else {
+                            if ('get' === methodName || 'set' === methodName) {
+                                if (lexer.isNextToken(Lexer.T_SPACE)) {
+                                    lexer.peek();
+                                    const propertyToken = lexer.peek();
+
+                                    if (propertyToken.type === Lexer.T_IDENTIFIER) {
+                                        methodName = propertyToken.value + '#' + methodName;
+                                    }
                                 }
+                            } else if ('constructor' === methodName) {
+                                hasConstructor = true;
                             }
-                        } else if ('constructor' === methodName) {
-                            hasConstructor = true;
-                        }
 
-                        classDocblock.methods[methodName] = docblock;
-                        currentMethodName = methodName;
+                            classDocblock.methods[methodName] = docblock;
+                            currentMethodName = methodName;
+                        }
                     }
 
                     break;
@@ -156,10 +181,27 @@ class Patcher {
                 case Lexer.T_KEYWORD:
                     if (1 === level && 'static' === token.value && lexer.isNextToken(Lexer.T_SPACE)) {
                         lexer.peek();
-                        const methodToken = lexer.peek();
+                        const identifier = lexer.peek();
 
-                        if (methodToken.type === Lexer.T_IDENTIFIER) {
-                            classDocblock.methods[token.value + '#' + methodToken.value] = docblock;
+                        if (identifier.type === Lexer.T_IDENTIFIER) {
+                            code += token.value; // Static
+                            lexer.moveNext();
+                            code += lexer.token.value; // Space
+                            lexer.moveNext();
+                            code += lexer.token.value; // Identifier
+
+                            let next;
+                            while ((next = lexer.peek()) && next.type === Lexer.T_SPACE) {}
+
+                            if (next.type === Lexer.T_ASSIGNMENT_OP || next.type === Lexer.T_SEMICOLON) {
+                                const fieldName = token.value + '::' + identifier.value;
+                                classDocblock.properties[fieldName] = docblock;
+                                fields[fieldName] = `{ get: () => { return ${className}.${identifier.value}; }, set: (obj, value) => { ${className}.${identifier.value} = value; } }`;
+                            } else {
+                                classDocblock.methods[token.value + '::' + identifier.value] = docblock;
+                            }
+
+                            continue;
                         }
                     }
 
@@ -172,6 +214,10 @@ class Patcher {
                             while ((next = lexer.peek()).type === Lexer.T_SPACE) { }
                             if (next.type === Lexer.T_IDENTIFIER) {
                                 classDocblock.properties[next.value] = docblock;
+                            }
+
+                            if (undefined === fields[next.value]) {
+                                fields[next.value] = `{ get: (obj) => { return obj.${next.value}; }, set: (obj, value) => { obj.${next.value} = value; } }`;
                             }
                         }
                     }
@@ -186,7 +232,9 @@ class Patcher {
 
             if (0 === level) {
                 const docblock = JSON.stringify(classDocblock);
-                code += ` static [Symbol.docblock]() { return ${docblock}; } `;
+                code += ` static [Symbol.docblock]() { return ${docblock}; } static [Symbol.reflection]() { return { fields: { ` +
+                    Object.keys(fields).reduce((res, field) => res + '[' + JSON.stringify(field) + ']: ' + fields[field] + ', ', '') + '} } } '
+                ;
             }
 
             code += token.value;
