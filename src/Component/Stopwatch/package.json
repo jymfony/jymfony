@@ -1,6 +1,6 @@
 {
   "name": "@jymfony/stopwatch",
-  "version": "0.1.0-dev",
+  "version": "0.1.0-alpha.15",
   "description": "Jymfony Stopwatch component",
   "typings": "types/index.d.ts",
   "scripts": {

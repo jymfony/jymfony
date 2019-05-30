@@ -1,6 +1,6 @@
 {
   "name": "@jymfony/testing",
-  "version": "0.1.0-alpha.14",
+  "version": "0.1.0-alpha.15",
   "description": "Jymfony Testing",
   "scripts": {
     "test": "node ./tests.js"
@@ -15,9 +15,9 @@
     "node": ">=8.10.0"
   },
   "dependencies": {
-    "@jymfony/autoloader": "0.1.0-alpha.14",
-    "@jymfony/exceptions": "0.1.0-alpha.14",
-    "@jymfony/util": "0.1.0-alpha.14"
+    "@jymfony/autoloader": "0.1.0-alpha.15",
+    "@jymfony/exceptions": "0.1.0-alpha.15",
+    "@jymfony/util": "0.1.0-alpha.15"
   },
   "devDependencies": {
     "@jymfony/debug": "*",
