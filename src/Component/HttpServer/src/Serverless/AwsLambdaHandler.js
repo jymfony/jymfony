@@ -127,6 +127,9 @@ class AwsLambdaHandler extends RequestHandler {
             'SERVER_PROTOCOL': 'HTTP/1.1',
         }, content);
 
+        // Do not compress response.
+        request.headers.remove('accept-encoding');
+
         let response = await this.handle(request);
         if (response instanceof Promise) {
             response = await response;
