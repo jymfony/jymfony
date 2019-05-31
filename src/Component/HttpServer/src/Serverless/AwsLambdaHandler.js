@@ -168,8 +168,11 @@ class AwsLambdaHandler extends RequestHandler {
             return [ {}, undefined ];
         }
 
+        const body = request.isBase64Encoded ? atob(request.body) : request.body;
+        headers['content-length'] = headers['content-length'] || body.length;
+
         const stream = new Readable();
-        stream.push(request.isBase64Encoded ? atob(request.body) : request.body);
+        stream.push(body);
         stream.push(null);
 
         return await super._parseRequestContent(stream, headers, contentType);
