@@ -1,6 +1,7 @@
 const EventDispatcher = Jymfony.Component.EventDispatcher.EventDispatcher;
 const FunctionControllerResolver = Jymfony.Component.HttpFoundation.Controller.FunctionControllerResolver;
 const BadRequestException = Jymfony.Component.HttpFoundation.Exception.BadRequestException;
+const ContentType = Jymfony.Component.HttpFoundation.Header.ContentType;
 const Request = Jymfony.Component.HttpFoundation.Request;
 const Response = Jymfony.Component.HttpFoundation.Response;
 const Event = Jymfony.Component.HttpServer.Event;
@@ -91,11 +92,12 @@ class AwsLambdaHandler extends RequestHandler {
      */
     async _handleRequest(event, context) { // eslint-disable-line no-unused-vars
         const headers = new Jymfony.Component.HttpFoundation.HeaderBag(event.headers || {});
-        const contentType = headers.get('content-type', 'application/x-www-form-urlencoded');
-        let requestParams, content;
+        const normalizedHeaders = headers.keys.reduce((res, key) => (res[key] = headers.get(key), res), {});
+        const contentType = new ContentType(headers.get('content-type', 'application/x-www-form-urlencoded'));
 
+        let requestParams, content;
         try {
-            [ requestParams, content ] = await this._parseRequestContent(event, headers, contentType);
+            [ requestParams, content ] = await this._parseRequestContent(event, normalizedHeaders, contentType);
         } catch (e) {
             const response = {
                 statusCode: 500,
