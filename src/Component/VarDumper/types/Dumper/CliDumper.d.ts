@@ -9,7 +9,7 @@ declare namespace Jymfony.Component.VarDumper.Dumper {
     export class CliDumper extends AbstractDumper {
         private static readonly _controlCharsRx: RegExp;
         private static readonly _controlCharsMap: Record<string, string>;
-        private _colors: undefined;
+        private _colors: boolean;
         private _maxStringWidth: number;
         private _styles: Record<string, string>;
         private _collapseNextHash: boolean;
@@ -20,13 +20,13 @@ declare namespace Jymfony.Component.VarDumper.Dumper {
         /**
          * Constructor.
          */
-        __construct(output?: number|WritableStream|string|Invokable, flags = 0): void;
-        constructor(output?: number|WritableStream|string|Invokable, flags = 0);
+        __construct(output?: number|WritableStream|string|Invokable, flags?: number): void;
+        constructor(output?: number|WritableStream|string|Invokable, flags?: number);
 
         /**
          * Enables/disables colored output.
          */
-        public /* writeonly */ colors: boolean;
+        public colors: boolean;
 
         /**
          * Sets the maximum number of characters per line for dumped strings.

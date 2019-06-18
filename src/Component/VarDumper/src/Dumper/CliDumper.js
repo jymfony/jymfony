@@ -91,6 +91,19 @@ class CliDumper extends AbstractDumper {
     }
 
     /**
+     * Whether the color support has been enabled.
+     *
+     * @returns {boolean}
+     */
+    get colors() {
+        if (undefined === this._colors) {
+            this._colors = this._supportsColors();
+        }
+
+        return this._colors;
+    }
+
+    /**
      * Enables/disables colored output.
      *
      * @param {boolean} colors
@@ -284,7 +297,7 @@ class CliDumper extends AbstractDumper {
     }
 
     _dumpLine(depth, endOfValue = false) { // eslint-disable-line no-unused-vars
-        if (this._supportsColors()) {
+        if (this.colors) {
             this._line = __jymfony.sprintf('\x1B[%sm%s\x1B[m', this._styles.default, this._line);
         }
 
@@ -356,17 +369,14 @@ class CliDumper extends AbstractDumper {
      * @returns {string} The value with style decoration
      */
     _style(style, value, attr = {}) { // eslint-disable-line no-unused-vars
-        if (undefined === this._colors) {
-            this._colors = this._supportsColors();
-        }
-
+        const colors = this.colors;
         if (undefined === this._handlesHrefGracefully) {
             this._handlesHrefGracefully = 'JetBrains-JediTerm' !== process.env.TERMINAL_EMULATOR;
         }
 
         const map = __self._controlCharsMap;
-        const startCchr = this._colors ? '\x1B[m\x1B[' + this._styles.default + 'm' : '';
-        const endCchr = this._colors ? '\x1B[m\x1B[' + this._styles[style] + 'm' : '';
+        const startCchr = colors ? '\x1B[m\x1B[' + this._styles.default + 'm' : '';
+        const endCchr = colors ? '\x1B[m\x1B[' + this._styles[style] + 'm' : '';
         const cchrCount = 0;
 
         value = String(value).replace(__self._controlCharsRx, (c) => {
@@ -379,7 +389,7 @@ class CliDumper extends AbstractDumper {
             return s + endCchr;
         });
 
-        if (this._colors) {
+        if (colors) {
             if (cchrCount && '\x1B' === value[0]) {
                 value = value.substr(startCchr.length);
             } else {
