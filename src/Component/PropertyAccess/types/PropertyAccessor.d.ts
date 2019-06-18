@@ -17,6 +17,7 @@ declare namespace Jymfony.Component.PropertyAccess {
          * Constructor.
          */
         __construct(cacheItemPool?: CacheItemPoolInterface<any>): void;
+        constructor(cacheItemPool?: CacheItemPoolInterface<any>);
 
         /**
          * @inheritdoc

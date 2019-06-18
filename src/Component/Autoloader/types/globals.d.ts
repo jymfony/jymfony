@@ -245,7 +245,7 @@ declare class ReflectionField {
      * Sets the accessible flag.
      * Must be set to true to use the field accessors.
      */
-    /* writeonly */ accesible: boolean;
+    /* writeonly */ accessible: boolean;
 
     /**
      * Gets the field current value.

@@ -60,10 +60,7 @@ global.mix = function mix(superclass, ...mixins) {
     })()).concat(...(superclass[Mixins.appliedInterfacesSymbol] || []));
 
     const mixed = (s => {
-        const mixin = class extends s {};
-        mixin.isMixin = true;
-
-        return mixin;
+        return class extends s {};
     })(superclass);
 
     for (const mixin of mixins) {
@@ -74,6 +71,11 @@ global.mix = function mix(superclass, ...mixins) {
 
     Object.defineProperty(mixed, Mixins.appliedInterfacesSymbol, {
         value: [ ...interfaces ],
+        enumerable: false,
+    });
+
+    Object.defineProperty(mixed, Symbol.for('_jymfony_mixin'), {
+        value: mixed,
         enumerable: false,
     });
 

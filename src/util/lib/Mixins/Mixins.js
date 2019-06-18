@@ -30,7 +30,10 @@ class Mixins {
                 }
             };
 
-            m.isMixin = true;
+            Object.defineProperty(m, Symbol.for('_jymfony_mixin'), {
+                value: m,
+                enumerable: false,
+            });
 
             if (undefined !== cb) {
                 cb(m);
@@ -121,9 +124,10 @@ class Mixins {
 
         return Array.from(function * () {
             for (const i of chain) {
-                yield * Object.getOwnPropertyNames(i)
+                yield * [ ...Object.getOwnPropertyNames(i), ...Object.getOwnPropertySymbols(i) ]
                     .filter(P => {
-                        if ('prototype' === P) {
+                        if ('prototype' === P || 'length' === P || 'name' === P) {
+                            // Function prototype properties
                             return false;
                         }
 
@@ -133,6 +137,10 @@ class Mixins {
                         }
 
                         if ('function' === typeof i[P]) {
+                            return false;
+                        }
+
+                        if (symOuterMixin === P || Symbol.reflection === P) {
                             return false;
                         }
 

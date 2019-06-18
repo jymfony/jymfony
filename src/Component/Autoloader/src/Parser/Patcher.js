@@ -205,19 +205,27 @@ class Patcher {
                         }
                     }
 
-                    if (docblock && 'this' === token.value &&
-                        ('__construct' === currentMethodName || 'constructor' === currentMethodName)) {
+                    if ('this' === token.value && ('__construct' === currentMethodName || 'constructor' === currentMethodName)) {
                         let next;
                         while ((next = lexer.peek()).type === Lexer.T_SPACE) { }
 
                         if (next.type === Lexer.T_DOT) {
                             while ((next = lexer.peek()).type === Lexer.T_SPACE) { }
+
+                            let currentIdentifier;
                             if (next.type === Lexer.T_IDENTIFIER) {
-                                classDocblock.properties[next.value] = docblock;
+                                currentIdentifier = next.value;
                             }
 
-                            if (undefined === fields[next.value]) {
-                                fields[next.value] = `{ get: (obj) => { return obj.${next.value}; }, set: (obj, value) => { obj.${next.value} = value; } }`;
+                            while ((next = lexer.peek()).type === Lexer.T_SPACE) { }
+                            if (next.type === Lexer.T_ASSIGNMENT_OP) {
+                                if (docblock) {
+                                    classDocblock.properties[currentIdentifier] = docblock;
+                                }
+
+                                if (undefined === fields[currentIdentifier]) {
+                                    fields[currentIdentifier] = `{ get: (obj) => { return obj.${currentIdentifier}; }, set: (obj, value) => { obj.${currentIdentifier} = value; } }`;
+                                }
                             }
                         }
                     }
@@ -232,7 +240,7 @@ class Patcher {
 
             if (0 === level) {
                 const docblock = JSON.stringify(classDocblock);
-                code += ` static [Symbol.docblock]() { return ${docblock}; } static [Symbol.reflection]() { return { fields: { ` +
+                code += ` /* istanbul ignore next */ static [Symbol.docblock]() { return ${docblock}; } /* istanbul ignore next */ static [Symbol.reflection]() { return { fields: { ` +
                     Object.keys(fields).reduce((res, field) => res + '[' + JSON.stringify(field) + ']: ' + fields[field] + ', ', '') + '} } } '
                 ;
             }

@@ -19,14 +19,8 @@ __jymfony.getEntries = function * getEntries(object) {
         yield * object.entries();
     } else if (! isObject(object)) {
         throw new InvalidArgumentException('Argument 1 is not an object');
-    } else if (Object.entries) {
-        yield * Object.entries(object);
     } else {
-        for (const key in object) {
-            if (!object.hasOwnProperty(key)) {
-                continue;
-            }
-
+        for (const key of [ ...Object.keys(object), ...Object.getOwnPropertySymbols(object) ]) {
             yield [ key, object[key] ];
         }
     }
