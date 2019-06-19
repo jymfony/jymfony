@@ -14,14 +14,14 @@ Error {
   message: ""
   code: undefined
   trace: {
-    %atest/Caster/ErrorCasterTest.js:8 {
+    %aErrorCasterTest.js:8 {
       › 
       › const getTestError = () => {
       ›     return new Error();
       › };
       › 
     }
-    %atest/Caster/ErrorCasterTest.js:27 {}
+    %aErrorCasterTest.js:27 {}
 %A`;
 
         expect(getTestError()).to.dumpsAsFormat(dump);
