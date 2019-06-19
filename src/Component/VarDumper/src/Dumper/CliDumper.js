@@ -292,9 +292,31 @@ class CliDumper extends AbstractDumper {
         }
     }
 
-    leaveHash(cursor, type) {
+    leaveHash(cursor, type, class_, hasChild, cut) {
+        this._dumpEllipsis(cursor, hasChild, cut);
         this._line += Stub.TYPE_OBJECT === type ? '}' : ']';
         this._endValue(cursor);
+    }
+
+    /**
+     * Dumps an ellipsis for cut children.
+     *
+     * @param {Jymfony.Component.VarDumper.Cloner.Cursor} cursor The Cursor position in the dump
+     * @param {boolean} hasChild When the dump of the hash has child item
+     * @param {int} cut The number of items the hash has been cut by
+     *
+     * @protected
+     */
+    _dumpEllipsis(cursor, hasChild, cut) {
+        if (cut) {
+            this._line += '…';
+            if (0 < cut) {
+                this._line += cut;
+            }
+            if (hasChild) {
+                this._dumpLine(cursor.depth + 1);
+            }
+        }
     }
 
     _endValue(cursor) {

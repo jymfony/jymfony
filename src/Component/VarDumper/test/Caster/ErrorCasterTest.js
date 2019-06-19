@@ -21,7 +21,7 @@ Error {
       › };
       › 
     }
-    %aErrorCasterTest.js:27 {}
+    %aErrorCasterTest.js:27 {…}
 %A`;
 
         expect(getTestError()).to.dumpsAsFormat(dump);

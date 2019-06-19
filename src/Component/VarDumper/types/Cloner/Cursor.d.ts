@@ -3,18 +3,18 @@ declare namespace Jymfony.Component.VarDumper.Cloner {
      * Represents the current state of a dumper while dumping.
      */
     export class Cursor {
-        private depth: number;
-        private refIndex: number;
-        private softRefTo: number;
-        private softRefCount: number;
-        private hashType: number;
-        private hashKey: any;
-        private hashIndex: number;
-        private hashLength: number;
-        private hashCut: number;
-        private stop: boolean;
-        private attr: any;
-        private skipChildren: boolean;
+        public depth: number;
+        public refIndex: number;
+        public softRefTo: number;
+        public softRefCount: number;
+        public hashType: number;
+        public hashKey: any;
+        public hashIndex: number;
+        public hashLength: number;
+        public hashCut: number;
+        public stop: boolean;
+        public attr: any;
+        public skipChildren: boolean;
 
         constructor();
     }

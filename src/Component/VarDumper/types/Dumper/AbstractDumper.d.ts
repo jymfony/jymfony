@@ -8,10 +8,10 @@ declare namespace Jymfony.Component.VarDumper.Dumper {
      */
     export abstract class AbstractDumper extends implementationOf(DumperInterface, DataDumperInterface) {
         private _flags: number;
-        private _outputStream: number|WritableStream|undefined;
         private _lineDumper: Invokable;
-        private _indentPad: string;
-        private _line: string;
+        protected _outputStream: number|WritableStream|undefined;
+        protected _indentPad: string;
+        protected _line: string;
 
         /**
          * Constructor.

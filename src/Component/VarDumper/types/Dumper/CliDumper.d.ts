@@ -60,6 +60,17 @@ declare namespace Jymfony.Component.VarDumper.Dumper {
          */
         leaveHash(cursor: Cursor, type: number, class_: string, hasChild: boolean, cut: number): void;
 
+        /**
+         * Dumps an ellipsis for cut children.
+         *
+         * @param cursor The Cursor position in the dump
+         * @param hasChild When the dump of the hash has child item
+         * @param cut The number of items the hash has been cut by
+         *
+         * @protected
+         */
+        protected _dumpEllipsis(cursor: Cursor, hasChild: boolean, cut: number): void;
+
         protected _endValue(cursor: Cursor): void;
 
         protected _dumpLine(depth: number, endOfValue?: boolean): void;
