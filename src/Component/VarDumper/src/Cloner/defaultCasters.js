@@ -1,8 +1,8 @@
 const Caster = Jymfony.Component.VarDumper.Caster;
 
 const casters = [
-    [ Jymfony.Component.VarDumper.Cloner.Stub, Caster.StubCaster.castStub ],
     [ Caster.ConstStub, Caster.StubCaster.castStub ],
+    [ Caster.EnumStub, Caster.StubCaster.castEnum ],
 
     [ Date, Caster.DateCaster.castDate ],
 

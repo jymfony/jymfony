@@ -1,10 +1,12 @@
 filter:
     excluded_paths:
         - src/*/test/**
+        - src/Bundle/*/test/**
         - src/Component/*/test/**
 
 tools:
-    external_code_coverage: true
+    external_code_coverage:
+        timeout: 900
 
 checks:
     javascript: true

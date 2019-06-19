@@ -13,7 +13,7 @@ class Stub {
          *
          * @type {int}
          */
-        this.type = __self.TYPE_OBJECT;
+        this.type = __self.TYPE_REF;
 
         /**
          * The object class.
@@ -52,9 +52,10 @@ class Stub {
     }
 }
 
-Stub.TYPE_STRING = 1;
-Stub.TYPE_ARRAY = 2;
-Stub.TYPE_OBJECT = 3;
-Stub.TYPE_SYMBOL = 4;
+Stub.TYPE_REF = 1;
+Stub.TYPE_STRING = 2;
+Stub.TYPE_ARRAY = 3;
+Stub.TYPE_OBJECT = 4;
+Stub.TYPE_SYMBOL = 5;
 
 module.exports = Stub;

@@ -8,7 +8,7 @@ describe('[VarDumper] DateCaster', function () {
     it('should dump date object correctly', () => {
         const dump = `
 Date @%d {
-  date: "%a"
+  date: %a
 }`;
 
         expect(new Date()).to.dumpsAsFormat(dump);
@@ -32,7 +32,7 @@ Jymfony.Component.VarDumper.Caster.ConstStub {
     it('should cast datetime object', () => {
         const dump = `
 Jymfony.Component.DateTime.DateTime @%d {
-  date: "%a"
+  date: %a
 }`;
 
         expect(new DateTime()).to.dumpsAsFormat(dump);
@@ -56,7 +56,7 @@ Jymfony.Component.VarDumper.Caster.ConstStub {
     it('should cast timezone object', () => {
         const dump = `
 Jymfony.Component.DateTime.DateTimeZone {
-  timezone: "Europe/Rome"
+  timezone: Europe/Rome
 }`;
 
         expect(DateTimeZone.get('Europe/Rome')).to.dumpsAsFormat(dump);

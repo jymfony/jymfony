@@ -26,7 +26,11 @@ class Data {
      * @returns {string}
      */
     get type() {
-        const item = this._data[this._position][this._key];
+        let item = this._data[this._position][this._key];
+
+        if (item instanceof Stub && Stub.TYPE_REF === item.type && ! item.attr.position) {
+            item = item.value;
+        }
 
         if (! (item instanceof Stub)) {
             return typeof item;
@@ -53,8 +57,13 @@ class Data {
      * @returns {*} A native representation of the original value.
      */
     getValue(recursive = false) {
-        const item = this._getStub(this._data[this._position][this._key]);
+        let item = this._data[this._position][this._key];
 
+        if (item instanceof Stub && Stub.TYPE_REF === item.type && ! item.attr.position) {
+            item = item.value;
+        }
+
+        item = this._getStub(item);
         if (! (item instanceof Stub)) {
             return item;
         }
@@ -81,6 +90,15 @@ class Data {
             children[k]._position = item.attr.position;
 
             if (recursive) {
+                if (Stub.TYPE_REF === v.type && (v = this._getStub(v.value)) instanceof Stub) {
+                    recursive = isObjectLiteral(recursive) ? recursive : { 0: recursive };
+                    if (recursive[v.attr.position]) {
+                        continue;
+                    }
+
+                    recursive[v.attr.position] = true;
+                }
+
                 children[k] = children[k].getValue(recursive);
             }
         }
@@ -100,8 +118,13 @@ class Data {
      * @returns {Jymfony.Component.VarDumper.Cloner.Data|null} A clone of this Data or null if the key is not set.
      */
     seek(key) {
-        const item = this._getStub(this._data[this._position][this._key]);
+        let item = this._data[this._position][this._key];
 
+        if (item instanceof Stub && Stub.TYPE_REF === item.type && ! item.attr.position) {
+            item = item.value;
+        }
+
+        item = this._getStub(item);
         if (! (item instanceof Stub) || ! item.attr.position) {
             return null;
         }
@@ -206,12 +229,30 @@ class Data {
         cursor.refIndex = 0;
         cursor.softRefTo = 0;
 
+        const getType = (value) => {
+            if (isArray(value)) {
+                return 'array';
+            }
+
+            if (null === value) {
+                return 'null';
+            }
+
+            return typeof value;
+        };
+
         let firstSeen = true;
+        let type;
         if (! (item instanceof Stub)) {
             cursor.attr = {};
+            type = getType(item);
             if (item && isArray(item)) {
                 item = this._getStub(item);
             }
+        } else if (Stub.TYPE_REF === item.type) {
+            cursor.attr = item.attr;
+            type = item.class_ || getType(item.value);
+            item = this._getStub(item.value);
         }
 
         if (item instanceof Stub) {
@@ -270,13 +311,13 @@ class Data {
                 default:
                     throw new RuntimeException(__jymfony.sprintf('Unexpected stub type: %s', item.type));
             }
-        } else if (isArray(item)) {
+        } else if ('array' === type) {
             dumper.enterHash(cursor, Stub.TYPE_ARRAY, null, false);
             dumper.leaveHash(cursor, Stub.TYPE_ARRAY, null, false, 0);
-        } else if (isString(item)) {
+        } else if ('string' === type) {
             dumper.dumpString(cursor, item, 0);
         } else {
-            dumper.dumpScalar(cursor, typeof item, item);
+            dumper.dumpScalar(cursor, type, item);
         }
     }
 

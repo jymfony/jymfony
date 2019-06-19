@@ -17,14 +17,6 @@ class ConstStub extends Stub {
 
         this.class_ = name;
         this.value = undefined !== value ? value : name;
-
-        if (isObject(this.value)) {
-            this.type = Stub.TYPE_OBJECT;
-        } else if (isArray(this.value)) {
-            this.type = Stub.TYPE_ARRAY;
-        } else {
-            this.type = Stub.TYPE_STRING;
-        }
     }
 
     toString() {

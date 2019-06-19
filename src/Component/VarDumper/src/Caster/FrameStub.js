@@ -1,23 +1,24 @@
-const Stub = Jymfony.Component.VarDumper.Cloner.Stub;
+const EnumStub = Jymfony.Component.VarDumper.Caster.EnumStub;
 
 /**
  * Represents a single backtrace frame.
  *
  * @memberOf Jymfony.Component.VarDumper.Caster
  */
-class FrameStub extends Stub {
+class FrameStub extends EnumStub {
     /**
      * Constructor.
      *
      * @param {Object.<string, string>} frame
+     * @param {boolean} [inTraceStub = false]
      */
-    __construct(frame) {
-        super.__construct();
+    __construct(frame, inTraceStub = false) {
+        super.__construct(frame);
 
         /**
-         * @type {Object<string, string>}
+         * @type {boolean}
          */
-        this.value = frame;
+        this.inTraceStub = inTraceStub;
     }
 }
 

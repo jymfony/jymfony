@@ -9,8 +9,10 @@ declare namespace Jymfony.Component.VarDumper.Caster {
 
         static castTraceStub(trace: TraceStub, a: any, stub: Stub, isNested: boolean): any;
 
-        static castFrameStub(frame: FrameStub): any;
+        static castFrameStub(frame: FrameStub, a: any, stub: Stub, isNested: boolean): any;
 
         private static _filterExceptionArray(trace: Record<string, string>[], a: any, filter: number);
+
+        private static _extractSource(srcLines: string, line: number, title: string, lang: string, file?: string);
     }
 }

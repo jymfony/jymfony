@@ -147,7 +147,9 @@ class VarCloner extends AbstractCloner {
                         stub.attr.position = len++;
                     } else if (pos < maxItems) {
                         if (maxItems < (pos += __jymfony.keys(a).length)) {
-                            a = a.slice(0, maxItems - pos);
+                            a = __jymfony.keys(a)
+                                .slice(0, maxItems - pos)
+                                .reduce((res, k) => (res[k] = a[k], res), {});
                             if (0 <= ~~stub.attr.cut) {
                                 stub.attr.cut += pos - maxItems;
                             }

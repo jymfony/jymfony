@@ -66,7 +66,9 @@ class CliDumper extends AbstractDumper {
          *
          * @private
          */
-        this._displayOptions = { };
+        this._displayOptions = {
+            fileLinkFormat: null,
+        };
 
         /**
          * @type {boolean}
@@ -141,6 +143,10 @@ class CliDumper extends AbstractDumper {
         }
 
         switch (type) {
+            case 'default':
+                style = 'default';
+                break;
+
             case 'number':
                 style = 'num';
                 switch (true) {
@@ -168,6 +174,11 @@ class CliDumper extends AbstractDumper {
             case 'symbol':
                 style = 'ref';
                 value = value.toString();
+                break;
+
+            default:
+                attr.value = attr.value || value;
+                value = type;
                 break;
         }
 
@@ -333,7 +344,7 @@ class CliDumper extends AbstractDumper {
                         const [ key0, ...others ] = key.substr(1).split('\0');
                         key = [ key0, others.join('\0') ];
 
-                        switch (key[0]) {
+                        switch (key[0][0]) {
                             case '+':
                                 attr.dynamic = true;
                                 this._line = '+' + '"' + this._style('public', key[1], attr) + '": ';
@@ -341,13 +352,19 @@ class CliDumper extends AbstractDumper {
 
                             case '~':
                                 style = 'meta';
+                                if (key[0][1]) {
+                                    Object.assign(attr, __jymfony.parse_query_string(key[0].substr(1)));
+                                }
+
                                 break;
                         }
 
-                        if (attr.collapse) {
-                            this._collapseNextHash = true;
-                        } else {
-                            this._expandNextHash = true;
+                        if (undefined !== attr.collapse) {
+                            if (~~attr.collapse) {
+                                this._collapseNextHash = true;
+                            } else {
+                                this._expandNextHash = true;
+                            }
                         }
 
                         this._line += this._style(style, key[1], attr) + (attr.separator || ': ');
@@ -372,6 +389,43 @@ class CliDumper extends AbstractDumper {
         const colors = this.colors;
         if (undefined === this._handlesHrefGracefully) {
             this._handlesHrefGracefully = 'JetBrains-JediTerm' !== process.env.TERMINAL_EMULATOR;
+        }
+
+        const href = (value) => {
+            if (this.colors && this._handlesHrefGracefully) {
+                const href = this._getSourceLink(attr.file, attr.line || 0);
+                if (attr.file && href) {
+                    if ('note' === style) {
+                        value += `\x1B]8;;${href}\x1B\\^\x1B]8;;\x1B\\`;
+                    } else {
+                        attr.href = href;
+                    }
+                }
+
+                if (attr.href) {
+                    value = `\x1B]8;;${attr.href}\x1B\\${value}\x1B]8;;\x1B\\`;
+                }
+            }
+
+            return value;
+        };
+
+        if (attr.ellipsis && attr['ellipsis-type']) {
+            let prefix = value.substr(0, value.length - attr.ellipsis);
+            if ('path' === attr['ellipsis-type'] && process.cwd().startsWith(prefix)) {
+                prefix = '.' + prefix.substr(process.cwd().length);
+            }
+
+            if (attr['ellipsis-tail']) {
+                prefix += value.substr(value.length - attr.ellipsis, attr['ellipsis-tail']);
+                value = value.substr(value.length - attr.ellipsis + attr['ellipsis-tail']);
+            } else {
+                value = value.substr(value.length - attr.ellipsis);
+            }
+
+            value = this._style('default', prefix) + this._style(style, value);
+
+            return href(value);
         }
 
         const map = __self._controlCharsMap;
@@ -403,7 +457,7 @@ class CliDumper extends AbstractDumper {
             }
         }
 
-        return value;
+        return href(value);
     }
 
     _supportsColors() {
@@ -464,6 +518,15 @@ class CliDumper extends AbstractDumper {
         }
 
         return result;
+    }
+
+    _getSourceLink(file, line) {
+        const fmt = this._displayOptions.fileLinkFormat;
+        if (fmt) {
+            return isString(fmt) ? __jymfony.strtr(fmt, {'%f': file, '%l': line}) : (fmt.format(file, line) || 'file://'+file);
+        }
+
+        return false;
     }
 }
 
