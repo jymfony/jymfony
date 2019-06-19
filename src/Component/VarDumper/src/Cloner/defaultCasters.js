@@ -9,6 +9,7 @@ const casters = [
     [ Error, Caster.ErrorCaster.castError ],
     [ Caster.TraceStub, Caster.ErrorCaster.castTraceStub ],
     [ Caster.FrameStub, Caster.ErrorCaster.castFrameStub ],
+    [ Jymfony.Component.VarDumper.Exception.ThrowingCasterException, Caster.ErrorCaster.castThrowingCasterException ],
 ];
 
 if (ReflectionClass.exists('Jymfony.Component.DateTime.DateTime')) {

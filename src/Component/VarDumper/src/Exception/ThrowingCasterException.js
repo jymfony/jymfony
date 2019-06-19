@@ -8,7 +8,10 @@ class ThrowingCasterException extends Exception {
      * @param {Error} previous
      */
     __construct(previous = undefined) {
-        super.__construct('Unexpected ' + ReflectionClass.getClassName(previous) + ' thrown from a caster: ' + previous.message, 0, previous);
+        const class_ = new ReflectionClass(previous);
+        super.__construct(__jymfony.sprintf('Unexpected %s thrown from a caster: %s',
+            class_.name || class_.getConstructor().name,
+            previous.message || '<no message>'), 0, previous);
     }
 }
 

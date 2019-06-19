@@ -34,7 +34,25 @@ class ErrorCaster {
         }, filter);
     }
 
+    static castThrowingCasterException(e, a) {
+        const trace = Caster.PREFIX_VIRTUAL + 'trace';
+        const xPrefix = "\0~\0";
+
+        if (!! a[xPrefix + 'previous'] && !! a[trace] && a[xPrefix + 'previous'] instanceof Error) {
+            const prev = a[xPrefix + 'previous'];
+            a[trace] = new TraceStub(prev.stackTrace || Exception.parseStackTrace(prev), 0, a[trace].value.length);
+        }
+
+        delete a[xPrefix + 'previous'];
+        delete a[xPrefix + 'code'];
+        delete a[xPrefix + 'file'];
+        delete a[xPrefix + 'line'];
+
+        return a;
+    }
+
     /**
+     * Casts a TraceStub object.
      *
      * @param {Jymfony.Component.VarDumper.Caster.TraceStub} trace
      * @param {Object} a
