@@ -12,6 +12,7 @@ declare namespace Jymfony.Component.DependencyInjection.Loader {
         /**
          * Constructor.
          */
+        // @ts-ignore
         __construct(container: ContainerBuilder, locator: FileLocatorInterface): void;
         constructor(container: ContainerBuilder, locator: FileLocatorInterface);
 

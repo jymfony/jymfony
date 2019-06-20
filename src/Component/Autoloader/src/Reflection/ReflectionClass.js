@@ -9,6 +9,10 @@ TheBigReflectionDataCache.classes = new Storage();
 TheBigReflectionDataCache.data = new Storage();
 
 const getClass = function getClass(value) {
+    if (!! value && value.__self__ !== undefined) {
+        value = value.__self__;
+    }
+
     if ('string' === typeof value) {
         const cached = TheBigReflectionDataCache.classes[value];
         if (cached) {
@@ -626,7 +630,7 @@ class ReflectionClass {
                 });
 
             for (const name of names) {
-                if (! consts.hasOwnProperty(name) && parent.hasOwnProperty(name)) {
+                if (! consts.hasOwnProperty(name) && Object.prototype.hasOwnProperty.call(parent, name)) {
                     const descriptor = Object.getOwnPropertyDescriptor(parent, name);
 
                     if (descriptor.hasOwnProperty('value')) {

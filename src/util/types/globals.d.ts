@@ -215,7 +215,7 @@ declare interface Newable<T> {
     new(): T;
     new(...args: any[]): T;
 }
-declare type Constructor<T> = Function | { prototype: T };
+declare type Constructor<T = any> = Function | { prototype: T };
 
 declare class MixinInterface {
     public static readonly definition: Newable<any>;

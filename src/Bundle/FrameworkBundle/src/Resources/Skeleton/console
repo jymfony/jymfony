@@ -13,6 +13,7 @@ const kernel = new Kernel(env, debug);
 kernel.boot()
     .then(() => {
         const application = kernel.container.get('console.application');
+        dd(application);
 
         return application.run(input);
     }).catch((e) => {
