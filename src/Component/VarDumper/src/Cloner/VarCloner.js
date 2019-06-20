@@ -82,17 +82,18 @@ class VarCloner extends AbstractCloner {
                         a = [ ...v ];
                         break;
 
-                    case isFunction(v): {
-                        const class_ = Object.prototype.toString.call(v);
+                    case isFunction(v) && ! v.__self__: {
+                        let class_ = Object.prototype.toString.call(v);
                         const value = {
-                            [Caster.PREFIX_VIRTUAL + 'name']: v.name,
+                            [Caster.PREFIX_VIRTUAL + 'name']: Object.prototype.hasOwnProperty.call(v, 'name') ? __jymfony.trim(v.name) : '<unknown function>',
                             [Caster.PREFIX_VIRTUAL + 'function']: v.toString(),
                         };
 
                         try {
                             const r = new ReflectionClass(v);
 
-                            value[Caster.PREFIX_VIRTUAL + 'name'] = r.name || r.getConstructor().name;
+                            class_ = __jymfony.trim(r.name || r.getConstructor().name);
+                            value[Caster.PREFIX_VIRTUAL + 'name'] = __jymfony.trim(r.name || r.getConstructor().name || '<unknown function>');
                         } catch (e) {
                             // Do nothing.
                         }
@@ -104,6 +105,7 @@ class VarCloner extends AbstractCloner {
                         a = value;
                     } break;
 
+                    case isFunction(v) && !! v.__self__:
                     case isObject(v): {
                         let h = objectIds.get(v);
                         if (undefined === h) {

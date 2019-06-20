@@ -16,8 +16,8 @@ declare namespace Jymfony.Component.VarDumper.Dumper {
         /**
          * Constructor.
          */
-        __construct(output?: number|WritableStream|string|Invokable, flags = 0): void;
-        constructor(output?: number|WritableStream|string|Invokable, flags = 0);
+        __construct(output?: number|WritableStream|string|Invokable, flags?: number): void;
+        constructor(output?: number|WritableStream|string|Invokable, flags?: number);
 
         /**
          * Sets the output destination of the dumps.

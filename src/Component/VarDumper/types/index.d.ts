@@ -1,3 +1,4 @@
+/// <reference path="Caster/BufferCaster.d.ts" />
 /// <reference path="Caster/Caster.d.ts" />
 /// <reference path="Caster/ConstStub.d.ts" />
 /// <reference path="Caster/DateCaster.d.ts" />

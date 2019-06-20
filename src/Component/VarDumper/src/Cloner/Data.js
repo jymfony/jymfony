@@ -258,7 +258,7 @@ class Data {
         if (item instanceof Stub) {
             if (item.refCount) {
                 const ref = item.handle;
-                if (refs[ref] !== undefined) {
+                if (refs[ref] === undefined) {
                     cursor.refIndex = refs[ref] = (cursor.refIndex || ++refs[0]);
                 } else {
                     firstSeen = false;

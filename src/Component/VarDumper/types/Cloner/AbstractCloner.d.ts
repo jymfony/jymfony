@@ -47,7 +47,7 @@ declare namespace Jymfony.Component.VarDumper.Cloner {
          *
          * @param {Object.<string|symbol, Function>} casters
          */
-        addCasters(casters: Map<Constructor|string, Invokable>|Record<Constructor|string, Invokable>);
+        addCasters(casters: Map<Constructor|string, Invokable>|Record<string, Invokable>);
 
         /**
          * Sets the maximum number of items to past past the minimum depth in nested structure.

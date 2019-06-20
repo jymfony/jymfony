@@ -5,11 +5,14 @@ const casters = [
     [ Caster.EnumStub, Caster.StubCaster.castEnum ],
 
     [ Date, Caster.DateCaster.castDate ],
+    [ Buffer, Caster.BufferCaster.castBuffer ],
 
     [ Error, Caster.ErrorCaster.castError ],
     [ Caster.TraceStub, Caster.ErrorCaster.castTraceStub ],
     [ Caster.FrameStub, Caster.ErrorCaster.castFrameStub ],
     [ Jymfony.Component.VarDumper.Exception.ThrowingCasterException, Caster.ErrorCaster.castThrowingCasterException ],
+
+    [ Jymfony.Component.DependencyInjection.ContainerInterface, Caster.StubCaster.cutInternals ],
 ];
 
 if (ReflectionClass.exists('Jymfony.Component.DateTime.DateTime')) {

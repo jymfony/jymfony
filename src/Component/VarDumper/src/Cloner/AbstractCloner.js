@@ -178,7 +178,7 @@ class AbstractCloner extends implementationOf(ClonerInterface) {
                 class_ = r.getConstructor().name;
             }
 
-            if (class_[0] && '_' === class_[0] && class_.startsWith('_anonymous_')) {
+            if (class_ && '_' === class_[0] && class_.startsWith('_anonymous_')) {
                 const parent = r.getParentClass();
                 class_ = parent.name || parent.getConstructor().name;
                 class_ += '@anonymous';

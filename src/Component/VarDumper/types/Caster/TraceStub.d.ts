@@ -13,6 +13,7 @@ declare namespace Jymfony.Component.VarDumper.Caster {
         /**
          * Constructor.
          */
+        // @ts-ignore
         __construct(trace: Record<string, string>[], sliceOffset?: number, sliceLength?: number, numberingOffset?: number): void;
         constructor(trace: Record<string, string>[], sliceOffset?: number, sliceLength?: number, numberingOffset?: number);
     }

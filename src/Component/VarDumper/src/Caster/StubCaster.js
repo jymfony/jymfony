@@ -30,6 +30,24 @@ class StubCaster {
     }
 
     /**
+     * @param {Object} obj
+     * @param {Object} a
+     * @param {Jymfony.Component.VarDumper.Cloner.Stub} stub
+     * @param {boolean} isNested
+     *
+     * @returns {Object}
+     */
+    static cutInternals(obj, a, stub, isNested) {
+        if (isNested) {
+            stub.attr.cut += __jymfony.keys(a).length;
+
+            return {};
+        }
+
+        return a;
+    }
+
+    /**
      * @param {Jymfony.Component.VarDumper.Caster.EnumStub} c
      * @param {Object} a
      * @param {Jymfony.Component.VarDumper.Cloner.Stub} stub
