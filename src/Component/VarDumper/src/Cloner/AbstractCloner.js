@@ -166,7 +166,7 @@ class AbstractCloner extends implementationOf(ClonerInterface) {
      */
     _castObject(stub, isNested) {
         const obj = stub.value;
-        const class_ = stub.class_;
+        let class_ = stub.class_;
 
         let i, parents, hasDebugInfo, fileInfo;
         if (undefined !== class_ && this._classInfo[class_]) {
@@ -175,9 +175,16 @@ class AbstractCloner extends implementationOf(ClonerInterface) {
             const r = new ReflectionClass(class_ || obj);
 
             if (undefined === class_) {
-                stub.class_ = r.getConstructor().name;
+                class_ = r.getConstructor().name;
             }
 
+            if (class_[0] && '_' === class_[0] && class_.startsWith('_anonymous_')) {
+                const parent = r.getParentClass();
+                class_ = parent.name || parent.getConstructor().name;
+                class_ += '@anonymous';
+            }
+
+            stub.class_ = class_;
             i = 2;
             parents = [ r.getConstructor() ];
             hasDebugInfo = r.hasMethod('__debugInfo');

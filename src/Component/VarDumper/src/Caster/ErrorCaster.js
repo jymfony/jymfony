@@ -36,7 +36,7 @@ class ErrorCaster {
 
     static castThrowingCasterException(e, a) {
         const trace = Caster.PREFIX_VIRTUAL + 'trace';
-        const xPrefix = "\0~\0";
+        const xPrefix = '\0~\0';
 
         if (!! a[xPrefix + 'previous'] && !! a[trace] && a[xPrefix + 'previous'] instanceof Error) {
             const prev = a[xPrefix + 'previous'];
@@ -197,8 +197,9 @@ class ErrorCaster {
         srcLines = srcLines.split('\n');
         const src = [];
 
-        for (let i = line - 3; i <= line + 1; ++i) {
-            src.push((srcLines[i] ? srcLines[i] : '') + '\n');
+        const startLine = Math.max(0, line - 3);
+        for (let i = startLine; i <= line + 1; ++i) {
+            src.push([ i, (srcLines[i] ? srcLines[i] : '') + '\n' ]);
         }
 
         srcLines = {};
@@ -208,9 +209,9 @@ class ErrorCaster {
 
         do {
             pad = null;
-            for (i = 1 << 1; 0 <= i; --i) {
-                c = src[i][ltrim];
-                if (src[i][ltrim] && '\r' !== c && '\n' !== c) {
+            for (i = src.length - 1; 0 <= i; --i) {
+                c = src[i][1][ltrim];
+                if (src[i][1][ltrim] && '\r' !== c && '\n' !== c) {
                     if (null === pad) {
                         pad = c;
                     }
@@ -226,23 +227,25 @@ class ErrorCaster {
         --ltrim;
 
         for ([ i, c ] of __jymfony.getEntries(src)) {
+            let srcLine = c[1];
             if (ltrim) {
-                c = c[ltrim] && '\r' !== c[ltrim] ? c.substr(ltrim) : __jymfony.ltrim(c, ' \t');
+                srcLine = srcLine[ltrim] && '\r' !== srcLine[ltrim] ? srcLine.substr(ltrim) : __jymfony.ltrim(srcLine, ' \t');
             }
 
-            c = c.substr(0, c.length - 1);
-            if (2 !== i) {
-                c = new ConstStub('default', c);
+            srcLine = srcLine.substr(0, srcLine.length - 1);
+            let stub;
+            if (c[0] !== line - 1) {
+                stub = new ConstStub('default', srcLine);
             } else {
-                c = new ConstStub(c, title);
+                stub = new ConstStub(srcLine, title);
                 if (undefined !== file) {
-                    c.attr.file = file;
-                    c.attr.line = line;
+                    stub.attr.file = file;
+                    stub.attr.line = line;
                 }
             }
 
-            c.attr.lang = lang;
-            srcLines[__jymfony.sprintf('\0~separator=› &%d\0', i + line - 1)] = c;
+            stub.attr.lang = lang;
+            srcLines[__jymfony.sprintf('\0~separator=› &%d\0', i + line - 1)] = stub;
         }
 
         return new EnumStub(srcLines);

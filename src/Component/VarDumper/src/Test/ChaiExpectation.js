@@ -46,6 +46,7 @@ util.addChainableMethod(Assertion.prototype, 'dumpsAs', function(val, message = 
 util.addChainableMethod(Assertion.prototype, 'dumpsAsFormat', function(str, message = undefined) {
     str = prepareExpectation(str);
     str = __jymfony.strtr(__jymfony.regex_quote(str), {
+        '/': '\\/',
         '%%': '%',
         '%e': '\\' + path.sep,
         '%s': '[^\\r\\n]+',
