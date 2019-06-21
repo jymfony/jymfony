@@ -24,6 +24,7 @@
   "devDependencies": {
     "@jymfony/datetime": "https://github.com/jymfony/date-time.git",
     "@jymfony/debug": "https://github.com/jymfony/debug.git",
+    "@jymfony/dependency-injection": "https://github.com/jymfony/dependency-injection.git",
     "chai": "^3.5.0",
     "mocha": "^5.0"
   },
