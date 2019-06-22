@@ -130,6 +130,11 @@ declare namespace __jymfony {
     export function escapeshellarg(arg: string): string;
 
     /**
+     * Encodes a string with html entities.
+     */
+    export function htmlentities (string: string, quoteStyle?: 'ENT_COMPAT' | 'ENT_NOQUOTES' | 'ENT_QUOTES', doubleEncode?: string): string
+
+    /**
      * Calculates the levenshtein distance between two strings.
      */
     export function levenshtein(s: string, t: string): number;

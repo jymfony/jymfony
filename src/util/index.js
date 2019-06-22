@@ -30,6 +30,7 @@ require('./lib/Stream/StreamBuffer');
 
 require('./lib/String/crc32');
 require('./lib/String/escapeshellarg');
+require('./lib/String/htmlentities');
 require('./lib/String/levenshtein');
 require('./lib/String/querystring');
 require('./lib/String/sprintf');

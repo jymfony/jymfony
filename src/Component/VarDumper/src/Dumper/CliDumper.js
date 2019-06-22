@@ -50,21 +50,21 @@ class CliDumper extends AbstractDumper {
         /**
          * @type {boolean}
          *
-         * @private
+         * @protected
          */
         this._collapseNextHash = false;
 
         /**
          * @type {boolean}
          *
-         * @private
+         * @protected
          */
         this._expandNextHash = false;
 
         /**
          * @type {Object.<string, *>}
          *
-         * @private
+         * @protected
          */
         this._displayOptions = {
             fileLinkFormat: null,

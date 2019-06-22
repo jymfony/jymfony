@@ -18,6 +18,7 @@
 /// <reference path="Dumper/AbstractDumper.d.ts" />
 /// <reference path="Dumper/CliDumper.d.ts" />
 /// <reference path="Dumper/DataDumperInterface.d.ts" />
+/// <reference path="Dumper/HtmlDumper.d.ts" />
 /// <reference path="Exception/ThrowingCasterException.d.ts" />
 /// <reference path="Test/ChaiExpectation.d.ts" />
 /// <reference path="globals.d.ts" />
