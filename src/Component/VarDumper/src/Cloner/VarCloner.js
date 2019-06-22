@@ -84,6 +84,9 @@ class VarCloner extends AbstractCloner {
 
                     case isFunction(v) && ! v.__self__: {
                         let class_ = Object.prototype.toString.call(v);
+                        const matches = class_.match(/^\[object (\w+)\]/);
+                        const kind = matches ? matches[1] : 'Function';
+
                         const value = {
                             [Caster.PREFIX_VIRTUAL + 'name']: Object.prototype.hasOwnProperty.call(v, 'name') ? __jymfony.trim(v.name) : '<unknown function>',
                             [Caster.PREFIX_VIRTUAL + 'function']: v.toString(),
@@ -100,7 +103,7 @@ class VarCloner extends AbstractCloner {
 
                         stub = new Stub();
                         stub.type = Stub.TYPE_OBJECT;
-                        stub.class_ = class_;
+                        stub.class_ = kind;
                         stub.value = v;
                         a = value;
                     } break;

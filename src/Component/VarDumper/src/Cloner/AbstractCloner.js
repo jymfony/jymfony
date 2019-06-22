@@ -169,7 +169,7 @@ class AbstractCloner extends implementationOf(ClonerInterface) {
         let class_ = stub.class_;
 
         let i, parents, hasDebugInfo, fileInfo;
-        if (undefined !== class_ && this._classInfo[class_]) {
+        if (undefined !== class_ && 'Object' !== class_ && this._classInfo[class_]) {
             [ i, parents, hasDebugInfo, fileInfo ] = this._classInfo[class_];
         } else {
             const r = new ReflectionClass(class_ || obj);
@@ -204,7 +204,7 @@ class AbstractCloner extends implementationOf(ClonerInterface) {
 
             fileInfo = r.isSubclassOf(Stub) ? {} : { file: r.filename };
 
-            if (undefined !== class_) {
+            if (undefined !== class_ && 'Object' !== class_) {
                 this._classInfo[class_] = [ i, parents, hasDebugInfo, fileInfo ];
             }
         }
