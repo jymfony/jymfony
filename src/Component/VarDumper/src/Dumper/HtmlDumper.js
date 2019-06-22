@@ -82,6 +82,20 @@ class HtmlDumper extends CliDumper {
          */
         this._extraDisplayOptions = {};
 
+        /**
+         * @type {boolean}
+         *
+         * @protected
+         */
+        this._collapseNextHash = false;
+
+        /**
+         * @type {boolean}
+         *
+         * @protected
+         */
+        this._expandNextHash = false;
+
         AbstractDumper.prototype.__construct.call(this, output, flags);
     }
 

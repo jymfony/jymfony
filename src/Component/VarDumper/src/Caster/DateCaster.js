@@ -40,7 +40,7 @@ class DateCaster {
         ;
 
         return {
-            [Caster.PREFIX_VIRTUAL + 'date']: new ConstStub(title, dateTime.toString() + '.' + dateTime.millisecond),
+            [Caster.PREFIX_VIRTUAL + 'date']: new ConstStub(dateTime.toString() + '.' + dateTime.millisecond, title),
         };
     }
 
