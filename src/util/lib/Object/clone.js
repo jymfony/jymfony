@@ -20,6 +20,10 @@ __jymfony.clone = (object) => {
         target[k] = object[k];
     }
 
+    if (isFunction(target.__clone)) {
+        target.__clone();
+    }
+
     return target;
 };
 
@@ -36,7 +40,7 @@ __jymfony.deepClone = function deepClone(object) {
         return object;
     }
 
-    let result;
+    let result = object;
 
     if (isArray(object)) {
         result = [];
@@ -52,8 +56,6 @@ __jymfony.deepClone = function deepClone(object) {
             }
         } else if (object instanceof Date) {
             result = new Date(object);
-        } else {
-            result = object;
         }
     }
 
