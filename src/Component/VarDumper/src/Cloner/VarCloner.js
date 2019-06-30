@@ -87,9 +87,22 @@ class VarCloner extends AbstractCloner {
                         const matches = class_.match(/^\[object (\w+)\]/);
                         const kind = matches ? matches[1] : 'Function';
 
+                        const functionBody = v.toString().split('\n');
+                        const firstLine = functionBody.shift();
+                        let pad = Infinity;
+                        for (let i = 0; i < functionBody.length; ++i) {
+                            const m = functionBody[i].match(/^(\s+)/);
+                            if (null === m) {
+                                pad = 0;
+                                break;
+                            }
+
+                            pad = Math.min(m[1].length, pad);
+                        }
+
                         const value = {
                             [Caster.PREFIX_VIRTUAL + 'name']: Object.prototype.hasOwnProperty.call(v, 'name') ? __jymfony.trim(v.name) : '<unknown function>',
-                            [Caster.PREFIX_VIRTUAL + 'function']: v.toString(),
+                            [Caster.PREFIX_VIRTUAL + 'function']: [firstLine, ...functionBody.map(line => line.substr(pad))].join('\n'),
                         };
 
                         try {
