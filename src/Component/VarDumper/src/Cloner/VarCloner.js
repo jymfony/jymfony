@@ -102,7 +102,7 @@ class VarCloner extends AbstractCloner {
 
                         const value = {
                             [Caster.PREFIX_VIRTUAL + 'name']: Object.prototype.hasOwnProperty.call(v, 'name') ? __jymfony.trim(v.name) : '<unknown function>',
-                            [Caster.PREFIX_VIRTUAL + 'function']: [firstLine, ...functionBody.map(line => line.substr(pad))].join('\n'),
+                            [Caster.PREFIX_VIRTUAL + 'function']: [ firstLine, ...functionBody.map(line => line.substr(pad)) ].join('\n'),
                         };
 
                         try {
