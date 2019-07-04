@@ -30,6 +30,11 @@ const serialize = (value) => {
         return 'S(' + value.length + '):' + value;
     }
 
+    if (isBuffer(value)) {
+        value = value.toString('hex');
+        return 'X(' + value.length + '):' + value;
+    }
+
     if (isArray(value)) {
         const vals = [];
         for (const [ k, v ] of __jymfony.getEntries(value)) {
@@ -131,6 +136,13 @@ const unserialize = (serialized) => {
                 length = readUntil(')');
                 expect(':');
                 return JSON.parse(readData(length));
+            }
+
+            case 'X': {
+                expect('(');
+                length = readUntil(')');
+                expect(':');
+                return Buffer.from(readData(length), 'hex');
             }
 
             case 'A': {
