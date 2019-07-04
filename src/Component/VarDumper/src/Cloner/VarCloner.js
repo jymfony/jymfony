@@ -126,7 +126,9 @@ class VarCloner extends AbstractCloner {
                         let h = objectIds.get(v);
                         if (undefined === h) {
                             objectIds.set(v, h = currentObjectId++);
+                        }
 
+                        if (! objectRefs.has(h)) {
                             stub = new Stub();
                             stub.type = Stub.TYPE_OBJECT;
                             stub.class_ = isObjectLiteral(v) ? 'Object' : ReflectionClass.getClassName(v);
