@@ -1,6 +1,6 @@
 {
   "name": "@jymfony/var-dumper",
-  "version": "0.1.0-dev",
+  "version": "0.1.0-alpha.16",
   "description": "Jymfony VarDumper component",
   "typings": "types/index.d.ts",
   "scripts": {
