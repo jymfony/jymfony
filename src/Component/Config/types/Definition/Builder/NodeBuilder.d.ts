@@ -61,7 +61,8 @@ declare namespace Jymfony.Component.Config.Definition.Builder {
          *
          * @returns The parent node
          */
-        end(): T;
+        end<T extends NodeBuilder>(): T;
+        end<T extends NodeDefinition>(): NodeBuilder<T>;
 
         /**
          * Creates a child node.

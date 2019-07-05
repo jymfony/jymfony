@@ -53,6 +53,7 @@ class FrameworkExtension extends Extension {
             container.setParameter('debug.file_link_format', '%templating.helper.code.file_link_format%');
         }
 
+        this._registerDebugConfiguration(config.debug, container, loader);
         this._registerSessionConfiguration(config.session, container, loader);
         this._registerConsoleConfiguration(config.console, container, loader);
         this._registerLoggerConfiguration(config.logger, container, loader);
@@ -90,7 +91,7 @@ class FrameworkExtension extends Extension {
     /**
      * @param {Object} config
      * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
-     * @param {Jymfony.Component.DependencyInjection.Loader.LoaderInterface} loader
+     * @param {Jymfony.Component.Config.Loader.LoaderInterface} loader
      *
      * @private
      */
@@ -104,6 +105,29 @@ class FrameworkExtension extends Extension {
         }
 
         loader.load('console.js');
+    }
+
+    /**
+     * @param {Object} config
+     * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
+     * @param {Jymfony.Component.Config.Loader.LoaderInterface} loader
+     *
+     * @private
+     */
+    _registerDebugConfiguration(config, container, loader) {
+        if (! this._isConfigEnabled(container, config)) {
+            return;
+        }
+
+        if (ReflectionClass.exists('Jymfony.Component.VarDumper.VarDumper')) {
+            loader.load('var_dumper.js');
+
+            container.getDefinition('var_dumper.cloner')
+                .addProperty('maxItems', config.dump.max_items)
+                .addProperty('minDepth', config.dump.min_depth)
+                .addProperty('maxString', config.dump.max_string_length)
+            ;
+        }
     }
 
     /**

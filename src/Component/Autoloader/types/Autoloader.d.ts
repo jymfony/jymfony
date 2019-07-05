@@ -7,11 +7,13 @@ declare namespace Jymfony.Component.Autoloader {
          */
         public debug: boolean;
         public readonly finder: Finder;
+        public readonly rootDir: string;
 
         private _debug: boolean;
         private _registered: boolean;
         private _finder: Finder;
         private _global: any;
+        private _rootDir: string;
 
         /**
          * Constructor.

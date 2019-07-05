@@ -19,6 +19,22 @@ class FrameworkBundle extends Bundle {
         if (this._container.has('mime_types')) {
             Jymfony.Component.Mime.MimeTypes.instance = this._container.get('mime_types');
         }
+
+        if (this._container.has('var_dumper.cloner')) {
+            const container = this._container;
+
+            Jymfony.Component.VarDumper.VarDumper.setHandler((variable) => {
+                const dumper = new Jymfony.Component.VarDumper.Dumper.CliDumper();
+                const cloner = container.get('var_dumper.cloner');
+
+                const handler = (variable) => {
+                    dumper.dump(cloner.cloneVar(variable));
+                };
+
+                Jymfony.Component.VarDumper.VarDumper.setHandler(handler);
+                handler(variable);
+            });
+        }
     }
 
     /**

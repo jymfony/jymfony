@@ -10,6 +10,35 @@ class InputDefinition {
      * @param {Array} [definition = []] An array of InputArgument or InputOption
      */
     __construct(definition = []) {
+        /**
+         * The arguments array
+         *
+         * @type {Object.<string, Jymfony.Component.Console.Input.InputArgument>}
+         *
+         * @private
+         */
+        this._arguments = {};
+        this._requiredCount = 0;
+        this._hasOptional = false;
+        this._hasAnArrayArgument = false;
+
+        /**
+         * The options array
+         *
+         * @type {Object.<string, Jymfony.Component.Console.Input.InputOption>}
+         * @private
+         */
+        this._options = {};
+
+        /**
+         * Shortcut to name array
+         *
+         * @type {Object.<string, string>}
+         * @private
+         */
+        this._shortcuts = {};
+
+
         this.setDefinition(definition);
     }
 
@@ -40,13 +69,6 @@ class InputDefinition {
      * @param {Jymfony.Component.Console.Input.InputArgument[]} args
      */
     setArguments(args = undefined) {
-        /**
-         * The arguments array
-         *
-         * @type {Object.<string, Jymfony.Component.Console.Input.InputArgument>}
-         *
-         * @private
-         */
         this._arguments = {};
         this._requiredCount = 0;
         this._hasOptional = false;
@@ -171,20 +193,7 @@ class InputDefinition {
      * @param {Jymfony.Component.Console.Input.InputOption[]} options
      */
     setOptions(options) {
-        /**
-         * The options array
-         *
-         * @type {Object.<string, Jymfony.Component.Console.Input.InputOption>}
-         * @private
-         */
         this._options = {};
-
-        /**
-         * Shortcut to name array
-         *
-         * @type {Object.<string, string>}
-         * @private
-         */
         this._shortcuts = {};
 
         this.addOptions(options);

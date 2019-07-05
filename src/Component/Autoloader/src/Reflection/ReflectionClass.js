@@ -9,6 +9,10 @@ TheBigReflectionDataCache.classes = new Storage();
 TheBigReflectionDataCache.data = new Storage();
 
 const getClass = function getClass(value) {
+    if (!! value && value.__self__ !== undefined) {
+        value = value.__self__;
+    }
+
     if ('string' === typeof value) {
         const cached = TheBigReflectionDataCache.classes[value];
         if (cached) {
@@ -244,8 +248,19 @@ class ReflectionClass {
      */
     getParentClass() {
         let parent = this._constructor;
+        let r;
         while ((parent = Object.getPrototypeOf(parent))) {
-            if (parent.isMixin) {
+            if (parent === Object || parent === Object.prototype) {
+                return undefined;
+            }
+
+            try {
+                r = new ReflectionClass(parent);
+            } catch (e) {
+                continue;
+            }
+
+            if (parent === r.getConstructor()[Symbol.for('_jymfony_mixin')]) {
                 continue;
             }
 
@@ -253,7 +268,7 @@ class ReflectionClass {
         }
 
         try {
-            return new ReflectionClass(parent);
+            return r;
         } catch (e) {
             return undefined;
         }
@@ -379,6 +394,15 @@ class ReflectionClass {
      */
     get docblock() {
         return this._docblock.class;
+    }
+
+    /**
+     * Gets the fields names.
+     *
+     * @returns {Array}
+     */
+    get fields() {
+        return Object.keys(this._fields);
     }
 
     /**
@@ -580,7 +604,7 @@ class ReflectionClass {
         for (parent of chain) {
             const names = [ ...Object.getOwnPropertyNames(parent), ...Object.getOwnPropertySymbols(parent) ]
                 .filter(P => {
-                    if ('prototype' === P || 'isMixin' === P) {
+                    if ('prototype' === P || Symbol.for('_jymfony_mixin') === P) {
                         return false;
                     }
 
@@ -606,7 +630,7 @@ class ReflectionClass {
                 });
 
             for (const name of names) {
-                if (! consts.hasOwnProperty(name) && parent.hasOwnProperty(name)) {
+                if (! consts.hasOwnProperty(name) && Object.prototype.hasOwnProperty.call(parent, name)) {
                     const descriptor = Object.getOwnPropertyDescriptor(parent, name);
 
                     if (descriptor.hasOwnProperty('value')) {

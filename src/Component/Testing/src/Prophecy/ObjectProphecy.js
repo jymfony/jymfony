@@ -54,6 +54,10 @@ class ObjectProphecy extends implementationOf(ProphecyInterface) {
                     return Reflect.get(target, key);
                 }
 
+                if ('__self__' === key) {
+                    return undefined;
+                }
+
                 const reflection = new ReflectionClass(this.reveal());
                 if (! reflection.hasMethod(key) && ! reflection.hasProperty(key)) {
                     return Reflect.get(this.reveal(), key);

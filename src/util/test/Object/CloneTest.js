@@ -12,7 +12,13 @@ const ISon = getInterface(class SonInterface {});
 
 class Son extends mix(Parent, ISon) {
     constructor() {
-        super(); this.foo = 'bar';
+        super();
+        this.foo = 'bar';
+        this.cloned = false;
+    }
+
+    __clone() {
+        this.cloned = true;
     }
 }
 
@@ -28,7 +34,9 @@ describe('Clone', function () {
 
         expect(son2.foo).to.be.equal('bar');
         son2.foo = 'foobar';
+        expect(son2.cloned).to.be.true;
 
         expect(son1.foo).to.be.equal('bar');
+        expect(son1.cloned).to.be.false;
     });
 });

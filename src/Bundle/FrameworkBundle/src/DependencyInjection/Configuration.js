@@ -14,6 +14,7 @@ class Configuration extends implementationOf(ConfigurationInterface) {
      */
     get configTreeBuilder() {
         const treeBuilder = new TreeBuilder('framework');
+        /** @type {Jymfony.Component.Config.Definition.Builder.ArrayNodeDefinition} */
         const rootNode = treeBuilder.rootNode;
 
         rootNode
@@ -27,6 +28,7 @@ class Configuration extends implementationOf(ConfigurationInterface) {
 
         this._addCacheSection(rootNode);
         this._addConsoleSection(rootNode);
+        this._addDebugSection(rootNode);
         this._addHttpServerSection(rootNode);
         this._addLoggerSection(rootNode);
         this._addRouterSection(rootNode);
@@ -47,6 +49,40 @@ class Configuration extends implementationOf(ConfigurationInterface) {
                 .arrayNode('console')
                 .info('console configuration')
                 [ReflectionClass.exists('Jymfony.Component.Console.Application') ? 'canBeDisabled' : 'canBeEnabled']()
+            .end()
+        ;
+    }
+
+    /**
+     * @param {Jymfony.Component.Config.Definition.Builder.ArrayNodeDefinition} rootNode
+     *
+     * @private
+     */
+    _addDebugSection(rootNode) {
+        rootNode
+            .children()
+                .arrayNode('debug')
+                .info('debug configuration')
+                .canBeEnabled()
+                .children()
+                    .booleanNode('enabled')
+                        .defaultValue('%kernel.debug%')
+                    .end()
+                    .arrayNode('dump')
+                    .addDefaultsIfNotSet()
+                    .children()
+                        .integerNode('max_items')
+                            .defaultValue(2500)
+                        .end()
+                        .integerNode('min_depth')
+                            .defaultValue(1)
+                        .end()
+                        .integerNode('max_string_length').end()
+                        .scalarNode('file_link_format')
+                            .defaultValue('%debug.file_link_format%')
+                        .end()
+                    .end()
+                .end()
             .end()
         ;
     }
@@ -129,7 +165,7 @@ class Configuration extends implementationOf(ConfigurationInterface) {
                                         .then(v => {
                                             const map = {};
                                             for (const [ verbosity, level ] of __jymfony.getEntries(v)) {
-                                                map[verbosity.toUpperCase()] = level.toUpperCase();
+                                                map[String(verbosity).toUpperCase()] = level.toUpperCase();
                                             }
 
                                             return map;
@@ -327,7 +363,7 @@ class Configuration extends implementationOf(ConfigurationInterface) {
                         // .scalarNode('default_memcached_provider').defaultValue('memcached://localhost').end()
                         .arrayNode('pools')
                             .useAttributeAsKey('name')
-                            .prototype('array')
+                            .arrayPrototype()
                                 .children()
                                     .scalarNode('adapter').defaultValue('cache.app').end()
                                     .booleanNode('public').defaultFalse().end()

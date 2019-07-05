@@ -1,6 +1,7 @@
 declare namespace Jymfony.Component.EventDispatcher.Debug {
     import Event = Jymfony.Contracts.EventDispatcher.Event;
     import LoggerInterface = Jymfony.Component.Logger.LoggerInterface;
+    import EventDispatcherInterface = Jymfony.Contracts.EventDispatcher.EventDispatcherInterface;
 
     export class TraceableEventDispatcher extends implementationOf(TraceableEventDispatcherInterface) {
         /**

@@ -16,8 +16,12 @@ __jymfony.clone = (object) => {
     surrogateCtor.prototype = object.constructor.prototype;
 
     const target = new surrogateCtor();
-    for (const k of Object.keys(object)) {
+    for (const k of __jymfony.keys(object)) {
         target[k] = object[k];
+    }
+
+    if (isFunction(target.__clone)) {
+        target.__clone();
     }
 
     return target;
@@ -36,7 +40,7 @@ __jymfony.deepClone = function deepClone(object) {
         return object;
     }
 
-    let result;
+    let result = object;
 
     if (isArray(object)) {
         result = [];
@@ -47,13 +51,11 @@ __jymfony.deepClone = function deepClone(object) {
         if (isObjectLiteral(object)) {
             // Object literal ({ ... })
             result = {};
-            for (const i of Object.keys(object)) {
+            for (const i of __jymfony.keys(object)) {
                 result[i] = deepClone(object[i]);
             }
         } else if (object instanceof Date) {
             result = new Date(object);
-        } else {
-            result = object;
         }
     }
 

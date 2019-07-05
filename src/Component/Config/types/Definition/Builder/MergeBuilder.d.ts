@@ -26,6 +26,6 @@ declare namespace Jymfony.Component.Config.Definition.Builder {
         /**
          * Returns the related node.
          */
-        end(): T;
+        end(): NodeBuilder<T>;
     }
 }

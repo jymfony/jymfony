@@ -1,4 +1,6 @@
 declare namespace Jymfony.Component.EventDispatcher.Debug {
+    import EventDispatcherInterface = Jymfony.Contracts.EventDispatcher.EventDispatcherInterface;
+
     export class WrappedListener<T extends Invokable<any> = () => any> {
         public readonly wrappedListener: T;
 

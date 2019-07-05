@@ -70,12 +70,19 @@ declare namespace __jymfony {
      * Get key, value pairs from any object.
      */
     export function getEntries<V>(object: V[]): IterableIterator<[number, V]>;
-    export function getEntries<K extends keyof string | number | symbol, V>(object: Record<K, V>): IterableIterator<[K, V]>;
+    export function getEntries<K extends string | number | symbol, V>(object: Record<K, V>): IterableIterator<[K, V]>;
 
     /**
      * Deep-equality check.
      */
     export function equal(left: any, right: any, strict?: boolean): boolean;
+
+    /**
+     * Get object keys.
+     */
+    export function keys(obj: any[]): number[];
+    export function keys<K extends string | number | symbol>(obj: Record<K, any>): K[];
+    export function keys<K>(obj: Map<K, any>): K[];
 
     /**
      * Returns an object with the common keys only.
@@ -121,6 +128,11 @@ declare namespace __jymfony {
      * Escapes a shell argument.
      */
     export function escapeshellarg(arg: string): string;
+
+    /**
+     * Encodes a string with html entities.
+     */
+    export function htmlentities (string: string, quoteStyle?: 'ENT_COMPAT' | 'ENT_NOQUOTES' | 'ENT_QUOTES', doubleEncode?: string): string
 
     /**
      * Calculates the levenshtein distance between two strings.
@@ -208,7 +220,7 @@ declare interface Newable<T> {
     new(): T;
     new(...args: any[]): T;
 }
-declare type Constructor<T> = Function | { prototype: T };
+declare type Constructor<T = any> = Function | { prototype: T };
 
 declare class MixinInterface {
     public static readonly definition: Newable<any>;

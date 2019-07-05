@@ -16,6 +16,10 @@ class MessageProcessor {
 
         const replacements = {};
         for (const [ key, value ] of __jymfony.getEntries(record.context)) {
+            if (isSymbol(key)) {
+                continue;
+            }
+
             replacements['{' + key + '}'] = value.toString();
         }
 

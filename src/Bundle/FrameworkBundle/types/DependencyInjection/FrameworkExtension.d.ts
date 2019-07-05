@@ -24,6 +24,8 @@ declare namespace Jymfony.Bundle.FrameworkBundle.DependencyInjection {
 
         private _registerConsoleConfiguration(config: any, container: ContainerBuilder, loader: LoaderInterface): void;
 
+        private _registerDebugConfiguration(config: any, container: ContainerBuilder, loader: LoaderInterface): void;
+
         private _registerLoggerConfiguration(config: any, container: ContainerBuilder, loader: LoaderInterface): void;
 
         private _buildLoggerHandler(container: ContainerBuilder, name: string, handler: any): string;

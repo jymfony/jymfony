@@ -64,10 +64,18 @@ class LineFormatter extends NormalizerFormatter {
         let output = this._format;
 
         for (const [ variable, val ] of __jymfony.getEntries(vars.extra)) {
+            if (isSymbol(variable)) {
+                continue;
+            }
+
             output = output.replace(new RegExp(`%extra\.${variable}%`, 'g'), this.stringify(val));
         }
 
         for (const [ variable, val ] of __jymfony.getEntries(vars.context)) {
+            if (isSymbol(variable)) {
+                continue;
+            }
+
             output = output.replace(new RegExp(`%context\.${variable}%`, 'g'), this.stringify(val));
         }
 
@@ -77,6 +85,10 @@ class LineFormatter extends NormalizerFormatter {
         delete vars.extra;
 
         for (const [ variable, val ] of __jymfony.getEntries(vars)) {
+            if (isSymbol(variable)) {
+                continue;
+            }
+
             output = output.replace(new RegExp(`%${variable}%`, 'g'), this.stringify(val));
         }
 

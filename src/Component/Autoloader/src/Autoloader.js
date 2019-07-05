@@ -46,6 +46,7 @@ class Autoloader {
          * @private
          */
         this._finder = finder;
+        this._rootDir = this._finder.findRoot();
 
         /**
          * @type {Object}
@@ -88,6 +89,15 @@ class Autoloader {
      */
     get finder() {
         return this._finder;
+    }
+
+    /**
+     * Gets the root dir.
+     *
+     * @returns {string}
+     */
+    get rootDir() {
+        return this._rootDir;
     }
 
     /**
@@ -193,10 +203,9 @@ class Autoloader {
         this._global.Symbol.reflection = Symbol('reflection');
         this._global.Symbol.docblock = Symbol('docblock');
 
-        const rootDir = this._finder.findRoot();
         for (const module of this._finder.listModules()) {
             let packageInfo;
-            const packageJson = path.join(rootDir, 'node_modules', module, 'package.json');
+            const packageJson = path.join(this._rootDir, 'node_modules', module, 'package.json');
 
             try {
                 packageInfo = JSON.parse(fs.readFileSync(packageJson, { encoding: 'utf8' }));
@@ -204,11 +213,11 @@ class Autoloader {
                 continue;
             }
 
-            const dir = path.join(rootDir, 'node_modules', module);
+            const dir = path.join(this._rootDir, 'node_modules', module);
             this._processPackageInfo(packageInfo, dir);
         }
 
-        this._processPackageInfo(JSON.parse(fs.readFileSync(rootDir + '/package.json', { encoding: 'utf8' })), rootDir);
+        this._processPackageInfo(JSON.parse(fs.readFileSync(this._rootDir + '/package.json', { encoding: 'utf8' })), this._rootDir);
     }
 
     /**

@@ -689,7 +689,7 @@ class Kernel extends implementationOf(KernelInterface) {
     }
 }
 
-Kernel.VERSION = '0.1.0-alpha.6';
+Kernel.VERSION = require('../package.json').version;
 Kernel.VERSION_ID = 100;
 
 module.exports = Kernel;

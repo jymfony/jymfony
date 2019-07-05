@@ -123,7 +123,7 @@ class ArrayAdapter extends implementationOf(CacheItemPoolInterface, LoggerAwareI
         this._values[key] = value;
         this._expiries[key] = undefined !== expiry ? expiry : Infinity;
 
-        if (undefined === this._pruneInterval) {
+        if (Infinity !== this._expiries[key] && undefined === this._pruneInterval) {
             this._pruneInterval = setInterval(this.prune.bind(this), 60000);
         }
 
@@ -134,7 +134,9 @@ class ArrayAdapter extends implementationOf(CacheItemPoolInterface, LoggerAwareI
      * @inheritdoc
      */
     async close() {
-        // Nothing to do.
+        if (undefined !== this._pruneInterval) {
+            clearInterval(this._pruneInterval);
+        }
     }
 }
 

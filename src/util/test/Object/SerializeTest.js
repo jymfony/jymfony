@@ -38,6 +38,10 @@ describe('Serialize', function () {
             .to.be.equal('A(6):{0:D(1):1;1:D(3):1.1;2:S(7):"hallo";3:N;4:B:1;5:A(0):{};}');
     });
 
+    it('should serialize buffer', () => {
+        expect(__jymfony.serialize(Buffer.from('TEST'))).to.be.equal('X(8):54455354');
+    });
+
     it('should serialize object literals', () => {
         expect(__jymfony.serialize({a: 1, b: 1.1, c: 'hallo', d: null, e: true, f: []}))
             .to.be.equal('O(6):{S(3):"a":D(1):1;S(3):"b":D(3):1.1;S(3):"c":S(7):"hallo";S(3):"d":N;S(3):"e":B:1;S(3):"f":A(0):{};}');
@@ -82,6 +86,10 @@ describe('Unerialize', function () {
     it('should unserialize arrays', () => {
         expect(__jymfony.unserialize('A(6):{0:D(1):1;1:D(3):1.1;2:S(7):"hallo";3:N;4:B:1;5:A(0):{};}'))
             .to.be.deep.equal([ 1, 1.1, 'hallo', null, true, [] ]);
+    });
+
+    it('should unserialize buffer', () => {
+        expect(__jymfony.unserialize('X(8):54455354')).to.be.deep.equal(Buffer.from('TEST'));
     });
 
     it('should unserialize object literals', () => {

@@ -52,8 +52,9 @@
     "@jymfony/stopwatch": "0.1.0-alpha.15",
     "@jymfony/templating": "0.1.0-alpha.15",
     "@jymfony/testing": "0.1.0-alpha.15",
-    "@jymfony/var-exporter": "0.1.0-alpha.15",
-    "@jymfony/util": "0.1.0-alpha.15"
+    "@jymfony/util": "0.1.0-alpha.15",
+    "@jymfony/var-dumper": "0.1.0-alpha.15",
+    "@jymfony/var-exporter": "0.1.0-alpha.15"
   },
   "flat": true
 }

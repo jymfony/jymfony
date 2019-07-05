@@ -1,0 +1,42 @@
+{
+  "name": "@jymfony/var-dumper",
+  "version": "0.1.0-dev",
+  "description": "Jymfony VarDumper component",
+  "typings": "types/index.d.ts",
+  "scripts": {
+    "test": "node ./tests.js test/**"
+  },
+  "keywords": [
+    "dumper",
+    "logger",
+    "jymfony"
+  ],
+  "author": "Alessandro Chitolina <alekitto@gmail.com>",
+  "license": "MIT",
+  "engines": {
+    "node": ">=8.10.0"
+  },
+  "dependencies": {
+    "@jymfony/autoloader": "https://github.com/jymfony/autoloader.git",
+    "@jymfony/exceptions": "https://github.com/jymfony/exceptions.git",
+    "@jymfony/util": "https://github.com/jymfony/util.git"
+  },
+  "devDependencies": {
+    "@jymfony/datetime": "https://github.com/jymfony/date-time.git",
+    "@jymfony/debug": "https://github.com/jymfony/debug.git",
+    "@jymfony/dependency-injection": "https://github.com/jymfony/dependency-injection.git",
+    "chai": "^3.5.0",
+    "mocha": "^5.0"
+  },
+  "config": {
+    "jymfony-autoload": {
+      "includes": [
+        "src/functions.js",
+        "src/Test/ChaiExpectation.js"
+      ],
+      "namespaces": {
+        "Jymfony.Component.VarDumper": "src/"
+      }
+    }
+  }
+}

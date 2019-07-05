@@ -29,6 +29,7 @@
     "node": ">=8.10.0"
   },
   "devDependencies": {
+    "@types/chai": "^3.5.0",
     "@types/mocha": "^5.2.0",
     "@types/node": "*",
     "chai": "^3.5.0",
@@ -67,19 +68,22 @@
         "Jymfony.Component.Stopwatch": "src/Component/Stopwatch/src",
         "Jymfony.Component.Templating": "src/Component/Templating/src",
         "Jymfony.Component.Testing": "src/Component/Testing/src",
+        "Jymfony.Component.VarDumper": "src/Component/VarDumper/src",
         "Jymfony.Component.VarExporter": "src/Component/VarExporter/src",
         "Jymfony.Contracts": "src/Contracts/src"
       },
       "includes": [
         "src/util/index.js",
         "src/Exceptions/index.js",
-        "src/DataStructure/src/all.js"
+        "src/DataStructure/src/all.js",
+        "src/Component/VarDumper/src/functions.js",
+        "src/Component/VarDumper/src/Test/ChaiExpectation.js"
       ]
     }
   },
   "nyc": {
     "per-file": true,
-    "hookRequire": false,
+    "hookRequire": true,
     "hookRunInContext": true,
     "hookRunInThisContext": true,
     "include": [
