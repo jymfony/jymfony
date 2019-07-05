@@ -3,6 +3,34 @@
 global.__jymfony = global.__jymfony || {};
 
 const get_html_translation_table = require('./get_html_translation_table');
+const memo = {};
+
+const get_regex = (quoteStyle, doubleEncode) => {
+    const cacheKey = quoteStyle + '_' + (doubleEncode ? '1' : '0');
+    if (undefined !== memo[cacheKey]) {
+        return memo[cacheKey];
+    }
+
+    const hashMap = get_html_translation_table('HTML_ENTITIES', quoteStyle);
+    if (0 === __jymfony.keys(hashMap).length) {
+        return false;
+    }
+
+    const regex = new RegExp('&(?:#\\d+|#x[\\da-f]+|[a-zA-Z][\\da-z]*);|[' +
+        Object.keys(hashMap)
+            .join('')
+            // Replace regexp special chars
+            .replace(/([()[\]{}\-.*+?^$|/\\])/g, '\\$1') + ']',
+    'g');
+
+    return memo[cacheKey] = [ regex, (ent) => {
+        if (1 < ent.length) {
+            return doubleEncode ? hashMap['&'] + ent.substr(1) : ent;
+        }
+
+        return hashMap[ent];
+    } ];
+};
 
 /**
  * Adapted from locutus.io
@@ -30,29 +58,5 @@ __jymfony.htmlentities = (string, quoteStyle = 'ENT_COMPAT', doubleEncode = true
     //   Example 2: htmlentities("foo'bar","ENT_QUOTES")
     //   Returns 2: 'foo&#039;bar'
 
-    const hashMap = get_html_translation_table('HTML_ENTITIES', quoteStyle);
-    string = String(string);
-
-    if (0 === __jymfony.keys(hashMap).length) {
-        return false;
-    }
-
-    if (quoteStyle && 'ENT_QUOTES' === quoteStyle) {
-        hashMap['\''] = '&#039;';
-    }
-
-    const regex = new RegExp('&(?:#\\d+|#x[\\da-f]+|[a-zA-Z][\\da-z]*);|[' +
-        Object.keys(hashMap)
-            .join('')
-            // Replace regexp special chars
-            .replace(/([()[\]{}\-.*+?^$|/\\])/g, '\\$1') + ']',
-    'g');
-
-    return string.replace(regex, (ent) => {
-        if (1 < ent.length) {
-            return doubleEncode ? hashMap['&'] + ent.substr(1) : ent;
-        }
-
-        return hashMap[ent];
-    });
+    return String(string).replace(...get_regex(quoteStyle, doubleEncode));
 };

@@ -1,5 +1,3 @@
-const memo = {};
-
 const get_html_translation_table = (table = 'HTML_SPECIALCHARS', quoteStyle = 'ENT_COMPAT') => { // eslint-disable-line camelcase
     //  Discuss at: http://locutus.io/php/get_html_translation_table/
     // Original by: Philip Peterson
@@ -16,11 +14,6 @@ const get_html_translation_table = (table = 'HTML_SPECIALCHARS', quoteStyle = 'E
     //    Input by: Ratheous
     //   Example 1: get_html_translation_table('HTML_SPECIALCHARS')
     //   Returns 1: {'"': '&quot;', '&': '&amp;', '<': '&lt;', '>': '&gt;'}
-
-    const cacheKey = table + '_' + quoteStyle;
-    if (memo[cacheKey]) {
-        return { ...memo[cacheKey] };
-    }
 
     const hashMap = new HashTable();
 
@@ -139,9 +132,7 @@ const get_html_translation_table = (table = 'HTML_SPECIALCHARS', quoteStyle = 'E
     hashMap.put(String.fromCharCode(60), '&lt;');
     hashMap.put(String.fromCharCode(62), '&gt;');
 
-    memo[cacheKey] = hashMap.toObject();
-
-    return { ...memo[cacheKey] };
+    return hashMap.toObject();
 };
 
 module.exports = get_html_translation_table;
