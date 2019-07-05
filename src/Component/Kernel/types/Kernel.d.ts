@@ -7,8 +7,8 @@ declare namespace Jymfony.Component.Kernel {
     import DelegatingLoader = Jymfony.Component.Config.Loader.DelegatingLoader;
 
     export abstract class Kernel extends implementationOf(KernelInterface) {
-        public static readonly VERSION = '0.1.0-dev';
-        public static readonly VERSION_ID = 100;
+        public static readonly VERSION;
+        public static readonly VERSION_ID;
 
         protected _environment: string;
         protected _debug: boolean;
