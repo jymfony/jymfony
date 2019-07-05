@@ -40,13 +40,14 @@ if (!! util) {
         }
 
         const obj = getDump(util.flag(this, 'object'));
+        val = prepareExpectation(val);
 
         this.assert(
             prepareExpectation(val) === obj
             , 'expected #{this} dumps the same as #{exp}'
             , 'expected #{this} does not dump the same as #{exp}'
             , val
-            , this._obj
+            , obj
             , true
         );
     });
