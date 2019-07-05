@@ -1,6 +1,6 @@
 {
   "name": "@jymfony/datetime",
-  "version": "0.1.0-alpha.16",
+  "version": "0.1.0-alpha.16-1",
   "description": "Jymfony DateTime Component",
   "typings": "types/index.d.ts",
   "scripts": {
@@ -19,11 +19,11 @@
     "node": ">=8.10.0"
   },
   "dependencies": {
-    "@jymfony/autoloader": "0.1.0-alpha.16",
-    "@jymfony/datastructure": "0.1.0-alpha.16",
-    "@jymfony/exceptions": "0.1.0-alpha.16",
-    "@jymfony/lexer": "0.1.0-alpha.16",
-    "@jymfony/util": "0.1.0-alpha.16"
+    "@jymfony/autoloader": "0.1.0-alpha.16-1",
+    "@jymfony/datastructure": "0.1.0-alpha.16-1",
+    "@jymfony/exceptions": "0.1.0-alpha.16-1",
+    "@jymfony/lexer": "0.1.0-alpha.16-1",
+    "@jymfony/util": "0.1.0-alpha.16-1"
   },
   "devDependencies": {
     "@jymfony/debug": "*",

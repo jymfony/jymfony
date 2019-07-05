@@ -1,6 +1,6 @@
 {
   "name": "@jymfony/var-exporter",
-  "version": "0.1.0-alpha.16",
+  "version": "0.1.0-alpha.16-1",
   "description": "Jymfony VarExporter component",
   "typings": "types/index.d.ts",
   "scripts": {
@@ -17,13 +17,12 @@
     "node": ">=8.10.0"
   },
   "dependencies": {
-    "@jymfony/autoloader": "https://github.com/jymfony/autoloader.git",
-    "@jymfony/exceptions": "https://github.com/jymfony/exceptions.git",
-    "@jymfony/util": "https://github.com/jymfony/util.git"
+    "@jymfony/autoloader": "0.1.0-alpha.16-1",
+    "@jymfony/exceptions": "0.1.0-alpha.16-1",
+    "@jymfony/util": "0.1.0-alpha.16-1"
   },
   "devDependencies": {
-    "@types/chai": "^3.5.0",
-    "@jymfony/debug": "https://github.com/jymfony/debug.git",
+    "@jymfony/debug": "0.1.0-alpha.16-1",
     "chai": "^3.5.0",
     "mocha": "^5.0"
   },

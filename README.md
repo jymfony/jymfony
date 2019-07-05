@@ -53,6 +53,7 @@ As said, Jymfony is made of reusable Javascript components:
 - [@jymfony/stopwatch](https://github.com/jymfony/stopwatch)
 - [@jymfony/templating](https://github.com/jymfony/templating)
 - [@jymfony/testing](https://github.com/jymfony/testing)
+- [@jymfony/var-dumper](https://github.com/jymfony/var-dumper)
 - [@jymfony/var-exporter](https://github.com/jymfony/var-exporter)
 
 Each component has its own `README.md`, you can read more about those there.
