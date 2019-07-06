@@ -7,6 +7,7 @@ const casters = [
     [ Caster.ConstStub, Caster.StubCaster.castStub ],
     [ Caster.EnumStub, Caster.StubCaster.castEnum ],
 
+    [ RegExp, Caster.RegExpCaster.castRegExp ],
     [ Date, Caster.DateCaster.castDate ],
     [ Buffer, Caster.BufferCaster.castBuffer ],
 
@@ -15,8 +16,11 @@ const casters = [
     [ Caster.FrameStub, Caster.ErrorCaster.castFrameStub ],
     [ Jymfony.Component.VarDumper.Exception.ThrowingCasterException, Caster.ErrorCaster.castThrowingCasterException ],
     [ Jymfony.Component.VarDumper.Cloner.AbstractCloner, Caster.StubCaster.cutInternals ],
-
 ];
+
+if (__jymfony.RegExp) {
+    casters.push([ __jymfony.RegExp, Caster.RegExpCaster.castRegExp ]);
+}
 
 if (ReflectionClass.exists('Jymfony.Component.DateTime.DateTime')) {
     casters.push([ Jymfony.Component.DateTime.DateTime, Caster.DateCaster.castDateTime ]);

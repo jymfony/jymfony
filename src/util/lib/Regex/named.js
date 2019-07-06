@@ -45,7 +45,11 @@ if (! __jymfony.Platform.hasModernRegex()) {
          *
          * @param {*} instance
          */
-        [Symbol.hasInstance](instance) {
+        static [Symbol.hasInstance](instance) {
+            if (! instance) {
+                return false;
+            }
+
             return instance.constructor === RegExp || instance.constructor === __jymfony.RegExp;
         }
 

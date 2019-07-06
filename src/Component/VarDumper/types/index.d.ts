@@ -6,6 +6,7 @@
 /// <reference path="Caster/ErrorCaster.d.ts" />
 /// <reference path="Caster/FrameStub.d.ts" />
 /// <reference path="Caster/LinkStub.d.ts" />
+/// <reference path="Caster/RegExpCaster.d.ts" />
 /// <reference path="Caster/StubCaster.d.ts" />
 /// <reference path="Caster/TraceStub.d.ts" />
 /// <reference path="Cloner/AbstractCloner.d.ts" />
