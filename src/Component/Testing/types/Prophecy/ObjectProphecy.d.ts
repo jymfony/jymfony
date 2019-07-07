@@ -4,7 +4,7 @@ declare namespace Jymfony.Component.Testing.Prophecy {
     import CallCenter = Jymfony.Component.Testing.Call.CallCenter;
     import Doubler = Jymfony.Component.Testing.Double.Doubler;
 
-    export class ObjectProphecy extends implementationOf(ProphecyInterface) {
+    export class ObjectProphecy<T = any> extends implementationOf(ProphecyInterface) {
         private _doubler: Doubler;
         private _revealer: Revealer;
         private _callCenter: CallCenter;
@@ -71,6 +71,6 @@ declare namespace Jymfony.Component.Testing.Prophecy {
         /**
          * @inheritdoc
          */
-        reveal(): any;
+        reveal(): T;
     }
 }
