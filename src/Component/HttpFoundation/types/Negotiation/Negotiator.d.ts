@@ -1,5 +1,5 @@
 declare namespace Jymfony.Component.HttpFoundation.Negotiation {
-    class Negotiator extends AbstractNegotiator {
+    export class Negotiator extends AbstractNegotiator {
         /**
          * @inheritdoc
          */

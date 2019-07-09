@@ -3,7 +3,7 @@ declare namespace Jymfony.Component.HttpFoundation.File.Exception {
     /**
      * Thrown when a file was not found.
      */
-    class FileNotFoundException extends FileException {
+    export class FileNotFoundException extends FileException {
         /**
          * Constructor.
          */

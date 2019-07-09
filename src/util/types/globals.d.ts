@@ -220,14 +220,14 @@ declare interface Newable<T> {
     new(): T;
     new(...args: any[]): T;
 }
-declare type Constructor<T = any> = Function | { prototype: T };
+declare type Constructor<T = any> = Function & { prototype: T };
 
 declare class MixinInterface {
     public static readonly definition: Newable<any>;
 }
 
-declare function getInterface<T = any>(definition: T): T & MixinInterface;
-declare function getTrait<T = any>(definition: T): T & MixinInterface;
+declare function getInterface<T = any>(definition: T): Constructor<T & MixinInterface>;
+declare function getTrait<T = any>(definition: T): Constructor<T & MixinInterface>;
 
 declare type AsyncFunction = (...args: any[]) => Promise<any>;
 declare type AsyncGeneratorFunction = (...args: any[]) => AsyncIterator<any>;

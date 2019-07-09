@@ -4,6 +4,6 @@ declare namespace Jymfony.Component.HttpFoundation.Negotiation {
      *
      * @final
      */
-    class AcceptCharset extends mix(BaseAccept, AcceptHeader) {
+    export class AcceptCharset extends mix(BaseAccept, AcceptHeader) {
     }
 }

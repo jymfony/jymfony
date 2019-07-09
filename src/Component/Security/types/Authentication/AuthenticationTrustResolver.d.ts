@@ -4,7 +4,7 @@ declare namespace Jymfony.Component.Security.Authentication {
     /**
      * Default implementation of authentication trust resolver.
      */
-    class AuthenticationTrustResolver extends implementationOf(AuthenticationTrustResolverInterface) {
+    export class AuthenticationTrustResolver extends implementationOf(AuthenticationTrustResolverInterface) {
         private _anonymousClass: string;
         private _rememberMeClass: string;
 

@@ -8,7 +8,7 @@ declare namespace Jymfony.Component.Templating.Loader {
     /**
      * Template loader.
      */
-    class Loader extends implementationOf(LoaderInterface, LoggerAwareInterface, LoggerAwareTrait) {
+    export class Loader extends implementationOf(LoaderInterface, LoggerAwareInterface, LoggerAwareTrait) {
         private _templatePathPatterns: string[];
         private _filesystem: Filesystem;
         private _logger: LoggerInterface;

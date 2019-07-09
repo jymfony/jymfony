@@ -2,7 +2,7 @@ declare namespace Jymfony.Component.VarDumper.Cloner {
     /**
      * DumperInterface used by Data objects.
      */
-    class DumperInterface {
+    export class DumperInterface {
         public static readonly definition: Newable<DumperInterface>;
 
         /**

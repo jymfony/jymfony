@@ -3,7 +3,7 @@ declare namespace Jymfony.Bundle.FrameworkBundle.Test {
     import ParameterBag = Jymfony.Component.DependencyInjection.ParameterBag.ParameterBag;
     import ContainerInterface = Jymfony.Component.DependencyInjection.ContainerInterface;
 
-    class TestContainer extends Container {
+    export class TestContainer extends Container {
         private _publicContainer: Container;
         private _privateContainer: ContainerInterface;
 

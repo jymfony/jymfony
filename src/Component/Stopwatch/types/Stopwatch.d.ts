@@ -8,7 +8,7 @@ declare namespace Jymfony.Component.Stopwatch {
     /**
      * Stopwatch provides a way to profile code.
      */
-    class Stopwatch extends implementationOf(EventSubscriberInterface, ClsTrait) {
+    export class Stopwatch extends implementationOf(EventSubscriberInterface, ClsTrait) {
         private _sections: Map<string | Request | Command, Section[]>;
         private _activeSections: Map<string | Request | Command, Section[]>;
 

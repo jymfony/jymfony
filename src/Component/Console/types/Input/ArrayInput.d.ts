@@ -6,7 +6,7 @@ declare namespace Jymfony.Component.Console.Input {
      *
      *     input = new ArrayInput(['name' => 'foo', '--bar' => 'foobar']);
      */
-    class ArrayInput extends Input {
+    export class ArrayInput extends Input {
         private _parameters: Record<string, string>;
 
         /**
