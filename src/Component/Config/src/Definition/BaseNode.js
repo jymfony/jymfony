@@ -1,5 +1,7 @@
 const NodeInterface = Jymfony.Component.Config.Definition.NodeInterface;
 const ForbiddenOverwriteException = Jymfony.Component.Config.Definition.Exception.ForbiddenOverwriteException;
+const InvalidConfigurationException = Jymfony.Component.Config.Definition.Exception.InvalidConfigurationException;
+const UnsetKeyException = Jymfony.Component.Config.Definition.Exception.UnsetKeyException;
 
 /**
  * The base node class.
@@ -381,8 +383,15 @@ class BaseNode extends implementationOf(NodeInterface) {
             try {
                 value = closure(value);
             } catch (e) {
-                throw e;
-                // Throw new InvalidConfigurationException(sprintf('Invalid configuration for path "%s": %s', this.getPath(), $e->getMessage()), $e->getCode(), $e);
+                if (e instanceof UnsetKeyException) {
+                    throw e;
+                }
+
+                throw new InvalidConfigurationException(__jymfony.sprintf(
+                    'Invalid configuration for path "%s": %s',
+                    this.getPath(),
+                    e.message
+                ), e.code || null, e);
             }
         }
 

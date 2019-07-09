@@ -22,7 +22,7 @@ declare namespace Jymfony.Component.Console.Input {
      * @see http://www.gnu.org/software/libc/manual/html_node/Argument-Syntax.html
      * @see http://www.opengroup.org/onlinepubs/009695399/basedefs/xbd_chap12.html#tag_12_02
      */
-    class ArgvInput extends Input {
+    export class ArgvInput extends Input {
         private _tokens: string[];
         private _parsed: string[];
 

@@ -4,7 +4,7 @@ declare namespace Jymfony.Component.HttpFoundation.Negotiation {
      *
      * @final
      */
-    class AcceptLanguage extends mix(BaseAccept, AcceptHeader) {
+    export class AcceptLanguage extends mix(BaseAccept, AcceptHeader) {
         private _language: string;
         private _script: string;
         private _region: string;

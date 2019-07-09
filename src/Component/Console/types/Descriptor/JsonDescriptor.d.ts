@@ -4,7 +4,7 @@ declare namespace Jymfony.Component.Console.Descriptor {
     import InputDefinition = Jymfony.Component.Console.Input.InputDefinition;
     import Command = Jymfony.Component.Console.Command.Command;
 
-    class JsonDescriptor extends Descriptor {
+    export class JsonDescriptor extends Descriptor {
         /**
          * @inheritdoc
          */

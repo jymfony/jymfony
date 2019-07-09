@@ -7,7 +7,7 @@ declare namespace Jymfony.Bundle.SecurityBundle.DependencyInjection {
     import ListenerInterface = Jymfony.Component.Security.Firewall.ListenerInterface;
     import Definition = Jymfony.Component.DependencyInjection.Definition;
 
-    class SecurityExtension extends Extension {
+    export class SecurityExtension extends Extension {
         private _userProviderFactories: UserProviderFactoryInterface[];
         private _factories: Record<string, SecurityFactoryInterface[]>;
 

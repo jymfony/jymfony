@@ -3,7 +3,7 @@ declare namespace Jymfony.Component.Security.Logout {
     import GetResponseEvent = Jymfony.Component.HttpServer.Event.GetResponseEvent;
     import ListenerInterface = Jymfony.Component.Security.Firewall.ListenerInterface;
 
-    class LogoutListener extends implementationOf(ListenerInterface) {
+    export class LogoutListener extends implementationOf(ListenerInterface) {
         private _httpUtils: HttpUtils;
         private _path: string;
         private _targetPath: string;

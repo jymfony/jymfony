@@ -3,7 +3,7 @@ declare namespace Jymfony.Component.Templating.View {
     import HelperInterface = Jymfony.Component.Templating.Helper.HelperInterface;
     import TemplateReferenceInterface = Jymfony.Component.Templating.TemplateReferenceInterface;
 
-    class View {
+    export class View {
         private _output: NodeJS.WritableStream;
         private _name: string | TemplateReferenceInterface;
         private _engine: EngineInterface;

@@ -1,5 +1,5 @@
 declare namespace Jymfony.Component.Console.Input {
-    class Input extends implementationOf(StreamableInputInterface) {
+    export class Input extends implementationOf(StreamableInputInterface) {
         public interactive: boolean;
         public stream: NodeJS.ReadableStream;
 

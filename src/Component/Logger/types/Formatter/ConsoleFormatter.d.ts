@@ -6,7 +6,7 @@ declare namespace Jymfony.Component.Logger.Formatter {
         multiline: boolean;
     }
 
-    class ConsoleFormatter extends NormalizerFormatter {
+    export class ConsoleFormatter extends NormalizerFormatter {
         public static readonly SIMPLE_FORMAT = '%datetime% %start_tag%%level_name%%end_tag% <comment>[%channel%]</> %message%%context%%extra%\n';
 
         private _options: ConsoleFormatterOptions;

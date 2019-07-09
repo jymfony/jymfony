@@ -282,7 +282,7 @@ class ArrayNode extends BaseNode {
      */
     validateType(value) {
         if ((! isArray(value) && ! isObjectLiteral(value)) && (! this._allowFalse || false !== value)) {
-            const ex = new InvalidTypeException(sprintf(
+            const ex = new InvalidTypeException(__jymfony.sprintf(
                 'Invalid type for path "%s". Expected array, but got %s',
                 this.getPath(),
                 typeof value

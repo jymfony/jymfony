@@ -7,7 +7,7 @@ declare namespace Jymfony.Component.Console.Event {
     /**
      * Allows to inspect input and output of a command.
      */
-    class ConsoleEvent extends Event {
+    export class ConsoleEvent extends Event {
         protected _command: Command;
 
         private _input: InputInterface;

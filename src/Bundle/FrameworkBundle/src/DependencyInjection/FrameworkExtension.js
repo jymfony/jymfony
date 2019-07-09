@@ -422,7 +422,7 @@ class FrameworkExtension extends Extension {
             throw new LogicException('Templating support cannot be enabled as the Templating component is not installed. Try running "yarn add @jymfony/templating".');
         }
 
-        loader.load('templating.xml');
+        loader.load('templating.js');
 
         if (container.getParameter('kernel.debug')) {
             const logger = new Reference('logger', Container.IGNORE_ON_INVALID_REFERENCE);
@@ -432,8 +432,8 @@ class FrameworkExtension extends Extension {
                 .addMethodCall('setLogger', [ logger ]);
         }
 
-        if (0 !== config.loaders.length) {
-            const loaders = config.loaders.map((loader) => new Reference(loader));
+        if (0 !== Object.keys(config.loaders).length) {
+            const loaders = Object.values(config.loaders).map((loader) => new Reference(loader));
 
             // Use a delegation unless only a single loader was registered
             if (1 === loaders.length) {
@@ -442,6 +442,9 @@ class FrameworkExtension extends Extension {
                 container.getDefinition('templating.loader.chain').addArgument(loaders);
                 container.setAlias('templating.loader', 'templating.loader.chain').setPublic(false);
             }
+        } else {
+            container.register('templating.loader', Jymfony.Component.Templating.Loader.Loader)
+                .addArgument([]);
         }
 
         const engines = config.engines.map((engine) => new Reference('templating.engine.'+engine));
@@ -460,7 +463,7 @@ class FrameworkExtension extends Extension {
 
         // Configure the js engine if needed
         if (-1 !== config.engines.indexOf('js')) {
-            loader.load('templating_js.xml');
+            loader.load('templating_js.js');
         }
     }
 

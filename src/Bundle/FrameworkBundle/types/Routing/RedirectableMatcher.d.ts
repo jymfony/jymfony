@@ -2,7 +2,7 @@ declare namespace Jymfony.Bundle.FrameworkBundle.Routing {
     import Request = Jymfony.Component.HttpFoundation.Request;
     import Matcher = Jymfony.Component.Routing.Matcher.Matcher;
 
-    class RedirectableMatcher extends Matcher {
+    export class RedirectableMatcher extends Matcher {
         /**
          * @inheritdoc
          */
