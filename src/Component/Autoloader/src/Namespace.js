@@ -224,6 +224,15 @@ class Namespace {
         const handlers = {
             get: (target, key) => {
                 init();
+
+                if ('toString' === key) {
+                    return FunctionPrototype.toString.bind(realTarget);
+                }
+
+                if ('valueOf' === key) {
+                    return FunctionPrototype.valueOf.bind(realTarget);
+                }
+
                 return Reflect.get(realTarget, key);
             },
             set: (target, key, value) => {
