@@ -2,7 +2,7 @@ const RememberMeToken = Jymfony.Component.Security.Authentication.Token.Remember
 const UserInterface = Jymfony.Component.Security.User.UserInterface;
 const Role = Jymfony.Component.Security.Role.Role;
 const Prophet = Jymfony.Component.Testing.Prophet;
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 describe('[Security] RememberMeToken', function () {
     beforeEach(() => {

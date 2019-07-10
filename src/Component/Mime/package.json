@@ -25,9 +25,9 @@
     "@jymfony/debug": "https://github.com/jymfony/debug.git",
     "@jymfony/filesystem": "https://github.com/jymfony/filesystem.git",
     "@jymfony/testing": "https://github.com/jymfony/testing.git",
-    "chai": "^3.5.0",
+    "chai": "^4.2",
     "libxmljs": "^0.19",
-    "mocha": "^5.0"
+    "mocha": "^6.0"
   },
   "config": {
     "jymfony-autoload": {

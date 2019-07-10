@@ -1,5 +1,5 @@
 require('../../lib/String/sprintf');
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 describe('Sprintf', function () {
     const tests = function * () {

@@ -5,7 +5,7 @@ const AccessDeniedPageHandler = Jymfony.Component.Security.Authorization.AccessD
 const HttpUtils = Jymfony.Component.Security.Http.HttpUtils;
 const Argument = Jymfony.Component.Testing.Argument.Argument;
 const Prophet = Jymfony.Component.Testing.Prophet;
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 describe('[Security] AccessDecisionManager', function () {
     beforeEach(() => {

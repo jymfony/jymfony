@@ -10,7 +10,7 @@ const ObjectProphecy = Jymfony.Component.Testing.Prophecy.ObjectProphecy;
 const Revealer = Jymfony.Component.Testing.Prophecy.Revealer;
 const Prophet = Jymfony.Component.Testing.Prophet;
 
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 describe('[Testing] ObjectProphecy', function () {
     beforeEach(() => {

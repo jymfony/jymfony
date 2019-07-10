@@ -1,5 +1,5 @@
 const PlaintextPasswordEncoder = Jymfony.Component.Security.Encoder.PlaintextPasswordEncoder;
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 describe('[Security] PlaintextPasswordEncoder', function () {
     it('password is valid', async () => {

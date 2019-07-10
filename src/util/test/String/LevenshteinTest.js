@@ -1,5 +1,5 @@
 require('../../lib/String/levenshtein');
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 describe('Levenshtein distance', function () {
     it('equals', () => {

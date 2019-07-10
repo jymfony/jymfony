@@ -1,5 +1,5 @@
 require('../../lib/Function/getFunction');
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 class TestObject {
     foo() { }

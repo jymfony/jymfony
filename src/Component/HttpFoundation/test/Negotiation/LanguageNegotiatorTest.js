@@ -1,7 +1,7 @@
 const AcceptLanguage = Jymfony.Component.HttpFoundation.Negotiation.AcceptLanguage;
 const LanguageNegotiator = Jymfony.Component.HttpFoundation.Negotiation.LanguageNegotiator;
 const Exception = Jymfony.Component.HttpFoundation.Negotiation.Exception;
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 describe('[HttpFoundation] CharsetNegotiator', function () {
     const testsForGetBest = [

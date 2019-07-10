@@ -1,5 +1,5 @@
 require('../lib/mixins');
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 describe('Mixins.getInterface', function () {
     it('should return an extendable expression', () => {

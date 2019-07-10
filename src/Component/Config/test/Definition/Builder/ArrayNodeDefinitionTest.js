@@ -2,7 +2,7 @@ const Builder = Jymfony.Component.Config.Definition.Builder;
 const Processor = Jymfony.Component.Config.Definition.Processor;
 const PrototypedArrayNode = Jymfony.Component.Config.Definition.PrototypedArrayNode;
 const Exception = Jymfony.Component.Config.Definition.Exception;
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 describe('[Config] ArrayNodeDefinition', function () {
     it('should append nodes', () => {

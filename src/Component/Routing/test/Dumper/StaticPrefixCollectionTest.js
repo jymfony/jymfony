@@ -1,6 +1,6 @@
 const StaticPrefixCollection = Jymfony.Component.Routing.Dumper.StaticPrefixCollection;
 const Route = Jymfony.Component.Routing.Route;
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 describe('[Routing] StaticPrefixCollection', function () {
     function * routeProvider() {

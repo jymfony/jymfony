@@ -1,5 +1,5 @@
 const Builder = Jymfony.Component.Config.Definition.Builder;
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 describe('[Config] NumericNodeDefinition', function () {
     it('incoherent min assertion should throw', () => {

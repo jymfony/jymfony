@@ -2,7 +2,7 @@ const Accept = Jymfony.Component.HttpFoundation.Negotiation.Accept;
 const Match = Jymfony.Component.HttpFoundation.Negotiation.Match;
 const Negotiator = Jymfony.Component.HttpFoundation.Negotiation.Negotiator;
 const Exception = Jymfony.Component.HttpFoundation.Negotiation.Exception;
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 describe('[HttpFoundation] Negotiator', function () {
     const pearAcceptHeader = 'text/html,application/xhtml+xml,application/xml;q=0.9,text/*;q=0.7,*/*,image/gif; q=0.8, image/jpeg; q=0.6, image/*';

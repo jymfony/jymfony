@@ -1,5 +1,5 @@
 require('../../lib/String/querystring');
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 describe('Parse query string', function () {
     it('basic functionality', () => {

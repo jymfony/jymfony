@@ -4,7 +4,7 @@ const CliDumper = Jymfony.Component.VarDumper.Dumper.CliDumper;
 require('../../fixtures/namespace');
 const Fixtures = Jymfony.Component.VarDumper.Fixtures;
 
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 describe('[VarDumper] ErrorCaster', function () {
 

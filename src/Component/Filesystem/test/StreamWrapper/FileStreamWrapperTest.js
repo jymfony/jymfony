@@ -3,7 +3,7 @@ const Resource = Jymfony.Component.Filesystem.StreamWrapper.File.Resource;
 const fs = require('fs');
 const stream = require('stream');
 const path = require('path');
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 describe('[Filesystem] FileStreamWrapper', function () {
     const fixturesDir = __dirname+'/../../fixtures';

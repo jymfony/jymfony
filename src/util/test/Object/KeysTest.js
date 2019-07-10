@@ -1,5 +1,5 @@
 require('../../lib/Object/clone');
-const expect = require('chai').expect;
+const { expect } = require('chai');
 const sym = Symbol('test');
 
 class GrandParent {

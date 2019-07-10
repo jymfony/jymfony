@@ -1,4 +1,4 @@
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 const EventDispatcher = Jymfony.Component.EventDispatcher.EventDispatcher;
 const Event = Jymfony.Contracts.EventDispatcher.Event;

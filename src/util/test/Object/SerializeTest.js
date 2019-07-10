@@ -1,7 +1,7 @@
 require('../../lib/Object/serialize');
 
 const Namespace = Jymfony.Component.Autoloader.Namespace;
-const expect = require('chai').expect;
+const { expect } = require('chai');
 const path = require('path');
 
 global.UtilFixtures = new Namespace(__jymfony.autoload, 'UtilFixtures', [

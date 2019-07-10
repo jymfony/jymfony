@@ -1,5 +1,5 @@
 require('../../lib/Object/deepMerge');
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 describe('Deep Merge', function () {
     it('deepMerge should work', () => {

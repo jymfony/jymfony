@@ -1,5 +1,5 @@
 require('../../lib/Error/trigger_deprecated');
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 describe('Deprecation Trigger', function () {
     it('emits warning', function(done) {

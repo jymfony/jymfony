@@ -6,7 +6,7 @@ const Kernel = Jymfony.Component.Kernel.Kernel;
 const Argument = Jymfony.Component.Testing.Argument.Argument;
 const Prophet = Jymfony.Component.Testing.Prophet;
 
-const expect = require('chai').expect;
+const { expect } = require('chai');
 const path = require('path');
 
 const Fixtures = new Namespace(__jymfony.autoload, 'Jymfony.Component.Kernel.Fixtures', [

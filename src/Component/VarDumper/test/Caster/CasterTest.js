@@ -1,5 +1,5 @@
 const Caster = Jymfony.Component.VarDumper.Caster.Caster;
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 const referenceObj = {
     null: null,

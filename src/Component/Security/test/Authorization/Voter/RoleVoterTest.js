@@ -3,7 +3,7 @@ const Role = Jymfony.Component.Security.Role.Role;
 const VoterInterface = Jymfony.Component.Security.Authorization.Voter.VoterInterface;
 const RoleVoter = Jymfony.Component.Security.Authorization.Voter.RoleVoter;
 const Prophet = Jymfony.Component.Testing.Prophet;
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 class RoleVoterTest {
     execTests() {

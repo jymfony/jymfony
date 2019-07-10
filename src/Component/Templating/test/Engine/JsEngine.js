@@ -1,7 +1,7 @@
 const JsEngine = Jymfony.Component.Templating.Engine.JsEngine;
 const Loader = Jymfony.Component.Templating.Loader.Loader;
 const TemplateNameParser = Jymfony.Component.Templating.TemplateNameParser;
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 describe('[Templating] JsEngine', function () {
     beforeEach(() => {

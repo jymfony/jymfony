@@ -2,7 +2,7 @@ const Request = Jymfony.Component.HttpFoundation.Request;
 const TokenStorage = Jymfony.Component.Security.Authentication.Token.Storage.TokenStorage;
 const TokenInterface = Jymfony.Component.Security.Authentication.Token.TokenInterface;
 const Prophet = Jymfony.Component.Testing.Prophet;
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 describe('[Security] TokenStorage', function () {
     beforeEach(() => {

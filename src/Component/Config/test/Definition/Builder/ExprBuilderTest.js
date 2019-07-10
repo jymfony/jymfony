@@ -1,5 +1,5 @@
 const TreeBuilder = Jymfony.Component.Config.Definition.Builder.TreeBuilder;
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 describe('[Config] ExprBuilder', function () {
     const testBuilder = () => {

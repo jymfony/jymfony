@@ -1,5 +1,5 @@
 const BaseAccept = Jymfony.Component.HttpFoundation.Negotiation.BaseAccept;
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 class DummyAccept extends BaseAccept {
 }

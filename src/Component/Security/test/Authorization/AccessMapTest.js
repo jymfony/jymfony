@@ -2,7 +2,7 @@ const Request = Jymfony.Component.HttpFoundation.Request;
 const RequestMatcherInterface = Jymfony.Component.HttpFoundation.RequestMatcherInterface;
 const AccessMap = Jymfony.Component.Security.Authorization.AccessMap;
 const Prophet = Jymfony.Component.Testing.Prophet;
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 describe('[Security] AccessMap', function () {
     beforeEach(() => {

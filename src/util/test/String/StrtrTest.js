@@ -1,5 +1,5 @@
 require('../../lib/String/strtr');
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 describe('Strtr', function () {
     it('should work correctly', () => {

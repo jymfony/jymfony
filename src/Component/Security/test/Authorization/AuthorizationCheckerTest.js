@@ -2,7 +2,7 @@ const TokenInterface = Jymfony.Component.Security.Authentication.Token.TokenInte
 const AuthorizationChecker = Jymfony.Component.Security.Authorization.AuthorizationChecker;
 const AccessDecisionManagerInterface = Jymfony.Component.Security.Authorization.AccessDecisionManagerInterface;
 const Prophet = Jymfony.Component.Testing.Prophet;
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 describe('[Security] AuthorizationChecker', function () {
     beforeEach(() => {

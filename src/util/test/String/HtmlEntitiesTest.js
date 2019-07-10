@@ -1,5 +1,5 @@
 require('../../lib/String/htmlentities');
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 describe('htmlentities', function () {
     it('should pass example 1', () => {

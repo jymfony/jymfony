@@ -1,5 +1,5 @@
 require('../src/PriorityQueue');
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 describe('PriorityQueue', function () {
     it('toStringTag', () => {

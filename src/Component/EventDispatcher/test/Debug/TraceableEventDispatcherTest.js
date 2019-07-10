@@ -1,9 +1,8 @@
-const expect = require('chai').expect;
-
 const TraceableEventDispatcher = Jymfony.Component.EventDispatcher.Debug.TraceableEventDispatcher;
 const EventDispatcher = Jymfony.Component.EventDispatcher.EventDispatcher;
 const LoggerInterface = Jymfony.Component.Logger.LoggerInterface;
 const Prophet = Jymfony.Component.Testing.Prophet;
+const { expect } = require('chai');
 
 describe('[EventDispatcher] TraceableEventDispatcher', function () {
     beforeEach(() => {
@@ -30,7 +29,7 @@ describe('[EventDispatcher] TraceableEventDispatcher', function () {
         expect(listeners[0]).to.be.equal(listener);
 
         tdispatcher.removeListener('foo', listener);
-        expect(Array.from(dispatcher.getListeners('foo'))).to.be.emtpy;
+        expect(Array.from(dispatcher.getListeners('foo'))).to.be.empty;
     });
 
     it('should log event dispatch', () => {

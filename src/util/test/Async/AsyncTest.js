@@ -1,5 +1,5 @@
 require('../../index');
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 function * doWork() {
     yield __jymfony.sleep(50);

@@ -5,7 +5,7 @@ const PruneableInterface = Jymfony.Component.Cache.PruneableInterface;
 const NotUnserializable = Jymfony.Component.Cache.Fixtures.NotUnserializable;
 const DateTime = Jymfony.Component.DateTime.DateTime;
 const TimeSpan = Jymfony.Component.DateTime.TimeSpan;
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 /**
  * Data provider for invalid keys.

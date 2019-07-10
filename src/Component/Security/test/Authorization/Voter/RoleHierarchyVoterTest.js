@@ -4,7 +4,7 @@ const RoleHierarchy = Jymfony.Component.Security.Role.RoleHierarchy;
 const Role = Jymfony.Component.Security.Role.Role;
 const Prophet = Jymfony.Component.Testing.Prophet;
 const RoleVoterTest = require('./RoleVoterTest');
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 class RoleHierarchyVoterTest extends RoleVoterTest {
     execTests() {

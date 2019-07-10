@@ -1,6 +1,6 @@
 const RecursiveDirectoryIterator = Jymfony.Component.Filesystem.Iterator.RecursiveDirectoryIterator;
 
-const expect = require('chai').expect;
+const { expect } = require('chai');
 const path = require('path');
 
 describe('[Filesystem] RecursiveDirectoryIterator', function () {

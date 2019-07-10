@@ -1,5 +1,5 @@
 const Role = Jymfony.Component.Security.Role.Role;
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 describe('[Security] Role', function () {
     it('identifier is correct', () => {

@@ -1,5 +1,5 @@
 const Debug = Jymfony.Component.Debug.Debug;
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 describe('[Debug] Debug', function () {
     it('enable should set autoloader debug flag', () => {

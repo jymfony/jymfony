@@ -1,5 +1,5 @@
 require('../../lib/String/strcspn');
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 describe('Strcspn', function () {
     const tests = function * () {

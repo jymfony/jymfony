@@ -1,5 +1,5 @@
 const Event = Jymfony.Contracts.EventDispatcher.Event;
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 describe('[Contracts] Event', function () {
     it('stop propagation flag is falsy at construction', () => {

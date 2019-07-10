@@ -1,7 +1,7 @@
 const Request = Jymfony.Component.HttpFoundation.Request;
 const RequestMatcher = Jymfony.Component.HttpFoundation.RequestMatcher;
 
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 describe('[HttpFoundation] RequestMatcher', function () {
     const getMethodData = function * getMethodData() {

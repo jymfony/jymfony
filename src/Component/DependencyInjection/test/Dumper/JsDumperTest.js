@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const expect = require('chai').expect;
+const { expect } = require('chai');
 require('../../fixtures/namespace');
 
 const ContainerBuilder = Jymfony.Component.DependencyInjection.ContainerBuilder;

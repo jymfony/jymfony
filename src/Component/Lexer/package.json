@@ -22,8 +22,8 @@
   },
   "devDependencies": {
     "@jymfony/debug": "https://github.com/jymfony/debug.git",
-    "chai": "^3.5.0",
-    "mocha": "^5.0"
+    "chai": "^4.2",
+    "mocha": "^6.0"
   },
   "config": {
     "jymfony-autoload": {

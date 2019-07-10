@@ -1,7 +1,7 @@
 const AcceptCharset = Jymfony.Component.HttpFoundation.Negotiation.AcceptCharset;
 const CharsetNegotiator = Jymfony.Component.HttpFoundation.Negotiation.CharsetNegotiator;
 const Exception = Jymfony.Component.HttpFoundation.Negotiation.Exception;
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 describe('[HttpFoundation] CharsetNegotiator', function () {
     it('getBest should return null with unmatched header', () => {

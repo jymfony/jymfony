@@ -121,6 +121,8 @@ class EventDispatcher extends implementationOf(EventDispatcherInterface) {
             const index = this._listeners[eventName].indexOf(registered);
             this._listeners[eventName].splice(index, 1);
         }
+
+        delete this._sorted[eventName];
     }
 
     /**

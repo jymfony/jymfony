@@ -1,5 +1,5 @@
 const path = require('path');
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 const ContainerBuilder = Jymfony.Component.DependencyInjection.ContainerBuilder;
 const JsFileLoader = Jymfony.Component.DependencyInjection.Loader.JsFileLoader;
