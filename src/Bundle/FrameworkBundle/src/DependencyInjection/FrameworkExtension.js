@@ -334,6 +334,11 @@ class FrameworkExtension extends Extension {
 
         loader.load('http-server.js');
 
+        if (config.request_timeout) {
+            container.getDefinition(Jymfony.Component.HttpServer.HttpServer)
+                .addProperty('requestTimeoutMs', config.request_timeout);
+        }
+
         if (config.key && config.certificate) {
             container.getDefinition(Jymfony.Component.HttpServer.HttpServer)
                 .setClass(Jymfony.Component.HttpServer.Http2.HttpServer)
