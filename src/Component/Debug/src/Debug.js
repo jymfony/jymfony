@@ -13,6 +13,10 @@ class Debug {
         });
 
         process.on('multipleResolves', (type, promise, reason) => {
+            if (promise.__multipleResolve) {
+                return;
+            }
+
             throw new MultipleResolvesException(type, promise, reason);
         });
     }

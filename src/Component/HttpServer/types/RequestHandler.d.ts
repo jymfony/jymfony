@@ -13,10 +13,9 @@ declare namespace Jymfony.Component.HttpServer {
      */
     export class RequestHandler extends implementationOf(LoggerAwareInterface) {
         protected _dispatcher: EventDispatcherInterface;
-
         protected _resolver: ControllerResolverInterface;
-
         protected _logger: LoggerInterface;
+        private _requestTimeoutMs: number;
 
         /**
          * Constructor.
@@ -28,6 +27,11 @@ declare namespace Jymfony.Component.HttpServer {
          * Gets the current event dispatcher.
          */
         public readonly eventDispatcher: EventDispatcherInterface;
+
+        /**
+         * Sets the request timeout.
+         */
+        public /* writeonly */ requestTimeoutMs: number;
 
         /**
          * Sets the logger for the current http server.
@@ -80,5 +84,10 @@ declare namespace Jymfony.Component.HttpServer {
          * Filters a response object.
          */
         private _filterResponse(response: Response, request: Request): Promise<Response>;
+
+        /**
+         * Fires a request timeout after the configured time.
+         */
+        private _requestTimeout(): Promise<never>;
     }
 }
