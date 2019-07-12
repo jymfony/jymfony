@@ -70,7 +70,7 @@ declare namespace __jymfony {
      * Get key, value pairs from any object.
      */
     export function getEntries<V>(object: V[]): IterableIterator<[number, V]>;
-    export function getEntries<K extends string | number | symbol, V>(object: Record<K, V>): IterableIterator<[K, V]>;
+    export function getEntries<T, K extends keyof T>(object: T): IterableIterator<[K, T[K]]>;
 
     /**
      * Deep-equality check.
