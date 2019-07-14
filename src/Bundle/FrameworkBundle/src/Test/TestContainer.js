@@ -53,8 +53,19 @@ class TestContainer extends Container {
     /**
      * @inheritdoc
      */
+    has(id) {
+        id = Container.normalizeId(id);
+
+        return this._privateContainer.has(id) || this._publicContainer.has(id);
+    }
+
+    /**
+     * @inheritdoc
+     */
     get(id, invalidBehavior = Container.EXCEPTION_ON_INVALID_REFERENCE) {
-        return this._publicContainer.get(id, invalidBehavior);
+        id = Container.normalizeId(id);
+
+        return this._privateContainer.has(id) ? this._privateContainer.get(id) : this._publicContainer.get(id, invalidBehavior);
     }
 
     /**
