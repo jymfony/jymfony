@@ -24,7 +24,7 @@ class ContainerBuilder extends Container {
     /**
      * @inheritdoc
      */
-    __construct(parameterBag) {
+    __construct(parameterBag = undefined) {
         super.__construct(parameterBag);
 
         /**
@@ -116,7 +116,7 @@ class ContainerBuilder extends Container {
      *
      * @param {string} name
      *
-     * @returns {Jymfony.Component.DependencyInjection.ExtensionInterface}
+     * @returns {Jymfony.Component.DependencyInjection.Extension.ExtensionInterface}
      *
      * @throws {LogicException}
      */

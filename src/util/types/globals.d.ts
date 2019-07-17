@@ -308,6 +308,7 @@ declare module NodeJS {
         isAsyncFunction(value: any): value is AsyncFunction;
         isFunction(value: any): value is Invokable;
         isArray(value: any): value is Array<any>;
+        isArray<T>(value: any): value is Array<T>;
         isBuffer(value: any): value is Buffer;
         isObject(value: any): value is object;
         isScalar(value: any): value is string | boolean | number;

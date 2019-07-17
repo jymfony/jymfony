@@ -8,12 +8,12 @@ class ServiceCircularReferenceException extends RuntimeException {
      * Constructor.
      *
      * @param {string} id
-     * @param {string} path
+     * @param {string|string[]} path
      */
     __construct(id, path) {
         super.__construct('');
 
-        const params = Array.from(path);
+        const params = isArray(path) ? [ ...path ] : Array.from(path);
         this.message = `Circular reference detected for service "${id}", path: "${params.join('" -> "')}".`;
 
         this._serviceId = id;
@@ -28,7 +28,7 @@ class ServiceCircularReferenceException extends RuntimeException {
     }
 
     /**
-     * @returns {string}
+     * @returns {string[]}
      */
     get path() {
         return this._path;

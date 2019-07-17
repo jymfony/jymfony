@@ -14,10 +14,10 @@ declare namespace Jymfony.Component.DependencyInjection.Dumper {
     export class JsDumper {
         private _container: ContainerBuilder;
         private _inlinedDefinitions: Map<Definition, Definition[]>;
-        private _serviceIdToMethodNameMap: Record<string, string>;
+        private _serviceIdToMethodNameMap: Map<string, string>;
         private _usedMethodNames: Set<string>;
-        private _definitionVariables: Map<string, Variable>;
-        private _referenceVariables: Record<string, Variable>;
+        private _definitionVariables: Map<Definition, Variable>;
+        private _referenceVariables: Record<string, string | Variable>;
         private _variableCount: number;
         private _targetDirMaxMatches: number;
         private _targetDirRegex: RegExp;
@@ -26,6 +26,7 @@ declare namespace Jymfony.Component.DependencyInjection.Dumper {
          * Constructor.
          */
         __construct(container: ContainerBuilder): void;
+        constructor(container: ContainerBuilder);
 
         /**
          * Dumps the service container.
@@ -71,15 +72,15 @@ declare namespace Jymfony.Component.DependencyInjection.Dumper {
          */
         private _addServiceInstance(id: string, definition: Definition): string;
 
-        _addInlinedDefinitionsSetup(id: string, definition: Definition): string;
+        private _addInlinedDefinitionsSetup(id: string, definition: Definition): string;
 
-        private _addProperties(id: string, definition: Definition, variableName?: string): string;
+        private _addProperties(definition: Definition, variableName?: string|Variable): string;
 
-        private _addMethodCalls(id: string, definition: Definition, variableName?: string): string;
+        private _addMethodCalls(definition: Definition, variableName?: string|Variable): string;
 
-        private _addShutdownCalls(id: string, definition: Definition, variableName?: string): string;
+        private _addShutdownCalls(definition: Definition, variableName?: string|Variable): string;
 
-        private _addConfigurator(id: string, definition: Definition, variableName?: string): string;
+        private _addConfigurator(definition: Definition, variableName?: string|Variable): string;
 
         private _addReturn(id: string, definition: Definition): string;
 
@@ -88,7 +89,7 @@ declare namespace Jymfony.Component.DependencyInjection.Dumper {
          */
         private _dumpValue(value: any, interpolate?: boolean): string;
 
-        private _getInlinedDefinitions(definition: Definition): string;
+        private _getInlinedDefinitions(definition: Definition): Definition[];
 
         private _getDefinitionsFromArguments(args: any): IterableIterator<Definition>;
 
@@ -101,7 +102,7 @@ declare namespace Jymfony.Component.DependencyInjection.Dumper {
 
         private _dumpLiteralClass(class_: string): string;
 
-        private _getServiceCallsFromArguments(args: any, calls: any[], behavior: any): void;
+        private _getServiceCallsFromArguments(args: any, calls: any, behavior: any): void;
 
         private _isSimpleInstance(id: string, definition: Definition): boolean;
 

@@ -89,14 +89,14 @@ class JsDumper {
 
         this._initMethodNamesMap(options.base_class);
 
-        let code = this._startClass(options.class_name, options.base_class);
-        code += this._getServices();
-        code += this._getDefaultParametersMethod();
-        code += this._endClass(options.class_name);
+        let main = this._startClass(options.class_name, options.base_class);
+        main += this._getServices();
+        main += this._getDefaultParametersMethod();
+        main += this._endClass(options.class_name);
 
-        const hash = ContainerBuilder.hash(code).replace(/[._]/g, 'x');
-        code = {
-            ['Container'+hash+'/'+options.class_name+'.js']: code,
+        const hash = ContainerBuilder.hash(main).replace(/[._]/g, 'x');
+        const code = {
+            ['Container'+hash+'/'+options.class_name+'.js']: main,
         };
 
         const time = options.build_time;
@@ -375,11 +375,11 @@ module.exports = ${className};
         this._variableCount = 0;
 
         let class_;
-        let returns = [];
+        const returns = [];
 
         if (definition.isSynthetic()) {
             returns.push('@throws {Jymfony.Component.DependencyInjection.RuntimeException} always since this service is expected to be injected dynamically');
-        } else if (class_ = definition.getClass()) {
+        } else if ((class_ = definition.getClass())) {
             returns.push('@returns {' + (-1 !== class_.indexOf('%') ? '*' : class_) + '}');
         } else if (definition.getFactory() || definition.getModule()) {
             returns.push('@returns {Object}');
@@ -389,17 +389,9 @@ module.exports = ${className};
             returns.push('@deprecated ' + definition.getDeprecationMessage(id));
         }
 
-        returns = returns.join('\n     * ').replace(/\n     * \n/g, '\n     *\n');
-
-        let doc = '', visibility = '', shared = '';
-
-        if (definition.isShared()) {
-            shared = 'shared ';
-        }
-
-        if (definition.isPublic()) {
-            visibility = 'public ';
-        }
+        let doc = '';
+        const visibility = definition.isPublic() ? 'public ' : '';
+        const shared = definition.isShared() ? 'shared ' : '';
 
         let lazyInitialization = '';
         if (definition.isLazy()) {
@@ -416,17 +408,17 @@ module.exports = ${className};
     /**
      * Gets the ${visibility}'${id}' ${shared}service.
      *
-${doc}     * ${returns}
+${doc}     * ${returns.join('\n     * ').replace(/\n     * \n/g, '\n     *\n')}
      */
     ${methodName}(${lazyInitialization}) {
 ${this._addLocalTempVariables(id, definition)}\
 ${this._addInlinedDefinitions(id, definition)}\
 ${this._addServiceInstance(id, definition)}\
 ${this._addInlinedDefinitionsSetup(id, definition)}\
-${this._addProperties(id, definition)}\
-${this._addMethodCalls(id, definition)}\
-${this._addShutdownCalls(id, definition)}\
-${this._addConfigurator(id, definition)}\
+${this._addProperties(definition)}\
+${this._addMethodCalls(definition)}\
+${this._addShutdownCalls(definition)}\
+${this._addConfigurator(definition)}\
 ${this._addReturn(id, definition)}\
     }
 `;
@@ -524,10 +516,10 @@ ${this._addReturn(id, definition)}\
                 code += this._addNewInstance(sDefinition, 'let ' + name, ' = ');
 
                 if (! this._hasReference(id, sDefinition.getMethodCalls(), true) && ! this._hasReference(id, sDefinition.getProperties(), true)) {
-                    code += this._addProperties(undefined, sDefinition, name);
-                    code += this._addMethodCalls(undefined, sDefinition, name);
-                    code += this._addShutdownCalls(undefined, sDefinition, name);
-                    code += this._addConfigurator(undefined, sDefinition, name);
+                    code += this._addProperties(sDefinition, name);
+                    code += this._addMethodCalls(sDefinition, name);
+                    code += this._addShutdownCalls(sDefinition, name);
+                    code += this._addConfigurator(sDefinition, name);
                 }
 
                 code += '\n';
@@ -605,14 +597,14 @@ ${this._addReturn(id, definition)}\
             // If the instance is simple, the return statement has already been generated
             // So, the only possible way to get there is because of a circular reference
             if (this._isSimpleInstance(id, definition)) {
-                throw new ServiceCircularReferenceException(id, array(id));
+                throw new ServiceCircularReferenceException(id, [ id ]);
             }
 
             const name = this._definitionVariables.get(iDefinition);
-            code += this._addMethodCalls(null, iDefinition, name);
-            code += this._addShutdownCalls(null, iDefinition, name);
-            code += this._addProperties(null, iDefinition, name);
-            code += this._addConfigurator(null, iDefinition, name);
+            code += this._addMethodCalls(iDefinition, name);
+            code += this._addShutdownCalls(iDefinition, name);
+            code += this._addProperties(iDefinition, name);
+            code += this._addConfigurator(iDefinition, name);
         }
 
         if ('' !== code) {
@@ -625,13 +617,13 @@ ${this._addReturn(id, definition)}\
     /**
      * @param {string} id
      * @param {Jymfony.Component.DependencyInjection.Definition} definition
-     * @param {string} [variableName = instance]
+     * @param {string|Jymfony.Component.DependencyInjection.Variable} [variableName = instance]
      *
      * @returns {string}
      *
      * @private
      */
-    _addProperties(id, definition, variableName = 'instance') {
+    _addProperties(definition, variableName = 'instance') {
         let code = '';
         for (const [ name, value ] of __jymfony.getEntries(definition.getProperties())) {
             code += __jymfony.sprintf('        %s.%s = %s;\n', variableName, name, this._dumpValue(value));
@@ -641,15 +633,14 @@ ${this._addReturn(id, definition)}\
     }
 
     /**
-     * @param {string} id
      * @param {Jymfony.Component.DependencyInjection.Definition} definition
-     * @param {string} [variableName = instance]
+     * @param {string|Jymfony.Component.DependencyInjection.Variable} [variableName = instance]
      *
      * @returns {string}
      *
      * @private
      */
-    _addMethodCalls(id, definition, variableName = 'instance') {
+    _addMethodCalls(definition, variableName = 'instance') {
         let code = '';
 
         for (const call of definition.getMethodCalls()) {
@@ -665,15 +656,14 @@ ${this._addReturn(id, definition)}\
     }
 
     /**
-     * @param {string} id
      * @param {Jymfony.Component.DependencyInjection.Definition} definition
-     * @param {string} [variableName = instance]
+     * @param {string|Jymfony.Component.DependencyInjection.Variable} [variableName = instance]
      *
      * @returns {string}
      *
      * @private
      */
-    _addShutdownCalls(id, definition, variableName = 'instance') {
+    _addShutdownCalls(definition, variableName = 'instance') {
         let code = '';
 
         for (const call of definition.getShutdownCalls()) {
@@ -689,15 +679,14 @@ ${this._addReturn(id, definition)}\
     }
 
     /**
-     * @param {string} id
      * @param {Jymfony.Component.DependencyInjection.Definition} definition
-     * @param {string} [variableName = instance]
+     * @param {string|Jymfony.Component.DependencyInjection.Variable} [variableName = instance]
      *
      * @returns {string}
      *
      * @private
      */
-    _addConfigurator(id, definition, variableName = 'instance') {
+    _addConfigurator(definition, variableName = 'instance') {
         const callable = definition.getConfigurator();
         if (! callable) {
             return '';
@@ -872,7 +861,7 @@ ${this._addReturn(id, definition)}\
             return this._dumpParameter(value.toString());
         } else if (interpolate && isString(value)) {
             let match;
-            if (match = /^%([^%]+)%$/.exec(value)) {
+            if ((match = /^%([^%]+)%$/.exec(value))) {
                 return this._dumpParameter(match[1]);
             }
 
@@ -890,6 +879,8 @@ ${this._addReturn(id, definition)}\
             return __jymfony.sprintf(isArray(value) ? '[%s]' : '{%s}', code.join(', '));
         } else if (isObject(value)) {
             throw new RuntimeException('Unable to dump a service container if a parameter is an object');
+        } else if (isFunction(value)) {
+            throw new RuntimeException('Unable to dump a service container if a parameter is a function');
         } else if (null === value || undefined === value) {
             return this._export(value);
         }
@@ -900,7 +891,7 @@ ${this._addReturn(id, definition)}\
     /**
      * @param {Jymfony.Component.DependencyInjection.Definition} definition
      *
-     * @returns {string}
+     * @returns {Jymfony.Component.DependencyInjection.Definition[]}
      *
      * @private
      */
@@ -1042,7 +1033,7 @@ ${this._addReturn(id, definition)}\
 
     /**
      * @param {*} args
-     * @param {Object[]} calls
+     * @param {Object} calls
      * @param {Object} behavior
      *
      * @private
