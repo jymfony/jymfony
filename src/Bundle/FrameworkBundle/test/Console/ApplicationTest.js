@@ -1,18 +1,9 @@
-const { expect } = require('chai');
-const path = require('path');
+require('../../fixtures/namespace');
 
 const Application = Jymfony.Bundle.FrameworkBundle.Console.Application;
-const Namespace = Jymfony.Component.Autoloader.Namespace;
 const Kernel = Jymfony.Component.Kernel.Kernel;
-
-Jymfony.Bundle.FrameworkBundle.Tests = new Namespace(__jymfony.autoload, 'Jymfony.Bundle.FrameworkBundle.Tests');
-Jymfony.Bundle.FrameworkBundle.Tests.Fixtures = new Namespace(
-    __jymfony.autoload,
-    'Jymfony.Bundle.FrameworkBundle.Tests.Fixtures',
-    [ path.join(__dirname, '..', '..', 'fixtures') ]
-);
-
 const TestKernel = Jymfony.Bundle.FrameworkBundle.Tests.Fixtures.TestKernel;
+const { expect } = require('chai');
 
 describe('[FrameworkBundle] Application', function () {
     this.timeout(Infinity);

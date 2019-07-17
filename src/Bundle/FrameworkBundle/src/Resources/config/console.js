@@ -4,6 +4,7 @@ const Alias = Jymfony.Component.DependencyInjection.Alias;
 const Reference = Jymfony.Component.DependencyInjection.Reference;
 
 container.setAlias('console.application', new Alias(Jymfony.Bundle.FrameworkBundle.Console.Application, true));
+container.setAlias(Jymfony.Component.Console.Application, new Alias(Jymfony.Bundle.FrameworkBundle.Console.Application, true));
 container.register(Jymfony.Bundle.FrameworkBundle.Console.Application)
     .setPublic(true)
     .addArgument(new Reference('kernel'))
