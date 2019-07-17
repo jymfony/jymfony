@@ -33,6 +33,7 @@
     "@jymfony/http-server": "https://github.com/jymfony/http-server.git",
     "@jymfony/routing": "https://github.com/jymfony/routing.git",
     "@jymfony/testing": "https://github.com/jymfony/testing.git",
+    "@jymfony/var-dumper": "https://github.com/jymfony/var-dumper.git",
     "chai": "^4.2",
     "mocha": "^6.0"
   },
