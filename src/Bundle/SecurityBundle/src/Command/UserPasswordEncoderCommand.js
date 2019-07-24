@@ -42,6 +42,13 @@ class UserPasswordEncoderCommand extends Command {
     }
 
     /**
+     * @inheritDoc
+     */
+    static get defaultName() {
+        return 'security:encode-password';
+    }
+
+    /**
      * @inheritdoc
      */
     configure() {
@@ -51,7 +58,6 @@ class UserPasswordEncoderCommand extends Command {
             .addOption('empty-salt', undefined, InputOption.VALUE_NONE, 'Do not generate a salt or let the encoder generate one.')
         ;
 
-        this.name = 'security:encode-password';
         this.description = 'Encodes a password.';
         this.help = `
 The <info>%command.name%</info> command encodes passwords according to your

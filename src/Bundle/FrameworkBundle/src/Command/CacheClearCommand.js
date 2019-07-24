@@ -15,10 +15,16 @@ const path = require('path');
  */
 class CacheClearCommand extends mix(Command, ContainerAwareInterface, ContainerAwareTrait) {
     /**
+     * @inheritDoc
+     */
+    static get defaultName() {
+        return 'cache:clear';
+    }
+
+    /**
      * @inheritdoc
      */
     configure() {
-        this.name = 'cache:clear';
         this.description = 'Clears the cache';
         this.addOption('no-warmup', null, InputOption.VALUE_NONE, 'Do not warm up the cache');
         this.addOption('no-optional-warmers', '', InputOption.VALUE_NONE, 'Skip optional cache warmers (faster)');

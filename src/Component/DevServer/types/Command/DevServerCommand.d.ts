@@ -5,17 +5,21 @@ declare namespace Jymfony.Component.DevServer.Command {
     import OutputInterface = Jymfony.Component.Console.Output.OutputInterface;
 
     export class DevServerCommand extends Command {
+        /**
+         * @inheritDoc
+         */
+        public static readonly defaultName: string;
+
         private _devServer: DevServer;
 
         /**
          * Constructor.
          *
          * @param {Jymfony.Component.DevServer.DevServer} devServer
-         * @param {string} name
          */
         // @ts-ignore
-        __construct(devServer: DevServer, name?: string): void;
-        constructor(devServer: DevServer, name?: string);
+        __construct(devServer: DevServer): void;
+        constructor(devServer: DevServer,);
 
         /**
          * @inheritdoc

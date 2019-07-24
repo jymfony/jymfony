@@ -14,7 +14,7 @@ class HttpServerRunCommand extends Command {
      * @param {Jymfony.Component.HttpServer.HttpServer} server
      */
     __construct(server) {
-        super.__construct('http:listen');
+        super.__construct();
 
         /**
          * @type {Jymfony.Component.HttpServer.HttpServer}
@@ -22,6 +22,13 @@ class HttpServerRunCommand extends Command {
          * @private
          */
         this._server = server;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    static get defaultName() {
+        return 'http:listen';
     }
 
     /**

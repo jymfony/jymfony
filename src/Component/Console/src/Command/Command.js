@@ -58,6 +58,15 @@ class Command {
     }
 
     /**
+     * Gets the default command name.
+     *
+     * @return {string}
+     */
+    static get defaultName() {
+        return null;
+    }
+
+    /**
      * Ignores validation errors.
      *
      * This is mainly useful for the help command.

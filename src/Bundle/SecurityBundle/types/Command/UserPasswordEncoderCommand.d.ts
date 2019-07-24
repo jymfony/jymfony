@@ -10,6 +10,11 @@ declare namespace Jymfony.Bundle.FrameworkBundle.Command {
      * Encodes a user password.
      */
     export class UserPasswordEncoderCommand extends Command {
+        /**
+         * @inheritDoc
+         */
+        public static readonly defaultName: string;
+
         private _encoderFactory: EncoderFactoryInterface;
         private _userClasses: string[];
 

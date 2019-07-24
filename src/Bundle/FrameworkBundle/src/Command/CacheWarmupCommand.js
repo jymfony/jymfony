@@ -10,6 +10,13 @@ const JymfonyStyle = Jymfony.Component.Console.Style.JymfonyStyle;
  */
 class CacheWarmupCommand extends Command {
     /**
+     * @inheritDoc
+     */
+    static get defaultName() {
+        return 'cache:warmup';
+    }
+
+    /**
      * Constructor.
      *
      * @param {Jymfony.Component.Kernel.CacheWarmer.CacheWarmerInterface} cacheWarmer
