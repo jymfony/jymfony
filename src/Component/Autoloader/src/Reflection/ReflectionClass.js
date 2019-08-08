@@ -72,7 +72,7 @@ class ReflectionClass {
 
         this._docblock = undefined;
         if (undefined !== value[Symbol.docblock]) {
-            this._docblock = value[Symbol.docblock]();
+            this._docblock = value[Symbol.docblock];
         }
 
         if (undefined !== value[Symbol.reflection] && 'function' === typeof value[Symbol.reflection].isModule && value[Symbol.reflection].isModule(value)) {
@@ -435,6 +435,24 @@ class ReflectionClass {
     }
 
     /**
+     * Gets the class annotations.
+     *
+     * @returns {*[]}
+     */
+    get annotations() {
+        for (const annotation of this._constructor[Symbol.annotations]) {
+            const r = new ReflectionClass(annotation);
+            const klass = r.getConstructor();
+
+            if (undefined === klass[Symbol.reflection].annotation) {
+                throw new SyntaxError('Class ' + r.name + ' is not an annotation');
+            }
+        }
+
+        return this._constructor[Symbol.annotations];
+    }
+
+    /**
      * @param {Object} value
      *
      * @private
@@ -452,14 +470,8 @@ class ReflectionClass {
         this._filename = metadata.filename;
         this._module = metadata.module;
         this._constructor = this._isInterface ? value : metadata.constructor;
-
-        for (const [ k, v ] of __jymfony.getEntries(metadata.fields || {})) {
-            if (0 === k.indexOf('static::')) {
-                this._staticFields[k.substr(8)] = v;
-            } else {
-                this._fields[k] = v;
-            }
-        }
+        this._fields = metadata.fields;
+        this._staticFields = metadata.staticFields;
 
         this._loadProperties();
         this._loadStatics();
@@ -630,6 +642,10 @@ class ReflectionClass {
                 });
 
             for (const name of names) {
+                if (Symbol.reflection === name) {
+                    continue;
+                }
+
                 if (! consts.hasOwnProperty(name) && Object.prototype.hasOwnProperty.call(parent, name)) {
                     const descriptor = Object.getOwnPropertyDescriptor(parent, name);
 

@@ -182,9 +182,9 @@ class Namespace {
             realTarget = mod;
 
             const name = mod.definition ? mod.definition.name : mod.name;
-            const modReflection = mod[Symbol.reflection] || (() => undefined);
+            const modReflection = mod[Symbol.reflection] || {};
             const meta = {
-                ...(modReflection() || {}),
+                ...modReflection,
                 filename: fn,
                 fqcn: this._fullyQualifiedName + '.' + name,
                 module: this._internalRequire.cache[fn],

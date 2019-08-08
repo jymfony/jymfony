@@ -130,4 +130,5 @@ class Exception extends Error {
     }
 }
 
+Error.prepareStackTrace = Exception.prepareStackTrace;
 global.Exception = Exception;

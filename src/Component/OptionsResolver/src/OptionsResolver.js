@@ -560,9 +560,8 @@ class OptionsResolver {
             allowedTypes = [ allowedTypes ];
         }
 
-        /** @type {(string|Function)[]} allowedTypes */
         if (! this._allowedTypes[option]) {
-            this._allowedTypes[option] = [ ...allowedTypes ];
+            this._allowedTypes[option] = [ ...(/** @type {(string|Function)[]} */ (allowedTypes)) ];
         } else {
             this._allowedTypes[option].splice(-1, 0, ...allowedTypes);
         }

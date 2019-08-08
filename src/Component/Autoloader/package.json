@@ -22,7 +22,8 @@
   },
   "devDependencies": {
     "chai": "^4.2",
-    "mocha": "^6.0"
+    "mocha": "^6.0",
+    "test262-parser-tests": "git+https://github.com/tc39/test262-parser-tests.git"
   },
   "flat": true,
   "config": {

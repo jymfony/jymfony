@@ -273,5 +273,8 @@ declare interface SymbolConstructor {
 declare module NodeJS {
     interface Global {
         ReflectionClass: Newable<ReflectionClass<any>>;
+        ReflectionException: Newable<ReflectionException>;
+        ReflectionField: Newable<ReflectionField>;
+        ReflectionMethod: Newable<ReflectionMethod>;
     }
 }

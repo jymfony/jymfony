@@ -61,12 +61,14 @@ class ReflectionMethod {
          */
         this._async = isAsyncFunction(this._method);
 
+        const classConstructor = reflectionClass.getConstructor();
+
         /**
          * @type {string}
          *
          * @private
          */
-        this._docblock = reflectionClass._docblock ? reflectionClass._docblock.methods[(this._static ? 'static::' : '') + methodName] : undefined;
+        this._docblock = (this._static ? classConstructor[methodName] : classConstructor.prototype[methodName])[Symbol.docblock];
     }
 
     /**
@@ -128,4 +130,4 @@ ReflectionMethod.FUNCTION = 'function';
 ReflectionMethod.ASYNC_FUNCTION = 'async function';
 ReflectionMethod.GENERATOR = 'generator';
 
-module.exports = ReflectionMethod;
+module.exports = global.ReflectionMethod = ReflectionMethod;

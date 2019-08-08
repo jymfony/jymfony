@@ -16,6 +16,8 @@ const casters = [
     [ Caster.FrameStub, Caster.ErrorCaster.castFrameStub ],
     [ Jymfony.Component.VarDumper.Exception.ThrowingCasterException, Caster.ErrorCaster.castThrowingCasterException ],
     [ Jymfony.Component.VarDumper.Cloner.AbstractCloner, Caster.StubCaster.cutInternals ],
+
+    [ ReflectionClass, Caster.ReflectionCaster.castReflectionClass ],
 ];
 
 if (__jymfony.RegExp) {

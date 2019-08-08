@@ -222,7 +222,6 @@ class AbstractTrait extends LoggerAwareTrait.definition {
 
         return id;
     }
-
 }
 
 AbstractTrait.MAX_ID_LENGTH = undefined;

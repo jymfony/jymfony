@@ -1,6 +1,16 @@
-const Patcher = require('./Parser/Patcher');
+try {
+    require('@jymfony/util');
+} catch (e) {
+    require('../../../util');
+}
+
+let Compiler;
+let Parser;
+let AST;
 const isNyc = !! global.__coverage__;
 
+const Generator = require('./Parser/SourceMap/Generator');
+const StackHandler = require('./Parser/SourceMap/StackHandler');
 const Storage = function () {};
 Storage.prototype = {};
 
@@ -46,6 +56,12 @@ class ClassLoader {
          * @private
          */
         this._cache = new Storage();
+
+        if (undefined === Compiler) {
+            Compiler = require('./Parser/Compiler');
+            Parser = require('./Parser/Parser');
+            AST = require('./Parser/AST');
+        }
     }
 
     /**
@@ -60,17 +76,38 @@ class ClassLoader {
         }
 
         let code = this._finder.load(fn);
+        const sourceMapGenerator = new Generator({ file: fn });
 
         try {
-            const parser = new Patcher(code);
-            code = parser.code;
-        } catch (err) {
-            // Patcher have failed. Code is unpatched, but can be included.
+            const parser = new Parser();
+            const compiler = new Compiler(sourceMapGenerator);
 
-            if (! (err instanceof SyntaxError)) {
-                throw err;
-            }
+            const program = parser.parse(code);
+            const p = new AST.Program(program.location);
+            p.add(new AST.ParenthesizedExpression(null,
+                new AST.FunctionExpression(null, new AST.BlockStatement(null, [
+                    new AST.StringLiteral(null, '\'use strict\''),
+                    ...program.body,
+                ]), null, [
+                    new AST.Identifier(null, 'exports'),
+                    new AST.Identifier(null, 'require'),
+                    new AST.Identifier(null, 'module'),
+                    new AST.Identifier(null, '__filename'),
+                    new AST.Identifier(null, '__dirname'),
+                    new AST.Identifier(null, '__self'),
+                ])
+            ));
+
+            code = compiler.compile(p);
+        } catch (err) {
+            // Compiler have failed. Code is unpatched, but can be included.
+
+            // If (! (err instanceof SyntaxError)) {
+            throw err;
+            // }
         }
+
+        StackHandler.registerSourceMap(fn, sourceMapGenerator.toJSON().mappings);
 
         const dirname = this._path.dirname(fn);
         const moduleObj = {
@@ -83,8 +120,6 @@ class ClassLoader {
             paths: dirname,
             require: require,
         };
-
-        code = `(function(exports, require, module, __filename, __dirname, __self) { 'use strict'; ${code} });`;
 
         const opts = isNyc ? fn : {
             filename: fn,

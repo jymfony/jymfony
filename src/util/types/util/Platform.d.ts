@@ -11,6 +11,11 @@ declare namespace __jymfony {
         static hasAsyncGeneratorFunctionSupport(): boolean;
 
         /**
+         * Checks if this node version has native decorators support.
+         */
+        static hasNativeDecoratorsSupport(): boolean;
+
+        /**
          * Are we running on windows?
          */
         static isWindows(): boolean;

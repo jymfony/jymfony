@@ -2,6 +2,7 @@ global.__jymfony = global.__jymfony || {};
 
 let _asyncSupport = undefined;
 let _asyncGeneratorSupport = undefined;
+let _nativeDecoratorSupport = undefined;
 let _modernRegex = undefined;
 let _publicFields = undefined;
 let _privateFields = undefined;
@@ -54,6 +55,27 @@ class Platform {
         }
 
         return _asyncGeneratorSupport;
+    }
+
+    /**
+     * Checks if this node version has native decorators support.
+     *
+     * @return {boolean}
+     */
+    static hasNativeDecoratorsSupport() {
+        if (undefined === _nativeDecoratorSupport) {
+            _nativeDecoratorSupport = false;
+
+            try {
+                eval('decorator @testDecorator(options) { _nativeDecoratorSupport = true; }\n@testDecorator class Foo {}');
+            } catch (e) {
+                if (!(e instanceof SyntaxError)) {
+                    throw e;
+                }
+            }
+        }
+
+        return _nativeDecoratorSupport;
     }
 
     /**

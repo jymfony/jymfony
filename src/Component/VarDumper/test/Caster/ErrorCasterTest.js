@@ -47,7 +47,7 @@ Error {
         expect(dump(new Date())).to.match(/Date @\d+ {\n  date: .+\n}/);
     });
 
-    it('should correcly dump anonymous error classes', () => {
+    it('should correctly dump anonymous error classes', () => {
         const dump = `
 Error@anonymous {
   message: ""
