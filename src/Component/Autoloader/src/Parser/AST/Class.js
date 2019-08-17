@@ -1,10 +1,13 @@
+const ArrayExpression = require('./ArrayExpression');
 const ArrowFunctionExpression = require('./ArrowFunctionExpression');
 const AssignmentExpression = require('./AssignmentExpression');
+const BooleanLiteral = require('./BooleanLiteral');
 const BlockStatement = require('./BlockStatement');
 const ClassMethod = require('./ClassMethod');
 const ClassProperty = require('./ClassProperty');
 const Identifier = require('./Identifier');
 const MemberExpression = require('./MemberExpression');
+const NewExpression = require('./NewExpression');
 const NodeInterface = require('./NodeInterface');
 const NullLiteral = require('./NullLiteral');
 const ObjectExpression = require('./ObjectExpression');
@@ -57,6 +60,11 @@ class Class extends implementationOf(NodeInterface) {
          * @type {null|string}
          */
         this.docblock = null;
+
+        /**
+         * @type {null|[string, Jymfony.Component.Autoloader.Parser.AST.ExpressionInterface][]}
+         */
+        this.decorators = null;
     }
 
     /**
@@ -177,11 +185,17 @@ class Class extends implementationOf(NodeInterface) {
                         key = new StringLiteral(null, JSON.stringify(member.key.name));
                     }
 
+                    const annotations = new NullLiteral(null);
+                    if (statement.decorators) {
+                        debugger;
+                    }
+
                     fields.push(
                         new ObjectProperty(null, key, new ObjectExpression(null, [
                             new ObjectProperty(null, new Identifier(null, 'get'), new ArrowFunctionExpression(null, accessor, null, [ new Identifier(null, 'obj') ])),
                             new ObjectProperty(null, new Identifier(null, 'set'), new ArrowFunctionExpression(null, setterBody, null, [ new Identifier(null, 'obj'), new Identifier(null, 'value') ])),
                             new ObjectProperty(null, new Identifier(null, 'docblock'), statement.docblock ? new StringLiteral(null, JSON.stringify(statement.docblock)) : new NullLiteral(null)),
+                            new ObjectProperty(null, new MemberExpression(null, new Identifier(null, 'Symbol'), new Identifier(null, 'annotations')), annotations),
                         ]))
                     );
                 }
@@ -196,10 +210,22 @@ class Class extends implementationOf(NodeInterface) {
                     key = new StringLiteral(null, JSON.stringify(member.key.name));
                 }
 
+                let annotations = new NullLiteral(null);
+                if (member.decorators) {
+                    annotations = new ArrayExpression(null, member.decorators.map(([ identifier, args ]) => {
+                        return new NewExpression(
+                            null,
+                            new Identifier(null, identifier.substr(1)),
+                            null === args ? [] : args
+                        );
+                    }));
+                }
+
                 const prop = new ObjectProperty(null, key, new ObjectExpression(null, [
                     new ObjectProperty(null, new Identifier(null, 'get'), new ArrowFunctionExpression(null, accessor, null, [ new Identifier(null, 'obj') ])),
                     new ObjectProperty(null, new Identifier(null, 'set'), new ArrowFunctionExpression(null, setterBody, null, [ new Identifier(null, 'obj'), new Identifier(null, 'value') ])),
                     new ObjectProperty(null, new Identifier(null, 'docblock'), member.docblock ? new StringLiteral(null, JSON.stringify(member.docblock)) : new NullLiteral(null)),
+                    new ObjectProperty(null, new MemberExpression(null, new Identifier(null, 'Symbol'), new Identifier(null, 'annotations')), annotations),
                 ]));
 
                 if (member.static) {
@@ -210,13 +236,20 @@ class Class extends implementationOf(NodeInterface) {
             }
         }
 
+        const reflectionFields = [
+            new ObjectProperty(null, new Identifier(null, 'fields'), new ObjectExpression(null, fields)),
+            new ObjectProperty(null, new Identifier(null, 'staticFields'), new ObjectExpression(null, staticFields)),
+        ];
+
+        if (this.decorators) {
+            const isAnnotation = this.decorators.some(([ id ]) => '@Annotation' === id);
+            reflectionFields.push(new ObjectProperty(null, new Identifier(null, 'annotation'), new BooleanLiteral(null, isAnnotation)));
+        }
+
         members.push(new ClassMethod(
             null,
             new BlockStatement(null, [
-                new ReturnStatement(null, new ObjectExpression(null, [
-                    new ObjectProperty(null, new Identifier(null, 'fields'), new ObjectExpression(null, fields)),
-                    new ObjectProperty(null, new Identifier(null, 'staticFields'), new ObjectExpression(null, staticFields)),
-                ])),
+                new ReturnStatement(null, new ObjectExpression(null, reflectionFields)),
             ]),
             new MemberExpression(null, new Identifier(null, 'Symbol'), new Identifier(null, 'reflection'), false),
             'get',

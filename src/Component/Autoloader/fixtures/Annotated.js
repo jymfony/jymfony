@@ -17,6 +17,11 @@ class Annotated {
 
     @FooAnnot(null)
     get value() { return 'pizza'; }
+
+    @FooAnnot
+    getValue() {
+        return 'bar';
+    }
 }
 
 module.exports = Annotated;

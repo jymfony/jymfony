@@ -102,9 +102,11 @@ class ClassLoader {
         } catch (err) {
             // Compiler have failed. Code is unpatched, but can be included.
 
-            // If (! (err instanceof SyntaxError)) {
-            throw err;
-            // }
+            if (! (err instanceof SyntaxError)) {
+                throw err;
+            } else {
+                console.warn('Syntax error while parsing ' + fn + ': ' + err.message);
+            }
         }
 
         StackHandler.registerSourceMap(fn, sourceMapGenerator.toJSON().mappings);

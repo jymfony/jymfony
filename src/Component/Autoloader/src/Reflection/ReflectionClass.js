@@ -1,5 +1,6 @@
 const ReflectionMethod = require('./ReflectionMethod');
 const ReflectionField = require('./ReflectionField');
+const ReflectionProperty = require('./ReflectionProperty');
 
 const Storage = function () {};
 Storage.prototype = {};
@@ -194,6 +195,17 @@ class ReflectionClass {
     }
 
     /**
+     * Gets the readable property (getter) reflection object.
+     *
+     * @param {string|Symbol} name
+     *
+     * @returns {boolean}
+     */
+    getReadableProperty(name) {
+        return new ReflectionProperty(this, ReflectionProperty.KIND_GET, name);
+    }
+
+    /**
      * Checks if class has writable property (setter).
      *
      * @param {string|Symbol} name
@@ -202,6 +214,17 @@ class ReflectionClass {
      */
     hasWritableProperty(name) {
         return this._writableProperties[name] !== undefined;
+    }
+
+    /**
+     * Gets the writable property (setter) reflection object.
+     *
+     * @param {string|Symbol} name
+     *
+     * @returns {boolean}
+     */
+    getWritableProperty(name) {
+        return new ReflectionProperty(this, ReflectionProperty.KIND_SET, name);
     }
 
     /**

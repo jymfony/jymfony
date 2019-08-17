@@ -124,6 +124,15 @@ class ReflectionMethod {
     get docblock() {
         return this._docblock;
     }
+
+    /**
+     * Gets the method annotations.
+     *
+     * @returns {*[]}
+     */
+    get annotations() {
+        return this._method.value[Symbol.annotations] || [];
+    }
 }
 
 ReflectionMethod.FUNCTION = 'function';

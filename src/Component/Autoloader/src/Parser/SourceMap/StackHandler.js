@@ -18,7 +18,7 @@ class StackHandler {
             const newStack = [];
             for (const frame of stack) {
                 const fileName = frame.getFileName();
-                if (frame.isNative() || !fileMappings.has(fileName)) {
+                if (frame.isNative() || ! fileMappings || ! fileMappings.has(fileName)) {
                     newStack.push(frame);
                     continue;
                 }
@@ -34,7 +34,7 @@ class StackHandler {
                     continue;
                 }
 
-                const fileLocation = fileName + ':' + mapping.originalLine + ':' + mapping.originalColumn;
+                const fileLocation = fileName + (false !== mapping.originalLine ? ':' + mapping.originalLine + ':' + mapping.originalColumn : '');
                 const functionName = frame.getFunctionName();
                 const methodName = frame.getMethodName();
                 const typeName = frame.getTypeName();
@@ -53,7 +53,7 @@ class StackHandler {
 
                             call += functionName;
 
-                            if (!functionName.endsWith(methodName)) {
+                            if (!functionName.endsWith(methodName) && !! methodName) {
                                 call += ' [as ' + methodName + ']';
                             }
                         } else {

@@ -44,6 +44,11 @@ class ClassProperty extends implementationOf(ClassMemberInterface) {
          * @type {null|string}
          */
         this.docblock = null;
+
+        /**
+         * @type {null|[string, Jymfony.Component.Autoloader.Parser.AST.ExpressionInterface][]}
+         */
+        this.decorators = null;
     }
 
     /**

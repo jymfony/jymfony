@@ -138,7 +138,7 @@ class ReflectionField {
      * @returns {*[]}
      */
     get annotations() {
-        return privateAccessors.get(this)[Symbol.annotations];
+        return privateAccessors.get(this)[Symbol.annotations] || [];
     }
 
     /**

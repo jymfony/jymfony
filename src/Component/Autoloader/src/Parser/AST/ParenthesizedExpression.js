@@ -25,6 +25,15 @@ class ParenthesizedExpression extends implementationOf(ExpressionInterface) {
     }
 
     /**
+     * Gets the expression inside the parenthesis.
+     *
+     * @return {Jymfony.Component.Autoloader.Parser.AST.ExpressionInterface}
+     */
+    get expression() {
+        return this._expression;
+    }
+
+    /**
      * @inheritdoc
      */
     compile(compiler) {

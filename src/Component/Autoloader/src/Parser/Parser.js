@@ -33,6 +33,7 @@ class Parser extends implementationOf(ExpresionParserTrait) {
 
         this._line = 1;
         this._column = 0;
+        this._pendingDecorators = [];
     }
 
     /**
@@ -45,6 +46,8 @@ class Parser extends implementationOf(ExpresionParserTrait) {
             position: this._lexer.position,
             line: this._line,
             column: this._column,
+            docblock: this._pendingDocblock,
+            decorators: [ ...this._pendingDecorators ],
         };
     }
 
@@ -55,10 +58,12 @@ class Parser extends implementationOf(ExpresionParserTrait) {
      * @param {int} line
      * @param {int} column
      */
-    set state({ position, line, column }) {
+    set state({ position, line, column, docblock, decorators }) {
         this._lexer.resetPosition(position - 1);
         this._line = line;
         this._column = column;
+        this._pendingDocblock = docblock;
+        this._pendingDecorators = decorators;
     }
 
     /**
@@ -70,6 +75,7 @@ class Parser extends implementationOf(ExpresionParserTrait) {
         const lines = code.split(/\r\n|\r|\n/);
         this._line = 1;
         this._column = 0;
+        this._pendingDecorators = [];
         this._lexer.input = this._input = code;
 
         this._next();
@@ -169,11 +175,11 @@ class Parser extends implementationOf(ExpresionParserTrait) {
         if (this._lexer.isToken(Lexer.T_SEMICOLON)) {
             this._skipSemicolon();
             this._skipSpaces();
-        } else if ((this._lexer.isToken(Lexer.T_SPACE) && Parser._includesLineTerminator(this._lexer.token.value)) || (Lexer.T_SPACE === lastToken.type && Parser._includesLineTerminator(lastToken.value))) {
+        } else if ((this._lexer.isToken(Lexer.T_SPACE) && Parser._includesLineTerminator(this._lexer.token.value)) || (lastToken && Lexer.T_SPACE === lastToken.type && Parser._includesLineTerminator(lastToken.value))) {
             this._skipSpaces();
-        } else if (Lexer.T_CURLY_BRACKET_CLOSE === lastToken.type || this._lexer.isToken(Lexer.T_CURLY_BRACKET_CLOSE)) {
+        } else if (lastToken && (Lexer.T_CURLY_BRACKET_CLOSE === lastToken.type || this._lexer.isToken(Lexer.T_CURLY_BRACKET_CLOSE))) {
             this._skipSpaces();
-        } else if (this._lexer.isToken(Lexer.T_EOF) || lastToken.type === Lexer.T_EOF) {
+        } else if (this._lexer.isToken(Lexer.T_EOF) || (lastToken && lastToken.type === Lexer.T_EOF)) {
             // Do nothing
         } else {
             this._syntaxError('Unexpected "' + this._lexer.token.value + '": statement termination expected.');
@@ -181,7 +187,7 @@ class Parser extends implementationOf(ExpresionParserTrait) {
     }
 
     _syntaxError(message = 'Syntax error') {
-        throw new SyntaxError(message + ' near line ' + this._line + ' column ' + this._column + 1);
+        throw new SyntaxError(message + ' near line ' + this._line + ' column ' + (this._column + 1));
     }
 
     _expect(type) {
@@ -221,6 +227,33 @@ class Parser extends implementationOf(ExpresionParserTrait) {
             if (this._lexer.isToken(Lexer.T_DOCBLOCK)) {
                 this._pendingDocblock = this._lexer.token.value;
                 continue;
+            }
+
+            if (this._lexer.isToken(Lexer.T_DECORATOR_IDENTIFIER)) {
+                const docblock = this._pendingDocblock;
+                this._pendingDocblock = undefined;
+
+                const value = this._lexer.token.value;
+                let expression = [];
+                this._next();
+
+                if (this._lexer.isToken(Lexer.T_OPEN_PARENTHESIS)) {
+                    expression = this._parseExpression().expression;
+
+                    if (undefined === expression) {
+                        expression = [];
+                    } else if (expression instanceof AST.SequenceExpression) {
+                        expression = expression.expressions;
+                    }
+
+                    if (! isArray(expression)) {
+                        expression = [ expression ];
+                    }
+                }
+
+
+                this._pendingDecorators.push([ value, expression ]);
+                this._pendingDocblock = docblock;
             }
 
             if (this._lexer.isToken(Lexer.T_COMMENT)) {
@@ -840,6 +873,8 @@ class Parser extends implementationOf(ExpresionParserTrait) {
             } else {
                 const docblock = this._pendingDocblock;
                 this._pendingDocblock = undefined;
+                const decorators = this._pendingDecorators;
+                this._pendingDecorators = [];
 
                 let value = null;
                 if (this._lexer.isToken(Lexer.T_ASSIGNMENT_OP)) {
@@ -849,6 +884,7 @@ class Parser extends implementationOf(ExpresionParserTrait) {
 
                 const property = new AST.ClassProperty(this._makeLocation(start), MethodName, value, Static);
                 property.docblock = docblock || null;
+                property.decorators = decorators;
 
                 body.push(property);
 
@@ -882,12 +918,16 @@ class Parser extends implementationOf(ExpresionParserTrait) {
         const docblock = this._pendingDocblock;
         this._pendingDocblock = undefined;
 
+        const decorators = this._pendingDecorators;
+        this._pendingDecorators = decorators;
+
         this._expect(Lexer.T_OPEN_PARENTHESIS);
         const args = this._parseFormalParametersList();
         const body = this._parseBlockStatement();
 
         const method = new AST.ClassMethod(this._makeLocation(start), body, id, kind, args, opts);
         method.docblock = docblock || null;
+        method.decorators = decorators;
 
         return method;
     }
@@ -917,16 +957,24 @@ class Parser extends implementationOf(ExpresionParserTrait) {
     _parseStatement(skipStatementTermination = false) {
         const docBlock = this._pendingDocblock;
         this._pendingDocblock = undefined;
+        const decorators = this._pendingDecorators;
+        this._pendingDecorators = [];
+
         const statement = this._doParseStatement(skipStatementTermination);
 
-        if (docBlock) {
-            switch (true) {
-                case statement instanceof AST.ClassDeclaration:
-                case statement instanceof AST.ExpressionStatement:
-                case statement instanceof AST.VariableDeclaration: {
-                    statement.docblock = docBlock;
-                } break;
+        switch (true) {
+            case statement instanceof AST.ClassDeclaration: {
+                if (decorators.length) {
+                    statement.decorators = decorators;
+                }
             }
+
+            case statement instanceof AST.ExpressionStatement:
+            case statement instanceof AST.VariableDeclaration: {
+                if (docBlock) {
+                    statement.docblock = docBlock;
+                }
+            } break;
         }
 
         return statement;

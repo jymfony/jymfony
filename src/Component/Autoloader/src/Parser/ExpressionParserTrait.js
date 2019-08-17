@@ -600,10 +600,6 @@ class ExpressionParserTrait {
             expression = new AST.SequenceExpression(this._makeLocation(start), args);
         }
 
-        if (undefined === expression) {
-        // Debugger;
-        }
-
         return expression;
     }
 }
