@@ -9,7 +9,7 @@ const createCacheItem = (key) => {
     return item;
 };
 
-class NullAdapter extends implementationOf(CacheItemPoolInterface) {
+export default class NullAdapter extends implementationOf(CacheItemPoolInterface) {
     /**
      * @inheritdoc
      */
@@ -70,5 +70,3 @@ class NullAdapter extends implementationOf(CacheItemPoolInterface) {
         // Nothing to do.
     }
 }
-
-module.exports = NullAdapter;

@@ -5,7 +5,7 @@
  *
  * @final
  */
-class QuestionType {
+export default class QuestionType {
     /**
      * Constructor.
      */
@@ -17,5 +17,3 @@ class QuestionType {
 QuestionType.QUESTION = 'question';
 QuestionType.PASSWORD = 'password';
 QuestionType.CHOICE = 'choice';
-
-module.exports = QuestionType;

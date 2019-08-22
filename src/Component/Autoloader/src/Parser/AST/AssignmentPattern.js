@@ -33,6 +33,13 @@ class AssignmentPattern extends implementationOf(PatternInterface) {
     }
 
     /**
+     * @inheritdoc
+     */
+    get names() {
+        return this._left.names;
+    }
+
+    /**
      * Gets the left hand of the pattern.
      *
      * @returns {Jymfony.Component.Autoloader.Parser.AST.PatternInterface}

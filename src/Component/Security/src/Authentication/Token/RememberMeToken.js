@@ -5,7 +5,7 @@ const AbstractToken = Jymfony.Component.Security.Authentication.Token.AbstractTo
  *
  * @memberOf Jymfony.Component.Security.Authentication.Token
  */
-class RememberMeToken extends AbstractToken {
+export default class RememberMeToken extends AbstractToken {
     /**
      * Constructor.
      *
@@ -98,5 +98,3 @@ class RememberMeToken extends AbstractToken {
         return fields;
     }
 }
-
-module.exports = RememberMeToken;

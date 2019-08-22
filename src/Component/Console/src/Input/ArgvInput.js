@@ -27,7 +27,7 @@ const Input = Jymfony.Component.Console.Input.Input;
  *
  * @memberOf Jymfony.Component.Console.Input
  */
-class ArgvInput extends Input {
+export default class ArgvInput extends Input {
     /**
      * Constructor.
      *
@@ -330,5 +330,3 @@ class ArgvInput extends Input {
         }
     }
 }
-
-module.exports = ArgvInput;

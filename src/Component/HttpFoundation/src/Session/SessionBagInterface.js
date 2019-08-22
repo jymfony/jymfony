@@ -33,4 +33,4 @@ class SessionBagInterface {
     clear() { }
 }
 
-module.exports = getInterface(SessionBagInterface);
+export default getInterface(SessionBagInterface);

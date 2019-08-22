@@ -43,6 +43,13 @@ class Identifier extends implementationOf(NodeInterface, ExpressionInterface, Pa
     /**
      * @inheritdoc
      */
+    get names() {
+        return [ this ];
+    }
+
+    /**
+     * @inheritdoc
+     */
     compile(compiler) {
         compiler._emit(this._name);
     }

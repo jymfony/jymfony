@@ -4,7 +4,7 @@ const InputAwareInterface = Jymfony.Component.Console.Input.InputAwareInterface;
 /**
  * @memberOf Jymfony.Component.Console.Helper
  */
-class InputAwareHelper extends mix(Helper, InputAwareInterface) {
+export default class InputAwareHelper extends mix(Helper, InputAwareInterface) {
     /**
      * @param {Jymfony.Component.Console.Input.InputInterface} input
      */
@@ -17,5 +17,3 @@ class InputAwareHelper extends mix(Helper, InputAwareInterface) {
         this._input = input;
     }
 }
-
-module.exports = InputAwareHelper;

@@ -3,7 +3,7 @@ const ProphecyInterface = Jymfony.Component.Testing.Prophecy.ProphecyInterface;
 /**
  * @memberOf Jymfony.Component.Testing.Prophecy
  */
-class Revealer {
+export default class Revealer {
     /**
      * Unwraps value(s).
      *
@@ -27,5 +27,3 @@ class Revealer {
         return value;
     }
 }
-
-module.exports = Revealer;

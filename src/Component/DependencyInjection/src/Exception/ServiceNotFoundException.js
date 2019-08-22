@@ -4,7 +4,7 @@ const NotFoundExceptionInterface = Jymfony.Component.DependencyInjection.Excepti
 /**
  * @memberOf Jymfony.Component.DependencyInjection.Exception
  */
-class ServiceNotFoundException extends mix(InvalidArgumentException, NotFoundExceptionInterface) {
+export default class ServiceNotFoundException extends mix(InvalidArgumentException, NotFoundExceptionInterface) {
     /**
      * Constructor.
      *
@@ -22,5 +22,3 @@ class ServiceNotFoundException extends mix(InvalidArgumentException, NotFoundExc
         super.__construct(msg);
     }
 }
-
-module.exports = ServiceNotFoundException;

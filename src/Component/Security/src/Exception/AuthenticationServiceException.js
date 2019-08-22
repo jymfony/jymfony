@@ -5,7 +5,7 @@ const AuthenticationException = Jymfony.Component.Security.Exception.Authenticat
  *
  * @memberOf Jymfony.Component.Security.Exception
  */
-class AuthenticationServiceException extends AuthenticationException {
+export default class AuthenticationServiceException extends AuthenticationException {
     /**
      * @inheritdoc
      */
@@ -13,5 +13,3 @@ class AuthenticationServiceException extends AuthenticationException {
         return 'Authentication request could not be processed due to a system problem.';
     }
 }
-
-module.exports = AuthenticationServiceException;

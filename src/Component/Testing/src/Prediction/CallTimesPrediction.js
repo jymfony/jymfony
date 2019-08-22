@@ -5,7 +5,7 @@ const PredictionInterface = Jymfony.Component.Testing.Prediction.PredictionInter
 /**
  * @memberOf Jymfony.Component.Testing.Prediction
  */
-class CallTimesPrediction extends implementationOf(PredictionInterface) {
+export default class CallTimesPrediction extends implementationOf(PredictionInterface) {
     /**
      * Constructor.
      *
@@ -66,5 +66,3 @@ class CallTimesPrediction extends implementationOf(PredictionInterface) {
         throw new UnexpectedCallsCountException(message, method, this._times, calls);
     }
 }
-
-module.exports = CallTimesPrediction;

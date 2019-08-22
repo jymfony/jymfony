@@ -3,7 +3,7 @@ const AbstractLogger = Jymfony.Component.Logger.AbstractLogger;
 /**
  * @memberOf Jymfony.Component.Logger
  */
-class NullLogger extends AbstractLogger {
+export default class NullLogger extends AbstractLogger {
     /**
      * This logger do nothing.
      */
@@ -11,5 +11,3 @@ class NullLogger extends AbstractLogger {
         // Do nothing.
     }
 }
-
-module.exports = NullLogger;

@@ -1,4 +1,12 @@
+const BooleanLiteral = require('./BooleanLiteral');
+const CallExpression = require('./CallExpression');
+const ExpressionStatement = require('./ExpressionStatement');
+const Identifier = require('./Identifier');
+const MemberExpression = require('./MemberExpression');
 const NodeInterface = require('./NodeInterface');
+const ObjectExpression = require('./ObjectExpression');
+const ObjectProperty = require('./ObjectProperty');
+const StringLiteral = require('./StringLiteral');
 
 /**
  * @memberOf Jymfony.Component.Autoloader.Parser.AST
@@ -21,6 +29,18 @@ class Program extends implementationOf(NodeInterface) {
          * @private
          */
         this._body = [];
+
+        /**
+         * @type {boolean}
+         *
+         * @private
+         */
+        this._prepared = false;
+
+        /**
+         * @type {boolean}
+         */
+        this.esModule = false;
     }
 
     /**
@@ -39,6 +59,31 @@ class Program extends implementationOf(NodeInterface) {
      */
     get body() {
         return this._body;
+    }
+
+    /**
+     * Prepares the program body.
+     */
+    prepare() {
+        if (this._prepared) {
+            return;
+        }
+
+        this._prepared = true;
+        if (this.esModule) {
+            this._body.unshift(
+                new ExpressionStatement(null, new CallExpression(null,
+                    new MemberExpression(null, new Identifier(null, 'Object'), new Identifier(null, 'defineProperty')),
+                    [
+                        new Identifier(null, 'exports'),
+                        new StringLiteral(null, '"__esModule"'),
+                        new ObjectExpression(null, [
+                            new ObjectProperty(null, new Identifier(null, 'value'), new BooleanLiteral(null, true)),
+                        ]),
+                    ]
+                ))
+            );
+        }
     }
 
     /**

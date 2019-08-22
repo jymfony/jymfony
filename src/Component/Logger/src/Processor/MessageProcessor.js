@@ -1,7 +1,7 @@
 /**
  * @memberOf Jymfony.Component.Logger.Processor
  */
-class MessageProcessor {
+export default class MessageProcessor {
     /**
      * Handle placeholders in message and replaces with context properties.
      *
@@ -28,5 +28,3 @@ class MessageProcessor {
         return record;
     }
 }
-
-module.exports = MessageProcessor;

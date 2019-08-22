@@ -6,7 +6,5 @@ const ExceptionInterface = Jymfony.Component.Filesystem.Exception.ExceptionInter
  *
  * @memberOf Jymfony.Component.Filesystem.Exception
  */
-class UnsupportedOperationException extends mix(RuntimeException, ExceptionInterface) {
+export default class UnsupportedOperationException extends mix(RuntimeException, ExceptionInterface) {
 }
-
-module.exports = UnsupportedOperationException;

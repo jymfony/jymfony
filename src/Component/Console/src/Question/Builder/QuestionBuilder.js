@@ -9,7 +9,7 @@ const PasswordQuestionBuilder = Jymfony.Component.Console.Question.Builder.Passw
  *
  * @memberOf Jymfony.Component.Console.Question.Builder
  */
-class QuestionBuilder {
+export default class QuestionBuilder {
     /**
      * Constructor.
      *
@@ -177,5 +177,3 @@ class QuestionBuilder {
         return question;
     }
 }
-
-module.exports = QuestionBuilder;

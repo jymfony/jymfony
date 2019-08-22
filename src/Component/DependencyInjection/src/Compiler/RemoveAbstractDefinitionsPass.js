@@ -3,7 +3,7 @@ const CompilerPassInterface = Jymfony.Component.DependencyInjection.Compiler.Com
 /**
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
  */
-class RemoveAbstractDefinitionsPass extends implementationOf(CompilerPassInterface) {
+export default class RemoveAbstractDefinitionsPass extends implementationOf(CompilerPassInterface) {
     /**
      * @inheritdoc
      */
@@ -21,5 +21,3 @@ class RemoveAbstractDefinitionsPass extends implementationOf(CompilerPassInterfa
         }
     }
 }
-
-module.exports = RemoveAbstractDefinitionsPass;

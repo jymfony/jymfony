@@ -1,5 +1,5 @@
-const os = require('os');
-const stream = require('stream');
+import { PassThrough, Readable } from 'stream';
+import { EOL } from 'os';
 
 const ArrayInput = Jymfony.Component.Console.Input.ArrayInput;
 const StreamOutput = Jymfony.Component.Console.Output.StreamOutput;
@@ -7,7 +7,7 @@ const StreamOutput = Jymfony.Component.Console.Output.StreamOutput;
 /**
  * @memberOf Jymfony.Component.Console.Tester
  */
-class CommandTester {
+export default class CommandTester {
     /**
      * Constructor.
      *
@@ -91,7 +91,7 @@ class CommandTester {
         this._statusCode = undefined;
         this._input.interactive = !! options.interactive;
 
-        this._output = new StreamOutput(new stream.PassThrough());
+        this._output = new StreamOutput(new PassThrough());
         this._output.deferUncork = false;
         this._output.decorated = !! options.decorated;
 
@@ -119,7 +119,7 @@ class CommandTester {
             this._readOutput += read.toString();
         }
 
-        return normalize ? this._readOutput.replace(new RegExp(os.EOL, 'g'), '\n') : this._readOutput;
+        return normalize ? this._readOutput.replace(new RegExp(EOL, 'g'), '\n') : this._readOutput;
     }
 
     /**
@@ -167,7 +167,7 @@ class CommandTester {
      * @private
      */
     static _createStream(inputs) {
-        const s = new stream.Readable();
+        const s = new Readable();
         s.deferUncork = false;
 
         for (const line of inputs) {
@@ -177,5 +177,3 @@ class CommandTester {
         return s;
     }
 }
-
-module.exports = CommandTester;

@@ -3,7 +3,7 @@
  *
  * @memberOf Jymfony.Component.VarDumper.Cloner
  */
-class Stub {
+export default class Stub {
     /**
      * Constructor.
      */
@@ -57,5 +57,3 @@ Stub.TYPE_STRING = 2;
 Stub.TYPE_ARRAY = 3;
 Stub.TYPE_OBJECT = 4;
 Stub.TYPE_SYMBOL = 5;
-
-module.exports = Stub;

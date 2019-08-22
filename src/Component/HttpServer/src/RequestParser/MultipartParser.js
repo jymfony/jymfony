@@ -11,7 +11,7 @@ const BadRequestException = Jymfony.Component.HttpServer.Exception.BadRequestExc
  *
  * @final
  */
-class MultipartParser extends AbstractParser {
+export default class MultipartParser extends AbstractParser {
     /**
      * Constructor.
      *
@@ -115,5 +115,3 @@ class MultipartParser extends AbstractParser {
         return hdr;
     }
 }
-
-module.exports = MultipartParser;

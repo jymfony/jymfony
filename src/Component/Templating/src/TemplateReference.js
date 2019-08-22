@@ -5,7 +5,7 @@ const TemplateReferenceInterface = Jymfony.Component.Templating.TemplateReferenc
  *
  * @memberOf Jymfony.Component.Templating
  */
-class TemplateReference extends implementationOf(TemplateReferenceInterface) {
+export default class TemplateReference extends implementationOf(TemplateReferenceInterface) {
     /**
      * Constructor.
      *
@@ -61,5 +61,3 @@ class TemplateReference extends implementationOf(TemplateReferenceInterface) {
         return this.name;
     }
 }
-
-module.exports = TemplateReference;

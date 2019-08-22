@@ -5,7 +5,7 @@ const ExprBuilder = Jymfony.Component.Config.Definition.Builder.ExprBuilder;
  *
  * @memberOf Jymfony.Component.Config.Definition.Builder
  */
-class NormalizationBuilder {
+export default class NormalizationBuilder {
     /**
      * Constructor.
      *
@@ -62,5 +62,3 @@ class NormalizationBuilder {
         return expr;
     }
 }
-
-module.exports = NormalizationBuilder;

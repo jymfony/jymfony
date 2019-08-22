@@ -50,4 +50,4 @@ class HandlerInterface {
     close() { }
 }
 
-module.exports = getInterface(HandlerInterface);
+export default getInterface(HandlerInterface);

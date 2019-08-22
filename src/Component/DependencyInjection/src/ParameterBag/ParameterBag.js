@@ -7,7 +7,7 @@ const ParameterCircularReferenceException = Jymfony.Component.DependencyInjectio
  *
  * @memberOf Jymfony.Component.DependencyInjection.ParameterBag
  */
-class ParameterBag {
+export default class ParameterBag {
     /**
      * Constructor.
      *
@@ -313,5 +313,3 @@ class ParameterBag {
         return param;
     }
 }
-
-module.exports = ParameterBag;

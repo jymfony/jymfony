@@ -3,7 +3,7 @@ const CompilerPassInterface = Jymfony.Component.DependencyInjection.Compiler.Com
 /**
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
  */
-class CheckDefinitionValidityPass extends implementationOf(CompilerPassInterface) {
+export default class CheckDefinitionValidityPass extends implementationOf(CompilerPassInterface) {
     /**
      * @inheritdoc
      */
@@ -33,5 +33,3 @@ class CheckDefinitionValidityPass extends implementationOf(CompilerPassInterface
         }
     }
 }
-
-module.exports = CheckDefinitionValidityPass;

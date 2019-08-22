@@ -1,12 +1,13 @@
+import { createHash } from 'crypto';
+
 const AbstractPasswordEncoder = Jymfony.Component.Security.Encoder.AbstractPasswordEncoder;
-const crypto = require('crypto');
 
 /**
  * PlaintextPasswordEncoder does not do any encoding.
  *
  * @memberOf Jymfony.Component.Security.Encoder
  */
-class MessageDigestPasswordEncoder extends AbstractPasswordEncoder {
+export default class MessageDigestPasswordEncoder extends AbstractPasswordEncoder {
     /**
      * Constructor.
      *
@@ -42,14 +43,14 @@ class MessageDigestPasswordEncoder extends AbstractPasswordEncoder {
      */
     async encodePassword(raw, salt) {
         const salted = this._mergePasswordAndSalt(raw, salt);
-        const hash = crypto.createHash(this._algorithm);
+        const hash = createHash(this._algorithm);
         hash.update(salted);
 
         let digest = hash.digest();
 
         // "stretch" hash
         for (let i = 1; i < this._iterations; ++i) {
-            const hash = crypto.createHash(this._algorithm);
+            const hash = createHash(this._algorithm);
             hash.update(digest.toString('binary') + salted);
 
             digest = hash.digest();

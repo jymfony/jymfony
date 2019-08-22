@@ -3,7 +3,7 @@ const GetResponseEvent = Jymfony.Component.HttpServer.Event.GetResponseEvent;
 /**
  * @memberOf Jymfony.Component.HttpServer.Event
  */
-class GetResponseForExceptionEvent extends GetResponseEvent {
+export default class GetResponseForExceptionEvent extends GetResponseEvent {
     /**
      * Constructor.
      *
@@ -65,5 +65,3 @@ class GetResponseForExceptionEvent extends GetResponseEvent {
         return this._allowCustomResponseCode;
     }
 }
-
-module.exports = GetResponseForExceptionEvent;

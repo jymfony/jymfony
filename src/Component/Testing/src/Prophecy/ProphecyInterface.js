@@ -10,4 +10,4 @@ class ProphecyInterface {
     reveal() { }
 }
 
-module.exports = getInterface(ProphecyInterface);
+export default getInterface(ProphecyInterface);

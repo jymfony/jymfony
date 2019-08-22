@@ -3,7 +3,7 @@ const RepeatablePassInterface = Jymfony.Component.DependencyInjection.Compiler.R
 /**
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
  */
-class RemoveUnusedDefinitionsPass extends implementationOf(RepeatablePassInterface) {
+export default class RemoveUnusedDefinitionsPass extends implementationOf(RepeatablePassInterface) {
     __construct() {
         this._repeatedPass = undefined;
     }
@@ -67,5 +67,3 @@ class RemoveUnusedDefinitionsPass extends implementationOf(RepeatablePassInterfa
         this._repeatedPass = pass;
     }
 }
-
-module.exports = RemoveUnusedDefinitionsPass;

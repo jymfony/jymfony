@@ -27,4 +27,4 @@ class ConfiguratorTrait {
     }
 }
 
-module.exports = getTrait(ConfiguratorTrait);
+export default getTrait(ConfiguratorTrait);

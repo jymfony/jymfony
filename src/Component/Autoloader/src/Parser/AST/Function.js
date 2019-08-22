@@ -1,3 +1,4 @@
+const Identifier = require('./Identifier');
 const NodeInterface = require('./NodeInterface');
 
 /**
@@ -28,11 +29,11 @@ class Function extends implementationOf(NodeInterface) {
         this._body = body;
 
         /**
-         * @type {Jymfony.Component.Autoloader.Parser.AST.Identifier|null}
+         * @type {Jymfony.Component.Autoloader.Parser.AST.Identifier}
          *
          * @private
          */
-        this._id = id;
+        this._id = id || new Identifier(null, '_anonymous_xΞ' + (~~(Math.random() * 1000000)).toString(16));
 
         /**
          * @type {Jymfony.Component.Autoloader.Parser.AST.PatternInterface[]}
@@ -62,12 +63,21 @@ class Function extends implementationOf(NodeInterface) {
     }
 
     /**
+     * Gets the function identifier.
+     *
+     * @returns {Jymfony.Component.Autoloader.Parser.AST.Identifier}
+     */
+    get id() {
+        return this._id;
+    }
+
+    /**
      * Gets the function name.
      *
      * @return {string}
      */
     get name() {
-        return this._id ? this._id.name : null;
+        return this._id.name;
     }
 
     /**

@@ -12,4 +12,4 @@ class FirewallMapInterface {
     getConfig(request) { }
 }
 
-module.exports = getInterface(FirewallMapInterface);
+export default getInterface(FirewallMapInterface);

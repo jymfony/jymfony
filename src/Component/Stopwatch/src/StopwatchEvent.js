@@ -1,12 +1,12 @@
+import { performance } from 'perf_hooks';
 const StopwatchPeriod = Jymfony.Component.Stopwatch.StopwatchPeriod;
-const { performance } = require('perf_hooks');
 
 /**
  * Represents an Event managed by Stopwatch.
  *
  * @memberOf Jymfony.Component.Stopwatch
  */
-class StopwatchEvent {
+export default class StopwatchEvent {
     /**
      * Constructor.
      *
@@ -223,5 +223,3 @@ class StopwatchEvent {
         return Number(time.toFixed(1));
     }
 }
-
-module.exports = StopwatchEvent;

@@ -10,7 +10,7 @@ const StreamableInputInterface = Jymfony.Component.Console.Input.StreamableInput
  *
  * @internal
  */
-class AbstractRenderer extends implementationOf(RendererInterface) {
+export default class AbstractRenderer extends implementationOf(RendererInterface) {
     /**
      * Constructor.
      *
@@ -54,5 +54,3 @@ class AbstractRenderer extends implementationOf(RendererInterface) {
         this._outputFormatter = this._output.formatter;
     }
 }
-
-module.exports = AbstractRenderer;

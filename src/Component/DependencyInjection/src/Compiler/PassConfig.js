@@ -3,7 +3,7 @@ const Compiler = Jymfony.Component.DependencyInjection.Compiler;
 /**
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
  */
-class PassConfig {
+export default class PassConfig {
     /**
      * Constructor.
      */
@@ -193,5 +193,3 @@ PassConfig.TYPE_BEFORE_OPTIMIZATION = 'beforeOptimization';
 PassConfig.TYPE_BEFORE_REMOVING = 'beforeRemoving';
 PassConfig.TYPE_OPTIMIZE = 'optimization';
 PassConfig.TYPE_REMOVE = 'removing';
-
-module.exports = PassConfig;

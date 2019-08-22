@@ -3,7 +3,7 @@ const Token = Jymfony.Component.Testing.Argument.Token;
 /**
  * @memberOf Jymfony.Component.Testing.Argument
  */
-class ArgumentsWildcard {
+export default class ArgumentsWildcard {
     /**
      * Constructor.
      *
@@ -75,5 +75,3 @@ class ArgumentsWildcard {
         return this._string;
     }
 }
-
-module.exports = ArgumentsWildcard;

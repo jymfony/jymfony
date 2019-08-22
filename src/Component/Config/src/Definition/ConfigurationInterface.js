@@ -12,4 +12,4 @@ class ConfigurationInterface {
     get configTreeBuilder() { }
 }
 
-module.exports = getInterface(ConfigurationInterface);
+export default getInterface(ConfigurationInterface);

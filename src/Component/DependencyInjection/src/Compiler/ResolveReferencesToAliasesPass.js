@@ -6,7 +6,7 @@ const Reference = Jymfony.Component.DependencyInjection.Reference;
 /**
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
  */
-class ResolveReferencesToAliasesPass extends AbstractRecursivePass {
+export default class ResolveReferencesToAliasesPass extends AbstractRecursivePass {
     /**
      * @inheritdoc
      */
@@ -61,5 +61,3 @@ class ResolveReferencesToAliasesPass extends AbstractRecursivePass {
         return id;
     }
 }
-
-module.exports = ResolveReferencesToAliasesPass;

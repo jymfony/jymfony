@@ -16,4 +16,4 @@ class ResourceInterface {
     toString() { }
 }
 
-module.exports = getInterface(ResourceInterface);
+export default getInterface(ResourceInterface);

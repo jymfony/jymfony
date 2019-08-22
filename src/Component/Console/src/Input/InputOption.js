@@ -4,7 +4,7 @@ const LogicException = Jymfony.Component.Console.Exception.LogicException;
 /**
  * @memberOf Jymfony.Component.Console.Input
  */
-class InputOption {
+export default class InputOption {
     /**
      * Constructor
      *
@@ -201,5 +201,3 @@ InputOption.VALUE_NONE = 1;
 InputOption.VALUE_REQUIRED = 2;
 InputOption.VALUE_OPTIONAL = 4;
 InputOption.VALUE_IS_ARRAY = 8;
-
-module.exports = InputOption;

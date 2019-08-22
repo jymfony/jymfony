@@ -1,14 +1,15 @@
+import * as path from 'path';
+import { existsSync, realpathSync } from 'fs';
+
 const ConstStub = Jymfony.Component.VarDumper.Caster.ConstStub;
 const Stub = Jymfony.Component.VarDumper.Cloner.Stub;
-const fs = require('fs');
-const path = require('path');
 
 /**
  * Represents a file or a URL.
  *
  * @memberOf Jymfony.Component.VarDumper.Caster
  */
-class LinkStub extends ConstStub {
+export default class LinkStub extends ConstStub {
     /**
      * Constructor.
      *
@@ -42,7 +43,7 @@ class LinkStub extends ConstStub {
             return;
         }
 
-        if (! fs.existsSync(href)) {
+        if (! existsSync(href)) {
             return;
         }
 
@@ -50,7 +51,7 @@ class LinkStub extends ConstStub {
             this.attr.line = line;
         }
 
-        if (label !== (this.attr.file = fs.realpathSync(href) || href)) {
+        if (label !== (this.attr.file = realpathSync(href) || href)) {
             return;
         }
 
@@ -59,5 +60,3 @@ class LinkStub extends ConstStub {
         this.attr['ellipsis-tail'] = 1 + (this.inNodeModules ? 2 + href.substr(1 - this.attr.ellipsis).split(path.sep).slice(0, 2).join('').length : 0);
     }
 }
-
-module.exports = LinkStub;

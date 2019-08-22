@@ -7,7 +7,7 @@ const ProcessableHandlerTrait = Jymfony.Component.Logger.Handler.ProcessableHand
 /**
  * @memberOf Jymfony.Component.Logger.Handler
  */
-class AbstractProcessingHandler extends mix(
+export default class AbstractProcessingHandler extends mix(
     AbstractHandler,
     FormattableHandlerInterface,
     ProcessableHandlerInterface,
@@ -46,5 +46,3 @@ class AbstractProcessingHandler extends mix(
         throw new Exception('_write method must be implemented.');
     }
 }
-
-module.exports = AbstractProcessingHandler;

@@ -15,7 +15,7 @@ const daysPerMonth = [
  *
  * @internal
  */
-class TimeDescriptor {
+export default class TimeDescriptor {
     /**
      * Constructor.
      *
@@ -612,5 +612,3 @@ class TimeDescriptor {
         }
     }
 }
-
-module.exports = TimeDescriptor;

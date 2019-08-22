@@ -1,5 +1,6 @@
 const Lexer = require('./Lexer');
 const AST = require('./AST');
+const NotARegExpException = require('./Exception/NotARegExpException');
 
 class ExpressionParserTrait {
     _isArrowFunctionExpression() {
@@ -263,7 +264,7 @@ class ExpressionParserTrait {
 
                 this._next(false);
 
-                expression = new AST.ArrayExpression(this._makeLocation(start), elements instanceof AST.SequenceExpression ? elements.expressions : elements);
+                expression = new AST.ArrayExpression(this._makeLocation(start), elements instanceof AST.SequenceExpression ? elements.expressions.map(exp => undefined === exp ? null : exp) : elements);
             } break;
 
             case Lexer.T_OPEN_PARENTHESIS: {
@@ -333,15 +334,24 @@ class ExpressionParserTrait {
                 } break;
 
                 case Lexer.T_NEW: {
-                    this._next();
+                    const identifier = this._parseIdentifier();
+                    this._skipSpaces();
 
                     if (this._lexer.isToken(Lexer.T_DOT)) { // New.target
                         this._next();
                         const property = this._parseIdentifier();
-                        expression = new AST.MemberExpression(this._makeLocation(start), expression, property, false, false);
+                        expression = new AST.MemberExpression(this._makeLocation(start), identifier, property, false, false);
+                    } else if (this._lexer.isToken(Lexer.T_OPEN_SQUARE_BRACKET)) {
+                        this._next();
+                        const property = this._parseExpression({ maxLevel: 2 });
+
+                        expression = new AST.MemberExpression(this._makeLocation(start), identifier, property, false, false);
+
+                        this._expect(Lexer.T_CLOSED_SQUARE_BRACKET);
+                        this._next();
                     } else {
                         const callExpression = this._parseExpression({ maxLevel: 19 });
-                        const [ callee, args ] = callExpression instanceof AST.Identifier ? [ callExpression, [] ] : [ callExpression.callee, callExpression.args ];
+                        const [ callee, args ] = callExpression instanceof AST.CallExpression ? [ callExpression.callee, callExpression.args ] : [ callExpression, [] ];
                         expression = new AST.NewExpression(this._makeLocation(start), callee, args);
                     }
                 } break;
@@ -482,6 +492,10 @@ class ExpressionParserTrait {
             _binaryExpression(15);
         }
 
+        if (this._lexer.isToken(Lexer.T_REGEX)) {
+            throw new NotARegExpException(this._lexer.token);
+        }
+
         // Level 14
         if ([ '*', '/', '%' ].includes(this._lexer.token.value)) {
             _binaryExpression(14);
@@ -576,7 +590,7 @@ class ExpressionParserTrait {
             const state = this.state;
             let argument = null;
             try {
-                argument = this._parseExpression({ maxLevel: 2 });
+                argument = this._parseExpression({ maxLevel: 2 }) || null;
             } catch (e) {
                 this.state = state;
             }

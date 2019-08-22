@@ -55,4 +55,4 @@ class UserProviderInterface {
     supportsClass(class_) { }
 }
 
-module.exports = getInterface(UserProviderInterface);
+export default getInterface(UserProviderInterface);

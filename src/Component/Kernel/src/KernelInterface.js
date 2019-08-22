@@ -87,4 +87,4 @@ class KernelInterface {
     locateResource(name, dir = undefined, first = true) { }
 }
 
-module.exports = getInterface(KernelInterface);
+export default getInterface(KernelInterface);

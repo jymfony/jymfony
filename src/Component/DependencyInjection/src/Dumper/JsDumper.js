@@ -23,7 +23,7 @@ const nonFirstChars = 'abcdefghijklmnopqrstuvwxyz0123456789_';
  *
  * @memberOf Jymfony.Component.DependencyInjection.Dumper
  */
-class JsDumper {
+export default class JsDumper {
     /**
      * Constructor.
      *
@@ -1255,5 +1255,3 @@ ${this._addReturn(id, definition)}\
         return __jymfony.sprintf('        if (%s) {\n%s        }\n', conditionals, code);
     }
 }
-
-module.exports = JsDumper;

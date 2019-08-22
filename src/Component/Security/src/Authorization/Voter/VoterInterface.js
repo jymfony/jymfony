@@ -21,4 +21,4 @@ VoterInterface.ACCESS_GRANTED = 1;
 VoterInterface.ACCESS_ABSTAIN = 0;
 VoterInterface.ACCESS_DENIED = -1;
 
-module.exports = getInterface(VoterInterface);
+export default getInterface(VoterInterface);

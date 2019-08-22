@@ -24,4 +24,4 @@ class MimeTypeGuesserInterface {
     async guessMimeType(path) { }
 }
 
-module.exports = getInterface(MimeTypeGuesserInterface);
+export default getInterface(MimeTypeGuesserInterface);

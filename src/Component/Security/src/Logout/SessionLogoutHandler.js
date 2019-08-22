@@ -5,7 +5,7 @@ const LogoutHandlerInterface = Jymfony.Component.Security.Logout.LogoutHandlerIn
  *
  * @memberOf Jymfony.Component.Security.Logout
  */
-class SessionLogoutHandler extends implementationOf(LogoutHandlerInterface) {
+export default class SessionLogoutHandler extends implementationOf(LogoutHandlerInterface) {
     /**
      * @inheritdoc
      */
@@ -13,5 +13,3 @@ class SessionLogoutHandler extends implementationOf(LogoutHandlerInterface) {
         await request.session.invalidate();
     }
 }
-
-module.exports = SessionLogoutHandler;

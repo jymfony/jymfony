@@ -4,7 +4,7 @@ const StringUtil = Jymfony.Component.Testing.Util.StringUtil;
 /**
  * @memberOf Jymfony.Component.Testing.Argument.Token
  */
-class ExactValueToken extends implementationOf(TokenInterface) {
+export default class ExactValueToken extends implementationOf(TokenInterface) {
     /**
      * Constructor.
      *
@@ -37,5 +37,3 @@ class ExactValueToken extends implementationOf(TokenInterface) {
         return __jymfony.sprintf('exact(%s)', StringUtil.stringify(this._value));
     }
 }
-
-module.exports = ExactValueToken;

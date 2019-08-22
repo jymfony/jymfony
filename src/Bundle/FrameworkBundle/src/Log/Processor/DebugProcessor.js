@@ -5,7 +5,7 @@ const ClsTrait = __jymfony.ClsTrait;
 /**
  * @memberOf Jymfony.Bundle.FrameworkBundle.Log.Processor
  */
-class DebugProcessor extends implementationOf(DebugLoggerInterface) {
+export default class DebugProcessor extends implementationOf(DebugLoggerInterface) {
     /**
      * Constructor.
      */
@@ -86,5 +86,3 @@ class DebugProcessor extends implementationOf(DebugLoggerInterface) {
         }
     }
 }
-
-module.exports = DebugProcessor;

@@ -5,7 +5,7 @@ const InvalidArgumentException = Jymfony.Component.DependencyInjection.Exception
 /**
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
  */
-class RepeatedPass extends implementationOf(CompilerPassInterface) {
+export default class RepeatedPass extends implementationOf(CompilerPassInterface) {
     /**
      * @param {Jymfony.Component.DependencyInjection.Compiler.CompilerPassInterface[]} passes
      */
@@ -51,5 +51,3 @@ class RepeatedPass extends implementationOf(CompilerPassInterface) {
         return this._passes;
     }
 }
-
-module.exports = RepeatedPass;

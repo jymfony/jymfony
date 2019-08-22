@@ -9,7 +9,7 @@ const UserCheckerInterface = Jymfony.Component.Security.User.UserCheckerInterfac
  *
  * @memberOf Jymfony.Component.Security.User
  */
-class UserChecker extends implementationOf(UserCheckerInterface) {
+export default class UserChecker extends implementationOf(UserCheckerInterface) {
     /**
      * @inheritdoc
      */
@@ -36,5 +36,3 @@ class UserChecker extends implementationOf(UserCheckerInterface) {
         }
     }
 }
-
-module.exports = UserChecker;

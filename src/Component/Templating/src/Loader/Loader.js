@@ -1,3 +1,5 @@
+import { isAbsolute } from 'path';
+
 const Filesystem = Jymfony.Component.Filesystem.Filesystem;
 const LoaderInterface = Jymfony.Component.Templating.Loader.LoaderInterface;
 const LoggerAwareInterface = Jymfony.Component.Logger.LoggerAwareInterface;
@@ -5,14 +7,12 @@ const LoggerAwareTrait = Jymfony.Component.Logger.LoggerAwareTrait;
 const NullLogger = Jymfony.Component.Logger.NullLogger;
 const JsTemplate = Jymfony.Component.Templating.Template.JsTemplate;
 
-const path = require('path');
-
 /**
  * Template loader.
  *
  * @memberOf Jymfony.Component.Templating.Loader
  */
-class Loader extends implementationOf(LoaderInterface, LoggerAwareInterface, LoggerAwareTrait) {
+export default class Loader extends implementationOf(LoaderInterface, LoggerAwareInterface, LoggerAwareTrait) {
     /**
      * Constructor.
      *
@@ -43,7 +43,7 @@ class Loader extends implementationOf(LoaderInterface, LoggerAwareInterface, Log
     async load(template) {
         let file = template.name;
 
-        if (path.isAbsolute(file) && await this._filesystem.isFile(file)) {
+        if (isAbsolute(file) && await this._filesystem.isFile(file)) {
             return new JsTemplate(file);
         }
 
@@ -72,5 +72,3 @@ class Loader extends implementationOf(LoaderInterface, LoggerAwareInterface, Log
         throw new RuntimeException(__jymfony.sprintf('Cannot load template "%s"', template.name));
     }
 }
-
-module.exports = Loader;

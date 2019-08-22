@@ -8,4 +8,4 @@ const ExceptionInterface = Jymfony.Component.DependencyInjection.Exception.Excep
 class NotFoundExceptionInterface extends ExceptionInterface.definition {
 }
 
-module.exports = getInterface(NotFoundExceptionInterface);
+export default getInterface(NotFoundExceptionInterface);

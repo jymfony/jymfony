@@ -35,4 +35,4 @@ class PropertyPathInterface {
     get last() { }
 }
 
-module.exports = getInterface(PropertyPathInterface);
+export default getInterface(PropertyPathInterface);

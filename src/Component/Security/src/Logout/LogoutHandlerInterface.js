@@ -13,4 +13,4 @@ class LogoutHandlerInterface {
     async logout(request, response) { }
 }
 
-module.exports = getInterface(LogoutHandlerInterface);
+export default getInterface(LogoutHandlerInterface);

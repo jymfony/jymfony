@@ -27,7 +27,7 @@ const daySuffix = n => {
 /**
  * @memberOf Jymfony.Component.DateTime.Formatter
  */
-class DateTimeFormatter {
+export default class DateTimeFormatter {
     /**
      * @param {Jymfony.Component.DateTime.DateTime} datetime
      * @param {string} format
@@ -392,5 +392,3 @@ class DateTimeFormatter {
         return desc;
     }
 }
-
-module.exports = DateTimeFormatter;

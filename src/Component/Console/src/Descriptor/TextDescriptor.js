@@ -7,7 +7,7 @@ const InputDefinition = Jymfony.Component.Console.Input.InputDefinition;
  *
  * @internal
  */
-class TextDescriptor extends Descriptor {
+export default class TextDescriptor extends Descriptor {
     /**
      * @inheritdoc
      */
@@ -294,5 +294,3 @@ class TextDescriptor extends Descriptor {
         return totalWidth;
     }
 }
-
-module.exports = TextDescriptor;

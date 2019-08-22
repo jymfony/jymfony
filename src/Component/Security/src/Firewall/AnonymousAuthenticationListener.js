@@ -9,7 +9,7 @@ const ListenerInterface = Jymfony.Component.Security.Firewall.ListenerInterface;
  *
  * @memberOf Jymfony.Component.Security.Firewall
  */
-class AnonymousAuthenticationListener extends implementationOf(ListenerInterface) {
+export default class AnonymousAuthenticationListener extends implementationOf(ListenerInterface) {
     /**
      * Constructor.
      *
@@ -76,5 +76,3 @@ class AnonymousAuthenticationListener extends implementationOf(ListenerInterface
         }
     }
 }
-
-module.exports = AnonymousAuthenticationListener;

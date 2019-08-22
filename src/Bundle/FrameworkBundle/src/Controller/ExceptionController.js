@@ -3,7 +3,7 @@ const Response = Jymfony.Component.HttpFoundation.Response;
 /**
  * @memberOf Jymfony.Bundle.FrameworkBundle.Controller
  */
-class ExceptionController {
+export default class ExceptionController {
     /**
      * Constructor.
      *
@@ -33,5 +33,3 @@ class ExceptionController {
         });
     }
 }
-
-module.exports = ExceptionController;

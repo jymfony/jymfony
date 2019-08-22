@@ -141,4 +141,4 @@ class InputInterface {
     set interactive(interactive) { }
 }
 
-module.exports = getInterface(InputInterface);
+export default getInterface(InputInterface);

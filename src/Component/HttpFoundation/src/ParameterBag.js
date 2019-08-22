@@ -1,7 +1,7 @@
 /**
  * @memberOf Jymfony.Component.HttpFoundation
  */
-class ParameterBag {
+export default class ParameterBag {
     /**
      * Constructor.
      *
@@ -103,5 +103,3 @@ class ParameterBag {
         return Object.keys(this._parameters).length;
     }
 }
-
-module.exports = ParameterBag;

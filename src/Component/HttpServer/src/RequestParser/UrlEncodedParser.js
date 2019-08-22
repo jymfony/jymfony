@@ -7,7 +7,7 @@ const AbstractParser = Jymfony.Component.HttpServer.RequestParser.AbstractParser
  *
  * @final
  */
-class UrlEncodedParser extends AbstractParser {
+export default class UrlEncodedParser extends AbstractParser {
     /**
      * @inheritdoc
      */
@@ -15,5 +15,3 @@ class UrlEncodedParser extends AbstractParser {
         return __jymfony.parse_query_string(buffer.toString());
     }
 }
-
-module.exports = UrlEncodedParser;

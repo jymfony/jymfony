@@ -7,4 +7,4 @@
 class RequestExceptionInterface {
 }
 
-module.exports = getInterface(RequestExceptionInterface);
+export default getInterface(RequestExceptionInterface);

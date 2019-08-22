@@ -3,7 +3,7 @@ const TokenInterface = Jymfony.Component.Testing.Argument.Token.TokenInterface;
 /**
  * @memberOf Jymfony.Component.Testing.Argument.Token
  */
-class TypeToken extends implementationOf(TokenInterface) {
+export default class TypeToken extends implementationOf(TokenInterface) {
     /**
      * Constructor.
      *
@@ -36,5 +36,3 @@ class TypeToken extends implementationOf(TokenInterface) {
         return __jymfony.sprintf('type(%s)', this._type);
     }
 }
-
-module.exports = TypeToken;

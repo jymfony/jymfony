@@ -1,7 +1,7 @@
 /**
  * @memberOf Jymfony.Contracts.EventDispatcher
  */
-class Event {
+export default class Event {
     /**
      * Constructor.
      */
@@ -25,5 +25,3 @@ class Event {
         this._propagationStopped = true;
     }
 }
-
-module.exports = Event;

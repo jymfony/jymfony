@@ -3,7 +3,7 @@
  *
  * @memberOf Jymfony.Component.VarDumper.Cloner
  */
-class Cursor {
+export default class Cursor {
     constructor() {
         this.depth = 0;
         this.refIndex = 0;
@@ -19,5 +19,3 @@ class Cursor {
         this.skipChildren = false;
     }
 }
-
-module.exports = Cursor;

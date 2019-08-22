@@ -6,7 +6,5 @@ const InvalidConfigurationException = Jymfony.Component.Config.Definition.Except
  *
  * @memberOf Jymfony.Component.Config.Definition.Exception
  */
-class DuplicateKeyException extends InvalidConfigurationException {
+export default class DuplicateKeyException extends InvalidConfigurationException {
 }
-
-module.exports = DuplicateKeyException;

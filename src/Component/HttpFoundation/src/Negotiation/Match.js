@@ -2,7 +2,7 @@
  * @memberOf Jymfony.Component.HttpFoundation.Negotiation
  * @final
  */
-class Match {
+export default class Match {
     /**
      * Constructor.
      *
@@ -61,5 +61,3 @@ class Match {
         return carry;
     }
 }
-
-module.exports = Match;

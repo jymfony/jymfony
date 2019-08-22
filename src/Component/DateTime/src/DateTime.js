@@ -12,7 +12,7 @@ const TimeSpan = Jymfony.Component.DateTime.TimeSpan;
  *
  * @memberOf Jymfony.Component.DateTime
  */
-class DateTime {
+export default class DateTime {
     /**
      * Constructor.
      *
@@ -361,5 +361,3 @@ DateTime.RFC2822 = 'D, d M Y H:i:s O' ;
 DateTime.RFC3339 = 'Y-m-d\\TH:i:sP' ;
 DateTime.RSS = 'D, d M Y H:i:s O' ;
 DateTime.W3C = 'Y-m-d\\TH:i:sP' ;
-
-module.exports = DateTime;

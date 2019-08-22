@@ -102,4 +102,4 @@ OutputInterface.OUTPUT_NORMAL = 1;
 OutputInterface.OUTPUT_RAW = 2;
 OutputInterface.OUTPUT_PLAIN = 4;
 
-module.exports = getInterface(OutputInterface);
+export default getInterface(OutputInterface);

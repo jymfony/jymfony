@@ -10,4 +10,4 @@ class ContainerAwareInterface {
     setContainer(container) { }
 }
 
-module.exports = getInterface(ContainerAwareInterface);
+export default getInterface(ContainerAwareInterface);

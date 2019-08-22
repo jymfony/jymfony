@@ -5,7 +5,7 @@ const AuthenticationException = Jymfony.Component.Security.Exception.Authenticat
  *
  * @memberOf Jymfony.Component.Security.Exception
  */
-class BadCredentialsException extends AuthenticationException {
+export default class BadCredentialsException extends AuthenticationException {
     /**
      * @inheritdoc
      */
@@ -13,5 +13,3 @@ class BadCredentialsException extends AuthenticationException {
         return 'Invalid credentials.';
     }
 }
-
-module.exports = BadCredentialsException;

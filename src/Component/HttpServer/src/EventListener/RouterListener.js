@@ -1,3 +1,5 @@
+import * as path from 'path';
+
 const EventSubscriberInterface = Jymfony.Contracts.EventDispatcher.EventSubscriberInterface;
 const NotFoundHttpException = Jymfony.Component.HttpFoundation.Exception.NotFoundHttpException;
 const MethodNotAllowedHttpException = Jymfony.Component.HttpFoundation.Exception.MethodNotAllowedHttpException;
@@ -9,12 +11,10 @@ const MethodNotAllowedException = Jymfony.Component.Routing.Exception.MethodNotA
 const NoConfigurationException = Jymfony.Component.Routing.Exception.NoConfigurationException;
 const ResourceNotFoundException = Jymfony.Component.Routing.Exception.ResourceNotFoundException;
 
-const path = require('path');
-
 /**
  * @memberOf Jymfony.Component.HttpServer.EventListener
  */
-class RouterListener extends implementationOf(EventSubscriberInterface) {
+export default class RouterListener extends implementationOf(EventSubscriberInterface) {
     /**
      * Constructor.
      *
@@ -142,5 +142,3 @@ class RouterListener extends implementationOf(EventSubscriberInterface) {
         });
     }
 }
-
-module.exports = RouterListener;

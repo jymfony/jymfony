@@ -6,7 +6,7 @@ const RuntimeException = Jymfony.Component.DependencyInjection.Exception.Runtime
 /**
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
  */
-class ResolveInvalidReferencesPass extends implementationOf(CompilerPassInterface) {
+export default class ResolveInvalidReferencesPass extends implementationOf(CompilerPassInterface) {
     __construct() {
         /**
          * @type {Jymfony.Component.DependencyInjection.ContainerBuilder}
@@ -98,5 +98,3 @@ class ResolveInvalidReferencesPass extends implementationOf(CompilerPassInterfac
         return args;
     }
 }
-
-module.exports = ResolveInvalidReferencesPass;

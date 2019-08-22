@@ -7,7 +7,7 @@ const LogLevel = Jymfony.Component.Logger.LogLevel;
 /**
  * @memberOf Jymfony.Component.Logger
  */
-class Logger extends mix(AbstractLogger, EventSubscriberInterface, __jymfony.ClsTrait) {
+export default class Logger extends mix(AbstractLogger, EventSubscriberInterface, __jymfony.ClsTrait) {
     /**
      * Construct the logger
      *
@@ -359,5 +359,3 @@ Logger.levels = {
     [LogLevel.ALERT]: 'ALERT',
     [LogLevel.EMERGENCY]: 'EMERGENCY',
 };
-
-module.exports = Logger;

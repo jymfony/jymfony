@@ -5,7 +5,7 @@ const FileException = Jymfony.Component.HttpFoundation.File.Exception.FileExcept
  *
  * @memberOf Jymfony.Component.HttpFoundation.File.Exception
  */
-class FileNotFoundException extends FileException {
+export default class FileNotFoundException extends FileException {
     /**
      * Constructor.
      *
@@ -15,5 +15,3 @@ class FileNotFoundException extends FileException {
         super.__construct(__jymfony.sprintf('The file "%s" does not exist', path));
     }
 }
-
-module.exports = FileNotFoundException;

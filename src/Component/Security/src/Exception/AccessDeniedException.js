@@ -3,7 +3,7 @@
  *
  * @memberOf Jymfony.Component.Security.Exception
  */
-class AccessDeniedException extends RuntimeException {
+export default class AccessDeniedException extends RuntimeException {
     /**
      * Constructor.
      *
@@ -17,5 +17,3 @@ class AccessDeniedException extends RuntimeException {
         this.subject = undefined;
     }
 }
-
-module.exports = AccessDeniedException;

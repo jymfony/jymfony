@@ -168,4 +168,4 @@ class SessionInterface {
     get flashBag() { }
 }
 
-module.exports = getInterface(SessionInterface);
+export default getInterface(SessionInterface);

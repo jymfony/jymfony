@@ -8,7 +8,7 @@ const Reference = Jymfony.Component.DependencyInjection.Reference;
  *
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
  */
-class ResolveServiceSubscribersPass extends AbstractRecursivePass {
+export default class ResolveServiceSubscribersPass extends AbstractRecursivePass {
     __construct() {
         super.__construct();
 
@@ -42,5 +42,3 @@ class ResolveServiceSubscribersPass extends AbstractRecursivePass {
         }
     }
 }
-
-module.exports = ResolveServiceSubscribersPass;

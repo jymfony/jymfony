@@ -4,7 +4,7 @@ const InvalidArgumentException = Jymfony.Component.Testing.Exception.InvalidArgu
 /**
  * @memberOf Jymfony.Component.Testing.Argument.Token
  */
-class ApproximateValueToken extends implementationOf(TokenInterface) {
+export default class ApproximateValueToken extends implementationOf(TokenInterface) {
     /**
      * Constructor.
      *
@@ -60,5 +60,3 @@ class ApproximateValueToken extends implementationOf(TokenInterface) {
         return '≅' + this._value.toPrecision(this._precision);
     }
 }
-
-module.exports = ApproximateValueToken;

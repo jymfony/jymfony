@@ -1,10 +1,11 @@
-const MimeTypeGuesserInterface = Jymfony.Component.Mime.MimeTypeGuesserInterface;
-const childProcess = require('child_process');
-const fs = require('fs');
-const util = require('util');
+import * as childProcess from 'child_process';
+import * as fs from 'fs';
+import { promisify } from 'util';
 
-const access = util.promisify(fs.access);
-const exec = util.promisify(childProcess.exec);
+const MimeTypeGuesserInterface = Jymfony.Component.Mime.MimeTypeGuesserInterface;
+
+const access = promisify(fs.access);
+const exec = promisify(childProcess.exec);
 
 let supported;
 
@@ -13,7 +14,7 @@ let supported;
  *
  * @memberOf Jymfony.Component.Mime
  */
-class FileBinaryMimeTypeGuesser extends implementationOf(MimeTypeGuesserInterface) {
+export default class FileBinaryMimeTypeGuesser extends implementationOf(MimeTypeGuesserInterface) {
     /**
      * Constructor.
      *
@@ -72,5 +73,3 @@ class FileBinaryMimeTypeGuesser extends implementationOf(MimeTypeGuesserInterfac
         return match[1];
     }
 }
-
-module.exports = FileBinaryMimeTypeGuesser;

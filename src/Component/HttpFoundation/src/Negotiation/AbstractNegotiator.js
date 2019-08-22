@@ -7,7 +7,7 @@ const Match = Jymfony.Component.HttpFoundation.Negotiation.Match;
  *
  * @abstract
  */
-class AbstractNegotiator {
+export default class AbstractNegotiator {
     /**
      * Gets the best match against a list of priority.
      *
@@ -168,5 +168,3 @@ class AbstractNegotiator {
         return matches;
     }
 }
-
-module.exports = AbstractNegotiator;

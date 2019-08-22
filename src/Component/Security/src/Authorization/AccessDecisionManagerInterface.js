@@ -16,4 +16,4 @@ class AccessDecisionManagerInterface {
     decide(token, attributes, object = undefined) { }
 }
 
-module.exports = getInterface(AccessDecisionManagerInterface);
+export default getInterface(AccessDecisionManagerInterface);

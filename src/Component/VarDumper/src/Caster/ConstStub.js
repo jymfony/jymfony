@@ -5,7 +5,7 @@ const Stub = Jymfony.Component.VarDumper.Cloner.Stub;
  *
  * @memberOf Jymfony.Component.VarDumper.Caster
  */
-class ConstStub extends Stub {
+export default class ConstStub extends Stub {
     /**
      * Constructor.
      *
@@ -23,5 +23,3 @@ class ConstStub extends Stub {
         return this.value.toString();
     }
 }
-
-module.exports = ConstStub;

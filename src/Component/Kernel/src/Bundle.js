@@ -1,14 +1,14 @@
+import { dirname } from 'path';
+
 const Container = Jymfony.Component.DependencyInjection.Container;
 const ContainerAwareInterface = Jymfony.Component.DependencyInjection.ContainerAwareInterface;
 const ContainerAwareTrait = Jymfony.Component.DependencyInjection.ContainerAwareTrait;
 const ExtensionInterface = Jymfony.Component.DependencyInjection.Extension.ExtensionInterface;
 
-const path = require('path');
-
 /**
  * @memberOf Jymfony.Component.Kernel
  */
-class Bundle extends implementationOf(ContainerAwareInterface, ContainerAwareTrait) {
+export default class Bundle extends implementationOf(ContainerAwareInterface, ContainerAwareTrait) {
     __construct() {
         this._namespace = undefined;
         this._name = undefined;
@@ -52,7 +52,7 @@ class Bundle extends implementationOf(ContainerAwareInterface, ContainerAwareTra
              * @type {string}
              * @private
              */
-            this._path = path.dirname(reflClass.filename);
+            this._path = dirname(reflClass.filename);
         }
 
         return this._path;
@@ -156,5 +156,3 @@ class Bundle extends implementationOf(ContainerAwareInterface, ContainerAwareTra
         this._name = refl.name.substring(position + 1);
     }
 }
-
-module.exports = Bundle;

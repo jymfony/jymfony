@@ -11,7 +11,7 @@ const ServiceSubscriberInterface = Jymfony.Component.DependencyInjection.Service
  *
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
  */
-class RegisterServiceSubscribersPass extends AbstractRecursivePass {
+export default class RegisterServiceSubscribersPass extends AbstractRecursivePass {
     /**
      * @inheritdoc
      */
@@ -114,5 +114,3 @@ class RegisterServiceSubscribersPass extends AbstractRecursivePass {
         return super._processValue(value);
     }
 }
-
-module.exports = RegisterServiceSubscribersPass;

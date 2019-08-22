@@ -12,4 +12,4 @@ class ListenerInterface {
     async handle(event) { }
 }
 
-module.exports = getInterface(ListenerInterface);
+export default getInterface(ListenerInterface);

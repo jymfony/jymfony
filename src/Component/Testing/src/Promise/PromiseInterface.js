@@ -14,4 +14,4 @@ class PromiseInterface {
     execute(args, object, method) { }
 }
 
-module.exports = getInterface(PromiseInterface);
+export default getInterface(PromiseInterface);

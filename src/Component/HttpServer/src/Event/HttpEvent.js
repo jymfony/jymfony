@@ -3,7 +3,7 @@ const Event = Jymfony.Contracts.EventDispatcher.Event;
 /**
  * @memberOf Jymfony.Component.HttpServer.Event
  */
-class HttpEvent extends Event {
+export default class HttpEvent extends Event {
     /**
      * Constructor.
      *
@@ -46,5 +46,3 @@ class HttpEvent extends Event {
         return this._request;
     }
 }
-
-module.exports = HttpEvent;

@@ -11,7 +11,7 @@ const UndefinedOptionsException = Jymfony.Component.OptionsResolver.Exception.Un
  *
  * @memberOf Jymfony.Component.OptionsResolver
  */
-class OptionsResolver {
+export default class OptionsResolver {
     /**
      * Constructor.
      */
@@ -972,5 +972,3 @@ class OptionsResolver {
         return values.map(this._formatValue).join(', ');
     }
 }
-
-module.exports = OptionsResolver;

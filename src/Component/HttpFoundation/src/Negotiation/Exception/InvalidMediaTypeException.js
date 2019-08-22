@@ -5,7 +5,5 @@ const ExceptionInterface = Jymfony.Component.HttpFoundation.Negotiation.Exceptio
  *
  * @memberOf Jymfony.Component.HttpFoundation.Negotiation.Exception
  */
-class InvalidMediaTypeException extends mix(RuntimeException, ExceptionInterface) {
+export default class InvalidMediaTypeException extends mix(RuntimeException, ExceptionInterface) {
 }
-
-module.exports = InvalidMediaTypeException;

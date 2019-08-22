@@ -8,7 +8,7 @@ const JymfonyStyle = Jymfony.Component.Console.Style.JymfonyStyle;
  * @final
  * @memberOf Jymfony.Bundle.FrameworkBundle.Command
  */
-class CacheWarmupCommand extends Command {
+export default class CacheWarmupCommand extends Command {
     /**
      * @inheritDoc
      */
@@ -72,5 +72,3 @@ Before running this command, the cache must be empty.
         ));
     }
 }
-
-module.exports = CacheWarmupCommand;

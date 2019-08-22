@@ -4,7 +4,7 @@ const HeaderUtils = Jymfony.Component.HttpFoundation.HeaderUtils;
 /**
  * @memberOf Jymfony.Component.HttpFoundation
  */
-class HeaderBag {
+export default class HeaderBag {
     /**
      * Constructor.
      *
@@ -290,5 +290,3 @@ class HeaderBag {
         return cacheControl;
     }
 }
-
-module.exports = HeaderBag;

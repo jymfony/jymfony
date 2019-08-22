@@ -28,4 +28,4 @@ class UserProviderFactoryInterface {
     addConfiguration(builder) { }
 }
 
-module.exports = getInterface(UserProviderFactoryInterface);
+export default getInterface(UserProviderFactoryInterface);

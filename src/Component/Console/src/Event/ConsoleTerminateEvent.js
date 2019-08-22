@@ -5,7 +5,7 @@ const ConsoleEvent = Jymfony.Component.Console.Event.ConsoleEvent;
  *
  * @memberOf Jymfony.Component.Console.Event
  */
-class ConsoleTerminateEvent extends ConsoleEvent {
+export default class ConsoleTerminateEvent extends ConsoleEvent {
     /**
      * Constructor.
      *
@@ -37,5 +37,3 @@ class ConsoleTerminateEvent extends ConsoleEvent {
         return this._exitCode;
     }
 }
-
-module.exports = ConsoleTerminateEvent;

@@ -5,7 +5,7 @@ const InvalidArgumentException = Jymfony.Component.EventDispatcher.Exception.Inv
 /**
  * @memberOf Jymfony.Component.EventDispatcher
  */
-class EventDispatcher extends implementationOf(EventDispatcherInterface) {
+export default class EventDispatcher extends implementationOf(EventDispatcherInterface) {
     /**
      * Constructor.
      */
@@ -251,5 +251,3 @@ class EventDispatcher extends implementationOf(EventDispatcherInterface) {
         return func1 === func2;
     }
 }
-
-module.exports = EventDispatcher;

@@ -10,7 +10,5 @@ const ExceptionInterface = Jymfony.Component.OptionsResolver.Exception.Exception
  *
  * @memberOf Jymfony.Component.OptionsResolver.Exception
  */
-class NoSuchOptionException extends mix(OutOfBoundsException, ExceptionInterface) {
+export default class NoSuchOptionException extends mix(OutOfBoundsException, ExceptionInterface) {
 }
-
-module.exports = NoSuchOptionException;

@@ -4,7 +4,7 @@ const Traits = Jymfony.Component.Routing.Loader.Configurator.Traits;
 /**
  * @memberOf Jymfony.Component.Routing.Loader.Configurator
  */
-class RouteConfigurator extends implementationOf(
+export default class RouteConfigurator extends implementationOf(
     ConfiguratorInterface,
     Traits.AddTrait, Traits.RouteTrait
 ) {
@@ -64,5 +64,3 @@ class RouteConfigurator extends implementationOf(
         return this._route;
     }
 }
-
-module.exports = RouteConfigurator;

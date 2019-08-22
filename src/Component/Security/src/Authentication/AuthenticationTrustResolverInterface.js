@@ -36,4 +36,4 @@ class AuthenticationTrustResolverInterface {
     isFullFledged(token = null) { }
 }
 
-module.exports = getInterface(AuthenticationTrustResolverInterface);
+export default getInterface(AuthenticationTrustResolverInterface);

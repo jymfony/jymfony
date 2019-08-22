@@ -22,4 +22,4 @@ class EventSubscriberInterface {
     static getSubscribedEvents() { }
 }
 
-module.exports = getInterface(EventSubscriberInterface);
+export default getInterface(EventSubscriberInterface);

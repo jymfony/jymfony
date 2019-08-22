@@ -7,7 +7,7 @@ const Loader = Jymfony.Component.Config.Loader.Loader;
  *
  * @memberOf Jymfony.Component.Routing.Loader
  */
-class FunctionLoader extends Loader {
+export default class FunctionLoader extends Loader {
     /**
      * Loads a Closure.
      *
@@ -26,5 +26,3 @@ class FunctionLoader extends Loader {
         return isFunction(resource) && (! type || 'function' === type);
     }
 }
-
-module.exports = FunctionLoader;

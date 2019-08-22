@@ -10,7 +10,7 @@ const Terminal = Jymfony.Component.Console.Terminal;
  *
  * @memberOf Jymfony.Component.Console.Question
  */
-class PasswordQuestion extends Question {
+export default class PasswordQuestion extends Question {
     /**
      * @inheritdoc
      */
@@ -43,5 +43,3 @@ class PasswordQuestion extends Question {
         return new SttyPasswordRenderer(this);
     }
 }
-
-module.exports = PasswordQuestion;

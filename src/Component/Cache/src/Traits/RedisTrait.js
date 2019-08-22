@@ -180,4 +180,4 @@ RedisTrait.defaultConnectionOptions = {
     dbindex: 0,
 };
 
-module.exports = getTrait(RedisTrait);
+export default getTrait(RedisTrait);

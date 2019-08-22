@@ -4,7 +4,7 @@ const ConstStub = Jymfony.Component.VarDumper.Caster.ConstStub;
 /**
  * @memberOf Jymfony.Component.VarDumper.Caster
  */
-class RegExpCaster {
+export default class RegExpCaster {
     /**
      * Casts a RegExp object.
      *
@@ -23,5 +23,3 @@ class RegExpCaster {
         };
     }
 }
-
-module.exports = RegExpCaster;

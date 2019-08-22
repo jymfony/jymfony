@@ -6,7 +6,7 @@ const ExceptionInterface = Jymfony.Component.Routing.Exception.ExceptionInterfac
  *
  * @memberOf Jymfony.Component.Routing.Exception
  */
-class MethodNotAllowedException extends mix(RuntimeException, ExceptionInterface) {
+export default class MethodNotAllowedException extends mix(RuntimeException, ExceptionInterface) {
     /**
      * Constructor.
      *
@@ -30,5 +30,3 @@ class MethodNotAllowedException extends mix(RuntimeException, ExceptionInterface
         return [ ...this._allowedMethods ];
     }
 }
-
-module.exports = MethodNotAllowedException;

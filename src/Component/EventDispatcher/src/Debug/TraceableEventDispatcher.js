@@ -5,7 +5,7 @@ const Event = Jymfony.Contracts.EventDispatcher.Event;
 /**
  * @memberOf Jymfony.Component.EventDispatcher.Debug
  */
-class TraceableEventDispatcher extends implementationOf(TraceableEventDispatcherInterface) {
+export default class TraceableEventDispatcher extends implementationOf(TraceableEventDispatcherInterface) {
     /**
      * Constructor.
      *
@@ -203,5 +203,3 @@ class TraceableEventDispatcher extends implementationOf(TraceableEventDispatcher
         }
     }
 }
-
-module.exports = TraceableEventDispatcher;

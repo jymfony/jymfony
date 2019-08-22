@@ -10,7 +10,7 @@ const UserInterface = Jymfony.Component.Security.User.UserInterface;
  * @memberOf Jymfony.Component.Security.Authentication.Token
  * @abstract
  */
-class AbstractToken extends implementationOf(TokenInterface) {
+export default class AbstractToken extends implementationOf(TokenInterface) {
     /**
      * Constructor.
      *
@@ -269,5 +269,3 @@ class AbstractToken extends implementationOf(TokenInterface) {
             $class, this.username, JSON.stringify(this.authenticated), roles.join(', '));
     }
 }
-
-module.exports = AbstractToken;

@@ -6,7 +6,7 @@ const AnyValuesToken = Jymfony.Component.Testing.Argument.Token.AnyValuesToken;
 /**
  * @memberOf Jymfony.Component.Testing.Prediction
  */
-class CallPrediction extends implementationOf(PredictionInterface) {
+export default class CallPrediction extends implementationOf(PredictionInterface) {
     /**
      * @inheritdoc
      */
@@ -44,5 +44,3 @@ class CallPrediction extends implementationOf(PredictionInterface) {
         ), method);
     }
 }
-
-module.exports = CallPrediction;

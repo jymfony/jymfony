@@ -23,4 +23,4 @@ class MimeTypesInterface extends MimeTypeGuesserInterface.definition {
     getMimeTypes(ext) { }
 }
 
-module.exports = getInterface(MimeTypesInterface);
+export default getInterface(MimeTypesInterface);

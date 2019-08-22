@@ -4,7 +4,7 @@ const NotFoundExceptionInterface = Jymfony.Component.DependencyInjection.Excepti
 /**
  * @memberOf Jymfony.Component.DependencyInjection.Exception
  */
-class ParameterNotFoundException extends mix(InvalidArgumentException, NotFoundExceptionInterface) {
+export default class ParameterNotFoundException extends mix(InvalidArgumentException, NotFoundExceptionInterface) {
     /**
      * Constructor.
      *
@@ -51,5 +51,3 @@ class ParameterNotFoundException extends mix(InvalidArgumentException, NotFoundE
         this._updateMsg();
     }
 }
-
-module.exports = ParameterNotFoundException;

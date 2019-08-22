@@ -1,16 +1,16 @@
+import { createHash } from 'crypto';
+
 const FileException = Jymfony.Component.HttpFoundation.File.Exception.FileException;
 const File = Jymfony.Component.HttpFoundation.File.File;
 const Request = Jymfony.Component.HttpFoundation.Request;
 const Response = Jymfony.Component.HttpFoundation.Response;
-
-const crypto = require('crypto');
 
 /**
  * Represents an HTTP response delivering a file.
  *
  * @memberOf Jymfony.Component.HttpFoundation
  */
-class BinaryFileResponse extends Response {
+export default class BinaryFileResponse extends Response {
     /**
      * Constructor.
      *
@@ -53,7 +53,7 @@ class BinaryFileResponse extends Response {
 
         if (this._autoEtag && ! this.headers.has('Etag')) {
             const p = new Promise((resolve, reject) => {
-                const hash = crypto.createHash('sha256');
+                const hash = createHash('sha256');
                 const stream = this._file.content;
 
                 stream.on('error', err => reject(err));
@@ -190,5 +190,3 @@ class BinaryFileResponse extends Response {
         return this;
     }
 }
-
-module.exports = BinaryFileResponse;

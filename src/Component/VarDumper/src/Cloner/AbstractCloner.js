@@ -1,9 +1,11 @@
+import { casters } from './defaultCasters';
+
 const Caster = Jymfony.Component.VarDumper.Caster.Caster;
 const ClonerInterface = Jymfony.Component.VarDumper.Cloner.ClonerInterface;
 const Data = Jymfony.Component.VarDumper.Cloner.Data;
 const Stub = Jymfony.Component.VarDumper.Cloner.Stub;
 const ThrowingCasterException = Jymfony.Component.VarDumper.Exception.ThrowingCasterException;
-const defaultCasters = new Map(require('./defaultCasters'));
+const defaultCasters = new Map(casters);
 
 /**
  * AbstractCloner implements a generic caster mechanism for objects and resources.
@@ -11,7 +13,7 @@ const defaultCasters = new Map(require('./defaultCasters'));
  * @memberOf Jymfony.Component.VarDumper.Cloner
  * @abstract
  */
-class AbstractCloner extends implementationOf(ClonerInterface) {
+export default class AbstractCloner extends implementationOf(ClonerInterface) {
     /**
      * Constructor.
      *
@@ -228,5 +230,3 @@ class AbstractCloner extends implementationOf(ClonerInterface) {
         return a;
     }
 }
-
-module.exports = AbstractCloner;

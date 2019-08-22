@@ -1,7 +1,7 @@
 /**
  * @memberOf Jymfony.Component.Routing
  */
-class RequestContext {
+export default class RequestContext {
     /**
      * Constructor.
      *
@@ -112,5 +112,3 @@ class RequestContext {
         return this;
     }
 }
-
-module.exports = RequestContext;

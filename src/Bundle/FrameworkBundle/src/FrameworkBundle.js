@@ -11,7 +11,7 @@ const AddConsoleCommandPass = Jymfony.Component.Console.DependencyInjection.AddC
  *
  * @memberOf Jymfony.Bundle.FrameworkBundle
  */
-class FrameworkBundle extends Bundle {
+export default class FrameworkBundle extends Bundle {
     /**
      * @inheritDoc
      */
@@ -72,5 +72,3 @@ class FrameworkBundle extends Bundle {
         }
     }
 }
-
-module.exports = FrameworkBundle;

@@ -1,5 +1,6 @@
+import { timingSafeEqual } from 'crypto';
+
 const PasswordEncoderInterface = Jymfony.Component.Security.Encoder.PasswordEncoderInterface;
-const crypto = require('crypto');
 
 /**
  * Base class for all the password encoders.
@@ -7,7 +8,7 @@ const crypto = require('crypto');
  * @memberOf Jymfony.Component.Security.Encoder
  * @abstract
  */
-class AbstractPasswordEncoder extends implementationOf(PasswordEncoderInterface) {
+export default class AbstractPasswordEncoder extends implementationOf(PasswordEncoderInterface) {
     /**
      * Merges a password and a salt.
      *
@@ -44,7 +45,7 @@ class AbstractPasswordEncoder extends implementationOf(PasswordEncoderInterface)
      */
     _comparePasswords(first, second) {
         try {
-            return crypto.timingSafeEqual(Buffer.from(first), Buffer.from(second));
+            return timingSafeEqual(Buffer.from(first), Buffer.from(second));
         } catch (e) {
             return false;
         }

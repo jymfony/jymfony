@@ -4,7 +4,7 @@ const Reference = Jymfony.Component.DependencyInjection.Reference;
 /**
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
  */
-class ReplaceAliasByActualDefinitionPass extends AbstractRecursivePass {
+export default class ReplaceAliasByActualDefinitionPass extends AbstractRecursivePass {
     __construct() {
         super.__construct();
 
@@ -88,5 +88,3 @@ class ReplaceAliasByActualDefinitionPass extends AbstractRecursivePass {
         return super._processValue(value, isRoot);
     }
 }
-
-module.exports = ReplaceAliasByActualDefinitionPass;

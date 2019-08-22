@@ -3,7 +3,7 @@ const DoubleException = Jymfony.Component.Testing.Exception.DoubleException;
 /**
  * @memberOf Jymfony.Component.Testing.Exception
  */
-class MethodNotFoundException extends DoubleException {
+export default class MethodNotFoundException extends DoubleException {
     /**
      * Constructor.
      *
@@ -58,5 +58,3 @@ class MethodNotFoundException extends DoubleException {
         return this._args;
     }
 }
-
-module.exports = MethodNotFoundException;

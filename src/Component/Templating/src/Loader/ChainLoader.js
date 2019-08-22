@@ -8,7 +8,7 @@ const NullLogger = Jymfony.Component.Logger.NullLogger;
  *
  * @memberOf Jymfony.Component.Templating.Loader
  */
-class ChainLoader extends implementationOf(LoaderInterface, LoggerAwareInterface, LoggerAwareTrait) {
+export default class ChainLoader extends implementationOf(LoaderInterface, LoggerAwareInterface, LoggerAwareTrait) {
     /**
      * Constructor.
      *
@@ -62,5 +62,3 @@ class ChainLoader extends implementationOf(LoaderInterface, LoggerAwareInterface
         throw new RuntimeException(__jymfony.sprintf('Cannot load template "%s"', template.name));
     }
 }
-
-module.exports = ChainLoader;

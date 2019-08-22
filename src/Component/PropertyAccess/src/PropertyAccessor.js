@@ -11,7 +11,7 @@ const CACHE_PREFIX_PROPERTY_PATH = 'p';
 /**
  * @memberOf Jymfony.Component.PropertyAccess
  */
-class PropertyAccessor extends implementationOf(PropertyAccessorInterface) {
+export default class PropertyAccessor extends implementationOf(PropertyAccessorInterface) {
     /**
      * Constructor.
      *
@@ -309,5 +309,3 @@ class PropertyAccessor extends implementationOf(PropertyAccessorInterface) {
 PropertyAccessor.ACCESS_TYPE_METHOD = 'method';
 PropertyAccessor.ACCESS_TYPE_PROPERTY = 'property';
 PropertyAccessor.ACCESS_TYPE_NOT_FOUND = 'not_found';
-
-module.exports = PropertyAccessor;

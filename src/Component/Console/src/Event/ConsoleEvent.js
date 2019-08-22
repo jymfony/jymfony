@@ -5,7 +5,7 @@ const Event = Jymfony.Contracts.EventDispatcher.Event;
  *
  * @memberOf Jymfony.Component.Console.Event
  */
-class ConsoleEvent extends Event {
+export default class ConsoleEvent extends Event {
     /**
      * Constructor.
      *
@@ -65,5 +65,3 @@ class ConsoleEvent extends Event {
         return this._output;
     }
 }
-
-module.exports = ConsoleEvent;

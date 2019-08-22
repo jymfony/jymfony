@@ -1,12 +1,12 @@
 const DateTime = Jymfony.Component.DateTime.DateTime;
 const File = Jymfony.Component.HttpFoundation.File.File;
 
-const { Readable } = require('stream');
+import { Readable } from 'stream';
 
 /**
  * @memberOf Jymfony.Component.HttpFoundation.File
  */
-class UploadedFile extends File {
+export default class UploadedFile extends File {
     /**
      * Constructor.
      *
@@ -94,5 +94,3 @@ class UploadedFile extends File {
         return DateTime.now;
     }
 }
-
-module.exports = UploadedFile;

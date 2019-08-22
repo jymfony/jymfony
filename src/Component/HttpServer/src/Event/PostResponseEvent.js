@@ -5,7 +5,7 @@ const HttpEvent = Jymfony.Component.HttpServer.Event.HttpEvent;
  *
  * @memberOf Jymfony.Component.HttpServer.Event
  */
-class PostResponseEvent extends HttpEvent {
+export default class PostResponseEvent extends HttpEvent {
     /**
      * Constructor.
      *
@@ -33,5 +33,3 @@ class PostResponseEvent extends HttpEvent {
         return this._response;
     }
 }
-
-module.exports = PostResponseEvent;

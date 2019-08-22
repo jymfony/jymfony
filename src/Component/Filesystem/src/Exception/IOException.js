@@ -3,7 +3,7 @@ const ExceptionInterface = Jymfony.Component.Filesystem.Exception.ExceptionInter
 /**
  * @memberOf Jymfony.Component.Filesystem.Exception
  */
-class IOException extends mix(RuntimeException, ExceptionInterface) {
+export default class IOException extends mix(RuntimeException, ExceptionInterface) {
     /**
      * Constructor.
      *
@@ -30,5 +30,3 @@ class IOException extends mix(RuntimeException, ExceptionInterface) {
         return this._path;
     }
 }
-
-module.exports = IOException;

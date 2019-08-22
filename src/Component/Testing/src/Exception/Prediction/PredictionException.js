@@ -4,4 +4,4 @@
 class PredictionException {
 }
 
-module.exports = getInterface(PredictionException);
+export default getInterface(PredictionException);

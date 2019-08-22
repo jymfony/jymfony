@@ -100,4 +100,4 @@ class AddTrait {
     }
 }
 
-module.exports = getTrait(AddTrait);
+export default getTrait(AddTrait);

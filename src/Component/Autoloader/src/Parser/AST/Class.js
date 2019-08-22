@@ -47,7 +47,7 @@ class Class extends implementationOf(NodeInterface) {
          *
          * @private
          */
-        this._id = id;
+        this._id = id || new Identifier(null, '_anonymous_xΞ' + (~~(Math.random() * 1000000)).toString(16));
 
         /**
          * @type {Jymfony.Component.Autoloader.Parser.AST.ExpressionInterface|null}
@@ -136,14 +136,8 @@ class Class extends implementationOf(NodeInterface) {
     compile(compiler) {
         this._prepare();
 
-        compiler._emit('class');
-        if (this._id) {
-            compiler._emit(' ');
-            compiler.compileNode(this._id);
-        } else {
-            compiler._emit(' ');
-            compiler._emit('_anonymous_xΞ' + (~~(Math.random() * 1000000)).toString(16));
-        }
+        compiler._emit('class ');
+        compiler.compileNode(this._id);
 
         if (this._superClass) {
             compiler._emit(' extends ');

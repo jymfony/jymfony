@@ -12,4 +12,4 @@ class DataDumperInterface {
     dump(data) { }
 }
 
-module.exports = getInterface(DataDumperInterface);
+export default getInterface(DataDumperInterface);

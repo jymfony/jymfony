@@ -1,13 +1,13 @@
+import { format } from 'url';
+
 const Command = Jymfony.Component.Console.Command.Command;
 const JymfonyStyle = Jymfony.Component.Console.Style.JymfonyStyle;
 const InputArgument = Jymfony.Component.Console.Input.InputArgument;
 
-const url = require('url');
-
 /**
  * @memberOf Jymfony.Component.HttpServer.Command
  */
-class HttpServerRunCommand extends Command {
+export default class HttpServerRunCommand extends Command {
     /**
      * Constructor.
      *
@@ -70,7 +70,7 @@ Starts the server and listen on port 8080 on localhost address only.`
             port = undefined;
         }
 
-        const serverAddress = url.format({
+        const serverAddress = format({
             protocol: this._server.scheme + ':',
             hostname: -1 !== [ '0.0.0.0', '::' ].indexOf(address) ? 'localhost' : address,
             port,
@@ -89,5 +89,3 @@ Starts the server and listen on port 8080 on localhost address only.`
         }
     }
 }
-
-module.exports = HttpServerRunCommand;

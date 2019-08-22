@@ -5,7 +5,5 @@ const RequestExceptionInterface = Jymfony.Component.HttpFoundation.Exception.Req
  *
  * @memberOf Jymfony.Component.HttpFoundation.Exception
  */
-class ConflictingHeadersException extends mix(UnexpectedValueException, RequestExceptionInterface) {
+export default class ConflictingHeadersException extends mix(UnexpectedValueException, RequestExceptionInterface) {
 }
-
-module.exports = ConflictingHeadersException;

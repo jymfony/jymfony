@@ -27,6 +27,22 @@ class ArrayPattern extends implementationOf(PatternInterface) {
     /**
      * @inheritdoc
      */
+    get names() {
+        const names = [];
+        for (const element of this._elements) {
+            if (null === element) {
+                continue;
+            }
+
+            names.push(...element.names);
+        }
+
+        return names;
+    }
+
+    /**
+     * @inheritdoc
+     */
     compile(compiler) {
         compiler._emit('[ ');
 

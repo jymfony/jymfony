@@ -14,7 +14,7 @@ const headCache = new Storage();
  *
  * @memberOf Jymfony.Component.Filesystem.StreamWrapper
  */
-class HttpStreamWrapper extends AbstractStreamWrapper {
+export default class HttpStreamWrapper extends AbstractStreamWrapper {
     static async head(path) {
         if (0 > __self.stat_cache_ttl) {
             return await Resource.head(path);
@@ -185,5 +185,3 @@ class HttpStreamWrapper extends AbstractStreamWrapper {
 }
 
 HttpStreamWrapper.stat_cache_ttl = 2;
-
-module.exports = HttpStreamWrapper;

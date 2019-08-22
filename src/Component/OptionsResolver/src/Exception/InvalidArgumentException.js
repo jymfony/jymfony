@@ -6,7 +6,5 @@ const ExceptionInterface = Jymfony.Component.OptionsResolver.Exception.Exception
  *
  * @memberOf Jymfony.Component.OptionsResolver.Exception
  */
-class InvalidArgumentException extends mix(BaseException, ExceptionInterface) {
+export default class InvalidArgumentException extends mix(BaseException, ExceptionInterface) {
 }
-
-module.exports = InvalidArgumentException;

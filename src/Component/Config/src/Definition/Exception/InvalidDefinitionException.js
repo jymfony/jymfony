@@ -5,7 +5,5 @@ const Exception = Jymfony.Component.Config.Definition.Exception.Exception;
  *
  * @memberOf Jymfony.Component.Config.Definition.Exception
  */
-class InvalidDefinitionException extends Exception {
+export default class InvalidDefinitionException extends Exception {
 }
-
-module.exports = InvalidDefinitionException;

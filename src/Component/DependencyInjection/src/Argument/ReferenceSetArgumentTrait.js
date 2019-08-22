@@ -31,4 +31,4 @@ class ReferenceSetArgumentTrait {
     }
 }
 
-module.exports = getTrait(ReferenceSetArgumentTrait);
+export default getTrait(ReferenceSetArgumentTrait);

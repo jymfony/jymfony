@@ -5,7 +5,7 @@ const Response = Jymfony.Component.HttpFoundation.Response;
  *
  * @memberOf Jymfony.Component.HttpFoundation
  */
-class RedirectResponse extends Response {
+export default class RedirectResponse extends Response {
     /**
      * Creates a redirect response so that it conforms to the rules defined for a redirect status code.
      *
@@ -82,5 +82,3 @@ class RedirectResponse extends Response {
         this.headers.set('Location', url);
     }
 }
-
-module.exports = RedirectResponse;

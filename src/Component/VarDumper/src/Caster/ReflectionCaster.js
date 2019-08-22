@@ -3,7 +3,7 @@ const Caster = Jymfony.Component.VarDumper.Caster.Caster;
 /**
  * @memberOf Jymfony.Component.VarDumper.Caster
  */
-class ReflectionCaster {
+export default class ReflectionCaster {
     /**
      * @param {ReflectionClass} obj
      *
@@ -20,5 +20,3 @@ class ReflectionCaster {
         };
     }
 }
-
-module.exports = ReflectionCaster;

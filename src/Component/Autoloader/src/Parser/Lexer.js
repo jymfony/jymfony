@@ -56,15 +56,6 @@ class Lexer {
     }
 
     /**
-     * Gets the last parsed token.
-     *
-     * @returns {Jymfony.Component.Autoloader.Parser.Token}
-     */
-    get lastToken() {
-        return this._tokens[this._position - 2];
-    }
-
-    /**
      * Reset the lexer
      */
     reset() {
@@ -255,21 +246,57 @@ class Lexer {
      * Scans the input string for tokens.
      *
      * @param {string} input A query string.
+     * @param {int} offset
      */
-    _scan(input) {
+    _scan(input, offset = 0) {
+        let level = 0;
         this._last = undefined;
         const regex = new RegExp('((?:' + this.getPatterns().join(')|(?:') + '))', 'g');
 
         let match;
-        while ((match = regex.exec(input))) {
+        cycle: while ((match = regex.exec(input))) {
             const holder = new ValueHolder(match[0]);
             const type = this.getType(holder);
 
-            this._last = type;
+            switch (type) {
+                case Lexer.T_SPACE:
+                    break;
+
+                case Lexer.T_OPEN_PARENTHESIS: {
+                    level++;
+                    this._last = type;
+                } break;
+
+                case Lexer.T_CLOSED_PARENTHESIS: {
+                    level--;
+                    this._last = type;
+                } break;
+
+                case Lexer.T_REGEX: {
+                    if (this._last === Lexer.T_CLOSED_PARENTHESIS && 0 !== level) {
+                        this._tokens.push({
+                            value: '/',
+                            type: Lexer.T_OPERATOR,
+                            position: match.index + offset,
+                            index: this._tokens.length,
+                        });
+
+                        this._scan(holder.value.substr(1), match.index + 1);
+                        this._tokens.pop();
+
+                        continue cycle;
+                    }
+                } // No break
+
+                default: {
+                    this._last = type;
+                }
+            }
+
             this._tokens.push({
                 value: holder.value,
                 type: type,
-                position: match.index,
+                position: match.index + offset,
                 index: this._tokens.length,
             });
         }
@@ -303,9 +330,9 @@ class Lexer {
             '[/](?:[^/\\\\]|\\\\.)*?[/][a-z]+',
             '\\b'+Lexer.RESERVED_WORDS+'\\b',
             '[\\(\\)\\[\\]\\.\\{\\};]',
-            '(?<=((?:^|[\\n;`=<>!~+\\-/%*&,?|:()[\\]{}]|'+Lexer.RESERVED_WORDS+')\\s*))\\/((?![*+?\\s])(?:[^\\r\\n\\[/\\\\]|\\\\.|\\[(?:[^\\r\\n\\]\\\\]|\\\\.)*\\])+)\\/\w*',
+            '(?<=((?:^|[\\n;`=<>!~+\\-/%*&,?|:()[\\]{}]|'+Lexer.RESERVED_WORDS+')\\s*))\\/((?![*+?])(?:[^\\r\\n\\[/\\\\]|\\\\.|\\[(?:[^\\r\\n\\]\\\\]|\\\\.)*\\])+)\\/\w*',
             '[`=<>!~+\\-/%*&?|:]+(?=\\/((?![*+?\\s])(?:[^\\r\\n\\[/\\\\]|\\\\.|\\[(?:[^\\r\\n\\]\\\\]|\\\\.)*\\])+)\\/w*)',
-            '(?:`|\\|\\||&&|=[<>!~+\\-/%*&|]|[<>~+\\-/%*&|]=|\\|>|>>>|\\*\\*=|\\*\\*|=\\*\\*|\\+\\+|--|>>>=|<<=|>>=|=<<|=>>|<<|>>|!==|!=|===|==|=|[!~<>!~+\\-/%*&|]|\\?|:)',
+            '(?:`|\\|\\||&&|>>>=|<<=|>>=|=<<|=>>|=[<>!~+\\-/%*&|]|[<>~+\\-/%*&|^]=|\\|>|>>>|\\*\\*=|\\*\\*|=\\*\\*|\\+\\+|--|<<|>>|!==|!=|===|==|=|[!~<>!~+\\-/%*&|]|\\?|:)',
             ',',
             '[' + Lexer.SPACES + ']+',
             '(?:[^' + Lexer.SPACES + '\\\\\\(\\)\\[\\]\\.\\{\\};`=<>!~+\\-/%*&,?|:]|\\\\u[\\dA-Fa-f]{4}|\\\\u\\{[\\dA-Fa-f]+\\})+',

@@ -10,7 +10,7 @@ const InputDefinition = Jymfony.Component.Console.Input.InputDefinition;
  *
  * @memberOf Jymfony.Component.Console.Command
  */
-class Command {
+export default class Command {
     /**
      * Constructor.
      *
@@ -515,5 +515,3 @@ class Command {
         }
     }
 }
-
-module.exports = Command;

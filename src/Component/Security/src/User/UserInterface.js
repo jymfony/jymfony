@@ -104,4 +104,4 @@ class UserInterface {
     isEnabled() { }
 }
 
-module.exports = getInterface(UserInterface);
+export default getInterface(UserInterface);

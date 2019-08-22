@@ -4,7 +4,7 @@ const Definition = Jymfony.Component.DependencyInjection.Definition;
 /**
  * @memberOf Jymfony.Component.DependencyInjection
  */
-class ChildDefinition extends Definition {
+export default class ChildDefinition extends Definition {
     /**
      * Constructor.
      *
@@ -84,5 +84,3 @@ class ChildDefinition extends Definition {
         return this;
     }
 }
-
-module.exports = ChildDefinition;

@@ -4,7 +4,7 @@ const Reference = Jymfony.Component.DependencyInjection.Reference;
 /**
  * @memberOf Jymfony.Component.DependencyInjection.Argument
  */
-class ServiceClosureArgument extends implementationOf(ArgumentInterface) {
+export default class ServiceClosureArgument extends implementationOf(ArgumentInterface) {
     /**
      * Constructor.
      *
@@ -32,5 +32,3 @@ class ServiceClosureArgument extends implementationOf(ArgumentInterface) {
         this._values = values;
     }
 }
-
-module.exports = ServiceClosureArgument;

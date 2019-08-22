@@ -4,7 +4,7 @@ const path = require('path');
 /**
  * @memberOf Jymfony.Component.Config.Resource.Iterator
  */
-class RecursiveDirectoryIterator {
+export default class RecursiveDirectoryIterator {
     /**
      * Constructor.
      *
@@ -79,5 +79,3 @@ class RecursiveDirectoryIterator {
         return { value: current, done: false };
     }
 }
-
-module.exports = RecursiveDirectoryIterator;

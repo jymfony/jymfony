@@ -1,7 +1,7 @@
 /**
  * @memberOf Jymfony.Component.HttpFoundation.Websocket
  */
-class Frame {
+export default class Frame {
     /**
      * Constructor.
      */
@@ -145,5 +145,3 @@ class Frame {
         return [ obj, buffer.slice(headerLen + length) ];
     }
 }
-
-module.exports = Frame;

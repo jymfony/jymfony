@@ -4,7 +4,7 @@ const Reference = Jymfony.Component.DependencyInjection.Reference;
 /**
  * @memberOf Jymfony.FrameworkBundle.DependencyInjection.Compiler
  */
-class LoggerAddProcessorsPass extends implementationOf(CompilerPassInterface) {
+export default class LoggerAddProcessorsPass extends implementationOf(CompilerPassInterface) {
 
     /**
      * @inheritdoc
@@ -34,5 +34,3 @@ class LoggerAddProcessorsPass extends implementationOf(CompilerPassInterface) {
         }
     }
 }
-
-module.exports = LoggerAddProcessorsPass;

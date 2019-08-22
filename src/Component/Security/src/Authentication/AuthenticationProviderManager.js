@@ -13,7 +13,7 @@ const ProviderNotFoundException = Jymfony.Component.Security.Exception.ProviderN
  *
  * @memberOf Jymfony.Component.Security.Authentication
  */
-class AuthenticationProviderManager extends implementationOf(AuthenticationManagerInterface) {
+export default class AuthenticationProviderManager extends implementationOf(AuthenticationManagerInterface) {
     /**
      * Constructor.
      *
@@ -122,5 +122,3 @@ class AuthenticationProviderManager extends implementationOf(AuthenticationManag
         throw lastException;
     }
 }
-
-module.exports = AuthenticationProviderManager;

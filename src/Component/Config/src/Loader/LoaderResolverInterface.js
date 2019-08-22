@@ -13,4 +13,4 @@ class LoaderResolverInterface {
     resolve(resource, type = undefined) { }
 }
 
-module.exports = getInterface(LoaderResolverInterface);
+export default getInterface(LoaderResolverInterface);

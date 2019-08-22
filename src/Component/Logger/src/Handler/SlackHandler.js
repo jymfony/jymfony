@@ -1,12 +1,12 @@
+import { stringify as qsStringify } from 'querystring';
+
 const SocketHandler = Jymfony.Component.Logger.Handler.SocketHandler;
 const SlackRecord = Jymfony.Component.Logger.Handler.Slack.SlackRecord;
-
-const querystring = require('querystring');
 
 /**
  * @memberOf Jymfony.Component.Logger.Handler
  */
-class SlackHandler extends SocketHandler {
+export default class SlackHandler extends SocketHandler {
     __construct(options, level = LogLevel.CRITICAL, bubble = true) {
         super.__construct('ssl://slack.com:443', level, bubble);
 
@@ -35,7 +35,7 @@ class SlackHandler extends SocketHandler {
             data.attachments = JSON.stringify(data.attachments);
         }
 
-        const content = querystring.stringify(data);
+        const content = qsStringify(data);
 
         let header = 'POST /api/chat.postMessage HTTP/1.1\r\n';
         header += 'Host: slack.com\r\n';
@@ -61,5 +61,3 @@ class SlackHandler extends SocketHandler {
         return this._slackRecord.formatter;
     }
 }
-
-module.exports = SlackHandler;

@@ -8,7 +8,7 @@ const InvalidMediaTypeException = Jymfony.Component.HttpFoundation.Negotiation.E
  * @memberOf Jymfony.Component.HttpFoundation.Negotiation
  * @final
  */
-class Accept extends mix(BaseAccept, AcceptHeader) {
+export default class Accept extends mix(BaseAccept, AcceptHeader) {
     /**
      * Constructor.
      *
@@ -60,5 +60,3 @@ class Accept extends mix(BaseAccept, AcceptHeader) {
         return this._basePart;
     }
 }
-
-module.exports = Accept;

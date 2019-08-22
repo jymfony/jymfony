@@ -17,4 +17,4 @@ class CacheWarmerInterface extends WarmableInterface.definition {
     get optional() { }
 }
 
-module.exports = getInterface(CacheWarmerInterface);
+export default getInterface(CacheWarmerInterface);

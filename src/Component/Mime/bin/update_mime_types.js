@@ -17,7 +17,6 @@ const loadFile = async (fn) => {
 };
 
 (async () => {
-
     const data = await loadFile('https://svn.apache.org/repos/asf/httpd/httpd/trunk/docs/conf/mime.types');
 
     const $new = {};
@@ -30,7 +29,7 @@ const loadFile = async (fn) => {
         $new[mimeType] = line.substr(line.lastIndexOf('\t') + 1).split(' ');
     }
 
-    const xml = libxmljs.parseXml(await loadFile('https://raw.github.com/minad/mimemagic/master/script/freedesktop.org.xml'), {
+    const xml = libxmljs.parseXml(await loadFile('https://raw.githubusercontent.com/minad/mimemagic/master/script/freedesktop.org.xml'), {
         blanks: false,
     });
     for (const node of xml.root().childNodes()) {
@@ -143,10 +142,8 @@ const loadFile = async (fn) => {
     const out = await outFile.openFile('w');
 
     await out.fwrite('// Updated from upstream on ' + new Date().toUTCString() + '\n\n');
-    await out.fwrite('module.exports = ' + JSON.stringify({
-        mimeTypes: Object.ksort($new),
-        extensions: Object.ksort(exts),
-    }, null, 4).replace(/"/g, '\'') + ';\n');
+    await out.fwrite('export const mimeTypes = ' + JSON.stringify(Object.ksort($new), null, 4).replace(/"/g, '\'') + ';\n');
+    await out.fwrite('export const extensions = ' + JSON.stringify(Object.ksort(exts), null, 4).replace(/"/g, '\'') + ';\n');
 
     await out.close();
 

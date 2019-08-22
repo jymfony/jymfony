@@ -26,4 +26,4 @@ class PasswordEncoderInterface {
     async isPasswordValid(encoded, raw, salt) { }
 }
 
-module.exports = getInterface(PasswordEncoderInterface);
+export default getInterface(PasswordEncoderInterface);

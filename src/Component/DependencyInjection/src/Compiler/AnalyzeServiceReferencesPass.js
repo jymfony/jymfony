@@ -7,7 +7,7 @@ const Reference = Jymfony.Component.DependencyInjection.Reference;
 /**
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
  */
-class AnalyzeServiceReferencesPass extends mix(AbstractRecursivePass, RepeatablePassInterface) {
+export default class AnalyzeServiceReferencesPass extends mix(AbstractRecursivePass, RepeatablePassInterface) {
     /**
      * Constructor.
      *
@@ -167,5 +167,3 @@ class AnalyzeServiceReferencesPass extends mix(AbstractRecursivePass, Repeatable
         return id;
     }
 }
-
-module.exports = AnalyzeServiceReferencesPass;

@@ -4,7 +4,7 @@ const PriorityTaggedServiceTrait = Jymfony.Component.DependencyInjection.Compile
 /**
  * @memberOf Jymfony.Component.Routing.DependencyInjection
  */
-class RoutingResolverPass extends implementationOf(CompilerPassInterface, PriorityTaggedServiceTrait) {
+export default class RoutingResolverPass extends implementationOf(CompilerPassInterface, PriorityTaggedServiceTrait) {
     /**
      * Constructor.
      *
@@ -41,5 +41,3 @@ class RoutingResolverPass extends implementationOf(CompilerPassInterface, Priori
         }
     }
 }
-
-module.exports = RoutingResolverPass;

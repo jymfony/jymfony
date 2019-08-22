@@ -6,7 +6,7 @@ const Reference = Jymfony.Component.DependencyInjection.Reference;
  *
  * @memberOf Jymfony.Component.Mime.DependencyInjection
  */
-class AddMimeTypeGuesserPass extends implementationOf(CompilerPassInterface) {
+export default class AddMimeTypeGuesserPass extends implementationOf(CompilerPassInterface) {
     /**
      * @inheritdoc
      */
@@ -21,5 +21,3 @@ class AddMimeTypeGuesserPass extends implementationOf(CompilerPassInterface) {
         }
     }
 }
-
-module.exports = AddMimeTypeGuesserPass;

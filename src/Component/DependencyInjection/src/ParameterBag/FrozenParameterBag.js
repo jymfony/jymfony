@@ -5,7 +5,7 @@ const ParameterBag = Jymfony.Component.DependencyInjection.ParameterBag.Paramete
  *
  * @memberOf Jymfony.Component.DependencyInjection.ParameterBag
  */
-class FrozenParameterBag extends ParameterBag {
+export default class FrozenParameterBag extends ParameterBag {
     /**
      * Constructor.
      *
@@ -62,5 +62,3 @@ class FrozenParameterBag extends ParameterBag {
         throw new LogicException('Impossible to call remove() on a frozen bag');
     }
 }
-
-module.exports = FrozenParameterBag;

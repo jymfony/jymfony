@@ -4,7 +4,7 @@ const HeaderUtils = Jymfony.Component.HttpFoundation.HeaderUtils;
 /**
  * @memberOf Jymfony.Component.HttpFoundation
  */
-class Cookie {
+export default class Cookie {
     /**
      * Creates cookie from raw header string.
      *
@@ -240,5 +240,3 @@ class Cookie {
 
 Cookie.SAMESITE_LAX = 'lax';
 Cookie.SAMESITE_STRICT = 'strict';
-
-module.exports = Cookie;

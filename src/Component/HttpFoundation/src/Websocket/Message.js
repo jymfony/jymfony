@@ -1,7 +1,7 @@
 /**
  * @memberOf Jymfony.Component.HttpFoundation.Websocket
  */
-class Message {
+export default class Message {
     /**
      * Constructor.
      *
@@ -61,5 +61,3 @@ class Message {
 Message.TYPE_TEXT = 'text';
 Message.TYPE_BINARY = 'binary';
 Message.TYPE_PING = 'ping';
-
-module.exports = Message;

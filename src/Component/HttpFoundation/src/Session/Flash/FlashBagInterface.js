@@ -5,7 +5,7 @@ const SessionBagInterface = Jymfony.Component.HttpFoundation.Session.SessionBagI
  *
  * @memberOf Jymfony.Component.HttpFoundation.Session.Flash
  */
-class FlashBagInterface extends SessionBagInterface.definition {
+export default class FlashBagInterface extends SessionBagInterface.definition {
     /**
      * Adds a flash message for type.
      *
@@ -79,5 +79,3 @@ class FlashBagInterface extends SessionBagInterface.definition {
      */
     keys() { }
 }
-
-module.exports = getInterface(FlashBagInterface);

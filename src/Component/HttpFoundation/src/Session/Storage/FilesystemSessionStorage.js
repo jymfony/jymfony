@@ -7,7 +7,7 @@ const FilesystemAdapter = Jymfony.Component.Cache.Adapter.FilesystemAdapter;
  * @internal
  * @final
  */
-class FilesystemSessionStorage extends CacheSessionStorage {
+export default class FilesystemSessionStorage extends CacheSessionStorage {
     /**
      * Constructor.
      *
@@ -19,5 +19,3 @@ class FilesystemSessionStorage extends CacheSessionStorage {
         this.name = options.name;
     }
 }
-
-module.exports = FilesystemSessionStorage;

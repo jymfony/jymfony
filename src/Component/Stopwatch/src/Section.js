@@ -1,12 +1,13 @@
+import { performance } from 'perf_hooks';
+
 const StopwatchEvent = Jymfony.Component.Stopwatch.StopwatchEvent;
-const { performance } = require('perf_hooks');
 
 /**
  * Stopwatch section.
  *
  * @memberOf Jymfony.Component.Stopwatch
  */
-class Section {
+export default class Section {
     /**
      * Constructor.
      *
@@ -181,5 +182,3 @@ class Section {
         return Object.assign({}, this._events);
     }
 }
-
-module.exports = Section;

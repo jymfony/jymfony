@@ -21,4 +21,4 @@ class FormatterInterface {
     formatBatch(records) { }
 }
 
-module.exports = getInterface(FormatterInterface);
+export default getInterface(FormatterInterface);

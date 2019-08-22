@@ -3,7 +3,7 @@
  *
  * @memberOf Jymfony.Component.Routing
  */
-class Route {
+export default class Route {
     /**
      * Constructor.
      *
@@ -502,6 +502,3 @@ class Route {
         return new RegExp(regex);
     }
 }
-
-
-module.exports = Route;

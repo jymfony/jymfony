@@ -5,7 +5,7 @@ const Stub = Jymfony.Component.VarDumper.Cloner.Stub;
  *
  * @memberOf Jymfony.Component.VarDumper.Caster
  */
-class EnumStub extends Stub {
+export default class EnumStub extends Stub {
     __construct(values, dumpKeys = true) {
         super.__construct();
 
@@ -13,5 +13,3 @@ class EnumStub extends Stub {
         this.dumpKeys = dumpKeys;
     }
 }
-
-module.exports = EnumStub;

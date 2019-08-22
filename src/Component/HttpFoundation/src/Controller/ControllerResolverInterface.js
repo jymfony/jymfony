@@ -21,4 +21,4 @@ class ControllerResolverInterface {
     getController(request) { }
 }
 
-module.exports = getInterface(ControllerResolverInterface);
+export default getInterface(ControllerResolverInterface);

@@ -6,7 +6,7 @@ const ExceptionInterface = Jymfony.Component.Filesystem.Exception.ExceptionInter
  *
  * @memberOf Jymfony.Component.Filesystem.Exception
  */
-class StreamWrapperNotAvailableException extends mix(RuntimeException, ExceptionInterface) {
+export default class StreamWrapperNotAvailableException extends mix(RuntimeException, ExceptionInterface) {
     __construct(protocol, previous = undefined) {
         super.__construct(
             __jymfony.sprintf('Cannot find a stream wrapper for protocol "%s".', protocol),
@@ -15,5 +15,3 @@ class StreamWrapperNotAvailableException extends mix(RuntimeException, Exception
         );
     }
 }
-
-module.exports = StreamWrapperNotAvailableException;

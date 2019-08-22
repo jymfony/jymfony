@@ -4,7 +4,5 @@ const ExceptionInterface = Jymfony.Component.Testing.Exception.ExceptionInterfac
 /**
  * @memberOf Jymfony.Component.Testing.Exception
  */
-class RuntimeException extends mix(BaseException, ExceptionInterface) {
+export default class RuntimeException extends mix(BaseException, ExceptionInterface) {
 }
-
-module.exports = RuntimeException;

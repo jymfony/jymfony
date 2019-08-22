@@ -17,4 +17,4 @@ class FormattableHandlerInterface {
     get formatter() { }
 }
 
-module.exports = getInterface(FormattableHandlerInterface);
+export default getInterface(FormattableHandlerInterface);

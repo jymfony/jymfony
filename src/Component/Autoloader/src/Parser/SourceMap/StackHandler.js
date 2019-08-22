@@ -35,7 +35,12 @@ class StackHandler {
                 }
 
                 const fileLocation = fileName + (false !== mapping.originalLine ? ':' + mapping.originalLine + ':' + mapping.originalColumn : '');
-                const functionName = frame.getFunctionName();
+
+                let functionName = frame.getFunctionName();
+                if (functionName && functionName.startsWith('_anonymous_xΞ')) {
+                    functionName = null;
+                }
+
                 const methodName = frame.getMethodName();
                 const typeName = frame.getTypeName();
                 const isTopLevel = frame.isToplevel();
@@ -85,7 +90,8 @@ class StackHandler {
                 );
             }
 
-            return '    at ' + newStack.map(String).join('\n    at ');
+            return error.message + '\n\n' +
+                '    at ' + newStack.map(String).join('\n    at ');
         } catch (e) {
             return 'Internal Error';
         }

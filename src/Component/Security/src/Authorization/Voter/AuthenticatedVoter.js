@@ -8,7 +8,7 @@ const VoterInterface = Jymfony.Component.Security.Authorization.Voter.VoterInter
  *
  * @memberOf Jymfony.Component.Security.Authorization.Voter
  */
-class AuthenticatedVoter extends implementationOf(VoterInterface) {
+export default class AuthenticatedVoter extends implementationOf(VoterInterface) {
     /**
      * Constructor.
      *
@@ -64,5 +64,3 @@ class AuthenticatedVoter extends implementationOf(VoterInterface) {
 AuthenticatedVoter.IS_AUTHENTICATED_FULLY = 'IS_AUTHENTICATED_FULLY';
 AuthenticatedVoter.IS_AUTHENTICATED_REMEMBERED = 'IS_AUTHENTICATED_REMEMBERED';
 AuthenticatedVoter.IS_AUTHENTICATED_ANONYMOUSLY = 'IS_AUTHENTICATED_ANONYMOUSLY';
-
-module.exports = AuthenticatedVoter;

@@ -1,7 +1,7 @@
 /**
  * @memberOf Jymfony.Component.HttpFoundation.Websocket.Exception
  */
-class CloseFrameException extends Exception {
+export default class CloseFrameException extends Exception {
     /**
      * Constructor.
      *
@@ -30,5 +30,3 @@ class CloseFrameException extends Exception {
         return this._websocketMessage;
     }
 }
-
-module.exports = CloseFrameException;

@@ -8,7 +8,7 @@ const LoaderResolverInterface = Jymfony.Component.Config.Loader.LoaderResolverIn
  *
  * @memberOf Jymfony.Component.Config.Loader
  */
-class LoaderResolver extends implementationOf(LoaderResolverInterface) {
+export default class LoaderResolver extends implementationOf(LoaderResolverInterface) {
     /**
      * Constructor.
      *
@@ -59,5 +59,3 @@ class LoaderResolver extends implementationOf(LoaderResolverInterface) {
         return [ ...this._loaders ];
     }
 }
-
-module.exports = LoaderResolver;

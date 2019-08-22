@@ -4,7 +4,7 @@ const FormatterInterface = Jymfony.Component.Logger.Formatter.FormatterInterface
 /**
  * @memberOf Jymfony.Component.Logger.Formatter
  */
-class MongoDBFormatter extends implementationOf(FormatterInterface) {
+export default class MongoDBFormatter extends implementationOf(FormatterInterface) {
     /**
      * Constructor.
      *
@@ -117,5 +117,3 @@ class MongoDBFormatter extends implementationOf(FormatterInterface) {
     }
 
 }
-
-module.exports = MongoDBFormatter;

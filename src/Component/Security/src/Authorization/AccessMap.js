@@ -6,7 +6,7 @@ const AccessMapInterface = Jymfony.Component.Security.Authorization.AccessMapInt
  *
  * @memberOf Jymfony.Component.Security.Authorization
  */
-class AccessMap extends implementationOf(AccessMapInterface) {
+export default class AccessMap extends implementationOf(AccessMapInterface) {
     /**
      * Constructor.
      */
@@ -43,5 +43,3 @@ class AccessMap extends implementationOf(AccessMapInterface) {
         return [ undefined, undefined ];
     }
 }
-
-module.exports = AccessMap;

@@ -12,4 +12,4 @@ class PruneableInterface {
     async prune() { }
 }
 
-module.exports = getInterface(PruneableInterface);
+export default getInterface(PruneableInterface);

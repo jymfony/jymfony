@@ -9,7 +9,7 @@ const ParserInterface = Jymfony.Component.HttpServer.RequestParser.ParserInterfa
  *
  * @final
  */
-class JsonEncodedParser extends implementationOf(ParserInterface) {
+export default class JsonEncodedParser extends implementationOf(ParserInterface) {
     /**
      * Constructor.
      *
@@ -77,5 +77,3 @@ class JsonEncodedParser extends implementationOf(ParserInterface) {
         });
     }
 }
-
-module.exports = JsonEncodedParser;

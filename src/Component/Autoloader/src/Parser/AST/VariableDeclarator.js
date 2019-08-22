@@ -33,6 +33,24 @@ class VariableDeclarator extends implementationOf(NodeInterface) {
     }
 
     /**
+     * Gets the id.
+     *
+     * @return {Jymfony.Component.Autoloader.Parser.AST.PatternInterface}
+     */
+    get id() {
+        return this._id;
+    }
+
+    /**
+     * Gets the init value.
+     *
+     * @returns {Jymfony.Component.Autoloader.Parser.AST.ExpressionInterface}
+     */
+    get init() {
+        return this._init;
+    }
+
+    /**
      * @inheritdoc
      */
     compile(compiler) {

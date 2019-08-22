@@ -17,4 +17,4 @@ class RoleHierarchyInterface {
     getReachableRoles(roles) { }
 }
 
-module.exports = getInterface(RoleHierarchyInterface);
+export default getInterface(RoleHierarchyInterface);

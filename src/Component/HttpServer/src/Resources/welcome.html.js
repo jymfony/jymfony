@@ -1,4 +1,4 @@
-module.exports = (version, baseDir) => `<!DOCTYPE html>
+export default (version, baseDir) => `<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8" />

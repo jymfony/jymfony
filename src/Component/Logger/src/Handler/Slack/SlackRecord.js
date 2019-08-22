@@ -4,7 +4,7 @@ const LogLevel = Jymfony.Component.Logger.LogLevel;
 /**
  * @memberOf Jymfony.Component.Logger.Handler.Slack
  */
-class SlackRecord {
+export default class SlackRecord {
     /**
      * Constructor.
      *
@@ -243,5 +243,3 @@ SlackRecord.COLOR_DANGER = 'danger';
 SlackRecord.COLOR_WARNING = 'warning';
 SlackRecord.COLOR_GOOD = 'good';
 SlackRecord.COLOR_DEFAULT = '#e3e4e6';
-
-module.exports = SlackRecord;

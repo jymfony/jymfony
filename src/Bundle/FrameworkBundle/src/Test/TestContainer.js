@@ -3,7 +3,7 @@ const Container = Jymfony.Component.DependencyInjection.Container;
 /**
  * @memberOf Jymfony.Bundle.FrameworkBundle.Test
  */
-class TestContainer extends Container {
+export default class TestContainer extends Container {
     /**
      * Constructor.
      *
@@ -82,5 +82,3 @@ class TestContainer extends Container {
         return this._publicContainer.reset();
     }
 }
-
-module.exports = TestContainer;

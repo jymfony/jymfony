@@ -5,7 +5,5 @@ const ResourceNotFoundException = Jymfony.Component.Routing.Exception.ResourceNo
  *
  * @memberOf Jymfony.Component.Routing.Exception
  */
-class NoConfigurationException extends ResourceNotFoundException {
+export default class NoConfigurationException extends ResourceNotFoundException {
 }
-
-module.exports = NoConfigurationException;

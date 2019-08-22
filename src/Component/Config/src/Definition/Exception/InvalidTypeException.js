@@ -5,7 +5,5 @@ const InvalidConfigurationException = Jymfony.Component.Config.Definition.Except
  *
  * @memberOf Jymfony.Component.Config.Definition.Exception
  */
-class InvalidTypeException extends InvalidConfigurationException {
+export default class InvalidTypeException extends InvalidConfigurationException {
 }
-
-module.exports = InvalidTypeException;

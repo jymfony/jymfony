@@ -1,13 +1,13 @@
+import * as fs from 'fs';
+import * as path from 'path';
+
 const FileLocatorInterface = Jymfony.Component.Config.FileLocatorInterface;
 const FileLocatorFileNotFoundException = Jymfony.Component.Config.Exception.FileLocatorFileNotFoundException;
-
-const fs = require('fs');
-const path = require('path');
 
 /**
  * @memberOf Jymfony.Component.Config
  */
-class FileLocator extends implementationOf(FileLocatorInterface) {
+export default class FileLocator extends implementationOf(FileLocatorInterface) {
     /**
      * Constructor.
      *
@@ -66,5 +66,3 @@ class FileLocator extends implementationOf(FileLocatorInterface) {
         return filepaths;
     }
 }
-
-module.exports = FileLocator;

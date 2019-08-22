@@ -14,4 +14,4 @@ class RepeatablePassInterface extends CompilerPassInterface.definition {
     setRepeatedPass(container) { }
 }
 
-module.exports = getInterface(RepeatablePassInterface);
+export default getInterface(RepeatablePassInterface);

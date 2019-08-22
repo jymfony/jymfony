@@ -3,7 +3,7 @@ const File = Jymfony.Component.Filesystem.File;
 /**
  * @memberOf Jymfony.Component.Filesystem.StreamWrapper.File
  */
-class Resource {
+export default class Resource {
     /**
      * Constructor.
      *
@@ -88,5 +88,3 @@ class Resource {
         this._position += count;
     }
 }
-
-module.exports = Resource;

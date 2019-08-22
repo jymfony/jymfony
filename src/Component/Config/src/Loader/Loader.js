@@ -8,7 +8,7 @@ const LoaderInterface = Jymfony.Component.Config.Loader.LoaderInterface;
  *
  * @abstract
  */
-class Loader extends implementationOf(LoaderInterface) {
+export default class Loader extends implementationOf(LoaderInterface) {
     /**
      * Constructor.
      */
@@ -71,5 +71,3 @@ class Loader extends implementationOf(LoaderInterface) {
         return loader;
     }
 }
-
-module.exports = Loader;

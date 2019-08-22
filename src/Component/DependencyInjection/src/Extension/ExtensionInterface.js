@@ -34,4 +34,4 @@ class ExtensionInterface {
     get alias() { }
 }
 
-module.exports = getInterface(ExtensionInterface);
+export default getInterface(ExtensionInterface);

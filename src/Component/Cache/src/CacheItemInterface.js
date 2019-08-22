@@ -94,4 +94,4 @@ class CacheItemInterface {
     expiresAfter(time) { }
 }
 
-module.exports = getInterface(CacheItemInterface);
+export default getInterface(CacheItemInterface);

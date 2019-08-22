@@ -1,6 +1,7 @@
+import { extensions, mimeTypes } from './mime_types_map';
+
 const FileBinaryMimeTypeGuesser = Jymfony.Component.Mime.FileBinaryMimeTypeGuesser;
 const MimeTypesInterface = Jymfony.Component.Mime.MimeTypesInterface;
-const { mimeTypes, extensions } = require('./mime_types_map');
 
 /**
  * @type {Jymfony.Component.Mime.MimeTypes}
@@ -10,7 +11,7 @@ let _instance = undefined;
 /**
  * @memberOf Jymfony.Component.Mime
  */
-class MimeTypes extends implementationOf(MimeTypesInterface) {
+export default class MimeTypes extends implementationOf(MimeTypesInterface) {
     __construct() {
         /**
          * @type {Jymfony.Component.Mime.MimeTypeGuesserInterface[]}
@@ -119,5 +120,3 @@ class MimeTypes extends implementationOf(MimeTypesInterface) {
         return extensions[ext] || [];
     };
 }
-
-module.exports = MimeTypes;

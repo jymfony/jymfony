@@ -10,7 +10,7 @@ const EventSubscriberInterface = Jymfony.Contracts.EventDispatcher.EventSubscrib
  * @memberOf Jymfony.Component.HttpServer.EventListener
  * @abstract
  */
-class AbstractSessionListener extends implementationOf(EventSubscriberInterface) {
+export default class AbstractSessionListener extends implementationOf(EventSubscriberInterface) {
     /**
      * Listen on http.request to inject session factory
      *
@@ -88,5 +88,3 @@ class AbstractSessionListener extends implementationOf(EventSubscriberInterface)
      */
     getSession() { }
 }
-
-module.exports = AbstractSessionListener;

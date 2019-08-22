@@ -1,5 +1,7 @@
 const AST = require('./AST');
 
+const nonFirstChars = 'abcdefghijklmnopqrstuvwxyz0123456789_';
+
 /**
  * @memberOf Jymfony.Component.Autoloader.Parser
  */
@@ -44,6 +46,13 @@ class Compiler {
          * @private
          */
         this._column = 0;
+
+        /**
+         * @type {int}
+         *
+         * @private
+         */
+        this._variableCount = 1;
     }
 
     /**
@@ -89,6 +98,7 @@ class Compiler {
      */
     compile(program) {
         this._code = '';
+        this._variableCount = 1;
 
         this.compileNode(program);
         this._code += '\n\n//@ sourceMappingURL=data:application/json;charset=utf-8;base64,' +
@@ -122,6 +132,24 @@ class Compiler {
      */
     get code() {
         return this._code;
+    }
+
+    /**
+     * @returns {string}
+     */
+    generateVariableName() {
+        let name = 'α';
+        let i = this._variableCount;
+
+        while (0 < i) {
+            --i;
+            name += nonFirstChars[i % nonFirstChars.length];
+            i = ~~(i / nonFirstChars.length);
+        }
+
+        ++this._variableCount;
+
+        return name;
     }
 }
 

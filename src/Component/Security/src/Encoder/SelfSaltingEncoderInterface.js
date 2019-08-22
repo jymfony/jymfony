@@ -7,4 +7,4 @@
 class SelfSaltingEncoderInterface {
 }
 
-module.exports = getInterface(SelfSaltingEncoderInterface);
+export default getInterface(SelfSaltingEncoderInterface);

@@ -6,7 +6,5 @@ const Exception = Jymfony.Component.Config.Definition.Exception.Exception;
  *
  * @memberOf Jymfony.Component.Config.Definition.Exception
  */
-class UnsetKeyException extends Exception {
+export default class UnsetKeyException extends Exception {
 }
-
-module.exports = UnsetKeyException;

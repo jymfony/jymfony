@@ -6,7 +6,7 @@ const HeaderUtils = Jymfony.Component.HttpFoundation.HeaderUtils;
 /**
  * @memberOf Jymfony.Component.HttpFoundation
  */
-class ResponseHeaderBag extends HeaderBag {
+export default class ResponseHeaderBag extends HeaderBag {
     /**
      * Constructor.
      *
@@ -205,5 +205,3 @@ class ResponseHeaderBag extends HeaderBag {
 
 ResponseHeaderBag.DISPOSITION_ATTACHMENT = 'attachment';
 ResponseHeaderBag.DISPOSITION_INLINE = 'inline';
-
-module.exports = ResponseHeaderBag;

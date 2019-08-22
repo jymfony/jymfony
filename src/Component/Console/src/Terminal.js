@@ -1,20 +1,20 @@
-const os = require('os');
-const child_process = require('child_process');
+import { platform, release } from 'os';
+import { spawnSync } from 'child_process';
 
 /**
  * @memberOf Jymfony.Component.Console
  */
-class Terminal {
+export default class Terminal {
     /**
      * @returns {boolean}
      */
     static get hasANSISupport() {
-        if ('win32' === os.platform()) {
+        if ('win32' === platform()) {
             return (
                 !! process.env.ANSICON ||
                 'ON' === process.env.ConEmuANSI ||
                 'xterm' === process.env.TERM ||
-                __jymfony.version_compare(os.release(), '10.0.10586', '>=')
+                __jymfony.version_compare(release(), '10.0.10586', '>=')
             );
         }
 
@@ -25,7 +25,7 @@ class Terminal {
      * @returns {boolean}
      */
     static get hasUnicodeSupport() {
-        if ('win32' === os.platform()) {
+        if ('win32' === platform()) {
             // Now we don't have a method that returns this information reliably
             return false;
         }
@@ -51,7 +51,7 @@ class Terminal {
     }
 
     static resetStty() {
-        const obj = child_process.spawnSync('stty', [], {
+        const obj = spawnSync('stty', [], {
             shell: true,
             stdio: [
                 0,
@@ -79,5 +79,3 @@ class Terminal {
 }
 
 Terminal.stty = undefined;
-
-module.exports = Terminal;

@@ -98,4 +98,4 @@ class ArrayTrait extends LoggerAwareTrait.definition {
     }
 }
 
-module.exports = getTrait(ArrayTrait);
+export default getTrait(ArrayTrait);

@@ -23,4 +23,4 @@ class ContainerAwareTrait {
     }
 }
 
-module.exports = getTrait(ContainerAwareTrait);
+export default getTrait(ContainerAwareTrait);

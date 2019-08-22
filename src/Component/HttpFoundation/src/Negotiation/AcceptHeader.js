@@ -6,4 +6,4 @@
 class AcceptHeader {
 }
 
-module.exports = getInterface(AcceptHeader);
+export default getInterface(AcceptHeader);

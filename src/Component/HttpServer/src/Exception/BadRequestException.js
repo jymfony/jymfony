@@ -3,7 +3,5 @@ const BaseException = Jymfony.Component.HttpFoundation.Exception.BadRequestExcep
 /**
  * @memberOf Jymfony.Component.HttpServer.Exception
  */
-class BadRequestException extends BaseException {
+export default class BadRequestException extends BaseException {
 }
-
-module.exports = BadRequestException;

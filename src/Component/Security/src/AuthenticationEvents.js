@@ -4,7 +4,7 @@
  * @memberOf Jymfony.Component.Security
  * @final
  */
-class AuthenticationEvents {
+export default class AuthenticationEvents {
 }
 
 /**
@@ -18,5 +18,3 @@ AuthenticationEvents.AUTHENTICATION_SUCCESS = 'security.authentication.success';
  * authenticated by any of the providers.
  */
 AuthenticationEvents.AUTHENTICATION_FAILURE = 'security.authentication.failure';
-
-module.exports = AuthenticationEvents;

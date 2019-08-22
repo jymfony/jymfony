@@ -10,7 +10,7 @@ const TemplateReferenceInterface = Jymfony.Component.Templating.TemplateReferenc
  *
  * @memberOf Jymfony.Component.Templating
  */
-class TemplateNameParser {
+export default class TemplateNameParser {
     /**
      * Convert a template name to a TemplateReferenceInterface instance.
      *
@@ -29,5 +29,3 @@ class TemplateNameParser {
         return new TemplateReference(name, engine);
     }
 }
-
-module.exports = TemplateNameParser;

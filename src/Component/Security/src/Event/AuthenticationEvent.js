@@ -5,7 +5,7 @@ const Event = Jymfony.Contracts.EventDispatcher.Event;
  *
  * @memberOf Jymfony.Component.Security.Event
  */
-class AuthenticationEvent extends Event {
+export default class AuthenticationEvent extends Event {
     /**
      * Constructor.
      *
@@ -29,5 +29,3 @@ class AuthenticationEvent extends Event {
         return this._token;
     }
 }
-
-module.exports = AuthenticationEvent;

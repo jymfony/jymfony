@@ -7,7 +7,5 @@ const BaseAccept = Jymfony.Component.HttpFoundation.Negotiation.BaseAccept;
  * @memberOf Jymfony.Component.HttpFoundation.Negotiation
  * @final
  */
-class AcceptCharset extends mix(BaseAccept, AcceptHeader) {
+export default class AcceptCharset extends mix(BaseAccept, AcceptHeader) {
 }
-
-module.exports = AcceptCharset;

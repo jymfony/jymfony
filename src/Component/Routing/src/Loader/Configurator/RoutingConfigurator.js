@@ -1,14 +1,15 @@
+import { dirname } from 'path';
+
 const CollectionConfigurator = Jymfony.Component.Routing.Loader.Configurator.CollectionConfigurator;
 const ConfiguratorInterface = Jymfony.Component.Routing.Loader.Configurator.ConfiguratorInterface;
 const ImportConfigurator = Jymfony.Component.Routing.Loader.Configurator.ImportConfigurator;
 const ConfiguratorTrait = Jymfony.Component.Routing.Loader.Configurator.Traits.ConfiguratorTrait;
 const RouteCollection = Jymfony.Component.Routing.RouteCollection;
-const path = require('path');
 
 /**
  * @memberOf Jymfony.Component.Routing.Loader.Configurator
  */
-class RoutingConfigurator extends implementationOf(ConfiguratorInterface, ConfiguratorTrait) {
+export default class RoutingConfigurator extends implementationOf(ConfiguratorInterface, ConfiguratorTrait) {
     /**
      * Constructor.
      *
@@ -59,7 +60,7 @@ class RoutingConfigurator extends implementationOf(ConfiguratorInterface, Config
      * @final
      */
     import(resource, type = undefined, ignoreErrors = false) {
-        this._loader.currentDir = path.dirname(this._path);
+        this._loader.currentDir = dirname(this._path);
         const imported = this._loader.import(resource, type, ignoreErrors, this._file);
         if (! isArray(imported)) {
             return this._push(new ImportConfigurator(this._collection, imported));
@@ -97,5 +98,3 @@ class RoutingConfigurator extends implementationOf(ConfiguratorInterface, Config
         return this._collection;
     }
 }
-
-module.exports = RoutingConfigurator;

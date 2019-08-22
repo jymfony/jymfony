@@ -8,7 +8,7 @@ const InvalidDefinitionException = Jymfony.Component.Config.Definition.Exception
 /**
  * @memberOf Jymfony.Component.Config.Definition.Builder
  */
-class ArrayNodeDefinition extends mix(NodeDefinition, ParentNodeDefinitionInterface) {
+export default class ArrayNodeDefinition extends mix(NodeDefinition, ParentNodeDefinitionInterface) {
     /**
      * @inheritdoc
      */
@@ -567,5 +567,3 @@ class ArrayNodeDefinition extends mix(NodeDefinition, ParentNodeDefinitionInterf
         }
     }
 }
-
-module.exports = ArrayNodeDefinition;

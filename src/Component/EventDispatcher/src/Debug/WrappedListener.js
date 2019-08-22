@@ -1,7 +1,7 @@
 /**
  * @memberOf Jymfony.Component.EventDispatcher.Debug
  */
-class WrappedListener {
+export default class WrappedListener {
     /**
      * Constructor
      *
@@ -108,5 +108,3 @@ class WrappedListener {
         return this._pretty;
     }
 }
-
-module.exports = WrappedListener;

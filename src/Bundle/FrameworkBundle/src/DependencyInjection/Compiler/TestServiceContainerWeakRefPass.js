@@ -6,7 +6,7 @@ const Reference = Jymfony.Component.DependencyInjection.Reference;
 /**
  * @memberOf Jymfony.FrameworkBundle.DependencyInjection.Compiler
  */
-class TestServiceContainerWeakRefPass extends implementationOf(CompilerPassInterface) {
+export default class TestServiceContainerWeakRefPass extends implementationOf(CompilerPassInterface) {
     /**
      * @inheritdoc
      */
@@ -45,5 +45,3 @@ class TestServiceContainerWeakRefPass extends implementationOf(CompilerPassInter
         }
     }
 }
-
-module.exports = TestServiceContainerWeakRefPass;

@@ -4,7 +4,7 @@ const UnhandledRejectionException = Jymfony.Component.Debug.Exception.UnhandledR
 /**
  * @memberOf Jymfony.Component.Debug
  */
-class Debug {
+export default class Debug {
     static enable() {
         __jymfony.autoload.debug = true;
 
@@ -21,5 +21,3 @@ class Debug {
         });
     }
 }
-
-module.exports = Debug;

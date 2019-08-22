@@ -4,7 +4,7 @@ const ChildDefinition = Jymfony.Component.DependencyInjection.ChildDefinition;
 /**
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
  */
-class ResolveClassPass extends implementationOf(CompilerPassInterface) {
+export default class ResolveClassPass extends implementationOf(CompilerPassInterface) {
     /**
      * @inheritdoc
      */
@@ -20,5 +20,3 @@ class ResolveClassPass extends implementationOf(CompilerPassInterface) {
         }
     }
 }
-
-module.exports = ResolveClassPass;

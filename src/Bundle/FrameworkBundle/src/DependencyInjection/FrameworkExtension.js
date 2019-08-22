@@ -1,3 +1,5 @@
+import { join } from 'path';
+
 const Configuration = Jymfony.Bundle.FrameworkBundle.DependencyInjection.Configuration;
 const CachePoolPass = Jymfony.Component.Cache.DependencyInjection.CachePoolPass;
 const InvalidConfigurationException = Jymfony.Component.Config.Definition.Exception.InvalidConfigurationException;
@@ -9,12 +11,11 @@ const Parameter = Jymfony.Component.DependencyInjection.Parameter;
 const Reference = Jymfony.Component.DependencyInjection.Reference;
 const JsFileLoader = Jymfony.Component.DependencyInjection.Loader.JsFileLoader;
 const Extension = Jymfony.Component.DependencyInjection.Extension.Extension;
-const path = require('path');
 
 /**
  * @memberOf Jymfony.Bundle.FrameworkBundle.DependencyInjection
  */
-class FrameworkExtension extends Extension {
+export default class FrameworkExtension extends Extension {
     __construct() {
         super.__construct();
 
@@ -25,7 +26,7 @@ class FrameworkExtension extends Extension {
      * @inheritdoc
      */
     load(configs, container) {
-        const loader = new JsFileLoader(container, new FileLocator(path.join(__dirname, '..', 'Resources', 'config')));
+        const loader = new JsFileLoader(container, new FileLocator(join(__dirname, '..', 'Resources', 'config')));
         loader.load('services.js');
 
         const configuration = this.getConfiguration(configs, container);
@@ -485,5 +486,3 @@ class FrameworkExtension extends Extension {
         loader.load('mime.js');
     }
 }
-
-module.exports = FrameworkExtension;

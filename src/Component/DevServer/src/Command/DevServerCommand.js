@@ -4,7 +4,7 @@ const JymfonyStyle = Jymfony.Component.Console.Style.JymfonyStyle;
 /**
  * @memberOf Jymfony.Component.DevServer.Command
  */
-class DevServerCommand extends Command {
+export default class DevServerCommand extends Command {
     /**
      * Constructor.
      *
@@ -52,5 +52,3 @@ class DevServerCommand extends Command {
         );
     }
 }
-
-module.exports = DevServerCommand;

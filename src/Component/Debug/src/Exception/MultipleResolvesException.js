@@ -3,7 +3,7 @@
  *
  * @memberOf Jymfony.Component.Debug.Exception
  */
-class MultipleResolvesException extends RuntimeException {
+export default class MultipleResolvesException extends RuntimeException {
     /**
      * Constructor.
      *
@@ -52,5 +52,3 @@ class MultipleResolvesException extends RuntimeException {
         return this._value;
     }
 }
-
-module.exports = MultipleResolvesException;

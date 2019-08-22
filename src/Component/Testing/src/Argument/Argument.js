@@ -3,7 +3,7 @@ const Token = Jymfony.Component.Testing.Argument.Token;
 /**
  * @memberOf Jymfony.Component.Testing.Argument
  */
-class Argument {
+export default class Argument {
     /**
      * @param {*} value
      *
@@ -64,5 +64,3 @@ class Argument {
         return new Token.ApproximateValueToken(value, precision);
     }
 }
-
-module.exports = Argument;

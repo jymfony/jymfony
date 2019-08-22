@@ -6,7 +6,5 @@ const RequestExceptionInterface = Jymfony.Component.HttpFoundation.Exception.Req
  *
  * @memberOf Jymfony.Component.HttpFoundation.Exception
  */
-class SuspiciousOperationException extends mix(UnexpectedValueException, RequestExceptionInterface) {
+export default class SuspiciousOperationException extends mix(UnexpectedValueException, RequestExceptionInterface) {
 }
-
-module.exports = SuspiciousOperationException;

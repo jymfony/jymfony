@@ -14,4 +14,4 @@ class SelfCheckingResourceInterface extends ResourceInterface.definition {
     isFresh(timestamp) { }
 }
 
-module.exports = getInterface(SelfCheckingResourceInterface);
+export default getInterface(SelfCheckingResourceInterface);

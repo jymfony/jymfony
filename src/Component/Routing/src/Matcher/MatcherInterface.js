@@ -21,4 +21,4 @@ class MatcherInterface {
     matchRequest(request) { }
 }
 
-module.exports = getInterface(MatcherInterface);
+export default getInterface(MatcherInterface);

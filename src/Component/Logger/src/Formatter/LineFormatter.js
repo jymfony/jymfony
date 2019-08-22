@@ -3,7 +3,7 @@ const NormalizerFormatter = Jymfony.Component.Logger.Formatter.NormalizerFormatt
 /**
  * @memberOf Jymfony.Component.Logger.Formatter
  */
-class LineFormatter extends NormalizerFormatter {
+export default class LineFormatter extends NormalizerFormatter {
     /**
      * Constructor.
      *
@@ -181,5 +181,3 @@ class LineFormatter extends NormalizerFormatter {
 }
 
 LineFormatter.SIMPLE_FORMAT = '[%datetime%] %channel%.%level_name%: %message% %context% %extra%\n';
-
-module.exports = LineFormatter;

@@ -3,7 +3,7 @@ const OutputFormatterStyle = Jymfony.Component.Console.Formatter.OutputFormatter
 /**
  * @memberOf Jymfony.Component.Console.Formatter
  */
-class OutputFormatterStyleStack {
+export default class OutputFormatterStyleStack {
     /**
      * Constructor.
      *
@@ -89,5 +89,3 @@ class OutputFormatterStyleStack {
         return this._emptyStyle;
     }
 }
-
-module.exports = OutputFormatterStyleStack;

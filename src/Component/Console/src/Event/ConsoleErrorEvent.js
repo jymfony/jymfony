@@ -6,7 +6,7 @@ const InvalidArgumentException = Jymfony.Component.Console.Exception.InvalidArgu
  *
  * @memberOf Jymfony.Component.Console.Event
  */
-class ConsoleErrorEvent extends ConsoleEvent {
+export default class ConsoleErrorEvent extends ConsoleEvent {
     /**
      * Constructor.
      *
@@ -86,5 +86,3 @@ class ConsoleErrorEvent extends ConsoleEvent {
         return undefined !== this._exitCode ? this._exitCode : (this._error.code || 1);
     }
 }
-
-module.exports = ConsoleErrorEvent;

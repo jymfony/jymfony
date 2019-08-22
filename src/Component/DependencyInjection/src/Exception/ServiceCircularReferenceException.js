@@ -3,7 +3,7 @@ const RuntimeException = Jymfony.Component.DependencyInjection.Exception.Runtime
 /**
  * @memberOf Jymfony.Component.DependencyInjection.Exception
  */
-class ServiceCircularReferenceException extends RuntimeException {
+export default class ServiceCircularReferenceException extends RuntimeException {
     /**
      * Constructor.
      *
@@ -34,5 +34,3 @@ class ServiceCircularReferenceException extends RuntimeException {
         return this._path;
     }
 }
-
-module.exports = ServiceCircularReferenceException;

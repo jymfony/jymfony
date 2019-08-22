@@ -67,4 +67,4 @@ UrlGeneratorInterface.RELATIVE_PATH = 2;
  */
 UrlGeneratorInterface.NETWORK_PATH = 3;
 
-module.exports = getInterface(UrlGeneratorInterface);
+export default getInterface(UrlGeneratorInterface);

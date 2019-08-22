@@ -1,7 +1,7 @@
 /**
  * @memberOf Jymfony.Component.DependencyInjection
  */
-class Definition {
+export default class Definition {
     /**
      * Constructor.
      *
@@ -820,5 +820,3 @@ class Definition {
         return __jymfony.deepClone(this._shutdown);
     }
 }
-
-module.exports = Definition;

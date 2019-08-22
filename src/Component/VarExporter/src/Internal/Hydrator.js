@@ -1,7 +1,7 @@
 /**
  * @memberOf Jymfony.Component.VarExporter.Internal
  */
-class Hydrator {
+export default class Hydrator {
     /**
      * Constructor.
      *
@@ -35,5 +35,3 @@ class Hydrator {
         return value;
     }
 }
-
-module.exports = Hydrator;

@@ -98,4 +98,4 @@ class LoggerInterface {
     log(level, message, context = {}) { }
 }
 
-module.exports = getInterface(LoggerInterface);
+export default getInterface(LoggerInterface);

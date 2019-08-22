@@ -3,7 +3,5 @@
  *
  * @memberOf Jymfony.Component.Config.Definition.Exception
  */
-class Exception extends RuntimeException {
+export default class Exception extends RuntimeException {
 }
-
-module.exports = Exception;

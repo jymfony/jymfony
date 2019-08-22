@@ -10,7 +10,7 @@ const NullLogger = Jymfony.Component.Logger.NullLogger;
 /**
  * @memberOf Jymfony.Component.HttpServer.EventListener
  */
-class ExceptionListener extends implementationOf(EventSubscriberInterface) {
+export default class ExceptionListener extends implementationOf(EventSubscriberInterface) {
     /**
      * Constructor.
      *
@@ -135,5 +135,3 @@ class ExceptionListener extends implementationOf(EventSubscriberInterface) {
         return request;
     }
 }
-
-module.exports = ExceptionListener;

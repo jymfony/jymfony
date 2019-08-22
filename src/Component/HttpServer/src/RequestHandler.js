@@ -15,7 +15,7 @@ const NullLogger = Jymfony.Component.Logger.NullLogger;
  *
  * @memberOf Jymfony.Component.HttpServer
  */
-class RequestHandler extends implementationOf(LoggerAwareInterface) {
+export default class RequestHandler extends implementationOf(LoggerAwareInterface) {
     /**
      * Constructor.
      *
@@ -305,5 +305,3 @@ class RequestHandler extends implementationOf(LoggerAwareInterface) {
         throw new RequestTimeoutException('Request timed out');
     }
 }
-
-module.exports = RequestHandler;

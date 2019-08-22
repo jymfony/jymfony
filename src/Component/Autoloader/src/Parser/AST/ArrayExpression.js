@@ -31,7 +31,10 @@ class ArrayExpression extends implementationOf(ExpressionInterface) {
         compiler._emit('[ ');
 
         for (const element of this._elements) {
-            compiler.compileNode(element);
+            if (null !== element) {
+                compiler.compileNode(element);
+            }
+
             compiler._emit(', ');
         }
 

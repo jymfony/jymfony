@@ -1,3 +1,5 @@
+import { existsSync, readFileSync } from 'fs';
+
 const Caster = Jymfony.Component.VarDumper.Caster.Caster;
 const ConstStub = Jymfony.Component.VarDumper.Caster.ConstStub;
 const EnumStub = Jymfony.Component.VarDumper.Caster.EnumStub;
@@ -6,13 +8,12 @@ const LinkStub = Jymfony.Component.VarDumper.Caster.LinkStub;
 const TraceStub = Jymfony.Component.VarDumper.Caster.TraceStub;
 const Stub = Jymfony.Component.VarDumper.Cloner.Stub;
 
-const fs = require('fs');
 const $framesCache = {};
 
 /**
  * @memberOf Jymfony.Component.VarDumper.Caster
  */
-class ErrorCaster {
+export default class ErrorCaster {
     /**
      * Casts an Error object.
      *
@@ -155,9 +156,9 @@ class ErrorCaster {
                 const ellipsisTail = ~~ellipsis.attr['ellipsis-tail'];
                 ellipsis = ~~ellipsis.attr['ellipsis'];
 
-                if (fs.existsSync(f.file)) {
+                if (existsSync(f.file)) {
                     if (srcKey === f.file) {
-                        src = __self._extractSource(fs.readFileSync(srcKey, { encoding: 'utf-8' }), f.line, caller, 'js', f.file);
+                        src = __self._extractSource(readFileSync(srcKey, { encoding: 'utf-8' }), f.line, caller, 'js', f.file);
                         srcKey += ':' + f.line;
                         if (ellipsis) {
                             ellipsis += 1 + f.line.length;
@@ -251,5 +252,3 @@ class ErrorCaster {
         return new EnumStub(srcLines);
     }
 }
-
-module.exports = ErrorCaster;

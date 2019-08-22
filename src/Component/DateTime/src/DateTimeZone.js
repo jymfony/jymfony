@@ -15,7 +15,7 @@ const instances = new BTree();
  *
  * @memberOf Jymfony.Component.DateTime
  */
-class DateTimeZone {
+export default class DateTimeZone {
     /**
      * Constructor.
      */
@@ -199,5 +199,3 @@ class DateTimeZone {
         }
     }
 }
-
-module.exports = DateTimeZone;

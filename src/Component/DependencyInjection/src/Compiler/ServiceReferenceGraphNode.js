@@ -4,7 +4,7 @@ const Definition = Jymfony.Component.DependencyInjection.Definition;
 /**
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
  */
-class ServiceReferenceGraphNode {
+export default class ServiceReferenceGraphNode {
     /**
      * Constructor.
      *
@@ -97,5 +97,3 @@ class ServiceReferenceGraphNode {
         return this._value;
     }
 }
-
-module.exports = ServiceReferenceGraphNode;

@@ -13,4 +13,4 @@ class EncoderAwareInterface {
     get encoderName();
 }
 
-module.exports = getInterface(EncoderAwareInterface);
+export default getInterface(EncoderAwareInterface);

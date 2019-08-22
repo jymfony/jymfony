@@ -5,7 +5,7 @@ const RouteCollection = Jymfony.Component.Routing.RouteCollection;
 /**
  * @memberOf Jymfony.Component.Routing.Loader
  */
-class ServiceRouterLoader extends Loader {
+export default class ServiceRouterLoader extends Loader {
     /**
      * Constructor.
      *
@@ -71,8 +71,6 @@ class ServiceRouterLoader extends Loader {
             if (reflClass.filename) {
                 collection.addResource(new FileResource(reflClass.filename));
             }
-        } while (reflClass = reflClass.getParentClass());
+        } while ((reflClass = reflClass.getParentClass()));
     }
 }
-
-module.exports = ServiceRouterLoader;

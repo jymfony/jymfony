@@ -3,7 +3,7 @@ const AbstractLexer = Jymfony.Component.Lexer.AbstractLexer;
 /**
  * @memberOf Jymfony.Component.DateTime.Parser
  */
-class Lexer extends AbstractLexer {
+export default class Lexer extends AbstractLexer {
     /**
      * @inheritdoc
      */
@@ -76,5 +76,3 @@ Lexer.T_GMT = 104;
 Lexer.T_SIGNED_YEAR = 105;
 Lexer.T_IDENTIFIER = 106;
 Lexer.T_AT = 107;
-
-module.exports = Lexer;

@@ -4,7 +4,7 @@ const httpTokenCodePointRegex = /^[!#$%&'*+\-.^_`|~a-z0-9]+$/i;
 /**
  * @memberOf Jymfony.Component.HttpFoundation.Header
  */
-class ContentType {
+export default class ContentType {
     /**
      * Constructor.
      *
@@ -76,5 +76,3 @@ class ContentType {
             .reduce((res, val) => (res[val[0]] = val[1], res), {});
     }
 }
-
-module.exports = ContentType;

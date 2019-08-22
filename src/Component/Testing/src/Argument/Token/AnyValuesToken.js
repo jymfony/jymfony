@@ -3,7 +3,7 @@ const TokenInterface = Jymfony.Component.Testing.Argument.Token.TokenInterface;
 /**
  * @memberOf Jymfony.Component.Testing.Argument.Token
  */
-class AnyValuesToken extends implementationOf(TokenInterface) {
+export default class AnyValuesToken extends implementationOf(TokenInterface) {
     /**
      * @inheritdoc
      */
@@ -27,5 +27,3 @@ class AnyValuesToken extends implementationOf(TokenInterface) {
         return '* [, ...]';
     }
 }
-
-module.exports = AnyValuesToken;

@@ -3,7 +3,7 @@ const ExceptionInterface = Jymfony.Component.Testing.Exception.ExceptionInterfac
 /**
  * @memberOf Jymfony.Component.Testing.Exception
  */
-class ObjectProphecyException extends mix(RuntimeException, ExceptionInterface) {
+export default class ObjectProphecyException extends mix(RuntimeException, ExceptionInterface) {
     /**
      * Constructor.
      *
@@ -28,5 +28,3 @@ class ObjectProphecyException extends mix(RuntimeException, ExceptionInterface) 
         return this._objectProphecy;
     }
 }
-
-module.exports = ObjectProphecyException;

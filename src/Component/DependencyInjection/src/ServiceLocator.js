@@ -6,7 +6,7 @@ const ServiceCircularReferenceException = Jymfony.Component.DependencyInjection.
 /**
  * @memberOf Jymfony.Component.DependencyInjection
  */
-class ServiceLocator extends implementationOf(ContainerInterface) {
+export default class ServiceLocator extends implementationOf(ContainerInterface) {
     /**
      * Constructor.
      *
@@ -147,5 +147,3 @@ class ServiceLocator extends implementationOf(ContainerInterface) {
         return __jymfony.sprintf(format, alternatives ? alternatives.join('", "') : last, alternatives ? __jymfony.sprintf(' %s "%s"', separator, last) : '');
     }
 }
-
-module.exports = ServiceLocator;

@@ -4,7 +4,7 @@
  * @memberOf Jymfony.Component.Console
  * @final
  */
-class ConsoleEvents {
+export default class ConsoleEvents {
 }
 
 /**
@@ -33,5 +33,3 @@ ConsoleEvents.TERMINATE = 'console.terminate';
  * @type {string}
  */
 ConsoleEvents.ERROR = 'console.error';
-
-module.exports = ConsoleEvents;

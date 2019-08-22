@@ -5,7 +5,7 @@ const ExprBuilder = Jymfony.Component.Config.Definition.Builder.ExprBuilder;
  *
  * @memberOf Jymfony.Component.Config.Definition.Builder
  */
-class ValidationBuilder {
+export default class ValidationBuilder {
     /**
      * Constructor.
      *
@@ -43,5 +43,3 @@ class ValidationBuilder {
         return expr;
     }
 }
-
-module.exports = ValidationBuilder;

@@ -1,12 +1,12 @@
+import { format, parse } from 'url';
+import { isIP } from 'net';
+import { stringify as qsStringify } from 'querystring';
+
 const ConflictingHeadersException = Jymfony.Component.HttpFoundation.Exception.ConflictingHeadersException;
 const SuspiciousOperationException = Jymfony.Component.HttpFoundation.Exception.SuspiciousOperationException;
 const HeaderBag = Jymfony.Component.HttpFoundation.HeaderBag;
 const Ip = Jymfony.Component.HttpFoundation.Ip;
 const ParameterBag = Jymfony.Component.HttpFoundation.ParameterBag;
-
-const urlModule = require('url');
-const net = require('net');
-const qs = require('querystring');
 
 let _trustedProxies = [];
 let _trustedHeaderSet = 0;
@@ -37,7 +37,7 @@ const initializeFormats = function () {
 /**
  * @memberOf Jymfony.Component.HttpFoundation
  */
-class Request {
+export default class Request {
     /**
      * Constructor.
      *
@@ -63,7 +63,7 @@ class Request {
      * @param {undefined|Buffer} [content] Request content.
      */
     static create(url, method = __self.METHOD_GET, parameters = {}, headers = {}, server = {}, content = undefined) {
-        const parsedUrl = urlModule.parse(url);
+        const parsedUrl = parse(url);
         const hostname = parsedUrl.hostname;
 
         server = Object.assign({
@@ -101,8 +101,8 @@ class Request {
         }
 
         query = Object.assign(__jymfony.parse_query_string(parsedUrl.query), query);
-        parsedUrl.query = qs.stringify(query);
-        url = urlModule.format(parsedUrl);
+        parsedUrl.query = qsStringify(query);
+        url = format(parsedUrl);
 
         return new __self(url, request, {}, headers, server, content);
     }
@@ -223,10 +223,10 @@ class Request {
          *
          * @private
          */
-        url = urlModule.parse(url);
+        url = parse(url);
         url.protocol = this.scheme;
         url.hostname = url.host = this.httpHost;
-        this._url = urlModule.parse(urlModule.format(url));
+        this._url = parse(format(url));
 
         /**
          * @type {Jymfony.Component.HttpFoundation.ParameterBag}
@@ -276,7 +276,7 @@ class Request {
         const dup = __jymfony.clone(this);
 
         if (undefined !== url) {
-            dup._url = urlModule.parse(url);
+            dup._url = parse(url);
             dup.query = new ParameterBag(__jymfony.parse_query_string(dup._url.query));
         }
 
@@ -852,7 +852,7 @@ class Request {
                 clientIps[key] = clientIp = match[1];
             }
 
-            if (0 === net.isIP(clientIp)) {
+            if (0 === isIP(clientIp)) {
                 delete clientIps[key];
 
                 continue;
@@ -916,5 +916,3 @@ _forwardedParams[Request.HEADER_X_FORWARDED_FOR] = 'for';
 _forwardedParams[Request.HEADER_X_FORWARDED_HOST] = 'host';
 _forwardedParams[Request.HEADER_X_FORWARDED_PROTO] = 'proto';
 _forwardedParams[Request.HEADER_X_FORWARDED_PORT] = 'host';
-
-module.exports = Request;

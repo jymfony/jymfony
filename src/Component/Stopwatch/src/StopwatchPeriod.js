@@ -3,7 +3,7 @@
  *
  * @memberOf Jymfony.Component.Stopwatch
  */
-class StopwatchPeriod {
+export default class StopwatchPeriod {
     /**
      * Constructor.
      *
@@ -69,5 +69,3 @@ class StopwatchPeriod {
         return this._memory;
     }
 }
-
-module.exports = StopwatchPeriod;

@@ -11,7 +11,7 @@ const Input = Jymfony.Component.Console.Input.Input;
  *
  * @memberOf Jymfony.Component.Console.Input
  */
-class ArrayInput extends Input {
+export default class ArrayInput extends Input {
     /**
      * Constructor.
      *
@@ -187,5 +187,3 @@ class ArrayInput extends Input {
         this._arguments[name] = value;
     }
 }
-
-module.exports = ArrayInput;

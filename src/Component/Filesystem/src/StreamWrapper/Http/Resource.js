@@ -1,21 +1,20 @@
+import * as dns from 'dns';
+import * as zlib from 'zlib';
+import { PassThrough as PassThru } from 'stream';
+import { Socket as TcpSocket } from 'net';
+import { TLSSocket as TlsSocket } from 'tls';
+import { promisify } from 'util';
+import { parse as urlParse } from 'url';
+
 const IOException = Jymfony.Component.Filesystem.Exception.IOException;
-const File = Jymfony.Component.Filesystem.Filesystem.File;
-
-const dns = require('dns');
-const TcpSocket = require('net').Socket;
-const PassThru = require('stream').PassThrough;
-const TlsSocket = require('tls').TLSSocket;
-const urlParse = require('url').parse;
-const promisify = require('util').promisify;
-const zlib = require('zlib');
-
+const File = Jymfony.Component.Filesystem.File;
 const resolve6 = promisify(dns.resolve6);
 const resolve4 = promisify(dns.resolve4);
 
 /**
  * @memberOf Jymfony.Component.Filesystem.StreamWrapper.Http
  */
-class Resource {
+export default class Resource {
     /**
      * Constructor.
      *
@@ -56,6 +55,20 @@ class Resource {
          * @type {boolean}
          */
         this.exists = 400 <= headers.statusCode && 500 > headers.statusCode;
+
+        /**
+         * @type {Buffer}
+         *
+         * @private
+         */
+        this._internalBuffer = undefined;
+
+        /**
+         * @type {int}
+         *
+         * @private
+         */
+        this._position = 0;
     }
 
     /**
@@ -141,11 +154,6 @@ class Resource {
             const stream = await this.readableStream();
 
             stream.on('data', b => bufs.push(b));
-
-            /**
-             * @type {Buffer}
-             * @private
-             */
             this._internalBuffer = await new Promise((resolve, reject) => {
                 stream.on('end', () => resolve(Buffer.concat(bufs)));
                 stream.on('error', err => reject(err));
@@ -316,5 +324,3 @@ class Resource {
         throw new RuntimeException(__jymfony.sprintf('Cannot connect to %s', url.hostname));
     }
 }
-
-module.exports = Resource;

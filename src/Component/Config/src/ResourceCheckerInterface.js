@@ -23,4 +23,4 @@ class ResourceCheckerInterface {
     isFresh(resource, timestamp) { }
 }
 
-module.exports = getInterface(ResourceCheckerInterface);
+export default getInterface(ResourceCheckerInterface);

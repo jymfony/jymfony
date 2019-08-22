@@ -11,7 +11,7 @@ const Question = Jymfony.Component.Console.Question.Question;
  *
  * @memberOf Jymfony.Component.Console.Question
  */
-class ChoiceQuestion extends Question {
+export default class ChoiceQuestion extends Question {
     /**
      * Constructor.
      *
@@ -120,5 +120,3 @@ class ChoiceQuestion extends Question {
 
 ChoiceQuestion.MODE_LIST = 'list';
 ChoiceQuestion.MODE_RAWLIST = 'raw_list';
-
-module.exports = ChoiceQuestion;

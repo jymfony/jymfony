@@ -7,7 +7,7 @@ const AbstractParser = Jymfony.Component.HttpServer.RequestParser.AbstractParser
  *
  * @final
  */
-class OctetStreamParser extends AbstractParser {
+export default class OctetStreamParser extends AbstractParser {
     /**
      * @inheritdoc
      */
@@ -15,5 +15,3 @@ class OctetStreamParser extends AbstractParser {
         return [];
     }
 }
-
-module.exports = OctetStreamParser;

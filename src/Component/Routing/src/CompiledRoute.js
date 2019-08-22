@@ -1,7 +1,7 @@
 /**
  * @memberOf Jymfony.Component.Routing
  */
-class CompiledRoute {
+export default class CompiledRoute {
     /**
      * Constructor.
      *
@@ -132,5 +132,3 @@ class CompiledRoute {
         return this._hostVariables;
     }
 }
-
-module.exports = CompiledRoute;

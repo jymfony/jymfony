@@ -5,7 +5,7 @@ const Reference = Jymfony.Component.DependencyInjection.Reference;
 /**
  * @memberOf Jymfony.Component.Console.DependencyInjection
  */
-class AddConsoleCommandPass extends implementationOf(CompilerPassInterface) {
+export default class AddConsoleCommandPass extends implementationOf(CompilerPassInterface) {
     /**
      * @inheritdoc
      */
@@ -43,5 +43,3 @@ class AddConsoleCommandPass extends implementationOf(CompilerPassInterface) {
         }
     }
 }
-
-module.exports = AddConsoleCommandPass;

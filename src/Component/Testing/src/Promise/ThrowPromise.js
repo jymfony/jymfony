@@ -3,7 +3,7 @@ const PromiseInterface = Jymfony.Component.Testing.Promise.PromiseInterface;
 /**
  * @memberOf Jymfony.Component.Testing.Promise
  */
-class ThrowPromise extends implementationOf(PromiseInterface) {
+export default class ThrowPromise extends implementationOf(PromiseInterface) {
     /**
      * Constructor.
      *
@@ -25,5 +25,3 @@ class ThrowPromise extends implementationOf(PromiseInterface) {
         throw this._exception;
     }
 }
-
-module.exports = ThrowPromise;

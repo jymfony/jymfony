@@ -6,7 +6,5 @@ const ExceptionInterface = Jymfony.Component.Routing.Exception.ExceptionInterfac
  *
  * @memberOf Jymfony.Component.Routing.Exception
  */
-class ResourceNotFoundException extends mix(RuntimeException, ExceptionInterface) {
+export default class ResourceNotFoundException extends mix(RuntimeException, ExceptionInterface) {
 }
-
-module.exports = ResourceNotFoundException;

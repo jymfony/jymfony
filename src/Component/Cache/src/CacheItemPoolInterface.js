@@ -112,4 +112,4 @@ class CacheItemPoolInterface {
     close() { }
 }
 
-module.exports = getInterface(CacheItemPoolInterface);
+export default getInterface(CacheItemPoolInterface);

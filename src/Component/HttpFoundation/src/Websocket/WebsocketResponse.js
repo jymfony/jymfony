@@ -1,3 +1,4 @@
+import { createHash } from 'crypto';
 const EventSubscriberInterface = Jymfony.Contracts.EventDispatcher.EventSubscriberInterface;
 const Response = Jymfony.Component.HttpFoundation.Response;
 const CloseFrameException = Jymfony.Component.HttpFoundation.Websocket.Exception.CloseFrameException;
@@ -5,12 +6,11 @@ const Frame = Jymfony.Component.HttpFoundation.Websocket.Frame;
 const FrameBuffer = Jymfony.Component.HttpFoundation.Websocket.FrameBuffer;
 const Message = Jymfony.Component.HttpFoundation.Websocket.Message;
 const HttpServerEvents = Jymfony.Component.HttpServer.Event.HttpServerEvents;
-const crypto = require('crypto');
 
 /**
  * @memberOf Jymfony.Component.HttpFoundation.Websocket
  */
-class WebsocketResponse extends mix(Response, EventSubscriberInterface) {
+export default class WebsocketResponse extends mix(Response, EventSubscriberInterface) {
     /**
      * Constructor.
      *
@@ -75,7 +75,7 @@ class WebsocketResponse extends mix(Response, EventSubscriberInterface) {
         this.headers.set('Upgrade', 'websocket');
         this.headers.set('Connection', 'upgrade');
 
-        const sha1 = crypto.createHash('sha1');
+        const sha1 = createHash('sha1');
         sha1.update(request.headers.get('Sec-WebSocket-Key') + __self.RFC6455_GUID);
         this.headers.set('Sec-WebSocket-Accept', sha1.digest('base64'));
 
@@ -247,5 +247,3 @@ WebsocketResponse.CLOSE_SHUTDOWN = 1001;
 WebsocketResponse.CLOSE_ERROR = 1002;
 
 WebsocketResponse.RFC6455_GUID = '258EAFA5-E914-47DA-95CA-C5AB0DC85B11';
-
-module.exports = WebsocketResponse;

@@ -18,4 +18,4 @@ class ParentNodeDefinitionInterface
     setBuilder(builder) { }
 }
 
-module.exports = getInterface(ParentNodeDefinitionInterface);
+export default getInterface(ParentNodeDefinitionInterface);

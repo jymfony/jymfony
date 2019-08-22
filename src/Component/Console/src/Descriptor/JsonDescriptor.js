@@ -4,7 +4,7 @@ const ApplicationDescription = Jymfony.Component.Console.Descriptor.ApplicationD
 /**
  * @memberOf Jymfony.Component.Console.Descriptor
  */
-class JsonDescriptor extends Descriptor {
+export default class JsonDescriptor extends Descriptor {
     /**
      * @inheritdoc
      */
@@ -130,5 +130,3 @@ class JsonDescriptor extends Descriptor {
         };
     }
 }
-
-module.exports = JsonDescriptor;

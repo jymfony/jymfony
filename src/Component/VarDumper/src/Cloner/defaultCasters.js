@@ -33,4 +33,4 @@ if (ReflectionClass.exists('Jymfony.Component.DependencyInjection.ContainerInter
     casters.push([ Jymfony.Component.DependencyInjection.ContainerInterface, Caster.StubCaster.cutInternals ]);
 }
 
-module.exports = casters;
+export { casters };

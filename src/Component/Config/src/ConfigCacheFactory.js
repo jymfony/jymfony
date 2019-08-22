@@ -10,7 +10,7 @@ const ConfigCacheFactoryInterface = Jymfony.Component.Config.ConfigCacheFactoryI
  *
  * @memberOf Jymfony.Component.Config
  */
-class ConfigCacheFactory extends implementationOf(ConfigCacheFactoryInterface) {
+export default class ConfigCacheFactory extends implementationOf(ConfigCacheFactoryInterface) {
     /**
      * Constructor.
      *
@@ -38,5 +38,3 @@ class ConfigCacheFactory extends implementationOf(ConfigCacheFactoryInterface) {
         return cache;
     }
 }
-
-module.exports = ConfigCacheFactory;

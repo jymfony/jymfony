@@ -12,4 +12,4 @@ class LoggerAwareInterface {
     setLogger(logger) { }
 }
 
-module.exports = getInterface(LoggerAwareInterface);
+export default getInterface(LoggerAwareInterface);

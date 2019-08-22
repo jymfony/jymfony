@@ -205,4 +205,4 @@ StreamWrapperInterface.META_GROUP_NAME = 'chgrp_name';
 StreamWrapperInterface.META_GROUP = 'chgrp';
 StreamWrapperInterface.META_ACCESS = 'chmod';
 
-module.exports = getInterface(StreamWrapperInterface);
+export default getInterface(StreamWrapperInterface);

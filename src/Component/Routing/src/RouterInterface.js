@@ -9,4 +9,4 @@ const WarmableInterface = Jymfony.Component.Kernel.CacheWarmer.WarmableInterface
 class RouterInterface extends WarmableInterface.definition {
 }
 
-module.exports = getInterface(RouterInterface);
+export default getInterface(RouterInterface);

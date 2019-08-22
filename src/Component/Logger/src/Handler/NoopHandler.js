@@ -5,7 +5,7 @@ const AbstractHandler = Jymfony.Component.Logger.Handler.AbstractHandler;
  *
  * @memberOf Jymfony.Component.Logger.Handler
  */
-class NoopHandler extends AbstractHandler {
+export default class NoopHandler extends AbstractHandler {
     /**
      * @inheritdoc
      */
@@ -20,5 +20,3 @@ class NoopHandler extends AbstractHandler {
         return false;
     }
 }
-
-module.exports = NoopHandler;

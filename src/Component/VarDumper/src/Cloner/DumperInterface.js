@@ -44,4 +44,4 @@ class DumperInterface {
     leaveHash(cursor, type, class_, hasChild, cut) { }
 }
 
-module.exports = getInterface(DumperInterface);
+export default getInterface(DumperInterface);

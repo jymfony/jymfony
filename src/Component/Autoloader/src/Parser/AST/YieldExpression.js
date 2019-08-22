@@ -41,7 +41,9 @@ class YieldExpression extends implementationOf(ExpressionInterface) {
             compiler._emit('* ');
         }
 
-        compiler.compileNode(this._argument);
+        if (null !== this._argument) {
+            compiler.compileNode(this._argument);
+        }
     }
 }
 

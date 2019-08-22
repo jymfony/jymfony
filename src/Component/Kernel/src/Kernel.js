@@ -1,3 +1,6 @@
+import * as fs from 'fs';
+import * as path from 'path';
+
 const ConfigCache = Jymfony.Component.Config.ConfigCache;
 const DelegatingLoader = Jymfony.Component.Config.Loader.DelegatingLoader;
 const LoaderResolver = Jymfony.Component.Config.Loader.LoaderResolver;
@@ -7,13 +10,10 @@ const Loader = Jymfony.Component.DependencyInjection.Loader;
 const FileLocator = Jymfony.Component.Kernel.Config.FileLocator;
 const KernelInterface = Jymfony.Component.Kernel.KernelInterface;
 
-const fs = require('fs');
-const path = require('path');
-
 /**
  * @memberOf Jymfony.Component.Kernel
  */
-class Kernel extends implementationOf(KernelInterface) {
+export default class Kernel extends implementationOf(KernelInterface) {
     /**
      * Constructor.
      *
@@ -691,5 +691,3 @@ class Kernel extends implementationOf(KernelInterface) {
 
 Kernel.VERSION = require('../package.json').version;
 Kernel.VERSION_ID = 100;
-
-module.exports = Kernel;

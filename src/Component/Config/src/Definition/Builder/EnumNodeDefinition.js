@@ -6,7 +6,7 @@ const ScalarNodeDefinition = Jymfony.Component.Config.Definition.Builder.ScalarN
  *
  * @memberOf Jymfony.Component.Config.Definition.Builder
  */
-class EnumNodeDefinition extends ScalarNodeDefinition {
+export default class EnumNodeDefinition extends ScalarNodeDefinition {
     /**
      * @inheritdoc
      */
@@ -50,5 +50,3 @@ class EnumNodeDefinition extends ScalarNodeDefinition {
         return new EnumNode(this._name, this._parent, this._values);
     }
 }
-
-module.exports = EnumNodeDefinition;

@@ -5,7 +5,7 @@ const BaseLocator = Jymfony.Component.Config.FileLocator;
  *
  * @memberOf Jymfony.Component.Kernel.Config
  */
-class FileLocator extends BaseLocator {
+export default class FileLocator extends BaseLocator {
     /**
      * Constructor.
      *
@@ -42,5 +42,3 @@ class FileLocator extends BaseLocator {
         return super.locate(file, currentPath, first);
     }
 }
-
-module.exports = FileLocator;

@@ -8,7 +8,7 @@ const UnsetKeyException = Jymfony.Component.Config.Definition.Exception.UnsetKey
 /**
  * @memberOf Jymfony.Bundle.FrameworkBundle.DependencyInjection
  */
-class Configuration extends implementationOf(ConfigurationInterface) {
+export default class Configuration extends implementationOf(ConfigurationInterface) {
     /**
      * @inheritdoc
      */
@@ -469,5 +469,3 @@ class Configuration extends implementationOf(ConfigurationInterface) {
         ;
     }
 }
-
-module.exports = Configuration;

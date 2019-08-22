@@ -1,6 +1,7 @@
+import { openSync, writeSync } from 'fs';
+
 const DumperInterface = Jymfony.Component.VarDumper.Cloner.DumperInterface;
 const DataDumperInterface = Jymfony.Component.VarDumper.Dumper.DataDumperInterface;
-const fs = require('fs');
 
 /**
  * Abstract mechanism for dumping a Data object.
@@ -8,7 +9,7 @@ const fs = require('fs');
  * @memberOf Jymfony.Component.VarDumper.Dumper
  * @abstract
  */
-class AbstractDumper extends implementationOf(DumperInterface, DataDumperInterface) {
+export default class AbstractDumper extends implementationOf(DumperInterface, DataDumperInterface) {
     /**
      * Constructor.
      *
@@ -39,7 +40,7 @@ class AbstractDumper extends implementationOf(DumperInterface, DataDumperInterfa
             this._lineDumper = output;
         } else {
             if (isString(output)) {
-                output = fs.openSync(output, 'wb');
+                output = openSync(output, 'wb');
             }
 
             this._outputStream = output;
@@ -120,14 +121,12 @@ class AbstractDumper extends implementationOf(DumperInterface, DataDumperInterfa
     _echoLine(line, depth, indentPad) {
         if (-1 !== depth) {
             if (this._outputStream && this._outputStream.fd) {
-                fs.writeSync(this._outputStream.fd, indentPad.repeat(depth) + line + '\n');
+                writeSync(this._outputStream.fd, indentPad.repeat(depth) + line + '\n');
             } else if (isNumber(this._outputStream)) {
-                fs.writeSync(this._outputStream, indentPad.repeat(depth) + line + '\n');
+                writeSync(this._outputStream, indentPad.repeat(depth) + line + '\n');
             } else if (isStream(this._outputStream)) {
                 this._outputStream.write(indentPad.repeat(depth) + line + '\n');
             }
         }
     }
 }
-
-module.exports = AbstractDumper;

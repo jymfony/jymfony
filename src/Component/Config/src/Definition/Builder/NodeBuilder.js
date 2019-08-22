@@ -6,7 +6,7 @@ const ParentNodeDefinitionInterface = Jymfony.Component.Config.Definition.Builde
  *
  * @memberOf Jymfony.Component.Config.Definition.Builder
  */
-class NodeBuilder extends implementationOf(NodeParentInterface) {
+export default class NodeBuilder extends implementationOf(NodeParentInterface) {
     /**
      * Constructor.
      */
@@ -220,5 +220,3 @@ class NodeBuilder extends implementationOf(NodeParentInterface) {
         return targetClass;
     }
 }
-
-module.exports = NodeBuilder;

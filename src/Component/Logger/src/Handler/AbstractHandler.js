@@ -5,7 +5,7 @@ const LogLevel = Jymfony.Component.Logger.LogLevel;
 /**
  * @memberOf Jymfony.Component.Logger.Handler
  */
-class AbstractHandler extends implementationOf(HandlerInterface) {
+export default class AbstractHandler extends implementationOf(HandlerInterface) {
     /**
      * Constructor.
      *
@@ -84,5 +84,3 @@ class AbstractHandler extends implementationOf(HandlerInterface) {
         return new LineFormatter();
     }
 }
-
-module.exports = AbstractHandler;

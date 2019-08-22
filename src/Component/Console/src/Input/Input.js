@@ -6,7 +6,7 @@ const StreamableInputInterface = Jymfony.Component.Console.Input.StreamableInput
 /**
  * @memberOf Jymfony.Component.Console.Input
  */
-class Input extends implementationOf(StreamableInputInterface) {
+export default class Input extends implementationOf(StreamableInputInterface) {
     /**
      * Constructor.
      *
@@ -199,5 +199,3 @@ class Input extends implementationOf(StreamableInputInterface) {
         this._stream = stream;
     }
 }
-
-module.exports = Input;

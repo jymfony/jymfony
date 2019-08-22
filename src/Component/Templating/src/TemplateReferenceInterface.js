@@ -51,4 +51,4 @@ class TemplateReferenceInterface {
     toString() { }
 }
 
-module.exports = getInterface(TemplateReferenceInterface);
+export default getInterface(TemplateReferenceInterface);

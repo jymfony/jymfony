@@ -6,7 +6,7 @@ const InvalidConfigurationException = Jymfony.Component.Config.Definition.Except
  *
  * @memberOf Jymfony.Component.Config.Definition.Builder
  */
-class ExprBuilder {
+export default class ExprBuilder {
     /**
      * Constructor.
      *
@@ -256,5 +256,3 @@ class ExprBuilder {
         return result.toObject();
     }
 }
-
-module.exports = ExprBuilder;

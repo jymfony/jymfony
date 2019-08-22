@@ -6,7 +6,7 @@ const InvalidTypeException = Jymfony.Component.Config.Definition.Exception.Inval
  *
  * @memberOf Jymfony.Component.Config.Definition
  */
-class BooleanNode extends ScalarNode {
+export default class BooleanNode extends ScalarNode {
     /**
      * @inheritdoc
      */
@@ -36,5 +36,3 @@ class BooleanNode extends ScalarNode {
         return false;
     }
 }
-
-module.exports = BooleanNode;

@@ -5,7 +5,7 @@ const StreamOutput = Jymfony.Component.Console.Output.StreamOutput;
 /**
  * @memberOf Jymfony.Component.Console.Output
  */
-class ConsoleOutput extends mix(StreamOutput, ConsoleOutputInterface) {
+export default class ConsoleOutput extends mix(StreamOutput, ConsoleOutputInterface) {
     /**
      * Constructor.
      *
@@ -92,5 +92,3 @@ class ConsoleOutput extends mix(StreamOutput, ConsoleOutputInterface) {
         this._stderr = error;
     }
 }
-
-module.exports = ConsoleOutput;

@@ -5,7 +5,7 @@ const InvalidDateTimeStringException = Jymfony.Component.DateTime.Exception.Inva
  *
  * @memberOf Jymfony.Component.DateTime
  */
-class TimeSpan {
+export default class TimeSpan {
     /**
      * Constructor.
      *
@@ -235,5 +235,3 @@ class TimeSpan {
         this.seconds = matches[7] || 0;
     }
 }
-
-module.exports = TimeSpan;

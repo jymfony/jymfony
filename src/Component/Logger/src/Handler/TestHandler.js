@@ -7,7 +7,7 @@ const LogLevel = Jymfony.Component.Logger.LogLevel;
  *
  * @memberOf Jymfony.Component.Logger.Handler
  */
-class TestHandler extends AbstractProcessingHandler {
+export default class TestHandler extends AbstractProcessingHandler {
     /**
      * Constructor.
      *
@@ -170,5 +170,3 @@ class TestHandler extends AbstractProcessingHandler {
         this._records.push(record);
     }
 }
-
-module.exports = TestHandler;

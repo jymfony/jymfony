@@ -6,7 +6,7 @@ const Exception = Jymfony.Component.Config.Definition.Exception;
  *
  * @memberOf Jymfony.Component.Config.Definition
  */
-class PrototypedArrayNode extends ArrayNode {
+export default class PrototypedArrayNode extends ArrayNode {
     /**
      * @inheritdoc
      */
@@ -360,5 +360,3 @@ class PrototypedArrayNode extends ArrayNode {
         return prototype;
     }
 }
-
-module.exports = PrototypedArrayNode;

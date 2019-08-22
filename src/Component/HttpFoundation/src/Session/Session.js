@@ -5,7 +5,7 @@ const SessionInterface = Jymfony.Component.HttpFoundation.Session.SessionInterfa
 /**
  * @memberOf Jymfony.Component.HttpFoundation.Session
  */
-class Session extends implementationOf(SessionInterface) {
+export default class Session extends implementationOf(SessionInterface) {
     /**
      * Constructor.
      *
@@ -172,5 +172,3 @@ class Session extends implementationOf(SessionInterface) {
         return this._storage.getBag(this._flashesName);
     }
 }
-
-module.exports = Session;

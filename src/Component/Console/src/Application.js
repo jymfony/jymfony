@@ -17,7 +17,7 @@ const Terminal = Jymfony.Component.Console.Terminal;
 /**
  * @memberOf Jymfony.Component.Console
  */
-class Application {
+export default class Application {
     /**
      * Constructor.
      *
@@ -863,5 +863,3 @@ class Application {
         return namespaces;
     }
 }
-
-module.exports = Application;

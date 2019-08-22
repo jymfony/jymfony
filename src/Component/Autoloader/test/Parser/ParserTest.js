@@ -1,6 +1,8 @@
 const { dirname, sep } = require('path');
 const { readdirSync, readFileSync } = require('fs');
 const folder = dirname(require.resolve('test262-parser-tests/package.json'));
+const Compiler = require('../../src/Parser/Compiler');
+const Generator = require('../../src/Parser/SourceMap/Generator');
 const Parser = require('../../src/Parser/Parser');
 const { expect } = require('chai');
 
@@ -51,6 +53,7 @@ describe('[Autoloader] Parser', function () {
         '63c92209eb77315a.js', // "let" as identifier. Not supported: let is reserved word in ES6
         '65401ed8dc152370.js', // "let" as identifier. Not supported: let is reserved word in ES6
         '660f5a175a2d46ac.js', // "let" as identifier. Not supported: let is reserved word in ES6
+        '6815ab22de966de8.js', // "let" as identifier. Not supported: let is reserved word in ES6
         '6b36b5ad4f3ad84d.js', // "let" as identifier. Not supported: let is reserved word in ES6
         '818ea8eaeef8b3da.js', // "let" as identifier. Not supported: let is reserved word in ES6
         '9aa93e1e417ce8e3.js', // "let" as identifier. Not supported: let is reserved word in ES6
@@ -65,6 +68,7 @@ describe('[Autoloader] Parser', function () {
         'f0d9a7a2f5d42210.js', // "let" as identifier. Not supported: let is reserved word in ES6
         'f0fbbdabdaca2146.js', // "let" as identifier. Not supported: let is reserved word in ES6
         'f2e41488e95243a8.js', // "let" as identifier. Not supported: let is reserved word in ES6
+        'ffaf5b9d3140465b.js', // "let" as identifier. Not supported: let is reserved word in ES6
         'a91ad31c88855e59.js', // "implements", "interface", "package" as identifier. Not supported: reserved words in ES6
         'd22f8660531e1c1a.js', // "static" as identifier. Not supported: static is reserved word in ES6
         'e74a8d269a6abdb7.js', // "private", "protected", "public" as identifier. Not supported: reserved words in ES6
@@ -73,10 +77,12 @@ describe('[Autoloader] Parser', function () {
 
     const ignored = [
         '7b0a9215ec756496.js', // Multiline comment used as statement terminator
+        '946bee37652a31fa.js', // HTML comment after multiline comment
+        '9f0d8eb6f7ab8180.js', // HTML comment after multiline comment
     ];
 
     for (const filename of readdirSync(folder + sep + 'pass')) {
-        if (excluded.includes(filename) || filename.endsWith('module.js')) {
+        if (excluded.includes(filename) /* || filename.endsWith('module.js') */) {
             continue;
         }
 
@@ -86,6 +92,9 @@ describe('[Autoloader] Parser', function () {
 
             try {
                 program = parser.parse(content);
+
+                const compiler = new Compiler(new Generator());
+                compiler.compile(program);
             } catch (e) {
                 console.log(e.message, e.stack); process.exit(1);
             }

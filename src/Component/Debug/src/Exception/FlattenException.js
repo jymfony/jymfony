@@ -9,7 +9,7 @@ const asyncReflection = new ReflectionClass(__jymfony.Async);
  *
  * @memberOf Jymfony.Component.Debug.Exception
  */
-class FlattenException {
+export default class FlattenException {
     __construct() {
         this.message = undefined;
         this.code = undefined;
@@ -74,5 +74,3 @@ class FlattenException {
         return e;
     }
 }
-
-module.exports = FlattenException;

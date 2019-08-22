@@ -1,12 +1,12 @@
+import { spawn } from 'child_process';
 const NullLogger = Jymfony.Component.Logger.NullLogger;
-const child_process = require('child_process');
 
 /**
  * Development server.
  *
  * @memberOf Jymfony.Component.DevServer
  */
-class DevServer {
+export default class DevServer {
     /**
      * Constructor.
      *
@@ -110,7 +110,7 @@ class DevServer {
         const argv = [ ...this._argv ];
         const argv0 = argv.shift();
 
-        this._process = child_process.spawn(argv0, argv, {
+        this._process = spawn(argv0, argv, {
             detached: false,
             stdio: 'inherit',
         });
@@ -121,5 +121,3 @@ class DevServer {
         });
     }
 }
-
-module.exports = DevServer;

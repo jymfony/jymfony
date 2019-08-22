@@ -12,7 +12,7 @@ const DateTime = Jymfony.Component.DateTime.DateTime;
  *
  * @final
  */
-class ProgressBar {
+export default class ProgressBar {
     /**
      * @param {Jymfony.Component.Console.Output.OutputInterface} output An OutputInterface instance
      * @param {int} [max = 0] Maximum steps (0 if unknown)
@@ -579,5 +579,3 @@ class ProgressBar {
 
 ProgressBar.formatters = {};
 ProgressBar.formats = {};
-
-module.exports = ProgressBar;

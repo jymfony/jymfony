@@ -29,5 +29,10 @@ Jymfony.Component.Autoloader = {
     /**
      * @namespace
      */
+    Proxy: {},
+
+    /**
+     * @namespace
+     */
     Reflection: {},
 };

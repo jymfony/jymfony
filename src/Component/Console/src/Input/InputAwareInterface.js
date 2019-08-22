@@ -12,4 +12,4 @@ class InputAwareInterface {
     set input(input) { }
 }
 
-module.exports = getInterface(InputAwareInterface);
+export default getInterface(InputAwareInterface);

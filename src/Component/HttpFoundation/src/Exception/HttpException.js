@@ -6,7 +6,7 @@ const HttpExceptionInterface = Jymfony.Component.HttpFoundation.Exception.HttpEx
  *
  * @memberOf Jymfony.Component.HttpFoundation.Exception
  */
-class HttpException extends mix(RuntimeException, HttpExceptionInterface) {
+export default class HttpException extends mix(RuntimeException, HttpExceptionInterface) {
     /**
      * Constructor.
      *
@@ -57,5 +57,3 @@ class HttpException extends mix(RuntimeException, HttpExceptionInterface) {
         this._headers = Object.assign({}, headers);
     }
 }
-
-module.exports = HttpException;

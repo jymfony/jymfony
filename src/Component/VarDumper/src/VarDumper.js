@@ -9,7 +9,7 @@ let handler;
 /**
  * @memberOf Jymfony.Component.VarDumper
  */
-class VarDumper {
+export default class VarDumper {
     /**
      * Dumps a variable.
      *
@@ -40,5 +40,3 @@ class VarDumper {
         return prevHandler;
     }
 }
-
-module.exports = VarDumper;

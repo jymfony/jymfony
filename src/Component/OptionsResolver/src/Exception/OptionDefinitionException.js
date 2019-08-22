@@ -5,7 +5,5 @@ const ExceptionInterface = Jymfony.Component.OptionsResolver.Exception.Exception
  *
  * @memberOf Jymfony.Component.OptionsResolver.Exception
  */
-class OptionDefinitionException extends mix(LogicException, ExceptionInterface) {
+export default class OptionDefinitionException extends mix(LogicException, ExceptionInterface) {
 }
-
-module.exports = OptionDefinitionException;

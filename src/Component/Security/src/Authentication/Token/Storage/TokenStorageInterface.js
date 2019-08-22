@@ -23,4 +23,4 @@ class TokenStorageInterface {
     setToken(request, token) { }
 }
 
-module.exports = getInterface(TokenStorageInterface);
+export default getInterface(TokenStorageInterface);

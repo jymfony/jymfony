@@ -6,7 +6,7 @@ const Helper = Jymfony.Component.Console.Helper.Helper;
  *
  * @memberOf Jymfony.Component.Console.Helper
  */
-class DebugFormatterHelper extends Helper {
+export default class DebugFormatterHelper extends Helper {
     /**
      * Constructor.
      */
@@ -129,5 +129,3 @@ class DebugFormatterHelper extends Helper {
         return __jymfony.sprintf('<bg=%s> </>', this._colors[this._started[id].border]);
     }
 }
-
-module.exports = DebugFormatterHelper;

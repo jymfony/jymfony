@@ -12,4 +12,4 @@ class HelperInterface {
     get name() { }
 }
 
-module.exports = getInterface(HelperInterface);
+export default getInterface(HelperInterface);

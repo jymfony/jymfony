@@ -26,4 +26,4 @@ class UserCheckerInterface {
     checkPostAuth(user) { }
 }
 
-module.exports = getInterface(UserCheckerInterface);
+export default getInterface(UserCheckerInterface);

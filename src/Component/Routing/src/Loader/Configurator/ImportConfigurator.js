@@ -4,7 +4,7 @@ const Route = Jymfony.Component.Routing.Route;
 /**
  * @memberOf Jymfony.Component.Routing.Loader.Configurator
  */
-class ImportConfigurator extends implementationOf(RouteTrait) {
+export default class ImportConfigurator extends implementationOf(RouteTrait) {
     /**
      * Constructor.
      *
@@ -98,5 +98,3 @@ class ImportConfigurator extends implementationOf(RouteTrait) {
         return this;
     }
 }
-
-module.exports = ImportConfigurator;

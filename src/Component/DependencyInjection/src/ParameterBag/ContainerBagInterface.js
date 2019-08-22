@@ -39,4 +39,4 @@ class ContainerBagInterface extends ContainerInterface.definition {
     unescapeValue(value) { }
 }
 
-module.exports = getInterface(ContainerBagInterface);
+export default getInterface(ContainerBagInterface);

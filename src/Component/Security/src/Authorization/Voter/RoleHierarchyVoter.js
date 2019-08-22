@@ -6,7 +6,7 @@ const RoleVoter = Jymfony.Component.Security.Authorization.Voter.RoleVoter;
  *
  * @memberOf Jymfony.Component.Security.Authorization.Voter
  */
-class RoleHierarchyVoter extends RoleVoter {
+export default class RoleHierarchyVoter extends RoleVoter {
     /**
      * Constructor.
      *
@@ -31,5 +31,3 @@ class RoleHierarchyVoter extends RoleVoter {
         return this._roleHierarchy.getReachableRoles(token.roles);
     }
 }
-
-module.exports = RoleHierarchyVoter;

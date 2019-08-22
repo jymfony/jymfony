@@ -4,7 +4,7 @@ const CompilerPassInterface = Jymfony.Component.DependencyInjection.Compiler.Com
 /**
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
  */
-class DecoratorServicePass extends implementationOf(CompilerPassInterface) {
+export default class DecoratorServicePass extends implementationOf(CompilerPassInterface) {
     /**
      * @inheritdoc
      */
@@ -46,5 +46,3 @@ class DecoratorServicePass extends implementationOf(CompilerPassInterface) {
         }
     }
 }
-
-module.exports = DecoratorServicePass;

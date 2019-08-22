@@ -5,7 +5,7 @@ const CommandNotFoundException = Jymfony.Component.Console.Exception.CommandNotF
  *
  * @internal
  */
-class ApplicationDescription {
+export default class ApplicationDescription {
     /**
      * Constructor.
      *
@@ -137,5 +137,3 @@ class ApplicationDescription {
 }
 
 ApplicationDescription.GLOBAL_NAMESPACE = '_global';
-
-module.exports = ApplicationDescription;

@@ -6,7 +6,7 @@ const AuthenticationException = Jymfony.Component.Security.Exception.Authenticat
  *
  * @memberOf Jymfony.Component.Security.Exception
  */
-class ProviderNotFoundException extends AuthenticationException {
+export default class ProviderNotFoundException extends AuthenticationException {
     /**
      * @inheritdoc
      */
@@ -14,5 +14,3 @@ class ProviderNotFoundException extends AuthenticationException {
         return 'No authentication provider found to support the authentication token.';
     }
 }
-
-module.exports = ProviderNotFoundException;

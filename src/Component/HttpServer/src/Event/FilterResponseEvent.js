@@ -3,7 +3,7 @@ const HttpEvent = Jymfony.Component.HttpServer.Event.HttpEvent;
 /**
  * @memberOf Jymfony.Component.HttpServer.Event
  */
-class FilterResponseEvent extends HttpEvent {
+export default class FilterResponseEvent extends HttpEvent {
     /**
      * Constructor.
      *
@@ -40,5 +40,3 @@ class FilterResponseEvent extends HttpEvent {
         this._response = response;
     }
 }
-
-module.exports = FilterResponseEvent;

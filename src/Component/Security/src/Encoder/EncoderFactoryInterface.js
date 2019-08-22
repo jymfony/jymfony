@@ -16,4 +16,4 @@ class EncoderFactoryInterface {
     getEncoder(user) { }
 }
 
-module.exports = getInterface(EncoderFactoryInterface);
+export default getInterface(EncoderFactoryInterface);

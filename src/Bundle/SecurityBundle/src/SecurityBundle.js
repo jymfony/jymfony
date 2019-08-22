@@ -6,7 +6,7 @@ const Bundle = Jymfony.Component.Kernel.Bundle;
  *
  * @memberOf Jymfony.Bundle.SecurityBundle
  */
-class SecurityBundle extends Bundle {
+export default class SecurityBundle extends Bundle {
     /**
      * @inheritdoc
      */
@@ -16,5 +16,3 @@ class SecurityBundle extends Bundle {
         ;
     }
 }
-
-module.exports = SecurityBundle;

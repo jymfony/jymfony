@@ -6,7 +6,7 @@ const BadCredentialsException = Jymfony.Component.Security.Exception.BadCredenti
 /**
  * @memberOf Jymfony.Component.Security.Authentication.Provider
  */
-class AnonymousAuthenticationProvider extends implementationOf(AuthenticationProviderInterface) {
+export default class AnonymousAuthenticationProvider extends implementationOf(AuthenticationProviderInterface) {
     /**
      * Constructor.
      *
@@ -46,5 +46,3 @@ class AnonymousAuthenticationProvider extends implementationOf(AuthenticationPro
         return token instanceof AnonymousToken;
     }
 }
-
-module.exports = AnonymousAuthenticationProvider;

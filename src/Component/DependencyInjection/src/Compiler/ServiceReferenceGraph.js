@@ -11,7 +11,7 @@ const ServiceReferenceGraphNode = Jymfony.Component.DependencyInjection.Compiler
  *
  * @internal
  */
-class ServiceReferenceGraph {
+export default class ServiceReferenceGraph {
     /**
      * Constructor.
      */
@@ -86,5 +86,3 @@ class ServiceReferenceGraph {
         return this._nodes[id] = new ServiceReferenceGraphNode(id, value);
     }
 }
-
-module.exports = ServiceReferenceGraph;

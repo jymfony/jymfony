@@ -5,7 +5,7 @@ const FileLoaderLoadException = Jymfony.Component.Config.Exception.FileLoaderLoa
  *
  * @memberOf Jymfony.Component.Config.Exception
  */
-class FileLoaderImportCircularReferenceException extends FileLoaderLoadException {
+export default class FileLoaderImportCircularReferenceException extends FileLoaderLoadException {
     /**
      * Constructor.
      *
@@ -20,5 +20,3 @@ class FileLoaderImportCircularReferenceException extends FileLoaderLoadException
         this.message = message;
     }
 }
-
-module.exports = FileLoaderImportCircularReferenceException;

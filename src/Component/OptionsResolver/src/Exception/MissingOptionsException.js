@@ -7,7 +7,5 @@ const InvalidArgumentException = Jymfony.Component.OptionsResolver.Exception.Inv
  *
  * @memberOf Jymfony.Component.OptionsResolver.Exception
  */
-class MissingOptionsException extends InvalidArgumentException {
+export default class MissingOptionsException extends InvalidArgumentException {
 }
-
-module.exports = MissingOptionsException;

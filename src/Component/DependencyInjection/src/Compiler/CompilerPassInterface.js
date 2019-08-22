@@ -12,4 +12,4 @@ class CompilerPassInterface {
     process(container) { }
 }
 
-module.exports = getInterface(CompilerPassInterface);
+export default getInterface(CompilerPassInterface);

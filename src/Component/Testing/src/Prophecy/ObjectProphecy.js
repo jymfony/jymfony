@@ -11,7 +11,7 @@ const Revealer = Jymfony.Component.Testing.Prophecy.Revealer;
 /**
  * @memberOf Jymfony.Component.Testing.Prophecy
  */
-class ObjectProphecy extends implementationOf(ProphecyInterface) {
+export default class ObjectProphecy extends implementationOf(ProphecyInterface) {
     /**
      * Constructor.
      *
@@ -267,5 +267,3 @@ class ObjectProphecy extends implementationOf(ProphecyInterface) {
         return this._doubler.getInstance();
     }
 }
-
-module.exports = ObjectProphecy;

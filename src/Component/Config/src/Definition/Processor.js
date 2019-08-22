@@ -1,7 +1,7 @@
 /**
  * @memberOf Jymfony.Component.Config.Definition
  */
-class Processor {
+export default class Processor {
     /**
      * Processes an array of configurations.
      *
@@ -32,5 +32,3 @@ class Processor {
         return this.process(configuration.configTreeBuilder.buildTree(), configs);
     }
 }
-
-module.exports = Processor;

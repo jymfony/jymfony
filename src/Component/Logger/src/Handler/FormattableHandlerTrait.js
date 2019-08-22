@@ -32,4 +32,4 @@ class FormattableHandlerTrait {
     }
 }
 
-module.exports = getTrait(FormattableHandlerTrait);
+export default getTrait(FormattableHandlerTrait);

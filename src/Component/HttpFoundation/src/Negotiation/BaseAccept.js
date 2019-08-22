@@ -4,7 +4,7 @@
  * @memberOf Jymfony.Component.HttpFoundation.Negotiation
  * @abstract
  */
-class BaseAccept {
+export default class BaseAccept {
     /**
      * Constructor.
      *
@@ -176,5 +176,3 @@ class BaseAccept {
         return parts.join('; ');
     }
 }
-
-module.exports = BaseAccept;

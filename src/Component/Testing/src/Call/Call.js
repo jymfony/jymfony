@@ -3,7 +3,7 @@ const StringUtil = Jymfony.Component.Testing.Util.StringUtil;
 /**
  * @memberOf Jymfony.Component.Testing.Call
  */
-class Call {
+export default class Call {
     /**
      * Constructor.
      *
@@ -136,5 +136,3 @@ class Call {
         );
     }
 }
-
-module.exports = Call;

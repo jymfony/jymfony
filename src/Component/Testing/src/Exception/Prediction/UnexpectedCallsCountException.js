@@ -3,7 +3,7 @@ const UnexpectedCallsException = Jymfony.Component.Testing.Exception.UnexpectedC
 /**
  * @memberOf Jymfony.Component.Testing.Exception.Prediction
  */
-class UnexpectedCallsCountException extends UnexpectedCallsException {
+export default class UnexpectedCallsCountException extends UnexpectedCallsException {
     /**
      * Constructor.
      *
@@ -30,5 +30,3 @@ class UnexpectedCallsCountException extends UnexpectedCallsException {
         return this._expectedCount;
     }
 }
-
-module.exports = UnexpectedCallsCountException;

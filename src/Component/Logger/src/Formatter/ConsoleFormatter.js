@@ -1,8 +1,8 @@
+import { inspect } from 'util';
+
 const OutputFormatter = Jymfony.Component.Console.Formatter.OutputFormatter;
 const NormalizerFormatter = Jymfony.Component.Logger.Formatter.NormalizerFormatter;
 const LogLevel = Jymfony.Component.Logger.LogLevel;
-
-const util = require('util');
 
 const levelColorMap = {
     [LogLevel.DEBUG]: 'fg=white',
@@ -18,7 +18,7 @@ const levelColorMap = {
 /**
  * @memberOf Jymfony.Component.Logger.Formatter
  */
-class ConsoleFormatter extends NormalizerFormatter {
+export default class ConsoleFormatter extends NormalizerFormatter {
     /**
      * Constructor.
      *
@@ -43,8 +43,8 @@ class ConsoleFormatter extends NormalizerFormatter {
         record = this._replacePlaceHolder(record);
 
         let context, extra;
-        context = ' ' + util.inspect(record.context);
-        extra = ' ' + util.inspect(record.extra);
+        context = ' ' + inspect(record.context);
+        extra = ' ' + inspect(record.extra);
 
         if (! this._options.multiline) {
             context = context.replace('\n', ' ');
@@ -82,7 +82,7 @@ class ConsoleFormatter extends NormalizerFormatter {
 
         for (let [ k, v ] of __jymfony.getEntries(context)) {
             // Remove quotes added by the dumper around string.
-            v = __jymfony.trim(util.inspect(v), '"');
+            v = __jymfony.trim(inspect(v), '"');
             v = OutputFormatter.escape(v);
             replacements['{' + k + '}'] = '<comment>' + v + '</>';
         }
@@ -94,5 +94,3 @@ class ConsoleFormatter extends NormalizerFormatter {
 }
 
 ConsoleFormatter.SIMPLE_FORMAT = '%datetime% %start_tag%%level_name%%end_tag% <comment>[%channel%]</> %message%%context%%extra%\n';
-
-module.exports = ConsoleFormatter;

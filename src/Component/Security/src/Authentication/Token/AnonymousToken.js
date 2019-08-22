@@ -5,7 +5,7 @@ const AbstractToken = Jymfony.Component.Security.Authentication.Token.AbstractTo
  *
  * @memberOf Jymfony.Component.Security.Authentication.Token
  */
-class AnonymousToken extends AbstractToken {
+export default class AnonymousToken extends AbstractToken {
     /**
      * Constructor.
      *
@@ -52,5 +52,3 @@ class AnonymousToken extends AbstractToken {
         return fields;
     }
 }
-
-module.exports = AnonymousToken;

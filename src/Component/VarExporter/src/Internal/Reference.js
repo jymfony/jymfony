@@ -1,7 +1,7 @@
 /**
  * @memberOf Jymfony.Component.VarExporter.Internal
  */
-class Reference {
+export default class Reference {
     /**
      * Constructor.
      *
@@ -20,5 +20,3 @@ class Reference {
         this.value = value;
     }
 }
-
-module.exports = Reference;

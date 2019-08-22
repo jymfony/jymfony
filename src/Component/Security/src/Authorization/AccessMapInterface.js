@@ -13,4 +13,4 @@ class AccessMapInterface {
     getPatterns(request) { }
 }
 
-module.exports = getInterface(AccessMapInterface);
+export default getInterface(AccessMapInterface);

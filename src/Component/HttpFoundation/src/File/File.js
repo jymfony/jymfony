@@ -1,13 +1,13 @@
+import * as fs from 'fs';
+import { basename } from 'path';
+
 const DateTime = Jymfony.Component.DateTime.DateTime;
 const FileNotFoundException = Jymfony.Component.HttpFoundation.File.Exception.FileNotFoundException;
-
-const fs = require('fs');
-const path = require('path');
 
 /**
  * @memberOf Jymfony.Component.HttpFoundation.File
  */
-class File {
+export default class File {
     /**
      * Constructor.
      *
@@ -47,7 +47,7 @@ class File {
      * @returns {string}
      */
     get fileName() {
-        return path.basename(this._fileName);
+        return basename(this._fileName);
     }
 
     /**
@@ -115,5 +115,3 @@ class File {
         return new DateTime(this._stat.mtime);
     }
 }
-
-module.exports = File;

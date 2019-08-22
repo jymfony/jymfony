@@ -5,7 +5,7 @@ const AccountStatusException = Jymfony.Component.Security.Exception.AccountStatu
  *
  * @memberOf Jymfony.Component.Security.Exception
  */
-class AccountExpiredException extends AccountStatusException {
+export default class AccountExpiredException extends AccountStatusException {
     /**
      * @inheritdoc
      */
@@ -13,5 +13,3 @@ class AccountExpiredException extends AccountStatusException {
         return 'Account has expired.';
     }
 }
-
-module.exports = AccountExpiredException;

@@ -1,6 +1,7 @@
 const AST = require('./AST');
 const Lexer = require('./Lexer');
 
+const NotARegExpException = require('./Exception/NotARegExpException');
 const ExpresionParserTrait = require('./ExpressionParserTrait');
 
 const FOR_PLAIN = 1;
@@ -31,15 +32,60 @@ class Parser extends implementationOf(ExpresionParserTrait) {
          */
         this._input = undefined;
 
+        /**
+         * @type {Jymfony.Component.Autoloader.Parser.Token}
+         *
+         * @private
+         */
+        this._lastToken = undefined;
+
+        /**
+         * @type {Jymfony.Component.Autoloader.Parser.Token}
+         *
+         * @private
+         */
+        this._lastNonBlankToken = undefined;
+
+        /**
+         * @type {int}
+         *
+         * @private
+         */
         this._line = 1;
+
+        /**
+         * @type {int}
+         *
+         * @private
+         */
         this._column = 0;
+
+        /**
+         * @type {string}
+         *
+         * @private
+         */
+        this._pendingDocblock = undefined;
+
+        /**
+         * @type {*[]}
+         *
+         * @private
+         */
         this._pendingDecorators = [];
+
+        /**
+         * @type {boolean}
+         *
+         * @private
+         */
+        this._esModule = false;
     }
 
     /**
      * Gets the current parser state.
      *
-     * @returns {{line: int, column: int, position: int}}
+     * @returns {{line: int, column: int, position: int, docblock: string, decorators: *[]}}
      */
     get state() {
         return {
@@ -57,6 +103,8 @@ class Parser extends implementationOf(ExpresionParserTrait) {
      * @param {int} position
      * @param {int} line
      * @param {int} column
+     * @param {string} docblock
+     * @param {*[]} decorators
      */
     set state({ position, line, column, docblock, decorators }) {
         this._lexer.resetPosition(position - 1);
@@ -76,6 +124,9 @@ class Parser extends implementationOf(ExpresionParserTrait) {
         this._line = 1;
         this._column = 0;
         this._pendingDecorators = [];
+        this._esModule = false;
+        this._lastToken = undefined;
+        this._lastNonBlankToken = undefined;
         this._lexer.input = this._input = code;
 
         this._next();
@@ -91,6 +142,8 @@ class Parser extends implementationOf(ExpresionParserTrait) {
             program.add(this._doParse());
             this._skipSpaces();
         }
+
+        program.esModule = this._esModule;
 
         return program;
     }
@@ -167,6 +220,7 @@ class Parser extends implementationOf(ExpresionParserTrait) {
      */
     _expectStatementTermination() {
         const lastToken = this._lastToken;
+        const lastNonBlankToken = this._lastNonBlankToken;
         if (this._lexer.isToken(Lexer.T_SPACE) && ! Parser._includesLineTerminator(this._lexer.token.value)) {
             this._skipSpaces();
         }
@@ -177,7 +231,7 @@ class Parser extends implementationOf(ExpresionParserTrait) {
             this._skipSpaces();
         } else if ((this._lexer.isToken(Lexer.T_SPACE) && Parser._includesLineTerminator(this._lexer.token.value)) || (lastToken && Lexer.T_SPACE === lastToken.type && Parser._includesLineTerminator(lastToken.value))) {
             this._skipSpaces();
-        } else if (lastToken && (Lexer.T_CURLY_BRACKET_CLOSE === lastToken.type || this._lexer.isToken(Lexer.T_CURLY_BRACKET_CLOSE))) {
+        } else if (lastNonBlankToken && (Lexer.T_CURLY_BRACKET_CLOSE === lastNonBlankToken.type || this._lexer.isToken(Lexer.T_CURLY_BRACKET_CLOSE))) {
             this._skipSpaces();
         } else if (this._lexer.isToken(Lexer.T_EOF) || (lastToken && lastToken.type === Lexer.T_EOF)) {
             // Do nothing
@@ -216,6 +270,10 @@ class Parser extends implementationOf(ExpresionParserTrait) {
         while (true) {
             if (this._lexer.token) {
                 this._advance();
+            }
+
+            if (! this._lexer.isToken(Lexer.T_SPACE)) {
+                this._lastNonBlankToken = this._lexer.token;
             }
 
             this._lexer.moveNext();
@@ -403,7 +461,7 @@ class Parser extends implementationOf(ExpresionParserTrait) {
                 }
 
                 if (this._lexer.isToken(Lexer.T_SEMICOLON)) {
-                    let test, update;
+                    let test = null, update = null;
                     this._next();
 
                     // Test
@@ -557,6 +615,163 @@ class Parser extends implementationOf(ExpresionParserTrait) {
 
                 return new AST.DebuggerStatement(this._makeLocation(start));
             }
+
+            case 'import': {
+                this._esModule = true;
+                this._next();
+
+                if (this._lexer.isToken(Lexer.T_STRING)) {
+                    const source = this._parseExpression();
+
+                    return new AST.ImportDeclaration(this._makeLocation(start), [], source);
+                }
+
+                const specifiers = [];
+                while (true) {
+                    const start = this._getCurrentPosition();
+                    if ('from' === this._lexer.token.value) {
+                        break;
+                    } else if ('*' === this._lexer.token.value) {
+                        const start = this._getCurrentPosition();
+                        this._next();
+                        if ('as' !== this._lexer.token.value) {
+                            this._syntaxError('"as" expected');
+                        }
+
+                        this._next();
+                        const local = this._parseIdentifier();
+
+                        specifiers.push(new AST.ImportNamespaceSpecifier(this._makeLocation(start), local));
+                        this._next();
+                    } else {
+                        if (this._lexer.isToken(Lexer.T_CURLY_BRACKET_OPEN)) {
+                            this._next();
+
+                            while (true) {
+                                const start = this._getCurrentPosition();
+                                let imported = null, local = null;
+
+                                if (this._lexer.isToken(Lexer.T_CURLY_BRACKET_CLOSE)) {
+                                    this._next();
+                                    break;
+                                }
+
+                                if (this._lexer.isToken(Lexer.T_IDENTIFIER) || this._lexer.isToken(Lexer.T_KEYWORD) || this._lexer.isToken(Lexer.T_NULL)) {
+                                    imported = local = this._parseIdentifier();
+                                    this._skipSpaces();
+
+                                    if ('as' === this._lexer.token.value) {
+                                        this._next();
+                                        local = this._parseIdentifier();
+                                        this._skipSpaces();
+                                    }
+
+                                    specifiers.push(new AST.ImportSpecifier(this._makeLocation(start), local, imported));
+                                }
+
+                                if (! this._lexer.isToken(Lexer.T_COMMA)) {
+                                    this._expect(Lexer.T_CURLY_BRACKET_CLOSE);
+                                } else {
+                                    this._next();
+                                }
+                            }
+                        } else {
+                            const local = this._parseIdentifier();
+                            this._skipSpaces();
+
+                            specifiers.push(new AST.ImportDefaultSpecifier(this._makeLocation(start), local));
+                        }
+
+                        if (this._lexer.isToken(Lexer.T_COMMA)) {
+                            this._next();
+                        }
+                    }
+                }
+
+                if ('from' !== this._lexer.token.value) {
+                    this._syntaxError('"from" expected');
+                }
+
+                this._next();
+                this._expect(Lexer.T_STRING);
+
+                const source = this._parseExpression();
+                if (! (source instanceof AST.StringLiteral)) {
+                    this._syntaxError('import source expected');
+                }
+
+                return new AST.ImportDeclaration(this._makeLocation(start), specifiers, source);
+            }
+
+            case 'export': {
+                const docblock = this._pendingDocblock;
+                this._pendingDocblock = undefined;
+
+                this._esModule = true;
+                this._next();
+
+                if ('default' === this._lexer.token.value) {
+                    this._next();
+                    const expression = this._parseExpression();
+                    const declaration = new AST.ExportDefaultDeclaration(this._makeLocation(start), expression);
+                    declaration.docblock = docblock;
+
+                    return declaration;
+                } else if ([ 'const', 'let', 'var' ].includes(this._lexer.token.value)) {
+                    const declarations = this._parseKeyword();
+                    const declaration = new AST.ExportNamedDeclaration(this._makeLocation(start), declarations, [], null);
+                    declaration.docblock = docblock;
+
+                    return declaration;
+                } else if ([ 'function', 'class' ].includes(this._lexer.token.value)) {
+                    const declaration = this._parseStatement(true);
+                    const decl = new AST.ExportNamedDeclaration(this._makeLocation(start), declaration, [], null);
+                    decl.docblock = docblock;
+
+                    return decl;
+                } else if (this._lexer.isToken(Lexer.T_CURLY_BRACKET_OPEN)) {
+                    this._next();
+
+                    let source = null;
+                    const specifiers = [];
+                    while (! this._lexer.isToken(Lexer.T_CURLY_BRACKET_CLOSE)) {
+                        const start = this._getCurrentPosition();
+
+                        let exported;
+                        const local = exported = this._parseIdentifier();
+                        this._skipSpaces();
+
+                        if ('as' === this._lexer.token.value) {
+                            this._next();
+                            exported = this._parseIdentifier();
+                            this._skipSpaces();
+                        }
+
+                        specifiers.push(new AST.ExportSpecifier(this._makeLocation(start), local, exported));
+                    }
+
+                    this._next(); // Curly brace closed.
+                    if ('from' === this._lexer.token.value) {
+                        this._next();
+                        this._expect(Lexer.T_STRING);
+
+                        source = this._parseExpression();
+                    }
+
+                    return new AST.ExportNamedDeclaration(this._makeLocation(start), null, specifiers, source);
+                } else if ('*' === this._lexer.token.value) {
+                    this._next();
+                    if ('from' !== this._lexer.token.value) {
+                        this._syntaxError('Expected "from"');
+                    }
+
+                    this._next();
+                    this._expect(Lexer.T_STRING);
+                    const source = this._parseExpression();
+
+                    return new AST.ExportAllDeclaration(this._makeLocation(start), source);
+                }
+            } break;
 
             default:
                 this._syntaxError('Unexpected "' + token.value + '"');
@@ -1007,7 +1222,7 @@ class Parser extends implementationOf(ExpresionParserTrait) {
                         this.state = state;
                         return this._parsePattern();
                     }
-                } break;
+                }
 
                 case Lexer.T_YIELD:
                 case Lexer.T_THIS:
@@ -1102,6 +1317,10 @@ class Parser extends implementationOf(ExpresionParserTrait) {
                     this._syntaxError('Unexpected "' + this._lexer.token.value + '"');
             }
         } catch (e) {
+            if (e instanceof NotARegExpException) {
+                skipStatementTermination = true;
+            }
+
             throw e;
         } finally {
             if (! skipStatementTermination) {

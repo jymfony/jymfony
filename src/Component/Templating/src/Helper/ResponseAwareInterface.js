@@ -14,4 +14,4 @@ class ResponseAwareInterface {
     withResponse(response) { }
 }
 
-module.exports = getInterface(ResponseAwareInterface);
+export default getInterface(ResponseAwareInterface);

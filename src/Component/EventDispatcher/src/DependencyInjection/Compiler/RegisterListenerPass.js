@@ -8,7 +8,7 @@ const NotStaticMethodException = Jymfony.Component.EventDispatcher.Exception.Not
 /**
  * @memberOf Jymfony.Component.EventDispatcher.DependencyInjection.Compiler
  */
-class RegisterListenerPass extends implementationOf(CompilerPassInterface) {
+export default class RegisterListenerPass extends implementationOf(CompilerPassInterface) {
     /**
      * Constructor.
      *
@@ -165,5 +165,3 @@ class ExtractingEventDispatcher extends mix(EventDispatcher, EventSubscriberInte
         return class_.getSubscribedEvents();
     }
 }
-
-module.exports = RegisterListenerPass;

@@ -5,7 +5,7 @@ const StringUtil = Jymfony.Component.Testing.Util.StringUtil;
 /**
  * @memberOf Jymfony.Component.Testing.Call
  */
-class CallCenter {
+export default class CallCenter {
     /**
      * Constructor.
      */
@@ -122,5 +122,3 @@ class CallCenter {
         );
     }
 }
-
-module.exports = CallCenter;

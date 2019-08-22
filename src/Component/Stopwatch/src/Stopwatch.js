@@ -7,7 +7,7 @@ const ClsTrait = __jymfony.ClsTrait;
  *
  * @memberOf Jymfony.Component.Stopwatch
  */
-class Stopwatch extends implementationOf(EventSubscriberInterface, ClsTrait) {
+export default class Stopwatch extends implementationOf(EventSubscriberInterface, ClsTrait) {
     /**
      * Constructor.
      */
@@ -210,5 +210,3 @@ class Stopwatch extends implementationOf(EventSubscriberInterface, ClsTrait) {
         };
     }
 }
-
-module.exports = Stopwatch;
