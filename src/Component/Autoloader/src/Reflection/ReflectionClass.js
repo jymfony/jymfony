@@ -458,21 +458,12 @@ class ReflectionClass {
     }
 
     /**
-     * Gets the class annotations.
+     * Gets the class metadata.
      *
-     * @returns {*[]}
+     * @returns {[Function, *][]}
      */
-    get annotations() {
-        for (const annotation of this._constructor[Symbol.annotations]) {
-            const r = new ReflectionClass(annotation);
-            const klass = r.getConstructor();
-
-            if (undefined === klass[Symbol.reflection].annotation) {
-                throw new SyntaxError('Class ' + r.name + ' is not an annotation');
-            }
-        }
-
-        return this._constructor[Symbol.annotations];
+    get metadata() {
+        return MetadataStorage.getMetadata(this._constructor, null);
     }
 
     /**

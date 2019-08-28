@@ -108,6 +108,15 @@ class ReflectionField {
     }
 
     /**
+     * Gets the class metadata.
+     *
+     * @returns {[Function, *][]}
+     */
+    get metadata() {
+        return MetadataStorage.getMetadata(this._class.getConstructor(), this._name);
+    }
+
+    /**
      * Gets the field current value.
      *
      * @param {*} object
@@ -130,15 +139,6 @@ class ReflectionField {
         this._checkAccessible();
 
         privateAccessors.get(this).set(object, value);
-    }
-
-    /**
-     * Gets the annotations for this field.
-     *
-     * @returns {*[]}
-     */
-    get annotations() {
-        return privateAccessors.get(this)[Symbol.annotations] || [];
     }
 
     /**

@@ -31,6 +31,11 @@ class ExportDefaultDeclaration extends implementationOf(ModuleDeclarationInterfa
          * @type {string}
          */
         this.docblock = null;
+
+        /**
+         * @type {null|[string, Jymfony.Component.Autoloader.Parser.AST.ExpressionInterface][]}
+         */
+        this.decorators = null;
     }
 
     /**
@@ -46,6 +51,10 @@ class ExportDefaultDeclaration extends implementationOf(ModuleDeclarationInterfa
      * @inheritdoc
      */
     compile(compiler) {
+        if (null !== this.decorators && (this._expression instanceof ClassExpression || this._expression instanceof FunctionExpression)) {
+            this._expression.decorators = this.decorators;
+        }
+
         if ((this._expression instanceof ClassExpression || this._expression instanceof FunctionExpression) && null !== this._expression.id) {
             const declaration = new VariableDeclaration(null, 'const', [
                 new VariableDeclarator(null, this._expression.id, this._expression),

@@ -1,4 +1,5 @@
 module.exports = {
+    AppliedDecorator: require('./AppliedDecorator'),
     ArrayExpression: require('./ArrayExpression'),
     ArrayPattern: require('./ArrayPattern'),
     ArrowFunctionExpression: require('./ArrowFunctionExpression'),
@@ -22,6 +23,7 @@ module.exports = {
     ConditionalExpression: require('./ConditionalExpression'),
     ContinueStatement: require('./ContinueStatement'),
     DebuggerStatement: require('./DebuggerStatement'),
+    DecoratorDescriptor: require('./DecoratorDescriptor'),
     Docblock: require('./Docblock'),
     DoWhileStatement: require('./DoWhileStatement'),
     EmptyStatement: require('./EmptyStatement'),
@@ -54,6 +56,7 @@ module.exports = {
     Position: require('./Position'),
     Program: require('./Program'),
     RegExpLiteral: require('./RegExpLiteral'),
+    RegisterDecorator: require('./RegisterDecorator'),
     RestElement: require('./RestElement'),
     ReturnStatement: require('./ReturnStatement'),
     SequenceExpression: require('./SequenceExpression'),

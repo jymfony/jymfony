@@ -7,11 +7,15 @@ const fs = require('fs');
  * cannot use the autoloader itself to load classes! :)
  */
 const Namespace = require('../src/Namespace');
+const ClassLoader = require('../src/ClassLoader');
 const ClassNotFoundException = require('../src/Exception/ClassNotFoundException');
 
 describe('[Autoloader] Namespace', function () {
-    it('constructs as a Proxy', () => {
+    afterEach(() => {
+        ClassLoader.clearCache();
+    });
 
+    it('constructs as a Proxy', () => {
         /*
          * ES6 Proxies are transparent virtualized objects, so
          * it is impossible to know whether an object is a

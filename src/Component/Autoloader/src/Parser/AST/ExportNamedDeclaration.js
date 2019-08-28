@@ -1,5 +1,6 @@
 const AssignmentExpression = require('./AssignmentExpression');
 const Class = require('./Class');
+const DecoratorDescriptor = require('./DecoratorDescriptor');
 const ExpressionStatement = require('./ExpressionStatement');
 const Function = require('./Function');
 const Identifier = require('./Identifier');
@@ -50,6 +51,11 @@ class ExportNamedDeclaration extends implementationOf(ModuleDeclarationInterface
          * @type {string}
          */
         this.docblock = null;
+
+        /**
+         * @type {null|[string, Jymfony.Component.Autoloader.Parser.AST.ExpressionInterface][]}
+         */
+        this.decorators = null;
     }
 
     /**
@@ -83,7 +89,19 @@ class ExportNamedDeclaration extends implementationOf(ModuleDeclarationInterface
             for (const declarator of this._declarations.declarators) {
                 ExportNamedDeclaration._exportDeclarator(compiler, declarator);
             }
+        } else if (this._declarations instanceof DecoratorDescriptor) {
+            compiler.compileNode(
+                new ExpressionStatement(null, new AssignmentExpression(
+                    null, '=',
+                    new MemberExpression(null, new Identifier(null, 'exports'), new Identifier(null, this._declarations.mangledName)),
+                    new Identifier(null, this._declarations.mangledName)
+                ))
+            );
         } else if (this._declarations instanceof Function || this._declarations instanceof Class) {
+            if (this.decorators) {
+                this._declarations.declarators = this.decorators;
+            }
+
             compiler.compileNode(
                 new ExpressionStatement(null, new AssignmentExpression(
                     null,

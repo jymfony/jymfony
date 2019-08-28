@@ -1,5 +1,10 @@
+const AssignmentExpression = require('./AssignmentExpression');
+const ExpressionStatement = require('./ExpressionStatement');
 const Identifier = require('./Identifier');
+const MemberExpression = require('./MemberExpression');
 const NodeInterface = require('./NodeInterface');
+const NullLiteral = require('./NullLiteral');
+const StringLiteral = require('./StringLiteral');
 
 /**
  * @memberOf Jymfony.Component.Autoloader.Parser.AST
@@ -87,6 +92,22 @@ class Function extends implementationOf(NodeInterface) {
      */
     get body() {
         return this._body;
+    }
+
+    /**
+     * Compiles the docblock registration code.
+     *
+     * @param {Jymfony.Component.Autoloader.Parser.Compiler} compiler
+     * @param {Jymfony.Component.Autoloader.Parser.AST.Identifier} id
+     */
+    compileDocblock(compiler, id) {
+        compiler.compileNode(new ExpressionStatement(null, new AssignmentExpression(
+            null, '=',
+            new MemberExpression(null, id, new MemberExpression(null, new Identifier(null, 'Symbol'), new Identifier(null, 'docblock'), false), true),
+            this.docblock ? new StringLiteral(null, JSON.stringify(this.docblock)) : new NullLiteral(null)
+        )));
+
+        compiler._emit(';\n');
     }
 
     static compileParams(compiler, params) {

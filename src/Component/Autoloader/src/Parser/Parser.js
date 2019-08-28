@@ -14,8 +14,10 @@ const FOR_OF = 3;
 class Parser extends implementationOf(ExpresionParserTrait) {
     /**
      * Constructor.
+     *
+     * @param {Jymfony.Component.Autoloader.DescriptorStorage} descriptorStorage
      */
-    __construct() {
+    __construct(descriptorStorage) {
         /**
          * @type {Jymfony.Component.Autoloader.Parser.Lexer}
          *
@@ -61,6 +63,13 @@ class Parser extends implementationOf(ExpresionParserTrait) {
         this._column = 0;
 
         /**
+         * @type {int}
+         *
+         * @private
+         */
+        this._level = 0;
+
+        /**
          * @type {string}
          *
          * @private
@@ -75,6 +84,24 @@ class Parser extends implementationOf(ExpresionParserTrait) {
         this._pendingDecorators = [];
 
         /**
+         * @type {Jymfony.Component.Autoloader.DescriptorStorage}
+         *
+         * @private
+         */
+        this._descriptorStorage = descriptorStorage;
+
+        /**
+         * @type {Object.<string, function (*): Jymfony.Component.Autoloader.Parser.AST.AppliedDecorator>}
+         *
+         * @private
+         */
+        this._decorators = {
+            '@register': (location, callback) => {
+                return new AST.RegisterDecorator(location, callback);
+            },
+        };
+
+        /**
          * @type {boolean}
          *
          * @private
@@ -85,7 +112,7 @@ class Parser extends implementationOf(ExpresionParserTrait) {
     /**
      * Gets the current parser state.
      *
-     * @returns {{line: int, column: int, position: int, docblock: string, decorators: *[]}}
+     * @returns {{line: int, column: int, position: int, docblock: string, decorators: *[], level: int, esModule: boolean}}
      */
     get state() {
         return {
@@ -94,6 +121,8 @@ class Parser extends implementationOf(ExpresionParserTrait) {
             column: this._column,
             docblock: this._pendingDocblock,
             decorators: [ ...this._pendingDecorators ],
+            level: this._level,
+            esModule: this._esModule,
         };
     }
 
@@ -105,13 +134,17 @@ class Parser extends implementationOf(ExpresionParserTrait) {
      * @param {int} column
      * @param {string} docblock
      * @param {*[]} decorators
+     * @param {int} level
+     * @param {boolean} esModule
      */
-    set state({ position, line, column, docblock, decorators }) {
+    set state({ position, line, column, docblock, decorators, level, esModule }) {
         this._lexer.resetPosition(position - 1);
         this._line = line;
         this._column = column;
         this._pendingDocblock = docblock;
         this._pendingDecorators = decorators;
+        this._level = level;
+        this._esModule = esModule;
     }
 
     /**
@@ -124,6 +157,7 @@ class Parser extends implementationOf(ExpresionParserTrait) {
         this._line = 1;
         this._column = 0;
         this._pendingDecorators = [];
+        this._level = 0;
         this._esModule = false;
         this._lastToken = undefined;
         this._lastNonBlankToken = undefined;
@@ -255,17 +289,17 @@ class Parser extends implementationOf(ExpresionParserTrait) {
      *
      * @private
      */
-    _skipSpaces() {
+    _skipSpaces(processDecorators = false) {
         if (! this._lexer.isToken(Lexer.T_SPACE)) {
             return;
         }
 
         while (this._lexer.isToken(Lexer.T_SPACE)) {
-            this._next(false);
+            this._next(false, processDecorators);
         }
     }
 
-    _next(skipSpaces = true) {
+    _next(skipSpaces = true, processDecorators = false) {
         this._lastToken = this._lexer.token;
         while (true) {
             if (this._lexer.token) {
@@ -279,7 +313,7 @@ class Parser extends implementationOf(ExpresionParserTrait) {
             this._lexer.moveNext();
 
             if (skipSpaces) {
-                this._skipSpaces();
+                this._skipSpaces(processDecorators);
             }
 
             if (this._lexer.isToken(Lexer.T_DOCBLOCK)) {
@@ -287,31 +321,15 @@ class Parser extends implementationOf(ExpresionParserTrait) {
                 continue;
             }
 
-            if (this._lexer.isToken(Lexer.T_DECORATOR_IDENTIFIER)) {
+            if (! processDecorators && this._lexer.isToken(Lexer.T_DECORATOR_IDENTIFIER)) {
                 const docblock = this._pendingDocblock;
                 this._pendingDocblock = undefined;
 
-                const value = this._lexer.token.value;
-                let expression = [];
-                this._next();
+                const decorator = this._parseDecorator();
+                this._pendingDecorators.push(decorator);
 
-                if (this._lexer.isToken(Lexer.T_OPEN_PARENTHESIS)) {
-                    expression = this._parseExpression().expression;
-
-                    if (undefined === expression) {
-                        expression = [];
-                    } else if (expression instanceof AST.SequenceExpression) {
-                        expression = expression.expressions;
-                    }
-
-                    if (! isArray(expression)) {
-                        expression = [ expression ];
-                    }
-                }
-
-
-                this._pendingDecorators.push([ value, expression ]);
                 this._pendingDocblock = docblock;
+                this._skipSpaces();
             }
 
             if (this._lexer.isToken(Lexer.T_COMMENT)) {
@@ -357,6 +375,31 @@ class Parser extends implementationOf(ExpresionParserTrait) {
                 return true;
             }
         }
+    }
+
+    _parseDecorator() {
+        const start = this._getCurrentPosition();
+        this._expect(Lexer.T_DECORATOR_IDENTIFIER);
+
+        const name = this._parseIdentifier();
+        this._skipSpaces();
+
+        let args = [];
+        if (this._lexer.isToken(Lexer.T_OPEN_PARENTHESIS)) {
+            this._next();
+            const expr = ! this._lexer.isToken(Lexer.T_CLOSED_PARENTHESIS) ? this._parseExpression() : undefined;
+            this._expect(Lexer.T_CLOSED_PARENTHESIS);
+            this._next(false);
+
+            args = undefined === expr ? [] : (expr instanceof AST.SequenceExpression ? expr.expressions : [ expr ]);
+        }
+
+        if (undefined === this._decorators[name.name]) {
+            this._syntaxError('Unknown applied "' + name.name + '" decorator.');
+        }
+
+        const location = this._makeLocation(start);
+        return this._decorators[name.name](location, ...args);
     }
 
     /**
@@ -439,6 +482,37 @@ class Parser extends implementationOf(ExpresionParserTrait) {
                 return new AST.TryStatement(this._makeLocation(start), block, handler, finalizer);
             }
 
+            case 'decorator': {
+                this._next(true, true);
+                const name = this._parseIdentifier();
+
+                if (! name.isDecoratorIdentifier) {
+                    this._syntaxError('Expected decorator identifier');
+                }
+
+                const args = this._lexer.isToken(Lexer.T_OPEN_PARENTHESIS) ? this._parseFormalParametersList() : [];
+                this._expect(Lexer.T_CURLY_BRACKET_OPEN);
+                this._next(true, true);
+
+                const innerDecorators = [];
+                while (true) {
+                    this._skipSpaces(true);
+                    if (this._lexer.isToken(Lexer.T_CURLY_BRACKET_CLOSE)) {
+                        break;
+                    }
+
+                    innerDecorators.push(this._parseDecorator());
+                }
+
+                this._next(true, true);
+                const descriptor = new AST.DecoratorDescriptor(this._makeLocation(start), name, args, innerDecorators);
+                this._decorators[name.name] = (location, ...args) => {
+                    return new AST.AppliedDecorator(location, descriptor, args);
+                };
+
+                return descriptor;
+            }
+
             case 'for': {
                 let type = FOR_PLAIN, _await = false, init = null;
 
@@ -499,8 +573,8 @@ class Parser extends implementationOf(ExpresionParserTrait) {
                 if (FOR_IN === type) {
                     return new AST.ForInStatement(this._makeLocation(start), init, right, body);
                 }
-                return new AST.ForOfStatement(this._makeLocation(start), init, right, body, _await);
 
+                return new AST.ForOfStatement(this._makeLocation(start), init, right, body, _await);
             }
 
             case 'continue': {
@@ -617,6 +691,7 @@ class Parser extends implementationOf(ExpresionParserTrait) {
             }
 
             case 'import': {
+                const state = this.state;
                 this._esModule = true;
                 this._next();
 
@@ -624,6 +699,11 @@ class Parser extends implementationOf(ExpresionParserTrait) {
                     const source = this._parseExpression();
 
                     return new AST.ImportDeclaration(this._makeLocation(start), [], source);
+                } else if (this._lexer.isToken(Lexer.T_OPEN_PARENTHESIS)) {
+                    this.state = state;
+                    const expression = this._parseExpression();
+
+                    return new AST.ExpressionStatement(this._makeLocation(start), expression);
                 }
 
                 const specifiers = [];
@@ -645,7 +725,7 @@ class Parser extends implementationOf(ExpresionParserTrait) {
                         this._next();
                     } else {
                         if (this._lexer.isToken(Lexer.T_CURLY_BRACKET_OPEN)) {
-                            this._next();
+                            this._next(true, true);
 
                             while (true) {
                                 const start = this._getCurrentPosition();
@@ -656,7 +736,8 @@ class Parser extends implementationOf(ExpresionParserTrait) {
                                     break;
                                 }
 
-                                if (this._lexer.isToken(Lexer.T_IDENTIFIER) || this._lexer.isToken(Lexer.T_KEYWORD) || this._lexer.isToken(Lexer.T_NULL)) {
+                                if (this._lexer.isToken(Lexer.T_DECORATOR_IDENTIFIER) || this._lexer.isToken(Lexer.T_IDENTIFIER) || this._lexer.isToken(Lexer.T_KEYWORD) || this._lexer.isToken(Lexer.T_NULL)) {
+                                    const decorator = this._lexer.isToken(Lexer.T_DECORATOR_IDENTIFIER);
                                     imported = local = this._parseIdentifier();
                                     this._skipSpaces();
 
@@ -664,6 +745,10 @@ class Parser extends implementationOf(ExpresionParserTrait) {
                                         this._next();
                                         local = this._parseIdentifier();
                                         this._skipSpaces();
+                                    }
+
+                                    if (decorator && ! local.isDecoratorIdentifier) {
+                                        this._syntaxError('"' + local.name + '" is not a valid decorator alias');
                                     }
 
                                     specifiers.push(new AST.ImportSpecifier(this._makeLocation(start), local, imported));
@@ -700,35 +785,43 @@ class Parser extends implementationOf(ExpresionParserTrait) {
                     this._syntaxError('import source expected');
                 }
 
+                for (const specifier of specifiers) {
+                    if (specifier instanceof AST.ImportSpecifier && specifier.local.isDecoratorIdentifier) {
+                        const local = specifier.local;
+                        const imported = specifier.imported;
+                        const sourceFn = eval(source.value);
+
+                        this._decorators[local.name] = (location, ...args) => {
+                            return new AST.AppliedDecorator(location, this._descriptorStorage.import(sourceFn, imported.name), args);
+                        };
+                    }
+                }
+
                 return new AST.ImportDeclaration(this._makeLocation(start), specifiers, source);
             }
 
             case 'export': {
-                const docblock = this._pendingDocblock;
-                this._pendingDocblock = undefined;
-
                 this._esModule = true;
                 this._next();
 
                 if ('default' === this._lexer.token.value) {
                     this._next();
                     const expression = this._parseExpression();
-                    const declaration = new AST.ExportDefaultDeclaration(this._makeLocation(start), expression);
-                    declaration.docblock = docblock;
 
-                    return declaration;
-                } else if ([ 'const', 'let', 'var' ].includes(this._lexer.token.value)) {
+                    return new AST.ExportDefaultDeclaration(this._makeLocation(start), expression);
+                } else if ([ 'decorator', 'const', 'let', 'var' ].includes(this._lexer.token.value)) {
                     const declarations = this._parseKeyword();
                     const declaration = new AST.ExportNamedDeclaration(this._makeLocation(start), declarations, [], null);
-                    declaration.docblock = docblock;
+
+                    if (declarations instanceof AST.DecoratorDescriptor) {
+                        this._descriptorStorage.register(declarations);
+                    }
 
                     return declaration;
                 } else if ([ 'function', 'class' ].includes(this._lexer.token.value)) {
                     const declaration = this._parseStatement(true);
-                    const decl = new AST.ExportNamedDeclaration(this._makeLocation(start), declaration, [], null);
-                    decl.docblock = docblock;
 
-                    return decl;
+                    return new AST.ExportNamedDeclaration(this._makeLocation(start), declaration, [], null);
                 } else if (this._lexer.isToken(Lexer.T_CURLY_BRACKET_OPEN)) {
                     this._next();
 
@@ -758,6 +851,12 @@ class Parser extends implementationOf(ExpresionParserTrait) {
                         source = this._parseExpression();
                     }
 
+                    for (const specifier of specifiers) {
+                        if (specifier.local.isDecoratorIdentifier) {
+                            this._descriptorStorage.register(this._decorators(null).decorator, specifier.exported);
+                        }
+                    }
+
                     return new AST.ExportNamedDeclaration(this._makeLocation(start), null, specifiers, source);
                 } else if ('*' === this._lexer.token.value) {
                     this._next();
@@ -768,6 +867,7 @@ class Parser extends implementationOf(ExpresionParserTrait) {
                     this._next();
                     this._expect(Lexer.T_STRING);
                     const source = this._parseExpression();
+                    this._descriptorStorage.registerAllFrom(eval(source.value));
 
                     return new AST.ExportAllDeclaration(this._makeLocation(start), source);
                 }
@@ -1134,7 +1234,7 @@ class Parser extends implementationOf(ExpresionParserTrait) {
         this._pendingDocblock = undefined;
 
         const decorators = this._pendingDecorators;
-        this._pendingDecorators = decorators;
+        this._pendingDecorators = [];
 
         this._expect(Lexer.T_OPEN_PARENTHESIS);
         const args = this._parseFormalParametersList();
@@ -1190,6 +1290,17 @@ class Parser extends implementationOf(ExpresionParserTrait) {
                     statement.docblock = docBlock;
                 }
             } break;
+
+            case statement instanceof AST.ExportNamedDeclaration:
+            case statement instanceof AST.ExportDefaultDeclaration: {
+                if (decorators.length) {
+                    statement.decorators = decorators;
+                }
+
+                if (docBlock) {
+                    statement.docblock = docBlock;
+                }
+            } break;
         }
 
         return statement;
@@ -1197,18 +1308,30 @@ class Parser extends implementationOf(ExpresionParserTrait) {
 
     _doParseStatement(skipStatementTermination) {
         const start = this._getCurrentPosition();
-        if (this._lexer.isToken(Lexer.T_CURLY_BRACKET_OPEN)) {
-            return this._parseBlockStatement();
-        }
+        const level = this._level++;
 
         try {
+            if (this._lexer.isToken(Lexer.T_CURLY_BRACKET_OPEN)) {
+                skipStatementTermination = true;
+                return this._parseBlockStatement();
+            }
+
             switch (this._lexer.token.type) {
+                case Lexer.T_DECORATOR:
                 case Lexer.T_KEYWORD: {
-                    if ('do' === this._lexer.token.value) {
+                    const keyword = this._lexer.token.value;
+                    const statement = this._parseKeyword();
+
+                    if (statement instanceof AST.DoWhileStatement) {
                         skipStatementTermination = true;
+                    } else if (0 !== level && (statement instanceof AST.ImportDeclaration ||
+                        statement instanceof AST.ExportAllDeclaration ||
+                        statement instanceof AST.ExportNamedDeclaration ||
+                        statement instanceof AST.ExportDefaultDeclaration)) {
+                        this._syntaxError('Invalid "' + keyword + '" declaration.');
                     }
 
-                    return this._parseKeyword();
+                    return statement;
                 }
 
                 case Lexer.T_OPEN_SQUARE_BRACKET:
@@ -1323,6 +1446,8 @@ class Parser extends implementationOf(ExpresionParserTrait) {
 
             throw e;
         } finally {
+            this._level--;
+
             if (! skipStatementTermination) {
                 this._expectStatementTermination();
             }

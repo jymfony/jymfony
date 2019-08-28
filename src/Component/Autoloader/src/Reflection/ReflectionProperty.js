@@ -77,12 +77,12 @@ class ReflectionProperty {
     }
 
     /**
-     * Gets the annotations for the current property getter/setter.
+     * Gets the class metadata.
      *
-     * @return {*[]}
+     * @returns {[Function, *][]}
      */
-    get annotations() {
-        return this._method[Symbol.annotations] || [];
+    get metadata() {
+        return MetadataStorage.getMetadata(this._class.getConstructor(), this._name);
     }
 }
 

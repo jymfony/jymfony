@@ -1,5 +1,6 @@
 const ClassMemberInterface = require('./ClassMemberInterface');
 const Identifier = require('./Identifier');
+const StringLiteral = require('./StringLiteral');
 
 /**
  * @memberOf Jymfony.Component.Autoloader.Parser.AST
@@ -46,7 +47,7 @@ class ClassProperty extends implementationOf(ClassMemberInterface) {
         this.docblock = null;
 
         /**
-         * @type {null|[string, Jymfony.Component.Autoloader.Parser.AST.ExpressionInterface][]}
+         * @type {null|Jymfony.Component.Autoloader.Parser.AST.AppliedDecorator[]}
          */
         this.decorators = null;
     }
@@ -67,6 +68,20 @@ class ClassProperty extends implementationOf(ClassMemberInterface) {
      */
     get static() {
         return this._static;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    compileDecorators(compiler, target, id) {
+        const key = this._key instanceof Identifier ? new StringLiteral(null, JSON.stringify(this._key.name)) : this._key;
+
+        const tail = [];
+        for (const decorator of this.decorators) {
+            tail.push(...decorator.compile(compiler, target, [ id, key ]));
+        }
+
+        return tail;
     }
 
     /**

@@ -1,13 +1,12 @@
-const ArrayExpression = require('./ArrayExpression');
 const ArrowFunctionExpression = require('./ArrowFunctionExpression');
 const AssignmentExpression = require('./AssignmentExpression');
-const BooleanLiteral = require('./BooleanLiteral');
 const BlockStatement = require('./BlockStatement');
+const CallExpression = require('./CallExpression');
 const ClassMethod = require('./ClassMethod');
 const ClassProperty = require('./ClassProperty');
+const ExpressionStatement = require('./ExpressionStatement');
 const Identifier = require('./Identifier');
 const MemberExpression = require('./MemberExpression');
-const NewExpression = require('./NewExpression');
 const NodeInterface = require('./NodeInterface');
 const NullLiteral = require('./NullLiteral');
 const ObjectExpression = require('./ObjectExpression');
@@ -62,7 +61,7 @@ class Class extends implementationOf(NodeInterface) {
         this.docblock = null;
 
         /**
-         * @type {null|[string, Jymfony.Component.Autoloader.Parser.AST.ExpressionInterface][]}
+         * @type {null|Jymfony.Component.Autoloader.Parser.AST.AppliedDecorator[]}
          */
         this.decorators = null;
     }
@@ -179,17 +178,11 @@ class Class extends implementationOf(NodeInterface) {
                         key = new StringLiteral(null, JSON.stringify(member.key.name));
                     }
 
-                    const annotations = new NullLiteral(null);
-                    if (statement.decorators) {
-                        debugger;
-                    }
-
                     fields.push(
                         new ObjectProperty(null, key, new ObjectExpression(null, [
                             new ObjectProperty(null, new Identifier(null, 'get'), new ArrowFunctionExpression(null, accessor, null, [ new Identifier(null, 'obj') ])),
                             new ObjectProperty(null, new Identifier(null, 'set'), new ArrowFunctionExpression(null, setterBody, null, [ new Identifier(null, 'obj'), new Identifier(null, 'value') ])),
                             new ObjectProperty(null, new Identifier(null, 'docblock'), statement.docblock ? new StringLiteral(null, JSON.stringify(statement.docblock)) : new NullLiteral(null)),
-                            new ObjectProperty(null, new MemberExpression(null, new Identifier(null, 'Symbol'), new Identifier(null, 'annotations')), annotations),
                         ]))
                     );
                 }
@@ -204,22 +197,10 @@ class Class extends implementationOf(NodeInterface) {
                     key = new StringLiteral(null, JSON.stringify(member.key.name));
                 }
 
-                let annotations = new NullLiteral(null);
-                if (member.decorators) {
-                    annotations = new ArrayExpression(null, member.decorators.map(([ identifier, args ]) => {
-                        return new NewExpression(
-                            null,
-                            new Identifier(null, identifier.substr(1)),
-                            null === args ? [] : args
-                        );
-                    }));
-                }
-
                 const prop = new ObjectProperty(null, key, new ObjectExpression(null, [
                     new ObjectProperty(null, new Identifier(null, 'get'), new ArrowFunctionExpression(null, accessor, null, [ new Identifier(null, 'obj') ])),
                     new ObjectProperty(null, new Identifier(null, 'set'), new ArrowFunctionExpression(null, setterBody, null, [ new Identifier(null, 'obj'), new Identifier(null, 'value') ])),
                     new ObjectProperty(null, new Identifier(null, 'docblock'), member.docblock ? new StringLiteral(null, JSON.stringify(member.docblock)) : new NullLiteral(null)),
-                    new ObjectProperty(null, new MemberExpression(null, new Identifier(null, 'Symbol'), new Identifier(null, 'annotations')), annotations),
                 ]));
 
                 if (member.static) {
@@ -235,11 +216,6 @@ class Class extends implementationOf(NodeInterface) {
             new ObjectProperty(null, new Identifier(null, 'staticFields'), new ObjectExpression(null, staticFields)),
         ];
 
-        if (this.decorators) {
-            const isAnnotation = this.decorators.some(([ id ]) => '@Annotation' === id);
-            reflectionFields.push(new ObjectProperty(null, new Identifier(null, 'annotation'), new BooleanLiteral(null, isAnnotation)));
-        }
-
         members.push(new ClassMethod(
             null,
             new BlockStatement(null, [
@@ -250,6 +226,93 @@ class Class extends implementationOf(NodeInterface) {
             [],
             { Static: true }
         ));
+    }
+
+    /**
+     * Compiles the docblock registration code.
+     *
+     * @param {Jymfony.Component.Autoloader.Parser.Compiler} compiler
+     * @param {Jymfony.Component.Autoloader.Parser.AST.Identifier} id
+     */
+    compileDocblock(compiler, id) {
+        compiler.compileNode(new ExpressionStatement(null, new AssignmentExpression(
+            null, '=',
+            new MemberExpression(null, id, new MemberExpression(null, new Identifier(null, 'Symbol'), new Identifier(null, 'docblock'), false), true),
+            this.docblock ? new StringLiteral(null, JSON.stringify(this.docblock)) : new NullLiteral(null)
+        )));
+        compiler._emit(';\n');
+
+        for (const member of this._body.members) {
+            if (! member.docblock || ! (member instanceof ClassMethod)) {
+                continue;
+            }
+
+            if ('method' === member.kind) {
+                compiler.compileNode(new ExpressionStatement(null, new AssignmentExpression(
+                    null,
+                    '=',
+                    new MemberExpression(
+                        null,
+                        new MemberExpression(
+                            null,
+                            member.static ? id : new MemberExpression(null, id, new Identifier(null, 'prototype')),
+                            member.id,
+                            ! (member.id instanceof Identifier)
+                        ),
+                        new MemberExpression(null, new Identifier(null, 'Symbol'), new Identifier(null, 'docblock'), false),
+                        true,
+                    ),
+                    member.docblock ? new StringLiteral(null, JSON.stringify(member.docblock)) : new NullLiteral(null)
+                )));
+            } else if ('get' === member.kind || 'set' === member.kind) {
+                compiler.compileNode(new ExpressionStatement(null, new AssignmentExpression(
+                    null,
+                    '=',
+                    new MemberExpression(
+                        null,
+                        new MemberExpression(
+                            null,
+                            new CallExpression(null, new MemberExpression(null, new Identifier(null, 'Object'), new Identifier(null, 'getOwnPropertyDescriptor'), false), [
+                                member.static ? id : new MemberExpression(null, id, new Identifier(null, 'prototype'), false),
+                                member.id instanceof Identifier ? new StringLiteral(null, JSON.stringify(member.id.name)) : member.id,
+                            ]),
+                            new Identifier(null, member.kind),
+                            false
+                        ),
+                        new MemberExpression(null, new Identifier(null, 'Symbol'), new Identifier(null, 'docblock'), false),
+                        true,
+                    ),
+                    member.docblock ? new StringLiteral(null, JSON.stringify(member.docblock)) : new NullLiteral(null)
+                )));
+            }
+
+            compiler._emit(';\n');
+        }
+    }
+
+    /**
+     * Compiles the decorators upon this class.
+     *
+     * @param {Jymfony.Component.Autoloader.Parser.Compiler} compiler
+     * @param {Jymfony.Component.Autoloader.Parser.AST.Identifier} id
+     *
+     * @returns {Jymfony.Component.Autoloader.Parser.AST.StatementInterface[]}
+     */
+    compileDecorators(compiler, id) {
+        if (null === this.decorators || 0 === this.decorators.length) {
+            return [];
+        }
+
+        const tail = [];
+        for (const decorator of this.decorators) {
+            tail.push(...decorator.compile(compiler, this, [ id, new NullLiteral(null) ]));
+        }
+
+        for (const member of this._body.members) {
+            tail.push(...member.compileDecorators(compiler, this, id));
+        }
+
+        return tail;
     }
 }
 

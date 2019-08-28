@@ -1,11 +1,6 @@
-const AssignmentExpression = require('./AssignmentExpression');
-const ClassExpression = require('./ClassExpression');
+const Class = require('./Class');
 const DeclarationInterface = require('./DeclarationInterface');
-const ExpressionStatement = require('./ExpressionStatement');
-const FunctionExpression = require('./FunctionExpression');
-const Identifier = require('./Identifier');
-const MemberExpression = require('./MemberExpression');
-const StringLiteral = require('./StringLiteral');
+const Function = require('./Function');
 
 /**
  * @memberOf Jymfony.Component.Autoloader.Parser.AST
@@ -57,8 +52,16 @@ class VariableDeclaration extends implementationOf(DeclarationInterface) {
      * @inheritdoc
      */
     compile(compiler) {
-        compiler._emit(this._kind + ' ');
+        let tail = [];
+        if (1 === this._declarators.length) {
+            const declarator = this._declarators[0];
+            const init = declarator.init;
+            if (init instanceof Class) {
+                tail = init.compileDecorators(compiler, declarator.id);
+            }
+        }
 
+        compiler._emit(this._kind + ' ');
         for (const i in this._declarators) {
             compiler.compileNode(this._declarators[i]);
 
@@ -71,20 +74,15 @@ class VariableDeclaration extends implementationOf(DeclarationInterface) {
             compiler._emit(';\n');
 
             const declarator = this._declarators[0];
-            if (declarator.init instanceof FunctionExpression || declarator.init instanceof ClassExpression) {
-                compiler.compileNode(new ExpressionStatement(null, new AssignmentExpression(
-                    null,
-                    '=',
-                    new MemberExpression(
-                        null,
-                        declarator.id,
-                        new MemberExpression(null, new Identifier(null, 'Symbol'), new Identifier(null, 'docblock'), false),
-                        true,
-                    ),
-                    new StringLiteral(null, JSON.stringify(this.docblock))
-                )));
-                compiler._emit(';\n');
+            const init = declarator.init;
+            if (init instanceof Function || init instanceof Class) {
+                init.compileDocblock(compiler, declarator.id);
             }
+        }
+
+        for (const statement of tail) {
+            compiler.compileNode(statement);
+            compiler._emit(';\n');
         }
     }
 }

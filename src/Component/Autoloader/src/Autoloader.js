@@ -175,7 +175,6 @@ class Autoloader {
             __construct() { }
         };
 
-        this._global.Symbol.annotations = Symbol('annotations');
         this._global.Symbol.reflection = Symbol('reflection');
         this._global.Symbol.docblock = Symbol('docblock');
 

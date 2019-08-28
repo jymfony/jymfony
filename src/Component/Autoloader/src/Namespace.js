@@ -169,7 +169,7 @@ class Namespace {
 
             try {
                 if (fn !== __filename) {
-                    mod = this._classLoader.load(fn, self);
+                    mod = this._classLoader.loadClass(fn, self);
                 } else {
                     mod = this._internalRequire(fn);
                 }

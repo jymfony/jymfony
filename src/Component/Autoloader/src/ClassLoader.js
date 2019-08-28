@@ -8,6 +8,7 @@ let Compiler;
 let Parser;
 let AST;
 
+const DescriptorStorage = require('./DescriptorStorage');
 const ManagedProxy = require('./Proxy/ManagedProxy');
 const isNyc = !! global.__coverage__;
 
@@ -15,6 +16,20 @@ const Generator = require('./Parser/SourceMap/Generator');
 const StackHandler = require('./Parser/SourceMap/StackHandler');
 const Storage = function () {};
 Storage.prototype = {};
+
+let codeCache = new Storage();
+
+/**
+ * Remove byte order marker. This catches EF BB BF (the UTF-8 BOM)
+ * because the buffer-to-string conversion in `fs.readFileSync()`
+ * translates it to FEFF, the UTF-16 BOM.
+ */
+function stripBOM(content) {
+    if (0xFEFF === content.charCodeAt(0)) {
+        content = content.slice(1);
+    }
+    return content;
+}
 
 // From node source:/lib/internal/modules/cjs/helpers.js
 const builtinLibs = [
@@ -68,11 +83,22 @@ class ClassLoader {
          */
         this._cache = new Storage();
 
+        /**
+         * @type {Jymfony.Component.Autoloader.DescriptorStorage}
+         *
+         * @private
+         */
+        this._descriptorStorage = new DescriptorStorage(this);
+
         if (undefined === Compiler) {
             Compiler = require('./Parser/Compiler');
             Parser = require('./Parser/Parser');
             AST = require('./Parser/AST');
         }
+    }
+
+    static clearCache() {
+        codeCache = new Storage();
     }
 
     /**
@@ -81,25 +107,101 @@ class ClassLoader {
      *
      * @returns {*}
      */
-    load(fn, self) {
+    loadClass(fn, self) {
+        const exports = this.loadFile(fn, self);
+
+        return exports.__esModule ? exports.default : exports;
+    }
+
+    loadFile(fn, self, exports = {}) {
+        fn = this._path.resolve(fn);
         if (this._cache[fn]) {
             return this._cache[fn];
         }
 
-        const exports = this._doLoadFile(fn, self);
-
-        return this._cache[fn] = exports.__esModule ? exports.default : exports;
+        return this._cache[fn] = this._doLoadFile(fn, self, exports);
     }
 
-    _doLoadFile(fn, self) {
-        let code = this._finder.load(fn);
+    _doLoadFile(fn, self, exports) {
+        const module = this._getModuleObject(fn, exports);
+        const dirname = module.paths[0];
+        const opts = isNyc ? fn : {
+            filename: fn,
+            produceCachedData: false,
+        };
+
+        const req = id => {
+            return this.loadFile(require.resolve(id, { paths: [ dirname ] }), null);
+        };
+
+        this._cache[fn] = module.exports;
+        req.proxy = id => {
+            if (builtinLibs.includes(id)) {
+                return require(id);
+            }
+
+            id = require.resolve(id, { paths: [ dirname ] });
+            if (this._cache[id]) {
+                return this._cache[id];
+            }
+
+            const code = this.getCode(id);
+            const exports = {};
+
+            return this._cache[id] = new ManagedProxy(exports, proxy => {
+                proxy.initializer = null;
+                proxy.target = exports;
+
+                const module = this._getModuleObject(id, exports);
+                const dirname = module.paths[0];
+
+                this._vm.runInThisContext(code.code, opts)(module.exports, req, module, id, dirname, null);
+                proxy.target = module.exports;
+
+                return null;
+            });
+        };
+
+        this._vm.runInThisContext(this.getCode(fn).code, opts)(module.exports, req, module, fn, dirname, self);
+
+        return module.exports;
+    }
+
+    _getModuleObject(fn, exports) {
+        return {
+            children: [],
+            exports,
+            filename: fn,
+            id: fn,
+            loaded: false,
+            parent: module,
+            paths: [ this._path.dirname(fn) ],
+            require: require,
+        };
+    }
+
+    /**
+     * Gets a file code.
+     *
+     * @param {string} fn
+     *
+     * @returns {{code: string, program: Jymfony.Component.Autoloader.Parser.AST.Program}}
+     */
+    getCode(fn) {
+        if (codeCache[fn]) {
+            return codeCache[fn];
+        }
+
+        let code = stripBOM(this._finder.load(fn)), program = null;
         const sourceMapGenerator = new Generator({ file: fn });
+        const descriptorStorage = this._descriptorStorage;
 
         try {
-            const parser = new Parser();
+            this._descriptorStorage = this._descriptorStorage.setFile(fn);
+            const parser = new Parser(this._descriptorStorage);
             const compiler = new Compiler(sourceMapGenerator);
 
-            const program = parser.parse(code);
+            program = parser.parse(code);
             program.prepare();
 
             const p = new AST.Program(program.location);
@@ -126,67 +228,16 @@ class ClassLoader {
             } else {
                 console.warn('Syntax error while parsing ' + fn + ': ' + err.message);
             }
+        } finally {
+            this._descriptorStorage = descriptorStorage;
         }
 
         StackHandler.registerSourceMap(fn, sourceMapGenerator.toJSON().mappings);
 
-        const dirname = this._path.dirname(fn);
-        const moduleObj = {
-            children: [],
-            exports: {},
-            filename: fn,
-            id: fn,
-            loaded: false,
-            parent: module,
-            paths: dirname,
-            require: require,
+        return codeCache[fn] = {
+            code,
+            program,
         };
-
-        const opts = isNyc ? fn : {
-            filename: fn,
-            produceCachedData: false,
-        };
-
-        const req = id => {
-            if (id.startsWith('./') || id.startsWith('../')) {
-                const resolved = this._path.resolve(dirname, id);
-                const found = this._finder.find(this._path.dirname(resolved), this._path.basename(resolved));
-
-                if (undefined === found || (! found.directory && '.js' !== this._path.extname(found.filename))) {
-                    return require(resolved);
-                } else if (found.directory) {
-                    let fn = 'index.js';
-                    try {
-                        const packageJson = JSON.parse(this._finder.load(found.directory + this._path.sep + 'package.json'));
-                        fn = packageJson.main || fn;
-                    } catch (e) {
-                        // Do nothing
-                    }
-
-                    return this._doLoadFile(found.directory + this._path.sep + fn, null);
-                }
-
-                return this._doLoadFile(found.filename, null);
-            }
-
-            return require(id);
-        };
-
-        req.proxy = id => {
-            if (builtinLibs.includes(id)) {
-                return require(id);
-            }
-
-            return new ManagedProxy({}, proxy => {
-                proxy.target = req(id);
-
-                return null;
-            });
-        };
-
-        this._vm.runInThisContext(code, opts)(moduleObj.exports, req, moduleObj, fn, dirname, self);
-
-        return moduleObj.exports;
     }
 }
 

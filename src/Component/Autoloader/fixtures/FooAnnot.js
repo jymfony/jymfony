@@ -1,5 +1,6 @@
-@Annotation()
-class FooAnnot {
+import { @Annotation } from '../src/decorators';
+
+export default class FooAnnot {
     __construct(values = {}) {
         this._values = values;
     }
@@ -9,4 +10,6 @@ class FooAnnot {
     }
 }
 
-module.exports = FooAnnot;
+export decorator @FooAnnot(values = {}) {
+    @Annotation(FooAnnot, new FooAnnot(values))
+}

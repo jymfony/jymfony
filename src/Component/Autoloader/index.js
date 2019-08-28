@@ -7,3 +7,4 @@ module.exports = autoloader;
 
 require('./src/Exception/ReflectionException');
 require('./src/Reflection/ReflectionClass');
+require('./src/Metadata/MetadataStorage');

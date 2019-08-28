@@ -1,4 +1,4 @@
-const FooAnnot = Foo.FooAnnot;
+import { @FooAnnot } from './FooAnnot';
 
 /**
  * Annotated class
@@ -6,7 +6,8 @@ const FooAnnot = Foo.FooAnnot;
  * @memberOf Foo
  */
 @FooAnnot({ value: 12 })
-class Annotated {
+@FooAnnot({ value: 24 })
+export default class Annotated {
     /**
      * @type {Object}
      *
@@ -23,5 +24,3 @@ class Annotated {
         return 'bar';
     }
 }
-
-module.exports = Annotated;

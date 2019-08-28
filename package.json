@@ -7,7 +7,7 @@
   "typings": "index.d.ts",
   "scripts": {
     "test": "npm run run-tests && eslint src/",
-    "run-tests": "node ./tests.js \"src/*/test/**/*.js\" \"src/{Component,Bundle}/*/test/**/*.js\"",
+    "run-tests": "node ./tests.js \"src/*/test/**/*.js\" \"src/{Component,Bundle}/Autoloader/test/**/*.js\"",
     "coverage": "nyc npm run run-tests && eslint src/",
     "coverage-html": "nyc --reporter=lcov npm run run-tests && eslint src/"
   },

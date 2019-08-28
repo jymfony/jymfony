@@ -123,4 +123,4 @@ class ManagedProxy {
     }
 }
 
-module.exports = ManagedProxy;
+module.exports = __jymfony.ManagedProxy = ManagedProxy;

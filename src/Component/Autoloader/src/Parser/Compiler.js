@@ -111,8 +111,6 @@ class Compiler {
      * Emits a code string.
      *
      * @param {string} code
-     *
-     * @private
      */
     _emit(code) {
         for (const char of code.split('')) {

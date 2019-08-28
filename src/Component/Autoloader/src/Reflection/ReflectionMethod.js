@@ -126,12 +126,12 @@ class ReflectionMethod {
     }
 
     /**
-     * Gets the method annotations.
+     * Gets the class metadata.
      *
-     * @returns {*[]}
+     * @returns {[Function, *][]}
      */
-    get annotations() {
-        return this._method.value[Symbol.annotations] || [];
+    get metadata() {
+        return MetadataStorage.getMetadata(this._class.getConstructor(), this._name);
     }
 }
 

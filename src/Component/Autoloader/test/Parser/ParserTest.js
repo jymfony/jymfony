@@ -1,9 +1,12 @@
 const { dirname, sep } = require('path');
 const { readdirSync, readFileSync } = require('fs');
 const folder = dirname(require.resolve('test262-parser-tests/package.json'));
+const ClassLoader = require('../../src/ClassLoader');
+const Finder = require('../../src/Finder');
 const Compiler = require('../../src/Parser/Compiler');
 const Generator = require('../../src/Parser/SourceMap/Generator');
 const Parser = require('../../src/Parser/Parser');
+const DescriptorStorage = require('../../src/DescriptorStorage');
 const { expect } = require('chai');
 
 describe('[Autoloader] Parser', function () {
@@ -87,7 +90,10 @@ describe('[Autoloader] Parser', function () {
         }
 
         it ('should pass ' + filename + ' test', ignored.includes(filename) ? undefined : () => {
-            const content = readFileSync(folder + sep + 'pass' + sep + filename, { encoding: 'utf-8' });
+            const fn = folder + sep + 'pass' + sep + filename;
+            parser._descriptorStorage = new DescriptorStorage(new ClassLoader(__jymfony.autoload.finder, require('path'), require('vm')), fn);
+
+            const content = readFileSync(fn, { encoding: 'utf-8' });
             let program = null;
 
             try {
@@ -102,4 +108,14 @@ describe('[Autoloader] Parser', function () {
             expect(program).is.not.null;
         });
     }
+
+    it ('should support cross-imports', () => {
+        const loader = new ClassLoader(new Finder(), require('path'), require('vm'));
+        const bar = loader.loadClass(__dirname + '/../../fixtures/imports/bar.js', null);
+        const foo = loader.loadClass(__dirname + '/../../fixtures/imports/foo.js', null);
+
+        const b = new bar();
+        expect(b.trial(new foo())).to.be.true;
+        expect(new foo().foo()).to.be.true;
+    });
 });

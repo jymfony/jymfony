@@ -7,6 +7,7 @@ const { join } = require('path');
  */
 require('../../src/Autoloader');
 const Namespace = require('../../src/Namespace');
+const fixturesDir = join(__dirname, '..', '..', 'fixtures');
 
 describe('[Autoloader] Annotations transpiler', () => {
     afterEach(() => {
@@ -14,16 +15,19 @@ describe('[Autoloader] Annotations transpiler', () => {
     });
 
     it('should transpile annotations', () => {
-        global.Foo = new Namespace(__jymfony.autoload, 'Foo', join(__dirname, '..', '..', 'fixtures'), require);
+        global.Foo = new Namespace(__jymfony.autoload, 'Foo', fixturesDir, require);
         const a = new Foo.Annotated();
         const r = new ReflectionClass(a);
 
-        expect(r.annotations).to.have.lengthOf(1);
-        expect(r.annotations[0]).to.be.instanceOf(Foo.FooAnnot);
-        expect(r.annotations[0]._values).to.be.deep.equal({ value: 12 });
+        const annotation = new ReflectionClass(Foo.FooAnnot).getConstructor();
 
-        expect(r.getField('_value').annotations).to.be.deep.equal([ { _values: { prop: 'test' } } ]);
-        expect(r.getMethod('getValue').annotations).to.be.deep.equal([ { _values: {} } ]);
-        expect(r.getReadableProperty('value').annotations).to.be.deep.equal([ { _values: null } ]);
+        expect(r.metadata).to.have.lengthOf(1);
+        expect(r.metadata[0][0]).to.be.eq(annotation);
+        expect(r.metadata[0][1]).to.be.instanceOf(Foo.FooAnnot);
+        expect(r.metadata[0][1]._values).to.be.deep.equal({ value: 24 });
+
+        expect(r.getField('_value').metadata).to.be.deep.equal([ [ annotation, { _values: { prop: 'test' } } ] ]);
+        expect(r.getMethod('getValue').metadata).to.be.deep.equal([ [ annotation, { _values: {} } ] ]);
+        expect(r.getReadableProperty('value').metadata).to.be.deep.equal([ [ annotation, { _values: null } ] ]);
     });
 });

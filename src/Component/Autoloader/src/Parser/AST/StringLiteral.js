@@ -22,6 +22,15 @@ class StringLiteral extends Literal {
     }
 
     /**
+     * Gets the string literal value.
+     *
+     * @returns {string}
+     */
+    get value() {
+        return this._value;
+    }
+
+    /**
      * @inheritdoc
      */
     compile(compiler) {

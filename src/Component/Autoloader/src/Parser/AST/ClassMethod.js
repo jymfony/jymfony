@@ -1,6 +1,7 @@
+const ClassMemberInterface = require('./ClassMemberInterface');
 const Function = require('./Function');
 const Identifier = require('./Identifier');
-const ClassMemberInterface = require('./ClassMemberInterface');
+const StringLiteral = require('./StringLiteral');
 
 /**
  * @memberOf Jymfony.Component.Autoloader.Parser.AST
@@ -66,6 +67,20 @@ class ClassMethod extends mix(Function, ClassMemberInterface) {
      */
     get static() {
         return this._static;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    compileDecorators(compiler, target, id) {
+        const key = this._id instanceof Identifier ? new StringLiteral(null, JSON.stringify(this._id.name)) : this._id;
+
+        const tail = [];
+        for (const decorator of this.decorators) {
+            tail.push(...decorator.compile(compiler, this, [ id, key ]));
+        }
+
+        return tail;
     }
 
     /**

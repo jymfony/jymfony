@@ -1,4 +1,5 @@
 src/Component/Autoloader/fixtures
+src/Component/Autoloader/src/decorators
 src/Component/DependencyInjection/fixtures/js
 src/Component/Templating/fixtures
 src/Component/VarExporter/fixtures
