@@ -16,6 +16,14 @@ export default class Annotated {
     @FooAnnot({ prop: 'test' })
     _value;
 
+    /**
+     * @type {Object}
+     *
+     * @private
+     */
+    @FooAnnot({ prop: 'test' })
+    _initValue = 'init';
+
     @FooAnnot(null)
     get value() { return 'pizza'; }
 

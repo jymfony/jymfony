@@ -25,6 +25,15 @@ class ClassBody extends implementationOf(NodeInterface) {
     }
 
     /**
+     * Adds a class member.
+     *
+     * @param {Jymfony.Component.Autoloader.Parser.AST.ClassMemberInterface} member
+     */
+    addMember(member) {
+        this._body.push(member);
+    }
+
+    /**
      * Gets class member array.
      * Not a shallow copy.
      *

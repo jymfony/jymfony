@@ -43,6 +43,7 @@ module.exports = {
     ImportDefaultSpecifier: require('./ImportDefaultSpecifier'),
     ImportNamespaceSpecifier: require('./ImportNamespaceSpecifier'),
     ImportSpecifier: require('./ImportSpecifier'),
+    InitializeDecorator: require('./InitializeDecorator'),
     LabeledStatement: require('./LabeledStatement'),
     MemberExpression: require('./MemberExpression'),
     NewExpression: require('./NewExpression'),

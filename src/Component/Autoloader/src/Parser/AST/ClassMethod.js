@@ -76,8 +76,8 @@ class ClassMethod extends mix(Function, ClassMemberInterface) {
         const key = this._id instanceof Identifier ? new StringLiteral(null, JSON.stringify(this._id.name)) : this._id;
 
         const tail = [];
-        for (const decorator of this.decorators) {
-            tail.push(...decorator.compile(compiler, this, [ id, key ]));
+        for (const decorator of this.decorators || []) {
+            tail.push(...decorator.compile(compiler, target, [ id, key ]));
         }
 
         return tail;

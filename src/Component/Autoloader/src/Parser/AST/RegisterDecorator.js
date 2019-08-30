@@ -3,6 +3,8 @@ const ArrowFunctionExpression = require('./ArrowFunctionExpression');
 const CallExpression = require('./CallExpression');
 const ExpressionStatement = require('./ExpressionStatement');
 const Identifier = require('./Identifier');
+const VariableDeclaration = require('./VariableDeclaration');
+const VariableDeclarator = require('./VariableDeclarator');
 const { createHash } = require('crypto');
 
 /**
@@ -51,6 +53,22 @@ class RegisterDecorator extends AppliedDecorator {
      */
     get callback() {
         return new ArrowFunctionExpression(null, this.args[0]);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    compile(compiler, target, id) {
+        const variableName = compiler.generateVariableName();
+        compiler.compileNode(new VariableDeclaration(null, 'const', [
+            new VariableDeclarator(null,
+                new Identifier(null, variableName),
+                this.args[0]
+            ),
+        ]));
+        compiler._emit(';\n');
+
+        return this.apply(compiler, target, id, variableName);
     }
 }
 

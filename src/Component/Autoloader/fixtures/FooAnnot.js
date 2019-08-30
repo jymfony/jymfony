@@ -12,4 +12,5 @@ export default class FooAnnot {
 
 export decorator @FooAnnot(values = {}) {
     @Annotation(FooAnnot, new FooAnnot(values))
+    @initialize(() => {})
 }

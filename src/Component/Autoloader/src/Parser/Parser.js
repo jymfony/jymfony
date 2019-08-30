@@ -96,6 +96,9 @@ class Parser extends implementationOf(ExpresionParserTrait) {
          * @private
          */
         this._decorators = {
+            '@initialize': (location, callback) => {
+                return new AST.InitializeDecorator(location, callback);
+            },
             '@register': (location, callback) => {
                 return new AST.RegisterDecorator(location, callback);
             },
@@ -325,8 +328,9 @@ class Parser extends implementationOf(ExpresionParserTrait) {
                 const docblock = this._pendingDocblock;
                 this._pendingDocblock = undefined;
 
-                const decorator = this._parseDecorator();
-                this._pendingDecorators.push(decorator);
+                const decorators = this._pendingDecorators;
+                decorators.push(this._parseDecorator());
+                this._pendingDecorators = decorators;
 
                 this._pendingDocblock = docblock;
                 this._skipSpaces();

@@ -130,6 +130,24 @@ class Class extends implementationOf(NodeInterface) {
     }
 
     /**
+     * Class has constructor.
+     *
+     * @returns {Jymfony.Component.Autoloader.Parser.AST.ClassMethod|null}
+     */
+    getConstructor() {
+        for (const member of this._body._body) {
+            if (member instanceof ClassMethod) {
+                const id = member._id;
+                if (null !== id && 'constructor' === id._name) {
+                    return member;
+                }
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * @inheritdoc
      */
     compile(compiler) {

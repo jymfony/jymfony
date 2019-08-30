@@ -71,6 +71,22 @@ class ClassProperty extends implementationOf(ClassMemberInterface) {
     }
 
     /**
+     * Gets the initialization value.
+     *
+     * @returns {Jymfony.Component.Autoloader.Parser.AST.ExpressionInterface}
+     */
+    get value() {
+        return this._value;
+    }
+
+    /**
+     * Clears out the initialization value.
+     */
+    clearValue() {
+        this._value = null;
+    }
+
+    /**
      * @inheritdoc
      */
     compileDecorators(compiler, target, id) {
