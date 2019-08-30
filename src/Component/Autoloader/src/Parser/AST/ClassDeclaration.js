@@ -8,11 +8,6 @@ class ClassDeclaration extends mix(Class, DeclarationInterface) {
     compile(compiler) {
         this.compileDecorators(compiler, this.id);
         super.compile(compiler);
-
-        if (this.decorators) {
-            debugger;
-        }
-
         this.compileDocblock(compiler, this.id);
     }
 }

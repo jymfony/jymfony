@@ -177,11 +177,7 @@ class ClassLoader {
             });
         };
 
-        try {
-            this._vm.runInThisContext(this.getCode(fn).code, opts)(module.exports, req, module, fn, dirname, self);
-        } catch (e) {
-            console.log(e.stack); process.exit(1);
-        }
+        this._vm.runInThisContext(this.getCode(fn).code, opts)(module.exports, req, module, fn, dirname, self);
 
         return _cache[fn] = module.exports;
     }

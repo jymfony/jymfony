@@ -83,7 +83,7 @@ describe('[Autoloader] Namespace', function () {
                 };
             },
             load: (fn) => {
-                expect(fn).to.be.equal('/var/node/foo_vendor/FooClass.js');
+                expect(fn).to.be.equal(__jymfony.Platform.isWindows() ? 'C:\\var\\node\\foo_vendor\\FooClass.js' : '/var/node/foo_vendor/FooClass.js');
                 return '';
             },
         };
@@ -128,7 +128,7 @@ describe('[Autoloader] Namespace', function () {
                 }
             },
             load: (fn) => {
-                expect(fn).to.be.equal('/var/node/foo_vendor/FooClass.js');
+                expect(fn).to.be.equal(__jymfony.Platform.isWindows() ? 'C:\\var\\node\\foo_vendor\\FooClass.js' : '/var/node/foo_vendor/FooClass.js');
                 return 'module.exports = function () { };';
             },
         };
@@ -168,7 +168,7 @@ describe('[Autoloader] Namespace', function () {
 
             },
             load: fn => {
-                expect(fn).to.be.equal('/var/node/foo_vendor/FooClass.js');
+                expect(fn).to.be.equal(__jymfony.Platform.isWindows() ? 'C:\\var\\node\\foo_vendor\\FooClass.js' : '/var/node/foo_vendor/FooClass.js');
                 return 'module.exports = class FooClass {}';
             },
         };
@@ -210,7 +210,7 @@ describe('[Autoloader] Namespace', function () {
 
             },
             load: fn => {
-                expect(fn).to.be.equal('/var/node/foo_vendor/FooClass.js');
+                expect(fn).to.be.equal(__jymfony.Platform.isWindows() ? 'C:\\var\\node\\foo_vendor\\FooClass.js' : '/var/node/foo_vendor/FooClass.js');
                 return `module.exports = class FooClass {
                     __construct(arg) {
                         this.constructCalled = arg;
@@ -257,13 +257,13 @@ describe('[Autoloader] Namespace', function () {
                 throw new Error('Unexpected argument');
             },
             load: fn => {
-                if ('/var/node/foo_vendor/FooClass.js' === fn) {
+                if ((__jymfony.Platform.isWindows() ? 'C:\\var\\node\\foo_vendor\\FooClass.js' : '/var/node/foo_vendor/FooClass.js') === fn) {
                     return `module.exports = class FooClass extends __ns.BarClass {
                         __construct(arg) {
                             this.constructCalled = arg;
                         }
                     }`;
-                } else if ('/var/node/foo_vendor/BarClass.js' === fn) {
+                } else if ((__jymfony.Platform.isWindows() ? 'C:\\var\\node\\foo_vendor\\BarClass.js' : '/var/node/foo_vendor/BarClass.js') === fn) {
                     return `module.exports = class BarClass {
                         __construct(arg) {
                             this.superCalled = arg;

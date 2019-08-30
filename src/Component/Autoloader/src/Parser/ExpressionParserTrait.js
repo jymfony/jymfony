@@ -292,10 +292,6 @@ class ExpressionParserTrait {
             // Level 19-18
             switch (this._lexer.token.type) {
                 case Lexer.T_DOT: {
-                    if (undefined === expression) {
-                        debugger;
-                    }
-
                     this._next();
                     const optional = false;
                     const property = this._parseIdentifier();
@@ -304,10 +300,6 @@ class ExpressionParserTrait {
                 } break;
 
                 case Lexer.T_OPEN_SQUARE_BRACKET: {
-                    if (null === expression) {
-                        debugger;
-                    }
-
                     this._next();
                     const optional = false;
                     const property = this._parseExpression();

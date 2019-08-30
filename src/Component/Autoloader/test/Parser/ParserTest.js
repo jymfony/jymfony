@@ -94,16 +94,10 @@ describe('[Autoloader] Parser', function () {
             parser._descriptorStorage = new DescriptorStorage(new ClassLoader(__jymfony.autoload.finder, require('path'), require('vm')), fn);
 
             const content = readFileSync(fn, { encoding: 'utf-8' });
-            let program = null;
+            const program = parser.parse(content);
 
-            try {
-                program = parser.parse(content);
-
-                const compiler = new Compiler(new Generator());
-                compiler.compile(program);
-            } catch (e) {
-                console.log(e.message, e.stack); process.exit(1);
-            }
+            const compiler = new Compiler(new Generator());
+            compiler.compile(program);
 
             expect(program).is.not.null;
         });

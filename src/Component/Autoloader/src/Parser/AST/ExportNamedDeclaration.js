@@ -62,10 +62,6 @@ class ExportNamedDeclaration extends implementationOf(ModuleDeclarationInterface
      * @inheritdoc
      */
     compile(compiler) {
-        if (this.docblock) {
-            debugger;
-        }
-
         if (null === this._declarations) {
             for (const specifier of this._specifiers) {
                 compiler.compileNode(
