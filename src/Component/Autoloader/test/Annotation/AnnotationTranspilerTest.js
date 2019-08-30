@@ -14,7 +14,7 @@ describe('[Autoloader] Annotations transpiler', () => {
         delete global.Foo;
     });
 
-    it('should transpile annotations', () => {
+    it('should transpile annotations', __jymfony.Platform.hasPublicFieldSupport() ? () => {
         global.Foo = new Namespace(__jymfony.autoload, 'Foo', fixturesDir, require);
         const a = new Foo.Annotated();
         const r = new ReflectionClass(a);
@@ -29,5 +29,5 @@ describe('[Autoloader] Annotations transpiler', () => {
         expect(r.getField('_value').metadata).to.be.deep.equal([ [ annotation, { _values: { prop: 'test' } } ] ]);
         expect(r.getMethod('getValue').metadata).to.be.deep.equal([ [ annotation, { _values: {} } ] ]);
         expect(r.getReadableProperty('value').metadata).to.be.deep.equal([ [ annotation, { _values: null } ] ]);
-    });
+    } : undefined);
 });

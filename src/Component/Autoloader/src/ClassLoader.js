@@ -20,6 +20,17 @@ Storage.prototype = {};
 let codeCache = new Storage();
 let _cache = new Storage();
 
+let { resolve } = require;
+if (__jymfony.version_compare(process.versions.v8, '10.0.0', '<')) {
+    resolve = (id, { paths }) => {
+        if (id.startsWith('.')) {
+            return require.resolve(id, { paths });
+        }
+
+        return require.resolve(id, { paths: [ paths[0] + '/node_modules' ] });
+    };
+}
+
 /**
  * Remove byte order marker. This catches EF BB BF (the UTF-8 BOM)
  * because the buffer-to-string conversion in `fs.readFileSync()`
@@ -130,7 +141,7 @@ class ClassLoader {
                 return require(id);
             }
 
-            id = require.resolve(id, { paths: [ dirname ] });
+            id = resolve(id, { paths: [ dirname ] });
             if (! id.endsWith('.js')) {
                 return require(id);
             }
@@ -166,7 +177,11 @@ class ClassLoader {
             });
         };
 
-        this._vm.runInThisContext(this.getCode(fn).code, opts)(module.exports, req, module, fn, dirname, self);
+        try {
+            this._vm.runInThisContext(this.getCode(fn).code, opts)(module.exports, req, module, fn, dirname, self);
+        } catch (e) {
+            console.log(e.stack); process.exit(1);
+        }
 
         return _cache[fn] = module.exports;
     }
