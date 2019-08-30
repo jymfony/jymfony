@@ -18,6 +18,7 @@ const Storage = function () {};
 Storage.prototype = {};
 
 let codeCache = new Storage();
+let _cache = new Storage();
 
 /**
  * Remove byte order marker. This catches EF BB BF (the UTF-8 BOM)
@@ -77,13 +78,6 @@ class ClassLoader {
         this._vm = vm;
 
         /**
-         * @type {Object}
-         *
-         * @private
-         */
-        this._cache = new Storage();
-
-        /**
          * @type {Jymfony.Component.Autoloader.DescriptorStorage}
          *
          * @private
@@ -99,6 +93,7 @@ class ClassLoader {
 
     static clearCache() {
         codeCache = new Storage();
+        _cache = new Storage();
     }
 
     /**
@@ -115,11 +110,11 @@ class ClassLoader {
 
     loadFile(fn, self, exports = {}) {
         fn = this._path.resolve(fn);
-        if (this._cache[fn]) {
-            return this._cache[fn];
+        if (_cache[fn]) {
+            return _cache[fn];
         }
 
-        return this._cache[fn] = this._doLoadFile(fn, self, exports);
+        return _cache[fn] = this._doLoadFile(fn, self, exports);
     }
 
     _doLoadFile(fn, self, exports) {
@@ -131,24 +126,33 @@ class ClassLoader {
         };
 
         const req = id => {
-            return this.loadFile(require.resolve(id, { paths: [ dirname ] }), null);
+            if (builtinLibs.includes(id)) {
+                return require(id);
+            }
+
+            id = require.resolve(id, { paths: [ dirname ] });
+            if (! id.endsWith('.js')) {
+                return require(id);
+            }
+
+            return this.loadFile(id, null);
         };
 
-        this._cache[fn] = module.exports;
+        _cache[fn] = module.exports;
         req.proxy = id => {
             if (builtinLibs.includes(id)) {
                 return require(id);
             }
 
             id = require.resolve(id, { paths: [ dirname ] });
-            if (this._cache[id]) {
-                return this._cache[id];
+            if (_cache[id]) {
+                return _cache[id];
             }
 
             const code = this.getCode(id);
             const exports = {};
 
-            return this._cache[id] = new ManagedProxy(exports, proxy => {
+            return _cache[id] = new ManagedProxy(exports, proxy => {
                 proxy.initializer = null;
                 proxy.target = exports;
 
@@ -164,7 +168,7 @@ class ClassLoader {
 
         this._vm.runInThisContext(this.getCode(fn).code, opts)(module.exports, req, module, fn, dirname, self);
 
-        return module.exports;
+        return _cache[fn] = module.exports;
     }
 
     _getModuleObject(fn, exports) {

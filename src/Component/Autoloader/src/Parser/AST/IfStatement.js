@@ -48,6 +48,7 @@ class IfStatement extends implementationOf(StatementInterface) {
         compiler.compileNode(this._test);
         compiler._emit(') ');
         compiler.compileNode(this._consequent);
+        compiler._emit('\n');
 
         if (null !== this._alternate) {
             compiler._emit(' else ');
