@@ -20,6 +20,19 @@ describe('[Exceptions] Exception', function () {
         return expect(ex.stack).to.be.not.empty;
     });
 
+    it('should parse stack traces without line', () => {
+        const stack = `
+    at CallCenter.makeCall (/var/jymfony/src/Component/Testing/src/Call/CallCenter.js)
+    at ObjectProphecy.makeProphecyMethodCall (/var/jymfony/src/Component/Testing/src/Prophecy/ObjectProphecy.js)
+    at /var/jymfony/src/Component/EventDispatcher/src/Debug/TraceableEventDispatcher.js`;
+
+        expect(Exception.parseStackTrace({ stack })).to.be.deep.equal([
+            { file: '/var/jymfony/src/Component/Testing/src/Call/CallCenter.js', function: 'CallCenter.makeCall', line: 0 },
+            { file: '/var/jymfony/src/Component/Testing/src/Prophecy/ObjectProphecy.js', function: 'ObjectProphecy.makeProphecyMethodCall', line: 0 },
+            { file: '/var/jymfony/src/Component/EventDispatcher/src/Debug/TraceableEventDispatcher.js', function: '?', line: 0 },
+        ]);
+    });
+
     const [ major, minor ] = process.versions.v8.split('.', 3);
     it('should parse async stack traces', 7 < ~~major || (7 === ~~major && 3 <= ~~minor) ? () => {
         async function functionOne() {
