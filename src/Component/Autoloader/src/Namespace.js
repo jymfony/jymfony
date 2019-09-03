@@ -228,11 +228,11 @@ class Namespace {
 
         return self = new ManagedProxy(FunctionPrototype, init, {
             get: (target, key) => {
-                if ('toString' === key && ! Reflect.has(target, key)) {
+                if ('toString' === key && target[key] === FunctionPrototype.toString) {
                     return FunctionPrototype.toString.bind(target);
                 }
 
-                if ('valueOf' === key && ! Reflect.has(target, key)) {
+                if ('valueOf' === key && target[key] === FunctionPrototype.valueOf) {
                     return FunctionPrototype.valueOf.bind(target);
                 }
 
