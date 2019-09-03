@@ -114,6 +114,30 @@ export default class ResponseHeaderBag extends HeaderBag {
     }
 
     /**
+     * @inheritdoc
+     */
+    remove(key) {
+        const uniqueKey = key.toLowerCase().replace(/_/g, '-');
+        delete this._headerNames[uniqueKey];
+
+        if ('set-cookie' === uniqueKey) {
+            this._cookies = {};
+
+            return;
+        }
+
+        super.remove(key);
+
+        if ('cache-control' === uniqueKey) {
+            this._computedCacheControl = {};
+        }
+
+        if ('date' === uniqueKey) {
+            this._initDate();
+        }
+    }
+
+    /**
      * Generates a HTTP Content-Disposition field-value.
      *
      * @param {string} disposition One of "inline" or "attachment"

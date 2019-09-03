@@ -26,7 +26,8 @@ export default class RedirectResponse extends Response {
             throw new InvalidArgumentException(__jymfony.sprintf('The HTTP status code is not a redirect ("%s" given).', status));
         }
 
-        if (Response.HTTP_MOVED_PERMANENTLY === this.statusCode && ! headers.hasOwnProperty('cache-control')) {
+        const headerKeys = Object.keys(headers).map(v => v.toLowerCase());
+        if (Response.HTTP_MOVED_PERMANENTLY === this.statusCode && ! headerKeys.includes('cache-control')) {
             this.headers.remove('cache-control');
         }
     }

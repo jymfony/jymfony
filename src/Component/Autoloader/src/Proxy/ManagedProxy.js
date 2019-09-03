@@ -42,7 +42,7 @@ class ManagedProxy {
             has: (target, key) => {
                 this._initializer = this._initializer && this._initializer(this);
 
-                return traps.has(this._target, key, value);
+                return traps.has(this._target, key);
             },
             deleteProperty: (target, key) => {
                 this._initializer = this._initializer && this._initializer(this);
