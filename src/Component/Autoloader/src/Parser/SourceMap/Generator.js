@@ -13,7 +13,6 @@ class Generator {
      * Constructor.
      *
      * @param {null|string} [file] The filename of the source.
-     * @param {null|string} [sourceRoot]  A root for all relative paths in this source map.
      * @param {boolean} [skipValidation = false]
      */
     constructor({ file = null, skipValidation = false } = {}) {
@@ -70,6 +69,34 @@ class Generator {
      */
     set sourceContent(content) {
         this._sourceContent = !! content ? String(content) : null;
+    }
+
+    /**
+     * Externalize the source map.
+     */
+    toJSON() {
+        const map = {
+            version: 3,
+            sources: [ this._file ],
+            mappings: this._serializeMappings(),
+        };
+
+        if (null != this._file) {
+            map.file = this._file;
+        }
+
+        if (this._sourceContent) {
+            map.sourcesContent = [ this._sourceContent ];
+        }
+
+        return map;
+    }
+
+    /**
+     * Render the source map being generated to a string.
+     */
+    toString() {
+        return JSON.stringify(this.toJSON());
     }
 
     /**
@@ -162,34 +189,6 @@ class Generator {
         }
 
         return result;
-    }
-
-    /**
-     * Externalize the source map.
-     */
-    toJSON() {
-        const map = {
-            version: 3,
-            sources: [ this._file ],
-            mappings: this._serializeMappings(),
-        };
-
-        if (null != this._file) {
-            map.file = this._file;
-        }
-
-        if (this._sourceContent) {
-            map.sourcesContent = [ this._sourceContent ];
-        }
-
-        return map;
-    }
-
-    /**
-     * Render the source map being generated to a string.
-     */
-    toString() {
-        return JSON.stringify(this.toJSON());
     }
 }
 

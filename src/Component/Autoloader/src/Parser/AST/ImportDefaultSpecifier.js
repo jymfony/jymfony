@@ -32,6 +32,13 @@ class ImportDefaultSpecifier extends implementationOf(ImportSpecifierInterface) 
     get local() {
         return this._local;
     }
+
+    /**
+     * @inheritdoc
+     */
+    compile(/* compiler */) {
+        throw new Error('Should not be called');
+    }
 }
 
 module.exports = ImportDefaultSpecifier;

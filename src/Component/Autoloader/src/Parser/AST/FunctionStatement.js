@@ -4,7 +4,7 @@ const Function = require('./Function');
 /**
  * @memberOf Jymfony.Component.Autoloader.Parser.AST
  */
-class FunctionExpression extends mix(Function, StatementInterface) {
+class FunctionStatement extends mix(Function, StatementInterface) {
     /**
      * @inheritdoc
      */
@@ -29,4 +29,4 @@ class FunctionExpression extends mix(Function, StatementInterface) {
     }
 }
 
-module.exports = FunctionExpression;
+module.exports = FunctionStatement;

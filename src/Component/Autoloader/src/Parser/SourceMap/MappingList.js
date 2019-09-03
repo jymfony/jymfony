@@ -29,16 +29,6 @@ class MappingList {
     }
 
     /**
-     * Iterate through internal items. This method takes the same arguments that
-     * `Array.prototype.forEach` takes.
-     *
-     * NOTE: The order of the mappings is NOT guaranteed.
-     */
-    unsortedForEach(aCallback, aThisArg) {
-        this._array.forEach(aCallback, aThisArg);
-    }
-
-    /**
      * Add the given source mapping.
      *
      * @param {Jymfony.Component.Autoloader.Parser.SourceMap.Mapping} mapping

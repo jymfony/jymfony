@@ -2,7 +2,7 @@ const AST = require('./AST');
 const Lexer = require('./Lexer');
 
 const NotARegExpException = require('./Exception/NotARegExpException');
-const ExpresionParserTrait = require('./ExpressionParserTrait');
+const ExpressionParserTrait = require('./ExpressionParserTrait');
 
 const FOR_PLAIN = 1;
 const FOR_IN = 2;
@@ -11,7 +11,7 @@ const FOR_OF = 3;
 /**
  * @memberOf Jymfony.Component.Autoloader.Parser
  */
-class Parser extends implementationOf(ExpresionParserTrait) {
+class Parser extends implementationOf(ExpressionParserTrait) {
     /**
      * Constructor.
      *

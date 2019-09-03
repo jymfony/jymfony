@@ -1,7 +1,7 @@
 /**
  * @type {WeakMap<object, Object.<*, Map<*, *>>>}
  */
-const storage = new Map();
+const storage = new WeakMap();
 const classSymbol = Symbol('class');
 
 class MetadataStorage {

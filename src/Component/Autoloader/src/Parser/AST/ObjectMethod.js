@@ -12,8 +12,8 @@ class ObjectMethod extends mix(Function, ObjectMember) {
      * @param {Jymfony.Component.Autoloader.Parser.AST.SourceLocation} location
      * @param {Jymfony.Component.Autoloader.Parser.AST.BlockStatement} body
      * @param {Jymfony.Component.Autoloader.Parser.AST.Identifier} id
-     * @param {Jymfony.Component.Autoloader.Parser.AST.PatternInterface[]} params
      * @param {string} kind
+     * @param {Jymfony.Component.Autoloader.Parser.AST.PatternInterface[]} params
      * @param {boolean} generator
      * @param {boolean} async
      */

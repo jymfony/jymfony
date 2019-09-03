@@ -1,9 +1,9 @@
-const ImportSpecifierInterface = require('./ImportSpecifierInterface');
+const NodeInterface = require('./NodeInterface');
 
 /**
  * @memberOf Jymfony.Component.Autoloader.Parser.AST
  */
-class ExportSpecifier extends implementationOf(ImportSpecifierInterface) {
+class ExportSpecifier extends implementationOf(NodeInterface) {
     /**
      * Constructor.
      *
@@ -48,6 +48,13 @@ class ExportSpecifier extends implementationOf(ImportSpecifierInterface) {
      */
     get exported() {
         return this._exported;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    compile(/* compiler */) {
+        throw new Error('Should not be called');
     }
 }
 

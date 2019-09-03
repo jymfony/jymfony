@@ -161,6 +161,11 @@ declare class ReflectionClass<T = any> {
      * Get interfaces reflection classes.
      */
     readonly interfaces: ReflectionClass[];
+
+    /**
+     * Gets the class metadata.
+     */
+    readonly metadata: [Newable<any>, any];
 }
 
 /**
@@ -205,6 +210,11 @@ declare class ReflectionMethod {
      * Docblock.
      */
     readonly docblock: string;
+
+    /**
+     * Gets the class metadata.
+     */
+    readonly metadata: [Newable<any>, any];
 }
 
 /**
@@ -248,6 +258,11 @@ declare class ReflectionField {
     /* writeonly */ accessible: boolean;
 
     /**
+     * Gets the class metadata.
+     */
+    readonly metadata: [Newable<any>, any];
+
+    /**
      * Gets the field current value.
      */
     getValue(object: any): any;
@@ -263,6 +278,53 @@ declare class ReflectionField {
     private _checkAccessible(): void;
 }
 
+/**
+ * Reflection utility for class method.
+ */
+declare class ReflectionProperty {
+    public static readonly KIND_GET = 'get';
+    public static readonly KIND_SET = 'set';
+
+    private _class: ReflectionClass;
+    private _name: string;
+    private _method: Invokable;
+    private _docblock: string;
+
+    /**
+     * Constructor.
+     *
+     * @param {ReflectionClass} reflectionClass
+     * @param {string} kind
+     * @param {string} propertyName
+     */
+    constructor(reflectionClass: ReflectionClass, kind: 'get' | 'set', propertyName: string);
+
+    /**
+     * Gets the reflection class.
+     */
+    readonly reflectionClass: ReflectionClass;
+
+    /**
+     * Gets the method name.
+     *
+     * @returns {string}
+     */
+    readonly name: string;
+
+    /**
+     * Docblock.
+     *
+     * @returns {string}
+     */
+    readonly docblock: string;
+
+    /**
+     * Gets the class property metadata.
+     */
+    readonly metadata: [Newable<any>, any];
+}
+
+
 declare class ReflectionException extends Error {}
 
 declare interface SymbolConstructor {
@@ -276,5 +338,6 @@ declare module NodeJS {
         ReflectionException: Newable<ReflectionException>;
         ReflectionField: Newable<ReflectionField>;
         ReflectionMethod: Newable<ReflectionMethod>;
+        ReflectionProperty: Newable<ReflectionProperty>;
     }
 }

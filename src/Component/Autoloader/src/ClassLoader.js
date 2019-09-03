@@ -102,12 +102,17 @@ class ClassLoader {
         }
     }
 
+    /**
+     * Clears the code/compiler cache.
+     */
     static clearCache() {
         codeCache = new Storage();
         _cache = new Storage();
     }
 
     /**
+     * Loads a class.
+     *
      * @param {string} fn
      * @param {*} self
      *
@@ -119,6 +124,15 @@ class ClassLoader {
         return exports.__esModule ? exports.default : exports;
     }
 
+    /**
+     * Loads a file and returns the file exports.
+     *
+     * @param {string} fn
+     * @param {*} self
+     * @param {*} exports
+     *
+     * @returns {*}
+     */
     loadFile(fn, self, exports = {}) {
         fn = this._path.resolve(fn);
         if (_cache[fn]) {
@@ -128,6 +142,76 @@ class ClassLoader {
         return _cache[fn] = this._doLoadFile(fn, self, exports);
     }
 
+    /**
+     * Gets a file code.
+     *
+     * @param {string} fn
+     *
+     * @returns {{code: string, program: Jymfony.Component.Autoloader.Parser.AST.Program}}
+     */
+    getCode(fn) {
+        if (codeCache[fn]) {
+            return codeCache[fn];
+        }
+
+        let code = stripBOM(this._finder.load(fn)), program = null;
+        const sourceMapGenerator = new Generator({ file: fn });
+        const descriptorStorage = this._descriptorStorage;
+
+        try {
+            this._descriptorStorage = this._descriptorStorage.setFile(fn);
+            const parser = new Parser(this._descriptorStorage);
+            const compiler = new Compiler(sourceMapGenerator);
+
+            program = parser.parse(code);
+            program.prepare();
+
+            const p = new AST.Program(program.location);
+            p.add(new AST.ParenthesizedExpression(null,
+                new AST.FunctionExpression(null, new AST.BlockStatement(null, [
+                    new AST.StringLiteral(null, '\'use strict\''),
+                    ...program.body,
+                ]), null, [
+                    new AST.Identifier(null, 'exports'),
+                    new AST.Identifier(null, 'require'),
+                    new AST.Identifier(null, 'module'),
+                    new AST.Identifier(null, '__filename'),
+                    new AST.Identifier(null, '__dirname'),
+                    new AST.Identifier(null, '__self'),
+                ])
+            ));
+
+            code = compiler.compile(p);
+            StackHandler.registerSourceMap(fn, sourceMapGenerator.toJSON().mappings);
+        } catch (err) {
+            // Compiler have failed. Code is unpatched, but can be included.
+
+            if (! (err instanceof SyntaxError)) {
+                throw err;
+            } else {
+                console.warn('Syntax error while parsing ' + fn + ': ' + err.message);
+            }
+        } finally {
+            this._descriptorStorage = descriptorStorage;
+        }
+
+        return codeCache[fn] = {
+            code,
+            program,
+        };
+    }
+
+    /**
+     * Internal file loader.
+     *
+     * @param {string} fn
+     * @param {*} self
+     * @param {*} exports
+     *
+     * @returns {*}
+     *
+     * @private
+     */
     _doLoadFile(fn, self, exports) {
         const module = this._getModuleObject(fn, exports);
         const dirname = module.paths[0];
@@ -192,66 +276,6 @@ class ClassLoader {
             parent: module,
             paths: [ this._path.dirname(fn) ],
             require: require,
-        };
-    }
-
-    /**
-     * Gets a file code.
-     *
-     * @param {string} fn
-     *
-     * @returns {{code: string, program: Jymfony.Component.Autoloader.Parser.AST.Program}}
-     */
-    getCode(fn) {
-        if (codeCache[fn]) {
-            return codeCache[fn];
-        }
-
-        let code = stripBOM(this._finder.load(fn)), program = null;
-        const sourceMapGenerator = new Generator({ file: fn });
-        const descriptorStorage = this._descriptorStorage;
-
-        try {
-            this._descriptorStorage = this._descriptorStorage.setFile(fn);
-            const parser = new Parser(this._descriptorStorage);
-            const compiler = new Compiler(sourceMapGenerator);
-
-            program = parser.parse(code);
-            program.prepare();
-
-            const p = new AST.Program(program.location);
-            p.add(new AST.ParenthesizedExpression(null,
-                new AST.FunctionExpression(null, new AST.BlockStatement(null, [
-                    new AST.StringLiteral(null, '\'use strict\''),
-                    ...program.body,
-                ]), null, [
-                    new AST.Identifier(null, 'exports'),
-                    new AST.Identifier(null, 'require'),
-                    new AST.Identifier(null, 'module'),
-                    new AST.Identifier(null, '__filename'),
-                    new AST.Identifier(null, '__dirname'),
-                    new AST.Identifier(null, '__self'),
-                ])
-            ));
-
-            code = compiler.compile(p);
-        } catch (err) {
-            // Compiler have failed. Code is unpatched, but can be included.
-
-            if (! (err instanceof SyntaxError)) {
-                throw err;
-            } else {
-                console.warn('Syntax error while parsing ' + fn + ': ' + err.message);
-            }
-        } finally {
-            this._descriptorStorage = descriptorStorage;
-        }
-
-        StackHandler.registerSourceMap(fn, sourceMapGenerator.toJSON().mappings);
-
-        return codeCache[fn] = {
-            code,
-            program,
         };
     }
 }

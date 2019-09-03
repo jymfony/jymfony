@@ -9,7 +9,7 @@ class NodeInterface {
      *
      * @returns
      */
-    // compile(compiler) { }
+    compile(compiler) { }
 }
 
 module.exports = getInterface(NodeInterface);

@@ -1,14 +1,54 @@
 declare namespace Jymfony.Component.Autoloader.Parser {
+    import Generator = Jymfony.Component.Autoloader.Parser.SourceMap.Generator;
+    import SourceLocation = Jymfony.Component.Autoloader.Parser.AST.SourceLocation;
+    import NodeInterface = Jymfony.Component.Autoloader.Parser.AST.NodeInterface;
+    import Program = Jymfony.Component.Autoloader.Parser.AST.Program;
+
     export class Compiler {
-        readonly code: string;
+        public readonly code: string;
+
+        private _code: string;
+        private _locations: SourceLocation[];
+        private _sourceMapGenerator: Generator;
+        private _line: number;
+        private _column: number;
+        private _variableCount: number;
 
         /**
          * Constructor.
          */
-        constructor(code: string);
+        constructor(sourceMapGenerator: Generator);
 
-        private _process(lexer: Lexer): IterableIterator<any>;
-        private _processClass(lexer: Lexer, classDocblock: string | undefined): string;
-        private _parse(): void;
+        /**
+         * Compiles a source node.
+         */
+        compileNode(node: NodeInterface): void;
+
+        /**
+         * Sets the original source location.
+         */
+        pushLocation(node: NodeInterface): void;
+
+        /**
+         * Pops out the latest source location.
+         */
+        popLocation(): void;
+
+        /**
+         * @param {Jymfony.Component.Autoloader.Parser.AST.Program} program
+         */
+        compile(program: Program): string;
+
+        /**
+         * Emits a code string.
+         *
+         * @param {string} code
+         */
+        _emit(code: string);
+
+        /**
+         * @internal
+         */
+        generateVariableName(): string;
     }
 }

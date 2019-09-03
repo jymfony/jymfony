@@ -9,8 +9,8 @@ class IfStatement extends implementationOf(StatementInterface) {
      *
      * @param {Jymfony.Component.Autoloader.Parser.AST.SourceLocation} location
      * @param {Jymfony.Component.Autoloader.Parser.AST.ExpressionInterface} test
-     * @param {Jymfony.Component.Autoloader.Parser.AST.ExpressionInterface} consequent
-     * @param {Jymfony.Component.Autoloader.Parser.AST.ExpressionInterface} alternate
+     * @param {Jymfony.Component.Autoloader.Parser.AST.StatementInterface} consequent
+     * @param {Jymfony.Component.Autoloader.Parser.AST.StatementInterface} alternate
      */
     __construct(location, test, consequent, alternate = null) {
         /**
@@ -26,14 +26,14 @@ class IfStatement extends implementationOf(StatementInterface) {
         this._test = test;
 
         /**
-         * @type {Jymfony.Component.Autoloader.Parser.AST.ExpressionInterface}
+         * @type {Jymfony.Component.Autoloader.Parser.AST.StatementInterface}
          *
          * @private
          */
         this._consequent = consequent;
 
         /**
-         * @type {Jymfony.Component.Autoloader.Parser.AST.ExpressionInterface}
+         * @type {Jymfony.Component.Autoloader.Parser.AST.StatementInterface}
          *
          * @private
          */

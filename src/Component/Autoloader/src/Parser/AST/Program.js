@@ -55,7 +55,7 @@ class Program extends implementationOf(NodeInterface) {
     /**
      * Gets the nodes array.
      *
-     * @returns {[]|Array}
+     * @returns {Jymfony.Component.Autoloader.Parser.AST.NodeInterface[]}
      */
     get body() {
         return this._body;

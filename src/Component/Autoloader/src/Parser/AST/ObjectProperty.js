@@ -22,14 +22,14 @@ class ObjectProperty extends implementationOf(ObjectMember) {
         /**
          * @type {Jymfony.Component.Autoloader.Parser.AST.ExpressionInterface}
          *
-         * @private
+         * @protected
          */
         this._key = key;
 
         /**
          * @type {Jymfony.Component.Autoloader.Parser.AST.ExpressionInterface}
          *
-         * @private
+         * @protected
          */
         this._value = value;
     }

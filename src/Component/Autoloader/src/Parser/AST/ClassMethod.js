@@ -12,12 +12,12 @@ class ClassMethod extends mix(Function, ClassMemberInterface) {
      *
      * @param {Jymfony.Component.Autoloader.Parser.AST.SourceLocation} location
      * @param {Jymfony.Component.Autoloader.Parser.AST.BlockStatement} body
-     * @param {Jymfony.Component.Autoloader.Parser.AST.Identifier} [id]
-     * @param {Jymfony.Component.Autoloader.Parser.AST.PatternInterface[]} params
+     * @param {Jymfony.Component.Autoloader.Parser.AST.Identifier} id
      * @param {string} kind
-     * @param {boolean} generator
-     * @param {boolean} async
-     * @param {boolean} Static
+     * @param {Jymfony.Component.Autoloader.Parser.AST.PatternInterface[]} [params = []]
+     * @param {boolean} [generator = false]
+     * @param {boolean} [async = false]
+     * @param {boolean} [Static = false]
      */
     __construct(location, body, id, kind, params = [], { generator = false, async = false, Static = false } = {}) {
         super.__construct(location, body, id, params, { generator, async });

@@ -6,7 +6,7 @@ const NodeInterface = require('./NodeInterface');
 class ClassMemberInterface extends NodeInterface.definition {
     /**
      * Compiles the decorators.
-     * Code to be appender
+     * Code to be appended should be returned as an array of statements.
      *
      * @param {Jymfony.Component.Autoloader.Parser.Compiler} compiler
      * @param {Jymfony.Component.Autoloader.Parser.AST.Class} target

@@ -49,6 +49,13 @@ class ImportSpecifier extends implementationOf(ImportSpecifierInterface) {
     get imported() {
         return this._imported;
     }
+
+    /**
+     * @inheritdoc
+     */
+    compile(/* compiler */) {
+        throw new Error('Should not be called directly');
+    }
 }
 
 module.exports = ImportSpecifier;

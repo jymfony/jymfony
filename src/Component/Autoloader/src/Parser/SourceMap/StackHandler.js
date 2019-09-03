@@ -9,8 +9,9 @@ let fileMappings;
 
 class StackHandler {
     /**
+     * Prepares stack trace using V8 stack trace API.
      *
-     * @param error
+     * @param {Error} error
      * @param {NodeJS.CallSite[]} stack
      */
     static prepareStackTrace(error, stack) {
@@ -97,6 +98,12 @@ class StackHandler {
         }
     }
 
+    /**
+     * Registers a source map.
+     *
+     * @param {string} filename
+     * @param {string} mappings
+     */
     static registerSourceMap(filename, mappings) {
         const Position = require('../AST/Position');
         if (undefined === fileMappings) {
