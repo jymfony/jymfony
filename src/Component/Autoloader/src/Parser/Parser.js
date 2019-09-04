@@ -1,7 +1,8 @@
 const AST = require('./AST');
 const Lexer = require('./Lexer');
 
-const NotARegExpException = require('./Exception/NotARegExpException');
+const RescanException = require('./Exception/RescanException');
+const WrongAssignmentException = require('./Exception/WrongAssignmentException');
 const ExpressionParserTrait = require('./ExpressionParserTrait');
 
 const FOR_PLAIN = 1;
@@ -183,7 +184,7 @@ class Parser extends implementationOf(ExpressionParserTrait) {
                     this._skipSpaces();
                 }
             } catch (e) {
-                if (e instanceof NotARegExpException) {
+                if (e instanceof RescanException) {
                     this._lexer.rescan(e.token, e);
                     this._lexer.reset();
                     continue;
@@ -283,7 +284,7 @@ class Parser extends implementationOf(ExpressionParserTrait) {
             this._skipSpaces();
         } else if (lastNonBlankToken && (Lexer.T_CURLY_BRACKET_CLOSE === lastNonBlankToken.type || this._lexer.isToken(Lexer.T_CURLY_BRACKET_CLOSE))) {
             this._skipSpaces();
-        } else if (this._lexer.isToken(Lexer.T_EOF) || (lastToken && lastToken.type === Lexer.T_EOF)) {
+        } else if (this._lexer.isToken(Lexer.T_EOF) || (lastToken && lastToken.type === Lexer.T_EOF) || (lastNonBlankToken && lastNonBlankToken.type === Lexer.T_SEMICOLON)) {
             // Do nothing
         } else {
             this._syntaxError('Unexpected "' + this._lexer.token.value + '": statement termination expected.');
@@ -1034,6 +1035,10 @@ class Parser extends implementationOf(ExpressionParserTrait) {
      * @private
      */
     _maybeInitializer() {
+        if ('=' === this._lexer.token.value[0] && '=' !== this._lexer.token.value) {
+            throw new WrongAssignmentException(this._lexer.token);
+        }
+
         if (! this._lexer.isToken(Lexer.T_ASSIGNMENT_OP) || '=' !== this._lexer.token.value) {
             return null;
         }
@@ -1459,7 +1464,7 @@ class Parser extends implementationOf(ExpressionParserTrait) {
                     this._syntaxError('Unexpected "' + this._lexer.token.value + '"');
             }
         } catch (e) {
-            if (e instanceof NotARegExpException) {
+            if (e instanceof RescanException) {
                 skipStatementTermination = true;
             }
 

@@ -1,9 +1,6 @@
-class NotARegExpException extends Error {
-    constructor(token) {
-        super();
+const RescanException = require('./RescanException');
 
-        this.token = token;
-    }
+class NotARegExpException extends RescanException {
 }
 
 module.exports = NotARegExpException;

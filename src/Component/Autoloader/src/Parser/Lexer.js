@@ -1,5 +1,6 @@
 const ValueHolder = require('./ValueHolder');
 const NotARegExpException = require('./Exception/NotARegExpException');
+const WrongAssignmentException = require('./Exception/WrongAssignmentException');
 
 /**
  * Lexer for js code.
@@ -40,6 +41,13 @@ class Lexer {
          * @private
          */
         this._numbers = new RegExp('^' + Lexer.NUMBERS + '$', 'g');
+
+        /**
+         * @type {RegExp}
+         *
+         * @private
+         */
+        this._regexes = new RegExp('(?<=((?:^|[\\n;`=<>!~+\\-/%*&,?|:()[\\]{}]|' + Lexer.RESERVED_WORDS + ')\\s*))\\/((?![*+?])(?:[^\\r\\n\\[/\\\\]|\\\\.|\\[(?:[^\\r\\n\\]\\\\]|\\\\.)*\\])+)\\/w*', 'g');
 
         /**
          * @type {Object}
@@ -256,7 +264,7 @@ class Lexer {
         const tokens = [];
         let match, value = token.value, offset = token.position;
 
-        if (err instanceof NotARegExpException) {
+        if (err instanceof NotARegExpException || err instanceof WrongAssignmentException) {
             tokens.push({
                 value: value[0],
                 type: this.getType(new ValueHolder(value[0])),
@@ -337,12 +345,11 @@ class Lexer {
             '[\'](?:\\\\(?=\\n|\\r|\\r\\n|\u2028|\u2029)[\\r\\n\u2028\u2029]*|[^\\\'\\\\\\r\\n\u2028\u2029]|\\\\.)*?[\']',
             '["](?:\\\\(?=\\n|\\r|\\r\\n|\u2028|\u2029)[\\r\\n\u2028\u2029]*|[^"\\\\\\r\\n\u2028\u2029]|\\\\.)*?["]',
             '(\\/\\*([^*]|[\\r\\n]|(\\*+([^*\\/]|[\\r\\n])))*\\*+\\/)|(\\/\\/.*)|(?:<!--.*)|((?<=^|\\s+)-->.*)',
-            '[/](?:[^/\\\\]|\\\\.)*?[/][a-z]+',
+            '(?<=((?:^|[\\n;`=<>!~+\\-/%*&,?|:()[\\]{}]|'+Lexer.RESERVED_WORDS+')\\s*))\\/((?![*+?])(?:[^\\r\\n\\[/\\\\]|\\\\.|\\[(?:[^\\r\\n\\]\\\\]|\\\\.)*\\])+)\\/\\w*',
             '\\b'+Lexer.RESERVED_WORDS+'\\b',
             '[\\(\\)\\[\\]\\.\\{\\};]',
-            '(?<=((?:^|[\\n;`=<>!~+\\-/%*&,?|:()[\\]{}]|'+Lexer.RESERVED_WORDS+')\\s*))\\/((?![*+?])(?:[^\\r\\n\\[/\\\\]|\\\\.|\\[(?:[^\\r\\n\\]\\\\]|\\\\.)*\\])+)\\/\w*',
             '[`=<>!~+\\-/%*&?|:]+(?=\\/((?![*+?\\s])(?:[^\\r\\n\\[/\\\\]|\\\\.|\\[(?:[^\\r\\n\\]\\\\]|\\\\.)*\\])+)\\/w*)',
-            '(?:`|\\|\\||&&|>>>=|<<=|>>=|=<<|=>>|=[<>!~+\\-/%*&|]|[<>~+\\-/%*&|^]=|\\|>|>>>|\\*\\*=|\\*\\*|=\\*\\*|\\+\\+|--|<<|>>|!==|!=|===|==|=|[!~<>!~+\\-/%*&|]|\\?|:)',
+            '(?:`|\\|\\||&&|>>>=|<<=|>>=|=>|[<>~+\\-/%*&|^]=|\\|>|>>>|\\*\\*=|\\*\\*|\\+\\+|--|<<|>>|!==|!=|===|==|=|[!~<>!~+\\-/%*&|]|\\?|:)',
             ',',
             '[' + Lexer.SPACES + ']+',
             '(?:[^' + Lexer.SPACES + '\\\\\\(\\)\\[\\]\\.\\{\\};`=<>!~+\\-/%*&,?|:]|\\\\u[\\dA-Fa-f]{4}|\\\\u\\{[\\dA-Fa-f]+\\})+',
@@ -385,13 +392,9 @@ class Lexer {
             case '/':
                 if (holder.value.startsWith('/**')) {
                     return Lexer.T_DOCBLOCK;
-                }
-
-                if (holder.value.startsWith('//') || holder.value.startsWith('/*')) {
+                } else if (holder.value.startsWith('//') || holder.value.startsWith('/*')) {
                     return Lexer.T_COMMENT;
-                }
-
-                if (holder.value.match(/\/((?![*+?])(?:[^\r\n\[/\\]|\\.|\[(?:[^\r\n\]\\]|\\.)*])+)\//)) {
+                } else if (holder.value.match(this._regexes)) {
                     return Lexer.T_REGEX;
                 }
         }

@@ -143,4 +143,36 @@ describe('[Autoloader] Parser', function () {
         expect(program).is.not.null;
         expect(eval(compiled)).is.a('function');
     });
+
+    it ('should correctly postfix update after space', () => {
+        const program = parser.parse(`
+        (function () {
+            i ++;
+        })
+`);
+
+        const compiler = new Compiler(new Generator());
+        const compiled = compiler.compile(program);
+
+        expect(program).is.not.null;
+        expect(eval(compiled)).is.a('function');
+    });
+
+    it ('should correctly parse init assignment ', () => {
+        const program = parser.parse('var u=-1');
+
+        const compiler = new Compiler(new Generator());
+        compiler.compile(program);
+
+        expect(program).is.not.null;
+    });
+
+    it ('should correctly parse init assignment ', () => {
+        const program = parser.parse('function r(n,t){for(var r=-1,e=null==n?0:n.length;++r<e&&false!==t(n[r],r,n););return n}');
+
+        const compiler = new Compiler(new Generator());
+        compiler.compile(program);
+
+        expect(program).is.not.null;
+    });
 });

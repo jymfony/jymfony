@@ -421,6 +421,10 @@ class ExpressionParserTrait {
         }
 
         if (undefined !== expression) {
+            if (this._lexer.isToken(Lexer.T_SPACE) && ! this.constructor._includesLineTerminator(this._lexer.token.value)) {
+                this._skipSpaces();
+            }
+
             // Level 17
             if (this._lexer.isToken(Lexer.T_OPERATOR) && [ '++', '--' ].includes(this._lexer.token.value)) {
                 const operator = this._lexer.token.value;
