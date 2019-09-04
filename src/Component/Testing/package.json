@@ -3,7 +3,7 @@
   "version": "0.1.0-dev",
   "description": "Jymfony Testing",
   "scripts": {
-    "test": "node ./tests.js"
+    "test": "node ./tests.js test/**"
   },
   "keywords": [
     "testing",
