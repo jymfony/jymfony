@@ -1,4 +1,5 @@
 const ValueHolder = require('./ValueHolder');
+const NotARegExpException = require('./Exception/NotARegExpException');
 
 /**
  * Lexer for js code.
@@ -243,55 +244,64 @@ class Lexer {
     }
 
     /**
+     * Re-scans a single token.
+     *
+     * @param {Jymfony.Component.Autoloader.Parser.Token} token
+     * @param {Error} err
+     */
+    rescan(token, err) {
+        this._last = undefined;
+        const regex = new RegExp('((?:' + this.getPatterns().join(')|(?:') + '))', 'g');
+
+        const tokens = [];
+        let match, value = token.value, offset = token.position;
+
+        if (err instanceof NotARegExpException) {
+            tokens.push({
+                value: value[0],
+                type: this.getType(new ValueHolder(value[0])),
+                position: offset,
+                index: 0,
+            });
+
+            value = value.substr(1);
+            offset++;
+        } else {
+            throw new Exception('Unknown rescan reason');
+        }
+
+        while ((match = regex.exec(value))) {
+            const holder = new ValueHolder(match[0]);
+            const type = this.getType(holder);
+
+            tokens.push({
+                value: holder.value,
+                type: type,
+                position: match.index + offset,
+                index: 0,
+            });
+        }
+
+        this._tokens.splice(token.index, 1, ...tokens);
+        for (const [ index, tok ] of __jymfony.getEntries(this._tokens)) {
+            tok.index = index;
+        }
+    }
+
+    /**
      * Scans the input string for tokens.
      *
      * @param {string} input A query string.
      * @param {int} offset
      */
     _scan(input, offset = 0) {
-        let level = 0;
         this._last = undefined;
         const regex = new RegExp('((?:' + this.getPatterns().join(')|(?:') + '))', 'g');
 
         let match;
-        cycle: while ((match = regex.exec(input))) {
+        while ((match = regex.exec(input))) {
             const holder = new ValueHolder(match[0]);
             const type = this.getType(holder);
-
-            switch (type) {
-                case Lexer.T_SPACE:
-                    break;
-
-                case Lexer.T_OPEN_PARENTHESIS: {
-                    level++;
-                    this._last = type;
-                } break;
-
-                case Lexer.T_CLOSED_PARENTHESIS: {
-                    level--;
-                    this._last = type;
-                } break;
-
-                case Lexer.T_REGEX: {
-                    if (this._last === Lexer.T_CLOSED_PARENTHESIS && 0 !== level) {
-                        this._tokens.push({
-                            value: '/',
-                            type: Lexer.T_OPERATOR,
-                            position: match.index + offset,
-                            index: this._tokens.length,
-                        });
-
-                        this._scan(holder.value.substr(1), match.index + 1);
-                        this._tokens.pop();
-
-                        continue cycle;
-                    }
-                } // No break
-
-                default: {
-                    this._last = type;
-                }
-            }
 
             this._tokens.push({
                 value: holder.value,

@@ -85,7 +85,7 @@ describe('[Autoloader] Parser', function () {
     ];
 
     for (const filename of readdirSync(folder + sep + 'pass')) {
-        if (excluded.includes(filename) /* || filename.endsWith('module.js') */) {
+        if (excluded.includes(filename)) {
             continue;
         }
 
@@ -111,5 +111,36 @@ describe('[Autoloader] Parser', function () {
         const b = new bar();
         expect(b.trial(new foo())).to.be.true;
         expect(new foo().foo()).to.be.true;
+    });
+
+    it ('should correctly compile do-while w/o block', () => {
+        const program = parser.parse(`
+        (function () {
+            do
+                things()
+            while (a > 0);
+        })
+`);
+
+        const compiler = new Compiler(new Generator());
+        const compiled = compiler.compile(program);
+
+        expect(program).is.not.null;
+        expect(eval(compiled)).is.a('function');
+    });
+
+    it ('should correctly parse get/set as identifier', () => {
+        const program = parser.parse(`
+        (function () {
+            obj.get('foo');
+            set(obj, 'bar');
+        })
+`);
+
+        const compiler = new Compiler(new Generator());
+        const compiled = compiler.compile(program);
+
+        expect(program).is.not.null;
+        expect(eval(compiled)).is.a('function');
     });
 });

@@ -1,3 +1,4 @@
+const BlockStatement = require('./BlockStatement');
 const StatementInterface = require('./StatementInterface');
 
 /**
@@ -38,6 +39,9 @@ class DoWhileStatement extends implementationOf(StatementInterface) {
     compile(compiler) {
         compiler._emit('do');
         compiler.compileNode(this._body);
+        if (! (this._body instanceof BlockStatement)) {
+            compiler._emit(';\n');
+        }
 
         compiler._emit('while (');
         compiler.compileNode(this._test);

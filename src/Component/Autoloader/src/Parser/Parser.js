@@ -157,32 +157,45 @@ class Parser extends implementationOf(ExpressionParserTrait) {
      */
     parse(code) {
         const lines = code.split(/\r\n|\r|\n/);
-        this._line = 1;
-        this._column = 0;
-        this._pendingDecorators = [];
-        this._level = 0;
-        this._esModule = false;
-        this._lastToken = undefined;
-        this._lastNonBlankToken = undefined;
         this._lexer.input = this._input = code;
 
-        this._next();
-        this._skipSpaces();
+        while (true) {
+            this._line = 1;
+            this._column = 0;
+            this._pendingDecorators = [];
+            this._level = 0;
+            this._esModule = false;
+            this._lastToken = undefined;
+            this._lastNonBlankToken = undefined;
 
-        const program = new AST.Program(new AST.SourceLocation(
-            this._lexer.input,
-            new AST.Position(1, 0),
-            new AST.Position(lines.length, lines[lines.length - 1].length - 1)
-        ));
-
-        while (this._lexer.token && ! this._lexer.isToken(Lexer.T_EOF)) {
-            program.add(this._doParse());
+            this._next();
             this._skipSpaces();
+
+            const program = new AST.Program(new AST.SourceLocation(
+                this._lexer.input,
+                new AST.Position(1, 0),
+                new AST.Position(lines.length, lines[lines.length - 1].length - 1)
+            ));
+
+            try {
+                while (this._lexer.token && !this._lexer.isToken(Lexer.T_EOF)) {
+                    program.add(this._doParse());
+                    this._skipSpaces();
+                }
+            } catch (e) {
+                if (e instanceof NotARegExpException) {
+                    this._lexer.rescan(e.token, e);
+                    this._lexer.reset();
+                    continue;
+                }
+
+                throw e;
+            }
+
+            program.esModule = this._esModule;
+
+            return program;
         }
-
-        program.esModule = this._esModule;
-
-        return program;
     }
 
     /**
@@ -487,11 +500,16 @@ class Parser extends implementationOf(ExpressionParserTrait) {
             }
 
             case 'decorator': {
+                const state = this.state;
                 this._next(true, true);
                 const name = this._parseIdentifier();
 
                 if (! name.isDecoratorIdentifier) {
-                    this._syntaxError('Expected decorator identifier');
+                    // Not a decorator declaration statement.
+                    this.state = state;
+                    const expression = this._parseExpression();
+
+                    return new AST.ExpressionStatement(this._makeLocation(start), expression);
                 }
 
                 const args = this._lexer.isToken(Lexer.T_OPEN_PARENTHESIS) ? this._parseFormalParametersList() : [];
@@ -875,7 +893,7 @@ class Parser extends implementationOf(ExpressionParserTrait) {
 
                     return new AST.ExportAllDeclaration(this._makeLocation(start), source);
                 }
-            } break;
+            }
 
             default:
                 this._syntaxError('Unexpected "' + token.value + '"');
@@ -1351,17 +1369,6 @@ class Parser extends implementationOf(ExpressionParserTrait) {
                     }
                 }
 
-                case Lexer.T_YIELD:
-                case Lexer.T_THIS:
-                case Lexer.T_SUPER:
-                case Lexer.T_OPERATOR:
-                case Lexer.T_ARGUMENTS:
-                case Lexer.T_OPEN_PARENTHESIS: {
-                    const expression = this._parseExpression();
-
-                    return new AST.ExpressionStatement(this._makeLocation(start), expression);
-                }
-
                 case Lexer.T_IDENTIFIER: {
                     if (this._lexer.isNextToken(Lexer.T_COLON)) {
                         const label = this._parseIdentifier();
@@ -1372,6 +1379,14 @@ class Parser extends implementationOf(ExpressionParserTrait) {
                     }
                 } // No break
 
+                case Lexer.T_GET:
+                case Lexer.T_SET:
+                case Lexer.T_YIELD:
+                case Lexer.T_THIS:
+                case Lexer.T_SUPER:
+                case Lexer.T_OPERATOR:
+                case Lexer.T_ARGUMENTS:
+                case Lexer.T_OPEN_PARENTHESIS:
                 case Lexer.T_TRUE:
                 case Lexer.T_FALSE:
                 case Lexer.T_NULL:

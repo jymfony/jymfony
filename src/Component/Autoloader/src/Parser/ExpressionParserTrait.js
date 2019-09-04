@@ -598,9 +598,17 @@ class ExpressionParserTrait {
             this._next();
 
             const args = [ expression ];
-            if (! [ Lexer.T_CLOSED_SQUARE_BRACKET, Lexer.T_CURLY_BRACKET_CLOSE, Lexer.T_CLOSED_PARENTHESIS ].includes(this._lexer.token.type)) {
-                const right = this._parseExpression();
-                args.push(...(right instanceof AST.SequenceExpression ? right.expressions : [ right ]));
+            while (true) {
+                const right = this._parseExpression({ maxLevel: 2 });
+                if (undefined !== right) {
+                    args.push(right);
+                }
+
+                if (this._lexer.isToken(Lexer.T_COMMA)) {
+                    this._next();
+                } else {
+                    break;
+                }
             }
 
             expression = new AST.SequenceExpression(this._makeLocation(start), args);
