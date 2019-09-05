@@ -42,8 +42,10 @@ export default class ConsoleFormatter extends NormalizerFormatter {
         const levelColor = levelColorMap[record.level];
         record = this._replacePlaceHolder(record);
 
-        let context, extra;
-        context = ' ' + inspect(record.context);
+        let context = { ...record.context }, extra;
+        delete context[__jymfony.ClsTrait.COMMAND_SYMBOL];
+
+        context = ' ' + inspect(context);
         extra = ' ' + inspect(record.extra);
 
         if (! this._options.multiline) {
