@@ -22,6 +22,10 @@ describe('[Security] AccessDecisionManager', function () {
     });
 
     afterEach(() => {
+        if ('failed' === this.ctx.currentTest.state) {
+            return;
+        }
+
         this._prophet.checkPredictions();
     });
 

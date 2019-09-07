@@ -24,6 +24,10 @@ describe('[Security] AbstractToken', function () {
     });
 
     afterEach(() => {
+        if ('failed' === this.ctx.currentTest.state) {
+            return;
+        }
+
         this._prophet.checkPredictions();
     });
 

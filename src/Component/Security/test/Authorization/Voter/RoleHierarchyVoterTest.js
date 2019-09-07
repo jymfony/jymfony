@@ -2,31 +2,36 @@ const RoleHierarchyVoter = Jymfony.Component.Security.Authorization.Voter.RoleHi
 const VoterInterface = Jymfony.Component.Security.Authorization.Voter.VoterInterface;
 const RoleHierarchy = Jymfony.Component.Security.Role.RoleHierarchy;
 const Role = Jymfony.Component.Security.Role.Role;
-const Prophet = Jymfony.Component.Testing.Prophet;
 const RoleVoterTest = require('./RoleVoterTest');
 const { expect } = require('chai');
 
 class RoleHierarchyVoterTest extends RoleVoterTest {
     execTests() {
-        describe('[Security] RoleHierarchyVoter', () => {
-            beforeEach(() => {
-                /**
-                 * @type {Jymfony.Component.Testing.Prophet}
-                 *
-                 * @private
-                 */
-                this._prophet = new Prophet();
-            });
-
+        const self = this;
+        const parentTests = super._getVoteTests();
+        describe('[Security] RoleHierarchyVoter', function () {
+            beforeEach(self.beforeEach.bind(self));
             afterEach(() => {
-                this._prophet.checkPredictions();
+                if ('failed' === this.ctx.currentTest.state) {
+                    return;
+                }
+
+                self.afterEach();
             });
 
             let index = 0;
-            for (const [ roles, attributes, expected ] of super._getVoteTests()) {
+            for (const [ roles, attributes, expected ] of parentTests) {
+                it(
+                    'vote role hierarchy with empty hierarchy should work with dataset #' + index++,
+                    () => self.testVoteWithEmptyHierarchy(roles, attributes, expected)
+                );
+            }
+
+            index = 0;
+            for (const [ roles, attributes, expected ] of self._getVoteTests()) {
                 it(
                     'vote role hierarchy should work with dataset #' + index++,
-                    () => this.testVoteWithEmptyHierarchy(roles, attributes, expected)
+                    () => self.testVote(roles, attributes, expected)
                 );
             }
         });
