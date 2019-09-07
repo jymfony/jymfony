@@ -6,10 +6,12 @@
   "main": "index.js",
   "typings": "index.d.ts",
   "scripts": {
-    "test": "npm run run-tests && eslint src/",
-    "run-tests": "node ./tests.js \"src/*/test/**/*.js\" \"src/{Component,Bundle}/*/test/**/*.js\"",
-    "coverage": "nyc npm run run-tests && eslint src/",
-    "coverage-html": "nyc --reporter=lcov npm run run-tests && eslint src/"
+    "test": "npm run run-tests && npm run lint",
+    "lint": "eslint src/",
+    "style-fix": "eslint --fix src/",
+    "run-tests": "node ./tests.js --full-trace --bail \"src/*/test/**/*.js\" \"src/{Component,Bundle}/*/test/**/*.js\"",
+    "coverage": "nyc npm run run-tests",
+    "coverage-html": "nyc --reporter=lcov npm run run-tests"
   },
   "keywords": [
     "jymfony",
@@ -101,7 +103,6 @@
       "text-summary",
       "clover"
     ],
-    "all": true,
     "report-dir": "./coverage"
   }
 }
