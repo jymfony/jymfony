@@ -6,10 +6,10 @@
   "main": "index.js",
   "typings": "index.d.ts",
   "scripts": {
-    "test": "npm run run-tests && npm run lint",
+    "test": "npm run run-tests",
     "lint": "eslint src/",
     "style-fix": "eslint --fix src/",
-    "run-tests": "node ./tests.js --full-trace --bail \"src/*/test/**/*.js\" \"src/{Component,Bundle}/*/test/**/*.js\"",
+    "run-tests": "node ./tests.js",
     "coverage": "nyc npm run run-tests",
     "coverage-html": "nyc --reporter=lcov npm run run-tests"
   },

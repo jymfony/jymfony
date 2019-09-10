@@ -183,7 +183,7 @@ export default class Response {
         if (isFunction(content)) {
             this._content = content;
         } else {
-            this._content = content.toString();
+            this._content = String(content);
         }
     }
 

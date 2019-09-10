@@ -12,7 +12,7 @@ declare namespace Jymfony.Component.EventDispatcher.Debug {
 
         private _listener: T;
 
-        private _dispacther: EventDispatcherInterface;
+        private _dispatcher: EventDispatcherInterface;
 
         private _called: boolean;
 
