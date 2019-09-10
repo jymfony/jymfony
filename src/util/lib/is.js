@@ -27,6 +27,23 @@ const primitives = [ Number, String, Boolean ];
  *
  * @returns {boolean}
  */
+global.isNumeric = function isNumeric(value) {
+    if (! isScalar(value)) {
+        return false;
+    }
+
+    if (isNumber(value)) {
+        return true;
+    }
+
+    return !! String(value).match(/^((\d+|\.\d+|\d+\.\d+)(e[+-]?\d+)?|0x[0-9a-f_]+)$/i);
+};
+
+/**
+ * @param {*} value
+ *
+ * @returns {boolean}
+ */
 global.isScalar = function isScalar(value) {
     if (undefined === value || null === value) {
         return false;
