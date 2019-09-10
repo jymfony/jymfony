@@ -294,6 +294,7 @@ declare module NodeJS {
         isBoolean(value: any): value is boolean;
         isString(value: any): value is string;
         isNumber(value: any): value is number;
+        isNumeric(value: any): boolean;
         isDate(value: any): value is Date;
         isRegExp(value: any): value is RegExp;
         isError(value: any): value is Error;
@@ -372,6 +373,7 @@ declare function isArguments(value: any): value is IArguments;
 declare function isBoolean(value: any): value is boolean;
 declare function isString(value: any): value is string;
 declare function isNumber(value: any): value is number;
+declare function isNumeric(value: any): boolean;
 declare function isDate(value: any): value is Date;
 declare function isRegExp(value: any): value is RegExp;
 declare function isError(value: any): value is Error;

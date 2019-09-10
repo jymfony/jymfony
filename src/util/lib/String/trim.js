@@ -1,4 +1,3 @@
-// Replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')
 'use strict';
 
 global.__jymfony = global.__jymfony || {};

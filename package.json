@@ -73,6 +73,7 @@
         "Jymfony.Component.Testing": "src/Component/Testing/src",
         "Jymfony.Component.VarDumper": "src/Component/VarDumper/src",
         "Jymfony.Component.VarExporter": "src/Component/VarExporter/src",
+        "Jymfony.Component.Yaml": "src/Component/Yaml/src",
         "Jymfony.Contracts": "src/Contracts/src"
       },
       "includes": [

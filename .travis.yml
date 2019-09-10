@@ -42,6 +42,7 @@ jobs:
     include:
         - stage: lint
           node_js: "12"
+          os: linux
           script:
               - npm install -g eslint
               - npm run-script lint

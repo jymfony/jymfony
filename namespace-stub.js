@@ -143,7 +143,17 @@ Jymfony = {
         /**
          * @namespace
          */
+        VarDumper: {},
+
+        /**
+         * @namespace
+         */
         VarExporter: {},
+
+        /**
+         * @namespace
+         */
+        Yaml: {},
     },
 
     /**
