@@ -1,6 +1,6 @@
 {
   "name": "@jymfony/contracts",
-  "version": "0.1.0-alpha.17",
+  "version": "0.1.0-alpha.18",
   "description": "Jymfony Contracts and Types",
   "typings": "types/index.d.ts",
   "scripts": {
@@ -17,9 +17,9 @@
     "node": ">=8.10.0"
   },
   "devDependencies": {
-    "@jymfony/autoloader": "https://github.com/jymfony/autoloader.git",
-    "@jymfony/debug": "https://github.com/jymfony/debug.git",
-    "@jymfony/util": "https://github.com/jymfony/util.git",
+    "@jymfony/autoloader": "*",
+    "@jymfony/debug": "*",
+    "@jymfony/util": "*",
     "@types/node": "*",
     "chai": "^4.2",
     "mocha": "^6.0"
