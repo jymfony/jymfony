@@ -4,7 +4,7 @@ const LogLevel = Jymfony.Component.Logger.LogLevel;
 /**
  * @memberOf Jymfony.Component.Logger
  */
-class AbstractLogger extends implementationOf(LoggerInterface) {
+export default class AbstractLogger extends implementationOf(LoggerInterface) {
     /**
      * @inheritdoc
      */
@@ -61,5 +61,3 @@ class AbstractLogger extends implementationOf(LoggerInterface) {
         this.log(LogLevel.DEBUG, message, context);
     }
 }
-
-module.exports = AbstractLogger;

@@ -6,7 +6,7 @@ const Exception = Jymfony.Component.Config.Definition.Exception.Exception;
  *
  * @memberOf Jymfony.Component.Config.Definition.Exception
  */
-class InvalidConfigurationException extends Exception {
+export default class InvalidConfigurationException extends Exception {
     /**
      * @param {string} path
      */
@@ -35,5 +35,3 @@ class InvalidConfigurationException extends Exception {
         }
     }
 }
-
-module.exports = InvalidConfigurationException;

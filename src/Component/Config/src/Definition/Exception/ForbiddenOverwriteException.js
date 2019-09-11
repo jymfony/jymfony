@@ -6,7 +6,5 @@ const InvalidConfigurationException = Jymfony.Component.Config.Definition.Except
  *
  * @memberOf Jymfony.Component.Config.Definition.Exception
  */
-class ForbiddenOverwriteException extends InvalidConfigurationException {
+export default class ForbiddenOverwriteException extends InvalidConfigurationException {
 }
-
-module.exports = ForbiddenOverwriteException;

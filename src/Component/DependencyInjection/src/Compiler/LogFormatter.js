@@ -1,7 +1,7 @@
 /**
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
  */
-class LogFormatter {
+export default class LogFormatter {
     /**
      * @param {Jymfony.Component.DependencyInjection.Compiler.CompilerPassInterface} pass
      * @param {string} id
@@ -59,5 +59,3 @@ class LogFormatter {
         return reflClass.name + ': ' + message;
     }
 }
-
-module.exports = LogFormatter;

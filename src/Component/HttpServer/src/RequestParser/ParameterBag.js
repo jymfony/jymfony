@@ -1,7 +1,7 @@
 /**
  * @memberOf Jymfony.Component.HttpServer.RequestParser
  */
-class ParameterBag {
+export default class ParameterBag {
     /**
      * Constructor.
      */
@@ -51,5 +51,3 @@ class ParameterBag {
         return obj;
     }
 }
-
-module.exports = ParameterBag;

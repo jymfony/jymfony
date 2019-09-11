@@ -7,7 +7,7 @@ const PriorityTaggedServiceTrait = Jymfony.Component.DependencyInjection.Compile
  *
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
  */
-class ResolveTaggedIteratorArgumentPass extends mix(AbstractRecursivePass, PriorityTaggedServiceTrait) {
+export default class ResolveTaggedIteratorArgumentPass extends mix(AbstractRecursivePass, PriorityTaggedServiceTrait) {
     /**
      * @inheritdoc
      */
@@ -21,5 +21,3 @@ class ResolveTaggedIteratorArgumentPass extends mix(AbstractRecursivePass, Prior
         return super._processValue(value, isRoot);
     }
 }
-
-module.exports = ResolveTaggedIteratorArgumentPass;

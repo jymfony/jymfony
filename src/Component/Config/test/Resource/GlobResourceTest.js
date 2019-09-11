@@ -1,6 +1,6 @@
 const GlobResource = Jymfony.Component.Config.Resource.GlobResource;
 const path = require('path');
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 describe('[Config] GlobResource', function () {
     it('should iterate with pattern', () => {

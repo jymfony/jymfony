@@ -1,7 +1,7 @@
 const CacheItem = Jymfony.Component.Cache.CacheItem;
 const InvalidArgumentException = Jymfony.Component.Cache.Exception.InvalidArgumentException;
 
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 describe('[Cache] CacheItem', function () {
     it('should accept valid key', () => {

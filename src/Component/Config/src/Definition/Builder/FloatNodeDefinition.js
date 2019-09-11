@@ -6,7 +6,7 @@ const NumericNodeDefinition = Jymfony.Component.Config.Definition.Builder.Numeri
  *
  * @memberOf Jymfony.Component.Config.Definition.Builder
  */
-class FloatNodeDefinition extends NumericNodeDefinition {
+export default class FloatNodeDefinition extends NumericNodeDefinition {
     /**
      * @inheritdoc
      */
@@ -14,5 +14,3 @@ class FloatNodeDefinition extends NumericNodeDefinition {
         return new FloatNode(this._name, this._parent, this._min, this._max);
     }
 }
-
-module.exports = FloatNodeDefinition;

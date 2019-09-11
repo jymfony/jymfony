@@ -5,7 +5,7 @@ const EnumStub = Jymfony.Component.VarDumper.Caster.EnumStub;
  *
  * @memberOf Jymfony.Component.VarDumper.Caster
  */
-class FrameStub extends EnumStub {
+export default class FrameStub extends EnumStub {
     /**
      * Constructor.
      *
@@ -21,5 +21,3 @@ class FrameStub extends EnumStub {
         this.inTraceStub = inTraceStub;
     }
 }
-
-module.exports = FrameStub;

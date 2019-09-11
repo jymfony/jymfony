@@ -1,7 +1,7 @@
 /**
  * @memberOf Jymfony.Component.Security.Firewall
  */
-class FirewallConfig {
+export default class FirewallConfig {
     /**
      * Constructor.
      *
@@ -189,5 +189,3 @@ class FirewallConfig {
         return this._logoutHandler;
     }
 }
-
-module.exports = FirewallConfig;

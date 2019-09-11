@@ -9,7 +9,7 @@ const nonFirstChars = 'abcdefghijklmnopqrstuvwxyz0123456789';
  *
  * @memberOf Jymfony.Component.Routing.Dumper
  */
-class JsMatcherDumper {
+export default class JsMatcherDumper {
     /**
      * Constructor.
      *
@@ -814,5 +814,3 @@ ${combine}${this._compileRoute(route, name, false)}
         return name;
     }
 }
-
-module.exports = JsMatcherDumper;

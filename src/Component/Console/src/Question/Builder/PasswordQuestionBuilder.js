@@ -1,4 +1,4 @@
-const os = require('os');
+import { platform } from 'os';
 
 const QuestionBuilder = Jymfony.Component.Console.Question.Builder.QuestionBuilder;
 const PasswordQuestion = Jymfony.Component.Console.Question.PasswordQuestion;
@@ -10,7 +10,7 @@ const QuestionType = Jymfony.Component.Console.Question.QuestionType;
  *
  * @memberOf Jymfony.Component.Console.Question.Builder
  */
-class PasswordQuestionBuilder extends QuestionBuilder {
+export default class PasswordQuestionBuilder extends QuestionBuilder {
     /**
      * Constructor.
      *
@@ -32,8 +32,7 @@ class PasswordQuestionBuilder extends QuestionBuilder {
          * @private
          */
         this._prompt = builder._prompt;
-
-        this.setHidden('win32' !== os.platform());
+        this.setHidden('win32' !== platform());
 
         /**
          * @type {string}
@@ -88,5 +87,3 @@ class PasswordQuestionBuilder extends QuestionBuilder {
         return question;
     }
 }
-
-module.exports = PasswordQuestionBuilder;

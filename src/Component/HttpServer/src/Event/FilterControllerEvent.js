@@ -11,7 +11,7 @@ const HttpEvent = Jymfony.Component.HttpServer.Event.HttpEvent;
  *
  * @memberOf Jymfony.Component.HttpServer.Event
  */
-class FilterControllerEvent extends HttpEvent {
+export default class FilterControllerEvent extends HttpEvent {
     /**
      * Constructor.
      *
@@ -48,5 +48,3 @@ class FilterControllerEvent extends HttpEvent {
         this._controller = controller;
     }
 }
-
-module.exports = FilterControllerEvent;

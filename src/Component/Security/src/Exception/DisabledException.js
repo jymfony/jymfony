@@ -5,7 +5,7 @@ const AccountStatusException = Jymfony.Component.Security.Exception.AccountStatu
  *
  * @memberOf Jymfony.Component.Security.Exception
  */
-class DisabledException extends AccountStatusException {
+export default class DisabledException extends AccountStatusException {
     /**
      * @inheritdoc
      */
@@ -13,5 +13,3 @@ class DisabledException extends AccountStatusException {
         return 'Account is disabled.';
     }
 }
-
-module.exports = DisabledException;

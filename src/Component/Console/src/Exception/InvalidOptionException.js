@@ -4,7 +4,5 @@ const ExceptionInterface = Jymfony.Component.Console.Exception.ExceptionInterfac
 /**
  * @memberOf Jymfony.Component.Console.Exception
  */
-class InvalidOptionException extends mix(BaseException, ExceptionInterface) {
+export default class InvalidOptionException extends mix(BaseException, ExceptionInterface) {
 }
-
-module.exports = InvalidOptionException;

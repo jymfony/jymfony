@@ -5,7 +5,7 @@ const TokenInterface = Jymfony.Component.Security.Authentication.Token.TokenInte
 const AuthenticatedVoter = Jymfony.Component.Security.Authorization.Voter.AuthenticatedVoter;
 const VoterInterface = Jymfony.Component.Security.Authorization.Voter.VoterInterface;
 const Prophet = Jymfony.Component.Testing.Prophet;
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 describe('[Security] AuthenticatedVoter', function () {
     beforeEach(() => {
@@ -28,6 +28,10 @@ describe('[Security] AuthenticatedVoter', function () {
     });
 
     afterEach(() => {
+        if ('failed' === this.ctx.currentTest.state) {
+            return;
+        }
+
         this._prophet.checkPredictions();
     });
 

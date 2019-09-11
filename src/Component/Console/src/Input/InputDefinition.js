@@ -5,7 +5,7 @@ const InputOption = Jymfony.Component.Console.Input.InputOption;
 /**
  * @memberOf Jymfony.Component.Console.Input
  */
-class InputDefinition {
+export default class InputDefinition {
     /**
      * @param {Array} [definition = []] An array of InputArgument or InputOption
      */
@@ -363,5 +363,3 @@ class InputDefinition {
         return elements.join(' ');
     }
 }
-
-module.exports = InputDefinition;

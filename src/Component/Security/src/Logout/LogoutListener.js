@@ -4,7 +4,7 @@ const ListenerInterface = Jymfony.Component.Security.Firewall.ListenerInterface;
 /**
  * @memberOf Jymfony.Component.Security.Logout
  */
-class LogoutListener extends implementationOf(ListenerInterface) {
+export default class LogoutListener extends implementationOf(ListenerInterface) {
     /**
      * Constuctor.
      *
@@ -69,5 +69,3 @@ class LogoutListener extends implementationOf(ListenerInterface) {
         event.response = response;
     }
 }
-
-module.exports = LogoutListener;

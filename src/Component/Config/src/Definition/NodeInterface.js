@@ -74,4 +74,4 @@ class NodeInterface {
     finalize(value) { }
 }
 
-module.exports = getInterface(NodeInterface);
+export default getInterface(NodeInterface);

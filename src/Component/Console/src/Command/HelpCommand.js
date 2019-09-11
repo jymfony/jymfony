@@ -6,7 +6,7 @@ const DescriptorHelper = Jymfony.Component.Console.Helper.DescriptorHelper;
 /**
  * @memberOf Jymfony.Component.Console.Command
  */
-class HelpCommand extends Command {
+export default class HelpCommand extends Command {
     __construct(name = undefined) {
         super.__construct(name);
         this._command = undefined;
@@ -63,5 +63,3 @@ To display the list of available commands, please use the <info>list</info> comm
         this._command = undefined;
     }
 }
-
-module.exports = HelpCommand;

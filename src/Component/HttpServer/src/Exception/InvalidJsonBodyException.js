@@ -3,7 +3,7 @@ const BadRequestException = Jymfony.Component.HttpServer.Exception.BadRequestExc
 /**
  * @memberOf Jymfony.Component.HttpServer.Exception
  */
-class InvalidJsonBodyException extends BadRequestException {
+export default class InvalidJsonBodyException extends BadRequestException {
     /**
      * Constructor.
      *
@@ -30,5 +30,3 @@ class InvalidJsonBodyException extends BadRequestException {
         return this._invalidBody;
     }
 }
-
-module.exports = InvalidJsonBodyException;

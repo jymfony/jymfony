@@ -7,7 +7,7 @@ const Prediction = Jymfony.Component.Testing.Prediction;
 /**
  * @memberOf Jymfony.Component.Testing.Prophecy
  */
-class MethodProphecy {
+export default class MethodProphecy {
     /**
      * Constructor.
      *
@@ -350,5 +350,3 @@ class MethodProphecy {
         this._bound = true;
     }
 }
-
-module.exports = MethodProphecy;

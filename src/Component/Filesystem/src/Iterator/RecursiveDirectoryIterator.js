@@ -1,11 +1,12 @@
+import * as path from 'path';
+
 const File = Jymfony.Component.Filesystem.File;
 const StreamWrapper = Jymfony.Component.Filesystem.StreamWrapper.StreamWrapper;
-const path = require('path');
 
 /**
  * @memberOf Jymfony.Component.Filesystem.Iterator
  */
-class RecursiveDirectoryIterator {
+export default class RecursiveDirectoryIterator {
     /**
      * Constructor.
      *
@@ -166,7 +167,4 @@ class RecursiveDirectoryIterator {
 
 RecursiveDirectoryIterator.CHILD_FIRST = 1;
 RecursiveDirectoryIterator.CHILD_LAST = 2;
-
 RecursiveDirectoryIterator.FOLLOW_SYMLINKS = 4;
-
-module.exports = RecursiveDirectoryIterator;

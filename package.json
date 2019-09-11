@@ -6,10 +6,12 @@
   "main": "index.js",
   "typings": "index.d.ts",
   "scripts": {
-    "test": "npm run run-tests && eslint src/",
-    "run-tests": "node ./tests.js \"src/*/test/**/*.js\" \"src/{Component,Bundle}/*/test/**/*.js\"",
-    "coverage": "nyc npm run run-tests && eslint src/",
-    "coverage-html": "nyc --reporter=lcov npm run run-tests && eslint src/"
+    "test": "npm run run-tests",
+    "lint": "eslint src/",
+    "style-fix": "eslint --fix src/",
+    "run-tests": "node ./tests.js",
+    "coverage": "nyc npm run run-tests",
+    "coverage-html": "nyc --reporter=lcov npm run run-tests"
   },
   "keywords": [
     "jymfony",
@@ -29,14 +31,15 @@
     "node": ">=8.10.0"
   },
   "devDependencies": {
-    "@types/chai": "^3.5.0",
-    "@types/mocha": "^5.2.0",
+    "@types/chai": "^4.1.7",
+    "@types/mocha": "^5.2.7",
     "@types/node": "*",
-    "chai": "^3.5.0",
+    "chai": "^4.2",
     "ioredis": "^4.0",
-    "mocha": "^5.2.0",
+    "mocha": "^6.0",
     "mongodb": "^3.0",
-    "nyc": "^13.1.0"
+    "nyc": "^14.1.1",
+    "test262-parser-tests": "git+https://github.com/tc39/test262-parser-tests.git"
   },
   "repository": "https://github.com/jymfony/jymfony.git",
   "flat": true,
@@ -100,7 +103,6 @@
       "text-summary",
       "clover"
     ],
-    "all": true,
     "report-dir": "./coverage"
   }
 }

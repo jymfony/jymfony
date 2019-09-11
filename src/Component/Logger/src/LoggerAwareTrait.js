@@ -19,4 +19,4 @@ class LoggerAwareTrait {
     }
 }
 
-module.exports = getTrait(LoggerAwareTrait);
+export default getTrait(LoggerAwareTrait);

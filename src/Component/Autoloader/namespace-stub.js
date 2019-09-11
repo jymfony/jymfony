@@ -14,7 +14,22 @@ Jymfony.Component.Autoloader = {
     /**
      * @namespace
      */
-    Parser: {},
+    Parser: {
+        /**
+         * @namespace
+         */
+        AST: {},
+
+        /**
+         * @namespace
+         */
+        SourceMap: {},
+    },
+
+    /**
+     * @namespace
+     */
+    Proxy: {},
 
     /**
      * @namespace

@@ -1,7 +1,7 @@
 /**
  * @memberOf Jymfony.Component.HttpFoundation.Header
  */
-class ContentDisposition {
+export default class ContentDisposition {
     /**
      * Constructor.
      *

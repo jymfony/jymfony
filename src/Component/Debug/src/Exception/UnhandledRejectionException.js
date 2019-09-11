@@ -5,7 +5,7 @@ const util = require('util');
  *
  * @memberOf Jymfony.Component.Debug.Exception
  */
-class UnhandledRejectionException extends RuntimeException {
+export default class UnhandledRejectionException extends RuntimeException {
     /**
      * Constructor.
      *
@@ -44,5 +44,3 @@ class UnhandledRejectionException extends RuntimeException {
         return this._promise;
     }
 }
-
-module.exports = UnhandledRejectionException;

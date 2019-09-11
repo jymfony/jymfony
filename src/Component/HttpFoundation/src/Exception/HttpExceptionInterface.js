@@ -17,4 +17,4 @@ class HttpExceptionInterface {
     get headers() { }
 }
 
-module.exports = getInterface(HttpExceptionInterface);
+export default getInterface(HttpExceptionInterface);

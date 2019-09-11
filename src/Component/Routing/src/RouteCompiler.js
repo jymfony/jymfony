@@ -7,7 +7,7 @@ const SEPARATORS = [
 /**
  * @memberOf Jymfony.Component.Routing
  */
-class RouteCompiler {
+export default class RouteCompiler {
     /**
      * Compiles a route.
      *
@@ -69,7 +69,7 @@ class RouteCompiler {
 
         let match;
         const re = /{!?\w+}/g;
-        while (match = re.exec(pattern)) {
+        while ((match = re.exec(pattern))) {
             let varName = match[0].substr(1, match[0].length - 2);
             const precedingText = pattern.substr(pos, match.index - pos);
             pos = match.index + match[0].length;
@@ -253,5 +253,3 @@ class RouteCompiler {
         return regexp;
     }
 }
-
-module.exports = RouteCompiler;

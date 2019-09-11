@@ -38,4 +38,4 @@ class ServiceSubscriberInterface {
     static * getSubscribedServices() { }
 }
 
-module.exports = getInterface(ServiceSubscriberInterface);
+export default getInterface(ServiceSubscriberInterface);

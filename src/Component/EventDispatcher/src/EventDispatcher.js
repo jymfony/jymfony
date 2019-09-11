@@ -5,7 +5,7 @@ const InvalidArgumentException = Jymfony.Component.EventDispatcher.Exception.Inv
 /**
  * @memberOf Jymfony.Component.EventDispatcher
  */
-class EventDispatcher extends implementationOf(EventDispatcherInterface) {
+export default class EventDispatcher extends implementationOf(EventDispatcherInterface) {
     /**
      * Constructor.
      */
@@ -121,6 +121,8 @@ class EventDispatcher extends implementationOf(EventDispatcherInterface) {
             const index = this._listeners[eventName].indexOf(registered);
             this._listeners[eventName].splice(index, 1);
         }
+
+        delete this._sorted[eventName];
     }
 
     /**
@@ -249,5 +251,3 @@ class EventDispatcher extends implementationOf(EventDispatcherInterface) {
         return func1 === func2;
     }
 }
-
-module.exports = EventDispatcher;

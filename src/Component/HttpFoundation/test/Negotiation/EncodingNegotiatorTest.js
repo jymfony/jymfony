@@ -1,6 +1,6 @@
 const AcceptEncoding = Jymfony.Component.HttpFoundation.Negotiation.AcceptEncoding;
 const EncodingNegotiator = Jymfony.Component.HttpFoundation.Negotiation.EncodingNegotiator;
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 describe('[HttpFoundation] CharsetNegotiator', function () {
     const testsForGetBest = [

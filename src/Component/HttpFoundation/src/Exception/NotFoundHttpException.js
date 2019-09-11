@@ -7,7 +7,7 @@ const Response = Jymfony.Component.HttpFoundation.Response;
  *
  * @memberOf Jymfony.Component.HttpFoundation.Exception
  */
-class NotFoundHttpException extends HttpException {
+export default class NotFoundHttpException extends HttpException {
     /**
      * Constructor.
      *
@@ -20,5 +20,3 @@ class NotFoundHttpException extends HttpException {
         super.__construct(Response.HTTP_NOT_FOUND, message, previous, headers, code);
     }
 }
-
-module.exports = NotFoundHttpException;

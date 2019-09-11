@@ -11,7 +11,7 @@ const AbstractRenderer = Jymfony.Component.Console.Question.Renderer.AbstractRen
  *
  * @internal
  */
-class RawListRenderer extends AbstractRenderer {
+export default class RawListRenderer extends AbstractRenderer {
     /**
      * @inheritdoc
      */
@@ -77,5 +77,3 @@ class RawListRenderer extends AbstractRenderer {
         this._output.write('[<info>?</info>] ' + this._question._question + ' ');
     }
 }
-
-module.exports = RawListRenderer;

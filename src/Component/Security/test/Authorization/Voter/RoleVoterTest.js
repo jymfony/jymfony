@@ -3,27 +3,32 @@ const Role = Jymfony.Component.Security.Role.Role;
 const VoterInterface = Jymfony.Component.Security.Authorization.Voter.VoterInterface;
 const RoleVoter = Jymfony.Component.Security.Authorization.Voter.RoleVoter;
 const Prophet = Jymfony.Component.Testing.Prophet;
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 class RoleVoterTest {
-    execTests() {
-        describe('[Security] RoleVoter', () => {
-            beforeEach(() => {
-                /**
-                 * @type {Jymfony.Component.Testing.Prophet}
-                 *
-                 * @private
-                 */
-                this._prophet = new Prophet();
-            });
+    beforeEach() {
+        this._prophet = new Prophet();
+    }
 
+    afterEach() {
+        this._prophet.checkPredictions();
+    }
+
+    execTests() {
+        const self = this;
+        describe('[Security] RoleVoter', function () {
+            beforeEach(self.beforeEach.bind(self));
             afterEach(() => {
-                this._prophet.checkPredictions();
+                if ('failed' === this.ctx.currentTest.state) {
+                    return;
+                }
+
+                self.afterEach();
             });
 
             let index = 0;
-            for (const [ roles, attributes, expected ] of this._getVoteTests()) {
-                it('vote should work with dataset #' + index++, () => this.testVote(roles, attributes, expected));
+            for (const [ roles, attributes, expected ] of self._getVoteTests()) {
+                it('vote should work with dataset #' + index++, () => self.testVote(roles, attributes, expected));
             }
         });
     }

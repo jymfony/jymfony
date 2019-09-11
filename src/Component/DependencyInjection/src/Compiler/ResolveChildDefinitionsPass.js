@@ -9,7 +9,7 @@ const ExceptionInterface = Jymfony.Component.DependencyInjection.Exception.Excep
  *
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
  */
-class ResolveChildDefinitionsPass extends AbstractRecursivePass {
+export default class ResolveChildDefinitionsPass extends AbstractRecursivePass {
     /**
      * @inheritdoc
      */
@@ -172,5 +172,3 @@ class ResolveChildDefinitionsPass extends AbstractRecursivePass {
         return def;
     }
 }
-
-module.exports = ResolveChildDefinitionsPass;

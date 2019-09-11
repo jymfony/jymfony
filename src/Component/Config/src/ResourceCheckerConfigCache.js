@@ -1,10 +1,11 @@
+import * as fs from 'fs';
+
 const ConfigCacheInterface = Jymfony.Component.Config.ConfigCacheInterface;
-const fs = require('fs');
 
 /**
  * @memberOf Jymfony.Component.Config
  */
-class ResourceCheckerConfigCache extends implementationOf(ConfigCacheInterface) {
+export default class ResourceCheckerConfigCache extends implementationOf(ConfigCacheInterface) {
     /**
      * Create a config cache with resource checkers
      *
@@ -93,5 +94,3 @@ class ResourceCheckerConfigCache extends implementationOf(ConfigCacheInterface) 
         return this._file + '.meta';
     }
 }
-
-module.exports = ResourceCheckerConfigCache;

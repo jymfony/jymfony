@@ -4,7 +4,7 @@ const ConstStub = Jymfony.Component.VarDumper.Caster.ConstStub;
 /**
  * @memberOf Jymfony.Component.VarDumper.Caster
  */
-class BufferCaster {
+export default class BufferCaster {
     /**
      * Casts a Date object.
      *
@@ -22,5 +22,3 @@ class BufferCaster {
         };
     }
 }
-
-module.exports = BufferCaster;

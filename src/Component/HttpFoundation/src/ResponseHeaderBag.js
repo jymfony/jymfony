@@ -6,7 +6,7 @@ const HeaderUtils = Jymfony.Component.HttpFoundation.HeaderUtils;
 /**
  * @memberOf Jymfony.Component.HttpFoundation
  */
-class ResponseHeaderBag extends HeaderBag {
+export default class ResponseHeaderBag extends HeaderBag {
     /**
      * Constructor.
      *
@@ -114,6 +114,30 @@ class ResponseHeaderBag extends HeaderBag {
     }
 
     /**
+     * @inheritdoc
+     */
+    remove(key) {
+        const uniqueKey = key.toLowerCase().replace(/_/g, '-');
+        delete this._headerNames[uniqueKey];
+
+        if ('set-cookie' === uniqueKey) {
+            this._cookies = {};
+
+            return;
+        }
+
+        super.remove(key);
+
+        if ('cache-control' === uniqueKey) {
+            this._computedCacheControl = {};
+        }
+
+        if ('date' === uniqueKey) {
+            this._initDate();
+        }
+    }
+
+    /**
      * Generates a HTTP Content-Disposition field-value.
      *
      * @param {string} disposition One of "inline" or "attachment"
@@ -205,5 +229,3 @@ class ResponseHeaderBag extends HeaderBag {
 
 ResponseHeaderBag.DISPOSITION_ATTACHMENT = 'attachment';
 ResponseHeaderBag.DISPOSITION_INLINE = 'inline';
-
-module.exports = ResponseHeaderBag;

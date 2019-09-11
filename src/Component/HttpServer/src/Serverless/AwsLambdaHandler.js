@@ -1,3 +1,6 @@
+import { Readable } from 'stream';
+import { format as urlFormat } from 'url';
+
 const EventDispatcher = Jymfony.Component.EventDispatcher.EventDispatcher;
 const FunctionControllerResolver = Jymfony.Component.HttpFoundation.Controller.FunctionControllerResolver;
 const BadRequestException = Jymfony.Component.HttpFoundation.Exception.BadRequestException;
@@ -10,13 +13,10 @@ const RequestHandler = Jymfony.Component.HttpServer.RequestHandler;
 const Router = Jymfony.Component.Routing.Router;
 const FunctionLoader = Jymfony.Component.Routing.Loader.FunctionLoader;
 
-const Readable = require('stream').Readable;
-const url = require('url');
-
 /**
  * @memberOf Jymfony.Component.HttpServer.Serverless
  */
-class AwsLambdaHandler extends RequestHandler {
+export default class AwsLambdaHandler extends RequestHandler {
     /**
      * Creates a new Http server instance.
      *
@@ -117,7 +117,7 @@ class AwsLambdaHandler extends RequestHandler {
             return response;
         }
 
-        const requestUrl = url.format({ pathname: event.path, query: event.queryStringParameters });
+        const requestUrl = urlFormat({ pathname: event.path, query: event.queryStringParameters });
         const request = new Request(requestUrl, requestParams, {}, event.headers || {}, {
             'REQUEST_METHOD': event.httpMethod,
             'REMOTE_ADDR': event.requestContext.identity.sourceIp,
@@ -192,5 +192,3 @@ class AwsLambdaHandler extends RequestHandler {
         return super._getScheme(headers);
     }
 }
-
-module.exports = AwsLambdaHandler;

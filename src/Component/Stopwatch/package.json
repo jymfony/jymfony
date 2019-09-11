@@ -23,9 +23,9 @@
     "@jymfony/util": "0.1.0-alpha.17"
   },
   "devDependencies": {
-    "@jymfony/debug": "0.1.0-alpha.17",
-    "chai": "^3.5.0",
-    "mocha": "^5.0"
+    "@jymfony/debug": "*",
+    "chai": "^4.2",
+    "mocha": "^6.0"
   },
   "config": {
     "jymfony-autoload": {

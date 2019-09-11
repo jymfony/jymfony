@@ -37,21 +37,19 @@ class ReflectionField {
          */
         this._static = false;
 
-        if (this._class._fields[fieldName]) {
-            privateAccessors.set(this, this._class._fields[fieldName]);
-        } else if (this._class._staticFields[fieldName]) {
-            privateAccessors.set(this, this._class._staticFields[fieldName]);
-            this._static = true;
-        } else {
+        const metadata = this._class._fields[fieldName] || (this._static = true, this._class._staticFields[fieldName]);
+        if (! metadata) {
             throw new ReflectionException('Unknown class field "' + fieldName + '\'');
         }
+
+        privateAccessors.set(this, metadata);
 
         /**
          * @type {string}
          *
          * @private
          */
-        this._docblock = reflectionClass._docblock ? reflectionClass._docblock.properties[(this._static ? 'static::' : '') + fieldName] : undefined;
+        this._docblock = metadata.docblock || null;
     }
 
     /**
@@ -110,6 +108,15 @@ class ReflectionField {
     }
 
     /**
+     * Gets the class metadata.
+     *
+     * @returns {[Function, *][]}
+     */
+    get metadata() {
+        return MetadataStorage.getMetadata(this._class.getConstructor(), this._name);
+    }
+
+    /**
      * Gets the field current value.
      *
      * @param {*} object
@@ -146,4 +153,4 @@ class ReflectionField {
     }
 }
 
-module.exports = ReflectionField;
+module.exports = global.ReflectionField = ReflectionField;

@@ -6,7 +6,7 @@ const Reference = Jymfony.Component.DependencyInjection.Reference;
 /**
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
  */
-class CheckReferenceValidityPass extends AbstractRecursivePass {
+export default class CheckReferenceValidityPass extends AbstractRecursivePass {
     /**
      * @inheritdoc
      */
@@ -29,5 +29,3 @@ class CheckReferenceValidityPass extends AbstractRecursivePass {
         return super._processValue(value, isRoot);
     }
 }
-
-module.exports = CheckReferenceValidityPass;

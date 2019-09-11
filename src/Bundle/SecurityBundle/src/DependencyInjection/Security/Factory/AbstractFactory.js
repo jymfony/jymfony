@@ -6,7 +6,7 @@ const SecurityFactoryInterface = Jymfony.Bundle.SecurityBundle.DependencyInjecti
  *
  * @memberOf Jymfony.Bundle.SecurityBundle.DependencyInjection.Security.Factory
  */
-class AbstractFactory extends implementationOf(SecurityFactoryInterface) {
+export default class AbstractFactory extends implementationOf(SecurityFactoryInterface) {
     __construct() {
         /**
          * @type {Object.<string, *>}
@@ -135,5 +135,3 @@ class AbstractFactory extends implementationOf(SecurityFactoryInterface) {
         return config.remember_me;
     }
 }
-
-module.exports = AbstractFactory;

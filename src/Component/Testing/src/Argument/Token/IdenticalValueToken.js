@@ -3,7 +3,7 @@ const TokenInterface = Jymfony.Component.Testing.Argument.Token.TokenInterface;
 /**
  * @memberOf Jymfony.Component.Testing.Argument.Token
  */
-class IdenticalValueToken extends implementationOf(TokenInterface) {
+export default class IdenticalValueToken extends implementationOf(TokenInterface) {
     /**
      * Constructor.
      *
@@ -36,5 +36,3 @@ class IdenticalValueToken extends implementationOf(TokenInterface) {
         return __jymfony.sprintf('identical(%s)', JSON.stringify(this._value));
     }
 }
-
-module.exports = IdenticalValueToken;

@@ -11,7 +11,7 @@ const File = Jymfony.Component.Filesystem.File;
  * @abstract
  * @memberOf Jymfony.Component.Filesystem.StreamWrapper
  */
-class AbstractStreamWrapper extends implementationOf(StreamWrapperInterface) {
+export default class AbstractStreamWrapper extends implementationOf(StreamWrapperInterface) {
     /**
      * @inheritdoc
      */
@@ -182,5 +182,3 @@ class AbstractStreamWrapper extends implementationOf(StreamWrapperInterface) {
         ));
     }
 }
-
-module.exports = AbstractStreamWrapper;

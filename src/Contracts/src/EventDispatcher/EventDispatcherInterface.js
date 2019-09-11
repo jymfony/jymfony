@@ -78,4 +78,4 @@ class EventDispatcherInterface {
     hasListeners(eventName) { }
 }
 
-module.exports = getInterface(EventDispatcherInterface);
+export default getInterface(EventDispatcherInterface);

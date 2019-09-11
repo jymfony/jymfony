@@ -7,7 +7,7 @@ const Definition = Jymfony.Component.DependencyInjection.Definition;
  *
  * @abstract
  */
-class AbstractRecursivePass extends implementationOf(CompilerPassInterface) {
+export default class AbstractRecursivePass extends implementationOf(CompilerPassInterface) {
     __construct() {
         /**
          * @type {string}
@@ -80,5 +80,3 @@ class AbstractRecursivePass extends implementationOf(CompilerPassInterface) {
         return value;
     }
 }
-
-module.exports = AbstractRecursivePass;

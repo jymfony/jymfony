@@ -5,7 +5,7 @@ const IteratorArgument = Jymfony.Component.DependencyInjection.Argument.Iterator
  *
  * @memberOf Jymfony.Component.DependencyInjection.Argument
  */
-class TaggedIteratorArgument extends IteratorArgument {
+export default class TaggedIteratorArgument extends IteratorArgument {
     /**
      * Constructor.
      *
@@ -31,5 +31,3 @@ class TaggedIteratorArgument extends IteratorArgument {
         return this._tag;
     }
 }
-
-module.exports = TaggedIteratorArgument;

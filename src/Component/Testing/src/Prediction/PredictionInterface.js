@@ -14,4 +14,4 @@ class PredictionInterface {
     check(calls, object, method) { }
 }
 
-module.exports = getInterface(PredictionInterface);
+export default getInterface(PredictionInterface);

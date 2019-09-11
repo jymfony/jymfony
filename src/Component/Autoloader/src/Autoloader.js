@@ -1,5 +1,6 @@
 const Finder = require('./Finder');
 const Namespace = require('./Namespace');
+const ManagedProxy = require('./Proxy/ManagedProxy');
 const fs = require('fs');
 const path = require('path');
 
@@ -141,49 +142,23 @@ class Autoloader {
                 }
 
                 if (undefined !== this.__invoke) {
-                    return new Proxy(self.__invoke, {
+                    return new ManagedProxy(self.__invoke, proxy => {
+                        proxy.target = self;
+                        return null;
+                    }, {
                         get: (target, key) => {
                             if ('__self__' === key) {
-                                return self;
+                                return target;
                             }
 
-                            return Reflect.get(self, key);
-                        },
-                        set: (target, key, value) => {
-                            return Reflect.set(self, key, value);
-                        },
-                        has: (target, key) => {
-                            return Reflect.has(self, key);
-                        },
-                        deleteProperty: (target, key) => {
-                            return Reflect.deleteProperty(self, key);
-                        },
-                        defineProperty: (target, key, descriptor) => {
-                            return Reflect.defineProperty(self, key, descriptor);
-                        },
-                        enumerate: () => {
-                            return Reflect.enumerate(self);
-                        },
-                        ownKeys: () => {
-                            return Reflect.ownKeys(self);
+                            return Reflect.get(target, key);
                         },
                         apply: (target, ctx, args) => {
-                            return self.__invoke(...args);
+                            return target.__invoke(...args);
                         },
-                        construct: (target, argumentsList, newTarget) => {
-                            return Reflect.construct(self, argumentsList, newTarget);
-                        },
-                        getPrototypeOf: () => {
-                            return Reflect.getPrototypeOf(self);
-                        },
-                        setPrototypeOf: (target, proto) => {
-                            return Reflect.setPrototypeOf(self, proto);
-                        },
-                        isExtensible: () => {
-                            return Reflect.isExtensible(self);
-                        },
-                        preventExtensions: () => {
-                            Reflect.preventExtensions(self);
+                        preventExtensions: (target) => {
+                            Reflect.preventExtensions(target);
+
                             return false;
                         },
                         getOwnPropertyDescriptor: (target, key) => {
@@ -191,7 +166,7 @@ class Autoloader {
                                 return { configurable: true, enumerable: false };
                             }
 
-                            return Reflect.getOwnPropertyDescriptor(self, key);
+                            return Reflect.getOwnPropertyDescriptor(target, key);
                         },
                     });
                 }

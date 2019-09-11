@@ -5,7 +5,7 @@ const AuthenticationEvent = Jymfony.Component.Security.Event.AuthenticationEvent
  *
  * @memberOf Jymfony.Component.Security.Event
  */
-class AuthenticationFailureEvent extends AuthenticationEvent {
+export default class AuthenticationFailureEvent extends AuthenticationEvent {
     /**
      * Constructor.
      *
@@ -32,5 +32,3 @@ class AuthenticationFailureEvent extends AuthenticationEvent {
         return this._exception;
     }
 }
-
-module.exports = AuthenticationFailureEvent;

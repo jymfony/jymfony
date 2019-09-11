@@ -6,7 +6,7 @@ const cache = {};
  *
  * @memberOf Jymfony.Component.Security.Role
  */
-class Role {
+export default class Role {
     /**
      * Constructor.
      *
@@ -50,5 +50,3 @@ class Role {
         return this._role;
     }
 }
-
-module.exports = Role;

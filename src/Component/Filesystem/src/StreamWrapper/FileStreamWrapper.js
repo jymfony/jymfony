@@ -1,13 +1,12 @@
+import * as fs from 'fs';
+import { dirname, resolve as pathResolve } from 'path';
+import { promisify } from 'util';
+import { parse as urlParse } from 'url';
+
 const File = Jymfony.Component.Filesystem.File;
 const AbstractStreamWrapper = Jymfony.Component.Filesystem.StreamWrapper.AbstractStreamWrapper;
 const Resource = Jymfony.Component.Filesystem.StreamWrapper.File.Resource;
 const StreamWrapperInterface = Jymfony.Component.Filesystem.StreamWrapper.StreamWrapperInterface;
-
-const fs = require('fs');
-const dirname = require('path').dirname;
-const pathResolve = require('path').resolve;
-const urlParse = require('url').parse;
-const promisify = require('util').promisify;
 
 const readlink = promisify(fs.readlink);
 const lstat = promisify(fs.lstat);
@@ -37,7 +36,7 @@ let readlinkCache = new Storage();
  *
  * @memberOf Jymfony.Component.Filesystem.StreamWrapper
  */
-class FileStreamWrapper extends AbstractStreamWrapper {
+export default class FileStreamWrapper extends AbstractStreamWrapper {
     /**
      * Normalizes path and urls to a simple path.
      *
@@ -369,5 +368,3 @@ class FileStreamWrapper extends AbstractStreamWrapper {
 }
 
 FileStreamWrapper.stat_cache_ttl = 2;
-
-module.exports = FileStreamWrapper;

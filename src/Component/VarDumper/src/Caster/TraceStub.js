@@ -5,7 +5,7 @@ const Stub = Jymfony.Component.VarDumper.Cloner.Stub;
  *
  * @memberOf Jymfony.Component.VarDumper.Caster
  */
-class TraceStub extends Stub {
+export default class TraceStub extends Stub {
     /**
      * Constructor.
      *
@@ -38,5 +38,3 @@ class TraceStub extends Stub {
         this.numberingOffset = numberingOffset;
     }
 }
-
-module.exports = TraceStub;

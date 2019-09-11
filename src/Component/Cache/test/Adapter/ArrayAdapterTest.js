@@ -1,6 +1,6 @@
 const AdapterTestCase = require('./AdapterTestCase');
 const ArrayAdapter = Jymfony.Component.Cache.Adapter.ArrayAdapter;
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 describe('[Cache] ArrayAdapter', function () {
     AdapterTestCase.shouldPassAdapterTests.call(this);

@@ -1,5 +1,5 @@
 const HeaderUtils = Jymfony.Component.HttpFoundation.HeaderUtils;
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 describe('[HttpFoundation] HeaderUtils', function () {
     it('split', () => {

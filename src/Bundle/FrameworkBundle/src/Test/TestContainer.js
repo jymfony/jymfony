@@ -3,7 +3,7 @@ const Container = Jymfony.Component.DependencyInjection.Container;
 /**
  * @memberOf Jymfony.Bundle.FrameworkBundle.Test
  */
-class TestContainer extends Container {
+export default class TestContainer extends Container {
     /**
      * Constructor.
      *
@@ -53,8 +53,19 @@ class TestContainer extends Container {
     /**
      * @inheritdoc
      */
+    has(id) {
+        id = Container.normalizeId(id);
+
+        return this._privateContainer.has(id) || this._publicContainer.has(id);
+    }
+
+    /**
+     * @inheritdoc
+     */
     get(id, invalidBehavior = Container.EXCEPTION_ON_INVALID_REFERENCE) {
-        return this._publicContainer.get(id, invalidBehavior);
+        id = Container.normalizeId(id);
+
+        return this._privateContainer.has(id) ? this._privateContainer.get(id) : this._publicContainer.get(id, invalidBehavior);
     }
 
     /**
@@ -71,5 +82,3 @@ class TestContainer extends Container {
         return this._publicContainer.reset();
     }
 }
-
-module.exports = TestContainer;

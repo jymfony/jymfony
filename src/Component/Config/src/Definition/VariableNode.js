@@ -4,7 +4,7 @@ const InvalidConfigurationException = Jymfony.Component.Config.Definition.Except
 /**
  * @memberOf Jymfony.Component.Config.Definition
  */
-class VariableNode extends BaseNode {
+export default class VariableNode extends BaseNode {
     /**
      * @inheritdoc
      */
@@ -129,5 +129,3 @@ class VariableNode extends BaseNode {
         return ! value;
     }
 }
-
-module.exports = VariableNode;

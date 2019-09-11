@@ -9,7 +9,7 @@ let currentObjectId = 1;
 /**
  * @memberOf Jymfony.Component.VarDumper.Cloner
  */
-class VarCloner extends AbstractCloner {
+export default class VarCloner extends AbstractCloner {
     _doClone(variable) {
         const objectRefs = new Map();
 
@@ -196,5 +196,3 @@ class VarCloner extends AbstractCloner {
         return queue;
     }
 }
-
-module.exports = VarCloner;

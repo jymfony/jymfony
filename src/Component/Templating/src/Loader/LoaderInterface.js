@@ -14,4 +14,4 @@ class LoaderInterface {
     async load(template) { }
 }
 
-module.exports = getInterface(LoaderInterface);
+export default getInterface(LoaderInterface);

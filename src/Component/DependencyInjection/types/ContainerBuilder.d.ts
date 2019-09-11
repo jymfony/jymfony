@@ -16,8 +16,8 @@ declare namespace Jymfony.Component.DependencyInjection {
         private _trackResources: boolean;
         private _compiler: Compiler;
 
-        constructor(parameterBag: ParameterBag);
-        __construct(parameterBag: ParameterBag);
+        constructor(parameterBag?: ParameterBag);
+        __construct(parameterBag?: ParameterBag);
 
         /**
          * Sets the track resources flag.

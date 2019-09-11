@@ -4,7 +4,7 @@ const FormatterInterface = Jymfony.Component.Logger.Formatter.FormatterInterface
 /**
  * @memberOf Jymfony.Component.Logger.Formatter
  */
-class NormalizerFormatter extends implementationOf(FormatterInterface) {
+export default class NormalizerFormatter extends implementationOf(FormatterInterface) {
     /**
      * Constructor.
      *
@@ -155,5 +155,3 @@ class NormalizerFormatter extends implementationOf(FormatterInterface) {
 }
 
 NormalizerFormatter.SIMPLE_DATE = 'Y-m-d\\TH:i:sP';
-
-module.exports = NormalizerFormatter;

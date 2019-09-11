@@ -9,7 +9,7 @@ const Loader = Jymfony.Component.Config.Loader.Loader;
  *
  * @memberOf Jymfony.Component.Config.Loader
  */
-class DelegatingLoader extends Loader {
+export default class DelegatingLoader extends Loader {
     /**
      * Constructor.
      *
@@ -38,5 +38,3 @@ class DelegatingLoader extends Loader {
         return false !== this._resolver.resolve(resource, type);
     }
 }
-
-module.exports = DelegatingLoader;

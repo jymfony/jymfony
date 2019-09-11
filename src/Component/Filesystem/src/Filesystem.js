@@ -14,7 +14,7 @@ const S_IWOTH = 0o0002; // Others have write permission
 /**
  * @memberOf Jymfony.Component.Filesystem
  */
-class Filesystem {
+export default class Filesystem {
     /**
      * Copies a file.
      *
@@ -471,5 +471,3 @@ class Filesystem {
         return stat ? stat.isSymbolicLink() : false;
     }
 }
-
-module.exports = Filesystem;

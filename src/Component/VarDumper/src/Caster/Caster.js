@@ -5,7 +5,7 @@
  *
  * @final
  */
-class Caster {
+export default class Caster {
     /**
      * Casts objects to arrays and adds the dynamic property prefix.
      *
@@ -118,5 +118,3 @@ Caster.EXCLUDE_VIRTUAL = 128;
 
 Caster.PREFIX_VIRTUAL = '\0~\0';
 Caster.PREFIX_DYNAMIC = '\0+\0';
-
-module.exports = Caster;

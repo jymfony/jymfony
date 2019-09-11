@@ -4,7 +4,7 @@ const AcceptCharset = Jymfony.Component.HttpFoundation.Negotiation.AcceptCharset
 /**
  * @memberOf Jymfony.Component.HttpFoundation.Negotiation
  */
-class CharsetNegotiator extends AbstractNegotiator {
+export default class CharsetNegotiator extends AbstractNegotiator {
     /**
      * @inheritdoc
      */
@@ -12,5 +12,3 @@ class CharsetNegotiator extends AbstractNegotiator {
         return new AcceptCharset(accept);
     }
 }
-
-module.exports = CharsetNegotiator;

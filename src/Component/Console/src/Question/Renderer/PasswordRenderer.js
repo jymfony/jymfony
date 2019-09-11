@@ -10,7 +10,7 @@ const AbstractRenderer = Jymfony.Component.Console.Question.Renderer.AbstractRen
  *
  * @internal
  */
-class PasswordRenderer extends AbstractRenderer {
+export default class PasswordRenderer extends AbstractRenderer {
     /**
      * @inheritdoc
      */
@@ -145,5 +145,3 @@ class PasswordRenderer extends AbstractRenderer {
         }
     }
 }
-
-module.exports = PasswordRenderer;

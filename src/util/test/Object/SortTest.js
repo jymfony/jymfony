@@ -1,5 +1,5 @@
 require('../../lib/Object/sort');
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 describe('Sort', function () {
 

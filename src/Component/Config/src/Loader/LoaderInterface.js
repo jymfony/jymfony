@@ -37,4 +37,4 @@ class LoaderInterface {
     set resolver(resolver) { }
 }
 
-module.exports = getInterface(LoaderInterface);
+export default getInterface(LoaderInterface);

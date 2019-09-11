@@ -21,4 +21,4 @@ class StreamableInputInterface extends InputInterface.definition {
     get stream() { }
 }
 
-module.exports = getInterface(StreamableInputInterface);
+export default getInterface(StreamableInputInterface);

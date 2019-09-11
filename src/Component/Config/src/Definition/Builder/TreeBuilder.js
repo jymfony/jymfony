@@ -6,7 +6,7 @@ const NodeBuilder = Jymfony.Component.Config.Definition.Builder.NodeBuilder;
  *
  * @memberOf Jymfony.Component.Config.Definition.Builder
  */
-class TreeBuilder extends implementationOf(NodeParentInterface) {
+export default class TreeBuilder extends implementationOf(NodeParentInterface) {
     /**
      * Constructor.
      *
@@ -62,6 +62,3 @@ class TreeBuilder extends implementationOf(NodeParentInterface) {
         return this._tree = this._root.getNode(true);
     }
 }
-
-
-module.exports = TreeBuilder;

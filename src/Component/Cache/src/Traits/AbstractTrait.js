@@ -1,7 +1,7 @@
+import { createHash } from 'crypto';
+
 const CacheItem = Jymfony.Component.Cache.CacheItem;
 const LoggerAwareTrait = Jymfony.Component.Logger.LoggerAwareTrait;
-
-const crypto = require('crypto');
 
 /**
  * @memberOf Jymfony.Component.Cache.Traits
@@ -214,7 +214,7 @@ class AbstractTrait extends LoggerAwareTrait.definition {
 
         let id = namespace + nsVersion + key;
         if (id.length > this.constructor.MAX_ID_LENGTH) {
-            const hash = crypto.createHash('sha256');
+            const hash = createHash('sha256');
             hash.update(key);
             key = hash.digest('base64');
             id = namespace + nsVersion + key;
@@ -222,9 +222,8 @@ class AbstractTrait extends LoggerAwareTrait.definition {
 
         return id;
     }
-
 }
 
 AbstractTrait.MAX_ID_LENGTH = undefined;
 
-module.exports = getTrait(AbstractTrait);
+export default getTrait(AbstractTrait);

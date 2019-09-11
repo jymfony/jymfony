@@ -5,7 +5,7 @@ const ResourceNotFoundException = Jymfony.Component.Routing.Exception.ResourceNo
 const Matcher = Jymfony.Component.Routing.Matcher.Matcher;
 const RouteCollection = Jymfony.Component.Routing.RouteCollection;
 const Route = Jymfony.Component.Routing.Route;
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 exports.MatcherTest = function () {
     it('no method, allowed', () => {

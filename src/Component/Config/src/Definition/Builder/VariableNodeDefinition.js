@@ -6,7 +6,7 @@ const VariableNode = Jymfony.Component.Config.Definition.VariableNode;
  *
  * @memberOf Jymfony.Component.Config.Definition.Builder
  */
-class VariableNodeDefinition extends NodeDefinition {
+export default class VariableNodeDefinition extends NodeDefinition {
     /**
      * Instantiate a Node.
      *
@@ -48,5 +48,3 @@ class VariableNodeDefinition extends NodeDefinition {
         return node;
     }
 }
-
-module.exports = VariableNodeDefinition;

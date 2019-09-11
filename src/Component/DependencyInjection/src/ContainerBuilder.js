@@ -1,3 +1,6 @@
+import { createHash } from 'crypto';
+import { statSync } from 'fs';
+
 const FileResource = Jymfony.Component.Config.Resource.FileResource;
 const Alias = Jymfony.Component.DependencyInjection.Alias;
 const IteratorArgument = Jymfony.Component.DependencyInjection.Argument.IteratorArgument;
@@ -14,17 +17,14 @@ const RealServiceInstantiator = Jymfony.Component.DependencyInjection.LazyProxy.
 const Parameter = Jymfony.Component.DependencyInjection.Parameter;
 const Reference = Jymfony.Component.DependencyInjection.Reference;
 
-const crypto = require('crypto');
-const fs = require('fs');
-
 /**
  * @memberOf Jymfony.Component.DependencyInjection
  */
-class ContainerBuilder extends Container {
+export default class ContainerBuilder extends Container {
     /**
      * @inheritdoc
      */
-    __construct(parameterBag) {
+    __construct(parameterBag = undefined) {
         super.__construct(parameterBag);
 
         /**
@@ -116,7 +116,7 @@ class ContainerBuilder extends Container {
      *
      * @param {string} name
      *
-     * @returns {Jymfony.Component.DependencyInjection.ExtensionInterface}
+     * @returns {Jymfony.Component.DependencyInjection.Extension.ExtensionInterface}
      *
      * @throws {LogicException}
      */
@@ -255,7 +255,7 @@ class ContainerBuilder extends Container {
         }
 
         do {
-            if (reflClass.filename && fs.statSync(reflClass.filename).isFile()) {
+            if (reflClass.filename && statSync(reflClass.filename).isFile()) {
                 this.addResource(new FileResource(reflClass.filename));
             }
         } while (reflClass = reflClass.getParentClass());
@@ -908,7 +908,7 @@ class ContainerBuilder extends Container {
      * @returns {string}
      */
     static hash(value) {
-        const hash = crypto.createHash('sha256');
+        const hash = createHash('sha256');
         hash.update(__jymfony.serialize(value));
 
         return __jymfony.strtr(hash.digest('base64').substr(0, 7), {
@@ -1080,5 +1080,3 @@ class ContainerBuilder extends Container {
         return value;
     }
 }
-
-module.exports = ContainerBuilder;

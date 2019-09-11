@@ -1,14 +1,14 @@
+import { parse } from 'url';
+import { request } from 'https';
+
 const AbstractProcessingHandler = Jymfony.Component.Logger.Handler.AbstractProcessingHandler;
 const LogLevel = Jymfony.Component.Logger.LogLevel;
 const SlackRecord = Jymfony.Component.Logger.Handler.Slack.SlackRecord;
 
-const https = require('https');
-const url = require('url');
-
 /**
  * @memberOf Jymfony.Component.Logger.Handler
  */
-class SlackWebhookHandler extends AbstractProcessingHandler {
+export default class SlackWebhookHandler extends AbstractProcessingHandler {
     /**
      * Constructor.
      *
@@ -34,7 +34,7 @@ class SlackWebhookHandler extends AbstractProcessingHandler {
             this._formatter || this.getDefaultFormatter()
         );
 
-        this._webhookUrl = url.parse(options.webhookUrl);
+        this._webhookUrl = parse(options.webhookUrl);
     }
 
     /**
@@ -63,10 +63,8 @@ class SlackWebhookHandler extends AbstractProcessingHandler {
             'Content-Length': Buffer.byteLength(data),
         };
 
-        const req = https.request(obj);
+        const req = request(obj);
         req.write(data);
         req.end();
     }
 }
-
-module.exports = SlackWebhookHandler;

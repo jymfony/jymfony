@@ -9,7 +9,7 @@ const Message = Jymfony.Component.HttpFoundation.Websocket.Message;
  * @memberOf Jymfony.Component.HttpFoundation.Websocket
  * @internal
  */
-class FrameBuffer {
+export default class FrameBuffer {
     /**
      * Constructor.
      */
@@ -111,5 +111,3 @@ class FrameBuffer {
         return message;
     }
 }
-
-module.exports = FrameBuffer;

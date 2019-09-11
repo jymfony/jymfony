@@ -6,4 +6,4 @@
 class NodeParentInterface {
 }
 
-module.exports = getInterface(NodeParentInterface);
+export default getInterface(NodeParentInterface);

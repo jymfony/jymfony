@@ -1,5 +1,5 @@
 const VarCloner = Jymfony.Component.VarDumper.Cloner.VarCloner;
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 describe('[VarDumper] VarCloner', function () {
     it('should clone correctly the same object in different cloner instances', () => {

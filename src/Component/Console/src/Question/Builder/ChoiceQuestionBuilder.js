@@ -6,7 +6,7 @@ const QuestionType = Jymfony.Component.Console.Question.QuestionType;
 /**
  * @memberOf Jymfony.Component.Console.Question.Builder
  */
-class ChoiceQuestionBuilder extends QuestionBuilder {
+export default class ChoiceQuestionBuilder extends QuestionBuilder {
     /**
      * Constructor.
      *
@@ -144,5 +144,3 @@ class ChoiceQuestionBuilder extends QuestionBuilder {
         return question;
     }
 }
-
-module.exports = ChoiceQuestionBuilder;

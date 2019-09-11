@@ -10,7 +10,7 @@ const AbstractRenderer = Jymfony.Component.Console.Question.Renderer.AbstractRen
  *
  * @internal
  */
-class ListRenderer extends AbstractRenderer {
+export default class ListRenderer extends AbstractRenderer {
     /**
      * @inheritdoc
      */
@@ -188,5 +188,3 @@ class ListRenderer extends AbstractRenderer {
         this._promiseResolve(this._getValue());
     }
 }
-
-module.exports = ListRenderer;

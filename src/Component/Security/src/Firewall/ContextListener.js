@@ -15,7 +15,7 @@ const UserProviderInterface = Jymfony.Component.Security.User.UserProviderInterf
  *
  * @memberOf Jymfony.Component.Security.Firewall
  */
-class ContextListener extends implementationOf(ListenerInterface, EventSubscriberInterface) {
+export default class ContextListener extends implementationOf(ListenerInterface, EventSubscriberInterface) {
     /**
      * Constructor.
      *
@@ -203,5 +203,3 @@ class ContextListener extends implementationOf(ListenerInterface, EventSubscribe
         throw new RuntimeException(__jymfony.sprintf('There is no user provider for user "%s".', ReflectionClass.getClassName(user)));
     }
 }
-
-module.exports = ContextListener;

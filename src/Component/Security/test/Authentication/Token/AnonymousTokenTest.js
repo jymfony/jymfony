@@ -1,6 +1,6 @@
 const AnonymousToken = Jymfony.Component.Security.Authentication.Token.AnonymousToken;
 const Role = Jymfony.Component.Security.Role.Role;
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 describe('[Security] AnonymousToken', function () {
     it('constructor should work', () => {

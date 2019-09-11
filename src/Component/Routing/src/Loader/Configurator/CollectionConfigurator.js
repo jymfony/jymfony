@@ -6,7 +6,7 @@ const RouteCollection = Jymfony.Component.Routing.RouteCollection;
 /**
  * @memberOf Jymfony.Component.Routing.Loader.Configurator
  */
-class CollectionConfigurator extends implementationOf(
+export default class CollectionConfigurator extends implementationOf(
     ConfiguratorInterface, Traits.ConfiguratorTrait,
     Traits.AddTrait, Traits.RouteTrait
 ) {
@@ -124,5 +124,3 @@ class CollectionConfigurator extends implementationOf(
         return __jymfony.clone(this._route).setPath(path);
     }
 }
-
-module.exports = CollectionConfigurator;

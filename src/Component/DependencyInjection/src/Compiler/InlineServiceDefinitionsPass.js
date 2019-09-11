@@ -7,7 +7,7 @@ const Reference = Jymfony.Component.DependencyInjection.Reference;
 /**
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
  */
-class InlineServiceDefinitionsPass extends mix(AbstractRecursivePass, RepeatablePassInterface) {
+export default class InlineServiceDefinitionsPass extends mix(AbstractRecursivePass, RepeatablePassInterface) {
     /**
      * Constructor.
      */
@@ -132,5 +132,3 @@ class InlineServiceDefinitionsPass extends mix(AbstractRecursivePass, Repeatable
         return 0 === Object.keys(ids).length || this._container.getDefinition(ids[0]).isShared();
     }
 }
-
-module.exports = InlineServiceDefinitionsPass;

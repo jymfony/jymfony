@@ -1,7 +1,7 @@
 const MimeTypes = Jymfony.Component.Mime.MimeTypes;
 const MimeTypeGuesserInterface = Jymfony.Component.Mime.MimeTypeGuesserInterface;
 
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 describe('[Mime] MimeTypes', function () {
     it('should skip unsupported guesser', __jymfony.Platform.isWindows() ? undefined : async () => {

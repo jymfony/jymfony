@@ -3,7 +3,7 @@ const PredictionException = Jymfony.Component.Testing.Exception.Prediction.Predi
 /**
  * @memberOf Jymfony.Component.Testing.Exception.Prediction
  */
-class AggregateException extends mix(RuntimeException, PredictionException) {
+export default class AggregateException extends mix(RuntimeException, PredictionException) {
     /**
      * Constructor.
      *
@@ -45,5 +45,3 @@ class AggregateException extends mix(RuntimeException, PredictionException) {
         return [ ...this._exceptions ];
     }
 }
-
-module.exports = AggregateException;

@@ -1,7 +1,7 @@
+import { parse } from 'url';
+
 const StreamWrapperNotAvailableException = Jymfony.Component.Filesystem.Exception.StreamWrapperNotAvailableException;
 const StreamWrapperInterface = Jymfony.Component.Filesystem.StreamWrapper.StreamWrapperInterface;
-
-const parse = require('url').parse;
 let singleton;
 
 /**
@@ -10,7 +10,7 @@ let singleton;
  * @final
  * @memberOf Jymfony.Component.Filesystem.StreamWrapper
  */
-class StreamWrapper {
+export default class StreamWrapper {
     /**
      * Constructor.
      */
@@ -106,5 +106,3 @@ class StreamWrapper {
         return singleton;
     }
 }
-
-module.exports = StreamWrapper;

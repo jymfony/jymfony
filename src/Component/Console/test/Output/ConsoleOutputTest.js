@@ -1,4 +1,4 @@
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 const ConsoleOutput = Jymfony.Component.Console.Output.ConsoleOutput;
 const OutputInterface = Jymfony.Component.Console.Output.OutputInterface;

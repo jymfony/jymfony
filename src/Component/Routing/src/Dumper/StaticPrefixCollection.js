@@ -1,4 +1,3 @@
-
 /**
  * Prefix tree of routes preserving routes order.
  *
@@ -6,7 +5,7 @@
  *
  * @internal
  */
-class StaticPrefixCollection {
+export default class StaticPrefixCollection {
     /**
      * Constructor.
      *
@@ -197,5 +196,3 @@ class StaticPrefixCollection {
         return [ prefix.substr(0, i), prefix.substr(0, staticLength || i) ];
     }
 }
-
-module.exports = StaticPrefixCollection;

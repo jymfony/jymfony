@@ -7,7 +7,7 @@ const MatcherInterface = Jymfony.Component.Routing.Matcher.MatcherInterface;
  *
  * @memberOf Jymfony.Component.Routing.Matcher
  */
-class Matcher extends implementationOf(MatcherInterface) {
+export default class Matcher extends implementationOf(MatcherInterface) {
     /**
      * Constructor.
      *
@@ -131,5 +131,3 @@ class Matcher extends implementationOf(MatcherInterface) {
         return ret;
     }
 }
-
-module.exports = Matcher;

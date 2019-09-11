@@ -4,7 +4,7 @@ const PropertyPathInterface = Jymfony.Component.PropertyAccess.PropertyPathInter
 /**
  * @memberOf Jymfony.Component.PropertyAccess
  */
-class PropertyPath extends implementationOf(PropertyPathInterface) {
+export default class PropertyPath extends implementationOf(PropertyPathInterface) {
     /**
      * Constructor.
      *
@@ -60,5 +60,3 @@ class PropertyPath extends implementationOf(PropertyPathInterface) {
         return this._elements[this.length - 1];
     }
 }
-
-module.exports = PropertyPath;

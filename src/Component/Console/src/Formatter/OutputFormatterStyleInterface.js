@@ -56,4 +56,4 @@ class OutputFormatterStyleInterface {
     apply(text) { }
 }
 
-module.exports = getInterface(OutputFormatterStyleInterface);
+export default getInterface(OutputFormatterStyleInterface);

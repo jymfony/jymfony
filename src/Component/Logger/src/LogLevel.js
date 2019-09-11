@@ -1,7 +1,7 @@
 /**
  * @memberOf Jymfony.Component.Logger
  */
-class LogLevel { }
+export default class LogLevel { }
 
 /**
  * System is unusable.
@@ -62,5 +62,3 @@ LogLevel.INFO = 200;
  * @type {int}
  */
 LogLevel.DEBUG = 100;
-
-module.exports = LogLevel;

@@ -4,7 +4,7 @@
  *
  * @memberOf Jymfony.Component.Lexer
  */
-class ValueHolder {
+export default class ValueHolder {
     /**
      * Constructor.
      *
@@ -33,5 +33,3 @@ class ValueHolder {
         this._value = value.toString();
     }
 }
-
-module.exports = ValueHolder;

@@ -4,7 +4,7 @@ const OutputFormatter = Jymfony.Component.Console.Formatter.OutputFormatter;
 /**
  * @memberOf Jymfony.Component.Console.Helper
  */
-class FormatterHelper extends Helper {
+export default class FormatterHelper extends Helper {
     /**
      * Formats a message within a section.
      *
@@ -76,5 +76,3 @@ class FormatterHelper extends Helper {
         return message.substr(0, length) + suffix;
     }
 }
-
-module.exports = FormatterHelper;

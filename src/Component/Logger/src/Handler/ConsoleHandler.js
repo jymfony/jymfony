@@ -17,7 +17,7 @@ const DEFAULT_VERBOSITY_MAP = {
 /**
  * @memberOf Jymfony.Component.Logger.Handler
  */
-class ConsoleHandler extends mix(AbstractProcessingHandler, EventSubscriberInterface) {
+export default class ConsoleHandler extends mix(AbstractProcessingHandler, EventSubscriberInterface) {
     /**
      * Constructor.
      *
@@ -131,5 +131,3 @@ class ConsoleHandler extends mix(AbstractProcessingHandler, EventSubscriberInter
         return true;
     }
 }
-
-module.exports = ConsoleHandler;

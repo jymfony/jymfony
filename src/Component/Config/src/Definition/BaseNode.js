@@ -10,7 +10,7 @@ const UnsetKeyException = Jymfony.Component.Config.Definition.Exception.UnsetKey
  *
  * @abstract
  */
-class BaseNode extends implementationOf(NodeInterface) {
+export default class BaseNode extends implementationOf(NodeInterface) {
     /**
      * Constructor.
      *
@@ -451,5 +451,3 @@ class BaseNode extends implementationOf(NodeInterface) {
         throw new Error('finalizeValue must be implemented');
     }
 }
-
-module.exports = BaseNode;

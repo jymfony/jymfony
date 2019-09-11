@@ -1,7 +1,7 @@
 /**
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
  */
-class ServiceReferenceGraphEdge {
+export default class ServiceReferenceGraphEdge {
     /**
      * Constructor.
      *
@@ -53,5 +53,3 @@ class ServiceReferenceGraphEdge {
         return this._value;
     }
 }
-
-module.exports = ServiceReferenceGraphEdge;

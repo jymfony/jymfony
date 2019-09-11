@@ -6,7 +6,7 @@ const OutputFormatterStyleStack = Jymfony.Component.Console.Formatter.OutputForm
 /**
  * @memberOf Jymfony.Component.Console.Formatter
  */
-class OutputFormatter extends implementationOf(OutputFormatterInterface) {
+export default class OutputFormatter extends implementationOf(OutputFormatterInterface) {
     /**
      * @param {string} text
      *
@@ -197,5 +197,3 @@ class OutputFormatter extends implementationOf(OutputFormatterInterface) {
         return style;
     }
 }
-
-module.exports = OutputFormatter;

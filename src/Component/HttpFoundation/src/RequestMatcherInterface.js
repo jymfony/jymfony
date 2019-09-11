@@ -14,4 +14,4 @@ class RequestMatcherInterface {
     matches(request) { }
 }
 
-module.exports = getInterface(RequestMatcherInterface);
+export default getInterface(RequestMatcherInterface);

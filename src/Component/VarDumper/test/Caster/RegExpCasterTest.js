@@ -1,4 +1,4 @@
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 describe('[VarDumper] RegExpCaster', function () {
     it('should dump regexp object correctly', () => {

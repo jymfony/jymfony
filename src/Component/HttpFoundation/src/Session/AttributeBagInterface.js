@@ -57,4 +57,4 @@ class AttributeBagInterface extends SessionBagInterface.definition {
     remove(name) { }
 }
 
-module.exports = AttributeBagInterface;
+export default AttributeBagInterface;

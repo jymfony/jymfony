@@ -4,7 +4,7 @@ const ServiceCircularReferenceException = Jymfony.Component.DependencyInjection.
 /**
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
  */
-class CheckCircularReferencesPass extends implementationOf(CompilerPassInterface) {
+export default class CheckCircularReferencesPass extends implementationOf(CompilerPassInterface) {
     __construct() {
         this._checkedNodes = {};
         this._currentPath = [];
@@ -52,6 +52,4 @@ class CheckCircularReferencesPass extends implementationOf(CompilerPassInterface
         }
     }
 }
-
-module.exports = CheckCircularReferencesPass;
 

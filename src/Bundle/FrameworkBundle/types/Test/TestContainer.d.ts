@@ -32,6 +32,11 @@ declare namespace Jymfony.Bundle.FrameworkBundle.Test {
         /**
          * @inheritdoc
          */
+        has(id: string | symbol | Function): boolean;
+
+        /**
+         * @inheritdoc
+         */
         get(id: string | symbol | Function, invalidBehavior?: number): any;
 
         /**

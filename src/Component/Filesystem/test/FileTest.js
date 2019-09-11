@@ -1,7 +1,7 @@
 const File = Jymfony.Component.Filesystem.File;
 const OpenFile = Jymfony.Component.Filesystem.OpenFile;
 
-const expect = require('chai').expect;
+const { expect } = require('chai');
 const path = require('path');
 
 describe('[Filesystem] File', function () {

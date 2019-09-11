@@ -6,7 +6,5 @@ const AuthenticationServiceException = Jymfony.Component.Security.Exception.Auth
  *
  * @memberOf Jymfony.Component.Security.Exception
  */
-class UnsupportedUserException extends AuthenticationServiceException {
+export default class UnsupportedUserException extends AuthenticationServiceException {
 }
-
-module.exports = UnsupportedUserException;

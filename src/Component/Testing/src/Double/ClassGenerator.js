@@ -1,7 +1,7 @@
 /**
  * @memberOf Jymfony.Component.Testing.Double
  */
-class ClassGenerator {
+export default class ClassGenerator {
     /**
      * Constructor.
      *
@@ -96,5 +96,3 @@ class ClassGenerator {
         return mirrorClass;
     }
 }
-
-module.exports = ClassGenerator;

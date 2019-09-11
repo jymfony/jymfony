@@ -4,7 +4,7 @@
   "description": "Jymfony Propery Access",
   "typings": "types/index.d.ts",
   "scripts": {
-    "test": "node ./tests.js"
+    "test": "node ./tests.js test/**"
   },
   "keywords": [
     "property path",
@@ -24,8 +24,8 @@
   "devDependencies": {
     "@jymfony/cache": "*",
     "@jymfony/debug": "*",
-    "chai": "^3.5.0",
-    "mocha": "^5.0"
+    "chai": "^4.2",
+    "mocha": "^6.0"
   },
   "config": {
     "jymfony-autoload": {

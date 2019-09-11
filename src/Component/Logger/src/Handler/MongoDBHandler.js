@@ -5,7 +5,7 @@ const LogLevel = Jymfony.Component.Logger.LogLevel;
 /**
  * @memberOf Jymfony.Component.Logger.Handler
  */
-class MongoDBHandler extends AbstractProcessingHandler {
+export default class MongoDBHandler extends AbstractProcessingHandler {
     /**
      * Constructor.
      *
@@ -75,5 +75,3 @@ class MongoDBHandler extends AbstractProcessingHandler {
     }
 
 }
-
-module.exports = MongoDBHandler;

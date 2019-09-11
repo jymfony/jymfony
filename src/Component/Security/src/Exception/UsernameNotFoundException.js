@@ -5,7 +5,7 @@ const AuthenticationException = Jymfony.Component.Security.Exception.Authenticat
  *
  * @memberOf Jymfony.Component.Security.Exception
  */
-class UsernameNotFoundException extends AuthenticationException {
+export default class UsernameNotFoundException extends AuthenticationException {
     /**
      * @inheritdoc
      */
@@ -50,5 +50,3 @@ class UsernameNotFoundException extends AuthenticationException {
         };
     }
 }
-
-module.exports = UsernameNotFoundException;

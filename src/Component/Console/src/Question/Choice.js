@@ -3,7 +3,7 @@
  *
  * @memberOf Jymfony.Component.Console.Question
  */
-class Choice {
+export default class Choice {
     /**
      * Constructor.
      *
@@ -44,5 +44,3 @@ class Choice {
         return __jymfony.equal(choice._value, this._value);
     }
 }
-
-module.exports = Choice;

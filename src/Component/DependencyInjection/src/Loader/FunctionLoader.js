@@ -5,7 +5,7 @@ const Loader = Jymfony.Component.Config.Loader.Loader;
  *
  * @memberOf Jymfony.Component.DependencyInjection.Loader
  */
-class FunctionLoader extends Loader {
+export default class FunctionLoader extends Loader {
     /**
      * Constructor.
      *
@@ -36,5 +36,3 @@ class FunctionLoader extends Loader {
         return isFunction(resource);
     }
 }
-
-module.exports = FunctionLoader;

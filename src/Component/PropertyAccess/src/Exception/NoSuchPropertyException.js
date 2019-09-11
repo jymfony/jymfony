@@ -3,7 +3,5 @@ const AccessException = Jymfony.Component.PropertyAccess.Exception.AccessExcepti
 /**
  * @memberOf Jymfony.Component.PropertyAccess.Exception
  */
-class NoSuchPropertyException extends AccessException {
+export default class NoSuchPropertyException extends AccessException {
 }
-
-module.exports = NoSuchPropertyException;

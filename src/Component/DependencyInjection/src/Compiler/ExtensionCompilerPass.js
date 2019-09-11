@@ -3,7 +3,7 @@ const CompilerPassInterface = Jymfony.Component.DependencyInjection.Compiler.Com
 /**
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
  */
-class ExtensionCompilerPass extends implementationOf(CompilerPassInterface) {
+export default class ExtensionCompilerPass extends implementationOf(CompilerPassInterface) {
     /**
      * @inheritdoc
      */
@@ -15,5 +15,3 @@ class ExtensionCompilerPass extends implementationOf(CompilerPassInterface) {
         }
     }
 }
-
-module.exports = ExtensionCompilerPass;

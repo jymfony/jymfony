@@ -7,7 +7,7 @@ const AuthenticationException = Jymfony.Component.Security.Exception.Authenticat
  *
  * @memberOf Jymfony.Component.Security.Exception
  */
-class InsufficientAuthenticationException extends AuthenticationException {
+export default class InsufficientAuthenticationException extends AuthenticationException {
     /**
      * @inheritdoc
      */
@@ -15,5 +15,3 @@ class InsufficientAuthenticationException extends AuthenticationException {
         return 'Not privileged to request the resource.';
     }
 }
-
-module.exports = InsufficientAuthenticationException;

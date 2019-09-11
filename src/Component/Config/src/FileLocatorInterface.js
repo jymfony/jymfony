@@ -17,4 +17,4 @@ class FileLocatorInterface {
     locate(name, currentPath = undefined, first = true) { }
 }
 
-module.exports = getInterface(FileLocatorInterface);
+export default getInterface(FileLocatorInterface);

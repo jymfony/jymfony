@@ -8,7 +8,7 @@ const ParserInterface = Jymfony.Component.HttpServer.RequestParser.ParserInterfa
  *
  * @abstract
  */
-class AbstractParser extends implementationOf(ParserInterface) {
+export default class AbstractParser extends implementationOf(ParserInterface) {
     /**
      * Constructor.
      *
@@ -76,5 +76,3 @@ class AbstractParser extends implementationOf(ParserInterface) {
         });
     }
 }
-
-module.exports = AbstractParser;

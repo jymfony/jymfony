@@ -6,4 +6,4 @@
 class ExceptionInterface {
 }
 
-module.exports = getInterface(ExceptionInterface);
+export default getInterface(ExceptionInterface);

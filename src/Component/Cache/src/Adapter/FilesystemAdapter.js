@@ -4,7 +4,7 @@ const FilesystemTrait = Jymfony.Component.Cache.Traits.FilesystemTrait;
 /**
  * @memberOf Jymfony.Component.Cache.Adapter
  */
-class FilesystemAdapter extends mix(AbstractAdapter, FilesystemTrait) {
+export default class FilesystemAdapter extends mix(AbstractAdapter, FilesystemTrait) {
     /**
      * Constructor.
      *
@@ -17,5 +17,3 @@ class FilesystemAdapter extends mix(AbstractAdapter, FilesystemTrait) {
         this._init(namespace, directory);
     }
 }
-
-module.exports = FilesystemAdapter;

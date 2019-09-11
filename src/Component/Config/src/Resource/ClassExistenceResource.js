@@ -3,7 +3,7 @@ const SelfCheckingResourceInterface = Jymfony.Component.Config.Resource.SelfChec
 /**
  * @memberOf Jymfony.Component.Config.Resource
  */
-class ClassExistenceResource extends implementationOf(SelfCheckingResourceInterface) {
+export default class ClassExistenceResource extends implementationOf(SelfCheckingResourceInterface) {
     /**
      * Constructor.
      *
@@ -28,5 +28,3 @@ class ClassExistenceResource extends implementationOf(SelfCheckingResourceInterf
         return this._exists === ReflectionClass.exists(this._resource);
     }
 }
-
-module.exports = ClassExistenceResource;

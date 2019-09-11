@@ -5,7 +5,7 @@ const Match = Jymfony.Component.HttpFoundation.Negotiation.Match;
 /**
  * @memberOf Jymfony.Component.HttpFoundation.Negotiation
  */
-class Negotiator extends AbstractNegotiator {
+export default class Negotiator extends AbstractNegotiator {
     /**
      * @inheritdoc
      */
@@ -97,5 +97,3 @@ class Negotiator extends AbstractNegotiator {
         return subPart.split('+', 2);
     }
 }
-
-module.exports = Negotiator;

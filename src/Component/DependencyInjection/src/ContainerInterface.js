@@ -28,4 +28,4 @@ class ContainerInterface {
     has(id) { }
 }
 
-module.exports = getInterface(ContainerInterface);
+export default getInterface(ContainerInterface);

@@ -1,7 +1,7 @@
 const DateTime = Jymfony.Component.DateTime.DateTime;
 const TimeSpan = Jymfony.Component.DateTime.TimeSpan;
 
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 describe('[DateTime] Parser', function () {
     it('should accept string on construction', () => {

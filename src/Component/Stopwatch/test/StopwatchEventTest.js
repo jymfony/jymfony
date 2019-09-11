@@ -1,5 +1,5 @@
 const StopwatchEvent = Jymfony.Component.Stopwatch.StopwatchEvent;
-const expect = require('chai').expect;
+const { expect } = require('chai');
 const { performance } = require('perf_hooks');
 
 const microtime = () => ((performance.now() + performance.timeOrigin) / 1000);

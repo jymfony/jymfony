@@ -17,4 +17,4 @@ class AuthenticationProviderInterface extends AuthenticationManagerInterface.def
     supports(token) { }
 }
 
-module.exports = getInterface(AuthenticationProviderInterface);
+export default getInterface(AuthenticationProviderInterface);

@@ -1,4 +1,4 @@
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 const special_forms = [ '-dev', 'a1', 'b1', 'RC1', 'rc1', '', 'pl1' ];
 const operators = [

@@ -1,3 +1,6 @@
+import * as http2 from 'http2';
+import { readFileSync } from 'fs';
+
 const BaseServer = Jymfony.Component.HttpServer.HttpServer;
 const EventDispatcher = Jymfony.Component.EventDispatcher.EventDispatcher;
 const FunctionControllerResolver = Jymfony.Component.HttpFoundation.Controller.FunctionControllerResolver;
@@ -10,8 +13,6 @@ const EventListener = Jymfony.Component.HttpServer.EventListener;
 const Router = Jymfony.Component.Routing.Router;
 const FunctionLoader = Jymfony.Component.Routing.Loader.FunctionLoader;
 
-const fs = require('fs');
-const http2 = require('http2');
 const {
     HTTP2_HEADER_AUTHORITY,
     HTTP2_HEADER_CONTENT_TYPE,
@@ -25,7 +26,7 @@ const {
 /**
  * @memberOf Jymfony.Component.HttpServer.Http2
  */
-class HttpServer extends BaseServer {
+export default class HttpServer extends BaseServer {
     /**
      * Constructor.
      *
@@ -91,11 +92,11 @@ class HttpServer extends BaseServer {
         }, this._options);
 
         if (isString(options.key)) {
-            options.key = fs.readFileSync(options.key);
+            options.key = readFileSync(options.key);
         }
 
         if (isString(options.cert)) {
-            options.cert = fs.readFileSync(options.cert);
+            options.cert = readFileSync(options.cert);
         }
 
         const server = http2.createSecureServer(options, this._incomingRequest.bind(this));

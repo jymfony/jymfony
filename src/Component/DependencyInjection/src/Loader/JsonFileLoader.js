@@ -1,14 +1,14 @@
+import { dirname, extname } from 'path';
+
 const FileLoader = Jymfony.Component.Config.Loader.FileLoader;
 const FileResource = Jymfony.Component.Config.Resource.FileResource;
-
-const path = require('path');
 
 /**
  * JsonFileLoader loads configurations from a JSON file.
  *
  * @memberOf Jymfony.Component.DependencyInjection.Loader
  */
-class JsonFileLoader extends FileLoader {
+export default class JsonFileLoader extends FileLoader {
     /**
      * Constructor.
      *
@@ -31,7 +31,7 @@ class JsonFileLoader extends FileLoader {
      */
     load(resource) {
         const filePath = this._locator.locate(resource);
-        this.currentDir = path.dirname(filePath);
+        this.currentDir = dirname(filePath);
         this._container.addResource(new FileResource(filePath));
 
         const content = require(filePath);
@@ -58,7 +58,7 @@ class JsonFileLoader extends FileLoader {
             return false;
         }
 
-        if (undefined === type && '.json' === path.extname(resource)) {
+        if (undefined === type && '.json' === extname(resource)) {
             return true;
         }
 
@@ -80,5 +80,3 @@ class JsonFileLoader extends FileLoader {
         }
     }
 }
-
-module.exports = JsonFileLoader;

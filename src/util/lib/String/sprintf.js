@@ -144,7 +144,7 @@ __jymfony.sprintf = (format, ...a) => {
         }
 
         // Grab value using valueIndex if required?
-        value = valueIndex ? a[valueIndex.slice(0, -1)] : a[i++];
+        value = valueIndex ? a[valueIndex.slice(0, -1) - 1] : a[i++];
 
         switch (type) {
             case 's':

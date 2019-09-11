@@ -1,3 +1,5 @@
+import { parse as urlParse } from 'url';
+
 const AbstractAdapter = Jymfony.Component.Cache.Adapter.AbstractAdapter;
 const RedisTrait = Jymfony.Component.Cache.Traits.RedisTrait;
 
@@ -10,7 +12,6 @@ try {
 } catch (e) {
     // Do nothing
 }
-const url = require('url');
 
 const parseHosts = (params, dsn) => {
     let hosts = {};
@@ -55,7 +56,7 @@ const parseHosts = (params, dsn) => {
 /**
  * @memberOf Jymfony.Component.Cache.Adapter
  */
-class RedisAdapter extends mix(AbstractAdapter, RedisTrait) {
+export default class RedisAdapter extends mix(AbstractAdapter, RedisTrait) {
     /**
      * Constructor.
      *
@@ -88,7 +89,7 @@ class RedisAdapter extends mix(AbstractAdapter, RedisTrait) {
     static createConnection(dsn, options = {}) {
         const params = (() => {
             try {
-                return url.parse(dsn);
+                return urlParse(dsn);
             } catch (e) {
                 throw new InvalidArgumentException(__jymfony.sprintf('Invalid Redis DSN: %s', dsn));
             }
@@ -153,5 +154,3 @@ class RedisAdapter extends mix(AbstractAdapter, RedisTrait) {
         return redis;
     }
 }
-
-module.exports = RedisAdapter;

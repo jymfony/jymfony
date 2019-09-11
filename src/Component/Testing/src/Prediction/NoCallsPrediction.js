@@ -4,7 +4,7 @@ const PredictionInterface = Jymfony.Component.Testing.Prediction.PredictionInter
 /**
  * @memberOf Jymfony.Component.Testing.Prediction
  */
-class NoCallsPrediction extends implementationOf(PredictionInterface) {
+export default class NoCallsPrediction extends implementationOf(PredictionInterface) {
     /**
      * @inheritdoc
      */
@@ -28,5 +28,3 @@ class NoCallsPrediction extends implementationOf(PredictionInterface) {
         ), method, calls);
     }
 }
-
-module.exports = NoCallsPrediction;

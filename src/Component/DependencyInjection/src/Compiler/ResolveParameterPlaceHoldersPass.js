@@ -5,7 +5,7 @@ const ParameterNotFoundException = Jymfony.Component.DependencyInjection.Excepti
 /**
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
  */
-class ResolveParameterPlaceHoldersPass extends AbstractRecursivePass {
+export default class ResolveParameterPlaceHoldersPass extends AbstractRecursivePass {
     __construct() {
         super.__construct();
 
@@ -81,5 +81,3 @@ class ResolveParameterPlaceHoldersPass extends AbstractRecursivePass {
         return value;
     }
 }
-
-module.exports = ResolveParameterPlaceHoldersPass;

@@ -9,7 +9,7 @@ const esc = (str) => __jymfony.htmlentities(str);
  *
  * @memberOf Jymfony.Component.VarDumper.Dumper
  */
-class HtmlDumper extends CliDumper {
+export default class HtmlDumper extends CliDumper {
     /**
      * {@inheritdoc}
      */
@@ -1009,5 +1009,3 @@ HtmlDumper.themes = {
         'ns': 'user-select:none;',
     },
 };
-
-module.exports = HtmlDumper;

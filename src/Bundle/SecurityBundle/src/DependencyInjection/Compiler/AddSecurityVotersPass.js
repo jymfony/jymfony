@@ -7,7 +7,7 @@ const AccessDecisionManager = Jymfony.Component.Security.Authorization.AccessDec
 /**
  * @memberOf Jymfony.SecurityBundle.DependencyInjection.Compiler
  */
-class AddSecurityVotersPass extends implementationOf(CompilerPassInterface, PriorityTaggedServiceTrait) {
+export default class AddSecurityVotersPass extends implementationOf(CompilerPassInterface, PriorityTaggedServiceTrait) {
     /**
      * @inheritdoc
      */
@@ -33,5 +33,3 @@ class AddSecurityVotersPass extends implementationOf(CompilerPassInterface, Prio
         container.getDefinition(AccessDecisionManager).replaceArgument(0, new IteratorArgument(voters));
     }
 }
-
-module.exports = AddSecurityVotersPass;

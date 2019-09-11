@@ -46,4 +46,4 @@ class EngineInterface {
     supports(name) { }
 }
 
-module.exports = getInterface(EngineInterface);
+export default getInterface(EngineInterface);

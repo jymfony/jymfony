@@ -3,7 +3,7 @@ const SelfCheckingResourceInterface = Jymfony.Component.Config.Resource.SelfChec
 /**
  * @memberOf Jymfony.Component.Config.Resource
  */
-class EnvVariableResource extends implementationOf(SelfCheckingResourceInterface) {
+export default class EnvVariableResource extends implementationOf(SelfCheckingResourceInterface) {
     /**
      * Constructor.
      *
@@ -28,5 +28,3 @@ class EnvVariableResource extends implementationOf(SelfCheckingResourceInterface
         return this._resource === process.env[this._name];
     }
 }
-
-module.exports = EnvVariableResource;

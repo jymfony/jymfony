@@ -1,7 +1,7 @@
 const AuthenticationTrustResolver = Jymfony.Component.Security.Authentication.AuthenticationTrustResolver;
 const Token = Jymfony.Component.Security.Authentication.Token;
 const Prophet = Jymfony.Component.Testing.Prophet;
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 describe('[Security] AuthenticationTrustResolver', function () {
     beforeEach(() => {
@@ -24,6 +24,10 @@ describe('[Security] AuthenticationTrustResolver', function () {
     });
 
     afterEach(() => {
+        if ('failed' === this.ctx.currentTest.state) {
+            return;
+        }
+
         this._prophet.checkPredictions();
     });
 

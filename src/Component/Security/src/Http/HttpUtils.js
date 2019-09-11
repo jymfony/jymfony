@@ -1,12 +1,12 @@
+import { parse } from 'url';
+
 const MethodNotAllowedException = Jymfony.Component.Routing.Exception.MethodNotAllowedException;
 const ResourceNotFoundException = Jymfony.Component.Routing.Exception.ResourceNotFoundException;
-
-const url = require('url');
 
 /**
  * @memberOf Jymfony.Component.Security.Http
  */
-class HttpUtils {
+export default class HttpUtils {
     /**
      * Constructor.
      *
@@ -70,7 +70,7 @@ class HttpUtils {
             return path;
         }
 
-        const parsed = url.parse(path);
+        const parsed = parse(path);
         if (parsed.protocol) {
             return path;
         }
@@ -82,5 +82,3 @@ class HttpUtils {
         return this._urlGenerator.withContext(request).generate(path);
     }
 }
-
-module.exports = HttpUtils;

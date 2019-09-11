@@ -1,10 +1,10 @@
+import { stringify as qsStringify } from 'querystring';
+
 const InvalidParameterException = Jymfony.Component.Routing.Exception.InvalidParameterException;
 const MissingMandatoryParametersException = Jymfony.Component.Routing.Exception.MissingMandatoryParametersException;
 const RouteNotFoundException = Jymfony.Component.Routing.Exception.RouteNotFoundException;
 const UrlGeneratorInterface = Jymfony.Component.Routing.Generator.UrlGeneratorInterface;
 const RequestContext = Jymfony.Component.Routing.RequestContext;
-
-const qs = require('querystring');
 
 const decodedChars = {
     '%2F': '/',
@@ -25,7 +25,7 @@ const decodedChars = {
  *
  * @memberOf Jymfony.Component.Routing.Generator
  */
-class UrlGenerator extends implementationOf(UrlGeneratorInterface) {
+export default class UrlGenerator extends implementationOf(UrlGeneratorInterface) {
     /**
      * Constructor.
      *
@@ -68,7 +68,7 @@ class UrlGenerator extends implementationOf(UrlGeneratorInterface) {
             isSecure ? 80 : (request.port || 80),
             isSecure ? (request.port || 443) : 443,
             request.pathInfo,
-            qs.stringify(request.query.all),
+            qsStringify(request.query.all),
         );
 
         return new __self(this._routeCollection, context, this._defaultLocale);
@@ -389,5 +389,3 @@ class UrlGenerator extends implementationOf(UrlGeneratorInterface) {
             ? `./${path}` : path;
     }
 }
-
-module.exports = UrlGenerator;

@@ -1,7 +1,7 @@
 /**
  * @memberOf Jymfony.Component.DependencyInjection
  */
-class Variable {
+export default class Variable {
     /**
      * Constructor.
      *
@@ -20,5 +20,3 @@ class Variable {
         return this._id;
     }
 }
-
-module.exports = Variable;

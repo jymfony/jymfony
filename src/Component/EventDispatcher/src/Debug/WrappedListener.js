@@ -1,7 +1,7 @@
 /**
  * @memberOf Jymfony.Component.EventDispatcher.Debug
  */
-class WrappedListener {
+export default class WrappedListener {
     /**
      * Constructor
      *
@@ -21,7 +21,7 @@ class WrappedListener {
          *
          * @private
          */
-        this._dispacther = dispatcher;
+        this._dispatcher = dispatcher;
 
         /**
          * @type {boolean}
@@ -71,7 +71,7 @@ class WrappedListener {
                 const [ event, eventName ] = argArray;
                 this._called = true;
 
-                Reflect.apply(target, thisArg, [ event, eventName, this._dispacther ]);
+                Reflect.apply(target, thisArg, [ event, eventName, this._dispatcher ]);
 
                 if (event.isPropagationStopped()) {
                     this._stoppedPropagation = true;
@@ -108,5 +108,3 @@ class WrappedListener {
         return this._pretty;
     }
 }
-
-module.exports = WrappedListener;

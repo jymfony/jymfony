@@ -5,7 +5,7 @@ const ConsoleEvent = Jymfony.Component.Console.Event.ConsoleEvent;
  *
  * @memberOf Jymfony.Component.Console.Event
  */
-class ConsoleCommandEvent extends ConsoleEvent {
+export default class ConsoleCommandEvent extends ConsoleEvent {
     /**
      * @inheritdoc
      */
@@ -50,5 +50,3 @@ class ConsoleCommandEvent extends ConsoleEvent {
  * The return code for skipped commands, this will also be passed into the terminate event.
  */
 ConsoleCommandEvent.RETURN_CODE_DISABLED = 113;
-
-module.exports = ConsoleCommandEvent;

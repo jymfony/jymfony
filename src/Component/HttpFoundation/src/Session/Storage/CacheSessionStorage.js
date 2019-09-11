@@ -1,6 +1,7 @@
+import * as crypto from 'crypto';
+import { promisify } from 'util';
+
 const SessionStorageInterface = Jymfony.Component.HttpFoundation.Session.Storage.SessionStorageInterface;
-const crypto = require('crypto');
-const promisify = require('util').promisify;
 const randomBytes = promisify(crypto.randomBytes);
 
 /**
@@ -8,7 +9,7 @@ const randomBytes = promisify(crypto.randomBytes);
  *
  * @memberOf Jymfony.Component.HttpFoundation.Session.Storage
  */
-class CacheSessionStorage extends implementationOf(SessionStorageInterface) {
+export default class CacheSessionStorage extends implementationOf(SessionStorageInterface) {
     /**
      * Constructor.
      *
@@ -218,5 +219,3 @@ class CacheSessionStorage extends implementationOf(SessionStorageInterface) {
         await this._cache.deleteItem(this._id);
     }
 }
-
-module.exports = CacheSessionStorage;

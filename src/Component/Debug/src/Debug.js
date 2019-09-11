@@ -4,7 +4,7 @@ const UnhandledRejectionException = Jymfony.Component.Debug.Exception.UnhandledR
 /**
  * @memberOf Jymfony.Component.Debug
  */
-class Debug {
+export default class Debug {
     static enable() {
         __jymfony.autoload.debug = true;
 
@@ -13,9 +13,11 @@ class Debug {
         });
 
         process.on('multipleResolves', (type, promise, reason) => {
+            if (promise.__multipleResolve) {
+                return;
+            }
+
             throw new MultipleResolvesException(type, promise, reason);
         });
     }
 }
-
-module.exports = Debug;

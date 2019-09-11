@@ -4,7 +4,7 @@ const InvalidArgumentException = Jymfony.Component.Testing.Exception.InvalidArgu
 /**
  * @memberOf Jymfony.Component.Testing.Argument.Token
  */
-class CallbackToken extends implementationOf(TokenInterface) {
+export default class CallbackToken extends implementationOf(TokenInterface) {
     /**
      * Constructor.
      *
@@ -48,5 +48,3 @@ class CallbackToken extends implementationOf(TokenInterface) {
         return 'callback()';
     }
 }
-
-module.exports = CallbackToken;

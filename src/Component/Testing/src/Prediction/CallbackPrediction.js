@@ -3,7 +3,7 @@ const PredictionInterface = Jymfony.Component.Testing.Prediction.PredictionInter
 /**
  * @memberOf Jymfony.Component.Testing.Prediction
  */
-class CallbackPrediction extends implementationOf(PredictionInterface) {
+export default class CallbackPrediction extends implementationOf(PredictionInterface) {
     /**
      * Constructor.
      *
@@ -29,5 +29,3 @@ class CallbackPrediction extends implementationOf(PredictionInterface) {
         return cb(calls, object, method);
     }
 }
-
-module.exports = CallbackPrediction;

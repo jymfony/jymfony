@@ -1,5 +1,5 @@
 const Match = Jymfony.Component.HttpFoundation.Negotiation.Match;
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 describe('[HttpFoundation] Match', function () {
     const testsForCompare = [

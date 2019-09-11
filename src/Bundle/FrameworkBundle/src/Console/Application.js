@@ -5,7 +5,7 @@ const InputOption = Jymfony.Component.Console.Input.InputOption;
 /**
  * @memberOf Jymfony.Bundle.FrameworkBundle.Console
  */
-class Application extends BaseApplication {
+export default class Application extends BaseApplication {
     /**
      * Constructor.
      *
@@ -55,5 +55,3 @@ class Application extends BaseApplication {
         );
     }
 }
-
-module.exports = Application;

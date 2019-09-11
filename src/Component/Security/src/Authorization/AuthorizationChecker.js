@@ -3,7 +3,7 @@ const AuthorizationCheckerInterface = Jymfony.Component.Security.Authorization.A
 /**
  * @memberOf Jymfony.Component.Security.Authorization
  */
-class AuthorizationChecker extends implementationOf(AuthorizationCheckerInterface) {
+export default class AuthorizationChecker extends implementationOf(AuthorizationCheckerInterface) {
     /**
      * Constructor.
      *
@@ -29,5 +29,3 @@ class AuthorizationChecker extends implementationOf(AuthorizationCheckerInterfac
         return this._accessDecisionManager.decide(token, attributes, subject);
     }
 }
-
-module.exports = AuthorizationChecker;

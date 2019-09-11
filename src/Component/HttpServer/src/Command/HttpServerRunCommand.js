@@ -1,20 +1,20 @@
+import { format } from 'url';
+
 const Command = Jymfony.Component.Console.Command.Command;
 const JymfonyStyle = Jymfony.Component.Console.Style.JymfonyStyle;
 const InputArgument = Jymfony.Component.Console.Input.InputArgument;
 
-const url = require('url');
-
 /**
  * @memberOf Jymfony.Component.HttpServer.Command
  */
-class HttpServerRunCommand extends Command {
+export default class HttpServerRunCommand extends Command {
     /**
      * Constructor.
      *
      * @param {Jymfony.Component.HttpServer.HttpServer} server
      */
     __construct(server) {
-        super.__construct('http:listen');
+        super.__construct();
 
         /**
          * @type {Jymfony.Component.HttpServer.HttpServer}
@@ -22,6 +22,13 @@ class HttpServerRunCommand extends Command {
          * @private
          */
         this._server = server;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    static get defaultName() {
+        return 'http:listen';
     }
 
     /**
@@ -63,7 +70,7 @@ Starts the server and listen on port 8080 on localhost address only.`
             port = undefined;
         }
 
-        const serverAddress = url.format({
+        const serverAddress = format({
             protocol: this._server.scheme + ':',
             hostname: -1 !== [ '0.0.0.0', '::' ].indexOf(address) ? 'localhost' : address,
             port,
@@ -82,5 +89,3 @@ Starts the server and listen on port 8080 on localhost address only.`
         }
     }
 }
-
-module.exports = HttpServerRunCommand;

@@ -6,7 +6,7 @@ const AuthenticationException = Jymfony.Component.Security.Exception.Authenticat
  *
  * @memberOf Jymfony.Component.Security.Exception
  */
-class AccountStatusException extends AuthenticationException {
+export default class AccountStatusException extends AuthenticationException {
     /**
      * Gets the user.
      *
@@ -35,5 +35,3 @@ class AccountStatusException extends AuthenticationException {
         return parent;
     }
 }
-
-module.exports = AccountStatusException;

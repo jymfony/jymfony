@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const expect = require('chai').expect;
+const { expect } = require('chai');
 require('../../fixtures/namespace');
 
 const ContainerBuilder = Jymfony.Component.DependencyInjection.ContainerBuilder;
@@ -198,5 +198,27 @@ module.exports = new ContainerKhcNoO4({
 
         expect(dumper.dump({ build_time: 1536621245 })['Container4l3ewdB/ProjectContainer.js'])
             .to.be.equal(fs.readFileSync(path.join(fixturesPath, 'js', 'services-subscriber.js')).toString());
+    });
+
+    it('should throw if service argument is a function', () => {
+        const container = new ContainerBuilder();
+        container.register('foo', 'Bar.Foo')
+            .setPublic(true)
+            .addArgument(function () { });
+        container.compile();
+
+        const dumper = new JsDumper(container);
+        expect(() => dumper.dump()).to.throw(/Unable to dump a service container if a parameter is a function/);
+    });
+
+    it('should throw if service argument is a class', () => {
+        const container = new ContainerBuilder();
+        container.register('foo', 'Bar.Foo')
+            .setPublic(true)
+            .addArgument(Jymfony.Component.DependencyInjection.Container);
+        container.compile();
+
+        const dumper = new JsDumper(container);
+        expect(() => dumper.dump()).to.throw(/Unable to dump a service container if a parameter is a function/);
     });
 });

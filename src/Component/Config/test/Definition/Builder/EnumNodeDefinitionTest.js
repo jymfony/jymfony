@@ -1,5 +1,5 @@
 const Builder = Jymfony.Component.Config.Definition.Builder;
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 describe('[Config] EnumNodeDefinition', function () {
     it('with one value', () => {

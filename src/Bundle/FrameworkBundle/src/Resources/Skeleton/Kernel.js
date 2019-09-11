@@ -1,6 +1,6 @@
 const BaseKernel = Jymfony.Component.Kernel.Kernel;
 
-class Kernel extends BaseKernel {
+export default class Kernel extends BaseKernel {
     /**
      * @inheritdoc
      */
@@ -8,5 +8,3 @@ class Kernel extends BaseKernel {
         yield new Jymfony.Bundle.FrameworkBundle.FrameworkBundle();
     }
 }
-
-module.exports = Kernel;

@@ -4,7 +4,7 @@ const Stub = Jymfony.Component.VarDumper.Cloner.Stub;
 /**
  * @memberOf Jymfony.Component.VarDumper.Caster
  */
-class StubCaster {
+export default class StubCaster {
     /**
      * @param {Jymfony.Component.VarDumper.Cloner.Stub} c
      * @param {Object} a
@@ -73,5 +73,3 @@ class StubCaster {
         return a;
     }
 }
-
-module.exports = StubCaster;

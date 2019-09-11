@@ -1,7 +1,7 @@
 const RouterCacheWarmer = Jymfony.Bundle.FrameworkBundle.CacheWarmer.RouterCacheWarmer;
 const ContainerInterface = Jymfony.Component.DependencyInjection.ContainerInterface;
 const Prophet = Jymfony.Component.Testing.Prophet;
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 describe('[FrameworkBundle] RouterCacheWarmer', function () {
     beforeEach(() => {
@@ -28,6 +28,10 @@ describe('[FrameworkBundle] RouterCacheWarmer', function () {
     });
 
     afterEach(() => {
+        if ('failed' === this.ctx.currentTest.state) {
+            return;
+        }
+
         this._prophet.checkPredictions();
     });
 

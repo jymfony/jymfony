@@ -6,7 +6,7 @@ const InvalidConfigurationException = Jymfony.Component.Config.Definition.Except
  *
  * @memberOf Jymfony.Component.Config.Definition
  */
-class EnumNode extends ScalarNode {
+export default class EnumNode extends ScalarNode {
     /**
      * Constructor.
      *
@@ -59,5 +59,3 @@ class EnumNode extends ScalarNode {
         return value;
     }
 }
-
-module.exports = EnumNode;

@@ -5,7 +5,7 @@ const LogFormatter = Jymfony.Component.DependencyInjection.Compiler.LogFormatter
 /**
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
  */
-class Compiler {
+export default class Compiler {
     /**
      * Constructor.
      */
@@ -113,5 +113,3 @@ class Compiler {
         return this._logFormatter;
     }
 }
-
-module.exports = Compiler;

@@ -5,6 +5,7 @@ const NotFoundHttpException = Jymfony.Component.HttpFoundation.Exception.NotFoun
 const RequestExceptionInterface = Jymfony.Component.HttpFoundation.Exception.RequestExceptionInterface;
 const Response = Jymfony.Component.HttpFoundation.Response;
 const Event = Jymfony.Component.HttpServer.Event;
+const RequestTimeoutException = Jymfony.Component.HttpServer.Exception.RequestTimeoutException;
 const RequestParser = Jymfony.Component.HttpServer.RequestParser;
 const NullLogger = Jymfony.Component.Logger.NullLogger;
 
@@ -14,7 +15,7 @@ const NullLogger = Jymfony.Component.Logger.NullLogger;
  *
  * @memberOf Jymfony.Component.HttpServer
  */
-class RequestHandler extends implementationOf(LoggerAwareInterface) {
+export default class RequestHandler extends implementationOf(LoggerAwareInterface) {
     /**
      * Constructor.
      *
@@ -42,6 +43,13 @@ class RequestHandler extends implementationOf(LoggerAwareInterface) {
          * @protected
          */
         this._logger = new NullLogger();
+
+        /**
+         * @type {int}
+         *
+         * @private
+         */
+        this._requestTimeoutMs = -1;
     }
 
     /**
@@ -51,6 +59,19 @@ class RequestHandler extends implementationOf(LoggerAwareInterface) {
      */
     get eventDispatcher() {
         return this._dispatcher;
+    }
+
+    /**
+     * Sets the request timeout.
+     *
+     * @param {int} timeout
+     */
+    set requestTimeoutMs(timeout) {
+        if (! isNumber(timeout)) {
+            timeout = -1;
+        }
+
+        this._requestTimeoutMs = ~~timeout;
     }
 
     /**
@@ -79,7 +100,15 @@ class RequestHandler extends implementationOf(LoggerAwareInterface) {
         let response;
 
         try {
-            response = await this._handleRaw(request);
+            const promises = [ this._handleRaw(request) ];
+            if (0 < this._requestTimeoutMs) {
+                promises.push(this._requestTimeout());
+            }
+
+            const p = Promise.race(promises);
+            p.__multipleResolve = true;
+
+            response = await p;
         } catch (e) {
             if (e instanceof RequestExceptionInterface) {
                 e = new BadRequestHttpException(e.message, e);
@@ -263,6 +292,16 @@ class RequestHandler extends implementationOf(LoggerAwareInterface) {
 
         return event.response;
     }
-}
 
-module.exports = RequestHandler;
+    /**
+     * Fires a request timeout after the configured time.
+     *
+     * @returns {Promise<void>}
+     *
+     * @private
+     */
+    async _requestTimeout() {
+        await __jymfony.sleep(this._requestTimeoutMs);
+        throw new RequestTimeoutException('Request timed out');
+    }
+}

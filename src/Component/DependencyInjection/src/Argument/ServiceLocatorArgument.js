@@ -6,7 +6,7 @@ const ReferenceSetArgumentTrait = Jymfony.Component.DependencyInjection.Argument
  *
  * @memberOf Jymfony.Component.DependencyInjection.Argument
  */
-class ServiceLocatorArgument extends implementationOf(ArgumentInterface, ReferenceSetArgumentTrait) {
+export default class ServiceLocatorArgument extends implementationOf(ArgumentInterface, ReferenceSetArgumentTrait) {
     /**
      * Constructor.
      *
@@ -16,5 +16,3 @@ class ServiceLocatorArgument extends implementationOf(ArgumentInterface, Referen
         this._values = values;
     }
 }
-
-module.exports = ServiceLocatorArgument;

@@ -1,11 +1,11 @@
-const net = require('net');
+import * as net from 'net';
 
 /**
  * Represents an IP address
  *
  * @memberOf Jymfony.Component.HttpFoundation
  */
-class Ip {
+export default class Ip {
     /**
      * Constructor.
      *
@@ -211,5 +211,3 @@ class Ip {
 
 Ip.IPV4 = 4;
 Ip.IPV6 = 6;
-
-module.exports = Ip;

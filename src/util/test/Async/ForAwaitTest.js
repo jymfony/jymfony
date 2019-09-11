@@ -1,5 +1,5 @@
 require('../../index');
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 const kNext = 1;
 const kThrow = 2;

@@ -1,3 +1,8 @@
+import * as path from 'path';
+import { existsSync, realpathSync } from 'fs';
+import { createHash } from 'crypto';
+import { tmpdir } from 'os';
+
 const CacheException = Jymfony.Component.Cache.Exception.CacheException;
 const InvalidArgumentException = Jymfony.Component.Cache.Exception.InvalidArgumentException;
 const DateTime = Jymfony.Component.DateTime.DateTime;
@@ -5,11 +10,6 @@ const RecursiveDirectoryIterator = Jymfony.Component.Filesystem.Iterator.Recursi
 const File = Jymfony.Component.Filesystem.File;
 const Filesystem = Jymfony.Component.Filesystem.Filesystem;
 const OpenFile = Jymfony.Component.Filesystem.OpenFile;
-
-const crypto = require('crypto');
-const fs = require('fs');
-const os = require('os');
-const path = require('path');
 
 /**
  * @memberOf Jymfony.Component.Cache.Traits
@@ -133,10 +133,10 @@ class FilesystemTrait {
 
     _init(namespace, directory) {
         if (! directory) {
-            directory = os.tmpdir();
+            directory = tmpdir();
         } else {
             try {
-                directory = fs.realpathSync(directory);
+                directory = realpathSync(directory);
             } catch (e) {
                 // Do nothing
             }
@@ -153,7 +153,7 @@ class FilesystemTrait {
             directory += path.sep + namespace;
         }
 
-        if (! fs.existsSync(directory)) {
+        if (! existsSync(directory)) {
             try {
                 __jymfony.mkdir(directory, 0o777);
             } catch (e) {
@@ -238,13 +238,13 @@ class FilesystemTrait {
     }
 
     _getFile(id, mkdir = false) {
-        const hash = crypto.createHash('sha256');
+        const hash = createHash('sha256');
         hash.update(ReflectionClass.getClassName(this) + id);
         id = hash.digest('base64').replace(/\//g, '-');
 
         const dir = this._directory + (id.charAt(0) + path.sep + id.charAt(1) + path.sep).toUpperCase();
 
-        if (mkdir && ! fs.existsSync(dir)) {
+        if (mkdir && ! existsSync(dir)) {
             try {
                 __jymfony.mkdir(dir, 0o777);
             } catch (e) {
@@ -258,4 +258,4 @@ class FilesystemTrait {
     }
 }
 
-module.exports = getTrait(FilesystemTrait);
+export default getTrait(FilesystemTrait);

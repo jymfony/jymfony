@@ -3,7 +3,7 @@ const HttpEvent = Jymfony.Component.HttpServer.Event.HttpEvent;
 /**
  * @memberOf Jymfony.Component.HttpServer.Event
  */
-class GetResponseEvent extends HttpEvent {
+export default class GetResponseEvent extends HttpEvent {
     __construct(server, request) {
         super.__construct(server, request);
 
@@ -43,5 +43,3 @@ class GetResponseEvent extends HttpEvent {
         this.stopPropagation();
     }
 }
-
-module.exports = GetResponseEvent;

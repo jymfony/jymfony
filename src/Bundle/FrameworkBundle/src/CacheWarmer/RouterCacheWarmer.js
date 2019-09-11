@@ -7,7 +7,7 @@ const CacheWarmerInterface = Jymfony.Component.Kernel.CacheWarmer.CacheWarmerInt
  *
  * @memberOf Jymfony.Bundle.FrameworkBundle.CacheWarmer
  */
-class RouterCacheWarmer extends implementationOf(CacheWarmerInterface) {
+export default class RouterCacheWarmer extends implementationOf(CacheWarmerInterface) {
     /**
      * Constructor
      *
@@ -43,5 +43,3 @@ class RouterCacheWarmer extends implementationOf(CacheWarmerInterface) {
         return true;
     }
 }
-
-module.exports = RouterCacheWarmer;

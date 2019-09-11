@@ -17,4 +17,4 @@ class ConfigCacheFactoryInterface {
     cache(file, callable) { }
 }
 
-module.exports = getInterface(ConfigCacheFactoryInterface);
+export default getInterface(ConfigCacheFactoryInterface);

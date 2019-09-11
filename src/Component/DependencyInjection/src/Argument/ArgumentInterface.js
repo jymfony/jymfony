@@ -13,4 +13,4 @@ class ArgumentInterface {
     set values(values) {}
 }
 
-module.exports = getInterface(ArgumentInterface);
+export default getInterface(ArgumentInterface);

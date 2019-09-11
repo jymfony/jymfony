@@ -4,7 +4,7 @@ const fs = require('fs');
 /**
  * @memberOf Jymfony.Component.Config.Resource
  */
-class FileResource extends implementationOf(SelfCheckingResourceInterface) {
+export default class FileResource extends implementationOf(SelfCheckingResourceInterface) {
     /**
      * Constructor.
      *
@@ -28,5 +28,3 @@ class FileResource extends implementationOf(SelfCheckingResourceInterface) {
         return fs.existsSync(this._resource) && fs.statSync(this._resource).mtime <= timestamp;
     }
 }
-
-module.exports = FileResource;

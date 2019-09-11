@@ -4,7 +4,7 @@ const InvalidTypeException = Jymfony.Component.Config.Definition.Exception.Inval
 /**
  * @memberOf Jymfony.Component.Config.Definition
  */
-class ScalarNode extends VariableNode {
+export default class ScalarNode extends VariableNode {
     /**
      * @inheritdoc
      */
@@ -33,5 +33,3 @@ class ScalarNode extends VariableNode {
         return undefined === value || null === value || '' === value;
     }
 }
-
-module.exports = ScalarNode;

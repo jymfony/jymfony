@@ -6,7 +6,7 @@ const ScalarNode = Jymfony.Component.Config.Definition.ScalarNode;
  *
  * @memberOf Jymfony.Component.Config.Definition.Builder
  */
-class ScalarNodeDefinition extends VariableNodeDefinition {
+export default class ScalarNodeDefinition extends VariableNodeDefinition {
     /**
      * @inheritdoc
      */
@@ -14,5 +14,3 @@ class ScalarNodeDefinition extends VariableNodeDefinition {
         return new ScalarNode(this._name, this._parent);
     }
 }
-
-module.exports = ScalarNodeDefinition;

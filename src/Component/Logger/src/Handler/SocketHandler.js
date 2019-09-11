@@ -1,14 +1,14 @@
+import { Socket as NetSocket } from 'net';
+import { TLSSocket as TlsSocket } from 'tls';
+import { parse } from 'url';
+
 const AbstractProcessingHandler = Jymfony.Component.Logger.Handler.AbstractProcessingHandler;
 const LogLevel = Jymfony.Component.Logger.LogLevel;
-
-const NetSocket = require('net').Socket;
-const TlsSocket = require('tls').TLSSocket;
-const Url = require('url');
 
 /**
  * @memberOf Jymfony.Component.Logger.Handler
  */
-class SocketHandler extends AbstractProcessingHandler {
+export default class SocketHandler extends AbstractProcessingHandler {
     /**
      * Constructor.
      *
@@ -55,7 +55,7 @@ class SocketHandler extends AbstractProcessingHandler {
      * Connects the handler.
      */
     connect() {
-        const url = Url.parse(this._connectionString);
+        const url = parse(this._connectionString);
         let socket = new NetSocket();
 
         if ('ssl' === url.protocol || 'tls' === url.protocol) {
@@ -108,5 +108,3 @@ class SocketHandler extends AbstractProcessingHandler {
         });
     }
 }
-
-module.exports = SocketHandler;

@@ -5,7 +5,7 @@ const ObjectProphecy = Jymfony.Component.Testing.Prophecy.ObjectProphecy;
 /**
  * @memberOf Jymfony.Component.Testing
  */
-class Prophet {
+export default class Prophet {
     /**
      * Constructor.
      */
@@ -70,5 +70,3 @@ class Prophet {
         }
     }
 }
-
-module.exports = Prophet;

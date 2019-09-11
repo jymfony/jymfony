@@ -1,13 +1,14 @@
+import { EOL } from 'os';
+
 const ConsoleOutputInterface = Jymfony.Component.Console.Output.ConsoleOutputInterface;
 const OutputInterface = Jymfony.Component.Console.Output.OutputInterface;
-const os = require('os');
 
 /**
  * Decorates output to add console style guide helpers.
  *
  * @memberOf Jymfony.Component.Console.Style
  */
-class OutputStyle extends implementationOf(OutputInterface) {
+export default class OutputStyle extends implementationOf(OutputInterface) {
     /**
      * Constructor.
      *
@@ -26,7 +27,7 @@ class OutputStyle extends implementationOf(OutputInterface) {
      * @inheritdoc
      */
     newLine(count = 1) {
-        this._output.write(os.EOL.repeat(count));
+        this._output.write(EOL.repeat(count));
     }
 
     /**

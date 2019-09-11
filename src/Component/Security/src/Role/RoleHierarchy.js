@@ -6,7 +6,7 @@ const RoleHierarchyInterface = Jymfony.Component.Security.Role.RoleHierarchyInte
  *
  * @memberOf Jymfony.Component.Security.Role
  */
-class RoleHierarchy extends implementationOf(RoleHierarchyInterface) {
+export default class RoleHierarchy extends implementationOf(RoleHierarchyInterface) {
     /**
      * Constructor.
      *
@@ -77,5 +77,3 @@ class RoleHierarchy extends implementationOf(RoleHierarchyInterface) {
         }
     }
 }
-
-module.exports = RoleHierarchy;

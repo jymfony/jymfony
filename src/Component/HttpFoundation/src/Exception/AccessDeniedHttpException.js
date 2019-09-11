@@ -6,7 +6,7 @@ const Response = Jymfony.Component.HttpFoundation.Response;
  *
  * @memberOf Jymfony.Component.HttpFoundation.Exception
  */
-class AccessDeniedHttpException extends HttpException {
+export default class AccessDeniedHttpException extends HttpException {
     /**
      * Constructor.
      *
@@ -19,5 +19,3 @@ class AccessDeniedHttpException extends HttpException {
         super.__construct(Response.HTTP_FORBIDDEN, message, previous, headers, code);
     }
 }
-
-module.exports = AccessDeniedHttpException;

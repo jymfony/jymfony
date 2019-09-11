@@ -10,4 +10,4 @@ class PrependExtensionInterface {
     prepend(container) { }
 }
 
-module.exports = getInterface(PrependExtensionInterface);
+export default getInterface(PrependExtensionInterface);

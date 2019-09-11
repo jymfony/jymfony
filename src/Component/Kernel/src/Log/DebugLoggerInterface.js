@@ -32,4 +32,4 @@ class DebugLoggerInterface {
     clear(subject = null) { }
 }
 
-module.exports = getInterface(DebugLoggerInterface);
+export default getInterface(DebugLoggerInterface);

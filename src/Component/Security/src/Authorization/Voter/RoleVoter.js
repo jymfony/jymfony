@@ -6,7 +6,7 @@ const Role = Jymfony.Component.Security.Role.Role;
  *
  * @memberOf Jymfony.Component.Security.Authorization.Voter
  */
-class RoleVoter extends implementationOf(VoterInterface) {
+export default class RoleVoter extends implementationOf(VoterInterface) {
     /**
      * Constructor.
      *
@@ -55,5 +55,3 @@ class RoleVoter extends implementationOf(VoterInterface) {
         return token.roles;
     }
 }
-
-module.exports = RoleVoter;

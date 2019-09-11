@@ -3,7 +3,7 @@ const Container = Jymfony.Component.DependencyInjection.Container;
 /**
  * @memberOf Jymfony.Component.DependencyInjection
  */
-class Alias {
+export default class Alias {
     /**
      * Constructor.
      *
@@ -46,5 +46,3 @@ class Alias {
         return this._id;
     }
 }
-
-module.exports = Alias;

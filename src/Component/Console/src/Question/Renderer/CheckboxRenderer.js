@@ -10,7 +10,7 @@ const ListRenderer = Jymfony.Component.Console.Question.Renderer.ListRenderer;
  *
  * @internal
  */
-class CheckboxRenderer extends ListRenderer {
+export default class CheckboxRenderer extends ListRenderer {
     /**
      * @inheritdoc
      */
@@ -68,5 +68,3 @@ class CheckboxRenderer extends ListRenderer {
         return selected ? '◉' : '◯';
     }
 }
-
-module.exports = CheckboxRenderer;

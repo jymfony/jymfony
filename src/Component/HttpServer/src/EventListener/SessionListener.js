@@ -5,7 +5,7 @@ const Session = Jymfony.Component.HttpFoundation.Session.Session;
  * @memberOf Jymfony.Component.HttpServer.EventListener
  * @final
  */
-class SessionListener extends AbstractSessionListener {
+export default class SessionListener extends AbstractSessionListener {
     /**
      * Constructor.
      *
@@ -35,5 +35,3 @@ class SessionListener extends AbstractSessionListener {
         return new Session(this._container.get(this._storageId));
     }
 }
-
-module.exports = SessionListener;

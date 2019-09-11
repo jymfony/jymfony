@@ -3,7 +3,7 @@ const File = Jymfony.Component.Filesystem.File;
 /**
  * @memberOf Jymfony.Component.Filesystem
  */
-class OpenFile extends File {
+export default class OpenFile extends File {
     __construct(fileName, mode = 'r') {
         super.__construct(fileName);
 
@@ -142,5 +142,3 @@ class OpenFile extends File {
         }
     }
 }
-
-module.exports = OpenFile;

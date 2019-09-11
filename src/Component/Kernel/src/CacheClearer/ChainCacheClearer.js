@@ -3,7 +3,7 @@ const CacheClearerInterface = Jymfony.Component.Kernel.CacheClearer.CacheClearer
 /**
  * @memberOf Jymfony.Component.Kernel.CacheClearer
  */
-class ChainCacheClearer extends implementationOf(CacheClearerInterface) {
+export default class ChainCacheClearer extends implementationOf(CacheClearerInterface) {
     /**
      * Constructor.
      *
@@ -29,5 +29,3 @@ class ChainCacheClearer extends implementationOf(CacheClearerInterface) {
         this._clearers.push(clearer);
     }
 }
-
-module.exports = ChainCacheClearer;

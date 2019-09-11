@@ -17,4 +17,4 @@ class AuthenticationManagerInterface {
     async authenticate(token) { }
 }
 
-module.exports = getInterface(AuthenticationManagerInterface);
+export default getInterface(AuthenticationManagerInterface);

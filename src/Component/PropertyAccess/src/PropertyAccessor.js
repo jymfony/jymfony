@@ -11,7 +11,7 @@ const CACHE_PREFIX_PROPERTY_PATH = 'p';
 /**
  * @memberOf Jymfony.Component.PropertyAccess
  */
-class PropertyAccessor extends implementationOf(PropertyAccessorInterface) {
+export default class PropertyAccessor extends implementationOf(PropertyAccessorInterface) {
     /**
      * Constructor.
      *
@@ -38,7 +38,7 @@ class PropertyAccessor extends implementationOf(PropertyAccessorInterface) {
      */
     getValue(object, path) {
         if (! String(path).match(/\[\./) && (isObject(object) || isArray(object))) {
-            return this._readProperty(object, path);
+            return this._readProperty(object, String(path));
         }
 
         path = this._getPropertyPath(path);
@@ -52,7 +52,7 @@ class PropertyAccessor extends implementationOf(PropertyAccessorInterface) {
      */
     setValue(object, value, path) {
         if (! String(path).match(/\[\./) && (isObject(object) || isArray(object))) {
-            return this._writeProperty(target, path, value);
+            return this._writeProperty(object, String(path), value);
         }
 
         path = this._getPropertyPath(path);
@@ -126,13 +126,16 @@ class PropertyAccessor extends implementationOf(PropertyAccessorInterface) {
     _getReadAccessInfo(object, property) {
         const reflection = new ReflectionClass(object);
         const className = reflection.name;
-        const key = (-1 !== className.indexOf('@') ? encodeURIComponent(className) : className) + '..' + property;
-
         let cacheItem;
-        if (undefined !== this._cacheItemPool) {
-            cacheItem = this._cacheItemPool.getItem(CACHE_PREFIX_READ + key);
-            if (cacheItem.isHit) {
-                return cacheItem.get();
+
+        if (undefined !== className) {
+            const key = (-1 !== className.indexOf('@') ? encodeURIComponent(className) : className) + '..' + property;
+
+            if (undefined !== this._cacheItemPool) {
+                cacheItem = this._cacheItemPool.getItem(CACHE_PREFIX_READ + key);
+                if (cacheItem.isHit) {
+                    return cacheItem.get();
+                }
             }
         }
 
@@ -214,13 +217,16 @@ class PropertyAccessor extends implementationOf(PropertyAccessorInterface) {
     _getWriteAccessInfo(object, property) {
         const reflection = new ReflectionClass(object);
         const className = reflection.name;
-        const key = (-1 !== className.indexOf('@') ? encodeURIComponent(className) : className) + '..' + property;
 
         let cacheItem;
-        if (undefined !== this._cacheItemPool) {
-            cacheItem = this._cacheItemPool.getItem(CACHE_PREFIX_WRITE + key);
-            if (cacheItem.isHit) {
-                return cacheItem.get();
+        if (undefined !== className) {
+            const key = (-1 !== className.indexOf('@') ? encodeURIComponent(className) : className) + '..' + property;
+
+            if (undefined !== this._cacheItemPool) {
+                cacheItem = this._cacheItemPool.getItem(CACHE_PREFIX_WRITE + key);
+                if (cacheItem.isHit) {
+                    return cacheItem.get();
+                }
             }
         }
 
@@ -242,7 +248,7 @@ class PropertyAccessor extends implementationOf(PropertyAccessorInterface) {
             retVal.type = __self.ACCESS_TYPE_PROPERTY;
             retVal.name = property;
         } else {
-            const methods = '"' + [ getter, getsetter, hasser, isser ].join('()", ') + '()"';
+            const methods = '"' + [ setter, getsetter ].join('()", ') + '()"';
 
             retVal.type = __self.ACCESS_TYPE_NOT_FOUND;
             retVal.name =
@@ -303,5 +309,3 @@ class PropertyAccessor extends implementationOf(PropertyAccessorInterface) {
 PropertyAccessor.ACCESS_TYPE_METHOD = 'method';
 PropertyAccessor.ACCESS_TYPE_PROPERTY = 'property';
 PropertyAccessor.ACCESS_TYPE_NOT_FOUND = 'not_found';
-
-module.exports = PropertyAccessor;

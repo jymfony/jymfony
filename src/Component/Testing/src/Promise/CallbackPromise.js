@@ -4,7 +4,7 @@ const InvalidArgumentException = Jymfony.Component.Testing.Exception.InvalidArgu
 /**
  * @memberOf Jymfony.Component.Testing.Promise
  */
-class CallbackPromise extends implementationOf(PromiseInterface) {
+export default class CallbackPromise extends implementationOf(PromiseInterface) {
     /**
      * Constructor.
      *
@@ -35,5 +35,3 @@ class CallbackPromise extends implementationOf(PromiseInterface) {
         return cb(...args);
     }
 }
-
-module.exports = CallbackPromise;

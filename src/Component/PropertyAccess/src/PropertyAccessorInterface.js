@@ -38,4 +38,4 @@ class PropertyAccessorInterface {
     setValue(object, value, path) { }
 }
 
-module.exports = getInterface(PropertyAccessorInterface);
+export default getInterface(PropertyAccessorInterface);

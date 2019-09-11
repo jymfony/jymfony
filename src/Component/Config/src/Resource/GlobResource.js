@@ -7,7 +7,7 @@ const pathModule = require('path');
 /**
  * @memberOf Jymfony.Component.Config.Resource
  */
-class GlobResource extends implementationOf(SelfCheckingResourceInterface) {
+export default class GlobResource extends implementationOf(SelfCheckingResourceInterface) {
     /**
      * Constructor.
      *
@@ -208,5 +208,3 @@ class GlobResource extends implementationOf(SelfCheckingResourceInterface) {
         return hash.digest().toString('hex');
     }
 }
-
-module.exports = GlobResource;

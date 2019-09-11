@@ -6,7 +6,7 @@ const View = Jymfony.Component.Templating.View.View;
  *
  * @memberOf Jymfony.Component.Templating.Engine
  */
-class JsEngine extends implementationOf(EngineInterface) {
+export default class JsEngine extends implementationOf(EngineInterface) {
     /**
      * Constructor.
      *
@@ -214,5 +214,3 @@ class JsEngine extends implementationOf(EngineInterface) {
         return this._loader.load(this._parser.parse(name));
     }
 }
-
-module.exports = JsEngine;

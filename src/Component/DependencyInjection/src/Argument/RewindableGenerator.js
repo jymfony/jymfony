@@ -1,7 +1,7 @@
 /**
  * @memberOf Jymfony.Component.DependencyInjection.Argument
  */
-class RewindableGenerator {
+export default class RewindableGenerator {
     /**
      * Constructor.
      *
@@ -46,5 +46,3 @@ class RewindableGenerator {
         return this._count;
     }
 }
-
-module.exports = RewindableGenerator;

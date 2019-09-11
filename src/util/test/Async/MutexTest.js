@@ -1,5 +1,5 @@
 require('../../index');
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 describe('Mutex', function () {
     it('ownership should be exclusive', async () => {

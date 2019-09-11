@@ -6,7 +6,7 @@ const Response = Jymfony.Component.HttpFoundation.Response;
  *
  * @memberOf Jymfony.Component.HttpFoundation.Exception
  */
-class MethodNotAllowedHttpException extends HttpException {
+export default class MethodNotAllowedHttpException extends HttpException {
     /**
      * Constructor.
      *
@@ -22,5 +22,3 @@ class MethodNotAllowedHttpException extends HttpException {
         super.__construct(Response.HTTP_METHOD_NOT_ALLOWED, message, previous, headers, code);
     }
 }
-
-module.exports = MethodNotAllowedHttpException;

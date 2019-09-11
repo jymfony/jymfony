@@ -3,7 +3,7 @@ const Container = Jymfony.Component.DependencyInjection.Container;
 /**
  * @memberOf Jymfony.Component.DependencyInjection
  */
-class Reference {
+export default class Reference {
     /**
      * Constructor.
      *
@@ -29,5 +29,3 @@ class Reference {
         return this._invalidBehavior;
     }
 }
-
-module.exports = Reference;

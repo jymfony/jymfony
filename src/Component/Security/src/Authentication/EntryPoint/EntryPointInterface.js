@@ -30,4 +30,4 @@ class EntryPointInterface {
     start(request, authException = undefined) { }
 }
 
-module.exports = getInterface(EntryPointInterface);
+export default getInterface(EntryPointInterface);

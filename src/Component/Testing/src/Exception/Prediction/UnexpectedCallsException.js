@@ -4,7 +4,7 @@ const PredictionException = Jymfony.Component.Testing.Exception.Prediction.Predi
 /**
  * @memberOf Jymfony.Component.Testing.Exception.Prediction
  */
-class UnexpectedCallsException extends mix(MethodProphecyException, PredictionException) {
+export default class UnexpectedCallsException extends mix(MethodProphecyException, PredictionException) {
     /**
      * Constructor.
      *
@@ -30,5 +30,3 @@ class UnexpectedCallsException extends mix(MethodProphecyException, PredictionEx
         return this._calls;
     }
 }
-
-module.exports = UnexpectedCallsException;

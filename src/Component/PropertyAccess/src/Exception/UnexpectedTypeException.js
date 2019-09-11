@@ -3,7 +3,7 @@ const RuntimeException = Jymfony.Component.PropertyAccess.Exception.RuntimeExcep
 /**
  * @memberOf Jymfony.Component.PropertyAccess.Exception
  */
-class UnexpectedTypeException extends RuntimeException {
+export default class UnexpectedTypeException extends RuntimeException {
     /**
      * Constructor.
      *
@@ -19,5 +19,3 @@ class UnexpectedTypeException extends RuntimeException {
         );
     }
 }
-
-module.exports = UnexpectedTypeException;

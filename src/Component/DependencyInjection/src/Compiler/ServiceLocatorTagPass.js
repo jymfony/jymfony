@@ -11,7 +11,7 @@ const ServiceLocator = Jymfony.Component.DependencyInjection.ServiceLocator;
 /**
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
  */
-class ServiceLocatorTagPass extends AbstractRecursivePass {
+export default class ServiceLocatorTagPass extends AbstractRecursivePass {
     /**
      * @inheritdoc
      */
@@ -115,5 +115,3 @@ class ServiceLocatorTagPass extends AbstractRecursivePass {
         return new Reference(id);
     }
 }
-
-module.exports = ServiceLocatorTagPass;

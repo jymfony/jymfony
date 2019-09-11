@@ -3,7 +3,7 @@
  *
  * @memberOf Jymfony.Component.Security.Exception
  */
-class LogoutException extends RuntimeException {
+export default class LogoutException extends RuntimeException {
     /**
      * Constructor.
      *
@@ -14,5 +14,3 @@ class LogoutException extends RuntimeException {
         super.__construct(message, 403, previous);
     }
 }
-
-module.exports = LogoutException;

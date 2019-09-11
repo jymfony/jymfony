@@ -1,5 +1,5 @@
 require('../../lib/Regex/quote');
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 describe('Regex quote', function () {
     it('basic', () => {

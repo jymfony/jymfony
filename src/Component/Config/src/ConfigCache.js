@@ -1,11 +1,11 @@
+import { existsSync } from 'fs';
 const ResourceCheckerConfigCache = Jymfony.Component.Config.ResourceCheckerConfigCache;
 const SelfCheckingResourceChecker = Jymfony.Component.Config.Resource.SelfCheckingResourceChecker;
-const fs = require('fs');
 
 /**
  * @memberOf Jymfony.Component.Config
  */
-class ConfigCache extends ResourceCheckerConfigCache {
+export default class ConfigCache extends ResourceCheckerConfigCache {
     /**
      * Constructor. Creates a ConfigCache class.
      *
@@ -26,12 +26,10 @@ class ConfigCache extends ResourceCheckerConfigCache {
      * @inheritdoc
      */
     isFresh() {
-        if (! this._debug && fs.existsSync(this._file)) {
+        if (! this._debug && existsSync(this._file)) {
             return true;
         }
 
         return super.isFresh();
     }
 }
-
-module.exports = ConfigCache;

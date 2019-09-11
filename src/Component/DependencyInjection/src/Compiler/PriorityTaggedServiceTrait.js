@@ -33,4 +33,4 @@ class PriorityTaggedServiceTrait {
     }
 }
 
-module.exports = getTrait(PriorityTaggedServiceTrait);
+export default getTrait(PriorityTaggedServiceTrait);

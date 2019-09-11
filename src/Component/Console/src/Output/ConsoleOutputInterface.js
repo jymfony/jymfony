@@ -21,4 +21,4 @@ class ConsoleOutputInterface extends OutputInterface.definition {
     set errorOutput(error) { }
 }
 
-module.exports = getInterface(ConsoleOutputInterface);
+export default getInterface(ConsoleOutputInterface);

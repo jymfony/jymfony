@@ -3,7 +3,7 @@ const Matcher = Jymfony.Component.Routing.Matcher.Matcher;
 /**
  * @memberOf Jymfony.Bundle.FrameworkBundle.Routing
  */
-class RedirectableMatcher extends Matcher {
+export default class RedirectableMatcher extends Matcher {
     /**
      * @inheritdoc
      */
@@ -20,5 +20,3 @@ class RedirectableMatcher extends Matcher {
         };
     }
 }
-
-module.exports = RedirectableMatcher;

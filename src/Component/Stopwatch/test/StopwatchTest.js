@@ -1,6 +1,6 @@
 const Stopwatch = Jymfony.Component.Stopwatch.Stopwatch;
 const StopwatchEvent = Jymfony.Component.Stopwatch.StopwatchEvent;
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 describe('[Stopwatch] Stopwatch', function () {
     it('start', () => {

@@ -6,7 +6,7 @@ const UnsetKeyException = Jymfony.Component.Config.Definition.Exception.UnsetKey
 /**
  * @memberOf Jymfony.Component.Config.Definition
  */
-class ArrayNode extends BaseNode {
+export default class ArrayNode extends BaseNode {
     /**
      * @inheritdoc
      */
@@ -389,5 +389,3 @@ class ArrayNode extends BaseNode {
         return leftSide;
     }
 }
-
-module.exports = ArrayNode;

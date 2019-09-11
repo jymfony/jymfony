@@ -4,7 +4,7 @@ const ConstStub = Jymfony.Component.VarDumper.Caster.ConstStub;
 /**
  * @memberOf Jymfony.Component.VarDumper.Caster
  */
-class DateCaster {
+export default class DateCaster {
     /**
      * Casts a Date object.
      *
@@ -57,5 +57,3 @@ class DateCaster {
         return { [Caster.PREFIX_VIRTUAL + 'timezone']: new ConstStub(location) };
     }
 }
-
-module.exports = DateCaster;

@@ -6,7 +6,7 @@ const OutputFormatter = Jymfony.Component.Console.Formatter.OutputFormatter;
  *
  * @final
  */
-class NullOutput extends implementationOf(OutputInterface) {
+export default class NullOutput extends implementationOf(OutputInterface) {
     /**
      * @inheritdoc
      */
@@ -81,5 +81,3 @@ class NullOutput extends implementationOf(OutputInterface) {
         return new OutputFormatter();
     }
 }
-
-module.exports = NullOutput;

@@ -1,3 +1,5 @@
+import { createHash } from 'crypto';
+
 const AbstractAdapter = Jymfony.Component.Cache.Adapter.AbstractAdapter;
 const CompilerPassInterface = Jymfony.Component.DependencyInjection.Compiler.CompilerPassInterface;
 const Container = Jymfony.Component.DependencyInjection.Container;
@@ -6,12 +8,10 @@ const ChildDefinition = Jymfony.Component.DependencyInjection.ChildDefinition;
 const Definition = Jymfony.Component.DependencyInjection.Definition;
 const Reference = Jymfony.Component.DependencyInjection.Reference;
 
-const crypto = require('crypto');
-
 /**
  * @memberOf Jymfony.Component.Cache.DependencyInjection
  */
-class CachePoolPass extends implementationOf(CompilerPassInterface) {
+export default class CachePoolPass extends implementationOf(CompilerPassInterface) {
     /**
      * @inheritdoc
      */
@@ -97,7 +97,7 @@ class CachePoolPass extends implementationOf(CompilerPassInterface) {
     }
 
     static _getNamespace(seed, id) {
-        const hash = crypto.createHash('sha256');
+        const hash = createHash('sha256');
         hash.update(id + seed);
         const digest = hash.digest().toString('base64');
 
@@ -128,5 +128,3 @@ class CachePoolPass extends implementationOf(CompilerPassInterface) {
         return name;
     }
 }
-
-module.exports = CachePoolPass;

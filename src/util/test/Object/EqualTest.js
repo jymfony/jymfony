@@ -1,5 +1,5 @@
 require('../../lib/Object/equal');
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 describe('Equal', function () {
 

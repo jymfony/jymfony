@@ -5,7 +5,7 @@ const EngineInterface = Jymfony.Component.Templating.Engine.EngineInterface;
  *
  * @memberOf Jymfony.Component.Templating.Engine
  */
-class DelegatingEngine extends implementationOf(EngineInterface) {
+export default class DelegatingEngine extends implementationOf(EngineInterface) {
     /**
      * Constructor.
      *
@@ -78,5 +78,3 @@ class DelegatingEngine extends implementationOf(EngineInterface) {
         throw new RuntimeException(__jymfony.sprintf('No engine is able to work with the template "%s".', name));
     }
 }
-
-module.exports = DelegatingEngine;

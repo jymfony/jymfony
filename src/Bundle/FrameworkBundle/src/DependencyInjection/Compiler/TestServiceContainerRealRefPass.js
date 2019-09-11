@@ -4,7 +4,7 @@ const Reference = Jymfony.Component.DependencyInjection.Reference;
 /**
  * @memberOf Jymfony.FrameworkBundle.DependencyInjection.Compiler
  */
-class TestServiceContainerRealRefPass extends implementationOf(CompilerPassInterface) {
+export default class TestServiceContainerRealRefPass extends implementationOf(CompilerPassInterface) {
     /**
      * @inheritdoc
      */
@@ -34,5 +34,3 @@ class TestServiceContainerRealRefPass extends implementationOf(CompilerPassInter
         privateContainer.replaceArgument(0, privateServices);
     }
 }
-
-module.exports = TestServiceContainerRealRefPass;

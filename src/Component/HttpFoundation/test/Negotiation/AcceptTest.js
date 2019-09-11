@@ -1,5 +1,5 @@
 const Accept = Jymfony.Component.HttpFoundation.Negotiation.Accept;
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 describe('[HttpFoundation] Accept', function () {
     it('get parameter should work', () => {

@@ -15,4 +15,4 @@ class AccessDeniedHandlerInterface {
     async handle(request, exception) { }
 }
 
-module.exports = getInterface(AccessDeniedHandlerInterface);
+export default getInterface(AccessDeniedHandlerInterface);

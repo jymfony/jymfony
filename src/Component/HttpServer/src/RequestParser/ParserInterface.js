@@ -17,4 +17,4 @@ class ParserInterface {
     parse() { }
 }
 
-module.exports = getInterface(ParserInterface);
+export default getInterface(ParserInterface);

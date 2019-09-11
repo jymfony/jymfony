@@ -1,3 +1,5 @@
+import * as http from 'http';
+
 const EventDispatcher = Jymfony.Component.EventDispatcher.EventDispatcher;
 const FunctionControllerResolver = Jymfony.Component.HttpFoundation.Controller.FunctionControllerResolver;
 const BadRequestException = Jymfony.Component.HttpFoundation.Exception.BadRequestException;
@@ -10,12 +12,10 @@ const RequestHandler = Jymfony.Component.HttpServer.RequestHandler;
 const Router = Jymfony.Component.Routing.Router;
 const FunctionLoader = Jymfony.Component.Routing.Loader.FunctionLoader;
 
-const http = require('http');
-
 /**
  * @memberOf Jymfony.Component.HttpServer
  */
-class HttpServer extends RequestHandler {
+export default class HttpServer extends RequestHandler {
     /**
      * Constructor.
      *
@@ -280,5 +280,3 @@ class HttpServer extends RequestHandler {
         await this._dispatcher.dispatch(Event.HttpServerEvents.TERMINATE, event);
     }
 }
-
-module.exports = HttpServer;

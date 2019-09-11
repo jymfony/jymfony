@@ -8,7 +8,7 @@ const NullLogger = Jymfony.Component.Logger.NullLogger;
 /**
  * @memberOf Jymfony.Component.Cache.Adapter
  */
-class ArrayAdapter extends implementationOf(CacheItemPoolInterface, LoggerAwareInterface, ArrayTrait) {
+export default class ArrayAdapter extends implementationOf(CacheItemPoolInterface, LoggerAwareInterface, ArrayTrait) {
     __construct(defaultLifetime = 0) {
         /**
          * Create a cache item for the current adapter.
@@ -139,5 +139,3 @@ class ArrayAdapter extends implementationOf(CacheItemPoolInterface, LoggerAwareI
         }
     }
 }
-
-module.exports = ArrayAdapter;

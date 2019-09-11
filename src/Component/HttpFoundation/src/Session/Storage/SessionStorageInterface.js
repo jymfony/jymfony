@@ -101,4 +101,4 @@ class SessionStorageInterface {
     registerBag(bag) { }
 }
 
-module.exports = getInterface(SessionStorageInterface);
+export default getInterface(SessionStorageInterface);

@@ -3,7 +3,7 @@ const ObjectProphecyException = Jymfony.Component.Testing.Exception.ObjectProphe
 /**
  * @memberOf Jymfony.Component.Testing.Exception
  */
-class MethodProphecyException extends ObjectProphecyException {
+export default class MethodProphecyException extends ObjectProphecyException {
     /**
      * Constructor.
      *
@@ -23,5 +23,3 @@ class MethodProphecyException extends ObjectProphecyException {
         return this._methodProphecy;
     }
 }
-
-module.exports = MethodProphecyException;

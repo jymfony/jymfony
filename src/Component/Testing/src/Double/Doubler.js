@@ -4,7 +4,7 @@ const ClassGenerator = Jymfony.Component.Testing.Double.ClassGenerator;
 /**
  * @memberOf Jymfony.Component.Testing.Double
  */
-class Doubler {
+export default class Doubler {
     /**
      * Constructor.
      *
@@ -160,5 +160,3 @@ class Doubler {
         return this._instance = obj;
     }
 }
-
-module.exports = Doubler;

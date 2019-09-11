@@ -4,7 +4,7 @@ const SelfCheckingResourceInterface = Jymfony.Component.Config.Resource.SelfChec
 /**
  * @memberOf Jymfony.Component.Config.Resource
  */
-class SelfCheckingResourceChecker extends implementationOf(ResourceCheckerInterface) {
+export default class SelfCheckingResourceChecker extends implementationOf(ResourceCheckerInterface) {
     /**
      * @inheritdoc
      */
@@ -19,5 +19,3 @@ class SelfCheckingResourceChecker extends implementationOf(ResourceCheckerInterf
         return resource.isFresh(timestamp);
     }
 }
-
-module.exports = SelfCheckingResourceChecker;

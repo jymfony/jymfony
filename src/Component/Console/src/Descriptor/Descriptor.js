@@ -9,7 +9,7 @@ const OutputInterface = Jymfony.Component.Console.Output.OutputInterface;
 /**
  * @memberOf Jymfony.Component.Console.Descriptor
  */
-class Descriptor extends implementationOf(DescriptorInterface) {
+export default class Descriptor extends implementationOf(DescriptorInterface) {
     __construct() {
         /**
          * @type {Jymfony.Component.Console.Output.OutputInterface}
@@ -140,5 +140,3 @@ class Descriptor extends implementationOf(DescriptorInterface) {
         throw new Error('describeInputOption must be overridden');
     }
 }
-
-module.exports = Descriptor;

@@ -10,7 +10,7 @@ const InputDefinition = Jymfony.Component.Console.Input.InputDefinition;
  *
  * @memberOf Jymfony.Component.Console.Command
  */
-class Command {
+export default class Command {
     /**
      * Constructor.
      *
@@ -55,6 +55,15 @@ class Command {
                 __jymfony.sprintf('The command defined in "%s" cannot have an empty name.', ReflectionClass.getClassName(this))
             );
         }
+    }
+
+    /**
+     * Gets the default command name.
+     *
+     * @return {string}
+     */
+    static get defaultName() {
+        return null;
     }
 
     /**
@@ -506,5 +515,3 @@ class Command {
         }
     }
 }
-
-module.exports = Command;

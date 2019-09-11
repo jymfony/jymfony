@@ -17,4 +17,4 @@ class EquatableInterface {
     isEqualTo(user) { }
 }
 
-module.exports = getInterface(EquatableInterface);
+export default getInterface(EquatableInterface);

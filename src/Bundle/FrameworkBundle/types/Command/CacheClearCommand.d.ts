@@ -7,12 +7,17 @@ declare namespace Jymfony.Bundle.FrameworkBundle.Command {
 
     export class CacheClearCommand extends mix(Command, ContainerAwareInterface, ContainerAwareTrait) {
         /**
-         * @inheritdoc
+         * @inheritDoc
+         */
+        public static readonly defaultName: string;
+
+        /**
+         * @inheritDoc
          */
         configure(): void;
 
         /**
-         * @inheritdoc
+         * @inheritDoc
          */
         execute(input: InputInterface, output: OutputInterface): Promise<void>;
 

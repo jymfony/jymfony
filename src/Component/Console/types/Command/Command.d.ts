@@ -10,6 +10,11 @@ declare namespace Jymfony.Component.Console.Command {
      */
     export class Command {
         /**
+         * The command default name.
+         */
+        public static readonly defaultName: string|null;
+
+        /**
          * The aliases for the command.
          */
         public aliases: string[];

@@ -6,7 +6,7 @@ const TokenStorageInterface = Jymfony.Component.Security.Authentication.Token.St
  *
  * @memberOf Jymfony.Component.Security.Authentication.Token.Storage
  */
-class TokenStorage extends implementationOf(TokenStorageInterface) {
+export default class TokenStorage extends implementationOf(TokenStorageInterface) {
     /**
      * Constructor.
      */
@@ -33,5 +33,3 @@ class TokenStorage extends implementationOf(TokenStorageInterface) {
         this._map.set(request, token);
     }
 }
-
-module.exports = TokenStorage;

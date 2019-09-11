@@ -15,4 +15,4 @@ class ClonerInterface {
     cloneVar(variable) { }
 }
 
-module.exports = getInterface(ClonerInterface);
+export default getInterface(ClonerInterface);

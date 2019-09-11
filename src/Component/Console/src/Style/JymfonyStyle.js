@@ -1,3 +1,5 @@
+import { EOL } from 'os';
+
 const Terminal = Jymfony.Component.Console.Terminal;
 const BufferedOutput = Jymfony.Component.Console.Output.BufferedOutput;
 const OutputFormatter = Jymfony.Component.Console.Formatter.OutputFormatter;
@@ -9,14 +11,12 @@ const OutputStyle = Jymfony.Component.Console.Style.OutputStyle;
 const QuestionBuilder = Jymfony.Component.Console.Question.Builder.QuestionBuilder;
 const QuestionType = Jymfony.Component.Console.Question.QuestionType;
 
-const os = require('os');
-
 /**
  * Output decorator helpers for the Symfony Style Guide.
  *
  * @memberOf Jymfony.Component.Console.Style
  */
-class JymfonyStyle extends OutputStyle {
+export default class JymfonyStyle extends OutputStyle {
     /**
      * Constructor.
      *
@@ -339,7 +339,7 @@ class JymfonyStyle extends OutputStyle {
      * @private
      */
     _autoPrependBlock() {
-        const chars = this._bufferedOutput.fetch().replace(os.EOL, '\n').substr(-2);
+        const chars = this._bufferedOutput.fetch().replace(EOL, '\n').substr(-2);
 
         if (! chars.charAt(0)) {
             return this.newLine(); // Empty history, so we should start with a new line.
@@ -399,7 +399,7 @@ class JymfonyStyle extends OutputStyle {
                 message = OutputFormatter.escape(message);
             }
 
-            lines = [ ...lines, ...__jymfony.wordwrap(message, this._lineLength - prefixLength - indentLength, os.EOL, true).split(os.EOL) ];
+            lines = [ ...lines, ...__jymfony.wordwrap(message, this._lineLength - prefixLength - indentLength, EOL, true).split(EOL) ];
 
             if (1 < messages.length && key < messages.length - 1) {
                 lines.push('');

@@ -3,7 +3,7 @@ const BadRequestException = Jymfony.Component.HttpServer.Exception.BadRequestExc
 /**
  * @memberOf Jymfony.Component.HttpServer.Exception
  */
-class BadContentLengthRequestException extends BadRequestException {
+export default class BadContentLengthRequestException extends BadRequestException {
     /**
      * Constructor.
      *
@@ -15,5 +15,3 @@ class BadContentLengthRequestException extends BadRequestException {
         super.__construct(message, code, previous);
     }
 }
-
-module.exports = BadContentLengthRequestException;

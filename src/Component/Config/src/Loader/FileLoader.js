@@ -10,7 +10,7 @@ const path = require('path');
  *
  * @abstract
  */
-class FileLoader extends Loader {
+export default class FileLoader extends Loader {
     /**
      * Constructor
      *
@@ -183,5 +183,3 @@ class FileLoader extends Loader {
 }
 
 FileLoader.loading = new Set();
-
-module.exports = FileLoader;

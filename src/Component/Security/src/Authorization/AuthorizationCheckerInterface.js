@@ -14,4 +14,4 @@ class AuthorizationCheckerInterface {
     isGranted(token, attributes, subject = undefined) { }
 }
 
-module.exports = getInterface(AuthorizationCheckerInterface);
+export default getInterface(AuthorizationCheckerInterface);

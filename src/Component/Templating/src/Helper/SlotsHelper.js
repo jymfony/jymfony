@@ -5,7 +5,7 @@ const HelperInterface = Jymfony.Component.Templating.Helper.HelperInterface;
  *
  * @memberOf Jymfony.Component.Templating.Helper
  */
-class SlotsHelper extends implementationOf(HelperInterface) {
+export default class SlotsHelper extends implementationOf(HelperInterface) {
     /**
      * Constructor.
      *
@@ -116,5 +116,3 @@ class SlotsHelper extends implementationOf(HelperInterface) {
         return 'slots';
     }
 }
-
-module.exports = SlotsHelper;

@@ -1,4 +1,4 @@
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 describe('[Exceptions] UnexpectedValueException', function () {
     it('registered in global namespace', function () {

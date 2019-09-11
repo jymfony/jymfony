@@ -5,7 +5,7 @@ const AbstractPasswordEncoder = Jymfony.Component.Security.Encoder.AbstractPassw
  *
  * @memberOf Jymfony.Component.Security.Encoder
  */
-class PlaintextPasswordEncoder extends AbstractPasswordEncoder {
+export default class PlaintextPasswordEncoder extends AbstractPasswordEncoder {
     /**
      * Constructor.
      *
@@ -40,5 +40,3 @@ class PlaintextPasswordEncoder extends AbstractPasswordEncoder {
         return this._comparePasswords(encoded.toLowerCase(), second.toLowerCase());
     }
 }
-
-module.exports = PlaintextPasswordEncoder;

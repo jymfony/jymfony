@@ -4,15 +4,14 @@ const JymfonyStyle = Jymfony.Component.Console.Style.JymfonyStyle;
 /**
  * @memberOf Jymfony.Component.DevServer.Command
  */
-class DevServerCommand extends Command {
+export default class DevServerCommand extends Command {
     /**
      * Constructor.
      *
      * @param {Jymfony.Component.DevServer.DevServer} devServer
-     * @param {string} name
      */
-    __construct(devServer, name = undefined) {
-        super.__construct(name || 'dev-server:run');
+    __construct(devServer) {
+        super.__construct();
 
         /**
          * @type {Jymfony.Component.DevServer.DevServer}
@@ -20,6 +19,13 @@ class DevServerCommand extends Command {
          * @private
          */
         this._devServer = devServer;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    static get defaultName() {
+        return 'dev-server:run';
     }
 
     /**
@@ -46,5 +52,3 @@ class DevServerCommand extends Command {
         );
     }
 }
-
-module.exports = DevServerCommand;

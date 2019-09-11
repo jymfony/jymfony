@@ -21,4 +21,4 @@ class ProcessableHandlerInterface {
     popProcessor() { }
 }
 
-module.exports = getInterface(ProcessableHandlerInterface);
+export default getInterface(ProcessableHandlerInterface);

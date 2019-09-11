@@ -5,7 +5,7 @@ const Stub = Jymfony.Component.VarDumper.Cloner.Stub;
 /**
  * @memberOf Jymfony.Component.VarDumper.Cloner
  */
-class Data {
+export default class Data {
     __construct(data) {
         /**
          * @type {Object}
@@ -373,5 +373,3 @@ class Data {
         return stub;
     }
 }
-
-module.exports = Data;

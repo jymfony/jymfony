@@ -7,7 +7,7 @@ const Security = Jymfony.Component.Security.Security;
  *
  * @memberOf Jymfony.Component.Security.Authorization
  */
-class AccessDeniedPageHandler extends implementationOf(AccessDeniedHandlerInterface) {
+export default class AccessDeniedPageHandler extends implementationOf(AccessDeniedHandlerInterface) {
     /**
      * Constructor.
      *
@@ -53,5 +53,3 @@ class AccessDeniedPageHandler extends implementationOf(AccessDeniedHandlerInterf
         return this._requestHandler.handle(subRequest);
     }
 }
-
-module.exports = AccessDeniedPageHandler;

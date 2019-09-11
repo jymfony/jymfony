@@ -118,4 +118,4 @@ class RouteTrait {
     }
 }
 
-module.exports = getTrait(RouteTrait);
+export default getTrait(RouteTrait);

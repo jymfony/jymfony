@@ -17,4 +17,4 @@ class TraceableEventDispatcherInterface {
     get notCalledListeners() { }
 }
 
-module.exports = getInterface(TraceableEventDispatcherInterface);
+export default getInterface(TraceableEventDispatcherInterface);

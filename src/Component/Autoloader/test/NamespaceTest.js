@@ -1,4 +1,4 @@
-const expect = require('chai').expect;
+const { expect } = require('chai');
 const path = require('path');
 const fs = require('fs');
 
@@ -7,11 +7,15 @@ const fs = require('fs');
  * cannot use the autoloader itself to load classes! :)
  */
 const Namespace = require('../src/Namespace');
+const ClassLoader = require('../src/ClassLoader');
 const ClassNotFoundException = require('../src/Exception/ClassNotFoundException');
 
 describe('[Autoloader] Namespace', function () {
-    it('constructs as a Proxy', () => {
+    afterEach(() => {
+        ClassLoader.clearCache();
+    });
 
+    it('constructs as a Proxy', () => {
         /*
          * ES6 Proxies are transparent virtualized objects, so
          * it is impossible to know whether an object is a
@@ -79,7 +83,7 @@ describe('[Autoloader] Namespace', function () {
                 };
             },
             load: (fn) => {
-                expect(fn).to.be.equal('/var/node/foo_vendor/FooClass.js');
+                expect(fn).to.be.equal(__jymfony.Platform.isWindows() ? 'C:\\var\\node\\foo_vendor\\FooClass.js' : '/var/node/foo_vendor/FooClass.js');
                 return '';
             },
         };
@@ -124,7 +128,7 @@ describe('[Autoloader] Namespace', function () {
                 }
             },
             load: (fn) => {
-                expect(fn).to.be.equal('/var/node/foo_vendor/FooClass.js');
+                expect(fn).to.be.equal(__jymfony.Platform.isWindows() ? 'C:\\var\\node\\foo_vendor\\FooClass.js' : '/var/node/foo_vendor/FooClass.js');
                 return 'module.exports = function () { };';
             },
         };
@@ -164,7 +168,7 @@ describe('[Autoloader] Namespace', function () {
 
             },
             load: fn => {
-                expect(fn).to.be.equal('/var/node/foo_vendor/FooClass.js');
+                expect(fn).to.be.equal(__jymfony.Platform.isWindows() ? 'C:\\var\\node\\foo_vendor\\FooClass.js' : '/var/node/foo_vendor/FooClass.js');
                 return 'module.exports = class FooClass {}';
             },
         };
@@ -206,7 +210,7 @@ describe('[Autoloader] Namespace', function () {
 
             },
             load: fn => {
-                expect(fn).to.be.equal('/var/node/foo_vendor/FooClass.js');
+                expect(fn).to.be.equal(__jymfony.Platform.isWindows() ? 'C:\\var\\node\\foo_vendor\\FooClass.js' : '/var/node/foo_vendor/FooClass.js');
                 return `module.exports = class FooClass {
                     __construct(arg) {
                         this.constructCalled = arg;
@@ -253,13 +257,13 @@ describe('[Autoloader] Namespace', function () {
                 throw new Error('Unexpected argument');
             },
             load: fn => {
-                if ('/var/node/foo_vendor/FooClass.js' === fn) {
+                if ((__jymfony.Platform.isWindows() ? 'C:\\var\\node\\foo_vendor\\FooClass.js' : '/var/node/foo_vendor/FooClass.js') === fn) {
                     return `module.exports = class FooClass extends __ns.BarClass {
                         __construct(arg) {
                             this.constructCalled = arg;
                         }
                     }`;
-                } else if ('/var/node/foo_vendor/BarClass.js' === fn) {
+                } else if ((__jymfony.Platform.isWindows() ? 'C:\\var\\node\\foo_vendor\\BarClass.js' : '/var/node/foo_vendor/BarClass.js') === fn) {
                     return `module.exports = class BarClass {
                         __construct(arg) {
                             this.superCalled = arg;

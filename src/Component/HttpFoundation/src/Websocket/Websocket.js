@@ -7,7 +7,7 @@ const WebsocketResponse = Jymfony.Component.HttpFoundation.Websocket.WebsocketRe
  *
  * @memberOf Jymfony.Component.HttpFoundation.Websocket
  */
-class Websocket {
+export default class Websocket {
     __construct() {
         /**
          * The websocket response (used to send data).
@@ -69,5 +69,3 @@ class Websocket {
      */
     async onClose() { } // eslint-disable-line no-unused-vars
 }
-
-module.exports = Websocket;

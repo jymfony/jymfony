@@ -1,4 +1,4 @@
-const expect = require('chai').expect;
+const { expect } = require('chai');
 const DateTime = Jymfony.Component.DateTime.DateTime;
 const LogLevel = Jymfony.Component.Logger.LogLevel;
 const MongoDBFormatter = Jymfony.Component.Logger.Formatter.MongoDBFormatter;

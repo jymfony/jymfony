@@ -9,7 +9,7 @@ const underscoreMap = {'_': '', '.': '_', '\\': '_'};
 /**
  * @memberOf Jymfony.Component.DependencyInjection
  */
-class Container extends implementationOf(ContainerInterface) {
+export default class Container extends implementationOf(ContainerInterface) {
     /**
      * Constructor.
      *
@@ -336,5 +336,3 @@ Container.EXCEPTION_ON_INVALID_REFERENCE = 1;
 Container.NULL_ON_INVALID_REFERENCE = 2;
 Container.IGNORE_ON_INVALID_REFERENCE = 3;
 Container.IGNORE_ON_UNINITIALIZED_REFERENCE = 4;
-
-module.exports = Container;

@@ -10,6 +10,11 @@ declare namespace Jymfony.Bundle.FrameworkBundle.Command {
      * @final
      */
     export class CacheWarmupCommand extends Command {
+        /**
+         * @inheritDoc
+         */
+        public static readonly defaultName: string;
+
         private _cacheWarmer: CacheWarmerInterface;
 
         /**

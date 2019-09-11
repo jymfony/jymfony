@@ -4,7 +4,5 @@ const ExceptionInterface = Jymfony.Component.Console.Exception.ExceptionInterfac
 /**
  * @memberOf Jymfony.Component.Console.Exception
  */
-class LogicException extends mix(BaseException, ExceptionInterface) {
+export default class LogicException extends mix(BaseException, ExceptionInterface) {
 }
-
-module.exports = LogicException;

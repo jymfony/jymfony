@@ -1,6 +1,6 @@
 const Namespace = Jymfony.Component.Autoloader.Namespace;
 const NodeBuilder = Jymfony.Component.Config.Definition.Builder.NodeBuilder;
-const expect = require('chai').expect;
+const { expect } = require('chai');
 const path = require('path');
 
 const Fixtures = new Namespace(__jymfony.autoload, 'Jymfony.Component.Config.Fixtures', [

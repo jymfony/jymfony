@@ -29,4 +29,4 @@ class ConfigCacheInterface {
     write(content, metadata = undefined) { }
 }
 
-module.exports = getInterface(ConfigCacheInterface);
+export default getInterface(ConfigCacheInterface);

@@ -4,7 +4,7 @@ const NullLogger = Jymfony.Component.Logger.NullLogger;
 /**
  * @memberOf Jymfony.Component.HttpFoundation.Controller
  */
-class ContainerControllerResolver extends implementationOf(ControllerResolverInterface) {
+export default class ContainerControllerResolver extends implementationOf(ControllerResolverInterface) {
     /**
      * Constructor.
      *
@@ -63,5 +63,3 @@ class ContainerControllerResolver extends implementationOf(ControllerResolverInt
         return getCallableFromArray([ service, method ]);
     }
 }
-
-module.exports = ContainerControllerResolver;

@@ -8,7 +8,7 @@ const AccessDecisionManager = Jymfony.Component.Security.Authorization.AccessDec
 /**
  * @memberOf Jymfony.Bundle.SecurityBundle.DependencyInjection
  */
-class Configuration extends implementationOf(ConfigurationInterface) {
+export default class Configuration extends implementationOf(ConfigurationInterface) {
     /**
      * Constructor.
      */
@@ -391,5 +391,3 @@ class Configuration extends implementationOf(ConfigurationInterface) {
         ;
     }
 }
-
-module.exports = Configuration;

@@ -1,3 +1,5 @@
+import * as fs from 'fs';
+
 const ArrayAdapter = Jymfony.Component.Cache.Adapter.ArrayAdapter;
 const FilesystemAdapter = Jymfony.Component.Cache.Adapter.FilesystemAdapter;
 const RedisAdapter = Jymfony.Component.Cache.Adapter.RedisAdapter;
@@ -9,13 +11,11 @@ const DateTime = Jymfony.Component.DateTime.DateTime;
 const LoggerAwareInterface = Jymfony.Component.Logger.LoggerAwareInterface;
 const NullLogger = Jymfony.Component.Logger.NullLogger;
 
-const fs = require('fs');
-
 /**
  * @memberOf Jymfony.Component.Cache.Adapter
  * @abstract
  */
-class AbstractAdapter extends implementationOf(CacheItemPoolInterface, LoggerAwareInterface, AbstractTrait) {
+export default class AbstractAdapter extends implementationOf(CacheItemPoolInterface, LoggerAwareInterface, AbstractTrait) {
     /**
      * Constructor.
      *
@@ -199,5 +199,3 @@ class AbstractAdapter extends implementationOf(CacheItemPoolInterface, LoggerAwa
         // Nothing to do.
     }
 }
-
-module.exports = AbstractAdapter;

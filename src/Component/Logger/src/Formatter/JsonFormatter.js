@@ -4,7 +4,7 @@ const NormalizerFormatter = Jymfony.Component.Logger.Formatter.NormalizerFormatt
 /**
  * @memberOf Jymfony.Component.Logger.Formatter
  */
-class JsonFormatter extends NormalizerFormatter {
+export default class JsonFormatter extends NormalizerFormatter {
     /**
      * @inheritdoc
      */
@@ -80,5 +80,3 @@ class JsonFormatter extends NormalizerFormatter {
         return record;
     }
 }
-
-module.exports = JsonFormatter;

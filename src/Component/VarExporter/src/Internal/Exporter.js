@@ -4,7 +4,7 @@ const Reference = Jymfony.Component.VarExporter.Internal.Reference;
 /**
  * @memberOf Jymfony.Component.VarExporter.Internal
  */
-class Exporter {
+export default class Exporter {
     /**
      * Prepares an array of values for VarExporter.
      *
@@ -178,5 +178,3 @@ class Exporter {
         return ReflectionClass.getClassName(value) + '.hydrate(\n' + subIndent + code.join(',\n' + subIndent) + '\n' + indent + ')';
     }
 }
-
-module.exports = Exporter;

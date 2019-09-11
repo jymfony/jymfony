@@ -4,7 +4,7 @@ const AcceptEncoding = Jymfony.Component.HttpFoundation.Negotiation.AcceptEncodi
 /**
  * @memberOf Jymfony.Component.HttpFoundation.Negotiation
  */
-class EncodingNegotiator extends AbstractNegotiator {
+export default class EncodingNegotiator extends AbstractNegotiator {
     /**
      * @inheritdoc
      */
@@ -12,5 +12,3 @@ class EncodingNegotiator extends AbstractNegotiator {
         return new AcceptEncoding(accept);
     }
 }
-
-module.exports = EncodingNegotiator;

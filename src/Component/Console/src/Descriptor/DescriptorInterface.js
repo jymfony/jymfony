@@ -14,4 +14,4 @@ class DescriptorInterface {
     describe(output, object, options = {}) { }
 }
 
-module.exports = getInterface(DescriptorInterface);
+export default getInterface(DescriptorInterface);

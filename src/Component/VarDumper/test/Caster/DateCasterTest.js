@@ -2,7 +2,7 @@ const DateTime = Jymfony.Component.DateTime.DateTime;
 const DateTimeZone = Jymfony.Component.DateTime.DateTimeZone;
 const DateCaster = Jymfony.Component.VarDumper.Caster.DateCaster;
 const Stub = Jymfony.Component.VarDumper.Cloner.Stub;
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 describe('[VarDumper] DateCaster', function () {
     it('should dump date object correctly', () => {

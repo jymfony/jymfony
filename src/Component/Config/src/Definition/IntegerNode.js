@@ -6,7 +6,7 @@ const NumericNode = Jymfony.Component.Config.Definition.NumericNode;
  *
  * @memberOf Jymfony.Component.Config.Definition
  */
-class IntegerNode extends NumericNode {
+export default class IntegerNode extends NumericNode {
     /**
      * @inheritdoc
      */
@@ -26,5 +26,3 @@ class IntegerNode extends NumericNode {
         }
     }
 }
-
-module.exports = IntegerNode;

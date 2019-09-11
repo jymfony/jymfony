@@ -7,7 +7,7 @@ const InvalidDefinitionException = Jymfony.Component.Config.Definition.Exception
  *
  * @memberOf Jymfony.Component.Config.Definition.Builder
  */
-class BooleanNodeDefinition extends ScalarNodeDefinition {
+export default class BooleanNodeDefinition extends ScalarNodeDefinition {
     /**
      * @inheritdoc
      */
@@ -35,5 +35,3 @@ class BooleanNodeDefinition extends ScalarNodeDefinition {
         throw new InvalidDefinitionException('cannotBeEmpty() is not applicable to BooleanNodeDefinition.');
     }
 }
-
-module.exports = BooleanNodeDefinition;

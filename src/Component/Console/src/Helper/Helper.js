@@ -3,7 +3,7 @@
  *
  * @memberOf Jymfony.Component.Console.Helper
  */
-class Helper {
+export default class Helper {
     /**
      * @param {int} secs
      *
@@ -90,5 +90,3 @@ class Helper {
         return string;
     }
 }
-
-module.exports = Helper;

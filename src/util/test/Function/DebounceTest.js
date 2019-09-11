@@ -1,5 +1,5 @@
 require('../../lib/Function/Debounce');
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 describe('Debounce', function () {
     it('should debounce a function', async () => {

@@ -9,7 +9,7 @@ const PlaintextPasswordEncoder = Jymfony.Component.Security.Encoder.PlaintextPas
  *
  * @memberOf Jymfony.Component.Security.Encoder
  */
-class EncoderFactory extends implementationOf(EncoderFactoryInterface) {
+export default class EncoderFactory extends implementationOf(EncoderFactoryInterface) {
     /**
      * Constructor.
      *

@@ -4,7 +4,7 @@
   "description": "Jymfony Mime Types Component",
   "typings": "types/index.d.ts",
   "scripts": {
-    "test": "node ./tests.js"
+    "test": "node ./tests.js test/**"
   },
   "keywords": [
     "mime",
@@ -25,9 +25,9 @@
     "@jymfony/debug": "*",
     "@jymfony/filesystem": "*",
     "@jymfony/testing": "*",
-    "chai": "^3.5.0",
+    "chai": "^4.2",
     "libxmljs": "^0.19",
-    "mocha": "^5.0"
+    "mocha": "^6.0"
   },
   "config": {
     "jymfony-autoload": {

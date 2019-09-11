@@ -56,4 +56,4 @@ class ProcessableHandlerTrait {
     }
 }
 
-module.exports = getTrait(ProcessableHandlerTrait);
+export default getTrait(ProcessableHandlerTrait);

@@ -3,7 +3,7 @@
  *
  * @memberOf Jymfony.Component.Config.Exception
  */
-class FileLoaderLoadException extends Exception {
+export default class FileLoaderLoadException extends Exception {
     /**
      * Constructor.
      *
@@ -75,5 +75,3 @@ class FileLoaderLoadException extends Exception {
         return variable.toString();
     }
 }
-
-module.exports = FileLoaderLoadException;

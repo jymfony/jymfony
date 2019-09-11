@@ -4,7 +4,7 @@ const OutputInterface = Jymfony.Component.Console.Output.OutputInterface;
 /**
  * @memberOf Jymfony.Component.Console.Output
  */
-class Output extends implementationOf(OutputInterface) {
+export default class Output extends implementationOf(OutputInterface) {
     /**
      * Constructor.
      *
@@ -141,5 +141,3 @@ class Output extends implementationOf(OutputInterface) {
         throw new RuntimeException('You must override the _doWrite method');
     }
 }
-
-module.exports = Output;

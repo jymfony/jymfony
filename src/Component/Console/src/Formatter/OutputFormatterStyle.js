@@ -36,7 +36,7 @@ const availableOptions = {
 /**
  * @memberOf Jymfony.Component.Console.Formatter
  */
-class OutputFormatterStyle extends implementationOf(OutputFormatterStyleInterface) {
+export default class OutputFormatterStyle extends implementationOf(OutputFormatterStyleInterface) {
     /**
      * Constructor.
      *
@@ -199,5 +199,3 @@ class OutputFormatterStyle extends implementationOf(OutputFormatterStyleInterfac
         return __jymfony.sprintf('\x1B[%sm%s\x1B[%sm', setCodes.join(';'), text, unsetCodes.join(';'));
     }
 }
-
-module.exports = OutputFormatterStyle;

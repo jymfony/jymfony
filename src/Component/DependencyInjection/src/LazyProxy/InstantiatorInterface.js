@@ -17,4 +17,4 @@ class InstantiatorInterface {
     instantiateProxy(container, definition, id, initializer) { }
 }
 
-module.exports = getInterface(InstantiatorInterface);
+export default getInterface(InstantiatorInterface);

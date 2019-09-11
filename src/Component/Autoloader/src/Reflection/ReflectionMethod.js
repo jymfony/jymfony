@@ -61,12 +61,14 @@ class ReflectionMethod {
          */
         this._async = isAsyncFunction(this._method);
 
+        const classConstructor = reflectionClass.getConstructor();
+
         /**
          * @type {string}
          *
          * @private
          */
-        this._docblock = reflectionClass._docblock ? reflectionClass._docblock.methods[(this._static ? 'static::' : '') + methodName] : undefined;
+        this._docblock = (this._static ? classConstructor[methodName] : classConstructor.prototype[methodName])[Symbol.docblock];
     }
 
     /**
@@ -122,10 +124,19 @@ class ReflectionMethod {
     get docblock() {
         return this._docblock;
     }
+
+    /**
+     * Gets the class metadata.
+     *
+     * @returns {[Function, *][]}
+     */
+    get metadata() {
+        return MetadataStorage.getMetadata(this._class.getConstructor(), this._name);
+    }
 }
 
 ReflectionMethod.FUNCTION = 'function';
 ReflectionMethod.ASYNC_FUNCTION = 'async function';
 ReflectionMethod.GENERATOR = 'generator';
 
-module.exports = ReflectionMethod;
+module.exports = global.ReflectionMethod = ReflectionMethod;

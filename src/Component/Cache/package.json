@@ -26,9 +26,9 @@
   "devDependencies": {
     "@jymfony/debug": "*",
     "@jymfony/filesystem": "*",
-    "chai": "^3.5.0",
+    "chai": "^4.2",
     "ioredis": "^4.0",
-    "mocha": "^5.0"
+    "mocha": "^6.0"
   },
   "config": {
     "jymfony-autoload": {

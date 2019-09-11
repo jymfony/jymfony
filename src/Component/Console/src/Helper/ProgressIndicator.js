@@ -10,7 +10,7 @@ const DateTime = Jymfony.Component.DateTime.DateTime;
  *
  * @final
  */
-class ProgressIndicator {
+export default class ProgressIndicator {
     /**
      * @param {Jymfony.Component.Console.Output.OutputInterface} output
      * @param {string|undefined} [format] Indicator format
@@ -328,5 +328,3 @@ class ProgressIndicator {
 
 ProgressIndicator.formatters = {};
 ProgressIndicator.formats = {};
-
-module.exports = ProgressIndicator;

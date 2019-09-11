@@ -1,6 +1,6 @@
 const RecursiveDirectoryIterator = Jymfony.Component.Config.Resource.Iterator.RecursiveDirectoryIterator;
 const path = require('path');
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 describe('[Config] RecursiveDirectoryIterator', function () {
     it('should synchronously iterate through directory', () => {

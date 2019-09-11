@@ -6,7 +6,7 @@ const Role = Jymfony.Component.Security.Role.Role;
  *
  * @memberOf Jymfony.Component.Security.Role
  */
-class SwitchUserRole extends Role {
+export default class SwitchUserRole extends Role {
     /**
      * Constructor.
      *
@@ -33,5 +33,3 @@ class SwitchUserRole extends Role {
         return this._source;
     }
 }
-
-module.exports = SwitchUserRole;

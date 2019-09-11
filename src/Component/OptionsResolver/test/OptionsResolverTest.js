@@ -1,4 +1,4 @@
-const expect = require('chai').expect;
+const { expect } = require('chai');
 const OptionsResolver = Jymfony.Component.OptionsResolver.OptionsResolver;
 const AccessException = Jymfony.Component.OptionsResolver.Exception.AccessException;
 const MissingOptionsException = Jymfony.Component.OptionsResolver.Exception.MissingOptionsException;

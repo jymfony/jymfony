@@ -14,4 +14,4 @@ class RequestAwareInterface {
     withRequest(request) { }
 }
 
-module.exports = getInterface(RequestAwareInterface);
+export default getInterface(RequestAwareInterface);

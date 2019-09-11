@@ -51,7 +51,7 @@ const doExport = (value) => {
  *
  * @memberOf Jymfony.Component.VarExporter
  */
-class VarExporter {
+export default class VarExporter {
     /**
      /**
      * Exports a serializable JS value to JS code.
@@ -64,5 +64,3 @@ class VarExporter {
         return '(() => {\n    let o;\n    return ' + doExport(value) + ';\n})();\n';
     }
 }
-
-module.exports = VarExporter;

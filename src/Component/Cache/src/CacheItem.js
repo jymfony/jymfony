@@ -7,7 +7,7 @@ const TimeSpan = Jymfony.Component.DateTime.TimeSpan;
  * @memberOf Jymfony.Component.Cache
  * @final
  */
-class CacheItem extends implementationOf(CacheItemInterface) {
+export default class CacheItem extends implementationOf(CacheItemInterface) {
     /**
      * Constructor.
      */
@@ -199,5 +199,3 @@ class CacheItem extends implementationOf(CacheItemInterface) {
         }
     }
 }
-
-module.exports = CacheItem;

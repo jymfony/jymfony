@@ -5,7 +5,7 @@ const Question = Jymfony.Component.Console.Question.Question;
  *
  * @memberOf Jymfony.Component.Console.Question
  */
-class ConfirmationQuestion extends Question {
+export default class ConfirmationQuestion extends Question {
     /**
      * Constructor.
      *
@@ -53,5 +53,3 @@ class ConfirmationQuestion extends Question {
         };
     }
 }
-
-module.exports = ConfirmationQuestion;

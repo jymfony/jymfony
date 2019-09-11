@@ -3,7 +3,7 @@ const PromiseInterface = Jymfony.Component.Testing.Promise.PromiseInterface;
 /**
  * @memberOf Jymfony.Component.Testing.Promise
  */
-class ReturnPromise extends implementationOf(PromiseInterface) {
+export default class ReturnPromise extends implementationOf(PromiseInterface) {
     /**
      * Constructor.
      *
@@ -26,5 +26,3 @@ class ReturnPromise extends implementationOf(PromiseInterface) {
         return value;
     }
 }
-
-module.exports = ReturnPromise;

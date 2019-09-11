@@ -5,7 +5,7 @@ const AuthenticationTrustResolverInterface = Jymfony.Component.Security.Authenti
  *
  * @memberOf Jymfony.Component.Security.Authentication
  */
-class AuthenticationTrustResolver extends implementationOf(AuthenticationTrustResolverInterface) {
+export default class AuthenticationTrustResolver extends implementationOf(AuthenticationTrustResolverInterface) {
     /**
      * Constructor.
      *
@@ -65,5 +65,3 @@ class AuthenticationTrustResolver extends implementationOf(AuthenticationTrustRe
         return ! this.isAnonymous(token) && ! this.isRememberMe(token);
     }
 }
-
-module.exports = AuthenticationTrustResolver;

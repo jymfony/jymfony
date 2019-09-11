@@ -2,10 +2,10 @@ declare namespace Jymfony.Component.DependencyInjection {
     import ParameterBag = Jymfony.Component.DependencyInjection.ParameterBag.ParameterBag;
 
     export class Container extends implementationOf(ContainerInterface) {
-        public readonly EXCEPTION_ON_INVALID_REFERENCE = 1;
-        public readonly NULL_ON_INVALID_REFERENCE = 2;
-        public readonly IGNORE_ON_INVALID_REFERENCE = 3;
-        public readonly IGNORE_ON_UNINITIALIZED_REFERENCE = 4;
+        public static readonly EXCEPTION_ON_INVALID_REFERENCE = 1;
+        public static readonly NULL_ON_INVALID_REFERENCE = 2;
+        public static readonly IGNORE_ON_INVALID_REFERENCE = 3;
+        public static readonly IGNORE_ON_UNINITIALIZED_REFERENCE = 4;
 
         /**
          * True if parameter bag is frozen.
@@ -39,7 +39,7 @@ declare namespace Jymfony.Component.DependencyInjection {
         /**
          * Gets a parameter.
          */
-        getParameter(name: string): string;
+        getParameter(name: string): string | Parameter;
 
         /**
          * Checks if a parameter exists.
@@ -49,7 +49,7 @@ declare namespace Jymfony.Component.DependencyInjection {
         /**
          * Sets a parameter.
          */
-        setParameter(name: string, value: string): void;
+        setParameter(name: string, value: string | Parameter): void;
 
         /**
          * Sets a service.

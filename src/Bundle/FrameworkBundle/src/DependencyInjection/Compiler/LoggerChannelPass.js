@@ -7,7 +7,7 @@ const LoggerInterface = Jymfony.Component.Logger.LoggerInterface;
 /**
  * @memberOf Jymfony.FrameworkBundle.DependencyInjection.Compiler
  */
-class LoggerChannelPass extends AbstractRecursivePass {
+export default class LoggerChannelPass extends AbstractRecursivePass {
     __construct() {
         super.__construct();
 
@@ -121,5 +121,3 @@ class LoggerChannelPass extends AbstractRecursivePass {
         }
     }
 }
-
-module.exports = LoggerChannelPass;

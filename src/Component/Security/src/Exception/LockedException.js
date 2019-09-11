@@ -5,7 +5,7 @@ const AccountStatusException = Jymfony.Component.Security.Exception.AccountStatu
  *
  * @memberOf Jymfony.Component.Security.Exception
  */
-class LockedException extends AccountStatusException {
+export default class LockedException extends AccountStatusException {
     /**
      * @inheritdoc
      */
@@ -13,5 +13,3 @@ class LockedException extends AccountStatusException {
         return 'Account is locked.';
     }
 }
-
-module.exports = LockedException;

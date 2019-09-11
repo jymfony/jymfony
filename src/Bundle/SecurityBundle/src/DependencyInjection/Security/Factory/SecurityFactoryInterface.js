@@ -3,8 +3,7 @@
  *
  * @memberOf Jymfony.Bundle.SecurityBundle.DependencyInjection.Security.Factory
  */
-class SecurityFactoryInterface
-{
+class SecurityFactoryInterface {
     /**
      * Configures the container services required to use the authentication listener.
      *
@@ -45,4 +44,4 @@ class SecurityFactoryInterface
     addConfiguration(builder) { }
 }
 
-module.exports = getInterface(SecurityFactoryInterface);
+export default getInterface(SecurityFactoryInterface);

@@ -1,5 +1,5 @@
 require('../lib/is');
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 class InvokableObject {
     __invoke(arg) {

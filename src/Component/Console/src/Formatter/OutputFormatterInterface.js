@@ -54,4 +54,4 @@ class OutputFormatterInterface {
     format(message) { }
 }
 
-module.exports = getInterface(OutputFormatterInterface);
+export default getInterface(OutputFormatterInterface);

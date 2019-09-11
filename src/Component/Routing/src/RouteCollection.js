@@ -7,7 +7,7 @@
  *
  * @memberOf Jymfony.Component.Routing
  */
-class RouteCollection {
+export default class RouteCollection {
     /**
      * Constructor.
      */
@@ -303,5 +303,3 @@ class RouteCollection {
         return __jymfony.getEntries(this._routes);
     }
 }
-
-module.exports = RouteCollection;

@@ -5,7 +5,7 @@ const ValueHolder = Jymfony.Component.Lexer.ValueHolder;
  *
  * @abstract
  */
-class AbstractLexer {
+export default class AbstractLexer {
     __construct() {
         /**
          * @type {Token|undefined}
@@ -305,5 +305,3 @@ class AbstractLexer {
         throw new Error('You must override getType method');
     }
 }
-
-module.exports = AbstractLexer;

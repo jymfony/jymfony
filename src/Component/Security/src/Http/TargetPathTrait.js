@@ -46,4 +46,4 @@ class TargetPathTrait {
     }
 }
 
-module.exports = getTrait(TargetPathTrait);
+export default getTrait(TargetPathTrait);

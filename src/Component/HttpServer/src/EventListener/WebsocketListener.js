@@ -9,7 +9,7 @@ const Events = Jymfony.Component.HttpServer.Event.HttpServerEvents;
 /**
  * @memberOf Jymfony.Component.HttpServer.EventListener
  */
-class WebsocketListener extends implementationOf(EventSubscriberInterface) {
+export default class WebsocketListener extends implementationOf(EventSubscriberInterface) {
     /**
      * Validates the websocket version.
      *
@@ -88,5 +88,3 @@ class WebsocketListener extends implementationOf(EventSubscriberInterface) {
         };
     }
 }
-
-module.exports = WebsocketListener;

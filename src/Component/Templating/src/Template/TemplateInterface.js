@@ -18,4 +18,4 @@ class TemplateInterface {
     async stream(out, parameters = {}) { }
 }
 
-module.exports = getInterface(TemplateInterface);
+export default getInterface(TemplateInterface);

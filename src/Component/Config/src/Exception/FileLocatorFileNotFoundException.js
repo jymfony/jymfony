@@ -3,7 +3,7 @@
  *
  * @memberOf Jymfony.Component.Config.Exception
  */
-class FileLocatorFileNotFoundException extends InvalidArgumentException {
+export default class FileLocatorFileNotFoundException extends InvalidArgumentException {
     /**
      * Constructor.
      *
@@ -30,5 +30,3 @@ class FileLocatorFileNotFoundException extends InvalidArgumentException {
         return this._paths;
     }
 }
-
-module.exports = FileLocatorFileNotFoundException;

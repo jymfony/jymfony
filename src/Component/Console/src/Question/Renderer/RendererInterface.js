@@ -14,4 +14,4 @@ class RendererInterface {
     doAsk() { }
 }
 
-module.exports = getInterface(RendererInterface);
+export default getInterface(RendererInterface);

@@ -6,7 +6,7 @@ const ScalarNode = Jymfony.Component.Config.Definition.ScalarNode;
  *
  * @memberOf Jymfony.Component.Config.Definition
  */
-class NumericNode extends ScalarNode {
+export default class NumericNode extends ScalarNode {
     /**
      * Constructor.
      *
@@ -64,5 +64,3 @@ class NumericNode extends ScalarNode {
         return false;
     }
 }
-
-module.exports = NumericNode;

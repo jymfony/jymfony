@@ -1,8 +1,8 @@
-const AbstractRenderer = Jymfony.Component.Console.Question.Renderer.AbstractRenderer;
+import { spawnSync } from 'child_process';
 
-const child_process = require('child_process');
+const AbstractRenderer = Jymfony.Component.Console.Question.Renderer.AbstractRenderer;
 const shell_exec = (command) => {
-    const obj = child_process.spawnSync(command, [], {
+    const obj = spawnSync(command, [], {
         shell: true,
         stdio: [
             0,
@@ -24,7 +24,7 @@ const shell_exec = (command) => {
  *
  * @internal
  */
-class SttyPasswordRenderer extends AbstractRenderer {
+export default class SttyPasswordRenderer extends AbstractRenderer {
     /**
      * @inheritdoc
      */
@@ -49,5 +49,3 @@ class SttyPasswordRenderer extends AbstractRenderer {
         });
     }
 }
-
-module.exports = SttyPasswordRenderer;

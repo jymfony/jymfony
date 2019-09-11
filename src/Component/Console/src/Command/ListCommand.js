@@ -7,7 +7,7 @@ const DescriptorHelper = Jymfony.Component.Console.Helper.DescriptorHelper;
 /**
  * @memberOf Jymfony.Component.Console.Command
  */
-class ListCommand extends Command {
+export default class ListCommand extends Command {
     /**
      * @inheritdoc
      */
@@ -63,5 +63,3 @@ It's also possible to get raw list of commands (useful for embedding command run
         ]);
     }
 }
-
-module.exports = ListCommand;

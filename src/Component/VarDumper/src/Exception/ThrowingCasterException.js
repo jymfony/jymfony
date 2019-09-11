@@ -1,7 +1,7 @@
 /**
  * @memberOf Jymfony.Component.VarDumper.Exception
  */
-class ThrowingCasterException extends Exception {
+export default class ThrowingCasterException extends Exception {
     /**
      * Constructor.
      *
@@ -14,5 +14,3 @@ class ThrowingCasterException extends Exception {
             previous.message || '<no message>'), 0, previous);
     }
 }
-
-module.exports = ThrowingCasterException;

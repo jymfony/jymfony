@@ -3,7 +3,7 @@
  *
  * @memberOf Jymfony.Component.Config.Definition.Builder
  */
-class MergeBuilder {
+export default class MergeBuilder {
     /**
      * Constructor.
      *
@@ -56,5 +56,3 @@ class MergeBuilder {
         return this._node;
     }
 }
-
-module.exports = MergeBuilder;

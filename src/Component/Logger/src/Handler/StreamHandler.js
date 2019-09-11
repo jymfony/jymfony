@@ -1,12 +1,13 @@
-const fs = require('fs');
-const path = require('path');
+import { createWriteStream, openSync } from 'fs';
+import { dirname } from 'path';
+
 const AbstractProcessingHandler = Jymfony.Component.Logger.Handler.AbstractProcessingHandler;
 const LogLevel = Jymfony.Component.Logger.LogLevel;
 
 /**
  * @memberOf Jymfony.Component.Logger.Handler
  */
-class StreamHandler extends AbstractProcessingHandler {
+export default class StreamHandler extends AbstractProcessingHandler {
     /**
      * Constructor.
      *
@@ -60,8 +61,8 @@ class StreamHandler extends AbstractProcessingHandler {
     open() {
         if (undefined === this._stream) {
             this._createDir();
-            const fd = fs.openSync(this._file, 'a', this._filePermission || 0o666);
-            this._stream = fs.createWriteStream(this._file, {
+            const fd = openSync(this._file, 'a', this._filePermission || 0o666);
+            this._stream = createWriteStream(this._file, {
                 fd,
             });
 
@@ -110,7 +111,7 @@ class StreamHandler extends AbstractProcessingHandler {
 
         this._dirCreated = true;
         try {
-            __jymfony.mkdir(path.dirname(this._file));
+            __jymfony.mkdir(dirname(this._file));
         } catch (e) {
             if ('EEXIST' !== e.code) {
                 throw e;
@@ -118,5 +119,3 @@ class StreamHandler extends AbstractProcessingHandler {
         }
     }
 }
-
-module.exports = StreamHandler;

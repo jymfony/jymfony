@@ -5,7 +5,5 @@ const ExceptionInterface = Jymfony.Component.HttpFoundation.Negotiation.Exceptio
  *
  * @memberOf Jymfony.Component.HttpFoundation.Negotiation.Exception
  */
-class InvalidArgumentException extends mix(global.InvalidArgumentException, ExceptionInterface) {
+export default class InvalidArgumentException extends mix(global.InvalidArgumentException, ExceptionInterface) {
 }
-
-module.exports = InvalidArgumentException;

@@ -4,7 +4,7 @@ const CliDumper = Jymfony.Component.VarDumper.Dumper.CliDumper;
 require('../../fixtures/namespace');
 const Fixtures = Jymfony.Component.VarDumper.Fixtures;
 
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 describe('[VarDumper] ErrorCaster', function () {
 
@@ -47,7 +47,7 @@ Error {
         expect(dump(new Date())).to.match(/Date @\d+ {\n  date: .+\n}/);
     });
 
-    it('should correcly dump anonymous error classes', () => {
+    it('should correctly dump anonymous error classes', () => {
         const dump = `
 Error@anonymous {
   message: ""

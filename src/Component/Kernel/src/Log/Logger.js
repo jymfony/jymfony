@@ -4,7 +4,7 @@ const DebugLoggerInterface = Jymfony.Component.Kernel.Log.DebugLoggerInterface;
 /**
  * @memberOf Jymfony.Component.Kernel.Log
  */
-class Logger extends mix(BaseLogger, DebugLoggerInterface) {
+export default class Logger extends mix(BaseLogger, DebugLoggerInterface) {
     /**
      * @inheritdoc
      */

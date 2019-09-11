@@ -7,7 +7,7 @@ const RouterInterface = Jymfony.Component.Routing.RouterInterface;
 /**
  * @memberOf Jymfony.Component.Routing
  */
-class Router extends implementationOf(RouterInterface, MatcherInterface, UrlGeneratorInterface) {
+export default class Router extends implementationOf(RouterInterface, MatcherInterface, UrlGeneratorInterface) {
     /**
      * Constructor.
      *
@@ -190,5 +190,3 @@ class Router extends implementationOf(RouterInterface, MatcherInterface, UrlGene
         return this._configCacheFactory;
     }
 }
-
-module.exports = Router;

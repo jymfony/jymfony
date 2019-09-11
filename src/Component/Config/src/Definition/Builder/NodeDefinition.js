@@ -10,7 +10,7 @@ const ValidationBuilder = Jymfony.Component.Config.Definition.Builder.Validation
  * @memberOf Jymfony.Component.Config.Definition.Builder
  * @abstract
  */
-class NodeDefinition extends implementationOf(NodeParentInterface) {
+export default class NodeDefinition extends implementationOf(NodeParentInterface) {
     /**
      * Constructor.
      *
@@ -420,5 +420,3 @@ class NodeDefinition extends implementationOf(NodeParentInterface) {
         throw new Error('createNode method must be implemented');
     }
 }
-
-module.exports = NodeDefinition;

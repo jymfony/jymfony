@@ -8,7 +8,7 @@ const InvalidLanguageException = Jymfony.Component.HttpFoundation.Negotiation.Ex
  * @memberOf Jymfony.Component.HttpFoundation.Negotiation
  * @final
  */
-class AcceptLanguage extends mix(BaseAccept, AcceptHeader) {
+export default class AcceptLanguage extends mix(BaseAccept, AcceptHeader) {
     /**
      * @inheritdoc
      */
@@ -47,5 +47,3 @@ class AcceptLanguage extends mix(BaseAccept, AcceptHeader) {
         return this._language;
     }
 }
-
-module.exports = AcceptLanguage;

@@ -5,7 +5,5 @@ const ExceptionInterface = Jymfony.Component.Routing.Exception.ExceptionInterfac
  *
  * @memberOf Jymfony.Component.Routing.Exception
  */
-class RouteNotFoundException extends mix(InvalidArgumentException, ExceptionInterface) {
+export default class RouteNotFoundException extends mix(InvalidArgumentException, ExceptionInterface) {
 }
-
-module.exports = RouteNotFoundException;

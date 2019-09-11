@@ -109,4 +109,4 @@ class TokenInterface {
     setAttribute(name, value) { }
 }
 
-module.exports = getInterface(TokenInterface);
+export default getInterface(TokenInterface);

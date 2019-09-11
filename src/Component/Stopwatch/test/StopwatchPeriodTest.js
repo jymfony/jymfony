@@ -1,5 +1,5 @@
 const StopwatchPeriod = Jymfony.Component.Stopwatch.StopwatchPeriod;
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 describe('[Stopwatch] StopwatchPeriod', function () {
     it('start time', () => {

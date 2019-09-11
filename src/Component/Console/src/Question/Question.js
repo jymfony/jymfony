@@ -8,7 +8,7 @@ const ReadlineRenderer = Jymfony.Component.Console.Question.Renderer.ReadlineRen
  *
  * @memberOf Jymfony.Component.Console.Question
  */
-class Question {
+export default class Question {
     /**
      * Constructor.
      *
@@ -184,5 +184,3 @@ class Question {
         return new ReadlineRenderer(this);
     }
 }
-
-module.exports = Question;

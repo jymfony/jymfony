@@ -3,7 +3,7 @@ const CompilerPassInterface = Jymfony.Component.DependencyInjection.Compiler.Com
 /**
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
  */
-class RemovePrivateAliasesPass extends implementationOf(CompilerPassInterface) {
+export default class RemovePrivateAliasesPass extends implementationOf(CompilerPassInterface) {
     /**
      * @inheritdoc
      */
@@ -21,5 +21,3 @@ class RemovePrivateAliasesPass extends implementationOf(CompilerPassInterface) {
         }
     }
 }
-
-module.exports = RemovePrivateAliasesPass;

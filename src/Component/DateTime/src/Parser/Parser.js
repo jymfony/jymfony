@@ -9,7 +9,7 @@ const TimeDescriptor = Jymfony.Component.DateTime.Struct.TimeDescriptor;
  *
  * @internal
  */
-class Parser {
+export default class Parser {
     /**
      * Constructor.
      */
@@ -515,5 +515,3 @@ class Parser {
         throw new InvalidDateTimeStringException(message);
     }
 }
-
-module.exports = Parser;

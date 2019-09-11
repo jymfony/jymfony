@@ -1,3 +1,5 @@
+import { basename, dirname } from 'path';
+
 const Command = Jymfony.Component.Console.Command.Command;
 const InputOption = Jymfony.Component.Console.Input.InputOption;
 const JymfonyStyle = Jymfony.Component.Console.Style.JymfonyStyle;
@@ -8,17 +10,21 @@ const RecursiveDirectoryIterator = Jymfony.Component.Filesystem.Iterator.Recursi
 const File = Jymfony.Component.Filesystem.File;
 const Filesystem = Jymfony.Component.Filesystem.Filesystem;
 
-const path = require('path');
-
 /**
  * @memberOf Jymfony.Bundle.FrameworkBundle.Command
  */
-class CacheClearCommand extends mix(Command, ContainerAwareInterface, ContainerAwareTrait) {
+export default class CacheClearCommand extends mix(Command, ContainerAwareInterface, ContainerAwareTrait) {
+    /**
+     * @inheritDoc
+     */
+    static get defaultName() {
+        return 'cache:clear';
+    }
+
     /**
      * @inheritdoc
      */
     configure() {
-        this.name = 'cache:clear';
         this.description = 'Clears the cache';
         this.addOption('no-warmup', null, InputOption.VALUE_NONE, 'Do not warm up the cache');
         this.addOption('no-optional-warmers', '', InputOption.VALUE_NONE, 'Skip optional cache warmers (faster)');
@@ -61,7 +67,7 @@ class CacheClearCommand extends mix(Command, ContainerAwareInterface, ContainerA
         this.application.dispatcher = new EventDispatcher();
 
         const containerFile = (new ReflectionClass(this._container)).filename;
-        const containerDir = path.basename(path.dirname(containerFile));
+        const containerDir = basename(dirname(containerFile));
 
         // The warmup cache dir name must have the same length as the real one
         // To avoid the many problems in serialized resources files
@@ -158,5 +164,3 @@ class CacheClearCommand extends mix(Command, ContainerAwareInterface, ContainerA
         });
     }
 }
-
-module.exports = CacheClearCommand;

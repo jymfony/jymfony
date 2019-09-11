@@ -6,7 +6,7 @@ const os = require('os');
 /**
  * @memberOf Jymfony.Component.Console.Output
  */
-class BufferedOutput extends Output {
+export default class BufferedOutput extends Output {
     /**
      * @inheritdoc
      */
@@ -44,5 +44,3 @@ class BufferedOutput extends Output {
         }
     }
 }
-
-module.exports = BufferedOutput;

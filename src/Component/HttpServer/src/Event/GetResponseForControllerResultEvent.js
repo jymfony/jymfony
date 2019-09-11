@@ -3,7 +3,7 @@ const GetResponseEvent = Jymfony.Component.HttpServer.Event.GetResponseEvent;
 /**
  * @memberOf Jymfony.Component.HttpServer.Event
  */
-class GetResponseForControllerResultEvent extends GetResponseEvent {
+export default class GetResponseForControllerResultEvent extends GetResponseEvent {
     /**
      * Constructor.
      *
@@ -31,5 +31,3 @@ class GetResponseForControllerResultEvent extends GetResponseEvent {
         return this._controllerResult;
     }
 }
-
-module.exports = GetResponseForControllerResultEvent;

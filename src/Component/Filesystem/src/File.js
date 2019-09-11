@@ -1,8 +1,9 @@
+import * as url from 'url';
+import { basename } from 'path';
+
 const DateTime = Jymfony.Component.DateTime.DateTime;
 const OpenFile = Jymfony.Component.Filesystem.OpenFile;
 const StreamWrapper = Jymfony.Component.Filesystem.StreamWrapper.StreamWrapper;
-const path = require('path');
-const url = require('url');
 
 const cwd = () => {
     return 'file://' + process.cwd();
@@ -13,7 +14,7 @@ const cwd = () => {
  *
  * @memberOf Jymfony.Component.Filesystem
  */
-class File {
+export default class File {
     /**
      * Constructor.
      *
@@ -120,7 +121,7 @@ class File {
      * @returns {string}
      */
     getBasename(extension = undefined) {
-        return path.basename(this._url.pathname, extension);
+        return basename(this._url.pathname, extension);
     }
 
     /**
@@ -291,5 +292,3 @@ File.SEEK_CUR = 'cur';
  * @type {File.SEEK_END}
  */
 File.SEEK_END = 'end';
-
-module.exports = File;

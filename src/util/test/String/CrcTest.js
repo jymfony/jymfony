@@ -1,5 +1,5 @@
 require('../../lib/String/crc32');
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 describe('crc32', function () {
     it('test empty', () => {

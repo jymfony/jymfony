@@ -3,7 +3,5 @@ const RuntimeException = Jymfony.Component.PropertyAccess.Exception.RuntimeExcep
 /**
  * @memberOf Jymfony.Component.PropertyAccess.Exception
  */
-class AccessException extends RuntimeException {
+export default class AccessException extends RuntimeException {
 }
-
-module.exports = AccessException;

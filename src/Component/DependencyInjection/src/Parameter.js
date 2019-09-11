@@ -1,7 +1,7 @@
 /**
  * @memberOf Jymfony.Component.DependencyInjection
  */
-class Parameter {
+export default class Parameter {
     /**
      * Constructor.
      *
@@ -20,5 +20,3 @@ class Parameter {
         return this._id;
     }
 }
-
-module.exports = Parameter;

@@ -1,10 +1,11 @@
+import * as zlib from 'zlib';
+import { PassThrough } from 'stream';
+
 const DateTime = Jymfony.Component.DateTime.DateTime;
 const DateTimeZone = Jymfony.Component.DateTime.DateTimeZone;
 const EncodingNegotiator = Jymfony.Component.HttpFoundation.Negotiation.EncodingNegotiator;
 const Request = Jymfony.Component.HttpFoundation.Request;
 const ResponseHeaderBag = Jymfony.Component.HttpFoundation.ResponseHeaderBag;
-const stream = require('stream');
-const zlib = require('zlib');
 
 const ENCODING_BROTLI = 'brotli';
 const ENCODING_GZIP = 'gzip';
@@ -13,7 +14,7 @@ const ENCODING_DEFLATE = 'deflate';
 /**
  * @memberOf Jymfony.Component.HttpFoundation
  */
-class Response {
+export default class Response {
     /**
      * Constructor.
      *
@@ -182,7 +183,7 @@ class Response {
         if (isFunction(content)) {
             this._content = content;
         } else {
-            this._content = content.toString();
+            this._content = String(content);
         }
     }
 
@@ -785,7 +786,7 @@ class Response {
                     break;
 
                 default:
-                    responseStream = new stream.PassThrough();
+                    responseStream = new PassThrough();
             }
 
             const content = this.content;
@@ -997,5 +998,3 @@ Response.statusTexts = {
     510: 'Not Extended', // RFC2774
     511: 'Network Authentication Required', // RFC6585
 };
-
-module.exports = Response;

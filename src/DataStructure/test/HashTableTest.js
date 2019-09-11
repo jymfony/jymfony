@@ -1,5 +1,5 @@
 require('../src/HashTable');
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 const fillWithData = t => {
     t.put('www.example.org', '93.184.216.34');

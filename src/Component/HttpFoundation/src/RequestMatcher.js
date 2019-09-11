@@ -6,7 +6,7 @@ const RequestMatcherInterface = Jymfony.Component.HttpFoundation.RequestMatcherI
  *
  * @memberOf Jymfony.Component.HttpFoundation
  */
-class RequestMatcher extends implementationOf(RequestMatcherInterface) {
+export default class RequestMatcher extends implementationOf(RequestMatcherInterface) {
     /**
      * Constructor.
      *
@@ -98,5 +98,3 @@ class RequestMatcher extends implementationOf(RequestMatcherInterface) {
         return 0 === this._ips.length;
     }
 }
-
-module.exports = RequestMatcher;

@@ -21,7 +21,7 @@ const TargetPathTrait = Jymfony.Component.Security.Http.TargetPathTrait;
  *
  * @memberOf Jymfony.Component.Security.Firewall
  */
-class Firewall extends implementationOf(EventSubscriberInterface, TargetPathTrait) {
+export default class Firewall extends implementationOf(EventSubscriberInterface, TargetPathTrait) {
     /**
      * Constructor.
      *
@@ -262,5 +262,3 @@ class Firewall extends implementationOf(EventSubscriberInterface, TargetPathTrai
         };
     }
 }
-
-module.exports = Firewall;

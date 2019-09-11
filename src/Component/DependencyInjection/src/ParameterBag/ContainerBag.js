@@ -4,7 +4,7 @@ const FrozenParameterBag = Jymfony.Component.DependencyInjection.ParameterBag.Fr
 /**
  * @memberOf Jymfony.Component.DependencyInjection.ParameterBag
  */
-class ContainerBag extends mix(FrozenParameterBag, ContainerBagInterface) {
+export default class ContainerBag extends mix(FrozenParameterBag, ContainerBagInterface) {
     /**
      * Constructor.
      *
@@ -40,5 +40,3 @@ class ContainerBag extends mix(FrozenParameterBag, ContainerBagInterface) {
         return this._container.hasParameter(name);
     }
 }
-
-module.exports = ContainerBag;

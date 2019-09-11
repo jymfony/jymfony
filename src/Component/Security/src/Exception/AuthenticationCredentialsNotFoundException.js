@@ -5,7 +5,7 @@ const AuthenticationException = Jymfony.Component.Security.Exception.Authenticat
  *
  * @memberOf Jymfony.Component.Security.Exception
  */
-class AuthenticationCredentialsNotFoundException extends AuthenticationException {
+export default class AuthenticationCredentialsNotFoundException extends AuthenticationException {
     /**
      * @inheritdoc
      */
@@ -13,5 +13,3 @@ class AuthenticationCredentialsNotFoundException extends AuthenticationException
         return 'Authentication credentials could not be found.';
     }
 }
-
-module.exports = AuthenticationCredentialsNotFoundException;

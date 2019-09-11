@@ -3,7 +3,7 @@
  *
  * @memberOf Jymfony.Component.Security.Exception
  */
-class AuthenticationException extends RuntimeException {
+export default class AuthenticationException extends RuntimeException {
     /**
      * Gets the authentication token for the current exception.
      *
@@ -67,5 +67,3 @@ class AuthenticationException extends RuntimeException {
         return {};
     }
 }
-
-module.exports = AuthenticationException;

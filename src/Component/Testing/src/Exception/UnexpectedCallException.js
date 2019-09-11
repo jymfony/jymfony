@@ -3,7 +3,7 @@ const ObjectProphecyException = Jymfony.Component.Testing.Exception.ObjectProphe
 /**
  * @memberOf Jymfony.Component.Testing.Exception
  */
-class UnexpectedCallException extends ObjectProphecyException {
+export default class UnexpectedCallException extends ObjectProphecyException {
     /**
      * Constructor.
      *
@@ -44,5 +44,3 @@ class UnexpectedCallException extends ObjectProphecyException {
         return this._args;
     }
 }
-
-module.exports = UnexpectedCallException;

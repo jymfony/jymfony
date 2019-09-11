@@ -1,4 +1,5 @@
 const ClassLoader = require('./ClassLoader');
+const ManagedProxy = require('./Proxy/ManagedProxy');
 
 let ClassNotFoundException = undefined;
 const FunctionPrototype = new Function();
@@ -160,31 +161,32 @@ class Namespace {
      */
     _require(filename) {
         const fn = this._internalRequire.resolve(filename);
-        let realTarget = undefined, self = undefined;
+        let self = undefined;
 
-        const init = () => {
-            if (undefined !== realTarget) {
-                return;
-            }
-
+        const init = proxy => {
             let mod;
-            if (fn !== __filename) {
-                mod = this._classLoader.load(fn, self);
-            } else {
-                mod = this._internalRequire(fn);
-            }
+            proxy.initializer = null;
 
-            // Class constructor
-            if ('function' !== typeof mod) {
-                throw new ClassNotFoundException(`Class not found in ${fn}. The file was found, but the class isn't there.`);
-            }
+            try {
+                if (fn !== __filename) {
+                    mod = this._classLoader.loadClass(fn, self);
+                } else {
+                    mod = this._internalRequire(fn);
+                }
 
-            realTarget = mod;
+                // Class constructor
+                if ('function' !== typeof mod) {
+                    throw new ClassNotFoundException(`Class not found in ${fn}. The file was found, but the class isn't there.`);
+                }
+            } catch (e) {
+                proxy.initializer = init;
+                throw e;
+            }
 
             const name = mod.definition ? mod.definition.name : mod.name;
-            const modReflection = mod[Symbol.reflection] || (() => undefined);
+            const modReflection = mod[Symbol.reflection] || {};
             const meta = {
-                ...(modReflection() || {}),
+                ...modReflection,
                 filename: fn,
                 fqcn: this._fullyQualifiedName + '.' + name,
                 module: this._internalRequire.cache[fn],
@@ -219,75 +221,35 @@ class Namespace {
                     value: meta,
                 });
             }
+
+            proxy.target = mod;
+            return null;
         };
 
-        const handlers = {
+        return self = new ManagedProxy(FunctionPrototype, init, {
             get: (target, key) => {
-                init();
-                return Reflect.get(realTarget, key);
+                if ('toString' === key && target[key] === FunctionPrototype.toString) {
+                    return FunctionPrototype.toString.bind(target);
+                }
+
+                if ('valueOf' === key && target[key] === FunctionPrototype.valueOf) {
+                    return FunctionPrototype.valueOf.bind(target);
+                }
+
+                return Reflect.get(target, key);
             },
-            set: (target, key, value) => {
-                init();
-                return Reflect.set(realTarget, key, value);
-            },
-            has: (target, key) => {
-                init();
-                return Reflect.has(realTarget, key);
-            },
-            deleteProperty: (target, key) => {
-                init();
-                return Reflect.deleteProperty(realTarget, key);
-            },
-            defineProperty: (target, key, descriptor) => {
-                init();
-                return Reflect.defineProperty(realTarget, key, descriptor);
-            },
-            enumerate: () => {
-                init();
-                return Reflect.enumerate(realTarget);
-            },
-            ownKeys: () => {
-                init();
-                return Reflect.ownKeys(realTarget)
-                    .filter(k => k !== Symbol.reflection);
-            },
-            apply: (target, thisArgument, args) => {
-                init();
-                return Reflect.apply(realTarget, thisArgument, args);
+            ownKeys: (target) => {
+                return Reflect.ownKeys(target).filter(k => k !== Symbol.reflection);
             },
             construct: (target, argumentsList, newTarget) => {
-                init();
-                const obj = Reflect.construct(realTarget, argumentsList, newTarget);
-
+                const obj = Reflect.construct(target, argumentsList, newTarget);
                 if (obj instanceof __jymfony.JObject) {
                     Reflect.preventExtensions(obj);
                 }
 
                 return obj;
             },
-            getPrototypeOf: () => {
-                init();
-                return Reflect.getPrototypeOf(realTarget);
-            },
-            setPrototypeOf: (target, proto) => {
-                init();
-                return Reflect.setPrototypeOf(realTarget, proto);
-            },
-            isExtensible: () => {
-                init();
-                return Reflect.isExtensible(realTarget);
-            },
-            preventExtensions: () => {
-                init();
-                return Reflect.preventExtensions(realTarget);
-            },
-            getOwnPropertyDescriptor: (target, key) => {
-                init();
-                return Reflect.getOwnPropertyDescriptor(realTarget, key);
-            },
-        };
-
-        return self = new Proxy(FunctionPrototype, handlers);
+        });
     }
 }
 

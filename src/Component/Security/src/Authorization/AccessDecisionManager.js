@@ -7,7 +7,7 @@ const VoterInterface = Jymfony.Component.Security.Authorization.Voter.VoterInter
  *
  * @memberOf Jymfony.Component.Security.Authorization
  */
-class AccessDecisionManager extends implementationOf(AccessDecisionManagerInterface) {
+export default class AccessDecisionManager extends implementationOf(AccessDecisionManagerInterface) {
     /**
      * Constructor.
      *
@@ -195,5 +195,3 @@ class AccessDecisionManager extends implementationOf(AccessDecisionManagerInterf
 AccessDecisionManager.STRATEGY_AFFIRMATIVE = 'affirmative';
 AccessDecisionManager.STRATEGY_CONSENSUS = 'consensus';
 AccessDecisionManager.STRATEGY_UNANIMOUS = 'unanimous';
-
-module.exports = AccessDecisionManager;

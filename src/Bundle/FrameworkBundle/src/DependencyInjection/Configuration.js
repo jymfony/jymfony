@@ -8,7 +8,7 @@ const UnsetKeyException = Jymfony.Component.Config.Definition.Exception.UnsetKey
 /**
  * @memberOf Jymfony.Bundle.FrameworkBundle.DependencyInjection
  */
-class Configuration extends implementationOf(ConfigurationInterface) {
+export default class Configuration extends implementationOf(ConfigurationInterface) {
     /**
      * @inheritdoc
      */
@@ -323,6 +323,10 @@ class Configuration extends implementationOf(ConfigurationInterface) {
                 .addDefaultsIfNotSet()
                 .canBeEnabled()
                 .children()
+                    .scalarNode('request_timeout')
+                        .defaultValue(-1)
+                        .info('Request timeout in milliseconds')
+                    .end()
                     .scalarNode('key').info('Encryption key for secure server').end()
                     .scalarNode('certificate').info('Certificate for secure server').end()
                 .end()
@@ -465,5 +469,3 @@ class Configuration extends implementationOf(ConfigurationInterface) {
         ;
     }
 }
-
-module.exports = Configuration;

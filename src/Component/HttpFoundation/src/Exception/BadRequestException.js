@@ -1,7 +1,5 @@
 /**
  * @memberOf Jymfony.Component.HttpFoundation.Exception
  */
-class BadRequestException extends RuntimeException {
+export default class BadRequestException extends RuntimeException {
 }
-
-module.exports = BadRequestException;

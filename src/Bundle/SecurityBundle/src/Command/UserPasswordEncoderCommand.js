@@ -1,3 +1,7 @@
+import { EOL } from 'os';
+import crypto from 'crypto';
+import { promisify } from 'util';
+
 const Command = Jymfony.Component.Console.Command.Command;
 const InputArgument = Jymfony.Component.Console.Input.InputArgument;
 const InputOption = Jymfony.Component.Console.Input.InputOption;
@@ -6,9 +10,6 @@ const QuestionType = Jymfony.Component.Console.Question.QuestionType;
 const JymfonyStyle = Jymfony.Component.Console.Style.JymfonyStyle;
 const SelfSaltingEncoderInterface = Jymfony.Component.Security.Encoder.SelfSaltingEncoderInterface;
 
-const crypto = require('crypto');
-const os = require('os');
-const promisify = require('util').promisify;
 const randomBytes = promisify(crypto.randomBytes);
 
 /**
@@ -16,7 +17,7 @@ const randomBytes = promisify(crypto.randomBytes);
  *
  * @memberOf Jymfony.Bundle.SecurityBundle.Command
  */
-class UserPasswordEncoderCommand extends Command {
+export default class UserPasswordEncoderCommand extends Command {
     /**
      * Constructor.
      *
@@ -42,6 +43,13 @@ class UserPasswordEncoderCommand extends Command {
     }
 
     /**
+     * @inheritDoc
+     */
+    static get defaultName() {
+        return 'security:encode-password';
+    }
+
+    /**
      * @inheritdoc
      */
     configure() {
@@ -51,7 +59,6 @@ class UserPasswordEncoderCommand extends Command {
             .addOption('empty-salt', undefined, InputOption.VALUE_NONE, 'Do not generate a salt or let the encoder generate one.')
         ;
 
-        this.name = 'security:encode-password';
         this.description = 'Encodes a password.';
         this.help = `
 The <info>%command.name%</info> command encodes passwords according to your
@@ -132,7 +139,7 @@ In case your encoder doesn't require a salt, add the <comment>empty-salt</commen
             emptySalt = true;
 
             errorIo.note('The command will take care of generating a salt for you. Be aware that some encoders advise to let them generate their own salt. If you\'re using one of those encoders, please answer \'no\' to the question below. ' +
-                os.EOL + 'Provide the \'empty-salt\' option in order to let the encoder handle the generation itself.');
+                EOL + 'Provide the \'empty-salt\' option in order to let the encoder handle the generation itself.');
 
             if (errorIo.confirm('Confirm salt generation?')) {
                 salt = await __self._generateSalt();
@@ -218,5 +225,3 @@ In case your encoder doesn't require a salt, add the <comment>empty-salt</commen
         return await io.choice('For which user class would you like to encode a password?', userClasses, userClasses[0]);
     }
 }
-
-module.exports = UserPasswordEncoderCommand;

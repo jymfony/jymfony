@@ -1,7 +1,7 @@
 /**
  * @memberOf Jymfony.Component.HttpFoundation
  */
-class HeaderUtils {
+export default class HeaderUtils {
     /**
      * Joins an object into a string for use in an HTTP header.
      *
@@ -124,5 +124,3 @@ class HeaderUtils {
         return parts;
     }
 }
-
-module.exports = HeaderUtils;

@@ -7,7 +7,7 @@ const ListenerInterface = Jymfony.Component.Security.Firewall.ListenerInterface;
  *
  * @memberOf Jymfony.Component.Security.Firewall
  */
-class AccessListener extends implementationOf(ListenerInterface) {
+export default class AccessListener extends implementationOf(ListenerInterface) {
     /**
      * Constructor.
      *
@@ -77,5 +77,3 @@ class AccessListener extends implementationOf(ListenerInterface) {
         }
     }
 }
-
-module.exports = AccessListener;

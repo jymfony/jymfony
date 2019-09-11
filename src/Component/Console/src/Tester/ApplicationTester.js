@@ -1,5 +1,5 @@
-const os = require('os');
-const stream = require('stream');
+import { EOL } from 'os';
+import { PassThrough } from 'stream';
 
 const ArrayInput = Jymfony.Component.Console.Input.ArrayInput;
 const ConsoleOutput = Jymfony.Component.Console.Output.ConsoleOutput;
@@ -9,7 +9,7 @@ const StreamOutput = Jymfony.Component.Console.Output.StreamOutput;
 /**
  * @memberOf Jymfony.Component.Console.Tester
  */
-class ApplicationTester {
+export default class ApplicationTester {
     /**
      * Constructor.
      *
@@ -92,7 +92,7 @@ class ApplicationTester {
 
         this._captureStdErrSeparately = !! options.stderr;
         if (! this._captureStdErrSeparately) {
-            this._output = new StreamOutput(new stream.PassThrough());
+            this._output = new StreamOutput(new PassThrough());
             this._output.deferUncork = false;
 
             if (options.verbosity) {
@@ -109,14 +109,15 @@ class ApplicationTester {
             );
             this._output.deferUncork = false;
 
-            const stdErr = new StreamOutput(new stream.PassThrough());
+            const stdErr = new StreamOutput(new PassThrough());
             stdErr.formatter = this._output.formatter;
             stdErr.verbosity = this._output.verbosity;
             stdErr.decorated = this._output.decorated;
             stdErr.deferUncork = false;
 
             this._output._stderr = stdErr;
-            this._output._stream = new stream.PassThrough();
+            this._output._stream = new PassThrough();
+            this._output._stream = new PassThrough();
         }
 
         const statusCode = await this._application.run(this._input, this._output);
@@ -139,7 +140,7 @@ class ApplicationTester {
             this._readOutput += read.toString();
         }
 
-        return normalize ? this._readOutput.replace(new RegExp(os.EOL, 'g'), '\n') : this._readOutput;
+        return normalize ? this._readOutput.replace(new RegExp(EOL, 'g'), '\n') : this._readOutput;
     }
 
     /**
@@ -162,7 +163,7 @@ class ApplicationTester {
             this._readStdErr += read.toString();
         }
 
-        return normalize ? this._readStdErr.replace(new RegExp(os.EOL, 'g'), '\n') : this._readStdErr;
+        return normalize ? this._readStdErr.replace(new RegExp(EOL, 'g'), '\n') : this._readStdErr;
     }
 
     /**
@@ -193,5 +194,3 @@ class ApplicationTester {
         return this._statusCode;
     }
 }
-
-module.exports = ApplicationTester;

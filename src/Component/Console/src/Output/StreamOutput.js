@@ -1,15 +1,15 @@
+import { EOL } from 'os';
+
 const InvalidArgumentException = Jymfony.Component.Console.Exception.InvalidArgumentException;
 const OutputFormatter = Jymfony.Component.Console.Formatter.OutputFormatter;
 const Output = Jymfony.Component.Console.Output.Output;
 const OutputInterface = Jymfony.Component.Console.Output.OutputInterface;
 const Terminal = Jymfony.Component.Console.Terminal;
 
-const os = require('os');
-
 /**
  * @memberOf Jymfony.Component.Console.Output
  */
-class StreamOutput extends Output {
+export default class StreamOutput extends Output {
     /**
      * Constructor.
      *
@@ -63,7 +63,7 @@ class StreamOutput extends Output {
 
         this._stream.write(message);
         if (newline) {
-            this._stream.write(os.EOL);
+            this._stream.write(EOL);
         }
 
         if (this._deferUncork) {

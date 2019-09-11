@@ -1,14 +1,15 @@
+import { Writable } from 'stream';
+import { promisify } from 'util';
+
 const RequestAwareInterface = Jymfony.Component.Templating.Helper.RequestAwareInterface;
 const ResponseAwareInterface = Jymfony.Component.Templating.Helper.ResponseAwareInterface;
 const SlotsHelper = Jymfony.Component.Templating.Helper.SlotsHelper;
-
-const promisify = require('util').promisify;
-const streamOut = promisify(require('stream').Writable.prototype.write);
+const streamOut = promisify(Writable.prototype.write);
 
 /**
  * @memberOf Jymfony.Component.Templating.View
  */
-class View {
+export default class View {
     /**
      * Constructor.
      *
@@ -243,5 +244,3 @@ class View {
         return streamOut.call(this._slots[this._currentSlot], buffer);
     }
 }
-
-module.exports = View;

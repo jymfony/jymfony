@@ -6,7 +6,7 @@ const FirewallConfig = Jymfony.Component.Security.Firewall.FirewallConfig;
  *
  * @memberOf Jymfony.Component.Security.Firewall
  */
-class FirewallMap extends implementationOf(FirewallMapInterface) {
+export default class FirewallMap extends implementationOf(FirewallMapInterface) {
     /**
      * Constructor.
      */
@@ -42,5 +42,3 @@ class FirewallMap extends implementationOf(FirewallMapInterface) {
         return new FirewallConfig();
     }
 }
-
-module.exports = FirewallMap;

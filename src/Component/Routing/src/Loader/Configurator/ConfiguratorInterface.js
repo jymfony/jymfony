@@ -10,4 +10,4 @@ class ConfiguratorInterface {
     build() { }
 }
 
-module.exports = getInterface(ConfiguratorInterface);
+export default getInterface(ConfiguratorInterface);

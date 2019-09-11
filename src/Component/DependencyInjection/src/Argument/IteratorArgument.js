@@ -6,7 +6,7 @@ const ReferenceSetArgumentTrait = Jymfony.Component.DependencyInjection.Argument
  *
  * @memberOf Jymfony.Component.DependencyInjection.Argument
  */
-class IteratorArgument extends implementationOf(ArgumentInterface, ReferenceSetArgumentTrait) {
+export default class IteratorArgument extends implementationOf(ArgumentInterface, ReferenceSetArgumentTrait) {
     /**
      * Constructor.
      *
@@ -16,5 +16,3 @@ class IteratorArgument extends implementationOf(ArgumentInterface, ReferenceSetA
         this._values = values;
     }
 }
-
-module.exports = IteratorArgument;

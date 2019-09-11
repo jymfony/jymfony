@@ -14,4 +14,4 @@ class WarmableInterface {
     warmUp(cacheDir) { }
 }
 
-module.exports = getInterface(WarmableInterface);
+export default getInterface(WarmableInterface);

@@ -1,7 +1,8 @@
+import { platform, release } from 'os';
+
 const AbstractDumper = Jymfony.Component.VarDumper.Dumper.AbstractDumper;
 const Stub = Jymfony.Component.VarDumper.Cloner.Stub;
 
-const os = require('os');
 let $defaultColors;
 
 /**
@@ -9,7 +10,7 @@ let $defaultColors;
  *
  * @memberOf Jymfony.Component.VarDumper.Dumper
  */
-class CliDumper extends AbstractDumper {
+export default class CliDumper extends AbstractDumper {
     __construct(output = process.stdout, flags = 0) {
         super.__construct(output, flags);
 
@@ -517,12 +518,12 @@ class CliDumper extends AbstractDumper {
     }
 
     _hasColorSupport(outputStream) {
-        if ('win32' === os.platform()) {
+        if ('win32' === platform()) {
             return (
                 !! process.env.ANSICON ||
                 'ON' === process.env.ConEmuANSI ||
                 'xterm' === process.env.TERM ||
-                __jymfony.version_compare(os.release(), '10.0.10586', '>=')
+                __jymfony.version_compare(release(), '10.0.10586', '>=')
             );
         }
 
@@ -536,7 +537,7 @@ class CliDumper extends AbstractDumper {
             || 'Hyper' === process.env.TERM_PROGRAM;
 
         if (! result) {
-            result = __jymfony.version_compare(os.release(), '10.0.10586', '>=');
+            result = __jymfony.version_compare(release(), '10.0.10586', '>=');
         }
 
         return result;
@@ -562,5 +563,3 @@ CliDumper._controlCharsMap = {
     '\x1B': '\\e',
     '\0': '\\0',
 };
-
-module.exports = CliDumper;

@@ -4,7 +4,7 @@ const ExceptionInterface = Jymfony.Component.Console.Exception.ExceptionInterfac
 /**
  * @memberOf Jymfony.Component.Console.Exception
  */
-class CommandNotFoundException extends mix(BaseException, ExceptionInterface) {
+export default class CommandNotFoundException extends mix(BaseException, ExceptionInterface) {
     /**
      * Constructor.
      *
@@ -25,5 +25,3 @@ class CommandNotFoundException extends mix(BaseException, ExceptionInterface) {
         return this._alternatives;
     }
 }
-
-module.exports = CommandNotFoundException;

@@ -1,5 +1,6 @@
+import { createInterface } from 'readline';
+
 const AbstractRenderer = Jymfony.Component.Console.Question.Renderer.AbstractRenderer;
-const readline = require('readline');
 
 /**
  * Renders a Question prompt using readline.
@@ -11,12 +12,12 @@ const readline = require('readline');
  *
  * @internal
  */
-class ReadlineRenderer extends AbstractRenderer {
+export default class ReadlineRenderer extends AbstractRenderer {
     /**
      * @inheritdoc
      */
     doAsk() {
-        const rl = readline.createInterface({
+        const rl = createInterface({
             input: this._input,
             output: this._output.stream,
             prompt: this._outputFormatter.format('[<info>?</info>] ' + this._question._question + ' '),
@@ -37,5 +38,3 @@ class ReadlineRenderer extends AbstractRenderer {
         });
     }
 }
-
-module.exports = ReadlineRenderer;

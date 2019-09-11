@@ -1,7 +1,7 @@
 /**
  * @memberOf Jymfony.Component.Testing.Util
  */
-class StringUtil {
+export default class StringUtil {
     /**
      * Gives a string representation of the value (to be printed out in exceptions)
      *
@@ -47,5 +47,3 @@ class StringUtil {
         }
     }
 }
-
-module.exports = StringUtil;

@@ -1,7 +1,5 @@
 /**
  * @memberOf Jymfony.Component.DateTime.Exception
  */
-class UnknownTimeZoneException extends Exception {
+export default class UnknownTimeZoneException extends Exception {
 }
-
-module.exports = UnknownTimeZoneException;

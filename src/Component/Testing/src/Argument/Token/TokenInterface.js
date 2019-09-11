@@ -26,4 +26,4 @@ class TokenInterface {
     toString() { }
 }
 
-module.exports = getInterface(TokenInterface);
+export default getInterface(TokenInterface);

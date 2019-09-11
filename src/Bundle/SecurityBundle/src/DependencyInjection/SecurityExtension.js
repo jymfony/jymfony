@@ -1,3 +1,5 @@
+import { join } from 'path';
+
 const InvalidConfigurationException = Jymfony.Component.Config.Definition.Exception.InvalidConfigurationException;
 const FileLocator = Jymfony.Component.Config.FileLocator;
 const Alias = Jymfony.Component.DependencyInjection.Alias;
@@ -10,12 +12,10 @@ const JsFileLoader = Jymfony.Component.DependencyInjection.Loader.JsFileLoader;
 const Extension = Jymfony.Component.DependencyInjection.Extension.Extension;
 const UserProviderInterface = Jymfony.Component.Security.User.UserProviderInterface;
 
-const path = require('path');
-
 /**
  * @memberOf Jymfony.Bundle.SecurityBundle.DependencyInjection
  */
-class SecurityExtension extends Extension {
+export default class SecurityExtension extends Extension {
     /**
      * Constructor.
      */
@@ -59,7 +59,7 @@ class SecurityExtension extends Extension {
             return;
         }
 
-        const loader = new JsFileLoader(container, new FileLocator(path.join(__dirname, '..', 'Resources', 'config')));
+        const loader = new JsFileLoader(container, new FileLocator(join(__dirname, '..', 'Resources', 'config')));
         loader.load('security.js');
         loader.load('security_listeners.js');
 
@@ -499,5 +499,3 @@ class SecurityExtension extends Extension {
         container.removeDefinition(Jymfony.Component.Security.Authorization.Voter.RoleVoter);
     }
 }
-
-module.exports = SecurityExtension;

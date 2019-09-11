@@ -1,9 +1,9 @@
+import { dirname, extname } from 'path';
+import { Script } from 'vm';
+import { readFileSync } from 'fs';
+
 const FileLoader = Jymfony.Component.Config.Loader.FileLoader;
 const FileResource = Jymfony.Component.Config.Resource.FileResource;
-
-const fs = require('fs');
-const path = require('path');
-const vm = require('vm');
 
 /**
  * JsFileLoader loads service definitions from a js file.
@@ -13,7 +13,7 @@ const vm = require('vm');
  *
  * @memberOf Jymfony.Component.DependencyInjection.Loader
  */
-class JsFileLoader extends FileLoader {
+export default class JsFileLoader extends FileLoader {
     /**
      * Constructor.
      *
@@ -38,11 +38,11 @@ class JsFileLoader extends FileLoader {
         const oldCWD = this.currentDir;
 
         const filePath = this._locator.locate(resource);
-        this.currentDir = path.dirname(filePath);
+        this.currentDir = dirname(filePath);
         this._container.addResource(new FileResource(filePath));
 
-        const code = '(function (container, loader) {\n'+fs.readFileSync(filePath)+'\n})';
-        const script = new vm.Script(code, {
+        const code = '(function (container, loader) {\n' + readFileSync(filePath) + '\n})';
+        const script = new Script(code, {
             filename: filePath,
             produceCachedData: false,
         });
@@ -62,12 +62,10 @@ class JsFileLoader extends FileLoader {
             return false;
         }
 
-        if (undefined === type && '.js' === path.extname(resource)) {
+        if (undefined === type && '.js' === extname(resource)) {
             return true;
         }
 
         return 'js' === type;
     }
 }
-
-module.exports = JsFileLoader;
