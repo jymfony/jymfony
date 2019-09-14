@@ -3,6 +3,7 @@
 /// <reference path="Argument/ReferenceSetArgumentTrait.d.ts" />
 /// <reference path="Argument/RewindableGenerator.d.ts" />
 /// <reference path="Argument/ServiceClosureArgument.d.ts" />
+/// <reference path="Argument/ServiceLocator.d.ts" />
 /// <reference path="Argument/ServiceLocatorArgument.d.ts" />
 /// <reference path="Argument/TaggedIteratorArgument.d.ts" />
 /// <reference path="Compiler/AbstractRecursivePass.d.ts" />
