@@ -234,7 +234,15 @@ module.exports = ${className};
                 id = aliases[id].toString();
             }
 
-            code += '            ' + this._export(alias) + ': ' + this._export(id) + ',\n';
+            if (aliases[alias].isDeprecated()) {
+                const deprecatedMessage = this._export(aliases[alias].getDeprecationMessage(alias));
+                code += '            get ' + this._export(alias) + '() {\n'
+                     + '                __jymfony.trigger_deprecation(' + deprecatedMessage + ')\n'
+                     + '                return ' + this._export(id) + ';\n'
+                     + '            },\n';
+            } else {
+                code += '            ' + this._export(alias) + ': ' + this._export(id) + ',\n';
+            }
         }
 
         return code + '        };\n';

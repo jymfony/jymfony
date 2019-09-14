@@ -112,6 +112,15 @@ module.exports = new ContainerKhcNoO4({
             .to.be.equal(fs.readFileSync(path.join(fixturesPath, 'js', 'services-env.js')).toString());
     });
 
+    it('should handle factories inclusion', () => {
+        const container = require(path.join(fixturesPath, 'containers', 'container14.js'));
+        container.compile();
+
+        const dumper = new JsDumper(container);
+        expect(dumper.dump({ build_time: 1536621245 })['Containerspa3irv/ProjectContainer.js'])
+            .to.be.equal(fs.readFileSync(path.join(fixturesPath, 'js', 'services14.js')).toString());
+    });
+
     it('should handle module inclusion', () => {
         const container = require(path.join(fixturesPath, 'containers', 'container15.js'));
         container.compile();

@@ -1,0 +1,12 @@
+services:
+    _instanceof:
+        Jymfony.Component.DependencyInjection.Fixtures.BarInterface:
+            lazy: true
+            tags:
+                - { name: foo }
+                - { name: bar }
+
+    Jymfony.Component.DependencyInjection.Fixtures.Bar:
+        public: true
+
+    Jymfony.Component.DependencyInjection.Fixtures.BarInterface: '@Jymfony.Component.DependencyInjection.Fixtures.Bar'

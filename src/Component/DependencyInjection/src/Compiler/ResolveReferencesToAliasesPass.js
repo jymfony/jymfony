@@ -48,15 +48,25 @@ export default class ResolveReferencesToAliasesPass extends AbstractRecursivePas
      * @private
      */
     _getDefinitionId(id, container) {
+        if (! container.hasAlias(id)) {
+            return id;
+        }
+
+        const alias = container.getAlias(id);
+
+        if (alias.isDeprecated()) {
+            __jymfony.trigger_deprecated(__jymfony.sprintf('%s. It is being referenced by the "%s" %s.', __jymfony.rtrim(alias.getDeprecationMessage(id), '. '), this._currentId, container.hasDefinition(this._currentId) ? 'service' : 'alias'));
+        }
+
         const seen = {};
-        while (container.hasAlias(id)) {
-            if (seen[id]) {
-                throw new ServiceCircularReferenceException(id, Object.keys(seen));
+        do {
+            if (undefined !== seen[id]) {
+                throw new ServiceCircularReferenceException(id, [ ...Object.keys(seen), id ]);
             }
 
             seen[id] = true;
             id = container.getAlias(id).toString();
-        }
+        } while (container.hasAlias(id));
 
         return id;
     }

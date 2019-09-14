@@ -21,8 +21,11 @@ export default class PassConfig {
          * @private
          */
         this._beforeOptimizationPasses = {
-            100: [
+            200: [
                 new Compiler.ResolveClassPass(),
+            ],
+            100: [
+                new Compiler.ResolveInstanceofConditionalsPass(),
             ],
             [(-1000)]: [
                 new Compiler.ExtensionCompilerPass(),

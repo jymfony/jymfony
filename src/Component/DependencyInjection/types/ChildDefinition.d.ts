@@ -33,5 +33,10 @@ declare namespace Jymfony.Component.DependencyInjection {
          * @inheritdoc
          */
         replaceArgument(index: number, argument: any): this;
+
+        /**
+         * @inheritdoc
+         */
+        setInstanceofConditionals(instanceOf: Record<string, ChildDefinition>): never;
     }
 }

@@ -39,11 +39,11 @@ export default class Loader extends implementationOf(LoaderInterface) {
      * Imports a resource.
      *
      * @param {*} resource
-     * @param {undefined|string} type
+     * @param {null|string} type
      *
      * @returns {*}
      */
-    importResource(resource, type = undefined) {
+    importResource(resource, type = null) {
         return this.resolve(resource, type).load(resource, type);
     }
 
@@ -51,13 +51,13 @@ export default class Loader extends implementationOf(LoaderInterface) {
      * Finds a loader able to load an imported resource.
      *
      * @param {*} resource
-     * @param {undefined|string} type
+     * @param {null|string} type
      *
      * @returns {Jymfony.Component.Config.Loader.LoaderInterface}
      *
      * @throws {Jymfony.Component.Config.Exception.FileLoaderLoadException}
      */
-    resolve(resource, type = undefined) {
+    resolve(resource, type = null) {
         if (this.supports(resource, type)) {
             return this;
         }

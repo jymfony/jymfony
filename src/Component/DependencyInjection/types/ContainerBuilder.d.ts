@@ -83,6 +83,17 @@ declare namespace Jymfony.Component.DependencyInjection {
         addClassResource(reflClass: ReflectionClass): this;
 
         /**
+         * Checks whether the requested file or directory exists and registers the result for resource tracking.
+         *
+         * @param path The file or directory path for which to check the existence
+         * @param trackContents Whether to track contents of the given resource. If a string is passed,
+         *                      it will be used as pattern for tracking contents of the requested directory
+         *
+         * @final
+         */
+        fileExists(path: string, trackContents?: boolean|string): boolean;
+
+        /**
          * Loads the configuration for an extension.
          */
         loadFromExtension(extension: string, values?: Record<string, any>): this;
@@ -196,12 +207,12 @@ declare namespace Jymfony.Component.DependencyInjection {
         /**
          * Adds the service definitions.
          */
-        addDefinitions(definitions: Definition[]): void;
+        addDefinitions(definitions: Record<string, Definition>): void;
 
         /**
          * Sets the service definitions.
          */
-        setDefinitions(definitions: Definition[]): void;
+        setDefinitions(definitions: Record<string, Definition>): void;
 
         /**
          * Gets all service definitions.
@@ -290,7 +301,7 @@ declare namespace Jymfony.Component.DependencyInjection {
         /**
          * Gets a method call bound to a service and its arguments.
          */
-        private _getFunctionCall(service: any, call: any[]): Function;
+        private _getFunctionCall(service: any, [ method, args ]: [ string|symbol, any[] ]): Function;
 
         /**
          * Shares a service in the container.

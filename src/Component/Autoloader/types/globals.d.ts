@@ -111,6 +111,11 @@ declare class ReflectionClass<T = any> {
     readonly isInterface: boolean;
 
     /**
+     * Is this class a trait?
+     */
+    readonly isTrait: boolean;
+
+    /**
      * Get the fully qualified name of the reflected class.
      */
     readonly name?: string;
@@ -146,6 +151,11 @@ declare class ReflectionClass<T = any> {
     readonly docblock: string;
 
     /**
+     * Gets the fields names.
+     */
+    readonly fields: string[];
+
+    /**
      * Get properties name defined by setters/getters.
      * Other properties are added dynamically and are not
      * enumerable in the prototype.
@@ -161,6 +171,11 @@ declare class ReflectionClass<T = any> {
      * Get interfaces reflection classes.
      */
     readonly interfaces: ReflectionClass[];
+
+    /**
+     * Get traits reflection classes.
+     */
+    readonly traits: ReflectionClass[];
 
     /**
      * Gets the class metadata.

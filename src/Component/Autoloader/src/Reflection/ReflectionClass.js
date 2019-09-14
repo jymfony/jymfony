@@ -36,6 +36,7 @@ const getClass = function getClass(value) {
             if (value.definition) {
                 // Interface or Trait
                 this._isInterface = global.mixins.isInterface(value);
+                this._isTrait = global.mixins.isTrait(value);
                 value = value.definition;
             } else {
                 throw new ReflectionException('Not a class');
@@ -59,6 +60,7 @@ class ReflectionClass {
      */
     constructor(value) {
         this._isInterface = false;
+        this._isTrait = false;
         value = getClass.apply(this, [ value ]);
 
         this._methods = new Storage();
@@ -70,6 +72,7 @@ class ReflectionClass {
         this._fields = new Storage();
         this._staticFields = new Storage();
         this._interfaces = [];
+        this._traits = [];
 
         this._docblock = undefined;
         if (undefined !== value[Symbol.docblock]) {
@@ -348,6 +351,15 @@ class ReflectionClass {
     }
 
     /**
+     * Is this class a trait?
+     *
+     * @returns {boolean}
+     */
+    get isTrait() {
+        return this._isTrait;
+    }
+
+    /**
      * The fully qualified name of the reflected class.
      *
      * @returns {string|undefined}
@@ -458,6 +470,15 @@ class ReflectionClass {
     }
 
     /**
+     * Get traits reflection classes.
+     *
+     * @returns {ReflectionClass[]}
+     */
+    get traits() {
+        return [ ...this._traits ];
+    }
+
+    /**
      * Gets the class metadata.
      *
      * @returns {[Function, *][]}
@@ -504,6 +525,7 @@ class ReflectionClass {
                     writable: Object.keys(this._writableProperties),
                 },
                 interfaces: this._interfaces,
+                traits: this._traits,
                 fields: this._fields,
                 staticFields: this._staticFields,
             };
@@ -532,6 +554,7 @@ class ReflectionClass {
         propFunc(this._readableProperties, data.properties.readable);
         propFunc(this._writableProperties, data.properties.writable);
         this._interfaces = data.interfaces;
+        this._traits = data.traits;
         this._fields = data.fields;
         this._staticFields = data.staticFields;
     }
@@ -609,6 +632,11 @@ class ReflectionClass {
         for (const IF of global.mixins.getInterfaces(this._constructor)) {
             const reflectionInterface = new ReflectionClass(IF);
             this._interfaces.push(reflectionInterface);
+        }
+
+        for (const TR of global.mixins.getTraits(this._constructor)) {
+            const reflectionTrait = new ReflectionClass(TR);
+            this._traits.push(reflectionTrait);
         }
     }
 

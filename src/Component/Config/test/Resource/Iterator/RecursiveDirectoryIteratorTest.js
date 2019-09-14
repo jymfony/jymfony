@@ -22,6 +22,9 @@ describe('[Config] RecursiveDirectoryIterator', function () {
 
         expect(result.sort()).to.be.deep.equal([
             resolved+path.sep+'TESTFILE.txt',
+            resolved+path.sep+'Testdir',
+            resolved+path.sep+'Testdir'+path.sep+'Subdir',
+            resolved+path.sep+'Testdir'+path.sep+'Subdir'+path.sep+'another_dir',
             resolved+path.sep+'Testdir'+path.sep+'Subdir'+path.sep+'another_dir'+path.sep+'test_file.txt',
             resolved+path.sep+'Testdir'+path.sep+'bazbaz.txt',
             resolved+path.sep+'Testdir'+path.sep+'foobar',

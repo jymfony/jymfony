@@ -11,6 +11,8 @@ export default class MergeExtensionConfigurationPass extends implementationOf(Co
      */
     process(container) {
         const parameters = container.parameterBag.all();
+        const definitions = { ...container.getDefinitions() };
+        const aliases = { ...container.getAliases() };
 
         for (const extension of Object.values(container.getExtensions())) {
             if (extension instanceof PrependExtensionInterface) {
@@ -35,5 +37,8 @@ export default class MergeExtensionConfigurationPass extends implementationOf(Co
             container.merge(tmpContainer);
             container.parameterBag.add(parameters);
         }
+
+        container.addDefinitions(definitions);
+        container.addAliases(aliases);
     }
 }

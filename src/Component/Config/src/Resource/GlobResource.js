@@ -1,8 +1,9 @@
+import { basename, dirname, normalize } from 'path';
+import { existsSync, realpathSync, statSync } from 'fs';
+import { createHash } from 'crypto';
+
 const RecursiveDirectoryIterator = Jymfony.Component.Config.Resource.Iterator.RecursiveDirectoryIterator;
 const SelfCheckingResourceInterface = Jymfony.Component.Config.Resource.SelfCheckingResourceInterface;
-const crypto = require('crypto');
-const fs = require('fs');
-const pathModule = require('path');
 
 /**
  * @memberOf Jymfony.Component.Config.Resource
@@ -13,13 +14,15 @@ export default class GlobResource extends implementationOf(SelfCheckingResourceI
      *
      * @param {string} prefix
      * @param {string} pattern
+     * @param {boolean} recursive
+     * @param {boolean} forExclusion
      * @param {string[]} excludedPrefixes
      */
-    __construct(prefix, pattern, excludedPrefixes = []) {
+    __construct(prefix, pattern, recursive, forExclusion = false, excludedPrefixes = []) {
         try {
-            prefix = fs.realpathSync(prefix);
+            prefix = realpathSync(prefix);
         } catch (e) {
-            prefix = fs.existsSync(prefix) ? prefix : false;
+            prefix = existsSync(prefix) ? prefix : false;
         }
 
         /**
@@ -35,6 +38,20 @@ export default class GlobResource extends implementationOf(SelfCheckingResourceI
          * @private
          */
         this._pattern = pattern;
+
+        /**
+         * @type {boolean}
+         *
+         * @private
+         */
+        this._recursive = recursive;
+
+        /**
+         * @type {boolean}
+         *
+         * @private
+         */
+        this._forExclusion = forExclusion;
 
         /**
          * @type {string[]}
@@ -74,7 +91,7 @@ export default class GlobResource extends implementationOf(SelfCheckingResourceI
      * @returns {string}
      */
     toString() {
-        return 'glob.' + this._prefix + this._pattern;
+        return 'glob.' + this._prefix + this._pattern + (this._recursive ? '1' : '0');
     }
 
     /**
@@ -90,13 +107,13 @@ export default class GlobResource extends implementationOf(SelfCheckingResourceI
      * @returns {IterableIterator<*>}
      */
     * [Symbol.iterator]() {
-        if (false === this._prefix || '' === this._pattern) {
+        if (false === this._prefix || (! this._recursive && '' === this._pattern)) {
             return;
         }
 
         const prefix = this._prefix.replace(/\\/g, '/');
         const prefixLen = this._prefix.length;
-        const regex = __self.globToRegex(this._pattern);
+        const regex = this._pattern ? __self.globToRegex(this._pattern) : /.*/;
 
         recursive: for (const path of new RecursiveDirectoryIterator(this._prefix)) {
             let normalizedPath = path.replace(/\\/g, '/');
@@ -109,13 +126,35 @@ export default class GlobResource extends implementationOf(SelfCheckingResourceI
 
                 do {
                     dirPath = normalizedPath;
-                    if (undefined !== this._excludedPrefixes[dirPath]) {
+                    if (this._excludedPrefixes.includes(dirPath)) {
                         continue recursive;
                     }
-                } while (prefix !== dirPath && dirPath !== (normalizedPath = pathModule.dirname(dirPath)));
+                } while (prefix !== dirPath && dirPath !== (normalizedPath = dirname(dirPath)));
             }
 
-            yield path;
+            const stat = statSync(path);
+
+            if (stat.isFile()) {
+                yield path;
+            }
+
+            if (! stat.isDirectory()) {
+                continue;
+            }
+
+            if (this._forExclusion) {
+                yield path;
+                continue;
+            }
+
+            if (! this._recursive || !! this._excludedPrefixes[normalize(path)]) {
+                continue;
+            }
+
+            const files = [ ...new RecursiveDirectoryIterator(path) ]
+                .filter(p => undefined === this._excludedPrefixes[normalize(p)] && '.' !== basename(p));
+
+            yield * files;
         }
     }
 
@@ -200,7 +239,7 @@ export default class GlobResource extends implementationOf(SelfCheckingResourceI
      * @returns {string}
      */
     _computeHash() {
-        const hash = crypto.createHash('md5');
+        const hash = createHash('md5');
         for (const path of this) {
             hash.update(path + '\n');
         }

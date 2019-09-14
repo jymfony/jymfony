@@ -3,6 +3,9 @@
 const CustomDefinition = Jymfony.Component.DependencyInjection.Fixtures.CustomDefinition;
 const ServiceSubscriberInterface = Jymfony.Component.DependencyInjection.ServiceSubscriberInterface;
 
+/**
+ * @memberOf Jymfony.Component.DependencyInjection.Fixtures
+ */
 class TestServiceSubscriber extends implementationOf(ServiceSubscriberInterface) {
     __construct(container) {
     }

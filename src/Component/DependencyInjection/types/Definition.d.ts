@@ -9,6 +9,7 @@ declare namespace Jymfony.Component.DependencyInjection {
         private _deprecationTemplate: string;
         private _properties: Record<string | symbol, any>;
         private _calls: [string, any[]];
+        private _instanceof: Record<string, ChildDefinition>;
         private _configurator: string | string[] | Invokable | undefined;
         private _tags: Record<string, string>;
         private _public: boolean;
@@ -129,6 +130,16 @@ declare namespace Jymfony.Component.DependencyInjection {
          * Gets the methods to call.
          */
         getMethodCalls(): [string, any[]][];
+
+        /**
+         * Sets the definition templates to conditionally apply on the current definition, keyed by parent interface/class.
+         */
+        setInstanceofConditionals(instanceOf: Record<string, ChildDefinition>): this;
+
+        /**
+         * Gets the definition templates to conditionally apply on the current definition, keyed by parent interface/class.
+         */
+        getInstanceofConditionals(): Record<string, ChildDefinition>;
 
         /**
          * Sets the service tags.
