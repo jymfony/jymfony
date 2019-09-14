@@ -318,8 +318,12 @@ declare module NodeJS {
         isPromise(value: any): value is Promise<any>;
         isStream(value: any): value is NodeJS.ReadableStream | NodeJS.WritableStream;
         isCallableArray(value: any): value is [string, string];
-        getCallableFromArray(value: [string, string]): Invokable<any>;
+        getCallableFromArray(value: [object, string]): Invokable<any>;
     }
+}
+
+interface Function {
+    (...args: any[]): any;
 }
 
 declare type Invokable<T = any> = (...args: any[]) => T | {
@@ -396,7 +400,7 @@ declare function isObjectLiteral(value: any): value is Object;
 declare function isPromise(value: any): value is Promise<any>;
 declare function isStream(value: any): value is NodeJS.ReadableStream | NodeJS.WritableStream;
 declare function isCallableArray(value: any): value is [string, string];
-declare function getCallableFromArray(value: [string, string]): Invokable<any>;
+declare function getCallableFromArray(value: [object, string]): Invokable<any>;
 
 declare class BoundFunction implements Function {
     new(thisArg: Object, func: Invokable|Function|GeneratorFunction): Function;

@@ -265,12 +265,12 @@ declare namespace Jymfony.Component.DependencyInjection {
         /**
          * Sets a configurator to be called after the service is initialized.
          */
-        setConfigurator(configurator: string | string[] | Invokable | undefined): this;
+        setConfigurator(configurator: string | [ string, string ] | [ object, string ] | Invokable | undefined): this;
 
         /**
          * Gets the configurator for this service.
          */
-        getConfigurator(): string | string[] | Invokable | undefined;
+        getConfigurator(): string | [ string, string ] | [ object, string ] | Invokable | undefined;
 
         /**
          * Sets the methods to call at container shutdown.

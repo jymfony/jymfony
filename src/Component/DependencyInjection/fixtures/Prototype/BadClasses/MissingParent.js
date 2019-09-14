@@ -1,3 +1,5 @@
+const MissingClass = Jymfony.Component.DependencyInjection.Fixtures.Prototype.BadClasses.MissingClass;
+
 /**
  * @memberOf Jymfony.Component.DependencyInjection.Fixtures.Prototype.BadClasses
  */

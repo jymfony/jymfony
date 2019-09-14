@@ -9,6 +9,8 @@ const Alias = Jymfony.Component.DependencyInjection.Alias;
 const IteratorArgument = Jymfony.Component.DependencyInjection.Argument.IteratorArgument;
 const RewindableGenerator = Jymfony.Component.DependencyInjection.Argument.RewindableGenerator;
 const ServiceClosureArgument = Jymfony.Component.DependencyInjection.Argument.ServiceClosureArgument;
+const ServiceLocator = Jymfony.Component.DependencyInjection.Argument.ServiceLocator;
+const ServiceLocatorArgument = Jymfony.Component.DependencyInjection.Argument.ServiceLocatorArgument;
 const Compiler = Jymfony.Component.DependencyInjection.Compiler.Compiler;
 const PassConfig = Jymfony.Component.DependencyInjection.Compiler.PassConfig;
 const Container = Jymfony.Component.DependencyInjection.Container;
@@ -860,6 +862,8 @@ export default class ContainerBuilder extends Container {
                     configurator[0] = this.get(configurator[0].toString(), configurator[0].invalidBehavior);
                 } else if (configurator[0] instanceof Definition) {
                     configurator[0] = this._createService(configurator[0], undefined);
+                } else if (isString(configurator[0])) {
+                    configurator[0] = ReflectionClass.getClass(configurator[0]);
                 }
 
                 configurator = getCallableFromArray(configurator);
@@ -905,7 +909,7 @@ export default class ContainerBuilder extends Container {
      */
     findTags() {
         const tags = new Set();
-        for (const definition of this._definitions) {
+        for (const definition of Object.values(this._definitions)) {
             for (const tag of Object.keys(definition.getTags())) {
                 tags.add(tag);
             }
@@ -1144,6 +1148,17 @@ export default class ContainerBuilder extends Container {
 
                 return count;
             });
+        } else if (value instanceof ServiceLocatorArgument) {
+            const refs = {};
+            for (const [ k, v ] of __jymfony.getEntries(value.values)) {
+                if (! v) {
+                    continue;
+                }
+
+                refs[k] = [ v ];
+            }
+
+            value = new ServiceLocator(getCallableFromArray([ this, '_resolveServices' ]), refs);
         } else if (value instanceof Reference) {
             value = this._doGet(value.toString(), value.invalidBehavior);
         } else if (value instanceof Definition) {
