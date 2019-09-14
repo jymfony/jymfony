@@ -1,0 +1,6 @@
+imports:
+    - services2.yml
+    - { resource: services3.yml }
+    - { resource: "../js/simple.js" }
+    - { resource: "../json/services13.json" }
+    - { resource: "../json/json_with_wrong_ext.xml", type: json }

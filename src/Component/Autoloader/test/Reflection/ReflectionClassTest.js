@@ -20,7 +20,10 @@ const ISon = getInterface(class SonInterface {
 });
 const ISon2 = getInterface(class Son2Interface {});
 
-class Son extends mix(Parent, ISon) {
+const SonTrait = getTrait(class SonTrait {});
+const SonTrait2 = getTrait(class SonTrait2 extends SonTrait.definition {});
+
+class Son extends mix(Parent, ISon, SonTrait2) {
     constructor() {
         super(); this.foo = 'bar';
     }
@@ -31,7 +34,7 @@ class Son extends mix(Parent, ISon) {
     set prop(v) { }
 }
 
-class Son2 extends mix(Parent, ISon, ISon2) {
+class Son2 extends mix(Parent, ISon, ISon2, SonTrait) {
     constructor() {
         super(); this.foo = 'bar';
     }
@@ -127,6 +130,28 @@ describe('[Autoloader] ReflectionClass', function () {
 
         expect(reflClass.getParentClass()).to.be.instanceOf(ReflectionClass);
         expect(reflClass.getParentClass().getConstructor()).to.be.equal(Parent);
+    });
+
+    it('should expose interfaces', () => {
+        const reflClass = new ReflectionClass(Son);
+        expect(reflClass.interfaces).to.have.length(1);
+        expect(reflClass.interfaces[0].getConstructor()).to.be.eq(ISon.definition);
+
+        const reflClass2 = new ReflectionClass(Son2);
+        expect(reflClass2.interfaces).to.have.length(2);
+        expect(reflClass2.interfaces[0].getConstructor()).to.be.eq(ISon.definition);
+        expect(reflClass2.interfaces[1].getConstructor()).to.be.eq(ISon2.definition);
+    });
+
+    it('should expose traits', () => {
+        const reflClass = new ReflectionClass(Son);
+        expect(reflClass.traits).to.have.length(2);
+        expect(reflClass.traits[0].getConstructor()).to.be.eq(SonTrait2.definition);
+        expect(reflClass.traits[1].getConstructor()).to.be.eq(SonTrait.definition);
+
+        const reflClass2 = new ReflectionClass(Son2);
+        expect(reflClass2.traits).to.have.length(1);
+        expect(reflClass2.traits[0].getConstructor()).to.be.eq(SonTrait.definition);
     });
 
     it('methods getter should work', () => {

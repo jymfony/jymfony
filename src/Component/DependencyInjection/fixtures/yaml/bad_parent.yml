@@ -1,0 +1,6 @@
+services:
+    foo:
+        class: Object
+    bar:
+        class: Object
+        parent: "@foo"

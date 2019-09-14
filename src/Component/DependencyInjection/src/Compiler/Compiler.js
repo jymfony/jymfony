@@ -57,7 +57,7 @@ export default class Compiler {
     /**
      * Add a compilation pass
      *
-     * @param {CompilerPassInterface} pass
+     * @param {Jymfony.Component.DependencyInjection.Compiler.CompilerPassInterface} pass
      * @param {string} type
      * @param {int} priority
      */

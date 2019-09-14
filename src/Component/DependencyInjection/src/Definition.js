@@ -1,3 +1,5 @@
+const Container = Jymfony.Component.DependencyInjection.Container;
+
 /**
  * @memberOf Jymfony.Component.DependencyInjection
  */
@@ -71,6 +73,13 @@ export default class Definition {
          * @private
          */
         this._calls = [];
+
+        /**
+         * @type {Object.<string, Jymfony.Component.DependencyInjection.ChildDefinition>}
+         *
+         * @private
+         */
+        this._instanceof = {};
 
         /**
          * @type {string|Array|Function|undefined}
@@ -177,6 +186,7 @@ export default class Definition {
         }
 
         this._factory = factory;
+
         return this;
     }
 
@@ -199,6 +209,9 @@ export default class Definition {
      * @returns {Jymfony.Component.DependencyInjection.Definition}
      */
     setDecoratedService(id, renamedId = undefined, priority = 0) {
+        id = id ? Container.normalizeId(id) : id;
+        renamedId = renamedId ? Container.normalizeId(renamedId) : renamedId;
+
         if (renamedId && id === renamedId) {
             throw new InvalidArgumentException('The decorated service inner name for "' + id + '" must be different than the service name');
         }
@@ -235,11 +248,7 @@ export default class Definition {
      * @returns {Jymfony.Component.DependencyInjection.Definition}
      */
     setClass(className) {
-        if (isFunction(className)) {
-            try {
-                className = (new ReflectionClass(className)).name;
-            } catch (e) { }
-        }
+        className = Container.normalizeId(className);
 
         this._changes['class'] = true;
         this._class = className;
@@ -306,7 +315,7 @@ export default class Definition {
      * @returns {Array}
      */
     getArguments() {
-        return __jymfony.deepClone(this._arguments);
+        return [ ...this._arguments ];
     }
 
     /**
@@ -437,6 +446,28 @@ export default class Definition {
      */
     getMethodCalls() {
         return __jymfony.deepClone(this._calls);
+    }
+
+    /**
+     * Sets the definition templates to conditionally apply on the current definition, keyed by parent interface/class.
+     *
+     * @param {Object.<string, Jymfony.Component.DependencyInjection.ChildDefinition>} instanceOf
+     *
+     * @returns {Jymfony.Component.DependencyInjection.Definition}
+     */
+    setInstanceofConditionals(instanceOf) {
+        this._instanceof = { ...instanceOf };
+
+        return this;
+    }
+
+    /**
+     * Gets the definition templates to conditionally apply on the current definition, keyed by parent interface/class.
+     *
+     * @returns {Object.<string, Jymfony.Component.DependencyInjection.ChildDefinition>}
+     */
+    getInstanceofConditionals() {
+        return this._instanceof;
     }
 
     /**

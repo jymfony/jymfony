@@ -1,0 +1,30 @@
+services:
+    _defaults:
+        public: true
+        tags:
+            - name: foo
+
+    Jymfony.Component.DependencyInjection.Fixtures.FooClass: ~
+
+    with_defaults:
+        class: Foo
+
+    with_null:
+        class: Foo
+        public: false
+
+    no_defaults:
+        class: Foo
+        public: false
+        tags: []
+
+    with_defaults_aliased:
+        alias: with_defaults
+
+    with_defaults_aliased_short: '@with_defaults'
+
+    Jymfony.Component.DependencyInjection.Fixtures.Prototype.Sub.Bar: [foo]
+
+    child_def:
+        parent: with_defaults
+        public: false

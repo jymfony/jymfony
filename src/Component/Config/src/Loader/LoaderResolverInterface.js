@@ -10,7 +10,7 @@ class LoaderResolverInterface {
      *
      * @returns {Jymfony.Component.Config.Loader.LoaderInterface|false} The loader or false if none is able to load the resource
      */
-    resolve(resource, type = undefined) { }
+    resolve(resource, type = null) { }
 }
 
 export default getInterface(LoaderResolverInterface);

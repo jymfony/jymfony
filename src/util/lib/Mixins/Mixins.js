@@ -2,6 +2,7 @@ const FunctionProps = Object.getOwnPropertyNames(Function.prototype);
 
 const symOuterMixin = Symbol('outerMixin');
 const symAppliedInterfaces = Symbol('appliedInterfaces');
+const symAppliedTraits = Symbol('appliedTraits');
 const symClassType = Symbol('classType');
 const symInitalizer = Symbol('Initializer');
 
@@ -171,6 +172,7 @@ class Mixins {
 }
 
 Mixins.appliedInterfacesSymbol = symAppliedInterfaces;
+Mixins.appliedTraitsSymbol = symAppliedTraits;
 Mixins.classTypeSymbol = symClassType;
 Mixins.initializerSymbol = symInitalizer;
 

@@ -1,0 +1,13 @@
+services:
+    _instanceof:
+        FooInterface:
+            calls:
+                - [ foo, [] ]
+
+    parent_service:
+        class: Bar
+        public: true
+
+    child_service:
+        class: Bar
+        parent: parent_service

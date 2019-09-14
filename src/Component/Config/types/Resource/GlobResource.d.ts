@@ -13,8 +13,8 @@ declare namespace Jymfony.Component.Config.Resource {
         /**
          * Constructor.
          */
-        __construct(prefix: string, pattern: string, excludedPrefixes?: string[]): void;
-        constructor(prefix: string, pattern: string, excludedPrefixes?: string[]);
+        __construct(prefix: string, pattern: string, recursive: boolean, forExclusion?: boolean, excludedPrefixes?: string[]): void;
+        constructor(prefix: string, pattern: string, recursive: boolean, forExclusion?: boolean, excludedPrefixes?: string[]);
 
         __sleep(): string[];
 

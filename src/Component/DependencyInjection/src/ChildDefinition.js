@@ -31,10 +31,21 @@ export default class ChildDefinition extends Definition {
     /**
      * Gets the extended definition.
      *
-     * @returns {Jymfony.Component.DependencyInjection.Definition}
+     * @returns {string}
      */
     getParent() {
         return this._parent;
+    }
+
+    /**
+     * Sets the Definition to inherit from.
+     *
+     * @param {string|Function|symbol} parent
+     */
+    setParent(parent) {
+        this._parent = Container.normalizeId(parent);
+
+        return this;
     }
 
     /**
@@ -82,5 +93,12 @@ export default class ChildDefinition extends Definition {
         this._replacedArguments[index] = argument;
 
         return this;
+    }
+
+    /**
+     * @internal
+     */
+    setInstanceofConditionals() {
+        throw new BadMethodCallException('A ChildDefinition cannot have instanceof conditionals set on it.');
     }
 }

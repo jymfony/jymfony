@@ -1,7 +1,10 @@
+import { dirname } from 'path';
+
 const FileLoaderLoadException = Jymfony.Component.Config.Exception.FileLoaderLoadException;
 const FileLoaderImportCircularReferenceException = Jymfony.Component.Config.Exception.FileLoaderImportCircularReferenceException;
+const FileLocatorFileNotFoundException = Jymfony.Component.Config.Exception.FileLocatorFileNotFoundException;
+const GlobResource = Jymfony.Component.Config.Resource.GlobResource;
 const Loader = Jymfony.Component.Config.Loader.Loader;
-const path = require('path');
 
 /**
  * FileLoader is the abstract class used by all built-in loaders that are file based.
@@ -81,7 +84,7 @@ export default class FileLoader extends Loader {
             const ret = [];
             let isSubpath = 0 !== i && -1 !== resource.substr(0, i).indexOf('/');
 
-            for (const [ path ] of this._glob(resource, false, ignoreErrors || !isSubpath)) {
+            for (const path of this._glob(resource, false, ignoreErrors || !isSubpath)) {
                 let res;
                 if (undefined !== (res = this._doImport(path, type, ignoreErrors, sourceResource))) {
                     ret.push(res);
@@ -102,7 +105,7 @@ export default class FileLoader extends Loader {
      *
      * @internal
      */
-    * _glob(pattern, recursive, ignoreErrors = false) {
+    _glob(pattern, recursive, ignoreErrors = false, forExclusion = false, excluded = []) {
         let i, prefix;
         if (pattern.length === (i = __jymfony.strcspn(pattern, '*?{['))) {
             prefix = pattern;
@@ -111,7 +114,7 @@ export default class FileLoader extends Loader {
             prefix = '.';
             pattern = '/'+pattern;
         } else {
-            prefix = path.dirname(pattern.substr(0, 1 + i));
+            prefix = dirname(pattern.substr(0, 1 + i));
             pattern = pattern.substr(prefix.length);
         }
 
@@ -123,8 +126,7 @@ export default class FileLoader extends Loader {
             }
         }
 
-        const resource = new GlobResource(prefix, pattern, recursive);
-        yield * resource;
+        return new GlobResource(prefix, pattern, recursive, forExclusion, excluded);
     }
 
     /**

@@ -1,7 +1,10 @@
 import { createHash } from 'crypto';
 import { statSync } from 'fs';
 
+const DirectoryResource = Jymfony.Component.Config.Resource.DirectoryResource;
+const FileExistenceResource = Jymfony.Component.Config.Resource.FileExistenceResource;
 const FileResource = Jymfony.Component.Config.Resource.FileResource;
+const GlobResource = Jymfony.Component.Config.Resource.GlobResource;
 const Alias = Jymfony.Component.DependencyInjection.Alias;
 const IteratorArgument = Jymfony.Component.DependencyInjection.Argument.IteratorArgument;
 const RewindableGenerator = Jymfony.Component.DependencyInjection.Argument.RewindableGenerator;
@@ -219,13 +222,12 @@ export default class ContainerBuilder extends Container {
         }
 
         let resource = null;
+        /**
+         * @type {ReflectionClass|false}
+         */
         let classReflector;
 
         try {
-            if (ReflectionClass.exists('Jymfony.Component.Config.Resource.ClassExistenceResource')) {
-                resource = new Jymfony.Component.Config.Resource.ClassExistenceResource(Class);
-            }
-
             classReflector = ReflectionClass.exists(Class) ? new ReflectionClass(Class) : false;
         } catch (e) {
             if (Throw || ! (e instanceof ReflectionException)) {
@@ -233,6 +235,17 @@ export default class ContainerBuilder extends Container {
             }
 
             classReflector = false;
+        }
+
+        if (ReflectionClass.exists('Jymfony.Component.Config.Resource.ClassExistenceResource')) {
+            resource = new Jymfony.Component.Config.Resource.ClassExistenceResource(Class);
+        }
+
+        if (classReflector && ReflectionClass.exists('Jymfony.Component.Config.Resource.ReflectionClassResource')) {
+            const path = classReflector.filename;
+            if (path) {
+                resource = new Jymfony.Component.Config.Resource.ReflectionClassResource(classReflector);
+            }
         }
 
         if (resource && this._trackResources) {
@@ -264,6 +277,48 @@ export default class ContainerBuilder extends Container {
     }
 
     /**
+     * Checks whether the requested file or directory exists and registers the result for resource tracking.
+     *
+     * @param {string} path The file or directory path for which to check the existence
+     * @param {boolean|string} trackContents Whether to track contents of the given resource. If a string is passed,
+     *                                       it will be used as pattern for tracking contents of the requested directory
+     *
+     * @returns {boolean}
+     *
+     * @final
+     */
+    fileExists(path, trackContents = true) {
+        let stat = null;
+        try {
+            stat = statSync(path);
+        } catch (e) {
+            // Do nothing.
+        }
+
+        if (! this._trackResources) {
+            return null !== stat;
+        }
+
+        if (null === stat) {
+            this.addResource(new FileExistenceResource(path));
+
+            return false;
+        }
+
+        if (stat.isDirectory()) {
+            if (trackContents) {
+                this.addResource(new DirectoryResource(path, isString(trackContents) ? trackContents : null));
+            } else {
+                this.addResource(new GlobResource(path, '/*', false));
+            }
+        } else if (trackContents) {
+            this.addResource(new FileResource(path));
+        }
+
+        return true;
+    }
+
+    /**
      * Loads the configuration for an extension.
      *
      * @param {string} extension
@@ -282,6 +337,7 @@ export default class ContainerBuilder extends Container {
         }
 
         this._extensionConfigs[namespace].push(values);
+
         return this;
     }
 
@@ -395,7 +451,13 @@ export default class ContainerBuilder extends Container {
         }
 
         if (undefined === this._definitions[id] && undefined !== this._aliasDefinitions[id]) {
-            return this._doGet(this._aliasDefinitions[id].toString(), invalidBehavior);
+            const alias = this._aliasDefinitions[id];
+
+            if (alias.isDeprecated) {
+                __jymfony.trigger_deprecated(alias.getDeprecationMessage(id));
+            }
+
+            return this._doGet(alias.toString(), invalidBehavior);
         }
 
         let definition;
@@ -611,7 +673,7 @@ export default class ContainerBuilder extends Container {
     /**
      * Adds the service definitions.
      *
-     * @param {Jymfony.Component.DependencyInjection.Definition[]} definitions
+     * @param {Object.<string, Jymfony.Component.DependencyInjection.Definition>} definitions
      */
     addDefinitions(definitions) {
         for (const [ id, definition ] of __jymfony.getEntries(definitions)) {
@@ -622,7 +684,7 @@ export default class ContainerBuilder extends Container {
     /**
      * Sets the service definitions.
      *
-     * @param {Jymfony.Component.DependencyInjection.Definition[]} definitions
+     * @param {Object.<string, Jymfony.Component.DependencyInjection.Definition>} definitions
      */
     setDefinitions(definitions) {
         this._definitions = {};
@@ -757,7 +819,13 @@ export default class ContainerBuilder extends Container {
             }
         } else if (factory) {
             if (isArray(factory)) {
-                factory = getCallableFromArray([ this._resolveServices(parameterBag.resolveValue(factory[0])), factory[1] ]);
+                let obj, method;
+                [ obj, method ] = [ this._resolveServices(parameterBag.resolveValue(factory[0])), factory[1] ];
+                if (isString(obj) && ReflectionClass.exists(obj)) {
+                    obj = ReflectionClass.getClass(obj);
+                }
+
+                factory = getCallableFromArray([ obj, method ]);
             } else if (!isFunction(factory)) {
                 throw new RuntimeException('Cannot create service "' + id + '" because of invalid factory');
             }
@@ -954,22 +1022,23 @@ export default class ContainerBuilder extends Container {
      *
      * @private
      */
-    _getFunctionCall(service, call) {
-        const services = __self.getServiceConditionals(call[1]);
+    _getFunctionCall(service, [ method, args ]) {
+        const services = __self.getServiceConditionals(args);
         for (const service of services) {
             if (! this.has(service)) {
                 return;
             }
         }
 
-        for (const service of __self.getInitializedConditionals(call[1])) {
+        for (const service of __self.getInitializedConditionals(args)) {
             if (! this._doGet(service, Container.IGNORE_ON_UNINITIALIZED_REFERENCE)) {
                 return;
             }
         }
 
-        call = getCallableFromArray([ service, call[0] ]);
-        return () => call.apply(service, this._resolveServices(this.parameterBag.unescapeValue(this.parameterBag.resolveValue(call[1]))));
+        const call = getCallableFromArray([ service, method ]);
+
+        return () => call.apply(service, this._resolveServices(this.parameterBag.unescapeValue(this.parameterBag.resolveValue(args))));
     }
 
     /**
@@ -999,7 +1068,13 @@ export default class ContainerBuilder extends Container {
      * @private
      */
     _resolveServices(value) {
-        if (value instanceof Map) {
+        if (isArray(value)) {
+            value = value.map(v => this._resolveServices(v));
+        } else if (isObjectLiteral(value)) {
+            for (const [ k, v ] of __jymfony.getEntries(value)) {
+                value[k] = this._resolveServices(v);
+            }
+        } else if (value instanceof Map) {
             for (const [ k, v ] of value.entries()) {
                 value.set(k, this._resolveServices(v));
             }

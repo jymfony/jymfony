@@ -1,0 +1,16 @@
+
+services:
+    service_container:
+        class: Jymfony.Component.DependencyInjection.ContainerInterface
+        public: true
+        synthetic: true
+    foo_service:
+        class: Foo
+        tags:
+            - { name: foo }
+    foo_service_tagged_iterator:
+        class: Bar
+        arguments: [!tagged { tag: foo }]
+    Jymfony.Component.DependencyInjection.ContainerInterface:
+        alias: service_container
+        public: false

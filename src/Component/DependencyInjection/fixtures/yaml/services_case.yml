@@ -1,0 +1,11 @@
+services:
+    _defaults: {public: true}
+    bar:
+        class: Object
+    Bar:
+        class: Object
+        properties: { bar: '@bar' }
+    BAR:
+        class: Jymfony.Component.DependencyInjection.Fixtures.FooClass
+        arguments: ['@Bar']
+        calls: [[setBar, ['@bar']]]
