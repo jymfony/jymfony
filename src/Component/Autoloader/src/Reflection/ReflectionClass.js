@@ -1,6 +1,7 @@
 const ReflectionMethod = require('./ReflectionMethod');
 const ReflectionField = require('./ReflectionField');
 const ReflectionProperty = require('./ReflectionProperty');
+const ClassNotFoundException = require('../Exception/ClassNotFoundException');
 
 const Storage = function () {};
 Storage.prototype = {};
@@ -95,11 +96,11 @@ class ReflectionClass {
         try {
             getClass(className);
         } catch (e) {
-            if (! (e instanceof ReflectionException)) {
-                throw e;
+            if (e instanceof ReflectionException || e instanceof ClassNotFoundException) {
+                return false;
             }
 
-            return false;
+            throw e;
         }
 
         return true;
