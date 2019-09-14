@@ -70,8 +70,8 @@ export default class FileLoader extends BaseFileLoader {
         const singlyImplemented = {};
 
         for (const [ Class, errorMessage ] of __jymfony.getEntries(classes)) {
-            const reflectionClass = new ReflectionClass(Class);
-            if (reflectionClass.isInterface) {
+            const reflectionClass = errorMessage ? null : new ReflectionClass(Class);
+            if (reflectionClass && reflectionClass.isInterface) {
                 interfaces.push(Class);
             } else {
                 const definition = __jymfony.unserialize(serializedPrototype);
@@ -82,8 +82,10 @@ export default class FileLoader extends BaseFileLoader {
                     continue;
                 }
 
-                for (const IF of reflectionClass.interfaces) {
-                    singlyImplemented[IF.name] = undefined !== singlyImplemented[IF] ? false : Class;
+                if (reflectionClass) {
+                    for (const IF of reflectionClass.interfaces) {
+                        singlyImplemented[IF.name] = undefined !== singlyImplemented[IF] ? false : Class;
+                    }
                 }
             }
         }
@@ -189,7 +191,8 @@ export default class FileLoader extends BaseFileLoader {
 
             // Check to make sure the expected class exists
             if (! r) {
-                throw new InvalidArgumentException(__jymfony.sprintf('Expected to find class "%s" in file "%s" while importing services from resource "%s", but it was not found! Check the namespace prefix used with the resource.', Class, path, pattern));
+                classes[Class] = __jymfony.sprintf('Expected to find class "%s" in file "%s" while importing services from resource "%s", but it was not found! Check the namespace prefix used with the resource.', Class, path, pattern);
+                continue;
             }
 
             if (! r.isTrait) {
