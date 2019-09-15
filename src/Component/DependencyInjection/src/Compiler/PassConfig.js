@@ -78,6 +78,7 @@ export default class PassConfig {
                     new Compiler.AnalyzeServiceReferencesPass(),
                     new Compiler.RemoveUnusedDefinitionsPass(),
                 ]),
+                new Compiler.DefinitionErrorExceptionPass(),
                 new Compiler.CheckExceptionOnInvalidReferenceBehaviorPass(),
             ],
         };

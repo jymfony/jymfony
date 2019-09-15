@@ -95,7 +95,7 @@ export default class InlineServiceDefinitionsPass extends mix(AbstractRecursiveP
      * @private
      */
     _isInlineableDefinition(id, definition, graph) {
-        if (definition.isDeprecated() || definition.isLazy() || definition.isSynthetic()) {
+        if (definition.hasErrors() || definition.isDeprecated() || definition.isLazy() || definition.isSynthetic()) {
             return false;
         }
 

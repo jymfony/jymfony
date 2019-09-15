@@ -144,6 +144,13 @@ export default class Definition {
          */
         this._changes = {};
 
+        /**
+         * @type {(string|Function|*)[]}
+         *
+         * @private
+         */
+        this._errors = [];
+
         if (undefined !== class_) {
             this.setClass(class_);
         }
@@ -849,5 +856,49 @@ export default class Definition {
      */
     getShutdownCalls() {
         return __jymfony.deepClone(this._shutdown);
+    }
+
+    /**
+     * Add an error that occurred when building this Definition.
+     *
+     * @param {string|Function|Jymfony.Component.DependencyInjection.Definition} error
+     *
+     * @returns {Jymfony.Component.DependencyInjection.Definition}
+     */
+    addError(error) {
+        if (error instanceof __self) {
+            this._errors.push(...error._errors);
+        } else {
+            this._errors.push(error);
+        }
+
+        return this;
+    }
+
+    /**
+     * Returns any errors that occurred while building this Definition.
+     *
+     * @returns {string[]}
+     */
+    getErrors() {
+        for (const i in this._errors) {
+            const error = this._errors[i];
+            if (isFunction(error)) {
+                this._errors[i] = String(error());
+            } else if (! isString(error)) {
+                this._errors[i] = String(error);
+            }
+        }
+
+        return this._errors;
+    }
+
+    /**
+     * Whether this definition has an error.
+     *
+     * @returns {boolean}
+     */
+    hasErrors() {
+        return !! this._errors.length;
     }
 }

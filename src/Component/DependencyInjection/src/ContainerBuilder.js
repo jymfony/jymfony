@@ -474,6 +474,11 @@ export default class ContainerBuilder extends Container {
         }
 
         this._loading[id] = true;
+
+        if (definition.hasErrors()) {
+            throw new RuntimeException(definition.getErrors()[0]);
+        }
+
         try {
             service = this._createService(definition, id);
         } finally {
