@@ -19,6 +19,7 @@ declare namespace Jymfony.Component.DependencyInjection {
         private _decoratedService: any;
         private _shutdown: [string, any[]];
         private _changes: any;
+        private _errors: (string | Invokable | any)[];
 
         /**
          * Constructor.
@@ -296,5 +297,20 @@ declare namespace Jymfony.Component.DependencyInjection {
          * Gets the methods to call at shutdown.
          */
         getShutdownCalls(): [string, any[]][];
+
+        /**
+         * Add an error that occurred when building this Definition.
+         */
+        addError(error: string | Invokable | Definition): this;
+
+        /**
+         * Returns any errors that occurred while building this Definition.
+         */
+        getErrors(): string[];
+
+        /**
+         * Whether this definition has an error.
+         */
+        hasErrors(): boolean;
     }
 }
