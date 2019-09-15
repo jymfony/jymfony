@@ -5,7 +5,7 @@ const { expect } = require('chai');
 describe('[Config] GlobResource', function () {
     it('should iterate with pattern', () => {
         const resolved = [ ...__dirname.split(path.sep).slice(0, -2), 'fixtures', 'Iterator' ].join(path.sep);
-        const itr = new GlobResource(resolved, '/**/*.txt');
+        const itr = new GlobResource(resolved, '/**/*.txt', true);
         const result = [];
 
         for (const file of itr) {

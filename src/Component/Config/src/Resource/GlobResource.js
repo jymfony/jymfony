@@ -125,7 +125,7 @@ export default class GlobResource extends implementationOf(SelfCheckingResourceI
                 let dirPath;
 
                 do {
-                    dirPath = normalizedPath;
+                    dirPath = normalize(normalizedPath);
                     if (this._excludedPrefixes.includes(dirPath)) {
                         continue recursive;
                     }
