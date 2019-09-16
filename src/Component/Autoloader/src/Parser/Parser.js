@@ -601,7 +601,10 @@ class Parser extends implementationOf(ExpressionParserTrait) {
             }
 
             case 'continue': {
-                this._next();
+                this._next(false);
+                if (this._lexer.isToken(Lexer.T_SPACE) && ! Parser._includesLineTerminator(this._lexer.token.value)) {
+                    this._skipSpaces();
+                }
 
                 let label = null;
                 if (this._lexer.isToken(Lexer.T_IDENTIFIER)) {
