@@ -1,0 +1,6 @@
+{
+    "_static": {
+        "resource": "routing.json",
+        "controller": "FrameworkBundle:Template:template"
+    }
+}

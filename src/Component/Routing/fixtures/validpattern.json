@@ -1,0 +1,27 @@
+{
+    "blog_show": {
+        "path": "/blog/{slug}",
+        "defaults": {
+            "_controller": "MyBundle:Blog:show"
+        },
+        "host": "{locale}.example.com",
+        "requirements": {
+            "locale": "\\w+"
+        },
+        "methods": [
+            "GET",
+            "POST",
+            "put",
+            "OpTiOnS"
+        ],
+        "schemes": [
+            "https"
+        ],
+        "options": {
+            "compiler_class": "RouteCompiler"
+        }
+    },
+    "blog_show_inherited": {
+        "path": "/blog/{slug}"
+    }
+}

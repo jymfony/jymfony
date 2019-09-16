@@ -1,0 +1,9 @@
+{
+    "imported": {
+        "controller": "ImportedController::someAction",
+        "path": {
+            "nl": "/voorbeeld",
+            "en": "/example"
+        }
+    }
+}

@@ -49,7 +49,7 @@ declare namespace __jymfony {
     /**
      * Clones an object.
      */
-    export function clone(object: Object): Object;
+    export function clone<T extends object = any>(object: T): T;
 
     /**
      * Recursively clones an object and all its arrays/literal objects.

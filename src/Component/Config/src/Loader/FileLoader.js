@@ -93,7 +93,7 @@ export default class FileLoader extends Loader {
                 isSubpath = true;
             }
             if (isSubpath) {
-                return ret[1] || ret[0];
+                return ret[1] ? ret : ret[0];
             }
         }
 
