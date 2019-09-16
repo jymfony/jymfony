@@ -104,6 +104,7 @@ export default class AwsLambdaHandler extends RequestHandler {
                 headers: {
                     'Content-type': 'text/plain',
                 },
+                body: e.message,
             };
 
             if (e instanceof BadRequestException) {
@@ -171,7 +172,7 @@ export default class AwsLambdaHandler extends RequestHandler {
             return [ {}, undefined ];
         }
 
-        const body = request.isBase64Encoded ? atob(request.body) : request.body;
+        const body = request.body && request.isBase64Encoded ? Buffer.from(request.body, 'base64') : (request.body || '');
         headers['content-length'] = headers['content-length'] || body.length;
 
         const stream = new Readable();
