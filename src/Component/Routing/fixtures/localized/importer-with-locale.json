@@ -1,0 +1,10 @@
+{
+    "i_need": {
+        "resource": "./imported-with-locale.json",
+        "prefix": {
+            "nl": "/nl",
+            "en": "/en"
+        }
+    }
+}
+

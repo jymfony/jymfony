@@ -1,0 +1,6 @@
+{
+    "blog_show": {
+        "resource": "validpattern.yaml",
+        "path":     "/test"
+    }
+}

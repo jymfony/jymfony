@@ -73,7 +73,7 @@ export default class Route {
          *
          * @private
          */
-        this. _defaults = {};
+        this._defaults = {};
 
         /**
          * @type {Object.<string, RegExp>}
@@ -92,6 +92,18 @@ export default class Route {
             .setCondition(condition)
             .setRequirements(requirements)
         ;
+    }
+
+    /**
+     * Reset after clone.
+     */
+    __clone() {
+        this._compiled = undefined;
+        this._schemes = this._schemes ? [ ...this._schemes ] : undefined;
+        this._methods = this._methods ? [ ...this._methods ] : undefined;
+        this._options = this._options ? { ...this._options } : undefined;
+        this._defaults = { ...this._defaults };
+        this._requirements = { ...this._requirements };
     }
 
     /**

@@ -1,0 +1,5 @@
+defaults:
+  resource: imported-with-defaults.yaml
+  prefix: /defaults
+  locale: g_locale
+  format: g_format

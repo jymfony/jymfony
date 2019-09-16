@@ -1,0 +1,10 @@
+{
+    "app": {
+        "resource": "../controller/routing.json"
+    },
+    "api": {
+        "resource": "../controller/routing.json",
+        "name_prefix": "api_",
+        "prefix": "/api"
+    }
+}
