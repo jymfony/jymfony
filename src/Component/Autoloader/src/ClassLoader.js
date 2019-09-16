@@ -262,6 +262,7 @@ class ClassLoader {
         };
 
         this._vm.runInThisContext(this.getCode(fn).code, opts)(module.exports, req, module, fn, dirname, self);
+        require.cache[fn] = module;
 
         return _cache[fn] = module.exports;
     }
