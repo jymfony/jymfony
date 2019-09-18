@@ -40,7 +40,13 @@ global.mixins = {
  */
 global.mix = function mix(superclass, ...mixins) {
     superclass = superclass || __jymfony.JObject || class {};
-    superclass = mixins.reduce((a, b) => b(a), superclass);
+    superclass = mixins.reduce((a, b) => {
+        if (! isFunction(b)) {
+            throw new LogicException(__jymfony.sprintf('Cannot implement/use %s as interface/trait. You probably passed a broken reference to mix/implementationOf.', typeof b));
+        }
+
+        return b(a);
+    }, superclass);
 
     const interfaces = Array.from((function * () {
         for (const i of mixins) {
