@@ -114,7 +114,7 @@ export default class InlineServiceDefinitionsPass extends AbstractRecursivePass 
                         analyzedContainer.removeDefinition(id);
                     }
                 }
-            } while (Object.keys(this._inlinedIds).length > 0 && null !== this._analyzingPass);
+            } while (0 < Object.keys(this._inlinedIds).length && null !== this._analyzingPass);
 
             for (const id of Object.values(remainingInlinedIds)) {
                 const definition = container.getDefinition(id);

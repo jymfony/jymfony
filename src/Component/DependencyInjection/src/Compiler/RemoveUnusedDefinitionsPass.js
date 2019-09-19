@@ -38,7 +38,7 @@ export default class RemoveUnusedDefinitionsPass extends AbstractRecursivePass {
                 }
             }
 
-            while (this._connectedIds.length > 0) {
+            while (0 < this._connectedIds.length) {
                 const ids = [ ...this._connectedIds ];
                 this._connectedIds = [];
                 for (const id of ids) {
@@ -49,7 +49,7 @@ export default class RemoveUnusedDefinitionsPass extends AbstractRecursivePass {
                 }
             }
 
-            for (const [ id, definition ] of __jymfony.getEntries(container.getDefinitions())) {
+            for (const id of Object.keys(container.getDefinitions())) {
                 if (! connectedIds.has(id)) {
                     container.removeDefinition(id);
                     compiler.addLogMessage(compiler.logFormatter.formatRemoveService(this, id, 'unused'));

@@ -22,6 +22,7 @@
 /// <reference path="Compiler/PassConfig.d.ts" />
 /// <reference path="Compiler/PriorityTaggedServiceTrait.d.ts" />
 /// <reference path="Compiler/ReplaceAliasByActualDefinitionPass.d.ts" />
+/// <reference path="Compiler/RemoveUnusedDefinitionsPass.d.ts" />
 /// <reference path="Compiler/ResolveChildDefinitionsPass.d.ts" />
 /// <reference path="Compiler/ResolveInstanceofConditionalPass.d.ts" />
 /// <reference path="Compiler/ResolveClassPass.d.ts" />
