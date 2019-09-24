@@ -151,12 +151,16 @@ class ClassLoader {
      */
     getCode(fn) {
         if (codeCache[fn]) {
-            return codeCache[fn];
+            const cached = codeCache[fn];
+            Object.assign(this._descriptorStorage._storage, cached.decorators);
+
+            return cached;
         }
 
         let code = stripBOM(this._finder.load(fn)), program = null;
         const sourceMapGenerator = new Generator({ file: fn });
         const descriptorStorage = this._descriptorStorage;
+        const decorators = {};
 
         try {
             this._descriptorStorage = this._descriptorStorage.setFile(fn);
@@ -192,12 +196,14 @@ class ClassLoader {
                 console.warn('Syntax error while parsing ' + fn + ': ' + err.message);
             }
         } finally {
+            Object.assign(decorators, this._descriptorStorage._storage);
             this._descriptorStorage = descriptorStorage;
         }
 
         return codeCache[fn] = {
             code,
             program,
+            decorators,
         };
     }
 

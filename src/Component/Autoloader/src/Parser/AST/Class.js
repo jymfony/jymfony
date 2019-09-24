@@ -317,13 +317,11 @@ class Class extends implementationOf(NodeInterface) {
      * @returns {Jymfony.Component.Autoloader.Parser.AST.StatementInterface[]}
      */
     compileDecorators(compiler, id) {
-        if (null === this.decorators || 0 === this.decorators.length) {
-            return [];
-        }
-
         const tail = [];
-        for (const decorator of this.decorators) {
-            tail.push(...decorator.compile(compiler, this, [ id, new NullLiteral(null) ]));
+        if (null !== this.decorators && 0 !== this.decorators.length) {
+            for (const decorator of this.decorators) {
+                tail.push(...decorator.compile(compiler, this, [ id, new NullLiteral(null) ]));
+            }
         }
 
         for (const member of this._body.members) {

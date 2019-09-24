@@ -783,7 +783,7 @@ class Parser extends implementationOf(ExpressionParserTrait) {
                                 if (! this._lexer.isToken(Lexer.T_COMMA)) {
                                     this._expect(Lexer.T_CURLY_BRACKET_CLOSE);
                                 } else {
-                                    this._next();
+                                    this._next(true, true);
                                 }
                             }
                         } else {
@@ -1467,10 +1467,7 @@ class Parser extends implementationOf(ExpressionParserTrait) {
                     this._syntaxError('Unexpected "' + this._lexer.token.value + '"');
             }
         } catch (e) {
-            if (e instanceof RescanException) {
-                skipStatementTermination = true;
-            }
-
+            skipStatementTermination = true;
             throw e;
         } finally {
             this._level--;

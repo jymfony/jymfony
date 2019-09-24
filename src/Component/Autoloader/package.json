@@ -22,6 +22,7 @@
     "@jymfony/util": "https://github.com/jymfony/util.git"
   },
   "devDependencies": {
+    "@jymfony/decorators": "https://github.com/jymfony/decorators.git",
     "chai": "^4.2",
     "mocha": "^6.0",
     "test262-parser-tests": "git+https://github.com/tc39/test262-parser-tests.git"
