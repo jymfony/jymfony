@@ -7,7 +7,7 @@ const Reference = Jymfony.Component.DependencyInjection.Reference;
 /**
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
  */
-export default class ResolveClassPass extends AbstractRecursivePass {
+export default class ResolveInjectDecoratorPass extends AbstractRecursivePass {
     /**
      * @inheritdoc
      */

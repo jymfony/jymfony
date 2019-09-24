@@ -33,7 +33,7 @@ export default class ContainerBuilder extends Container {
         super.__construct(parameterBag);
 
         /**
-         * @type {Object.<string, Jymfony.Component.DependencyInjection.ExtensionInterface>}
+         * @type {Object.<string, Jymfony.Component.DependencyInjection.Extension.ExtensionInterface>}
          *
          * @private
          */
@@ -75,7 +75,7 @@ export default class ContainerBuilder extends Container {
         this._trackResources = true;
 
         /**
-         * @type {Jymfony.Component.DependencyInjection.Compiler}
+         * @type {Jymfony.Component.DependencyInjection.Compiler.Compiler}
          *
          * @private
          */
