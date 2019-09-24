@@ -43,6 +43,7 @@ export default class PassConfig {
                 new Compiler.ServiceLocatorTagPass(),
                 new Compiler.RegisterServiceSubscribersPass(),
                 new Compiler.DecoratorServicePass(),
+                new Compiler.ResolveInjectDecoratorPass(),
                 new Compiler.ResolveParameterPlaceHoldersPass(),
                 new Compiler.CheckDefinitionValidityPass(),
                 new Compiler.ResolveTaggedIteratorArgumentPass(),

@@ -25,6 +25,7 @@
     "@jymfony/util": "https://github.com/jymfony/util.git"
   },
   "devDependencies": {
+    "@jymfony/decorators": "https://github.com/jymfony/decorators.git",
     "@jymfony/debug": "https://github.com/jymfony/debug.git",
     "@jymfony/yaml": "https://github.com/jymfony/yaml.git",
     "chai": "^4.2",
