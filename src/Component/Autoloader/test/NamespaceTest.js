@@ -12,7 +12,7 @@ const ClassNotFoundException = require('../src/Exception/ClassNotFoundException'
 
 describe('[Autoloader] Namespace', function () {
     afterEach(() => {
-        ClassLoader.clearCache('/var/node/foo_vendor');
+        ClassLoader.clearCache(__jymfony.Platform.isWindows() ? 'C:\\var\\node\\foo_vendor\\' : '/var/node/foo_vendor');
     });
 
     it('constructs as a Proxy', () => {

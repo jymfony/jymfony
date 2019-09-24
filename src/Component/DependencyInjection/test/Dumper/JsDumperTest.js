@@ -231,12 +231,12 @@ module.exports = new ContainerkHWy2bx({
         expect(() => dumper.dump()).to.throw(/Unable to dump a service container if a parameter is a function/);
     });
 
-    it('should load inject and parameter annotations', () => {
+    it('should load inject and parameter annotations', __jymfony.Platform.hasPublicFieldSupport() ? () => {
         const container = require(path.join(fixturesPath, 'containers', 'annotated-container.js'));
         container.compile();
 
         const dumper = new JsDumper(container);
         expect(dumper.dump({ build_time: 1536621245 })['Container9d159V4/ProjectContainer.js'])
             .to.be.equal(fs.readFileSync(path.join(fixturesPath, 'js', 'annotated-services.js')).toString());
-    });
+    } : undefined);
 });

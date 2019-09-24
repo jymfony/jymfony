@@ -4,6 +4,7 @@ try {
     require('../../../util');
 }
 
+const { normalize } = require('path');
 let Compiler;
 let Parser;
 let AST;
@@ -110,7 +111,7 @@ class ClassLoader {
             codeCache = new Storage();
             _cache = new Storage();
         } else {
-            prefix = new RegExp('^' + __jymfony.regex_quote(prefix));
+            prefix = new RegExp('^' + __jymfony.regex_quote(normalize(prefix)));
             for (const fn of Object.keys(_cache)) {
                 if (! fn.match(prefix)) {
                     continue;
