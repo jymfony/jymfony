@@ -105,9 +105,21 @@ class ClassLoader {
     /**
      * Clears the code/compiler cache.
      */
-    static clearCache() {
-        codeCache = new Storage();
-        _cache = new Storage();
+    static clearCache(prefix = null) {
+        if (null === prefix) {
+            codeCache = new Storage();
+            _cache = new Storage();
+        } else {
+            prefix = new RegExp('^' + __jymfony.regex_quote(prefix));
+            for (const fn of Object.keys(_cache)) {
+                if (! fn.match(prefix)) {
+                    continue;
+                }
+
+                delete _cache[fn];
+                delete codeCache[fn];
+            }
+        }
     }
 
     /**

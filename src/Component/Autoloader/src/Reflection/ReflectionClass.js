@@ -506,8 +506,13 @@ class ReflectionClass {
         this._filename = metadata.filename;
         this._module = metadata.module;
         this._constructor = this._isInterface ? value : metadata.constructor;
-        this._fields = metadata.fields;
-        this._staticFields = metadata.staticFields;
+        if (metadata.fields) {
+            this._fields = metadata.fields;
+        }
+
+        if (metadata.staticFields) {
+            this._staticFields = metadata.staticFields;
+        }
 
         this._loadProperties();
         this._loadStatics();
