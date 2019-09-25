@@ -95,6 +95,9 @@ export default class SecurityExtension extends Extension {
             loader.load('console.js');
             container.getDefinition('security.command.user_password_encoder').replaceArgument(1, Object.keys(config.encoders));
         }
+
+        container.registerForAutoconfiguration('Jymfony.Component.Security.Authorization.Voter.VoterInterface')
+            .addTag('security.voter')
     }
 
     /**
