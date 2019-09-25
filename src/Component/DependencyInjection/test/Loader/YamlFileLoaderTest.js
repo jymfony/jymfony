@@ -1,5 +1,6 @@
 const path = require('path');
 const { expect } = require('chai');
+require('../../fixtures/namespace');
 
 const FileLocator = Jymfony.Component.Config.FileLocator;
 const LoaderResolver = Jymfony.Component.Config.Loader.LoaderResolver;
@@ -408,6 +409,16 @@ describe('[DependencyInjection] YamlFileLoader', function () {
             );
     });
 
+    it ('should throw if autoconfigure is set on ChildDefinition', () => {
+        const container = new ContainerBuilder();
+        const loader = new YamlFileLoader(container, new FileLocator(fixturesPath + '/yaml'));
+
+        expect(() => loader.load('services_autoconfigure_with_parent.yml')).to.throw(
+            InvalidArgumentException,
+            /The service "child_service" cannot have a "parent" and also have "autoconfigure"\. Try setting "autoconfigure: false" for the service\./
+        );
+    });
+
     it ('should throw if defaults and parent are used in the same file', () =>{
         const container = new ContainerBuilder();
         const loader = new YamlFileLoader(container, new FileLocator(fixturesPath + '/yaml'));
@@ -539,6 +550,15 @@ describe('[DependencyInjection] YamlFileLoader', function () {
             InvalidArgumentException,
             /Using an anonymous service in a parameter is not allowed in ".+anonymous_services_in_parameters\.yml"\./
         );
+    });
+
+    it ('should auto configure services', () => {
+        const container = new ContainerBuilder();
+        const loader = new YamlFileLoader(container, new FileLocator(fixturesPath + '/yaml'));
+        loader.load('services_autoconfigure.yml');
+
+        expect(container.getDefinition('use_defaults_settings').isAutoconfigured()).to.be.true;
+        expect(container.getDefinition('override_defaults_settings_to_false').isAutoconfigured()).to.be.false;
     });
 
     it ('should throw if defaults is null', () => {

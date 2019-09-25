@@ -38,5 +38,10 @@ declare namespace Jymfony.Component.DependencyInjection {
          * @inheritdoc
          */
         setInstanceofConditionals(instanceOf: Record<string, ChildDefinition>): never;
+
+        /**
+         * @inheritdoc
+         */
+        setAutoconfigured(autoconfigured:boolean): never;
     }
 }

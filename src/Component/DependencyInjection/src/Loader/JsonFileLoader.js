@@ -30,6 +30,7 @@ const serviceKeywords = {
     'decoration_inner_name': 'decoration_inner_name',
     'decoration_priority': 'decoration_priority',
     'shutdown_calls': 'shutdown_calls',
+    'autoconfigure': 'autoconfigure',
 };
 
 const prototypeKeywords = {
@@ -49,6 +50,7 @@ const prototypeKeywords = {
     'calls': 'calls',
     'tags': 'tags',
     'shutdown_calls': 'shutdown_calls',
+    'autoconfigure': 'autoconfigure',
 };
 
 const instanceofKeywords = {
@@ -65,6 +67,7 @@ const instanceofKeywords = {
 const defaultsKeywords = {
     'public': 'public',
     'tags': 'tags',
+    'autoconfigure': 'autoconfigure',
 };
 
 /**
@@ -381,8 +384,12 @@ export default class JsonFileLoader extends FileLoader {
         } else {
             definition = new Definition();
 
-            if (defaults.public) {
+            if (undefined !== defaults.public) {
                 definition.setPublic(defaults.public);
+            }
+
+            if (undefined !== defaults.autoconfigure) {
+                definition.setAutoconfigured(defaults.autoconfigure);
             }
 
             definition.setChanges({});
@@ -521,6 +528,14 @@ export default class JsonFileLoader extends FileLoader {
             const renameId = service.decoration_inner_name || null;
             const priority = service.decoration_priority || 0;
             definition.setDecoratedService(service.decorates, renameId, priority);
+        }
+
+        if (undefined !== service.autoconfigure) {
+            if (! (definition instanceof ChildDefinition)) {
+                definition.setAutoconfigured(service.autoconfigure);
+            } else if (service.autoconfigure) {
+                throw new InvalidArgumentException(__jymfony.sprintf('The service "%s" cannot have a "parent" and also have "autoconfigure". Try setting "autoconfigure: false" for the service.', id));
+            }
         }
 
         if (undefined !== service.namespace && undefined === service.resource) {

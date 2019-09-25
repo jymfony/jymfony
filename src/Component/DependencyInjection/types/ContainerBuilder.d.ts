@@ -15,6 +15,7 @@ declare namespace Jymfony.Component.DependencyInjection {
         private _resources: ResourceInterface[];
         private _trackResources: boolean;
         private _compiler: Compiler;
+        private _autoconfiguredInstanceof: Record<string, ChildDefinition>;
 
         constructor(parameterBag?: ParameterBag);
         __construct(parameterBag?: ParameterBag);
@@ -263,6 +264,16 @@ declare namespace Jymfony.Component.DependencyInjection {
          * Returns all the defined tags.
          */
         findTags(): string[];
+
+        /**
+         * Returns a ChildDefinition that will be used for autoconfiguring the interface/class.
+         */
+        registerForAutoconfiguration(IF: Newable<any> | string): ChildDefinition;
+
+        /**
+         * Returns a map of ChildDefinition keyed by interface.
+         */
+        getAutoconfiguredInstanceof(): Record<string, ChildDefinition>;
 
         /**
          * @final

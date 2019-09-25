@@ -11,6 +11,7 @@ const RewindableGenerator = Jymfony.Component.DependencyInjection.Argument.Rewin
 const ServiceClosureArgument = Jymfony.Component.DependencyInjection.Argument.ServiceClosureArgument;
 const ServiceLocator = Jymfony.Component.DependencyInjection.Argument.ServiceLocator;
 const ServiceLocatorArgument = Jymfony.Component.DependencyInjection.Argument.ServiceLocatorArgument;
+const ChildDefinition = Jymfony.Component.DependencyInjection.ChildDefinition;
 const Compiler = Jymfony.Component.DependencyInjection.Compiler.Compiler;
 const PassConfig = Jymfony.Component.DependencyInjection.Compiler.PassConfig;
 const Container = Jymfony.Component.DependencyInjection.Container;
@@ -80,6 +81,13 @@ export default class ContainerBuilder extends Container {
          * @private
          */
         this._compiler = undefined;
+
+        /**
+         * @type {Object.<string, Jymfony.Component.DependencyInjection.ChildDefinition>}
+         *
+         * @private
+         */
+        this._autoconfiguredInstanceof = {};
 
         this.setDefinition(
             'service_container',
@@ -515,6 +523,14 @@ export default class ContainerBuilder extends Container {
 
             this._extensionConfigs[name].push(container.getExtensionConfig(name));
         }
+
+        for (const [IF, childDefinition] of __jymfony.getEntries(container._autoconfiguredInstanceof)) {
+            if (undefined !== this._autoconfiguredInstanceof[IF]) {
+                throw new InvalidArgumentException(__jymfony.sprintf('"%s" has already been autoconfigured and merge() does not support merging autoconfiguration for the same class/interface.', IF));
+            }
+
+            this._autoconfiguredInstanceof[IF] = childDefinition;
+        }
     }
 
     /**
@@ -921,6 +937,31 @@ export default class ContainerBuilder extends Container {
         }
 
         return Array.from(tags);
+    }
+
+    /**
+     * Returns a ChildDefinition that will be used for autoconfiguring the interface/class.
+     *
+     * @param {string} IF The class or interface to match
+     *
+     * @returns {Jymfony.Component.DependencyInjection.ChildDefinition}
+     */
+    registerForAutoconfiguration(IF) {
+        IF = ReflectionClass.getClassName(IF);
+        if (undefined === this._autoconfiguredInstanceof[IF]) {
+            this._autoconfiguredInstanceof[IF] = new ChildDefinition('');
+        }
+
+        return this._autoconfiguredInstanceof[IF];
+    }
+
+    /**
+     * Returns a map of ChildDefinition keyed by interface.
+     *
+     * @returns {Object.<string, Jymfony.Component.DependencyInjection.ChildDefinition>}
+     */
+    getAutoconfiguredInstanceof() {
+        return { ...this._autoconfiguredInstanceof };
     }
 
     /**

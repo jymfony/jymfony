@@ -17,6 +17,7 @@ declare namespace Jymfony.Component.DependencyInjection {
         private _abstract: boolean;
         private _lazy: boolean;
         private _decoratedService: any;
+        private _autoconfigured: boolean;
         private _shutdown: [string, any[]];
         private _changes: any;
         private _errors: (string | Invokable | any)[];
@@ -141,6 +142,16 @@ declare namespace Jymfony.Component.DependencyInjection {
          * Gets the definition templates to conditionally apply on the current definition, keyed by parent interface/class.
          */
         getInstanceofConditionals(): Record<string, ChildDefinition>;
+
+        /**
+         * Sets whether or not instanceof conditionals should be prepended with a global set.
+         */
+        setAutoconfigured(autoconfigured: boolean): this;
+
+        /**
+         * Whether this service should be autoconfigured.
+         */
+        isAutoconfigured(): boolean;
 
         /**
          * Sets the service tags.
@@ -281,7 +292,7 @@ declare namespace Jymfony.Component.DependencyInjection {
         /**
          * Adds a method to call at shutdown.
          */
-        addShutdownCall(method: string, args: any[]): this;
+        addShutdownCall(method: string, args?: any[]): this;
 
         /**
          * Removes a method to call at container shutdown.

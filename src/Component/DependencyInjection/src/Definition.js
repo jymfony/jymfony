@@ -82,6 +82,13 @@ export default class Definition {
         this._instanceof = {};
 
         /**
+         * @type {boolean}
+         *
+         * @private
+         */
+        this._autoconfigured = false;
+
+        /**
          * @type {string|Array|Function|undefined}
          *
          * @private
@@ -475,6 +482,29 @@ export default class Definition {
      */
     getInstanceofConditionals() {
         return this._instanceof;
+    }
+
+    /**
+     * Sets whether or not instanceof conditionals should be prepended with a global set.
+     *
+     * @param {boolean} autoconfigured
+     *
+     * @returns {Jymfony.Component.DependencyInjection.Definition}
+     */
+    setAutoconfigured(autoconfigured) {
+        this._changes.autoconfigured = true;
+        this._autoconfigured = autoconfigured;
+
+        return this;
+    }
+
+    /**
+     * Whether this service should be autoconfigured.
+     *
+     * @returns {boolean}
+     */
+    isAutoconfigured() {
+        return this._autoconfigured;
     }
 
     /**

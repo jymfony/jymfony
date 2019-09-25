@@ -1,5 +1,7 @@
 const CompilerPassInterface = Jymfony.Component.DependencyInjection.Compiler.CompilerPassInterface;
 const ChildDefinition = Jymfony.Component.DependencyInjection.ChildDefinition;
+const InvalidArgumentException = Jymfony.Component.DependencyInjection.Exception.InvalidArgumentException;
+const RuntimeException = Jymfony.Component.DependencyInjection.Exception.RuntimeException;
 
 /**
  * Applies instanceof conditionals to definitions.
@@ -11,6 +13,12 @@ export default class ResolveInstanceofConditionalsPass extends implementationOf(
      * @inheritdoc
      */
     process(container) {
+        for (const [IF, definition] of __jymfony.getEntries(container.getAutoconfiguredInstanceof())) {
+            if (definition.getArguments().length > 0) {
+                throw new InvalidArgumentException(__jymfony.sprintf('Autoconfigured instanceof for type "%s" defines arguments but these are not supported and should be removed.', IF));
+            }
+        }
+
         for (const [ id, definition ] of __jymfony.getEntries(container.getDefinitions())) {
             if (definition instanceof ChildDefinition) {
                 // Don't apply "instanceof" to children: it will be applied to their parent
@@ -31,13 +39,17 @@ export default class ResolveInstanceofConditionalsPass extends implementationOf(
      */
     _processDefinition(container, id, definition) {
         const instanceOfConditionals = definition.getInstanceofConditionals();
+        const autoconfiguredInstanceof = definition.isAutoconfigured() ? container.getAutoconfiguredInstanceof() : {};
+        if (Object.keys(instanceOfConditionals).length === 0 && Object.keys(autoconfiguredInstanceof).length === 0) {
+            return definition;
+        }
 
         const Class = container.parameterBag.resolveValue(definition.getClass());
         if (! Class) {
             return definition;
         }
 
-        const conditionals = this._mergeConditionals(instanceOfConditionals, container);
+        const conditionals = this._mergeConditionals(autoconfiguredInstanceof, instanceOfConditionals, container);
 
         definition.setInstanceofConditionals({});
         let parent = null, shared = null;
@@ -71,8 +83,9 @@ export default class ResolveInstanceofConditionalsPass extends implementationOf(
                     instanceofShutdownCalls.push(methodCall);
                 }
 
-                instanceofDef.setTags([]);
+                instanceofDef.setTags({});
                 instanceofDef.setMethodCalls([]);
+                instanceofDef.setShutdownCalls([]);
 
                 if (undefined !== instanceofDef.getChanges().shared) {
                     shared = instanceofDef.isShared();
@@ -124,8 +137,11 @@ export default class ResolveInstanceofConditionalsPass extends implementationOf(
         return definition;
     }
 
-    _mergeConditionals(instanceofConditionals, container) {
+    _mergeConditionals(autoconfiguredInstanceOf, instanceofConditionals, container) {
         const conditionals = {};
+        for (const key of Object.keys(autoconfiguredInstanceOf)) {
+            conditionals[key] = [autoconfiguredInstanceOf[key]];
+        }
 
         // Make each value an array of ChildDefinition
         for (const [ superclass, instanceofDef ] of __jymfony.getEntries(instanceofConditionals)) {

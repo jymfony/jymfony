@@ -98,6 +98,13 @@ export default class ChildDefinition extends Definition {
     /**
      * @internal
      */
+    setAutoconfigured() {
+        throw new BadMethodCallException('A ChildDefinition cannot have instanceof conditionals set on it.');
+    }
+
+    /**
+     * @internal
+     */
     setInstanceofConditionals() {
         throw new BadMethodCallException('A ChildDefinition cannot have instanceof conditionals set on it.');
     }
