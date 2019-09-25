@@ -52,7 +52,8 @@
     "@jymfony/testing": "0.1.0-dev",
     "@jymfony/util": "0.1.0-dev",
     "@jymfony/var-dumper": "0.1.0-dev",
-    "@jymfony/var-exporter": "0.1.0-dev"
+    "@jymfony/var-exporter": "0.1.0-dev",
+    "@jymfony/yaml": "0.1.0-dev"
   },
   "flat": true
 }
