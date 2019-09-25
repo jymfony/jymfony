@@ -13,8 +13,8 @@ export default class ResolveInstanceofConditionalsPass extends implementationOf(
      * @inheritdoc
      */
     process(container) {
-        for (const [IF, definition] of __jymfony.getEntries(container.getAutoconfiguredInstanceof())) {
-            if (definition.getArguments().length > 0) {
+        for (const [ IF, definition ] of __jymfony.getEntries(container.getAutoconfiguredInstanceof())) {
+            if (0 < definition.getArguments().length) {
                 throw new InvalidArgumentException(__jymfony.sprintf('Autoconfigured instanceof for type "%s" defines arguments but these are not supported and should be removed.', IF));
             }
         }
@@ -40,7 +40,7 @@ export default class ResolveInstanceofConditionalsPass extends implementationOf(
     _processDefinition(container, id, definition) {
         const instanceOfConditionals = definition.getInstanceofConditionals();
         const autoconfiguredInstanceof = definition.isAutoconfigured() ? container.getAutoconfiguredInstanceof() : {};
-        if (Object.keys(instanceOfConditionals).length === 0 && Object.keys(autoconfiguredInstanceof).length === 0) {
+        if (0 === Object.keys(instanceOfConditionals).length && 0 === Object.keys(autoconfiguredInstanceof).length) {
             return definition;
         }
 
@@ -140,7 +140,7 @@ export default class ResolveInstanceofConditionalsPass extends implementationOf(
     _mergeConditionals(autoconfiguredInstanceOf, instanceofConditionals, container) {
         const conditionals = {};
         for (const key of Object.keys(autoconfiguredInstanceOf)) {
-            conditionals[key] = [autoconfiguredInstanceOf[key]];
+            conditionals[key] = [ autoconfiguredInstanceOf[key] ];
         }
 
         // Make each value an array of ChildDefinition

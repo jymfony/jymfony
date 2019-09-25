@@ -97,7 +97,7 @@ export default class SecurityExtension extends Extension {
         }
 
         container.registerForAutoconfiguration('Jymfony.Component.Security.Authorization.Voter.VoterInterface')
-            .addTag('security.voter')
+            .addTag('security.voter');
     }
 
     /**

@@ -25,7 +25,7 @@ describe('[DependencyInjection] Compiler.ResolveInstanceofConditionalsPass', fun
         expect(def.getInstanceofConditionals()).to.be.deep.eq({});
         expect(def).to.be.instanceOf(ChildDefinition);
         expect(def.getParent()).to.be.eq(parent);
-        expect(def.getTags()).to.be.deep.eq({ tag: [{}], baz: [{attr: 123}] });
+        expect(def.getTags()).to.be.deep.eq({ tag: [ {} ], baz: [ {attr: 123} ] });
 
         parent = container.getDefinition(parent);
         expect(parent.getProperties()).to.be.deep.eq({ foo: 'bar' });
@@ -37,7 +37,7 @@ describe('[DependencyInjection] Compiler.ResolveInstanceofConditionalsPass', fun
 
         let def = container
             .register('parent', Fixtures.Bar)
-            .addMethodCall('foo', ['foo']);
+            .addMethodCall('foo', [ 'foo' ]);
         def.setInstanceofConditionals({
             'Jymfony.Component.DependencyInjection.Fixtures.BarInterface': (new ChildDefinition('')).addMethodCall('foo', [ 'bar' ]),
         });
@@ -49,8 +49,8 @@ describe('[DependencyInjection] Compiler.ResolveInstanceofConditionalsPass', fun
         (new ResolveChildDefinitionsPass()).process(container);
 
         const expected = [
-            ['foo', ['bar']],
-            ['foo', ['foo']],
+            [ 'foo', [ 'bar' ] ],
+            [ 'foo', [ 'foo' ] ],
         ];
 
         expect(container.getDefinition('parent').getMethodCalls()).to.be.deep.eq(expected);
@@ -85,7 +85,7 @@ describe('[DependencyInjection] Compiler.ResolveInstanceofConditionalsPass', fun
 
         def = container.getDefinition('foo');
 
-        expect(def.getTags()).to.be.deep.eq({ foo_tag: [{}] });
+        expect(def.getTags()).to.be.deep.eq({ foo_tag: [ {} ] });
         expect(def.isLazy()).to.be.true;
         expect(def.isShared()).to.be.true;
     });
@@ -109,10 +109,10 @@ describe('[DependencyInjection] Compiler.ResolveInstanceofConditionalsPass', fun
         (new ResolveChildDefinitionsPass()).process(container);
 
         def = container.getDefinition('normal_service');
-        // factory from the specific instanceof overrides global one
+        // Factory from the specific instanceof overrides global one
         expect(def.getFactory()).to.be.eq('locally_set_factory');
-        // tags are merged, the locally set one is first
-        expect(def.getTags()).to.be.deep.eq({ local_instanceof_tag: [{}], autoconfigured_tag: [{}] });
+        // Tags are merged, the locally set one is first
+        expect(def.getTags()).to.be.deep.eq({ local_instanceof_tag: [ {} ], autoconfigured_tag: [ {} ] });
     });
 
     it ('autoconfiguration should not duplicate tags', () => {
@@ -135,7 +135,7 @@ describe('[DependencyInjection] Compiler.ResolveInstanceofConditionalsPass', fun
         (new ResolveChildDefinitionsPass()).process(container);
 
         def = container.getDefinition('normal_service');
-        expect(def.getTags()).to.be.deep.eq({ duplicated_tag: [{}, { and_attributes: 1 }] });
+        expect(def.getTags()).to.be.deep.eq({ duplicated_tag: [ {}, { and_attributes: 1 } ] });
     });
 
     it ('process should not use autoconfiguration if not enabled', () => {
@@ -183,19 +183,19 @@ describe('[DependencyInjection] Compiler.ResolveInstanceofConditionalsPass', fun
         const container = new ContainerBuilder();
 
         const expected = [
-            ['setFoo', [
+            [ 'setFoo', [
                 'plain_value',
                 '%some_parameter%',
-            ]],
-            ['callBar', []],
-            ['isBaz', []],
+            ] ],
+            [ 'callBar', [] ],
+            [ 'isBaz', [] ],
         ];
 
         container.registerForAutoconfiguration(Fixtures.Bar).addMethodCall('setFoo', expected[0][1]);
         container.registerForAutoconfiguration(Fixtures.ChildBar).addMethodCall('callBar');
 
         const def = container.register('foo', Fixtures.ChildBar).setAutoconfigured(true).addMethodCall('isBaz');
-        expect(def.getMethodCalls()).to.be.deep.eq([['isBaz', []]]);
+        expect(def.getMethodCalls()).to.be.deep.eq([ [ 'isBaz', [] ] ]);
 
         (new ResolveInstanceofConditionalsPass()).process(container);
 
@@ -255,6 +255,6 @@ describe('[DependencyInjection] Compiler.ResolveInstanceofConditionalsPass', fun
         (new ResolveInstanceofConditionalsPass()).process(container);
         (new ResolveChildDefinitionsPass()).process(container);
 
-        expect(container.getDefinition('decorator').getTags()).to.be.deep.eq({ manual: [{}] });
+        expect(container.getDefinition('decorator').getTags()).to.be.deep.eq({ manual: [ {} ] });
     });
 });

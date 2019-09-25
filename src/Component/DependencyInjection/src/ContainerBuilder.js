@@ -524,7 +524,7 @@ export default class ContainerBuilder extends Container {
             this._extensionConfigs[name].push(container.getExtensionConfig(name));
         }
 
-        for (const [IF, childDefinition] of __jymfony.getEntries(container._autoconfiguredInstanceof)) {
+        for (const [ IF, childDefinition ] of __jymfony.getEntries(container._autoconfiguredInstanceof)) {
             if (undefined !== this._autoconfiguredInstanceof[IF]) {
                 throw new InvalidArgumentException(__jymfony.sprintf('"%s" has already been autoconfigured and merge() does not support merging autoconfiguration for the same class/interface.', IF));
             }
