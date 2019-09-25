@@ -64,6 +64,17 @@ export default class FrameworkExtension extends Extension {
         this._registerDevServer(container, loader);
         this._registerMime(loader);
         this._registerTemplatingConfiguration(config.templating, container, loader);
+
+        container.registerForAutoconfiguration('Jymfony.Component.Console.Command.Command').addTag('console.command');
+        container.registerForAutoconfiguration('Jymfony.Component.DependencyInjection.ServiceLocator').addTag('container.service_locator');
+        container.registerForAutoconfiguration('Jymfony.Component.DependencyInjection.ServiceSubscriberInterface').addTag('container.service_subscriber');
+        container.registerForAutoconfiguration('Jymfony.Component.Kernel.CacheClearer.CacheClearerInterface').addTag('kernel.cache_clearer');
+        container.registerForAutoconfiguration('Jymfony.Component.Kernel.CacheClearer.CacheWarmerInterface').addTag('kernel.cache_warmer');
+        container.registerForAutoconfiguration('Jymfony.Contracts.EventDispatcher.EventSubscriberInterface').addTag('kernel.event_subscriber');
+
+        container.registerForAutoconfiguration('Jymfony.Component.Mime.MimeTypeGuesserInterface').addTag('mime.mime_type_guesser');
+        container.registerForAutoconfiguration('Jymfony.Component.Logger.LoggerAwareInterface')
+            .addMethodCall('setLogger', [ new Reference('logger') ]);
     }
 
     /**
