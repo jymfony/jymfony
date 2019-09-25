@@ -20,12 +20,12 @@
     "@jymfony/autoloader": "https://github.com/jymfony/autoloader.git",
     "@jymfony/config": "https://github.com/jymfony/config.git",
     "@jymfony/datastructure": "https://github.com/jymfony/data-structure.git",
+    "@jymfony/decorators": "https://github.com/jymfony/decorators.git",
     "@jymfony/exceptions": "https://github.com/jymfony/exceptions.git",
     "@jymfony/property-access": "https://github.com/jymfony/property-access.git",
     "@jymfony/util": "https://github.com/jymfony/util.git"
   },
   "devDependencies": {
-    "@jymfony/decorators": "https://github.com/jymfony/decorators.git",
     "@jymfony/debug": "https://github.com/jymfony/debug.git",
     "@jymfony/yaml": "https://github.com/jymfony/yaml.git",
     "chai": "^4.2",
