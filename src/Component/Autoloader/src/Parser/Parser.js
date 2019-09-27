@@ -823,7 +823,20 @@ class Parser extends implementationOf(ExpressionParserTrait) {
                     }
                 }
 
-                return new AST.ImportDeclaration(this._makeLocation(start), specifiers, source);
+                let optional = false;
+                flags_cycle: while (this._lexer.isToken(Lexer.T_KEYWORD) || this._lexer.isToken(Lexer.T_IDENTIFIER)) {
+                    switch (this._lexer.token.value) {
+                        case 'optional':
+                            optional = true;
+                            this._next();
+                            break;
+
+                        default:
+                            break flags_cycle;
+                    }
+                }
+
+                return new AST.ImportDeclaration(this._makeLocation(start), specifiers, source, optional);
             }
 
             case 'export': {

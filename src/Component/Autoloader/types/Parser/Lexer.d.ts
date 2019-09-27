@@ -143,6 +143,11 @@ declare namespace Jymfony.Component.Autoloader.Parser {
         isA(value: any, token: number): boolean;
 
         /**
+         * Checks if current token is of a given type.
+         */
+        isToken(token: int): boolean;
+
+        /**
          * Moves the lookahead token forward.
          *
          * @returns The next token or undefined if there are no more tokens ahead.

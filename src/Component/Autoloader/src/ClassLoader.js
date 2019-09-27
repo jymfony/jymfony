@@ -280,6 +280,14 @@ class ClassLoader {
             });
         };
 
+        req.optional = (id, asObject = false) => {
+            try {
+                return req(id);
+            } catch (e) {
+                return asObject ? {} : undefined;
+            }
+        };
+
         this._vm.runInThisContext(this.getCode(fn).code, opts)(module.exports, req, module, fn, dirname, self);
         require.cache[fn] = module;
 
