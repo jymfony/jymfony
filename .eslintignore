@@ -4,3 +4,6 @@ src/Component/DependencyInjection/fixtures
 src/Component/Templating/fixtures
 src/Component/VarExporter/fixtures
 src/**/*Interface.js
+
+src/Component/Cache/src/Traits/RedisTrait.js
+src/Component/DependencyInjection/src/Compiler/ResolveInjectDecoratorPass.js

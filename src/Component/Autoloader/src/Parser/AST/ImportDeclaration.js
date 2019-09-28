@@ -55,7 +55,7 @@ class ImportDeclaration extends implementationOf(ModuleDeclarationInterface) {
         const variableName = compiler.generateVariableName();
         compiler._emit('const ' + variableName + ' = require' + (this._optional ? '.optional(' : '('));
         compiler.compileNode(this._source);
-        if (this._optional && (this._specifiers.length > 1 || this._specifiers[0] instanceof ImportSpecifier)) {
+        if (this._optional && (1 < this._specifiers.length || this._specifiers[0] instanceof ImportSpecifier)) {
             compiler._emit(', true');
         }
         compiler._emit(');\n');
