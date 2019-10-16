@@ -123,12 +123,12 @@ declare class ReflectionClass<T = any> {
     /**
      * Get the Namespace object containing this class.
      */
-    readonly namespace: Jymfony.Component.Autoloader.Namespace;
+    readonly namespace: null|Jymfony.Component.Autoloader.Namespace;
 
     /**
      * Get the namespace name.
      */
-    readonly namespaceName: string;
+    readonly namespaceName: null|string;
 
     /**
      * Filename declaring this class.

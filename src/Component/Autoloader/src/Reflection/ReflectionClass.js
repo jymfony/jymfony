@@ -381,18 +381,22 @@ class ReflectionClass {
     /**
      * The Namespace object containing this class.
      *
-     * @returns {Jymfony.Component.Autoloader.Namespace}
+     * @returns {null|Jymfony.Component.Autoloader.Namespace}
      */
     get namespace() {
-        return this._namespace;
+        return this._namespace || null;
     }
 
     /**
      * The namespace name.
      *
-     * @returns {string}
+     * @returns {null|string}
      */
     get namespaceName() {
+        if (! this._namespace) {
+            return null;
+        }
+
         return this._namespace.name;
     }
 

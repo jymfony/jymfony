@@ -288,6 +288,7 @@ export default class Data {
 
             switch (item.type) {
                 case Stub.TYPE_STRING:
+                case Stub.TYPE_SYMBOL:
                     dumper.dumpString(cursor, item.value, cut);
                     break;
 
