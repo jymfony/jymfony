@@ -243,7 +243,7 @@ class Namespace {
             },
             construct: (target, argumentsList, newTarget) => {
                 const obj = Reflect.construct(target, argumentsList, newTarget);
-                if (obj instanceof __jymfony.JObject) {
+                if (__jymfony.autoload.debug && obj instanceof __jymfony.JObject) {
                     Reflect.preventExtensions(obj);
                 }
 
