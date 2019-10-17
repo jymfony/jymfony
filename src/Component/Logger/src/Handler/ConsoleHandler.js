@@ -1,5 +1,5 @@
 const ConsoleEvents = Jymfony.Component.Console.ConsoleEvents;
-const OutputInterface = Jymfony.Component.Console.Output.OutputInterface;
+const OutputInterface = Jymfony.Contracts.Console.OutputInterface;
 const ConsoleOutputInterface = Jymfony.Component.Console.Output.ConsoleOutputInterface;
 const EventSubscriberInterface = Jymfony.Contracts.EventDispatcher.EventSubscriberInterface;
 const ConsoleFormatter = Jymfony.Component.Logger.Formatter.ConsoleFormatter;
@@ -21,13 +21,18 @@ export default class ConsoleHandler extends mix(AbstractProcessingHandler, Event
     /**
      * Constructor.
      *
-     * @param {Jymfony.Component.Console.Output.OutputInterface} [output]
+     * @param {Jymfony.Contracts.Console.OutputInterface} [output]
      * @param {boolean} [bubble = true]
      * @param {Object} [verbosityLevelMap]
      */
     __construct(output = undefined, bubble = true, verbosityLevelMap = undefined) {
         super.__construct(LogLevel.DEBUG, bubble);
 
+        /**
+         * @type {Jymfony.Contracts.Console.OutputInterface}
+         *
+         * @private
+         */
         this._output = output;
         this._verbosityLevelMap = verbosityLevelMap || DEFAULT_VERBOSITY_MAP;
     }
@@ -59,7 +64,7 @@ export default class ConsoleHandler extends mix(AbstractProcessingHandler, Event
      * Before a command is executed, the handler gets activated and the console output
      * is set in order to know where to write the logs.
      *
-     * @param {Jymfony.Component.Console.Event.ConsoleCommandEvent} event
+     * @param {Jymfony.Contracts.Console.Event.ConsoleCommandEvent} event
      */
     onCommand(event) {
         let output = event.output;

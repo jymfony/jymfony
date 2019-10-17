@@ -1,8 +1,4 @@
-declare namespace Jymfony.Component.Console.Event {
-    import OutputInterface = Jymfony.Component.Console.Output.OutputInterface;
-    import InputInterface = Jymfony.Component.Console.Input.InputInterface;
-    import Command = Jymfony.Component.Console.Command.Command;
-
+declare namespace Jymfony.Contracts.Console.Event {
     /**
      * Allows to do things before the command is executed, like skipping the command or changing the input.
      */
@@ -25,8 +21,8 @@ declare namespace Jymfony.Component.Console.Event {
         /**
          * @inheritdoc
          */
-        __construct(command: Command | undefined, input: InputInterface, output: OutputInterface): void;
-        constructor(command: Command | undefined, input: InputInterface, output: OutputInterface);
+        __construct(command: CommandInterface | undefined, input: InputInterface, output: OutputInterface): void;
+        constructor(command: CommandInterface | undefined, input: InputInterface, output: OutputInterface);
 
         /**
          * Disables the command.

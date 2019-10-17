@@ -1,5 +1,5 @@
 declare namespace __jymfony {
-    import ConsoleCommandEvent = Jymfony.Component.Console.Event.ConsoleCommandEvent;
+    import ConsoleCommandEvent = Jymfony.Contracts.Console.Event.ConsoleCommandEvent;
     import GetResponseEvent = Jymfony.Component.HttpServer.Event.GetResponseEvent;
     import FinishRequestEvent = Jymfony.Component.HttpServer.Event.FinishRequestEvent;
 

@@ -1,17 +1,17 @@
-const ConsoleEvent = Jymfony.Component.Console.Event.ConsoleEvent;
+const ConsoleEvent = Jymfony.Contracts.Console.Event.ConsoleEvent;
 
 /**
  * Allows to manipulate the exit code of a command after its execution.
  *
- * @memberOf Jymfony.Component.Console.Event
+ * @memberOf Jymfony.Contracts.Console.Event
  */
 export default class ConsoleTerminateEvent extends ConsoleEvent {
     /**
      * Constructor.
      *
-     * @param {Jymfony.Component.Console.Command.Command} [command]
-     * @param {Jymfony.Component.Console.Input.InputInterface} input
-     * @param {Jymfony.Component.Console.Output.OutputInterface} output
+     * @param {Jymfony.Contracts.Console.CommandInterface} [command]
+     * @param {Jymfony.Contracts.Console.InputInterface} input
+     * @param {Jymfony.Contracts.Console.OutputInterface} output
      * @param {int} exitCode
      */
     __construct(command, input, output, exitCode) {

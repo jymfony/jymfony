@@ -1,9 +1,9 @@
-const ConsoleEvent = Jymfony.Component.Console.Event.ConsoleEvent;
+const ConsoleEvent = Jymfony.Contracts.Console.Event.ConsoleEvent;
 
 /**
  * Allows to do things before the command is executed, like skipping the command or changing the input.
  *
- * @memberOf Jymfony.Component.Console.Event
+ * @memberOf Jymfony.Contracts.Console.Event
  */
 export default class ConsoleCommandEvent extends ConsoleEvent {
     /**

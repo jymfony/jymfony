@@ -1,7 +1,7 @@
 declare namespace Jymfony.Component.HttpServer.Command {
     import Command = Jymfony.Component.Console.Command.Command;
-    import InputInterface = Jymfony.Component.Console.Input.InputInterface;
-    import OutputInterface = Jymfony.Component.Console.Output.OutputInterface;
+    import InputInterface = Jymfony.Contracts.Console.InputInterface;
+    import OutputInterface = Jymfony.Contracts.Console.OutputInterface;
 
     export class HttpServerRunCommand extends Command {
         /**

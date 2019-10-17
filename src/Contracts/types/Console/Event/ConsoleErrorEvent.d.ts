@@ -1,8 +1,4 @@
-declare namespace Jymfony.Component.Console.Event {
-    import OutputInterface = Jymfony.Component.Console.Output.OutputInterface;
-    import InputInterface = Jymfony.Component.Console.Input.InputInterface;
-    import Command = Jymfony.Component.Console.Command.Command;
-
+declare namespace Jymfony.Contracts.Console.Event {
     /**
      * Allows to handle throwables thrown while running a command.
      */
@@ -32,7 +28,7 @@ declare namespace Jymfony.Component.Console.Event {
          * Constructor.
          */
         // @ts-ignore
-        __construct(input: InputInterface, output: OutputInterface, error: Error, command: Command | undefined): void;
-        constructor(input: InputInterface, output: OutputInterface, error: Error, command: Command | undefined);
+        __construct(input: InputInterface, output: OutputInterface, error: Error, command: CommandInterface | undefined): void;
+        constructor(input: InputInterface, output: OutputInterface, error: Error, command: CommandInterface | undefined);
     }
 }

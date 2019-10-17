@@ -1,8 +1,8 @@
 declare namespace Jymfony.Component.DevServer.Command {
     import Command = Jymfony.Component.Console.Command.Command;
     import DevServer = Jymfony.Component.DevServer.DevServer;
-    import InputInterface = Jymfony.Component.Console.Input.InputInterface;
-    import OutputInterface = Jymfony.Component.Console.Output.OutputInterface;
+    import InputInterface = Jymfony.Contracts.Console.InputInterface;
+    import OutputInterface = Jymfony.Contracts.Console.OutputInterface;
 
     export class DevServerCommand extends Command {
         /**

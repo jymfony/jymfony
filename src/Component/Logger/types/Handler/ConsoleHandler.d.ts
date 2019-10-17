@@ -1,6 +1,6 @@
 declare namespace Jymfony.Component.Logger.Handler {
-    import ConsoleCommandEvent = Jymfony.Component.Console.Event.ConsoleCommandEvent;
-    import OutputInterface = Jymfony.Component.Console.Output.OutputInterface;
+    import ConsoleCommandEvent = Jymfony.Contracts.Console.Event.ConsoleCommandEvent;
+    import OutputInterface = Jymfony.Contracts.Console.OutputInterface;
     import EventSubscriberInterface = Jymfony.Contracts.EventDispatcher.EventSubscriberInterface;
     import EventSubscriptions = Jymfony.Contracts.EventDispatcher.EventSubscriptions;
     import FormatterInterface = Jymfony.Component.Logger.Formatter.FormatterInterface;
@@ -34,7 +34,7 @@ declare namespace Jymfony.Component.Logger.Handler {
          * Before a command is executed, the handler gets activated and the console output
          * is set in order to know where to write the logs.
          *
-         * @param {Jymfony.Component.Console.Event.ConsoleCommandEvent} event
+         * @param {Jymfony.Contracts.Console.Event.ConsoleCommandEvent} event
          */
         onCommand(event: ConsoleCommandEvent): void;
 

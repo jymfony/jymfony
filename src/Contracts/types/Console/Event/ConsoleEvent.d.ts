@@ -1,14 +1,11 @@
-declare namespace Jymfony.Component.Console.Event {
+declare namespace Jymfony.Contracts.Console.Event {
     import Event = Jymfony.Contracts.EventDispatcher.Event;
-    import Command = Jymfony.Component.Console.Command.Command;
-    import InputInterface = Jymfony.Component.Console.Input.InputInterface;
-    import OutputInterface = Jymfony.Component.Console.Output.OutputInterface;
 
     /**
      * Allows to inspect input and output of a command.
      */
     export class ConsoleEvent extends Event {
-        protected _command: Command;
+        protected _command: CommandInterface;
 
         private _input: InputInterface;
         private _output: OutputInterface;
@@ -17,13 +14,13 @@ declare namespace Jymfony.Component.Console.Event {
          * Constructor.
          */
         // @ts-ignore
-        __construct(command: Command|undefined, input: InputInterface, output: OutputInterface): void;
-        constructor(command: Command|undefined, input: InputInterface, output: OutputInterface);
+        __construct(command: CommandInterface|undefined, input: InputInterface, output: OutputInterface): void;
+        constructor(command: CommandInterface|undefined, input: InputInterface, output: OutputInterface);
 
         /**
          * Gets the command that is executed.
          */
-        public readonly command: Command|undefined;
+        public readonly command: CommandInterface|undefined;
 
         /**
          * Gets the input instance.

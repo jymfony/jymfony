@@ -1,19 +1,18 @@
-const ConsoleEvent = Jymfony.Component.Console.Event.ConsoleEvent;
-const InvalidArgumentException = Jymfony.Component.Console.Exception.InvalidArgumentException;
+const ConsoleEvent = Jymfony.Contracts.Console.Event.ConsoleEvent;
 
 /**
  * Allows to handle throwables thrown while running a command.
  *
- * @memberOf Jymfony.Component.Console.Event
+ * @memberOf Jymfony.Contracts.Console.Event
  */
 export default class ConsoleErrorEvent extends ConsoleEvent {
     /**
      * Constructor.
      *
-     * @param {Jymfony.Component.Console.Input.InputInterface} input
-     * @param {Jymfony.Component.Console.Output.OutputInterface} output
+     * @param {Jymfony.Contracts.Console.InputInterface} input
+     * @param {Jymfony.Contracts.Console.OutputInterface} output
      * @param {Error} error
-     * @param {Jymfony.Component.Console.Command.Command} [command]
+     * @param {Jymfony.Contracts.Console.CommandInterface} [command]
      */
     __construct(input, output, error, command = undefined) {
         super.__construct(command, input, output);
