@@ -117,7 +117,6 @@ export default class ApplicationTester {
 
             this._output._stderr = stdErr;
             this._output._stream = new PassThrough();
-            this._output._stream = new PassThrough();
         }
 
         const statusCode = await this._application.run(this._input, this._output);
