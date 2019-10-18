@@ -42,7 +42,7 @@ export default class Logger extends mix(BaseLogger, DebugLoggerInterface) {
     /**
      * Called on http server request finish.
      *
-     * @param {Jymfony.Component.HttpServer.Event.FinishRequestEvent} event
+     * @param {Jymfony.Contracts.HttpServer.Event.FinishRequestEvent} event
      */
     onFinishHttpRequest(event) {
         this.clear(event.request);

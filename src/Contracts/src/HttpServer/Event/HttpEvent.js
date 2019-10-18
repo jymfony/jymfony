@@ -8,7 +8,7 @@ export default class HttpEvent extends Event {
      * Constructor.
      *
      * @param {Jymfony.Contracts.HttpServer.HttpServerInterface} server
-     * @param {Jymfony.Component.HttpFoundation.Request} request
+     * @param {Jymfony.Contracts.HttpFoundation.RequestInterface} request
      */
     __construct(server, request) {
         /**
@@ -19,7 +19,7 @@ export default class HttpEvent extends Event {
         this._server = server;
 
         /**
-         * @type {Jymfony.Component.HttpFoundation.Request}
+         * @type {Jymfony.Contracts.HttpFoundation.RequestInterface}
          *
          * @private
          */
@@ -40,7 +40,7 @@ export default class HttpEvent extends Event {
     /**
      * Gets the current request.
      *
-     * @returns {Jymfony.Component.HttpFoundation.Request}
+     * @returns {Jymfony.Contracts.HttpFoundation.RequestInterface}
      */
     get request() {
         return this._request;

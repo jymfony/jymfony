@@ -83,7 +83,7 @@ class ClsTrait {
     /**
      * Called on http server request init.
      *
-     * @param {Jymfony.Component.HttpServer.Event.GetResponseEvent} event
+     * @param {Jymfony.Contracts.HttpServer.Event.RequestEvent} event
      *
      * @private
      */
@@ -98,7 +98,7 @@ class ClsTrait {
     /**
      * Called on http server request finish.
      *
-     * @param {Jymfony.Component.HttpServer.Event.FinishRequestEvent} event
+     * @param {Jymfony.Contracts.HttpServer.Event.FinishRequestEvent} event
      *
      * @private
      */

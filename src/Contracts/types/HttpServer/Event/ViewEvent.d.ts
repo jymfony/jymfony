@@ -1,5 +1,5 @@
 declare namespace Jymfony.Contracts.HttpServer.Event {
-    import Request = Jymfony.Component.HttpFoundation.Request;
+    import RequestInterface = Jymfony.Contracts.HttpFoundation.RequestInterface;
 
     export class ViewEvent extends RequestEvent {
         private _controllerResult: any;
@@ -8,8 +8,8 @@ declare namespace Jymfony.Contracts.HttpServer.Event {
          * Constructor.
          */
         // @ts-ignore
-        __construct(server: HttpServerInterface, request: Request, controllerResult: any): void;
-        constructor(server: HttpServerInterface, request: Request, controllerResult: any);
+        __construct(server: HttpServerInterface, request: RequestInterface, controllerResult: any): void;
+        constructor(server: HttpServerInterface, request: RequestInterface, controllerResult: any);
 
         /**
          * The controller return value.

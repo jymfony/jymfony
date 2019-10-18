@@ -1,5 +1,5 @@
 declare namespace Jymfony.Contracts.HttpServer.Event {
-    import Request = Jymfony.Component.HttpFoundation.Request;
+    import RequestInterface = Jymfony.Contracts.HttpFoundation.RequestInterface;
 
     /**
      * Allows filtering of a controller callable.
@@ -17,8 +17,8 @@ declare namespace Jymfony.Contracts.HttpServer.Event {
          * Constructor.
          */
         // @ts-ignore
-        __construct(server: HttpServerInterface, controller: Invokable<any>, request: Request): void;
-        constructor(server: HttpServerInterface, controller: Invokable<any>, request: Request);
+        __construct(server: HttpServerInterface, controller: Invokable<any>, request: RequestInterface): void;
+        constructor(server: HttpServerInterface, controller: Invokable<any>, request: RequestInterface);
 
         /**
          * Gets/sets the current controller.

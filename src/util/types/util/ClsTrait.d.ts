@@ -1,7 +1,7 @@
 declare namespace __jymfony {
     import ConsoleCommandEvent = Jymfony.Contracts.Console.Event.ConsoleCommandEvent;
-    import GetResponseEvent = Jymfony.Component.HttpServer.Event.GetResponseEvent;
-    import FinishRequestEvent = Jymfony.Component.HttpServer.Event.FinishRequestEvent;
+    import FinishRequestEvent = Jymfony.Contracts.HttpServer.Event.FinishRequestEvent;
+    import RequestEvent = Jymfony.Contracts.HttpServer.Event.RequestEvent;
 
     export class ClsTrait implements MixinInterface {
         public static readonly definition: Newable<ClsTrait>;
@@ -28,7 +28,7 @@ declare namespace __jymfony {
         /**
          * Called on http server request init.
          */
-        private _onHttpRequest(event: GetResponseEvent): void;
+        private _onHttpRequest(event: RequestEvent): void;
 
         /**
          * Called on http server request finish.

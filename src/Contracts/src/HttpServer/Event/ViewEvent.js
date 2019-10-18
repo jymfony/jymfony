@@ -8,7 +8,7 @@ export default class ViewEvent extends RequestEvent {
      * Constructor.
      *
      * @param {Jymfony.Contracts.HttpServer.HttpServerInterface} server
-     * @param {Jymfony.Component.HttpFoundation.Request} request
+     * @param {Jymfony.Contracts.HttpFoundation.RequestInterface} request
      * @param {*} controllerResult
      */
     __construct(server, request, controllerResult) {

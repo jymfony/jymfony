@@ -1,6 +1,6 @@
 declare namespace Jymfony.Contracts.HttpServer.Event {
     import Event = Jymfony.Contracts.EventDispatcher.Event;
-    import Request = Jymfony.Component.HttpFoundation.Request;
+    import RequestInterface = Jymfony.Contracts.HttpFoundation.RequestInterface;
 
     export class HttpEvent extends Event {
         private _server: HttpServerInterface;
@@ -10,8 +10,8 @@ declare namespace Jymfony.Contracts.HttpServer.Event {
          * Constructor.
          */
         // @ts-ignore
-        __construct(server: HttpServerInterface, request: Request): void;
-        constructor(server: HttpServerInterface, request: Request);
+        __construct(server: HttpServerInterface, request: RequestInterface): void;
+        constructor(server: HttpServerInterface, request: RequestInterface);
 
         /**
          * Gets the HttpServer instance for this request.

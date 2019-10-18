@@ -2,7 +2,7 @@ declare namespace Jymfony.Component.Kernel.Log {
     import BaseLogger = Jymfony.Component.Logger.Logger;
     import Command = Jymfony.Component.Console.Command.Command;
     import Request = Jymfony.Component.HttpFoundation.Request;
-    import FinishRequestEvent = Jymfony.Component.HttpServer.Event.FinishRequestEvent;
+    import FinishRequestEvent = Jymfony.Contracts.HttpServer.Event.FinishRequestEvent;
     import EventSubscriptions = Jymfony.Contracts.EventDispatcher.EventSubscriptions;
 
     export abstract class Logger extends mix(BaseLogger, DebugLoggerInterface) {

@@ -17,7 +17,7 @@ export default class ControllerEvent extends HttpEvent {
      *
      * @param {Jymfony.Contracts.HttpServer.HttpServerInterface} server
      * @param {Function} controller
-     * @param {Jymfony.Component.HttpFoundation.Request} request
+     * @param {Jymfony.Contracts.HttpFoundation.RequestInterface} request
      */
     __construct(server, controller, request) {
         super.__construct(server, request);

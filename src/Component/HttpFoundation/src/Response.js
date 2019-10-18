@@ -6,6 +6,7 @@ const DateTimeZone = Jymfony.Component.DateTime.DateTimeZone;
 const EncodingNegotiator = Jymfony.Component.HttpFoundation.Negotiation.EncodingNegotiator;
 const Request = Jymfony.Component.HttpFoundation.Request;
 const ResponseHeaderBag = Jymfony.Component.HttpFoundation.ResponseHeaderBag;
+const ResponseInterface = Jymfony.Contracts.HttpFoundation.ResponseInterface;
 
 const ENCODING_BROTLI = 'brotli';
 const ENCODING_GZIP = 'gzip';
@@ -14,7 +15,7 @@ const ENCODING_DEFLATE = 'deflate';
 /**
  * @memberOf Jymfony.Component.HttpFoundation
  */
-export default class Response {
+export default class Response extends implementationOf(ResponseInterface) {
     /**
      * Constructor.
      *

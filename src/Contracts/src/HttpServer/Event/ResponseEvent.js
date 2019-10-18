@@ -8,14 +8,14 @@ export default class ResponseEvent extends HttpEvent {
      * Constructor.
      *
      * @param {Jymfony.Contracts.HttpServer.HttpServerInterface} server
-     * @param {Jymfony.Component.HttpFoundation.Request} request
-     * @param {Jymfony.Component.HttpFoundation.Response} response
+     * @param {Jymfony.Contracts.HttpFoundation.RequestInterface} request
+     * @param {Jymfony.Contracts.HttpFoundation.ResponseInterface} response
      */
     __construct(server, request, response) {
         super.__construct(server, request);
 
         /**
-         * @type {Jymfony.Component.HttpFoundation.Response}
+         * @type {Jymfony.Contracts.HttpFoundation.ResponseInterface}
          *
          * @private
          */
@@ -25,7 +25,7 @@ export default class ResponseEvent extends HttpEvent {
     /**
      * Gets the current response.
      *
-     * @returns {Jymfony.Component.HttpFoundation.Response}
+     * @returns {Jymfony.Contracts.HttpFoundation.ResponseInterface}
      */
     get response() {
         return this._response;
@@ -34,7 +34,7 @@ export default class ResponseEvent extends HttpEvent {
     /**
      * Sets the response for the current event.
      *
-     * @param {Jymfony.Component.HttpFoundation.Response} response
+     * @param {Jymfony.Contracts.HttpFoundation.ResponseInterface} response
      */
     set response(response) {
         this._response = response;

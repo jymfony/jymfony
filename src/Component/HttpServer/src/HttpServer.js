@@ -6,11 +6,12 @@ const BadRequestException = Jymfony.Component.HttpFoundation.Exception.BadReques
 const ContentType = Jymfony.Component.HttpFoundation.Header.ContentType;
 const Request = Jymfony.Component.HttpFoundation.Request;
 const Response = Jymfony.Component.HttpFoundation.Response;
-const Event = Jymfony.Component.HttpServer.Event;
+const HttpServerEvents = Jymfony.Component.HttpServer.Event.HttpServerEvents;
 const EventListener = Jymfony.Component.HttpServer.EventListener;
 const RequestHandler = Jymfony.Component.HttpServer.RequestHandler;
 const Router = Jymfony.Component.Routing.Router;
 const FunctionLoader = Jymfony.Component.Routing.Loader.FunctionLoader;
+const Event = Jymfony.Contracts.HttpServer.Event;
 const HttpServerInterface = Jymfony.Contracts.HttpServer.HttpServerInterface;
 
 /**
@@ -146,7 +147,7 @@ export default class HttpServer extends mix(RequestHandler, HttpServerInterface)
             return;
         }
 
-        await this._dispatcher.dispatch(Event.HttpServerEvents.SERVER_TERMINATE);
+        await this._dispatcher.dispatch(HttpServerEvents.SERVER_TERMINATE);
         this._http.close();
     }
 
@@ -278,6 +279,6 @@ export default class HttpServer extends mix(RequestHandler, HttpServerInterface)
         await response.sendResponse(req, res);
 
         const event = new Event.PostResponseEvent(this, request, response);
-        await this._dispatcher.dispatch(Event.HttpServerEvents.POST_RESPONSE, event);
+        await this._dispatcher.dispatch(HttpServerEvents.POST_RESPONSE, event);
     }
 }

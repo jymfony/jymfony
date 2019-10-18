@@ -1,7 +1,8 @@
 declare namespace Jymfony.Component.HttpFoundation {
     import DateTime = Jymfony.Component.DateTime.DateTime;
+    import ResponseInterface = Jymfony.Contracts.HttpFoundation.ResponseInterface;
 
-    export class Response {
+    export class Response extends implementationOf(ResponseInterface) {
         public static readonly HTTP_CONTINUE = 100;
         public static readonly HTTP_SWITCHING_PROTOCOLS = 101;
         public static readonly HTTP_PROCESSING = 102; // RFC2518

@@ -7,11 +7,12 @@ const BadRequestException = Jymfony.Component.HttpFoundation.Exception.BadReques
 const ContentType = Jymfony.Component.HttpFoundation.Header.ContentType;
 const Request = Jymfony.Component.HttpFoundation.Request;
 const Response = Jymfony.Component.HttpFoundation.Response;
-const Event = Jymfony.Component.HttpServer.Event;
 const EventListener = Jymfony.Component.HttpServer.EventListener;
 const RequestHandler = Jymfony.Component.HttpServer.RequestHandler;
 const Router = Jymfony.Component.Routing.Router;
 const FunctionLoader = Jymfony.Component.Routing.Loader.FunctionLoader;
+const Event = Jymfony.Contracts.HttpServer.Event;
+const HttpServerEvents = Jymfony.Component.HttpServer.Event.HttpServerEvents;
 
 /**
  * @memberOf Jymfony.Component.HttpServer.Serverless
@@ -159,7 +160,7 @@ export default class AwsLambdaHandler extends RequestHandler {
         }
 
         const postResponseEvent = new Event.PostResponseEvent(this, request, response);
-        await this._dispatcher.dispatch(Event.HttpServerEvents.POST_RESPONSE, postResponseEvent);
+        await this._dispatcher.dispatch(HttpServerEvents.POST_RESPONSE, postResponseEvent);
 
         return result;
     }

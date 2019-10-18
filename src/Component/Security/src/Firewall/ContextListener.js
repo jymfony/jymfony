@@ -63,7 +63,7 @@ export default class ContextListener extends implementationOf(ListenerInterface,
     }
 
     /**
-     * @param {Jymfony.Component.HttpServer.Event.RequestEvent} event
+     * @param {Jymfony.Contracts.HttpServer.Event.RequestEvent} event
      *
      * @returns {Promise<void>}
      */
