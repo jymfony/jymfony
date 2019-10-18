@@ -5,6 +5,7 @@ const { expect } = require('chai');
 const ProgressIndicator = Jymfony.Component.Console.Helper.ProgressIndicator;
 const OutputInterface = Jymfony.Component.Console.Output.OutputInterface;
 const StreamOutput = Jymfony.Component.Console.Output.StreamOutput;
+const Terminal = Jymfony.Component.Console.Terminal;
 
 describe('[Console] ProgressIndicator', function () {
     const getOutputStream = (decorated = true, verbosity = OutputInterface.VERBOSITY_NORMAL) => {
@@ -54,22 +55,41 @@ describe('[Console] ProgressIndicator', function () {
         bar.finish('Done Again...');
 
         const read = output.stream.read();
-        expect(read.toString()).to.be.eq(
-            generateOutput(' ⠋ Starting...') +
-            generateOutput(' ⠙ Starting...') +
-            generateOutput(' ⠹ Starting...') +
-            generateOutput(' ⠸ Starting...') +
-            generateOutput(' ⠼ Starting...') +
-            generateOutput(' ⠴ Starting...') +
-            generateOutput(' ⠴ Advancing...') +
-            generateOutput(' ⠦ Advancing...') +
-            generateOutput(' ⠦ Done...') +
-            EOL +
-            generateOutput(' ⠋ Starting Again...') +
-            generateOutput(' ⠙ Starting Again...') +
-            generateOutput(' ⠙ Done Again...') +
-            EOL
-        );
+        if (Terminal.hasUnicodeSupport) {
+            expect(read.toString()).to.be.eq(
+                generateOutput(' ⠋ Starting...') +
+                generateOutput(' ⠙ Starting...') +
+                generateOutput(' ⠹ Starting...') +
+                generateOutput(' ⠸ Starting...') +
+                generateOutput(' ⠼ Starting...') +
+                generateOutput(' ⠴ Starting...') +
+                generateOutput(' ⠴ Advancing...') +
+                generateOutput(' ⠦ Advancing...') +
+                generateOutput(' ⠦ Done...') +
+                EOL +
+                generateOutput(' ⠋ Starting Again...') +
+                generateOutput(' ⠙ Starting Again...') +
+                generateOutput(' ⠙ Done Again...') +
+                EOL
+            );
+        } else {
+            expect(read.toString()).to.be.eq(
+                generateOutput(' - Starting...') +
+                generateOutput(' \\ Starting...') +
+                generateOutput(' | Starting...') +
+                generateOutput(' / Starting...') +
+                generateOutput(' - Starting...') +
+                generateOutput(' \\ Starting...') +
+                generateOutput(' \\ Advancing...') +
+                generateOutput(' | Advancing...') +
+                generateOutput(' | Done...') +
+                EOL +
+                generateOutput(' - Starting Again...') +
+                generateOutput(' \\ Starting Again...') +
+                generateOutput(' \\ Done Again...') +
+                EOL
+            );
+        }
     });
 
     it ('should output indicator correctly in non-interactive mode', () => {
