@@ -1,7 +1,6 @@
-declare namespace Jymfony.Component.HttpServer.Event {
+declare namespace Jymfony.Contracts.HttpServer.Event {
     import Request = Jymfony.Component.HttpFoundation.Request;
     import Response = Jymfony.Component.HttpFoundation.Response;
-    import HttpServer = Jymfony.Component.HttpServer.HttpServer;
 
     /**
      * Allows to execute logic after a response was sent.
@@ -13,8 +12,8 @@ declare namespace Jymfony.Component.HttpServer.Event {
          * Constructor.
          */
         // @ts-ignore
-        __construct(server: HttpServer, request: Request, response: Response): void;
-        constructor(server: HttpServer, request: Request, response: Response);
+        __construct(server: HttpServerInterface, request: Request, response: Response): void;
+        constructor(server: HttpServerInterface, request: Request, response: Response);
 
         /**
          * Returns the response for which this event was thrown.

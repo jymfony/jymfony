@@ -1,8 +1,7 @@
-declare namespace Jymfony.Component.HttpServer.Event {
+declare namespace Jymfony.Contracts.HttpServer.Event {
     import Request = Jymfony.Component.HttpFoundation.Request;
-    import HttpServer = Jymfony.Component.HttpServer.HttpServer;
 
-    export class GetResponseForExceptionEvent extends GetResponseEvent {
+    export class ExceptionEvent extends RequestEvent {
         private _exception: Error;
         private _allowCustomResponseCode: boolean;
 
@@ -10,8 +9,8 @@ declare namespace Jymfony.Component.HttpServer.Event {
          * Constructor.
          */
         // @ts-ignore
-        __construct(server: HttpServer, request: Request, e: Error): void;
-        constructor(server: HttpServer, request: Request, e: Error);
+        __construct(server: HttpServerInterface, request: Request, e: Error): void;
+        constructor(server: HttpServerInterface, request: Request, e: Error);
 
         /**
          * Gets/sets the thrown exception.

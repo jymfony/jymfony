@@ -1,17 +1,10 @@
-const HttpEvent = Jymfony.Component.HttpServer.Event.HttpEvent;
+const HttpEvent = Jymfony.Contracts.HttpServer.Event.HttpEvent;
 
 /**
- * @memberOf Jymfony.Component.HttpServer.Event
+ * @memberOf Jymfony.Contracts.HttpServer.Event
  */
-export default class FilterResponseEvent extends HttpEvent {
-    /**
-     * Constructor.
-     *
-     * @param {Jymfony.Component.HttpServer.HttpServer} server
-     * @param {Jymfony.Component.HttpFoundation.Request} request
-     * @param {Jymfony.Component.HttpFoundation.Response} response
-     */
-    __construct(server, request, response) {
+export default class RequestEvent extends HttpEvent {
+    __construct(server, request) {
         super.__construct(server, request);
 
         /**
@@ -19,7 +12,16 @@ export default class FilterResponseEvent extends HttpEvent {
          *
          * @private
          */
-        this._response = response;
+        this._response = undefined;
+    }
+
+    /**
+     * Checks whether a Response is set on the event.
+     *
+     * @returns {boolean}
+     */
+    hasResponse() {
+        return undefined !== this._response;
     }
 
     /**
@@ -38,5 +40,6 @@ export default class FilterResponseEvent extends HttpEvent {
      */
     set response(response) {
         this._response = response;
+        this.stopPropagation();
     }
 }

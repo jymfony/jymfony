@@ -3,7 +3,7 @@ declare namespace Jymfony.Component.Security.Firewall {
     import AccessDecisionManagerInterface = Jymfony.Component.Security.Authorization.AccessDecisionManagerInterface;
     import AccessMapInterface = Jymfony.Component.Security.Authorization.AccessMapInterface;
     import AuthenticationManagerInterface = Jymfony.Component.Security.Authentication.AuthenticationManagerInterface;
-    import GetResponseEvent = Jymfony.Component.HttpServer.Event.GetResponseEvent;
+    import RequestEvent = Jymfony.Contracts.HttpServer.Event.RequestEvent;
 
     /**
      * AccessListener enforces access control rules.
@@ -20,6 +20,6 @@ declare namespace Jymfony.Component.Security.Firewall {
         __construct(tokenStorage: TokenStorageInterface, accessDecisionManager: AccessDecisionManagerInterface, accessMap: AccessMapInterface, authenticationManager: AuthenticationManagerInterface): void;
         constructor(tokenStorage: TokenStorageInterface, accessDecisionManager: AccessDecisionManagerInterface, accessMap: AccessMapInterface, authenticationManager: AuthenticationManagerInterface);
 
-        handle(event: GetResponseEvent): Promise<void>;
+        handle(event: RequestEvent): Promise<void>;
     }
 }

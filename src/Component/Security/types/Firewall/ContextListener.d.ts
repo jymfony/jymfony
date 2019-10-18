@@ -3,8 +3,8 @@ declare namespace Jymfony.Component.Security.Firewall {
     import TokenStorageInterface = Jymfony.Component.Security.Authentication.Token.Storage.TokenStorageInterface;
     import AuthenticationTrustResolverInterface = Jymfony.Component.Security.Authentication.AuthenticationTrustResolverInterface;
     import LoggerInterface = Jymfony.Component.Logger.LoggerInterface;
-    import GetResponseEvent = Jymfony.Component.HttpServer.Event.GetResponseEvent;
-    import FilterResponseEvent = Jymfony.Component.HttpServer.Event.FilterResponseEvent;
+    import RequestEvent = Jymfony.Contracts.HttpServer.Event.RequestEvent;
+    import ResponseEvent = Jymfony.Contracts.HttpServer.Event.ResponseEvent;
     import EventSubscriptions = Jymfony.Contracts.EventDispatcher.EventSubscriptions;
     import TokenInterface = Jymfony.Component.Security.Authentication.Token.TokenInterface;
     import UserProviderInterface = Jymfony.Component.Security.User.UserProviderInterface;
@@ -25,9 +25,8 @@ declare namespace Jymfony.Component.Security.Firewall {
         __construct(tokenStorage: TokenStorageInterface, userProviders: UserProviderInterface[], authenticationTrustResolver: AuthenticationTrustResolverInterface, sessionKey: string, logger?: LoggerInterface): void;
         constructor(tokenStorage: TokenStorageInterface, userProviders: UserProviderInterface[], authenticationTrustResolver: AuthenticationTrustResolverInterface, sessionKey: string, logger?: LoggerInterface);
 
-        handle(event: GetResponseEvent): Promise<void>;
-
-        onResponse(event: FilterResponseEvent): void;
+        handle(event: RequestEvent): Promise<void>;
+        onResponse(event: ResponseEvent): void;
 
         /**
          * @inheritdoc

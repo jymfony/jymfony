@@ -11,11 +11,12 @@ const EventListener = Jymfony.Component.HttpServer.EventListener;
 const RequestHandler = Jymfony.Component.HttpServer.RequestHandler;
 const Router = Jymfony.Component.Routing.Router;
 const FunctionLoader = Jymfony.Component.Routing.Loader.FunctionLoader;
+const HttpServerInterface = Jymfony.Contracts.HttpServer.HttpServerInterface;
 
 /**
  * @memberOf Jymfony.Component.HttpServer
  */
-export default class HttpServer extends RequestHandler {
+export default class HttpServer extends mix(RequestHandler, HttpServerInterface) {
     /**
      * Constructor.
      *
@@ -269,7 +270,7 @@ export default class HttpServer extends RequestHandler {
         }, content);
 
         let response = await this.handle(request);
-        if (response instanceof Promise) {
+        if (isPromise(response)) {
             response = await response;
         }
 
@@ -277,6 +278,6 @@ export default class HttpServer extends RequestHandler {
         await response.sendResponse(req, res);
 
         const event = new Event.PostResponseEvent(this, request, response);
-        await this._dispatcher.dispatch(Event.HttpServerEvents.TERMINATE, event);
+        await this._dispatcher.dispatch(Event.HttpServerEvents.POST_RESPONSE, event);
     }
 }

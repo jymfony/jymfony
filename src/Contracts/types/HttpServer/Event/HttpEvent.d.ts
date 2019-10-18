@@ -1,23 +1,22 @@
-declare namespace Jymfony.Component.HttpServer.Event {
+declare namespace Jymfony.Contracts.HttpServer.Event {
     import Event = Jymfony.Contracts.EventDispatcher.Event;
     import Request = Jymfony.Component.HttpFoundation.Request;
-    import HttpServer = Jymfony.Component.HttpServer.HttpServer;
 
     export class HttpEvent extends Event {
-        private _server: HttpServer;
+        private _server: HttpServerInterface;
         private _request: Request;
 
         /**
          * Constructor.
          */
         // @ts-ignore
-        __construct(server: HttpServer, request: Request): void;
-        constructor(server: HttpServer, request: Request);
+        __construct(server: HttpServerInterface, request: Request): void;
+        constructor(server: HttpServerInterface, request: Request);
 
         /**
          * Gets the HttpServer instance for this request.
          */
-        public readonly server: HttpServer;
+        public readonly server: HttpServerInterface;
 
         /**
          * Gets the current request.

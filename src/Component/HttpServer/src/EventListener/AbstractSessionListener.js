@@ -14,7 +14,7 @@ export default class AbstractSessionListener extends implementationOf(EventSubsc
     /**
      * Listen on http.request to inject session factory
      *
-     * @param {Jymfony.Component.HttpServer.Event.GetResponseEvent} event
+     * @param {Jymfony.Contracts.HttpServer.Event.RequestEvent} event
      */
     onRequest(event) {
         const request = event.request;
@@ -30,7 +30,7 @@ export default class AbstractSessionListener extends implementationOf(EventSubsc
     /**
      * Listen on http.request to inject session factory
      *
-     * @param {Jymfony.Component.HttpServer.Event.FilterResponseEvent} event
+     * @param {Jymfony.Contracts.HttpServer.Event.ResponseEvent} event
      */
     onResponse(event) {
         const request = event.request;

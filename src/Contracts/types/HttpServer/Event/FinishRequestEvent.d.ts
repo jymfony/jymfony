@@ -1,4 +1,4 @@
-declare namespace Jymfony.Component.HttpServer.Event {
+declare namespace Jymfony.Contracts.HttpServer.Event {
     export class FinishRequestEvent extends HttpEvent {
     }
 }

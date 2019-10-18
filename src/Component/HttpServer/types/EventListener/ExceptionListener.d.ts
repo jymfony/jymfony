@@ -3,7 +3,7 @@ declare namespace Jymfony.Component.HttpServer.EventListener {
     import EventSubscriberInterface = Jymfony.Contracts.EventDispatcher.EventSubscriberInterface;
     import LoggerInterface = Jymfony.Component.Logger.LoggerInterface;
     import Request = Jymfony.Component.HttpFoundation.Request;
-    import GetResponseForExceptionEvent = Jymfony.Component.HttpServer.Event.GetResponseForExceptionEvent;
+    import ExceptionEvent = Jymfony.Component.HttpServer.Event.ExceptionEvent;
     import EventSubscriptions = Jymfony.Contracts.EventDispatcher.EventSubscriptions;
 
     export class ExceptionListener extends implementationOf(EventSubscriberInterface) {
@@ -22,7 +22,7 @@ declare namespace Jymfony.Component.HttpServer.EventListener {
         /**
          * Gets a response for a given exception.
          */
-        onException(event: GetResponseForExceptionEvent, eventName: string, eventDispatcher: EventDispatcherInterface): Promise<void>;
+        onException(event: ExceptionEvent, eventName: string, eventDispatcher: EventDispatcherInterface): Promise<void>;
 
         /**
          * @inheritdoc

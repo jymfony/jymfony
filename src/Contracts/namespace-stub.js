@@ -6,4 +6,28 @@
  * @namespace
  */
 Jymfony.Contracts = {
+    /**
+     * @namespace
+     */
+    Console: {
+        /**
+         * @namespace
+         */
+        Event: {},
+    },
+
+    /**
+     * @namespace
+     */
+    EventDispatcher: {},
+
+    /**
+     * @namespace
+     */
+    HttpServer: {
+        /**
+         * @namespace
+         */
+        Event: {},
+    },
 };

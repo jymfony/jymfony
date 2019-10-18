@@ -1,18 +1,18 @@
 const Event = Jymfony.Contracts.EventDispatcher.Event;
 
 /**
- * @memberOf Jymfony.Component.HttpServer.Event
+ * @memberOf Jymfony.Contracts.HttpServer.Event
  */
 export default class HttpEvent extends Event {
     /**
      * Constructor.
      *
-     * @param {Jymfony.Component.HttpServer.HttpServer} server
+     * @param {Jymfony.Contracts.HttpServer.HttpServerInterface} server
      * @param {Jymfony.Component.HttpFoundation.Request} request
      */
     __construct(server, request) {
         /**
-         * @type {Jymfony.Component.HttpServer.HttpServer}
+         * @type {Jymfony.Contracts.HttpServer.HttpServerInterface}
          *
          * @private
          */
@@ -31,7 +31,7 @@ export default class HttpEvent extends Event {
     /**
      * Gets the HttpServer instance for this request.
      *
-     * @returns {Jymfony.Component.HttpServer.HttpServer}
+     * @returns {Jymfony.Contracts.HttpServer.HttpServerInterface}
      */
     get server() {
         return this._server;

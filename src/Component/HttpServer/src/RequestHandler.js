@@ -4,10 +4,11 @@ const HttpExceptionInterface = Jymfony.Component.HttpFoundation.Exception.HttpEx
 const NotFoundHttpException = Jymfony.Component.HttpFoundation.Exception.NotFoundHttpException;
 const RequestExceptionInterface = Jymfony.Component.HttpFoundation.Exception.RequestExceptionInterface;
 const Response = Jymfony.Component.HttpFoundation.Response;
-const Event = Jymfony.Component.HttpServer.Event;
+const HttpServerEvents = Jymfony.Component.HttpServer.Event.HttpServerEvents;
 const RequestTimeoutException = Jymfony.Component.HttpServer.Exception.RequestTimeoutException;
 const RequestParser = Jymfony.Component.HttpServer.RequestParser;
 const NullLogger = Jymfony.Component.Logger.NullLogger;
+const Event = Jymfony.Contracts.HttpServer.Event;
 
 /**
  * A Request handler.
@@ -177,8 +178,8 @@ export default class RequestHandler extends implementationOf(LoggerAwareInterfac
      * @protected
      */
     async _handleRaw(request) {
-        let event = new Event.GetResponseEvent(this, request);
-        await this._dispatcher.dispatch(Event.HttpServerEvents.REQUEST, event);
+        let event = new Event.RequestEvent(this, request);
+        await this._dispatcher.dispatch(HttpServerEvents.REQUEST, event);
 
         if (event.hasResponse()) {
             return await this._filterResponse(event.response, request);
@@ -189,14 +190,14 @@ export default class RequestHandler extends implementationOf(LoggerAwareInterfac
             throw new NotFoundHttpException(__jymfony.sprintf('Unable to find the controller for path "%s". The route is wrongly configured.', request.pathInfo));
         }
 
-        event = new Event.FilterControllerEvent(this, controller, request);
-        await this._dispatcher.dispatch(Event.HttpServerEvents.CONTROLLER, event);
+        event = new Event.ControllerEvent(this, controller, request);
+        await this._dispatcher.dispatch(HttpServerEvents.CONTROLLER, event);
         controller = event.controller;
 
         let response = await controller(request);
         if (! (response instanceof Response)) {
-            const event = new Event.GetResponseForControllerResultEvent(this, request, response);
-            await this._dispatcher.dispatch(Event.HttpServerEvents.VIEW, event);
+            const event = new Event.ViewEvent(this, request, response);
+            await this._dispatcher.dispatch(HttpServerEvents.VIEW, event);
 
             if (event.hasResponse()) {
                 response = event.response;
@@ -226,13 +227,13 @@ export default class RequestHandler extends implementationOf(LoggerAwareInterfac
      * @protected
      */
     async _handleException(e, request) {
-        const event = new Event.GetResponseForExceptionEvent(this, request, e);
-        await this._dispatcher.dispatch(Event.HttpServerEvents.EXCEPTION, event);
+        const event = new Event.ExceptionEvent(this, request, e);
+        await this._dispatcher.dispatch(HttpServerEvents.EXCEPTION, event);
 
         // A listener might have replaced the exception
         e = event.exception;
         if (! event.hasResponse()) {
-            await this._dispatcher.dispatch(Event.HttpServerEvents.FINISH_REQUEST, new Event.FinishRequestEvent(this, request));
+            await this._dispatcher.dispatch(HttpServerEvents.FINISH_REQUEST, new Event.FinishRequestEvent(this, request));
 
             throw e;
         }
@@ -286,9 +287,9 @@ export default class RequestHandler extends implementationOf(LoggerAwareInterfac
      * @private
      */
     async _filterResponse(response, request) {
-        const event = new Event.FilterResponseEvent(this, request, response);
-        await this._dispatcher.dispatch(Event.HttpServerEvents.RESPONSE, event);
-        await this._dispatcher.dispatch(Event.HttpServerEvents.FINISH_REQUEST, new Event.FinishRequestEvent(this, request));
+        const event = new Event.ResponseEvent(this, request, response);
+        await this._dispatcher.dispatch(HttpServerEvents.RESPONSE, event);
+        await this._dispatcher.dispatch(HttpServerEvents.FINISH_REQUEST, new Event.FinishRequestEvent(this, request));
 
         return event.response;
     }

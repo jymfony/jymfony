@@ -1,4 +1,4 @@
-const HttpEvent = Jymfony.Component.HttpServer.Event.HttpEvent;
+const HttpEvent = Jymfony.Contracts.HttpServer.Event.HttpEvent;
 
 /**
  * Allows filtering of a controller callable.
@@ -9,13 +9,13 @@ const HttpEvent = Jymfony.Component.HttpServer.Event.HttpEvent;
  *
  * Controllers should be functions.
  *
- * @memberOf Jymfony.Component.HttpServer.Event
+ * @memberOf Jymfony.Contracts.HttpServer.Event
  */
-export default class FilterControllerEvent extends HttpEvent {
+export default class ControllerEvent extends HttpEvent {
     /**
      * Constructor.
      *
-     * @param {Jymfony.Component.HttpServer.HttpServer} server
+     * @param {Jymfony.Contracts.HttpServer.HttpServerInterface} server
      * @param {Function} controller
      * @param {Jymfony.Component.HttpFoundation.Request} request
      */

@@ -1,16 +1,15 @@
-declare namespace Jymfony.Component.HttpServer.Event {
+declare namespace Jymfony.Contracts.HttpServer.Event {
     import Request = Jymfony.Component.HttpFoundation.Request;
     import Response = Jymfony.Component.HttpFoundation.Response;
-    import HttpServer = Jymfony.Component.HttpServer.HttpServer;
 
-    export class GetResponseEvent extends HttpEvent {
+    export class RequestEvent extends HttpEvent {
         private _response?: Response;
 
         /**
          * Constructor.
          */
-        __construct(server: HttpServer, request: Request): void;
-        constructor(server: HttpServer, request: Request);
+        __construct(server: HttpServerInterface, request: Request): void;
+        constructor(server: HttpServerInterface, request: Request);
 
         /**
          * Checks whether a Response is set on the event.

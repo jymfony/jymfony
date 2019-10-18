@@ -1,15 +1,15 @@
-const HttpEvent = Jymfony.Component.HttpServer.Event.HttpEvent;
+const HttpEvent = Jymfony.Contracts.HttpServer.Event.HttpEvent;
 
 /**
  * Allows to execute logic after a response was sent.
  *
- * @memberOf Jymfony.Component.HttpServer.Event
+ * @memberOf Jymfony.Contracts.HttpServer.Event
  */
 export default class PostResponseEvent extends HttpEvent {
     /**
      * Constructor.
      *
-     * @param {Jymfony.Component.HttpServer.HttpServer} server
+     * @param {Jymfony.Contracts.HttpServer.HttpServerInterface} server
      * @param {Jymfony.Component.HttpFoundation.Request} request
      * @param {Jymfony.Component.HttpFoundation.Response} response
      */

@@ -1,6 +1,5 @@
-declare namespace Jymfony.Component.HttpServer.Event {
+declare namespace Jymfony.Contracts.HttpServer.Event {
     import Request = Jymfony.Component.HttpFoundation.Request;
-    import HttpServer = Jymfony.Component.HttpServer.HttpServer;
 
     /**
      * Allows filtering of a controller callable.
@@ -11,15 +10,15 @@ declare namespace Jymfony.Component.HttpServer.Event {
      *
      * Controllers should be functions.
      */
-    export class FilterControllerEvent extends HttpEvent {
+    export class ControllerEvent extends HttpEvent {
         private _controller: Invokable<any>;
 
         /**
          * Constructor.
          */
         // @ts-ignore
-        __construct(server: HttpServer, controller: Invokable<any>, request: Request): void;
-        constructor(server: HttpServer, controller: Invokable<any>, request: Request);
+        __construct(server: HttpServerInterface, controller: Invokable<any>, request: Request): void;
+        constructor(server: HttpServerInterface, controller: Invokable<any>, request: Request);
 
         /**
          * Gets/sets the current controller.

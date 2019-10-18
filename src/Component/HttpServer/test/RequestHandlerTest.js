@@ -1,12 +1,13 @@
 const ControllerResolverInterface = Jymfony.Component.HttpFoundation.Controller.ControllerResolverInterface;
 const Request = Jymfony.Component.HttpFoundation.Request;
 const Response = Jymfony.Component.HttpFoundation.Response;
+const HttpServerEvents = Jymfony.Component.HttpServer.Event.HttpServerEvents;
 const RequestTimeoutException = Jymfony.Component.HttpServer.Exception.RequestTimeoutException;
 const RequestHandler = Jymfony.Component.HttpServer.RequestHandler;
-const Event = Jymfony.Component.HttpServer.Event;
 const EventDispatcherInterface = Jymfony.Contracts.EventDispatcher.EventDispatcherInterface;
 const Argument = Jymfony.Component.Testing.Argument.Argument;
 const Prophet = Jymfony.Component.Testing.Prophet;
+const Event = Jymfony.Contracts.HttpServer.Event;
 const { expect } = require('chai');
 
 describe('[HttpServer] RequestHandler', function () {
@@ -27,11 +28,11 @@ describe('[HttpServer] RequestHandler', function () {
          */
         this._dispatcher = this._prophet.prophesize(EventDispatcherInterface);
 
-        this._dispatcher.dispatch(Event.HttpServerEvents.REQUEST, Argument.any()).willReturn();
-        this._dispatcher.dispatch(Event.HttpServerEvents.RESPONSE, Argument.any()).willReturn();
-        this._dispatcher.dispatch(Event.HttpServerEvents.FINISH_REQUEST, Argument.any()).willReturn();
-        this._dispatcher.dispatch(Event.HttpServerEvents.CONTROLLER, Argument.any()).willReturn();
-        this._dispatcher.dispatch(Event.HttpServerEvents.VIEW, Argument.any()).willReturn();
+        this._dispatcher.dispatch(HttpServerEvents.REQUEST, Argument.any()).willReturn();
+        this._dispatcher.dispatch(HttpServerEvents.RESPONSE, Argument.any()).willReturn();
+        this._dispatcher.dispatch(HttpServerEvents.FINISH_REQUEST, Argument.any()).willReturn();
+        this._dispatcher.dispatch(HttpServerEvents.CONTROLLER, Argument.any()).willReturn();
+        this._dispatcher.dispatch(HttpServerEvents.VIEW, Argument.any()).willReturn();
 
         /**
          * @type {Jymfony.Component.Testing.Prophecy.ObjectProphecy<Jymfony.Component.HttpFoundation.Controller.ControllerResolverInterface>}
@@ -54,7 +55,7 @@ describe('[HttpServer] RequestHandler', function () {
     it('should dispatch request event', async () => {
         const req = new Request('/');
 
-        this._dispatcher.dispatch(Event.HttpServerEvents.REQUEST, Argument.type(Event.GetResponseEvent))
+        this._dispatcher.dispatch(HttpServerEvents.REQUEST, Argument.type(Event.RequestEvent))
             .shouldBeCalled()
             .will((eventName, e) => {
                 expect(e.request).to.be.equal(req);
@@ -83,7 +84,7 @@ describe('[HttpServer] RequestHandler', function () {
         };
         const controller2 = () => new Response();
 
-        this._dispatcher.dispatch(Event.HttpServerEvents.CONTROLLER, Argument.type(Event.FilterControllerEvent))
+        this._dispatcher.dispatch(HttpServerEvents.CONTROLLER, Argument.type(Event.ControllerEvent))
             .shouldBeCalled()
             .will((eventName, e) => {
                 expect(e.request).to.be.equal(req);
@@ -103,7 +104,7 @@ describe('[HttpServer] RequestHandler', function () {
             return 'foobar';
         };
 
-        this._dispatcher.dispatch(Event.HttpServerEvents.VIEW, Argument.type(Event.GetResponseForControllerResultEvent))
+        this._dispatcher.dispatch(HttpServerEvents.VIEW, Argument.type(Event.ViewEvent))
             .shouldBeCalled()
             .will((eventName, e) => {
                 expect(e.request).to.be.equal(req);
@@ -154,7 +155,7 @@ describe('[HttpServer] RequestHandler', function () {
         const req = new Request('/');
         const controller = () => {};
 
-        this._dispatcher.dispatch(Event.HttpServerEvents.EXCEPTION, Argument.type(Event.GetResponseForExceptionEvent))
+        this._dispatcher.dispatch(HttpServerEvents.EXCEPTION, Argument.type(Event.ExceptionEvent))
             .shouldBeCalled()
             .will((eventName, e) => {
                 e.response = new Response(null, Response.HTTP_INTERNAL_SERVER_ERROR);

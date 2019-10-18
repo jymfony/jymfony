@@ -1,13 +1,13 @@
-const GetResponseEvent = Jymfony.Component.HttpServer.Event.GetResponseEvent;
+const RequestEvent = Jymfony.Contracts.HttpServer.Event.RequestEvent;
 
 /**
- * @memberOf Jymfony.Component.HttpServer.Event
+ * @memberOf Jymfony.Contracts.HttpServer.Event
  */
-export default class GetResponseForExceptionEvent extends GetResponseEvent {
+export default class ExceptionEvent extends RequestEvent {
     /**
      * Constructor.
      *
-     * @param {Jymfony.Component.HttpServer.HttpServer} server
+     * @param {Jymfony.Contracts.HttpServer.HttpServerInterface} server
      * @param {Jymfony.Component.HttpFoundation.Request} request
      * @param {Error} e
      */

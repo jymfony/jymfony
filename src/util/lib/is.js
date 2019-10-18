@@ -78,7 +78,7 @@ global.isObjectLiteral = function isObjectLiteral(value) {
  * @returns {boolean}
  */
 global.isPromise = function isPromise(value) {
-    return isFunction(value.then);
+    return 'object' === typeof value && isFunction(value.then);
 };
 
 /**

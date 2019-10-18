@@ -63,7 +63,7 @@ export default class ContextListener extends implementationOf(ListenerInterface,
     }
 
     /**
-     * @param {Jymfony.Component.HttpServer.Event.GetResponseEvent} event
+     * @param {Jymfony.Component.HttpServer.Event.RequestEvent} event
      *
      * @returns {Promise<void>}
      */
@@ -110,7 +110,7 @@ export default class ContextListener extends implementationOf(ListenerInterface,
     }
 
     /**
-     * @param {Jymfony.Component.HttpServer.Event.FilterResponseEvent} event
+     * @param {Jymfony.Contracts.HttpServer.Event.ResponseEvent} event
      */
     onResponse(event) {
         const request = event.request;
