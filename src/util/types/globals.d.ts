@@ -208,7 +208,8 @@ declare namespace __jymfony {
      * Otherwise returns true if the relationship is the one specified
      * by the operator, false otherwise
      */
-    export function version_compare(version1: string|number, version2: string|number, operator?: string|undefined): boolean|number;
+    export function version_compare(version1: string|number, version2: string|number): number;
+    export function version_compare(version1: string|number, version2: string|number, operator: '<'|'lt'|'<='|'le'|'>'|'gt'|'>='|'ge'|'=='|'='|'eq'|'!='|'<>'|'ne'): boolean;
 
     /**
      * Wraps a string to a given number of characters.
@@ -220,7 +221,7 @@ declare interface Newable<T> {
     new(): T;
     new(...args: any[]): T;
 }
-declare type Constructor<T = any> = Function & { prototype: T };
+declare type Constructor<T = any> = { prototype: T };
 
 declare class MixinInterface {
     public static readonly definition: Newable<any>;
