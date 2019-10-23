@@ -1,3 +1,4 @@
+const BinaryExpression = require('./BinaryExpression');
 const ConditionalExpression = require('./ConditionalExpression');
 const Identifier = require('./Identifier');
 const ImportDefaultSpecifier = require('./ImportDefaultSpecifier');
@@ -65,7 +66,11 @@ class ImportDeclaration extends implementationOf(ModuleDeclarationInterface) {
 
             if (specifier instanceof ImportDefaultSpecifier) {
                 right = new ConditionalExpression(null,
-                    new MemberExpression(null, new Identifier(null, variableName), new Identifier(null, '__esModule')),
+                    new BinaryExpression(
+                        null, '&&',
+                        new Identifier(null, variableName),
+                        new MemberExpression(null, new Identifier(null, variableName), new Identifier(null, '__esModule'))
+                    ),
                     new MemberExpression(null, new Identifier(null, variableName), new Identifier(null, 'default')),
                     new Identifier(null, variableName)
                 );
