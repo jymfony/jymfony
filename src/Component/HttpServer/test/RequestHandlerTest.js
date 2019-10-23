@@ -3,6 +3,7 @@ const Request = Jymfony.Component.HttpFoundation.Request;
 const Response = Jymfony.Component.HttpFoundation.Response;
 const HttpServerEvents = Jymfony.Component.HttpServer.Event.HttpServerEvents;
 const RequestTimeoutException = Jymfony.Component.HttpServer.Exception.RequestTimeoutException;
+const AccessDeniedHttpException = Jymfony.Component.HttpFoundation.Exception.AccessDeniedHttpException;
 const RequestHandler = Jymfony.Component.HttpServer.RequestHandler;
 const EventDispatcherInterface = Jymfony.Contracts.EventDispatcher.EventDispatcherInterface;
 const Argument = Jymfony.Component.Testing.Argument.Argument;
@@ -165,5 +166,41 @@ describe('[HttpServer] RequestHandler', function () {
         const response = await this._handler.handle(req);
 
         expect(response.statusCode).to.be.equal(500);
+    });
+
+    it('should throw exception if no listener sets a response.', async () => {
+        const req = new Request('/');
+        const error = new Error('TEST');
+        const controller = () => {
+            throw error;
+        };
+
+        this._dispatcher.dispatch(HttpServerEvents.EXCEPTION, Argument.type(Event.ExceptionEvent)).shouldBeCalled();
+        this._resolver.getController(req).willReturn(controller);
+
+        try {
+            await this._handler.handle(req);
+            throw new Error('FAIL');
+        } catch (e) {
+            expect(e).to.be.equal(error);
+        }
+    });
+
+    it('should set correct response code on http exceptions', async () => {
+        const req = new Request('/');
+        const controller = () => {
+            throw new AccessDeniedHttpException('Fobidden.');
+        };
+
+        this._dispatcher.dispatch(HttpServerEvents.EXCEPTION, Argument.type(Event.ExceptionEvent))
+            .shouldBeCalled()
+            .will((eventName, e) => {
+                e.response = new Response(e.exception.message);
+            });
+
+        this._resolver.getController(req).willReturn(controller);
+        const response = await this._handler.handle(req);
+
+        expect(response.statusCode).to.be.equal(403);
     });
 });
