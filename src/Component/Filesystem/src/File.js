@@ -274,21 +274,15 @@ export default class File {
 
 /**
  * Seek from the beginning of the file.
- *
- * @type {File.SEEK_SET}
  */
 File.SEEK_SET = 'set';
 
 /**
  * Seek from the current position of the file.
- *
- * @type {File.SEEK_CUR}
  */
 File.SEEK_CUR = 'cur';
 
 /**
  * Seek from the end of the file.
- *
- * @type {File.SEEK_END}
  */
 File.SEEK_END = 'end';
