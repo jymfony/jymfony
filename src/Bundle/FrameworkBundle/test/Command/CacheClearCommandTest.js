@@ -1,6 +1,5 @@
 require('../../fixtures/namespace');
 
-const Application = Jymfony.Bundle.FrameworkBundle.Console.Application;
 const TestAppKernel = Jymfony.Bundle.FrameworkBundle.Tests.Fixtures.CacheClear.TestAppKernel;
 const ConfigCacheFactory = Jymfony.Component.Config.ConfigCacheFactory;
 const ArrayInput = Jymfony.Component.Console.Input.ArrayInput;
@@ -43,7 +42,7 @@ describe('[FrameworkBundle] CacheClearCommand', function () {
             });
         }
 
-        // check that app kernel file present in meta file of container's cache
+        // Check that app kernel file present in meta file of container's cache
         const containerClass = this._kernel.container.getParameter('kernel.container_class');
         const containerFile = this._kernel.getCacheDir() + sep + containerClass + '.js';
         const containerMetaFile = containerFile + '.meta';
@@ -52,10 +51,10 @@ describe('[FrameworkBundle] CacheClearCommand', function () {
         const meta = __jymfony.unserialize(readFileSync(containerMetaFile, { encoding: 'utf-8' }));
         let found = false;
         for (const resource of meta) {
-             if (String(resource) === kernelFile) {
-                 found = true;
-                 break;
-             }
+            if (String(resource) === kernelFile) {
+                found = true;
+                break;
+            }
         }
 
         expect(found, 'Kernel file should be present as resource').to.be.true;
