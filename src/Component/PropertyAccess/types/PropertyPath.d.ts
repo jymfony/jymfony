@@ -21,6 +21,31 @@ declare namespace Jymfony.Component.PropertyAccess {
         /**
          * @inheritdoc
          */
+        public readonly parent: PropertyPathInterface | undefined;
+
+        /**
+         * @inheritdoc
+         */
+        [Symbol.iterator](): PropertyPathIteratorInterface;
+
+        /**
+         * @inheritdoc
+         */
+        isProperty(index: number): boolean;
+
+        /**
+         * @inheritdoc
+         */
+        isIndex(index: number): boolean
+
+        /**
+         * @inheritdoc
+         */
+        public readonly elements: string[];
+
+        /**
+         * @inheritdoc
+         */
         public readonly length: number;
 
         /**
