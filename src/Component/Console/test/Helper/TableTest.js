@@ -572,20 +572,89 @@ describe('[Console] Table', function () {
         },
     ];
 
-    for (const testItem of testItems) {
-        it('should render table', () => {
-            const output = this._getOutputStream(testItem.decorated || false);
+    let index = 1;
+    for (const { headers, data, style, decorated = false, expected} of testItems) {
+        it('should render table with data #' + index++, () => {
+            const output = this._getOutputStream(decorated);
             const table = new Table(output);
             table
-                .setHeaders(testItem.headers)
-                .setRows(testItem.data)
+                .setHeaders(headers)
+                .setRows(data)
             ;
-            table.style = testItem.style;
+            table.style = style;
             table.render();
 
             const outputContent = this._getOutputContent(output);
 
-            expect(outputContent).to.be.equal(testItem.expected);
+            expect(outputContent).to.be.equal(expected);
+        });
+    }
+
+    const setTitleTests = [
+        [
+            'Books',
+            'Page 1/2',
+            'default',
+            `+---------------+----------- Books --------+------------------+
+| ISBN          | Title                    | Author           |
++---------------+--------------------------+------------------+
+| 99921-58-10-7 | Divine Comedy            | Dante Alighieri  |
+| 9971-5-0210-0 | A Tale of Two Cities     | Charles Dickens  |
+| 960-425-059-0 | The Lord of the Rings    | J. R. R. Tolkien |
+| 80-902734-1-6 | And Then There Were None | Agatha Christie  |
++---------------+--------- Page 1/2 -------+------------------+
+`,
+        ],
+        [
+            'Books',
+            'Page 1/2',
+            'box',
+            `┌───────────────┬─────────── Books ────────┬──────────────────┐
+│ ISBN          │ Title                    │ Author           │
+├───────────────┼──────────────────────────┼──────────────────┤
+│ 99921-58-10-7 │ Divine Comedy            │ Dante Alighieri  │
+│ 9971-5-0210-0 │ A Tale of Two Cities     │ Charles Dickens  │
+│ 960-425-059-0 │ The Lord of the Rings    │ J. R. R. Tolkien │
+│ 80-902734-1-6 │ And Then There Were None │ Agatha Christie  │
+└───────────────┴───────── Page 1/2 ───────┴──────────────────┘
+`,
+        ],
+        [
+            'Boooooooooooooooooooooooooooooooooooooooooooooooooooooooks',
+            'Page 1/999999999999999999999999999999999999999999999999999',
+            'default',
+            `+- Booooooooooooooooooooooooooooooooooooooooooooooooooooo... -+
+| ISBN          | Title                    | Author           |
++---------------+--------------------------+------------------+
+| 99921-58-10-7 | Divine Comedy            | Dante Alighieri  |
+| 9971-5-0210-0 | A Tale of Two Cities     | Charles Dickens  |
+| 960-425-059-0 | The Lord of the Rings    | J. R. R. Tolkien |
+| 80-902734-1-6 | And Then There Were None | Agatha Christie  |
++- Page 1/99999999999999999999999999999999999999999999999... -+
+`,
+        ],
+    ];
+
+    index = 1;
+    for (const [ headerTitle, footerTitle, style, expected ] of setTitleTests) {
+        it ('should render table with title with data #' + index++, () => {
+            const output = this._getOutputStream(false);
+
+            const table = new Table(output);
+            table.headerTitle = headerTitle;
+            table.footerTitle = footerTitle;
+            table.setHeaders([ 'ISBN', 'Title', 'Author' ]);
+            table.setRows([
+                [ '99921-58-10-7', 'Divine Comedy', 'Dante Alighieri' ],
+                [ '9971-5-0210-0', 'A Tale of Two Cities', 'Charles Dickens' ],
+                [ '960-425-059-0', 'The Lord of the Rings', 'J. R. R. Tolkien' ],
+                [ '80-902734-1-6', 'And Then There Were None', 'Agatha Christie' ],
+            ]);
+
+            table.style = style;
+            table.render();
+
+            expect(this._getOutputContent(output)).to.be.equal(expected);
         });
     }
 });

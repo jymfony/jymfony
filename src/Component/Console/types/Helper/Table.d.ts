@@ -42,7 +42,7 @@ declare namespace Jymfony.Component.Console.Helper {
          *
          * @returns {Jymfony.Component.Console.Helper.TableStyle}
          */
-        public style: TableStyle;
+        public style: string | TableStyle;
 
         /**
          * Gets the current style for a column.
@@ -68,7 +68,7 @@ declare namespace Jymfony.Component.Console.Helper {
         /**
          * Sets the headers.
          */
-        setHeaders(headers: (string | TableCell | TableSeparator)[]): this;
+        setHeaders(headers: (string | TableCell)[] | ((string | TableCell)[] | TableSeparator)[]): this;
 
         setRows(rows: ((string | TableCell)[] | TableSeparator)[]): this;
         addRows(rows: ((string | TableCell)[] | TableSeparator)[]): this;
