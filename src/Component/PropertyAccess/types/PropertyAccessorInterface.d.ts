@@ -25,11 +25,11 @@ declare namespace Jymfony.Component.PropertyAccess {
          * If a property in the path is not found, an exception is thrown.
          *
          * @param {Object} object
-         * @param {*} value
          * @param {string|Jymfony.Component.PropertyAccess.PropertyPathInterface} path
+         * @param {*} value
          *
          * @throws {Jymfony.Component.PropertyAccess.Exception.AccessException} A property in the path is not found
          */
-        setValue(object: object | any[], value: any, path: string | PropertyPathInterface): void;
+        setValue(object: object | any[], path: string | PropertyPathInterface, value: any): void;
     }
 }
