@@ -197,4 +197,15 @@ export default () => {
         const compiler = new Compiler(new Generator());
         expect(() => compiler.compile(program)).not.to.throw();
     });
+
+    it ('should parse js code correctly. case #1', () => {
+        const program = parser.parse(`
+    const res = lines.map((l, i) => {
+        return (0 === i && !indentfirst) ? \`\${l}\\n\` : \`\${sp}\${l}\\n\`;
+    }).join('');
+`);
+
+        const compiler = new Compiler(new Generator());
+        expect(() => compiler.compile(program)).not.to.throw();
+    });
 });
