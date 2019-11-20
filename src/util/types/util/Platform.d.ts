@@ -24,5 +24,15 @@ declare namespace __jymfony {
          * Checks if this node version has modern regex (named groups) support.
          */
         static hasModernRegex(): boolean;
+
+        /**
+         * Checks if this node version has public instance fields support.
+         */
+        static hasPublicFieldSupport(): boolean;
+
+        /**
+         * Checks if this node version has private instance fields support.
+         */
+        static hasPrivateFieldSupport(): boolean;
     }
 }

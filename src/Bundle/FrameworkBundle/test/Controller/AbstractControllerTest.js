@@ -1,9 +1,5 @@
 require('../../fixtures/namespace');
 
-if (! __jymfony.Platform.hasPublicFieldSupport()) {
-    return;
-}
-
 const TestAbstractController = Jymfony.Bundle.FrameworkBundle.Tests.Fixtures.Controller.TestAbstractController;
 const Container = Jymfony.Component.DependencyInjection.Container;
 const ServiceNotFoundException = Jymfony.Component.DependencyInjection.Exception.ServiceNotFoundException;
@@ -25,6 +21,12 @@ const { basename } = require('path');
 const createController = () => new TestAbstractController();
 
 describe('[FrameworkBundle] AbstractController', function () {
+    if (! __jymfony.Platform.hasPublicFieldSupport()) {
+        beforeEach(function () {
+            this.skip();
+        });
+    }
+
     beforeEach(() => {
         this._prophet = new Prophet();
     });
@@ -133,7 +135,7 @@ describe('[FrameworkBundle] AbstractController', function () {
         expect(response).to.be.instanceOf(BinaryFileResponse);
         expect(response.statusCode).to.be.equal(200);
 
-        if (response.headers.has('content-type')) {
+        if (! __jymfony.Platform.isWindows() && response.headers.has('content-type')) {
             expect(response.headers.get('content-type')).to.be.equal('text/plain');
         }
 
@@ -174,7 +176,7 @@ describe('[FrameworkBundle] AbstractController', function () {
         expect(response).to.be.instanceOf(BinaryFileResponse);
         expect(response.statusCode).to.be.equal(200);
 
-        if (response.headers.has('content-type')) {
+        if (! __jymfony.Platform.isWindows() && response.headers.has('content-type')) {
             expect(response.headers.get('content-type')).to.be.equal('text/plain');
         }
 
