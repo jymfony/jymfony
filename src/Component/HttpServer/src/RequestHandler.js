@@ -99,6 +99,7 @@ export default class RequestHandler extends implementationOf(LoggerAwareInterfac
      */
     async handle(request, catchExceptions = true) {
         let response;
+        request.attributes.set('_handler', this);
 
         try {
             const promises = [ this._handleRaw(request) ];

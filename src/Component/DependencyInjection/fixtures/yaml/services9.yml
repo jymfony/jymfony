@@ -19,7 +19,7 @@ services:
             - [setBar, ['@bar']]
             - [initialize, []]
 
-        factory: [Bar\FooClass, getInstance]
+        factory: [Bar.FooClass, getInstance]
         configurator: sc_configure
         public: true
     foo.baz:
@@ -38,7 +38,7 @@ services:
         arguments: ['@deprecated_service']
         public: true
     method_call1:
-        class: Bar\FooClass
+        class: Bar.FooClass
         module: '%path%foo.js'
         calls:
             - [setBar, ['@foo']]
@@ -118,8 +118,8 @@ services:
         factory: ['@new_factory', getInstance]
         public: true
     service_from_static_method:
-        class: Bar\FooClass
-        factory: [Bar\FooClass, getInstance]
+        class: Bar.FooClass
+        factory: [Bar.FooClass, getInstance]
         public: true
     factory_simple:
         class: SimpleFactoryClass
@@ -158,10 +158,10 @@ services:
         arguments:
             - !tagged foo
         public: true
-    Psr\Container\ContainerInterface:
+    Container.ContainerInterface:
         alias: service_container
         public: false
-    Symfony\Component\DependencyInjection\ContainerInterface:
+    Jymfony.Component.DependencyInjection.ContainerInterface:
         alias: service_container
         public: false
     alias_for_foo:

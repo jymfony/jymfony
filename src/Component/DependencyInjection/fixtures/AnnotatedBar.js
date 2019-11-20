@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 
-import { @Inject, @Parameter } from '../decorators';
+import { @Inject, @Parameter } from '@jymfony/decorators';
 
 const BarInterface = Jymfony.Component.DependencyInjection.Fixtures.BarInterface;
 

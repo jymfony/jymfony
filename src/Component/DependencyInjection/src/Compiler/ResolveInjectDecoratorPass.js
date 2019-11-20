@@ -1,4 +1,4 @@
-import { Inject, Parameter } from '../../decorators' optional;
+import { Inject, Parameter } from '@jymfony/decorators' optional;
 const AbstractRecursivePass = Jymfony.Component.DependencyInjection.Compiler.AbstractRecursivePass;
 const Definition = Jymfony.Component.DependencyInjection.Definition;
 const DIParameter = Jymfony.Component.DependencyInjection.Parameter;

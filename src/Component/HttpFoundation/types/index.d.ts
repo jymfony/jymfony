@@ -54,6 +54,7 @@
 /// <reference path="HeaderBag.d.ts" />
 /// <reference path="HeaderUtils.d.ts" />
 /// <reference path="Ip.d.ts" />
+/// <reference path="JsonResponse.d.ts" />
 /// <reference path="ParameterBag.d.ts" />
 /// <reference path="RedirectResponse.d.ts" />
 /// <reference path="Request.d.ts" />

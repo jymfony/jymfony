@@ -13,7 +13,7 @@ const QuestionBuilder = Jymfony.Component.Console.Question.Builder.QuestionBuild
 const QuestionType = Jymfony.Component.Console.Question.QuestionType;
 
 /**
- * Output decorator helpers for the Symfony Style Guide.
+ * Output decorator helpers for the Jymfony Style Guide.
  *
  * @memberOf Jymfony.Component.Console.Style
  */

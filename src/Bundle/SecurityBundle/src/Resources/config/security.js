@@ -51,7 +51,6 @@ container.register(Jymfony.Component.Security.Role.RoleHierarchy)
     .addArgument('%security.role_hierarchy.roles%')
 ;
 
-
 container.register(Jymfony.Component.Security.Authorization.Voter.RoleVoter)
     .addTag('security.voter', { priority: 245 })
 ;

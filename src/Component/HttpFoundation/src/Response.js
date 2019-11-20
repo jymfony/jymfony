@@ -864,7 +864,7 @@ export default class Response extends implementationOf(ResponseInterface) {
     _ensureIEOverSSLCompatibility(request) {
         let match;
         if (-1 !== this.headers.get('Content-Disposition', '').indexOf('attachment') &&
-            (match = request.server.get('HTTP_USER_AGENT').match(/MSIE (.*?);/i)) && request.isSecure) {
+            (match = request.server.get('HTTP_USER_AGENT', '').match(/MSIE (.*?);/i)) && request.isSecure) {
             if (match[1] && 9 > ~~match[1]) {
                 this.headers.remove('Cache-Control');
             }

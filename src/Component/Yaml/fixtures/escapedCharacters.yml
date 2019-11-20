@@ -126,7 +126,7 @@ js: |
 ---
 test: Example 5.13 Escaped Characters
 note: |
-    Currently throws an error parsing first line. Maybe Symfony Yaml doesn't support
+    Currently throws an error parsing first line. Maybe Jymfony Yaml doesn't support
     continuation of string across multiple lines? Keeping test here but disabled.
 todo: true
 yaml: |

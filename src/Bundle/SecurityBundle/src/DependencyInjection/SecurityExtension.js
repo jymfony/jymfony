@@ -338,7 +338,7 @@ export default class SecurityExtension extends Extension {
             .addArgument(provider ? new Reference(provider) : undefined)
             .addArgument(defaultEntryPoint ? new Reference(defaultEntryPoint) : undefined)
             .addArgument(access_denied_handler)
-            .addArgument(new IteratorArgument(authListeners.map(id => new Reference(id))))
+            .addArgument(new IteratorArgument(authListeners))
             .addArgument(logoutHandler)
         ;
     }
