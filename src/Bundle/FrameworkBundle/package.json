@@ -32,6 +32,7 @@
     "@jymfony/debug": "https://github.com/jymfony/debug.git",
     "@jymfony/http-foundation": "https://github.com/jymfony/http-foundation.git",
     "@jymfony/http-server": "https://github.com/jymfony/http-server.git",
+    "@jymfony/mime": "https://github.com/jymfony/mime.git",
     "@jymfony/routing": "https://github.com/jymfony/routing.git",
     "@jymfony/testing": "https://github.com/jymfony/testing.git",
     "@jymfony/var-dumper": "https://github.com/jymfony/var-dumper.git",
