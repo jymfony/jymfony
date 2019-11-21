@@ -35,7 +35,7 @@ export default class ResolveInjectDecoratorPass extends AbstractRecursivePass {
             const reflField = reflClass.getField(field);
             for (const [ , annotation ] of reflField.metadata) {
                 if (annotation instanceof Inject) {
-                    value.addProperty(field, new Reference(annotation.serviceId));
+                    value.addProperty(field, new Reference(annotation.serviceId, annotation.invalidBehavior));
                 } else if (annotation instanceof Parameter) {
                     value.addProperty(field, new DIParameter(annotation.parameterName));
                 }
