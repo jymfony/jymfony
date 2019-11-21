@@ -36,7 +36,7 @@ export default class ReflectionClassResource extends implementationOf(SelfChecki
         this._files = [];
 
         /**
-         * @type {undefined}
+         * @type {string}
          *
          * @private
          */
@@ -84,7 +84,7 @@ export default class ReflectionClassResource extends implementationOf(SelfChecki
             this._loadFiles(this._classReflector);
         }
 
-        return [ 'files', 'className', 'hash' ];
+        return [ '_files', '_className', '_hash' ];
     }
 
     /**
