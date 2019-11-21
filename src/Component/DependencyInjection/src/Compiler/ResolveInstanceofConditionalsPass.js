@@ -58,6 +58,10 @@ export default class ResolveInstanceofConditionalsPass extends implementationOf(
         const instanceofShutdownCalls = [];
 
         for (const [ superclass, instanceofDefs ] of __jymfony.getEntries(conditionals)) {
+            if (! ReflectionClass.exists(superclass)) {
+                continue;
+            }
+
             const reflClass = container.getReflectionClass(Class, false);
             if (superclass !== Class && ! reflClass) {
                 continue;

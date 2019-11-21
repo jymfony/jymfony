@@ -947,7 +947,7 @@ export default class ContainerBuilder extends Container {
      * @returns {Jymfony.Component.DependencyInjection.ChildDefinition}
      */
     registerForAutoconfiguration(IF) {
-        IF = ReflectionClass.getClassName(IF);
+        IF = ! isString(IF) ? ReflectionClass.getClassName(IF) : IF;
         if (undefined === this._autoconfiguredInstanceof[IF]) {
             this._autoconfiguredInstanceof[IF] = new ChildDefinition('');
         }
