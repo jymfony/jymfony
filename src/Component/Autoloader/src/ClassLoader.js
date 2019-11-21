@@ -258,7 +258,7 @@ class ClassLoader {
                 return require(id);
             }
 
-            id = require.resolve(id, { paths: [ dirname ] });
+            id = resolve(id, { paths: [ dirname ] });
             if (_cache[id]) {
                 return _cache[id];
             }
@@ -286,6 +286,10 @@ class ClassLoader {
             } catch (e) {
                 return asObject ? {} : undefined;
             }
+        };
+
+        req.resolve = (id, options = {}) => {
+            return resolve(id, { paths: [ dirname ], ...options });
         };
 
         this._vm.runInThisContext(this.getCode(fn).code, opts)(module.exports, req, module, fn, dirname, self);
