@@ -38,6 +38,7 @@ class ProjectContainer extends Jymfony.Component.DependencyInjection.Container {
 
         instance._quz = this;
         instance._debug = true;
+        instance.qoz = this;
         return instance;
     }
 

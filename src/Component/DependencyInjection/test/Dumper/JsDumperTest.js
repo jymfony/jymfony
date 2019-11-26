@@ -236,7 +236,7 @@ module.exports = new ContainerkHWy2bx({
         container.compile();
 
         const dumper = new JsDumper(container);
-        expect(dumper.dump({ build_time: 1536621245 })['Container9d159V4/ProjectContainer.js'])
+        expect(dumper.dump({ build_time: 1536621245 })['ContainercD5kbqS/ProjectContainer.js'])
             .to.be.equal(fs.readFileSync(path.join(fixturesPath, 'js', 'annotated-services.js')).toString());
     } : undefined);
 });

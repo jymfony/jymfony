@@ -65,10 +65,19 @@ declare class ReflectionClass<T = any> {
     hasReadableProperty(name: string|symbol): boolean;
 
     /**
+     * Gets the readable property (getter) reflection object.
+     */
+    getReadableProperty(name: string|symbol): ReflectionProperty;
+
+    /**
      * Checks if class has writable property (setter).
      */
     hasWritableProperty(name: string|symbol): boolean;
 
+    /**
+     * Gets the writable property (setter) reflection object.
+     */
+    getWritableProperty(name: string|symbol): ReflectionProperty;
 
     /**
      * Checks if class has defined the given class field.

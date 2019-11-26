@@ -203,7 +203,7 @@ class ReflectionClass {
      *
      * @param {string|Symbol} name
      *
-     * @returns {boolean}
+     * @returns {ReflectionProperty}
      */
     getReadableProperty(name) {
         return new ReflectionProperty(this, ReflectionProperty.KIND_GET, name);
@@ -225,7 +225,7 @@ class ReflectionClass {
      *
      * @param {string|Symbol} name
      *
-     * @returns {boolean}
+     * @returns {ReflectionProperty}
      */
     getWritableProperty(name) {
         return new ReflectionProperty(this, ReflectionProperty.KIND_SET, name);

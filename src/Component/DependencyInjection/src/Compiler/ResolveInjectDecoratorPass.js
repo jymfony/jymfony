@@ -41,5 +41,20 @@ export default class ResolveInjectDecoratorPass extends AbstractRecursivePass {
                 }
             }
         }
+
+        for (const property of reflClass.properties) {
+            if (! reflClass.hasWritableProperty(property)) {
+                continue;
+            }
+
+            const reflProperty = reflClass.getWritableProperty(property);
+            for (const [ , annotation ] of reflProperty.metadata) {
+                if (annotation instanceof Inject) {
+                    value.addProperty(property, new Reference(annotation.serviceId, annotation.invalidBehavior));
+                } else if (annotation instanceof Parameter) {
+                    value.addProperty(property, new DIParameter(annotation.parameterName));
+                }
+            }
+        }
     }
 }
