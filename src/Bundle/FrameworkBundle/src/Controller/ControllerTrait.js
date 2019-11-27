@@ -16,7 +16,7 @@ class ControllerTrait {
      * @protected
      */
     has(id) {
-        return this.container.has(id);
+        return this._container.has(id);
     }
 
     /**
@@ -30,7 +30,7 @@ class ControllerTrait {
      * @protected
      */
     get(id) {
-        return this.container.get(id);
+        return this._container.get(id);
     }
 
     /**
@@ -53,7 +53,7 @@ class ControllerTrait {
             referenceType = Jymfony.Component.Routing.Generator.UrlGeneratorInterface.ABSOLUTE_PATH;
         }
 
-        let router = this.container.get('router');
+        let router = this._container.get('router');
         if (!! request) {
             router = router.withContext(request);
         }
@@ -155,15 +155,15 @@ class ControllerTrait {
      * @protected
      */
     isGranted(request, attributes, subject = null) {
-        if (! this.container.has('security.authorization_checker')) {
+        if (! this._container.has('security.authorization_checker')) {
             throw new LogicException('The SecurityBundle is not registered in your application. Try running "yarn add @jymfony/security-bundle".');
         }
 
-        const token = this.container
+        const token = this._container
             .get('Jymfony.Component.Security.Authentication.Token.Storage.TokenStorageInterface')
             .getToken(request);
 
-        return this.container.get('security.authorization_checker').isGranted(token, attributes, subject);
+        return this._container.get('security.authorization_checker').isGranted(token, attributes, subject);
     }
 
     /**
@@ -202,12 +202,12 @@ class ControllerTrait {
      * @protected
      */
     async renderView(view, parameters = {}) {
-        if (! this.container.has('templating')) {
+        if (! this._container.has('templating')) {
             throw new LogicException('You can not use the "renderView" method if the Templating Component is not available. Try running "yarn add @jymfony/templating".');
         }
 
         const buffer = new __jymfony.StreamBuffer();
-        await this.container.get('templating').render(buffer, view, parameters);
+        await this._container.get('templating').render(buffer, view, parameters);
 
         return buffer.buffer.toString('utf-8');
     }
@@ -225,7 +225,7 @@ class ControllerTrait {
      * @protected
      */
     render(view, parameters = {}, response = null) {
-        if (! this.container.has('templating')) {
+        if (! this._container.has('templating')) {
             throw new LogicException('You can not use the "render" method if the Templating Component is not available. Try running "yarn add @jymfony/templating".');
         }
 
@@ -233,7 +233,7 @@ class ControllerTrait {
             response = new Jymfony.Component.HttpFoundation.Response();
         }
 
-        const templating = this.container.get('templating');
+        const templating = this._container.get('templating');
         response.content = async (responseStream) => {
             await templating.render(responseStream, view, parameters);
         };
@@ -297,11 +297,11 @@ class ControllerTrait {
      * @protected
      */
     getUser(request) {
-        if (! this.container.has('Jymfony.Component.Security.Authentication.Token.Storage.TokenStorageInterface')) {
+        if (! this._container.has('Jymfony.Component.Security.Authentication.Token.Storage.TokenStorageInterface')) {
             throw new LogicException('The SecurityBundle is not registered in your application. Try running "yarn add @jymfony/security-bundle".');
         }
 
-        const token = this.container
+        const token = this._container
             .get(Jymfony.Component.Security.Authentication.Token.Storage.TokenStorageInterface)
             .getToken(request);
         if (! token) {

@@ -1,4 +1,5 @@
 declare namespace Jymfony.Bundle.FrameworkBundle.Test {
+    import Container = Jymfony.Component.DependencyInjection.Container;
     import KernelInterface = Jymfony.Component.Kernel.KernelInterface;
 
     interface CreateKernelOptions {
@@ -21,8 +22,6 @@ declare namespace Jymfony.Bundle.FrameworkBundle.Test {
     export class KernelTestUtil {
         /**
          * Creates a Kernel.
-         *
-         * @returns {Jymfony.Component.Kernel.KernelInterface} A KernelInterface instance
          */
         static createKernel(opts?: CreateKernelOptions): KernelInterface;
 
@@ -30,5 +29,12 @@ declare namespace Jymfony.Bundle.FrameworkBundle.Test {
          * Boots the Kernel for this test.
          */
         static bootKernel(options?: CreateKernelOptions): Promise<KernelInterface>;
+
+        /**
+         * Gets the container from the given kernel.
+         * If configured, will return a test container that will also grant
+         * access to private services.
+         */
+        static getContainer(kernel: KernelInterface): Container;
     }
 }

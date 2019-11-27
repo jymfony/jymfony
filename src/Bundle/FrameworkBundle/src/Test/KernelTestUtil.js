@@ -1,3 +1,6 @@
+/**
+ * @memberOf Jymfony.Bundle.FrameworkBundle.Test
+ */
 export default class KernelTestUtil {
     /**
      * Creates a Kernel.
@@ -29,6 +32,8 @@ export default class KernelTestUtil {
             debug = true;
         }
 
+        kernelClass = ReflectionClass.getClass(kernelClass);
+
         return new kernelClass(environment, !! debug);
     }
 
@@ -47,5 +52,23 @@ export default class KernelTestUtil {
         await kernel.boot();
 
         return kernel;
+    }
+
+    /**
+     * Gets the container from the given kernel.
+     * If configured, will return a test container that will also grant
+     * access to private services.
+     *
+     * @param {Jymfony.Component.Kernel.KernelInterface} kernel
+     *
+     * @returns {Jymfony.Component.DependencyInjection.Container}
+     */
+    static getContainer(kernel) {
+        const container = kernel.container;
+        if (container.has('test.service_container')) {
+            return container.get('test.service_container');
+        }
+
+        return container;
     }
 }

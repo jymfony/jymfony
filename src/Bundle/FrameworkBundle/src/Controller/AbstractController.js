@@ -12,8 +12,12 @@ const ServiceSubscriberInterface = Jymfony.Component.DependencyInjection.Service
  * @memberOf Jymfony.Bundle.FrameworkBundle.Controller
  */
 export default class AbstractController extends implementationOf(ServiceSubscriberInterface, ControllerTrait) {
+    _container;
+
     @Inject(ContainerInterface)
-    container;
+    set container(container) {
+        this._container = container;
+    }
 
     /**
      * Gets a container parameter by its name.
@@ -24,11 +28,11 @@ export default class AbstractController extends implementationOf(ServiceSubscrib
      * @protected
      */
     getParameter(name) {
-        if (! this.container.has('parameter_bag')) {
+        if (! this._container.has('parameter_bag')) {
             throw new ServiceNotFoundException('parameter_bag', null);
         }
 
-        return this.container.get('parameter_bag').get(name);
+        return this._container.get('parameter_bag').get(name);
     }
 
     /**
@@ -39,7 +43,7 @@ export default class AbstractController extends implementationOf(ServiceSubscrib
         yield ['kernel', '?Jymfony.Component.Kernel.KernelInterface'];
         yield ['security.authorization_checker', '?Jymfony.Component.Security.Authorization.AuthorizationCheckerInterface'];
         yield ['templating', '?Jymfony.Component.Templating.Engine.EngineInterface'];
-        yield ['Jymfony.Component.Security.Authentication.Token.Storage.TokenStorageInterface'];
+        yield '?Jymfony.Component.Security.Authentication.Token.Storage.TokenStorageInterface';
         yield ['parameter_bag', '?Jymfony.Component.DependencyInjection.ParameterBag.ContainerBagInterface'];
     }
 }

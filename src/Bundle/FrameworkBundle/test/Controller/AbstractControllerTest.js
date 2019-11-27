@@ -1,6 +1,8 @@
 require('../../fixtures/namespace');
 
+const ConcreteController = Jymfony.Bundle.FrameworkBundle.Tests.Fixtures.Controller.ConcreteController;
 const TestAbstractController = Jymfony.Bundle.FrameworkBundle.Tests.Fixtures.Controller.TestAbstractController;
+const KernelTestUtil = Jymfony.Bundle.FrameworkBundle.Test.KernelTestUtil;
 const Container = Jymfony.Component.DependencyInjection.Container;
 const ServiceNotFoundException = Jymfony.Component.DependencyInjection.Exception.ServiceNotFoundException;
 const ContainerBag = Jymfony.Component.DependencyInjection.ParameterBag.ContainerBag;
@@ -13,7 +15,10 @@ const Request = Jymfony.Component.HttpFoundation.Request;
 const RedirectResponse = Jymfony.Component.HttpFoundation.RedirectResponse;
 const Response = Jymfony.Component.HttpFoundation.Response;
 const ResponseHeaderBag = Jymfony.Component.HttpFoundation.ResponseHeaderBag;
+const Router = Jymfony.Component.Routing.Router;
 const UrlGeneratorInterface = Jymfony.Component.Routing.Generator.UrlGeneratorInterface;
+const AnonymousToken = Jymfony.Component.Security.Authentication.Token.AnonymousToken;
+const TokenStorageInterface = Jymfony.Component.Security.Authentication.Token.Storage.TokenStorageInterface;
 const Prophet = Jymfony.Component.Testing.Prophet;
 const { expect } = require('chai');
 const { basename } = require('path');
@@ -37,7 +42,7 @@ describe('[FrameworkBundle] AbstractController', function () {
 
     it ('should generate url', () => {
         const request = Request.create('/');
-        const router = this._prophet.prophesize(UrlGeneratorInterface);
+        const router = this._prophet.prophesize(Router);
         router.withContext(request).willReturn(router);
         router.generate('foo', {}, UrlGeneratorInterface.ABSOLUTE_PATH).willReturn('/foo');
 
@@ -97,7 +102,7 @@ describe('[FrameworkBundle] AbstractController', function () {
 
     it ('should return a redirect response to route', () => {
         const request = Request.create('/');
-        const router = this._prophet.prophesize(UrlGeneratorInterface);
+        const router = this._prophet.prophesize(Router);
         router.withContext(request).willReturn(router);
         router.generate('foo', {}, UrlGeneratorInterface.ABSOLUTE_PATH).willReturn('/foo');
 
@@ -187,5 +192,32 @@ describe('[FrameworkBundle] AbstractController', function () {
     it ('should throw if file does not exist', async () => {
         const controller = createController();
         expect(() => controller.file(__filename + 'xyz')).to.throw(FileNotFoundException);
+    });
+
+    it ('isGranted should throw if security bundle is not registered', async () => {
+        const kernel = KernelTestUtil.createKernel({ kernelClass: 'Jymfony.Bundle.FrameworkBundle.Tests.Fixtures.Controller.TestKernel' });
+        await kernel.boot();
+
+        const controller = kernel.container.get(ConcreteController);
+        expect(() => controller.isGranted(new Request('/'), 'ROLE_ADMIN')).to.throw(
+            LogicException,
+            /The SecurityBundle is not registered in your application\. Try running "yarn add @jymfony\/security-bundle/
+        );
+
+        await kernel.shutdown();
+    });
+
+    it ('isGranted should return false', async () => {
+        const kernel = KernelTestUtil.createKernel({ kernelClass: 'Jymfony.Bundle.FrameworkBundle.Tests.Fixtures.Controller.TestKernelWithSecurity' });
+        await kernel.boot();
+
+        const request = new Request('/');
+        const container = KernelTestUtil.getContainer(kernel);
+        container.get(TokenStorageInterface).setToken(request, new AnonymousToken('secret'));
+
+        const controller = container.get(ConcreteController);
+        expect(controller.isGranted(request, 'ROLE_ADMIN')).to.be.false;
+
+        await kernel.shutdown();
     });
 });

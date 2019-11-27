@@ -8,7 +8,8 @@ declare namespace Jymfony.Bundle.FrameworkBundle.Controller {
      * @memberOf Jymfony.Bundle.FrameworkBundle.Controller
      */
     export abstract class AbstractController extends implementationOf(ServiceSubscriberInterface, ControllerTrait) {
-        container: ContainerInterface;
+        public /* writeonly */ container: ContainerInterface;
+        protected _container: ContainerInterface;
 
         /**
          * Gets a container parameter by its name.
