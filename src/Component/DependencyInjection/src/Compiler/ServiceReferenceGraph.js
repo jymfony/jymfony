@@ -64,6 +64,10 @@ export default class ServiceReferenceGraph {
      * @param {boolean} [weak = false]
      */
     connect(sourceId, sourceValue, destinationId, destinationValue = undefined, reference = undefined, lazy = false, weak = false) {
+        if (! sourceId || ! destinationId) {
+            return;
+        }
+
         const sourceNode = this._createNode(sourceId, sourceValue);
         const destNode = this._createNode(destinationId, destinationValue);
         const edge = new ServiceReferenceGraphEdge(sourceNode, destNode, reference, lazy, weak);

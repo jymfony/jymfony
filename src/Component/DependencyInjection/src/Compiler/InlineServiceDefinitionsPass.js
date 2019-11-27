@@ -231,6 +231,8 @@ export default class InlineServiceDefinitionsPass extends AbstractRecursivePass 
             return false;
         }
 
+        this._connectedIds[id] = true;
+
         const ids = [];
         let srcCount = 0;
         for (const edge of this._graph.getNode(id).getInEdges()) {

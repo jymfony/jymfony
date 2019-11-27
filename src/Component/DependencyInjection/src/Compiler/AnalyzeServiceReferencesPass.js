@@ -62,7 +62,8 @@ export default class AnalyzeServiceReferencesPass extends AbstractRecursivePass 
         this._lazy = false;
 
         for (const [ id, alias ] of __jymfony.getEntries(container.getAliases())) {
-            this._graph.connect(id, alias, alias.toString(), this._getDefinition(alias), null);
+            const targetId = this._getDefinitionId(alias.toString());
+            this._graph.connect(id, alias, alias.toString(), this._getDefinition(targetId), null);
         }
 
         super.process(container);
@@ -88,12 +89,13 @@ export default class AnalyzeServiceReferencesPass extends AbstractRecursivePass 
         }
 
         if (value instanceof Reference) {
-            const targetDefinition = this._getDefinition(value.toString());
+            const targetId = this._getDefinitionId(value.toString());
+            const targetDefinition = this._getDefinition(targetId);
 
             this._graph.connect(
                 this._currentId,
                 this._currentDefinition,
-                this._getDefinitionId(value.toString()),
+                targetId,
                 targetDefinition,
                 value,
                 this._lazy,
@@ -113,6 +115,8 @@ export default class AnalyzeServiceReferencesPass extends AbstractRecursivePass 
             }
 
             this._currentDefinition = value;
+        } else if (this._currentDefinition === value) {
+            return value;
         }
 
         this._lazy = false;
@@ -139,7 +143,7 @@ export default class AnalyzeServiceReferencesPass extends AbstractRecursivePass 
      * @private
      */
     _getDefinition(id) {
-        return undefined === id ? undefined : (this._container.hasDefinition(id) ? this._container.getDefinition(id) : undefined);
+        return ! id ? undefined : (this._container.hasDefinition(id) ? this._container.getDefinition(id) : undefined);
     }
 
     /**

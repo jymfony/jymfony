@@ -1,6 +1,9 @@
+const ArgumentInterface = Jymfony.Component.DependencyInjection.Argument.ArgumentInterface;
+const ServiceClosureArgument = Jymfony.Component.DependencyInjection.Argument.ServiceClosureArgument;
 const CompilerPassInterface = Jymfony.Component.DependencyInjection.Compiler.CompilerPassInterface;
-const Reference = Jymfony.Component.DependencyInjection.Reference;
 const Container = Jymfony.Component.DependencyInjection.Container;
+const Definition = Jymfony.Component.DependencyInjection.Definition;
+const Reference = Jymfony.Component.DependencyInjection.Reference;
 const RuntimeException = Jymfony.Component.DependencyInjection.Exception.RuntimeException;
 
 /**
@@ -14,87 +17,113 @@ export default class ResolveInvalidReferencesPass extends implementationOf(Compi
          * @private
          */
         this._container = undefined;
+
+        /**
+         * @type {RuntimeException}
+         *
+         * @private
+         */
+        this._signalingException = undefined;
+
+        /**
+         * @type {string}
+         *
+         * @private
+         */
+        this._currentId = undefined;
     }
 
     /**
      * @inheritdoc
      */
     process(container) {
+        let definition;
         this._container = container;
+        this._signalingException = new RuntimeException('Invalid reference.');
 
-        for (const definition of Object.values(container.getDefinitions())) {
-            if (definition.isSynthetic() || definition.isAbstract()) {
-                continue;
+        try {
+            for ([ this._currentId, definition ] of __jymfony.getEntries(container.getDefinitions())) {
+                this._processValue(definition);
             }
-
-            definition.setArguments(this._processArguments(definition.getArguments()));
-
-            const calls = [];
-            for (const call of definition.getMethodCalls()) {
-                try {
-                    calls.push([ call[0], this._processArguments(call[1], true) ]);
-                } catch (e) {
-                    // Call is removed
-                }
-            }
-
-            definition.setMethodCalls(calls);
-
-            const shutdownCalls = [];
-            for (const call of definition.getShutdownCalls()) {
-                try {
-                    shutdownCalls.push([ call[0], this._processArguments(call[1], true) ]);
-                } catch (e) {
-                    // Call is removed
-                }
-            }
-
-            definition.setShutdownCalls(shutdownCalls);
-
-            const properties = {};
-            for (let [ name, value ] of __jymfony.getEntries(definition.getProperties())) {
-                try {
-                    value = this._processArguments([ value ], true);
-                    properties[name] = value[0];
-                } catch (e) {
-                    // Property ignored
-                }
-            }
-
-            definition.setProperties(properties);
+        } finally {
+            this._container = this._signalingException = undefined;
         }
     }
 
-    _processArguments(args, inMethodCall, inCollection = undefined) {
-        for (const [ k, argument ] of __jymfony.getEntries(args)) {
-            if (isArray(argument) || isObjectLiteral(argument)) {
-                args[k] = this._processArguments(argument, inMethodCall, true);
-            } else if (argument instanceof Reference) {
-                const id = argument.toString();
-                const invalidBehavior = argument.invalidBehavior;
-                const exists = this._container.has(id);
+    /**
+     * Processes arguments to determine invalid references.
+     *
+     * @returns {*}
+     *
+     * @throws {RuntimeException} When an invalid reference is found
+     */
+    _processValue(value, rootLevel = 0, level = 0) {
+        if (value instanceof ServiceClosureArgument) {
+            value.values = this._processValue(value.values, 1, 1);
+        } else if (value instanceof ArgumentInterface) {
+            value.values = this._processValue(value.values, rootLevel, 1 + level);
+        } else if (value instanceof Definition) {
+            if (value.isSynthetic() || value.isAbstract()) {
+                return value;
+            }
 
-                if (!exists && invalidBehavior === Container.NULL_ON_INVALID_REFERENCE) {
-                    args[k] = null;
-                } else if (!exists && invalidBehavior === Container.IGNORE_ON_INVALID_REFERENCE) {
-                    if (inCollection) {
-                        if (isArray(args)) {
-                            args.splice(k, 1);
-                        } else {
-                            delete args[k];
-                        }
-                        continue;
+            value.setArguments(this._processValue(value.getArguments(), 0));
+            value.setProperties(this._processValue(value.getProperties(), 1));
+            value.setMethodCalls(this._processValue(value.getMethodCalls(), 2));
+            value.setShutdownCalls(this._processValue(value.getShutdownCalls(), 3));
+        } else if (isArray(value) || isObjectLiteral(value)) {
+            const map = HashTable.fromObject(value);
+
+            /** @type {number | boolean} */
+            let i = 0;
+
+            for (const [ k, v ] of map) {
+                try {
+                    if (false !== i && k != i++) {
+                        i = false;
                     }
 
-                    if (inMethodCall) {
-                        throw new RuntimeException('Method shouldn\'t be called.');
+                    const processedValue = this._processValue(v, rootLevel, 1 + level);
+                    if (v !== processedValue) {
+                        map.put(k, processedValue);
+                    }
+                } catch (e) {
+                    if (! (e instanceof RuntimeException)) {
+                        throw e;
                     }
 
-                    args[k] = null;
+                    if (rootLevel < level || (rootLevel && ! level)) {
+                        map.remove(k);
+                    } else if (rootLevel) {
+                        throw e;
+                    } else {
+                        map.put(k, null);
+                    }
                 }
+            }
+
+            // Ensure numerically indexed arguments have sequential numeric keys.
+            value = false !== i ? Object.values(map.toObject()) : map.toObject();
+        } else if (value instanceof Reference) {
+            const id = value.toString();
+            if (this._container.has(id)) {
+                return value;
+            }
+
+            const invalidBehavior = value.invalidBehavior;
+
+            // Resolve invalid behavior
+            if (Container.NULL_ON_INVALID_REFERENCE === invalidBehavior) {
+                value = null;
+            } else if (Container.IGNORE_ON_INVALID_REFERENCE === invalidBehavior) {
+                if (0 < level || rootLevel) {
+                    throw this._signalingException;
+                }
+
+                value = null;
             }
         }
 
-        return args;
+        return value;
     }
 }
