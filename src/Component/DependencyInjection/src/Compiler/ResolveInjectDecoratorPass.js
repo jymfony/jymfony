@@ -27,7 +27,7 @@ export default class ResolveInjectDecoratorPass extends AbstractRecursivePass {
 
         const class_ = value.getClass();
         if (! ReflectionClass.exists(class_)) {
-            return;
+            return value;
         }
 
         const reflClass = new ReflectionClass(class_);
@@ -56,5 +56,7 @@ export default class ResolveInjectDecoratorPass extends AbstractRecursivePass {
                 }
             }
         }
+
+        return value;
     }
 }
