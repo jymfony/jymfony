@@ -1,5 +1,5 @@
-import {tmpdir} from "os";
-import {join, normalize} from 'path';
+import { join, normalize } from 'path';
+import { tmpdir } from 'os';
 
 const TestKernel = Jymfony.Bundle.FrameworkBundle.Tests.Fixtures.Controller.TestKernel;
 
@@ -11,7 +11,7 @@ export default class TestKernelWithTemplating extends TestKernel {
      * @inheritdoc
      */
     getCacheDir() {
-        return normalize(join(__dirname, 'jymfony_tests', this._prefixCacheLogDir, 'var', 'cache'));
+        return normalize(join(tmpdir(), 'jymfony_tests', this._prefixCacheLogDir, 'var', 'cache'));
     }
 
     /**

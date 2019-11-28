@@ -8,6 +8,7 @@ src/**/*Interface.js
 src/Bundle/FrameworkBundle/src/Controller/AbstractController.js
 src/Bundle/FrameworkBundle/fixtures/Controller/ConcreteController.js
 src/Bundle/FrameworkBundle/fixtures/Controller/TestAbstractController.js
+src/Bundle/FrameworkBundle/fixtures/templates
 src/Component/Cache/src/Adapter/RedisAdapter.js
 src/Component/Cache/src/Traits/RedisTrait.js
 src/Component/DependencyInjection/src/Compiler/ResolveInjectDecoratorPass.js
