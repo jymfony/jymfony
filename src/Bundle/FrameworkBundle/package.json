@@ -34,6 +34,8 @@
     "@jymfony/http-server": "https://github.com/jymfony/http-server.git",
     "@jymfony/mime": "https://github.com/jymfony/mime.git",
     "@jymfony/routing": "https://github.com/jymfony/routing.git",
+    "@jymfony/security": "https://github.com/jymfony/security.git",
+    "@jymfony/security-bundle": "https://github.com/jymfony/security-bundle.git",
     "@jymfony/testing": "https://github.com/jymfony/testing.git",
     "@jymfony/var-dumper": "https://github.com/jymfony/var-dumper.git",
     "chai": "^4.2",
