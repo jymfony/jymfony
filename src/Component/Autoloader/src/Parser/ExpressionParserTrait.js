@@ -292,11 +292,46 @@ class ExpressionParserTrait {
             // Level 19-18
             switch (this._lexer.token.type) {
                 case Lexer.T_DOT: {
-                    this._next();
-                    const optional = false;
-                    const property = this._parseIdentifier();
+                    const optional = '?.' === this._lexer.token.value;
+                    let computed = false;
+                    let property;
 
-                    expression = new AST.MemberExpression(this._makeLocation(start), expression, property, false, optional);
+                    this._next();
+                    if (optional) {
+                        if (Lexer.T_OPEN_SQUARE_BRACKET === this._lexer.token.type) {
+                            computed = true;
+                            this._next();
+                            property = this._parseExpression();
+                            this._expect(Lexer.T_CLOSED_SQUARE_BRACKET);
+                            this._next(false);
+                        } else if (Lexer.T_OPEN_PARENTHESIS === this._lexer.token.type) {
+                            // Function call
+                            this._next();
+
+                            const args = this._lexer.isToken(Lexer.T_CLOSED_PARENTHESIS) ? [] : this._parseExpression();
+                            this._expect(Lexer.T_CLOSED_PARENTHESIS);
+                            this._next(false);
+
+                            expression = new AST.CallExpression(
+                                this._makeLocation(start),
+                                expression,
+                                args instanceof AST.SequenceExpression ? args.expressions : (isArray(args) ? args : [ args ]),
+                                true
+                            );
+
+                            if (18 < maxLevel) {
+                                return expression;
+                            }
+
+                            break;
+                        } else {
+                            property = this._parseIdentifier();
+                        }
+                    } else {
+                        property = this._parseIdentifier();
+                    }
+
+                    expression = new AST.MemberExpression(this._makeLocation(start), expression, property, computed, optional);
                 } break;
 
                 case Lexer.T_OPEN_SQUARE_BRACKET: {

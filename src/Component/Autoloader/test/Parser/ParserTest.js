@@ -208,4 +208,24 @@ export default () => {
         const compiler = new Compiler(new Generator());
         expect(() => compiler.compile(program)).not.to.throw();
     });
+
+    it ('should parse js optional chaining. case #1', () => {
+        const program = parser.parse(`
+    true === a?.prop1?.[prop2];
+`);
+
+        const compiler = new Compiler(new Generator());
+        const compiled = compiler.compile(program);
+        expect(compiled).to.match(/true === a\?\.prop1\?\.\[prop2\]/);
+    });
+
+    it ('should parse js optional chaining. case #2', () => {
+        const program = parser.parse(`
+    true === a?.prop1?.('test');
+`);
+
+        const compiler = new Compiler(new Generator());
+        const compiled = compiler.compile(program);
+        expect(compiled).to.match(/true === a\?\.prop1\?\.\('test'\)/);
+    });
 });

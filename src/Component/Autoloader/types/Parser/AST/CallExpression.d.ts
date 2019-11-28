@@ -3,12 +3,13 @@ declare namespace Jymfony.Component.Autoloader.Parser.AST {
         public location: SourceLocation;
         private _callee: ExpressionInterface;
         private _args: (ExpressionInterface | SpreadElement)[];
+        private _optional: boolean;
 
         /**
          * Constructor.
          */
-        __construct(location: SourceLocation, callee: ExpressionInterface, args: (ExpressionInterface | SpreadElement)[]): void;
-        constructor(location: SourceLocation, callee: ExpressionInterface, args: (ExpressionInterface | SpreadElement)[]);
+        __construct(location: SourceLocation, callee: ExpressionInterface, args: (ExpressionInterface | SpreadElement)[], optional?: boolean): void;
+        constructor(location: SourceLocation, callee: ExpressionInterface, args: (ExpressionInterface | SpreadElement)[], optional?: boolean);
 
         /**
          * Gets the callee expression.
