@@ -478,6 +478,8 @@ export default class FrameworkExtension extends Extension {
             container.setAlias('templating', 'templating.engine.delegating').setPublic(true);
         }
 
+        container.setAlias(Jymfony.Component.Templating.Engine.EngineInterface, 'templating');
+
         // Configure the js engine if needed
         if (-1 !== config.engines.indexOf('js')) {
             loader.load('templating_js.js');

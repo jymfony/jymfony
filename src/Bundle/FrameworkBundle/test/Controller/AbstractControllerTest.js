@@ -220,4 +220,75 @@ describe('[FrameworkBundle] AbstractController', function () {
 
         await kernel.shutdown();
     });
+
+    it ('isGranted should return true', async () => {
+        const kernel = KernelTestUtil.createKernel({ kernelClass: 'Jymfony.Bundle.FrameworkBundle.Tests.Fixtures.Controller.TestKernelWithSecurity' });
+        await kernel.boot();
+
+        const request = new Request('/');
+        const container = KernelTestUtil.getContainer(kernel);
+        container.get(TokenStorageInterface).setToken(request, new AnonymousToken('secret'));
+
+        const controller = container.get(ConcreteController);
+        expect(controller.isGranted(request, 'IS_AUTHENTICATED_ANONYMOUSLY')).to.be.true;
+
+        await kernel.shutdown();
+    });
+
+    it ('renderView should throw if templating is not available', async () => {
+        const kernel = KernelTestUtil.createKernel({ kernelClass: 'Jymfony.Bundle.FrameworkBundle.Tests.Fixtures.Controller.TestKernel' });
+        await kernel.boot();
+
+        const controller = kernel.container.get(ConcreteController);
+        try {
+            await controller.renderView('');
+            throw new Error('Expected exception.');
+        } catch (e) {
+            expect(e).to.be.instanceOf(LogicException);
+            expect(e.message).to.be.match(/You can not use the "renderView" method if the Templating Component is not available. Try running "yarn add @jymfony\/templating"\./);
+        }
+
+        await kernel.shutdown();
+    });
+
+    it ('renderView should return the rendered template', async () => {
+        const kernel = KernelTestUtil.createKernel({ kernelClass: 'Jymfony.Bundle.FrameworkBundle.Tests.Fixtures.Controller.TestKernelWithTemplating' });
+        await kernel.boot();
+
+        const controller = kernel.container.get(ConcreteController);
+        const view = await controller.renderView(__dirname + '/../../fixtures/templates/foo.txt.js');
+
+        expect(view).to.be.equal('Hello world!\n');
+
+        await kernel.shutdown();
+    });
+
+    it ('render should throw if templating is disabled', async () => {
+        const kernel = KernelTestUtil.createKernel({ kernelClass: 'Jymfony.Bundle.FrameworkBundle.Tests.Fixtures.Controller.TestKernel' });
+        await kernel.boot();
+
+        const controller = kernel.container.get(ConcreteController);
+        expect(() => controller.render('')).to.throw(
+            LogicException,
+            /You can not use the "render" method if the Templating Component is not available. Try running "yarn add @jymfony\/templating"\./
+        );
+
+        await kernel.shutdown();
+    });
+
+    it ('render should return a response with rendering content', async () => {
+        const kernel = KernelTestUtil.createKernel({ kernelClass: 'Jymfony.Bundle.FrameworkBundle.Tests.Fixtures.Controller.TestKernelWithTemplating' });
+        await kernel.boot();
+
+        const controller = kernel.container.get(ConcreteController);
+        const response = await controller.render(__dirname + '/../../fixtures/templates/foo.txt.js');
+
+        expect(response).to.be.instanceOf(Response);
+
+        const buffer = new __jymfony.StreamBuffer();
+        await response.content(buffer);
+        expect(buffer.buffer.toString('utf-8')).to.be.equal('Hello world!\n');
+
+        await kernel.shutdown();
+    });
 });

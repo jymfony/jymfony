@@ -97,10 +97,10 @@ export default class RegisterServiceSubscribersPass extends AbstractRecursivePas
                     ));
                 }
 
-                serviceMap[key] = new Reference(type, optionalBehavior);
+                serviceMap[key] = new Reference(type);
             }
 
-            subscriberMap[key] = serviceMap[key];
+            subscriberMap[key] = new Reference(type, optionalBehavior);
             delete serviceMap[key];
         }
 
