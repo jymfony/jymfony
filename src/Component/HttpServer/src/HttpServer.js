@@ -277,6 +277,9 @@ export default class HttpServer extends mix(RequestHandler, HttpServerInterface)
 
         await response.prepare(request);
         await response.sendResponse(req, res);
+        if (! res.finished) {
+            res.end();
+        }
 
         const event = new Event.PostResponseEvent(this, request, response);
         await this._dispatcher.dispatch(HttpServerEvents.POST_RESPONSE, event);

@@ -105,6 +105,7 @@ class ClsTrait {
     _onHttpFinishRequest(event) {
         const request = event.request;
         const context = this._requestContexts.get(request);
+        this._requestContexts.delete(request);
 
         if (this._activeContext === context) {
             this._activeContext = this._contextSet.pop();
