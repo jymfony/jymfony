@@ -47,7 +47,7 @@ class MetadataStorage {
         if (undefined === currentValue) {
             storage.set(key, [ value ]);
         } else {
-            storage.set(key, currentValue.push(value));
+            storage.set(key, [ ...currentValue, value ]);
         }
     }
 

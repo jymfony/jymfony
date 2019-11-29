@@ -421,7 +421,7 @@ class ReflectionClass {
     /**
      * Get all methods names.
      *
-     * @returns {Array}
+     * @returns {string[]}
      */
     get methods() {
         return [ ...Object.keys(this._methods), ...Object.keys(this._staticMethods) ];
