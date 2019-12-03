@@ -25,6 +25,15 @@ class RestElement extends implementationOf(PatternInterface) {
     }
 
     /**
+     * Gets the rest argument.
+     *
+     * @returns {Jymfony.Component.Autoloader.Parser.AST.PatternInterface}
+     */
+    get argument() {
+        return this._argument;
+    }
+
+    /**
      * @inheritdoc
      */
     compile(compiler) {

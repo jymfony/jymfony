@@ -20,6 +20,11 @@ declare namespace Jymfony.Component.Autoloader.Parser.AST {
         public readonly name: string;
 
         /**
+         * Gets the function parameters.
+         */
+        public readonly params: PatternInterface[];
+
+        /**
          * Gets the function body (block statement).
          */
         public readonly body: BlockStatement;

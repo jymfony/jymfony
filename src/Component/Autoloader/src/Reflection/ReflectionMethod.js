@@ -1,3 +1,20 @@
+const ArrayPattern = require('../Parser/AST/ArrayPattern');
+const AssignmentPattern = require('../Parser/AST/AssignmentPattern');
+const ClassLoader = require('../ClassLoader');
+const Compiler = require('../Parser/Compiler');
+const DescriptorStorage = require('../DescriptorStorage');
+const Identifier = require('../Parser/AST/Identifier');
+const ObjectPattern = require('../Parser/AST/ObjectPattern');
+const Parser = require('../Parser/Parser');
+const ReflectionParameter = require('./ReflectionParameter');
+const RestElement = require('../Parser/AST/RestElement');
+const SourceMapGenerator = require('../Parser/SourceMap/Generator');
+const vm = require('vm');
+
+const descriptorStorage = new DescriptorStorage(
+    new ClassLoader(__jymfony.autoload.finder, require('path'), vm)
+);
+
 /**
  * Reflection utility for class method.
  */
@@ -62,6 +79,21 @@ class ReflectionMethod {
         this._async = isAsyncFunction(this._method);
 
         const classConstructor = reflectionClass.getConstructor();
+
+        /**
+         * @type {Function}
+         *
+         * @private
+         */
+        this._method = this._static ? classConstructor[methodName] : classConstructor.prototype[methodName];
+
+        /**
+         * @type {ReflectionParameter[]}
+         *
+         * @private
+         */
+        this._parameters = [];
+        this._parseParameters();
 
         /**
          * @type {string}
@@ -132,6 +164,74 @@ class ReflectionMethod {
      */
     get metadata() {
         return MetadataStorage.getMetadata(this._class.getConstructor(), this._name);
+    }
+
+    /**
+     * Gets the method parameters' reflection objects.
+     *
+     * @returns {ReflectionParameter[]}
+     */
+    get parameters() {
+        return this._parameters;
+    }
+
+    /**
+     * Parses the method parameter.
+     *
+     * @private
+     */
+    _parseParameters() {
+        let parsed;
+        try {
+            const parser = new Parser(descriptorStorage);
+            parsed = parser.parse('function ' + this._method.toString());
+        } catch (e) {
+            // Do nothing.
+            return;
+        }
+
+        /**
+         * @type {Jymfony.Component.Autoloader.Parser.AST.FunctionExpression & Jymfony.Component.Autoloader.Parser.AST.Function}
+         */
+        const func = parsed.body[0];
+        if (0 === func.params.length) {
+            return;
+        }
+
+        for (let parameter of func.params) {
+            let $default = undefined;
+            let restElement = false;
+            if (parameter instanceof AssignmentPattern) {
+                $default = parameter.right;
+                parameter = parameter.left;
+            }
+
+            if (parameter instanceof RestElement) {
+                parameter = parameter.argument;
+                restElement = true;
+            }
+
+            let name = null;
+            let objectPattern = false;
+            let arrayPattern = false;
+            if (parameter instanceof Identifier) {
+                name = parameter.name;
+            } else if (parameter instanceof ObjectPattern) {
+                objectPattern = true;
+            } else if (parameter instanceof ArrayPattern) {
+                arrayPattern = true;
+            }
+
+            this._parameters.push(new __jymfony.ManagedProxy({}, proxy => {
+                if (undefined !== $default) {
+                    const compiler = new Compiler(new SourceMapGenerator({ skipValidation: true }));
+                    $default = vm.runInNewContext(compiler.compile($default));
+                }
+
+                proxy.initializer = undefined;
+                proxy.target = new ReflectionParameter(this, name, $default, objectPattern, arrayPattern, restElement);
+            }));
+        }
     }
 }
 

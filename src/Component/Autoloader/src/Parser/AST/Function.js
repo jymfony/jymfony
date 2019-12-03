@@ -86,6 +86,15 @@ class Function extends implementationOf(NodeInterface) {
     }
 
     /**
+     * Gets the function parameters.
+     *
+     * @returns {Jymfony.Component.Autoloader.Parser.AST.PatternInterface[]}
+     */
+    get params() {
+        return this._params;
+    }
+
+    /**
      * Gets the function body (block statement).
      *
      * @return {Jymfony.Component.Autoloader.Parser.AST.BlockStatement}

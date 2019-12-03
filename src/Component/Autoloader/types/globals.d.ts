@@ -239,6 +239,50 @@ declare class ReflectionMethod {
      * Gets the class metadata.
      */
     readonly metadata: [Newable<any>, any];
+
+    /**
+     * Gets the parameters' reflection objects.
+     */
+    readonly parameters: ReflectionParameter[];
+}
+
+declare class ReflectionParameter {
+    private constructor(reflectionMethod: ReflectionMethod, name: string, defaultValue?: any);
+
+    /**
+     * Gets the reflection class.
+     */
+    readonly reflectionClass: ReflectionClass;
+
+    /**
+     * Gets the reflection method.
+     */
+    readonly reflectionMethod: ReflectionMethod;
+
+    /**
+     * Gets the parameter name.
+     */
+    readonly name: string;
+
+    /**
+     * Gets the parameter default value.
+     */
+    readonly defaultValue: any;
+
+    /**
+     * Whether this parameter is an object pattern.
+     */
+    readonly isObjectPattern: boolean;
+
+    /**
+     * Whether this parameter is an array pattern.
+     */
+    readonly isArrayPattern: boolean;
+
+    /**
+     * Whether this parameter is an rest element.
+     */
+    readonly isRestElement: boolean;
 }
 
 /**

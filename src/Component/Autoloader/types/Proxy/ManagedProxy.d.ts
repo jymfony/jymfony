@@ -19,7 +19,7 @@ declare namespace Jymfony.Component.Autoloader.Proxy {
         /**
          * Constructor.
          */
-        constructor(target: any, initializer?: Invokable, traps?: ProxyTraps);
+        constructor(target: any, initializer?: (proxy?: ManagedProxy) => void, traps?: ProxyTraps);
 
         /**
          * Sets the target (during initialization).

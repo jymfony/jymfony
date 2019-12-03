@@ -1,5 +1,5 @@
 /**
- * Reflection utility for class method.
+ * Reflection utility for class getters/setters.
  */
 class ReflectionProperty {
     /**
