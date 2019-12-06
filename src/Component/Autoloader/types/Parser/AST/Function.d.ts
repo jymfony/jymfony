@@ -5,7 +5,7 @@ declare namespace Jymfony.Component.Autoloader.Parser.AST {
 
         private _body: BlockStatement;
         private _id: Identifier;
-        private _params: PatternInterface[];
+        private _params: Argument[];
         private _generator: boolean;
         private _async: boolean;
 
@@ -22,7 +22,7 @@ declare namespace Jymfony.Component.Autoloader.Parser.AST {
         /**
          * Gets the function parameters.
          */
-        public readonly params: PatternInterface[];
+        public readonly params: Argument[];
 
         /**
          * Gets the function body (block statement).

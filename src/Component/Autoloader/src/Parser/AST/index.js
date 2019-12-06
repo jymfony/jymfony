@@ -1,5 +1,6 @@
 module.exports = {
     AppliedDecorator: require('./AppliedDecorator'),
+    Argument: require('./Argument'),
     ArrayExpression: require('./ArrayExpression'),
     ArrayPattern: require('./ArrayPattern'),
     ArrowFunctionExpression: require('./ArrowFunctionExpression'),

@@ -1,6 +1,7 @@
 /// <reference path="Exception/ClassNotFoundException.d.ts" />
 /// <reference path="Exception/ReflectionException.d.ts" />
 /// <reference path="Parser/AST/AppliedDecorator.d.ts" />
+/// <reference path="Parser/AST/Argument.d.ts" />
 /// <reference path="Parser/AST/ArrayExpression.d.ts" />
 /// <reference path="Parser/AST/ArrayPattern.d.ts" />
 /// <reference path="Parser/AST/ArrowFunctionExpression.d.ts" />

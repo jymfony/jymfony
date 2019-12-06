@@ -105,6 +105,10 @@ class ClassMethod extends mix(Function, ClassMemberInterface) {
             tail.push(...decorator.compile(compiler, target, this));
         }
 
+        for (const param of this._params) {
+            tail.push(...param.compileDecorators(compiler, target));
+        }
+
         return tail;
     }
 

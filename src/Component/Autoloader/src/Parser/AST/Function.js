@@ -16,7 +16,7 @@ class Function extends implementationOf(NodeInterface) {
      * @param {Jymfony.Component.Autoloader.Parser.AST.SourceLocation} location
      * @param {Jymfony.Component.Autoloader.Parser.AST.BlockStatement} body
      * @param {Jymfony.Component.Autoloader.Parser.AST.Identifier|null} [id]
-     * @param {Jymfony.Component.Autoloader.Parser.AST.PatternInterface[]} params
+     * @param {Jymfony.Component.Autoloader.Parser.AST.Argument[]} params
      * @param {boolean} generator
      * @param {boolean} async
      */
@@ -41,11 +41,14 @@ class Function extends implementationOf(NodeInterface) {
         this._id = id || new Identifier(null, '_anonymous_xΞ' + (~~(Math.random() * 1000000)).toString(16));
 
         /**
-         * @type {Jymfony.Component.Autoloader.Parser.AST.PatternInterface[]}
+         * @type {Jymfony.Component.Autoloader.Parser.AST.Argument[]}
          *
          * @private
          */
         this._params = params;
+        for (const param of params) {
+            param.function = this;
+        }
 
         /**
          * @type {boolean}
@@ -88,7 +91,7 @@ class Function extends implementationOf(NodeInterface) {
     /**
      * Gets the function parameters.
      *
-     * @returns {Jymfony.Component.Autoloader.Parser.AST.PatternInterface[]}
+     * @returns {Jymfony.Component.Autoloader.Parser.AST.Argument[]}
      */
     get params() {
         return this._params;

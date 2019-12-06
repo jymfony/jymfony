@@ -1503,11 +1503,32 @@ class Parser extends implementationOf(ExpressionParserTrait) {
 
     _parseFormalParametersList() {
         this._expect(Lexer.T_OPEN_PARENTHESIS);
-        this._next();
+        this._next(true, true);
         const args = [];
 
         while (! this._lexer.isToken(Lexer.T_CLOSED_PARENTHESIS)) {
-            args.push(this._parsePattern());
+            const start = this._getCurrentPosition();
+
+            if (this._lexer.isToken(Lexer.T_DECORATOR_IDENTIFIER)) {
+                const docblock = this._pendingDocblock;
+                this._pendingDocblock = undefined;
+
+                const decorators = this._pendingDecorators;
+                decorators.push(this._parseDecorator());
+                this._pendingDecorators = decorators;
+
+                this._pendingDocblock = docblock;
+                this._skipSpaces();
+            }
+
+            const decorators = this._pendingDecorators;
+            this._pendingDecorators = [];
+
+            const pattern = this._parsePattern();
+            const argument = new AST.Argument(this._makeLocation(start), pattern);
+            argument.decorators = decorators;
+
+            args.push(argument);
             if (this._lexer.isToken(Lexer.T_COMMA)) {
                 this._next();
             } else {

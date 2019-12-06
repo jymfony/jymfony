@@ -31,7 +31,7 @@ describe('[Autoloader] Annotations transpiler', () => {
         expect(r.getReadableProperty('value').metadata).to.be.deep.equal([ [ annotation, { _values: null } ] ]);
     } : undefined);
 
-    it ('should transpile initialize decorators', () => {
+    it ('should transpile initialize decorators', __jymfony.Platform.hasPublicFieldSupport() ? () => {
         global.Foo = new Namespace(__jymfony.autoload, 'Foo', fixturesDir, require);
         new Foo.Decorators.Initialize();
 
@@ -42,9 +42,9 @@ describe('[Autoloader] Annotations transpiler', () => {
             [ 'method', undefined ],
             [ undefined, undefined ],
         ]);
-    });
+    } : undefined);
 
-    it ('should transpile register decorators', () => {
+    it ('should transpile register decorators', __jymfony.Platform.hasPublicFieldSupport() ? () => {
         global.Foo = new Namespace(__jymfony.autoload, 'Foo', fixturesDir, require);
         new Foo.Decorators.Register();
 
@@ -59,5 +59,16 @@ describe('[Autoloader] Annotations transpiler', () => {
             'staticMethod',
             'method',
         ]);
-    });
+    } : undefined);
+
+    it ('should transpile register parameters decorators', __jymfony.Platform.hasPublicFieldSupport() ? () => {
+        global.Foo = new Namespace(__jymfony.autoload, 'Foo', fixturesDir, require);
+        new Foo.Decorators.RegisterParameter();
+
+        expect(Foo.Decorators.RegisterParameter.registrations).to.be.deep.equal([
+            [ 'method', undefined ],
+            [ 'method', 0 ],
+            [ 'method', 0 ],
+        ]);
+    } : undefined);
 });

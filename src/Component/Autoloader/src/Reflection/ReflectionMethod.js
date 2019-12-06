@@ -199,6 +199,8 @@ class ReflectionMethod {
         }
 
         for (let parameter of func.params) {
+            parameter = parameter.pattern;
+
             let $default = undefined;
             let restElement = false;
             if (parameter instanceof AssignmentPattern) {

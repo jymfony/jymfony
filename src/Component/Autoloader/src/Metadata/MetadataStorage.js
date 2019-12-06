@@ -1,5 +1,5 @@
 /**
- * @type {WeakMap<object, Object.<*, Map<*, *>>>}
+ * @type {WeakMap<object, Map<*, Map<*, *>>>}
  */
 const storage = new WeakMap();
 const classSymbol = Symbol('class');
@@ -15,7 +15,7 @@ const classSymbol = Symbol('class');
  */
 const getStorage = (target, prop, create = false) => {
     if (! storage.has(target)) {
-        storage.set(target, {});
+        storage.set(target, new Map());
     }
 
     if (! prop) {
@@ -23,11 +23,11 @@ const getStorage = (target, prop, create = false) => {
     }
 
     const objStorage = storage.get(target);
-    if (undefined === objStorage[prop] && create) {
-        objStorage[prop] = new Map();
+    if (! objStorage.has(prop) && create) {
+        objStorage.set(prop, new Map());
     }
 
-    return objStorage[prop];
+    return objStorage.get(prop);
 };
 
 class MetadataStorage {
@@ -44,6 +44,7 @@ class MetadataStorage {
     static addMetadata(key, value, target, prop = null) {
         const storage = getStorage(target, prop, true);
         const currentValue = storage.get(key);
+
         if (undefined === currentValue) {
             storage.set(key, [ value ]);
         } else {

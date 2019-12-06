@@ -1,5 +1,6 @@
 declare namespace Jymfony.Component.Autoloader.Parser {
     import AppliedDecorator = Jymfony.Component.Autoloader.Parser.AST.AppliedDecorator;
+    import Argument = Jymfony.Component.Autoloader.Parser.AST.Argument;
     import BlockStatement = Jymfony.Component.Autoloader.Parser.AST.BlockStatement;
     import ClassBody = Jymfony.Component.Autoloader.Parser.AST.ClassBody;
     import ClassDeclaration = Jymfony.Component.Autoloader.Parser.AST.ClassDeclaration;
@@ -151,7 +152,7 @@ declare namespace Jymfony.Component.Autoloader.Parser {
 
         private _parseStatement(skipStatementTermination?: boolean): StatementInterface;
         private _doParseStatement(skipStatementTermination: boolean): StatementInterface;
-        private _parseFormalParametersList(): PatternInterface[];
+        private _parseFormalParametersList(): Argument[];
         private _parseThrowStatement(): ThrowStatement;
         private _parseIfStatement(): IfStatement;
         private _parseReturnStatement(): ReturnStatement;
