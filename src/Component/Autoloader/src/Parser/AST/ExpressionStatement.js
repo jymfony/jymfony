@@ -32,6 +32,15 @@ class ExpressionStatement extends implementationOf(StatementInterface) {
     }
 
     /**
+     * Gets the expression of this statement.
+     *
+     * @returns {ExpressionInterface}
+     */
+    get expression() {
+        return this._expression;
+    }
+
+    /**
      * Whether this expression is a possible field declaration (in class method).
      *
      * @return {boolean}

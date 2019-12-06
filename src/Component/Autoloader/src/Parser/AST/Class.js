@@ -191,13 +191,8 @@ class Class extends implementationOf(NodeInterface) {
                     const accessor = new MemberExpression(null, new Identifier(null, 'obj'), declaredField);
                     const setterBody = new AssignmentExpression(null, '=', accessor, new Identifier(null, 'value'));
 
-                    let key = declaredField;
-                    if (declaredField instanceof Identifier && declaredField.name.startsWith('#')) {
-                        key = new StringLiteral(null, JSON.stringify(member.key.name));
-                    }
-
                     fields.push(
-                        new ObjectProperty(null, key, new ObjectExpression(null, [
+                        new ObjectProperty(null, declaredField, new ObjectExpression(null, [
                             new ObjectProperty(null, new Identifier(null, 'get'), new ArrowFunctionExpression(null, accessor, null, [ new Identifier(null, 'obj') ])),
                             new ObjectProperty(null, new Identifier(null, 'set'), new ArrowFunctionExpression(null, setterBody, null, [ new Identifier(null, 'obj'), new Identifier(null, 'value') ])),
                             new ObjectProperty(null, new Identifier(null, 'docblock'), statement.docblock ? new StringLiteral(null, JSON.stringify(statement.docblock)) : new NullLiteral(null)),
@@ -207,12 +202,17 @@ class Class extends implementationOf(NodeInterface) {
             }
 
             if (member instanceof ClassProperty) {
-                const accessor = new MemberExpression(null, member.static ? this._id : new Identifier(null, 'obj'), member.key);
+                const accessor = new MemberExpression(
+                    null,
+                    member.static ? this._id : new Identifier(null, 'obj'),
+                    member.private ? new Identifier(null, '#' + member.key.name) : member.key,
+                    !(member.key instanceof Identifier)
+                );
                 const setterBody = new AssignmentExpression(null, '=', accessor, new Identifier(null, 'value'));
 
                 let key = member.key;
-                if (member.key instanceof Identifier && member.key.name.startsWith('#')) {
-                    key = new StringLiteral(null, JSON.stringify(member.key.name));
+                if (member.key instanceof Identifier && member.private) {
+                    key = new StringLiteral(null, JSON.stringify('#' + member.key.name));
                 }
 
                 const prop = new ObjectProperty(null, key, new ObjectExpression(null, [
@@ -312,20 +312,30 @@ class Class extends implementationOf(NodeInterface) {
      * Compiles the decorators upon this class.
      *
      * @param {Jymfony.Component.Autoloader.Parser.Compiler} compiler
-     * @param {Jymfony.Component.Autoloader.Parser.AST.Identifier} id
      *
      * @returns {Jymfony.Component.Autoloader.Parser.AST.StatementInterface[]}
      */
-    compileDecorators(compiler, id) {
+    compileDecorators(compiler) {
+        /**
+         * @param {Jymfony.Component.Autoloader.Parser.AST.AppliedDecorator} a
+         * @param {Jymfony.Component.Autoloader.Parser.AST.AppliedDecorator} b
+         */
+        const sortDecorators = (a, b) => {
+            const aPriority = a.priority;
+            const bPriority = b.priority;
+
+            return aPriority > bPriority ? 1 : (bPriority > aPriority ? -1 : 0);
+        };
+
         const tail = [];
         if (null !== this.decorators && 0 !== this.decorators.length) {
-            for (const decorator of this.decorators) {
-                tail.push(...decorator.compile(compiler, this, [ id, new NullLiteral(null) ]));
+            for (const decorator of this.decorators.sort(sortDecorators)) {
+                tail.push(...decorator.compile(compiler, this, this));
             }
         }
 
         for (const member of this._body.members) {
-            tail.push(...member.compileDecorators(compiler, this, id));
+            tail.push(...member.compileDecorators(compiler, this));
         }
 
         return tail;

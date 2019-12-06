@@ -6,6 +6,6 @@ declare namespace Jymfony.Component.Autoloader.Parser.AST {
          * Compiles the decorators.
          * Code to be appended should be returned as an array of statements.
          */
-        compileDecorators(compiler: Compiler, target: Class, id: Identifier): StatementInterface[];
+        compileDecorators(compiler: Compiler, target: Class): StatementInterface[];
     }
 }

@@ -124,10 +124,6 @@ declare namespace Jymfony.Component.Autoloader.Parser {
 
         /**
          * Parses a class declaration.
-         *
-         * @returns {Jymfony.Component.Autoloader.Parser.AST.ClassDeclaration}
-         *
-         * @private
          */
         private _parseClassDeclaration(): ClassDeclaration;
 
@@ -136,7 +132,7 @@ declare namespace Jymfony.Component.Autoloader.Parser {
          */
         private _parseClass(): [SourceLocation, ClassBody, null | Identifier, null | ExpressionInterface];
 
-        private _parseObjectMemberSignature(): { Generator: boolean, Static: boolean, Get: boolean, Set: boolean, Async: boolean, property: boolean, MethodName: ExpressionInterface };
+        private _parseObjectMemberSignature(acceptsPrivateMembers?: boolean): { Generator: boolean, Static: boolean, Get: boolean, Set: boolean, Async: boolean, Private: boolean, property: boolean, MethodName: ExpressionInterface };
 
         /**
          * Parses a class body.
@@ -146,7 +142,7 @@ declare namespace Jymfony.Component.Autoloader.Parser {
         /**
          * Parses a class method.
          */
-        private _parseClassMethod(start: ParserPosition, id: null | ExpressionInterface, kind: string, opts: { Static: boolean, async: boolean, generator: boolean }): ClassMethod;
+        private _parseClassMethod(start: ParserPosition, id: null | ExpressionInterface, kind: string, opts: { Private: boolean, Static: boolean, async: boolean, generator: boolean }): ClassMethod;
 
         /**
          * Parses a block statement.

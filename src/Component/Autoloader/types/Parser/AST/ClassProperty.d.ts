@@ -19,6 +19,11 @@ declare namespace Jymfony.Component.Autoloader.Parser.AST {
         public readonly static: boolean;
 
         /**
+         * Whether this method is private.
+         */
+        public readonly private: boolean;
+
+        /**
          * Gets the initialization value.
          */
         public readonly value: ExpressionInterface;
@@ -26,8 +31,8 @@ declare namespace Jymfony.Component.Autoloader.Parser.AST {
         /**
          * Constructor.
          */
-        __construct(location: SourceLocation, key: ExpressionInterface, value: ExpressionInterface, Static: boolean): void;
-        constructor(location: SourceLocation, key: ExpressionInterface, value: ExpressionInterface, Static: boolean);
+        __construct(location: SourceLocation, key: ExpressionInterface, value: ExpressionInterface, Static: boolean, Private: boolean): void;
+        constructor(location: SourceLocation, key: ExpressionInterface, value: ExpressionInterface, Static: boolean, Private: boolean);
 
         /**
          * Clears out the initialization value.
@@ -37,7 +42,7 @@ declare namespace Jymfony.Component.Autoloader.Parser.AST {
         /**
          * @inheritdoc
          */
-        compileDecorators(compiler: Compiler, target: Class, id: Identifier): StatementInterface[];
+        compileDecorators(compiler: Compiler, target: Class): StatementInterface[];
 
         /**
          * @inheritdoc

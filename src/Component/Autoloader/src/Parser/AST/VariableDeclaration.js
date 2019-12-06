@@ -57,7 +57,7 @@ class VariableDeclaration extends implementationOf(DeclarationInterface) {
             const declarator = this._declarators[0];
             const init = declarator.init;
             if (init instanceof Class) {
-                tail = init.compileDecorators(compiler, declarator.id);
+                tail = init.compileDecorators(compiler);
             }
         }
 

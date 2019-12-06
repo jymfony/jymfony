@@ -30,4 +30,34 @@ describe('[Autoloader] Annotations transpiler', () => {
         expect(r.getMethod('getValue').metadata).to.be.deep.equal([ [ annotation, { _values: {} } ] ]);
         expect(r.getReadableProperty('value').metadata).to.be.deep.equal([ [ annotation, { _values: null } ] ]);
     } : undefined);
+
+    it ('should transpile initialize decorators', () => {
+        global.Foo = new Namespace(__jymfony.autoload, 'Foo', fixturesDir, require);
+        new Foo.Decorators.Initialize();
+
+        expect(Foo.Decorators.Initialize.initializations).to.be.deep.equal([
+            [ 'property', undefined ],
+            [ 'computedProperty', undefined ],
+            [ 'propertyWithDefault', 'default' ],
+            [ 'method', undefined ],
+            [ undefined, undefined ],
+        ]);
+    });
+
+    it ('should transpile register decorators', () => {
+        global.Foo = new Namespace(__jymfony.autoload, 'Foo', fixturesDir, require);
+        new Foo.Decorators.Register();
+
+        expect(Foo.Decorators.Register.registrations).to.be.deep.equal([
+            undefined,
+            '$property',
+            '$propertyWithDefault',
+            'property',
+            'computedProperty',
+            'propertyWithDefault',
+            '#privateProperty',
+            'staticMethod',
+            'method',
+        ]);
+    });
 });

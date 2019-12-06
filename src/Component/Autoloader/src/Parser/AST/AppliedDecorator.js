@@ -40,7 +40,7 @@ class AppliedDecorator extends implementationOf(NodeInterface) {
         /**
          * @type {string}
          *
-         * @private
+         * @protected
          */
         this._mangled = undefined;
     }
@@ -52,6 +52,16 @@ class AppliedDecorator extends implementationOf(NodeInterface) {
      */
     get decorator() {
         return this._decorator;
+    }
+
+    /**
+     * Gets the priority of the decorator.
+     * Used to indicate which decorator should be compiled first.
+     *
+     * @returns {int}
+     */
+    get priority() {
+        return 0;
     }
 
     /**
@@ -92,26 +102,26 @@ class AppliedDecorator extends implementationOf(NodeInterface) {
      * Generates code for decorator application.
      *
      * @param {Jymfony.Component.Autoloader.Parser.Compiler} compiler
-     * @param {Jymfony.Component.Autoloader.Parser.AST.Class} target
-     * @param {[Jymfony.Component.Autoloader.Parser.AST.Identifier, Jymfony.Component.Autoloader.Parser.AST.ExpressionInterface]} id
+     * @param {Jymfony.Component.Autoloader.Parser.AST.Class} class_
+     * @param {Jymfony.Component.Autoloader.Parser.AST.Class|Jymfony.Component.Autoloader.Parser.AST.ClassMemberInterface} target
      * @param {string} variable
      *
      * @returns {Jymfony.Component.Autoloader.Parser.AST.StatementInterface[]}
      */
-    apply(compiler, target, id, variable) {
-        return this._decorator.apply(compiler, target, id, variable);
+    apply(compiler, class_, target, variable) {
+        return this._decorator.apply(compiler, class_, target, variable);
     }
 
     /**
      * Compiles a decorator.
      *
      * @param {Jymfony.Component.Autoloader.Parser.Compiler} compiler
-     * @param {Jymfony.Component.Autoloader.Parser.AST.Class} target
-     * @param {[Jymfony.Component.Autoloader.Parser.AST.Identifier, Jymfony.Component.Autoloader.Parser.AST.ExpressionInterface]} id
+     * @param {Jymfony.Component.Autoloader.Parser.AST.Class} class_
+     * @param {Jymfony.Component.Autoloader.Parser.AST.Class|Jymfony.Component.Autoloader.Parser.AST.ClassMemberInterface} target
      *
      * @returns {Jymfony.Component.Autoloader.Parser.AST.StatementInterface[]}
      */
-    compile(compiler, target, id) {
+    compile(compiler, class_, target) {
         const variableName = compiler.generateVariableName();
         compiler.compileNode(new VariableDeclaration(null, 'const', [
             new VariableDeclarator(null,
@@ -121,7 +131,7 @@ class AppliedDecorator extends implementationOf(NodeInterface) {
         ]));
         compiler._emit(';\n');
 
-        return this._decorator.apply(compiler, target, id, variableName);
+        return this._decorator.apply(compiler, class_, target, variableName);
     }
 }
 

@@ -1132,8 +1132,8 @@ class Parser extends implementationOf(ExpressionParserTrait) {
         return [ this._makeLocation(start), body, id, superClass ];
     }
 
-    _parseObjectMemberSignature() {
-        let Generator = false, Static = false, Get = false, Set = false, Async = false, property = false, MethodName, state = this.state;
+    _parseObjectMemberSignature(acceptsPrivateMembers = true) {
+        let Generator = false, Static = false, Get = false, Set = false, Async = false, property = false, Private = false, MethodName, state = this.state;
         const apply = (name, computed) => {
             switch (MethodName) {
                 case 'static': Static = true; break;
@@ -1166,6 +1166,11 @@ class Parser extends implementationOf(ExpressionParserTrait) {
             this._next();
         }
 
+        if ('#' === this._lexer.token.value && acceptsPrivateMembers) {
+            Private = true;
+            this._next();
+        }
+
         if (this._lexer.isToken(Lexer.T_GET) || this._lexer.isToken(Lexer.T_SET)) {
             apply(this._lexer.token.value);
         }
@@ -1175,6 +1180,11 @@ class Parser extends implementationOf(ExpressionParserTrait) {
             apply(this._parseExpression({ maxLevel: 2 }), true);
         } else if (! [ Lexer.T_COLON, Lexer.T_OPEN_PARENTHESIS ].includes(this._lexer.token.type)) {
             apply(this._lexer.token.value);
+        }
+
+        if (acceptsPrivateMembers && MethodName && '#' === MethodName[0]) {
+            Private = true;
+            MethodName = MethodName.substr(1);
         }
 
         if ([ Lexer.T_COLON, Lexer.T_SEMICOLON, Lexer.T_ASSIGNMENT_OP ].includes(this._lexer.token.type)) {
@@ -1196,7 +1206,7 @@ class Parser extends implementationOf(ExpressionParserTrait) {
             }
         }
 
-        return { Generator, Static, Get, Set, Async, property, MethodName: isString(MethodName) ? new AST.Identifier(null, MethodName) : MethodName };
+        return { Generator, Static, Get, Set, Async, property, Private, MethodName: isString(MethodName) ? new AST.Identifier(null, MethodName) : MethodName };
     }
 
     /**
@@ -1219,7 +1229,7 @@ class Parser extends implementationOf(ExpressionParserTrait) {
             }
 
             const start = this._getCurrentPosition();
-            const { Generator, Static, Get, Set, Async, MethodName, property } = this._parseObjectMemberSignature();
+            const { Generator, Static, Get, Set, Async, Private, MethodName, property } = this._parseObjectMemberSignature();
             let kind = Get ? 'get' : Set ? 'set' : 'method';
             if (! Static && MethodName instanceof AST.Identifier && 'constructor' === MethodName.name) {
                 kind = 'constructor';
@@ -1227,7 +1237,7 @@ class Parser extends implementationOf(ExpressionParserTrait) {
 
             if (! property) {
                 this._expect(Lexer.T_OPEN_PARENTHESIS);
-                body.push(this._parseClassMethod(start, MethodName, kind, { Static, generator: Generator, async: Async }));
+                body.push(this._parseClassMethod(start, MethodName, kind, { Private, Static, generator: Generator, async: Async }));
             } else {
                 const docblock = this._pendingDocblock;
                 this._pendingDocblock = undefined;
@@ -1240,7 +1250,7 @@ class Parser extends implementationOf(ExpressionParserTrait) {
                     value = this._parseExpression({ maxLevel: 2 });
                 }
 
-                const property = new AST.ClassProperty(this._makeLocation(start), MethodName, value, Static);
+                const property = new AST.ClassProperty(this._makeLocation(start), MethodName, value, Static, Private);
                 property.docblock = docblock || null;
                 property.decorators = decorators;
 

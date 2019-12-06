@@ -20,11 +20,11 @@ declare namespace Jymfony.Component.Autoloader.Parser.AST {
         /**
          * @inheritdoc
          */
-        apply(compiler: Compiler, target: Class, id: [Identifier, ExpressionInterface], variable: string): StatementInterface[];
+        apply(compiler: Compiler, class_: Class, target: Class|ClassMemberInterface, variable: string): StatementInterface[];
 
         /**
          * @inheritdoc
          */
-        compile(compiler: Compiler, target?: Class, id?: [Identifier, ExpressionInterface]): StatementInterface[];
+        compile(compiler: Compiler, class_?: Class, target?: Class|ClassMemberInterface): StatementInterface[];
     }
 }

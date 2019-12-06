@@ -6,7 +6,7 @@ const DeclarationInterface = require('./DeclarationInterface');
  */
 class ClassDeclaration extends mix(Class, DeclarationInterface) {
     compile(compiler) {
-        this.compileDecorators(compiler, this.id);
+        this.compileDecorators(compiler);
         super.compile(compiler);
         this.compileDocblock(compiler, this.id);
     }

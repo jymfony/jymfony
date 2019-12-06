@@ -1,7 +1,6 @@
 const ClassMemberInterface = require('./ClassMemberInterface');
 const Function = require('./Function');
 const Identifier = require('./Identifier');
-const StringLiteral = require('./StringLiteral');
 
 /**
  * @memberOf Jymfony.Component.Autoloader.Parser.AST
@@ -18,8 +17,9 @@ class ClassMethod extends mix(Function, ClassMemberInterface) {
      * @param {boolean} [generator = false]
      * @param {boolean} [async = false]
      * @param {boolean} [Static = false]
+     * @param {boolean} [Private = false]
      */
-    __construct(location, body, id, kind, params = [], { generator = false, async = false, Static = false } = {}) {
+    __construct(location, body, id, kind, params = [], { generator = false, async = false, Static = false, Private = false } = {}) {
         super.__construct(location, body, id, params, { generator, async });
 
         /**
@@ -35,6 +35,13 @@ class ClassMethod extends mix(Function, ClassMemberInterface) {
          * @private
          */
         this._static = Static;
+
+        /**
+         * @type {boolean}
+         *
+         * @private
+         */
+        this._private = Private;
 
         /**
          * @type {null|string}
@@ -70,14 +77,32 @@ class ClassMethod extends mix(Function, ClassMemberInterface) {
     }
 
     /**
+     * Whether this method is private.
+     *
+     * @returns {boolean}
+     */
+    get private() {
+        return this._private;
+    }
+
+    /**
      * @inheritdoc
      */
-    compileDecorators(compiler, target, id) {
-        const key = this._id instanceof Identifier ? new StringLiteral(null, JSON.stringify(this._id.name)) : this._id;
+    compileDecorators(compiler, target) {
+        /**
+         * @param {Jymfony.Component.Autoloader.Parser.AST.AppliedDecorator} a
+         * @param {Jymfony.Component.Autoloader.Parser.AST.AppliedDecorator} b
+         */
+        const sortDecorators = (a, b) => {
+            const aPriority = a.priority;
+            const bPriority = b.priority;
+
+            return aPriority > bPriority ? 1 : (bPriority > aPriority ? -1 : 0);
+        };
 
         const tail = [];
-        for (const decorator of this.decorators || []) {
-            tail.push(...decorator.compile(compiler, target, [ id, key ]));
+        for (const decorator of (this.decorators || []).sort(sortDecorators)) {
+            tail.push(...decorator.compile(compiler, target, this));
         }
 
         return tail;
@@ -101,6 +126,10 @@ class ClassMethod extends mix(Function, ClassMemberInterface) {
 
         if ('constructor' !== this._kind && 'method' !== this._kind) {
             compiler._emit(this._kind + ' ');
+        }
+
+        if (this._private) {
+            compiler._emit('#');
         }
 
         if (this._id instanceof Identifier) {

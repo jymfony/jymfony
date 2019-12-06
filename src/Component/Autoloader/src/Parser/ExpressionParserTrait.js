@@ -94,7 +94,7 @@ class ExpressionParserTrait {
 
                 properties.push(new AST.SpreadElement(this._makeLocation(start), argument));
             } else {
-                const { Generator, Static, Get, Set, Async, MethodName, property } = this._parseObjectMemberSignature();
+                const { Generator, Static, Get, Set, Async, MethodName, property } = this._parseObjectMemberSignature(false);
                 const kind = Get ? 'get' : Set ? 'set' : 'method';
 
                 if (Static) {

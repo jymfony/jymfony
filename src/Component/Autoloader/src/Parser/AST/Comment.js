@@ -25,6 +25,15 @@ class Comment extends implementationOf(NodeInterface) {
     }
 
     /**
+     * Gets the comment value.
+     *
+     * @returns {string}
+     */
+    get value() {
+        return this._value;
+    }
+
+    /**
      * @inheritdoc
      */
     compile(/* compiler */) {
