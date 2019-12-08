@@ -1,16 +1,6 @@
-const FrameworkBundle = Jymfony.Bundle.FrameworkBundle.FrameworkBundle;
-const Kernel = Jymfony.Component.Kernel.Kernel;
+const AbstractTestKernel = Jymfony.Bundle.FrameworkBundle.Tests.Fixtures.AbstractTestKernel;
 
-export default class TestAppKernel extends Kernel {
-    /**
-     * @inheritdoc
-     */
-    registerBundles() {
-        return [
-            new FrameworkBundle(),
-        ];
-    }
-
+export default class TestAppKernel extends AbstractTestKernel {
     /**
      * @inheritdoc
      */

@@ -326,6 +326,17 @@ export default class FrameworkExtension extends Extension {
         }
 
         definition.replaceArgument(2, options);
+
+        container.register('routing.loader.annotation', Jymfony.Bundle.FrameworkBundle.Routing.AnnotatedControllerLoader)
+            .addTag('routing.loader', { priority: -10 })
+        ;
+
+        container.register('routing.loader.annotation.namespace', Jymfony.Component.Routing.Loader.NamespaceLoader)
+            .addTag('routing.loader', { priority: -10 })
+            .setArguments([
+                new Reference('routing.loader.annotation'),
+            ])
+        ;
     }
 
     /**

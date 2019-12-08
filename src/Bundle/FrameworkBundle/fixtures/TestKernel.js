@@ -1,13 +1,14 @@
+import { join } from 'path';
+
+const AbstractTestKernel = Jymfony.Bundle.FrameworkBundle.Tests.Fixtures.AbstractTestKernel;
 const FileLocator = Jymfony.Component.Config.FileLocator;
 const ContainerBuilder = Jymfony.Component.DependencyInjection.ContainerBuilder;
 const JsFileLoader = Jymfony.Component.DependencyInjection.Loader.JsFileLoader;
-const Kernel = Jymfony.Component.Kernel.Kernel;
 
-const crypto = require('crypto');
-const os = require('os');
-const path = require('path');
-
-class TestKernel extends Kernel {
+/**
+ * @memberOf Jymfony.Bundle.FrameworkBundle.Tests.Fixtures
+ */
+export default class TestKernel extends AbstractTestKernel {
     /**
      * Constructor.
      *
@@ -23,32 +24,7 @@ class TestKernel extends Kernel {
          */
         this._addTestCommands = addTestCommands;
 
-        const current_date = (new Date()).valueOf().toString();
-        const random = Math.random().toString();
-
-        this._prefixCacheLogDir = crypto.createHmac('sha1', current_date + random).update('logs_cache_prefix').digest('hex');
         super.__construct(environment, debug);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    * registerBundles() {
-        yield new Jymfony.Bundle.FrameworkBundle.FrameworkBundle();
-    }
-
-    /**
-     * @inheritdoc
-     */
-    getLogsDir() {
-        return path.normalize(path.join(os.tmpdir(), 'jymfony_tests', this._prefixCacheLogDir, 'var', 'logs'));
-    }
-
-    /**
-     * @inheritdoc
-     */
-    getCacheDir() {
-        return path.normalize(path.join(os.tmpdir(), 'jymfony_tests', this._prefixCacheLogDir, 'var', 'cache'));
     }
 
     /**
@@ -59,20 +35,11 @@ class TestKernel extends Kernel {
 
         if (this._addTestCommands) {
             const loader = new JsFileLoader(container, new FileLocator());
-            loader.load(path.join(__dirname, 'js', 'services.js'));
+            loader.load(join(__dirname, 'js', 'services.js'));
         }
 
         container.parameterBag.add(this._getKernelParameters());
 
         return container;
     }
-
-    /**
-     * @inheritdoc
-     */
-    _initializeContainer() {
-        super._initializeContainer(true);
-    }
 }
-
-module.exports = TestKernel;

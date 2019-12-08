@@ -12,6 +12,7 @@
 /// <reference path="DependencyInjection/Configuration.d.ts" />
 /// <reference path="DependencyInjection/FrameworkExtension.d.ts" />
 /// <reference path="Log/Processor/DebugProcessor.d.ts" />
+/// <reference path="Routing/AnnotatedControllerLoader.d.ts" />
 /// <reference path="Routing/RedirectableMatcher.d.ts" />
 /// <reference path="Test/KernelTestUtil.d.ts" />
 /// <reference path="Test/TestContainer.d.ts" />

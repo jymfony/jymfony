@@ -1,7 +1,7 @@
 const AbstractTestKernel = Jymfony.Bundle.FrameworkBundle.Tests.Fixtures.AbstractTestKernel;
 
 /**
- * @memberOf Jymfony.Bundle.FrameworkBundle.Tests.Fixtures.Controller
+ * @memberOf Jymfony.Bundle.FrameworkBundle.Tests.Fixtures.Routing
  */
 export default class TestKernel extends AbstractTestKernel {
     /**
