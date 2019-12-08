@@ -11,6 +11,7 @@ TheBigReflectionDataCache.classes = new Storage();
 TheBigReflectionDataCache.data = new Storage();
 
 const getClass = function getClass(value) {
+    const originalValue = value;
     if (!! value && value.__self__ !== undefined) {
         value = value.__self__;
     }
@@ -44,7 +45,7 @@ const getClass = function getClass(value) {
             }
         }
     } else if (undefined === value) {
-        throw new ReflectionException('Unknown class');
+        throw new ReflectionException('Unknown class ' + originalValue);
     }
 
     return value;
@@ -607,7 +608,7 @@ class ReflectionClass {
                 }
 
                 if ('function' === typeof descriptor.value) {
-                    this._methods[name] = descriptor;
+                    this._methods[name] = { ...descriptor, ownClass: proto.constructor };
                 } else {
                     if ('function' === typeof descriptor.get) {
                         this._properties[name] = descriptor;
@@ -686,7 +687,7 @@ class ReflectionClass {
                     }
 
                     if ('function' === typeof descriptor.value) {
-                        this._staticMethods[P] = descriptor.value;
+                        this._staticMethods[P] = { ...descriptor, ownClass: parent };
                         return false;
                     }
 

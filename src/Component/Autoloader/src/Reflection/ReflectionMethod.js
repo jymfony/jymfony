@@ -54,13 +54,8 @@ class ReflectionMethod {
          */
         this._static = false;
 
-        let method;
-        if ((method = reflectionClass._methods[methodName])) {
-            this._method = method;
-        } else if ((method = reflectionClass._staticMethods[methodName])) {
-            this._method = method;
-            this._static = true;
-        } else {
+        const method = reflectionClass._methods[methodName] || (this._static = true, reflectionClass._staticMethods[methodName]);
+        if (undefined === method) {
             throw new ReflectionException('Unknown method "' + methodName + '\'');
         }
 
@@ -78,14 +73,12 @@ class ReflectionMethod {
          */
         this._async = isAsyncFunction(this._method);
 
-        const classConstructor = reflectionClass.getConstructor();
-
         /**
          * @type {Function}
          *
          * @private
          */
-        this._method = this._static ? classConstructor[methodName] : classConstructor.prototype[methodName];
+        this._method = method.value;
 
         /**
          * @type {ReflectionParameter[]}
@@ -100,7 +93,7 @@ class ReflectionMethod {
          *
          * @private
          */
-        this._docblock = (this._static ? classConstructor[methodName] : classConstructor.prototype[methodName])[Symbol.docblock];
+        this._docblock = this._method[Symbol.docblock];
     }
 
     /**
