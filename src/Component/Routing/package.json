@@ -18,6 +18,7 @@
   "dependencies": {
     "@jymfony/autoloader": "https://github.com/jymfony/autoloader.git",
     "@jymfony/config": "https://github.com/jymfony/config.git",
+    "@jymfony/decorators": "https://github.com/jymfony/decorators.git",
     "@jymfony/exceptions": "https://github.com/jymfony/exceptions.git",
     "@jymfony/http-foundation": "https://github.com/jymfony/http-foundation.git",
     "@jymfony/options-resolver": "https://github.com/jymfony/options-resolver.git",
