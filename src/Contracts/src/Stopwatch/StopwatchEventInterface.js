@@ -88,3 +88,5 @@ class StopwatchEventInterface {
      */
     get memory() { }
 }
+
+export default getInterface(StopwatchEventInterface);
