@@ -243,7 +243,7 @@ describe('[Autoloader] ReflectionClass', function () {
         expect(bar.getValue(null)).to.be.equal('bar');
     } : undefined);
 
-    it('exposes private instance fields', __jymfony.Platform.hasPublicFieldSupport() ? () => {
+    it('exposes private instance fields', __jymfony.Platform.hasPrivateFieldSupport() ? () => {
         const ns = new Namespace(__jymfony.autoload, 'Foo', path.join(__dirname, '..', '..', 'fixtures'), require);
         const x = new ns.PrivateFieldsClass();
 
@@ -269,5 +269,21 @@ describe('[Autoloader] ReflectionClass', function () {
         expect(bar.isPrivate).to.be.true;
         bar.accessible = true;
         expect(bar.getValue(null)).to.be.equal('bar');
+    } : undefined);
+
+    it('exposes private instance fields', __jymfony.Platform.hasPublicFieldSupport() ? () => {
+        const ns = new Namespace(__jymfony.autoload, 'Foo', path.join(__dirname, '..', '..', 'fixtures'), require);
+        const x = new ns.ParameterMetadata();
+
+        const reflClass = new ReflectionClass(x);
+        const method = reflClass.getMethod('method');
+
+        expect(method.parameters[0].metadata).to.be.empty;
+
+        expect(method.parameters[1].metadata).to.have.length(1);
+        expect(method.parameters[1].metadata[0][1]).to.be.equal('foo');
+
+        expect(method.parameters[2].metadata).to.have.length(1);
+        expect(method.parameters[2].metadata[0][1]).to.be.equal('string');
     } : undefined);
 });

@@ -217,6 +217,7 @@ class ReflectionMethod {
                 arrayPattern = true;
             }
 
+            const index = this._parameters.length;
             this._parameters.push(new __jymfony.ManagedProxy({}, proxy => {
                 if (undefined !== $default) {
                     const compiler = new Compiler(new SourceMapGenerator({ skipValidation: true }));
@@ -224,7 +225,7 @@ class ReflectionMethod {
                 }
 
                 proxy.initializer = undefined;
-                proxy.target = new ReflectionParameter(this, name, $default, objectPattern, arrayPattern, restElement);
+                proxy.target = new ReflectionParameter(this, name, index, $default, objectPattern, arrayPattern, restElement);
             }));
         }
     }

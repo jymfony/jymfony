@@ -236,7 +236,7 @@ declare class ReflectionMethod {
     readonly docblock: string;
 
     /**
-     * Gets the class metadata.
+     * Gets the method metadata.
      */
     readonly metadata: [Newable<any>, any];
 
@@ -247,7 +247,13 @@ declare class ReflectionMethod {
 }
 
 declare class ReflectionParameter {
-    private constructor(reflectionMethod: ReflectionMethod, name: string, defaultValue?: any);
+    private constructor(reflectionMethod: ReflectionMethod,
+                        name: string,
+                        index: number,
+                        defaultValue?: any,
+                        objectPattern?: boolean,
+                        arrayPattern?: boolean,
+                        restElement?: boolean);
 
     /**
      * Gets the reflection class.
@@ -283,6 +289,11 @@ declare class ReflectionParameter {
      * Whether this parameter is an rest element.
      */
     readonly isRestElement: boolean;
+
+    /**
+     * Gets the parameter metadata.
+     */
+    readonly metadata: [Newable<any>, any];
 }
 
 /**

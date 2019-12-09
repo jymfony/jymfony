@@ -7,6 +7,7 @@ class ReflectionParameter {
      *
      * @param {ReflectionMethod} reflectionMethod
      * @param {null|string} name
+     * @param {int} index
      * @param {*} defaultValue
      * @param {boolean} objectPattern
      * @param {boolean} arrayPattern
@@ -17,6 +18,7 @@ class ReflectionParameter {
     constructor(
         reflectionMethod,
         name,
+        index,
         defaultValue = undefined,
         objectPattern = false,
         arrayPattern = false,
@@ -35,6 +37,13 @@ class ReflectionParameter {
          * @private
          */
         this._name = name;
+
+        /**
+         * @type {int}
+         *
+         * @private
+         */
+        this._index = index;
 
         /**
          * @type {boolean}
@@ -130,6 +139,15 @@ class ReflectionParameter {
      */
     get isRestElement() {
         return this._restElement;
+    }
+
+    /**
+     * Gets the metadata associated to this parameter.
+     *
+     * @returns {[Function, *][]}
+     */
+    get metadata() {
+        return MetadataStorage.getMetadata(this._reflectionMethod._method, this._index);
     }
 }
 
