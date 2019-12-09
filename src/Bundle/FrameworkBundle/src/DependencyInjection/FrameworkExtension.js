@@ -131,6 +131,10 @@ export default class FrameworkExtension extends Extension {
             return;
         }
 
+        if (ReflectionClass.exists('Jymfony.Component.Stopwatch.Stopwatch')) {
+            loader.load('debug.js');
+        }
+
         if (ReflectionClass.exists('Jymfony.Component.VarDumper.VarDumper')) {
             loader.load('var_dumper.js');
 
