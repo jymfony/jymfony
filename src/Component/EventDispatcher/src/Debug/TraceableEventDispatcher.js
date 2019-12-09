@@ -10,15 +10,23 @@ export default class TraceableEventDispatcher extends implementationOf(Traceable
      * Constructor.
      *
      * @param {Jymfony.Contracts.EventDispatcher.EventDispatcherInterface} dispatcher
+     * @param {Jymfony.Contracts.Stopwatch.StopwatchInterface} stopwatch
      * @param {undefined|Jymfony.Component.Logger.LoggerInterface} [logger]
      */
-    __construct(dispatcher, logger = undefined) {
+    __construct(dispatcher, stopwatch, logger = undefined) {
         /**
          * @type {Jymfony.Contracts.EventDispatcher.EventDispatcherInterface}
          *
          * @private
          */
         this._dispatcher = dispatcher;
+
+        /**
+         * @type {Jymfony.Contracts.Stopwatch.StopwatchInterface}
+         *
+         * @private
+         */
+        this._stopwatch = stopwatch;
 
         /**
          * @type {undefined|Jymfony.Component.Logger.LoggerInterface}
@@ -135,7 +143,21 @@ export default class TraceableEventDispatcher extends implementationOf(Traceable
      *
      * @protected
      */
-    _preDispatch(eventName, event) { } // eslint-disable-line no-unused-vars
+    _preDispatch(eventName, event) { // eslint-disable-line no-unused-vars
+        switch (eventName) {
+            case 'http.request':
+                this._stopwatch.openSection();
+                break;
+
+            case 'http.view':
+            case 'http.response':
+                // Stop only if a controller has been executed
+                if (this._stopwatch.isStarted('controller')) {
+                    this._stopwatch.stop('controller');
+                }
+                break;
+        }
+    }
 
     /**
      * Called after dispatching an event.
@@ -145,7 +167,11 @@ export default class TraceableEventDispatcher extends implementationOf(Traceable
      *
      * @protected
      */
-    _postDispatch(eventName, event) { } // eslint-disable-line no-unused-vars
+    _postDispatch(eventName, event) { // eslint-disable-line no-unused-vars
+        if ('http.controller_arguments' === eventName) {
+            this._stopwatch.start('controller', 'section');
+        }
+    }
 
     /**
      * Wrap event listeners to track calls.
