@@ -1,4 +1,5 @@
 /// <reference path="Command/HttpServerRunCommand.d.ts" />
+/// <reference path="Debug/TraceableEventDispatcher.d.ts" />
 /// <reference path="EventListener/AbstractSessionListener.d.ts" />
 /// <reference path="EventListener/ExceptionListener.d.ts" />
 /// <reference path="EventListener/RouterListener.d.ts" />

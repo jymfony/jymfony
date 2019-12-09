@@ -133,6 +133,11 @@ export default class FrameworkExtension extends Extension {
 
         if (ReflectionClass.exists('Jymfony.Component.Stopwatch.Stopwatch')) {
             loader.load('debug.js');
+
+            if (ReflectionClass.exists('Jymfony.Component.HttpServer.Debug.TraceableEventDispatcher')) {
+                container.getDefinition('debug.event_dispatcher')
+                    .setClass(Jymfony.Component.HttpServer.Debug.TraceableEventDispatcher);
+            }
         }
 
         if (ReflectionClass.exists('Jymfony.Component.VarDumper.VarDumper')) {

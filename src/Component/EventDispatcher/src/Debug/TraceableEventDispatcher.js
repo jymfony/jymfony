@@ -24,7 +24,7 @@ export default class TraceableEventDispatcher extends implementationOf(Traceable
         /**
          * @type {Jymfony.Contracts.Stopwatch.StopwatchInterface}
          *
-         * @private
+         * @protected
          */
         this._stopwatch = stopwatch;
 
@@ -71,9 +71,14 @@ export default class TraceableEventDispatcher extends implementationOf(Traceable
 
         this._preProcess(eventName);
         this._preDispatch(eventName, event);
+        const e = this._stopwatch.start(eventName, 'section');
 
         return (async () => {
             event = await this._dispatcher.dispatch(eventName, event);
+
+            if (e.isStarted()) {
+                e.stop();
+            }
 
             this._postDispatch(eventName, event);
             this._postProcess(eventName);
@@ -143,21 +148,7 @@ export default class TraceableEventDispatcher extends implementationOf(Traceable
      *
      * @protected
      */
-    _preDispatch(eventName, event) { // eslint-disable-line no-unused-vars
-        switch (eventName) {
-            case 'http.request':
-                this._stopwatch.openSection();
-                break;
-
-            case 'http.view':
-            case 'http.response':
-                // Stop only if a controller has been executed
-                if (this._stopwatch.isStarted('controller')) {
-                    this._stopwatch.stop('controller');
-                }
-                break;
-        }
-    }
+    _preDispatch(eventName, event) { } // eslint-disable-line no-unused-vars
 
     /**
      * Called after dispatching an event.
@@ -167,11 +158,7 @@ export default class TraceableEventDispatcher extends implementationOf(Traceable
      *
      * @protected
      */
-    _postDispatch(eventName, event) { // eslint-disable-line no-unused-vars
-        if ('http.controller_arguments' === eventName) {
-            this._stopwatch.start('controller', 'section');
-        }
-    }
+    _postDispatch(eventName, event) { } // eslint-disable-line no-unused-vars
 
     /**
      * Wrap event listeners to track calls.

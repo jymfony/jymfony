@@ -6,6 +6,7 @@ export default class HttpServerEvents { }
 HttpServerEvents.REQUEST = 'http.request';
 HttpServerEvents.EXCEPTION = 'http.exception';
 HttpServerEvents.VIEW = 'http.view';
+HttpServerEvents.CONTROLLER_ARGUMENTS = 'http.controller_arguments';
 HttpServerEvents.CONTROLLER = 'http.controller';
 HttpServerEvents.RESPONSE = 'http.response';
 HttpServerEvents.POST_RESPONSE = 'http.post_response';

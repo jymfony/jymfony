@@ -15,8 +15,8 @@ declare namespace Jymfony.Component.EventDispatcher.Debug {
          */
         public readonly notCalledListeners: IterableIterator<[string, Set<Invokable<any>>]>;
 
+        protected _stopwatch: StopwatchInterface;
         private _dispatcher: EventDispatcherInterface;
-        private _stopwatch: StopwatchInterface;
         private _logger?: LoggerInterface;
 
         private _called: Record<string, Set<Invokable<any>>>;
