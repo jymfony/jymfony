@@ -27,3 +27,7 @@
 /// <reference path="HttpServer/Event/ResponseEvent.d.ts" />
 /// <reference path="HttpServer/Event/ViewEvent.d.ts" />
 /// <reference path="HttpServer/HttpServerInterface.d.ts" />
+/// <reference path="Stopwatch/SectionInterface.d.ts" />
+/// <reference path="Stopwatch/StopwatchInterface.d.ts" />
+/// <reference path="Stopwatch/StopwatchEventInterface.d.ts" />
+/// <reference path="Stopwatch/StopwatchPeriodInterface.d.ts" />

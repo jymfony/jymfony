@@ -24,10 +24,20 @@ Jymfony.Contracts = {
     /**
      * @namespace
      */
+    HttpFoundation: {},
+
+    /**
+     * @namespace
+     */
     HttpServer: {
         /**
          * @namespace
          */
         Event: {},
     },
+
+    /**
+     * @namespace
+     */
+    Stopwatch: {},
 };

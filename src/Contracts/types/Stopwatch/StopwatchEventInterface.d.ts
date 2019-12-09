@@ -1,25 +1,9 @@
-declare namespace Jymfony.Component.Stopwatch {
-    import StopwatchEventInterface = Jymfony.Contracts.Stopwatch.StopwatchEventInterface;
-
+declare namespace Jymfony.Contracts.Stopwatch {
     /**
      * Represents an Event managed by Stopwatch.
      */
-    export class StopwatchEvent extends implementationOf(StopwatchEventInterface) {
-        private _periods: StopwatchPeriod[];
-        private _origin: number;
-        private _category: string;
-        private _started: number[];
-
-        /**
-         * Constructor.
-         *
-         * @param origin The origin time in milliseconds
-         * @param category The event category or null to use the default
-         *
-         * @throws {InvalidArgumentException} When the raw time is not valid
-         */
-        __construct(origin: number, category?: string | null): void;
-        constructor(origin: number, category?: string | null);
+    export class StopwatchEventInterface extends MixinInterface {
+        public static readonly definition: Newable<StopwatchEventInterface>;
 
         /**
          * Gets the category.
@@ -61,7 +45,7 @@ declare namespace Jymfony.Component.Stopwatch {
         /**
          * Gets all event periods.
          */
-        public readonly periods: StopwatchPeriod[];
+        public readonly periods: StopwatchPeriodInterface[];
 
         /**
          * Gets the relative time of the start of the first period.
@@ -82,19 +66,5 @@ declare namespace Jymfony.Component.Stopwatch {
          * Gets the max memory usage of all periods (in bytes).
          */
         public readonly memory: number;
-
-        toString(): string;
-
-        /**
-         * Return the current time relative to origin.
-         */
-        protected _getNow(): number;
-
-        /**
-         * Formats a time.
-         *
-         * @throws {InvalidArgumentException} When the raw time is not valid
-         */
-        private _formatTime(time: number): number;
     }
 }

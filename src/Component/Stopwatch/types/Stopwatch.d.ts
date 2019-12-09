@@ -4,11 +4,12 @@ declare namespace Jymfony.Component.Stopwatch {
     import Request = Jymfony.Component.HttpFoundation.Request;
     import Command = Jymfony.Component.Console.Command.Command;
     import EventSubscriptions = Jymfony.Contracts.EventDispatcher.EventSubscriptions;
+    import StopwatchInterface = Jymfony.Contracts.Stopwatch.StopwatchInterface;
 
     /**
      * Stopwatch provides a way to profile code.
      */
-    export class Stopwatch extends implementationOf(EventSubscriberInterface, ClsTrait) {
+    export class Stopwatch extends implementationOf(StopwatchInterface, EventSubscriberInterface, ClsTrait) {
         private _sections: Map<string | Request | Command, Section[]>;
         private _activeSections: Map<string | Request | Command, Section[]>;
 

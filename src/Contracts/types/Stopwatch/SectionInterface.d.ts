@@ -1,22 +1,9 @@
-declare namespace Jymfony.Component.Stopwatch {
-    import SectionInterface = Jymfony.Contracts.Stopwatch.SectionInterface;
-
+declare namespace Jymfony.Contracts.Stopwatch {
     /**
      * Stopwatch section.
      */
-    export class Section extends implementationOf(SectionInterface) {
-        private _events: Record<string, StopwatchEvent>;
-        private _origin: number | null;
-        private _id?: string;
-        private _children: Section[];
-
-        /**
-         * Constructor.
-         *
-         * @param origin Set the origin of the events in this section, use null to set their origin to their start time
-         */
-        __construct(origin?: number | null): void;
-        constructor(origin?: number | null);
+    export class SectionInterface extends MixinInterface {
+        public static readonly definition: Newable<SectionInterface>;
 
         /**
          * Returns the child section.
@@ -25,14 +12,14 @@ declare namespace Jymfony.Component.Stopwatch {
          *
          * @returns The child section or null when none found
          */
-        get(id: string): Section | undefined;
+        get(id: string): SectionInterface | undefined;
 
         /**
          * Creates or re-opens a child section.
          *
          * @param id Null to create a new section, the identifier to re-open an existing one
          */
-        open(id: string | null): Section;
+        open(id: string | null): SectionInterface;
 
         /**
          * Gets the identifier of the section
@@ -49,7 +36,7 @@ declare namespace Jymfony.Component.Stopwatch {
         /**
          * Starts an event.
          */
-        startEvent(name: string, category: string): StopwatchEvent;
+        startEvent(name: string, category: string): StopwatchEventInterface;
 
         /**
          * Checks if the event was started.
@@ -61,25 +48,25 @@ declare namespace Jymfony.Component.Stopwatch {
          *
          * @throws {LogicException} When the event has not been started
          */
-        stopEvent(name: string): StopwatchEvent;
+        stopEvent(name: string): StopwatchEventInterface;
 
         /**
          * Stops then restarts an event.
          *
          * @throws {LogicException} When the event has not been started
          */
-        lap(name: string): StopwatchEvent;
+        lap(name: string): StopwatchEventInterface;
 
         /**
          * Returns a specific event by name.
          *
          * @throws {LogicException} When the event is not known
          */
-        getEvent(name: string): StopwatchEvent;
+        getEvent(name: string): StopwatchEventInterface;
 
         /**
          * Returns the events from this section.
          */
-        getEvents(): Record<string, StopwatchEvent>;
+        getEvents(): Record<string, StopwatchEventInterface>;
     }
 }
