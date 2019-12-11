@@ -54,7 +54,11 @@ if (__jymfony.Platform.hasAsyncFunctionSupport()) {
             return false;
         }
 
-        return 'AsyncFunction' === (constructor.name || constructor.displayName);
+        if ('AsyncFunction' === (constructor.name || constructor.displayName)) {
+            return true;
+        }
+
+        return '[object AsyncFunction]' === Object.prototype.toString.call(value);
     };
 } else {
     global.isAsyncFunction = function isAsyncFunction() {

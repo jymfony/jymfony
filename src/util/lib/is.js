@@ -36,7 +36,7 @@ global.isNumeric = function isNumeric(value) {
         return true;
     }
 
-    return !! String(value).match(/^((\d+|\.\d+|\d+\.\d+)(e[+-]?\d+)?|0x[0-9a-f_]+)$/i);
+    return !! String(value).match(/^[+-]?((\d+|\.\d+|\d+\.\d+)(e[+-]?\d+)?|0x[0-9a-f_]+)$/i);
 };
 
 /**
