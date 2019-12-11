@@ -1,4 +1,6 @@
 const AssignmentExpression = require('./AssignmentExpression');
+const CallExpression = require('./CallExpression');
+const Identifier = require('./Identifier');
 const MemberExpression = require('./MemberExpression');
 const StatementInterface = require('./StatementInterface');
 
@@ -68,6 +70,15 @@ class ExpressionStatement extends implementationOf(StatementInterface) {
      * @inheritdoc
      */
     compile(compiler) {
+        if (
+            ! __jymfony.autoload.debug &&
+            this._expression instanceof CallExpression &&
+            this._expression.callee instanceof Identifier &&
+            '__assert' === this._expression.callee.name
+        ) {
+            return;
+        }
+
         compiler.compileNode(this._expression);
     }
 }

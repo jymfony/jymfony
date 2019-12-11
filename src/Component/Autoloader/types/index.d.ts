@@ -98,6 +98,7 @@
 /// <reference path="Parser/Lexer.d.ts" />
 /// <reference path="Parser/ValueHolder.d.ts" />
 /// <reference path="Proxy/ManagedProxy.d.ts" />
+/// <reference path="Reflection/ReflectionHelper.d.ts" />
 /// <reference path="Autoloader.d.ts" />
 /// <reference path="ClassLoader.d.ts" />
 /// <reference path="Finder.d.ts" />

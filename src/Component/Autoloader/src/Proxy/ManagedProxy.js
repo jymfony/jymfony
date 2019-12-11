@@ -72,6 +72,12 @@ class ManagedProxy {
             construct: (target, argumentsList, newTarget) => {
                 this._initializer = this._initializer && this._initializer(this);
 
+                try {
+                    newTarget = newTarget.prototype && newTarget.prototype instanceof this._target ? newTarget : this._target;
+                } catch (e) {
+                    newTarget = this._target;
+                }
+
                 return traps.construct(this._target, argumentsList, newTarget);
             },
             getPrototypeOf: () => {

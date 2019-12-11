@@ -1,5 +1,8 @@
 const AssignmentExpression = require('./AssignmentExpression');
-const ExpressionStatement = require('./ExpressionStatement');
+const ExpressionStatement = new __jymfony.ManagedProxy(global.Function, proxy => {
+    proxy.target = require('./ExpressionStatement');
+    proxy.initializer = undefined;
+});
 const Identifier = require('./Identifier');
 const MemberExpression = require('./MemberExpression');
 const NodeInterface = require('./NodeInterface');

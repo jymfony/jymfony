@@ -8,8 +8,9 @@ function generatedPositionAfter(mappingA, mappingB) {
     const lineB = mappingB.generatedLine;
     const columnA = mappingA.generatedColumn;
     const columnB = mappingB.generatedColumn;
+
     return lineB > lineA || lineB == lineA && columnB >= columnA ||
-        0 >= util.compareByGeneratedPositionsInflated(mappingA, mappingB);
+        mappingA.compareByGeneratedPositionsInflated(mappingB);
 }
 
 /**
@@ -54,7 +55,7 @@ class MappingList {
      */
     toArray() {
         if (! this._sorted) {
-            this._array.sort(util.compareByGeneratedPositionsInflated);
+            this._array.sort((a, b) => a.compareByGeneratedPositionsInflated(b));
             this._sorted = true;
         }
 

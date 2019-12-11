@@ -101,8 +101,12 @@ class Compiler {
         this._variableCount = 1;
 
         this.compileNode(program);
-        this._code += '\n\n//@ sourceMappingURL=data:application/json;charset=utf-8;base64,' +
-            Buffer.from(JSON.stringify(this._sourceMapGenerator.toJSON())).toString('base64');
+
+        const sourceMapJson = this._sourceMapGenerator.toJSON() || {};
+        if (0 < Object.keys(sourceMapJson).length) {
+            this._code += '\n\n//@ sourceMappingURL=data:application/json;charset=utf-8;base64,' +
+                Buffer.from(JSON.stringify(sourceMapJson)).toString('base64');
+        }
 
         return this._code;
     }

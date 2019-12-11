@@ -403,8 +403,9 @@ declare class ReflectionProperty {
     readonly metadata: [Newable<any>, any];
 }
 
-
 declare class ReflectionException extends Error {}
+
+declare function __assert(condition: any, msg?: string): asserts condition;
 
 declare interface SymbolConstructor {
     docblock: symbol;
@@ -418,5 +419,7 @@ declare module NodeJS {
         ReflectionField: Newable<ReflectionField>;
         ReflectionMethod: Newable<ReflectionMethod>;
         ReflectionProperty: Newable<ReflectionProperty>;
+        ReflectionParameter: Newable<ReflectionParameter>;
+        __assert: (condition: any, msg?: string) => asserts condition;
     }
 }

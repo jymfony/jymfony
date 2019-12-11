@@ -221,7 +221,11 @@ class ReflectionMethod {
             this._parameters.push(new __jymfony.ManagedProxy({}, proxy => {
                 if (undefined !== $default) {
                     const compiler = new Compiler(new SourceMapGenerator({ skipValidation: true }));
-                    $default = vm.runInNewContext(compiler.compile($default));
+                    try {
+                        $default = vm.runInNewContext(compiler.compile($default));
+                    } catch (e) {
+                        $default = undefined;
+                    }
                 }
 
                 proxy.initializer = undefined;
