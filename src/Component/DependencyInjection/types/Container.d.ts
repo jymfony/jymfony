@@ -1,5 +1,6 @@
 declare namespace Jymfony.Component.DependencyInjection {
     import ParameterBag = Jymfony.Component.DependencyInjection.ParameterBag.ParameterBag;
+    type ServiceIdentifier = string|symbol|Newable<any>;
 
     export class Container extends implementationOf(ContainerInterface) {
         public static readonly EXCEPTION_ON_INVALID_REFERENCE = 1;
@@ -54,22 +55,22 @@ declare namespace Jymfony.Component.DependencyInjection {
         /**
          * Sets a service.
          */
-        set(id: string | symbol | Function, service: any): void;
+        set(id: ServiceIdentifier, service: any): void;
 
         /**
          * Checks if a service is defined.
          */
-        has(id: string | symbol | Function): boolean;
+        has(id: ServiceIdentifier): boolean;
 
         /**
          * Gets a service.
          */
-        get(id: string | symbol | Function, invalidBehavior?: number): any;
+        get(id: ServiceIdentifier, invalidBehavior?: number): any;
 
         /**
          * Checks if a given service has been initialized.
          */
-        initialized(id: string | symbol | Function): boolean;
+        initialized(id: ServiceIdentifier): boolean;
 
         /**
          * Executes all the shutdown functions.

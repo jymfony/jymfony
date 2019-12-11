@@ -5,7 +5,6 @@ declare namespace Jymfony.Component.DependencyInjection {
     import ParameterBag = Jymfony.Component.DependencyInjection.ParameterBag.ParameterBag;
     import ExtensionInterface = Jymfony.Component.DependencyInjection.Extension.ExtensionInterface;
     import ResourceInterface = Jymfony.Component.Config.Resource.ResourceInterface;
-    type ServiceIdentifier = string|symbol|Newable<any>;
 
     export class ContainerBuilder extends Container {
         private _extensions: Record<string, ExtensionInterface>;
