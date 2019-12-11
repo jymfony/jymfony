@@ -611,12 +611,12 @@ class ReflectionClass {
                     this._methods[name] = { ...descriptor, ownClass: proto.constructor };
                 } else {
                     if ('function' === typeof descriptor.get) {
-                        this._properties[name] = descriptor;
+                        this._properties[name] = { ...descriptor, ownClass: proto.constructor };
                         this._readableProperties[name] = true;
                     }
 
                     if ('function' === typeof descriptor.set) {
-                        this._properties[name] = descriptor;
+                        this._properties[name] = { ...descriptor, ownClass: proto.constructor };
                         this._writableProperties[name] = true;
                     }
                 }

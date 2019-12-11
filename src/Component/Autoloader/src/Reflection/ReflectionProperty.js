@@ -10,12 +10,14 @@ class ReflectionProperty {
      * @param {string} propertyName
      */
     constructor(reflectionClass, kind, propertyName) {
+        const descriptor = reflectionClass.getPropertyDescriptor(propertyName);
+
         /**
          * @type {ReflectionClass}
          *
          * @private
          */
-        this._class = reflectionClass;
+        this._class = new ReflectionClass(descriptor.ownClass);
 
         /**
          * @type {string}
@@ -31,10 +33,10 @@ class ReflectionProperty {
          */
         this._method = undefined;
 
-        if (ReflectionProperty.KIND_GET === kind && reflectionClass.hasReadableProperty(propertyName)) {
-            this._method = reflectionClass.getPropertyDescriptor(propertyName).get;
-        } else if (ReflectionProperty.KIND_SET === kind && reflectionClass.hasWritableProperty(propertyName)) {
-            this._method = reflectionClass.getPropertyDescriptor(propertyName).set;
+        if (ReflectionProperty.KIND_GET === kind && this._class.hasReadableProperty(propertyName)) {
+            this._method = descriptor.get;
+        } else if (ReflectionProperty.KIND_SET === kind && this._class.hasWritableProperty(propertyName)) {
+            this._method = descriptor.set;
         }
 
         if (undefined === this._method) {
