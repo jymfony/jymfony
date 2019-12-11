@@ -194,7 +194,7 @@ export default class TraceableEventDispatcher extends implementationOf(Traceable
             this._dispatcher.removeListener(eventName, listener);
             this._dispatcher.addListener(eventName, listener.wrappedListener, priority);
 
-            if (undefined !== this._logger) {
+            if (!! this._logger) {
                 const ctx = { event: eventName, listener: listener.pretty };
 
                 if (listener.wasCalled) {
