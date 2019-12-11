@@ -111,6 +111,7 @@ class Autoloader {
         }
 
         this._registered = true;
+        this._debug = !! process.env.DEBUG;
         const autoloader = this;
 
         /**
@@ -237,7 +238,7 @@ class Autoloader {
             }
 
             const nsDirectory = path.normalize(baseDir + '/' + config[namespace]);
-            if (undefined === parent[last]) {
+            if (! parent.hasOwnProperty(last)) {
                 parent[last] = new Namespace(this, this._generateFqn(parent, last), nsDirectory);
             } else {
                 parent[last].__namespace.addDirectory(nsDirectory);
@@ -266,7 +267,7 @@ class Autoloader {
      * @private
      */
     _ensureNamespace(namespace, parent) {
-        if (parent[namespace] === undefined) {
+        if (! Object.prototype.hasOwnProperty.call(parent, namespace)) {
             return parent[namespace] = new Namespace(this, this._generateFqn(parent, namespace));
         }
 
