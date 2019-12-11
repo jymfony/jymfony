@@ -908,14 +908,19 @@ export default class ContainerBuilder extends Container {
      * Returns service ids for a given tag.
      *
      * @param {string} name
+     * @param {boolean} [throwOnAbstract = false]
      *
      * @returns {Object.<string, Object>}
      */
-    findTaggedServiceIds(name) {
+    findTaggedServiceIds(name, throwOnAbstract = false) {
         const tags = {};
 
         for (const [ id, definition ] of __jymfony.getEntries(this._definitions)) {
             if (definition.hasTag(name)) {
+                if (throwOnAbstract && definition.isAbstract()) {
+                    throw new InvalidArgumentException(__jymfony.sprintf('The service "%s" tagged "%s" must not be abstract.', id, name));
+                }
+
                 tags[id] = definition.getTag(name);
             }
         }
