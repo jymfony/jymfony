@@ -65,10 +65,19 @@ declare class ReflectionClass<T = any> {
     hasReadableProperty(name: string|symbol): boolean;
 
     /**
+     * Gets the readable property (getter) reflection object.
+     */
+    getReadableProperty(name: string|symbol): ReflectionProperty;
+
+    /**
      * Checks if class has writable property (setter).
      */
     hasWritableProperty(name: string|symbol): boolean;
 
+    /**
+     * Gets the writable property (setter) reflection object.
+     */
+    getWritableProperty(name: string|symbol): ReflectionProperty;
 
     /**
      * Checks if class has defined the given class field.
@@ -111,6 +120,11 @@ declare class ReflectionClass<T = any> {
     readonly isInterface: boolean;
 
     /**
+     * Is this class a trait?
+     */
+    readonly isTrait: boolean;
+
+    /**
      * Get the fully qualified name of the reflected class.
      */
     readonly name?: string;
@@ -118,12 +132,12 @@ declare class ReflectionClass<T = any> {
     /**
      * Get the Namespace object containing this class.
      */
-    readonly namespace: Jymfony.Component.Autoloader.Namespace;
+    readonly namespace: null|Jymfony.Component.Autoloader.Namespace;
 
     /**
      * Get the namespace name.
      */
-    readonly namespaceName: string;
+    readonly namespaceName: null|string;
 
     /**
      * Filename declaring this class.
@@ -146,6 +160,11 @@ declare class ReflectionClass<T = any> {
     readonly docblock: string;
 
     /**
+     * Gets the fields names.
+     */
+    readonly fields: string[];
+
+    /**
      * Get properties name defined by setters/getters.
      * Other properties are added dynamically and are not
      * enumerable in the prototype.
@@ -161,6 +180,11 @@ declare class ReflectionClass<T = any> {
      * Get interfaces reflection classes.
      */
     readonly interfaces: ReflectionClass[];
+
+    /**
+     * Get traits reflection classes.
+     */
+    readonly traits: ReflectionClass[];
 
     /**
      * Gets the class metadata.
@@ -212,7 +236,62 @@ declare class ReflectionMethod {
     readonly docblock: string;
 
     /**
-     * Gets the class metadata.
+     * Gets the method metadata.
+     */
+    readonly metadata: [Newable<any>, any];
+
+    /**
+     * Gets the parameters' reflection objects.
+     */
+    readonly parameters: ReflectionParameter[];
+}
+
+declare class ReflectionParameter {
+    private constructor(reflectionMethod: ReflectionMethod,
+                        name: string,
+                        index: number,
+                        defaultValue?: any,
+                        objectPattern?: boolean,
+                        arrayPattern?: boolean,
+                        restElement?: boolean);
+
+    /**
+     * Gets the reflection class.
+     */
+    readonly reflectionClass: ReflectionClass;
+
+    /**
+     * Gets the reflection method.
+     */
+    readonly reflectionMethod: ReflectionMethod;
+
+    /**
+     * Gets the parameter name.
+     */
+    readonly name: string;
+
+    /**
+     * Gets the parameter default value.
+     */
+    readonly defaultValue: any;
+
+    /**
+     * Whether this parameter is an object pattern.
+     */
+    readonly isObjectPattern: boolean;
+
+    /**
+     * Whether this parameter is an array pattern.
+     */
+    readonly isArrayPattern: boolean;
+
+    /**
+     * Whether this parameter is an rest element.
+     */
+    readonly isRestElement: boolean;
+
+    /**
+     * Gets the parameter metadata.
      */
     readonly metadata: [Newable<any>, any];
 }
@@ -324,8 +403,9 @@ declare class ReflectionProperty {
     readonly metadata: [Newable<any>, any];
 }
 
-
 declare class ReflectionException extends Error {}
+
+declare function __assert(condition: any, msg?: string): asserts condition;
 
 declare interface SymbolConstructor {
     docblock: symbol;
@@ -339,5 +419,7 @@ declare module NodeJS {
         ReflectionField: Newable<ReflectionField>;
         ReflectionMethod: Newable<ReflectionMethod>;
         ReflectionProperty: Newable<ReflectionProperty>;
+        ReflectionParameter: Newable<ReflectionParameter>;
+        __assert: (condition: any, msg?: string) => asserts condition;
     }
 }

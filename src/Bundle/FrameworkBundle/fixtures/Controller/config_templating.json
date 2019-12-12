@@ -1,0 +1,14 @@
+{
+    "framework": {
+        "templating": {
+            "engines": [ "js" ]
+        },
+        "test": true
+    },
+    "services": {
+        "Jymfony.Bundle.FrameworkBundle.Tests.Fixtures.Controller.ConcreteController": {
+            "public": true,
+            "autoconfigure": true
+        }
+    }
+}

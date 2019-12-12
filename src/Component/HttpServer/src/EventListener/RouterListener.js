@@ -1,4 +1,5 @@
 import * as path from 'path';
+import welcome from '../Resources/welcome.html.js';
 
 const EventSubscriberInterface = Jymfony.Contracts.EventDispatcher.EventSubscriberInterface;
 const NotFoundHttpException = Jymfony.Component.HttpFoundation.Exception.NotFoundHttpException;
@@ -56,7 +57,7 @@ export default class RouterListener extends implementationOf(EventSubscriberInte
     /**
      * Call the router matcher and set attributes into the request object.
      *
-     * @param {Jymfony.Component.HttpServer.Event.GetResponseEvent} event
+     * @param {Jymfony.Contracts.HttpServer.Event.RequestEvent} event
      */
     onRequest(event) {
         const request = event.request;
@@ -104,7 +105,7 @@ export default class RouterListener extends implementationOf(EventSubscriberInte
      * Handles NoConfigurationException displaying a welcome page
      * if debug is enabled.
      *
-     * @param {Jymfony.Component.HttpServer.Event.GetResponseForExceptionEvent} event
+     * @param {Jymfony.Contracts.HttpServer.Event.ExceptionEvent} event
      */
     onException(event) {
         const e = event.exception;
@@ -135,8 +136,6 @@ export default class RouterListener extends implementationOf(EventSubscriberInte
      * @private
      */
     _createWelcomePage() {
-        const welcome = require(__dirname + '/../Resources/welcome.html.js');
-
         return new Response(welcome(Kernel.VERSION, this._projectDir + path.sep), Response.HTTP_NOT_FOUND, {
             'Content-Type': 'text/html',
         });

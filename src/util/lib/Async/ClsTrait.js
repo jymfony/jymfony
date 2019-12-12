@@ -83,7 +83,7 @@ class ClsTrait {
     /**
      * Called on http server request init.
      *
-     * @param {Jymfony.Component.HttpServer.Event.GetResponseEvent} event
+     * @param {Jymfony.Contracts.HttpServer.Event.RequestEvent} event
      *
      * @private
      */
@@ -98,13 +98,14 @@ class ClsTrait {
     /**
      * Called on http server request finish.
      *
-     * @param {Jymfony.Component.HttpServer.Event.FinishRequestEvent} event
+     * @param {Jymfony.Contracts.HttpServer.Event.FinishRequestEvent} event
      *
      * @private
      */
     _onHttpFinishRequest(event) {
         const request = event.request;
         const context = this._requestContexts.get(request);
+        this._requestContexts.delete(request);
 
         if (this._activeContext === context) {
             this._activeContext = this._contextSet.pop();

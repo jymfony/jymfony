@@ -1,5 +1,6 @@
 declare namespace Jymfony.Component.Autoloader.Parser {
     import AppliedDecorator = Jymfony.Component.Autoloader.Parser.AST.AppliedDecorator;
+    import Argument = Jymfony.Component.Autoloader.Parser.AST.Argument;
     import BlockStatement = Jymfony.Component.Autoloader.Parser.AST.BlockStatement;
     import ClassBody = Jymfony.Component.Autoloader.Parser.AST.ClassBody;
     import ClassDeclaration = Jymfony.Component.Autoloader.Parser.AST.ClassDeclaration;
@@ -124,10 +125,6 @@ declare namespace Jymfony.Component.Autoloader.Parser {
 
         /**
          * Parses a class declaration.
-         *
-         * @returns {Jymfony.Component.Autoloader.Parser.AST.ClassDeclaration}
-         *
-         * @private
          */
         private _parseClassDeclaration(): ClassDeclaration;
 
@@ -136,7 +133,7 @@ declare namespace Jymfony.Component.Autoloader.Parser {
          */
         private _parseClass(): [SourceLocation, ClassBody, null | Identifier, null | ExpressionInterface];
 
-        private _parseObjectMemberSignature(): { Generator: boolean, Static: boolean, Get: boolean, Set: boolean, Async: boolean, property: boolean, MethodName: ExpressionInterface };
+        private _parseObjectMemberSignature(acceptsPrivateMembers?: boolean): { Generator: boolean, Static: boolean, Get: boolean, Set: boolean, Async: boolean, Private: boolean, property: boolean, MethodName: ExpressionInterface };
 
         /**
          * Parses a class body.
@@ -146,7 +143,7 @@ declare namespace Jymfony.Component.Autoloader.Parser {
         /**
          * Parses a class method.
          */
-        private _parseClassMethod(start: ParserPosition, id: null | ExpressionInterface, kind: string, opts: { Static: boolean, async: boolean, generator: boolean }): ClassMethod;
+        private _parseClassMethod(start: ParserPosition, id: null | ExpressionInterface, kind: string, opts: { Private: boolean, Static: boolean, async: boolean, generator: boolean }): ClassMethod;
 
         /**
          * Parses a block statement.
@@ -155,7 +152,7 @@ declare namespace Jymfony.Component.Autoloader.Parser {
 
         private _parseStatement(skipStatementTermination?: boolean): StatementInterface;
         private _doParseStatement(skipStatementTermination: boolean): StatementInterface;
-        private _parseFormalParametersList(): PatternInterface[];
+        private _parseFormalParametersList(): Argument[];
         private _parseThrowStatement(): ThrowStatement;
         private _parseIfStatement(): IfStatement;
         private _parseReturnStatement(): ReturnStatement;

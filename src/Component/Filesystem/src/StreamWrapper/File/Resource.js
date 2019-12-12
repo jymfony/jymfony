@@ -80,7 +80,7 @@ export default class Resource {
     }
 
     /**
-     * Advances position of the strea of count bytes.
+     * Advances position of the stream of count bytes.
      *
      * @param {int} count
      */

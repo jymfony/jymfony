@@ -11,6 +11,10 @@ global.__jymfony = global.__jymfony || {};
  * @template K, V
  */
 __jymfony.getEntries = function * getEntries(object) {
+    if (object instanceof Set) {
+        object = [ ...object.values() ];
+    }
+
     if (isArray(object)) {
         for (const k of object.keys()) {
             yield [ k, object[k] ];

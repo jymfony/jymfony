@@ -1,0 +1,4 @@
+_static:
+    resource: routing.yaml
+    defaults:
+        _controller: FrameworkBundle:Template:template

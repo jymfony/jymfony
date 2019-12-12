@@ -1,0 +1,9 @@
+services:
+    parent_service:
+        class: Object
+        public: true
+
+    child_service:
+        class: Object
+        autoconfigure: true
+        parent: parent_service

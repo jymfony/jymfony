@@ -528,7 +528,7 @@ export default class Application {
             command = this.find(name);
         } catch (e) {
             if (this._eventDispatcher) {
-                const event = new Jymfony.Component.Console.Event.ConsoleErrorEvent(input, output, e, command);
+                const event = new Jymfony.Contracts.Console.Event.ConsoleErrorEvent(input, output, e, command);
                 await this._eventDispatcher.dispatch(ConsoleEvents.ERROR, event);
 
                 e = event.error;
@@ -579,7 +579,7 @@ export default class Application {
 
         let exitCode;
         let e;
-        let event = new Jymfony.Component.Console.Event.ConsoleCommandEvent(command, input, output);
+        let event = new Jymfony.Contracts.Console.Event.ConsoleCommandEvent(command, input, output);
         await this._eventDispatcher.dispatch(ConsoleEvents.COMMAND, event);
 
         if (event.commandShouldRun) {
@@ -590,7 +590,7 @@ export default class Application {
             }
 
             if (undefined !== e) {
-                event = new Jymfony.Component.Console.Event.ConsoleErrorEvent(input, output, e, command);
+                event = new Jymfony.Contracts.Console.Event.ConsoleErrorEvent(input, output, e, command);
                 await this._eventDispatcher.dispatch(ConsoleEvents.ERROR, event);
                 e = event.error;
 
@@ -599,10 +599,10 @@ export default class Application {
                 }
             }
         } else {
-            exitCode = Jymfony.Component.Console.Event.ConsoleCommandEvent.RETURN_CODE_DISABLED;
+            exitCode = Jymfony.Contracts.Console.Event.ConsoleCommandEvent.RETURN_CODE_DISABLED;
         }
 
-        event = new Jymfony.Component.Console.Event.ConsoleTerminateEvent(command, input, output, exitCode);
+        event = new Jymfony.Contracts.Console.Event.ConsoleTerminateEvent(command, input, output, exitCode);
         await this._eventDispatcher.dispatch(ConsoleEvents.TERMINATE, event);
 
         if (undefined !== e) {

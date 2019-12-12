@@ -2,6 +2,7 @@ const InvalidArgumentException = Jymfony.Component.Console.Exception.InvalidArgu
 const OutputFormatterInterface = Jymfony.Component.Console.Formatter.OutputFormatterInterface;
 const OutputFormatterStyle = Jymfony.Component.Console.Formatter.OutputFormatterStyle;
 const OutputFormatterStyleStack = Jymfony.Component.Console.Formatter.OutputFormatterStyleStack;
+const ValueHolder = Jymfony.Component.Console.Internal.ValueHolder;
 
 /**
  * @memberOf Jymfony.Component.Console.Formatter
@@ -98,9 +99,18 @@ export default class OutputFormatter extends implementationOf(OutputFormatterInt
      * @inheritdoc
      */
     format(message) {
-        message = message.toString();
+        return this.formatAndWrap(message, 0);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    formatAndWrap(message, width) {
+        message = String(message);
+
         let offset = 0, output = '', match;
         const regex = /<(([a-z][^<>]+)|\/([a-z][^<>]+)?)>/ig;
+        const currentLineLength = new ValueHolder(0);
 
         while ((match = regex.exec(message))) {
             const pos = match.index;
@@ -110,7 +120,7 @@ export default class OutputFormatter extends implementationOf(OutputFormatterInt
                 continue;
             }
 
-            output += this._applyCurrentStyle(message.substr(offset, pos - offset));
+            output += this._applyCurrentStyle(message.substr(offset, pos - offset), output, width, currentLineLength);
             offset = pos + text.length;
 
             const open = '/' !== text[1];
@@ -121,7 +131,7 @@ export default class OutputFormatter extends implementationOf(OutputFormatterInt
                 // </>
                 this._styleStack.pop();
             } else if (false === (style = this._createStyleFromString(tag.toLowerCase()))) {
-                output += this._applyCurrentStyle(text);
+                output += this._applyCurrentStyle(text, output, width, currentLineLength);
             } else if (open) {
                 this._styleStack.push(style);
             } else {
@@ -129,7 +139,7 @@ export default class OutputFormatter extends implementationOf(OutputFormatterInt
             }
         }
 
-        output += this._applyCurrentStyle(message.substr(offset));
+        output += this._applyCurrentStyle(message.substr(offset), output, width, currentLineLength);
 
         if (-1 !== output.indexOf('<<')) {
             return __jymfony.strtr(output, {
@@ -145,13 +155,60 @@ export default class OutputFormatter extends implementationOf(OutputFormatterInt
      * Applies current style from stack to text, if must be applied.
      *
      * @param {string} text Input text
+     * @param {string} current
+     * @param {int} width
+     * @param {Jymfony.Component.Console.Internal.ValueHolder<int>} currentLineLength
      *
-     * @returns {string} Styled text
+     * @returns {string} Styled text.
      *
      * @private
      */
-    _applyCurrentStyle(text) {
-        return this.decorated && 0 < text.length ? this._styleStack.current.apply(text) : text;
+    _applyCurrentStyle(text, current, width, currentLineLength) {
+        if ('' === text) {
+            return '';
+        }
+
+        if (! width) {
+            return this._decorated ? this._styleStack.current.apply(text) : text;
+        }
+
+        if (! currentLineLength._ && '' !== current) {
+            text = __jymfony.ltrim(text);
+        }
+
+        let prefix;
+        if (currentLineLength._) {
+            const i = width - current;
+            prefix = text.substr(0, i) + '\n';
+            text = text.substr(i);
+        } else {
+            prefix = '';
+        }
+
+        const matches = text.match(/(\n)$/);
+        text = prefix + text.replace(new RegExp('([^\\n]{' + width + '})\\ *'), '$1\n');
+        text = __jymfony.rtrim(text, '\n') + (matches[1] || '');
+
+        if (! currentLineLength._ && '' !== current && '\n' !== current.substr(current.length - 1)) {
+            text = '\n' + text;
+        }
+
+        const lines = text.split('\n');
+
+        for (const line of lines) {
+            currentLineLength += line.length;
+            if (width <= currentLineLength) {
+                currentLineLength._ = 0;
+            }
+        }
+
+        if (this._decorated) {
+            for (const [ i, line ] of __jymfony.getEntries(lines)) {
+                lines[i] = this._styleStack.current.apply(line);
+            }
+        }
+
+        return lines.join('\n');
     }
 
     /**

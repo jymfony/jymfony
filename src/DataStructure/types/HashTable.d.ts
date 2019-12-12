@@ -2,7 +2,7 @@
  * An hash table (hash map) is a data structure that implements an associative array abstract
  * data type, a structure that can map keys to values.
  */
-declare class HashTable<T = any> extends Object implements Iterable<T> {
+declare class HashTable<T = any> extends Object implements Iterable<[ string | number, T ]> {
     /**
      * Whether the collection is empty.
      */
@@ -88,5 +88,5 @@ declare class HashTable<T = any> extends Object implements Iterable<T> {
     /**
      * Gets an iterator for this hash table.
      */
-    [Symbol.iterator](): Iterator<T>;
+    [Symbol.iterator](): Iterator<[ string | number, T ]>;
 }

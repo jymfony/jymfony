@@ -24,7 +24,9 @@
   },
   "devDependencies": {
     "@jymfony/event-dispatcher": "*",
+    "@jymfony/datetime": "*",
     "@jymfony/debug": "*",
+    "@jymfony/testing": "*",
     "chai": "^4.2",
     "mocha": "^6.0"
   },

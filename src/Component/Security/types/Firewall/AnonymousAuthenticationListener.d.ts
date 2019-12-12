@@ -2,7 +2,7 @@ declare namespace Jymfony.Component.Security.Firewall {
     import TokenStorageInterface = Jymfony.Component.Security.Authentication.Token.Storage.TokenStorageInterface;
     import LoggerInterface = Jymfony.Component.Logger.LoggerInterface;
     import AuthenticationManagerInterface = Jymfony.Component.Security.Authentication.AuthenticationManagerInterface;
-    import GetResponseEvent = Jymfony.Component.HttpServer.Event.GetResponseEvent;
+    import RequestEvent = Jymfony.Contracts.HttpServer.Event.RequestEvent;
 
     /**
      * AnonymousAuthenticationListener automatically adds a Token if none is
@@ -20,6 +20,6 @@ declare namespace Jymfony.Component.Security.Firewall {
         __construct(tokenStorage: TokenStorageInterface, secret: string, logger?: LoggerInterface, authenticationManager?: AuthenticationManagerInterface): void;
         constructor(tokenStorage: TokenStorageInterface, secret: string, logger?: LoggerInterface, authenticationManager?: AuthenticationManagerInterface);
 
-        handle(event: GetResponseEvent): Promise<void>;
+        handle(event: RequestEvent): Promise<void>;
     }
 }

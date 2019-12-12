@@ -1,21 +1,22 @@
 declare namespace Jymfony.Component.DependencyInjection.Compiler {
     import Definition = Jymfony.Component.DependencyInjection.Definition;
 
-    export class InlineServiceDefinitionsPass extends mix(AbstractRecursivePass, RepeatablePassInterface) {
-        public readonly inlinedServiceIds: Record<string, string[]>;
-
-        private _inlinedServiceIds: Record<string, string[]>;
+    export class InlineServiceDefinitionsPass extends AbstractRecursivePass {
+        private _analyzingPass: AnalyzeServiceReferencesPass;
+        private _inlinedIds: Record<string, boolean>;
+        private _notInlinedIds: Record<string, true>;
+        private _connectedIds: Record<string, true>;
+        private _cloningIds: Set<string>;
+        private _graph: ServiceReferenceGraph;
 
         /**
          * Constructor.
          */
-        __construct(): void;
-        constructor();
+        // @ts-ignore
+        __construct(analyzingPass: AnalyzeServiceReferencesPass): void;
+        constructor(analyzingPass: AnalyzeServiceReferencesPass);
 
-        /**
-         * @inheritdoc
-         */
-        setRepeatedPass(pass: RepeatedPass): void;
+        process(container: ContainerBuilder): void;
 
         /**
          * @inheritdoc

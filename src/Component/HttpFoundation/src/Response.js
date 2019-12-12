@@ -6,6 +6,7 @@ const DateTimeZone = Jymfony.Component.DateTime.DateTimeZone;
 const EncodingNegotiator = Jymfony.Component.HttpFoundation.Negotiation.EncodingNegotiator;
 const Request = Jymfony.Component.HttpFoundation.Request;
 const ResponseHeaderBag = Jymfony.Component.HttpFoundation.ResponseHeaderBag;
+const ResponseInterface = Jymfony.Contracts.HttpFoundation.ResponseInterface;
 
 const ENCODING_BROTLI = 'brotli';
 const ENCODING_GZIP = 'gzip';
@@ -14,7 +15,7 @@ const ENCODING_DEFLATE = 'deflate';
 /**
  * @memberOf Jymfony.Component.HttpFoundation
  */
-export default class Response {
+export default class Response extends implementationOf(ResponseInterface) {
     /**
      * Constructor.
      *
@@ -863,7 +864,7 @@ export default class Response {
     _ensureIEOverSSLCompatibility(request) {
         let match;
         if (-1 !== this.headers.get('Content-Disposition', '').indexOf('attachment') &&
-            (match = request.server.get('HTTP_USER_AGENT').match(/MSIE (.*?);/i)) && request.isSecure) {
+            (match = request.server.get('HTTP_USER_AGENT', '').match(/MSIE (.*?);/i)) && request.isSecure) {
             if (match[1] && 9 > ~~match[1]) {
                 this.headers.remove('Cache-Control');
             }

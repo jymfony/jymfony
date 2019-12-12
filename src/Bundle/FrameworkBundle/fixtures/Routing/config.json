@@ -1,0 +1,14 @@
+{
+    "framework": {
+        "router": {
+            "resource": "%kernel.root_dir%/routing.json"
+        },
+        "test": true
+    },
+    "services": {
+        "Jymfony.Bundle.FrameworkBundle.Tests.Fixtures.Routing.AnnotatedController": {
+            "public": true,
+            "autoconfigure": true
+        }
+    }
+}

@@ -8,8 +8,10 @@ export default class ServiceReferenceGraphEdge {
      * @param {Jymfony.Component.DependencyInjection.Compiler.ServiceReferenceGraphNode} sourceNode
      * @param {Jymfony.Component.DependencyInjection.Compiler.ServiceReferenceGraphNode} destinationNode
      * @param {*} [value]
+     * @param {boolean} [lazy = false]
+     * @param {boolean} [weak = false]
      */
-    __construct(sourceNode, destinationNode, value = undefined) {
+    __construct(sourceNode, destinationNode, value = undefined, lazy = false, weak = false) {
         /**
          * @type {Jymfony.Component.DependencyInjection.Compiler.ServiceReferenceGraphNode}
          *
@@ -30,6 +32,20 @@ export default class ServiceReferenceGraphEdge {
          * @private
          */
         this._value = value;
+
+        /**
+         * @type {boolean}
+         *
+         * @private
+         */
+        this._lazy = lazy;
+
+        /**
+         * @type {boolean}
+         *
+         * @private
+         */
+        this._weak = weak;
     }
 
     /**
@@ -51,5 +67,19 @@ export default class ServiceReferenceGraphEdge {
      */
     getValue() {
         return this._value;
+    }
+
+    /**
+     * @returns {boolean}
+     */
+    isLazy() {
+        return this._lazy;
+    }
+
+    /**
+     * @returns {boolean}
+     */
+    isWeak() {
+        return this._weak;
     }
 }

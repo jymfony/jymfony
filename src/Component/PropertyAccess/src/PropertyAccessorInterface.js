@@ -30,12 +30,12 @@ class PropertyAccessorInterface {
      * If a property in the path is not found, an exception is thrown.
      *
      * @param {Object} object
-     * @param {*} value
      * @param {string|Jymfony.Component.PropertyAccess.PropertyPathInterface} path
+     * @param {*} value
      *
      * @throws {Jymfony.Component.PropertyAccess.Exception.AccessException} A property in the path is not found
      */
-    setValue(object, value, path) { }
+    setValue(object, path, value) { }
 }
 
 export default getInterface(PropertyAccessorInterface);

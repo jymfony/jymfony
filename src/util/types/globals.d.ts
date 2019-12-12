@@ -49,7 +49,7 @@ declare namespace __jymfony {
     /**
      * Clones an object.
      */
-    export function clone(object: Object): Object;
+    export function clone<T extends object = any>(object: T): T;
 
     /**
      * Recursively clones an object and all its arrays/literal objects.
@@ -69,7 +69,7 @@ declare namespace __jymfony {
     /**
      * Get key, value pairs from any object.
      */
-    export function getEntries<V>(object: V[]): IterableIterator<[number, V]>;
+    export function getEntries<V>(object: V[]|Set<V>): IterableIterator<[number, V]>;
     export function getEntries<T, K extends keyof T>(object: T): IterableIterator<[K, T[K]]>;
 
     /**
@@ -154,6 +154,15 @@ declare namespace __jymfony {
      */
     export function sprintf(format: string, ...args: any[]): string;
 
+    export const STR_PAD_RIGHT = 'STR_PAD_RIGHT';
+    export const STR_PAD_LEFT = 'STR_PAD_LEFT';
+    export const STR_PAD_BOTH = 'STR_PAD_BOTH';
+
+    /**
+     * Pad a string to a certain length with another string.
+     */
+    export function str_pad(string: string, length?: number, pad?: string, padType?: 'STR_PAD_RIGHT' | 'STR_PAD_LEFT' | 'STR_PAD_BOTH')
+
     /**
      * The strcspn() function returns the number of characters (including whitespaces)
      * found in a string before any part of the specified characters are found.
@@ -208,7 +217,8 @@ declare namespace __jymfony {
      * Otherwise returns true if the relationship is the one specified
      * by the operator, false otherwise
      */
-    export function version_compare(version1: string|number, version2: string|number, operator?: string|undefined): boolean|number;
+    export function version_compare(version1: string|number, version2: string|number): number;
+    export function version_compare(version1: string|number, version2: string|number, operator: '<'|'lt'|'<='|'le'|'>'|'gt'|'>='|'ge'|'=='|'='|'eq'|'!='|'<>'|'ne'): boolean;
 
     /**
      * Wraps a string to a given number of characters.
@@ -220,7 +230,7 @@ declare interface Newable<T> {
     new(): T;
     new(...args: any[]): T;
 }
-declare type Constructor<T = any> = Function & { prototype: T };
+declare type Constructor<T = any> = { prototype: T };
 
 declare class MixinInterface {
     public static readonly definition: Newable<any>;
@@ -230,7 +240,43 @@ declare function getInterface<T = any>(definition: T): Constructor<T & MixinInte
 declare function getTrait<T = any>(definition: T): Constructor<T & MixinInterface>;
 
 declare type AsyncFunction = (...args: any[]) => Promise<any>;
-declare type AsyncGeneratorFunction = (...args: any[]) => AsyncIterator<any>;
+
+interface AsyncGenerator<T = unknown, TReturn = any, TNext = unknown> extends AsyncIterator<T, TReturn, TNext> {
+    // NOTE: 'next' is defined using a tuple to ensure we report the correct assignability errors in all places.
+    next(...args: [] | [TNext]): Promise<IteratorResult<T, TReturn>>;
+    return(value: TReturn | PromiseLike<TReturn>): Promise<IteratorResult<T, TReturn>>;
+    throw(e: any): Promise<IteratorResult<T, TReturn>>;
+    [Symbol.asyncIterator](): AsyncGenerator<T, TReturn, TNext>;
+}
+
+interface AsyncGeneratorFunction {
+    /**
+     * Creates a new AsyncGenerator object.
+     * @param args A list of arguments the function accepts.
+     */
+    new (...args: any[]): AsyncGenerator;
+
+    /**
+     * Creates a new AsyncGenerator object.
+     * @param args A list of arguments the function accepts.
+     */
+    (...args: any[]): AsyncGenerator;
+
+    /**
+     * The length of the arguments.
+     */
+    readonly length: number;
+
+    /**
+     * Returns the name of the function.
+     */
+    readonly name: string;
+
+    /**
+     * A reference to the prototype.
+     */
+    readonly prototype: AsyncGenerator;
+}
 
 declare module NodeJS {
     interface Global {
@@ -244,6 +290,7 @@ declare module NodeJS {
             isInterface: <T extends Newable<any>>(mixin: T) => boolean,
             isTrait: <T extends Newable<any>>(mixin: T) => boolean,
             getInterfaces: <T extends Newable<any>>(Class: T) => MixinInterface[],
+            getTraits: <T extends Newable<any>>(Class: T) => MixinInterface[],
 
             /**
              * @internal
@@ -294,6 +341,7 @@ declare module NodeJS {
         isBoolean(value: any): value is boolean;
         isString(value: any): value is string;
         isNumber(value: any): value is number;
+        isNumeric(value: any): boolean;
         isDate(value: any): value is Date;
         isRegExp(value: any): value is RegExp;
         isError(value: any): value is Error;
@@ -316,8 +364,12 @@ declare module NodeJS {
         isPromise(value: any): value is Promise<any>;
         isStream(value: any): value is NodeJS.ReadableStream | NodeJS.WritableStream;
         isCallableArray(value: any): value is [string, string];
-        getCallableFromArray(value: [string, string]): Invokable<any>;
+        getCallableFromArray(value: [object, string]): Invokable<any>;
     }
+}
+
+interface Function {
+    (...args: any[]): any;
 }
 
 declare type Invokable<T = any> = (...args: any[]) => T | {
@@ -372,6 +424,7 @@ declare function isArguments(value: any): value is IArguments;
 declare function isBoolean(value: any): value is boolean;
 declare function isString(value: any): value is string;
 declare function isNumber(value: any): value is number;
+declare function isNumeric(value: any): boolean;
 declare function isDate(value: any): value is Date;
 declare function isRegExp(value: any): value is RegExp;
 declare function isError(value: any): value is Error;
@@ -393,7 +446,7 @@ declare function isObjectLiteral(value: any): value is Object;
 declare function isPromise(value: any): value is Promise<any>;
 declare function isStream(value: any): value is NodeJS.ReadableStream | NodeJS.WritableStream;
 declare function isCallableArray(value: any): value is [string, string];
-declare function getCallableFromArray(value: [string, string]): Invokable<any>;
+declare function getCallableFromArray(value: [object, string]): Invokable<any>;
 
 declare class BoundFunction implements Function {
     new(thisArg: Object, func: Invokable|Function|GeneratorFunction): Function;

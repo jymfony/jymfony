@@ -1,5 +1,5 @@
 declare namespace Jymfony.Component.Security.Firewall {
-    import GetResponseEvent = Jymfony.Component.HttpServer.Event.GetResponseEvent;
+    import RequestEvent = Jymfony.Contracts.HttpServer.Event.RequestEvent;
 
     /**
      * @memberOf Jymfony.Component.Security.Firewall
@@ -10,6 +10,6 @@ declare namespace Jymfony.Component.Security.Firewall {
         /**
          * Handles a request.
          */
-        handle(event: GetResponseEvent): Promise<void>;
+        handle(event: RequestEvent): Promise<void>;
     }
 }

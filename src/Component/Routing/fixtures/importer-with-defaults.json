@@ -1,0 +1,8 @@
+{
+  "defaults": {
+    "resource": "imported-with-defaults.json",
+    "prefix": "/defaults",
+    "locale": "g_locale",
+    "format": "g_format"
+  }
+}

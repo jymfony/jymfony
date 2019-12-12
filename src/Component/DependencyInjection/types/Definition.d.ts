@@ -9,6 +9,7 @@ declare namespace Jymfony.Component.DependencyInjection {
         private _deprecationTemplate: string;
         private _properties: Record<string | symbol, any>;
         private _calls: [string, any[]];
+        private _instanceof: Record<string, ChildDefinition>;
         private _configurator: string | string[] | Invokable | undefined;
         private _tags: Record<string, string>;
         private _public: boolean;
@@ -16,8 +17,10 @@ declare namespace Jymfony.Component.DependencyInjection {
         private _abstract: boolean;
         private _lazy: boolean;
         private _decoratedService: any;
+        private _autoconfigured: boolean;
         private _shutdown: [string, any[]];
         private _changes: any;
+        private _errors: (string | Invokable | any)[];
 
         /**
          * Constructor.
@@ -129,6 +132,26 @@ declare namespace Jymfony.Component.DependencyInjection {
          * Gets the methods to call.
          */
         getMethodCalls(): [string, any[]][];
+
+        /**
+         * Sets the definition templates to conditionally apply on the current definition, keyed by parent interface/class.
+         */
+        setInstanceofConditionals(instanceOf: Record<string, ChildDefinition>): this;
+
+        /**
+         * Gets the definition templates to conditionally apply on the current definition, keyed by parent interface/class.
+         */
+        getInstanceofConditionals(): Record<string, ChildDefinition>;
+
+        /**
+         * Sets whether or not instanceof conditionals should be prepended with a global set.
+         */
+        setAutoconfigured(autoconfigured: boolean): this;
+
+        /**
+         * Whether this service should be autoconfigured.
+         */
+        isAutoconfigured(): boolean;
 
         /**
          * Sets the service tags.
@@ -254,12 +277,12 @@ declare namespace Jymfony.Component.DependencyInjection {
         /**
          * Sets a configurator to be called after the service is initialized.
          */
-        setConfigurator(configurator: string | string[] | Invokable | undefined): this;
+        setConfigurator(configurator: string | [ string, string ] | [ object, string ] | Invokable | undefined): this;
 
         /**
          * Gets the configurator for this service.
          */
-        getConfigurator(): string | string[] | Invokable | undefined;
+        getConfigurator(): string | [ string, string ] | [ object, string ] | Invokable | undefined;
 
         /**
          * Sets the methods to call at container shutdown.
@@ -269,7 +292,7 @@ declare namespace Jymfony.Component.DependencyInjection {
         /**
          * Adds a method to call at shutdown.
          */
-        addShutdownCall(method: string, args: any[]): this;
+        addShutdownCall(method: string, args?: any[]): this;
 
         /**
          * Removes a method to call at container shutdown.
@@ -285,5 +308,20 @@ declare namespace Jymfony.Component.DependencyInjection {
          * Gets the methods to call at shutdown.
          */
         getShutdownCalls(): [string, any[]][];
+
+        /**
+         * Add an error that occurred when building this Definition.
+         */
+        addError(error: string | Invokable | Definition): this;
+
+        /**
+         * Returns any errors that occurred while building this Definition.
+         */
+        getErrors(): string[];
+
+        /**
+         * Whether this definition has an error.
+         */
+        hasErrors(): boolean;
     }
 }

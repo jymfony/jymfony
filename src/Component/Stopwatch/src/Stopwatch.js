@@ -1,4 +1,5 @@
 const EventSubscriberInterface = Jymfony.Contracts.EventDispatcher.EventSubscriberInterface;
+const StopwatchInterface = Jymfony.Contracts.Stopwatch.StopwatchInterface;
 const Section = Jymfony.Component.Stopwatch.Section;
 const ClsTrait = __jymfony.ClsTrait;
 
@@ -7,7 +8,7 @@ const ClsTrait = __jymfony.ClsTrait;
  *
  * @memberOf Jymfony.Component.Stopwatch
  */
-export default class Stopwatch extends implementationOf(EventSubscriberInterface, ClsTrait) {
+export default class Stopwatch extends implementationOf(StopwatchInterface, EventSubscriberInterface, ClsTrait) {
     /**
      * Constructor.
      */
@@ -32,11 +33,7 @@ export default class Stopwatch extends implementationOf(EventSubscriberInterface
     }
 
     /**
-     * Gets the sections for the given subject.
-     *
-     * @param {string|Jymfony.Component.HttpFoundation.Request|Jymfony.Component.Console.Command.Command} [subject]
-     *
-     * @return Jymfony.Component.Stopwatch.Section[]
+     * @inheritdoc
      */
     getSections(subject = undefined) {
         if (! subject) {
@@ -47,11 +44,7 @@ export default class Stopwatch extends implementationOf(EventSubscriberInterface
     }
 
     /**
-     * Creates a new section or re-opens an existing section.
-     *
-     * @param {string|null} [id] The id of the session to re-open, null to create a new one
-     *
-     * @throws {LogicException} When the section to re-open is not reachable
+     * @inheritdoc
      */
     openSection(id = null) {
         const activeSections = this._getActiveSections();
@@ -67,15 +60,7 @@ export default class Stopwatch extends implementationOf(EventSubscriberInterface
     }
 
     /**
-     * Stops the last started section.
-     *
-     * The id parameter is used to retrieve the events from this section.
-     *
-     * @see getSectionEvents()
-     *
-     * @param {string} id The identifier of the section
-     *
-     * @throws {LogicException} When there's no started section to be stopped
+     * @inheritdoc
      */
     stopSection(id) {
         this.stop('__section__');
@@ -91,12 +76,7 @@ export default class Stopwatch extends implementationOf(EventSubscriberInterface
     }
 
     /**
-     * Starts an event.
-     *
-     * @param {string} name The event name
-     * @param {string|null} [category] The event category
-     *
-     * @returns {Jymfony.Component.Stopwatch.StopwatchEvent}
+     * @inheritdoc
      */
     start(name, category = null) {
         const activeSections = this._getActiveSections();
@@ -105,11 +85,7 @@ export default class Stopwatch extends implementationOf(EventSubscriberInterface
     }
 
     /**
-     * Checks if the event was started.
-     *
-     * @param {string} name The event name
-     *
-     * @returns {boolean}
+     * @inheritdoc
      */
     isStarted(name) {
         const activeSections = this._getActiveSections();
@@ -118,11 +94,7 @@ export default class Stopwatch extends implementationOf(EventSubscriberInterface
     }
 
     /**
-     * Stops an event.
-     *
-     * @param {string} name The event name
-     *
-     * @returns {Jymfony.Component.Stopwatch.StopwatchEvent}
+     * @inheritdoc
      */
     stop(name) {
         const activeSections = this._getActiveSections();
@@ -131,11 +103,7 @@ export default class Stopwatch extends implementationOf(EventSubscriberInterface
     }
 
     /**
-     * Stops then restarts an event.
-     *
-     * @param {string} name The event name
-     *
-     * @returns {Jymfony.Component.Stopwatch.StopwatchEvent}
+     * @inheritdoc
      */
     lap(name) {
         const activeSections = this._getActiveSections();
@@ -144,11 +112,7 @@ export default class Stopwatch extends implementationOf(EventSubscriberInterface
     }
 
     /**
-     * Returns a specific event by name.
-     *
-     * @param {string} name The event name
-     *
-     * @returns {Jymfony.Component.Stopwatch.StopwatchEvent}
+     * @inheritdoc
      */
     getEvent(name) {
         const activeSections = this._getActiveSections();
@@ -157,11 +121,7 @@ export default class Stopwatch extends implementationOf(EventSubscriberInterface
     }
 
     /**
-     * Gets all events for a given section.
-     *
-     * @param {string} id A section identifier
-     *
-     * @returns {Object.<string, Jymfony.Component.Stopwatch.StopwatchEvent>}
+     * @inheritdoc
      */
     getSectionEvents(id) {
         const sections = this._getSections();

@@ -13,7 +13,7 @@ class PriorityTaggedServiceTrait {
      * @returns {Generator|Jymfony.Component.DependencyInjection.Reference[]}
      */
     * findAndSortTaggedServices(tagName, container) {
-        let services = {};
+        const services = {};
 
         for (const [ serviceId, attributes ] of __jymfony.getEntries(container.findTaggedServiceIds(tagName))) {
             const priority = attributes[0].priority === undefined ? 0 : attributes[0].priority;
@@ -25,10 +25,10 @@ class PriorityTaggedServiceTrait {
             services[priority].push(new Reference(serviceId));
         }
 
-        services = Object.ksort(services);
+        const priorities = Object.keys(services).sort((a, b) => a - b);
 
-        for (const refs of Object.values(services)) {
-            yield * refs;
+        for (const p of priorities.reverse()) {
+            yield * services[p];
         }
     }
 }

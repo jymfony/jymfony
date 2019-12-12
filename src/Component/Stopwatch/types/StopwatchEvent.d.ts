@@ -1,8 +1,10 @@
 declare namespace Jymfony.Component.Stopwatch {
+    import StopwatchEventInterface = Jymfony.Contracts.Stopwatch.StopwatchEventInterface;
+
     /**
      * Represents an Event managed by Stopwatch.
      */
-    export class StopwatchEvent {
+    export class StopwatchEvent extends implementationOf(StopwatchEventInterface) {
         private _periods: StopwatchPeriod[];
         private _origin: number;
         private _category: string;

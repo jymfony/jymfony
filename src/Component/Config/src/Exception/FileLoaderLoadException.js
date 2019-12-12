@@ -24,7 +24,7 @@ export default class FileLoaderLoadException extends Exception {
                 message += previous.message+' in ';
             }
 
-            message += resource.toString()+' ';
+            message += String(resource)+' ';
 
             // Show tweaked trace to complete the human readable sentence
             if (! sourceResource) {
@@ -72,6 +72,6 @@ export default class FileLoaderLoadException extends Exception {
             return __jymfony.sprintf('Array(%s)', a.join(', '));
         }
 
-        return variable.toString();
+        return String(variable);
     }
 }

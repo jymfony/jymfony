@@ -1,13 +1,13 @@
 const ArgumentInterface = Jymfony.Component.DependencyInjection.Argument.ArgumentInterface;
 const AbstractRecursivePass = Jymfony.Component.DependencyInjection.Compiler.AbstractRecursivePass;
-const RepeatablePassInterface = Jymfony.Component.DependencyInjection.Compiler.RepeatablePassInterface;
+const Container = Jymfony.Component.DependencyInjection.Container;
 const Definition = Jymfony.Component.DependencyInjection.Definition;
 const Reference = Jymfony.Component.DependencyInjection.Reference;
 
 /**
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
  */
-export default class AnalyzeServiceReferencesPass extends mix(AbstractRecursivePass, RepeatablePassInterface) {
+export default class AnalyzeServiceReferencesPass extends AbstractRecursivePass {
     /**
      * Constructor.
      *
@@ -53,13 +53,6 @@ export default class AnalyzeServiceReferencesPass extends mix(AbstractRecursiveP
     }
 
     /**
-     * @inheritdoc
-     */
-    setRepeatedPass(/* pass */) {
-        // No-op
-    }
-
-    /**
      * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
      */
     process(container) {
@@ -69,7 +62,8 @@ export default class AnalyzeServiceReferencesPass extends mix(AbstractRecursiveP
         this._lazy = false;
 
         for (const [ id, alias ] of __jymfony.getEntries(container.getAliases())) {
-            this._graph.connect(id, alias, alias.toString(), this._getDefinition(alias), null);
+            const targetId = this._getDefinitionId(alias.toString());
+            this._graph.connect(id, alias, alias.toString(), this._getDefinition(targetId), null);
         }
 
         super.process(container);
@@ -95,14 +89,17 @@ export default class AnalyzeServiceReferencesPass extends mix(AbstractRecursiveP
         }
 
         if (value instanceof Reference) {
-            const targetDefinition = this._getDefinition(value.toString());
+            const targetId = this._getDefinitionId(value.toString());
+            const targetDefinition = this._getDefinition(targetId);
 
             this._graph.connect(
                 this._currentId,
                 this._currentDefinition,
-                this._getDefinitionId(value.toString()),
+                targetId,
                 targetDefinition,
-                value
+                value,
+                this._lazy,
+                Container.IGNORE_ON_UNINITIALIZED_REFERENCE === value.invalidBehavior
             );
 
             return value;
@@ -118,10 +115,11 @@ export default class AnalyzeServiceReferencesPass extends mix(AbstractRecursiveP
             }
 
             this._currentDefinition = value;
+        } else if (this._currentDefinition === value) {
+            return value;
         }
 
         this._lazy = false;
-
         this._processValue(value.getFactory());
         this._processValue(value.getArguments());
 
@@ -145,7 +143,7 @@ export default class AnalyzeServiceReferencesPass extends mix(AbstractRecursiveP
      * @private
      */
     _getDefinition(id) {
-        return undefined === id ? undefined : (this._container.hasDefinition(id) ? this._container.getDefinition(id) : undefined);
+        return ! id ? undefined : (this._container.hasDefinition(id) ? this._container.getDefinition(id) : undefined);
     }
 
     /**

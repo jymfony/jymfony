@@ -4,6 +4,7 @@ try {
     require('../../../util');
 }
 
+const { normalize } = require('path');
 let Compiler;
 let Parser;
 let AST;
@@ -105,9 +106,21 @@ class ClassLoader {
     /**
      * Clears the code/compiler cache.
      */
-    static clearCache() {
-        codeCache = new Storage();
-        _cache = new Storage();
+    static clearCache(prefix = null) {
+        if (null === prefix) {
+            codeCache = new Storage();
+            _cache = new Storage();
+        } else {
+            prefix = new RegExp('^' + __jymfony.regex_quote(normalize(prefix)));
+            for (const fn of Object.keys(_cache)) {
+                if (! fn.match(prefix)) {
+                    continue;
+                }
+
+                delete _cache[fn];
+                delete codeCache[fn];
+            }
+        }
     }
 
     /**
@@ -151,12 +164,16 @@ class ClassLoader {
      */
     getCode(fn) {
         if (codeCache[fn]) {
-            return codeCache[fn];
+            const cached = codeCache[fn];
+            Object.assign(this._descriptorStorage._storage, cached.decorators);
+
+            return cached;
         }
 
         let code = stripBOM(this._finder.load(fn)), program = null;
         const sourceMapGenerator = new Generator({ file: fn });
         const descriptorStorage = this._descriptorStorage;
+        const decorators = {};
 
         try {
             this._descriptorStorage = this._descriptorStorage.setFile(fn);
@@ -192,12 +209,14 @@ class ClassLoader {
                 console.warn('Syntax error while parsing ' + fn + ': ' + err.message);
             }
         } finally {
+            Object.assign(decorators, this._descriptorStorage._storage);
             this._descriptorStorage = descriptorStorage;
         }
 
         return codeCache[fn] = {
             code,
             program,
+            decorators,
         };
     }
 
@@ -239,7 +258,7 @@ class ClassLoader {
                 return require(id);
             }
 
-            id = require.resolve(id, { paths: [ dirname ] });
+            id = resolve(id, { paths: [ dirname ] });
             if (_cache[id]) {
                 return _cache[id];
             }
@@ -261,7 +280,20 @@ class ClassLoader {
             });
         };
 
+        req.optional = (id, asObject = false) => {
+            try {
+                return req(id);
+            } catch (e) {
+                return asObject ? {} : undefined;
+            }
+        };
+
+        req.resolve = (id, options = {}) => {
+            return resolve(id, { paths: [ dirname ], ...options });
+        };
+
         this._vm.runInThisContext(this.getCode(fn).code, opts)(module.exports, req, module, fn, dirname, self);
+        require.cache[fn] = module;
 
         return _cache[fn] = module.exports;
     }

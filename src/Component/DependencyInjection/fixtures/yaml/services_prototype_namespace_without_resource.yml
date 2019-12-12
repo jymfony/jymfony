@@ -1,0 +1,4 @@
+services:
+    dir1:
+        namespace: Jymfony.Component.DependencyInjection.Fixtures.Prototype.OtherDir.
+        tags: [foo]

@@ -4,7 +4,7 @@ const Debug = Jymfony.Component.Debug.Debug;
 Debug.enable();
 
 let argv0, argv1, argv;
-[argv0, argv1, ...argv] = [ ...process.argv ];
+[ argv0, argv1, ...argv ] = [ ...process.argv ];
 
 if (0 === argv.length) {
     argv.push('src/*/test/**/*.js', 'src/{Component,Bundle}/*/test/**/*.js');
@@ -15,6 +15,10 @@ if (0 === argv.length) {
         .replace(/ /g, '');
 
     for (const i in argv) {
+        if (-1 !== argv[i].indexOf('/') || -1 !== argv[i].indexOf('\\')) {
+            continue;
+        }
+
         let name = convert(argv[i]);
         if ('Util' === name) {
             name = name.toLowerCase();

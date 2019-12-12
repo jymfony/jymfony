@@ -1,0 +1,6 @@
+{
+    "someroute": {
+        "resource": "path/to/some.yaml",
+        "not_valid_key": "test_"
+    }
+}

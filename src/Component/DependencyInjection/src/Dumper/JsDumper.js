@@ -43,6 +43,7 @@ export default class JsDumper {
         this._variableCount = undefined;
         this._targetDirMaxMatches = undefined;
         this._targetDirRegex = undefined;
+        this._addThrow = false;
     }
 
     /**
@@ -156,6 +157,7 @@ module.exports = new Container${hash}({
 
         return `const Container = Jymfony.Component.DependencyInjection.Container;
 const LogicException = Jymfony.Component.DependencyInjection.Exception.LogicException;
+const RuntimeException = Jymfony.Component.DependencyInjection.Exception.RuntimeException;
 const FrozenParameterBag = Jymfony.Component.DependencyInjection.ParameterBag.FrozenParameterBag;
 const RewindableGenerator = Jymfony.Component.DependencyInjection.Argument.RewindableGenerator;
 const path = require('path');
@@ -187,7 +189,17 @@ class ${className} extends ${baseClass} {
      * @private
      */
     _endClass(className) {
-        return `
+        let code = '';
+        if (this._addThrow) {
+            code += `
+    _throw(message) {
+        throw new RuntimeException(message);
+    }
+
+`;
+        }
+
+        return code + `
 }
 
 module.exports = ${className};
@@ -234,7 +246,15 @@ module.exports = ${className};
                 id = aliases[id].toString();
             }
 
-            code += '            ' + this._export(alias) + ': ' + this._export(id) + ',\n';
+            if (aliases[alias].isDeprecated()) {
+                const deprecatedMessage = this._export(aliases[alias].getDeprecationMessage(alias));
+                code += '            get ' + this._export(alias) + '() {\n'
+                     + '                __jymfony.trigger_deprecation(' + deprecatedMessage + ')\n'
+                     + '                return ' + this._export(id) + ';\n'
+                     + '            },\n';
+            } else {
+                code += '            ' + this._export(alias) + ': ' + this._export(id) + ',\n';
+            }
         }
 
         return code + '        };\n';
@@ -798,6 +818,12 @@ ${this._addReturn(id, definition)}\
                 [ this._definitionVariables, this._referenceVariables, this._variableCount ] = scope;
             }
         } else if (value instanceof Definition) {
+            if (value.hasErrors()) {
+                this._addThrow = true;
+
+                return __jymfony.sprintf('this._throw(%s)', this._export(value.getErrors()[0]));
+            }
+
             if (this._definitionVariables && this._definitionVariables.has(value)) {
                 return this._dumpValue(this._definitionVariables.get(value), interpolate);
             }
@@ -992,6 +1018,12 @@ ${this._addReturn(id, definition)}\
                         return code;
                     }
                 } else {
+                    if (definition.hasErrors()) {
+                        this._addThrow = true;
+
+                        return __jymfony.sprintf('this._throw(%s)', this._export(definition.getErrors()[0]));
+                    }
+
                     code = 'this.' + this._generateMethodName(id) + '()';
                 }
 

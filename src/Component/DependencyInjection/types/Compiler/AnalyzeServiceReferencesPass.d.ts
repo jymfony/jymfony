@@ -2,7 +2,7 @@ declare namespace Jymfony.Component.DependencyInjection.Compiler {
     import ContainerBuilder = Jymfony.Component.DependencyInjection.ContainerBuilder;
     import Definition = Jymfony.Component.DependencyInjection.Definition;
 
-    export class AnalyzeServiceReferencesPass extends mix(AbstractRecursivePass, RepeatablePassInterface) {
+    export class AnalyzeServiceReferencesPass extends AbstractRecursivePass {
         protected _container?: ContainerBuilder;
         protected _currentDefinition?: Definition;
 
@@ -14,11 +14,6 @@ declare namespace Jymfony.Component.DependencyInjection.Compiler {
          * Constructor.
          */
         __construct(onlyConstructorArguments?: boolean): void;
-
-        /**
-         * @inheritdoc
-         */
-        setRepeatedPass(pass: RepeatedPass): void;
 
         process(container: ContainerBuilder): void;
 

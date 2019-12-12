@@ -1,5 +1,6 @@
 import { performance } from 'perf_hooks';
 
+const SectionInterface = Jymfony.Contracts.Stopwatch.SectionInterface;
 const StopwatchEvent = Jymfony.Component.Stopwatch.StopwatchEvent;
 
 /**
@@ -7,7 +8,7 @@ const StopwatchEvent = Jymfony.Component.Stopwatch.StopwatchEvent;
  *
  * @memberOf Jymfony.Component.Stopwatch
  */
-export default class Section {
+export default class Section extends implementationOf(SectionInterface) {
     /**
      * Constructor.
      *
@@ -44,11 +45,7 @@ export default class Section {
     }
 
     /**
-     * Returns the child section.
-     *
-     * @param {string} id The child section identifier
-     *
-     * @returns {Jymfony.Component.Stopwatch.Section|undefined} The child section or null when none found
+     * @inheritdoc
      */
     get(id) {
         for (const child of this._children) {
@@ -61,11 +58,7 @@ export default class Section {
     }
 
     /**
-     * Creates or re-opens a child section.
-     *
-     * @param {string|null} id Null to create a new section, the identifier to re-open an existing one
-     *
-     * @returns {Jymfony.Component.Stopwatch.Section}
+     * @inheritdoc
      */
     open(id) {
         let section = this.get(id);
@@ -78,20 +71,14 @@ export default class Section {
     }
 
     /**
-     * Gets the identifier of the section
-     *
-     * @returns {string} The identifier of the section
+     * @inheritdoc
      */
     get id() {
         return this._id;
     }
 
     /**
-     * Sets the section identifier.
-     *
-     * @param {string} id The section identifier
-     *
-     * @returns {Jymfony.Component.Stopwatch.Section}
+     * @inheritdoc
      */
     setId(id) {
         this._id = id;
@@ -100,12 +87,7 @@ export default class Section {
     }
 
     /**
-     * Starts an event.
-     *
-     * @param {string} name The event name
-     * @param {string} category The event category
-     *
-     * @returns {Jymfony.Component.Stopwatch.StopwatchEvent} The event
+     * @inheritdoc
      */
     startEvent(name, category) {
         if (! this._events[name]) {
@@ -116,24 +98,14 @@ export default class Section {
     }
 
     /**
-     * Checks if the event was started.
-     *
-     * @param {string} name The event name
-     *
-     * @returns {boolean}
+     * @inheritdoc
      */
     isEventStarted(name) {
         return !! (this._events[name] && this._events[name].isStarted());
     }
 
     /**
-     * Stops an event.
-     *
-     * @param {string} name The event name
-     *
-     * @returns {Jymfony.Component.Stopwatch.StopwatchEvent} The event
-     *
-     * @throws {LogicException} When the event has not been started
+     * @inheritdoc
      */
     stopEvent(name) {
         if (! this._events[name]) {
@@ -144,26 +116,14 @@ export default class Section {
     }
 
     /**
-     * Stops then restarts an event.
-     *
-     * @param {string} name The event name
-     *
-     * @returns {Jymfony.Component.Stopwatch.StopwatchEvent} The event
-     *
-     * @throws {LogicException} When the event has not been started
+     * @inheritdoc
      */
     lap(name) {
         return this.stopEvent(name).start();
     }
 
     /**
-     * Returns a specific event by name.
-     *
-     * @param {string} name The event name
-     *
-     * @returns {Jymfony.Component.Stopwatch.StopwatchEvent} The event
-     *
-     * @throws {LogicException} When the event is not known
+     * @inheritdoc
      */
     getEvent(name) {
         if (! this._events[name]) {
@@ -174,9 +134,7 @@ export default class Section {
     }
 
     /**
-     * Returns the events from this section.
-     *
-     * @returns {Object.<string, Jymfony.Component.Stopwatch.StopwatchEvent>} A map of StopwatchEvent instances
+     * @inheritdoc
      */
     getEvents() {
         return Object.assign({}, this._events);

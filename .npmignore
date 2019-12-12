@@ -1,0 +1,16 @@
+.idea
+.travis.yml
+.scrutinizer.yml
+appveyor.yml
+.eslintignore
+.eslintrc.json
+*.log
+npm-debug.log*
+coverage
+.nyc_output
+node_modules
+.npm
+package-lock.json
+test
+tests.js
+fixtures

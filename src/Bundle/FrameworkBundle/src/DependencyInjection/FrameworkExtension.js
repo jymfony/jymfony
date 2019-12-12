@@ -64,6 +64,17 @@ export default class FrameworkExtension extends Extension {
         this._registerDevServer(container, loader);
         this._registerMime(loader);
         this._registerTemplatingConfiguration(config.templating, container, loader);
+
+        container.registerForAutoconfiguration('Jymfony.Component.Console.Command.Command').addTag('console.command');
+        container.registerForAutoconfiguration('Jymfony.Component.DependencyInjection.ServiceLocator').addTag('container.service_locator');
+        container.registerForAutoconfiguration('Jymfony.Component.DependencyInjection.ServiceSubscriberInterface').addTag('container.service_subscriber');
+        container.registerForAutoconfiguration('Jymfony.Component.Kernel.CacheClearer.CacheClearerInterface').addTag('kernel.cache_clearer');
+        container.registerForAutoconfiguration('Jymfony.Component.Kernel.CacheClearer.CacheWarmerInterface').addTag('kernel.cache_warmer');
+        container.registerForAutoconfiguration('Jymfony.Contracts.EventDispatcher.EventSubscriberInterface').addTag('kernel.event_subscriber');
+
+        container.registerForAutoconfiguration('Jymfony.Component.Mime.MimeTypeGuesserInterface').addTag('mime.mime_type_guesser');
+        container.registerForAutoconfiguration('Jymfony.Component.Logger.LoggerAwareInterface')
+            .addMethodCall('setLogger', [ new Reference('logger') ]);
     }
 
     /**
@@ -118,6 +129,15 @@ export default class FrameworkExtension extends Extension {
     _registerDebugConfiguration(config, container, loader) {
         if (! this._isConfigEnabled(container, config)) {
             return;
+        }
+
+        if (ReflectionClass.exists('Jymfony.Component.Stopwatch.Stopwatch')) {
+            loader.load('debug.js');
+
+            if (ReflectionClass.exists('Jymfony.Component.HttpServer.Debug.TraceableEventDispatcher')) {
+                container.getDefinition('debug.event_dispatcher')
+                    .setClass(Jymfony.Component.HttpServer.Debug.TraceableEventDispatcher);
+            }
         }
 
         if (ReflectionClass.exists('Jymfony.Component.VarDumper.VarDumper')) {
@@ -315,6 +335,17 @@ export default class FrameworkExtension extends Extension {
         }
 
         definition.replaceArgument(2, options);
+
+        container.register('routing.loader.annotation', Jymfony.Bundle.FrameworkBundle.Routing.AnnotatedControllerLoader)
+            .addTag('routing.loader', { priority: -10 })
+        ;
+
+        container.register('routing.loader.annotation.namespace', Jymfony.Component.Routing.Loader.NamespaceLoader)
+            .addTag('routing.loader', { priority: -10 })
+            .setArguments([
+                new Reference('routing.loader.annotation'),
+            ])
+        ;
     }
 
     /**
@@ -466,6 +497,8 @@ export default class FrameworkExtension extends Extension {
 
             container.setAlias('templating', 'templating.engine.delegating').setPublic(true);
         }
+
+        container.setAlias(Jymfony.Component.Templating.Engine.EngineInterface, 'templating');
 
         // Configure the js engine if needed
         if (-1 !== config.engines.indexOf('js')) {

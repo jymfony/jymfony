@@ -1,0 +1,5 @@
+{
+    "fixtures_ns": {
+        "resource": "Jymfony.Bundle.FrameworkBundle.Tests.Fixtures.Routing"
+    }
+}

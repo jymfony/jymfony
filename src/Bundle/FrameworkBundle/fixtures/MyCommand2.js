@@ -1,6 +1,6 @@
 const Command = Jymfony.Component.Console.Command.Command;
 
-class MyCommand2 extends Command {
+export default class MyCommand2 extends Command {
     /**
      * @inheritdoc
      */
@@ -26,5 +26,3 @@ class MyCommand2 extends Command {
         output.writeln('called');
     }
 }
-
-module.exports = MyCommand2;

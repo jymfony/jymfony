@@ -7,7 +7,7 @@ declare namespace Jymfony.Component.Console.Style {
     import Choice = Jymfony.Component.Console.Question.Choice;
 
     /**
-     * Output decorator helpers for the Symfony Style Guide.
+     * Output decorator helpers for the Jymfony Style Guide.
      */
     export class JymfonyStyle extends OutputStyle {
         public static readonly MAX_LINE_LENGTH = 120;

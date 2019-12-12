@@ -30,7 +30,7 @@ export default class LoaderResolver extends implementationOf(LoaderResolverInter
     /**
      * @inheritdoc
      */
-    resolve(resource, type = undefined) {
+    resolve(resource, type = null) {
         for (const loader of this._loaders) {
             if (loader.supports(resource, type)) {
                 return loader;

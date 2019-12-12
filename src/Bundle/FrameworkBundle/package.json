@@ -30,8 +30,13 @@
   },
   "devDependencies": {
     "@jymfony/debug": "*",
+    "@jymfony/http-foundation": "*",
     "@jymfony/http-server": "*",
+    "@jymfony/mime": "*",
     "@jymfony/routing": "*",
+    "@jymfony/security": "*",
+    "@jymfony/security-bundle": "*",
+    "@jymfony/templating": "*",
     "@jymfony/testing": "*",
     "@jymfony/var-dumper": "*",
     "chai": "^4.2",

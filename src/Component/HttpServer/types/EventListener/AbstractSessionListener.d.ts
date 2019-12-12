@@ -1,7 +1,7 @@
 declare namespace Jymfony.Component.HttpServer.EventListener {
     import EventSubscriberInterface = Jymfony.Contracts.EventDispatcher.EventSubscriberInterface;
-    import GetResponseEvent = Jymfony.Component.HttpServer.Event.GetResponseEvent;
-    import FilterResponseEvent = Jymfony.Component.HttpServer.Event.FilterResponseEvent;
+    import RequestEvent = Jymfony.Contracts.HttpServer.Event.RequestEvent;
+    import ResponseEvent = Jymfony.Contracts.HttpServer.Event.ResponseEvent;
     import SessionInterface = Jymfony.Component.HttpFoundation.Session.SessionInterface;
     import EventSubscriptions = Jymfony.Contracts.EventDispatcher.EventSubscriptions;
 
@@ -16,12 +16,12 @@ declare namespace Jymfony.Component.HttpServer.EventListener {
         /**
          * Listen on http.request to inject session factory
          */
-        onRequest(event: GetResponseEvent): void;
+        onRequest(event: RequestEvent): void;
 
         /**
          * Listen on http.request to inject session factory
          */
-        onResponse(event: FilterResponseEvent): void;
+        onResponse(event: ResponseEvent): void;
 
         /**
          * @inheritdoc

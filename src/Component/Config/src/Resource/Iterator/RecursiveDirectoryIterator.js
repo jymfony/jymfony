@@ -49,7 +49,11 @@ export default class RecursiveDirectoryIterator {
      */
     next() {
         if (undefined === this._dir) {
-            this._dir = fs.readdirSync(this._path);
+            try {
+                this._dir = fs.readdirSync(this._path);
+            } catch (e) {
+                this._dir = [];
+            }
         }
 
         if (undefined === this._current && 0 === this._dir.length) {
@@ -57,17 +61,27 @@ export default class RecursiveDirectoryIterator {
         }
 
         if (undefined === this._current) {
+            let stat;
             this._current = this._path + path.sep + this._dir.shift();
-            const stat = fs.statSync(this._current, { stat_link: true });
+
+            try {
+                stat = fs.statSync(this._current);
+            } catch (e) {
+                this._current = undefined;
+
+                return this.next();
+            }
+
             this._current = stat.isDirectory() ? new __self(this._current) : this._current;
         }
 
         if (this._current instanceof __self) {
             const next = this._current.next();
             if (next.done) {
+                const current = this._current;
                 this._current = undefined;
 
-                return this.next();
+                return { value: current._path, done: false };
             }
 
             return next;

@@ -21,7 +21,7 @@ global.isCallableArray = function isCallableArray(value) {
  * array. The function can be called via apply or
  * call methods.
  *
- * @param {[string, string]} arg
+ * @param {[object, string]} arg
  *
  * @returns {BoundFunction}
  */

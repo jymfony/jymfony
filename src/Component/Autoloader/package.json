@@ -22,6 +22,7 @@
     "@jymfony/util": "0.1.0-alpha.18"
   },
   "devDependencies": {
+    "@jymfony/decorators": "*",
     "chai": "^4.2",
     "mocha": "^6.0",
     "test262-parser-tests": "git+https://github.com/tc39/test262-parser-tests.git"

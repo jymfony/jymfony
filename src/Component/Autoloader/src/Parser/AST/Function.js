@@ -1,5 +1,8 @@
 const AssignmentExpression = require('./AssignmentExpression');
-const ExpressionStatement = require('./ExpressionStatement');
+const ExpressionStatement = new __jymfony.ManagedProxy(global.Function, proxy => {
+    proxy.target = require('./ExpressionStatement');
+    proxy.initializer = undefined;
+});
 const Identifier = require('./Identifier');
 const MemberExpression = require('./MemberExpression');
 const NodeInterface = require('./NodeInterface');
@@ -16,7 +19,7 @@ class Function extends implementationOf(NodeInterface) {
      * @param {Jymfony.Component.Autoloader.Parser.AST.SourceLocation} location
      * @param {Jymfony.Component.Autoloader.Parser.AST.BlockStatement} body
      * @param {Jymfony.Component.Autoloader.Parser.AST.Identifier|null} [id]
-     * @param {Jymfony.Component.Autoloader.Parser.AST.PatternInterface[]} params
+     * @param {Jymfony.Component.Autoloader.Parser.AST.Argument[]} params
      * @param {boolean} generator
      * @param {boolean} async
      */
@@ -41,11 +44,14 @@ class Function extends implementationOf(NodeInterface) {
         this._id = id || new Identifier(null, '_anonymous_xΞ' + (~~(Math.random() * 1000000)).toString(16));
 
         /**
-         * @type {Jymfony.Component.Autoloader.Parser.AST.PatternInterface[]}
+         * @type {Jymfony.Component.Autoloader.Parser.AST.Argument[]}
          *
          * @private
          */
         this._params = params;
+        for (const param of params) {
+            param.function = this;
+        }
 
         /**
          * @type {boolean}
@@ -83,6 +89,15 @@ class Function extends implementationOf(NodeInterface) {
      */
     get name() {
         return this._id.name;
+    }
+
+    /**
+     * Gets the function parameters.
+     *
+     * @returns {Jymfony.Component.Autoloader.Parser.AST.Argument[]}
+     */
+    get params() {
+        return this._params;
     }
 
     /**

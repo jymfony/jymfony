@@ -1,17 +1,9 @@
+import Redis from 'ioredis' optional;
 import { parse as urlParse } from 'url';
 
+const RedisCluster = Redis ? Redis.Cluster : undefined;
 const AbstractAdapter = Jymfony.Component.Cache.Adapter.AbstractAdapter;
 const RedisTrait = Jymfony.Component.Cache.Traits.RedisTrait;
-
-let Redis;
-let RedisCluster;
-
-try {
-    Redis = require('ioredis');
-    RedisCluster = Redis.Cluster;
-} catch (e) {
-    // Do nothing
-}
 
 const parseHosts = (params, dsn) => {
     let hosts = {};

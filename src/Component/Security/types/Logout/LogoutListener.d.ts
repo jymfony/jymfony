@@ -1,6 +1,6 @@
 declare namespace Jymfony.Component.Security.Logout {
     import HttpUtils = Jymfony.Component.Security.Http.HttpUtils;
-    import GetResponseEvent = Jymfony.Component.HttpServer.Event.GetResponseEvent;
+    import RequestEvent = Jymfony.Contracts.HttpServer.Event.RequestEvent;
     import ListenerInterface = Jymfony.Component.Security.Firewall.ListenerInterface;
 
     export class LogoutListener extends implementationOf(ListenerInterface) {
@@ -23,6 +23,6 @@ declare namespace Jymfony.Component.Security.Logout {
         /**
          * @inheritdoc
          */
-        handle(event: GetResponseEvent): Promise<void>;
+        handle(event: RequestEvent): Promise<void>;
     }
 }

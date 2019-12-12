@@ -1,8 +1,14 @@
 const AppliedDecorator = require('./AppliedDecorator');
+const Argument = require('./Argument');
 const ArrowFunctionExpression = require('./ArrowFunctionExpression');
 const CallExpression = require('./CallExpression');
+const Class = require('./Class');
+const ClassMethod = require('./ClassMethod');
+const ClassProperty = require('./ClassProperty');
 const ExpressionStatement = require('./ExpressionStatement');
 const Identifier = require('./Identifier');
+const NumberLiteral = require('./NumberLiteral');
+const StringLiteral = require('./StringLiteral');
 const VariableDeclaration = require('./VariableDeclaration');
 const VariableDeclarator = require('./VariableDeclarator');
 const { createHash } = require('crypto');
@@ -40,10 +46,33 @@ class RegisterDecorator extends AppliedDecorator {
     /**
      * @inheritdoc
      */
-    apply(compiler, target, id, variable) {
+    apply(compiler, class_, target, variable) {
+        const args = [ class_.id ];
+        if (target instanceof ClassProperty || target instanceof ClassMethod) {
+            const key = target instanceof ClassProperty ? target.key : target.id;
+            const name = (target.private ? '#' : '') + key.name;
+            args.push(key instanceof Identifier ? new StringLiteral(null, JSON.stringify(name)) : key);
+        } else if (target instanceof Argument) {
+            const method = target.function;
+            const key = method.id;
+            const name = (method.private ? '#' : '') + key.name;
+
+            args.push(key instanceof Identifier ? new StringLiteral(null, JSON.stringify(name)) : key);
+            args.push(new NumberLiteral(null, method.params.indexOf(target)));
+        } else if (! (target instanceof Class)) {
+            return [];
+        }
+
         return [
-            new ExpressionStatement(null, new CallExpression(null, new Identifier(null, variable), id)),
+            new ExpressionStatement(null, new CallExpression(null, new Identifier(null, variable), args)),
         ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    get priority() {
+        return 20;
     }
 
     /**
@@ -58,7 +87,7 @@ class RegisterDecorator extends AppliedDecorator {
     /**
      * @inheritdoc
      */
-    compile(compiler, target, id) {
+    compile(compiler, class_, target) {
         const variableName = compiler.generateVariableName();
         compiler.compileNode(new VariableDeclaration(null, 'const', [
             new VariableDeclarator(null,
@@ -68,7 +97,7 @@ class RegisterDecorator extends AppliedDecorator {
         ]));
         compiler._emit(';\n');
 
-        return this.apply(compiler, target, id, variableName);
+        return this.apply(compiler, class_, target, variableName);
     }
 }
 

@@ -11,8 +11,9 @@ class CallExpression extends implementationOf(ExpressionInterface) {
      * @param {Jymfony.Component.Autoloader.Parser.AST.SourceLocation} location
      * @param {Jymfony.Component.Autoloader.Parser.AST.ExpressionInterface} callee
      * @param {(Jymfony.Component.Autoloader.Parser.AST.ExpressionInterface|Jymfony.Component.Autoloader.Parser.AST.SpreadElement)[]} args
+     * @param {boolean} [optional = false]
      */
-    __construct(location, callee, args) {
+    __construct(location, callee, args, optional = false) {
         /**
          * @type {Jymfony.Component.Autoloader.Parser.AST.SourceLocation}
          */
@@ -31,6 +32,13 @@ class CallExpression extends implementationOf(ExpressionInterface) {
          * @private
          */
         this._args = args;
+
+        /**
+         * @type {boolean}
+         *
+         * @private
+         */
+        this._optional = optional;
     }
 
     /**
@@ -56,6 +64,10 @@ class CallExpression extends implementationOf(ExpressionInterface) {
      */
     compile(compiler) {
         compiler.compileNode(this._callee);
+        if (this._optional) {
+            compiler._emit('?.');
+        }
+
         Function.compileParams(compiler, this._args);
     }
 }

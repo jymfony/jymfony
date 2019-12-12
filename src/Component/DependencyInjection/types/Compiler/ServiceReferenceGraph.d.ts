@@ -39,7 +39,7 @@ declare namespace Jymfony.Component.DependencyInjection.Compiler {
         /**
          * Creates and connects two nodes.
          */
-        connect(sourceId: string, sourceValue: any, destinationId: string, destinationValue?: any, reference?: any): void;
+        connect(sourceId: string, sourceValue: any, destinationId: string, destinationValue?: any, reference?: any, lazy?: boolean, weak?: boolean): void;
 
         private _createNode(id: string, value: any): ServiceReferenceGraphNode;
     }

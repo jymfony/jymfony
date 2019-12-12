@@ -1,4 +1,6 @@
 import { performance } from 'perf_hooks';
+
+const StopwatchEventInterface = Jymfony.Contracts.Stopwatch.StopwatchEventInterface;
 const StopwatchPeriod = Jymfony.Component.Stopwatch.StopwatchPeriod;
 
 /**
@@ -6,7 +8,7 @@ const StopwatchPeriod = Jymfony.Component.Stopwatch.StopwatchPeriod;
  *
  * @memberOf Jymfony.Component.Stopwatch
  */
-export default class StopwatchEvent {
+export default class StopwatchEvent extends implementationOf(StopwatchEventInterface) {
     /**
      * Constructor.
      *
@@ -46,27 +48,21 @@ export default class StopwatchEvent {
     }
 
     /**
-     * Gets the category.
-     *
-     * @returns {string} The category
+     * @inheritdoc
      */
     get category() {
         return this._category;
     }
 
     /**
-     * Gets the origin.
-     *
-     * @returns {number} The origin in milliseconds
+     * @inheritdoc
      */
     get origin() {
         return this._origin;
     }
 
     /**
-     * Starts a new event period.
-     *
-     * @returns {Jymfony.Component.Stopwatch.StopwatchEvent}
+     * @inheritdoc
      */
     start() {
         this._started.push(this._getNow());
@@ -75,11 +71,7 @@ export default class StopwatchEvent {
     }
 
     /**
-     * Stops the last started event period.
-     *
-     * @returns {Jymfony.Component.Stopwatch.StopwatchEvent}
-     *
-     * @throws {LogicException} When stop() is called without a matching call to start()
+     * @inheritdoc
      */
     stop() {
         if (0 === this._started.length) {
@@ -92,25 +84,21 @@ export default class StopwatchEvent {
     }
 
     /**
-     * Checks if the event was started.
-     *
-     * @returns {boolean}
+     * @inheritdoc
      */
     isStarted() {
         return 0 < this._started.length;
     }
 
     /**
-     * Stops the current period and then starts a new one.
-     *
-     * @returns {Jymfony.Component.Stopwatch.StopwatchEvent}
+     * @inheritdoc
      */
     lap() {
         return this.stop().start();
     }
 
     /**
-     * Stops all non already stopped periods.
+     * @inheritdoc
      */
     ensureStopped() {
         while (0 < this._started.length) {
@@ -119,27 +107,21 @@ export default class StopwatchEvent {
     }
 
     /**
-     * Gets all event periods.
-     *
-     * @returns {Jymfony.Component.Stopwatch.StopwatchPeriod[]} An array of StopwatchPeriod instances
+     * @inheritdoc
      */
     get periods() {
         return [ ...this._periods ];
     }
 
     /**
-     * Gets the relative time of the start of the first period.
-     *
-     * @returns {number} The time (in milliseconds)
+     * @inheritdoc
      */
     get startTime() {
         return this._periods[0] ? this._periods[0].startTime : 0;
     }
 
     /**
-     * Gets the relative time of the end of the last period.
-     *
-     * @returns {number} The time (in milliseconds)
+     * @inheritdoc
      */
     get endTime() {
         const count = this._periods.length;
@@ -148,9 +130,7 @@ export default class StopwatchEvent {
     }
 
     /**
-     * Gets the duration of the events (including all periods).
-     *
-     * @returns {number} The duration (in milliseconds)
+     * @inheritdoc
      */
     get duration() {
         const periods = this._periods;
@@ -171,9 +151,7 @@ export default class StopwatchEvent {
     }
 
     /**
-     * Gets the max memory usage of all periods.
-     *
-     * @returns {int} The memory usage (in bytes)
+     * @inheritdoc
      */
     get memory() {
         let memory = 0;

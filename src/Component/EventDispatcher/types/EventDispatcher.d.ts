@@ -1,4 +1,8 @@
 declare namespace Jymfony.Component.EventDispatcher {
+    import Event = Jymfony.Contracts.EventDispatcher.Event;
+    import EventDispatcherInterface = Jymfony.Contracts.EventDispatcher.EventDispatcherInterface;
+    import EventSubscriberInterface = Jymfony.Contracts.EventDispatcher.EventSubscriberInterface;
+
     interface ListenerDescriptor {
         listener: Invokable<any>|[object|string, string|symbol];
         priority: number;

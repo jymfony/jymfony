@@ -175,4 +175,57 @@ describe('[Autoloader] Parser', function () {
 
         expect(program).is.not.null;
     });
+
+    it ('should correctly parse import without semicolons', () => {
+        const program = parser.parse(`import { Inject } from '@jymfony/decorators'
+import { Client } from 'non-existent-package'
+`);
+
+        const compiler = new Compiler(new Generator());
+        expect(() => compiler.compile(program)).not.to.throw();
+    });
+
+    it ('should correctly compile optional imports', () => {
+        const program = parser.parse(`import { Inject } from '@jymfony/decorators';
+import { Client } from 'non-existent-package' optional;
+
+export default () => {
+    return [ Inject !== undefined, Client === undefined ];
+};
+`);
+
+        const compiler = new Compiler(new Generator());
+        expect(() => compiler.compile(program)).not.to.throw();
+    });
+
+    it ('should parse js code correctly. case #1', () => {
+        const program = parser.parse(`
+    const res = lines.map((l, i) => {
+        return (0 === i && !indentfirst) ? \`\${l}\\n\` : \`\${sp}\${l}\\n\`;
+    }).join('');
+`);
+
+        const compiler = new Compiler(new Generator());
+        expect(() => compiler.compile(program)).not.to.throw();
+    });
+
+    it ('should parse js optional chaining. case #1', () => {
+        const program = parser.parse(`
+    true === a?.prop1?.[prop2];
+`);
+
+        const compiler = new Compiler(new Generator());
+        const compiled = compiler.compile(program);
+        expect(compiled).to.match(/true === a\?\.prop1\?\.\[prop2\]/);
+    });
+
+    it ('should parse js optional chaining. case #2', () => {
+        const program = parser.parse(`
+    true === a?.prop1?.('test');
+`);
+
+        const compiler = new Compiler(new Generator());
+        const compiled = compiler.compile(program);
+        expect(compiled).to.match(/true === a\?\.prop1\?\.\('test'\)/);
+    });
 });

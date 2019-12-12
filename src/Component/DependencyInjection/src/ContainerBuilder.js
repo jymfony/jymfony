@@ -1,11 +1,17 @@
 import { createHash } from 'crypto';
 import { statSync } from 'fs';
 
+const DirectoryResource = Jymfony.Component.Config.Resource.DirectoryResource;
+const FileExistenceResource = Jymfony.Component.Config.Resource.FileExistenceResource;
 const FileResource = Jymfony.Component.Config.Resource.FileResource;
+const GlobResource = Jymfony.Component.Config.Resource.GlobResource;
 const Alias = Jymfony.Component.DependencyInjection.Alias;
 const IteratorArgument = Jymfony.Component.DependencyInjection.Argument.IteratorArgument;
 const RewindableGenerator = Jymfony.Component.DependencyInjection.Argument.RewindableGenerator;
 const ServiceClosureArgument = Jymfony.Component.DependencyInjection.Argument.ServiceClosureArgument;
+const ServiceLocator = Jymfony.Component.DependencyInjection.Argument.ServiceLocator;
+const ServiceLocatorArgument = Jymfony.Component.DependencyInjection.Argument.ServiceLocatorArgument;
+const ChildDefinition = Jymfony.Component.DependencyInjection.ChildDefinition;
 const Compiler = Jymfony.Component.DependencyInjection.Compiler.Compiler;
 const PassConfig = Jymfony.Component.DependencyInjection.Compiler.PassConfig;
 const Container = Jymfony.Component.DependencyInjection.Container;
@@ -28,7 +34,7 @@ export default class ContainerBuilder extends Container {
         super.__construct(parameterBag);
 
         /**
-         * @type {Object.<string, Jymfony.Component.DependencyInjection.ExtensionInterface>}
+         * @type {Object.<string, Jymfony.Component.DependencyInjection.Extension.ExtensionInterface>}
          *
          * @private
          */
@@ -70,11 +76,18 @@ export default class ContainerBuilder extends Container {
         this._trackResources = true;
 
         /**
-         * @type {Jymfony.Component.DependencyInjection.Compiler}
+         * @type {Jymfony.Component.DependencyInjection.Compiler.Compiler}
          *
          * @private
          */
         this._compiler = undefined;
+
+        /**
+         * @type {Object.<string, Jymfony.Component.DependencyInjection.ChildDefinition>}
+         *
+         * @private
+         */
+        this._autoconfiguredInstanceof = {};
 
         this.setDefinition(
             'service_container',
@@ -219,13 +232,12 @@ export default class ContainerBuilder extends Container {
         }
 
         let resource = null;
+        /**
+         * @type {ReflectionClass|false}
+         */
         let classReflector;
 
         try {
-            if (ReflectionClass.exists('Jymfony.Component.Config.Resource.ClassExistenceResource')) {
-                resource = new Jymfony.Component.Config.Resource.ClassExistenceResource(Class);
-            }
-
             classReflector = ReflectionClass.exists(Class) ? new ReflectionClass(Class) : false;
         } catch (e) {
             if (Throw || ! (e instanceof ReflectionException)) {
@@ -233,6 +245,17 @@ export default class ContainerBuilder extends Container {
             }
 
             classReflector = false;
+        }
+
+        if (ReflectionClass.exists('Jymfony.Component.Config.Resource.ClassExistenceResource')) {
+            resource = new Jymfony.Component.Config.Resource.ClassExistenceResource(Class);
+        }
+
+        if (classReflector && ReflectionClass.exists('Jymfony.Component.Config.Resource.ReflectionClassResource')) {
+            const path = classReflector.filename;
+            if (path) {
+                resource = new Jymfony.Component.Config.Resource.ReflectionClassResource(classReflector);
+            }
         }
 
         if (resource && this._trackResources) {
@@ -264,6 +287,48 @@ export default class ContainerBuilder extends Container {
     }
 
     /**
+     * Checks whether the requested file or directory exists and registers the result for resource tracking.
+     *
+     * @param {string} path The file or directory path for which to check the existence
+     * @param {boolean|string} trackContents Whether to track contents of the given resource. If a string is passed,
+     *                                       it will be used as pattern for tracking contents of the requested directory
+     *
+     * @returns {boolean}
+     *
+     * @final
+     */
+    fileExists(path, trackContents = true) {
+        let stat = null;
+        try {
+            stat = statSync(path);
+        } catch (e) {
+            // Do nothing.
+        }
+
+        if (! this._trackResources) {
+            return null !== stat;
+        }
+
+        if (null === stat) {
+            this.addResource(new FileExistenceResource(path));
+
+            return false;
+        }
+
+        if (stat.isDirectory()) {
+            if (trackContents) {
+                this.addResource(new DirectoryResource(path, isString(trackContents) ? trackContents : null));
+            } else {
+                this.addResource(new GlobResource(path, '/*', false));
+            }
+        } else if (trackContents) {
+            this.addResource(new FileResource(path));
+        }
+
+        return true;
+    }
+
+    /**
      * Loads the configuration for an extension.
      *
      * @param {string} extension
@@ -282,6 +347,7 @@ export default class ContainerBuilder extends Container {
         }
 
         this._extensionConfigs[namespace].push(values);
+
         return this;
     }
 
@@ -395,7 +461,13 @@ export default class ContainerBuilder extends Container {
         }
 
         if (undefined === this._definitions[id] && undefined !== this._aliasDefinitions[id]) {
-            return this._doGet(this._aliasDefinitions[id].toString(), invalidBehavior);
+            const alias = this._aliasDefinitions[id];
+
+            if (alias.isDeprecated) {
+                __jymfony.trigger_deprecated(alias.getDeprecationMessage(id));
+            }
+
+            return this._doGet(alias.toString(), invalidBehavior);
         }
 
         let definition;
@@ -410,6 +482,11 @@ export default class ContainerBuilder extends Container {
         }
 
         this._loading[id] = true;
+
+        if (definition.hasErrors()) {
+            throw new RuntimeException(definition.getErrors()[0]);
+        }
+
         try {
             service = this._createService(definition, id);
         } finally {
@@ -445,6 +522,14 @@ export default class ContainerBuilder extends Container {
             }
 
             this._extensionConfigs[name].push(container.getExtensionConfig(name));
+        }
+
+        for (const [ IF, childDefinition ] of __jymfony.getEntries(container._autoconfiguredInstanceof)) {
+            if (undefined !== this._autoconfiguredInstanceof[IF]) {
+                throw new InvalidArgumentException(__jymfony.sprintf('"%s" has already been autoconfigured and merge() does not support merging autoconfiguration for the same class/interface.', IF));
+            }
+
+            this._autoconfiguredInstanceof[IF] = childDefinition;
         }
     }
 
@@ -611,7 +696,7 @@ export default class ContainerBuilder extends Container {
     /**
      * Adds the service definitions.
      *
-     * @param {Jymfony.Component.DependencyInjection.Definition[]} definitions
+     * @param {Object.<string, Jymfony.Component.DependencyInjection.Definition>} definitions
      */
     addDefinitions(definitions) {
         for (const [ id, definition ] of __jymfony.getEntries(definitions)) {
@@ -622,7 +707,7 @@ export default class ContainerBuilder extends Container {
     /**
      * Sets the service definitions.
      *
-     * @param {Jymfony.Component.DependencyInjection.Definition[]} definitions
+     * @param {Object.<string, Jymfony.Component.DependencyInjection.Definition>} definitions
      */
     setDefinitions(definitions) {
         this._definitions = {};
@@ -757,7 +842,13 @@ export default class ContainerBuilder extends Container {
             }
         } else if (factory) {
             if (isArray(factory)) {
-                factory = getCallableFromArray([ this._resolveServices(parameterBag.resolveValue(factory[0])), factory[1] ]);
+                let obj, method;
+                [ obj, method ] = [ this._resolveServices(parameterBag.resolveValue(factory[0])), factory[1] ];
+                if (isString(obj) && ReflectionClass.exists(obj)) {
+                    obj = ReflectionClass.getClass(obj);
+                }
+
+                factory = getCallableFromArray([ obj, method ]);
             } else if (!isFunction(factory)) {
                 throw new RuntimeException('Cannot create service "' + id + '" because of invalid factory');
             }
@@ -792,6 +883,8 @@ export default class ContainerBuilder extends Container {
                     configurator[0] = this.get(configurator[0].toString(), configurator[0].invalidBehavior);
                 } else if (configurator[0] instanceof Definition) {
                     configurator[0] = this._createService(configurator[0], undefined);
+                } else if (isString(configurator[0])) {
+                    configurator[0] = ReflectionClass.getClass(configurator[0]);
                 }
 
                 configurator = getCallableFromArray(configurator);
@@ -815,14 +908,19 @@ export default class ContainerBuilder extends Container {
      * Returns service ids for a given tag.
      *
      * @param {string} name
+     * @param {boolean} [throwOnAbstract = false]
      *
      * @returns {Object.<string, Object>}
      */
-    findTaggedServiceIds(name) {
+    findTaggedServiceIds(name, throwOnAbstract = false) {
         const tags = {};
 
         for (const [ id, definition ] of __jymfony.getEntries(this._definitions)) {
             if (definition.hasTag(name)) {
+                if (throwOnAbstract && definition.isAbstract()) {
+                    throw new InvalidArgumentException(__jymfony.sprintf('The service "%s" tagged "%s" must not be abstract.', id, name));
+                }
+
                 tags[id] = definition.getTag(name);
             }
         }
@@ -837,13 +935,38 @@ export default class ContainerBuilder extends Container {
      */
     findTags() {
         const tags = new Set();
-        for (const definition of this._definitions) {
+        for (const definition of Object.values(this._definitions)) {
             for (const tag of Object.keys(definition.getTags())) {
                 tags.add(tag);
             }
         }
 
         return Array.from(tags);
+    }
+
+    /**
+     * Returns a ChildDefinition that will be used for autoconfiguring the interface/class.
+     *
+     * @param {string} IF The class or interface to match
+     *
+     * @returns {Jymfony.Component.DependencyInjection.ChildDefinition}
+     */
+    registerForAutoconfiguration(IF) {
+        IF = ! isString(IF) ? ReflectionClass.getClassName(IF) : IF;
+        if (undefined === this._autoconfiguredInstanceof[IF]) {
+            this._autoconfiguredInstanceof[IF] = new ChildDefinition('');
+        }
+
+        return this._autoconfiguredInstanceof[IF];
+    }
+
+    /**
+     * Returns a map of ChildDefinition keyed by interface.
+     *
+     * @returns {Object.<string, Jymfony.Component.DependencyInjection.ChildDefinition>}
+     */
+    getAutoconfiguredInstanceof() {
+        return { ...this._autoconfiguredInstanceof };
     }
 
     /**
@@ -954,22 +1077,23 @@ export default class ContainerBuilder extends Container {
      *
      * @private
      */
-    _getFunctionCall(service, call) {
-        const services = __self.getServiceConditionals(call[1]);
+    _getFunctionCall(service, [ method, args ]) {
+        const services = __self.getServiceConditionals(args);
         for (const service of services) {
             if (! this.has(service)) {
                 return;
             }
         }
 
-        for (const service of __self.getInitializedConditionals(call[1])) {
+        for (const service of __self.getInitializedConditionals(args)) {
             if (! this._doGet(service, Container.IGNORE_ON_UNINITIALIZED_REFERENCE)) {
                 return;
             }
         }
 
-        call = getCallableFromArray([ service, call[0] ]);
-        return () => call.apply(service, this._resolveServices(this.parameterBag.unescapeValue(this.parameterBag.resolveValue(call[1]))));
+        const call = getCallableFromArray([ service, method ]);
+
+        return () => call.apply(service, this._resolveServices(this.parameterBag.unescapeValue(this.parameterBag.resolveValue(args))));
     }
 
     /**
@@ -999,7 +1123,13 @@ export default class ContainerBuilder extends Container {
      * @private
      */
     _resolveServices(value) {
-        if (value instanceof Map) {
+        if (isArray(value)) {
+            value = value.map(v => this._resolveServices(v));
+        } else if (isObjectLiteral(value)) {
+            for (const [ k, v ] of __jymfony.getEntries(value)) {
+                value[k] = this._resolveServices(v);
+            }
+        } else if (value instanceof Map) {
             for (const [ k, v ] of value.entries()) {
                 value.set(k, this._resolveServices(v));
             }
@@ -1069,6 +1199,17 @@ export default class ContainerBuilder extends Container {
 
                 return count;
             });
+        } else if (value instanceof ServiceLocatorArgument) {
+            const refs = {};
+            for (const [ k, v ] of __jymfony.getEntries(value.values)) {
+                if (! v) {
+                    continue;
+                }
+
+                refs[k] = [ v ];
+            }
+
+            value = new ServiceLocator(getCallableFromArray([ this, '_resolveServices' ]), refs);
         } else if (value instanceof Reference) {
             value = this._doGet(value.toString(), value.invalidBehavior);
         } else if (value instanceof Definition) {

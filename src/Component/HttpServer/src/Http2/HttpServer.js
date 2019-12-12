@@ -8,10 +8,11 @@ const BadRequestException = Jymfony.Component.HttpFoundation.Exception.BadReques
 const ContentType = Jymfony.Component.HttpFoundation.Header.ContentType;
 const Request = Jymfony.Component.HttpFoundation.Request;
 const Response = Jymfony.Component.HttpFoundation.Response;
-const Event = Jymfony.Component.HttpServer.Event;
+const HttpServerEvents = Jymfony.Component.HttpServer.Event.HttpServerEvents;
 const EventListener = Jymfony.Component.HttpServer.EventListener;
 const Router = Jymfony.Component.Routing.Router;
 const FunctionLoader = Jymfony.Component.Routing.Loader.FunctionLoader;
+const Event = Jymfony.Contracts.HttpServer.Event;
 
 const {
     HTTP2_HEADER_AUTHORITY,
@@ -164,7 +165,7 @@ export default class HttpServer extends BaseServer {
         await response.sendResponse(stream, stream);
 
         const event = new Event.PostResponseEvent(this, request, response);
-        await this._dispatcher.dispatch(Event.HttpServerEvents.TERMINATE, event);
+        await this._dispatcher.dispatch(HttpServerEvents.POST_RESPONSE, event);
     }
 
     /**

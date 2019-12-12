@@ -44,7 +44,7 @@ export default class ExceptionListener extends implementationOf(EventSubscriberI
     /**
      * Gets a response for a given exception.
      *
-     * @param {Jymfony.Component.HttpServer.Event.GetResponseForExceptionEvent} event
+     * @param {Jymfony.Contracts.HttpServer.Event.ExceptionEvent} event
      * @param {string} eventName
      * @param {Jymfony.Contracts.EventDispatcher.EventDispatcherInterface} eventDispatcher
      *

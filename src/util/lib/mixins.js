@@ -24,6 +24,7 @@ global.mixins = {
     isInterface: Interfaces.isInterface,
     isTrait: Traits.isTrait,
     getInterfaces: (Class) => Class[Mixins.appliedInterfacesSymbol] || [],
+    getTraits: (Class) => Class[Mixins.appliedTraitsSymbol] || [],
 
     /**
      * @internal
@@ -39,7 +40,13 @@ global.mixins = {
  */
 global.mix = function mix(superclass, ...mixins) {
     superclass = superclass || __jymfony.JObject || class {};
-    superclass = mixins.reduce((a, b) => b(a), superclass);
+    superclass = mixins.reduce((a, b) => {
+        if (! isFunction(b)) {
+            throw new LogicException(__jymfony.sprintf('Cannot implement/use %s as interface/trait. You probably passed a broken reference to mix/implementationOf.', typeof b));
+        }
+
+        return b(a);
+    }, superclass);
 
     const interfaces = Array.from((function * () {
         for (const i of mixins) {
@@ -59,6 +66,24 @@ global.mix = function mix(superclass, ...mixins) {
         }
     })()).concat(...(superclass[Mixins.appliedInterfacesSymbol] || []));
 
+    const traits = Array.from((function * () {
+        for (const i of mixins) {
+            if (! Traits.isTrait(i)) {
+                continue;
+            }
+
+            let definition = i.definition;
+            while (definition) {
+                const outer = Mixins.getMixin(definition);
+                if (outer) {
+                    yield outer;
+                }
+
+                definition = Object.getPrototypeOf(definition);
+            }
+        }
+    })()).concat(...(superclass[Mixins.appliedTraitsSymbol] || []));
+
     const mixed = (s => {
         return class extends s {};
     })(superclass);
@@ -71,6 +96,11 @@ global.mix = function mix(superclass, ...mixins) {
 
     Object.defineProperty(mixed, Mixins.appliedInterfacesSymbol, {
         value: [ ...interfaces ],
+        enumerable: false,
+    });
+
+    Object.defineProperty(mixed, Mixins.appliedTraitsSymbol, {
+        value: [ ...traits ],
         enumerable: false,
     });
 

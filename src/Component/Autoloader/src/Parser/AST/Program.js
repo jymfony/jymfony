@@ -92,6 +92,7 @@ class Program extends implementationOf(NodeInterface) {
     compile(compiler) {
         for (const node of this._body) {
             compiler.compileNode(node);
+            compiler._emit(';');
         }
     }
 }

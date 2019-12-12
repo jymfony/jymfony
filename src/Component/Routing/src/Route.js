@@ -73,7 +73,7 @@ export default class Route {
          *
          * @private
          */
-        this. _defaults = {};
+        this._defaults = {};
 
         /**
          * @type {Object.<string, RegExp>}
@@ -88,10 +88,22 @@ export default class Route {
             .setSchemes(schemes)
             .setMethods(methods)
             .setOptions(options)
-            .setDefaults(defaults)
+            .addDefaults(defaults)
             .setCondition(condition)
-            .setRequirements(requirements)
+            .addRequirements(requirements)
         ;
+    }
+
+    /**
+     * Reset after clone.
+     */
+    __clone() {
+        this._compiled = undefined;
+        this._schemes = this._schemes ? [ ...this._schemes ] : undefined;
+        this._methods = this._methods ? [ ...this._methods ] : undefined;
+        this._options = this._options ? { ...this._options } : undefined;
+        this._defaults = { ...this._defaults };
+        this._requirements = { ...this._requirements };
     }
 
     /**
@@ -111,7 +123,22 @@ export default class Route {
      * @returns {Jymfony.Component.Routing.Route}
      */
     setPath(path) {
-        this._path = '/' + __jymfony.ltrim(__jymfony.trim(path), '/');
+        let pattern = path;
+        if (-1 !== path.indexOf('<') || -1 !== path.indexOf('?')) {
+            pattern = path.replace(/\{(\w+)(<.*?>)?(\?[^\}]*)?\}/g, (_, name, req = null, def = null) => {
+                if (null !== def) {
+                    this.setDefault(name, def.substr(1));
+                }
+
+                if (null !== req) {
+                    this.setRequirement(name, req.substr(1, req.length - 2));
+                }
+
+                return name;
+            });
+        }
+
+        this._path = '/' + __jymfony.ltrim(__jymfony.trim(pattern), '/');
         this._compiled = undefined;
 
         return this;

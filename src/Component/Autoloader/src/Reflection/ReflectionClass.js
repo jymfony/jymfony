@@ -1,6 +1,7 @@
 const ReflectionMethod = require('./ReflectionMethod');
 const ReflectionField = require('./ReflectionField');
 const ReflectionProperty = require('./ReflectionProperty');
+const ClassNotFoundException = require('../Exception/ClassNotFoundException');
 
 const Storage = function () {};
 Storage.prototype = {};
@@ -10,6 +11,7 @@ TheBigReflectionDataCache.classes = new Storage();
 TheBigReflectionDataCache.data = new Storage();
 
 const getClass = function getClass(value) {
+    const originalValue = value;
     if (!! value && value.__self__ !== undefined) {
         value = value.__self__;
     }
@@ -36,13 +38,14 @@ const getClass = function getClass(value) {
             if (value.definition) {
                 // Interface or Trait
                 this._isInterface = global.mixins.isInterface(value);
+                this._isTrait = global.mixins.isTrait(value);
                 value = value.definition;
             } else {
                 throw new ReflectionException('Not a class');
             }
         }
     } else if (undefined === value) {
-        throw new ReflectionException('Unknown class');
+        throw new ReflectionException('Unknown class ' + originalValue);
     }
 
     return value;
@@ -59,6 +62,7 @@ class ReflectionClass {
      */
     constructor(value) {
         this._isInterface = false;
+        this._isTrait = false;
         value = getClass.apply(this, [ value ]);
 
         this._methods = new Storage();
@@ -70,6 +74,7 @@ class ReflectionClass {
         this._fields = new Storage();
         this._staticFields = new Storage();
         this._interfaces = [];
+        this._traits = [];
 
         this._docblock = undefined;
         if (undefined !== value[Symbol.docblock]) {
@@ -92,11 +97,11 @@ class ReflectionClass {
         try {
             getClass(className);
         } catch (e) {
-            if (! (e instanceof ReflectionException)) {
-                throw e;
+            if (e instanceof ReflectionException || e instanceof ClassNotFoundException) {
+                return false;
             }
 
-            return false;
+            throw e;
         }
 
         return true;
@@ -199,7 +204,7 @@ class ReflectionClass {
      *
      * @param {string|Symbol} name
      *
-     * @returns {boolean}
+     * @returns {ReflectionProperty}
      */
     getReadableProperty(name) {
         return new ReflectionProperty(this, ReflectionProperty.KIND_GET, name);
@@ -221,7 +226,7 @@ class ReflectionClass {
      *
      * @param {string|Symbol} name
      *
-     * @returns {boolean}
+     * @returns {ReflectionProperty}
      */
     getWritableProperty(name) {
         return new ReflectionProperty(this, ReflectionProperty.KIND_SET, name);
@@ -348,6 +353,15 @@ class ReflectionClass {
     }
 
     /**
+     * Is this class a trait?
+     *
+     * @returns {boolean}
+     */
+    get isTrait() {
+        return this._isTrait;
+    }
+
+    /**
      * The fully qualified name of the reflected class.
      *
      * @returns {string|undefined}
@@ -368,18 +382,22 @@ class ReflectionClass {
     /**
      * The Namespace object containing this class.
      *
-     * @returns {Jymfony.Component.Autoloader.Namespace}
+     * @returns {null|Jymfony.Component.Autoloader.Namespace}
      */
     get namespace() {
-        return this._namespace;
+        return this._namespace || null;
     }
 
     /**
      * The namespace name.
      *
-     * @returns {string}
+     * @returns {null|string}
      */
     get namespaceName() {
+        if (! this._namespace) {
+            return null;
+        }
+
         return this._namespace.name;
     }
 
@@ -404,7 +422,7 @@ class ReflectionClass {
     /**
      * Get all methods names.
      *
-     * @returns {Array}
+     * @returns {string[]}
      */
     get methods() {
         return [ ...Object.keys(this._methods), ...Object.keys(this._staticMethods) ];
@@ -458,6 +476,15 @@ class ReflectionClass {
     }
 
     /**
+     * Get traits reflection classes.
+     *
+     * @returns {ReflectionClass[]}
+     */
+    get traits() {
+        return [ ...this._traits ];
+    }
+
+    /**
      * Gets the class metadata.
      *
      * @returns {[Function, *][]}
@@ -484,8 +511,13 @@ class ReflectionClass {
         this._filename = metadata.filename;
         this._module = metadata.module;
         this._constructor = this._isInterface ? value : metadata.constructor;
-        this._fields = metadata.fields;
-        this._staticFields = metadata.staticFields;
+        if (metadata.fields) {
+            this._fields = metadata.fields;
+        }
+
+        if (metadata.staticFields) {
+            this._staticFields = metadata.staticFields;
+        }
 
         this._loadProperties();
         this._loadStatics();
@@ -504,6 +536,7 @@ class ReflectionClass {
                     writable: Object.keys(this._writableProperties),
                 },
                 interfaces: this._interfaces,
+                traits: this._traits,
                 fields: this._fields,
                 staticFields: this._staticFields,
             };
@@ -532,6 +565,7 @@ class ReflectionClass {
         propFunc(this._readableProperties, data.properties.readable);
         propFunc(this._writableProperties, data.properties.writable);
         this._interfaces = data.interfaces;
+        this._traits = data.traits;
         this._fields = data.fields;
         this._staticFields = data.staticFields;
     }
@@ -574,15 +608,15 @@ class ReflectionClass {
                 }
 
                 if ('function' === typeof descriptor.value) {
-                    this._methods[name] = descriptor;
+                    this._methods[name] = { ...descriptor, ownClass: proto.constructor };
                 } else {
                     if ('function' === typeof descriptor.get) {
-                        this._properties[name] = descriptor;
+                        this._properties[name] = { ...descriptor, ownClass: proto.constructor };
                         this._readableProperties[name] = true;
                     }
 
                     if ('function' === typeof descriptor.set) {
-                        this._properties[name] = descriptor;
+                        this._properties[name] = { ...descriptor, ownClass: proto.constructor };
                         this._writableProperties[name] = true;
                     }
                 }
@@ -609,6 +643,11 @@ class ReflectionClass {
         for (const IF of global.mixins.getInterfaces(this._constructor)) {
             const reflectionInterface = new ReflectionClass(IF);
             this._interfaces.push(reflectionInterface);
+        }
+
+        for (const TR of global.mixins.getTraits(this._constructor)) {
+            const reflectionTrait = new ReflectionClass(TR);
+            this._traits.push(reflectionTrait);
         }
     }
 
@@ -648,7 +687,7 @@ class ReflectionClass {
                     }
 
                     if ('function' === typeof descriptor.value) {
-                        this._staticMethods[P] = descriptor.value;
+                        this._staticMethods[P] = { ...descriptor, ownClass: parent };
                         return false;
                     }
 

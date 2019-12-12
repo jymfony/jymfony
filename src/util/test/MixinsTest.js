@@ -1,6 +1,22 @@
 require('../lib/mixins');
 const { expect } = require('chai');
 
+describe('Mixins', function () {
+    it ('should throw passing undefined to mix', () => {
+        expect(() => {
+            // eslint-disable-next-line no-unused-vars
+            class Foo extends implementationOf(undefined) { }
+        }).to.throw(LogicException, /Cannot implement\/use undefined as interface\/trait\. You probably passed a broken reference to mix\/implementationOf\./);
+    });
+
+    it ('should throw passing non-function to mix', () => {
+        expect(() => {
+            // eslint-disable-next-line no-unused-vars
+            class Foo extends implementationOf('foobar') { }
+        }).to.throw(LogicException, /Cannot implement\/use string as interface\/trait\. You probably passed a broken reference to mix\/implementationOf\./);
+    });
+});
+
 describe('Mixins.getInterface', function () {
     it('should return an extendable expression', () => {
         const iTest = getInterface(class TestInterface {});

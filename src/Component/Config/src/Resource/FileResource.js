@@ -1,5 +1,6 @@
+import { existsSync, realpathSync, statSync } from 'fs';
+
 const SelfCheckingResourceInterface = Jymfony.Component.Config.Resource.SelfCheckingResourceInterface;
-const fs = require('fs');
 
 /**
  * @memberOf Jymfony.Component.Config.Resource
@@ -11,7 +12,7 @@ export default class FileResource extends implementationOf(SelfCheckingResourceI
      * @param {*} resource
      */
     __construct(resource) {
-        this._resource = fs.realpathSync(resource);
+        this._resource = realpathSync(resource);
     }
 
     /**
@@ -25,6 +26,6 @@ export default class FileResource extends implementationOf(SelfCheckingResourceI
      * @inheritdoc
      */
     isFresh(timestamp) {
-        return fs.existsSync(this._resource) && fs.statSync(this._resource).mtime <= timestamp;
+        return existsSync(this._resource) && statSync(this._resource).mtime <= timestamp;
     }
 }

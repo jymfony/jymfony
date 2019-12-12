@@ -1,3 +1,4 @@
+const BinaryExpression = require('./BinaryExpression');
 const ConditionalExpression = require('./ConditionalExpression');
 const Identifier = require('./Identifier');
 const ImportDefaultSpecifier = require('./ImportDefaultSpecifier');
@@ -18,8 +19,9 @@ class ImportDeclaration extends implementationOf(ModuleDeclarationInterface) {
      * @param {Jymfony.Component.Autoloader.Parser.AST.SourceLocation} location
      * @param {Jymfony.Component.Autoloader.Parser.AST.ImportSpecifierInterface[]} specifiers
      * @param {Jymfony.Component.Autoloader.Parser.AST.Literal} source
+     * @param {boolean} optional
      */
-    __construct(location, specifiers, source) {
+    __construct(location, specifiers, source, optional) {
         /**
          * @type {Jymfony.Component.Autoloader.Parser.AST.SourceLocation}
          */
@@ -38,6 +40,13 @@ class ImportDeclaration extends implementationOf(ModuleDeclarationInterface) {
          * @private
          */
         this._source = source;
+
+        /**
+         * @type {boolean}
+         *
+         * @private
+         */
+        this._optional = optional;
     }
 
     /**
@@ -45,8 +54,11 @@ class ImportDeclaration extends implementationOf(ModuleDeclarationInterface) {
      */
     compile(compiler) {
         const variableName = compiler.generateVariableName();
-        compiler._emit('const ' + variableName + ' = require(');
+        compiler._emit('const ' + variableName + ' = require' + (this._optional ? '.optional(' : '('));
         compiler.compileNode(this._source);
+        if (this._optional && (1 < this._specifiers.length || this._specifiers[0] instanceof ImportSpecifier)) {
+            compiler._emit(', true');
+        }
         compiler._emit(');\n');
 
         for (const specifier of this._specifiers) {
@@ -54,7 +66,11 @@ class ImportDeclaration extends implementationOf(ModuleDeclarationInterface) {
 
             if (specifier instanceof ImportDefaultSpecifier) {
                 right = new ConditionalExpression(null,
-                    new MemberExpression(null, new Identifier(null, variableName), new Identifier(null, '__esModule')),
+                    new BinaryExpression(
+                        null, '&&',
+                        new Identifier(null, variableName),
+                        new MemberExpression(null, new Identifier(null, variableName), new Identifier(null, '__esModule'))
+                    ),
                     new MemberExpression(null, new Identifier(null, variableName), new Identifier(null, 'default')),
                     new Identifier(null, variableName)
                 );

@@ -601,7 +601,10 @@ class Parser extends implementationOf(ExpressionParserTrait) {
             }
 
             case 'continue': {
-                this._next();
+                this._next(false);
+                if (this._lexer.isToken(Lexer.T_SPACE) && ! Parser._includesLineTerminator(this._lexer.token.value)) {
+                    this._skipSpaces();
+                }
 
                 let label = null;
                 if (this._lexer.isToken(Lexer.T_IDENTIFIER)) {
@@ -780,7 +783,7 @@ class Parser extends implementationOf(ExpressionParserTrait) {
                                 if (! this._lexer.isToken(Lexer.T_COMMA)) {
                                     this._expect(Lexer.T_CURLY_BRACKET_CLOSE);
                                 } else {
-                                    this._next();
+                                    this._next(true, true);
                                 }
                             }
                         } else {
@@ -820,7 +823,20 @@ class Parser extends implementationOf(ExpressionParserTrait) {
                     }
                 }
 
-                return new AST.ImportDeclaration(this._makeLocation(start), specifiers, source);
+                let optional = false;
+                flags_cycle: while (this._lexer.isToken(Lexer.T_KEYWORD) || this._lexer.isToken(Lexer.T_IDENTIFIER)) {
+                    switch (this._lexer.token.value) {
+                        case 'optional':
+                            optional = true;
+                            this._next();
+                            break;
+
+                        default:
+                            break flags_cycle;
+                    }
+                }
+
+                return new AST.ImportDeclaration(this._makeLocation(start), specifiers, source, optional);
             }
 
             case 'export': {
@@ -1116,8 +1132,8 @@ class Parser extends implementationOf(ExpressionParserTrait) {
         return [ this._makeLocation(start), body, id, superClass ];
     }
 
-    _parseObjectMemberSignature() {
-        let Generator = false, Static = false, Get = false, Set = false, Async = false, property = false, MethodName, state = this.state;
+    _parseObjectMemberSignature(acceptsPrivateMembers = true) {
+        let Generator = false, Static = false, Get = false, Set = false, Async = false, property = false, Private = false, MethodName, state = this.state;
         const apply = (name, computed) => {
             switch (MethodName) {
                 case 'static': Static = true; break;
@@ -1150,6 +1166,11 @@ class Parser extends implementationOf(ExpressionParserTrait) {
             this._next();
         }
 
+        if ('#' === this._lexer.token.value && acceptsPrivateMembers) {
+            Private = true;
+            this._next();
+        }
+
         if (this._lexer.isToken(Lexer.T_GET) || this._lexer.isToken(Lexer.T_SET)) {
             apply(this._lexer.token.value);
         }
@@ -1159,6 +1180,11 @@ class Parser extends implementationOf(ExpressionParserTrait) {
             apply(this._parseExpression({ maxLevel: 2 }), true);
         } else if (! [ Lexer.T_COLON, Lexer.T_OPEN_PARENTHESIS ].includes(this._lexer.token.type)) {
             apply(this._lexer.token.value);
+        }
+
+        if (acceptsPrivateMembers && MethodName && '#' === MethodName[0]) {
+            Private = true;
+            MethodName = MethodName.substr(1);
         }
 
         if ([ Lexer.T_COLON, Lexer.T_SEMICOLON, Lexer.T_ASSIGNMENT_OP ].includes(this._lexer.token.type)) {
@@ -1180,7 +1206,7 @@ class Parser extends implementationOf(ExpressionParserTrait) {
             }
         }
 
-        return { Generator, Static, Get, Set, Async, property, MethodName: isString(MethodName) ? new AST.Identifier(null, MethodName) : MethodName };
+        return { Generator, Static, Get, Set, Async, property, Private, MethodName: isString(MethodName) ? new AST.Identifier(null, MethodName) : MethodName };
     }
 
     /**
@@ -1203,7 +1229,7 @@ class Parser extends implementationOf(ExpressionParserTrait) {
             }
 
             const start = this._getCurrentPosition();
-            const { Generator, Static, Get, Set, Async, MethodName, property } = this._parseObjectMemberSignature();
+            const { Generator, Static, Get, Set, Async, Private, MethodName, property } = this._parseObjectMemberSignature();
             let kind = Get ? 'get' : Set ? 'set' : 'method';
             if (! Static && MethodName instanceof AST.Identifier && 'constructor' === MethodName.name) {
                 kind = 'constructor';
@@ -1211,7 +1237,7 @@ class Parser extends implementationOf(ExpressionParserTrait) {
 
             if (! property) {
                 this._expect(Lexer.T_OPEN_PARENTHESIS);
-                body.push(this._parseClassMethod(start, MethodName, kind, { Static, generator: Generator, async: Async }));
+                body.push(this._parseClassMethod(start, MethodName, kind, { Private, Static, generator: Generator, async: Async }));
             } else {
                 const docblock = this._pendingDocblock;
                 this._pendingDocblock = undefined;
@@ -1224,7 +1250,7 @@ class Parser extends implementationOf(ExpressionParserTrait) {
                     value = this._parseExpression({ maxLevel: 2 });
                 }
 
-                const property = new AST.ClassProperty(this._makeLocation(start), MethodName, value, Static);
+                const property = new AST.ClassProperty(this._makeLocation(start), MethodName, value, Static, Private);
                 property.docblock = docblock || null;
                 property.decorators = decorators;
 
@@ -1464,10 +1490,7 @@ class Parser extends implementationOf(ExpressionParserTrait) {
                     this._syntaxError('Unexpected "' + this._lexer.token.value + '"');
             }
         } catch (e) {
-            if (e instanceof RescanException) {
-                skipStatementTermination = true;
-            }
-
+            skipStatementTermination = true;
             throw e;
         } finally {
             this._level--;
@@ -1480,11 +1503,32 @@ class Parser extends implementationOf(ExpressionParserTrait) {
 
     _parseFormalParametersList() {
         this._expect(Lexer.T_OPEN_PARENTHESIS);
-        this._next();
+        this._next(true, true);
         const args = [];
 
         while (! this._lexer.isToken(Lexer.T_CLOSED_PARENTHESIS)) {
-            args.push(this._parsePattern());
+            const start = this._getCurrentPosition();
+
+            if (this._lexer.isToken(Lexer.T_DECORATOR_IDENTIFIER)) {
+                const docblock = this._pendingDocblock;
+                this._pendingDocblock = undefined;
+
+                const decorators = this._pendingDecorators;
+                decorators.push(this._parseDecorator());
+                this._pendingDecorators = decorators;
+
+                this._pendingDocblock = docblock;
+                this._skipSpaces();
+            }
+
+            const decorators = this._pendingDecorators;
+            this._pendingDecorators = [];
+
+            const pattern = this._parsePattern();
+            const argument = new AST.Argument(this._makeLocation(start), pattern);
+            argument.decorators = decorators;
+
+            args.push(argument);
             if (this._lexer.isToken(Lexer.T_COMMA)) {
                 this._next();
             } else {

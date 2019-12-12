@@ -27,7 +27,7 @@ declare namespace Jymfony.Component.PropertyAccess {
         /**
          * @inheritdoc
          */
-        setValue(object: object | any[], value: any, path: string | PropertyPathInterface): void;
+        setValue(object: object | any[], path: string | PropertyPathInterface, value: any): void;
 
         /**
          * Reads the path to a given path index.

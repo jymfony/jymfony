@@ -13,7 +13,7 @@ global.__jymfony = global.__jymfony || {};
  * @param {string|int} version2
  * @param {string|undefined} [operator]
  *
- * @returns {boolean}
+ * @returns {int|boolean}
  */
 __jymfony.version_compare = (version1, version2, operator = undefined) => {
     // The function first replaces _, - and + with a dot . in the version string and also
@@ -23,8 +23,8 @@ __jymfony.version_compare = (version1, version2, operator = undefined) => {
         return v.length ? v : [ -7 ];
     };
 
-    version1 = prepareVersion(version1);
-    version2 = prepareVersion(version2);
+    const v1 = prepareVersion(version1);
+    const v2 = prepareVersion(version2);
 
     // Then it compares the parts starting from left to right. If a part contains special version
     // Strings these are handled in the following order:
@@ -50,10 +50,10 @@ __jymfony.version_compare = (version1, version2, operator = undefined) => {
     };
 
     let compare = 0;
-    const maxI = Math.max(version1.length, version2.length);
+    const maxI = Math.max(v1.length, v2.length);
     for (let i = 0; i < maxI; i++) {
-        const chunk1 = numVer(version1[i]);
-        const chunk2 = numVer(version2[i]);
+        const chunk1 = numVer(v1[i]);
+        const chunk2 = numVer(v2[i]);
 
         if (chunk1 === chunk2) {
             // Do nothing and continue

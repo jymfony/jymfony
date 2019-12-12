@@ -36,7 +36,7 @@ export default class ServiceLocatorTagPass extends AbstractRecursivePass {
         }
 
         const isArgumentArray = isArray(valueArguments[0]);
-        const finalArguments = {};
+        const finalArguments = HashTable.fromObject(valueArguments[0]);
 
         for (let [ k, v ] of __jymfony.getEntries(valueArguments[0])) {
             if (v instanceof ServiceClosureArgument) {
@@ -54,10 +54,10 @@ export default class ServiceLocatorTagPass extends AbstractRecursivePass {
                 k = v.toString();
             }
 
-            finalArguments[k] = new ServiceClosureArgument(v);
+            finalArguments.put(k, new ServiceClosureArgument(v));
         }
 
-        value.setArguments([ Object.ksort(finalArguments) ]);
+        value.setArguments([ Object.ksort(finalArguments.toObject()) ]);
         const id = '.service_locator.' + ContainerBuilder.hash(value);
 
         if (isRoot) {

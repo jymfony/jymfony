@@ -13,5 +13,10 @@ declare namespace Jymfony.Component.Autoloader.Parser.AST {
          * @inheritdoc
          */
         compile(compiler: Compiler): void;
+
+        /**
+         * The rest argument.
+         */
+        public readonly argument: PatternInterface;
     }
 }

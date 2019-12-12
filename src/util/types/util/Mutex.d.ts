@@ -26,7 +26,7 @@ declare namespace __jymfony {
          *
          * @returns {Promise<*>}
          */
-        runExclusive<T = any>(callback: Invokable<T>): Promise<T>;
+        runExclusive<T = any>(callback: Invokable<T | Promise<T>>): Promise<T>;
 
         /**
          * Releases the mutex.

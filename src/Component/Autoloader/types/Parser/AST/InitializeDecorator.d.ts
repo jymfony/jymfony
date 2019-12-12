@@ -20,16 +20,16 @@ declare namespace Jymfony.Component.Autoloader.Parser.AST {
         /**
          * @inheritdoc
          */
-        apply(compiler: Compiler, target: Class, id: [Identifier, ExpressionInterface], variable: string): StatementInterface[];
+        apply(compiler: Compiler, class_: Class, target: Class|ClassMemberInterface, variable: string): StatementInterface[];
 
         /**
          * @inheritdoc
          */
-        compile(compiler: Compiler, target: Class, id: [Identifier, ExpressionInterface]): StatementInterface[];
+        compile(compiler: Compiler, class_?: Class, target?: Class|ClassMemberInterface): StatementInterface[];
 
         /**
          * Applies the decorator adding function call to constructor.
          */
-        _addToConstructor(target: Class, id: [Identifier, ExpressionInterface], callee: Identifier): void;
+        _addToConstructor(class_: Class, target: Class|ClassMemberInterface, callee: Identifier): void;
     }
 }

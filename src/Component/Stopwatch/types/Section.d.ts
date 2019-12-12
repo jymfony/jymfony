@@ -1,8 +1,10 @@
 declare namespace Jymfony.Component.Stopwatch {
+    import SectionInterface = Jymfony.Contracts.Stopwatch.SectionInterface;
+
     /**
      * Stopwatch section.
      */
-    export class Section {
+    export class Section extends implementationOf(SectionInterface) {
         private _events: Record<string, StopwatchEvent>;
         private _origin: number | null;
         private _id?: string;

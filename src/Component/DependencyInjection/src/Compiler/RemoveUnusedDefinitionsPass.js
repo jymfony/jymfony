@@ -1,69 +1,77 @@
-const RepeatablePassInterface = Jymfony.Component.DependencyInjection.Compiler.RepeatablePassInterface;
+const AbstractRecursivePass = Jymfony.Component.DependencyInjection.Compiler.AbstractRecursivePass;
+const Container = Jymfony.Component.DependencyInjection.Container;
+const Reference = Jymfony.Component.DependencyInjection.Reference;
 
 /**
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
  */
-export default class RemoveUnusedDefinitionsPass extends implementationOf(RepeatablePassInterface) {
+export default class RemoveUnusedDefinitionsPass extends AbstractRecursivePass {
     __construct() {
-        this._repeatedPass = undefined;
+        /**
+         * @type {string[]}
+         *
+         * @private
+         */
+        this._connectedIds = [];
     }
 
     /**
-     * @inheritdoc
+     * Processes the ContainerBuilder to remove unused definitions.
      */
     process(container) {
         const compiler = container.getCompiler();
-        const formatter = compiler.logFormatter;
-        const graph = compiler.getServiceReferenceGraph();
 
-        let hasChanged = false;
-        for (const [ id, definition ] of __jymfony.getEntries(container.getDefinitions())) {
-            if (definition.isPublic()) {
-                continue;
+        try {
+            const connectedIds = new Set();
+            const aliases = container.getAliases();
+
+            for (const [ id, alias ] of __jymfony.getEntries(aliases)) {
+                if (alias.isPublic()) {
+                    this._connectedIds.push(String(aliases[id]));
+                }
             }
 
-            let isReferenced, referencingAliases;
-            if (graph.hasNode(id)) {
-                const edges = graph.getNode(id).getInEdges();
-                referencingAliases = [];
-                const sourceIds = new Set();
+            for (const [ id, definition ] of __jymfony.getEntries(container.getDefinitions())) {
+                if (definition.isPublic()) {
+                    connectedIds.add(id);
+                    this._processValue(definition);
+                }
+            }
 
-                for (const edge of edges) {
-                    const node = edge.getSourceNode();
-                    sourceIds.add(node.getId());
-
-                    if (node.isAlias()) {
-                        referencingAliases.push(node.getValue());
+            while (0 < this._connectedIds.length) {
+                const ids = [ ...this._connectedIds ];
+                this._connectedIds = [];
+                for (const id of ids) {
+                    if (! connectedIds.has(id) && container.hasDefinition(id)) {
+                        connectedIds.add(id);
+                        this._processValue(container.getDefinition(id));
                     }
                 }
-
-                isReferenced = 0 < sourceIds.size - referencingAliases.length;
-            } else {
-                referencingAliases = [];
-                isReferenced = false;
             }
 
-            if (1 === referencingAliases.length && ! isReferenced) {
-                container.setDefinition(referencingAliases[0].toString(), definition);
-                definition.setPublic(true);
-                container.removeDefinition(id);
-                compiler.addLogMessage(formatter.formatRemoveService(this, id, 'replaces alias ' + referencingAliases[0].toString()));
-            } else if (0 === referencingAliases.length && ! isReferenced) {
-                container.removeDefinition(id);
-                compiler.addLogMessage(formatter.formatRemoveService(this, id, 'unused'));
-                hasChanged = true;
+            for (const id of Object.keys(container.getDefinitions())) {
+                if (! connectedIds.has(id)) {
+                    container.removeDefinition(id);
+                    compiler.addLogMessage(compiler.logFormatter.formatRemoveService(this, id, 'unused'));
+                }
             }
-        }
-
-        if (hasChanged) {
-            this._repeatedPass.setRepeat();
+        } finally {
+            this._connectedIds = [];
         }
     }
 
     /**
      * @inheritdoc
      */
-    setRepeatedPass(pass) {
-        this._repeatedPass = pass;
+    _processValue(value, isRoot = false) {
+        if (! (value instanceof Reference)) {
+            return super._processValue(value, isRoot);
+        }
+
+        if (Container.IGNORE_ON_UNINITIALIZED_REFERENCE !== value.invalidBehavior) {
+            this._connectedIds.push(String(value));
+        }
+
+        return value;
     }
 }

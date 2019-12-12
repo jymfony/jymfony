@@ -25,7 +25,7 @@ declare namespace Jymfony.Component.Autoloader.Parser.AST {
         /**
          * Generates code for decorator application.
          */
-        apply(compiler: Compiler, target: Class, id: [Identifier, ExpressionInterface], variable: string): StatementInterface[];
+        apply(compiler: Compiler, class_: Class, target: Class|ClassMemberInterface, variable: string): StatementInterface[];
 
         /**
          * @inheritdoc

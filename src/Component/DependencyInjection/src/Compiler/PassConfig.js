@@ -21,8 +21,11 @@ export default class PassConfig {
          * @private
          */
         this._beforeOptimizationPasses = {
-            100: [
+            200: [
                 new Compiler.ResolveClassPass(),
+            ],
+            100: [
+                new Compiler.ResolveInstanceofConditionalsPass(),
             ],
             [(-1000)]: [
                 new Compiler.ExtensionCompilerPass(),
@@ -40,6 +43,7 @@ export default class PassConfig {
                 new Compiler.ServiceLocatorTagPass(),
                 new Compiler.RegisterServiceSubscribersPass(),
                 new Compiler.DecoratorServicePass(),
+                new Compiler.ResolveInjectDecoratorPass(),
                 new Compiler.ResolveParameterPlaceHoldersPass(),
                 new Compiler.CheckDefinitionValidityPass(),
                 new Compiler.ResolveTaggedIteratorArgumentPass(),
@@ -69,12 +73,10 @@ export default class PassConfig {
                 new Compiler.RemovePrivateAliasesPass(),
                 new Compiler.ReplaceAliasByActualDefinitionPass(),
                 new Compiler.RemoveAbstractDefinitionsPass(),
-                new Compiler.RepeatedPass([
-                    new Compiler.AnalyzeServiceReferencesPass(),
-                    new Compiler.InlineServiceDefinitionsPass(),
-                    new Compiler.AnalyzeServiceReferencesPass(),
-                    new Compiler.RemoveUnusedDefinitionsPass(),
-                ]),
+                new Compiler.RemoveUnusedDefinitionsPass(),
+                new Compiler.InlineServiceDefinitionsPass(new Compiler.AnalyzeServiceReferencesPass()),
+                new Compiler.AnalyzeServiceReferencesPass(),
+                new Compiler.DefinitionErrorExceptionPass(),
                 new Compiler.CheckExceptionOnInvalidReferenceBehaviorPass(),
             ],
         };

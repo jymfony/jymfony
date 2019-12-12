@@ -31,6 +31,7 @@
     "node": ">=8.10.0"
   },
   "devDependencies": {
+    "@jymfony/decorators": "https://github.com/jymfony/decorators.git",
     "@types/chai": "^4.1.7",
     "@types/mocha": "^5.2.7",
     "@types/node": "*",
@@ -73,6 +74,7 @@
         "Jymfony.Component.Testing": "src/Component/Testing/src",
         "Jymfony.Component.VarDumper": "src/Component/VarDumper/src",
         "Jymfony.Component.VarExporter": "src/Component/VarExporter/src",
+        "Jymfony.Component.Yaml": "src/Component/Yaml/src",
         "Jymfony.Contracts": "src/Contracts/src"
       },
       "includes": [

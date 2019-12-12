@@ -13,7 +13,7 @@ export default class WebsocketListener extends implementationOf(EventSubscriberI
     /**
      * Validates the websocket version.
      *
-     * @param {Jymfony.Component.HttpServer.Event.GetResponseEvent} event
+     * @param {Jymfony.Contracts.HttpServer.Event.RequestEvent} event
      */
     onRequest(event) {
         const request = event.request;
@@ -49,7 +49,7 @@ export default class WebsocketListener extends implementationOf(EventSubscriberI
     }
 
     /**
-     * @param {Jymfony.Component.HttpServer.Event.FilterResponseEvent} event
+     * @param {Jymfony.Contracts.HttpServer.Event.ResponseEvent} event
      * @param {string} eventName
      * @param {Jymfony.Contracts.EventDispatcher.EventDispatcherInterface} dispatcher
      */
@@ -67,7 +67,7 @@ export default class WebsocketListener extends implementationOf(EventSubscriberI
     }
 
     /**
-     * @param {Jymfony.Component.HttpServer.Event.GetResponseForControllerResultEvent} event
+     * @param {Jymfony.Contracts.HttpServer.Event.ViewEvent} event
      */
     onView(event) {
         const result = event.controllerResult;

@@ -32,7 +32,7 @@ declare namespace Jymfony.Component.Config.Loader {
         /**
          * @internal
          */
-        protected _glob(pattern, recursive, ignoreErrors?: boolean): IterableIterator<string>;
+        protected _glob(pattern, recursive, ignoreErrors?: boolean, forExclusion?: boolean, excluded?: string[]): IterableIterator<string>;
 
         private _doImport(resource: any, type?: string, ignoreErrors?: boolean, sourceResource?: string): any;
     }

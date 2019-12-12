@@ -81,8 +81,8 @@ export default class RegisterServiceSubscribersPass extends AbstractRecursivePas
                 ));
             }
 
-            let optionalBehavior = '?' === type[0];
-            if (optionalBehavior) {
+            let optionalBehavior = Container.EXCEPTION_ON_INVALID_REFERENCE;
+            if ('?' === type[0]) {
                 type = type.substr(1);
                 optionalBehavior = Container.IGNORE_ON_INVALID_REFERENCE;
             }
@@ -100,7 +100,7 @@ export default class RegisterServiceSubscribersPass extends AbstractRecursivePas
                 serviceMap[key] = new Reference(type);
             }
 
-            subscriberMap[key] = serviceMap[key];
+            subscriberMap[key] = new Reference(type, optionalBehavior);
             delete serviceMap[key];
         }
 

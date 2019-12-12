@@ -20,12 +20,14 @@
     "@jymfony/autoloader": "0.1.0-alpha.18",
     "@jymfony/config": "0.1.0-alpha.18",
     "@jymfony/datastructure": "0.1.0-alpha.18",
+    "@jymfony/decorators": "0.1.0-alpha.18",
     "@jymfony/exceptions": "0.1.0-alpha.18",
     "@jymfony/property-access": "0.1.0-alpha.18",
     "@jymfony/util": "0.1.0-alpha.18"
   },
   "devDependencies": {
     "@jymfony/debug": "*",
+    "@jymfony/yaml": "*",
     "chai": "^4.2",
     "mocha": "^6.0"
   },

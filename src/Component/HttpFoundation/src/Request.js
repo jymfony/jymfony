@@ -61,6 +61,8 @@ export default class Request {
      * @param {Object.<string, string>} [headers = {}] Headers or parameters injected by the web server
      * @param {Object.<string, string>} [server = {}] Request server paramters (remote address, etc)
      * @param {undefined|Buffer} [content] Request content.
+     *
+     * @returns {Jymfony.Component.HttpFoundation.Request}
      */
     static create(url, method = __self.METHOD_GET, parameters = {}, headers = {}, server = {}, content = undefined) {
         const parsedUrl = parse(url);

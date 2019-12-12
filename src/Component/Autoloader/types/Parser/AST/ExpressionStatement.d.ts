@@ -6,6 +6,11 @@ declare namespace Jymfony.Component.Autoloader.Parser.AST {
         private _expression: ExpressionInterface;
 
         /**
+         * Gets the expression of this statement.
+         */
+        public readonly expression: ExpressionInterface;
+
+        /**
          * Whether this expression is a possible field declaration (in class method).
          */
         public readonly isFieldDeclaration: boolean;

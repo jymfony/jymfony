@@ -37,7 +37,7 @@ export default class PropertyAccessor extends implementationOf(PropertyAccessorI
      * @inheritdoc
      */
     getValue(object, path) {
-        if (! String(path).match(/\[\./) && (isObject(object) || isArray(object))) {
+        if (! String(path).match(/[\[.]/) && (isObject(object) || isArray(object))) {
             return this._readProperty(object, String(path));
         }
 
@@ -50,8 +50,8 @@ export default class PropertyAccessor extends implementationOf(PropertyAccessorI
     /**
      * @inheritdoc
      */
-    setValue(object, value, path) {
-        if (! String(path).match(/\[\./) && (isObject(object) || isArray(object))) {
+    setValue(object, path, value) {
+        if (! String(path).match(/[\[.]/) && (isObject(object) || isArray(object))) {
             return this._writeProperty(object, String(path), value);
         }
 
@@ -98,7 +98,7 @@ export default class PropertyAccessor extends implementationOf(PropertyAccessorI
      */
     _readProperty(object, property) {
         if (! isObject(object)) {
-            throw new NoSuchPropertyException('Cannot read property "' + property + '" from a non-object.');
+            throw new UnexpectedTypeException(object, new PropertyPath(property), 0);
         }
 
         let value;
@@ -191,7 +191,7 @@ export default class PropertyAccessor extends implementationOf(PropertyAccessorI
      */
     _writeProperty(object, property, value) {
         if (! isObject(object)) {
-            throw new NoSuchPropertyException('Cannot write property "' + property + '" from a non-object.');
+            throw new UnexpectedTypeException(object, new PropertyPath(property), 0);
         }
 
         let retVal = object;

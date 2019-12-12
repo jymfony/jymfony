@@ -1,0 +1,3 @@
+services:
+    Jymfony.Component.DependencyInjection.Fixtures.CaseSensitiveClass:
+      public: true

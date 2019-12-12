@@ -14,7 +14,7 @@ class ClassMemberInterface extends NodeInterface.definition {
      *
      * @returns {Jymfony.Component.Autoloader.Parser.AST.StatementInterface[]}
      */
-    compileDecorators(compiler, target, id) { }
+    compileDecorators(compiler, target) { }
 }
 
 module.exports = getInterface(ClassMemberInterface);

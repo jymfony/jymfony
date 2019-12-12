@@ -5,7 +5,6 @@ declare namespace Jymfony.Component.DependencyInjection {
     import ParameterBag = Jymfony.Component.DependencyInjection.ParameterBag.ParameterBag;
     import ExtensionInterface = Jymfony.Component.DependencyInjection.Extension.ExtensionInterface;
     import ResourceInterface = Jymfony.Component.Config.Resource.ResourceInterface;
-    type ServiceIdentifier = string|symbol|Newable<any>;
 
     export class ContainerBuilder extends Container {
         private _extensions: Record<string, ExtensionInterface>;
@@ -15,6 +14,7 @@ declare namespace Jymfony.Component.DependencyInjection {
         private _resources: ResourceInterface[];
         private _trackResources: boolean;
         private _compiler: Compiler;
+        private _autoconfiguredInstanceof: Record<string, ChildDefinition>;
 
         constructor(parameterBag?: ParameterBag);
         __construct(parameterBag?: ParameterBag);
@@ -81,6 +81,17 @@ declare namespace Jymfony.Component.DependencyInjection {
          * Adds the given class hierarchy as resources.
          */
         addClassResource(reflClass: ReflectionClass): this;
+
+        /**
+         * Checks whether the requested file or directory exists and registers the result for resource tracking.
+         *
+         * @param path The file or directory path for which to check the existence
+         * @param trackContents Whether to track contents of the given resource. If a string is passed,
+         *                      it will be used as pattern for tracking contents of the requested directory
+         *
+         * @final
+         */
+        fileExists(path: string, trackContents?: boolean|string): boolean;
 
         /**
          * Loads the configuration for an extension.
@@ -196,12 +207,12 @@ declare namespace Jymfony.Component.DependencyInjection {
         /**
          * Adds the service definitions.
          */
-        addDefinitions(definitions: Definition[]): void;
+        addDefinitions(definitions: Record<string, Definition>): void;
 
         /**
          * Sets the service definitions.
          */
-        setDefinitions(definitions: Definition[]): void;
+        setDefinitions(definitions: Record<string, Definition>): void;
 
         /**
          * Gets all service definitions.
@@ -254,6 +265,16 @@ declare namespace Jymfony.Component.DependencyInjection {
         findTags(): string[];
 
         /**
+         * Returns a ChildDefinition that will be used for autoconfiguring the interface/class.
+         */
+        registerForAutoconfiguration(IF: Newable<any> | string): ChildDefinition;
+
+        /**
+         * Returns a map of ChildDefinition keyed by interface.
+         */
+        getAutoconfiguredInstanceof(): Record<string, ChildDefinition>;
+
+        /**
          * @final
          */
         log(pass: CompilerPassInterface, message: string): void;
@@ -290,7 +311,7 @@ declare namespace Jymfony.Component.DependencyInjection {
         /**
          * Gets a method call bound to a service and its arguments.
          */
-        private _getFunctionCall(service: any, call: any[]): Function;
+        private _getFunctionCall(service: any, [ method, args ]: [ string|symbol, any[] ]): Function;
 
         /**
          * Shares a service in the container.

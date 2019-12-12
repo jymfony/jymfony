@@ -7,12 +7,13 @@ const OutputInterface = Jymfony.Component.Console.Output.OutputInterface;
 const Helper = Jymfony.Component.Console.Helper.Helper;
 const ProgressBar = Jymfony.Component.Console.Helper.ProgressBar;
 const ProgressIndicator = Jymfony.Component.Console.Helper.ProgressIndicator;
+const Table = Jymfony.Component.Console.Helper.Table;
 const OutputStyle = Jymfony.Component.Console.Style.OutputStyle;
 const QuestionBuilder = Jymfony.Component.Console.Question.Builder.QuestionBuilder;
 const QuestionType = Jymfony.Component.Console.Question.QuestionType;
 
 /**
- * Output decorator helpers for the Symfony Style Guide.
+ * Output decorator helpers for the Jymfony Style Guide.
  *
  * @memberOf Jymfony.Component.Console.Style
  */
@@ -171,7 +172,7 @@ export default class JymfonyStyle extends OutputStyle {
      * @inheritdoc
      */
     table(headers, rows) {
-        const style = __jymfony.clone(Table.getStyleDefinition('symfony-style-guide'));
+        const style = __jymfony.clone(Table.getStyleDefinition('jymfony-style-guide'));
         style.cellHeaderFormat = '<info>%s</info>';
 
         const table = new Table(this);
@@ -318,7 +319,7 @@ export default class JymfonyStyle extends OutputStyle {
     /**
      * Returns a new instance which makes use of stderr if available.
      *
-     * @returns self
+     * @returns {Jymfony.Component.Console.Style.JymfonyStyle}
      */
     getErrorStyle() {
         return new __self(this._input, this._getErrorOutput());

@@ -49,7 +49,7 @@ export default class AnonymousAuthenticationListener extends implementationOf(Li
     }
 
     /**
-     * @param {Jymfony.Component.HttpServer.Event.GetResponseEvent} event
+     * @param {Jymfony.Contracts.HttpServer.Event.RequestEvent} event
      *
      * @returns {Promise<void>}
      */

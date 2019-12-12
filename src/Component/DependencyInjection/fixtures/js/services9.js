@@ -1,5 +1,6 @@
 const Container = Jymfony.Component.DependencyInjection.Container;
 const LogicException = Jymfony.Component.DependencyInjection.Exception.LogicException;
+const RuntimeException = Jymfony.Component.DependencyInjection.Exception.RuntimeException;
 const FrozenParameterBag = Jymfony.Component.DependencyInjection.ParameterBag.FrozenParameterBag;
 const RewindableGenerator = Jymfony.Component.DependencyInjection.Argument.RewindableGenerator;
 const path = require('path');

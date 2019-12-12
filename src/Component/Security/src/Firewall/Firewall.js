@@ -68,7 +68,7 @@ export default class Firewall extends implementationOf(EventSubscriberInterface,
     }
 
     /**
-     * @param {Jymfony.Component.HttpServer.Event.GetResponseEvent} event
+     * @param {Jymfony.Contracts.HttpServer.Event.RequestEvent} event
      *
      * @returns {Promise<void>}
      */
@@ -93,7 +93,7 @@ export default class Firewall extends implementationOf(EventSubscriberInterface,
     }
 
     /**
-     * @param {Jymfony.Component.HttpServer.Event.GetResponseForExceptionEvent} event
+     * @param {Jymfony.Contracts.HttpServer.Event.ExceptionEvent} event
      *
      * @returns {Promise<void>}
      */
@@ -120,7 +120,7 @@ export default class Firewall extends implementationOf(EventSubscriberInterface,
     /**
      * Handles an AuthenticationException.
      *
-     * @param {Jymfony.Component.HttpServer.Event.GetResponseForExceptionEvent} event
+     * @param {Jymfony.Contracts.HttpServer.Event.ExceptionEvent} event
      * @param {Jymfony.Component.Security.Firewall.FirewallConfig} config
      * @param {Jymfony.Component.Security.Exception.AuthenticationException} exception
      *
@@ -142,7 +142,7 @@ export default class Firewall extends implementationOf(EventSubscriberInterface,
     /**
      * Handles a logout exception.
      *
-     * @param {Jymfony.Component.HttpServer.Event.GetResponseForExceptionEvent} event
+     * @param {Jymfony.Contracts.HttpServer.Event.ExceptionEvent} event
      * @param {Jymfony.Component.Security.Exception.LogoutException} exception
      *
      * @returns {Promise<void>}
@@ -156,7 +156,7 @@ export default class Firewall extends implementationOf(EventSubscriberInterface,
     /**
      * Handles a logout request.
      *
-     * @param {Jymfony.Component.HttpServer.Event.GetResponseEvent} event
+     * @param {Jymfony.Contracts.HttpServer.Event.RequestEvent} event
      * @param {Jymfony.Component.Security.Firewall.FirewallConfig} config
      *
      * @returns {Promise<void>}
@@ -175,7 +175,7 @@ export default class Firewall extends implementationOf(EventSubscriberInterface,
     /**
      * Handles an access denied exception.
      *
-     * @param {Jymfony.Component.HttpServer.Event.GetResponseForExceptionEvent} event
+     * @param {Jymfony.Contracts.HttpServer.Event.ExceptionEvent} event
      * @param {Jymfony.Component.Security.Firewall.FirewallConfig} firewall
      * @param {Jymfony.Component.Security.Exception.AccessDeniedException} exception
      *

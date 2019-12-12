@@ -10,6 +10,11 @@ declare namespace Jymfony.Component.Autoloader.Parser.AST {
         constructor(location: SourceLocation, value: string);
 
         /**
+         * Gets the comment content.
+         */
+        public readonly value: string;
+
+        /**
          * @inheritdoc
          */
         compile(compiler: Compiler): void;

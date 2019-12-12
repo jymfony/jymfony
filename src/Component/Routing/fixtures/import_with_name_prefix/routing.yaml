@@ -1,0 +1,7 @@
+app:
+    resource: ../controller/routing.yaml
+
+api:
+    resource: ../controller/routing.yaml
+    name_prefix: api_
+    prefix: /api

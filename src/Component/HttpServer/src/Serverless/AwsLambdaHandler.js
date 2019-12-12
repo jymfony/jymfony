@@ -7,11 +7,12 @@ const BadRequestException = Jymfony.Component.HttpFoundation.Exception.BadReques
 const ContentType = Jymfony.Component.HttpFoundation.Header.ContentType;
 const Request = Jymfony.Component.HttpFoundation.Request;
 const Response = Jymfony.Component.HttpFoundation.Response;
-const Event = Jymfony.Component.HttpServer.Event;
 const EventListener = Jymfony.Component.HttpServer.EventListener;
 const RequestHandler = Jymfony.Component.HttpServer.RequestHandler;
 const Router = Jymfony.Component.Routing.Router;
 const FunctionLoader = Jymfony.Component.Routing.Loader.FunctionLoader;
+const Event = Jymfony.Contracts.HttpServer.Event;
+const HttpServerEvents = Jymfony.Component.HttpServer.Event.HttpServerEvents;
 
 /**
  * @memberOf Jymfony.Component.HttpServer.Serverless
@@ -104,6 +105,7 @@ export default class AwsLambdaHandler extends RequestHandler {
                 headers: {
                     'Content-type': 'text/plain',
                 },
+                body: e.message,
             };
 
             if (e instanceof BadRequestException) {
@@ -158,7 +160,7 @@ export default class AwsLambdaHandler extends RequestHandler {
         }
 
         const postResponseEvent = new Event.PostResponseEvent(this, request, response);
-        await this._dispatcher.dispatch(Event.HttpServerEvents.TERMINATE, postResponseEvent);
+        await this._dispatcher.dispatch(HttpServerEvents.POST_RESPONSE, postResponseEvent);
 
         return result;
     }
@@ -171,7 +173,7 @@ export default class AwsLambdaHandler extends RequestHandler {
             return [ {}, undefined ];
         }
 
-        const body = request.isBase64Encoded ? atob(request.body) : request.body;
+        const body = request.body && request.isBase64Encoded ? Buffer.from(request.body, 'base64') : (request.body || '');
         headers['content-length'] = headers['content-length'] || body.length;
 
         const stream = new Readable();

@@ -1,3 +1,5 @@
+const Container = Jymfony.Component.DependencyInjection.Container;
+
 /**
  * @memberOf Jymfony.Component.DependencyInjection
  */
@@ -73,6 +75,20 @@ export default class Definition {
         this._calls = [];
 
         /**
+         * @type {Object.<string, Jymfony.Component.DependencyInjection.ChildDefinition>}
+         *
+         * @private
+         */
+        this._instanceof = {};
+
+        /**
+         * @type {boolean}
+         *
+         * @private
+         */
+        this._autoconfigured = false;
+
+        /**
          * @type {string|Array|Function|undefined}
          *
          * @private
@@ -135,6 +151,13 @@ export default class Definition {
          */
         this._changes = {};
 
+        /**
+         * @type {(string|Function|*)[]}
+         *
+         * @private
+         */
+        this._errors = [];
+
         if (undefined !== class_) {
             this.setClass(class_);
         }
@@ -177,6 +200,7 @@ export default class Definition {
         }
 
         this._factory = factory;
+
         return this;
     }
 
@@ -199,6 +223,9 @@ export default class Definition {
      * @returns {Jymfony.Component.DependencyInjection.Definition}
      */
     setDecoratedService(id, renamedId = undefined, priority = 0) {
+        id = id ? Container.normalizeId(id) : id;
+        renamedId = renamedId ? Container.normalizeId(renamedId) : renamedId;
+
         if (renamedId && id === renamedId) {
             throw new InvalidArgumentException('The decorated service inner name for "' + id + '" must be different than the service name');
         }
@@ -235,11 +262,7 @@ export default class Definition {
      * @returns {Jymfony.Component.DependencyInjection.Definition}
      */
     setClass(className) {
-        if (isFunction(className)) {
-            try {
-                className = (new ReflectionClass(className)).name;
-            } catch (e) { }
-        }
+        className = Container.normalizeId(className);
 
         this._changes['class'] = true;
         this._class = className;
@@ -306,7 +329,7 @@ export default class Definition {
      * @returns {Array}
      */
     getArguments() {
-        return __jymfony.deepClone(this._arguments);
+        return [ ...this._arguments ];
     }
 
     /**
@@ -437,6 +460,51 @@ export default class Definition {
      */
     getMethodCalls() {
         return __jymfony.deepClone(this._calls);
+    }
+
+    /**
+     * Sets the definition templates to conditionally apply on the current definition, keyed by parent interface/class.
+     *
+     * @param {Object.<string, Jymfony.Component.DependencyInjection.ChildDefinition>} instanceOf
+     *
+     * @returns {Jymfony.Component.DependencyInjection.Definition}
+     */
+    setInstanceofConditionals(instanceOf) {
+        this._instanceof = { ...instanceOf };
+
+        return this;
+    }
+
+    /**
+     * Gets the definition templates to conditionally apply on the current definition, keyed by parent interface/class.
+     *
+     * @returns {Object.<string, Jymfony.Component.DependencyInjection.ChildDefinition>}
+     */
+    getInstanceofConditionals() {
+        return this._instanceof;
+    }
+
+    /**
+     * Sets whether or not instanceof conditionals should be prepended with a global set.
+     *
+     * @param {boolean} autoconfigured
+     *
+     * @returns {Jymfony.Component.DependencyInjection.Definition}
+     */
+    setAutoconfigured(autoconfigured) {
+        this._changes.autoconfigured = true;
+        this._autoconfigured = autoconfigured;
+
+        return this;
+    }
+
+    /**
+     * Whether this service should be autoconfigured.
+     *
+     * @returns {boolean}
+     */
+    isAutoconfigured() {
+        return this._autoconfigured;
     }
 
     /**
@@ -818,5 +886,49 @@ export default class Definition {
      */
     getShutdownCalls() {
         return __jymfony.deepClone(this._shutdown);
+    }
+
+    /**
+     * Add an error that occurred when building this Definition.
+     *
+     * @param {string|Function|Jymfony.Component.DependencyInjection.Definition} error
+     *
+     * @returns {Jymfony.Component.DependencyInjection.Definition}
+     */
+    addError(error) {
+        if (error instanceof __self) {
+            this._errors.push(...error._errors);
+        } else {
+            this._errors.push(error);
+        }
+
+        return this;
+    }
+
+    /**
+     * Returns any errors that occurred while building this Definition.
+     *
+     * @returns {string[]}
+     */
+    getErrors() {
+        for (const i in this._errors) {
+            const error = this._errors[i];
+            if (isFunction(error)) {
+                this._errors[i] = String(error());
+            } else if (! isString(error)) {
+                this._errors[i] = String(error);
+            }
+        }
+
+        return this._errors;
+    }
+
+    /**
+     * Whether this definition has an error.
+     *
+     * @returns {boolean}
+     */
+    hasErrors() {
+        return !! this._errors.length;
     }
 }

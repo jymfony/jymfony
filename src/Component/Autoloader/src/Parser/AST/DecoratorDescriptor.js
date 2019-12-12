@@ -83,13 +83,13 @@ class DecoratorDescriptor extends implementationOf(NodeInterface) {
      * Generates code for decorator application.
      *
      * @param {Jymfony.Component.Autoloader.Parser.Compiler} compiler
-     * @param {Jymfony.Component.Autoloader.Parser.AST.Class} target
-     * @param {[Jymfony.Component.Autoloader.Parser.AST.Identifier, Jymfony.Component.Autoloader.Parser.AST.ExpressionInterface]} id
+     * @param {Jymfony.Component.Autoloader.Parser.AST.Class} class_
+     * @param {Jymfony.Component.Autoloader.Parser.AST.Class|Jymfony.Component.Autoloader.Parser.AST.ClassMemberInterface} target
      * @param {string} variable
      *
      * @returns {Jymfony.Component.Autoloader.Parser.AST.StatementInterface[]}
      */
-    apply(compiler, target, id, variable) {
+    apply(compiler, class_, target, variable) {
         const tail = [];
         for (const applied of this._decorators) {
             const variableName = compiler.generateVariableName();
@@ -101,7 +101,7 @@ class DecoratorDescriptor extends implementationOf(NodeInterface) {
             ]));
             compiler._emit(';\n');
 
-            const statements = applied.apply(compiler, target, id, variableName);
+            const statements = applied.apply(compiler, class_, target, variableName);
             if (undefined !== statements) {
                 tail.push(...statements);
             }

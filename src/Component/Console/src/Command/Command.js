@@ -4,13 +4,14 @@ const LogicException = Jymfony.Component.Console.Exception.LogicException;
 const InputArgument = Jymfony.Component.Console.Input.InputArgument;
 const InputOption = Jymfony.Component.Console.Input.InputOption;
 const InputDefinition = Jymfony.Component.Console.Input.InputDefinition;
+const CommandInterface = Jymfony.Contracts.Console.CommandInterface;
 
 /**
  * Base class for all commands.
  *
  * @memberOf Jymfony.Component.Console.Command
  */
-export default class Command {
+export default class Command extends implementationOf(CommandInterface) {
     /**
      * Constructor.
      *

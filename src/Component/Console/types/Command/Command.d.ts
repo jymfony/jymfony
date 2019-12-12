@@ -4,11 +4,12 @@ declare namespace Jymfony.Component.Console.Command {
     import InputOption = Jymfony.Component.Console.Input.InputOption;
     import OutputInterface = Jymfony.Component.Console.Output.OutputInterface;
     import InputInterface = Jymfony.Component.Console.Input.InputInterface;
+    import CommandInterface = Jymfony.Contracts.Console.CommandInterface;
 
     /**
      * Base class for all commands.
      */
-    export class Command {
+    export class Command extends implementationOf(CommandInterface) {
         /**
          * The command default name.
          */

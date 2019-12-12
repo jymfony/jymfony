@@ -168,6 +168,7 @@ export default class ResolveChildDefinitionsPass extends AbstractRecursivePass {
         def.setAbstract(definition.isAbstract());
         def.setShared(definition.isShared());
         def.setTags(definition.getTags());
+        def.setAutoconfigured(definition.isAutoconfigured());
 
         return def;
     }

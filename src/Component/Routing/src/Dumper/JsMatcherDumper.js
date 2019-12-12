@@ -58,10 +58,8 @@ export default class JsMatcherDumper {
 
         const matchMethod = this._generateMatchMethod();
 
-        return `
-const Request = Jymfony.Component.HttpFoundation.Request;
-const MethodNotAllowedException = Jymfony.Component.Routing.Exception.MethodNotAllowedException;
-const ResourceNotFoundException = Jymfony.Component.Routing.Exception.ResourceNotFoundException;
+        return `const Request = Jymfony.Component.HttpFoundation.Request;
+const CompiledMatcherTrait = Jymfony.Component.Routing.Matcher.CompiledMatcherTrait;
 
 const regexList = {${this._regexList}};
 
@@ -69,8 +67,7 @@ const regexList = {${this._regexList}};
  * This class has been auto-generated
  * by the Jymfony Routing Component.
  */
-class ${options['class']} extends ${options['base_class']} {
-${matchMethod}
+class ${options['class']} extends mix(${options['base_class']}, CompiledMatcherTrait) {${matchMethod}
 }
 
 module.exports = ${options['class']};
@@ -106,7 +103,7 @@ module.exports = ${options['class']};
         const pathinfo = decodeURIComponent(request.pathInfo);
         const host = request.host.toLowerCase();
         const scheme = request.scheme;
-        
+
         let ret, requiredHost, requiredMethods, requiredSchemes, hasRequiredScheme;
 
         const requestMethod = request.method;
@@ -120,47 +117,6 @@ ${code}
 `;
 
         return `
-    matchRequest(request)
-    {
-        const allow = new Set();
-        const allowSchemes = new Set();
-        let ret;
-
-        if (ret = this._doMatch(request, allow, allowSchemes)) {
-            return ret;
-        }
-
-        if (allow.size) {
-            throw new MethodNotAllowedException([ ...allow ]);
-        }
-
-        let pathinfo = request.pathInfo;
-        const requestMethod = request.method;
-        if (Request.METHOD_HEAD !== requestMethod || Request.METHOD_GET !== requestMethod) {
-            // no-op
-        } else {
-            while(true) {
-                if (allowSchemes.size) {
-                    if (ret = this._doMatch(request)) {
-                        return Object.assign({}, this.redirect(request, pathinfo, ret._route, request.scheme), ret);
-                    }
-                } else if ('/' !== pathinfo) {
-                    pathinfo = '/' !== pathinfo[-1] ? pathinfo + '/' : pathinfo.substr(0, -1);
-                    if (ret = this._doMatch(pathinfo, allow, allowSchemes)) {
-                        return Object.assign({}, this.redirect(request, pathinfo, ret._route), ret);
-                    }
-                    if (allowSchemes.size) {
-                        continue;
-                    }
-                }
-
-                break;
-            }
-        }
-
-        throw new ResourceNotFoundException(__jymfony.sprintf('No routes found for "%s".', pathinfo));
-    }
-
     _doMatch(request, allow = new Set(), allowSchemes = new Set())`
         +code+'\n        return null;\n    }';
 
@@ -313,17 +269,11 @@ ${this._compileSwitchDefault(false, matchHost)}
      * The regular expression matches both the host and the pathinfo at the same time. For stellar performance,
      * it is built as a tree of patterns, with re-ordering logic to group same-prefix routes together when possible.
      *
-     * Patterns are named so that we know which one matched (https://pcre.org/current/doc/html/pcre2syntax.html#SEC23).
+     * Patterns are named so that we know which one matched.
      * This name is used to "switch" to the additional logic required to match the final route.
      *
      * Condition-less paths are put in a static array in the switch's default, with generic matching logic.
      * Paths that can match two or more routes, or have user-specified conditions are put in separate switch's cases.
-     *
-     * Last but not least:
-     *  - Because it is not possibe to mix unicode/non-unicode patterns in a single regexp, several of them can be generated.
-     *  - The same regexp can be used several times when the logic in the switch rejects the match. When this happens, the
-     *    matching-but-failing subpattern is blacklisted by replacing its name by "(*F)", which forces a failure-to-match.
-     *    To ease this backlisting operation, the name of subpatterns is also the string offset where the replacement should occur.
      *
      * @param {Jymfony.Component.Routing.RouteCollection} collection
      * @param {boolean} matchHost
@@ -611,7 +561,7 @@ ${combine}${this._compileRoute(route, name, false)}
         }
 
         code += `
-            const hasRequiredScheme = 0 === requiredSchemes.length || -1 !== requiredSchemes.indexOf(request.scheme);
+            hasRequiredScheme = 0 === requiredSchemes.length || -1 !== requiredSchemes.indexOf(request.scheme);
             if (0 !== requiredMethods.length && -1 === requiredMethods.indexOf(canonicalMethod) && -1 === requiredMethods.indexOf(requestMethod)) {
                 if (hasRequiredScheme) {
                     requiredMethods.forEach(allow.add, allow);
@@ -721,7 +671,7 @@ ${combine}${this._compileRoute(route, name, false)}
                 code += `
             requiredSchemes = ${schemes};
             hasRequiredScheme = -1 !== requiredSchemes.indexOf(request.scheme);
-            
+
             if (-1 === ${methods}.indexOf(${methodVariable})) {
                 if (hasRequiredScheme) {
                     ${methods}.forEach(allow.add, allow);

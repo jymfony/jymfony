@@ -57,7 +57,7 @@ declare namespace Jymfony.Component.Autoloader.Parser.AST {
         /**
          * Compiles the decorators upon this class.
          */
-        compileDecorators(compiler: Compiler, id: Identifier): StatementInterface[];
+        compileDecorators(compiler: Compiler): StatementInterface[];
 
         private _prepare(): void;
     }

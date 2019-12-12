@@ -1,14 +1,7 @@
+import Redis from 'ioredis' optional;
+import { Cluster as RedisCluster } from 'ioredis' optional;
+
 const InvalidArgumentException = Jymfony.Component.Cache.Exception.InvalidArgumentException;
-
-let Redis;
-let RedisCluster;
-
-try {
-    Redis = require('ioredis');
-    RedisCluster = Redis.Cluster;
-} catch (e) {
-    // Do nothing
-}
 
 /**
  * @memberOf Jymfony.Component.Cache.Traits

@@ -56,7 +56,7 @@ export default class ProgressIndicator {
          *
          * @private
          */
-        this._format = ProgressIndicator.getFormatDefinition(format);
+        this._format = __self.getFormatDefinition(format);
 
         /**
          * @type {int}
@@ -64,6 +64,20 @@ export default class ProgressIndicator {
          * @private
          */
         this._indicatorChangeInterval = indicatorChangeInterval;
+
+        /**
+         * @type {int}
+         *
+         * @private
+         */
+        this._indicatorCurrent = 0;
+
+        /**
+         * @type {int}
+         *
+         * @private
+         */
+        this._indicatorUpdateTime = undefined;
 
         /**
          * @type {string[]}
@@ -157,11 +171,11 @@ export default class ProgressIndicator {
      * @returns {string|undefined} A format string
      */
     static getFormatDefinition(name) {
-        if (! Object.keys(ProgressIndicator.formats).length) {
-            ProgressIndicator.formats = ProgressIndicator.initFormats();
+        if (! Object.keys(__self.formats).length) {
+            __self.formats = __self.initFormats();
         }
 
-        return ProgressIndicator.formats[name];
+        return __self.formats[name];
     }
 
     /**
@@ -173,11 +187,11 @@ export default class ProgressIndicator {
      * @param {Function} callable
      */
     static setPlaceholderFormatterDefinition(name, callable) {
-        if (! Object.keys(ProgressIndicator.formatters).length) {
-            ProgressIndicator.formatters = ProgressIndicator.initPlaceholderFormatters();
+        if (! Object.keys(__self.formatters).length) {
+            __self.formatters = __self.initPlaceholderFormatters();
         }
 
-        ProgressIndicator.formatters[name] = callable;
+        __self.formatters[name] = callable;
     }
 
     /**
@@ -188,11 +202,11 @@ export default class ProgressIndicator {
      * @returns {Function|undefined}
      */
     static getPlaceholderFormatterDefinition(name) {
-        if (! Object.keys(ProgressIndicator.formatters).length) {
-            ProgressIndicator.formatters = ProgressIndicator.initPlaceholderFormatters();
+        if (! Object.keys(__self.formatters).length) {
+            __self.formatters = __self.initPlaceholderFormatters();
         }
 
-        return ProgressIndicator.formatters[name];
+        return __self.formatters[name];
     }
 
     /**
@@ -204,8 +218,8 @@ export default class ProgressIndicator {
         }
 
         this._overwrite(this._format.replace(new RegExp('%([a-z\-_]+)(?:\:([^%]+))?%', 'ig'), (str, match1) => {
-            let formatter;
-            if (formatter = ProgressIndicator.getPlaceholderFormatterDefinition(match1)) {
+            const formatter = __self.getPlaceholderFormatterDefinition(match1);
+            if (formatter) {
                 return formatter(this);
             }
 

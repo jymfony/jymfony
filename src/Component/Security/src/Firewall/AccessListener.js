@@ -47,7 +47,7 @@ export default class AccessListener extends implementationOf(ListenerInterface) 
     }
 
     /**
-     * @param {Jymfony.Component.HttpServer.Event.GetResponseEvent} event
+     * @param {Jymfony.Contracts.HttpServer.Event.RequestEvent} event
      *
      * @returns {Promise<void>}
      */

@@ -1,6 +1,7 @@
 const TraceableEventDispatcher = Jymfony.Component.EventDispatcher.Debug.TraceableEventDispatcher;
 const EventDispatcher = Jymfony.Component.EventDispatcher.EventDispatcher;
 const LoggerInterface = Jymfony.Component.Logger.LoggerInterface;
+const Stopwatch = Jymfony.Component.Stopwatch.Stopwatch;
 const Prophet = Jymfony.Component.Testing.Prophet;
 const { expect } = require('chai');
 
@@ -23,7 +24,7 @@ describe('[EventDispatcher] TraceableEventDispatcher', function () {
 
     it('should add listener to the underlying dispatcher', () => {
         const dispatcher = new EventDispatcher();
-        const tdispatcher = new TraceableEventDispatcher(dispatcher);
+        const tdispatcher = new TraceableEventDispatcher(dispatcher, new Stopwatch());
 
         const listener = () => {};
         tdispatcher.addListener('foo', listener);
@@ -39,7 +40,7 @@ describe('[EventDispatcher] TraceableEventDispatcher', function () {
     it('should log event dispatch', () => {
         const dispatcher = new EventDispatcher();
         const logger = this._prophet.prophesize(LoggerInterface);
-        const tdispatcher = new TraceableEventDispatcher(dispatcher, logger.reveal());
+        const tdispatcher = new TraceableEventDispatcher(dispatcher, new Stopwatch(), logger.reveal());
 
         const listener = () => {};
         const listener2 = () => {};
@@ -56,7 +57,7 @@ describe('[EventDispatcher] TraceableEventDispatcher', function () {
     it('should log event stopped propagation', () => {
         const dispatcher = new EventDispatcher();
         const logger = this._prophet.prophesize(LoggerInterface);
-        const tdispatcher = new TraceableEventDispatcher(dispatcher, logger.reveal());
+        const tdispatcher = new TraceableEventDispatcher(dispatcher, new Stopwatch(), logger.reveal());
 
         const listener = (event) => {
             event.stopPropagation();
@@ -74,7 +75,7 @@ describe('[EventDispatcher] TraceableEventDispatcher', function () {
 
     it('dispatch should call listeners with priority', () => {
         const dispatcher = new EventDispatcher();
-        const tdispatcher = new TraceableEventDispatcher(dispatcher);
+        const tdispatcher = new TraceableEventDispatcher(dispatcher, new Stopwatch());
 
         const called = [];
         const listener = () => {

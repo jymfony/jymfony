@@ -166,7 +166,7 @@ class HashTable extends mix(Object, GenericCollectionTrait) {
                     e.value = entry.value;
                     return;
                 }
-            } while (e = e.next && e.hashCode % this._bucketSize === bucketIdx);
+            } while ((e = e.next) && e.hashCode % this._bucketSize === bucketIdx);
 
             this._add(entry);
         } finally {
@@ -288,7 +288,7 @@ class HashTable extends mix(Object, GenericCollectionTrait) {
             this._last = prev;
         }
 
-        return undefined !== e ? e.value : undefined;
+        return e.value;
     }
 
     /**
@@ -375,7 +375,7 @@ class HashTable extends mix(Object, GenericCollectionTrait) {
 
         do {
             yield [ e.key, e.value ];
-        } while (e = e.next);
+        } while ((e = e.next));
     }
 
     /**

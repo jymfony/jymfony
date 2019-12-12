@@ -158,7 +158,7 @@ export default class RouteCollection {
      * @returns {Jymfony.Component.Routing.RouteCollection}
      */
     addHost(pattern, defaults = {}, requirements = {}) {
-        for (const route of this._routes) {
+        for (const route of Object.values(this._routes)) {
             route.setHost(pattern);
             route.addDefaults(defaults);
             route.addRequirements(requirements);
@@ -207,7 +207,7 @@ export default class RouteCollection {
             return this;
         }
 
-        for (const route of this._routes) {
+        for (const route of Object.values(this._routes)) {
             route.addDefaults(defaults);
         }
 
@@ -227,7 +227,7 @@ export default class RouteCollection {
             return this;
         }
 
-        for (const route of this._routes) {
+        for (const route of Object.values(this._routes)) {
             route.addRequirements(requirements);
         }
 
@@ -247,7 +247,7 @@ export default class RouteCollection {
             return this;
         }
 
-        for (const route of this._routes) {
+        for (const route of Object.values(this._routes)) {
             route.addOptions(options);
         }
 
@@ -260,7 +260,7 @@ export default class RouteCollection {
      * @param {string|string[]} schemes The scheme or an array of schemes
      */
     setSchemes(schemes) {
-        for (const route of this._routes) {
+        for (const route of Object.values(this._routes)) {
             route.setSchemes(schemes);
         }
     }
@@ -271,7 +271,7 @@ export default class RouteCollection {
      * @param {string|string[]} methods The method or an array of methods
      */
     setMethods(methods) {
-        for (const route of this._routes) {
+        for (const route of Object.values(this._routes)) {
             route.setMethods(methods);
         }
     }

@@ -5,7 +5,7 @@ class ListenerInterface {
     /**
      * Handles a request.
      *
-     * @param {Jymfony.Component.HttpServer.Event.GetResponseEvent} event
+     * @param {Jymfony.Contracts.HttpServer.Event.RequestEvent} event
      *
      * @returns {Promise<void>}
      */

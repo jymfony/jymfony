@@ -1,4 +1,4 @@
-import { @Annotation } from '../src/decorators';
+import { @Annotation } from '@jymfony/decorators';
 
 export default class FooAnnot {
     __construct(values = {}) {

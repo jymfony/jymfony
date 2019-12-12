@@ -10,15 +10,23 @@ export default class TraceableEventDispatcher extends implementationOf(Traceable
      * Constructor.
      *
      * @param {Jymfony.Contracts.EventDispatcher.EventDispatcherInterface} dispatcher
+     * @param {Jymfony.Contracts.Stopwatch.StopwatchInterface} stopwatch
      * @param {undefined|Jymfony.Component.Logger.LoggerInterface} [logger]
      */
-    __construct(dispatcher, logger = undefined) {
+    __construct(dispatcher, stopwatch, logger = undefined) {
         /**
          * @type {Jymfony.Contracts.EventDispatcher.EventDispatcherInterface}
          *
          * @private
          */
         this._dispatcher = dispatcher;
+
+        /**
+         * @type {Jymfony.Contracts.Stopwatch.StopwatchInterface}
+         *
+         * @protected
+         */
+        this._stopwatch = stopwatch;
 
         /**
          * @type {undefined|Jymfony.Component.Logger.LoggerInterface}
@@ -63,9 +71,14 @@ export default class TraceableEventDispatcher extends implementationOf(Traceable
 
         this._preProcess(eventName);
         this._preDispatch(eventName, event);
+        const e = this._stopwatch.start(eventName, 'section');
 
         return (async () => {
             event = await this._dispatcher.dispatch(eventName, event);
+
+            if (e.isStarted()) {
+                e.stop();
+            }
 
             this._postDispatch(eventName, event);
             this._postProcess(eventName);
@@ -181,7 +194,7 @@ export default class TraceableEventDispatcher extends implementationOf(Traceable
             this._dispatcher.removeListener(eventName, listener);
             this._dispatcher.addListener(eventName, listener.wrappedListener, priority);
 
-            if (undefined !== this._logger) {
+            if (!! this._logger) {
                 const ctx = { event: eventName, listener: listener.pretty };
 
                 if (listener.wasCalled) {

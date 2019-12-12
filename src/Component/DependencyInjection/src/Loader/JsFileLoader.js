@@ -57,12 +57,12 @@ export default class JsFileLoader extends FileLoader {
     /**
      * @inheritdoc
      */
-    supports(resource, type = undefined) {
+    supports(resource, type = null) {
         if (! isString(resource)) {
             return false;
         }
 
-        if (undefined === type && '.js' === extname(resource)) {
+        if (null === type && '.js' === extname(resource)) {
             return true;
         }
 

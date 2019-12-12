@@ -1,0 +1,4 @@
+services:
+    Jymfony.Component.DependencyInjection.Fixtures.Prototype.:
+        resource: ../Prototype
+        exclude: '../Prototype/{OtherDir,BadClasses}'

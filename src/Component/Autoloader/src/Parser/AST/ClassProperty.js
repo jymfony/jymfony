@@ -1,6 +1,5 @@
 const ClassMemberInterface = require('./ClassMemberInterface');
 const Identifier = require('./Identifier');
-const StringLiteral = require('./StringLiteral');
 
 /**
  * @memberOf Jymfony.Component.Autoloader.Parser.AST
@@ -13,8 +12,9 @@ class ClassProperty extends implementationOf(ClassMemberInterface) {
      * @param {Jymfony.Component.Autoloader.Parser.AST.ExpressionInterface} key
      * @param {Jymfony.Component.Autoloader.Parser.AST.ExpressionInterface} value
      * @param {boolean} Static
+     * @param {boolean} Private
      */
-    __construct(location, key, value, Static) {
+    __construct(location, key, value, Static, Private) {
         /**
          * @type {Jymfony.Component.Autoloader.Parser.AST.SourceLocation}
          */
@@ -42,6 +42,13 @@ class ClassProperty extends implementationOf(ClassMemberInterface) {
         this._static = Static;
 
         /**
+         * @type {boolean}
+         *
+         * @private
+         */
+        this._private = Private;
+
+        /**
          * @type {null|string}
          */
         this.docblock = null;
@@ -62,12 +69,21 @@ class ClassProperty extends implementationOf(ClassMemberInterface) {
     }
 
     /**
-     * Whether this method is static.
+     * Whether this property is static.
      *
      * @return {boolean}
      */
     get static() {
         return this._static;
+    }
+
+    /**
+     * Whether this property is private.
+     *
+     * @return {boolean}
+     */
+    get private() {
+        return this._private;
     }
 
     /**
@@ -89,12 +105,21 @@ class ClassProperty extends implementationOf(ClassMemberInterface) {
     /**
      * @inheritdoc
      */
-    compileDecorators(compiler, target, id) {
-        const key = this._key instanceof Identifier ? new StringLiteral(null, JSON.stringify(this._key.name)) : this._key;
+    compileDecorators(compiler, target) {
+        /**
+         * @param {Jymfony.Component.Autoloader.Parser.AST.AppliedDecorator} a
+         * @param {Jymfony.Component.Autoloader.Parser.AST.AppliedDecorator} b
+         */
+        const sortDecorators = (a, b) => {
+            const aPriority = a.priority;
+            const bPriority = b.priority;
+
+            return aPriority > bPriority ? 1 : (bPriority > aPriority ? -1 : 0);
+        };
 
         const tail = [];
-        for (const decorator of this.decorators) {
-            tail.push(...decorator.compile(compiler, target, [ id, key ]));
+        for (const decorator of (this.decorators || []).sort(sortDecorators)) {
+            tail.push(...decorator.compile(compiler, target, this));
         }
 
         return tail;
@@ -106,6 +131,10 @@ class ClassProperty extends implementationOf(ClassMemberInterface) {
     compile(compiler) {
         if (this._static) {
             compiler._emit('static ');
+        }
+
+        if (this._private) {
+            compiler._emit('#');
         }
 
         if (this._key instanceof Identifier) {
