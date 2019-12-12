@@ -6,6 +6,7 @@ let _nativeDecoratorSupport = undefined;
 let _modernRegex = undefined;
 let _publicFields = undefined;
 let _privateFields = undefined;
+let _privateMethods = undefined;
 
 /**
  * @memberOf __jymfony
@@ -157,6 +158,31 @@ class Platform {
         }
 
         return _privateFields;
+    }
+
+    /**
+     * Checks if this node version has private instance methods support.
+     *
+     * @returns {boolean}
+     */
+    static hasPrivateMethodsSupport() {
+        if (undefined === _privateMethods) {
+            _privateMethods = false;
+
+            try {
+                let c;
+                eval('c = class ev { #field() { return "foobar"; } get field() { return this.#field(); } }');
+
+                const i = new c();
+                return _privateMethods = 'foobar' === i.field;
+            } catch (e) {
+                if (!(e instanceof SyntaxError)) {
+                    throw e;
+                }
+            }
+        }
+
+        return _privateMethods;
     }
 }
 

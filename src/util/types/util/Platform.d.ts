@@ -34,5 +34,10 @@ declare namespace __jymfony {
          * Checks if this node version has private instance fields support.
          */
         static hasPrivateFieldSupport(): boolean;
+
+        /**
+         * Checks if this node version has private instance fields support.
+         */
+        static hasPrivateMethodsSupport(): boolean;
     }
 }
