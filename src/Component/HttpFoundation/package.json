@@ -1,6 +1,6 @@
 {
   "name": "@jymfony/http-foundation",
-  "version": "0.1.0-alpha.18",
+  "version": "0.1.0-alpha.19",
   "description": "Jymfony Http Foundation",
   "typings": "types/index.d.ts",
   "scripts": {
@@ -17,12 +17,12 @@
     "node": ">=8.10.0"
   },
   "dependencies": {
-    "@jymfony/autoloader": "0.1.0-alpha.18",
-    "@jymfony/contracts": "0.1.0-alpha.18",
-    "@jymfony/datetime": "0.1.0-alpha.18",
-    "@jymfony/exceptions": "0.1.0-alpha.18",
-    "@jymfony/logger": "0.1.0-alpha.18",
-    "@jymfony/util": "0.1.0-alpha.18"
+    "@jymfony/autoloader": "0.1.0-alpha.19",
+    "@jymfony/contracts": "0.1.0-alpha.19",
+    "@jymfony/datetime": "0.1.0-alpha.19",
+    "@jymfony/exceptions": "0.1.0-alpha.19",
+    "@jymfony/logger": "0.1.0-alpha.19",
+    "@jymfony/util": "0.1.0-alpha.19"
   },
   "devDependencies": {
     "@jymfony/cache": "*",
