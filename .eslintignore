@@ -1,4 +1,5 @@
 src/Component/Autoloader/fixtures
+src/Component/Autoloader/src/Reflection/ReflectionHelper.js
 src/Component/DependencyInjection/fixtures
 src/Component/Routing/fixtures/Annotation
 src/Component/Templating/fixtures

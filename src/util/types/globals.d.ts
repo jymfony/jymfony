@@ -368,10 +368,6 @@ declare module NodeJS {
     }
 }
 
-interface Function {
-    (...args: any[]): any;
-}
-
 declare type Invokable<T = any> = (...args: any[]) => T | {
     __invoke<A extends any[]>(...args: A): (...args: A) => T;
     __invoke<A0, A extends any[]>(arg0: A0, ...args: A): (...args: A) => T;
@@ -448,7 +444,7 @@ declare function isStream(value: any): value is NodeJS.ReadableStream | NodeJS.W
 declare function isCallableArray(value: any): value is [string, string];
 declare function getCallableFromArray(value: [object, string]): Invokable<any>;
 
-declare class BoundFunction implements Function {
+declare interface BoundFunction extends Function {
     new(thisArg: Object, func: Invokable|Function|GeneratorFunction): Function;
 
     arguments: any;
