@@ -1,6 +1,7 @@
 declare namespace Jymfony.Component.HttpFoundation.Session {
-    import SessionStorageInterface = Jymfony.Component.HttpFoundation.Session.Storage.SessionStorageInterface;
+    import AttributeBagInterface = Jymfony.Component.HttpFoundation.Session.Attribute.AttributeBagInterface;
     import FlashBagInterface = Jymfony.Component.HttpFoundation.Session.Flash.FlashBagInterface;
+    import SessionStorageInterface = Jymfony.Component.HttpFoundation.Session.Storage.SessionStorageInterface;
 
     export class Session extends implementationOf(SessionInterface) {
         private _storage: SessionStorageInterface;
@@ -102,5 +103,15 @@ declare namespace Jymfony.Component.HttpFoundation.Session {
          * @inheritdoc
          */
         public readonly flashBag: FlashBagInterface;
+
+        /**
+         * Returns an iterator for attributes.
+         */
+        [Symbol.iterator](): IterableIterator<[string, any]>;
+
+        /**
+         * Gets the length of the attributes bag.
+         */
+        public readonly length: number;
     }
 }

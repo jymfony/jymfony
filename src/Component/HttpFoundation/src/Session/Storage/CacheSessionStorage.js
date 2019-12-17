@@ -29,7 +29,7 @@ export default class CacheSessionStorage extends implementationOf(SessionStorage
          *
          * @private
          */
-        this._lifetime = lifetime;
+        this._lifetime = 0 < lifetime ? lifetime : undefined;
 
         /**
          * @type {boolean}
@@ -100,7 +100,7 @@ export default class CacheSessionStorage extends implementationOf(SessionStorage
      */
     set id(id) {
         if (this._started) {
-            throw new RuntimeException('Cannot set session id after the session is started.');
+            throw new LogicException('Cannot set session id after the session is started.');
         }
 
         this._id = id;
@@ -156,12 +156,12 @@ export default class CacheSessionStorage extends implementationOf(SessionStorage
      * @inheritdoc
      */
     async clear() {
-        if (! this._started) {
-            await this.start();
-        }
-
         for (const bag of Object.values(this._bags)) {
             bag.clear();
+        }
+
+        if (! this._started) {
+            await this.start();
         }
     }
 
@@ -188,8 +188,12 @@ export default class CacheSessionStorage extends implementationOf(SessionStorage
      */
     async _loadSession() {
         const item = await this._cache.getItem(this.id);
+        const bags = item.isHit ? item.get() : {};
 
-        this._bags = item.isHit ? item.get() : {};
+        for (const [ key, bag ] of __jymfony.getEntries(bags)) {
+            this._bags[key] = bag;
+        }
+
         this._started = true;
     }
 

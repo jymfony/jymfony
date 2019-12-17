@@ -3,6 +3,8 @@ declare namespace Jymfony.Component.HttpFoundation.Session.Flash {
      * FlashBagInterface.
      */
     export class FlashBagInterface extends SessionBagInterface.definition {
+        public static readonly definition: Newable<FlashBagInterface>;
+
         /**
          * Adds a flash message for type.
          */

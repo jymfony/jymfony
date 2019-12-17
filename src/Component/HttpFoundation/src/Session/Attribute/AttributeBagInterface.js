@@ -3,7 +3,7 @@ const SessionBagInterface = Jymfony.Component.HttpFoundation.Session.SessionBagI
 /**
  * Attributes store.
  *
- * @memberOf Jymfony.Component.HttpFoundation.Session
+ * @memberOf Jymfony.Component.HttpFoundation.Session.Attribute
  */
 class AttributeBagInterface extends SessionBagInterface.definition {
     /**
@@ -57,4 +57,4 @@ class AttributeBagInterface extends SessionBagInterface.definition {
     remove(name) { }
 }
 
-export default AttributeBagInterface;
+export default getInterface(AttributeBagInterface);

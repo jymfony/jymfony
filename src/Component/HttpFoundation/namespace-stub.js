@@ -48,6 +48,11 @@ Jymfony.Component.HttpFoundation = {
         /**
          * @namespace
          */
+        Attribute: {},
+
+        /**
+         * @namespace
+         */
         Flash: {},
 
         /**

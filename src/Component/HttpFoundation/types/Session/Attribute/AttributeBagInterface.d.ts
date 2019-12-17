@@ -1,8 +1,10 @@
-declare namespace Jymfony.Component.HttpFoundation.Session {
+declare namespace Jymfony.Component.HttpFoundation.Session.Attribute {
     /**
      * Attributes store.
      */
     export class AttributeBagInterface extends SessionBagInterface.definition {
+        public static readonly definition: Newable<AttributeBagInterface>;
+
         /**
          * Checks if an attribute is defined.
          *
