@@ -9,6 +9,7 @@ const Parser = require('../Parser/Parser');
 const ReflectionParameter = require('./ReflectionParameter');
 const RestElement = require('../Parser/AST/RestElement');
 const SourceMapGenerator = require('../Parser/SourceMap/Generator');
+const SpreadElement = require('../Parser/AST/SpreadElement');
 const vm = require('vm');
 
 const descriptorStorage = new DescriptorStorage(
@@ -203,6 +204,9 @@ class ReflectionMethod {
 
             if (parameter instanceof RestElement) {
                 parameter = parameter.argument;
+                restElement = true;
+            } else if (parameter instanceof SpreadElement) {
+                parameter = parameter.expression;
                 restElement = true;
             }
 
