@@ -6,7 +6,7 @@
   "main": "index.js",
   "typings": "index.d.ts",
   "scripts": {
-    "test": "node $NODE_FLAGS ./tests.js",
+    "test": "node ./tests.js",
     "lint": "eslint src/",
     "style-fix": "eslint --fix src/",
     "coverage": "nyc npm test",
