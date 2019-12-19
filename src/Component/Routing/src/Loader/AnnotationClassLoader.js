@@ -117,8 +117,8 @@ export default class AnnotationClassLoader extends implementationOf(LoaderInterf
             const defaults = { ...globals.defaults, ...(annot.defaults || {}) };
             const options = { ...globals.options, ...(annot.options || {}) };
 
-            const schemes = [ ...globals.schemes, ...coerceArray(annot.schemes || [ 'GET', 'POST' ]) ];
-            const methods = [ ...globals.methods, ...coerceArray(annot.methods || [ 'http', 'https' ]) ];
+            const schemes = [ ...globals.schemes, ...coerceArray(annot.schemes || [ 'http', 'https' ]) ];
+            const methods = [ ...globals.methods, ...coerceArray(annot.methods || [ 'GET', 'POST' ]) ];
             const host = annot.host || globals.host;
             const condition = annot.condition || globals.condition;
             const path = annot.localizedPaths || annot.path || '';

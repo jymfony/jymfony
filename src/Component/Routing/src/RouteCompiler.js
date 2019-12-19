@@ -22,7 +22,7 @@ export default class RouteCompiler {
         let hostTokens = [];
 
         const host = route.host;
-        if (undefined !== host) {
+        if (undefined !== host && '' !== host) {
             const result = __self._compilePattern(route, host, true);
 
             hostVariables = result.variables;

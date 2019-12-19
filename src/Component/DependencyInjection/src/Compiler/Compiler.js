@@ -85,7 +85,7 @@ export default class Compiler {
             message = __jymfony.trim(message).replace('\n', '\n' + pass.constructor.name + ': ');
         }
 
-        this.addLogMessage(pass.constructor.name + ': ' + message);
+        this.addLogMessage(ReflectionClass.getClassName(pass) + ': ' + message);
     }
 
     /**

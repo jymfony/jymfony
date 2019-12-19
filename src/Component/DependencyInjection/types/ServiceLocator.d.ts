@@ -43,6 +43,6 @@ declare namespace Jymfony.Component.DependencyInjection {
         /**
          * Formats alternatives for this service locator.
          */
-        private _formatAlternatives(): string;
+        private _formatAlternatives(separator?: string): string;
     }
 }

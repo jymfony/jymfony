@@ -23,9 +23,10 @@ export default class HttpServer extends mix(RequestHandler, HttpServerInterface)
      *
      * @param {Jymfony.Contracts.EventDispatcher.EventDispatcherInterface} dispatcher
      * @param {Jymfony.Component.HttpFoundation.Controller.ControllerResolverInterface} resolver
+     * @param {Jymfony.Component.HttpServer.Controller.ArgumentResolverInterface} [argumentResolver]
      */
-    __construct(dispatcher, resolver) {
-        super.__construct(dispatcher, resolver);
+    __construct(dispatcher, resolver, argumentResolver = null) {
+        super.__construct(dispatcher, resolver, argumentResolver);
 
         /**
          * @type {http.Server}

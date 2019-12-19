@@ -1,3 +1,4 @@
+process.env.DEBUG = '1';
 require('./src/Component/Autoloader');
 
 const Debug = Jymfony.Component.Debug.Debug;

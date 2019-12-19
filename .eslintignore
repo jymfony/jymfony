@@ -1,6 +1,7 @@
 src/Component/Autoloader/fixtures
 src/Component/Autoloader/src/Reflection/ReflectionHelper.js
 src/Component/DependencyInjection/fixtures
+src/Component/HttpServer/fixtures
 src/Component/Routing/fixtures/Annotation
 src/Component/Templating/fixtures
 src/Component/VarExporter/fixtures
@@ -9,8 +10,10 @@ src/**/*Interface.js
 src/Bundle/FrameworkBundle/src/Controller/AbstractController.js
 src/Bundle/FrameworkBundle/fixtures/Controller/ConcreteController.js
 src/Bundle/FrameworkBundle/fixtures/Controller/TestAbstractController.js
+src/Bundle/FrameworkBundle/fixtures/Controller/TypedController.js
 src/Bundle/FrameworkBundle/fixtures/Routing/AnnotatedController.js
 src/Bundle/FrameworkBundle/fixtures/templates
+src/Component/Autoloader/src/Reflection/ReflectionHelper.js
 src/Component/Cache/src/Adapter/RedisAdapter.js
 src/Component/Cache/src/Traits/RedisTrait.js
 src/Component/DependencyInjection/src/Compiler/ResolveInjectDecoratorPass.js

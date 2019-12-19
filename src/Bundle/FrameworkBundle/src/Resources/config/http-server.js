@@ -8,10 +8,35 @@ container.register(Jymfony.Component.HttpFoundation.Controller.ControllerResolve
     .addArgument(new Reference('logger', Container.IGNORE_ON_INVALID_REFERENCE))
 ;
 
+container.register('argument_resolver', Jymfony.Component.HttpServer.Controller.ArgumentResolver)
+    .addArgument([])
+;
+
+container.register('argument_resolver.request_attribute', Jymfony.Component.HttpServer.Controller.ArgumentResolvers.RequestAttributeValueResolver)
+    .addTag('controller.argument_value_resolver', { priority: 100 })
+;
+container.register('argument_resolver.request', Jymfony.Component.HttpServer.Controller.ArgumentResolvers.RequestValueResolver)
+    .addTag('controller.argument_value_resolver', { priority: 50 })
+;
+container.register('argument_resolver.session', Jymfony.Component.HttpServer.Controller.ArgumentResolvers.SessionValueResolver)
+    .addTag('controller.argument_value_resolver', { priority: 50 })
+;
+container.register('argument_resolver.service', Jymfony.Component.HttpServer.Controller.ArgumentResolvers.ServiceValueResolver)
+    .addArgument()
+    .addTag('controller.argument_value_resolver', { priority: -50 })
+;
+container.register('argument_resolver.default', Jymfony.Component.HttpServer.Controller.ArgumentResolvers.DefaultValueResolver)
+    .addTag('controller.argument_value_resolver', { priority: -100 })
+;
+container.register('argument_resolver.variadic', Jymfony.Component.HttpServer.Controller.ArgumentResolvers.VariadicValueResolver)
+    .addTag('controller.argument_value_resolver', { priority: -150 })
+;
+
 container.register(Jymfony.Component.HttpServer.HttpServer)
     .setPublic(true)
     .addArgument(new Reference('event_dispatcher'))
     .addArgument(new Reference(Jymfony.Component.HttpFoundation.Controller.ControllerResolverInterface))
+    .addArgument(new Reference('argument_resolver'))
     .addMethodCall('setLogger', [ new Reference('logger', Container.IGNORE_ON_INVALID_REFERENCE) ])
 ;
 

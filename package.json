@@ -6,12 +6,11 @@
   "main": "index.js",
   "typings": "index.d.ts",
   "scripts": {
-    "test": "npm run run-tests",
+    "test": "node $NODE_FLAGS ./tests.js",
     "lint": "eslint src/",
     "style-fix": "eslint --fix src/",
-    "run-tests": "node ./tests.js",
-    "coverage": "nyc npm run run-tests",
-    "coverage-html": "nyc --reporter=lcov npm run run-tests"
+    "coverage": "nyc npm test",
+    "coverage-html": "nyc --reporter=lcov npm test"
   },
   "keywords": [
     "jymfony",

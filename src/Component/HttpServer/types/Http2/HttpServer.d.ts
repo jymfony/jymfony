@@ -4,6 +4,7 @@ declare namespace Jymfony.Component.HttpServer.Http2 {
     import ControllerResolverInterface = Jymfony.Component.HttpFoundation.Controller.ControllerResolverInterface;
     import RouteCollection = Jymfony.Component.Routing.RouteCollection;
     import LoggerInterface = Jymfony.Component.Logger.LoggerInterface;
+    import ArgumentResolverInterface = Jymfony.Component.HttpServer.Controller.ArgumentResolverInterface;
 
     interface ServerOptions {
         allowHTTP1?: boolean,
@@ -18,8 +19,8 @@ declare namespace Jymfony.Component.HttpServer.Http2 {
         /**
          * Constructor.
          */
-        __construct(dispatcher: EventDispatcherInterface, resolver: ControllerResolverInterface, serverOptions?: ServerOptions): void;
-        constructor(dispatcher: EventDispatcherInterface, resolver: ControllerResolverInterface, serverOptions?: ServerOptions);
+        __construct(dispatcher: EventDispatcherInterface, resolver: ControllerResolverInterface, argumentResolver: ArgumentResolverInterface, serverOptions?: ServerOptions): void;
+        constructor(dispatcher: EventDispatcherInterface, resolver: ControllerResolverInterface, argumentResolver: ArgumentResolverInterface, serverOptions?: ServerOptions);
 
         /**
          * Creates a new Http server instance.

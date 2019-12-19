@@ -18,6 +18,7 @@
 /// <reference path="HttpFoundation/ParameterBagInterface.d.ts" />
 /// <reference path="HttpFoundation/RequestInterface.d.ts" />
 /// <reference path="HttpFoundation/ResponseInterface.d.ts" />
+/// <reference path="HttpServer/Event/ControllerArgumentsEvent.d.ts" />
 /// <reference path="HttpServer/Event/ControllerEvent.d.ts" />
 /// <reference path="HttpServer/Event/ExceptionEvent.d.ts" />
 /// <reference path="HttpServer/Event/FinishRequestEvent.d.ts" />

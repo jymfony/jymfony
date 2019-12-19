@@ -1,4 +1,5 @@
 const LoggerAwareInterface = Jymfony.Component.Logger.LoggerAwareInterface;
+const ArgumentResolver = Jymfony.Component.HttpServer.Controller.ArgumentResolver;
 const BadRequestHttpException = Jymfony.Component.HttpFoundation.Exception.BadRequestHttpException;
 const HttpExceptionInterface = Jymfony.Component.HttpFoundation.Exception.HttpExceptionInterface;
 const NotFoundHttpException = Jymfony.Component.HttpFoundation.Exception.NotFoundHttpException;
@@ -22,8 +23,9 @@ export default class RequestHandler extends implementationOf(LoggerAwareInterfac
      *
      * @param {Jymfony.Contracts.EventDispatcher.EventDispatcherInterface} dispatcher
      * @param {Jymfony.Component.HttpFoundation.Controller.ControllerResolverInterface} resolver
+     * @param {Jymfony.Component.HttpServer.Controller.ArgumentResolverInterface} argumentResolver
      */
-    __construct(dispatcher, resolver) {
+    __construct(dispatcher, resolver, argumentResolver = null) {
         /**
          * @type {Jymfony.Contracts.EventDispatcher.EventDispatcherInterface}
          *
@@ -37,6 +39,13 @@ export default class RequestHandler extends implementationOf(LoggerAwareInterfac
          * @protected
          */
         this._resolver = resolver;
+
+        /**
+         * @type {Jymfony.Component.HttpServer.Controller.ArgumentResolverInterface}
+         *
+         * @private
+         */
+        this._argumentResolver = argumentResolver || new ArgumentResolver();
 
         /**
          * @type {Jymfony.Component.Logger.LoggerInterface}
@@ -195,7 +204,17 @@ export default class RequestHandler extends implementationOf(LoggerAwareInterfac
         await this._dispatcher.dispatch(HttpServerEvents.CONTROLLER, event);
         controller = event.controller;
 
-        let response = await controller(request);
+        // Controller arguments
+        let args = await this._argumentResolver.getArguments(request, controller);
+
+        event = new Event.ControllerArgumentsEvent(this, controller, args, request);
+        await this._dispatcher.dispatch(HttpServerEvents.CONTROLLER_ARGUMENTS, event);
+        controller = event.controller;
+        args = event.args;
+
+        // Call controller
+        let response = await controller(...args);
+
         if (! (response instanceof Response)) {
             const event = new Event.ViewEvent(this, request, response);
             await this._dispatcher.dispatch(HttpServerEvents.VIEW, event);

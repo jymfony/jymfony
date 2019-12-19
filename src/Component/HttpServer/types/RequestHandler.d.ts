@@ -6,6 +6,7 @@ declare namespace Jymfony.Component.HttpServer {
     import Response = Jymfony.Component.HttpFoundation.Response;
     import LoggerInterface = Jymfony.Component.Logger.LoggerInterface;
     import ContentType = Jymfony.Component.HttpFoundation.Header.ContentType;
+    import ArgumentResolverInterface = Jymfony.Component.HttpServer.Controller.ArgumentResolverInterface;
 
     /**
      * A Request handler.
@@ -16,12 +17,13 @@ declare namespace Jymfony.Component.HttpServer {
         protected _resolver: ControllerResolverInterface;
         protected _logger: LoggerInterface;
         private _requestTimeoutMs: number;
+        private _argumentResolver: ArgumentResolverInterface;
 
         /**
          * Constructor.
          */
-        __construct(dispatcher: EventDispatcherInterface, resolver: ControllerResolverInterface): void;
-        constructor(dispatcher: EventDispatcherInterface, resolver: ControllerResolverInterface);
+        __construct(dispatcher: EventDispatcherInterface, resolver: ControllerResolverInterface, argumentResolver: ArgumentResolverInterface): void;
+        constructor(dispatcher: EventDispatcherInterface, resolver: ControllerResolverInterface, argumentResolver: ArgumentResolverInterface);
 
         /**
          * Gets the current event dispatcher.

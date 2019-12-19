@@ -33,6 +33,7 @@ describe('[HttpServer] RequestHandler', function () {
         this._dispatcher.dispatch(HttpServerEvents.RESPONSE, Argument.any()).willReturn();
         this._dispatcher.dispatch(HttpServerEvents.FINISH_REQUEST, Argument.any()).willReturn();
         this._dispatcher.dispatch(HttpServerEvents.CONTROLLER, Argument.any()).willReturn();
+        this._dispatcher.dispatch(HttpServerEvents.CONTROLLER_ARGUMENTS, Argument.any()).willReturn();
         this._dispatcher.dispatch(HttpServerEvents.VIEW, Argument.any()).willReturn();
 
         /**
