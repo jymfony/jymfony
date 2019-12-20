@@ -36,6 +36,7 @@
     "@jymfony/routing": "https://github.com/jymfony/routing.git",
     "@jymfony/security": "https://github.com/jymfony/security.git",
     "@jymfony/security-bundle": "https://github.com/jymfony/security-bundle.git",
+    "@jymfony/stopwatch": "https://github.com/jymfony/stopwatch.git",
     "@jymfony/templating": "https://github.com/jymfony/templating.git",
     "@jymfony/testing": "https://github.com/jymfony/testing.git",
     "@jymfony/var-dumper": "https://github.com/jymfony/var-dumper.git",
