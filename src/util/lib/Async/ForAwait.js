@@ -5,6 +5,10 @@ if (! Symbol.asyncIterator) {
 global.__jymfony = global.__jymfony || {};
 
 const forAwait = (iterator, callback) => {
+    if (isPromise(iterator)) {
+        return iterator.then(resolved => forAwait(resolved, callback));
+    }
+
     const originalIterator = iterator;
     if (isArray(iterator)) {
         iterator = iterator.values();

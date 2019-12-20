@@ -5,6 +5,8 @@ require('./lib/Function/BoundFunction');
 require('./lib/Function/Debounce');
 require('./lib/is');
 
+require('./lib/Array/values.polyfill');
+require('./lib/Symbol/description.polyfill');
 require('./lib/Iterator/EmptyIterator');
 
 require('./lib/Object/polyfills/values');
