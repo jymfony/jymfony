@@ -82,6 +82,7 @@ export default class RegisterControllerArgumentLocatorsPass extends implementati
             }
 
             const isContainerAware = r.isSubclassOf(ContainerAwareInterface) || (
+                __jymfony.Platform.hasPublicFieldSupport() &&
                 ReflectionClass.exists('Jymfony.Bundle.FrameworkBundle.Controller.AbstractController') &&
                 r.isSubclassOf('Jymfony.Bundle.FrameworkBundle.Controller.AbstractController')
             );

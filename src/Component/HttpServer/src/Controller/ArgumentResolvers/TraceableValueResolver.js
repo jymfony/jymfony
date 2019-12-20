@@ -46,7 +46,7 @@ export default class TraceableValueResolver extends implementationOf(ArgumentVal
     /**
      * @inheritdoc
      */
-    async * resolve(request, argument) {
+    async resolve(request, argument) {
         const method = ReflectionClass.getClassName(this._inner) + '.resolve';
         this._stopwatch.start(method, 'controller.argument_value_resolver');
 
@@ -55,6 +55,6 @@ export default class TraceableValueResolver extends implementationOf(ArgumentVal
 
         this._stopwatch.stop(method);
 
-        yield * values;
+        return values;
     }
 }
