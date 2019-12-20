@@ -142,12 +142,12 @@ export default class FrameworkExtension extends Extension {
                 container.getDefinition('debug.event_dispatcher')
                     .setClass(Jymfony.Component.HttpServer.Debug.TraceableEventDispatcher);
             }
+        }
 
-            if (ReflectionClass.exists('Jymfony.Component.HttpServer.Controller.ArgumentResolvers.NotTaggedControllerValueResolver')) {
-                container.register('argument_resolver.not_tagged_controller', Jymfony.Component.HttpServer.Controller.ArgumentResolvers.NotTaggedControllerValueResolver)
-                    .addArgument()
-                    .addTag('controller.argument_value_resolver', {priority: -200});
-            }
+        if (ReflectionClass.exists('Jymfony.Component.HttpServer.Controller.ArgumentResolvers.NotTaggedControllerValueResolver')) {
+            container.register('argument_resolver.not_tagged_controller', Jymfony.Component.HttpServer.Controller.ArgumentResolvers.NotTaggedControllerValueResolver)
+                .addArgument()
+                .addTag('controller.argument_value_resolver', {priority: -200});
         }
 
         if (ReflectionClass.exists('Jymfony.Component.VarDumper.VarDumper')) {
