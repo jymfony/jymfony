@@ -76,6 +76,7 @@ export default class FrameworkExtension extends Extension {
             .setPublic(true)
             .addTag('controller.service_arguments');
 
+        container.registerForAutoconfiguration('Jymfony.Component.HttpServer.Controller.ArgumentValueResolverInterface').addTag('controller.argument_value_resolver');
         container.registerForAutoconfiguration('Jymfony.Component.Mime.MimeTypeGuesserInterface').addTag('mime.mime_type_guesser');
         container.registerForAutoconfiguration('Jymfony.Component.Logger.LoggerAwareInterface')
             .addMethodCall('setLogger', [ new Reference('logger') ]);
