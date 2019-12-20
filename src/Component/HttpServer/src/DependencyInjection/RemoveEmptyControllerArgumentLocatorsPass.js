@@ -24,6 +24,10 @@ export default class RemoveEmptyControllerArgumentLocatorsPass extends implement
      * @inheritdoc
      */
     process(container) {
+        if (false === container.hasDefinition(this._controllerLocator) && false === container.hasAlias(this._controllerLocator)) {
+            return;
+        }
+
         const controllerLocator = container.findDefinition(this._controllerLocator);
         const controllers = controllerLocator.getArgument(0);
 
