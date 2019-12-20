@@ -1,4 +1,5 @@
 const Container = Jymfony.Component.DependencyInjection.Container;
+const InvalidArgumentException = Jymfony.Component.DependencyInjection.Exception.InvalidArgumentException;
 
 const defaultDeprecationTemplate = 'The "%alias_id%" service alias is deprecated. You should stop using it, as it will be removed in the future.';
 

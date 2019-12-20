@@ -262,7 +262,9 @@ export default class Definition {
      * @returns {Jymfony.Component.DependencyInjection.Definition}
      */
     setClass(className) {
-        className = Container.normalizeId(className);
+        if (undefined !== className && null !== className) {
+            className = Container.normalizeId(className);
+        }
 
         this._changes['class'] = true;
         this._class = className;

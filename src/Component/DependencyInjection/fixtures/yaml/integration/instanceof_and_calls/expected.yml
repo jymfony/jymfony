@@ -1,0 +1,10 @@
+services:
+    # main_service should look like this in the end
+    main_service_expected:
+        class: Jymfony.Component.DependencyInjection.Fixtures.Integration.IntegrationTestStub
+        public: true
+        autoconfigure: true
+        calls:
+            - [setSunshine, [supernova]]
+            - [setSunshine, [warm]]
+

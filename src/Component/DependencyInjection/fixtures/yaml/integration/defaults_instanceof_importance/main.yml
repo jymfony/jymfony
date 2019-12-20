@@ -1,0 +1,28 @@
+services:
+    _defaults:
+        autoconfigure: true
+        public: true
+        tags: [from_defaults]
+
+    _instanceof:
+        Jymfony.Component.DependencyInjection.Fixtures.Integration.IntegrationTestStubParent:
+            shared: false
+            public: false
+            tags:
+                - { name: foo_tag, tag_option: from_instanceof }
+            calls:
+                - [setSunshine, [bright]]
+
+        Jymfony.Component.DependencyInjection.Fixtures.Integration.IntegrationTestStub:
+            tags:
+                - { name: bar_tag }
+
+    main_service:
+        class: Jymfony.Component.DependencyInjection.Fixtures.Integration.IntegrationTestStub
+        public: true
+        tags:
+            - { name: foo_tag, tag_option: from_service }
+        # calls from instanceof are kept, but this comes later
+        calls:
+            - [enableSummer, [true]]
+            - [setSunshine, [warm]]

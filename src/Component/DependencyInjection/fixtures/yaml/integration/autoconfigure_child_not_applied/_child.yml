@@ -1,0 +1,4 @@
+services:
+    child_service:
+        class: Jymfony.Component.DependencyInjection.Fixtures.Integration.IntegrationTestStub
+        parent: parent_service

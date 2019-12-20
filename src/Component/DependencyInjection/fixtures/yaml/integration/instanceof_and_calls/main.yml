@@ -1,0 +1,9 @@
+services:
+    _instanceof:
+        Jymfony.Component.DependencyInjection.Fixtures.Integration.IntegrationTestStubParent:
+            calls:
+                - [setSunshine, [warm]]
+    main_service:
+        class: Jymfony.Component.DependencyInjection.Fixtures.Integration.IntegrationTestStub
+        autoconfigure: true
+        public: true
