@@ -2,6 +2,7 @@
   "name": "@jymfony/testing",
   "version": "0.1.0-dev",
   "description": "Jymfony Testing",
+  "typings": "types/index.d.ts",
   "scripts": {
     "test": "node ./tests.js test/**"
   },
