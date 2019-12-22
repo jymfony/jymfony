@@ -125,7 +125,7 @@ export default class AbstractLexer {
      * @param {int|string} type The token type to skip until.
      */
     skipUntil(type) {
-        while (this.lookahead && this.lookahead.type !== type) {
+        while (this.token && this.token.type !== type) {
             this.moveNext();
         }
     }
@@ -139,7 +139,9 @@ export default class AbstractLexer {
      * @returns {boolean}
      */
     isA(value, token) {
-        return this.getType(value) === token;
+        const holder = new ValueHolder(value);
+
+        return this.getType(holder) === token;
     }
 
     /**
@@ -218,6 +220,7 @@ export default class AbstractLexer {
      * @param {string} input A query string.
      */
     _scan(input) {
+        const inputLen = input.length;
         let non_catchable = this.getNonCatchablePatterns();
         if (non_catchable.length) {
             non_catchable = non_catchable.join('|') + '|';
@@ -226,11 +229,15 @@ export default class AbstractLexer {
         }
 
         const regex = new RegExp(__jymfony.sprintf(
-            '%s((?:%s))', non_catchable, this.getCatchablePatterns().join(')|(?:')
+            '((?:%s))|%s', this.getCatchablePatterns().join(')|(?:'), non_catchable
         ), 'g' + this.getModifiers());
 
         let match;
         while ((match = regex.exec(input))) {
+            if (match.index >= inputLen) {
+                break;
+            }
+
             if (undefined === match[1] && undefined === match[2]) {
                 continue;
             }
