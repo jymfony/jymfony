@@ -26,7 +26,7 @@ export default class CallPrediction extends implementationOf(PredictionInterface
                 '  %s.%s(%s)\n' +
                 'but expected at least one.\n' +
                 'Recorded `%s(...)` calls:\n%s',
-                (new ReflectionClass(object.reveal())).name,
+                object.name,
                 method.methodName,
                 method.argumentsWildcard,
                 method.methodName,
@@ -38,7 +38,7 @@ export default class CallPrediction extends implementationOf(PredictionInterface
             'No calls have been made that match:\n' +
             '  %s.%s(%s)\n' +
             'but expected at least one.',
-            (new ReflectionClass(object.reveal())).name,
+            object.name,
             method.methodName,
             method.argumentsWildcard
         ), method);

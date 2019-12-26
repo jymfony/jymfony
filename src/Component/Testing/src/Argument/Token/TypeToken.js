@@ -42,7 +42,21 @@ export default class TypeToken extends implementationOf(TokenInterface) {
      * @returns {string}
      */
     toString() {
-        const type = isString(this._type) ? this._type : new ReflectionClass(this._type).name;
+        let type;
+
+        if (isString(this._type)) {
+            type = this._type;
+        } else if (isFunction(this._type)) {
+            type = this._type.name;
+
+            try {
+                type = new ReflectionClass(this._type).name || type;
+            } catch (e) {
+                // Do nothing.
+            }
+        } else {
+            type = String(this._type);
+        }
 
         return __jymfony.sprintf('type(%s)', type);
     }

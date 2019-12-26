@@ -72,5 +72,10 @@ declare namespace Jymfony.Component.Testing.Prophecy {
          * @inheritdoc
          */
         reveal(): T;
+
+        /**
+         * Calculates the prophecy (friendly) name.
+         */
+        public readonly name: string;
     }
 }
