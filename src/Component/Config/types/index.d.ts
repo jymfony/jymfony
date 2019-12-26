@@ -44,7 +44,6 @@
 /// <reference path="Loader/LoaderInterface.d.ts" />
 /// <reference path="Loader/LoaderResolver.d.ts" />
 /// <reference path="Loader/LoaderResolverInterface.d.ts" />
-/// <reference path="Resource/Iterator/RecursiveDirectoryIterator.d.ts" />
 /// <reference path="Resource/ClassExistenceResource.d.ts" />
 /// <reference path="Resource/DirectoryResource.d.ts" />
 /// <reference path="Resource/EnvVariableResource.d.ts" />

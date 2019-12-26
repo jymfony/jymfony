@@ -87,7 +87,7 @@ class Interfaces {
                 return false;
             }
 
-            const mixins = o.constructor[Mixins.appliedInterfacesSymbol];
+            const mixins = o.constructor && o.constructor[Mixins.appliedInterfacesSymbol];
             if (! mixins) {
                 return false;
             }

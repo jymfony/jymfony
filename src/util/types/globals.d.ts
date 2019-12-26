@@ -283,6 +283,7 @@ declare module NodeJS {
         __jymfony: any;
         BoundFunction: Newable<BoundFunction>;
         EmptyIterator: Newable<EmptyIterator>;
+        RecursiveDirectoryIterator: Newable<RecursiveDirectoryIterator>;
 
         getInterface<T extends Newable<any> = any>(definition: T): T & MixinInterface;
         getTrait<T extends Newable<any> = any>(definition: T): T & MixinInterface;
@@ -466,4 +467,26 @@ interface ObjectConstructor {
     filter: <T>(obj: T, predicate: Invokable<boolean>) => T;
     ksort: <T>(obj: T) => T;
     sort: <T>(obj: T) => T;
+}
+
+declare class RecursiveDirectoryIterator implements Iterator<string>, Iterable<string> {
+    private _path: string;
+    private _dir: undefined|string[];
+    private _current: undefined|string;
+
+    /**
+     * Constructor.
+     */
+    __construct(filepath: string): void;
+    constructor(filepath: string);
+
+    /**
+     * Make this object iterable.
+     */
+    [Symbol.iterator](): RecursiveDirectoryIterator;
+
+    /**
+     * Iterates over values.
+     */
+    next(): IteratorResult<string>;
 }

@@ -1,16 +1,13 @@
-const fs = require('fs');
-const path = require('path');
+const { readdirSync, statSync } = require('fs');
+const { sep } = require('path');
 
-/**
- * @memberOf Jymfony.Component.Config.Resource.Iterator
- */
-export default class RecursiveDirectoryIterator {
+class RecursiveDirectoryIterator {
     /**
      * Constructor.
      *
      * @param {string} filepath
      */
-    __construct(filepath) {
+    constructor(filepath) {
         /**
          * @type {string}
          *
@@ -36,7 +33,7 @@ export default class RecursiveDirectoryIterator {
     /**
      * Make this object iterable.
      *
-     * @returns {Jymfony.Component.Config.Resource.Iterator.RecursiveDirectoryIterator}
+     * @returns {RecursiveDirectoryIterator}
      */
     [Symbol.iterator]() {
         return this;
@@ -50,7 +47,7 @@ export default class RecursiveDirectoryIterator {
     next() {
         if (undefined === this._dir) {
             try {
-                this._dir = fs.readdirSync(this._path);
+                this._dir = readdirSync(this._path);
             } catch (e) {
                 this._dir = [];
             }
@@ -62,20 +59,20 @@ export default class RecursiveDirectoryIterator {
 
         if (undefined === this._current) {
             let stat;
-            this._current = this._path + path.sep + this._dir.shift();
+            this._current = this._path + sep + this._dir.shift();
 
             try {
-                stat = fs.statSync(this._current);
+                stat = statSync(this._current);
             } catch (e) {
                 this._current = undefined;
 
                 return this.next();
             }
 
-            this._current = stat.isDirectory() ? new __self(this._current) : this._current;
+            this._current = stat.isDirectory() ? new RecursiveDirectoryIterator(this._current) : this._current;
         }
 
-        if (this._current instanceof __self) {
+        if (this._current instanceof RecursiveDirectoryIterator) {
             const next = this._current.next();
             if (next.done) {
                 const current = this._current;
@@ -93,3 +90,5 @@ export default class RecursiveDirectoryIterator {
         return { value: current, done: false };
     }
 }
+
+global.RecursiveDirectoryIterator = RecursiveDirectoryIterator;

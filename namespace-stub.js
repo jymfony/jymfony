@@ -103,6 +103,11 @@ Jymfony = {
         /**
          * @namespace
          */
+        Metadata: {},
+
+        /**
+         * @namespace
+         */
         Mime: {},
 
         /**

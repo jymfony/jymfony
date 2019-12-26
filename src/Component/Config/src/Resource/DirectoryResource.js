@@ -3,7 +3,6 @@ import { basename } from 'path';
 import { createHash } from 'crypto';
 
 const SelfCheckingResourceInterface = Jymfony.Component.Config.Resource.SelfCheckingResourceInterface;
-const RecursiveDirectoryIterator = Jymfony.Component.Config.Resource.Iterator.RecursiveDirectoryIterator;
 
 /**
  * DirectoryResource represents a resources stored in a subdirectory tree.

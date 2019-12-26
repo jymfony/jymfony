@@ -42,6 +42,7 @@
     "@jymfony/kernel": "0.1.0-dev",
     "@jymfony/lexer": "0.1.0-dev",
     "@jymfony/logger": "0.1.0-dev",
+    "@jymfony/metadata": "0.1.0-dev",
     "@jymfony/mime": "0.1.0-dev",
     "@jymfony/options-resolver": "0.1.0-dev",
     "@jymfony/property-access": "0.1.0-dev",

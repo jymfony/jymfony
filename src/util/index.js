@@ -8,6 +8,7 @@ require('./lib/is');
 require('./lib/Array/values.polyfill');
 require('./lib/Symbol/description.polyfill');
 require('./lib/Iterator/EmptyIterator');
+require('./lib/Iterator/RecursiveDirectoryIterator');
 
 require('./lib/Object/polyfills/values');
 require('./lib/Object/clone');
