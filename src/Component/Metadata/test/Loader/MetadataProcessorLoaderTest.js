@@ -31,7 +31,7 @@ describe('[Metadata] MetadataProcessorLoader', function () {
         prophet.checkPredictions();
     });
 
-    it ('should process metadata correctly', () => {
+    it ('should process metadata correctly', __jymfony.Platform.hasPrivateFieldSupport() ? () => {
         const reflClass = new ReflectionClass(Fixtures.SimpleObject);
         const metadata = new ClassMetadata(reflClass);
 
@@ -55,5 +55,5 @@ describe('[Metadata] MetadataProcessorLoader', function () {
         processorFactory.getProcessor(Argument.type(MethodAnnotation2)).willReturn(methodAnnotationProcessor);
 
         loader.loadClassMetadata(metadata);
-    });
+    } : undefined);
 });
