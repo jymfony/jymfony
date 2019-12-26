@@ -11,13 +11,13 @@ declare namespace Jymfony.Component.PropertyAccess {
         public static readonly ACCESS_TYPE_PROPERTY = 'property';
         public static readonly ACCESS_TYPE_NOT_FOUND = 'not_found';
 
-        private _cacheItemPool: CacheItemPoolInterface<any>;
+        private _infoCache: Record<string, any>;
 
         /**
          * Constructor.
          */
-        __construct(cacheItemPool?: CacheItemPoolInterface<any>): void;
-        constructor(cacheItemPool?: CacheItemPoolInterface<any>);
+        __construct(): void;
+        constructor();
 
         /**
          * @inheritdoc

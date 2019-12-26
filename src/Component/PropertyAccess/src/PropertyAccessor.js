@@ -14,23 +14,14 @@ const CACHE_PREFIX_PROPERTY_PATH = 'p';
 export default class PropertyAccessor extends implementationOf(PropertyAccessorInterface) {
     /**
      * Constructor.
-     *
-     * @param {Jymfony.Component.Cache.CacheItemPoolInterface} [cacheItemPool]
      */
-    __construct(cacheItemPool = undefined) {
-        if (undefined !== cacheItemPool &&
-            (isGeneratorFunction(cacheItemPool.getItem) || isGeneratorFunction(cacheItemPool.save) ||
-                isAsyncFunction(cacheItemPool.getItem) || isAsyncFunction(cacheItemPool.save))
-        ) {
-            throw new InvalidArgumentException('PropertyAccessor needs a synchronized cache item pool to work properly');
-        }
-
+    __construct() {
         /**
-         * @type {Jymfony.Component.Cache.CacheItemPoolInterface}
+         * @type {Object.<string, *>}
          *
          * @private
          */
-        this._cacheItemPool = cacheItemPool;
+        this._infoCache = {};
     }
 
     /**
@@ -126,16 +117,13 @@ export default class PropertyAccessor extends implementationOf(PropertyAccessorI
     _getReadAccessInfo(object, property) {
         const reflection = new ReflectionClass(object);
         const className = reflection.name;
-        let cacheItem;
+        let cacheKey;
 
         if (undefined !== className) {
-            const key = (-1 !== className.indexOf('@') ? encodeURIComponent(className) : className) + '..' + property;
+            cacheKey = CACHE_PREFIX_READ + (-1 !== className.indexOf('@') ? encodeURIComponent(className) : className) + '..' + property;
 
-            if (undefined !== this._cacheItemPool) {
-                cacheItem = this._cacheItemPool.getItem(CACHE_PREFIX_READ + key);
-                if (cacheItem.isHit) {
-                    return cacheItem.get();
-                }
+            if (undefined !== this._infoCache[cacheKey]) {
+                return { ...this._infoCache[cacheKey] };
             }
         }
 
@@ -173,8 +161,8 @@ export default class PropertyAccessor extends implementationOf(PropertyAccessorI
                 ' exist in class "' + (reflection.name || object.constructor.name) + '".';
         }
 
-        if (cacheItem) {
-            this._cacheItemPool.save(cacheItem.set(retVal));
+        if (cacheKey) {
+            this._infoCache[cacheKey] = { ...retVal };
         }
 
         return retVal;
@@ -217,16 +205,13 @@ export default class PropertyAccessor extends implementationOf(PropertyAccessorI
     _getWriteAccessInfo(object, property) {
         const reflection = new ReflectionClass(object);
         const className = reflection.name;
+        let cacheKey;
 
-        let cacheItem;
         if (undefined !== className) {
-            const key = (-1 !== className.indexOf('@') ? encodeURIComponent(className) : className) + '..' + property;
+            cacheKey = CACHE_PREFIX_WRITE + (-1 !== className.indexOf('@') ? encodeURIComponent(className) : className) + '..' + property;
 
-            if (undefined !== this._cacheItemPool) {
-                cacheItem = this._cacheItemPool.getItem(CACHE_PREFIX_WRITE + key);
-                if (cacheItem.isHit) {
-                    return cacheItem.get();
-                }
+            if (undefined !== this._infoCache[cacheKey]) {
+                return { ...this._infoCache[cacheKey] };
             }
         }
 
@@ -256,8 +241,8 @@ export default class PropertyAccessor extends implementationOf(PropertyAccessorI
                 ' exist in class "' + (reflection.name || object.constructor.name) + '".';
         }
 
-        if (cacheItem) {
-            this._cacheItemPool.save(cacheItem.set(retVal));
+        if (cacheKey) {
+            this._infoCache[cacheKey] = { ...retVal };
         }
 
         return retVal;
@@ -275,20 +260,13 @@ export default class PropertyAccessor extends implementationOf(PropertyAccessorI
             return path;
         }
 
-        let cacheItem;
-        if (undefined !== this._cacheItemPool) {
-            cacheItem = this._cacheItemPool.getItem(CACHE_PREFIX_PROPERTY_PATH + path);
-            if (cacheItem.isHit) {
-                return cacheItem.get();
-            }
+        const cacheKey = CACHE_PREFIX_PROPERTY_PATH + path;
+        if (undefined !== this._infoCache[cacheKey]) {
+            return this._infoCache[cacheKey];
         }
 
         const propertyPath = new PropertyPath(path);
-        if (cacheItem) {
-            this._cacheItemPool.save(cacheItem.set(propertyPath));
-        }
-
-        return propertyPath;
+        return this._infoCache[cacheKey] = propertyPath;
     }
 
     /**
