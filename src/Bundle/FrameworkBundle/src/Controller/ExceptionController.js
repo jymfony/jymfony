@@ -1,4 +1,7 @@
+import { @Type } from '@jymfony/decorators';
+
 const Response = Jymfony.Component.HttpFoundation.Response;
+const Request = Jymfony.Component.HttpFoundation.Request;
 
 /**
  * @memberOf Jymfony.Bundle.FrameworkBundle.Controller
@@ -18,7 +21,7 @@ export default class ExceptionController {
      *
      * @param {Jymfony.Component.HttpFoundation.Request} request
      */
-    showAction(request) {
+    showAction(@Type(Request) request) {
         let exception = request.attributes.get('exception');
 
         if (! this._debug) {
