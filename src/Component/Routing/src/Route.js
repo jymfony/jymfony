@@ -134,7 +134,7 @@ export default class Route {
                     this.setRequirement(name, req.substr(1, req.length - 2));
                 }
 
-                return name;
+                return '{' + name + '}';
             });
         }
 
