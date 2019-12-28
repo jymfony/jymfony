@@ -182,7 +182,7 @@ class ReflectionMethod {
         let parsed;
         try {
             const parser = new Parser(descriptorStorage);
-            parsed = parser.parse('function ' + this._method.toString());
+            parsed = parser.parse('function ' + this._method.toString().replace(/^(async\s+)?(\*\s*)?(function\s+)?/, ''));
         } catch (e) {
             // Do nothing.
             return;
