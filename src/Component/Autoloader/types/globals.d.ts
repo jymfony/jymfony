@@ -244,6 +244,11 @@ declare class ReflectionMethod {
      * Gets the parameters' reflection objects.
      */
     readonly parameters: ReflectionParameter[];
+
+    /**
+     * Gets the reflected method.
+     */
+    readonly method: Invokable;
 }
 
 declare class ReflectionParameter {
@@ -286,7 +291,7 @@ declare class ReflectionParameter {
     readonly isArrayPattern: boolean;
 
     /**
-     * Whether this parameter is an rest element.
+     * Whether this parameter is a rest element.
      */
     readonly isRestElement: boolean;
 

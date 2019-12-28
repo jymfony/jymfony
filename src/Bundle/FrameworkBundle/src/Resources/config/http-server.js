@@ -8,7 +8,10 @@ container.register(Jymfony.Component.HttpFoundation.Controller.ControllerResolve
     .addArgument(new Reference('logger', Container.IGNORE_ON_INVALID_REFERENCE))
 ;
 
+container.register('argument_metadata_factory', Jymfony.Component.HttpServer.Controller.Metadata.ArgumentMetadataFactory);
+
 container.register('argument_resolver', Jymfony.Component.HttpServer.Controller.ArgumentResolver)
+    .addArgument(new Reference('argument_metadata_factory'))
     .addArgument([])
 ;
 

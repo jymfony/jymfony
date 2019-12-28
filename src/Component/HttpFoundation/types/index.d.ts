@@ -1,6 +1,3 @@
-/// <reference path="../../HttpServer/types/Controller/ArgumentResolver.d.ts" />
-/// <reference path="../../HttpServer/types/Controller/ArgumentResolverInterface.d.ts" />
-/// <reference path="../../HttpServer/types/Controller/ArgumentValueResolverInterface.d.ts" />
 /// <reference path="Controller/ContainerControllerResolver.d.ts" />
 /// <reference path="Controller/ControllerResolverInterface.d.ts" />
 /// <reference path="Controller/FunctionControllerResolver.d.ts" />

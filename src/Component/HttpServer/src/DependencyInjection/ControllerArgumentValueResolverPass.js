@@ -46,7 +46,7 @@ export default class ControllerArgumentValueResolverPass extends implementationO
 
         container
             .getDefinition(this._argumentResolverService)
-            .replaceArgument(0, new IteratorArgument(resolvers))
+            .replaceArgument(1, new IteratorArgument(resolvers))
         ;
     }
 }

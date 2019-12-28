@@ -1,4 +1,3 @@
-const ReflectionHelper = Jymfony.Component.Autoloader.Reflection.ReflectionHelper;
 const ArgumentValueResolverInterface = Jymfony.Component.HttpServer.Controller.ArgumentValueResolverInterface;
 const Request = Jymfony.Component.HttpFoundation.Request;
 const RequestInterface = Jymfony.Contracts.HttpFoundation.RequestInterface;
@@ -14,7 +13,7 @@ export default class RequestValueResolver extends implementationOf(ArgumentValue
      * @inheritdoc
      */
     supports(request, argument) {
-        const type = ReflectionHelper.getParameterType(argument);
+        const type = argument.type;
         if (! type) {
             return false;
         }

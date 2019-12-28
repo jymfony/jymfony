@@ -60,6 +60,8 @@ class ReflectionMethod {
             throw new ReflectionException('Unknown method "' + methodName + '\'');
         }
 
+        this._method = method.value;
+
         /**
          * @type {string}
          *
@@ -73,13 +75,6 @@ class ReflectionMethod {
          * @private
          */
         this._async = isAsyncFunction(this._method);
-
-        /**
-         * @type {Function}
-         *
-         * @private
-         */
-        this._method = method.value;
 
         /**
          * @type {ReflectionParameter[]}
@@ -167,6 +162,15 @@ class ReflectionMethod {
      */
     get parameters() {
         return this._parameters;
+    }
+
+    /**
+     * Gets the reflected method.
+     *
+     * @returns {Function}
+     */
+    get method() {
+        return this._method;
     }
 
     /**

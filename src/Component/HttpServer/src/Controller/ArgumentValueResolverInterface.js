@@ -8,7 +8,7 @@ class ArgumentValueResolverInterface {
      * Whether this resolver can resolve the value for the given ReflectionParameter.
      *
      * @param {Jymfony.Component.HttpFoundation.Request} request
-     * @param {ReflectionParameter} argument
+     * @param {Jymfony.Component.HttpServer.Controller.Metadata.ControllerArgumentMetadata} argument
      *
      * @returns {boolean}
      */
@@ -18,7 +18,7 @@ class ArgumentValueResolverInterface {
      * Returns the possible value(s).
      *
      * @param {Jymfony.Component.HttpFoundation.Request} request
-     * @param {ReflectionParameter} argument
+     * @param {Jymfony.Component.HttpServer.Controller.Metadata.ControllerArgumentMetadata} argument
      *
      * @returns {Iterable<*>|AsyncIterable<*>}
      */

@@ -1,4 +1,3 @@
-const ReflectionHelper = Jymfony.Component.Autoloader.Reflection.ReflectionHelper;
 const ArgumentValueResolverInterface = Jymfony.Component.HttpServer.Controller.ArgumentValueResolverInterface;
 const SessionInterface = Jymfony.Component.HttpFoundation.Session.SessionInterface;
 
@@ -17,7 +16,7 @@ export default class SessionValueResolver extends implementationOf(ArgumentValue
             return false;
         }
 
-        const type = ReflectionHelper.getParameterType(argument);
+        const type = argument.type;
 
         return (
             type === SessionInterface || type === ReflectionClass.getClassName(SessionInterface) ||

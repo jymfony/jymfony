@@ -3,7 +3,7 @@ declare namespace Jymfony.Contracts.Metadata {
      * Represents a Metadata factory.
      * Returns instances of {@see Jymfony.Contracts.Metadata.MetadataInterface}.
      */
-    export class MetadataFactoryInterface extends MixinInterface {
+    export class MetadataFactoryInterface<T extends MetadataInterface = MetadataInterface> extends MixinInterface {
         public static readonly definition: Newable<MetadataFactoryInterface>;
 
         /**
@@ -13,7 +13,7 @@ declare namespace Jymfony.Contracts.Metadata {
          *
          * @throws {Jymfony.Contracts.Metadata.Exception.InvalidArgumentException}
          */
-        getMetadataFor(subject: any): MetadataInterface;
+        getMetadataFor(subject: any): T;
 
         /**
          * Whether the factory has a metadata for the given subject.

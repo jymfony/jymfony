@@ -27,6 +27,7 @@
     "@jymfony/http-foundation": "https://github.com/jymfony/http-foundation.git",
     "@jymfony/kernel": "https://github.com/jymfony/kernel.git",
     "@jymfony/logger": "https://github.com/jymfony/logger.git",
+    "@jymfony/metadata": "https://github.com/jymfony/metadata.git",
     "@jymfony/routing": "https://github.com/jymfony/routing.git",
     "@jymfony/util": "https://github.com/jymfony/util.git"
   },

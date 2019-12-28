@@ -20,7 +20,7 @@ describe('[HttpServer] ControllerArgumentResolverPass', function () {
             new Reference('n3'),
         ];
 
-        const definition = new Definition(ArgumentResolver, [ [] ]);
+        const definition = new Definition(ArgumentResolver, [ null, [] ]);
         const container = new ContainerBuilder();
         container.setDefinition('argument_resolver', definition);
 
@@ -31,7 +31,7 @@ describe('[HttpServer] ControllerArgumentResolverPass', function () {
         container.setParameter('kernel.debug', false);
 
         (new ControllerArgumentValueResolverPass()).process(container);
-        expect(definition.getArgument(0).values).to.dumpsAs(expected);
+        expect(definition.getArgument(1).values).to.dumpsAs(expected);
 
         expect(container.hasDefinition('debug.n1')).to.be.equal(false);
         expect(container.hasDefinition('debug.n2')).to.be.equal(false);
@@ -51,7 +51,7 @@ describe('[HttpServer] ControllerArgumentResolverPass', function () {
             new Reference('n3'),
         ];
 
-        const definition = new Definition(ArgumentResolver, [ [] ]);
+        const definition = new Definition(ArgumentResolver, [ null, [] ]);
         const container = new ContainerBuilder();
         container.setDefinition('argument_resolver', definition);
         container.register('debug.stopwatch', Stopwatch);
@@ -64,7 +64,7 @@ describe('[HttpServer] ControllerArgumentResolverPass', function () {
         container.setParameter('kernel.debug', true);
 
         (new ControllerArgumentValueResolverPass()).process(container);
-        expect(definition.getArgument(0).values).to.dumpsAs(expected);
+        expect(definition.getArgument(1).values).to.dumpsAs(expected);
 
         expect(container.hasDefinition('debug.n1')).to.be.equal(true);
         expect(container.hasDefinition('debug.n2')).to.be.equal(true);
@@ -78,7 +78,7 @@ describe('[HttpServer] ControllerArgumentResolverPass', function () {
     it ('should not inject stopwatch if not registered', () => {
         const expected = [ new Reference('n1') ];
 
-        const definition = new Definition(ArgumentResolver, [ [] ]);
+        const definition = new Definition(ArgumentResolver, [ null, [] ]);
         const container = new ContainerBuilder();
         container.register('n1').addTag('controller.argument_value_resolver');
         container.setDefinition('argument_resolver', definition);
@@ -86,21 +86,21 @@ describe('[HttpServer] ControllerArgumentResolverPass', function () {
         container.setParameter('kernel.debug', true);
 
         (new ControllerArgumentValueResolverPass()).process(container);
-        expect(definition.getArgument(0).values).to.dumpsAs(expected);
+        expect(definition.getArgument(1).values).to.dumpsAs(expected);
 
         expect(container.hasDefinition('debug.n1')).to.be.equal(false);
         expect(container.hasDefinition('n1')).to.be.equal(true);
     });
 
     it ('should return empty array when no service is present', () => {
-        const definition = new Definition(ArgumentResolver, [ [] ]);
+        const definition = new Definition(ArgumentResolver, [ null, [] ]);
         const container = new ContainerBuilder();
         container.setDefinition('argument_resolver', definition);
 
         container.setParameter('kernel.debug', false);
 
         (new ControllerArgumentValueResolverPass()).process(container);
-        expect(definition.getArgument(0).values).to.be.deep.equal([]);
+        expect(definition.getArgument(1).values).to.be.deep.equal([]);
     });
 
     it ('should not break if resolver is absent', () => {

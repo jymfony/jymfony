@@ -5,7 +5,9 @@ const Session = Jymfony.Component.HttpFoundation.Session.Session;
 const MockArraySessionStorage = Jymfony.Component.HttpFoundation.Session.Storage.MockArraySessionStorage;
 const ArgumentResolver = Jymfony.Component.HttpServer.Controller.ArgumentResolver;
 const ArgumentValueResolverInterface = Jymfony.Component.HttpServer.Controller.ArgumentValueResolverInterface;
+const ControllerArgumentMetadata = Jymfony.Component.HttpServer.Controller.Metadata.ControllerArgumentMetadata;
 const Fixtures = Jymfony.Component.HttpServer.Tests.Fixtures.ArgumentResolver;
+const Argument = Jymfony.Component.Testing.Argument.Argument;
 const Prophet = Jymfony.Component.Testing.Prophet;
 const { expect } = require('chai');
 
@@ -27,15 +29,14 @@ describe('[HttpServer] ArgumentResolverTest', function () {
     it ('should call resolve on value resolvers', async () => {
         const valueResolver = this._prophet.prophesize(ArgumentValueResolverInterface);
         const req = Request.create('/');
-        const resolver = new ArgumentResolver([ valueResolver.reveal() ]);
+        const resolver = new ArgumentResolver(null, [ valueResolver.reveal() ]);
 
         const controller = new Fixtures.Controller();
-        const reflMethod = new ReflectionClass(controller).getMethod('fooAction');
 
-        valueResolver.supports(req, reflMethod.parameters[0])
+        valueResolver.supports(req, Argument.type(ControllerArgumentMetadata))
             .shouldBeCalledTimes(1)
             .willReturn(true);
-        valueResolver.resolve(req, reflMethod.parameters[0])
+        valueResolver.resolve(req, Argument.type(ControllerArgumentMetadata))
             .shouldBeCalledTimes(1)
             .willReturn([ req ]);
 
@@ -46,15 +47,13 @@ describe('[HttpServer] ArgumentResolverTest', function () {
     it ('should throw if value resolver supports parameter but does not yields any value', async () => {
         const valueResolver = this._prophet.prophesize(ArgumentValueResolverInterface);
         const req = Request.create('/');
-        const resolver = new ArgumentResolver([ valueResolver.reveal() ]);
+        const resolver = new ArgumentResolver(null, [ valueResolver.reveal() ]);
 
         const controller = new Fixtures.Controller();
-        const reflMethod = new ReflectionClass(controller).getMethod('fooAction');
-
-        valueResolver.supports(req, reflMethod.parameters[0])
+        valueResolver.supports(req, Argument.type(ControllerArgumentMetadata))
             .shouldBeCalledTimes(1)
             .willReturn(true);
-        valueResolver.resolve(req, reflMethod.parameters[0])
+        valueResolver.resolve(req, Argument.type(ControllerArgumentMetadata))
             .shouldBeCalledTimes(1)
             .willReturn([]);
 
@@ -69,12 +68,10 @@ describe('[HttpServer] ArgumentResolverTest', function () {
     it ('should throw if no value resolver supports the argument', async () => {
         const valueResolver = this._prophet.prophesize(ArgumentValueResolverInterface);
         const req = Request.create('/');
-        const resolver = new ArgumentResolver([ valueResolver.reveal() ]);
+        const resolver = new ArgumentResolver(null, [ valueResolver.reveal() ]);
 
         const controller = new Fixtures.Controller();
-        const reflMethod = new ReflectionClass(controller).getMethod('fooAction');
-
-        valueResolver.supports(req, reflMethod.parameters[0])
+        valueResolver.supports(req, Argument.type(ControllerArgumentMetadata))
             .shouldBeCalledTimes(1)
             .willReturn(false);
 

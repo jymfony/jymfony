@@ -4,6 +4,7 @@ const RequestAttributeValueResolver = Jymfony.Component.HttpServer.Controller.Ar
 const RequestValueResolver = Jymfony.Component.HttpServer.Controller.ArgumentResolvers.RequestValueResolver;
 const SessionValueResolver = Jymfony.Component.HttpServer.Controller.ArgumentResolvers.SessionValueResolver;
 const VariadicValueResolver = Jymfony.Component.HttpServer.Controller.ArgumentResolvers.VariadicValueResolver;
+const ArgumentMetadataFactory = Jymfony.Component.HttpServer.Controller.Metadata.ArgumentMetadataFactory;
 
 /**
  * Responsible for resolving the arguments passed to an action.
@@ -15,9 +16,17 @@ export default class ArgumentResolver extends implementationOf(ArgumentResolverI
     /**
      * Constructor.
      *
+     * @param {Jymfony.Contracts.Metadata.MetadataFactoryInterface<Jymfony.Component.HttpServer.Controller.Metadata.ControllerMetadata>} argumentMetadataFactory
      * @param {Jymfony.Component.HttpServer.Controller.ArgumentValueResolverInterface[]} [argumentValueResolvers = []]
      */
-    __construct(argumentValueResolvers = []) {
+    __construct(argumentMetadataFactory = null, argumentValueResolvers = []) {
+        /**
+         * @type {Jymfony.Contracts.Metadata.MetadataFactoryInterface<Jymfony.Component.HttpServer.Controller.Metadata.ControllerMetadata>}
+         *
+         * @private
+         */
+        this._argumentMetadataFactory = argumentMetadataFactory || new ArgumentMetadataFactory();
+
         argumentValueResolvers = [ ...argumentValueResolvers ];
 
         /**
@@ -33,12 +42,12 @@ export default class ArgumentResolver extends implementationOf(ArgumentResolverI
      */
     async getArguments(request, controller) {
         const args = [];
-        const reflectionMethod = this._getReflectionMethod(controller);
-        if (null === reflectionMethod) {
+        const metadata = this._getMetadata(controller);
+        if (null === metadata) {
             return [ request ];
         }
 
-        controller_argument: for (const parameter of reflectionMethod.parameters) {
+        controller_argument: for (const parameter of metadata.parameters) {
             for (const resolver of this._argumentValueResolvers) {
                 if (! resolver.supports(request, parameter)) {
                     continue;
@@ -58,6 +67,7 @@ export default class ArgumentResolver extends implementationOf(ArgumentResolverI
                 continue controller_argument;
             }
 
+            const reflectionMethod = parameter.reflection;
             const representative = reflectionMethod.reflectionClass.name +
                 ('__invoke' !== reflectionMethod.name ? ':' + reflectionMethod.name + '()' : '');
 
@@ -83,39 +93,19 @@ export default class ArgumentResolver extends implementationOf(ArgumentResolverI
     }
 
     /**
-     * Gets the ReflectionMethod object from the controller.
+     * Gets the ControllerMetadata object from the controller.
      *
      * @param {Function} controller
      *
-     * @returns {ReflectionMethod}
+     * @returns {Jymfony.Component.HttpServer.Controller.Metadata.ControllerMetadata}
      *
      * @private
      */
-    _getReflectionMethod(controller) {
-        let innerObject;
-
-        try {
-            innerObject = controller.innerObject; // BoundFunction
-        } catch (e) {
-            // Do nothing.
-        }
-
-        if (!! innerObject) {
-            controller = [ innerObject.getObject(), innerObject._func.name ];
-        }
-
-        if ('function' === typeof controller && ! ReflectionClass.exists(controller)) {
+    _getMetadata(controller) {
+        if (! this._argumentMetadataFactory.hasMetadataFor(controller)) {
             return null;
         }
 
-        if (isCallableArray(controller)) {
-            return new ReflectionClass(controller[0]).getMethod(controller[1]);
-        }
-
-        if (isFunction(controller) && isFunction(controller.__invoke)) {
-            return new ReflectionClass(controller).getMethod('__invoke');
-        }
-
-        return null;
+        return this._argumentMetadataFactory.getMetadataFor(controller);
     }
 }

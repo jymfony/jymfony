@@ -14,6 +14,11 @@ Jymfony.Component.HttpServer = {
          * @namespace
          */
         ArgumentResolvers: {},
+
+        /**
+         * @namespace
+         */
+        Metadata: {},
     },
 
     /**

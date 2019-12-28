@@ -1,5 +1,7 @@
 declare namespace Jymfony.Component.HttpServer.Controller {
     import Request = Jymfony.Component.HttpFoundation.Request;
+    import ControllerMetadata = Jymfony.Component.HttpServer.Controller.Metadata.ControllerMetadata;
+    import MetadataFactoryInterface = Jymfony.Contracts.Metadata.MetadataFactoryInterface;
 
     /**
      * Responsible for resolving the arguments passed to an action.
@@ -12,8 +14,8 @@ declare namespace Jymfony.Component.HttpServer.Controller {
         /**
          * Constructor.
          */
-        __construct(argumentValueResolvers?: Iterator<ArgumentValueResolverInterface>): void;
-        constructor(argumentValueResolvers?: Iterator<ArgumentValueResolverInterface>);
+        __construct(argumentMetadataFactory: MetadataFactoryInterface, argumentValueResolvers?: Iterator<ArgumentValueResolverInterface>): void;
+        constructor(argumentMetadataFactory: MetadataFactoryInterface, argumentValueResolvers?: Iterator<ArgumentValueResolverInterface>);
 
         /**
          * @inheritdoc
@@ -26,8 +28,8 @@ declare namespace Jymfony.Component.HttpServer.Controller {
         static getDefaultArgumentValueResolvers(): ArgumentValueResolverInterface[];
 
         /**
-         * Gets the ReflectionMethod object from the controller.
+         * Gets the ControllerMetadata object from the controller.
          */
-        private _getReflectionMethod(controller: Invokable<any>): ReflectionMethod;
+        private _getMetadata(controller: Invokable<any>): null | ControllerMetadata;
     }
 }
