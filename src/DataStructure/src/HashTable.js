@@ -175,7 +175,7 @@ class HashTable extends mix(Object, GenericCollectionTrait) {
             }
 
             if (isNumericInt(key) && this._lastNumericIdx <= key) {
-                this._lastNumericIdx = key + 1;
+                this._lastNumericIdx = ~~key + 1;
             }
         }
     }

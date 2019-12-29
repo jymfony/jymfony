@@ -128,11 +128,25 @@ class PriorityQueue extends mix(Object, GenericCollectionTrait) {
      * @returns {Array}
      */
     toArray() {
+        if (0 === this._heap.length) {
+            return [];
+        }
+
         const heap = [ ...this._heap ];
         const acc = [];
 
-        while (! this.isEmpty()) {
-            acc.push(this.pop());
+        while (true) {
+            const leaf = this._heap.pop();
+
+            if (! this._heap.length) {
+                acc.push([ leaf.priority, leaf.value ]);
+                break;
+            } else {
+                const value = this._getRoot();
+                this._setRoot(leaf);
+
+                acc.push([ value.priority, value.value ]);
+            }
         }
 
         this._heap = heap;
