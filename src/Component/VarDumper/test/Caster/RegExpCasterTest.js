@@ -8,7 +8,7 @@ RegExp {
   flags: gi
 }`;
 
-        expect(/23/gi).to.dumpsAsFormat(dump);
-        expect(new RegExp('23', 'gi')).to.dumpsAsFormat(dump);
+        expect(/23/gi).to.dump.as.format(dump);
+        expect(new RegExp('23', 'gi')).to.dump.as.format(dump);
     });
 });

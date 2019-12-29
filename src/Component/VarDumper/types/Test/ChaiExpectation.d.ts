@@ -2,12 +2,12 @@
 
 declare namespace Chai {
     interface Assertion extends LanguageChains, NumericComparison, TypeComparison {
-        dumpsAs(other: any): void;
-        dumpsAsFormat(other: any): void;
+        dump.as(other: any): void;
+        dump.as.format(other: any): void;
     }
 
     interface Assert {
-        dumpsAs(other: any): void;
-        dumpsAsFormat(other: any): void;
+        dump.as(other: any): void;
+        dump.as.format(other: any): void;
     }
 }

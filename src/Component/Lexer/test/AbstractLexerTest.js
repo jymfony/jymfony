@@ -36,10 +36,10 @@ describe('[Lexer] AbstractLexer', function () {
 
     it ('resetPeek should work', () => {
         this._concreteLexer.input = INPUT;
-        expect(this._concreteLexer.peek()).to.dumpsAs(expectedTokens[0]);
-        expect(this._concreteLexer.peek()).to.dumpsAs(expectedTokens[1]);
+        expect(this._concreteLexer.peek()).to.dump.as(expectedTokens[0]);
+        expect(this._concreteLexer.peek()).to.dump.as(expectedTokens[1]);
         this._concreteLexer.resetPeek();
-        expect(this._concreteLexer.peek()).to.dumpsAs(expectedTokens[0]);
+        expect(this._concreteLexer.peek()).to.dump.as(expectedTokens[0]);
     });
 
     it ('reset position should work', () => {
@@ -47,15 +47,15 @@ describe('[Lexer] AbstractLexer', function () {
         expect(this._concreteLexer.token).to.be.equal(undefined);
 
         expect(this._concreteLexer.moveNext()).to.be.equal(true);
-        expect(this._concreteLexer.token).to.dumpsAs(expectedTokens[0]);
+        expect(this._concreteLexer.token).to.dump.as(expectedTokens[0]);
 
         expect(this._concreteLexer.moveNext()).to.be.equal(true);
-        expect(this._concreteLexer.token).to.dumpsAs(expectedTokens[1]);
+        expect(this._concreteLexer.token).to.dump.as(expectedTokens[1]);
 
         this._concreteLexer.resetPosition(0);
 
         expect(this._concreteLexer.moveNext()).to.be.equal(true);
-        expect(this._concreteLexer.token).to.dumpsAs(expectedTokens[0]);
+        expect(this._concreteLexer.token).to.dump.as(expectedTokens[0]);
     });
 
     it ('should move to next token', () => {
@@ -64,7 +64,7 @@ describe('[Lexer] AbstractLexer', function () {
 
         for (let i = 0; i < expectedTokens.length; ++i) {
             expect(this._concreteLexer.moveNext()).to.be.equal(true);
-            expect(this._concreteLexer.token).to.dumpsAs(expectedTokens[i]);
+            expect(this._concreteLexer.token).to.dump.as(expectedTokens[i]);
         }
 
         expect(this._concreteLexer.moveNext()).to.be.equal(false);
@@ -77,14 +77,14 @@ describe('[Lexer] AbstractLexer', function () {
         expect(this._concreteLexer.moveNext()).to.be.equal(true);
         this._concreteLexer.skipUntil('operator');
 
-        expect(this._concreteLexer.token).to.dumpsAs(expectedTokens[1]);
+        expect(this._concreteLexer.token).to.dump.as(expectedTokens[1]);
     });
 
     it ('should parse utf-8 input', () => {
         this._concreteLexer.input = '\xE9=10';
 
         expect(this._concreteLexer.moveNext()).to.be.equal(true);
-        expect(this._concreteLexer.token).to.dumpsAs({
+        expect(this._concreteLexer.token).to.dump.as({
             value: '\xE9',
             type: 'string',
             position: 0,
@@ -94,7 +94,7 @@ describe('[Lexer] AbstractLexer', function () {
     it ('peek should work', () => {
         this._concreteLexer.input = INPUT;
         for (const expectedToken of expectedTokens) {
-            expect(this._concreteLexer.peek()).to.dumpsAs(expectedToken);
+            expect(this._concreteLexer.peek()).to.dump.as(expectedToken);
         }
 
         expect(this._concreteLexer.peek()).to.be.equal(undefined);
@@ -103,7 +103,7 @@ describe('[Lexer] AbstractLexer', function () {
     it ('glimpse should work', () => {
         this._concreteLexer.input = INPUT;
         for (const expectedToken of expectedTokens) {
-            expect(this._concreteLexer.glimpse()).to.dumpsAs(expectedToken);
+            expect(this._concreteLexer.glimpse()).to.dump.as(expectedToken);
             this._concreteLexer.moveNext();
         }
 

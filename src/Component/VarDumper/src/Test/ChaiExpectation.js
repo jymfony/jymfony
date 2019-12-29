@@ -34,7 +34,7 @@ const prepareExpectation = (expected, filter = 0) => {
 };
 
 if (!! util) {
-    util.addChainableMethod(Assertion.prototype, 'dumpsAs', function (val, message = undefined) {
+    function dump(val, message = undefined) {
         if (message) {
             util.flag(this, 'message', message);
         }
@@ -42,34 +42,52 @@ if (!! util) {
         const obj = getDump(util.flag(this, 'object'));
         val = prepareExpectation(val);
 
-        this.assert(
-            prepareExpectation(val) === obj
-            , 'expected #{this} dumps the same as #{exp}'
-            , 'expected #{this} does not dump the same as #{exp}'
-            , val
-            , obj
-            , true
-        );
+        if (util.flag(this, '__jymfony.dump_format')) {
+            val = __jymfony.strtr(__jymfony.regex_quote(val), {
+                '/': '\\/',
+                '%%': '%',
+                '%e': '\\' + path.sep,
+                '%s': '[^\\r\\n]+',
+                '%S': '[^\\r\\n]*',
+                '%a': '.+',
+                '%A': '.*',
+                '%w': '\\s*',
+                '%i': '[+-]?\\d+',
+                '%d': '\\d+',
+                '%x': '[0-9a-fA-F]+',
+                '%f': '[+-]?\\.?\\d+\\.?\\d*(?:[Ee][+-]?\\d+)?',
+                '%c': '.',
+            });
+
+            this.assert(
+                (new RegExp('^' + val + '$', 's')).test(getDump(this._obj)),
+                'expected #{this} dumps matching format #{exp}',
+                'expected #{this} does not dump matching format #{exp}',
+                val,
+                obj,
+                true
+            );
+        } else {
+            this.assert(
+                prepareExpectation(val) === obj,
+                'expected #{this} dumps the same as #{exp}',
+                'expected #{this} does not dump the same as #{exp}',
+                val,
+                obj,
+                true
+            );
+        }
+    }
+
+    util.addChainableMethod(Assertion.prototype, 'dump', dump, function () {
+        util.flag(this, '__jymfony.dump', true);
     });
 
-    util.addChainableMethod(Assertion.prototype, 'dumpsAsFormat', function (str, message = undefined) {
-        str = prepareExpectation(str);
-        str = __jymfony.strtr(__jymfony.regex_quote(str), {
-            '/': '\\/',
-            '%%': '%',
-            '%e': '\\' + path.sep,
-            '%s': '[^\\r\\n]+',
-            '%S': '[^\\r\\n]*',
-            '%a': '.+',
-            '%A': '.*',
-            '%w': '\\s*',
-            '%i': '[+-]?\\d+',
-            '%d': '\\d+',
-            '%x': '[0-9a-fA-F]+',
-            '%f': '[+-]?\\.?\\d+\\.?\\d*(?:[Ee][+-]?\\d+)?',
-            '%c': '.',
-        });
-
-        new Assertion(getDump(this._obj)).to.match(new RegExp('^' + str + '$', 's'), message);
+    util.addChainableMethod(Assertion.prototype, 'as', dump);
+    util.addChainableMethod(Assertion.prototype, 'format', function (val, message = undefined) {
+        util.flag(this, '__jymfony.dump_format', true);
+        dump.apply(this, [ val, message ]);
+    }, function () {
+        util.flag(this, '__jymfony.dump_format', true);
     });
 }

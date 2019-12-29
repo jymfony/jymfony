@@ -199,7 +199,7 @@ describe('[DependencyInjection] Compiler', function () {
             actualService.setChanges({});
             expectedService.setChanges({});
 
-            expect(actualService).to.dumpsAs(expectedService);
+            expect(actualService).to.dump.as(expectedService);
         });
     }
 

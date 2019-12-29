@@ -19,10 +19,14 @@ describe('[VarDumper] ChaiExpectation', function () {
 
         expected += ']\n';
 
-        expect(array).to.dumpsAs(expected);
+        expect(array).to.dump.as(expected);
     });
 
     it('should allow non scalar expression', () => {
-        expect({ bin: 'bum', bam: 'foo'}).to.dumpsAs({ bin: 'bum', bam: 'foo'});
+        expect({ bin: 'bum', bam: 'foo'}).to.dump.as({ bin: 'bum', bam: 'foo'});
+    });
+
+    it('should accepts format', () => {
+        expect({ bin: 'bum', bam: 'foo'}).to.dump.as.format('{\n  +"bin"%A');
     });
 });

@@ -31,7 +31,7 @@ describe('[HttpServer] ControllerArgumentResolverPass', function () {
         container.setParameter('kernel.debug', false);
 
         (new ControllerArgumentValueResolverPass()).process(container);
-        expect(definition.getArgument(1).values).to.dumpsAs(expected);
+        expect(definition.getArgument(1).values).to.dump.as(expected);
 
         expect(container.hasDefinition('debug.n1')).to.be.equal(false);
         expect(container.hasDefinition('debug.n2')).to.be.equal(false);
@@ -64,7 +64,7 @@ describe('[HttpServer] ControllerArgumentResolverPass', function () {
         container.setParameter('kernel.debug', true);
 
         (new ControllerArgumentValueResolverPass()).process(container);
-        expect(definition.getArgument(1).values).to.dumpsAs(expected);
+        expect(definition.getArgument(1).values).to.dump.as(expected);
 
         expect(container.hasDefinition('debug.n1')).to.be.equal(true);
         expect(container.hasDefinition('debug.n2')).to.be.equal(true);
@@ -86,7 +86,7 @@ describe('[HttpServer] ControllerArgumentResolverPass', function () {
         container.setParameter('kernel.debug', true);
 
         (new ControllerArgumentValueResolverPass()).process(container);
-        expect(definition.getArgument(1).values).to.dumpsAs(expected);
+        expect(definition.getArgument(1).values).to.dump.as(expected);
 
         expect(container.hasDefinition('debug.n1')).to.be.equal(false);
         expect(container.hasDefinition('n1')).to.be.equal(true);
