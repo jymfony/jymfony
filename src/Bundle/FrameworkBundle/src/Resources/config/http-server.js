@@ -45,6 +45,7 @@ container.register(Jymfony.Component.HttpServer.RequestHandler)
 ;
 
 container.setDefinition(Jymfony.Component.HttpServer.HttpServer, new ChildDefinition(Jymfony.Component.HttpServer.RequestHandler))
+    .setClass(Jymfony.Component.HttpServer.HttpServer)
     .setPublic(true)
 ;
 
@@ -79,5 +80,6 @@ container.register(Jymfony.Component.HttpServer.EventListener.WebsocketListener)
 ;
 
 container.setDefinition(Jymfony.Component.HttpServer.Serverless.AwsLambdaHandler, new ChildDefinition(Jymfony.Component.HttpServer.RequestHandler))
+    .setClass(Jymfony.Component.HttpServer.Serverless.AwsLambdaHandler)
     .setPublic(true)
 ;
