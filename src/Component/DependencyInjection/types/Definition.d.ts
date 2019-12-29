@@ -1,7 +1,7 @@
 declare namespace Jymfony.Component.DependencyInjection {
     export class Definition {
         private _class: string | undefined;
-        private _arguments: any[];
+        protected _arguments: HashTable;
         private _module: string[] | undefined;
         private _factory: string | string[] | undefined;
         private _shared: boolean;

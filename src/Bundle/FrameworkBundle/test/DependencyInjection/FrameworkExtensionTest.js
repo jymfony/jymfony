@@ -90,9 +90,5 @@ describe('[FrameworkBundle] FrameworkExtension', function () {
 
         const def = this.container.getDefinition(Jymfony.Component.HttpServer.HttpServer);
         expect(def.getClass()).to.be.equal('Jymfony.Component.HttpServer.Http2.HttpServer');
-        expect(def.getArgument(3)).to.be.deep.equal({
-            key: '/path/to/file.key',
-            cert: '/path/to/certificate.pem',
-        });
     });
 });
