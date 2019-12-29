@@ -9,6 +9,7 @@ src/Component/VarExporter/fixtures
 src/**/*Interface.js
 
 src/Bundle/FrameworkBundle/src/Controller/AbstractController.js
+src/Bundle/FrameworkBundle/src/Controller/ExceptionController.js
 src/Bundle/FrameworkBundle/fixtures/Controller/ConcreteController.js
 src/Bundle/FrameworkBundle/fixtures/Controller/TestAbstractController.js
 src/Bundle/FrameworkBundle/fixtures/Controller/TypedController.js
