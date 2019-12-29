@@ -1,5 +1,6 @@
 /** @global {Jymfony.Component.DependencyInjection.ContainerBuilder} container */
 
+const ChildDefinition = Jymfony.Component.DependencyInjection.ChildDefinition;
 const Container = Jymfony.Component.DependencyInjection.Container;
 const Reference = Jymfony.Component.DependencyInjection.Reference;
 
@@ -35,12 +36,16 @@ container.register('argument_resolver.variadic', Jymfony.Component.HttpServer.Co
     .addTag('controller.argument_value_resolver', { priority: -150 })
 ;
 
-container.register(Jymfony.Component.HttpServer.HttpServer)
-    .setPublic(true)
+container.register(Jymfony.Component.HttpServer.RequestHandler)
+    .setAbstract(true)
     .addArgument(new Reference('event_dispatcher'))
     .addArgument(new Reference(Jymfony.Component.HttpFoundation.Controller.ControllerResolverInterface))
     .addArgument(new Reference('argument_resolver'))
     .addMethodCall('setLogger', [ new Reference('logger', Container.IGNORE_ON_INVALID_REFERENCE) ])
+;
+
+container.setDefinition(Jymfony.Component.HttpServer.HttpServer, new ChildDefinition(Jymfony.Component.HttpServer.RequestHandler))
+    .setPublic(true)
 ;
 
 container.register('kernel.exception_controller', Jymfony.Bundle.FrameworkBundle.Controller.ExceptionController)
@@ -73,9 +78,6 @@ container.register(Jymfony.Component.HttpServer.EventListener.WebsocketListener)
     .addTag('kernel.event_subscriber')
 ;
 
-container.register(Jymfony.Component.HttpServer.Serverless.AwsLambdaHandler)
+container.setDefinition(Jymfony.Component.HttpServer.Serverless.AwsLambdaHandler, new ChildDefinition(Jymfony.Component.HttpServer.RequestHandler))
     .setPublic(true)
-    .addArgument(new Reference('event_dispatcher'))
-    .addArgument(new Reference(Jymfony.Component.HttpFoundation.Controller.ControllerResolverInterface))
-    .addMethodCall('setLogger', [ new Reference('logger', Container.IGNORE_ON_INVALID_REFERENCE) ])
 ;
