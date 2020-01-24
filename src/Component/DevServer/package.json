@@ -1,6 +1,6 @@
 {
   "name": "@jymfony/dev-server",
-  "version": "0.1.0-alpha.19",
+  "version": "0.1.0-alpha.20",
   "description": "Jymfony Development Server component",
   "typings": "types/index.d.ts",
   "scripts": {
@@ -17,10 +17,10 @@
     "node": ">=8.10.0"
   },
   "dependencies": {
-    "@jymfony/autoloader": "0.1.0-alpha.19",
-    "@jymfony/exceptions": "0.1.0-alpha.19",
-    "@jymfony/logger": "0.1.0-alpha.19",
-    "@jymfony/util": "0.1.0-alpha.19"
+    "@jymfony/autoloader": "0.1.0-alpha.20",
+    "@jymfony/exceptions": "0.1.0-alpha.20",
+    "@jymfony/logger": "0.1.0-alpha.20",
+    "@jymfony/util": "0.1.0-alpha.20"
   },
   "devDependencies": {
     "@jymfony/debug": "*",
