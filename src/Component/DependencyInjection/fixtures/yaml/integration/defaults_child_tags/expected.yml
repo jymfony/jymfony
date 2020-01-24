@@ -1,0 +1,7 @@
+services:
+    child_service_expected:
+        class: Object
+        # set explicitly on child (not overridden by parent)
+        autoconfigure: false
+        tags: [from_defaults]
+        public: true

@@ -639,15 +639,17 @@ class ExpressionParserTrait {
             const args = [ expression ];
             while (true) {
                 const right = this._parseExpression({ maxLevel: 2 });
-                if (undefined !== right) {
-                    args.push(right);
-                }
 
                 if (this._lexer.isToken(Lexer.T_COMMA)) {
                     this._next();
                 } else {
+                    if (undefined !== right) {
+                        args.push(right);
+                    }
                     break;
                 }
+
+                args.push(right);
             }
 
             expression = new AST.SequenceExpression(this._makeLocation(start), args);

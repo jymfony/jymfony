@@ -18,7 +18,7 @@ declare class PriorityQueue<T = any> extends Object implements Iterable<T> {
     /**
      * Returns an array copy of the collection.
      */
-    toArray(): T[];
+    toArray(): [number, T][];
 
     /**
      * Empties the queue.

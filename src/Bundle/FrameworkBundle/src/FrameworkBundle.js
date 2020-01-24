@@ -46,6 +46,13 @@ export default class FrameworkBundle extends Bundle {
             .addCompilerPass(new RegisterListenerPass(), PassConfig.TYPE_BEFORE_REMOVING)
             .addCompilerPass(new Compiler.LoggerChannelPass())
             .addCompilerPass(new Compiler.LoggerAddProcessorsPass())
+        ;
+
+        this._addCompilerPassIfExists(container, 'Jymfony.Component.HttpServer.DependencyInjection.RegisterControllerArgumentLocatorsPass');
+        this._addCompilerPassIfExists(container, 'Jymfony.Component.HttpServer.DependencyInjection.RemoveEmptyControllerArgumentLocatorsPass', PassConfig.TYPE_BEFORE_REMOVING);
+        this._addCompilerPassIfExists(container, 'Jymfony.Component.HttpServer.DependencyInjection.ControllerArgumentValueResolverPass');
+
+        container
             .addCompilerPass(new Compiler.TestServiceContainerWeakRefPass(), PassConfig.TYPE_BEFORE_REMOVING, -32)
             .addCompilerPass(new Compiler.TestServiceContainerRealRefPass(), PassConfig.TYPE_AFTER_REMOVING)
             .addCompilerPass(new CachePoolPass(), PassConfig.TYPE_BEFORE_OPTIMIZATION, 32)

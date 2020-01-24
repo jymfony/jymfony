@@ -283,6 +283,7 @@ declare module NodeJS {
         __jymfony: any;
         BoundFunction: Newable<BoundFunction>;
         EmptyIterator: Newable<EmptyIterator>;
+        RecursiveDirectoryIterator: Newable<RecursiveDirectoryIterator>;
 
         getInterface<T extends Newable<any> = any>(definition: T): T & MixinInterface;
         getTrait<T extends Newable<any> = any>(definition: T): T & MixinInterface;
@@ -368,10 +369,6 @@ declare module NodeJS {
     }
 }
 
-interface Function {
-    (...args: any[]): any;
-}
-
 declare type Invokable<T = any> = (...args: any[]) => T | {
     __invoke<A extends any[]>(...args: A): (...args: A) => T;
     __invoke<A0, A extends any[]>(arg0: A0, ...args: A): (...args: A) => T;
@@ -448,7 +445,7 @@ declare function isStream(value: any): value is NodeJS.ReadableStream | NodeJS.W
 declare function isCallableArray(value: any): value is [string, string];
 declare function getCallableFromArray(value: [object, string]): Invokable<any>;
 
-declare class BoundFunction implements Function {
+declare interface BoundFunction extends Function {
     new(thisArg: Object, func: Invokable|Function|GeneratorFunction): Function;
 
     arguments: any;
@@ -470,4 +467,26 @@ interface ObjectConstructor {
     filter: <T>(obj: T, predicate: Invokable<boolean>) => T;
     ksort: <T>(obj: T) => T;
     sort: <T>(obj: T) => T;
+}
+
+declare class RecursiveDirectoryIterator implements Iterator<string>, Iterable<string> {
+    private _path: string;
+    private _dir: undefined|string[];
+    private _current: undefined|string;
+
+    /**
+     * Constructor.
+     */
+    __construct(filepath: string): void;
+    constructor(filepath: string);
+
+    /**
+     * Make this object iterable.
+     */
+    [Symbol.iterator](): RecursiveDirectoryIterator;
+
+    /**
+     * Iterates over values.
+     */
+    next(): IteratorResult<string>;
 }

@@ -33,9 +33,10 @@ export default class HttpServer extends BaseServer {
      *
      * @param {Jymfony.Contracts.EventDispatcher.EventDispatcherInterface} dispatcher
      * @param {Jymfony.Component.HttpFoundation.Controller.ControllerResolverInterface} resolver
-     * @param {Object} serverOptions
+     * @param {Jymfony.Component.HttpServer.Controller.ArgumentResolverInterface} [argumentResolver]
+     * @param {Object} [serverOptions]
      */
-    __construct(dispatcher, resolver, serverOptions = {}) {
+    __construct(dispatcher, resolver, argumentResolver = null, serverOptions = {}) {
         /**
          * @type {Object}
          *
@@ -43,7 +44,7 @@ export default class HttpServer extends BaseServer {
          */
         this._options = serverOptions;
 
-        super.__construct(dispatcher, resolver);
+        super.__construct(dispatcher, resolver, argumentResolver);
     }
 
     /**

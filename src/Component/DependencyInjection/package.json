@@ -27,6 +27,7 @@
   },
   "devDependencies": {
     "@jymfony/debug": "*",
+    "@jymfony/var-dumper": "*",
     "@jymfony/yaml": "*",
     "chai": "^4.2",
     "mocha": "^6.0"

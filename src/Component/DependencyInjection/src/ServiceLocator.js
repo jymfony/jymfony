@@ -133,7 +133,7 @@ export default class ServiceLocator extends implementationOf(ContainerInterface)
      *
      * @private
      */
-    _formatAlternatives() {
+    _formatAlternatives(separator = 'and') {
         let format = '"%s"%s';
 
         const alternatives = Object.keys(this._factories);

@@ -59,6 +59,8 @@ global.isScalar = function isScalar(value) {
     return false;
 };
 
+const objectPrototype = Object.getPrototypeOf({});
+
 /**
  * @param {*} value
  *
@@ -69,7 +71,14 @@ global.isObjectLiteral = function isObjectLiteral(value) {
         return false;
     }
 
-    return Object.getPrototypeOf(value) === Object.getPrototypeOf({});
+    let proto;
+    try {
+        proto = Object.getPrototypeOf(value);
+    } catch (e) {
+        return false;
+    }
+
+    return null === proto || proto === objectPrototype;
 };
 
 /**

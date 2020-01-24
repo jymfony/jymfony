@@ -9,6 +9,7 @@ const Parser = require('../Parser/Parser');
 const ReflectionParameter = require('./ReflectionParameter');
 const RestElement = require('../Parser/AST/RestElement');
 const SourceMapGenerator = require('../Parser/SourceMap/Generator');
+const SpreadElement = require('../Parser/AST/SpreadElement');
 const vm = require('vm');
 
 const descriptorStorage = new DescriptorStorage(
@@ -59,6 +60,8 @@ class ReflectionMethod {
             throw new ReflectionException('Unknown method "' + methodName + '\'');
         }
 
+        this._method = method.value;
+
         /**
          * @type {string}
          *
@@ -72,13 +75,6 @@ class ReflectionMethod {
          * @private
          */
         this._async = isAsyncFunction(this._method);
-
-        /**
-         * @type {Function}
-         *
-         * @private
-         */
-        this._method = method.value;
 
         /**
          * @type {ReflectionParameter[]}
@@ -169,6 +165,15 @@ class ReflectionMethod {
     }
 
     /**
+     * Gets the reflected method.
+     *
+     * @returns {Function}
+     */
+    get method() {
+        return this._method;
+    }
+
+    /**
      * Parses the method parameter.
      *
      * @private
@@ -177,7 +182,7 @@ class ReflectionMethod {
         let parsed;
         try {
             const parser = new Parser(descriptorStorage);
-            parsed = parser.parse('function ' + this._method.toString());
+            parsed = parser.parse('function ' + this._method.toString().replace(/^(async\s+)?(\*\s*)?(function\s+)?/, ''));
         } catch (e) {
             // Do nothing.
             return;
@@ -203,6 +208,9 @@ class ReflectionMethod {
 
             if (parameter instanceof RestElement) {
                 parameter = parameter.argument;
+                restElement = true;
+            } else if (parameter instanceof SpreadElement) {
+                parameter = parameter.expression;
                 restElement = true;
             }
 

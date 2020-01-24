@@ -53,6 +53,16 @@ const serialize = (value) => {
         return 'O(' + vals.length + '):{' + vals.join(';') + (vals.length ? ';' : '') + '}';
     }
 
+    if (
+        value.constructor === HashTable ||
+        value.constructor === BTree ||
+        value.constructor === LinkedList ||
+        value.constructor === PriorityQueue
+    ) {
+        return 'T[' + value.constructor.name + '](' + value.length + '):{' +
+            value.toArray().map(serialize).join(';') + (value.length ? ';' : '') + '}';
+    }
+
     const reflClass = new ReflectionClass(value);
     if (! reflClass.name) {
         throw new RuntimeException('Cannot serialize non-autoloaded object (no metadata present for deserialization)');
@@ -143,6 +153,64 @@ const unserialize = (serialized) => {
                 length = readUntil(')');
                 expect(':');
                 return Buffer.from(readData(length), 'hex');
+            }
+
+            case 'T': {
+                expect('[');
+                const class_ = readUntil(']');
+                expect('(');
+                length = readUntil(')');
+
+                expect(':');
+                expect('{');
+
+                const values = [];
+                values.length = length;
+
+                let idx = 0;
+                while (idx < length) {
+                    values[idx++] = doUnserialize();
+                    expect(';');
+                }
+
+                expect('}');
+
+                let val;
+                switch (class_) {
+                    case 'HashTable':
+                        val = new HashTable();
+                        for (const [ key, value ] of values) {
+                            val.put(key, value);
+                        }
+
+                        return val;
+
+                    case 'LinkedList':
+                        val = new LinkedList();
+                        for (const value of values) {
+                            val.push(value);
+                        }
+
+                        return val;
+
+                    case 'BTree':
+                        val = new BTree();
+                        for (const [ key, value ] of values) {
+                            val.push(key, value);
+                        }
+
+                        return val;
+
+                    case 'PriorityQueue':
+                        val = new PriorityQueue();
+                        for (const [ priority, value ] of values) {
+                            val.push(value, priority);
+                        }
+
+                        return val;
+                }
+
+                throw new Error('Invalid serialized value. Unknown structure class ' + class_);
             }
 
             case 'A': {

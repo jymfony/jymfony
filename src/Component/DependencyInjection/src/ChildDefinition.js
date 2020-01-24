@@ -19,13 +19,6 @@ export default class ChildDefinition extends Definition {
          * @private
          */
         this._parent = Container.normalizeId(parent);
-
-        /**
-         * @type {Object}
-         *
-         * @private
-         */
-        this._replacedArguments = {};
     }
 
     /**
@@ -51,36 +44,9 @@ export default class ChildDefinition extends Definition {
     /**
      * @inheritdoc
      */
-    setArguments(args) {
-        for (const [ k, v ] of __jymfony.getEntries(args)) {
-            this.replaceArgument(k, v);
-        }
-
-        return this;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    getArguments() {
-        const args = [ ...this._arguments ];
-        for (const [ k, v ] of __jymfony.getEntries(this._replacedArguments)) {
-            if (k >= args.length) {
-                continue;
-            }
-
-            args[k] = v;
-        }
-
-        return __jymfony.deepClone(args);
-    }
-
-    /**
-     * @inheritdoc
-     */
     getArgument(index) {
-        if (this._replacedArguments.hasOwnProperty(index)) {
-            return this._replacedArguments(index);
+        if (this._arguments.has('index_' + index)) {
+            return this._arguments.get('index_' + index);
         }
 
         return super.getArgument(index);
@@ -90,7 +56,13 @@ export default class ChildDefinition extends Definition {
      * @inheritdoc
      */
     replaceArgument(index, argument) {
-        this._replacedArguments[index] = argument;
+        if (isNumber(index)) {
+            this._arguments.put('index_' + index, argument);
+        } else if (String(index).startsWith('$')) {
+            this._arguments.put(index, argument);
+        } else {
+            throw new InvalidArgumentException('The argument must be an existing index or the name of a constructor\'s parameter.');
+        }
 
         return this;
     }

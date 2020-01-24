@@ -19,7 +19,7 @@ export default class NoCallsPrediction extends implementationOf(PredictionInterf
             'No calls expected that match:\n' +
             '  %s.%s(%s)\n' +
             'but %d %s made:\n%s',
-            (new ReflectionClass(object.reveal())).name,
+            object.name,
             method.methodName,
             method.argumentsWildcard,
             calls.length,

@@ -100,7 +100,7 @@ export default class CallCenter {
      * @returns {Jymfony.Component.Testing.Exception.UnexpectedCallException}
      */
     createUnexpectedCallException(prophecy, methodName, args) {
-        const className = (new ReflectionClass(prophecy.reveal())).name;
+        const className = prophecy.name;
         const argumentList = args.map(StringUtil.stringify).join(', ');
         const expected = prophecy.getMethodProphecies().map(
             /** Jymfony.Component.Testing.Prophecy.MethodProphecy */ methodProphecy => {

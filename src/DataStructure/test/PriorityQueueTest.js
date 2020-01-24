@@ -38,7 +38,7 @@ describe('PriorityQueue', function () {
         q.push('bar', 0);
 
         const copy = q.copy();
-        expect(copy.toArray()).to.be.deep.equal([ 'foo', 'bar' ]);
+        expect(copy.toArray()).to.be.deep.equal([ [ 1, 'foo' ], [ 0, 'bar' ] ]);
     });
 
     it('length', () => {
@@ -114,7 +114,7 @@ describe('PriorityQueue', function () {
         q.push('baz', 1);
         q.push('foobar', 3);
 
-        expect(q.toArray()).to.be.deep.equal([ 'bar', 'foobar', 'foo', 'baz' ]);
+        expect(q.toArray()).to.be.deep.equal([ [ 12, 'bar' ], [ 3, 'foobar' ], [ 1, 'foo' ], [ 1, 'baz' ] ]);
         expect(q.length).to.be.equal(4);
     });
 

@@ -18,6 +18,11 @@ const casters = [
     [ Jymfony.Component.VarDumper.Cloner.AbstractCloner, Caster.StubCaster.cutInternals ],
 
     [ ReflectionClass, Caster.ReflectionCaster.castReflectionClass ],
+
+    [ HashTable, Caster.DataStructureCaster.castHashTable ],
+    [ PriorityQueue, Caster.DataStructureCaster.castDataStructure ],
+    [ BTree, Caster.DataStructureCaster.castDataStructure ],
+    [ LinkedList, Caster.DataStructureCaster.castDataStructure ],
 ];
 
 if (__jymfony.RegExp) {

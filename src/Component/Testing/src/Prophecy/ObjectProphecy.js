@@ -266,4 +266,28 @@ export default class ObjectProphecy extends implementationOf(ProphecyInterface) 
     reveal() {
         return this._doubler.getInstance();
     }
+
+    /**
+     * Calculates the prophecy (friendly) name.
+     *
+     * @returns {string}
+     */
+    get name() {
+        if (!! this._doubler.superClass) {
+            let name = this._doubler.superClass.name;
+            try {
+                name = new ReflectionClass(this._doubler.superClass).name;
+            } catch (e) {
+                // Do nothing.
+            }
+
+            return name;
+        }
+
+        if (1 === this._doubler._interfaces.length) {
+            return new ReflectionClass(this._doubler._interfaces[0]).name;
+        }
+
+        return this.reveal().constructor.name;
+    }
 }

@@ -1,0 +1,38 @@
+{
+  "name": "@jymfony/metadata",
+  "version": "0.1.0-alpha.19",
+  "description": "Jymfony Metadata component",
+  "typings": "types/index.d.ts",
+  "scripts": {
+    "test": "node ./tests.js test/**"
+  },
+  "keywords": [
+    "metadata",
+    "jymfony"
+  ],
+  "author": "Alessandro Chitolina <alekitto@gmail.com>",
+  "license": "MIT",
+  "engines": {
+    "node": ">=8.10.0"
+  },
+  "dependencies": {
+    "@jymfony/autoloader": "0.1.0-alpha.19",
+    "@jymfony/contracts": "0.1.0-alpha.19",
+    "@jymfony/exceptions": "0.1.0-alpha.19",
+    "@jymfony/util": "0.1.0-alpha.19"
+  },
+  "devDependencies": {
+    "@jymfony/debug": "*",
+    "@jymfony/decorators": "*",
+    "@jymfony/testing": "*",
+    "chai": "^4.2",
+    "mocha": "^6.0"
+  },
+  "config": {
+    "jymfony-autoload": {
+      "namespaces": {
+        "Jymfony.Component.Metadata": "src/"
+      }
+    }
+  }
+}

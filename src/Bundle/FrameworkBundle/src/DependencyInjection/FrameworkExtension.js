@@ -72,6 +72,11 @@ export default class FrameworkExtension extends Extension {
         container.registerForAutoconfiguration('Jymfony.Component.Kernel.CacheClearer.CacheWarmerInterface').addTag('kernel.cache_warmer');
         container.registerForAutoconfiguration('Jymfony.Contracts.EventDispatcher.EventSubscriberInterface').addTag('kernel.event_subscriber');
 
+        container.registerForAutoconfiguration('Jymfony.Bundle.FrameworkBundle.Controller.AbstractController')
+            .setPublic(true)
+            .addTag('controller.service_arguments');
+
+        container.registerForAutoconfiguration('Jymfony.Component.HttpServer.Controller.ArgumentValueResolverInterface').addTag('controller.argument_value_resolver');
         container.registerForAutoconfiguration('Jymfony.Component.Mime.MimeTypeGuesserInterface').addTag('mime.mime_type_guesser');
         container.registerForAutoconfiguration('Jymfony.Component.Logger.LoggerAwareInterface')
             .addMethodCall('setLogger', [ new Reference('logger') ]);
@@ -138,6 +143,12 @@ export default class FrameworkExtension extends Extension {
                 container.getDefinition('debug.event_dispatcher')
                     .setClass(Jymfony.Component.HttpServer.Debug.TraceableEventDispatcher);
             }
+        }
+
+        if (ReflectionClass.exists('Jymfony.Component.HttpServer.Controller.ArgumentResolvers.NotTaggedControllerValueResolver')) {
+            container.register('argument_resolver.not_tagged_controller', Jymfony.Component.HttpServer.Controller.ArgumentResolvers.NotTaggedControllerValueResolver)
+                .addArgument()
+                .addTag('controller.argument_value_resolver', {priority: -200});
         }
 
         if (ReflectionClass.exists('Jymfony.Component.VarDumper.VarDumper')) {

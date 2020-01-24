@@ -11,6 +11,16 @@ const { expect } = require('chai');
 
 describe('[Autoloader] Parser', function () {
     const parser = new Parser();
+    const generator = new class extends Generator {
+        toString() {
+            return '';
+        }
+
+        toJSON() {
+            return {};
+        }
+    }();
+
     const excluded = [
         '06f0deb843fbf358.js', // With statement. Not supported: all the generated code is in strict mode.
         '123285734ee7f954.js', // With statement. Not supported: all the generated code is in strict mode.
@@ -122,7 +132,7 @@ describe('[Autoloader] Parser', function () {
         })
 `);
 
-        const compiler = new Compiler(new Generator());
+        const compiler = new Compiler(generator);
         const compiled = compiler.compile(program);
 
         expect(program).is.not.null;
@@ -137,7 +147,7 @@ describe('[Autoloader] Parser', function () {
         })
 `);
 
-        const compiler = new Compiler(new Generator());
+        const compiler = new Compiler(generator);
         const compiled = compiler.compile(program);
 
         expect(program).is.not.null;
@@ -151,7 +161,7 @@ describe('[Autoloader] Parser', function () {
         })
 `);
 
-        const compiler = new Compiler(new Generator());
+        const compiler = new Compiler(generator);
         const compiled = compiler.compile(program);
 
         expect(program).is.not.null;
@@ -161,7 +171,7 @@ describe('[Autoloader] Parser', function () {
     it ('should correctly parse init assignment ', () => {
         const program = parser.parse('var u=-1');
 
-        const compiler = new Compiler(new Generator());
+        const compiler = new Compiler(generator);
         compiler.compile(program);
 
         expect(program).is.not.null;
@@ -170,7 +180,7 @@ describe('[Autoloader] Parser', function () {
     it ('should correctly parse init assignment ', () => {
         const program = parser.parse('function r(n,t){for(var r=-1,e=null==n?0:n.length;++r<e&&false!==t(n[r],r,n););return n}');
 
-        const compiler = new Compiler(new Generator());
+        const compiler = new Compiler(generator);
         compiler.compile(program);
 
         expect(program).is.not.null;
@@ -181,7 +191,7 @@ describe('[Autoloader] Parser', function () {
 import { Client } from 'non-existent-package'
 `);
 
-        const compiler = new Compiler(new Generator());
+        const compiler = new Compiler(generator);
         expect(() => compiler.compile(program)).not.to.throw();
     });
 
@@ -194,7 +204,7 @@ export default () => {
 };
 `);
 
-        const compiler = new Compiler(new Generator());
+        const compiler = new Compiler(generator);
         expect(() => compiler.compile(program)).not.to.throw();
     });
 
@@ -205,7 +215,7 @@ export default () => {
     }).join('');
 `);
 
-        const compiler = new Compiler(new Generator());
+        const compiler = new Compiler(generator);
         expect(() => compiler.compile(program)).not.to.throw();
     });
 
@@ -214,7 +224,7 @@ export default () => {
     true === a?.prop1?.[prop2];
 `);
 
-        const compiler = new Compiler(new Generator());
+        const compiler = new Compiler(generator);
         const compiled = compiler.compile(program);
         expect(compiled).to.match(/true === a\?\.prop1\?\.\[prop2\]/);
     });
@@ -224,8 +234,28 @@ export default () => {
     true === a?.prop1?.('test');
 `);
 
-        const compiler = new Compiler(new Generator());
+        const compiler = new Compiler(generator);
         const compiled = compiler.compile(program);
         expect(compiled).to.match(/true === a\?\.prop1\?\.\('test'\)/);
+    });
+
+    it ('should parse js optional chaining. case #2', () => {
+        const program = parser.parse(`
+    true === a?.prop1?.('test');
+`);
+
+        const compiler = new Compiler(generator);
+        const compiled = compiler.compile(program);
+        expect(compiled).to.match(/true === a\?\.prop1\?\.\('test'\)/);
+    });
+
+    it ('should parse consecutive commas in arrays', () => {
+        const program = parser.parse(`
+    const x = [ 1, , 3, 4 ];
+`);
+
+        const compiler = new Compiler(generator);
+        const compiled = compiler.compile(program);
+        expect(compiled).to.be.equal('const x = [ 1, , 3, 4,  ];');
     });
 });

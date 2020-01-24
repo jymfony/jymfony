@@ -19,11 +19,11 @@ export default class Definition {
         this._class = undefined;
 
         /**
-         * @type {Array}
+         * @type {HashTable}
          *
-         * @private
+         * @protected
          */
-        this._arguments = args;
+        this._arguments = HashTable.fromObject(args);
 
         /**
          * @type {string[]|undefined}
@@ -262,7 +262,9 @@ export default class Definition {
      * @returns {Jymfony.Component.DependencyInjection.Definition}
      */
     setClass(className) {
-        className = Container.normalizeId(className);
+        if (undefined !== className && null !== className) {
+            className = Container.normalizeId(className);
+        }
 
         this._changes['class'] = true;
         this._class = className;
@@ -287,7 +289,7 @@ export default class Definition {
      * @returns {Jymfony.Component.DependencyInjection.Definition}
      */
     setArguments(args) {
-        this._arguments = args;
+        this._arguments = HashTable.fromObject(args);
 
         return this;
     }
@@ -318,7 +320,7 @@ export default class Definition {
             throw new InvalidArgumentException('Index is not in the range [0, ' + (this._arguments.length - 1).toString() + ']');
         }
 
-        this._arguments[index] = argument;
+        this._arguments.put(index, argument);
 
         return this;
     }
@@ -326,10 +328,14 @@ export default class Definition {
     /**
      * Gets the argument list.
      *
-     * @returns {Array}
+     * @returns {Array|Object}
      */
     getArguments() {
-        return [ ...this._arguments ];
+        if (0 === this._arguments.length) {
+            return [];
+        }
+
+        return this._arguments.toObject();
     }
 
     /**
@@ -344,7 +350,7 @@ export default class Definition {
             throw new InvalidArgumentException('Index is not in the range [0, ' + (this._arguments.length - 1).toString() + ']');
         }
 
-        return this._arguments[index];
+        return this._arguments.get(index);
     }
 
     /**

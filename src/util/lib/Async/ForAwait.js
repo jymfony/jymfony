@@ -5,14 +5,22 @@ if (! Symbol.asyncIterator) {
 global.__jymfony = global.__jymfony || {};
 
 const forAwait = (iterator, callback) => {
+    if (isPromise(iterator)) {
+        return iterator.then(resolved => forAwait(resolved, callback));
+    }
+
     const originalIterator = iterator;
+    if (isArray(iterator)) {
+        iterator = iterator.values();
+    }
+
     if (! iterator.next) {
         iterator = iterator[Symbol.asyncIterator] || iterator[Symbol.iterator];
     }
 
     if (! iterator) {
         throw new Error(Object.prototype.toString.call(originalIterator) + ' is not iterable');
-    } else if (isGeneratorFunction(iterator)) {
+    } else if (! isFunction(iterator.next) && isFunction(iterator)) {
         iterator = iterator();
     }
 

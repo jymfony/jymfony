@@ -39,5 +39,20 @@ Jymfony.Contracts = {
     /**
      * @namespace
      */
+    Metadata: {
+        /**
+         * @namespace
+         */
+        Event: {},
+
+        /**
+         * @namespace
+         */
+        Exception: {},
+    },
+
+    /**
+     * @namespace
+     */
     Stopwatch: {},
 };

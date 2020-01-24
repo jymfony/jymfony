@@ -86,6 +86,7 @@ export default class ResolveChildDefinitionsPass extends AbstractRecursivePass {
         const def = new Definition();
 
         def.setClass(parentDef.getClass());
+        def.setArguments(parentDef.getArguments());
         def.setMethodCalls(parentDef.getMethodCalls());
         def.setShutdownCalls(parentDef.getShutdownCalls());
         def.setProperties(parentDef.getProperties());
@@ -145,9 +146,15 @@ export default class ResolveChildDefinitionsPass extends AbstractRecursivePass {
             }
         }
 
-        definition._arguments = parentDef.getArguments();
-        for (const argument of definition.getArguments()) {
-            def.addArgument(argument);
+        // Merge arguments
+        for (const [ k, v ] of __jymfony.getEntries(definition.getArguments())) {
+            if (isNumber(k)) {
+                def.addArgument(v);
+            } else if (String(k).startsWith('index_')) {
+                def.replaceArgument(~~ (String(k).substr(6)), v);
+            } else {
+                def.setArgument(k, v);
+            }
         }
 
         for (const [ k, v ] of __jymfony.getEntries(definition.getProperties())) {

@@ -2,6 +2,7 @@ declare namespace Jymfony.Bundle.FrameworkBundle.Test {
     import Container = Jymfony.Component.DependencyInjection.Container;
     import ParameterBag = Jymfony.Component.DependencyInjection.ParameterBag.ParameterBag;
     import ContainerInterface = Jymfony.Component.DependencyInjection.ContainerInterface;
+    import ServiceIdentifier = Jymfony.Component.DependencyInjection.ServiceIdentifier;
 
     export class TestContainer extends Container {
         private _publicContainer: Container;
@@ -27,22 +28,22 @@ declare namespace Jymfony.Bundle.FrameworkBundle.Test {
         /**
          * @inheritdoc
          */
-        set(id: string | symbol | Function, service: any): void;
+        set(id: ServiceIdentifier, service: any): void;
 
         /**
          * @inheritdoc
          */
-        has(id: string | symbol | Function): boolean;
+        has(id: ServiceIdentifier): boolean;
 
         /**
          * @inheritdoc
          */
-        get(id: string | symbol | Function, invalidBehavior?: number): any;
+        get(id: ServiceIdentifier, invalidBehavior?: number): any;
 
         /**
          * @inheritdoc
          */
-        initialized(id: string | symbol | Function): boolean;
+        initialized(id: ServiceIdentifier): boolean;
 
         /**
          * @inheritdoc

@@ -1,5 +1,5 @@
-const AttributeBag = Jymfony.Component.HttpFoundation.Session.AttributeBag;
-const FlashBag = Jymfony.Component.HttpFoundation.Session.FlashBag;
+const AttributeBag = Jymfony.Component.HttpFoundation.Session.Attribute.AttributeBag;
+const FlashBag = Jymfony.Component.HttpFoundation.Session.Flash.FlashBag;
 const SessionInterface = Jymfony.Component.HttpFoundation.Session.SessionInterface;
 
 /**
@@ -170,5 +170,23 @@ export default class Session extends implementationOf(SessionInterface) {
      */
     get flashBag() {
         return this._storage.getBag(this._flashesName);
+    }
+
+    /**
+     * Returns an iterator for attributes.
+     *
+     * @returns {IterableIterator.<string, any>} An iterator
+     */
+    [Symbol.iterator]() {
+        return __jymfony.getEntries(this.all());
+    }
+
+    /**
+     * Gets the length of the attributes bag.
+     *
+     * @returns {int}
+     */
+    get length() {
+        return Object.keys(this.all()).length;
     }
 }

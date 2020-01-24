@@ -2,7 +2,6 @@ import { basename, dirname, normalize } from 'path';
 import { existsSync, realpathSync, statSync } from 'fs';
 import { createHash } from 'crypto';
 
-const RecursiveDirectoryIterator = Jymfony.Component.Config.Resource.Iterator.RecursiveDirectoryIterator;
 const SelfCheckingResourceInterface = Jymfony.Component.Config.Resource.SelfCheckingResourceInterface;
 
 /**

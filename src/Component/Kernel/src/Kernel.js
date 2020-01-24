@@ -118,6 +118,15 @@ export default class Kernel extends implementationOf(KernelInterface) {
     }
 
     /**
+     * Whether this kernel is already booted or not.
+     *
+     * @returns {boolean}
+     */
+    get booted() {
+        return this._booted;
+    }
+
+    /**
      * @inheritdoc
      */
     async boot() {

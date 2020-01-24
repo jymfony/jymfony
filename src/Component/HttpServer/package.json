@@ -27,12 +27,17 @@
     "@jymfony/http-foundation": "0.1.0-alpha.19",
     "@jymfony/kernel": "0.1.0-alpha.19",
     "@jymfony/logger": "0.1.0-alpha.19",
+    "@jymfony/metadata": "0.1.0-alpha.19",
     "@jymfony/routing": "0.1.0-alpha.19",
     "@jymfony/util": "0.1.0-alpha.19"
   },
   "devDependencies": {
+    "@jymfony/cache": "*",
     "@jymfony/debug": "*",
+    "@jymfony/dependency-injection": "*",
+    "@jymfony/stopwatch": "*",
     "@jymfony/testing": "*",
+    "@jymfony/var-dumper": "*",
     "chai": "^4.2",
     "mocha": "^6.0"
   },

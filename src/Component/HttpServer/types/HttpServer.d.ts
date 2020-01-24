@@ -3,6 +3,7 @@ declare namespace Jymfony.Component.HttpServer {
     import ControllerResolverInterface = Jymfony.Component.HttpFoundation.Controller.ControllerResolverInterface;
     import RouteCollection = Jymfony.Component.Routing.RouteCollection;
     import LoggerInterface = Jymfony.Component.Logger.LoggerInterface;
+    import ArgumentResolverInterface = Jymfony.Component.HttpServer.Controller.ArgumentResolverInterface;
 
     interface ListenOptions {
         port?: number;
@@ -20,8 +21,8 @@ declare namespace Jymfony.Component.HttpServer {
         /**
          * Constructor.
          */
-        __construct(dispatcher: EventDispatcherInterface, resolver: ControllerResolverInterface): void;
-        constructor(dispatcher: EventDispatcherInterface, resolver: ControllerResolverInterface);
+        __construct(dispatcher: EventDispatcherInterface, resolver: ControllerResolverInterface, argumentResolver: ArgumentResolverInterface): void;
+        constructor(dispatcher: EventDispatcherInterface, resolver: ControllerResolverInterface, argumentResolver: ArgumentResolverInterface);
 
         /**
          * Creates a new Http server instance.

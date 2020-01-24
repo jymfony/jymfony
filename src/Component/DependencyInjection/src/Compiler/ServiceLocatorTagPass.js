@@ -1,22 +1,32 @@
-const Alias = Jymfony.Component.DependencyInjection.Alias;
-const ServiceClosureArgument = Jymfony.Component.DependencyInjection.Argument.ServiceClosureArgument;
-const ServiceLocatorArgument = Jymfony.Component.DependencyInjection.Argument.ServiceLocatorArgument;
 const AbstractRecursivePass = Jymfony.Component.DependencyInjection.Compiler.AbstractRecursivePass;
+const Alias = Jymfony.Component.DependencyInjection.Alias;
 const ContainerBuilder = Jymfony.Component.DependencyInjection.ContainerBuilder;
 const Definition = Jymfony.Component.DependencyInjection.Definition;
 const InvalidArgumentException = Jymfony.Component.DependencyInjection.Exception.InvalidArgumentException;
-const Reference = Jymfony.Component.DependencyInjection.Reference;
+const PriorityTaggedServiceTrait = Jymfony.Component.DependencyInjection.Compiler.PriorityTaggedServiceTrait;
+const ServiceClosureArgument = Jymfony.Component.DependencyInjection.Argument.ServiceClosureArgument;
 const ServiceLocator = Jymfony.Component.DependencyInjection.ServiceLocator;
+const ServiceLocatorArgument = Jymfony.Component.DependencyInjection.Argument.ServiceLocatorArgument;
+const Reference = Jymfony.Component.DependencyInjection.Reference;
 
 /**
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
  */
-export default class ServiceLocatorTagPass extends AbstractRecursivePass {
+export default class ServiceLocatorTagPass extends mix(AbstractRecursivePass, PriorityTaggedServiceTrait) {
     /**
      * @inheritdoc
      */
     _processValue(value, isRoot = false) {
         if (value instanceof ServiceLocatorArgument) {
+            if (value.taggedIteratorArgument) {
+                const refMap = {};
+                for (const [ serviceId ] of __jymfony.getEntries(this._container.findTaggedServiceIds(value.taggedIteratorArgument.tag))) {
+                    refMap[serviceId] = new Reference(serviceId);
+                }
+
+                value.values = refMap;
+            }
+
             return __self.register(this._container, value.values);
         }
 

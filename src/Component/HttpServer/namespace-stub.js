@@ -9,12 +9,32 @@ Jymfony.Component.HttpServer = {
     /**
      * @namespace
      */
+    Controller: {
+        /**
+         * @namespace
+         */
+        ArgumentResolvers: {},
+
+        /**
+         * @namespace
+         */
+        Metadata: {},
+    },
+
+    /**
+     * @namespace
+     */
     Command: {},
 
     /**
      * @namespace
      */
     Debug: {},
+
+    /**
+     * @namespace
+     */
+    DependencyInjection: {},
 
     /**
      * @namespace

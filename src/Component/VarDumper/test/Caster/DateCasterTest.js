@@ -11,14 +11,14 @@ Date @%d {
   date: %a
 }`;
 
-        expect(new Date()).to.dumpsAsFormat(dump);
+        expect(new Date()).to.dump.as.format(dump);
     });
 
     it('should cast date object', function () {
         const s = new Stub();
         const casted = DateCaster.castDate(new Date(), {}, s);
 
-        expect(casted['\0~\0date']).to.dumpsAsFormat(`
+        expect(casted['\0~\0date']).to.dump.as.format(`
 Jymfony.Component.VarDumper.Caster.ConstStub {
   +type: 1
   +class_: "%a"
@@ -35,14 +35,14 @@ Jymfony.Component.DateTime.DateTime @%d {
   date: %a
 }`;
 
-        expect(new DateTime()).to.dumpsAsFormat(dump);
+        expect(new DateTime()).to.dump.as.format(dump);
     });
 
     it('should cast datetime object', function () {
         const s = new Stub();
         const casted = DateCaster.castDate(new Date(), {}, s);
 
-        expect(casted['\0~\0date']).to.dumpsAsFormat(`
+        expect(casted['\0~\0date']).to.dump.as.format(`
 Jymfony.Component.VarDumper.Caster.ConstStub {
   +type: 1
   +class_: "%a"
@@ -59,6 +59,6 @@ Jymfony.Component.DateTime.DateTimeZone {
   timezone: Europe/Rome
 }`;
 
-        expect(DateTimeZone.get('Europe/Rome')).to.dumpsAsFormat(dump);
+        expect(DateTimeZone.get('Europe/Rome')).to.dump.as.format(dump);
     });
 });

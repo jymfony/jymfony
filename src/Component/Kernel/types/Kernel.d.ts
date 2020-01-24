@@ -39,6 +39,11 @@ declare namespace Jymfony.Component.Kernel {
         reboot(warmupDir: string | undefined): Promise<void>;
 
         /**
+         * Whether this kernel is already booted.
+         */
+        public readonly booted: boolean;
+
+        /**
          * @inheritdoc
          */
         boot(): Promise<void>;

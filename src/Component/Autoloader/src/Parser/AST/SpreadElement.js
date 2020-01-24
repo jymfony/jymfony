@@ -25,6 +25,15 @@ class SpreadElement extends implementationOf(NodeInterface) {
     }
 
     /**
+     * Gets the spread element expression.
+     *
+     * @returns {Jymfony.Component.Autoloader.Parser.AST.ExpressionInterface}
+     */
+    get expression() {
+        return this._expression;
+    }
+
+    /**
      * @inheritdoc
      */
     compile(compiler) {

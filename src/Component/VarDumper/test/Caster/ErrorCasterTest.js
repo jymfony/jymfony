@@ -28,7 +28,7 @@ Error {
     %aErrorCasterTest.js:31 {…}
 %A`;
 
-        expect(getTestError()).to.dumpsAsFormat(dump);
+        expect(getTestError()).to.dump.as.format(dump);
     });
 
     it('should leave dumper in manageable state', () => {
@@ -62,6 +62,6 @@ Error@anonymous {
     %aErrorCasterTest.js:65 {…}
 %A`;
 
-        expect(Fixtures.ErrorCasterFixtures.getAnonymousError()).to.dumpsAsFormat(dump);
+        expect(Fixtures.ErrorCasterFixtures.getAnonymousError()).to.dump.as.format(dump);
     });
 });

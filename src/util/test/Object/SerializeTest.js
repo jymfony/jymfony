@@ -56,6 +56,44 @@ describe('Serialize', function () {
             .to.be.equal('C[UtilFixtures.FooClass]:{S(3):"a":S(7):"hello";S(3):"c":S(7):"world";}');
         expect(foo.sleepCalled).to.be.true;
     });
+
+    it('should serialize hashtables', () => {
+        expect(__jymfony.serialize(HashTable.fromObject({ test: 123, foo: 'bar', bar: 'barbar' })))
+            .to.be.equal('T[HashTable](3):{A(2):{0:S(6):"test";1:D(3):123;};A(2):{0:S(5):"foo";1:S(5):"bar";};A(2):{0:S(5):"bar";1:S(8):"barbar";};}');
+    });
+
+    it('should serialize priority queues', () => {
+        const queue = new PriorityQueue();
+        queue.push('foo', 100);
+        queue.push('bar', -3);
+        queue.push('foobar', 300);
+
+        expect(__jymfony.serialize(queue))
+            .to.be.equal('T[PriorityQueue](3):{A(2):{0:D(3):300;1:S(8):"foobar";};A(2):{0:D(3):100;1:S(5):"foo";};A(2):{0:D(2):-3;1:S(5):"bar";};}');
+    });
+
+    it ('should serialize linked lists', () => {
+        const list = new LinkedList();
+
+        list.push('foo');
+        list.push({ bar: 'bar' });
+        list.push(123);
+
+        expect(__jymfony.serialize(list))
+            .to.be.equal('T[LinkedList](3):{S(5):"foo";O(1):{S(5):"bar":S(5):"bar";};D(3):123;}');
+    });
+
+    it ('should serialize btrees', () => {
+        const tree = new BTree();
+
+        tree.push('a', 'foo');
+        tree.push('b', { bar: 'bar' });
+        tree.push('c', 123);
+        tree.push(12, 123456);
+
+        expect(__jymfony.serialize(tree))
+            .to.be.equal('T[BTree](4):{A(2):{0:D(2):12;1:D(6):123456;};A(2):{0:S(3):"a";1:S(5):"foo";};A(2):{0:S(3):"b";1:O(1):{S(5):"bar":S(5):"bar";};};A(2):{0:S(3):"c";1:D(3):123;};}');
+    });
 });
 
 describe('Unerialize', function () {
@@ -109,5 +147,53 @@ describe('Unerialize', function () {
         expect(foo.c).to.be.equal('world');
         expect(foo.d).to.be.undefined;
         expect(foo.wakeupCalled).to.be.true;
+    });
+
+    it ('should unserialize hash tables', () => {
+        const obj = __jymfony.unserialize('T[HashTable](3):{A(2):{0:S(6):"test";1:D(3):123;};A(2):{0:S(5):"foo";1:S(5):"bar";};A(2):{0:S(5):"bar";1:S(8):"barbar";};}');
+        expect(obj.constructor).to.be.equal(HashTable);
+        expect(obj.toObject()).to.be.deep.equal({
+            test: 123,
+            'foo': 'bar',
+            'bar': 'barbar',
+        });
+    });
+
+    it('should unserialize priority queues', () => {
+        const obj = __jymfony.unserialize('T[PriorityQueue](3):{A(2):{0:D(3):300;1:S(8):"foobar";};A(2):{0:D(3):100;1:S(5):"foo";};A(2):{0:D(2):-3;1:S(5):"bar";};}');
+        expect(obj.constructor).to.be.equal(PriorityQueue);
+
+        const queue = new PriorityQueue();
+        queue.push('foobar', 300);
+        queue.push('foo', 100);
+        queue.push('bar', -3);
+
+        expect(obj).to.be.deep.equal(queue);
+    });
+
+    it ('should unserialize linked lists', () => {
+        const obj = __jymfony.unserialize('T[LinkedList](3):{S(5):"foo";O(1):{S(5):"bar":S(5):"bar";};D(3):123;}');
+        expect(obj.constructor).to.be.equal(LinkedList);
+
+        const list = new LinkedList();
+
+        list.push('foo');
+        list.push({ bar: 'bar' });
+        list.push(123);
+
+        expect(obj).to.be.deep.equal(list);
+    });
+
+    it ('should unserialize btrees', () => {
+        const obj = __jymfony.unserialize('T[BTree](4):{A(2):{0:D(2):12;1:D(6):123456;};A(2):{0:S(3):"a";1:S(5):"foo";};A(2):{0:S(3):"b";1:O(1):{S(5):"bar":S(5):"bar";};};A(2):{0:S(3):"c";1:D(3):123;};}');
+        expect(obj.constructor).to.be.equal(BTree);
+
+        const tree = new BTree();
+        tree.push(12, 123456);
+        tree.push('a', 'foo');
+        tree.push('b', { bar: 'bar' });
+        tree.push('c', 123);
+
+        expect(obj).to.be.deep.equal(tree);
     });
 });

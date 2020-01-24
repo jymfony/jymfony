@@ -7,6 +7,7 @@ const SuspiciousOperationException = Jymfony.Component.HttpFoundation.Exception.
 const HeaderBag = Jymfony.Component.HttpFoundation.HeaderBag;
 const Ip = Jymfony.Component.HttpFoundation.Ip;
 const ParameterBag = Jymfony.Component.HttpFoundation.ParameterBag;
+const RequestInterface = Jymfony.Contracts.HttpFoundation.RequestInterface;
 
 let _trustedProxies = [];
 let _trustedHeaderSet = 0;
@@ -37,7 +38,7 @@ const initializeFormats = function () {
 /**
  * @memberOf Jymfony.Component.HttpFoundation
  */
-export default class Request {
+export default class Request extends implementationOf(RequestInterface) {
     /**
      * Constructor.
      *
@@ -49,6 +50,76 @@ export default class Request {
      * @param {undefined|Buffer} [content] Request content.
      */
     __construct(url, request = {}, attributes = {}, headers = {}, server = {}, content = undefined) {
+        /**
+         * @type {boolean}
+         *
+         * @private
+         */
+        this._isHostValid = undefined;
+
+        /**
+         * @type {string}
+         *
+         * @protected
+         */
+        this._format = undefined;
+
+        /**
+         * @type {Jymfony.Component.HttpFoundation.ParameterBag}
+         */
+        this.server = undefined;
+
+        /**
+         * @type {Jymfony.Component.HttpFoundation.HeaderBag}
+         */
+        this.headers = undefined;
+
+        /**
+         * @type {Url}
+         *
+         * @private
+         */
+        this._url = undefined;
+
+        /**
+         * @type {Jymfony.Component.HttpFoundation.ParameterBag}
+         */
+        this.query = undefined;
+
+        /**
+         * @type {Jymfony.Component.HttpFoundation.ParameterBag}
+         */
+        this.request = undefined;
+
+        /**
+         * @type {Jymfony.Component.HttpFoundation.ParameterBag}
+         */
+        this.attributes = undefined;
+
+        /**
+         * @type {Jymfony.Component.HttpFoundation.ParameterBag}
+         */
+        this.cookies = undefined;
+
+        /**
+         * @type {Buffer}
+         */
+        this.content = undefined;
+
+        /**
+         * @type {string}
+         *
+         * @private
+         */
+        this._method = undefined;
+
+        /**
+         * @type {Jymfony.Component.HttpFoundation.Session.SessionInterface}
+         *
+         * @private
+         */
+        this._session = undefined;
+
         this.initialize(url, request, attributes, headers, server, content);
     }
 
@@ -192,75 +263,28 @@ export default class Request {
      * @param {undefined|Buffer} [content] Request content.
      */
     initialize(url, request = {}, attributes = {}, headers = {}, server = {}, content = undefined) {
-        /**
-         * @type {boolean}
-         *
-         * @private
-         */
         this._isHostValid = true;
-
-        /**
-         * @type {string}
-         *
-         * @protected
-         */
         this._format = undefined;
 
         if (undefined === server.REMOTE_ADDR) {
             server.REMOTE_ADDR = '127.0.0.1';
         }
 
-        /**
-         * @type {Jymfony.Component.HttpFoundation.ParameterBag}
-         */
         this.server = new ParameterBag(server);
-
-        /**
-         * @type {Jymfony.Component.HttpFoundation.HeaderBag}
-         */
         this.headers = new HeaderBag(headers);
 
-        /**
-         * @type {Url}
-         *
-         * @private
-         */
-        url = parse(url);
-        url.protocol = this.scheme;
-        url.hostname = url.host = this.httpHost;
-        this._url = parse(format(url));
+        const parsedUrl = parse(url);
+        parsedUrl.protocol = this.scheme;
+        parsedUrl.hostname = parsedUrl.host = this.httpHost;
+        this._url = parse(format(parsedUrl));
 
-        /**
-         * @type {Jymfony.Component.HttpFoundation.ParameterBag}
-         */
         this.query = new ParameterBag(__jymfony.parse_query_string(this._url.query));
-
-        /**
-         * @type {Jymfony.Component.HttpFoundation.ParameterBag}
-         */
         this.request = new ParameterBag(request);
-
-        /**
-         * @type {Jymfony.Component.HttpFoundation.ParameterBag}
-         */
         this.attributes = new ParameterBag(attributes);
-
-        /**
-         * @type {Jymfony.Component.HttpFoundation.ParameterBag}
-         */
         this.cookies = new ParameterBag(this.headers.cookies);
-
-        /**
-         * @type {Buffer}
-         */
         this.content = content;
-
-        /**
-         * @type {string}
-         *
-         * @private
-         */
         this._method = undefined;
+        this._session = undefined;
     }
 
     /**

@@ -1,7 +1,6 @@
 declare namespace Jymfony.Component.DependencyInjection {
     export class ChildDefinition extends Definition {
         private _parent: string;
-        private _replacedArguments: Record<number, any>;
 
         /**
          * Constructor.

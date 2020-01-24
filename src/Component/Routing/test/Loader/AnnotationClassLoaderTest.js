@@ -90,6 +90,7 @@ describe('[Routing] AnnotationClassLoader', function () {
         expect(routes.get('action').path).to.be.equal('/{$default}/path');
         expect(routes.get('action').getDefault('$default')).to.be.equal('value');
         expect(routes.get('hello_with_default').getDefault('name')).to.be.equal('Jymfony');
+        expect(routes.get('hello_without_default').path).to.be.equal('/hello/{name}');
         expect(routes.get('hello_without_default').getDefault('name')).to.be.equal('World');
     });
 

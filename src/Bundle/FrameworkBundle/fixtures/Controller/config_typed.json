@@ -1,0 +1,24 @@
+{
+    "framework": {
+        "templating": false,
+        "test": true,
+        "http_server": true,
+        "router": {
+            "resource": "Jymfony.Bundle.FrameworkBundle.Tests.Fixtures.Controller"
+        }
+    },
+    "services": {
+        "Jymfony.Bundle.FrameworkBundle.Tests.Fixtures.Controller.TypedController": {
+            "public": true,
+            "autoconfigure": true
+        },
+        "Jymfony.Component.HttpServer.RequestHandler": {
+            "public": true,
+            "arguments": [
+                "@event_dispatcher",
+                "@Jymfony.Component.HttpFoundation.Controller.ControllerResolverInterface",
+                "@argument_resolver"
+            ]
+        }
+    }
+}

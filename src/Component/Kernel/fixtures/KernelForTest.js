@@ -14,13 +14,6 @@ class KernelForTest extends Kernel {
     registerBundles() {
         return [];
     }
-
-    /**
-     * @returns {boolean}
-     */
-    get booted() {
-        return this._booted;
-    }
 }
 
 module.exports = KernelForTest;

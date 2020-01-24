@@ -6,12 +6,11 @@
   "main": "index.js",
   "typings": "index.d.ts",
   "scripts": {
-    "test": "npm run run-tests",
+    "test": "node ./tests.js",
     "lint": "eslint src/",
     "style-fix": "eslint --fix src/",
-    "run-tests": "node ./tests.js",
-    "coverage": "nyc npm run run-tests",
-    "coverage-html": "nyc --reporter=lcov npm run run-tests"
+    "coverage": "nyc npm test",
+    "coverage-html": "nyc --reporter=lcov npm test"
   },
   "keywords": [
     "jymfony",
@@ -31,7 +30,7 @@
     "node": ">=8.10.0"
   },
   "devDependencies": {
-    "@jymfony/decorators": "https://github.com/jymfony/decorators.git",
+    "@jymfony/decorators": "0.1.0-alpha.19",
     "@types/chai": "^4.1.7",
     "@types/mocha": "^5.2.7",
     "@types/node": "*",
@@ -64,6 +63,7 @@
         "Jymfony.Component.Kernel": "src/Component/Kernel/src",
         "Jymfony.Component.Lexer": "src/Component/Lexer/src",
         "Jymfony.Component.Logger": "src/Component/Logger/src",
+        "Jymfony.Component.Metadata": "src/Component/Metadata/src",
         "Jymfony.Component.Mime": "src/Component/Mime/src",
         "Jymfony.Component.OptionsResolver": "src/Component/OptionsResolver/src",
         "Jymfony.Component.PropertyAccess": "src/Component/PropertyAccess/src",

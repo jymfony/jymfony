@@ -1134,8 +1134,9 @@ export default class ContainerBuilder extends Container {
                 value.set(k, this._resolveServices(v));
             }
         } else if (value instanceof ServiceClosureArgument) {
+            const originalValue = value;
             value = () => {
-                return this._resolveServices(value.values[0]);
+                return this._resolveServices(originalValue.values[0]);
             };
         } else if (value instanceof IteratorArgument) {
             const self = this;
