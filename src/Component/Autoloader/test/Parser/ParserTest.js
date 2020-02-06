@@ -258,4 +258,14 @@ export default () => {
         const compiled = compiler.compile(program);
         expect(compiled).to.be.equal('const x = [ 1, , 3, 4,  ];');
     });
+
+    it ('should spread operator in object unpacking', () => {
+        const program = parser.parse(`
+    const { g, ...x } = { g: 'foo', y: 'test', p: 123 };
+`);
+
+        const compiler = new Compiler(generator);
+        const compiled = compiler.compile(program);
+        expect(compiled).to.be.equal('const { g, ...x } = {\ng: \'foo\',y: \'test\',p: 123,};');
+    });
 });

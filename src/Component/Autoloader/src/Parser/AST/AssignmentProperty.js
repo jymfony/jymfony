@@ -1,5 +1,6 @@
 const Identifier = require('./Identifier');
 const ObjectProperty = require('./ObjectProperty');
+const SpreadElement = require('./SpreadElement');
 
 /**
  * @memberOf Jymfony.Component.Autoloader.Parser.AST
@@ -38,7 +39,7 @@ class AssignmentProperty extends ObjectProperty {
      * @inheritdoc
      */
     compile(compiler) {
-        if (this._key instanceof Identifier) {
+        if (this._key instanceof Identifier || this._key instanceof SpreadElement) {
             compiler.compileNode(this._key);
         } else {
             compiler._emit('[');
