@@ -7,17 +7,6 @@ const SpreadElement = require('./SpreadElement');
  */
 class AssignmentProperty extends ObjectProperty {
     /**
-     * Constructor.
-     *
-     * @param {Jymfony.Component.Autoloader.Parser.AST.SourceLocation} location
-     * @param {Jymfony.Component.Autoloader.Parser.AST.ExpressionInterface} key
-     * @param {Jymfony.Component.Autoloader.Parser.AST.PatternInterface} value
-     */
-    __construct(location, key, value) {
-        super.__construct(location, key, value);
-    }
-
-    /**
      * Gets the property key.
      *
      * @returns {Jymfony.Component.Autoloader.Parser.AST.ExpressionInterface}

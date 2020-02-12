@@ -5,15 +5,6 @@ const Literal = require('./Literal');
  */
 class NullLiteral extends Literal {
     /**
-     * Constructor.
-     *
-     * @param {Jymfony.Component.Autoloader.Parser.AST.SourceLocation} location
-     */
-    __construct(location) {
-        super.__construct(location);
-    }
-
-    /**
      * @inheritdoc
      */
     compile(compiler) {
