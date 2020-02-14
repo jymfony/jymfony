@@ -268,4 +268,17 @@ export default () => {
         const compiled = compiler.compile(program);
         expect(compiled).to.be.equal('const { g, ...x } = {\ng: \'foo\',y: \'test\',p: 123,};');
     });
+
+    it ('should parse xor operator correctly', () => {
+        const program = parser.parse(`
+function op_xor(x,y) { return x^y; } 
+`);
+
+        const compiler = new Compiler(generator);
+        const compiled = compiler.compile(program);
+        expect(compiled).to.be.equal(`function op_xor(x,y){
+return x ^ y;
+}
+;`);
+    });
 });

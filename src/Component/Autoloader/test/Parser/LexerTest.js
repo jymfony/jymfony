@@ -16,4 +16,16 @@ describe('[Autoloader] Lexer', function () {
             { value: 'end-of-file', type: Lexer.T_EOF, position: 24, index: 5 },
         ]);
     });
+
+    it ('can parse xor operator wo spaces correctly', () => {
+        const lexer = new Lexer();
+
+        lexer.input = 'x^y';
+        expect(lexer._tokens).to.be.deep.eq([
+            { value: 'x', type: Lexer.T_IDENTIFIER, position: 0, index: 0 },
+            { value: '^', type: Lexer.T_OPERATOR, position: 1, index: 1 },
+            { value: 'y', type: Lexer.T_IDENTIFIER, position: 2, index: 2 },
+            { value: 'end-of-file', type: Lexer.T_EOF, position: 3, index: 3 },
+        ]);
+    });
 });
