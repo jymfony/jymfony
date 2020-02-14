@@ -193,16 +193,17 @@ class Autoloader {
             this._processPackageInfo(packageInfo, dir);
         }
 
-        this._processPackageInfo(JSON.parse(fs.readFileSync(this._rootDir + '/package.json', { encoding: 'utf8' })), this._rootDir);
+        this._processPackageInfo(JSON.parse(fs.readFileSync(this._rootDir + '/package.json', { encoding: 'utf8' })), this._rootDir, true);
     }
 
     /**
      * @param {Object} packageInfo
      * @param {string} baseDir
+     * @param {boolean} [root = false]
      *
      * @private
      */
-    _processPackageInfo(packageInfo, baseDir) {
+    _processPackageInfo(packageInfo, baseDir, root = false) {
         if (! packageInfo.config || ! packageInfo.config['jymfony-autoload']) {
             return;
         }
@@ -214,6 +215,17 @@ class Autoloader {
 
         if (config.includes) {
             this._processIncludes(config.includes, baseDir);
+        }
+
+        if (root) {
+            const configDev = packageInfo.config['jymfony-autoload-dev'] || {};
+            if (configDev.namespaces) {
+                this._processNamespaces(configDev.namespaces, baseDir);
+            }
+
+            if (configDev.includes) {
+                this._processIncludes(configDev.includes, baseDir);
+            }
         }
     }
 
