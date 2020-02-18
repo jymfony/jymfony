@@ -77,7 +77,7 @@ export default class ExceptionListener extends implementationOf(EventSubscriberI
         event.response = response;
 
         if (this._debug) {
-            const cspRemoval = (event) => {
+            const cspRemoval = event => {
                 event.response.headers.remove('Content-Security-Policy');
                 eventDispatcher.removeListener(Events.RESPONSE, cspRemoval);
             };

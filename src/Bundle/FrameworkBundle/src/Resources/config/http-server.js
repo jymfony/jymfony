@@ -54,6 +54,12 @@ container.register('kernel.exception_controller', Jymfony.Bundle.FrameworkBundle
     .addArgument('%kernel.debug%')
 ;
 
+container.register(Jymfony.Component.HttpServer.EventListener.UnhandledRejectionListener)
+    .addTag('kernel.event_subscriber')
+    .addArgument(new Reference('logger', Container.IGNORE_ON_INVALID_REFERENCE))
+    .addArgument('%kernel.debug%')
+;
+
 container.register(Jymfony.Component.HttpServer.EventListener.ExceptionListener)
     .addTag('kernel.event_subscriber')
     .addArgument('kernel.exception_controller:showAction')

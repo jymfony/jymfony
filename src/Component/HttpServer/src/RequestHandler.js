@@ -111,15 +111,17 @@ export default class RequestHandler extends implementationOf(LoggerAwareInterfac
         request.attributes.set('_handler', this);
 
         try {
-            const promises = [ this._handleRaw(request) ];
-            if (0 < this._requestTimeoutMs) {
-                promises.push(this._requestTimeout());
-            }
+            const promise = new Promise((res, rej) => {
+                if (0 < this._requestTimeoutMs) {
+                    this._requestTimeout(rej);
+                }
 
-            const p = Promise.race(promises);
-            p.__multipleResolve = true;
+                request.attributes.set('_abort', rej);
+                this._handleRaw(request).then(res, rej);
+            });
 
-            response = await p;
+            promise.__multipleResolve = true;
+            response = await promise;
         } catch (e) {
             if (e instanceof RequestExceptionInterface) {
                 e = new BadRequestHttpException(e.message, e);
@@ -321,8 +323,8 @@ export default class RequestHandler extends implementationOf(LoggerAwareInterfac
      *
      * @private
      */
-    async _requestTimeout() {
+    async _requestTimeout(rejection) {
         await __jymfony.sleep(this._requestTimeoutMs);
-        throw new RequestTimeoutException('Request timed out');
+        rejection(new RequestTimeoutException('Request timed out'));
     }
 }
