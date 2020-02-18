@@ -39,6 +39,16 @@ Jymfony.Contracts = {
     /**
      * @namespace
      */
+    Kernel: {
+        /**
+         * @namespace
+         */
+        Event: {},
+    },
+
+    /**
+     * @namespace
+     */
     Metadata: {
         /**
          * @namespace
