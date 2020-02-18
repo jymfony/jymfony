@@ -33,14 +33,12 @@ export default class EventDispatcher extends implementationOf(EventDispatcherInt
      * @inheritdoc
      */
     async dispatch(eventName, event = new Event()) {
-        const self = this;
-
-        for (const listener of self.getListeners(eventName)) {
+        for (const listener of this.getListeners(eventName)) {
             if (event.isPropagationStopped()) {
                 return event;
             }
 
-            await listener(event, eventName, self);
+            await listener(event, eventName, this);
         }
 
         return event;
@@ -64,7 +62,7 @@ export default class EventDispatcher extends implementationOf(EventDispatcherInt
             }
         } else {
             for (const eventName of Object.keys(this._listeners)) {
-                yield [ eventName, Array.from(this.getListeners(eventName)) ];
+                yield [ eventName, [ ...this.getListeners(eventName) ] ];
             }
         }
     }

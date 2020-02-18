@@ -17,8 +17,19 @@ export default class RegisterListenerPass extends implementationOf(CompilerPassI
      * @param {string} [subscriberTag = 'kernel.event_subscriber']
      */
     __construct(dispatcherService = 'event_dispatcher', listenerTag = 'kernel.event_listener', subscriberTag = 'kernel.event_subscriber') {
+        /**
+         * @type {string}
+         */
         this.dispatcherService = dispatcherService;
+
+        /**
+         * @type {string}
+         */
         this.listenerTag = listenerTag;
+
+        /**
+         * @type {string}
+         */
         this.subscriberTag = subscriberTag;
     }
 
