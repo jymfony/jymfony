@@ -823,11 +823,19 @@ class Parser extends implementationOf(ExpressionParserTrait) {
                     }
                 }
 
-                let optional = false;
+                const flags = {
+                    optional: false,
+                    nocompile: false,
+                };
                 flags_cycle: while (this._lexer.isToken(Lexer.T_KEYWORD) || this._lexer.isToken(Lexer.T_IDENTIFIER)) {
                     switch (this._lexer.token.value) {
                         case 'optional':
-                            optional = true;
+                            flags.optional = true;
+                            this._next();
+                            break;
+
+                        case 'nocompile':
+                            flags.nocompile = true;
                             this._next();
                             break;
 
@@ -836,7 +844,7 @@ class Parser extends implementationOf(ExpressionParserTrait) {
                     }
                 }
 
-                return new AST.ImportDeclaration(this._makeLocation(start), specifiers, source, optional);
+                return new AST.ImportDeclaration(this._makeLocation(start), specifiers, source, flags);
             }
 
             case 'export': {

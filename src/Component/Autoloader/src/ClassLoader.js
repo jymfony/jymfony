@@ -252,6 +252,8 @@ class ClassLoader {
             return this.loadFile(id, null);
         };
 
+        req.nocompile = id => require(id);
+
         _cache[fn] = module.exports;
         req.proxy = id => {
             if (builtinLibs.includes(id)) {

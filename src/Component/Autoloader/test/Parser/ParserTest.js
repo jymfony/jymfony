@@ -208,6 +208,18 @@ export default () => {
         expect(() => compiler.compile(program)).not.to.throw();
     });
 
+    it ('should correctly compile raw imports', () => {
+        const program = parser.parse(`import { Sloppy } from 'sloppy-package' nocompile;
+
+export default () => {
+    return [ Sloppy === undefined ];
+};
+`);
+
+        const compiler = new Compiler(generator);
+        expect(() => compiler.compile(program)).not.to.throw();
+    });
+
     it ('should parse js code correctly. case #1', () => {
         const program = parser.parse(`
     const res = lines.map((l, i) => {
