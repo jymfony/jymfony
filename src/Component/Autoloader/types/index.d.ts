@@ -101,6 +101,7 @@
 /// <reference path="Reflection/ReflectionHelper.d.ts" />
 /// <reference path="Autoloader.d.ts" />
 /// <reference path="ClassLoader.d.ts" />
+/// <reference path="DescriptorStorage.d.ts" />
 /// <reference path="Finder.d.ts" />
 /// <reference path="globals.d.ts" />
 /// <reference path="Namespace.d.ts" />
