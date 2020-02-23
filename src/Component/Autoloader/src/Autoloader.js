@@ -1,6 +1,6 @@
 const Finder = require('./Finder');
 const Namespace = require('./Namespace');
-const ManagedProxy = require('./Proxy/ManagedProxy');
+
 const fs = require('fs');
 const path = require('path');
 
@@ -48,6 +48,13 @@ class Autoloader {
          */
         this._finder = finder;
         this._rootDir = this._finder.findRoot();
+
+        /**
+         * @type {Jymfony.Component.Autoloader.ClassLoader}
+         *
+         * @private
+         */
+        this._classLoader = undefined;
 
         /**
          * @type {Object}
@@ -102,6 +109,15 @@ class Autoloader {
     }
 
     /**
+     * Gets the current class loader.
+     *
+     * @returns {Jymfony.Component.Autoloader.ClassLoader}
+     */
+    get classLoader() {
+        return this._classLoader;
+    }
+
+    /**
      * Scans package.json of the project and root dependencies
      * and register itself as autoloader for found namespaces
      */
@@ -113,6 +129,8 @@ class Autoloader {
         this._registered = true;
         this._debug = !! process.env.DEBUG;
         const autoloader = this;
+
+        let ManagedProxy = null;
 
         /**
          * This is the base class of all the autoloaded classes.
@@ -178,6 +196,11 @@ class Autoloader {
 
         this._global.Symbol.reflection = Symbol('reflection');
         this._global.Symbol.docblock = Symbol('docblock');
+
+        const ClassLoader = require('./ClassLoader');
+        this._classLoader = new ClassLoader(this._finder, path, require('vm'));
+
+        ManagedProxy = require('./Proxy/ManagedProxy');
 
         for (const module of this._finder.listModules()) {
             let packageInfo;

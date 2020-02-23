@@ -1,5 +1,7 @@
 declare namespace Jymfony.Component.Autoloader {
     export class Autoloader {
+        public readonly classLoader: ClassLoader;
+
         /**
          * Debug flag.
          * If true, the autoloader will throw ClassNotFoundException if
@@ -9,10 +11,11 @@ declare namespace Jymfony.Component.Autoloader {
         public readonly finder: Finder;
         public readonly rootDir: string;
 
+        private _classLoader: ClassLoader;
         private _debug: boolean;
-        private _registered: boolean;
         private _finder: Finder;
         private _global: any;
+        private _registered: boolean;
         private _rootDir: string;
 
         /**

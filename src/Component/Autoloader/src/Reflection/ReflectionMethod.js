@@ -12,9 +12,7 @@ const SourceMapGenerator = require('../Parser/SourceMap/Generator');
 const SpreadElement = require('../Parser/AST/SpreadElement');
 const vm = require('vm');
 
-const descriptorStorage = new DescriptorStorage(
-    new ClassLoader(__jymfony.autoload.finder, require('path'), vm)
-);
+const descriptorStorage = new DescriptorStorage(__jymfony.autoload.classLoader);
 
 /**
  * Reflection utility for class method.

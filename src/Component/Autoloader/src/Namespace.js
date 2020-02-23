@@ -19,6 +19,11 @@ class Namespace {
      * @returns {Proxy} The namespace object
      */
     constructor(autoloader, fqn, baseDirs = [], req = require) {
+        /**
+         * @type {Jymfony.Component.Autoloader.Autoloader}
+         *
+         * @private
+         */
         this._autoloader = autoloader;
 
         /**
@@ -31,8 +36,6 @@ class Namespace {
         if (undefined === ClassNotFoundException) {
             ClassNotFoundException = this._internalRequire('./Exception/ClassNotFoundException.js');
         }
-
-        this._classLoader = new ClassLoader(autoloader.finder, this._internalRequire('path'), this._internalRequire('vm'));
 
         this._target = {
             __namespace: this,
@@ -169,7 +172,7 @@ class Namespace {
 
             try {
                 if (fn !== __filename) {
-                    mod = this._classLoader.loadClass(fn, self);
+                    mod = this._autoloader.classLoader.loadClass(fn, self);
                 } else {
                     mod = this._internalRequire(fn);
                 }

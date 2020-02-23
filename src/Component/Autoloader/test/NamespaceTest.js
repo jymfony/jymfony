@@ -1,6 +1,7 @@
 const { expect } = require('chai');
 const path = require('path');
 const fs = require('fs');
+const vm = require('vm');
 
 /*
  * We are testing autoloader component here
@@ -88,7 +89,11 @@ describe('[Autoloader] Namespace', function () {
             },
         };
 
-        const ns = new Namespace({ finder: finder, debug: true }, 'Foo', [
+        const ns = new Namespace({
+            classLoader: new ClassLoader(finder, path, vm),
+            debug: true,
+            finder: finder,
+        }, 'Foo', [
             '/var/node/foo_vendor',
         ], req);
 
@@ -145,7 +150,10 @@ describe('[Autoloader] Namespace', function () {
             return '/var/node/foo_vendor/FooClass.js';
         };
 
-        const ns = new Namespace({finder: finder}, 'Foo', [], req);
+        const ns = new Namespace({
+            classLoader: new ClassLoader(finder, path, vm),
+            finder: finder,
+        }, 'Foo', [], req);
 
         ns.__namespace.addDirectory('/var/node/vendor1/');
         ns.__namespace.addDirectory('/var/node/foo_vendor/');
@@ -185,7 +193,10 @@ describe('[Autoloader] Namespace', function () {
             return '/var/node/foo_vendor/FooClass.js';
         };
 
-        const ns = new Namespace({finder: finder}, 'Foo', [ '/var/node/foo_vendor/' ], req);
+        const ns = new Namespace({
+            classLoader: new ClassLoader(finder, path, vm),
+            finder: finder,
+        }, 'Foo', [ '/var/node/foo_vendor/' ], req);
 
         const func = ns.FooClass;
 
@@ -231,7 +242,10 @@ describe('[Autoloader] Namespace', function () {
             return '/var/node/foo_vendor/FooClass.js';
         };
 
-        const ns = new Namespace({finder: finder}, 'Foo', [ '/var/node/foo_vendor/' ], req);
+        const ns = new Namespace({
+            classLoader: new ClassLoader(finder, path, vm),
+            finder: finder,
+        }, 'Foo', [ '/var/node/foo_vendor/' ], req);
 
         const obj = new ns.FooClass('foobar');
         expect(obj.constructCalled).to.be.equal('foobar');
@@ -284,7 +298,11 @@ describe('[Autoloader] Namespace', function () {
         };
         req.resolve = (module) => module;
 
-        const ns = new Namespace({finder: finder}, 'Foo', [ '/var/node/foo_vendor/' ], req);
+        const ns = new Namespace({
+            classLoader: new ClassLoader(finder, path, vm),
+            finder: finder,
+        }, 'Foo', [ '/var/node/foo_vendor/' ], req);
+
         try {
             global.__ns = ns;
 
@@ -318,7 +336,10 @@ describe('[Autoloader] Namespace', function () {
             },
         };
 
-        const ns = new Namespace({ finder: finder }, 'Foo', path.join(__dirname, '..', 'fixtures'), require);
+        const ns = new Namespace({
+            classLoader: new ClassLoader(finder, path, vm),
+            finder: finder,
+        }, 'Foo', path.join(__dirname, '..', 'fixtures'), require);
         try {
             global.Foo = ns;
 
