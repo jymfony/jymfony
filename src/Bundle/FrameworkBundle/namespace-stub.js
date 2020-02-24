@@ -29,7 +29,12 @@ Jymfony.Bundle.FrameworkBundle = {
     /**
      * @namespace
      */
-    DependencyInjection: {},
+    DependencyInjection: {
+        /**
+         * @namespace
+         */
+        Compiler: {},
+    },
 
     /**
      * @namespace

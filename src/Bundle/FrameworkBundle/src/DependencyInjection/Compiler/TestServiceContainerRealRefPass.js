@@ -2,7 +2,7 @@ const CompilerPassInterface = Jymfony.Component.DependencyInjection.Compiler.Com
 const Reference = Jymfony.Component.DependencyInjection.Reference;
 
 /**
- * @memberOf Jymfony.FrameworkBundle.DependencyInjection.Compiler
+ * @memberOf Jymfony.Bundle.FrameworkBundle.DependencyInjection.Compiler
  */
 export default class TestServiceContainerRealRefPass extends implementationOf(CompilerPassInterface) {
     /**

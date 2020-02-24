@@ -1,4 +1,4 @@
-declare namespace Jymfony.FrameworkBundle.DependencyInjection.Compiler {
+declare namespace Jymfony.Bundle.FrameworkBundle.DependencyInjection.Compiler {
     import ContainerBuilder = Jymfony.Component.DependencyInjection.ContainerBuilder;
     import CompilerPassInterface = Jymfony.Component.DependencyInjection.Compiler.CompilerPassInterface;
 

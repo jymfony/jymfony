@@ -1,4 +1,4 @@
-declare namespace Jymfony.FrameworkBundle.DependencyInjection.Compiler {
+declare namespace Jymfony.Bundle.FrameworkBundle.DependencyInjection.Compiler {
     import AbstractRecursivePass = Jymfony.Component.DependencyInjection.Compiler.AbstractRecursivePass;
     import ContainerBuilder = Jymfony.Component.DependencyInjection.ContainerBuilder;
 

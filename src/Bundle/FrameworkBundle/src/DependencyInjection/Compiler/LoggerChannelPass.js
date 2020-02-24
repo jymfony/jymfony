@@ -5,7 +5,7 @@ const Reference = Jymfony.Component.DependencyInjection.Reference;
 const LoggerInterface = Jymfony.Component.Logger.LoggerInterface;
 
 /**
- * @memberOf Jymfony.FrameworkBundle.DependencyInjection.Compiler
+ * @memberOf Jymfony.Bundle.FrameworkBundle.DependencyInjection.Compiler
  */
 export default class LoggerChannelPass extends AbstractRecursivePass {
     __construct() {
