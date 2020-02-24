@@ -5,6 +5,7 @@
 /// <reference path="Controller/AbstractController.d.ts" />
 /// <reference path="Controller/ControllerTrait.d.ts" />
 /// <reference path="Controller/ExceptionController.d.ts" />
+/// <reference path="DependencyInjection/Compiler/AddDebugLogProcessorPass.d.ts" />
 /// <reference path="DependencyInjection/Compiler/LoggerAddProcessorsPass.d.ts" />
 /// <reference path="DependencyInjection/Compiler/LoggerChannelPass.d.ts" />
 /// <reference path="DependencyInjection/Compiler/TestServiceContainerRealRefPass.d.ts" />

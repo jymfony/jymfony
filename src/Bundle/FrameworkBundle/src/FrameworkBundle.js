@@ -60,6 +60,10 @@ export default class FrameworkBundle extends Bundle {
 
         this._addCompilerPassIfExists(container, 'Jymfony.Component.Routing.DependencyInjection.RoutingResolverPass');
         this._addCompilerPassIfExists(container, 'Jymfony.Component.Mime.DependencyInjection.AddMimeTypeGuesserPass');
+
+        if (container.getParameter('kernel.debug')) {
+            container.addCompilerPass(new Compiler.AddDebugLogProcessorPass(), PassConfig.TYPE_BEFORE_OPTIMIZATION, 2);
+        }
     }
 
     /**

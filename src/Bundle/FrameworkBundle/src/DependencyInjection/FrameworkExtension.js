@@ -160,6 +160,13 @@ export default class FrameworkExtension extends Extension {
                 .addProperty('maxString', config.dump.max_string_length)
             ;
         }
+
+        const debug = container.getParameter('kernel.debug');
+        if (debug && ReflectionClass.exists('Jymfony.Bundle.FrameworkBundle.Log.Processor.DebugProcessor')) {
+            container.register('debug.log_processor', 'Jymfony.Bundle.FrameworkBundle.Log.Processor.DebugProcessor')
+                .setPublic(false)
+            ;
+        }
     }
 
     /**
