@@ -118,7 +118,7 @@ export default class LineFormatter extends NormalizerFormatter {
         };
 
         let previousText = '', previous = record;
-        while (previous = previous.previous) {
+        while ((previous = previous.previous)) {
             previousText += ', ' + formatError(previous);
         }
 
@@ -178,6 +178,8 @@ export default class LineFormatter extends NormalizerFormatter {
 
         return str.replace(/(\r\n|\r|\n)/g, ' ');
     }
-}
 
-LineFormatter.SIMPLE_FORMAT = '[%datetime%] %channel%.%level_name%: %message% %context% %extra%\n';
+    static get SIMPLE_FORMAT() {
+        return '[%datetime%] %channel%.%level_name%: %message% %context% %extra%\n';
+    }
+}

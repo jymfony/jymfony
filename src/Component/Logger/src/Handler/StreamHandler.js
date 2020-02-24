@@ -59,14 +59,12 @@ export default class StreamHandler extends AbstractProcessingHandler {
      * Opens the stream if needed.
      */
     open() {
-        if (undefined === this._stream) {
+        if (! this._stream) {
             this._createDir();
             const fd = openSync(this._file, 'a', this._filePermission || 0o666);
-            this._stream = createWriteStream(this._file, {
-                fd,
-            });
+            this._stream = createWriteStream(this._file, { fd });
 
-            process.on('exit', () => this.close());
+            process.on('beforeExit', () => this.close());
         }
     }
 
