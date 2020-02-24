@@ -220,30 +220,30 @@ export default class FrameworkExtension extends Extension {
 
         switch (handler.type) {
             case 'stream':
-                definition.setArguments([
-                    handler.path,
-                    handler.level,
-                    handler.bubble,
-                    handler.file_permission,
-                ]);
+                definition.setArguments({
+                    index_0: handler.path,
+                    index_1: handler.level,
+                    index_2: handler.bubble,
+                    index_3: handler.file_permission,
+                });
                 break;
 
             case 'console':
-                definition.setArguments([
-                    undefined,
-                    handler.bubble,
-                    handler.verbosity_levels,
-                ]);
+                definition.setArguments({
+                    index_0: undefined,
+                    index_1: handler.bubble,
+                    index_2: handler.verbosity_levels,
+                });
                 definition.addTag('kernel.event_subscriber');
                 break;
 
             case 'mongodb':
-                definition.setArguments([
-                    new Reference('jymfony.logger.mongodb.connection.'+name),
-                    handler.mongo.collection,
-                    handler.level,
-                    handler.bubble,
-                ]);
+                definition.setArguments({
+                    index_0: new Reference('jymfony.logger.mongodb.connection.' + name),
+                    index_1: handler.mongo.collection,
+                    index_2: handler.level,
+                    index_3: handler.bubble,
+                });
 
                 if (!!handler.mongo.id) {
                     container.setAlias('jymfony.logger.mongodb.connection.'+name, new Alias(handler.mongo.id));
@@ -262,8 +262,8 @@ export default class FrameworkExtension extends Extension {
                 break;
 
             case 'slack':
-                definition.setArguments([
-                    {
+                definition.setArguments({
+                    index_0: {
                         token: handler.token,
                         channel: handler.channel,
                         username: handler.bot_name,
@@ -272,14 +272,14 @@ export default class FrameworkExtension extends Extension {
                         shortAttachment: handler.use_short_attachment,
                         includeContextAndExtra: handler.include_extra,
                     },
-                    handler.level,
-                    handler.bubble,
-                ]);
+                    index_1: handler.level,
+                    index_2: handler.bubble,
+                });
                 break;
 
             case 'slack_webhook':
-                definition.setArguments([
-                    {
+                definition.setArguments({
+                    index_0: {
                         webhookUrl: handler.webhook_url,
                         channel: handler.channel,
                         username: handler.bot_name,
@@ -288,16 +288,16 @@ export default class FrameworkExtension extends Extension {
                         shortAttachment: handler.use_short_attachment,
                         includeContextAndExtra: handler.include_extra,
                     },
-                    handler.level,
-                    handler.bubble,
-                ]);
+                    index_1: handler.level,
+                    index_2: handler.bubble,
+                });
                 break;
 
             case 'null':
-                definition.setArguments([
-                    handler.level,
-                    handler.bubble,
-                ]);
+                definition.setArguments({
+                    index_0: handler.level,
+                    index_1: handler.bubble,
+                });
                 break;
 
             default:
