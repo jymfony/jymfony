@@ -5,6 +5,8 @@ const Request = Jymfony.Component.HttpFoundation.Request;
 const { expect } = require('chai');
 
 describe('[FrameworkBundle] TypedController', function () {
+    this.timeout(10000);
+
     if (! __jymfony.Platform.hasPublicFieldSupport()) {
         beforeEach(function () {
             this.skip();
