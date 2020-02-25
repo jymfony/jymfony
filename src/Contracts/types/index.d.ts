@@ -28,6 +28,7 @@
 /// <reference path="HttpServer/Event/ResponseEvent.d.ts" />
 /// <reference path="HttpServer/Event/ViewEvent.d.ts" />
 /// <reference path="HttpServer/HttpServerInterface.d.ts" />
+/// <reference path="Kernel/Event/UnhandledRejectionEvent.d.ts" />
 /// <reference path="Metadata/Event/MetadataLoadedEvent.d.ts" />
 /// <reference path="Metadata/Exception/InvalidArgumentException.d.ts" />
 /// <reference path="Metadata/MetadataFactoryInterface.d.ts" />

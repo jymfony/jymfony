@@ -1,5 +1,6 @@
 src/Component/Autoloader/fixtures
 src/Component/Autoloader/src/Reflection/ReflectionHelper.js
+src/Component/Debug/src/Resources
 src/Component/DependencyInjection/fixtures
 src/Component/HttpServer/fixtures
 src/Component/Metadata/fixtures

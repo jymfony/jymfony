@@ -1,4 +1,7 @@
 declare namespace Jymfony.Component.Autoloader {
+    import DecoratorDescriptor = Jymfony.Component.Autoloader.Parser.AST.DecoratorDescriptor;
+    import Identifier = Jymfony.Component.Autoloader.Parser.AST.Identifier;
+
     type Storage = {};
 
     class DescriptorStorage {
@@ -18,49 +21,17 @@ declare namespace Jymfony.Component.Autoloader {
 
         /**
          * Registers a decorator descriptor.
-         *
-         * @param {Jymfony.Component.Autoloader.Parser.AST.DecoratorDescriptor} descriptor
-         * @param {Jymfony.Component.Autoloader.Parser.AST.Identifier} alias
          */
-        register(descriptor, alias = descriptor.name) {
-            const name = alias.name;
-            this._storage[this._filename + name] = descriptor;
-        }
+        register(descriptor: DecoratorDescriptor, alias?: Identifier): void;
 
         /**
          * Register decorators as exported by export * from ..
-         *
-         * @param {string} source
          */
-        registerAllFrom(source) {
-            try {
-                source = require.resolve(source, { paths: [dirname(this._filename)] });
-            } catch (e) {
-                return;
-            }
-
-            this._classLoader.getCode(source);
-
-            for (const [name, descriptor] of __jymfony.getEntries(this._storage)) {
-                if (name.startsWith(source + '@')) {
-                    this._storage[name.replace(new RegExp('^' + __jymfony.regex_quote(source)), this._filename)] = descriptor;
-                }
-            }
-        }
+        registerAllFrom(source: string): void;
 
         /**
          * Imports a decorator descriptor.
-         *
-         * @param {string} source
-         * @param {string} descriptorName
-         *
-         * @returns {Jymfony.Component.Autoloader.Parser.AST.DecoratorDescriptor}
          */
-        import(source, descriptorName) {
-            source = require.resolve(source, { paths: [dirname(this._filename)] });
-            this._classLoader.getCode(source);
-
-            return this._storage[source + descriptorName];
-        }
+        import(source: string, descriptorName: string): DecoratorDescriptor;
     }
 }

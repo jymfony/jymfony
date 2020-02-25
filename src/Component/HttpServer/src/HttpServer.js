@@ -271,10 +271,7 @@ export default class HttpServer extends mix(RequestHandler, HttpServerInterface)
             'SERVER_PROTOCOL': 'HTTP/'+req.httpVersion,
         }, content);
 
-        let response = await this.handle(request);
-        if (isPromise(response)) {
-            response = await response;
-        }
+        const response = await this.handle(request);
 
         await response.prepare(request);
         await response.sendResponse(req, res);

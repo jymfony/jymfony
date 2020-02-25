@@ -18,10 +18,13 @@
   "dependencies": {
     "@jymfony/autoloader": "0.1.0-alpha.20",
     "@jymfony/exceptions": "0.1.0-alpha.20",
-    "@jymfony/util": "0.1.0-alpha.20"
+    "@jymfony/logger": "0.1.0-alpha.20",
+    "@jymfony/util": "0.1.0-alpha.20",
+    "@jymfony/var-dumper": "0.1.0-alpha.20"
   },
   "devDependencies": {
     "@jymfony/http-foundation": "*",
+    "@jymfony/kernel": "*",
     "chai": "^4.2",
     "mocha": "^6.0"
   },

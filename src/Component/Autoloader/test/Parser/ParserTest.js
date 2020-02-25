@@ -208,6 +208,18 @@ export default () => {
         expect(() => compiler.compile(program)).not.to.throw();
     });
 
+    it ('should correctly compile raw imports', () => {
+        const program = parser.parse(`import { Sloppy } from 'sloppy-package' nocompile;
+
+export default () => {
+    return [ Sloppy === undefined ];
+};
+`);
+
+        const compiler = new Compiler(generator);
+        expect(() => compiler.compile(program)).not.to.throw();
+    });
+
     it ('should parse js code correctly. case #1', () => {
         const program = parser.parse(`
     const res = lines.map((l, i) => {
@@ -257,5 +269,28 @@ export default () => {
         const compiler = new Compiler(generator);
         const compiled = compiler.compile(program);
         expect(compiled).to.be.equal('const x = [ 1, , 3, 4,  ];');
+    });
+
+    it ('should spread operator in object unpacking', () => {
+        const program = parser.parse(`
+    const { g, ...x } = { g: 'foo', y: 'test', p: 123 };
+`);
+
+        const compiler = new Compiler(generator);
+        const compiled = compiler.compile(program);
+        expect(compiled).to.be.equal('const { g, ...x } = {\ng: \'foo\',y: \'test\',p: 123,};');
+    });
+
+    it ('should parse xor operator correctly', () => {
+        const program = parser.parse(`
+function op_xor(x,y) { return x^y; } 
+`);
+
+        const compiler = new Compiler(generator);
+        const compiled = compiler.compile(program);
+        expect(compiled).to.be.equal(`function op_xor(x,y){
+return x ^ y;
+}
+;`);
     });
 });

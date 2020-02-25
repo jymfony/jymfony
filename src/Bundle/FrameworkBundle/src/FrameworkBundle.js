@@ -1,10 +1,11 @@
+const AddConsoleCommandPass = Jymfony.Component.Console.DependencyInjection.AddConsoleCommandPass;
 const Bundle = Jymfony.Component.Kernel.Bundle;
-const PassConfig = Jymfony.Component.DependencyInjection.Compiler.PassConfig;
-const RegisterListenerPass = Jymfony.Component.EventDispatcher.DependencyInjection.Compiler.RegisterListenerPass;
-const Compiler = Jymfony.Bundle.FrameworkBundle.DependencyInjection.Compiler;
 const CachePoolPass = Jymfony.Component.Cache.DependencyInjection.CachePoolPass;
 const ClassExistenceResource = Jymfony.Component.Config.Resource.ClassExistenceResource;
-const AddConsoleCommandPass = Jymfony.Component.Console.DependencyInjection.AddConsoleCommandPass;
+const Compiler = Jymfony.Bundle.FrameworkBundle.DependencyInjection.Compiler;
+const ErrorHandler = Jymfony.Component.Debug.ErrorHandler;
+const PassConfig = Jymfony.Component.DependencyInjection.Compiler.PassConfig;
+const RegisterListenerPass = Jymfony.Component.EventDispatcher.DependencyInjection.Compiler.RegisterListenerPass;
 
 /**
  * FrameworkBundle.
@@ -35,6 +36,17 @@ export default class FrameworkBundle extends Bundle {
                 handler(variable);
             });
         }
+
+        if (this._container.has('logger')) {
+            const warningListeners = process.listeners('warning');
+            let handler;
+            for (const listener of warningListeners) {
+                if (!! listener.innerObject && (handler = listener.innerObject.getObject()) instanceof ErrorHandler) {
+                    handler.setDefaultLogger(this._container.get('logger'));
+                    break;
+                }
+            }
+        }
     }
 
     /**
@@ -60,6 +72,10 @@ export default class FrameworkBundle extends Bundle {
 
         this._addCompilerPassIfExists(container, 'Jymfony.Component.Routing.DependencyInjection.RoutingResolverPass');
         this._addCompilerPassIfExists(container, 'Jymfony.Component.Mime.DependencyInjection.AddMimeTypeGuesserPass');
+
+        if (container.getParameter('kernel.debug')) {
+            container.addCompilerPass(new Compiler.AddDebugLogProcessorPass(), PassConfig.TYPE_BEFORE_OPTIMIZATION, 2);
+        }
     }
 
     /**

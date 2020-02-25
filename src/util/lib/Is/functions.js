@@ -80,6 +80,10 @@ global.isFunction = function isFunction(obj) {
         return true;
     }
 
+    if (undefined !== global.BoundFunction && obj.hasOwnProperty('innerObject') && obj.innerObject instanceof BoundFunction) {
+        return true;
+    }
+
     if (isGeneratorFunction(obj)) {
         return true;
     }

@@ -20,8 +20,9 @@ class ImportDeclaration extends implementationOf(ModuleDeclarationInterface) {
      * @param {Jymfony.Component.Autoloader.Parser.AST.ImportSpecifierInterface[]} specifiers
      * @param {Jymfony.Component.Autoloader.Parser.AST.Literal} source
      * @param {boolean} optional
+     * @param {boolean} nocompile
      */
-    __construct(location, specifiers, source, optional) {
+    __construct(location, specifiers, source, { optional, nocompile } = {}) {
         /**
          * @type {Jymfony.Component.Autoloader.Parser.AST.SourceLocation}
          */
@@ -46,7 +47,14 @@ class ImportDeclaration extends implementationOf(ModuleDeclarationInterface) {
          *
          * @private
          */
-        this._optional = optional;
+        this._optional = !! optional;
+
+        /**
+         * @type {boolean}
+         *
+         * @private
+         */
+        this._nocompile = !! nocompile;
     }
 
     /**
@@ -54,7 +62,14 @@ class ImportDeclaration extends implementationOf(ModuleDeclarationInterface) {
      */
     compile(compiler) {
         const variableName = compiler.generateVariableName();
-        compiler._emit('const ' + variableName + ' = require' + (this._optional ? '.optional(' : '('));
+        compiler._emit('const ' + variableName + ' = require');
+
+        if (this._nocompile) {
+            compiler._emit('.nocompile(');
+        } else {
+            compiler._emit(this._optional ? '.optional(' : '(');
+        }
+
         compiler.compileNode(this._source);
         if (this._optional && (1 < this._specifiers.length || this._specifiers[0] instanceof ImportSpecifier)) {
             compiler._emit(', true');

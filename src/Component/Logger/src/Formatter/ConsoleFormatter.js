@@ -93,6 +93,8 @@ export default class ConsoleFormatter extends NormalizerFormatter {
 
         return record;
     }
-}
 
-ConsoleFormatter.SIMPLE_FORMAT = '%datetime% %start_tag%%level_name%%end_tag% <comment>[%channel%]</> %message%%context%%extra%\n';
+    static get SIMPLE_FORMAT() {
+        return '%datetime% %start_tag%%level_name%%end_tag% <comment>[%channel%]</> %message%%context%%extra%\n';
+    }
+}

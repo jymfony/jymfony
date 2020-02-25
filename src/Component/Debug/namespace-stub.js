@@ -9,5 +9,15 @@ Jymfony.Component.Debug = {
     /**
      * @namespace
      */
+    ErrorEnhancer: {},
+
+    /**
+     * @namespace
+     */
+    ErrorRenderer: {},
+
+    /**
+     * @namespace
+     */
     Exception: {},
 };

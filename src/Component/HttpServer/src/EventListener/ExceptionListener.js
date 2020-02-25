@@ -1,11 +1,10 @@
-const FlattenException = Jymfony.Component.Debug.Exception.FlattenException;
+const DebugLoggerInterface = Jymfony.Component.Kernel.Log.DebugLoggerInterface;
 const EventSubscriberInterface = Jymfony.Contracts.EventDispatcher.EventSubscriberInterface;
 const Events = Jymfony.Component.HttpServer.Event.HttpServerEvents;
 const HttpExceptionInterface = Jymfony.Component.HttpFoundation.Exception.HttpExceptionInterface;
 const NotFoundHttpException = Jymfony.Component.HttpFoundation.Exception.NotFoundHttpException;
-const Request = Jymfony.Component.HttpFoundation.Request;
-const DebugLoggerInterface = Jymfony.Component.Kernel.Log.DebugLoggerInterface;
 const NullLogger = Jymfony.Component.Logger.NullLogger;
+const Request = Jymfony.Component.HttpFoundation.Request;
 
 /**
  * @memberOf Jymfony.Component.HttpServer.EventListener
@@ -77,7 +76,7 @@ export default class ExceptionListener extends implementationOf(EventSubscriberI
         event.response = response;
 
         if (this._debug) {
-            const cspRemoval = (event) => {
+            const cspRemoval = event => {
                 event.response.headers.remove('Content-Security-Policy');
                 eventDispatcher.removeListener(Events.RESPONSE, cspRemoval);
             };
@@ -123,8 +122,8 @@ export default class ExceptionListener extends implementationOf(EventSubscriberI
      */
     _duplicateRequest(exception, request) {
         const attributes = {
+            exception,
             '_controller': this._controller,
-            'exception': FlattenException.create(exception),
             'logger': this._logger instanceof DebugLoggerInterface ? this._logger : null,
             [Request.ATTRIBUTE_PARENT_REQUEST]: request,
         };

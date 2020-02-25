@@ -5,10 +5,11 @@ export default class WrappedListener {
     /**
      * Constructor
      *
-     * @param listener
-     * @param dispatcher
+     * @param {Function} listener
+     * @param {string} eventName
+     * @param {Jymfony.Contracts.EventDispatcher.EventDispatcherInterface} dispatcher
      */
-    __construct(listener, dispatcher) {
+    __construct(listener, eventName, dispatcher) {
         /**
          * @type {Object}
          *
@@ -71,11 +72,20 @@ export default class WrappedListener {
                 const [ event, eventName ] = argArray;
                 this._called = true;
 
-                Reflect.apply(target, thisArg, [ event, eventName, this._dispatcher ]);
-
-                if (event.isPropagationStopped()) {
-                    this._stoppedPropagation = true;
+                const retVal = Reflect.apply(target, thisArg, [ event, eventName, this._dispatcher ]);
+                if (isPromise(retVal)) {
+                    retVal.then(() => {
+                        if (event.isPropagationStopped()) {
+                            this._stoppedPropagation = true;
+                        }
+                    });
+                } else {
+                    if (event.isPropagationStopped()) {
+                        this._stoppedPropagation = true;
+                    }
                 }
+
+                return retVal;
             },
         });
     }

@@ -11,9 +11,22 @@ export default class ExceptionController {
      * Constructor.
      *
      * @param {boolean} debug
+     * @param {Jymfony.Component.Debug.ErrorRenderer.ErrorRendererInterface} errorRenderer
      */
-    __construct(debug) {
+    __construct(debug, errorRenderer) {
+        /**
+         * @type {boolean}
+         *
+         * @private
+         */
         this._debug = debug;
+
+        /**
+         * @type {Jymfony.Component.Debug.ErrorRenderer.ErrorRendererInterface}
+         *
+         * @private
+         */
+        this._errorRenderer = errorRenderer;
     }
 
     /**
@@ -22,17 +35,9 @@ export default class ExceptionController {
      * @param {Jymfony.Component.HttpFoundation.Request} request
      */
     showAction(@Type(Request) request) {
-        let exception = request.attributes.get('exception');
+        const exception = request.attributes.get('exception');
+        const flattenException = this._errorRenderer.render(exception);
 
-        if (! this._debug) {
-            exception = {
-                code: exception.code,
-                message: exception.message,
-            };
-        }
-
-        return new Response(JSON.stringify(exception), 200, {
-            'content-type': 'application/json',
-        });
+        return new Response(flattenException.asString, flattenException.statusCode, flattenException.headers);
     }
 }

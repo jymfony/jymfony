@@ -52,6 +52,13 @@ container.setDefinition(Jymfony.Component.HttpServer.HttpServer, new ChildDefini
 container.register('kernel.exception_controller', Jymfony.Bundle.FrameworkBundle.Controller.ExceptionController)
     .setPublic(true)
     .addArgument('%kernel.debug%')
+    .addArgument(new Reference('error_handler.html'))
+;
+
+container.register(Jymfony.Component.HttpServer.EventListener.UnhandledRejectionListener)
+    .addTag('kernel.event_subscriber')
+    .addArgument(new Reference('logger', Container.IGNORE_ON_INVALID_REFERENCE))
+    .addArgument('%kernel.debug%')
 ;
 
 container.register(Jymfony.Component.HttpServer.EventListener.ExceptionListener)

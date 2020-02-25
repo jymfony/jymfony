@@ -1,6 +1,5 @@
 const ArrayPattern = require('../Parser/AST/ArrayPattern');
 const AssignmentPattern = require('../Parser/AST/AssignmentPattern');
-const ClassLoader = require('../ClassLoader');
 const Compiler = require('../Parser/Compiler');
 const DescriptorStorage = require('../DescriptorStorage');
 const Identifier = require('../Parser/AST/Identifier');
@@ -12,9 +11,7 @@ const SourceMapGenerator = require('../Parser/SourceMap/Generator');
 const SpreadElement = require('../Parser/AST/SpreadElement');
 const vm = require('vm');
 
-const descriptorStorage = new DescriptorStorage(
-    new ClassLoader(__jymfony.autoload.finder, require('path'), vm)
-);
+const descriptorStorage = new DescriptorStorage(__jymfony.autoload.classLoader);
 
 /**
  * Reflection utility for class method.

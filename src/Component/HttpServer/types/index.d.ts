@@ -26,6 +26,7 @@
 /// <reference path="Exception/BadRequestException.d.ts" />
 /// <reference path="Exception/InvalidJsonBodyException.d.ts" />
 /// <reference path="Exception/RequestTimeoutException.d.ts" />
+/// <reference path="Exception/UnhandledRejectionException.d.ts" />
 /// <reference path="Http2/HttpServer.d.ts" />
 /// <reference path="RequestParser/AbstractParser.d.ts" />
 /// <reference path="RequestParser/JsonEncodedParser.d.ts" />

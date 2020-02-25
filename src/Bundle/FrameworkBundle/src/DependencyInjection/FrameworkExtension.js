@@ -1,16 +1,16 @@
 import { join } from 'path';
 
-const Configuration = Jymfony.Bundle.FrameworkBundle.DependencyInjection.Configuration;
-const CachePoolPass = Jymfony.Component.Cache.DependencyInjection.CachePoolPass;
-const InvalidConfigurationException = Jymfony.Component.Config.Definition.Exception.InvalidConfigurationException;
-const FileLocator = Jymfony.Component.Config.FileLocator;
 const Alias = Jymfony.Component.DependencyInjection.Alias;
+const CachePoolPass = Jymfony.Component.Cache.DependencyInjection.CachePoolPass;
 const ChildDefinition = Jymfony.Component.DependencyInjection.ChildDefinition;
+const Configuration = Jymfony.Bundle.FrameworkBundle.DependencyInjection.Configuration;
 const Container = Jymfony.Component.DependencyInjection.Container;
+const Extension = Jymfony.Component.DependencyInjection.Extension.Extension;
+const InvalidConfigurationException = Jymfony.Component.Config.Definition.Exception.InvalidConfigurationException;
+const JsFileLoader = Jymfony.Component.DependencyInjection.Loader.JsFileLoader;
+const FileLocator = Jymfony.Component.Config.FileLocator;
 const Parameter = Jymfony.Component.DependencyInjection.Parameter;
 const Reference = Jymfony.Component.DependencyInjection.Reference;
-const JsFileLoader = Jymfony.Component.DependencyInjection.Loader.JsFileLoader;
-const Extension = Jymfony.Component.DependencyInjection.Extension.Extension;
 
 /**
  * @memberOf Jymfony.Bundle.FrameworkBundle.DependencyInjection
@@ -160,6 +160,13 @@ export default class FrameworkExtension extends Extension {
                 .addProperty('maxString', config.dump.max_string_length)
             ;
         }
+
+        const debug = container.getParameter('kernel.debug');
+        if (debug && ReflectionClass.exists('Jymfony.Bundle.FrameworkBundle.Log.Processor.DebugProcessor')) {
+            container.register('debug.log_processor', 'Jymfony.Bundle.FrameworkBundle.Log.Processor.DebugProcessor')
+                .setPublic(false)
+            ;
+        }
     }
 
     /**
@@ -220,30 +227,30 @@ export default class FrameworkExtension extends Extension {
 
         switch (handler.type) {
             case 'stream':
-                definition.setArguments([
-                    handler.path,
-                    handler.level,
-                    handler.bubble,
-                    handler.file_permission,
-                ]);
+                definition.setArguments({
+                    index_0: handler.path,
+                    index_1: handler.level,
+                    index_2: handler.bubble,
+                    index_3: handler.file_permission,
+                });
                 break;
 
             case 'console':
-                definition.setArguments([
-                    undefined,
-                    handler.bubble,
-                    handler.verbosity_levels,
-                ]);
+                definition.setArguments({
+                    index_0: undefined,
+                    index_1: handler.bubble,
+                    index_2: handler.verbosity_levels,
+                });
                 definition.addTag('kernel.event_subscriber');
                 break;
 
             case 'mongodb':
-                definition.setArguments([
-                    new Reference('jymfony.logger.mongodb.connection.'+name),
-                    handler.mongo.collection,
-                    handler.level,
-                    handler.bubble,
-                ]);
+                definition.setArguments({
+                    index_0: new Reference('jymfony.logger.mongodb.connection.' + name),
+                    index_1: handler.mongo.collection,
+                    index_2: handler.level,
+                    index_3: handler.bubble,
+                });
 
                 if (!!handler.mongo.id) {
                     container.setAlias('jymfony.logger.mongodb.connection.'+name, new Alias(handler.mongo.id));
@@ -262,8 +269,8 @@ export default class FrameworkExtension extends Extension {
                 break;
 
             case 'slack':
-                definition.setArguments([
-                    {
+                definition.setArguments({
+                    index_0: {
                         token: handler.token,
                         channel: handler.channel,
                         username: handler.bot_name,
@@ -272,14 +279,14 @@ export default class FrameworkExtension extends Extension {
                         shortAttachment: handler.use_short_attachment,
                         includeContextAndExtra: handler.include_extra,
                     },
-                    handler.level,
-                    handler.bubble,
-                ]);
+                    index_1: handler.level,
+                    index_2: handler.bubble,
+                });
                 break;
 
             case 'slack_webhook':
-                definition.setArguments([
-                    {
+                definition.setArguments({
+                    index_0: {
                         webhookUrl: handler.webhook_url,
                         channel: handler.channel,
                         username: handler.bot_name,
@@ -288,16 +295,16 @@ export default class FrameworkExtension extends Extension {
                         shortAttachment: handler.use_short_attachment,
                         includeContextAndExtra: handler.include_extra,
                     },
-                    handler.level,
-                    handler.bubble,
-                ]);
+                    index_1: handler.level,
+                    index_2: handler.bubble,
+                });
                 break;
 
             case 'null':
-                definition.setArguments([
-                    handler.level,
-                    handler.bubble,
-                ]);
+                definition.setArguments({
+                    index_0: handler.level,
+                    index_1: handler.bubble,
+                });
                 break;
 
             default:
@@ -375,6 +382,7 @@ export default class FrameworkExtension extends Extension {
             throw new InvalidConfigurationException('HttpServer component is not installed');
         }
 
+        loader.load('error-renderer.js');
         loader.load('http-server.js');
 
         if (config.request_timeout) {

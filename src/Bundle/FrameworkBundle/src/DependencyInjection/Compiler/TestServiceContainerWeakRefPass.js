@@ -4,7 +4,7 @@ const ServiceClosureArgument = Jymfony.Component.DependencyInjection.Argument.Se
 const Reference = Jymfony.Component.DependencyInjection.Reference;
 
 /**
- * @memberOf Jymfony.FrameworkBundle.DependencyInjection.Compiler
+ * @memberOf Jymfony.Bundle.FrameworkBundle.DependencyInjection.Compiler
  */
 export default class TestServiceContainerWeakRefPass extends implementationOf(CompilerPassInterface) {
     /**

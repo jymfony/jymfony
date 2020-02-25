@@ -77,7 +77,7 @@ describe('[FrameworkBundle] FrameworkExtension', function () {
         ).to.be.deep.equal({ requestTimeoutMs: 30000 });
     });
 
-    it('should set http key and certificate', () => {
+    it('should set http key and certificate', __jymfony.version_compare(process.versions.node, '10.10.0', '>=') ? () => {
         this.extension.load([ {
             http_server: {
                 enabled: true,
@@ -90,5 +90,5 @@ describe('[FrameworkBundle] FrameworkExtension', function () {
 
         const def = this.container.getDefinition(Jymfony.Component.HttpServer.HttpServer);
         expect(def.getClass()).to.be.equal('Jymfony.Component.HttpServer.Http2.HttpServer');
-    });
+    } : undefined);
 });

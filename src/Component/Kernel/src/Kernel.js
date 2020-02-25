@@ -2,13 +2,14 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 const ConfigCache = Jymfony.Component.Config.ConfigCache;
-const DelegatingLoader = Jymfony.Component.Config.Loader.DelegatingLoader;
-const LoaderResolver = Jymfony.Component.Config.Loader.LoaderResolver;
-const DateTime = Jymfony.Component.DateTime.DateTime;
 const ContainerBuilder = Jymfony.Component.DependencyInjection.ContainerBuilder;
-const Loader = Jymfony.Component.DependencyInjection.Loader;
+const DateTime = Jymfony.Component.DateTime.DateTime;
+const DelegatingLoader = Jymfony.Component.Config.Loader.DelegatingLoader;
 const FileLocator = Jymfony.Component.Kernel.Config.FileLocator;
+const KernelEvents = Jymfony.Component.Kernel.KernelEvents;
 const KernelInterface = Jymfony.Component.Kernel.KernelInterface;
+const Loader = Jymfony.Component.DependencyInjection.Loader;
+const LoaderResolver = Jymfony.Component.Config.Loader.LoaderResolver;
 
 /**
  * @memberOf Jymfony.Component.Kernel
@@ -101,6 +102,13 @@ export default class Kernel extends implementationOf(KernelInterface) {
          * @private
          */
         this._bundleMap = {};
+
+        /**
+         * @type {Function}
+         *
+         * @private
+         */
+        this._unhandledRejectionHandler = this._onUnhandledRejection.bind(this);
     }
 
     /**
@@ -134,6 +142,8 @@ export default class Kernel extends implementationOf(KernelInterface) {
             return;
         }
 
+        process.prependListener('unhandledRejection', this._unhandledRejectionHandler);
+
         this._initializeBundles();
         this._initializeContainer();
 
@@ -153,6 +163,7 @@ export default class Kernel extends implementationOf(KernelInterface) {
             return;
         }
 
+        process.removeListener('unhandledRejection', this._unhandledRejectionHandler);
         this._booted = false;
 
         for (const bundle of this.getBundles()) {
@@ -696,6 +707,31 @@ export default class Kernel extends implementationOf(KernelInterface) {
             'kernel.bundles': Object.keys(bundles),
             'kernel.container_class': this._getContainerClass(),
         };
+    }
+
+    /**
+     * Dispatch an unhandled promise rejection event.
+     *
+     * @param {Error} reason
+     * @param {Promise<any>} promise
+     *
+     * @returns {Promise<void>}
+     *
+     * @private
+     */
+    async _onUnhandledRejection(reason, promise) {
+        if (! this._container || ! this._container.has('event_dispatcher')) {
+            return;
+        }
+
+        try {
+            const eventDispatcher = this._container.get('event_dispatcher');
+            const event = new Jymfony.Contracts.Kernel.Event.UnhandledRejectionEvent(reason, promise);
+
+            await eventDispatcher.dispatch(KernelEvents.UNHANDLED_REJECTION, event);
+        } catch (e) {
+            // Do nothing.
+        }
     }
 }
 
