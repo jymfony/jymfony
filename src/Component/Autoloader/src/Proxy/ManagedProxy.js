@@ -1,3 +1,9 @@
+try {
+    require('@jymfony/util');
+} catch (e) {
+    require('../../../../util');
+}
+
 /**
  * @memberOf Jymfony.Component.Autoloader.Proxy
  */

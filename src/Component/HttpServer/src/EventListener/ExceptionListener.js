@@ -1,11 +1,10 @@
-const FlattenException = Jymfony.Component.Debug.Exception.FlattenException;
+const DebugLoggerInterface = Jymfony.Component.Kernel.Log.DebugLoggerInterface;
 const EventSubscriberInterface = Jymfony.Contracts.EventDispatcher.EventSubscriberInterface;
 const Events = Jymfony.Component.HttpServer.Event.HttpServerEvents;
 const HttpExceptionInterface = Jymfony.Component.HttpFoundation.Exception.HttpExceptionInterface;
 const NotFoundHttpException = Jymfony.Component.HttpFoundation.Exception.NotFoundHttpException;
-const Request = Jymfony.Component.HttpFoundation.Request;
-const DebugLoggerInterface = Jymfony.Component.Kernel.Log.DebugLoggerInterface;
 const NullLogger = Jymfony.Component.Logger.NullLogger;
+const Request = Jymfony.Component.HttpFoundation.Request;
 
 /**
  * @memberOf Jymfony.Component.HttpServer.EventListener

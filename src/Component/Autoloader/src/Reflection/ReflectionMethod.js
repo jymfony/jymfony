@@ -1,6 +1,5 @@
 const ArrayPattern = require('../Parser/AST/ArrayPattern');
 const AssignmentPattern = require('../Parser/AST/AssignmentPattern');
-const ClassLoader = require('../ClassLoader');
 const Compiler = require('../Parser/Compiler');
 const DescriptorStorage = require('../DescriptorStorage');
 const Identifier = require('../Parser/AST/Identifier');

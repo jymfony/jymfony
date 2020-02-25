@@ -1,4 +1,3 @@
-const ClassLoader = require('./ClassLoader');
 const ManagedProxy = require('./Proxy/ManagedProxy');
 
 let ClassNotFoundException = undefined;

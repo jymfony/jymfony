@@ -5,14 +5,14 @@ describe('[Debug] HtmlErrorRenderer', function () {
     const expectedDebug = `<!-- Foo \\(500 Internal Server Error\\) -->
 <!DOCTYPE html>
 <html lang="en">
-(.|\\n)+<title>Foo \\(500 Internal Server Error\\)</title>
-(.|\\n)+<div class="trace trace-as-html" id="trace-box-1">(.|\\n)+
+(.|\\r|\\n)+<title>Foo \\(500 Internal Server Error\\)</title>
+(.|\\r|\\n)+<div class="trace trace-as-html" id="trace-box-1">(.|\\r|\\n)+
 <!-- Foo \\(500 Internal Server Error\\) -->`;
 
     const expectedNonDebug = `<!DOCTYPE html>
 <html>
-(.|\\n)+<title>An Error Occurred: Internal Server Error</title>
-(.|\\n)+<h2>The server returned a "500 Internal Server Error".</h2>(.|\\n)+`;
+(.|\\r|\\n)+<title>An Error Occurred: Internal Server Error</title>
+(.|\\r|\\n)+<h2>The server returned a "500 Internal Server Error".</h2>(.|\\r|\\n)+`;
 
     const tests = [
         [ new RuntimeException('Foo'), new HtmlErrorRenderer(true), expectedDebug ],

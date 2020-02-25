@@ -1,20 +1,15 @@
-try {
-    require('@jymfony/util');
-} catch (e) {
-    require('../../../util');
-}
+const DescriptorStorage = require('./DescriptorStorage');
+const Generator = require('./Parser/SourceMap/Generator');
+const ManagedProxy = require('./Proxy/ManagedProxy');
+const StackHandler = require('./Parser/SourceMap/StackHandler');
 
-const { normalize } = require('path');
 let Compiler;
 let Parser;
 let AST;
 
-const DescriptorStorage = require('./DescriptorStorage');
-const ManagedProxy = require('./Proxy/ManagedProxy');
 const isNyc = !! global.__coverage__;
+const { normalize } = require('path');
 
-const Generator = require('./Parser/SourceMap/Generator');
-const StackHandler = require('./Parser/SourceMap/StackHandler');
 const Storage = function () {};
 Storage.prototype = {};
 
@@ -37,12 +32,7 @@ if (__jymfony.version_compare(process.versions.v8, '10.0.0', '<')) {
  * because the buffer-to-string conversion in `fs.readFileSync()`
  * translates it to FEFF, the UTF-16 BOM.
  */
-function stripBOM(content) {
-    if (0xFEFF === content.charCodeAt(0)) {
-        content = content.slice(1);
-    }
-    return content;
-}
+const stripBOM = (content) => 0xFEFF === content.charCodeAt(0) ? content.slice(1) : content;
 
 // From node source:/lib/internal/modules/cjs/helpers.js
 const builtinLibs = [
