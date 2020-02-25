@@ -1,5 +1,6 @@
 const EventSubscriberInterface = Jymfony.Contracts.EventDispatcher.EventSubscriberInterface;
 const NullLogger = Jymfony.Component.Logger.NullLogger;
+const UnhandledRejectionException = Jymfony.Component.HttpServer.Exception.UnhandledRejectionException;
 
 /**
  * @memberOf Jymfony.Component.HttpServer.EventListener
@@ -45,7 +46,7 @@ export default class UnhandledRejectionListener extends implementationOf(EventSu
             return;
         }
 
-        abort(event.reason);
+        abort(new UnhandledRejectionException(event.reason));
     }
 
     /**

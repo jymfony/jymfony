@@ -21,6 +21,7 @@ describe('[FrameworkBundle] CacheClearCommand', function () {
     });
 
     afterEach(async () => {
+        await this._kernel.shutdown();
         await this._fs.remove(this._kernel.getProjectDir());
     });
 

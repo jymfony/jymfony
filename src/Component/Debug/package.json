@@ -18,10 +18,13 @@
   "dependencies": {
     "@jymfony/autoloader": "https://github.com/jymfony/autoloader.git",
     "@jymfony/exceptions": "https://github.com/jymfony/exceptions.git",
-    "@jymfony/util": "https://github.com/jymfony/util.git"
+    "@jymfony/logger": "https://github.com/jymfony/logger.git",
+    "@jymfony/util": "https://github.com/jymfony/util.git",
+    "@jymfony/var-dumper": "https://github.com/jymfony/var-dumper.git"
   },
   "devDependencies": {
     "@jymfony/http-foundation": "https://github.com/jymfony/http-foundation.git",
+    "@jymfony/kernel": "https://github.com/jymfony/kernel.git",
     "chai": "^4.2",
     "mocha": "^6.0"
   },

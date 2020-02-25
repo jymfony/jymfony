@@ -22,6 +22,7 @@
     "@jymfony/contracts": "https://github.com/jymfony/contracts.git",
     "@jymfony/datetime": "https://github.com/jymfony/date-time.git",
     "@jymfony/decorators": "https://github.com/jymfony/decorators.git",
+    "@jymfony/debug": "https://github.com/jymfony/debug.git",
     "@jymfony/dependency-injection": "https://github.com/jymfony/dependency-injection.git",
     "@jymfony/event-dispatcher": "https://github.com/jymfony/event-dispatcher.git",
     "@jymfony/exceptions": "https://github.com/jymfony/exceptions.git",

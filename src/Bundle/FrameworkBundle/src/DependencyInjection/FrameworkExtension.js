@@ -1,16 +1,16 @@
 import { join } from 'path';
 
-const Configuration = Jymfony.Bundle.FrameworkBundle.DependencyInjection.Configuration;
-const CachePoolPass = Jymfony.Component.Cache.DependencyInjection.CachePoolPass;
-const InvalidConfigurationException = Jymfony.Component.Config.Definition.Exception.InvalidConfigurationException;
-const FileLocator = Jymfony.Component.Config.FileLocator;
 const Alias = Jymfony.Component.DependencyInjection.Alias;
+const CachePoolPass = Jymfony.Component.Cache.DependencyInjection.CachePoolPass;
 const ChildDefinition = Jymfony.Component.DependencyInjection.ChildDefinition;
+const Configuration = Jymfony.Bundle.FrameworkBundle.DependencyInjection.Configuration;
 const Container = Jymfony.Component.DependencyInjection.Container;
+const Extension = Jymfony.Component.DependencyInjection.Extension.Extension;
+const InvalidConfigurationException = Jymfony.Component.Config.Definition.Exception.InvalidConfigurationException;
+const JsFileLoader = Jymfony.Component.DependencyInjection.Loader.JsFileLoader;
+const FileLocator = Jymfony.Component.Config.FileLocator;
 const Parameter = Jymfony.Component.DependencyInjection.Parameter;
 const Reference = Jymfony.Component.DependencyInjection.Reference;
-const JsFileLoader = Jymfony.Component.DependencyInjection.Loader.JsFileLoader;
-const Extension = Jymfony.Component.DependencyInjection.Extension.Extension;
 
 /**
  * @memberOf Jymfony.Bundle.FrameworkBundle.DependencyInjection
@@ -382,6 +382,7 @@ export default class FrameworkExtension extends Extension {
             throw new InvalidConfigurationException('HttpServer component is not installed');
         }
 
+        loader.load('error-renderer.js');
         loader.load('http-server.js');
 
         if (config.request_timeout) {

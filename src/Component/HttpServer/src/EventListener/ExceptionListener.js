@@ -123,8 +123,8 @@ export default class ExceptionListener extends implementationOf(EventSubscriberI
      */
     _duplicateRequest(exception, request) {
         const attributes = {
+            exception,
             '_controller': this._controller,
-            'exception': FlattenException.create(exception),
             'logger': this._logger instanceof DebugLoggerInterface ? this._logger : null,
             [Request.ATTRIBUTE_PARENT_REQUEST]: request,
         };

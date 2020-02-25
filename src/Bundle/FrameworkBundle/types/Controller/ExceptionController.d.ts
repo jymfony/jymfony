@@ -8,8 +8,8 @@ declare namespace Jymfony.Bundle.FrameworkBundle.Controller {
         /**
          * Constructor.
          */
-        __construct(debug: boolean): void;
-        constructor(debug: boolean);
+        __construct(debug: boolean, errorRenderer: ErrorRendererInterface): void;
+        constructor(debug: boolean, errorRenderer: ErrorRendererInterface);
 
         /**
          * Converts an exception to a Response.
