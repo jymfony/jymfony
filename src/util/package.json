@@ -22,6 +22,7 @@
   "devDependencies": {
     "@jymfony/autoloader": "https://github.com/jymfony/autoloader.git",
     "@jymfony/datastructure": "https://github.com/jymfony/data-structure.git",
+    "@jymfony/debug": "https://github.com/jymfony/debug.git",
     "chai": "^4.2",
     "mocha": "^6.0"
   },
