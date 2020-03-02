@@ -1,14 +1,7 @@
-const ArrayPattern = require('../Parser/AST/ArrayPattern');
-const AssignmentPattern = require('../Parser/AST/AssignmentPattern');
-const Compiler = require('../Parser/Compiler');
+const { AST, Compiler, Parser } = require('@jymfony/compiler');
+const SourceMapGenerator = require('@jymfony/compiler/src/SourceMap/Generator');
 const DescriptorStorage = require('../DescriptorStorage');
-const Identifier = require('../Parser/AST/Identifier');
-const ObjectPattern = require('../Parser/AST/ObjectPattern');
-const Parser = require('../Parser/Parser');
 const ReflectionParameter = require('./ReflectionParameter');
-const RestElement = require('../Parser/AST/RestElement');
-const SourceMapGenerator = require('../Parser/SourceMap/Generator');
-const SpreadElement = require('../Parser/AST/SpreadElement');
 const vm = require('vm');
 
 const descriptorStorage = new DescriptorStorage(__jymfony.autoload.classLoader);
@@ -186,7 +179,7 @@ class ReflectionMethod {
         }
 
         /**
-         * @type {Jymfony.Component.Autoloader.Parser.AST.FunctionExpression & Jymfony.Component.Autoloader.Parser.AST.Function}
+         * @type {AST.FunctionExpression & AST.Function}
          */
         const func = parsed.body[0];
         if (0 === func.params.length) {
@@ -198,15 +191,15 @@ class ReflectionMethod {
 
             let $default = undefined;
             let restElement = false;
-            if (parameter instanceof AssignmentPattern) {
+            if (parameter instanceof AST.AssignmentPattern) {
                 $default = parameter.right;
                 parameter = parameter.left;
             }
 
-            if (parameter instanceof RestElement) {
+            if (parameter instanceof AST.RestElement) {
                 parameter = parameter.argument;
                 restElement = true;
-            } else if (parameter instanceof SpreadElement) {
+            } else if (parameter instanceof AST.SpreadElement) {
                 parameter = parameter.expression;
                 restElement = true;
             }
@@ -214,11 +207,11 @@ class ReflectionMethod {
             let name = null;
             let objectPattern = false;
             let arrayPattern = false;
-            if (parameter instanceof Identifier) {
+            if (parameter instanceof AST.Identifier) {
                 name = parameter.name;
-            } else if (parameter instanceof ObjectPattern) {
+            } else if (parameter instanceof AST.ObjectPattern) {
                 objectPattern = true;
-            } else if (parameter instanceof ArrayPattern) {
+            } else if (parameter instanceof AST.ArrayPattern) {
                 arrayPattern = true;
             }
 

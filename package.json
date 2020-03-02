@@ -30,6 +30,7 @@
     "node": ">=8.10.0"
   },
   "devDependencies": {
+    "@jymfony/compiler": "https://github.com/jymfony/compiler.git",
     "@jymfony/decorators": "https://github.com/jymfony/decorators.git",
     "@types/chai": "^4.1.7",
     "@types/mocha": "^5.2.7",

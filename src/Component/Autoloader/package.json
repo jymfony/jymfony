@@ -18,6 +18,7 @@
     "node": ">=8.10.0"
   },
   "dependencies": {
+    "@jymfony/compiler": "https://github.com/jymfony/compiler.git",
     "@jymfony/datastructure": "https://github.com/jymfony/data-structure.git",
     "@jymfony/util": "https://github.com/jymfony/util.git"
   },
