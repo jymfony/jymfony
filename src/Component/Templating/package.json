@@ -1,6 +1,6 @@
 {
   "name": "@jymfony/templating",
-  "version": "0.1.0-alpha.21",
+  "version": "0.1.0-alpha.22",
   "description": "Jymfony Templating component",
   "scripts": {
     "test": "node ./tests.js test/**"
@@ -15,10 +15,10 @@
     "node": ">=8.10.0"
   },
   "dependencies": {
-    "@jymfony/autoloader": "0.1.0-alpha.21",
-    "@jymfony/exceptions": "0.1.0-alpha.21",
-    "@jymfony/logger": "0.1.0-alpha.21",
-    "@jymfony/util": "0.1.0-alpha.21"
+    "@jymfony/autoloader": "0.1.0-alpha.22",
+    "@jymfony/exceptions": "0.1.0-alpha.22",
+    "@jymfony/logger": "0.1.0-alpha.22",
+    "@jymfony/util": "0.1.0-alpha.22"
   },
   "devDependencies": {
     "@jymfony/debug": "*",

@@ -1,6 +1,6 @@
 {
   "name": "@jymfony/framework-bundle",
-  "version": "0.1.0-alpha.21",
+  "version": "0.1.0-alpha.22",
   "description": "Jymfony Framework Bundle",
   "typings": "types/index.d.ts",
   "scripts": {
@@ -15,20 +15,20 @@
     "node": ">=8.10.0"
   },
   "dependencies": {
-    "@jymfony/autoloader": "0.1.0-alpha.21",
-    "@jymfony/cache": "0.1.0-alpha.21",
-    "@jymfony/config": "0.1.0-alpha.21",
-    "@jymfony/console": "0.1.0-alpha.21",
-    "@jymfony/contracts": "0.1.0-alpha.21",
-    "@jymfony/datetime": "0.1.0-alpha.21",
-    "@jymfony/decorators": "0.1.0-alpha.21",
-    "@jymfony/debug": "0.1.0-alpha.21",
-    "@jymfony/dependency-injection": "0.1.0-alpha.21",
-    "@jymfony/event-dispatcher": "0.1.0-alpha.21",
-    "@jymfony/exceptions": "0.1.0-alpha.21",
-    "@jymfony/filesystem": "0.1.0-alpha.21",
-    "@jymfony/kernel": "0.1.0-alpha.21",
-    "@jymfony/util": "0.1.0-alpha.21"
+    "@jymfony/autoloader": "0.1.0-alpha.22",
+    "@jymfony/cache": "0.1.0-alpha.22",
+    "@jymfony/config": "0.1.0-alpha.22",
+    "@jymfony/console": "0.1.0-alpha.22",
+    "@jymfony/contracts": "0.1.0-alpha.22",
+    "@jymfony/datetime": "0.1.0-alpha.22",
+    "@jymfony/decorators": "0.1.0-alpha.22",
+    "@jymfony/debug": "0.1.0-alpha.22",
+    "@jymfony/dependency-injection": "0.1.0-alpha.22",
+    "@jymfony/event-dispatcher": "0.1.0-alpha.22",
+    "@jymfony/exceptions": "0.1.0-alpha.22",
+    "@jymfony/filesystem": "0.1.0-alpha.22",
+    "@jymfony/kernel": "0.1.0-alpha.22",
+    "@jymfony/util": "0.1.0-alpha.22"
   },
   "devDependencies": {
     "@jymfony/debug": "*",

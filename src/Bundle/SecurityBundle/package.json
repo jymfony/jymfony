@@ -1,6 +1,6 @@
 {
   "name": "@jymfony/security-bundle",
-  "version": "0.1.0-alpha.21",
+  "version": "0.1.0-alpha.22",
   "description": "Jymfony Security Bundle",
   "scripts": {
     "test": "node ./tests.js test/**"
@@ -14,14 +14,14 @@
     "node": ">=8.10.0"
   },
   "dependencies": {
-    "@jymfony/autoloader": "0.1.0-alpha.21",
-    "@jymfony/config": "0.1.0-alpha.21",
-    "@jymfony/contracts": "0.1.0-alpha.21",
-    "@jymfony/dependency-injection": "0.1.0-alpha.21",
-    "@jymfony/exceptions": "0.1.0-alpha.21",
-    "@jymfony/framework-bundle": "0.1.0-alpha.21",
-    "@jymfony/security": "0.1.0-alpha.21",
-    "@jymfony/util": "0.1.0-alpha.21"
+    "@jymfony/autoloader": "0.1.0-alpha.22",
+    "@jymfony/config": "0.1.0-alpha.22",
+    "@jymfony/contracts": "0.1.0-alpha.22",
+    "@jymfony/dependency-injection": "0.1.0-alpha.22",
+    "@jymfony/exceptions": "0.1.0-alpha.22",
+    "@jymfony/framework-bundle": "0.1.0-alpha.22",
+    "@jymfony/security": "0.1.0-alpha.22",
+    "@jymfony/util": "0.1.0-alpha.22"
   },
   "devDependencies": {
     "@jymfony/debug": "*",

@@ -1,6 +1,6 @@
 {
   "name": "@jymfony/autoloader",
-  "version": "0.1.0-alpha.21",
+  "version": "0.1.0-alpha.22",
   "description": "Jymfony Autoloader",
   "main": "index.js",
   "typings": "types/index.d.ts",
@@ -19,8 +19,8 @@
   },
   "dependencies": {
     "@jymfony/compiler": "^0.1.0",
-    "@jymfony/datastructure": "0.1.0-alpha.21",
-    "@jymfony/util": "0.1.0-alpha.21"
+    "@jymfony/datastructure": "0.1.0-alpha.22",
+    "@jymfony/util": "0.1.0-alpha.22"
   },
   "devDependencies": {
     "@jymfony/decorators": "*",
