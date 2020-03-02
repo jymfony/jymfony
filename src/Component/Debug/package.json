@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@jymfony/autoloader": "0.1.0-alpha.21",
+    "@jymfony/datetime": "0.1.0-alpha.21",
     "@jymfony/exceptions": "0.1.0-alpha.21",
     "@jymfony/logger": "0.1.0-alpha.21",
     "@jymfony/util": "0.1.0-alpha.21",

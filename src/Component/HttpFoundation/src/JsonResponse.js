@@ -1,5 +1,5 @@
+const Lexer = require('@jymfony/compiler/src/Lexer');
 const Response = Jymfony.Component.HttpFoundation.Response;
-const Lexer = Jymfony.Component.Autoloader.Parser.Lexer;
 
 /**
  * Response represents an HTTP response in JSON format.

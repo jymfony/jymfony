@@ -1,7 +1,7 @@
 const DescriptorStorage = require('./DescriptorStorage');
-const Generator = require('./Parser/SourceMap/Generator');
+const Generator = require('@jymfony/compiler/src/SourceMap/Generator');
 const ManagedProxy = require('./Proxy/ManagedProxy');
-const StackHandler = require('./Parser/SourceMap/StackHandler');
+const StackHandler = require('@jymfony/compiler/src/SourceMap/StackHandler');
 
 let Compiler;
 let Parser;
@@ -87,10 +87,17 @@ class ClassLoader {
         this._descriptorStorage = new DescriptorStorage(this);
 
         if (undefined === Compiler) {
-            Compiler = require('./Parser/Compiler');
-            Parser = require('./Parser/Parser');
-            AST = require('./Parser/AST');
+            ClassLoader.compiler = require('@jymfony/compiler');
         }
+    }
+
+    /**
+     * Sets the compiler class components.
+     */
+    static set compiler({ Compiler: compilerClass, Parser: parserClass, AST: astBase }) {
+        Compiler = compilerClass;
+        Parser = parserClass;
+        AST = astBase;
     }
 
     /**
@@ -150,7 +157,7 @@ class ClassLoader {
      *
      * @param {string} fn
      *
-     * @returns {{code: string, program: Jymfony.Component.Autoloader.Parser.AST.Program}}
+     * @returns {{code: string, program: Program}}
      */
     getCode(fn) {
         if (codeCache[fn]) {
