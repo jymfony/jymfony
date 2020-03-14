@@ -206,6 +206,11 @@ declare class ReflectionMethod {
     constructor(reflectionClass: ReflectionClass, methodName: string);
 
     /**
+     * Invokes the method.
+     */
+    invoke(object: any, ...args: any[]): any;
+
+    /**
      * Gets the reflection class.
      */
     readonly reflectionClass: ReflectionClass;
@@ -382,6 +387,11 @@ declare class ReflectionProperty {
      * @param {string} propertyName
      */
     constructor(reflectionClass: ReflectionClass, kind: 'get' | 'set', propertyName: string);
+
+    /**
+     * Invokes the getter/setter method.
+     */
+    invoke(object: any, ...args: any[]): any;
 
     /**
      * Gets the reflection class.

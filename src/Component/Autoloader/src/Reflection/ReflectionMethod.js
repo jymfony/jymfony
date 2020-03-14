@@ -83,6 +83,18 @@ class ReflectionMethod {
     }
 
     /**
+     * Invokes the method.
+     *
+     * @param {*} object
+     * @param {*[]} args
+     *
+     * @returns {*}
+     */
+    invoke(object, ...args) {
+        return this._method.call(object, ...args);
+    }
+
+    /**
      * Gets the reflection class.
      *
      * @returns {ReflectionClass}
