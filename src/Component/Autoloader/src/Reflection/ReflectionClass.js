@@ -574,7 +574,7 @@ class ReflectionClass {
      * @private
      */
     _loadWithoutMetadata(value) {
-        this._className = value.name;
+        this._className = undefined;
         this._module = ReflectionClass._searchModule(value);
         this._filename = this._module ? this._module.filename : undefined;
         this._constructor = value;

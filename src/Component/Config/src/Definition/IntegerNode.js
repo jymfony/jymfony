@@ -12,9 +12,7 @@ export default class IntegerNode extends NumericNode {
      */
     validateType(value) {
         if (! isNumber(value) || ~~value !== value) {
-            const ex = new InvalidTypeException(__jymfony.sprintf(
-                'Invalid type for path "%s". Expected int, but got %s.', this.getPath(), typeof value
-            ));
+            const ex = new InvalidTypeException(__jymfony.sprintf('Invalid type for path "%s". Expected int, but got %s.', this.getPath(), typeof value));
 
             const hint = this.getInfo();
             if (hint) {

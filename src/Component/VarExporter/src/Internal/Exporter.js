@@ -154,7 +154,7 @@ export default class Exporter {
             return __self.exportHydrator(value, indent, subIndent);
         }
 
-        throw new UnexpectedValueException(__jymfony.sprintf('Cannot export value of type "%s"', isObject(value) ? ReflectionClass.getClassName(value) : typeof value));
+        throw new UnexpectedValueException(__jymfony.sprintf('Cannot export value of type "%s"', __jymfony.get_debug_type(value)));
     }
 
     static exportHydrator(value, indent, subIndent) {

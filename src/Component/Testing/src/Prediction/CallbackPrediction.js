@@ -11,10 +11,7 @@ export default class CallbackPrediction extends implementationOf(PredictionInter
      */
     __construct(callback) {
         if (! isFunction(callback)) {
-            throw new InvalidArgumentException(__jymfony.sprintf(
-                'Callable expected as an argument to CallbackPrediction, but got %s.',
-                typeof callback
-            ));
+            throw new InvalidArgumentException(__jymfony.sprintf('Callable expected as an argument to CallbackPrediction, but got %s.', typeof callback));
         }
 
         this._callback = callback;

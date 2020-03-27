@@ -245,8 +245,7 @@ export default class Firewall extends implementationOf(EventSubscriberInterface,
         const response = firewall.entryPoint.start(request, authException);
 
         if (! (response instanceof Response)) {
-            const given = isObject(response) ? ReflectionClass.getClassName(response) : typeof response;
-            throw new LogicException(__jymfony.sprintf('The %s.start() method must return a Response object (%s returned)', ReflectionClass.getClassName(firewall.entryPoint), given));
+            throw new LogicException(__jymfony.sprintf('The %s.start() method must return a Response object (%s returned)', ReflectionClass.getClassName(firewall.entryPoint), __jymfony.get_debug_type(response)));
         }
 
         return response;

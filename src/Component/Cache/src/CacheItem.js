@@ -108,10 +108,7 @@ export default class CacheItem extends implementationOf(CacheItemInterface) {
         } else if (expiration instanceof DateTime) {
             this._expiry = expiration.timestamp;
         } else {
-            throw new InvalidArgumentException(__jymfony.sprintf(
-                'Expiration date must an instance of DateTime or be null or undefined, "%s" given',
-                isObject(expiration) ? ReflectionClass.getClassName(expiration) : typeof expiration
-            ));
+            throw new InvalidArgumentException(__jymfony.sprintf('Expiration date must an instance of DateTime or be null or undefined, "%s" given', __jymfony.get_debug_type(expiration)));
         }
 
         return this;
@@ -128,10 +125,7 @@ export default class CacheItem extends implementationOf(CacheItemInterface) {
         } else if (isNumber(time)) {
             this._expiry = new DateTime(DateTime.unixTime + time).timestamp;
         } else {
-            throw new InvalidArgumentException(__jymfony.sprintf(
-                'Expiration date must an instance of TimeSpan, a Number or be null or undefined, "%s" given',
-                isObject(time) ? ReflectionClass.getClassName(time) : typeof time
-            ));
+            throw new InvalidArgumentException(__jymfony.sprintf('Expiration date must an instance of TimeSpan, a Number or be null or undefined, "%s" given', __jymfony.get_debug_type(time)));
         }
 
         return this;
@@ -153,10 +147,7 @@ export default class CacheItem extends implementationOf(CacheItemInterface) {
 
         for (const tag of tags) {
             if (! isString(tag)) {
-                throw new InvalidArgumentException(__jymfony.sprintf(
-                    'Cache tag must be a string, "%s" given.',
-                    isObject(tag) ? ReflectionClass.getClassName(tag) : typeof tag
-                ));
+                throw new InvalidArgumentException(__jymfony.sprintf('Cache tag must be a string, "%s" given.', __jymfony.get_debug_type(tag)));
             }
 
             if (-1 !== this._tags.indexOf(tag)) {
@@ -184,10 +175,7 @@ export default class CacheItem extends implementationOf(CacheItemInterface) {
      */
     static validateKey(key) {
         if (! isString(key)) {
-            throw new InvalidArgumentException(__jymfony.sprintf(
-                'Cache key must be a string, "%s" given.',
-                isObject(key) ? ReflectionClass.getClassName(key) : typeof key
-            ));
+            throw new InvalidArgumentException(__jymfony.sprintf('Cache key must be a string, "%s" given.', __jymfony.get_debug_type(key)));
         }
 
         if (0 === key.length) {

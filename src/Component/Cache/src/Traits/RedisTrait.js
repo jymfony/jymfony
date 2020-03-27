@@ -22,7 +22,7 @@ class RedisTrait {
         }
 
         if (! (redisClient instanceof Redis || redisClient instanceof RedisCluster)) {
-            throw new InvalidArgumentException(__jymfony.sprintf('init() expects parameter 1 to be Redis or RedisCluster, %s given.', isObject(redisClient) ? ReflectionClass.getClassName(redisClient) : typeof redisClient));
+            throw new InvalidArgumentException(__jymfony.sprintf('init() expects parameter 1 to be Redis or RedisCluster, %s given.', __jymfony.get_debug_type(redisClient)));
         }
 
         /**
