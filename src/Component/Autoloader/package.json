@@ -33,7 +33,10 @@
     "jymfony-autoload": {
       "namespaces": {
         "Jymfony.Component.Autoloader": "src/"
-      }
+      },
+      "includes": [
+        "src/Test/ChaiExpectation.js"
+      ]
     }
   }
 }
