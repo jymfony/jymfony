@@ -93,7 +93,6 @@ export default class Parser {
                     break;
 
                 default:
-                    dd(token);
                     this._syntaxError();
             }
         }

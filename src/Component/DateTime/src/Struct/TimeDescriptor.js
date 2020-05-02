@@ -592,7 +592,7 @@ export default class TimeDescriptor {
         }
 
         this._day += days;
-        const month = () => 1 < this._month ? this._month - 1 : 11;
+        const month = () => 1 <= this._month ? this._month - 1 : 11;
 
         while (this._day >= daysPerMonth[this.leap ? 1 : 0][month()]) {
             this._day -= daysPerMonth[this.leap ? 1 : 0][month()];
@@ -600,10 +600,8 @@ export default class TimeDescriptor {
         }
 
         while (1 > this._day) {
-            let m = month() - 1;
-            if (0 === m) {
-                m = 11;
-            }
+            let m = month();
+            m = 0 === m ? 11 : m - 1;
 
             this._day += daysPerMonth[this.leap ? 1 : 0][m];
             this._addMonths(-1);
