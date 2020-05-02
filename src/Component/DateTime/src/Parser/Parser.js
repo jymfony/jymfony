@@ -2,6 +2,9 @@ const InvalidDateTimeStringException = Jymfony.Component.DateTime.Exception.Inva
 const Lexer = Jymfony.Component.DateTime.Parser.Lexer;
 const TimeDescriptor = Jymfony.Component.DateTime.Struct.TimeDescriptor;
 
+const DATE_REGEX = /^[-+](\d{4,})-(\d{2})-(\d{2})/;
+const TIME_REGEX = /^(\d{2}):(\d{2}):(\d{2})(?:.(\d+))?([+-]\d{2}:?\d{2})?/;
+
 /**
  * DateTime parser.
  *
@@ -27,9 +30,6 @@ export default class Parser {
          * @private
          */
         this._tm = undefined;
-
-        this._timeParsed = false;
-        this._dateParsed = false;
     }
 
     /**
@@ -47,102 +47,55 @@ export default class Parser {
         this._tm = new TimeDescriptor(timezone);
         this._lexer.input = datetime;
 
-        this._timeParsed = false;
-        this._dateParsed = false;
-
         while (this._lexer.moveNext()) {
             const token = this._lexer.token;
-            if (Lexer.T_SPACE === token.type) {
-                continue;
-            }
 
-            if (Lexer.T_SEPARATOR === token.type && 't' === token.value) {
-                this._parseTime24HoursNotation();
+            switch (token.type) {
+                case Lexer.T_ISO_TIME:
+                    this._parseIsoTime();
+                    break;
 
-                continue;
-            }
+                case Lexer.T_REGULAR_TIME:
+                    this._parseTime(token.value);
+                    break;
 
-            if (Lexer.T_NUMBER === token.type) {
-                const value = token.value;
-                if ('0' === value.substr(0, 1) || (
-                    (6 === value.length || 4 === value.length) &&
-                    (! this._lexer.lookahead || this._lexer.isNextToken(Lexer.T_SPACE))
-                )) {
-                    this._parseTime24HoursNotation();
+                case Lexer.T_REGULAR_DATE:
+                    this._parseDate(token.value);
+                    break;
 
-                    continue;
-                }
-
-                if (23 < value) {
-                    this._parseDate();
-
-                    continue;
-                }
-
-                if (12 < value) {
-                    const separator = this._lexer.lookahead.value;
-                    if ('.' === separator || ':' === separator) {
-                        this._parseTime24HoursNotation();
-                    } else {
-                        this._parseDate();
-                    }
-
-                    continue;
-                }
-
-                if (this._searchForMeridian()) {
-                    this._parseTime12HoursNotation();
-
-                    continue;
-                } else {
-                    const separator = this._lexer.lookahead.value;
-                    if ('.' === separator || ':' === separator) {
-                        this._parseTime24HoursNotation();
-                    } else {
-                        this._parseDate();
-                    }
-
-                    continue;
-                }
-            }
-
-            if (Lexer.T_GMT === token.type || Lexer.T_IDENTIFIER === token.type) {
-                this._parseTimezone();
-
-                continue;
-            }
-
-            if (Lexer.T_SIGNED_YEAR === token.type) {
-                if (this._dateParsed) {
+                case Lexer.T_IDENTIFIER:
+                case Lexer.T_GMT:
                     this._parseTimezone();
-                } else {
-                    this._parseDate();
-                }
+                    break;
 
-                continue;
+                case Lexer.T_AT:
+                    this._parseAtTimestamp(token.value);
+                    break;
+
+                case Lexer.T_NOW:
+                    this._parseNow();
+                    break;
+
+                case Lexer.T_DAY_NAME:
+                    this._parseDayName(token.value);
+                    break;
+
+                case Lexer.T_MONTH_NAME:
+                    this._parseMonthName(token.value);
+                    break;
+
+                case Lexer.T_RELATIVE:
+                    if (0 === token.index && ! token.value.relativeTo) {
+                        token.value.relativeTo = 'now';
+                    }
+
+                    this._parseRelative(token.value);
+                    break;
+
+                default:
+                    dd(token);
+                    this._syntaxError();
             }
-
-            if (Lexer.T_AT === token.type) {
-                if (! this._lexer.isNextToken(Lexer.T_NUMBER)) {
-                    this._syntaxError(Lexer.T_NUMBER, true);
-                }
-
-                this._lexer.moveNext(); // T_AT
-                this._tm.unixTimestamp = this._lexer.token.value;
-                this._timeParsed = true;
-                this._dateParsed = true;
-
-                continue;
-            }
-
-            this._syntaxError();
-        }
-
-        if (this._dateParsed && ! this._timeParsed) {
-            this._tm.hour = 0;
-            this._tm.minutes = 0;
-            this._tm.seconds = 0;
-            this._tm.milliseconds = 0;
         }
 
         if (! this._tm.valid) {
@@ -184,317 +137,189 @@ export default class Parser {
     }
 
     /**
-     * Parses a 24-hours notation time string.
-     *
-     * @private
-     */
-    _parseTime24HoursNotation() {
-        this._timeParsed = true;
-        if (Lexer.T_SEPARATOR === this._lexer.token.type) {
-            // T or t (24-hours notation)
-            this._lexer.moveNext();
-        }
-
-        const token = this._lexer.token;
-        if (Lexer.T_NUMBER !== token.type) {
-            this._syntaxError(Lexer.T_NUMBER);
-        }
-
-        let separator;
-        switch (token.value.length) {
-            case 4:
-            case 6:
-                // HHMM or HHMMII
-                this._tm.hour = token.value.substr(0, 2);
-                this._tm.minutes = token.value.substr(2, 2);
-                this._tm.seconds = token.value.substr(4, 2) || 0;
-                this._tm.milliseconds = 0;
-
-                return;
-
-            case 2:
-                this._tm.seconds = 0;
-                this._tm.milliseconds = 0;
-
-                separator = this._lexer.lookahead.value;
-                if ('.' !== separator && ':' !== separator) {
-                    this._syntaxError(Lexer.T_SEPARATOR);
-                }
-
-                this._tm.hour = this._lexer.token.value;
-                this._lexer.moveNext(); // T_SEPARATOR
-
-                if (! this._lexer.isNextToken(Lexer.T_NUMBER)) {
-                    this._syntaxError(Lexer.T_NUMBER, true);
-                }
-
-                this._lexer.moveNext();
-                this._tm.minutes = this._lexer.token.value;
-
-                if (! this._lexer.lookahead || this._lexer.isNextToken(Lexer.T_SPACE)) {
-                    // HH:MM
-                    return;
-                }
-
-                this._lexer.moveNext(); // T_SEPARATOR
-                if (separator !== this._lexer.token.value) {
-                    this._syntaxError(Lexer.T_SEPARATOR);
-                }
-
-                this._lexer.moveNext();
-                if (Lexer.T_NUMBER !== this._lexer.token.type) {
-                    this._syntaxError(Lexer.T_NUMBER);
-                }
-
-                this._tm.seconds = this._lexer.token.value;
-                if (this._lexer.isNextTokenAny([ Lexer.T_IDENTIFIER, Lexer.T_GMT ])) {
-                    this._lexer.moveNext();
-                    this._parseTimezone();
-
-                    return;
-                }
-
-                if (this._lexer.isNextToken(Lexer.T_SEPARATOR) && '.' === this._lexer.lookahead.value) {
-                    this._lexer.moveNext(); // T_SEPARATOR
-                    this._lexer.moveNext(); // T_NUMBER
-
-                    if (Lexer.T_NUMBER !== this._lexer.token.type) {
-                        this._syntaxError(Lexer.T_NUMBER);
-                    }
-
-                    this._tm.milliseconds = ~~this._lexer.token.value;
-                }
-
-                return;
-        }
-
-        this._syntaxError();
-    }
-
-    /**
-     * Parses a 12-hours notation (am/pm) time string.
-     *
-     * @private
-     */
-    _parseTime12HoursNotation() {
-        this._timeParsed = true;
-        this._tm.minutes = 0;
-        this._tm.seconds = 0;
-        this._tm.milliseconds = 0;
-        this._tm.hour = this._lexer.token.value;
-
-        let separator;
-        if (this._lexer.isNextToken(Lexer.T_SEPARATOR)) {
-            this._lexer.moveNext();
-            separator = this._lexer.token.value;
-
-            if ('.' !== separator && ':' !== separator) {
-                this._syntaxError(Lexer.T_SEPARATOR);
-            }
-
-            this._lexer.moveNext();
-            this._tm.minutes = this._lexer.token.value;
-        }
-
-        if (this._lexer.isNextToken(Lexer.T_SEPARATOR)) {
-            this._lexer.moveNext();
-
-            if (separator !== this._lexer.token.value) {
-                this._syntaxError(Lexer.T_SEPARATOR);
-            }
-
-            this._lexer.moveNext();
-            this._tm.seconds = this._lexer.token.value;
-        }
-
-        if (this._lexer.isNextToken(Lexer.T_SEPARATOR) && ':' === separator && this._lexer.lookahead.value === separator) {
-            this._lexer.moveNext(); // T_SEPARATOR
-
-            if (! this._lexer.isNextToken(Lexer.T_NUMBER)) {
-                this._syntaxError(Lexer.T_NUMBER, true);
-            }
-
-            this._lexer.moveNext();
-            this._tm.milliseconds = this._lexer.token.value;
-        }
-
-        if (this._lexer.isNextToken(Lexer.T_SPACE)) {
-            this._lexer.moveNext();
-        }
-
-        if (! this._lexer.isNextToken(Lexer.T_MERIDIAN)) {
-            this._syntaxError(Lexer.T_MERIDIAN, true);
-        }
-
-        this._lexer.moveNext();
-        if ('p' === this._lexer.token.value[0]) {
-            this._tm.hour += 12;
-        }
-    }
-
-    /**
-     * Look ahead in the lexer to find a meridian string.
-     *
-     * @returns {boolean}
-     *
-     * @private
-     */
-    _searchForMeridian() {
-        let lookahead;
-        while (lookahead = this._lexer.peek()) {
-            if (':' === lookahead.value || '.' === lookahead.value ||
-                lookahead.type === Lexer.T_NUMBER) {
-
-                continue;
-            }
-
-            if (lookahead.type === Lexer.T_MERIDIAN) {
-                return true;
-            }
-
-            if (lookahead.type === Lexer.T_SPACE) {
-                return this._lexer.glimpse().type === Lexer.T_MERIDIAN;
-            }
-        }
-
-        this._lexer.glimpse();
-
-        return false;
-    }
-
-    /**
      * Parses a timezone descriptor.
      *
      * @private
      */
     _parseTimezone() {
-        this._timeParsed = true;
-        let tz = this._lexer.token.value;
-
-        if (this._lexer.token.type === Lexer.T_GMT) {
-            tz = this._lexer.token.value;
-
-            if (! this._lexer.isNextToken(Lexer.T_NUMBER)) {
-                this._syntaxError(Lexer.T_NUMBER, true);
-            }
-
-            this._lexer.moveNext();
-            tz += this._lexer.token.value;
-
-            if (2 === this._lexer.token.value.length && this._lexer.isNextToken(Lexer.T_SEPARATOR)) {
-                this._lexer.moveNext();
-                tz += ':';
-
-                if (! this._lexer.isNextToken(Lexer.T_NUMBER)) {
-                    this._syntaxError(Lexer.T_NUMBER, true);
-                }
-
-                this._lexer.moveNext();
-                tz += this._lexer.token.value;
-            }
-        } else if (this._lexer.lookahead && '/' === this._lexer.lookahead.value) {
-            this._lexer.moveNext(); // T_SEPARATOR
-            this._lexer.moveNext(); // T_IDENTIFIER
-
-            if (this._lexer.token.type !== Lexer.T_IDENTIFIER) {
-                this._syntaxError(Lexer.T_IDENTIFIER);
-            }
-
-            tz += '/' + this._lexer.token.value;
-        }
-
+        const tz = this._lexer.token.value;
         this._tm.timeZone = Jymfony.Component.DateTime.DateTimeZone.get(tz);
     }
 
-    /**
-     * @private
-     */
-    _parseDate() {
-        this._dateParsed = true;
-        const token = this._lexer.token;
+    _parseIsoTime() {
+        let value = this._lexer.token.value;
 
-        if (token.type === Lexer.T_SIGNED_YEAR) {
-            this._parseIsoDate();
+        value = value.substr(this._parseDate(value) + 1);
+        this._parseTime(value);
+    }
+
+    _parseDate(value) {
+        const matches = value.match(DATE_REGEX);
+
+        const sign = '-' === value[0] ? -1 : 1;
+        this._tm._year = sign * ~~matches[1];
+        this._tm.month = matches[2];
+        this._tm.day = matches[3];
+
+        return matches[0].length;
+    }
+
+    _parseTime(value) {
+        const matches = value.match(TIME_REGEX);
+
+        this._tm.hour = ~~matches[1];
+        this._tm.minutes = ~~matches[2];
+        this._tm.seconds = ~~matches[3];
+        this._tm.milliseconds = ~~ String(matches[4] || 0).substr(0, 3);
+
+        if (! this._lexer.lookahead) {
+            return;
+        }
+
+        const shouldParseTimezone = () => {
+            if (Lexer.T_IDENTIFIER === this._lexer.lookahead.type || Lexer.T_GMT === this._lexer.lookahead.type) {
+                return true;
+            }
+
+            if (Lexer.T_SIGNED_YEAR === this._lexer.lookahead.type) {
+                const value = this._lexer.lookahead.value;
+                const hours = ~~(value.substr(1, 2));
+
+                return '+' === value[0] && 14 >= hours || '-' === value[0] && 12 >= hours;
+            }
+
+            return false;
+        };
+
+        if (shouldParseTimezone()) {
+            this._lexer.moveNext();
+            this._parseTimezone();
+        }
+    }
+
+    _parseAtTimestamp(value) {
+        this._tm.unixTimestamp = value.substr(1);
+    }
+
+    _parseNow() {
+        const d = new Date();
+        this._tm.unixTimestamp = ~~(d.getTime() / 1000);
+    }
+
+    _parseDayName(value) {
+        if (8 === value) {
+            this._tm._addDays(1);
+        } else if (-1 === value) {
+            this._tm._addDays(-1);
+        } else if (0 === value) {
+            // Do nothing.
+        } else if (this._tm.weekDay > value) {
+            const diff = this._tm.weekDay - value;
+            this._tm._addDays(7 - diff);
+        } else if (value > this._tm.weekDay) {
+            const diff = value - this._tm.weekDay;
+            this._tm._addDays(diff);
+        }
+    }
+
+    _parseMonthName(value) {
+        if (this._tm.month > value) {
+            const diff = this._tm.month - value;
+            this._tm._addMonths(12 - diff);
+        } else if (value > this._tm.month) {
+            const diff = value - this._tm.month;
+            this._tm._addMonths(diff);
+        }
+    }
+
+    _parseRelative(value) {
+        if (value.relativeTo) {
+            this._tm = new Parser().parse(value.relativeTo, this._tm.timeZone);
+        }
+
+        switch (true) {
+            case value.relative >= Lexer.RELATIVE_MONTHS && value.relative < Lexer.RELATIVE_WEEKDAY:
+                this._relativeMonth(value);
+                break;
+
+            case value.relative >= Lexer.RELATIVE_WEEKDAY && value.relative < Lexer.RELATIVE_YEAR:
+                this._relativeWeekday(value);
+                break;
+
+            case value.relative === Lexer.RELATIVE_YEAR:
+                this._tm._year += value.modifier;
+                break;
+
+            case value.relative === Lexer.RELATIVE_MINUTES:
+                this._tm._addSeconds(value.modifier * 60);
+                break;
+
+            case value.relative === Lexer.RELATIVE_HOURS:
+                this._tm._addSeconds(value.modifier * 3600);
+                break;
+
+            case value.relative === Lexer.RELATIVE_SECONDS:
+                this._tm._addSeconds(value.modifier);
+                break;
+
+            case value.relative === Lexer.RELATIVE_DAYS:
+                this._tm._addDays(value.modifier);
+                break;
+
+            case value.relative === Lexer.RELATIVE_WEEKS:
+                this._tm._addDays(value.modifier * 7);
+                break;
+        }
+
+        if (value.time) {
+            this._parseTime(value.time);
+        }
+    }
+
+    _relativeMonth(value) {
+        if (Lexer.RELATIVE_MONTHS === value.relative) {
+            this._tm._addMonths(value.modifier);
+            return;
+        }
+
+        const currentMonth = this._tm.month;
+        const month = value.relative - Lexer.RELATIVE_MONTHS;
+        if (currentMonth === month) {
+            switch (value.modifier) {
+                case 1:
+                case -1: this._tm._addYears(value.modifier); break;
+            }
 
             return;
         }
 
-        if (token.type === Lexer.T_NUMBER) {
-            if (8 === token.value.length) {
-                this._tm._year = ~~(token.value.substr(0, 4));
-                this._tm.month = token.value.substr(4, 2);
-                this._tm.day = token.value.substr(6, 2);
-
-                return;
-            }
-
-            if (this._lexer.isNextToken(Lexer.T_SEPARATOR) &&
-                ('-' === this._lexer.lookahead.value || '/' === this._lexer.lookahead.value)
-            ) {
-                this._parseIsoDate();
-
-                return;
-            }
+        if (-1 === value.modifier) {
+            this._tm._addYears(-1);
         }
 
-        this._syntaxError(Lexer.T_NUMBER);
+        this._parseMonthName(month);
     }
 
-    /**
-     * @private
-     */
-    _parseIsoDate() {
-        if (! this._lexer.isNextToken(Lexer.T_SEPARATOR)) {
-            this._syntaxError(Lexer.T_SEPARATOR, true);
-        }
+    _relativeWeekday(value) {
+        if (Lexer.RELATIVE_WEEKDAY === value.relative) {
+            this._tm.day = 1;
 
-        const token = this._lexer.token;
-        const separator = this._lexer.lookahead.value;
-
-        if ('/' !== separator && '-' !== separator) {
-            this._syntaxError(Lexer.T_SEPARATOR, true);
-        }
-
-        if (2 === token.value.length) {
-            if (token.type !== Lexer.T_NUMBER) {
-                this._syntaxError(Lexer.T_NUMBER);
+            const firstDoW = this._tm.weekDay;
+            let diff = value.time - firstDoW;
+            if (0 > diff) {
+                diff += 7;
             }
 
-            this._tm.shortYear = token.value;
-        } else if (4 <= token.value.length) {
-            let sign = 1;
-            let value = token.value;
-            if (token.type === Lexer.T_SIGNED_YEAR) {
-                sign = '+' === value.substr(0, 1) ? 1 : -1;
-                value = value.substr(1);
-            }
-
-            this._tm._year = sign * ~~value;
-        } else {
-            this._syntaxError([ Lexer.T_NUMBER, Lexer.T_SIGNED_YEAR ]);
+            this._tm._addDays(diff + (value.modifier - 1) * 7);
+            value.time = undefined;
+            return;
         }
 
-        this._lexer.moveNext(); // T_SEPARATOR
-        this._lexer.moveNext(); // T_NUMBER
-
-        if (this._lexer.token.type !== Lexer.T_NUMBER) {
-            this._syntaxError(Lexer.T_NUMBER);
+        if (-1 === value.modifier) {
+            this._tm._addDays(-7);
         }
 
-        this._tm.month = this._lexer.token.value;
-
-        if (! this._lexer.lookahead || this._lexer.lookahead.value !== separator) {
-            this._syntaxError(Lexer.T_SEPARATOR, true);
-        }
-
-        this._lexer.moveNext(); // T_SEPARATOR
-        this._lexer.moveNext(); // T_NUMBER
-
-        if (this._lexer.token.type !== Lexer.T_NUMBER) {
-            this._syntaxError(Lexer.T_NUMBER);
-        }
-
-        this._tm.day = this._lexer.token.value;
+        this._parseDayName(value.relative - Lexer.RELATIVE_WEEKDAY);
     }
 
     _syntaxError(expected = undefined, moveNext = false) {
@@ -502,7 +327,8 @@ export default class Parser {
             this._lexer.moveNext();
         }
 
-        let message = `Cannot parse "${this._lexer.input}" near position ${this._lexer.token.position}.`;
+        const position = this._lexer.token ? this._lexer.token.position : 'EOF';
+        let message = `Cannot parse "${this._lexer.input}" near position ${position}.`;
         if (expected) {
             if (! isArray(expected)) {
                 expected = [ expected ];

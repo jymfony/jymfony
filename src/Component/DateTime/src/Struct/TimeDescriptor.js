@@ -35,15 +35,58 @@ export default class TimeDescriptor {
          */
         this.timeZone = tz;
 
-        const d = new Date();
-        this.unixTimestamp = ~~(d.getTime() / 1000);
+        /**
+         * @type {int}
+         *
+         * @private
+         */
+        this._milliseconds = 0;
 
         /**
          * @type {int}
          *
          * @private
          */
-        this._milliseconds = d.getMilliseconds();
+        this._seconds = 0;
+
+        /**
+         * @type {int}
+         *
+         * @private
+         */
+        this._minutes = 0;
+
+        /**
+         * @type {int}
+         *
+         * @private
+         */
+        this._hour = 0;
+
+        /**
+         * @type {int}
+         *
+         * @private
+         */
+        this._day = 1;
+
+        /**
+         * @type {int}
+         *
+         * @private
+         */
+        this._month = 1;
+
+        /**
+         * @type {int}
+         *
+         * @private
+         */
+        this._year = 1970;
+
+        const d = new Date();
+        this.unixTimestamp = 0;
+        this.daysFromEpoch = ~~(d.getTime() / 86400000);
     }
 
     /**
@@ -557,7 +600,12 @@ export default class TimeDescriptor {
         }
 
         while (1 > this._day) {
-            this._day += daysPerMonth[this.leap ? 1 : 0][month()];
+            let m = month() - 1;
+            if (0 === m) {
+                m = 11;
+            }
+
+            this._day += daysPerMonth[this.leap ? 1 : 0][m];
             this._addMonths(-1);
         }
     }

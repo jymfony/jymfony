@@ -21,7 +21,9 @@ export default class DateTime {
      */
     __construct(datetime = undefined, timezone = undefined) {
         if (undefined === datetime) {
+            const d = new Date();
             this._tm = new TimeDescriptor(timezone);
+            this._tm.unixTimestamp = ~~(d.getTime() / 1000);
         } else if (isString(datetime)) {
             const p = new Parser();
             this._tm = p.parse(datetime, timezone);
