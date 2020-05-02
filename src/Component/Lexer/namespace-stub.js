@@ -5,4 +5,9 @@
 /**
  * @namespace
  */
-Jymfony.Component.Lexer = {};
+Jymfony.Component.Lexer = {
+    /**
+     * @namespace
+     */
+    Exception: {},
+};

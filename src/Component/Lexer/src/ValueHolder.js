@@ -1,10 +1,12 @@
+const ValueHolderInterface = Jymfony.Contracts.Lexer.ValueHolderInterface;
+
 /**
  * Value holder for lexer.
  * You can modify the value into your getType implementation.
  *
  * @memberOf Jymfony.Component.Lexer
  */
-export default class ValueHolder {
+export default class ValueHolder extends implementationOf(ValueHolderInterface) {
     /**
      * Constructor.
      *
