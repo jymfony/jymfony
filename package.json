@@ -27,7 +27,7 @@
   ],
   "license": "MIT",
   "engines": {
-    "node": ">=8.10.0"
+    "node": ">=10.0.0"
   },
   "devDependencies": {
     "@jymfony/compiler": "https://github.com/jymfony/compiler.git",
