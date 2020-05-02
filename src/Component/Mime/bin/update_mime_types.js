@@ -59,7 +59,7 @@ const loadFile = async (fn) => {
     }
 
     const outFn = __dirname + '/../src/mime_types_map.js';
-    const { mimeTypes } = require(outFn);
+    const { mimeTypes } = __jymfony.autoload.classLoader.loadFile(outFn);
     for (const [ key, value ] of __jymfony.getEntries(mimeTypes)) {
         $new[key] = Array.from(new Set([ ...value, ...($new[key] || []) ])).sort();
     }

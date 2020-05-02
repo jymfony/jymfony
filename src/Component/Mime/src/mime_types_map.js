@@ -1,4 +1,4 @@
-// Updated from upstream on Fri, 23 Aug 2019 16:05:28 GMT
+// Updated from upstream on Sat, 02 May 2020 12:55:27 GMT
 
 export const mimeTypes = {
     'application/andrew-inset': [
