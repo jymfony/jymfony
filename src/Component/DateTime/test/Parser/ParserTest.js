@@ -303,6 +303,9 @@ describe('[DateTime] Parser', function () {
         '@1489017600',
         '+2017-03-09',
         '2017-03-09T00:00:00+0000',
+        '2017 Mar 09  0:00',
+        '09 Mar 2017 00:00',
+        'mar 09 2017 00:00',
     ];
 
     for (const index of tests.keys()) {
@@ -321,7 +324,7 @@ describe('[DateTime] Parser', function () {
         });
     }
 
-    it('should return correct computed datas', () => {
+    it('should return correct computed dates', () => {
         const parser = new Parser();
 
         const tm = parser.parse('2017-03-09', 'Etc/UTC');

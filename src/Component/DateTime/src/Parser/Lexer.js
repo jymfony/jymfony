@@ -13,6 +13,7 @@ export default class Lexer extends AbstractLexer {
             'now',
             Lexer.DATE_TIME_TERMS,
             'noon|midnight',
+            Lexer.MDY_ALTERNATIVE,
             Lexer.MONTH_NAMES,
             Lexer.DAY_NAMES,
             'tomorrow|yesterday|today',
@@ -23,6 +24,8 @@ export default class Lexer extends AbstractLexer {
             Lexer.RELATIVE_COMPLEX_3,
             'GMT[+-](\\d{3,4}|\\d{1,2}:\\d{2})',
             Lexer.ISO_TIME,
+            Lexer.DMY_ALTERNATIVE,
+            Lexer.YMD_ALTERNATIVE,
             Lexer.YMD,
             Lexer.YMD_NO_SEPARATOR,
             Lexer.MDY,
@@ -87,6 +90,9 @@ export default class Lexer extends AbstractLexer {
             case null !== (matches = value.match(Lexer.MDY_REGEX)):
             case null !== (matches = value.match(Lexer.YMD_REGEX)):
             case null !== (matches = value.match(Lexer.YMD_NO_SEPARATOR_REGEX)):
+            case null !== (matches = value.match(Lexer.DMY_ALTERNATIVE_REGEX)):
+            case null !== (matches = value.match(Lexer.MDY_ALTERNATIVE_REGEX)):
+            case null !== (matches = value.match(Lexer.YMD_ALTERNATIVE_REGEX)):
                 return this._lexRegularDate(holder, matches);
 
             case null !== (matches = value.match(Lexer.MILITARY_TIME_REGEX)):
@@ -238,7 +244,9 @@ export default class Lexer extends AbstractLexer {
         }
 
         const sign = matches.groups.sign || '+';
-        const months = ~~matches.groups.month_number;
+        const months = undefined !== matches.groups.month_name ?
+            this._monthToInt(matches.groups.month_name.toLowerCase()) :
+            ~~matches.groups.month_number;
         const days = ~~matches.groups.day_number;
 
         holder.value = __jymfony.sprintf('%s%04d-%02d-%02d', sign, years, months, days);
@@ -426,8 +434,8 @@ export default class Lexer extends AbstractLexer {
                 return 'n' === value[2] ? 6 : 7;
 
             case 'f': return 2;
-            case 'm': return 'r' === holder.value[2] ? 3 : 5;
-            case 'a': return 'p' === holder.value[1] ? 4 : 8;
+            case 'm': return 'r' === value[2] ? 3 : 5;
+            case 'a': return 'p' === value[1] ? 4 : 8;
             case 's': return 9;
             case 'o': return 10;
             case 'n': return 11;
@@ -462,7 +470,7 @@ Lexer.DATE_TIME_TERMS = '(sec(ond)?|min(ute)?|hour|hr|day|week|month|year)s?';
 Lexer.DATE_TIME_TERMS_REGEX = new RegExp('^'+Lexer.DATE_TIME_TERMS+'$');
 Lexer.REGULAR_TIME = '[Tt]?(1[012]|0?[1-9])(?:(?:[:.]([0-5][0-9]))?(?:[:.]([0-5][0-9]))?(?:[:.](\\d+))?(?:\\s?([apAP][.]?[mM]?[.]?|in the (morning|afternoon|evening))))';
 Lexer.REGULAR_TIME_REGEX = new RegExp('^[Tt]?(1[012]|0?[1-9])(?:(?:[:.]([0-5][0-9]))?(?:[:.]([0-5][0-9]))?(?:[:.](\\d+))?(?:\\s?([apAP][.]?[mM]?[.]?|in the (?<in_the_modifier>morning|afternoon|evening))))$');
-Lexer.MILITARY_TIME = '[Tt]?(1[0-9]|2[0-3]|0?[1-9])[:.]?([0-5][0-9])?(?:[:.]?([0-5][0-9])(?:[:.](\\d+))?)?([+-]\\d{2}:?\\d{2})?';
+Lexer.MILITARY_TIME = '[Tt]?(1[0-9]|2[0-3]|0?[0-9])[:.]?([0-5][0-9])?(?:[:.]?([0-5][0-9])(?:[:.](\\d+))?)?([+-]\\d{2}:?\\d{2})?';
 Lexer.MILITARY_TIME_REGEX = new RegExp('^'+Lexer.MILITARY_TIME+'$');
 
 Lexer.GENERIC_NUMBER = '(1[0-2]|0?[1-9])';
@@ -480,6 +488,13 @@ Lexer.DAY_NAMES = 'sun(day)?|mon(day)?|tue(sday)?|wed(nesday)?|thu(rsday)?|fri(d
 Lexer.DAY_NAMES_REGEX = /^(sun(day)?|mon(day)?|tue(sday)?|wed(nesday)?|thu(rsday)?|fri(day)?|sat(urday)?)$/i;
 Lexer.MONTH_NAMES = 'jan(uary|uaries)?|feb(ruary|ruaries)?|mar(ch|ches)?|apr(il)?|may|june?|jul(y|ies)?|aug(ust)?|sep(t)?(ember)?|oct(ober)?|nov(ember)?|dec(ember)?';
 Lexer.MONTH_NAMES_REGEX = /^(jan(uary|uaries)?|feb(ruary|ruaries)?|mar(ch|ches)?|apr(il)?|may|june?|jul(y|ies)?|aug(ust)?|sep(t)?(ember)?|oct(ober)?|nov(ember)?|dec(ember)?)$/;
+
+Lexer.YMD_ALTERNATIVE = '[+-]?(?:\\d{4,}|\\d{2})\\s+('+Lexer.MONTH_NAMES+')\\s+('+Lexer.DAY_NUMBER+'|'+Lexer.GENERIC_NUMBER+'(?:st|nd|rd|th)?)';
+Lexer.YMD_ALTERNATIVE_REGEX = new RegExp('^[+-]?((?<year_number>\\d{4,})|(?<short_year>\\d{2}))\\s+(?<month_name>'+Lexer.MONTH_NAMES+')\\s+(?<day_number>'+Lexer.DAY_NUMBER+'|'+Lexer.GENERIC_NUMBER+'(?:st|nd|rd|th)?)$', 'i');
+Lexer.MDY_ALTERNATIVE = '('+Lexer.MONTH_NAMES+')\\s+('+Lexer.DAY_NUMBER+'|'+Lexer.GENERIC_NUMBER+'(?:st|nd|rd|th)?)\\s+[+-]?(?:\\d{4,}|\\d{2})';
+Lexer.MDY_ALTERNATIVE_REGEX = new RegExp('^(?<month_name>'+Lexer.MONTH_NAMES+')\\s+(?<day_number>'+Lexer.DAY_NUMBER+'|'+Lexer.GENERIC_NUMBER+'(?:st|nd|rd|th)?)\\s+[+-]?((?<year_number>\\d{4,})|(?<short_year>\\d{2}))$', 'i');
+Lexer.DMY_ALTERNATIVE = '('+Lexer.DAY_NUMBER+'|'+Lexer.GENERIC_NUMBER+'(?:st|nd|rd|th)?)\\s+('+Lexer.MONTH_NAMES+')\\s+[+-]?(?:\\d{4,}|\\d{2})';
+Lexer.DMY_ALTERNATIVE_REGEX = new RegExp('^(?<day_number>'+Lexer.DAY_NUMBER+'|'+Lexer.GENERIC_NUMBER+'(?:st|nd|rd|th)?)\\s+(?<month_name>'+Lexer.MONTH_NAMES+')\\s+[+-]?((?<year_number>\\d{4,})|(?<short_year>\\d{2}))$', 'i');
 
 Lexer.AT_TIME = '(\\s+at\\s+('+Lexer.REGULAR_TIME+'|'+Lexer.MILITARY_TIME+'))';
 Lexer.RELATIVE_SIMPLE = '(this|next|last|previous)\\s+(month|year|week|'+Lexer.DAY_NAMES+'|'+Lexer.MONTH_NAMES+')'+Lexer.AT_TIME+'?';
