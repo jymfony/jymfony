@@ -95,7 +95,7 @@ export default class Exporter {
             case true === value: return 'true';
             case null === value: return 'null';
             case undefined === value: return 'undefined';
-            case '' === value: return '';
+            case '' === value: return '""';
         }
 
         if (value instanceof Reference) {
