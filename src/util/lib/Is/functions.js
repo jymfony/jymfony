@@ -80,7 +80,11 @@ global.isFunction = function isFunction(obj) {
         return true;
     }
 
-    if (undefined !== global.BoundFunction && obj.hasOwnProperty('innerObject') && obj.innerObject instanceof BoundFunction) {
+    if (
+        undefined !== global.BoundFunction &&
+        Object.prototype.hasOwnProperty.call(obj, 'innerObject') &&
+        obj.innerObject instanceof BoundFunction
+    ) {
         return true;
     }
 
