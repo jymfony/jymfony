@@ -303,13 +303,22 @@ export default class Parser {
         if (Lexer.RELATIVE_WEEKDAY === value.relative) {
             this._tm.day = 1;
 
-            const firstDoW = this._tm.weekDay;
-            let diff = value.time - firstDoW;
-            if (0 > diff) {
-                diff += 7;
+            if (-100 === value.modifier) {
+                this._tm._addMonths(1);
+                this._tm._addDays(-1);
+                while (this._tm.weekDay !== value.time) {
+                    this._tm._addDays(-1);
+                }
+            } else {
+                const firstDoW = this._tm.weekDay;
+                let diff = value.time - firstDoW;
+                if (0 > diff) {
+                    diff += 7;
+                }
+
+                this._tm._addDays(diff + (value.modifier - 1) * 7);
             }
 
-            this._tm._addDays(diff + (value.modifier - 1) * 7);
             value.time = undefined;
             return;
         }

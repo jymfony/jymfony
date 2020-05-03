@@ -483,6 +483,17 @@ describe('[DateTime] Parser', function () {
             expect(tm.day).to.be.equal(18);
             expect(tm.hour).to.be.equal(10);
         } ],
+        [ 'last sunday november 2020 10a.m.', tm => {
+            expect(tm._year).to.be.equal(2020);
+            expect(tm.month).to.be.equal(11);
+            expect(tm.day).to.be.equal(29);
+            expect(tm.hour).to.be.equal(10);
+        } ],
+        [ 'first wednesday may 2020', tm => {
+            expect(tm._year).to.be.equal(2020);
+            expect(tm.month).to.be.equal(5);
+            expect(tm.day).to.be.equal(6);
+        } ],
     ];
 
     for (const index of tests.keys()) {

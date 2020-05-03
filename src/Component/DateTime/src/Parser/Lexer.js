@@ -14,14 +14,17 @@ export default class Lexer extends AbstractLexer {
             Lexer.DATE_TIME_TERMS,
             'noon|midnight',
             Lexer.MDY_ALTERNATIVE,
+            Lexer.MY_ALTERNATIVE,
             Lexer.MONTH_NAMES,
             Lexer.DAY_NAMES,
             'tomorrow|yesterday|today',
+            Lexer.RELATIVE_SIMPLE_2,
+            Lexer.RELATIVE_SIMPLE_3,
+            Lexer.RELATIVE_SIMPLE_4,
             Lexer.RELATIVE_SIMPLE,
             Lexer.RELATIVE_PLUS_MINUS,
             Lexer.RELATIVE_COMPLEX,
             Lexer.RELATIVE_COMPLEX_2,
-            Lexer.RELATIVE_COMPLEX_3,
             'GMT[+-](\\d{3,4}|\\d{1,2}:\\d{2})',
             Lexer.ISO_TIME,
             Lexer.DMY_ALTERNATIVE,
@@ -93,6 +96,7 @@ export default class Lexer extends AbstractLexer {
             case null !== (matches = value.match(Lexer.DMY_ALTERNATIVE_REGEX)):
             case null !== (matches = value.match(Lexer.MDY_ALTERNATIVE_REGEX)):
             case null !== (matches = value.match(Lexer.YMD_ALTERNATIVE_REGEX)):
+            case null !== (matches = value.match(Lexer.MY_ALTERNATIVE_REGEX)):
                 return this._lexRegularDate(holder, matches);
 
             case null !== (matches = value.match(Lexer.MILITARY_TIME_REGEX)):
@@ -110,16 +114,21 @@ export default class Lexer extends AbstractLexer {
             case null !== value.match(Lexer.MONTH_NAMES_REGEX):
                 return this._lexMonthName(holder);
 
-            case null !== (matches = value.match(Lexer.RELATIVE_SIMPLE_REGEX)):
-                return this._lexRelative('simple', holder, matches);
-
             case null !== (matches = value.match(Lexer.RELATIVE_PLUS_MINUS_REGEX)):
             case null !== (matches = value.match(Lexer.RELATIVE_COMPLEX_REGEX)):
             case null !== (matches = value.match(Lexer.RELATIVE_COMPLEX_2_REGEX)):
                 return this._lexRelative('complex', holder, matches);
 
             case null !== (matches = value.match(Lexer.RELATIVE_COMPLEX_3_REGEX)):
+                if (matches.groups.modifier.startsWith('at')) {
+                    const m = value.match(Lexer.RELATIVE_SIMPLE_REGEX);
+                    return this._lexRelative(m ? 'simple' : 'complex_count', holder, m || matches);
+                }
+
                 return this._lexRelative('complex_count', holder, matches);
+
+            case null !== (matches = value.match(Lexer.RELATIVE_SIMPLE_REGEX)):
+                return this._lexRelative('simple', holder, matches);
 
             case !! value.match(/^[+-]\d{4,}$/):
                 return Lexer.T_SIGNED_YEAR;
@@ -235,7 +244,7 @@ export default class Lexer extends AbstractLexer {
      * @private
      */
     _lexRegularDate(holder, matches) {
-        let years;
+        let years, _tmp;
         if (matches.groups.year_number) {
             years = ~~matches.groups.year_number;
         } else {
@@ -247,7 +256,8 @@ export default class Lexer extends AbstractLexer {
         const months = undefined !== matches.groups.month_name ?
             this._monthToInt(matches.groups.month_name.toLowerCase()) :
             ~~matches.groups.month_number;
-        const days = ~~matches.groups.day_number;
+
+        const days = ~~(_tmp = matches.groups.day_number, undefined !== _tmp ? _tmp : 1);
 
         holder.value = __jymfony.sprintf('%s%04d-%02d-%02d', sign, years, months, days);
         return Lexer.T_REGULAR_DATE;
@@ -388,7 +398,16 @@ export default class Lexer extends AbstractLexer {
 
             case 'complex_count': {
                 const modifier = matches.groups.modifier.toLowerCase();
-                const quantity = parseInt(matches.groups.quantity, 10);
+                let quantity;
+                switch (matches.groups.quantity) {
+                    case 'first': quantity = 1; break;
+                    case 'last': quantity = -100; break;
+                    case 'previous': quantity = -1; break;
+                    case 'next': quantity = -101; break;
+                    default:
+                        quantity = parseInt(matches.groups.quantity, 10);
+                }
+
                 let match, unit;
                 const assertQuantityMax = (max) => {
                     if (quantity > max) {
@@ -495,18 +514,22 @@ Lexer.MDY_ALTERNATIVE = '('+Lexer.MONTH_NAMES+')\\s+('+Lexer.DAY_NUMBER+'|'+Lexe
 Lexer.MDY_ALTERNATIVE_REGEX = new RegExp('^(?<month_name>'+Lexer.MONTH_NAMES+')\\s+(?<day_number>'+Lexer.DAY_NUMBER+'|'+Lexer.GENERIC_NUMBER+'(?:st|nd|rd|th)?)\\s+[+-]?((?<year_number>\\d{4,})|(?<short_year>\\d{2}))$', 'i');
 Lexer.DMY_ALTERNATIVE = '('+Lexer.DAY_NUMBER+'|'+Lexer.GENERIC_NUMBER+'(?:st|nd|rd|th)?)\\s+('+Lexer.MONTH_NAMES+')\\s+[+-]?(?:\\d{4,}|\\d{2})';
 Lexer.DMY_ALTERNATIVE_REGEX = new RegExp('^(?<day_number>'+Lexer.DAY_NUMBER+'|'+Lexer.GENERIC_NUMBER+'(?:st|nd|rd|th)?)\\s+(?<month_name>'+Lexer.MONTH_NAMES+')\\s+[+-]?((?<year_number>\\d{4,})|(?<short_year>\\d{2}))$', 'i');
+Lexer.MY_ALTERNATIVE = '('+Lexer.MONTH_NAMES+')\\s+[+-]?(?:\\d{4,}|\\d{2})';
+Lexer.MY_ALTERNATIVE_REGEX = new RegExp('^(?<month_name>'+Lexer.MONTH_NAMES+')\\s+[+-]?((?<year_number>\\d{4,})|(?<short_year>\\d{2}))$', 'i');
 
 Lexer.AT_TIME = '(\\s+at\\s+('+Lexer.REGULAR_TIME+'|'+Lexer.MILITARY_TIME+'))';
-Lexer.RELATIVE_SIMPLE = '(this|next|last|previous)\\s+(month|year|week|'+Lexer.DAY_NAMES+'|'+Lexer.MONTH_NAMES+')'+Lexer.AT_TIME+'?';
-Lexer.RELATIVE_SIMPLE_REGEX = new RegExp('^(?<keyword>this|next|last|previous)\\s+(?<time>month|year|week|'+Lexer.DAY_NAMES+'|'+Lexer.MONTH_NAMES+')(\\s+at\\s+(?<at_time>'+Lexer.REGULAR_TIME+'|'+Lexer.MILITARY_TIME+'))?$');
+Lexer.RELATIVE_SIMPLE = '(this|next|last|previous)\\s+(day|month|year|week|'+Lexer.DAY_NAMES+'|'+Lexer.MONTH_NAMES+')'+Lexer.AT_TIME+'?';
+Lexer.RELATIVE_SIMPLE_REGEX = new RegExp('^(?<keyword>this|next|last|previous)\\s+(?<time>day|month|year|week|'+Lexer.DAY_NAMES+'|'+Lexer.MONTH_NAMES+')(\\s+at\\s+(?<at_time>'+Lexer.REGULAR_TIME+'|'+Lexer.MILITARY_TIME+'))?$');
+Lexer.RELATIVE_SIMPLE_2 = '(this|next|last|previous)\\s+(month|week|year)';
+Lexer.RELATIVE_SIMPLE_3 = 'first\\s+week(?:\\s+(?:of\\s+)?(?:.+))';
+Lexer.RELATIVE_SIMPLE_4 = '(\\d+(?:st|nd|rd|th)?|first|last)\\s+('+Lexer.DAY_NAMES+')(?:\\s+(?:of\\s+)?(?:.+))';
 Lexer.RELATIVE_PLUS_MINUS = '[+-]\\s*\\d+\\s+(years?|months?|days?|hours?|minutes?|seconds?|weeks?)';
 Lexer.RELATIVE_PLUS_MINUS_REGEX = /(?<modifier>[+-])\s*(?<quantity>\d+)\s+(?<unit>years?|months?|days?|hours?|minutes?|seconds?|weeks?)/;
 Lexer.RELATIVE_COMPLEX = '\\d+\\s+(years?|months?|days?|hours?|minutes?|seconds?|weeks?)\\s+(ago|(past|from|before)\\s+(.+))';
 Lexer.RELATIVE_COMPLEX_REGEX = /^(?<quantity>\d+)\s+(?<unit>years?|months?|days?|hours?|minutes?|seconds?|weeks?)\s+(?<modifier>ago|(past|from|before)\s+(.+))$/;
 Lexer.RELATIVE_COMPLEX_2 = 'in\\s+\\d+\\s+(years?|months?|days?|hours?|minutes?|seconds?|weeks?)';
 Lexer.RELATIVE_COMPLEX_2_REGEX = /^(?<modifier>in)\s+(?<quantity>\d+)\s+(?<unit>years?|months?|days?|hours?|minutes?|seconds?|weeks?)$/;
-Lexer.RELATIVE_COMPLEX_3 = '(((?:1|21|31|41|51)(?:st)?|(?:2|22|32|42|52)(?:nd)?|(?:3|23|33|43|53)(?:rd)?|\\d+th)\\s+(day|month|week|'+Lexer.DAY_NAMES+'|'+Lexer.MONTH_NAMES+')\\s+((?:(?:in|of)\\s+)?(.+)))';
-Lexer.RELATIVE_COMPLEX_3_REGEX = new RegExp('^((?<quantity>(?:1|21|31)(?:st)?|(?:2|22)(?:nd)?|(?:3|23)(?:rd)?|\\d+th)\\s+(?<unit>day|month|week|'+Lexer.DAY_NAMES+')\\s+(?<modifier>(?:(?:in|of)\\s+)?(.+)))$');
+Lexer.RELATIVE_COMPLEX_3_REGEX = new RegExp('^((?<quantity>(?:\\d+(?:st|nd|rd|th)?)|first|next|last|previous)\\s+(?<unit>day|month|week|year|'+Lexer.DAY_NAMES+'|'+Lexer.MONTH_NAMES+')(?:\\s+(?<modifier>(?:(?:in|of|at)\\s+)?(.+))))$');
 
 Lexer.T_NOW = 100;
 Lexer.T_SPACE = 101;
