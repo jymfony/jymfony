@@ -1,13 +1,13 @@
-const DateTime = Jymfony.Component.DateTime.DateTime;
-const UnknownTimeZoneException = Jymfony.Component.DateTime.Exception.UnknownTimeZoneException;
-const Parser = Jymfony.Component.DateTime.Parser.Parser;
+import abbreviations from '../data/abbrevs.json';
+import zones from '../data/zones.json';
 
-/**
- * @type {string[]}
- */
-const zones = require('../data/zones.json');
-const abbreviations = require('../data/abbrevs.json');
+const DateTime = Jymfony.Component.DateTime.DateTime;
+const Parser = Jymfony.Component.DateTime.Parser.Parser;
+const TimeDescriptor = Jymfony.Component.DateTime.Struct.TimeDescriptor;
+const UnknownTimeZoneException = Jymfony.Component.DateTime.Exception.UnknownTimeZoneException;
+
 const instances = new BTree();
+const collator = new Intl.Collator('en');
 
 /**
  * The DateTimeZone represents a timezone definition.
@@ -67,12 +67,16 @@ export default class DateTimeZone {
      * @returns {int|undefined}
      */
     getOffset(datetime) {
-        const found = this._getData(datetime);
-        if (undefined === found) {
+        if (datetime instanceof DateTime) {
+            datetime = datetime.timestamp;
+        }
+
+        const data = this._getData(datetime);
+        if (undefined === data) {
             return undefined;
         }
 
-        return ~~found[1].gmt_offset;
+        return ~~data.offset;
     }
 
     /**
@@ -88,7 +92,7 @@ export default class DateTimeZone {
             return 'UTC';
         }
 
-        return found[1].abbrev;
+        return found.abbrev;
     }
 
     /**
@@ -104,7 +108,7 @@ export default class DateTimeZone {
             return false;
         }
 
-        return !! found[1].dst;
+        return !! found.dst;
     }
 
     /**
@@ -117,29 +121,82 @@ export default class DateTimeZone {
      * @internal
      */
     _getOffsetForWallClock(wallTimestamp) {
-        const found = this._transitions.search(wallTimestamp - 1, BTree.COMPARISON_LESSER);
-        if (undefined === found) {
-            return 0;
+        const data = this._getData(wallTimestamp, true);
+        if (undefined !== data) {
+            return data.offset;
         }
 
-        return found[1].gmt_offset;
+        return 0;
     }
 
     /**
      * Gets the data for a given timestamp or DateTime.
      *
      * @param {Jymfony.Component.DateTime.DateTime|int} datetime
+     * @param {boolean} wallTs
      *
-     * @returns {Array}
+     * @returns {*}
      *
      * @private
      */
-    _getData(datetime) {
+    _getData(datetime, wallTs = false) {
         if (datetime instanceof DateTime) {
             datetime = datetime.timestamp;
         }
 
-        return this._data.search(datetime, BTree.COMPARISON_LESSER);
+        let data = this._data.search(datetime + 1, BTree.COMPARISON_GREATER)[1];
+        if (wallTs) {
+            data = this._data.search(datetime - data.offset + 1, BTree.COMPARISON_GREATER)[1];
+        }
+
+        if (!!data.ruleSet) {
+            const descriptor = new TimeDescriptor(0);
+            descriptor.unixTimestamp = datetime - (wallTs ? data.offset : 0);
+
+            const transitionMap = new Map();
+            transitionMap.set('0', { rule: { save: 0 }, offset: data.offset });
+
+            for (const year of [ descriptor._year - 1, descriptor._year ]) {
+                for (const rule of data.ruleSet.getRulesForYear(year)) {
+                    const [ transitionTime, withSave ] = rule.getTransitionTime(year, data.offset);
+                    transitionMap.set(transitionTime, { rule, offset: data.offset, withSave });
+                }
+            }
+
+            const transitions = [ ...transitionMap.entries() ].sort((a, b) => collator.compare(a[0], b[0]));
+
+            let lastRule = null;
+            for (let [ transitionTime, transition ] of transitions) {
+                const tm = descriptor.copy();
+                if (transitionTime.endsWith('u')) {
+                    transitionTime = transitionTime.replace(/u$/, '');
+                    tm._addSeconds(-1 * (transition.rule.save + lastRule.rule.save) + transition.offset);
+                } else if (null !== lastRule) {
+                    tm._addSeconds(lastRule.rule.save + lastRule.offset);
+                }
+
+                const currentTime = __jymfony.sprintf('%06d-%02d-%02dT%02d:%02d:%02d', tm._year, tm.month, tm.day, tm.hour, tm.minutes, tm.seconds);
+                const compare = collator.compare(currentTime, transitionTime);
+                if (-1 === compare || (wallTs && 0 === compare)) {
+                    break;
+                } else if (wallTs && 1 === compare) {
+                    const withSave = transition.withSave;
+                    if (withSave && -1 === collator.compare(currentTime, withSave)) {
+                        break;
+                    }
+                }
+
+                lastRule = transition;
+            }
+
+            const abbrev = -1 !== data.abbrev.indexOf('%s') ?
+                __jymfony.sprintf(data.abbrev, '-' === lastRule.rule.letters ? '' : lastRule.rule.letters) :
+                data.abbrev;
+
+            return { offset: lastRule.offset + lastRule.rule.save, dst: 0 !== lastRule.rule.save, abbrev };
+        }
+
+        return data;
     }
 
     /**
@@ -157,45 +214,61 @@ export default class DateTimeZone {
         let correction;
 
         if (-1 !== zones.indexOf(timezone)) {
-            const data = require('../data/timezones/' + timezone);
+            const data = require('../data/timezones/' + timezone).default;
             this._data.push(-Infinity, {
-                gmt_offset: 0,
+                offset: 0,
                 dst: false,
                 abbrev: 'GMT',
+                until: Number.MIN_SAFE_INTEGER + 1,
             });
 
-            for (const [ timestamp, descriptor ] of __jymfony.getEntries(data)) {
-                this._data.push(timestamp - 0, {
-                    gmt_offset: ~~(descriptor.gmt_offset),
-                    dst: !! descriptor.dst,
-                    abbrev: descriptor.abbrev,
-                });
+            for (const descriptor of data) {
+                this._data.push(descriptor.until, descriptor);
             }
         } else if (-1 !== abbreviations.indexOf(timezone)) {
-            const descriptor = require(`../data/abbrev/${timezone}.json`);
-
-            this._data.push(-Infinity, {
-                gmt_offset: ~~(descriptor.gmt_offset),
-                dst: !! descriptor.dst,
-                abbrev: descriptor.abbrev,
-            });
+            const descriptor = require(`../data/abbrev/${timezone}.js`).default;
+            this._data.push(-Infinity, descriptor);
+            this._data.push(Infinity, descriptor);
         } else if (undefined !== (correction = Parser.parseTzCorrection(timezone))) {
-            this._data.push(-Infinity, {
-                gmt_offset: correction,
-                dst: false,
-                abbrev: timezone,
-            });
+            this._data.push(-Infinity, { offset: correction, dst: false, abbrev: timezone, until: Number.MIN_SAFE_INTEGER + 1 });
+            this._data.push(Infinity, { offset: correction, dst: false, abbrev: timezone, until: Number.MAX_SAFE_INTEGER - 1 });
         } else {
             throw new UnknownTimeZoneException(`Timezone ${timezone} does not exist.`);
         }
-
-        this._transitions = new BTree();
-        let previous = 0;
-
-        for (const [ timestamp, descriptor ] of this._data) {
-            const wall_clock = timestamp + previous;
-            previous = ~~descriptor.gmt_offset;
-            this._transitions.push(wall_clock, descriptor);
-        }
     }
 }
+
+class NullTimeZone extends DateTimeZone {
+    /**
+     * @inheritdoc
+     */
+    getOffset() {
+        return 0;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    getAbbrev() {
+        return '';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    isDST() {
+        return false;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    _getOffsetForWallClock() {
+        return 0;
+    }
+}
+
+const nullTimeZoneCtor = function () { };
+nullTimeZoneCtor.prototype = NullTimeZone.prototype;
+
+instances.push(0, new nullTimeZoneCtor());

@@ -165,8 +165,15 @@ export default class Parser {
 
     _parseTime(value) {
         const matches = value.match(TIME_REGEX);
+        const hour = ~~matches[1];
 
-        this._tm.hour = ~~matches[1];
+        if (24 === hour) {
+            this._tm.hour = 0;
+            this._tm._addDays(1);
+        } else {
+            this._tm.hour = ~~matches[1];
+        }
+
         this._tm.minutes = ~~matches[2];
         this._tm.seconds = ~~matches[3];
         this._tm.milliseconds = ~~ String(matches[4] || 0).substr(0, 3);

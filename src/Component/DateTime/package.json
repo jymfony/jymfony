@@ -23,10 +23,13 @@
     "@jymfony/datastructure": "https://github.com/jymfony/data-structure.git",
     "@jymfony/exceptions": "https://github.com/jymfony/exceptions.git",
     "@jymfony/lexer": "https://github.com/jymfony/lexer.git",
-    "@jymfony/util": "https://github.com/jymfony/util.git"
+    "@jymfony/util": "https://github.com/jymfony/util.git",
+    "@jymfony/var-exporter": "https://github.com/jymfony/var-exporter.git"
   },
   "devDependencies": {
+    "@jymfony/console": "https://github.com/jymfony/console.git",
     "@jymfony/debug": "https://github.com/jymfony/debug.git",
+    "@jymfony/filesystem": "https://github.com/jymfony/filesystem.git",
     "chai": "^4.2",
     "mocha": "^6.0"
   },

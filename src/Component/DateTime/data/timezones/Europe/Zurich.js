@@ -1,0 +1,142 @@
+export default (() => {
+    let o;
+    return Jymfony.Component.VarExporter.Internal.Hydrator.hydrate(
+        o = [
+            (new ReflectionClass('Jymfony.Component.DateTime.Internal.RuleSet')).newInstanceWithoutConstructor(),
+            (new ReflectionClass('Jymfony.Component.DateTime.Internal.Rule')).newInstanceWithoutConstructor(),
+            (new ReflectionClass('Jymfony.Component.DateTime.Internal.Rule')).newInstanceWithoutConstructor(),
+            (new ReflectionClass('Jymfony.Component.DateTime.Internal.RuleSet')).newInstanceWithoutConstructor(),
+            (new ReflectionClass('Jymfony.Component.DateTime.Internal.Rule')).newInstanceWithoutConstructor(),
+            (new ReflectionClass('Jymfony.Component.DateTime.Internal.Rule')).newInstanceWithoutConstructor(),
+            (new ReflectionClass('Jymfony.Component.DateTime.Internal.Rule')).newInstanceWithoutConstructor(),
+            (new ReflectionClass('Jymfony.Component.DateTime.Internal.Rule')).newInstanceWithoutConstructor(),
+            (new ReflectionClass('Jymfony.Component.DateTime.Internal.Rule')).newInstanceWithoutConstructor(),
+            (new ReflectionClass('Jymfony.Component.DateTime.Internal.Rule')).newInstanceWithoutConstructor(),
+        ],
+        null,
+        {
+            'Jymfony.Component.DateTime.Internal.RuleSet': {
+                ['_name']: {
+                    ['0']: undefined,
+                    ['3']: undefined,
+                },
+                ['_rules']: {
+                    ['0']: [
+                        o[1],
+                        o[2],
+                    ],
+                    ['3']: [
+                        o[4],
+                        o[5],
+                        o[6],
+                        o[7],
+                        o[8],
+                        o[9],
+                    ],
+                },
+            },
+            'Jymfony.Component.DateTime.Internal.Rule': {
+                ['_fromYear']: {
+                    ['1']: 1941,
+                    ['2']: 1941,
+                    ['4']: 1977,
+                    ['5']: 1977,
+                    ['6']: 1978,
+                    ['7']: 1979,
+                    ['8']: 1981,
+                    ['9']: 1996,
+                },
+                ['_toYear']: {
+                    ['1']: 1942,
+                    ['2']: 1942,
+                    ['4']: 1980,
+                    ['5']: 1977,
+                    ['6']: 1978,
+                    ['7']: 1995,
+                    ['8']: Infinity,
+                    ['9']: Infinity,
+                },
+                ['_inMonth']: {
+                    ['1']: 5,
+                    ['2']: 10,
+                    ['4']: 4,
+                    ['5']: 9,
+                    ['6']: 10,
+                    ['7']: 9,
+                    ['8']: 3,
+                    ['9']: 10,
+                },
+                ['_on']: {
+                    ['1']: '1 %s this mon',
+                    ['2']: '1 %s this mon',
+                    ['4']: '1 %s this sun',
+                    ['5']: 'last sun %s',
+                    ['6']: '1',
+                    ['7']: 'last sun %s',
+                    ['8']: 'last sun %s',
+                    ['9']: 'last sun %s',
+                },
+                ['_at']: {
+                    ['1']: '1:00',
+                    ['2']: '2:00',
+                    ['4']: '1:00u',
+                    ['5']: '1:00u',
+                    ['6']: '1:00u',
+                    ['7']: '1:00u',
+                    ['8']: '1:00u',
+                    ['9']: '1:00u',
+                },
+                ['_save']: {
+                    ['1']: 3600,
+                    ['2']: 0,
+                    ['4']: 3600,
+                    ['5']: 0,
+                    ['6']: 0,
+                    ['7']: 0,
+                    ['8']: 3600,
+                    ['9']: 0,
+                },
+                ['_letters']: {
+                    ['1']: 'S',
+                    ['2']: '-',
+                    ['4']: 'S',
+                    ['5']: '-',
+                    ['6']: '-',
+                    ['7']: '-',
+                    ['8']: 'S',
+                    ['9']: '-',
+                },
+            },
+        },
+        [
+            {
+                ['offset']: 2048,
+                ['dst']: false,
+                ['abbrev']: 'LMT',
+                ['until']: -3675198848,
+                ['format']: 'LMT',
+            },
+            {
+                ['offset']: 1786,
+                ['dst']: false,
+                ['abbrev']: 'BMT',
+                ['until']: -2385246586,
+                ['format']: 'BMT',
+            },
+            {
+                ['until']: 347151600,
+                ['ruleSet']: o[0],
+                ['offset']: 3600,
+                ['abbrev']: 'CE%sT',
+            },
+            {
+                ['until']: Infinity,
+                ['ruleSet']: o[3],
+                ['offset']: 3600,
+                ['abbrev']: 'CE%sT',
+            },
+        ],
+        []
+    );
+})();
+;

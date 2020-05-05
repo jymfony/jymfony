@@ -209,9 +209,9 @@ export default class DateTimeFormatter {
                     // Difference to GMT +02:00
                     const offset = tm.timeZone.getOffset(datetime);
                     result += 0 > offset ? '-' : '+';
-                    result += ('00' + ~~(offset / 3600)).slice(-2);
+                    result += __jymfony.sprintf('%02d', ~~(offset / 3600));
                     result += 'P' === cur ? ':' : '';
-                    result += ('00' + ~~(offset % 3600)).slice(-2);
+                    result += __jymfony.sprintf('%02d', ~~((offset % 3600) / 60));
                     break;
                 }
 

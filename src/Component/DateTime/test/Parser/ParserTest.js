@@ -379,7 +379,7 @@ describe('[DateTime] Parser', function () {
         } ],
         [ 'yesterday', tm => {
             const d = new Date();
-            d.setDate(d.getUTCDate() - 1);
+            d.setUTCDate(d.getUTCDate() - 1);
 
             expect(tm.day).to.be.equal(d.getUTCDate());
             expect(tm.hour).to.be.equal(0);
@@ -388,7 +388,7 @@ describe('[DateTime] Parser', function () {
         } ],
         [ 'today', tm => {
             const d = new Date();
-            d.setDate(d.getUTCDate());
+            d.setUTCDate(d.getUTCDate());
 
             expect(tm.day).to.be.equal(d.getUTCDate());
             expect(tm.hour).to.be.equal(0);
@@ -397,7 +397,7 @@ describe('[DateTime] Parser', function () {
         } ],
         [ 'tomorrow', tm => {
             const d = new Date();
-            d.setDate(d.getUTCDate() + 1);
+            d.setUTCDate(d.getUTCDate() + 1);
 
             expect(tm.day).to.be.equal(d.getUTCDate());
             expect(tm.hour).to.be.equal(0);
@@ -411,7 +411,7 @@ describe('[DateTime] Parser', function () {
         [ 'next month', tm => expect(tm.month).to.be.equal(new Date().getUTCMonth() + 2) ],
         [ 'yesterday  4:00', tm => {
             const d = new Date();
-            d.setDate(d.getUTCDate() - 1);
+            d.setUTCDate(d.getUTCDate() - 1);
 
             expect(tm.day).to.be.equal(d.getUTCDate());
             expect(tm.hour).to.be.equal(4);
@@ -438,7 +438,7 @@ describe('[DateTime] Parser', function () {
         [ 'in 3 years', tm => expect(tm._year).to.be.equal(new Date().getUTCFullYear() + 3) ],
         [ '3 days from now', tm => {
             const d = new Date();
-            d.setDate(d.getUTCDate() + 3);
+            d.setUTCDate(d.getUTCDate() + 3);
 
             expect(tm.day).to.be.equal(d.getUTCDate());
         } ],
@@ -470,7 +470,7 @@ describe('[DateTime] Parser', function () {
         [ '3 months ago saturday 5:00 pm', tm => {
             const d = new Date();
             d.setMonth(d.getUTCMonth() - 3);
-            d.setDate(d.getUTCDate() + (6 - d.getUTCDay()));
+            d.setUTCDate(d.getUTCDate() + (6 - d.getUTCDay()));
 
             expect(tm._year).to.be.equal(d.getUTCFullYear());
             expect(tm.month).to.be.equal(d.getUTCMonth() + 1);
@@ -494,6 +494,11 @@ describe('[DateTime] Parser', function () {
             expect(tm.month).to.be.equal(5);
             expect(tm.day).to.be.equal(6);
         } ],
+        [ '15 jan 2020 this sun', tm => {
+            expect(tm._year).to.be.equal(2020);
+            expect(tm.month).to.be.equal(1);
+            expect(tm.day).to.be.equal(19);
+        } ],
     ];
 
     for (const index of tests.keys()) {
@@ -504,4 +509,12 @@ describe('[DateTime] Parser', function () {
             t[1](tm);
         });
     }
+
+    it ('should accept 24:00 spec', () => {
+        const parser = new Parser();
+        const tm = parser.parse('1916-06-03 24:00');
+
+        expect(tm.hour).to.be.equal(0);
+        expect(tm.day).to.be.equal(4);
+    });
 });

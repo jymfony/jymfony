@@ -125,6 +125,11 @@ declare namespace Jymfony.Component.DateTime {
         setDate(year: number, month: number, day: number): DateTime;
 
         /**
+         * Modify the timezone.
+         */
+        setTimeZone(timezone: DateTimeZone): DateTime;
+
+        /**
          * Adds or subtracts a TimeSpan interval.
          */
         modify(interval: TimeSpan): DateTime;

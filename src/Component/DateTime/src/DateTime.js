@@ -286,6 +286,24 @@ export default class DateTime {
     }
 
     /**
+     * Modify the timezone.
+     *
+     * @param {Jymfony.Component.DateTime.DateTimeZone} timezone
+     *
+     * @returns {Jymfony.Component.DateTime.DateTime}
+     */
+    setTimeZone(timezone) {
+        if (timezone === val._tm.timeZone) {
+            return this;
+        }
+
+        const val = this.copy();
+        val._tm.timeZone = timezone;
+
+        return val;
+    }
+
+    /**
      * Adds or subtracts a TimeSpan interval.
      *
      * @param {Jymfony.Component.DateTime.TimeSpan} interval

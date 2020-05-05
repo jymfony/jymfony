@@ -18,7 +18,8 @@ export default class Exporter {
         values = __jymfony.deepClone(values);
 
         let k, value;
-        for ([ k, value ] of __jymfony.getEntries(values)) {
+        for (k of __jymfony.keys(values)) {
+            value = values[k];
             const handleValue = () => {
                 values[k] = value;
             };
@@ -54,7 +55,7 @@ export default class Exporter {
             }
 
             const reflector = new ReflectionClass(value);
-            let objValue = JSON.parse(JSON.stringify(value));
+            let objValue = __jymfony.clone(value);
 
             if (reflector.hasMethod('__sleep')) {
                 const propNames = value.__sleep();
@@ -76,8 +77,8 @@ export default class Exporter {
             }
 
             const properties = { [reflector.name]: {} };
-            for (const [ name, v ] of __jymfony.getEntries(objValue)) {
-                properties[reflector.name][String(name)] = v;
+            for (const name of __jymfony.keys(objValue)) {
+                properties[reflector.name][String(name)] = objValue[name];
             }
 
             prepareValue(properties, reflector);

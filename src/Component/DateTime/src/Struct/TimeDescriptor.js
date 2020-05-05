@@ -4,6 +4,7 @@ if (':UTC' === process.env.TZ) {
     delete process.env.TZ;
 }
 
+const NullTimeZone = DateTimeZone.get(0);
 const DEFAULT_TZ = process.env.TZ || 'Etc/UTC';
 const daysPerMonth = [
     [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ],
@@ -33,7 +34,7 @@ export default class TimeDescriptor {
         /**
          * @type {Jymfony.Component.DateTime.DateTimeZone}
          */
-        this.timeZone = tz;
+        this._timeZone = tz;
 
         /**
          * @type {int}
@@ -83,6 +84,13 @@ export default class TimeDescriptor {
          * @private
          */
         this._year = 1970;
+
+        /**
+         * @type {boolean}
+         *
+         * @private
+         */
+        this._complete = false;
 
         const d = new Date();
         this.unixTimestamp = 0;
@@ -437,7 +445,7 @@ export default class TimeDescriptor {
      * @param {int} timestamp
      */
     set unixTimestamp(timestamp) {
-        this._unixTime = ~~timestamp;
+        this._unixTime = isString(timestamp) ? parseInt(timestamp) : timestamp;
         this._milliseconds = 0;
         this._updateTime();
     }
@@ -467,6 +475,33 @@ export default class TimeDescriptor {
     }
 
     /**
+     * Gets the timezone for this descriptor.
+     * Currently returns a null timezone if _makeTime has not been called yet.
+     *
+     * @returns {Jymfony.Component.DateTime.DateTimeZone}
+     */
+    get timeZone() {
+        if (! this._complete) {
+            return NullTimeZone;
+        }
+
+        return this._timeZone;
+    }
+
+    /**
+     * Change the timezone for this descriptor.
+     *
+     * @param {Jymfony.Component.DateTime.DateTimeZone} timezone
+     */
+    set timeZone(timezone) {
+        if (! (timezone instanceof DateTimeZone)) {
+            timezone = DateTimeZone.get(timezone);
+        }
+
+        this._timeZone = timezone;
+    }
+
+    /**
      * Adds a timespan.
      *
      * @param {Jymfony.Component.DateTime.TimeSpan} timespan
@@ -489,6 +524,7 @@ export default class TimeDescriptor {
     copy() {
         const retVal = new TimeDescriptor(this.timeZone.name);
 
+        retVal._complete = this._complete;
         retVal.unixTimestamp = this.unixTimestamp;
 
         return retVal;
@@ -526,6 +562,8 @@ export default class TimeDescriptor {
      * @private
      */
     _makeTime() {
+        this._complete = true;
+
         const wallTimestamp = this._wallClockTimestamp;
         const offset = this.timeZone._getOffsetForWallClock(wallTimestamp);
 
@@ -538,11 +576,26 @@ export default class TimeDescriptor {
     _updateTime() {
         const wall_ts = this._unixTime + this.timeZone.getOffset(this._unixTime);
 
-        this._seconds = wall_ts % 60;
+        this._seconds = ~~(wall_ts % 60);
         this._minutes = ~~((wall_ts % 3600 - this._seconds) / 60);
         this._hour = ~~((wall_ts % 86400 - (this._minutes % 3600)) / 3600);
 
         this.daysFromEpoch = ~~(wall_ts / 86400);
+
+        if (0 > this._seconds) {
+            this._seconds += 60;
+            this._minutes--;
+        }
+
+        if (0 > this._minutes) {
+            this._minutes += 60;
+            this._hour--;
+        }
+
+        if (0 > this._hour) {
+            this._hour += 24;
+            this._addDays(-1);
+        }
     }
 
     /**
