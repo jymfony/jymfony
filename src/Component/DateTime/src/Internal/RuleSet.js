@@ -21,6 +21,19 @@ export default class RuleSet {
          * @private
          */
         this._rules = [];
+
+        /**
+         * @type {Object.<string, *[]>}
+         *
+         * @private
+         */
+        this._cache = {};
+    }
+
+    /**
+     * @private
+     */
+    __wakeup() {
     }
 
     /**
@@ -49,8 +62,11 @@ export default class RuleSet {
      * @returns {Jymfony.Component.DateTime.Internal.Rule[]}
      */
     getRulesForYear(year) {
-        let lastRule = null;
+        if (!! this._cache[year]) {
+            return [ ...this._cache[year] ];
+        }
 
+        let lastRule = null;
         const rules = [];
         for (const rule of this._rules) {
             if (rule.toYear >= year && rule.fromYear <= year) {
@@ -63,6 +79,8 @@ export default class RuleSet {
         if (null !== lastRule) {
             rules.unshift(lastRule);
         }
+
+        this._cache[year] = Object.freeze([ ...rules ]);
 
         return rules;
     }

@@ -26,6 +26,9 @@ export default (() => {
                         o[6],
                     ],
                 },
+                ['_cache']: {
+                    ['0']: {},
+                },
             },
             'Jymfony.Component.DateTime.Internal.Rule': {
                 ['_fromYear']: {
@@ -84,6 +87,14 @@ export default (() => {
                     ['5']: 'D',
                     ['6']: 'S',
                 },
+                ['_cache']: {
+                    ['1']: {},
+                    ['2']: {},
+                    ['3']: {},
+                    ['4']: {},
+                    ['5']: {},
+                    ['6']: {},
+                },
             },
         },
         [
@@ -101,7 +112,9 @@ export default (() => {
                 ['abbrev']: 'A%sT',
             },
         ],
-        []
+        [
+            0,
+        ]
     );
 })();
 ;

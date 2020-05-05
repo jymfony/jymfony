@@ -62,6 +62,13 @@ export default class Rule {
          * @private
          */
         this._letters = letters;
+
+        /**
+         * @type {Object.<string, *[]>}
+         *
+         * @private
+         */
+        this._cache = {};
     }
 
     /**
@@ -147,6 +154,10 @@ export default class Rule {
             return null;
         }
 
+        if (!! this._cache[year]) {
+            return [ ...this._cache[year] ];
+        }
+
         if (year > this._toYear) {
             year = this._toYear;
         }
@@ -179,13 +190,19 @@ export default class Rule {
         const tm = parser.parse(on + ' ' + this._at.replace(/[uws]$/, ''));
 
         const transitionTime = __jymfony.sprintf('%06d-%02d-%02dT%02d:%02d:%02d%s', tm._year, tm.month, tm.day, tm.hour, tm.minutes, tm.seconds, this._at.endsWith('u') ? 'u' : '');
+
+        let result;
         if (0 === this._save) {
-            return [ transitionTime, transitionTime.replace(/u$/, '') ];
+            result = [ transitionTime, transitionTime.replace(/u$/, '') ];
+        } else {
+            tm._addSeconds(this._save);
+            const withSave = __jymfony.sprintf('%06d-%02d-%02dT%02d:%02d:%02d', tm._year, tm.month, tm.day, tm.hour, tm.minutes, tm.seconds);
+
+            result = [ transitionTime, withSave ];
         }
 
-        tm._addSeconds(this._save);
-        const withSave = __jymfony.sprintf('%06d-%02d-%02dT%02d:%02d:%02d', tm._year, tm.month, tm.day, tm.hour, tm.minutes, tm.seconds);
+        this._cache[year] = [ ...result ];
 
-        return [ transitionTime, withSave ];
+        return result;
     }
 }

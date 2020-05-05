@@ -40,7 +40,7 @@ export default (() => {
             ['offset']: -43200,
             ['dst']: false,
             ['abbrev']: '-12',
-            ['until']: 745862400,
+            ['until']: 745934400,
             ['format']: '-12',
         },
         {

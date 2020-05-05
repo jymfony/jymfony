@@ -31,6 +31,7 @@
     "@jymfony/debug": "https://github.com/jymfony/debug.git",
     "@jymfony/filesystem": "https://github.com/jymfony/filesystem.git",
     "chai": "^4.2",
+    "eslint": "^6.8.0",
     "mocha": "^6.0"
   },
   "config": {
