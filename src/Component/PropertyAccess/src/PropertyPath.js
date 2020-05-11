@@ -1,6 +1,6 @@
 const InvalidPropertyPathException = Jymfony.Component.PropertyAccess.Exception.InvalidPropertyPathException;
-const OutOfBoundsException = Jymfony.Component.PropertyAccess.Exception.OutOfBoundsException;
-const PropertyPathInterface = Jymfony.Component.PropertyAccess.PropertyPathInterface;
+const OutOfBoundsException = Jymfony.Contracts.PropertyAccess.Exception.OutOfBoundsException;
+const PropertyPathInterface = Jymfony.Contracts.PropertyAccess.PropertyPathInterface;
 const PropertyPathIterator = Jymfony.Component.PropertyAccess.PropertyPathIterator;
 
 /**
@@ -132,7 +132,7 @@ export default class PropertyPath extends implementationOf(PropertyPathInterface
     /**
      * Returns a new iterator for this path.
      *
-     * @returns {Jymfony.Component.PropertyAccess.PropertyPathIteratorInterface}
+     * @returns {Jymfony.Contracts.PropertyAccess.PropertyPathIteratorInterface}
      */
     [Symbol.iterator]() {
         return new PropertyPathIterator(this);

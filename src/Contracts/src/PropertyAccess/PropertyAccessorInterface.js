@@ -1,5 +1,5 @@
 /**
- * @memberOf Jymfony.Component.PropertyAccess
+ * @memberOf Jymfony.Contracts.PropertyAccess
  */
 class PropertyAccessorInterface {
     /**
@@ -13,7 +13,7 @@ class PropertyAccessorInterface {
      * If a property in the path is not found, an exception is thrown.
      *
      * @param {Object} object
-     * @param {string|Jymfony.Component.PropertyAccess.PropertyPathInterface} path
+     * @param {string|Jymfony.Contracts.PropertyAccess.PropertyPathInterface} path
      *
      * @throws {Jymfony.Component.PropertyAccess.Exception.AccessException} A property in the path is not found
      */
@@ -30,7 +30,7 @@ class PropertyAccessorInterface {
      * If a property in the path is not found, an exception is thrown.
      *
      * @param {Object} object
-     * @param {string|Jymfony.Component.PropertyAccess.PropertyPathInterface} path
+     * @param {string|Jymfony.Contracts.PropertyAccess.PropertyPathInterface} path
      * @param {*} value
      *
      * @throws {Jymfony.Component.PropertyAccess.Exception.AccessException} A property in the path is not found

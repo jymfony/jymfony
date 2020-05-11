@@ -1,4 +1,4 @@
-const PropertyPathIteratorInterface = Jymfony.Component.PropertyAccess.PropertyPathIteratorInterface;
+const PropertyPathIteratorInterface = Jymfony.Contracts.PropertyAccess.PropertyPathIteratorInterface;
 
 /**
  * Traverses a property path and provides additional methods to find out
@@ -10,7 +10,7 @@ export class PropertyPathIterator extends implementationOf(PropertyPathIteratorI
     /**
      * Constructor.
      *
-     * @param {Jymfony.Component.PropertyAccess.PropertyPathInterface} propertyPath
+     * @param {Jymfony.Contracts.PropertyAccess.PropertyPathInterface} propertyPath
      */
     __construct(propertyPath) {
         /**
@@ -21,7 +21,7 @@ export class PropertyPathIterator extends implementationOf(PropertyPathIteratorI
         this._elements = propertyPath.elements;
 
         /**
-         * @type {Jymfony.Component.PropertyAccess.PropertyPathInterface}
+         * @type {Jymfony.Contracts.PropertyAccess.PropertyPathInterface}
          *
          * @private
          */

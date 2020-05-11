@@ -1,7 +1,7 @@
 const BaseException = global.OutOfBoundsException;
 
 /**
- * @memberOf Jymfony.Component.PropertyAccess.Exception
+ * @memberOf Jymfony.Contracts.PropertyAccess.Exception
  */
 export default class OutOfBoundsException extends BaseException {
 }

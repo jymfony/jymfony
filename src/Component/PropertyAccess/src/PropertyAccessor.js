@@ -1,8 +1,8 @@
 const NoSuchPropertyException = Jymfony.Component.PropertyAccess.Exception.NoSuchPropertyException;
 const UnexpectedTypeException = Jymfony.Component.PropertyAccess.Exception.UnexpectedTypeException;
-const PropertyAccessorInterface = Jymfony.Component.PropertyAccess.PropertyAccessorInterface;
+const PropertyAccessorInterface = Jymfony.Contracts.PropertyAccess.PropertyAccessorInterface;
 const PropertyPath = Jymfony.Component.PropertyAccess.PropertyPath;
-const PropertyPathInterface = Jymfony.Component.PropertyAccess.PropertyPathInterface;
+const PropertyPathInterface = Jymfony.Contracts.PropertyAccess.PropertyPathInterface;
 
 const CACHE_PREFIX_READ = 'r';
 const CACHE_PREFIX_WRITE = 'w';
@@ -57,7 +57,7 @@ export default class PropertyAccessor extends implementationOf(PropertyAccessorI
      * Reads the path to a given path index
      *
      * @param {Object} object
-     * @param {Jymfony.Component.PropertyAccess.PropertyPathInterface} propertyPath
+     * @param {Jymfony.Contracts.PropertyAccess.PropertyPathInterface} propertyPath
      * @param {int} length
      *
      * @returns {*}

@@ -1,4 +1,4 @@
-declare namespace Jymfony.Component.PropertyAccess {
+declare namespace Jymfony.Contracts.PropertyAccess {
     export class PropertyPathInterface implements Iterable<string> {
         /**
          * Returns the path as string.
@@ -8,7 +8,7 @@ declare namespace Jymfony.Component.PropertyAccess {
         /**
          * Returns the element at given index.
          *
-         * @throws {Jymfony.Component.PropertyAccess.Exception.OutOfBoundsException}
+         * @throws {Jymfony.Contracts.PropertyAccess.Exception.OutOfBoundsException}
          */
         getElement(index: number): string;
 
@@ -36,7 +36,7 @@ declare namespace Jymfony.Component.PropertyAccess {
          *
          * @returns Whether the element at this index is a property
          *
-         * @throws {Jymfony.Component.PropertyAccess.Exception.OutOfBoundsException} If the offset is invalid
+         * @throws {Jymfony.Contracts.PropertyAccess.Exception.OutOfBoundsException} If the offset is invalid
          */
         isProperty(index: number): boolean;
 
@@ -47,7 +47,7 @@ declare namespace Jymfony.Component.PropertyAccess {
          *
          * @returns Whether the element at this index is an array index
          *
-         * @throws {Jymfony.Component.PropertyAccess.Exception.OutOfBoundsException} If the offset is invalid
+         * @throws {Jymfony.Contracts.PropertyAccess.Exception.OutOfBoundsException} If the offset is invalid
          */
         isIndex(index: number): boolean
 

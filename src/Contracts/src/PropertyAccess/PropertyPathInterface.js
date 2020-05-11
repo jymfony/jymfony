@@ -1,5 +1,5 @@
 /**
- * @memberOf Jymfony.Component.PropertyAccess
+ * @memberOf Jymfony.Contracts.PropertyAccess
  */
 class PropertyPathInterface {
     /**
@@ -16,7 +16,7 @@ class PropertyPathInterface {
      *
      * @returns {string}
      *
-     * @throws {Jymfony.Component.PropertyAccess.Exception.OutOfBoundsException}
+     * @throws {Jymfony.Contracts.PropertyAccess.Exception.OutOfBoundsException}
      */
     getElement(index) { }
 
@@ -42,14 +42,14 @@ class PropertyPathInterface {
      *
      * If this property path only contains one item, null is returned.
      *
-     * @returns {Jymfony.Component.PropertyAccess.PropertyPathInterface|undefined} The parent path or null
+     * @returns {Jymfony.Contracts.PropertyAccess.PropertyPathInterface|undefined} The parent path or null
      */
     get parent() { }
 
     /**
      * Returns a new iterator for this path.
      *
-     * @returns {Jymfony.Component.PropertyAccess.PropertyPathIteratorInterface}
+     * @returns {Jymfony.Contracts.PropertyAccess.PropertyPathIteratorInterface}
      */
     [Symbol.iterator]() { }
 
@@ -60,7 +60,7 @@ class PropertyPathInterface {
      *
      * @returns {boolean} Whether the element at this index is a property
      *
-     * @throws {Jymfony.Component.PropertyAccess.Exception.OutOfBoundsException} If the offset is invalid
+     * @throws {Jymfony.Contracts.PropertyAccess.Exception.OutOfBoundsException} If the offset is invalid
      */
     isProperty(index) { }
 
@@ -71,7 +71,7 @@ class PropertyPathInterface {
      *
      * @returns {boolean} Whether the element at this index is an array index
      *
-     * @throws {Jymfony.Component.PropertyAccess.Exception.OutOfBoundsException} If the offset is invalid
+     * @throws {Jymfony.Contracts.PropertyAccess.Exception.OutOfBoundsException} If the offset is invalid
      */
     isIndex(index) { }
 

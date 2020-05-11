@@ -1,6 +1,6 @@
 const { expect } = require('chai');
 const InvalidPropertyPathException = Jymfony.Component.PropertyAccess.Exception.InvalidPropertyPathException;
-const OutOfBoundsException = Jymfony.Component.PropertyAccess.Exception.OutOfBoundsException;
+const OutOfBoundsException = Jymfony.Contracts.PropertyAccess.Exception.OutOfBoundsException;
 const PropertyPath = Jymfony.Component.PropertyAccess.PropertyPath;
 
 describe('[PropertyAccess] PropertyPath', function () {

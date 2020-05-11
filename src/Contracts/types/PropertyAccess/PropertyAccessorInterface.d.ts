@@ -1,4 +1,4 @@
-declare namespace Jymfony.Component.PropertyAccess {
+declare namespace Jymfony.Contracts.PropertyAccess {
     export class PropertyAccessorInterface {
         /**
          * Returns a value at the end of a property path
@@ -10,7 +10,7 @@ declare namespace Jymfony.Component.PropertyAccess {
          *
          * If a property in the path is not found, an exception is thrown.
          *
-         * @throws {Jymfony.Component.PropertyAccess.Exception.AccessException} A property in the path is not found
+         * @throws {Jymfony.Contracts.PropertyAccess.Exception.AccessException} A property in the path is not found
          */
         getValue(object: object | any[], path: string | PropertyPathInterface): any;
 
@@ -25,10 +25,10 @@ declare namespace Jymfony.Component.PropertyAccess {
          * If a property in the path is not found, an exception is thrown.
          *
          * @param {Object} object
-         * @param {string|Jymfony.Component.PropertyAccess.PropertyPathInterface} path
+         * @param {string|Jymfony.Contracts.PropertyAccess.PropertyPathInterface} path
          * @param {*} value
          *
-         * @throws {Jymfony.Component.PropertyAccess.Exception.AccessException} A property in the path is not found
+         * @throws {Jymfony.Contracts.PropertyAccess.Exception.AccessException} A property in the path is not found
          */
         setValue(object: object | any[], path: string | PropertyPathInterface, value: any): void;
     }

@@ -69,5 +69,15 @@ Jymfony.Contracts = {
     /**
      * @namespace
      */
+    PropertyAccess: {
+        /**
+         * @namespace
+         */
+        Exception: {},
+    },
+
+    /**
+     * @namespace
+     */
     Stopwatch: {},
 };

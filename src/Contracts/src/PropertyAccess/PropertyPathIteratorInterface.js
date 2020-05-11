@@ -1,5 +1,5 @@
 /**
- * @memberOf Jymfony.Component.PropertyAccess
+ * @memberOf Jymfony.Contracts.PropertyAccess
  */
 class PropertyPathIteratorInterface {
     /**
