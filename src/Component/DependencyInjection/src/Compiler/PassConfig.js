@@ -86,7 +86,11 @@ export default class PassConfig {
          *
          * @private
          */
-        this._afterRemovingPasses = {};
+        this._afterRemovingPasses = {
+            0: [
+                new Compiler.AliasDeprecatedPublicServicesPass(),
+            ],
+        };
     }
 
     /**
