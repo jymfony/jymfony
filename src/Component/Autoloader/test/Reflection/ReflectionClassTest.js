@@ -60,6 +60,15 @@ Parent.CONST_1 = 'foobar';
 Son.CONST_2 = 'foo';
 
 describe('[Autoloader] ReflectionClass', function () {
+    it('getClass should work with internal classes', () => {
+        expect(ReflectionClass.getClass(Date)).to.be.equal(Date);
+    });
+
+    it('getClassName should work with internal classes', () => {
+        expect(ReflectionClass.getClassName(Date)).to.be.equal('Date');
+        expect(ReflectionClass.getClassName(String)).to.be.equal('String');
+    });
+
     it('newInstance should return an object', () => {
         const reflClass = new ReflectionClass(Son);
         const obj = reflClass.newInstance();
