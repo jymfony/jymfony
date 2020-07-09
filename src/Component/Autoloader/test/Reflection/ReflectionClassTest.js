@@ -243,6 +243,13 @@ describe('[Autoloader] ReflectionClass', function () {
         expect(bar.getValue(null)).to.be.equal('bar');
     } : undefined);
 
+    it('class instance fields are initialized before __construct call', __jymfony.Platform.hasPublicFieldSupport() ? () => {
+        const ns = new Namespace(__jymfony.autoload, 'Foo', path.join(__dirname, '..', '..', 'fixtures'), require);
+        const x = new ns.PublicFieldsClassWithConstruct();
+
+        expect(x.initializedField).to.be.equal('foobar');
+    } : undefined);
+
     it('exposes private instance fields', __jymfony.Platform.hasPrivateFieldSupport() ? () => {
         const ns = new Namespace(__jymfony.autoload, 'Foo', path.join(__dirname, '..', '..', 'fixtures'), require);
         const x = new ns.PrivateFieldsClass();
