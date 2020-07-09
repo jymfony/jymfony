@@ -1,6 +1,6 @@
 {
   "name": "@jymfony/lexer",
-  "version": "0.1.0-alpha.22",
+  "version": "0.1.0-alpha.23",
   "description": "Jymfony Lexer component",
   "typings": "types/index.d.ts",
   "scripts": {
@@ -16,14 +16,14 @@
     "node": ">=8.10.0"
   },
   "dependencies": {
-    "@jymfony/autoloader": "0.1.0-alpha.22",
-    "@jymfony/contracts": "0.1.0-alpha.22",
-    "@jymfony/exceptions": "0.1.0-alpha.22",
-    "@jymfony/util": "0.1.0-alpha.22"
+    "@jymfony/autoloader": "0.1.0-alpha.23",
+    "@jymfony/contracts": "0.1.0-alpha.23",
+    "@jymfony/exceptions": "0.1.0-alpha.23",
+    "@jymfony/util": "0.1.0-alpha.23"
   },
   "devDependencies": {
-    "@jymfony/debug": "https://github.com/jymfony/debug.git",
-    "@jymfony/var-dumper": "https://github.com/jymfony/var-dumper.git",
+    "@jymfony/debug": "*",
+    "@jymfony/var-dumper": "*",
     "chai": "^4.2",
     "mocha": "^6.0"
   },

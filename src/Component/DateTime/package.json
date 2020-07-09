@@ -1,6 +1,6 @@
 {
   "name": "@jymfony/datetime",
-  "version": "0.1.0-alpha.22",
+  "version": "0.1.0-alpha.23",
   "description": "Jymfony DateTime Component",
   "typings": "types/index.d.ts",
   "scripts": {
@@ -19,17 +19,17 @@
     "node": ">=8.10.0"
   },
   "dependencies": {
-    "@jymfony/autoloader": "0.1.0-alpha.22",
-    "@jymfony/datastructure": "0.1.0-alpha.22",
-    "@jymfony/exceptions": "0.1.0-alpha.22",
-    "@jymfony/lexer": "0.1.0-alpha.22",
-    "@jymfony/util": "0.1.0-alpha.22",
-    "@jymfony/var-exporter": "0.1.0-alpha.22"
+    "@jymfony/autoloader": "0.1.0-alpha.23",
+    "@jymfony/datastructure": "0.1.0-alpha.23",
+    "@jymfony/exceptions": "0.1.0-alpha.23",
+    "@jymfony/lexer": "0.1.0-alpha.23",
+    "@jymfony/util": "0.1.0-alpha.23",
+    "@jymfony/var-exporter": "0.1.0-alpha.23"
   },
   "devDependencies": {
-    "@jymfony/console": "https://github.com/jymfony/console.git",
-    "@jymfony/debug": "https://github.com/jymfony/debug.git",
-    "@jymfony/filesystem": "https://github.com/jymfony/filesystem.git",
+    "@jymfony/console": "*",
+    "@jymfony/debug": "*",
+    "@jymfony/filesystem": "*",
     "chai": "^4.2",
     "eslint": "^6.8.0",
     "mocha": "^6.0"
