@@ -12,12 +12,7 @@ export default class BooleanNode extends ScalarNode {
      */
     validateType(value) {
         if (! isBoolean(value)) {
-            const ex = new InvalidTypeException(__jymfony.sprintf(
-                'Invalid type for path "%s". Expected boolean, but got %s.',
-                this.getPath(),
-                typeof value
-            ));
-
+            const ex = new InvalidTypeException(__jymfony.sprintf('Invalid type for path "%s". Expected boolean, but got %s.', this.getPath(), typeof value));
             const hint = this.getInfo();
             if (hint) {
                 ex.addHint(hint);

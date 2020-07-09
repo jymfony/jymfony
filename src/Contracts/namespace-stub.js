@@ -49,6 +49,11 @@ Jymfony.Contracts = {
     /**
      * @namespace
      */
+    Lexer: {},
+
+    /**
+     * @namespace
+     */
     Metadata: {
         /**
          * @namespace

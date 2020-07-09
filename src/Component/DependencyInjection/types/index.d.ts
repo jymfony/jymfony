@@ -7,6 +7,7 @@
 /// <reference path="Argument/ServiceLocatorArgument.d.ts" />
 /// <reference path="Argument/TaggedIteratorArgument.d.ts" />
 /// <reference path="Compiler/AbstractRecursivePass.d.ts" />
+/// <reference path="Compiler/AliasDeprecatedPublicServicesPass.d.ts" />
 /// <reference path="Compiler/AnalyzeServiceReferencesPass.d.ts" />
 /// <reference path="Compiler/CheckCircularReferencesPass.d.ts" />
 /// <reference path="Compiler/CheckDefinitionValidityPass.d.ts" />

@@ -83,11 +83,7 @@ export default class StreamWrapper {
      */
     register(wrapper) {
         if (! (wrapper instanceof StreamWrapperInterface)) {
-            throw new TypeError(__jymfony.sprintf(
-                'Argument 1 passed to StreamWrapper.register must be an instance of ' +
-                'StreamWrapperInterface, %s passed',
-                isScalar(wrapper) || isObjectLiteral(wrapper) ? typeof wrapper : ReflectionClass.getClassName(wrapper)
-            ));
+            throw new TypeError(__jymfony.sprintf('Argument 1 passed to StreamWrapper.register must be an instance of StreamWrapperInterface, %s passed', __jymfony.get_debug_type(wrapper)));
         }
 
         this._wrappers[wrapper.protocol] = wrapper;

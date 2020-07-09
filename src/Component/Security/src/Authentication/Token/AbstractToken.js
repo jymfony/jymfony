@@ -82,10 +82,7 @@ export default class AbstractToken extends implementationOf(TokenInterface) {
      */
     set user(user) {
         if (null !== user && ! (user instanceof UserInterface)) {
-            throw new TypeError(__jymfony.sprintf(
-                'User must be a UserInterface or null, %s passed',
-                isObject(user) ? ReflectionClass.getClassName(user) : typeof user
-            ));
+            throw new TypeError(__jymfony.sprintf('User must be a UserInterface or null, %s passed', __jymfony.get_debug_type(user)));
         }
 
         let changed = this._user !== undefined;

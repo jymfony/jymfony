@@ -35,7 +35,8 @@ export default class VarCloner extends AbstractCloner {
             }
 
             const vals = queue[i];
-            for (const [ k, v ] of __jymfony.getEntries(vals)) {
+            for (const k of __jymfony.keys(vals)) {
+                const v = vals[k];
                 switch (true) {
                     case undefined === v:
                     case null === v:
@@ -79,7 +80,10 @@ export default class VarCloner extends AbstractCloner {
                         stub = new Stub();
                         stub.type = Stub.TYPE_ARRAY;
                         stub.class_ = v.length;
-                        a = [ ...v ];
+                        a = Array(v.length);
+                        for (const key of __jymfony.keys(v)) {
+                            a[key] = v[key];
+                        }
                         break;
 
                     case isFunction(v) && ! v.__self__: {

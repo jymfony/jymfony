@@ -21,7 +21,9 @@ export default class DateTime {
      */
     __construct(datetime = undefined, timezone = undefined) {
         if (undefined === datetime) {
+            const d = new Date();
             this._tm = new TimeDescriptor(timezone);
+            this._tm.unixTimestamp = ~~(d.getTime() / 1000);
         } else if (isString(datetime)) {
             const p = new Parser();
             this._tm = p.parse(datetime, timezone);
@@ -279,6 +281,24 @@ export default class DateTime {
         if (! val._tm.valid) {
             throw new InvalidArgumentException('Invalid date.');
         }
+
+        return val;
+    }
+
+    /**
+     * Modify the timezone.
+     *
+     * @param {Jymfony.Component.DateTime.DateTimeZone} timezone
+     *
+     * @returns {Jymfony.Component.DateTime.DateTime}
+     */
+    setTimeZone(timezone) {
+        if (timezone === val._tm.timeZone) {
+            return this;
+        }
+
+        const val = this.copy();
+        val._tm.timeZone = timezone;
 
         return val;
     }

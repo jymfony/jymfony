@@ -110,8 +110,7 @@ export default class ArrayAdapter extends implementationOf(CacheItemPoolInterfac
         try {
             value = __jymfony.serialize(value);
         } catch (e) {
-            const type = isObject(value) ? ReflectionClass.getClassName(value) : typeof value;
-            this._logger.warning('Failed to save key "{key}" ({type})', {key: key, type: type, exception: e});
+            this._logger.warning('Failed to save key "{key}" ({type})', {key: key, type: __jymfony.get_debug_type(value), exception: e});
 
             return false;
         }

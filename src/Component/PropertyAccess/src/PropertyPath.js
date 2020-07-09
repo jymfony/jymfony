@@ -31,7 +31,7 @@ export default class PropertyPath extends implementationOf(PropertyPathInterface
             throw new InvalidArgumentException(__jymfony.sprintf(
                 'The property path constructor needs a string or an instance ' +
                 'of "Jymfony.Component.PropertyAccess.PropertyPath". Got: "%s"',
-                isObject(propertyPath) ? new ReflectionClass(propertyPath).name : typeof propertyPath
+                __jymfony.get_debug_type(propertyPath)
             ));
         }
 

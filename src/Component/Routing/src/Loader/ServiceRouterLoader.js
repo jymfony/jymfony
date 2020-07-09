@@ -41,9 +41,7 @@ export default class ServiceRouterLoader extends Loader {
 
         const collection = getCallableFromArray([ object, method ])(this);
         if (! (collection instanceof RouteCollection)) {
-            const type = isObject(collection) ? ReflectionClass.getClassName(collection) : typeof collection;
-
-            throw new LogicException(__jymfony.sprintf('The %s::%s method must return a RouteCollection: %s returned', reflClass.name, method, type));
+            throw new LogicException(__jymfony.sprintf('The %s::%s method must return a RouteCollection: %s returned', reflClass.name, method, __jymfony.get_debug_type(collection)));
         }
 
         this._addClassResource(reflClass, collection);

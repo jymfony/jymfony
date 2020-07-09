@@ -343,9 +343,9 @@ export default class Data {
         cursor.hashIndex = 0;
         cursor.hashLength = __jymfony.keys(children).length;
         cursor.hashCut = cut;
-        for (const [ key, child ] of __jymfony.getEntries(children)) {
+        for (const key of __jymfony.keys(children)) {
             cursor.hashKey = key;
-            this._dumpItem(dumper, cursor, refs, child);
+            this._dumpItem(dumper, cursor, refs, children[key]);
             if (++cursor.hashIndex === this._maxItemsPerDepth || cursor.stop) {
                 parentCursor.stop = true;
 

@@ -23,11 +23,15 @@
     "@jymfony/datastructure": "0.1.0-alpha.22",
     "@jymfony/exceptions": "0.1.0-alpha.22",
     "@jymfony/lexer": "0.1.0-alpha.22",
-    "@jymfony/util": "0.1.0-alpha.22"
+    "@jymfony/util": "0.1.0-alpha.22",
+    "@jymfony/var-exporter": "0.1.0-alpha.22"
   },
   "devDependencies": {
-    "@jymfony/debug": "*",
+    "@jymfony/console": "https://github.com/jymfony/console.git",
+    "@jymfony/debug": "https://github.com/jymfony/debug.git",
+    "@jymfony/filesystem": "https://github.com/jymfony/filesystem.git",
     "chai": "^4.2",
+    "eslint": "^6.8.0",
     "mocha": "^6.0"
   },
   "config": {

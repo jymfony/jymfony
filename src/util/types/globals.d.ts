@@ -26,6 +26,11 @@ declare namespace __jymfony {
     export function sleep(ms: number): Promise<void>;
 
     /**
+     * Gets a debug representation of the value (class name of type).
+     */
+    export function get_debug_type(value: any): string;
+
+    /**
      * Emits a deprecation warning message.
      */
     export function trigger_deprecated(message: string): void;

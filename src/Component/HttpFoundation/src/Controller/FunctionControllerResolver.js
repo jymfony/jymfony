@@ -35,10 +35,7 @@ export default class FunctionControllerResolver extends implementationOf(Control
         }
 
         if (undefined === controller || ! isFunction(controller)) {
-            throw new LogicException(__jymfony.sprintf(
-                'Controller "%s" is not a valid controller.',
-                isObject(controller) ? ReflectionClass.getClassName(controller) : typeof controller,
-            ));
+            throw new LogicException(__jymfony.sprintf('Controller "%s" is not a valid controller.', __jymfony.get_debug_type(controller)));
         }
 
         return controller;

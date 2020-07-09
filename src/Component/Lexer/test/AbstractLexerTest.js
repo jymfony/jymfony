@@ -21,16 +21,19 @@ describe('[Lexer] AbstractLexer', function () {
             value: 'price',
             type: 'string',
             position: 0,
+            index: 0,
         },
         {
             value: '=',
             type: 'operator',
             position: 5,
+            index: 1,
         },
         {
             value: '10',
             type: 'int',
             position: 6,
+            index: 2,
         },
     ];
 
@@ -88,6 +91,7 @@ describe('[Lexer] AbstractLexer', function () {
             value: '\xE9',
             type: 'string',
             position: 0,
+            index: 0,
         });
     });
 

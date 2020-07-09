@@ -10,6 +10,7 @@
 /// <reference path="DependencyInjection/Compiler/LoggerChannelPass.d.ts" />
 /// <reference path="DependencyInjection/Compiler/TestServiceContainerRealRefPass.d.ts" />
 /// <reference path="DependencyInjection/Compiler/TestServiceContainerWeakRefPass.d.ts" />
+/// <reference path="DependencyInjection/Compiler/UnusedTagsPass.d.ts" />
 /// <reference path="DependencyInjection/Configuration.d.ts" />
 /// <reference path="DependencyInjection/FrameworkExtension.d.ts" />
 /// <reference path="Log/Processor/DebugProcessor.d.ts" />

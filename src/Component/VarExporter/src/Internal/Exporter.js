@@ -18,7 +18,8 @@ export default class Exporter {
         values = __jymfony.deepClone(values);
 
         let k, value;
-        for ([ k, value ] of __jymfony.getEntries(values)) {
+        for (k of __jymfony.keys(values)) {
+            value = values[k];
             const handleValue = () => {
                 values[k] = value;
             };
@@ -54,7 +55,7 @@ export default class Exporter {
             }
 
             const reflector = new ReflectionClass(value);
-            let objValue = JSON.parse(JSON.stringify(value));
+            let objValue = __jymfony.clone(value);
 
             if (reflector.hasMethod('__sleep')) {
                 const propNames = value.__sleep();
@@ -76,8 +77,8 @@ export default class Exporter {
             }
 
             const properties = { [reflector.name]: {} };
-            for (const [ name, v ] of __jymfony.getEntries(objValue)) {
-                properties[reflector.name][String(name)] = v;
+            for (const name of __jymfony.keys(objValue)) {
+                properties[reflector.name][String(name)] = objValue[name];
             }
 
             prepareValue(properties, reflector);
@@ -95,7 +96,7 @@ export default class Exporter {
             case true === value: return 'true';
             case null === value: return 'null';
             case undefined === value: return 'undefined';
-            case '' === value: return '';
+            case '' === value: return '""';
         }
 
         if (value instanceof Reference) {
@@ -154,7 +155,7 @@ export default class Exporter {
             return __self.exportHydrator(value, indent, subIndent);
         }
 
-        throw new UnexpectedValueException(__jymfony.sprintf('Cannot export value of type "%s"', isObject(value) ? ReflectionClass.getClassName(value) : typeof value));
+        throw new UnexpectedValueException(__jymfony.sprintf('Cannot export value of type "%s"', __jymfony.get_debug_type(value)));
     }
 
     static exportHydrator(value, indent, subIndent) {

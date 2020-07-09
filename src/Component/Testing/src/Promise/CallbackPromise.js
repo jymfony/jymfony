@@ -12,10 +12,7 @@ export default class CallbackPromise extends implementationOf(PromiseInterface) 
      */
     __construct(callback) {
         if (! isFunction(callback)) {
-            throw new InvalidArgumentException(__jymfony.sprintf(
-                'Callable expected as an argument to CallbackPromise, but got %s.',
-                typeof callback
-            ));
+            throw new InvalidArgumentException(__jymfony.sprintf('Callable expected as an argument to CallbackPromise, but got %s.', typeof callback));
         }
 
         /**

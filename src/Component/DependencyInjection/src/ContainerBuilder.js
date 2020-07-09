@@ -83,6 +83,13 @@ export default class ContainerBuilder extends Container {
         this._compiler = undefined;
 
         /**
+         * @type {string[]}
+         *
+         * @private
+         */
+        this._usedTags = [];
+
+        /**
          * @type {Object.<string, Jymfony.Component.DependencyInjection.ChildDefinition>}
          *
          * @private
@@ -913,6 +920,7 @@ export default class ContainerBuilder extends Container {
      * @returns {Object.<string, Object>}
      */
     findTaggedServiceIds(name, throwOnAbstract = false) {
+        this._usedTags.push(name);
         const tags = {};
 
         for (const [ id, definition ] of __jymfony.getEntries(this._definitions)) {
@@ -942,6 +950,15 @@ export default class ContainerBuilder extends Container {
         }
 
         return Array.from(tags);
+    }
+
+    /**
+     * Returns all tags not queried by findTaggedServiceIds.
+     *
+     * @returns {string[]} An array of tags
+     */
+    findUnusedTags() {
+        return this.findTags().filter(t => ! this._usedTags.includes(t));
     }
 
     /**

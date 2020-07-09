@@ -19,6 +19,11 @@ Jymfony.Component.DateTime = {
     /**
      * @namespace
      */
+    Internal: {},
+
+    /**
+     * @namespace
+     */
     Parser: {},
 
     /**

@@ -23,6 +23,7 @@ describe('[VarExporter] VarExporter', function () {
         yield [ 'wakeup', v ];
 
         yield [ 'abstract-parent', new Fixtures.ConcreteClass() ];
+        yield [ 'object-with-empty-string', { x: '' } ];
     };
 
     let i = 0;

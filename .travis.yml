@@ -1,12 +1,11 @@
 language: node_js
 
 node_js:
-    - '8'
-    - '9'
     - '10'
     - '11'
     - '12'
     - '13'
+    - '14'
 
 os:
     - windows
@@ -14,7 +13,7 @@ os:
     - osx
 
 services:
-    - redis-server
+    - redis
     - docker
 
 env:
@@ -23,7 +22,7 @@ env:
 before_install:
     - |
         # Start Redis cluster
-        if [ "$TRAVIS_BUILD_STAGE_NAME" == "Test" ] && [ "$TRAVIS_OS_NAME" == "linux" ]; then
+        if [ "$TRAVIS_BUILD_STAGE_NAME" == "test" ] && [ "$TRAVIS_OS_NAME" == "linux" ]; then
             docker pull grokzen/redis-cluster:4.0.8
             docker run -d -p 7000:7000 -p 7001:7001 -p 7002:7002 -p 7003:7003 -p 7004:7004 -p 7005:7005 -e "IP=0.0.0.0" --name redis-cluster grokzen/redis-cluster:4.0.8
             export REDIS_CLUSTER_HOSTS='localhost:7000 localhost:7001 localhost:7002 localhost:7003 localhost:7004 localhost:7005'
@@ -33,11 +32,11 @@ install:
     - npm install
 
 script:
-    - if [ "$TRAVIS_NODE_VERSION" == "12" ] && [ "$TRAVIS_OS_NAME" == "linux" ]; then npm run-script coverage; else npm test; fi
+    - if [ "$TRAVIS_NODE_VERSION" == "14" ] && [ "$TRAVIS_OS_NAME" == "linux" ]; then npm run-script coverage; else npm test; fi
 
 after_success:
-    - if [ "$TRAVIS_NODE_VERSION" == "12" ] && [ "$TRAVIS_OS_NAME" == "linux" ]; then npm install https://github.com/alekitto/ocular.js.git; fi
-    - if [ "$TRAVIS_NODE_VERSION" == "12" ] && [ "$TRAVIS_OS_NAME" == "linux" ]; then $(npm bin)/ocular coverage/clover.xml; fi
+    - if [ "$TRAVIS_NODE_VERSION" == "14" ] && [ "$TRAVIS_OS_NAME" == "linux" ]; then npm install https://github.com/alekitto/ocular.js.git; fi
+    - if [ "$TRAVIS_NODE_VERSION" == "14" ] && [ "$TRAVIS_OS_NAME" == "linux" ]; then $(npm bin)/ocular coverage/clover.xml; fi
 
 jobs:
     include:

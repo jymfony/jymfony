@@ -19,13 +19,25 @@ const levels = {
  * @memberOf Jymfony.Component.Debug
  */
 export default class BufferingLogger extends AbstractLogger {
-    __construct() {
+    /**
+     * Constructor.
+     *
+     * @param {WriteStream} stream
+     */
+    __construct(stream = process.stderr) {
         /**
-         * @type {[string, string, object]}
+         * @type {[string, string, object][]}
          *
          * @private
          */
         this._logs = [];
+
+        /**
+         * @type {WriteStream}
+         *
+         * @private
+         */
+        this._stream = stream;
     }
 
     /**
@@ -35,6 +47,11 @@ export default class BufferingLogger extends AbstractLogger {
         this._logs.push([ level, message, context ]);
     }
 
+    /**
+     * Cleans and returns the buffered logs.
+     *
+     * @returns {[string, string, object][]}
+     */
     cleanLogs() {
         const logs = this._logs;
         this._logs = [];
@@ -42,7 +59,27 @@ export default class BufferingLogger extends AbstractLogger {
         return logs;
     }
 
+    /**
+     * Print out all the buffered logs.
+     */
     finalize() {
+        let lastMessage = undefined;
+        let count = 1;
+
+        const out = () => {
+            if (undefined === lastMessage) {
+                return;
+            }
+
+            this._stream.write(lastMessage);
+            if (1 < count) {
+                this._stream.write(__jymfony.sprintf(' (repeated %u times)', count));
+            }
+
+            this._stream.write('\n');
+            count = 1;
+        };
+
         for (const [ level, message, context ] of this._logs) {
             let formattedMessage = message;
             if (message.includes('{')) {
@@ -62,11 +99,18 @@ export default class BufferingLogger extends AbstractLogger {
                 }
             }
 
-            process.stderr.write(__jymfony.sprintf('%s [%s] %s', new DateTime().format(DateTime.RFC3339), levels[level], message));
+            const log = __jymfony.sprintf('[%s] %s', levels[level], message);
+            if (lastMessage !== log) {
+                out();
+                lastMessage = log;
+            } else {
+                count++;
+            }
         }
 
+        out();
         if (0 < this._logs.length) {
-            process.stderr.write('\n\n');
+            this._stream.write('\n');
         }
     }
 }

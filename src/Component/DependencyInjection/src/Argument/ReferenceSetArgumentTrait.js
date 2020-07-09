@@ -23,7 +23,7 @@ class ReferenceSetArgumentTrait {
 
         for (const v of Object.values(values)) {
             if (v && ! (v instanceof Reference)) {
-                throw new InvalidArgumentException(__jymfony.sprintf('An IteratorArgument must hold only Reference instances, "%s" given.', isObject(v) ? ReflectionClass.getClassName(v) : typeof v));
+                throw new InvalidArgumentException(__jymfony.sprintf('An IteratorArgument must hold only Reference instances, "%s" given.', __jymfony.get_debug_type(v)));
             }
         }
 

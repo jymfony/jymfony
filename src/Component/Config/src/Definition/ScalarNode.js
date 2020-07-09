@@ -10,12 +10,7 @@ export default class ScalarNode extends VariableNode {
      */
     validateType(value) {
         if (! isScalar(value) && undefined !== value && null !== value) {
-            const ex = new InvalidTypeException(__jymfony.sprintf(
-                'Invalid type for path "%s". Expected scalar, but got %s.',
-                this.getPath(),
-                typeof value
-            ));
-
+            const ex = new InvalidTypeException(__jymfony.sprintf('Invalid type for path "%s". Expected scalar, but got %s.', this.getPath(), typeof value));
             const hint = this.getInfo();
             if (hint) {
                 ex.addHint(hint);

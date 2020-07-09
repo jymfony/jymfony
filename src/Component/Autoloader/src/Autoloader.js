@@ -132,63 +132,73 @@ class Autoloader {
 
         let ManagedProxy = null;
 
+        const constructor = function (...$args) {
+            if (undefined !== this[Symbol.__jymfony_field_initialization]) {
+                this[Symbol.__jymfony_field_initialization]();
+            }
+
+            const retVal = this.__construct(...$args);
+            if (undefined !== global.mixins && undefined !== this[global.mixins.initializerSymbol]) {
+                this[global.mixins.initializerSymbol]();
+            }
+
+            if (undefined !== retVal && this !== retVal) {
+                return retVal;
+            }
+
+            let self = this;
+            if (!! autoloader.debug) {
+                self = new Proxy(self, {
+                    get: (target, p) => {
+                        if (p !== Symbol.toStringTag && ! Reflect.has(target, p)) {
+                            throw new TypeError('Undefined property ' + p.toString());
+                        }
+
+                        return Reflect.get(target, p);
+                    },
+                });
+            }
+
+            if (undefined !== this.__invoke) {
+                return new ManagedProxy(self.__invoke, proxy => {
+                    proxy.target = self;
+                    return null;
+                }, {
+                    get: (target, key) => {
+                        if ('__self__' === key) {
+                            return target;
+                        }
+
+                        return Reflect.get(target, key);
+                    },
+                    apply: (target, ctx, args) => {
+                        return target.__invoke(...args);
+                    },
+                    preventExtensions: (target) => {
+                        Reflect.preventExtensions(target);
+
+                        return false;
+                    },
+                    getOwnPropertyDescriptor: (target, key) => {
+                        if ('__self__' === key) {
+                            return { configurable: true, enumerable: false };
+                        }
+
+                        return Reflect.getOwnPropertyDescriptor(target, key);
+                    },
+                });
+            }
+
+            return this;
+        };
+
         /**
          * This is the base class of all the autoloaded classes.
          * It is runtime-injected where needed.
          */
         this._global.__jymfony.JObject = class JObject {
             constructor(...$args) {
-                const retVal = this.__construct(...$args);
-                if (undefined !== global.mixins && undefined !== this[global.mixins.initializerSymbol]) {
-                    this[global.mixins.initializerSymbol]();
-                }
-
-                if (undefined !== retVal && this !== retVal) {
-                    return retVal;
-                }
-
-                let self = this;
-                if (!! autoloader.debug) {
-                    self = new Proxy(self, {
-                        get: (target, p) => {
-                            if (p !== Symbol.toStringTag && ! Reflect.has(target, p)) {
-                                throw new TypeError('Undefined property ' + p.toString());
-                            }
-
-                            return Reflect.get(target, p);
-                        },
-                    });
-                }
-
-                if (undefined !== this.__invoke) {
-                    return new ManagedProxy(self.__invoke, proxy => {
-                        proxy.target = self;
-                        return null;
-                    }, {
-                        get: (target, key) => {
-                            if ('__self__' === key) {
-                                return target;
-                            }
-
-                            return Reflect.get(target, key);
-                        },
-                        apply: (target, ctx, args) => {
-                            return target.__invoke(...args);
-                        },
-                        preventExtensions: (target) => {
-                            Reflect.preventExtensions(target);
-
-                            return false;
-                        },
-                        getOwnPropertyDescriptor: (target, key) => {
-                            if ('__self__' === key) {
-                                return { configurable: true, enumerable: false };
-                            }
-
-                            return Reflect.getOwnPropertyDescriptor(target, key);
-                        },
-                    });
-                }
+                return constructor.bind(this)(...$args);
             }
 
             __construct() { }
@@ -196,6 +206,7 @@ class Autoloader {
 
         this._global.Symbol.reflection = Symbol('reflection');
         this._global.Symbol.docblock = Symbol('docblock');
+        this._global.Symbol.__jymfony_field_initialization = Symbol('[FieldInitialization]');
 
         const ClassLoader = require('./ClassLoader');
         this._classLoader = new ClassLoader(this._finder, path, require('vm'));

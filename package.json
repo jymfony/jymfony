@@ -27,7 +27,7 @@
   ],
   "license": "MIT",
   "engines": {
-    "node": ">=8.10.0"
+    "node": ">=10.0.0"
   },
   "devDependencies": {
     "@jymfony/compiler": "^0.1.0",
@@ -82,6 +82,7 @@
         "src/util/index.js",
         "src/Exceptions/index.js",
         "src/DataStructure/src/all.js",
+        "src/Component/Autoloader/src/Test/ChaiExpectation.js",
         "src/Component/VarDumper/src/functions.js",
         "src/Component/VarDumper/src/Test/ChaiExpectation.js"
       ]

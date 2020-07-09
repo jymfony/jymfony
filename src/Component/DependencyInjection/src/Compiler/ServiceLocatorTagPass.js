@@ -54,10 +54,7 @@ export default class ServiceLocatorTagPass extends mix(AbstractRecursivePass, Pr
             }
 
             if (! (v instanceof Reference)) {
-                throw new InvalidArgumentException(__jymfony.sprintf(
-                    'Invalid definition for service "%s": an array of references is expected as first argument when the "container.service_locator" tag is set, "%s" found for key "%s".',
-                    this._currentId, isObject(v) ? ReflectionClass.getClassName(v) : typeof v, k
-                ));
+                throw new InvalidArgumentException(__jymfony.sprintf('Invalid definition for service "%s": an array of references is expected as first argument when the "container.service_locator" tag is set, "%s" found for key "%s".', this._currentId, __jymfony.get_debug_type(v), k));
             }
 
             if (isArgumentArray) {
@@ -86,11 +83,7 @@ export default class ServiceLocatorTagPass extends mix(AbstractRecursivePass, Pr
     static register(container, refMap, callerId) {
         for (const [ id, ref ] of __jymfony.getEntries(refMap)) {
             if (! (ref instanceof Reference)) {
-                throw new InvalidArgumentException(__jymfony.sprintf(
-                    'Invalid service locator definition: only services can be referenced, "%s" found for key "%s". Inject parameter values using constructors instead.',
-                    isObject(ref) ? ReflectionClass.getClassName(ref) : typeof ref,
-                    id
-                ));
+                throw new InvalidArgumentException(__jymfony.sprintf('Invalid service locator definition: only services can be referenced, "%s" found for key "%s". Inject parameter values using constructors instead.', __jymfony.get_debug_type(ref), id));
             }
 
             refMap[id] = new ServiceClosureArgument(ref);

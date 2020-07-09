@@ -303,6 +303,9 @@ describe('[DateTime] Parser', function () {
         '@1489017600',
         '+2017-03-09',
         '2017-03-09T00:00:00+0000',
+        '2017 Mar 09  0:00',
+        '09 Mar 2017 00:00',
+        'mar 09 2017 00:00',
     ];
 
     for (const index of tests.keys()) {
@@ -321,7 +324,7 @@ describe('[DateTime] Parser', function () {
         });
     }
 
-    it('should return correct computed datas', () => {
+    it('should return correct computed dates', () => {
         const parser = new Parser();
 
         const tm = parser.parse('2017-03-09', 'Etc/UTC');
@@ -331,5 +334,187 @@ describe('[DateTime] Parser', function () {
         expect(tm.leap).to.be.equal(false);
         expect(tm.daysFromEpoch).to.be.equal(17234);
         expect(tm.unixTimestamp).to.be.equal(1489017600);
+    });
+
+    it('should parse "now"', () => {
+        const parser = new Parser();
+
+        const currentDate = new Date();
+        const tm = parser.parse('now');
+        expect(tm._year).to.be.equal(currentDate.getUTCFullYear());
+    });
+
+    tests = [
+        [ 'thursday', tm => expect(tm.weekDay).to.be.equal(4) ],
+        [ 'november', tm => expect(tm.month).to.be.equal(11) ],
+        [ 'january', tm => expect(tm.month).to.be.equal(1) ],
+        [ 'friday 13:00', tm => {
+            expect(tm.weekDay).to.be.equal(5);
+            expect(tm.hour).to.be.equal(13);
+            expect(tm.minutes).to.be.equal(0);
+            expect(tm.seconds).to.be.equal(0);
+        } ],
+        [ 'mon 02.35', tm => {
+            expect(tm.weekDay).to.be.equal(1);
+            expect(tm.hour).to.be.equal(2);
+            expect(tm.minutes).to.be.equal(35);
+            expect(tm.seconds).to.be.equal(0);
+        } ],
+        [ 'mon 2.35am', tm => {
+            expect(tm.weekDay).to.be.equal(1);
+            expect(tm.hour).to.be.equal(2);
+            expect(tm.minutes).to.be.equal(35);
+            expect(tm.seconds).to.be.equal(0);
+        } ],
+        [ '6 in the morning', tm => {
+            expect(tm.hour).to.be.equal(6);
+            expect(tm.minutes).to.be.equal(0);
+            expect(tm.seconds).to.be.equal(0);
+        } ],
+        [ 'sat 7 in the evening', tm => {
+            expect(tm.weekDay).to.be.equal(6);
+            expect(tm.hour).to.be.equal(19);
+            expect(tm.minutes).to.be.equal(0);
+            expect(tm.seconds).to.be.equal(0);
+        } ],
+        [ 'yesterday', tm => {
+            const d = new Date();
+            d.setUTCDate(d.getUTCDate() - 1);
+
+            expect(tm.day).to.be.equal(d.getUTCDate());
+            expect(tm.hour).to.be.equal(0);
+            expect(tm.minutes).to.be.equal(0);
+            expect(tm.seconds).to.be.equal(0);
+        } ],
+        [ 'today', tm => {
+            const d = new Date();
+            d.setUTCDate(d.getUTCDate());
+
+            expect(tm.day).to.be.equal(d.getUTCDate());
+            expect(tm.hour).to.be.equal(0);
+            expect(tm.minutes).to.be.equal(0);
+            expect(tm.seconds).to.be.equal(0);
+        } ],
+        [ 'tomorrow', tm => {
+            const d = new Date();
+            d.setUTCDate(d.getUTCDate() + 1);
+
+            expect(tm.day).to.be.equal(d.getUTCDate());
+            expect(tm.hour).to.be.equal(0);
+            expect(tm.minutes).to.be.equal(0);
+            expect(tm.seconds).to.be.equal(0);
+        } ],
+        [ 'this tuesday', tm => expect(tm.weekDay).to.be.equal(2) ],
+        [ 'next week', tm => expect(tm.weekDay).to.be.equal(1) ],
+        [ 'previous week', tm => expect(tm.weekDay).to.be.equal(1) ],
+        [ 'last year', tm => expect(tm._year).to.be.equal(new Date().getUTCFullYear() - 1) ],
+        [ 'next month', tm => expect(tm.month).to.be.equal(new Date().getUTCMonth() + 2) ],
+        [ 'yesterday  4:00', tm => {
+            const d = new Date();
+            d.setUTCDate(d.getUTCDate() - 1);
+
+            expect(tm.day).to.be.equal(d.getUTCDate());
+            expect(tm.hour).to.be.equal(4);
+            expect(tm.minutes).to.be.equal(0);
+        } ],
+        [ 'last friday at 20:00', tm => {
+            expect(tm.weekDay).to.be.equal(5);
+            expect(tm.hour).to.be.equal(20);
+            expect(tm.minutes).to.be.equal(0);
+        } ],
+    ];
+
+    for (const index of tests.keys()) {
+        const t = tests[index];
+        it('should parse simple expressions #'+index+': "'+t[0]+'"', () => {
+            const parser = new Parser();
+            const tm = parser.parse(t[0]);
+            t[1](tm);
+        });
+    }
+
+    tests = [
+        [ '3 years ago', tm => expect(tm._year).to.be.equal(new Date().getUTCFullYear() - 3) ],
+        [ 'in 3 years', tm => expect(tm._year).to.be.equal(new Date().getUTCFullYear() + 3) ],
+        [ '3 days from now', tm => {
+            const d = new Date();
+            d.setUTCDate(d.getUTCDate() + 3);
+
+            expect(tm.day).to.be.equal(d.getUTCDate());
+        } ],
+        [ '3 minutes past 10', tm => {
+            expect(tm.hour).to.be.equal(9);
+            expect(tm.minutes).to.be.equal(57);
+        } ],
+        [ '2020-05-01 + 1 week', tm => {
+            expect(tm._year).to.be.equal(2020);
+            expect(tm.month).to.be.equal(5);
+            expect(tm.day).to.be.equal(8);
+        } ],
+        [ '+ 1 month', tm => {
+            const d = new Date();
+
+            expect(tm._year).to.be.equal(d.getUTCFullYear());
+            expect(tm.month).to.be.equal(d.getUTCMonth() + 2);
+            expect(tm.day).to.be.equal(d.getUTCDate());
+            expect(tm.hour).to.be.equal(d.getUTCHours());
+            expect(tm.minutes).to.be.equal(d.getUTCMinutes());
+        } ],
+        [ '1 month before Europe/Rome 2020-05-01 5pm', tm => {
+            expect(tm._year).to.be.equal(2020);
+            expect(tm.month).to.be.equal(4);
+            expect(tm.day).to.be.equal(1);
+            expect(tm.hour).to.be.equal(17);
+            expect(tm.timeZone.name).to.be.equal('Europe/Rome');
+        } ],
+        [ '3 months ago saturday 5:00 pm', tm => {
+            const d = new Date();
+            d.setMonth(d.getUTCMonth() - 3);
+            d.setUTCDate(d.getUTCDate() + (6 - d.getUTCDay()));
+
+            expect(tm._year).to.be.equal(d.getUTCFullYear());
+            expect(tm.month).to.be.equal(d.getUTCMonth() + 1);
+            expect(tm.day).to.be.equal(d.getUTCDate());
+            expect(tm.hour).to.be.equal(17);
+        } ],
+        [ '3rd wednesday november 2020 10a.m.', tm => {
+            expect(tm._year).to.be.equal(2020);
+            expect(tm.month).to.be.equal(11);
+            expect(tm.day).to.be.equal(18);
+            expect(tm.hour).to.be.equal(10);
+        } ],
+        [ 'last sunday november 2020 10a.m.', tm => {
+            expect(tm._year).to.be.equal(2020);
+            expect(tm.month).to.be.equal(11);
+            expect(tm.day).to.be.equal(29);
+            expect(tm.hour).to.be.equal(10);
+        } ],
+        [ 'first wednesday may 2020', tm => {
+            expect(tm._year).to.be.equal(2020);
+            expect(tm.month).to.be.equal(5);
+            expect(tm.day).to.be.equal(6);
+        } ],
+        [ '15 jan 2020 this sun', tm => {
+            expect(tm._year).to.be.equal(2020);
+            expect(tm.month).to.be.equal(1);
+            expect(tm.day).to.be.equal(19);
+        } ],
+    ];
+
+    for (const index of tests.keys()) {
+        const t = tests[index];
+        it('should parse complex expressions #'+index+': "'+t[0]+'"', () => {
+            const parser = new Parser();
+            const tm = parser.parse(t[0]);
+            t[1](tm);
+        });
+    }
+
+    it ('should accept 24:00 spec', () => {
+        const parser = new Parser();
+        const tm = parser.parse('1916-06-03 24:00');
+
+        expect(tm.hour).to.be.equal(0);
+        expect(tm.day).to.be.equal(4);
     });
 });

@@ -1,3 +1,4 @@
+const SyntaxError = Jymfony.Component.Lexer.Exception.SyntaxError;
 const ValueHolder = Jymfony.Component.Lexer.ValueHolder;
 
 /**
@@ -8,12 +9,12 @@ const ValueHolder = Jymfony.Component.Lexer.ValueHolder;
 export default class AbstractLexer {
     __construct() {
         /**
-         * @type {Token|undefined}
+         * @type {Jymfony.Component.Lexer.Token|undefined}
          */
         this.token = undefined;
 
         /**
-         * @type {Token|undefined}
+         * @type {Jymfony.Component.Lexer.Token|undefined}
          */
         this.lookahead = undefined;
 
@@ -39,7 +40,7 @@ export default class AbstractLexer {
         this._input = undefined;
 
         /**
-         * @type {Token[]}
+         * @type {Jymfony.Component.Lexer.Token[]}
          *
          * @private
          */
@@ -147,7 +148,7 @@ export default class AbstractLexer {
     /**
      * Moves the lookahead token forward.
      *
-     * @returns {Token|undefined} The next token or undefined if there are no more tokens ahead.
+     * @returns {Jymfony.Component.Lexer.Token|undefined} The next token or undefined if there are no more tokens ahead.
      */
     peek() {
         if (this._tokens[this._position + this._peek]) {
@@ -160,7 +161,7 @@ export default class AbstractLexer {
     /**
      * Peeks at the next token, returns it and immediately resets the peek.
      *
-     * @returns {Token|undefined} The next token or undefined if there are no more tokens ahead.
+     * @returns {Jymfony.Component.Lexer.Token|undefined} The next token or undefined if there are no more tokens ahead.
      */
     glimpse() {
         const peek = this.peek();
@@ -223,33 +224,41 @@ export default class AbstractLexer {
         const inputLen = input.length;
         let non_catchable = this.getNonCatchablePatterns();
         if (non_catchable.length) {
-            non_catchable = non_catchable.join('|') + '|';
+            non_catchable = '|' + non_catchable.join('|');
         } else {
             non_catchable = '';
         }
 
         const regex = new RegExp(__jymfony.sprintf(
-            '((?:%s))|%s', this.getCatchablePatterns().join(')|(?:'), non_catchable
+            '((?:%s))%s', this.getCatchablePatterns().join(')|(?:'), non_catchable
         ), 'g' + this.getModifiers());
 
         let match;
+        let lastIndex = 0;
         while ((match = regex.exec(input))) {
-            if (match.index >= inputLen) {
+            if (match.index >= inputLen || lastIndex !== match.index) {
                 break;
             }
 
-            if (undefined === match[1] && undefined === match[2]) {
+            lastIndex = match.index + match[0].length;
+
+            if (undefined === match[1]) {
                 continue;
             }
 
-            const holder = new ValueHolder(match[0]);
+            const holder = this.createValueHolder(match[0]);
             const type = this.getType(holder);
 
             this._tokens.push({
                 value: holder.value,
                 type,
                 position: match.index,
+                index: this._tokens.length,
             });
+        }
+
+        if (lastIndex < inputLen) {
+            throw new SyntaxError('Cannot parse near "' + input.substr(lastIndex, 15) + '"');
         }
     }
 
@@ -300,7 +309,7 @@ export default class AbstractLexer {
     /**
      * Retrieve token type. Also processes the token value if necessary.
      *
-     * @param {Jymfony.Component.Lexer.ValueHolder} holder
+     * @param {Jymfony.Contracts.Lexer.ValueHolderInterface} holder
      *
      * @returns {int|string}
      *
@@ -310,5 +319,18 @@ export default class AbstractLexer {
      */
     getType(holder) { // eslint-disable-line no-unused-vars
         throw new Error('You must override getType method');
+    }
+
+    /**
+     * Creates a new instance of value holder.
+     *
+     * @param {*} value
+     *
+     * @returns {Jymfony.Contracts.Lexer.ValueHolderInterface}
+     *
+     * @protected
+     */
+    createValueHolder(value) {
+        return new ValueHolder(value);
     }
 }

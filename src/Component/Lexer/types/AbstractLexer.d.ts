@@ -1,8 +1,11 @@
 declare namespace Jymfony.Component.Lexer {
+    import ValueHolderInterface = Jymfony.Contracts.Lexer.ValueHolderInterface;
+
     interface Token {
         value: any,
         type: number | string,
         position: number,
+        index: number,
     }
 
     export abstract class AbstractLexer implements Iterable<Token> {
@@ -125,5 +128,10 @@ declare namespace Jymfony.Component.Lexer {
          * Retrieve token type. Also processes the token value if necessary.
          */
         protected abstract getType(holder: ValueHolder): string | number;
+
+        /**
+         * Creates a new ValueHolder instance for the given value.
+         */
+        protected createValueHolder(value: any): ValueHolderInterface;
     }
 }

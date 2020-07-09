@@ -70,4 +70,5 @@
 /// <reference path="Tester/CommandTester.d.ts" />
 /// <reference path="Application.d.ts" />
 /// <reference path="ConsoleEvents.d.ts" />
+/// <reference path="SingleCommandApplication.d.ts" />
 /// <reference path="Terminal.d.ts" />
