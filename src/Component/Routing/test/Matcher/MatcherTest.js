@@ -9,7 +9,6 @@ const { expect } = require('chai');
 
 exports.MatcherTest = function () {
     it('no method, allowed', () => {
-
         const routeCollection = new RouteCollection();
         routeCollection.add('foo', new Route('/foo'));
 
@@ -399,6 +398,22 @@ exports.MatcherTest = function () {
         const matcher = this._getMatcher(routeCollection);
         expect(matcher.matchRequest(Request.create('http://localhost/foo/baz')))
             .to.be.deep.equal({ _route: 'foo', bar: 'baz' });
+    });
+
+    it('should match request when more than one route has similar regexes', () => {
+        const routeCollection = new RouteCollection();
+        routeCollection.add('foo', new Route('/foo/{id}', {}, {}, {}, undefined, [], [ 'GET' ]));
+        routeCollection.add('foo2', new Route('/foo/{id}', {}, {}, {}, undefined, [], [ 'POST' ]));
+        routeCollection.add('foo3', new Route('/foo/{px}', {}, {}, {}, undefined, [], [ 'PATCH' ]));
+        routeCollection.add('foo4', new Route('/foo/{id}', {}, {}, {}, undefined, [], [ 'DELETE' ]));
+        routeCollection.add('foo5', new Route('/foo/{pts}', {}, {}, {}, undefined, [], [ 'PUT' ]));
+
+        const matcher = this._getMatcher(routeCollection);
+        expect(matcher.matchRequest(Request.create('http://localhost/foo/baz'))).to.be.deep.equal({ _route: 'foo', id: 'baz' });
+        expect(matcher.matchRequest(Request.create('http://localhost/foo/baz', Request.METHOD_POST))).to.be.deep.equal({ _route: 'foo2', id: 'baz' });
+        expect(matcher.matchRequest(Request.create('http://localhost/foo/baz', Request.METHOD_PATCH))).to.be.deep.equal({ _route: 'foo3', px: 'baz' });
+        expect(matcher.matchRequest(Request.create('http://localhost/foo/baz', Request.METHOD_DELETE))).to.be.deep.equal({ _route: 'foo4', id: 'baz' });
+        expect(matcher.matchRequest(Request.create('http://localhost/foo/baz', Request.METHOD_PUT))).to.be.deep.equal({ _route: 'foo5', pts: 'baz' });
     });
 
     /**

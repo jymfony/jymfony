@@ -247,7 +247,7 @@ ${code}
 
         if ($default) {
             code += `
-        default:
+        default: {
             const routes = {
 ${this._indent($default, 4)}            };
 
@@ -257,6 +257,7 @@ ${this._indent($default, 4)}            };
 
             [ ret, requiredHost, requiredMethods, requiredSchemes ] = routes[pathinfo];
 ${this._compileSwitchDefault(false, matchHost)}
+        }
 `;
         }
 
@@ -407,26 +408,39 @@ ${this._compileSwitchDefault(true, matchHost)}
                 return res;
             }
 
-            const marks = [];
-
+            let marks = [];
             for (const [ k, v ] of __jymfony.getEntries(matches.groups)) {
-                if (0 === k.indexOf('MARK_') && undefined !== v) {
+                if (0 === k.indexOf('MARK_')) {
                     marks.push(~~(k.replace('MARK_', '')));
                 } else {
                     res[k] = v;
                 }
             }
+            
+            marks = marks.sort();
+            for (let i = 0; i < marks.length; ++i) {
+                if (undefined === matches.groups['MARK_' + marks[i]]) {
+                    continue;
+                }
 
-            res.MARK = marks.sort()[marks.length - 1];
+                res.MARK = marks[i];
+                res.NEXT_MARK = marks[i + 1];
+            }
+
             return res;
         };
 
         const matchedPathInfo = ${matchedPathinfo};
 
         for (let [offset, regex] of __jymfony.getEntries(regexList)) {
-            let matches;
+            const regexSource = regex.source;
+            let matches, regexPrefixLen = null;
+
             while ((matches = matchFunc(matchedPathInfo, regex), 0 < Object.keys(matches).length)) {
                 const m = matches.MARK;
+                const nextM = matches.NEXT_MARK;
+                regexPrefixLen = null === regexPrefixLen ? m - offset : regexPrefixLen;
+
                 switch (m) {
 ${this._indent(state.switch, 3)}                }
 
@@ -434,8 +448,7 @@ ${this._indent(state.switch, 3)}                }
                     break;
                 }
 
-                regex = new RegExp(__jymfony.substr_replace(regex.source, 'F', m - offset, 1 + m.length), regex.flags);
-                offset += m.length;
+                regex = new RegExp(__jymfony.substr_replace(regexSource, '', regexPrefixLen, nextM - regexPrefixLen), regex.flags);
             }
         }
 
@@ -481,8 +494,7 @@ ${this._indent(state.switch, 3)}                }
                 continue;
             }
 
-            state.mark += 3 + state.markTail + regex.length - prefixLen;
-            state.markTail = 2 + state.mark;
+            state.markTail = 11 + state.mark + regex.substr(prefixLen).length + String(state.mark).length;
             const prev = '' !== code;
             const rx = __jymfony.sprintf((prev ? '|' : '') + '%s(?<MARK_%s>)', regex.substr(prefixLen), state.mark);
             code += '\n       + '+__self.export(rx);
@@ -517,11 +529,16 @@ ${this._indent(state.switch, 3)}                }
                 combine = Object.keys(vars).length ? __jymfony.substr_replace(combine, '};\n\n', -2) : '';
 
                 state.switch += `
-        case ${state.mark}:
+        case ${state.mark}: {
+            let ret;
 ${combine}${this._compileRoute(route, name, false)}
-            break;
+            } break;
 
 `;
+            }
+
+            if (i !== routes.length - 1) {
+                state.mark = state.markTail;
             }
         }
 
