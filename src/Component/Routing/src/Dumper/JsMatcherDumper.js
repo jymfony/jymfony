@@ -424,8 +424,8 @@ ${this._compileSwitchDefault(true, matchHost)}
         const matchedPathInfo = ${matchedPathinfo};
 
         for (let [offset, regex] of __jymfony.getEntries(regexList)) {
-            let matches = matchFunc(matchedPathInfo, regex);
-            while (0 < Object.keys(matches).length) {
+            let matches;
+            while ((matches = matchFunc(matchedPathInfo, regex), 0 < Object.keys(matches).length)) {
                 const m = matches.MARK;
                 switch (m) {
 ${this._indent(state.switch, 3)}                }
@@ -434,7 +434,7 @@ ${this._indent(state.switch, 3)}                }
                     break;
                 }
 
-                regex = __jymfony.substr_replace(regex, 'F', m - offset, 1 + m.length);
+                regex = new RegExp(__jymfony.substr_replace(regex.source, 'F', m - offset, 1 + m.length), regex.flags);
                 offset += m.length;
             }
         }
@@ -476,7 +476,7 @@ ${this._indent(state.switch, 3)}                }
             [ name, regex, vars, route ] = route;
             const compiledRoute = route.compile();
 
-            if (compiledRoute.regex === prevRegex) {
+            if (compiledRoute.regex.toString() === prevRegex) {
                 state.switch = __jymfony.substr_replace(state.switch, this._compileRoute(route, name, false) + '\n', -19, 0);
                 continue;
             }
@@ -490,7 +490,8 @@ ${this._indent(state.switch, 3)}                }
             vars = Object.assign({}, state.hostVars, vars);
 
             let next;
-            if (! route.condition && (! isArray(next = routes[1 + i] || null) || regex !== next[1])) {
+            if (! route.condition && (! isArray(next = routes[1 + i] || null) ||
+                compiledRoute.regex.source !== next[3].compile().regex.source)) {
                 prevRegex = null;
                 const $defaults = route.defaults;
 
@@ -511,9 +512,9 @@ ${this._indent(state.switch, 3)}                }
                 prevRegex = compiledRoute.regex.toString();
                 let combine = '            matches = {';
                 for (const [ j, m ] of __jymfony.getEntries(vars)) {
-                    combine += __jymfony.sprintf('%s: matches[%d] || undefined, ', __self.export(m), 1 + j);
+                    combine += __jymfony.sprintf('%s: matches[%s] || undefined, ', __self.export(m), __self.export(j));
                 }
-                combine = Object.keys(vars).length ? __jymfony.substr_replace(combine, ');\n\n', -2) : '';
+                combine = Object.keys(vars).length ? __jymfony.substr_replace(combine, '};\n\n', -2) : '';
 
                 state.switch += `
         case ${state.mark}:
