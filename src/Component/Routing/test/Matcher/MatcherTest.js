@@ -407,6 +407,9 @@ exports.MatcherTest = function () {
         routeCollection.add('foo3', new Route('/foo/{px}', {}, {}, {}, undefined, [], [ 'PATCH' ]));
         routeCollection.add('foo4', new Route('/foo/{id}', {}, {}, {}, undefined, [], [ 'DELETE' ]));
         routeCollection.add('foo5', new Route('/foo/{pts}', {}, {}, {}, undefined, [], [ 'PUT' ]));
+        routeCollection.add('bar1', new Route('/bar/{id}', {}, {}, {}, undefined, [], [ 'GET' ]));
+        routeCollection.add('bar2', new Route('/bar/{id}', {}, {}, {}, undefined, [], [ 'POST' ]));
+        routeCollection.add('foo6', new Route('/foo/{id}', {}, {}, {}, undefined, [], [ 'CUSTOM' ]));
 
         const matcher = this._getMatcher(routeCollection);
         expect(matcher.matchRequest(Request.create('http://localhost/foo/baz'))).to.be.deep.equal({ _route: 'foo', id: 'baz' });
@@ -414,6 +417,8 @@ exports.MatcherTest = function () {
         expect(matcher.matchRequest(Request.create('http://localhost/foo/baz', Request.METHOD_PATCH))).to.be.deep.equal({ _route: 'foo3', px: 'baz' });
         expect(matcher.matchRequest(Request.create('http://localhost/foo/baz', Request.METHOD_DELETE))).to.be.deep.equal({ _route: 'foo4', id: 'baz' });
         expect(matcher.matchRequest(Request.create('http://localhost/foo/baz', Request.METHOD_PUT))).to.be.deep.equal({ _route: 'foo5', pts: 'baz' });
+        expect(matcher.matchRequest(Request.create('http://localhost/foo/baz', 'CUSTOM'))).to.be.deep.equal({ _route: 'foo6', id: 'baz' });
+        expect(() => matcher.matchRequest(Request.create('http://localhost/boo/baz'))).to.throw(ResourceNotFoundException);
     });
 
     /**

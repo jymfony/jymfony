@@ -31,6 +31,13 @@ export default class JsMatcherDumper {
         this._regexList = '';
 
         /**
+         * @type {Object.<int, int|null>}
+         *
+         * @private
+         */
+        this._marks = {};
+
+        /**
          * @type {int}
          *
          * @private
@@ -62,6 +69,7 @@ export default class JsMatcherDumper {
 const CompiledMatcherTrait = Jymfony.Component.Routing.Matcher.CompiledMatcherTrait;
 
 const regexList = {${this._regexList}};
+const MARKS = ${JSON.stringify(this._marks)};
 
 /**
  * This class has been auto-generated
@@ -410,7 +418,7 @@ ${this._compileSwitchDefault(true, matchHost)}
 
             let marks = [];
             for (const [ k, v ] of __jymfony.getEntries(matches.groups)) {
-                if (0 === k.indexOf('MARK_')) {
+                if (0 === k.indexOf('MARK_') && undefined !== v) {
                     marks.push(~~(k.replace('MARK_', '')));
                 } else {
                     res[k] = v;
@@ -418,14 +426,8 @@ ${this._compileSwitchDefault(true, matchHost)}
             }
             
             marks = marks.sort();
-            for (let i = 0; i < marks.length; ++i) {
-                if (undefined === matches.groups['MARK_' + marks[i]]) {
-                    continue;
-                }
-
-                res.MARK = marks[i];
-                res.NEXT_MARK = marks[i + 1];
-            }
+            res.MARK = marks[0];
+            res.NEXT_MARK = MARKS[res.MARK];
 
             return res;
         };
@@ -444,7 +446,7 @@ ${this._compileSwitchDefault(true, matchHost)}
                 switch (m) {
 ${this._indent(state.switch, 3)}                }
 
-                if (${state.mark} === m) {
+                if (${state.mark} === m || nextM === null || nextM === undefined) {
                     break;
                 }
 
@@ -468,13 +470,15 @@ ${this._indent(state.switch, 3)}                }
     _compileStaticPrefixCollection(tree, state, prefixLen = 0) {
         let code = '';
         let prevRegex = null;
+        let prevMark = null;
         const routes = tree.routes;
 
         for (let [ i, route ] of __jymfony.getEntries(routes)) {
+            const prev = '' !== code;
             if (route instanceof StaticPrefixCollection) {
                 prevRegex = null;
                 const prefix = route.prefix.substr(prefixLen);
-                const rx = prefix + '(?:';
+                const rx = (prev ? '|' : '') + prefix + '(?:';
                 state.mark += rx.length;
                 code += '\n        +' + __self.export(rx);
                 state.regex += rx;
@@ -494,8 +498,11 @@ ${this._indent(state.switch, 3)}                }
                 continue;
             }
 
+            if (null !== prevMark) {
+                this._marks[prevMark] = state.mark;
+            }
+
             state.markTail = 11 + state.mark + regex.substr(prefixLen).length + String(state.mark).length;
-            const prev = '' !== code;
             const rx = __jymfony.sprintf((prev ? '|' : '') + '%s(?<MARK_%s>)', regex.substr(prefixLen), state.mark);
             code += '\n       + '+__self.export(rx);
             state.regex += rx;
@@ -536,6 +543,9 @@ ${combine}${this._compileRoute(route, name, false)}
 
 `;
             }
+
+            prevMark = state.mark;
+            this._marks[prevMark] = null;
 
             if (i !== routes.length - 1) {
                 state.mark = state.markTail;
