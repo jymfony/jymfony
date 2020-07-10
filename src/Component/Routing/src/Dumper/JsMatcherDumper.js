@@ -354,15 +354,14 @@ ${this._compileSwitchDefault(false, matchHost)}
                         rx = hostRegex.toString().match(/^.\^(.*)\$.[a-zA-Z]*$/);
                         state.vars = {};
 
-                        hostRegex = (prev ? '|' : '') +
-                            '(?:' + rx[1].toLowerCase().replace(/\?<([^>]+)>/g, state.getVars) + ')\.';
+                        hostRegex = (prev ? '|' : '') + '(?:' + rx[1].toLowerCase().replace(/\?<([^>]+)>/g, state.getVars) + ')\.';
                         state.hostVars = Object.assign({}, state.vars);
                     } else {
-                        hostRegex = '(?:(?:[^./]*+\.)+)';
+                        hostRegex = (prev ? '|' : '') + '(?:(?:[^./]*\.)+)';
                         state.hostVars = {};
                     }
 
-                    state.mark = (rx = (prev ? ')' : '') + hostRegex + '(?:').length;
+                    state.mark += (rx = (prev ? ')' : '') + hostRegex + '(?:').length;
                     code += '\n        +' + __self.export(rx);
                     state.regex += rx;
                     prev = true;
@@ -378,7 +377,9 @@ ${this._compileSwitchDefault(false, matchHost)}
                 }
 
                 code += this._compileStaticPrefixCollection(tree, state);
+                state.mark = state.markTail - 1;
             }
+
             if (matchHost) {
                 code += '\n        +\')\'';
                 state.regex += ')';
@@ -387,7 +388,7 @@ ${this._compileSwitchDefault(false, matchHost)}
             rx = ')$';
             code += `\n    +'${rx}', '${modifiers}'),\n`;
             state.regex += rx;
-            state.markTail = 0;
+            state.markTail = state.mark;
         }
 
         if (state['default']) {
@@ -418,8 +419,10 @@ ${this._compileSwitchDefault(true, matchHost)}
 
             let marks = [];
             for (const [ k, v ] of __jymfony.getEntries(matches.groups)) {
-                if (0 === k.indexOf('MARK_') && undefined !== v) {
-                    marks.push(~~(k.replace('MARK_', '')));
+                if (0 === k.indexOf('MARK_')) {
+                    if (undefined !== v) {
+                        marks.push(~~(k.replace('MARK_', '')));
+                    }
                 } else {
                     res[k] = v;
                 }
