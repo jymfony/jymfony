@@ -359,6 +359,10 @@ ${this._compileSwitchDefault(false, matchHost)}
                     } else {
                         hostRegex = (prev ? '|' : '') + '(?:(?:[^./]*\.)+)';
                         state.hostVars = {};
+
+                        if (prev) {
+                            state.mark++;
+                        }
                     }
 
                     state.mark += (rx = (prev ? ')' : '') + hostRegex + '(?:').length;
