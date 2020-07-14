@@ -33,6 +33,7 @@
     "@jymfony/datastructure": "0.1.0-dev",
     "@jymfony/debug": "0.1.0-dev",
     "@jymfony/dependency-injection": "0.1.0-dev",
+    "@jymfony/dotenv": "0.1.0-dev",
     "@jymfony/event-dispatcher": "0.1.0-dev",
     "@jymfony/exceptions": "0.1.0-dev",
     "@jymfony/filesystem": "0.1.0-dev",
