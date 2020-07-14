@@ -8,6 +8,10 @@ class Exception extends Error {
         super();
         delete this.message;
 
+        if (undefined !== this[Symbol.__jymfony_field_initialization]) {
+            this[Symbol.__jymfony_field_initialization]();
+        }
+
         return this.__construct(...args);
     }
 

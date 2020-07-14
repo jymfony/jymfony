@@ -31,6 +31,13 @@ export default class JsMatcherDumper {
         this._regexList = '';
 
         /**
+         * @type {Object.<int, int|null>}
+         *
+         * @private
+         */
+        this._marks = {};
+
+        /**
          * @type {int}
          *
          * @private
@@ -62,6 +69,7 @@ export default class JsMatcherDumper {
 const CompiledMatcherTrait = Jymfony.Component.Routing.Matcher.CompiledMatcherTrait;
 
 const regexList = {${this._regexList}};
+const MARKS = ${JSON.stringify(this._marks)};
 
 /**
  * This class has been auto-generated
@@ -247,7 +255,7 @@ ${code}
 
         if ($default) {
             code += `
-        default:
+        default: {
             const routes = {
 ${this._indent($default, 4)}            };
 
@@ -257,6 +265,7 @@ ${this._indent($default, 4)}            };
 
             [ ret, requiredHost, requiredMethods, requiredSchemes ] = routes[pathinfo];
 ${this._compileSwitchDefault(false, matchHost)}
+        }
 `;
         }
 
@@ -345,15 +354,18 @@ ${this._compileSwitchDefault(false, matchHost)}
                         rx = hostRegex.toString().match(/^.\^(.*)\$.[a-zA-Z]*$/);
                         state.vars = {};
 
-                        hostRegex = (prev ? '|' : '') +
-                            '(?:' + rx[1].toLowerCase().replace(/\?<([^>]+)>/g, state.getVars) + ')\.';
+                        hostRegex = (prev ? '|' : '') + '(?:' + rx[1].toLowerCase().replace(/\?<([^>]+)>/g, state.getVars) + ')\.';
                         state.hostVars = Object.assign({}, state.vars);
                     } else {
-                        hostRegex = '(?:(?:[^./]*+\.)+)';
+                        hostRegex = (prev ? '|' : '') + '(?:(?:[^./]*\.)+)';
                         state.hostVars = {};
+
+                        if (prev) {
+                            state.mark++;
+                        }
                     }
 
-                    state.mark = (rx = (prev ? ')' : '') + hostRegex + '(?:').length;
+                    state.mark += (rx = (prev ? ')' : '') + hostRegex + '(?:').length;
                     code += '\n        +' + __self.export(rx);
                     state.regex += rx;
                     prev = true;
@@ -369,7 +381,9 @@ ${this._compileSwitchDefault(false, matchHost)}
                 }
 
                 code += this._compileStaticPrefixCollection(tree, state);
+                state.mark = state.markTail - 1;
             }
+
             if (matchHost) {
                 code += '\n        +\')\'';
                 state.regex += ')';
@@ -378,7 +392,7 @@ ${this._compileSwitchDefault(false, matchHost)}
             rx = ')$';
             code += `\n    +'${rx}', '${modifiers}'),\n`;
             state.regex += rx;
-            state.markTail = 0;
+            state.markTail = state.mark;
         }
 
         if (state['default']) {
@@ -407,35 +421,43 @@ ${this._compileSwitchDefault(true, matchHost)}
                 return res;
             }
 
-            const marks = [];
-
+            let marks = [];
             for (const [ k, v ] of __jymfony.getEntries(matches.groups)) {
-                if (0 === k.indexOf('MARK_') && undefined !== v) {
-                    marks.push(~~(k.replace('MARK_', '')));
+                if (0 === k.indexOf('MARK_')) {
+                    if (undefined !== v) {
+                        marks.push(~~(k.replace('MARK_', '')));
+                    }
                 } else {
                     res[k] = v;
                 }
             }
+            
+            marks = marks.sort();
+            res.MARK = marks[0];
+            res.NEXT_MARK = MARKS[res.MARK];
 
-            res.MARK = marks.sort()[marks.length - 1];
             return res;
         };
 
         const matchedPathInfo = ${matchedPathinfo};
 
         for (let [offset, regex] of __jymfony.getEntries(regexList)) {
-            let matches = matchFunc(matchedPathInfo, regex);
-            while (0 < Object.keys(matches).length) {
+            const regexSource = regex.source;
+            let matches, regexPrefixLen = null;
+
+            while ((matches = matchFunc(matchedPathInfo, regex), 0 < Object.keys(matches).length)) {
                 const m = matches.MARK;
+                const nextM = matches.NEXT_MARK;
+                regexPrefixLen = null === regexPrefixLen ? m - offset : regexPrefixLen;
+
                 switch (m) {
 ${this._indent(state.switch, 3)}                }
 
-                if (${state.mark} === m) {
+                if (${state.mark} === m || nextM === null || nextM === undefined) {
                     break;
                 }
 
-                regex = __jymfony.substr_replace(regex, 'F', m - offset, 1 + m.length);
-                offset += m.length;
+                regex = new RegExp(__jymfony.substr_replace(regexSource, '', regexPrefixLen, nextM - regexPrefixLen), regex.flags);
             }
         }
 
@@ -455,13 +477,15 @@ ${this._indent(state.switch, 3)}                }
     _compileStaticPrefixCollection(tree, state, prefixLen = 0) {
         let code = '';
         let prevRegex = null;
+        let prevMark = null;
         const routes = tree.routes;
 
         for (let [ i, route ] of __jymfony.getEntries(routes)) {
+            const prev = '' !== code;
             if (route instanceof StaticPrefixCollection) {
                 prevRegex = null;
                 const prefix = route.prefix.substr(prefixLen);
-                const rx = prefix + '(?:';
+                const rx = (prev ? '|' : '') + prefix + '(?:';
                 state.mark += rx.length;
                 code += '\n        +' + __self.export(rx);
                 state.regex += rx;
@@ -476,21 +500,24 @@ ${this._indent(state.switch, 3)}                }
             [ name, regex, vars, route ] = route;
             const compiledRoute = route.compile();
 
-            if (compiledRoute.regex === prevRegex) {
+            if (compiledRoute.regex.toString() === prevRegex) {
                 state.switch = __jymfony.substr_replace(state.switch, this._compileRoute(route, name, false) + '\n', -19, 0);
                 continue;
             }
 
-            state.mark += 3 + state.markTail + regex.length - prefixLen;
-            state.markTail = 2 + state.mark;
-            const prev = '' !== code;
+            if (null !== prevMark) {
+                this._marks[prevMark] = state.mark;
+            }
+
+            state.markTail = 11 + state.mark + regex.substr(prefixLen).length + String(state.mark).length;
             const rx = __jymfony.sprintf((prev ? '|' : '') + '%s(?<MARK_%s>)', regex.substr(prefixLen), state.mark);
             code += '\n       + '+__self.export(rx);
             state.regex += rx;
             vars = Object.assign({}, state.hostVars, vars);
 
             let next;
-            if (! route.condition && (! isArray(next = routes[1 + i] || null) || regex !== next[1])) {
+            if (! route.condition && (! isArray(next = routes[1 + i] || null) ||
+                compiledRoute.regex.source !== next[3].compile().regex.source)) {
                 prevRegex = null;
                 const $defaults = route.defaults;
 
@@ -511,16 +538,24 @@ ${this._indent(state.switch, 3)}                }
                 prevRegex = compiledRoute.regex.toString();
                 let combine = '            matches = {';
                 for (const [ j, m ] of __jymfony.getEntries(vars)) {
-                    combine += __jymfony.sprintf('%s: matches[%d] || undefined, ', __self.export(m), 1 + j);
+                    combine += __jymfony.sprintf('%s: matches[%s] || undefined, ', __self.export(m), __self.export(j));
                 }
-                combine = Object.keys(vars).length ? __jymfony.substr_replace(combine, ');\n\n', -2) : '';
+                combine = Object.keys(vars).length ? __jymfony.substr_replace(combine, '};\n\n', -2) : '';
 
                 state.switch += `
-        case ${state.mark}:
+        case ${state.mark}: {
+            let ret;
 ${combine}${this._compileRoute(route, name, false)}
-            break;
+            } break;
 
 `;
+            }
+
+            prevMark = state.mark;
+            this._marks[prevMark] = null;
+
+            if (i !== routes.length - 1) {
+                state.mark = state.markTail;
             }
         }
 

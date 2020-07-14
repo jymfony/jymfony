@@ -35,6 +35,7 @@
     "@jymfony/decorators": "0.1.0-alpha.23",
     "@jymfony/dependency-injection": "0.1.0-alpha.23",
     "@jymfony/dev-server": "0.1.0-alpha.23",
+    "@jymfony/dotenv": "0.1.0-dev",
     "@jymfony/event-dispatcher": "0.1.0-alpha.23",
     "@jymfony/exceptions": "0.1.0-alpha.23",
     "@jymfony/filesystem": "0.1.0-alpha.23",
