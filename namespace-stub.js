@@ -68,6 +68,11 @@ Jymfony = {
         /**
          * @namespace
          */
+        Dotenv: {},
+
+        /**
+         * @namespace
+         */
         EventDispatcher: {},
 
         /**
