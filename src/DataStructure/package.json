@@ -1,6 +1,6 @@
 {
   "name": "@jymfony/datastructure",
-  "version": "0.1.0-alpha.23",
+  "version": "0.1.0-alpha.24",
   "description": "Jymfony Data Structures",
   "typings": "types/index.d.ts",
   "scripts": {
@@ -19,8 +19,8 @@
     "node": ">=8.10.0"
   },
   "dependencies": {
-    "@jymfony/exceptions": "0.1.0-alpha.23",
-    "@jymfony/util": "0.1.0-alpha.23"
+    "@jymfony/exceptions": "0.1.0-alpha.24",
+    "@jymfony/util": "0.1.0-alpha.24"
   },
   "devDependencies": {
     "@jymfony/autoloader": "*",
