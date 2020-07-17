@@ -17,7 +17,16 @@ Storage.prototype = {};
 let codeCache = new Storage();
 let _cache = new Storage();
 
-const { resolve } = require;
+let { resolve } = require;
+if (__jymfony.version_compare(process.versions.v8, '12.0.0', '<')) {
+    resolve = (id, { paths }) => {
+        if (id.startsWith('.')) {
+            return require.resolve(id, { paths });
+        }
+
+        return require.resolve(id, { paths: [ paths[0] + '/node_modules' ] });
+    };
+}
 
 /**
  * Remove byte order marker. This catches EF BB BF (the UTF-8 BOM)
