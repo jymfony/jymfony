@@ -2,6 +2,7 @@ const DescriptorStorage = require('./DescriptorStorage');
 const Generator = require('@jymfony/compiler/src/SourceMap/Generator');
 const ManagedProxy = require('./Proxy/ManagedProxy');
 const StackHandler = require('@jymfony/compiler/src/SourceMap/StackHandler');
+const CircularDependencyException = require('./Exception/CircularDependencyException');
 
 let Compiler;
 let Parser;
@@ -16,16 +17,7 @@ Storage.prototype = {};
 let codeCache = new Storage();
 let _cache = new Storage();
 
-let { resolve } = require;
-if (__jymfony.version_compare(process.versions.v8, '10.0.0', '<')) {
-    resolve = (id, { paths }) => {
-        if (id.startsWith('.')) {
-            return require.resolve(id, { paths });
-        }
-
-        return require.resolve(id, { paths: [ paths[0] + '/node_modules' ] });
-    };
-}
+const { resolve } = require;
 
 /**
  * Remove byte order marker. This catches EF BB BF (the UTF-8 BOM)
@@ -85,6 +77,17 @@ class ClassLoader {
          * @private
          */
         this._descriptorStorage = new DescriptorStorage(this);
+
+        /**
+         * @type {string[]}
+         *
+         * @private
+         */
+        this._compilerIgnorelist = (process.env.JYMFONY_COMPILER_IGNORE || '')
+            .split(',')
+            .map(__jymfony.trim)
+            .map(v => v.startsWith('.') ? path.resolve(process.cwd(), v) : v)
+        ;
 
         if (undefined === Compiler) {
             ClassLoader.compiler = require('@jymfony/compiler');
@@ -237,8 +240,12 @@ class ClassLoader {
         };
 
         const req = id => {
-            if (builtinLibs.includes(id)) {
+            if (builtinLibs.includes(id) || this._compilerIgnorelist.includes(id)) {
                 return require(id);
+            }
+
+            if (id.startsWith('.')) {
+                id = this._path.resolve(dirname, id);
             }
 
             id = resolve(id, { paths: [ dirname ] });
@@ -251,7 +258,10 @@ class ClassLoader {
 
         req.nocompile = id => require(id);
 
-        _cache[fn] = module.exports;
+        _cache[fn] = new __jymfony.ManagedProxy(function () { }, () => {
+            throw new CircularDependencyException(fn);
+        });
+
         req.proxy = id => {
             if (builtinLibs.includes(id)) {
                 return require(id);
@@ -263,7 +273,7 @@ class ClassLoader {
             }
 
             const code = this.getCode(id);
-            const exports = {};
+            const exports = function () {};
 
             return _cache[id] = new ManagedProxy(exports, proxy => {
                 proxy.initializer = null;
@@ -273,7 +283,7 @@ class ClassLoader {
                 const dirname = module.paths[0];
 
                 this._vm.runInThisContext(code.code, opts)(module.exports, req, module, id, dirname, null);
-                proxy.target = module.exports;
+                _cache[id] = proxy.target = module.exports;
 
                 return null;
             });
@@ -291,7 +301,32 @@ class ClassLoader {
             return resolve(id, { paths: [ dirname ], ...options });
         };
 
-        this._vm.runInThisContext(this.getCode(fn).code, opts)(module.exports, req, module, fn, dirname, self);
+        let _pending;
+        try {
+            this._vm.runInThisContext(this.getCode(fn).code, opts)(module.exports, req, module, fn, dirname, self);
+        } catch (e) {
+            if (e instanceof CircularDependencyException) {
+                if (e.requiring === undefined) {
+                    e.requiring = fn;
+                }
+
+                if (e.required === fn) {
+                    delete _cache[e.requiring];
+                    _pending = _cache[e.requiring] = req.proxy(e.requiring);
+                    this._vm.runInThisContext(this.getCode(fn).code, opts)(module.exports, req, module, fn, dirname, self);
+
+                    require.cache[fn] = module;
+                    return _cache[fn] = module.exports;
+                }
+            }
+
+            throw e;
+        } finally {
+            if (_pending) {
+                Object.isExtensible(_pending); // Use isExtensible to initialize object
+            }
+        }
+
         require.cache[fn] = module;
 
         return _cache[fn] = module.exports;
