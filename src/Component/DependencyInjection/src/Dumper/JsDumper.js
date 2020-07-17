@@ -249,9 +249,9 @@ module.exports = ${className};
             if (aliases[alias].isDeprecated()) {
                 const deprecatedMessage = this._export(aliases[alias].getDeprecationMessage(alias));
                 code += '            get ' + this._export(alias) + '() {\n'
-                     + '                __jymfony.trigger_deprecation(' + deprecatedMessage + ')\n'
-                     + '                return ' + this._export(id) + ';\n'
-                     + '            },\n';
+                    + '                __jymfony.trigger_deprecation(' + deprecatedMessage + ')\n'
+                    + '                return ' + this._export(id) + ';\n'
+                    + '            },\n';
             } else {
                 code += '            ' + this._export(alias) + ': ' + this._export(id) + ',\n';
             }
@@ -988,7 +988,58 @@ ${this._addReturn(id, definition)}\
             throw new InvalidArgumentException(__jymfony.sprintf('You cannot dump a container with parameters that contain variable references. Variable "%s" found in "%s".', parameter.toString(), name));
         }
 
-        return this._export(parameter);
+        const placeholders = {};
+        const resolved = this._resolveParameter(parameter, resolveEnv, placeholders);
+
+        return __jymfony.strtr(this._export(resolved), placeholders);
+    }
+
+    /**
+     * Recursively resolve parameters for dumping.
+     *
+     * @param {string|*} parameter
+     * @param {boolean} resolveEnv
+     * @param {Object.<string, string>} placeholders
+     *
+     * @returns {*}
+     *
+     * @private
+     */
+    _resolveParameter(parameter, resolveEnv, placeholders) {
+        if (isArray(parameter) || isObjectLiteral(parameter)) {
+            for (const [ key, value ] of __jymfony.getEntries(parameter)) {
+                parameter[this._resolveParameter(key, resolveEnv, placeholders)] = this._resolveParameter(value, resolveEnv, placeholders);
+            }
+        }
+
+        if (! isString(parameter)) {
+            return parameter;
+        }
+
+        return parameter.replace(/%%|%([^%\s]+)%/g, (match, p1) => {
+            if (! p1) {
+                return '%%';
+            }
+
+            if (resolveEnv && 'env()' !== p1 && 'env(' === p1.substr(0, 4) && ')' === p1.substr(-1, 1)) {
+                const matches = /env\((.+)\)/.exec(p1);
+                const envVarName = matches[1];
+
+                const key = 'ENV__' + envVarName + '__' + ContainerBuilder.hash(envVarName);
+                placeholders[this._doExport(key)] = 'this.getParameter(\"env('+envVarName+')\")';
+
+                return key;
+            }
+
+            if (! this._container.hasParameter(p1)) {
+                const key = 'PARAMETER__' + p1 + '__' + ContainerBuilder.hash(p1);
+                placeholders[this._doExport(key)] = 'this.getParameter(\"'+name+'\")';
+
+                return key;
+            }
+
+            return this._container.getParameter(p1);
+        });
     }
 
     /**
