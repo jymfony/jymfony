@@ -267,8 +267,13 @@ class ClassLoader {
 
         req.nocompile = id => require(id);
 
-        _cache[fn] = new __jymfony.ManagedProxy(function () { }, () => {
-            throw new CircularDependencyException(fn);
+        _cache[fn] = new __jymfony.ManagedProxy(function () { }, proxy => {
+            if (! require.cache[fn]) {
+                throw new CircularDependencyException(fn);
+            }
+
+            proxy.target = require.cache[fn].exports;
+            return null;
         });
 
         req.proxy = id => {
