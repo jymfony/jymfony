@@ -367,7 +367,12 @@ module.exports = ${className};
         let code = '{\n';
         const parameters = this._container.parameterBag.all();
         for (const key of Object.keys(parameters)) {
-            code += `            "${key}": ${this._dumpParameter(key, false)},` + '\n';
+            const dumped = this._dumpParameter(key, false);
+            if (0 === dumped.indexOf('this.getParameter')) {
+                continue;
+            }
+
+            code += `            "${key}": ${dumped},` + '\n';
         }
         code += '        }';
 
