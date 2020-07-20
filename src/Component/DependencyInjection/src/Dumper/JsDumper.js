@@ -1033,7 +1033,7 @@ ${this._addReturn(id, definition)}\
 
             if (! this._container.hasParameter(p1)) {
                 const key = 'PARAMETER__' + p1 + '__' + ContainerBuilder.hash(p1);
-                placeholders[this._doExport(key)] = 'this.getParameter(\"'+name+'\")';
+                placeholders[this._doExport(key)] = 'this.getParameter(\"'+p1+'\")';
 
                 return key;
             }
