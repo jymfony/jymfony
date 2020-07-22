@@ -3,6 +3,51 @@ const Generator = require('@jymfony/compiler/src/SourceMap/Generator');
 const ManagedProxy = require('./Proxy/ManagedProxy');
 const StackHandler = require('@jymfony/compiler/src/SourceMap/StackHandler');
 const CircularDependencyException = require('./Exception/CircularDependencyException');
+const Namespace = require('./Namespace');
+
+let Typescript;
+let TypescriptHost;
+
+const declarationFiles = {};
+
+try {
+    Typescript = require('typescript');
+    TypescriptHost = TypescriptHost = Typescript.createCompilerHost({
+        inlineSourceMap: true,
+        inlineSources: true,
+        declaration: true,
+        module: Typescript.ModuleKind.ESNext,
+        target: Typescript.ScriptTarget.ES2017,
+        noResolve: true,
+    });
+
+    const superSourceFile = TypescriptHost.getSourceFile.bind(TypescriptHost);
+    TypescriptHost.getSourceFile = (fileName, languageVersion, onError, shouldCreateNewSourceFile) => {
+        if (undefined !== declarationFiles[fileName]) {
+            return Typescript.createSourceFile(fileName, declarationFiles[fileName], languageVersion);
+        }
+
+        if ('__namespaces.d.ts' === fileName) {
+            let code = '';
+            for (const key of Object.keys(global)) {
+                if (global[key] && '__namespace' in global[key] && global[key].__namespace instanceof Namespace) {
+                    code += 'declare var ' + key + ': any;\n';
+                }
+            }
+
+            code += `
+declare module NodeJS {
+    interface Global {
+` + code.split('\n').map(v => v.replace('declare var ', '        ')).join('\n') + '    }\n}';
+
+            return Typescript.createSourceFile(fileName, code, languageVersion);
+        }
+
+        return superSourceFile(fileName, languageVersion, onError, shouldCreateNewSourceFile);
+    };
+} catch (e) {
+    // @ignoreException
+}
 
 let Compiler;
 let Parser;
@@ -179,8 +224,14 @@ class ClassLoader {
             return cached;
         }
 
-        let code = stripBOM(this._finder.load(fn)), program = null;
-        const sourceMapGenerator = new Generator({ file: fn });
+        let code, program = null;
+        if (fn.endsWith('.ts')) {
+            code = this._doLoadTypescript(fn);
+        } else {
+            code = stripBOM(this._finder.load(fn));
+        }
+
+        const sourceMapGenerator = new Generator({ file: fn, skipValidation: ! __jymfony.autoload.debug });
         const descriptorStorage = this._descriptorStorage;
         const decorators = {};
 
@@ -230,6 +281,60 @@ class ClassLoader {
     }
 
     /**
+     * Loads and transpile typescript file.
+     *
+     * @param {string} fn The filename to load.
+     *
+     * @private
+     */
+    _doLoadTypescript(fn) {
+        const jsFn = fn.replace(/\.ts$/, '.js');
+        const program = Typescript.createProgram([ ...Object.keys(declarationFiles), '__namespaces.d.ts', fn ], {
+            inlineSourceMap: true,
+            inlineSources: true,
+            declaration: true,
+            module: Typescript.ModuleKind.ESNext,
+            target: Typescript.ScriptTarget.ES2017,
+            noResolve: true,
+        }, TypescriptHost);
+
+        let result;
+        const sourceFile = program.getSourceFiles().filter(f => f.fileName === fn)[0];
+        const emitted = program.emit(sourceFile, (filename, outputText) => {
+            if (filename.endsWith('.d.ts')) {
+                declarationFiles[filename] = outputText;
+                return;
+            }
+
+            if (filename === jsFn) {
+                result = outputText;
+            }
+        }, undefined, false);
+
+
+        const allDiagnostics = Typescript
+            .getPreEmitDiagnostics(program)
+            .concat(emitted.diagnostics);
+
+        const messages = [];
+        allDiagnostics.forEach(diagnostic => {
+            if (diagnostic.file) {
+                const { line, character } = diagnostic.file.getLineAndCharacterOfPosition(diagnostic.start);
+                const message = Typescript.flattenDiagnosticMessageText(diagnostic.messageText, '\n');
+                messages.push(`${diagnostic.file.fileName} (${line + 1},${character + 1}): ${message}`);
+            } else {
+                messages.push(ts.flattenDiagnosticMessageText(diagnostic.messageText, '\n'));
+            }
+        });
+
+        if (messages.length) {
+            throw new Error(messages.join('\n'));
+        }
+
+        return result || '';
+    }
+
+    /**
      * Internal file loader.
      *
      * @param {string} fn
@@ -258,7 +363,7 @@ class ClassLoader {
             }
 
             id = resolve(id, { paths: [ dirname ] });
-            if (! id.endsWith('.js')) {
+            if (! id.endsWith('.js') && ! id.endsWith('.ts')) {
                 return require(id);
             }
 

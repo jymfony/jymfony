@@ -1,4 +1,5 @@
 const { expect } = require('chai');
+const { join } = require('path');
 
 /*
  * We are testing autoloader component here
@@ -6,8 +7,11 @@ const { expect } = require('chai');
  */
 const ClassLoader = require('../src/ClassLoader');
 const Finder = require('../src/Finder');
+const Namespace = require('../src/Namespace');
+const fixturesDir = join(__dirname, '..', 'fixtures');
 
 describe('[Autoloader] ClassLoader', function () {
+    this.timeout(30000);
     beforeEach(() => {
         this._classLoader = new ClassLoader(new Finder(), require('path'), require('vm'));
     });
@@ -29,5 +33,25 @@ describe('[Autoloader] ClassLoader', function () {
         expect(s).to.be.an.instanceOf(exports.second);
         expect(s).to.be.an.instanceOf(f.getSecond());
         expect(new (f.getSecond())()).to.be.an.instanceOf(exports.second);
+    });
+
+    it ('should transpile typescript files', () => {
+        global.Foo = new Namespace(__jymfony.autoload, 'Foo', fixturesDir, require);
+        const FooBar = Foo.ts.FooBar;
+
+        const inst = new FooBar('value');
+        expect(inst._aNode).to.be.equal('value');
+
+        const Bar = Foo.ts.Bar;
+        const barInstance = new Bar();
+
+        expect(barInstance._foo).to.be.instanceOf(FooBar);
+    });
+
+    it ('should throw when transpiling errored typescript files', () => {
+        global.Foo = new Namespace(__jymfony.autoload, 'Foo', fixturesDir, require);
+        const FooWithError = Foo.ts.FooWithError;
+
+        expect(() => new FooWithError('value')).to.throw();
     });
 });
