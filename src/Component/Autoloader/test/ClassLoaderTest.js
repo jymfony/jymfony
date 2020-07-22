@@ -47,11 +47,4 @@ describe('[Autoloader] ClassLoader', function () {
 
         expect(barInstance._foo).to.be.instanceOf(FooBar);
     });
-
-    it ('should throw when transpiling errored typescript files', () => {
-        global.Foo = new Namespace(__jymfony.autoload, 'Foo', fixturesDir, require);
-        const FooWithError = Foo.ts.FooWithError;
-
-        expect(() => new FooWithError('value')).to.throw();
-    });
 });

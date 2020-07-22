@@ -3,47 +3,21 @@ const Generator = require('@jymfony/compiler/src/SourceMap/Generator');
 const ManagedProxy = require('./Proxy/ManagedProxy');
 const StackHandler = require('@jymfony/compiler/src/SourceMap/StackHandler');
 const CircularDependencyException = require('./Exception/CircularDependencyException');
-const Namespace = require('./Namespace');
 
 let Typescript;
-let TypescriptHost;
-
-const declarationFiles = {};
+let TypescriptConfig;
 
 try {
     Typescript = require('typescript');
-    TypescriptHost = TypescriptHost = Typescript.createCompilerHost({
+    TypescriptConfig = {
         inlineSourceMap: true,
         inlineSources: true,
         declaration: true,
         module: Typescript.ModuleKind.ESNext,
         target: Typescript.ScriptTarget.ES2017,
         noResolve: true,
-    });
-
-    const superSourceFile = TypescriptHost.getSourceFile.bind(TypescriptHost);
-    TypescriptHost.getSourceFile = (fileName, languageVersion, onError, shouldCreateNewSourceFile) => {
-        if (undefined !== declarationFiles[fileName]) {
-            return Typescript.createSourceFile(fileName, declarationFiles[fileName], languageVersion);
-        }
-
-        if ('__namespaces.d.ts' === fileName) {
-            let code = '';
-            for (const key of Object.keys(global)) {
-                if (global[key] && '__namespace' in global[key] && global[key].__namespace instanceof Namespace) {
-                    code += 'declare var ' + key + ': any;\n';
-                }
-            }
-
-            code += `
-declare module NodeJS {
-    interface Global {
-` + code.split('\n').map(v => v.replace('declare var ', '        ')).join('\n') + '    }\n}';
-
-            return Typescript.createSourceFile(fileName, code, languageVersion);
-        }
-
-        return superSourceFile(fileName, languageVersion, onError, shouldCreateNewSourceFile);
+        isolatedModules: true,
+        strict: true,
     };
 } catch (e) {
     // @ignoreException
@@ -64,7 +38,7 @@ let _cache = new Storage();
 
 let { resolve } = require;
 if (__jymfony.version_compare(process.versions.v8, '12.0.0', '<')) {
-    resolve = (id, { paths }) => {
+    resolve = (id, { paths } = { paths: [ __dirname ]}) => {
         if (id.startsWith('.')) {
             return require.resolve(id, { paths });
         }
@@ -288,50 +262,10 @@ class ClassLoader {
      * @private
      */
     _doLoadTypescript(fn) {
-        const jsFn = fn.replace(/\.ts$/, '.js');
-        const program = Typescript.createProgram([ ...Object.keys(declarationFiles), '__namespaces.d.ts', fn ], {
-            inlineSourceMap: true,
-            inlineSources: true,
-            declaration: true,
-            module: Typescript.ModuleKind.ESNext,
-            target: Typescript.ScriptTarget.ES2017,
-            noResolve: true,
-        }, TypescriptHost);
+        const code = this._finder.load(fn);
+        const module = Typescript.transpileModule(code, { compilerOptions: TypescriptConfig });
 
-        let result;
-        const sourceFile = program.getSourceFiles().filter(f => f.fileName === fn)[0];
-        const emitted = program.emit(sourceFile, (filename, outputText) => {
-            if (filename.endsWith('.d.ts')) {
-                declarationFiles[filename] = outputText;
-                return;
-            }
-
-            if (filename === jsFn) {
-                result = outputText;
-            }
-        }, undefined, false);
-
-
-        const allDiagnostics = Typescript
-            .getPreEmitDiagnostics(program)
-            .concat(emitted.diagnostics);
-
-        const messages = [];
-        allDiagnostics.forEach(diagnostic => {
-            if (diagnostic.file) {
-                const { line, character } = diagnostic.file.getLineAndCharacterOfPosition(diagnostic.start);
-                const message = Typescript.flattenDiagnosticMessageText(diagnostic.messageText, '\n');
-                messages.push(`${diagnostic.file.fileName} (${line + 1},${character + 1}): ${message}`);
-            } else {
-                messages.push(ts.flattenDiagnosticMessageText(diagnostic.messageText, '\n'));
-            }
-        });
-
-        if (messages.length) {
-            throw new Error(messages.join('\n'));
-        }
-
-        return result || '';
+        return module.outputText || '';
     }
 
     /**

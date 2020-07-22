@@ -35,6 +35,13 @@ declare namespace Jymfony.Component.Autoloader {
         getCode(fn);
 
         /**
+         * Loads and transpile typescript file.
+         *
+         * @param fn The filename to load.
+         */
+        private _doLoadTypescript(fn: string): any;
+
+        /**
          * Internal file loader.
          */
         private _doLoadFile(fn: string, self: any, exports: any): any;
