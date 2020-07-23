@@ -1,4 +1,6 @@
 declare namespace Jymfony.Component.Autoloader {
+    type Code = { code: string, program: unknown };
+
     export class ClassLoader {
         private _finder: Finder;
         private _path: any;
@@ -27,12 +29,8 @@ declare namespace Jymfony.Component.Autoloader {
 
         /**
          * Gets a file code.
-         *
-         * @param {string} fn
-         *
-         * @returns {{code: string, program: Jymfony.Component.Autoloader.Parser.AST.Program}}
          */
-        getCode(fn);
+        getCode(fn: string): Code;
 
         /**
          * Loads and transpile typescript file.

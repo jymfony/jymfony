@@ -1,7 +1,4 @@
 declare namespace Jymfony.Component.Autoloader {
-    import DecoratorDescriptor = Jymfony.Component.Autoloader.Parser.AST.DecoratorDescriptor;
-    import Identifier = Jymfony.Component.Autoloader.Parser.AST.Identifier;
-
     type Storage = {};
 
     class DescriptorStorage {
@@ -22,7 +19,7 @@ declare namespace Jymfony.Component.Autoloader {
         /**
          * Registers a decorator descriptor.
          */
-        register(descriptor: DecoratorDescriptor, alias?: Identifier): void;
+        register(descriptor: any, alias?: any): void;
 
         /**
          * Register decorators as exported by export * from ..
@@ -32,6 +29,6 @@ declare namespace Jymfony.Component.Autoloader {
         /**
          * Imports a decorator descriptor.
          */
-        import(source: string, descriptorName: string): DecoratorDescriptor;
+        import(source: string, descriptorName: string): any;
     }
 }
