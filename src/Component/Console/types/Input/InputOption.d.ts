@@ -14,6 +14,7 @@ declare namespace Jymfony.Component.Console.Input {
         /**
          * Constructor
          */
+        constructor(name: string, shortcut?: string|string[]|undefined, mode?: number|undefined, description?: string, defaultValue?: any);
         __construct(name: string, shortcut?: string|string[]|undefined, mode?: number|undefined, description?: string, defaultValue?: any): void;
 
         /**
