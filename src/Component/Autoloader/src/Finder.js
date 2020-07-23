@@ -50,9 +50,10 @@ class Finder {
      * @returns {Object}
      */
     find(baseDir, name) {
-        let fileName = this._path.normalize(baseDir + this._path.sep + name);
+        let originalFilename;
+        let fileName = originalFilename = this._path.normalize(baseDir + this._path.sep + name);
 
-        for (let i = 2;;) {
+        for (let i = 3;;) {
             try {
                 const stat = this._fs.statSync(fileName);
 
@@ -65,8 +66,11 @@ class Finder {
                     throw e;
                 }
 
-                if (--i) {
+                if (2 === --i) {
                     fileName += '.js';
+                    continue;
+                } else if (i) {
+                    fileName = originalFilename + '.ts';
                     continue;
                 }
 

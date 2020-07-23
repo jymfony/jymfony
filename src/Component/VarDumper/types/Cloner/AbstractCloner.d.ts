@@ -40,6 +40,7 @@ declare namespace Jymfony.Component.VarDumper.Cloner {
          * @param {Map.<Function, Function[]>} casters
          */
         __construct(casters?: Map<Constructor|string, Invokable>): void;
+        constructor(casters?: Map<Constructor|string, Invokable>);
 
         /**
          * Add casters for objects.
@@ -47,7 +48,7 @@ declare namespace Jymfony.Component.VarDumper.Cloner {
          *
          * @param {Object.<string|symbol, Function>} casters
          */
-        addCasters(casters: Map<Constructor|string, Invokable>|Record<string, Invokable>);
+        addCasters(casters: Map<Constructor|string, Invokable>|Record<string, Invokable>): void;
 
         /**
          * Sets the maximum number of items to past past the minimum depth in nested structure.

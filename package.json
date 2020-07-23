@@ -40,7 +40,7 @@
     "mocha": "^6.0",
     "mongodb": "^3.0",
     "nyc": "^14.1.1",
-    "test262-parser-tests": "git+https://github.com/tc39/test262-parser-tests.git"
+    "typescript": "^3.9.7"
   },
   "repository": "https://github.com/jymfony/jymfony.git",
   "flat": true,

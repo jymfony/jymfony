@@ -51,8 +51,8 @@ class DescriptorStorage {
     /**
      * Registers a decorator descriptor.
      *
-     * @param {Jymfony.Component.Autoloader.Parser.AST.DecoratorDescriptor} descriptor
-     * @param {Jymfony.Component.Autoloader.Parser.AST.Identifier} alias
+     * @param {DecoratorDescriptor} descriptor
+     * @param {Identifier} alias
      */
     register(descriptor, alias = descriptor.name) {
         const name = alias.name;
@@ -86,7 +86,7 @@ class DescriptorStorage {
      * @param {string} source
      * @param {string} descriptorName
      *
-     * @returns {Jymfony.Component.Autoloader.Parser.AST.DecoratorDescriptor}
+     * @returns {DecoratorDescriptor}
      */
     import(source, descriptorName) {
         source = require.resolve(source, { paths: [ dirname(this._filename) ] });

@@ -98,6 +98,11 @@ declare namespace Jymfony.Component.DependencyInjection.Dumper {
          */
         private _dumpParameter(name: string, resolveEnv?: boolean): string;
 
+        /**
+         * Recursively resolve parameters for dumping.
+         */
+        private _resolveParameter(parameter: any, resolveEnv: boolean, placeholders: Record<string, string>): any;
+
         private _getServiceCall(id: string, reference?: Reference): string;
 
         private _dumpLiteralClass(class_: string): string;

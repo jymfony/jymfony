@@ -11,7 +11,7 @@ declare namespace __jymfony {
         /**
          * Constructor.
          */
-        __construct(...args: any[]);
+        __construct(...args: any[]): any | undefined;
     }
 
     /**
@@ -166,7 +166,7 @@ declare namespace __jymfony {
     /**
      * Pad a string to a certain length with another string.
      */
-    export function str_pad(string: string, length?: number, pad?: string, padType?: 'STR_PAD_RIGHT' | 'STR_PAD_LEFT' | 'STR_PAD_BOTH')
+    export function str_pad(string: string, length?: number, pad?: string, padType?: 'STR_PAD_RIGHT' | 'STR_PAD_LEFT' | 'STR_PAD_BOTH'): void;
 
     /**
      * The strcspn() function returns the number of characters (including whitespaces)
