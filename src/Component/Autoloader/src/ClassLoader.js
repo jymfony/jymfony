@@ -47,6 +47,11 @@ if (__jymfony.version_compare(process.versions.v8, '12.0.0', '<')) {
     };
 }
 
+if (Typescript) {
+    require.extensions['.ts'] = require.extensions['.ts'] ||
+        ((m, filename) => __jymfony.autoload.classLoader.loadFile(filename));
+}
+
 /**
  * Remove byte order marker. This catches EF BB BF (the UTF-8 BOM)
  * because the buffer-to-string conversion in `fs.readFileSync()`
