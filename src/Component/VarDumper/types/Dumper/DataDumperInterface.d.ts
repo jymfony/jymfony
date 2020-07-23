@@ -10,6 +10,6 @@ declare namespace Jymfony.Component.VarDumper.Dumper {
         /**
          * Dumps data object.
          */
-        dump(data: Data);
+        dump(data: Data): void;
     }
 }
