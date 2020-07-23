@@ -1,4 +1,6 @@
 declare namespace Jymfony.Component.Debug.ErrorRenderer {
+    import FlattenException = Jymfony.Component.Debug.Exception.FlattenException;
+
     /**
      * Formats an exception to be used as response content.
      */
