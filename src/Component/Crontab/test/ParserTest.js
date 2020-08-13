@@ -5,6 +5,8 @@ const Parser = Jymfony.Component.Crontab.Parser;
 const { expect } = require('chai');
 
 describe('[Crontab] Parser', function () {
+    this.timeout(10000);
+
     beforeEach(() => {
         this._parser = new Parser();
     });
