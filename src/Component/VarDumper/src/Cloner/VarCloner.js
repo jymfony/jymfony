@@ -136,6 +136,10 @@ export default class VarCloner extends AbstractCloner {
                             stub = new Stub();
                             stub.type = Stub.TYPE_OBJECT;
                             stub.class_ = isObjectLiteral(v) ? 'Object' : ReflectionClass.getClassName(v);
+                            if (stub.class_ && stub.class_.startsWith('_anonymous_xΞ')) {
+                                stub.class_ = undefined;
+                            }
+
                             stub.value = v;
                             stub.handle = h;
                             a = this._castObject(stub, 0 < i);
