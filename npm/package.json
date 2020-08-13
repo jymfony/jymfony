@@ -29,6 +29,7 @@
     "@jymfony/config": "0.1.0-dev",
     "@jymfony/console": "0.1.0-dev",
     "@jymfony/contracts": "0.1.0-dev",
+    "@jymfony/crontab": "0.1.0-dev",
     "@jymfony/datetime": "0.1.0-dev",
     "@jymfony/datastructure": "0.1.0-dev",
     "@jymfony/debug": "0.1.0-dev",

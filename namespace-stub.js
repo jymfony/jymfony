@@ -48,6 +48,11 @@ Jymfony = {
         /**
          * @namespace
          */
+        Crontab: {},
+
+        /**
+         * @namespace
+         */
         DateTime: {},
 
         /**

@@ -8,6 +8,6 @@ declare namespace Jymfony.Contracts.Lexer {
         /**
          * Gets the value stored in this holder.
          */
-        public readonly value: any;
+        public /* readonly */ value: any;
     }
 }
