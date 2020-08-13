@@ -123,6 +123,7 @@ describe('[DateTime] DateTime', function () {
 
         expect(dt.timezone.name).to.be.equal('Europe/Rome');
         expect(dt.timezone.getOffset(dt)).to.be.equal(2996);
+        expect(dt.day).to.be.equal(31);
         expect(dt.hour).to.be.equal(23);
         expect(dt.minute).to.be.equal(49);
         expect(dt.second).to.be.equal(55);
@@ -173,6 +174,61 @@ describe('[DateTime] DateTime', function () {
         expect(dt.hour).to.be.equal(2);
         expect(dt.minute).to.be.equal(0);
         expect(dt.second).to.be.equal(0);
+
+        dt = new DateTime('2020 Oct 25 01:59:59', 'Europe/Rome');
+
+        expect(dt.timezone.getOffset(dt)).to.be.equal(7200);
+        dt = dt.modify(new TimeSpan('P1D'));
+
+        expect(dt.timezone.getOffset(dt)).to.be.equal(3600);
+        expect(dt.timestamp).to.be.equal(1603673999);
+        expect(dt.hour).to.be.equal(1);
+        expect(dt.minute).to.be.equal(59);
+        expect(dt.second).to.be.equal(59);
+
+        dt = dt.modify(new TimeSpan('P-1D'));
+
+        expect(dt.timezone.getOffset(dt)).to.be.equal(7200);
+        expect(dt.timestamp).to.be.equal(1603583999);
+        expect(dt.hour).to.be.equal(1);
+        expect(dt.minute).to.be.equal(59);
+        expect(dt.second).to.be.equal(59);
+
+        dt = dt.modify(new TimeSpan('P1M'));
+
+        expect(dt.timezone.getOffset(dt)).to.be.equal(3600);
+        expect(dt.timestamp).to.be.equal(1606265999);
+        expect(dt.hour).to.be.equal(1);
+        expect(dt.minute).to.be.equal(59);
+        expect(dt.second).to.be.equal(59);
+        expect(dt.day).to.be.equal(25);
+        expect(dt.month).to.be.equal(11);
+        expect(dt.year).to.be.equal(2020);
+
+        dt = dt.modify(new TimeSpan('P-1M'));
+
+        expect(dt.timezone.getOffset(dt)).to.be.equal(7200);
+        expect(dt.timestamp).to.be.equal(1603583999);
+
+        dt = dt.modify(new TimeSpan('P1Y'));
+
+        expect(dt.timezone.getOffset(dt)).to.be.equal(7200);
+        expect(dt.timestamp).to.be.equal(1635119999);
+        expect(dt.hour).to.be.equal(1);
+        expect(dt.minute).to.be.equal(59);
+        expect(dt.second).to.be.equal(59);
+        expect(dt.day).to.be.equal(25);
+        expect(dt.month).to.be.equal(10);
+        expect(dt.year).to.be.equal(2021);
+
+        dt = dt.modify(new TimeSpan('P7D'));
+        expect(dt.timezone.getOffset(dt)).to.be.equal(3600);
+        expect(dt.timestamp).to.be.equal(1635728399);
+
+        dt = dt.modify(new TimeSpan('P-1Y7D'));
+
+        expect(dt.timezone.getOffset(dt)).to.be.equal(7200);
+        expect(dt.timestamp).to.be.equal(1603583999);
     });
 
     it ('invalid times for timezone', () => {
