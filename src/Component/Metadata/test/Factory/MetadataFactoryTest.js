@@ -38,9 +38,24 @@ describe('[Metadata] MetadataFactory', function () {
         expect(factory.hasMetadataFor('App.NonExistentClass')).to.be.equal(false);
     });
 
-    it ('hasMetadata should return false on invalid value', () => {
+    it ('hasMetadata should return false on invalid value (array)', () => {
         const factory = new MetadataFactory(loader.reveal());
         expect(factory.hasMetadataFor([])).to.be.equal(false);
+    });
+
+    it ('hasMetadata should return false on invalid value (string)', () => {
+        const factory = new MetadataFactory(loader.reveal());
+        expect(factory.hasMetadataFor('foobar')).to.be.equal(false);
+    });
+
+    it ('hasMetadata should return false on invalid value (number)', () => {
+        const factory = new MetadataFactory(loader.reveal());
+        expect(factory.hasMetadataFor(42)).to.be.equal(false);
+    });
+
+    it ('hasMetadata should return false on invalid value (boolean)', () => {
+        const factory = new MetadataFactory(loader.reveal());
+        expect(factory.hasMetadataFor(false)).to.be.equal(false);
     });
 
     it ('getMetadata should throw if invalid value has passed', () => {

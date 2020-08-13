@@ -134,6 +134,10 @@ export default class AbstractMetadataFactory extends implementationOf(MetadataFa
             }
         }
 
+        if (isArray(value)) {
+            return false;
+        }
+
         if (! isObject(value) && ! isString(value)) {
             return false;
         }
