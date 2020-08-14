@@ -1,9 +1,10 @@
-import { DAYS_IN_MONTH } from './days_in_month';
-import { nextRollover } from './next_rollover';
-
 const ConstraintInterface = Jymfony.Component.Crontab.Constraints.ConstraintInterface;
 const Month = Jymfony.Component.Crontab.Constraints.Month;
 const PeriodInterface = Jymfony.Component.Crontab.Constraints.PeriodInterface;
+const TimeSpan = Jymfony.Component.DateTime.TimeSpan;
+
+const DAYS_IN_MONTH = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
+const SEC = new TimeSpan('PT1S');
 
 /**
  * @memberOf Jymfony.Component.Crontab.Constraints
@@ -64,11 +65,31 @@ export default class Day extends implementationOf(ConstraintInterface, PeriodInt
     next(d, val) {
         val = val > this.extent(d)[1] ? 1 : val;
 
-        const month = nextRollover(d, val, this, new Month());
+        const month = this._nextRollover(d, val);
         const DMax = this.extent(month)[1];
 
         val = val > DMax ? 1 : val || DMax;
 
         return month.setDate(month.year, month.month, val);
+    }
+
+    /**
+     * @param {Jymfony.Component.DateTime.DateTime} d
+     * @param {int} val
+     *
+     * @returns {Jymfony.Component.DateTime.DateTime}
+     *
+     * @private
+     */
+    _nextRollover(d, val) {
+        const cur = this.val(d);
+        const max = this.extent(d)[1];
+        const period = new Month();
+
+        if (((val || max) <= cur) || val > max) {
+            return period.end(d).modify(SEC);
+        }
+
+        return period.start(d);
     }
 }

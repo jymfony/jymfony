@@ -45,7 +45,7 @@ export default class Parser {
      * @param {string} expr
      * @param {Jymfony.Component.DateTime.DateTime} now
      *
-     * @returns {{schedules: [{}], exceptions: []}}
+     * @returns {Jymfony.Component.Crontab.Crontab}
      */
     parse(expr, now = DateTime.now) {
         expr = expr.toUpperCase();
@@ -148,11 +148,11 @@ export default class Parser {
     /**
      * Adds a range item (of the form x-y/z) to the schedule.
      *
-     * @param {string} item: The cron expression item to add
-     * @param {Object.<string, *>} curSchedule: The current schedule to add to
-     * @param {string} name: The name to use for this constraint
-     * @param {int} min: The min value for the constraint
-     * @param {int} max: The max value for the constraint
+     * @param {string} item The cron expression item to add
+     * @param {Object.<string, *>} curSchedule The current schedule to add to
+     * @param {string} name The name to use for this constraint
+     * @param {int} min The min value for the constraint
+     * @param {int} max The max value for the constraint
      */
     _addRange(item, curSchedule, name, min, max) {
         // Parse range/x
