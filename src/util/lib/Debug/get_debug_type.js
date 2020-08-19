@@ -21,7 +21,7 @@ __jymfony.get_debug_type = (value) => {
         case ! isObject(value): return typeof value;
     }
 
-    if (typeof ReflectionClass !== 'undefined') {
+    if ('undefined' !== typeof ReflectionClass) {
         const reflectionClass = new ReflectionClass(value);
         const className = reflectionClass.name || reflectionClass.getConstructor().name || 'object';
         if (className.startsWith('_anonymous_xΞ')) {
