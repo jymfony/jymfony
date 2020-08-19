@@ -21,11 +21,15 @@ __jymfony.get_debug_type = (value) => {
         case ! isObject(value): return typeof value;
     }
 
-    const reflectionClass = new ReflectionClass(value);
-    const className = reflectionClass.name || reflectionClass.getConstructor().name || 'object';
-    if (className.startsWith('_anonymous_xΞ')) {
-        return 'class@anonymous';
+    if (typeof ReflectionClass !== 'undefined') {
+        const reflectionClass = new ReflectionClass(value);
+        const className = reflectionClass.name || reflectionClass.getConstructor().name || 'object';
+        if (className.startsWith('_anonymous_xΞ')) {
+            return 'class@anonymous';
+        }
+
+        return className;
     }
 
-    return className;
+    return value.constructor.name;
 };
