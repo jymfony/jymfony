@@ -1,5 +1,5 @@
 declare namespace Jymfony.Contracts.Console {
-    export class OutputInterface implements MixinInterface {
+    export class OutputInterface {
         public static readonly definition: Newable<OutputInterface>;
 
         public static readonly VERBOSITY_QUIET = 16;

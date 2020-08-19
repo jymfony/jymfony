@@ -4,7 +4,7 @@ declare namespace Jymfony.Component.Debug.ErrorRenderer {
     /**
      * Formats an exception to be used as response content.
      */
-    export class ErrorRendererInterface implements MixinInterface {
+    export class ErrorRendererInterface {
         public static readonly definition: Newable<ErrorRendererInterface>;
 
         /**

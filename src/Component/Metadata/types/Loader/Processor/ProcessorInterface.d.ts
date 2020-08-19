@@ -1,7 +1,7 @@
 declare namespace Jymfony.Component.Metadata.Loader.Processor {
     import MetadataInterface = Jymfony.Contracts.Metadata.MetadataInterface;
 
-    export class ProcessorInterface extends MixinInterface {
+    export class ProcessorInterface {
         public static readonly definition: Newable<ProcessorInterface>;
 
         /**

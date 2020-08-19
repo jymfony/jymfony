@@ -1,7 +1,7 @@
 declare namespace Jymfony.Component.Crontab.Constraints {
     import DateTime = Jymfony.Component.DateTime.DateTime;
 
-    export class ConstraintInterface implements MixinInterface {
+    export class ConstraintInterface {
         public static readonly definition: Newable<ConstraintInterface>;
 
         /**

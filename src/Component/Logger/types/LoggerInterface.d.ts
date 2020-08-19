@@ -11,7 +11,7 @@ declare namespace Jymfony.Component.Logger {
      * can be made by implementors is that if an Error instance is given
      * to produce a stack trace, it MUST be in a key named "error".
      */
-    export class LoggerInterface implements MixinInterface {
+    export class LoggerInterface {
         public static readonly definition: Newable<LoggerInterface>;
 
         /**

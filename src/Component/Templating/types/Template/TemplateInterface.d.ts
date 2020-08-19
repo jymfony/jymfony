@@ -3,7 +3,7 @@ declare namespace Jymfony.Component.Templating.Template {
      * Represents a template ready to be evaluated and written
      * to a valid stream.
      */
-    export class TemplateInterface implements MixinInterface {
+    export class TemplateInterface {
         public static readonly definition: Newable<TemplateInterface>;
 
         /**

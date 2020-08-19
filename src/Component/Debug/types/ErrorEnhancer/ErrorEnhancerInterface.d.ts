@@ -1,5 +1,5 @@
 declare namespace Jymfony.Component.Debug.ErrorEnhancer {
-    export class ErrorEnhancerInterface implements MixinInterface {
+    export class ErrorEnhancerInterface {
         public static readonly definition: Newable<ErrorEnhancerInterface>;
 
         /**

@@ -1,5 +1,5 @@
 declare namespace Jymfony.Component.DependencyInjection {
-    export class ContainerAwareTrait implements MixinInterface {
+    export class ContainerAwareTrait {
         public static readonly definition: Newable<ContainerAwareTrait>;
 
         /**

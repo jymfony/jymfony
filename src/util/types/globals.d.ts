@@ -231,18 +231,25 @@ declare namespace __jymfony {
     export function wordwrap(str: string, width?: number, strBreak?: string, cut?: boolean): string;
 }
 
-declare interface Newable<T> {
-    new(): T;
-    new(...args: any[]): T;
-}
-declare type Constructor<T = any> = { prototype: T };
-
-declare class MixinInterface {
-    public static readonly definition: Newable<any>;
+type SuppressNew<T> = {
+    [ K in keyof T ] : T[ K ]
 }
 
-declare function getInterface<T = any>(definition: T): Constructor<T & MixinInterface>;
-declare function getTrait<T = any>(definition: T): Constructor<T & MixinInterface>;
+type Omit2<T, K extends keyof any> = T extends AnyConstructorRaw<infer I> ? Pick<T, Exclude<keyof T, K>> & (new (...args : any[]) => I) : never;
+type AnyFunction<Result = any> = (...input : any[]) => Result;
+type AnyConstructorRaw<Instance extends object = object, Static extends object = object> = (new (...input : any[]) => Instance) & Static;
+declare type Newable<Instance extends object = object, Static extends object = object> = (new (...input : any[]) => Instance) & SuppressNew<Static>;
+
+declare type MixinInterface<T> = T extends AnyConstructorRaw<infer I, infer M> ? Omit<M, 'definition'> & {
+    readonly definition: Newable<I, T>;
+    [Symbol.hasInstance](): boolean;
+} & ((...args) => any) : never;
+
+declare type Mixin<T> = T extends Newable<infer I, infer M> ? MixinInterface<T> : never;
+declare type TMixin<T> = T extends MixinInterface<AnyConstructorRaw<infer I>> ? I : never;
+
+declare function getInterface<T>(definition: T): Mixin<T>
+declare function getTrait<T>(definition: T): Mixin<T>;
 
 declare type AsyncFunction = (...args: any[]) => Promise<any>;
 
@@ -290,13 +297,13 @@ declare module NodeJS {
         EmptyIterator: Newable<EmptyIterator>;
         RecursiveDirectoryIterator: Newable<RecursiveDirectoryIterator>;
 
-        getInterface<T extends Newable<any> = any>(definition: T): T & MixinInterface;
-        getTrait<T extends Newable<any> = any>(definition: T): T & MixinInterface;
+        getInterface<T>(definition: T): T extends Newable<infer I, infer M> ? MixinInterface<T> : never;
+        getTrait<T>(definition: T): T extends Newable<infer I, infer M> ? MixinInterface<T> : never;
         mixins: {
             isInterface: <T extends Newable<any>>(mixin: T) => boolean,
             isTrait: <T extends Newable<any>>(mixin: T) => boolean,
-            getInterfaces: <T extends Newable<any>>(Class: T) => MixinInterface[],
-            getTraits: <T extends Newable<any>>(Class: T) => MixinInterface[],
+            getInterfaces: <T extends Newable>(Class: T) => MixinInterface<T>[],
+            getTraits: <T extends Newable>(Class: T) => MixinInterface<T>[],
 
             /**
              * @internal
@@ -304,44 +311,242 @@ declare module NodeJS {
             initializerSymbol: symbol
         }
 
-        mix<T = any>(base: undefined): Newable<__jymfony.JObject>;
-        mix<T = any>(base: Constructor<T>): Newable<__jymfony.JObject & T>;
-        mix<T, I0>(base: undefined | Constructor<T>, iface: Newable<I0>): Newable<__jymfony.JObject & T & I0>;
-        mix<T, I0, I1>(base: undefined | Constructor<T>, interface0: Newable<I0>, interface1: Newable<I1>): Newable<__jymfony.JObject & T & I0 & I1>;
-        mix<T, I0, I1, I2>(base: undefined | Constructor<T>, interface0: Newable<I0>, interface1: Newable<I1>, interface2: Newable<I2>): Newable<__jymfony.JObject & T & I0 & I1 & I2>;
 
-        mix<T, I0, I1, I2, I3>
-        (base: undefined | Constructor<T>, interface0: Newable<I0>, interface1: Newable<I1>, interface2: Newable<I2>, interface3: Newable<I3>):
-            Newable<__jymfony.JObject & T & I0 & I1 & I2 & I3>;
-        mix<T, I0, I1, I2, I3, I4>
-        (base: undefined | Constructor<T>, interface0: Newable<I0>, interface1: Newable<I1>, interface2: Newable<I2>, interface3: Newable<I3>, interface4: Newable<I4>):
-            Newable<__jymfony.JObject & T & I0 & I1 & I2 & I3 & I4>;
-        mix<T, I0, I1, I2, I3, I4, I5>
-        (base: undefined | Constructor<T>, interface0: Newable<I0>, interface1: Newable<I1>, interface2: Newable<I2>, interface3: Newable<I3>, interface4: Newable<I4>, interface5: Newable<I5>):
-            Newable<__jymfony.JObject & T & I0 & I1 & I2 & I3 & I4 & I5>;
-        mix<T, I0, I1, I2, I3, I4, I5, I6>
-        (base: undefined | Constructor<T>, interface0: Newable<I0>, interface1: Newable<I1>, interface2: Newable<I2>, interface3: Newable<I3>, interface4: Newable<I4>, interface5: Newable<I5>, interface6: Newable<I6>):
-            Newable<__jymfony.JObject & T & I0 & I1 & I2 & I3 & I4 & I5 & I6>;
-        mix<T>
-        (base: undefined | Constructor<T>, ...interfacesAndTraits: any[]): Newable<__jymfony.JObject & T & any>;
+        mix<M>(base: undefined, iface: M): M extends MixinInterface<Newable<infer T, infer I>> ? Newable<I, Omit2<T, keyof __jymfony.JObject> & __jymfony.JObject> : M;
+        mix<CBase, M>(base: CBase, iface: M):
+            CBase extends Newable<infer TBase, infer IBase> ?
+                M extends MixinInterface<Newable<infer T, infer I>> ?
+                    Newable<IBase & I, TBase & Omit2<T, keyof __jymfony.JObject> & __jymfony.JObject>
+                    : CBase & M
+                : CBase & M;
 
-        implementationOf<I0>(iface: Newable<I0>): Newable<__jymfony.JObject & I0>;
-        implementationOf<I0, I1>(interface0: Newable<I0>, interface1: Newable<I1>): Newable<__jymfony.JObject & I0 & I1>;
-        implementationOf<I0, I1, I2>(interface0: Newable<I0>, interface1: Newable<I1>, interface2: Newable<I2>): Newable<__jymfony.JObject & I0 & I1 & I2>;
+        mix<CBase, M0, M1>(base: CBase, interface0: M0, interface1: M1):
+            CBase extends Newable<infer TBase, infer IBase> ?
+                M0 extends MixinInterface<Newable<infer I0, infer T0>> ?
+                    M1 extends MixinInterface<Newable<infer I1, infer T1>> ?
+                        Newable<IBase & I0 & I1, TBase &
+                            Omit2<T0, keyof __jymfony.JObject> &
+                            Omit2<T1, keyof __jymfony.JObject> &
+                            __jymfony.JObject
+                            >
+                        : CBase & M0 & M1
+                    : CBase & M0 & M1
+                : CBase & M0 & M1;
 
-        implementationOf<I0, I1, I2, I3>
-        (interface0: Newable<I0>, interface1: Newable<I1>, interface2: Newable<I2>, interface3: Newable<I3>):
-            Newable<__jymfony.JObject & I0 & I1 & I2 & I3>;
-        implementationOf<I0, I1, I2, I3, I4>
-        (interface0: Newable<I0>, interface1: Newable<I1>, interface2: Newable<I2>, interface3: Newable<I3>, interface4: Newable<I4>):
-            Newable<__jymfony.JObject & I0 & I1 & I2 & I3 & I4>;
-        implementationOf<I0, I1, I2, I3, I4, I5>
-        (interface0: Newable<I0>, interface1: Newable<I1>, interface2: Newable<I2>, interface3: Newable<I3>, interface4: Newable<I4>, interface5: Newable<I5>):
-            Newable<__jymfony.JObject & I0 & I1 & I2 & I3 & I4 & I5>;
-        implementationOf<I0, I1, I2, I3, I4, I5, I6>
-        (interface0: Newable<I0>, interface1: Newable<I1>, interface2: Newable<I2>, interface3: Newable<I3>, interface4: Newable<I4>, interface5: I5, interface6: Newable<I6>):
-            Newable<__jymfony.JObject & I0 & I1 & I2 & I3 & I4 & I5 & I6>;
-        implementationOf(...interfacesAndTraits: any[]): Newable<__jymfony.JObject & any>;
+        mix<CBase, M0, M1, M2>(base: CBase, interface0: M0, interface1: M1, interface2: M2):
+            CBase extends Newable<infer TBase, infer IBase> ?
+                M0 extends MixinInterface<Newable<infer I0, infer T0>> ?
+                    M1 extends MixinInterface<Newable<infer I1, infer T1>> ?
+                        M2 extends MixinInterface<Newable<infer I2, infer T2>> ?
+                            Newable<IBase & I0 & I1 & I2, TBase &
+                                Omit2<T0, keyof __jymfony.JObject> &
+                                Omit2<T1, keyof __jymfony.JObject> &
+                                Omit2<T2, keyof __jymfony.JObject> &
+                                __jymfony.JObject
+                                >
+                            : CBase & M0 & M1 & M2
+                        : CBase & M0 & M1 & M2
+                    : CBase & M0 & M1 & M2
+                : CBase & M0 & M1 & M2;
+
+        mix<CBase, M0, M1, M2, M3>(base: CBase, interface0: M0, interface1: M1, interface2: M2, interface3: M3):
+            CBase extends Newable<infer TBase, infer IBase> ?
+                M0 extends MixinInterface<Newable<infer I0, infer T0>> ?
+                    M1 extends MixinInterface<Newable<infer I1, infer T1>> ?
+                        M2 extends MixinInterface<Newable<infer I2, infer T2>> ?
+                            M3 extends MixinInterface<Newable<infer I3, infer T3>> ?
+                                Newable<IBase & I0 & I1 & I2 & I3, TBase &
+                                    Omit2<T0, keyof __jymfony.JObject> &
+                                    Omit2<T1, keyof __jymfony.JObject> &
+                                    Omit2<T2, keyof __jymfony.JObject> &
+                                    Omit2<T3, keyof __jymfony.JObject> &
+                                    __jymfony.JObject
+                                    >
+                                : CBase & M0 & M1 & M2 & M3
+                            : CBase & M0 & M1 & M2 & M3
+                        : CBase & M0 & M1 & M2 & M3
+                    : CBase & M0 & M1 & M2 & M3
+                : CBase & M0 & M1 & M2 & M3;
+
+        mix<CBase, M0, M1, M2, M3, M4>(base: CBase, interface0: M0, interface1: M1, interface2: M2, interface3: M3, interface4: M4):
+            CBase extends Newable<infer TBase, infer IBase> ?
+                M0 extends MixinInterface<Newable<infer I0, infer T0>> ?
+                    M1 extends MixinInterface<Newable<infer I1, infer T1>> ?
+                        M2 extends MixinInterface<Newable<infer I2, infer T2>> ?
+                            M3 extends MixinInterface<Newable<infer I3, infer T3>> ?
+                                M4 extends MixinInterface<Newable<infer I4, infer T4>> ?
+                                    Newable<IBase & I0 & I1 & I2 & I3 & I4, TBase &
+                                        Omit2<T0, keyof __jymfony.JObject> &
+                                        Omit2<T1, keyof __jymfony.JObject> &
+                                        Omit2<T2, keyof __jymfony.JObject> &
+                                        Omit2<T3, keyof __jymfony.JObject> &
+                                        Omit2<T4, keyof __jymfony.JObject> &
+                                        __jymfony.JObject
+                                        >
+                                    : CBase & M0 & M1 & M2 & M3 & M4
+                                : CBase & M0 & M1 & M2 & M3 & M4
+                            : CBase & M0 & M1 & M2 & M3 & M4
+                        : CBase & M0 & M1 & M2 & M3 & M4
+                    : CBase & M0 & M1 & M2 & M3 & M4
+                : CBase & M0 & M1 & M2 & M3 & M4;
+
+        mix<CBase, M0, M1, M2, M3, M4, M5>(base: CBase, interface0: M0, interface1: M1, interface2: M2, interface3: M3, interface4: M4, interface5: M5):
+            CBase extends Newable<infer TBase, infer IBase> ?
+                M0 extends MixinInterface<Newable<infer I0, infer T0>> ?
+                    M1 extends MixinInterface<Newable<infer I1, infer T1>> ?
+                        M2 extends MixinInterface<Newable<infer I2, infer T2>> ?
+                            M3 extends MixinInterface<Newable<infer I3, infer T3>> ?
+                                M4 extends MixinInterface<Newable<infer I4, infer T4>> ?
+                                    M5 extends MixinInterface<Newable<infer I5, infer T5>> ?
+                                        Newable<IBase & I0 & I1 & I2 & I3 & I4 & I5, TBase &
+                                            Omit2<T0, keyof __jymfony.JObject> &
+                                            Omit2<T1, keyof __jymfony.JObject> &
+                                            Omit2<T2, keyof __jymfony.JObject> &
+                                            Omit2<T3, keyof __jymfony.JObject> &
+                                            Omit2<T4, keyof __jymfony.JObject> &
+                                            Omit2<T5, keyof __jymfony.JObject> &
+                                            __jymfony.JObject
+                                            >
+                                        : CBase & M0 & M1 & M2 & M3 & M4 & M5
+                                    : CBase & M0 & M1 & M2 & M3 & M4 & M5
+                                : CBase & M0 & M1 & M2 & M3 & M4 & M5
+                            : CBase & M0 & M1 & M2 & M3 & M4 & M5
+                        : CBase & M0 & M1 & M2 & M3 & M4 & M5
+                    : CBase & M0 & M1 & M2 & M3 & M4 & M5
+                : CBase & M0 & M1 & M2 & M3 & M4 & M5;
+
+        mix<CBase, M0, M1, M2, M3, M4, M5, M6>(base: CBase, interface0: M0, interface1: M1, interface2: M2, interface3: M3, interface4: M4, interface5: M5, interface6: M6):
+            CBase extends Newable<infer TBase, infer IBase> ?
+                M0 extends MixinInterface<Newable<infer I0, infer T0>> ?
+                    M1 extends MixinInterface<Newable<infer I1, infer T1>> ?
+                        M2 extends MixinInterface<Newable<infer I2, infer T2>> ?
+                            M3 extends MixinInterface<Newable<infer I3, infer T3>> ?
+                                M4 extends MixinInterface<Newable<infer I4, infer T4>> ?
+                                    M5 extends MixinInterface<Newable<infer I5, infer T5>> ?
+                                        M6 extends MixinInterface<Newable<infer I6, infer T6>> ?
+                                            Newable<IBase & I0 & I1 & I2 & I3 & I4 & I5 & I6, TBase &
+                                                Omit2<T0, keyof __jymfony.JObject> &
+                                                Omit2<T1, keyof __jymfony.JObject> &
+                                                Omit2<T2, keyof __jymfony.JObject> &
+                                                Omit2<T3, keyof __jymfony.JObject> &
+                                                Omit2<T4, keyof __jymfony.JObject> &
+                                                Omit2<T5, keyof __jymfony.JObject> &
+                                                Omit2<T6, keyof __jymfony.JObject> &
+                                                __jymfony.JObject
+                                                >
+                                            : CBase & M0 & M1 & M2 & M3 & M4 & M5 & M6
+                                        : CBase & M0 & M1 & M2 & M3 & M4 & M5 & M6
+                                    : CBase & M0 & M1 & M2 & M3 & M4 & M5 & M6
+                                : CBase & M0 & M1 & M2 & M3 & M4 & M5 & M6
+                            : CBase & M0 & M1 & M2 & M3 & M4 & M5 & M6
+                        : CBase & M0 & M1 & M2 & M3 & M4 & M5 & M6
+                    : CBase & M0 & M1 & M2 & M3 & M4 & M5 & M6
+                : CBase & M0 & M1 & M2 & M3 & M4 & M5 & M6;
+
+        mix<CBase, TParams extends any[]>(base: CBase, ...interfaces: TParams): CBase extends Newable<infer TBase, infer IBase> ? Newable<IBase, TBase & __jymfony.JObject> & any : never;
+
+        implementationOf<M>(iface: M): M extends MixinInterface<Newable<infer I, infer T>> ? Newable<I, T & __jymfony.JObject> : M;
+        implementationOf<M0, M1>(interface0: M0, interface1: M1):
+            M0 extends MixinInterface<Newable<infer I0, infer T0>> ?
+                M1 extends MixinInterface<Newable<infer I1, infer T1>> ?
+                    Newable<I0 & I1, Omit2<T0, keyof __jymfony.JObject> & Omit2<T1, keyof __jymfony.JObject> & __jymfony.JObject>
+                    : M0 & M1
+                : M0 & M1;
+
+        implementationOf<M0, M1, M2>(interface0: M0, interface1: M1, interface2: M2):
+            M0 extends MixinInterface<Newable<infer I0, infer T0>> ?
+                M1 extends MixinInterface<Newable<infer I1, infer T1>> ?
+                    M2 extends MixinInterface<Newable<infer I2, infer T2>> ?
+                        Newable<I0 & I1 & I2, Omit2<T0, keyof __jymfony.JObject> & Omit2<T1, keyof __jymfony.JObject> & Omit2<T2, keyof __jymfony.JObject> & __jymfony.JObject>
+                        : M0 & M1 & M2
+                    : M0 & M1 & M2
+                : M0 & M1 & M2;
+
+        implementationOf<M0, M1, M2, M3>(interface0: M0, interface1: M1, interface2: M2, interface3: M3):
+            M0 extends MixinInterface<Newable<infer I0, infer T0>> ?
+                M1 extends MixinInterface<Newable<infer I1, infer T1>> ?
+                    M2 extends MixinInterface<Newable<infer I2, infer T2>> ?
+                        M3 extends MixinInterface<Newable<infer I3, infer T3>> ?
+                            Newable<I0 & I1 & I2 & I3,
+                                Omit2<T0, keyof __jymfony.JObject> &
+                                Omit2<T1, keyof __jymfony.JObject> &
+                                Omit2<T2, keyof __jymfony.JObject> &
+                                Omit2<T3, keyof __jymfony.JObject> &
+                                __jymfony.JObject
+                                >
+                            : M0 & M1 & M2 & M3
+                        : M0 & M1 & M2 & M3
+                    : M0 & M1 & M2 & M3
+                : M0 & M1 & M2 & M3;
+
+        implementationOf<M0, M1, M2, M3, M4>(interface0: M0, interface1: M1, interface2: M2, interface3: M3, interface4: M4):
+            M0 extends MixinInterface<Newable<infer I0, infer T0>> ?
+                M1 extends MixinInterface<Newable<infer I1, infer T1>> ?
+                    M2 extends MixinInterface<Newable<infer I2, infer T2>> ?
+                        M3 extends MixinInterface<Newable<infer I3, infer T3>> ?
+                            M4 extends MixinInterface<Newable<infer I4, infer T4>> ?
+                                Newable<I0 & I1 & I2 & I3 & I4,
+                                    Omit2<T0, keyof __jymfony.JObject> &
+                                    Omit2<T1, keyof __jymfony.JObject> &
+                                    Omit2<T2, keyof __jymfony.JObject> &
+                                    Omit2<T3, keyof __jymfony.JObject> &
+                                    Omit2<T4, keyof __jymfony.JObject> &
+                                    __jymfony.JObject
+                                    >
+                                : M0 & M1 & M2 & M3 & M4
+                            : M0 & M1 & M2 & M3 & M4
+                        : M0 & M1 & M2 & M3 & M4
+                    : M0 & M1 & M2 & M3 & M4
+                : M0 & M1 & M2 & M3 & M4;
+
+        implementationOf<M0, M1, M2, M3, M4, M5>(interface0: M0, interface1: M1, interface2: M2, interface3: M3, interface4: M4, interface5: M5):
+            M0 extends MixinInterface<Newable<infer I0, infer T0>> ?
+                M1 extends MixinInterface<Newable<infer I1, infer T1>> ?
+                    M2 extends MixinInterface<Newable<infer I2, infer T2>> ?
+                        M3 extends MixinInterface<Newable<infer I3, infer T3>> ?
+                            M4 extends MixinInterface<Newable<infer I4, infer T4>> ?
+                                M5 extends MixinInterface<Newable<infer I5, infer T5>> ?
+                                    Newable<I0 & I1 & I2 & I3 & I4 & I5,
+                                        Omit2<T0, keyof __jymfony.JObject> &
+                                        Omit2<T1, keyof __jymfony.JObject> &
+                                        Omit2<T2, keyof __jymfony.JObject> &
+                                        Omit2<T3, keyof __jymfony.JObject> &
+                                        Omit2<T4, keyof __jymfony.JObject> &
+                                        Omit2<T5, keyof __jymfony.JObject> &
+                                        __jymfony.JObject
+                                        >
+                                    : M0 & M1 & M2 & M3 & M4 & M5
+                                : M0 & M1 & M2 & M3 & M4 & M5
+                            : M0 & M1 & M2 & M3 & M4 & M5
+                        : M0 & M1 & M2 & M3 & M4 & M5
+                    : M0 & M1 & M2 & M3 & M4 & M5
+                : M0 & M1 & M2 & M3 & M4 & M5;
+
+        implementationOf<M0, M1, M2, M3, M4, M5, M6>(interface0: M0, interface1: M1, interface2: M2, interface3: M3, interface4: M4, interface5: M5, interface6: M6):
+            M0 extends MixinInterface<Newable<infer I0, infer T0>> ?
+                M1 extends MixinInterface<Newable<infer I1, infer T1>> ?
+                    M2 extends MixinInterface<Newable<infer I2, infer T2>> ?
+                        M3 extends MixinInterface<Newable<infer I3, infer T3>> ?
+                            M4 extends MixinInterface<Newable<infer I4, infer T4>> ?
+                                M5 extends MixinInterface<Newable<infer I5, infer T5>> ?
+                                    M6 extends MixinInterface<Newable<infer I6, infer T6>> ?
+                                        Newable<I0 & I1 & I2 & I3 & I4 & I5 & I6,
+                                            Omit2<T0, keyof __jymfony.JObject> &
+                                            Omit2<T1, keyof __jymfony.JObject> &
+                                            Omit2<T2, keyof __jymfony.JObject> &
+                                            Omit2<T3, keyof __jymfony.JObject> &
+                                            Omit2<T4, keyof __jymfony.JObject> &
+                                            Omit2<T5, keyof __jymfony.JObject> &
+                                            Omit2<T6, keyof __jymfony.JObject> &
+                                            __jymfony.JObject
+                                            >
+                                        : M0 & M1 & M2 & M3 & M4 & M5 & M6
+                                    : M0 & M1 & M2 & M3 & M4 & M5 & M6
+                                : M0 & M1 & M2 & M3 & M4 & M5 & M6
+                            : M0 & M1 & M2 & M3 & M4 & M5 & M6
+                        : M0 & M1 & M2 & M3 & M4 & M5 & M6
+                    : M0 & M1 & M2 & M3 & M4 & M5 & M6
+                : M0 & M1 & M2 & M3 & M4 & M5 & M6;
 
         isArguments(value: any): value is IArguments;
         isBoolean(value: any): value is boolean;
@@ -383,44 +588,243 @@ declare type Invokable<T = any> = (...args: any[]) => T | {
     __invoke<AX>(...args: AX[]): (...args: AX[]) => T;
 };
 
-declare function mix<T = any>(base: undefined): Newable<__jymfony.JObject>;
-declare function mix<T = any>(base: Constructor<T>): Newable<__jymfony.JObject & T>;
-declare function mix<T, I0>(base: undefined | Constructor<T>, iface: Newable<I0>): Newable<__jymfony.JObject & T & I0>;
-declare function mix<T, I0, I1>(base: undefined | Constructor<T>, interface0: Newable<I0>, interface1: Newable<I1>): Newable<__jymfony.JObject & T & I0 & I1>;
-declare function mix<T, I0, I1, I2>(base: undefined | Constructor<T>, interface0: Newable<I0>, interface1: Newable<I1>, interface2: Newable<I2>): Newable<__jymfony.JObject & T & I0 & I1 & I2>;
+declare function mix<M>(base: undefined, iface: M): M extends MixinInterface<Newable<infer T, infer I>> ? Newable<I, Omit2<T, keyof __jymfony.JObject> & __jymfony.JObject> : M;
+declare function mix<CBase, M>(base: CBase, iface: M):
+    CBase extends Newable<infer TBase, infer IBase> ?
+        M extends MixinInterface<Newable<infer T, infer I>> ?
+            Newable<IBase & I, TBase & Omit2<T, keyof __jymfony.JObject> & __jymfony.JObject>
+            : CBase & M
+        : CBase & M;
 
-declare function mix<T, I0, I1, I2, I3>
-(base: undefined | Constructor<T>, interface0: Newable<I0>, interface1: Newable<I1>, interface2: Newable<I2>, interface3: Newable<I3>):
-    Newable<__jymfony.JObject & T & I0 & I1 & I2 & I3>;
-declare function mix<T, I0, I1, I2, I3, I4>
-(base: undefined | Constructor<T>, interface0: Newable<I0>, interface1: Newable<I1>, interface2: Newable<I2>, interface3: Newable<I3>, interface4: Newable<I4>):
-    Newable<__jymfony.JObject & T & I0 & I1 & I2 & I3 & I4>;
-declare function mix<T, I0, I1, I2, I3, I4, I5>
-(base: undefined | Constructor<T>, interface0: Newable<I0>, interface1: Newable<I1>, interface2: Newable<I2>, interface3: Newable<I3>, interface4: Newable<I4>, interface5: Newable<I5>):
-    Newable<__jymfony.JObject & T & I0 & I1 & I2 & I3 & I4 & I5>;
-declare function mix<T, I0, I1, I2, I3, I4, I5, I6>
-(base: undefined | Constructor<T>, interface0: Newable<I0>, interface1: Newable<I1>, interface2: Newable<I2>, interface3: Newable<I3>, interface4: Newable<I4>, interface5: Newable<I5>, interface6: Newable<I6>):
-    Newable<__jymfony.JObject & T & I0 & I1 & I2 & I3 & I4 & I5 & I6>;
-declare function mix<T>
-(base: undefined | Constructor<T>, ...interfacesAndTraits: any[]): Newable<__jymfony.JObject & T & any>;
+declare function mix<CBase, M0, M1>(base: CBase, interface0: M0, interface1: M1):
+    CBase extends Newable<infer TBase, infer IBase> ?
+        M0 extends MixinInterface<Newable<infer I0, infer T0>> ?
+            M1 extends MixinInterface<Newable<infer I1, infer T1>> ?
+                Newable<IBase & I0 & I1, TBase &
+                    Omit2<T0, keyof __jymfony.JObject> &
+                    Omit2<T1, keyof __jymfony.JObject> &
+                    __jymfony.JObject
+                    >
+                : CBase & M0 & M1
+            : CBase & M0 & M1
+        : CBase & M0 & M1;
 
-declare function implementationOf<I0>(iface: Newable<I0>): Newable<__jymfony.JObject & I0>;
-declare function implementationOf<I0, I1>(interface0: Newable<I0>, interface1: Newable<I1>): Newable<__jymfony.JObject & I0 & I1>;
-declare function implementationOf<I0, I1, I2>(interface0: Newable<I0>, interface1: Newable<I1>, interface2: Newable<I2>): Newable<__jymfony.JObject & I0 & I1 & I2>;
+declare function mix<CBase, M0, M1, M2>(base: CBase, interface0: M0, interface1: M1, interface2: M2):
+    CBase extends Newable<infer TBase, infer IBase> ?
+        M0 extends MixinInterface<Newable<infer I0, infer T0>> ?
+            M1 extends MixinInterface<Newable<infer I1, infer T1>> ?
+                M2 extends MixinInterface<Newable<infer I2, infer T2>> ?
+                    Newable<IBase & I0 & I1 & I2, TBase &
+                        Omit2<T0, keyof __jymfony.JObject> &
+                        Omit2<T1, keyof __jymfony.JObject> &
+                        Omit2<T2, keyof __jymfony.JObject> &
+                        __jymfony.JObject
+                        >
+                    : CBase & M0 & M1 & M2
+                : CBase & M0 & M1 & M2
+            : CBase & M0 & M1 & M2
+        : CBase & M0 & M1 & M2;
 
-declare function implementationOf<I0, I1, I2, I3>
-(interface0: Newable<I0>, interface1: Newable<I1>, interface2: Newable<I2>, interface3: Newable<I3>):
-    Newable<__jymfony.JObject & I0 & I1 & I2 & I3>;
-declare function implementationOf<I0, I1, I2, I3, I4>
-(interface0: Newable<I0>, interface1: Newable<I1>, interface2: Newable<I2>, interface3: Newable<I3>, interface4: Newable<I4>):
-    Newable<__jymfony.JObject & I0 & I1 & I2 & I3 & I4>;
-declare function implementationOf<I0, I1, I2, I3, I4, I5>
-(interface0: Newable<I0>, interface1: Newable<I1>, interface2: Newable<I2>, interface3: Newable<I3>, interface4: Newable<I4>, interface5: Newable<I5>):
-    Newable<__jymfony.JObject & I0 & I1 & I2 & I3 & I4 & I5>;
-declare function implementationOf<I0, I1, I2, I3, I4, I5, I6>
-(interface0: Newable<I0>, interface1: Newable<I1>, interface2: Newable<I2>, interface3: Newable<I3>, interface4: Newable<I4>, interface5: I5, interface6: Newable<I6>):
-    Newable<__jymfony.JObject & I0 & I1 & I2 & I3 & I4 & I5 & I6>;
-declare function implementationOf(...interfacesAndTraits: any[]): Newable<__jymfony.JObject & any>;
+declare function mix<CBase, M0, M1, M2, M3>(base: CBase, interface0: M0, interface1: M1, interface2: M2, interface3: M3):
+    CBase extends Newable<infer TBase, infer IBase> ?
+        M0 extends MixinInterface<Newable<infer I0, infer T0>> ?
+            M1 extends MixinInterface<Newable<infer I1, infer T1>> ?
+                M2 extends MixinInterface<Newable<infer I2, infer T2>> ?
+                    M3 extends MixinInterface<Newable<infer I3, infer T3>> ?
+                        Newable<IBase & I0 & I1 & I2 & I3, TBase &
+                            Omit2<T0, keyof __jymfony.JObject> &
+                            Omit2<T1, keyof __jymfony.JObject> &
+                            Omit2<T2, keyof __jymfony.JObject> &
+                            Omit2<T3, keyof __jymfony.JObject> &
+                            __jymfony.JObject
+                            >
+                        : CBase & M0 & M1 & M2 & M3
+                    : CBase & M0 & M1 & M2 & M3
+                : CBase & M0 & M1 & M2 & M3
+            : CBase & M0 & M1 & M2 & M3
+        : CBase & M0 & M1 & M2 & M3;
+
+declare function mix<CBase, M0, M1, M2, M3, M4>(base: CBase, interface0: M0, interface1: M1, interface2: M2, interface3: M3, interface4: M4):
+    CBase extends Newable<infer TBase, infer IBase> ?
+        M0 extends MixinInterface<Newable<infer I0, infer T0>> ?
+            M1 extends MixinInterface<Newable<infer I1, infer T1>> ?
+                M2 extends MixinInterface<Newable<infer I2, infer T2>> ?
+                    M3 extends MixinInterface<Newable<infer I3, infer T3>> ?
+                        M4 extends MixinInterface<Newable<infer I4, infer T4>> ?
+                            Newable<IBase & I0 & I1 & I2 & I3 & I4, TBase &
+                                Omit2<T0, keyof __jymfony.JObject> &
+                                Omit2<T1, keyof __jymfony.JObject> &
+                                Omit2<T2, keyof __jymfony.JObject> &
+                                Omit2<T3, keyof __jymfony.JObject> &
+                                Omit2<T4, keyof __jymfony.JObject> &
+                                __jymfony.JObject
+                                >
+                            : CBase & M0 & M1 & M2 & M3 & M4
+                        : CBase & M0 & M1 & M2 & M3 & M4
+                    : CBase & M0 & M1 & M2 & M3 & M4
+                : CBase & M0 & M1 & M2 & M3 & M4
+            : CBase & M0 & M1 & M2 & M3 & M4
+        : CBase & M0 & M1 & M2 & M3 & M4;
+
+declare function mix<CBase, M0, M1, M2, M3, M4, M5>(base: CBase, interface0: M0, interface1: M1, interface2: M2, interface3: M3, interface4: M4, interface5: M5):
+    CBase extends Newable<infer TBase, infer IBase> ?
+        M0 extends MixinInterface<Newable<infer I0, infer T0>> ?
+            M1 extends MixinInterface<Newable<infer I1, infer T1>> ?
+                M2 extends MixinInterface<Newable<infer I2, infer T2>> ?
+                    M3 extends MixinInterface<Newable<infer I3, infer T3>> ?
+                        M4 extends MixinInterface<Newable<infer I4, infer T4>> ?
+                            M5 extends MixinInterface<Newable<infer I5, infer T5>> ?
+                                Newable<IBase & I0 & I1 & I2 & I3 & I4 & I5, TBase &
+                                    Omit2<T0, keyof __jymfony.JObject> &
+                                    Omit2<T1, keyof __jymfony.JObject> &
+                                    Omit2<T2, keyof __jymfony.JObject> &
+                                    Omit2<T3, keyof __jymfony.JObject> &
+                                    Omit2<T4, keyof __jymfony.JObject> &
+                                    Omit2<T5, keyof __jymfony.JObject> &
+                                    __jymfony.JObject
+                                    >
+                                : CBase & M0 & M1 & M2 & M3 & M4 & M5
+                            : CBase & M0 & M1 & M2 & M3 & M4 & M5
+                        : CBase & M0 & M1 & M2 & M3 & M4 & M5
+                    : CBase & M0 & M1 & M2 & M3 & M4 & M5
+                : CBase & M0 & M1 & M2 & M3 & M4 & M5
+            : CBase & M0 & M1 & M2 & M3 & M4 & M5
+        : CBase & M0 & M1 & M2 & M3 & M4 & M5;
+
+declare function mix<CBase, M0, M1, M2, M3, M4, M5, M6>(base: CBase, interface0: M0, interface1: M1, interface2: M2, interface3: M3, interface4: M4, interface5: M5, interface6: M6):
+    CBase extends Newable<infer TBase, infer IBase> ?
+        M0 extends MixinInterface<Newable<infer I0, infer T0>> ?
+            M1 extends MixinInterface<Newable<infer I1, infer T1>> ?
+                M2 extends MixinInterface<Newable<infer I2, infer T2>> ?
+                    M3 extends MixinInterface<Newable<infer I3, infer T3>> ?
+                        M4 extends MixinInterface<Newable<infer I4, infer T4>> ?
+                            M5 extends MixinInterface<Newable<infer I5, infer T5>> ?
+                                M6 extends MixinInterface<Newable<infer I6, infer T6>> ?
+                                    Newable<IBase & I0 & I1 & I2 & I3 & I4 & I5 & I6, TBase &
+                                        Omit2<T0, keyof __jymfony.JObject> &
+                                        Omit2<T1, keyof __jymfony.JObject> &
+                                        Omit2<T2, keyof __jymfony.JObject> &
+                                        Omit2<T3, keyof __jymfony.JObject> &
+                                        Omit2<T4, keyof __jymfony.JObject> &
+                                        Omit2<T5, keyof __jymfony.JObject> &
+                                        Omit2<T6, keyof __jymfony.JObject> &
+                                        __jymfony.JObject
+                                        >
+                                    : CBase & M0 & M1 & M2 & M3 & M4 & M5 & M6
+                                : CBase & M0 & M1 & M2 & M3 & M4 & M5 & M6
+                            : CBase & M0 & M1 & M2 & M3 & M4 & M5 & M6
+                        : CBase & M0 & M1 & M2 & M3 & M4 & M5 & M6
+                    : CBase & M0 & M1 & M2 & M3 & M4 & M5 & M6
+                : CBase & M0 & M1 & M2 & M3 & M4 & M5 & M6
+            : CBase & M0 & M1 & M2 & M3 & M4 & M5 & M6
+        : CBase & M0 & M1 & M2 & M3 & M4 & M5 & M6;
+
+declare function mix<CBase, TParams extends any[]>(base: CBase, ...interfaces: TParams): CBase extends Newable<infer TBase, infer IBase> ? Newable<IBase, TBase & __jymfony.JObject> & any : never;
+
+declare function implementationOf<M>(iface: M): M extends MixinInterface<Newable<infer I, infer T>> ? Newable<I, T & __jymfony.JObject> : M;
+declare function implementationOf<M0, M1>(interface0: M0, interface1: M1):
+    M0 extends MixinInterface<Newable<infer I0, infer T0>> ?
+        M1 extends MixinInterface<Newable<infer I1, infer T1>> ?
+            Newable<I0 & I1, Omit2<T0, keyof __jymfony.JObject> & Omit2<T1, keyof __jymfony.JObject> & __jymfony.JObject>
+            : M0 & M1
+        : M0 & M1;
+
+declare function implementationOf<M0, M1, M2>(interface0: M0, interface1: M1, interface2: M2):
+    M0 extends MixinInterface<Newable<infer I0, infer T0>> ?
+        M1 extends MixinInterface<Newable<infer I1, infer T1>> ?
+            M2 extends MixinInterface<Newable<infer I2, infer T2>> ?
+                Newable<I0 & I1 & I2, Omit2<T0, keyof __jymfony.JObject> & Omit2<T1, keyof __jymfony.JObject> & Omit2<T2, keyof __jymfony.JObject> & __jymfony.JObject>
+                : M0 & M1 & M2
+            : M0 & M1 & M2
+        : M0 & M1 & M2;
+
+declare function implementationOf<M0, M1, M2, M3>(interface0: M0, interface1: M1, interface2: M2, interface3: M3):
+    M0 extends MixinInterface<Newable<infer I0, infer T0>> ?
+        M1 extends MixinInterface<Newable<infer I1, infer T1>> ?
+            M2 extends MixinInterface<Newable<infer I2, infer T2>> ?
+                M3 extends MixinInterface<Newable<infer I3, infer T3>> ?
+                    Newable<I0 & I1 & I2 & I3,
+                        Omit2<T0, keyof __jymfony.JObject> &
+                        Omit2<T1, keyof __jymfony.JObject> &
+                        Omit2<T2, keyof __jymfony.JObject> &
+                        Omit2<T3, keyof __jymfony.JObject> &
+                        __jymfony.JObject
+                        >
+                    : M0 & M1 & M2 & M3
+                : M0 & M1 & M2 & M3
+            : M0 & M1 & M2 & M3
+        : M0 & M1 & M2 & M3;
+
+declare function implementationOf<M0, M1, M2, M3, M4>(interface0: M0, interface1: M1, interface2: M2, interface3: M3, interface4: M4):
+    M0 extends MixinInterface<Newable<infer I0, infer T0>> ?
+        M1 extends MixinInterface<Newable<infer I1, infer T1>> ?
+            M2 extends MixinInterface<Newable<infer I2, infer T2>> ?
+                M3 extends MixinInterface<Newable<infer I3, infer T3>> ?
+                    M4 extends MixinInterface<Newable<infer I4, infer T4>> ?
+                        Newable<I0 & I1 & I2 & I3 & I4,
+                            Omit2<T0, keyof __jymfony.JObject> &
+                            Omit2<T1, keyof __jymfony.JObject> &
+                            Omit2<T2, keyof __jymfony.JObject> &
+                            Omit2<T3, keyof __jymfony.JObject> &
+                            Omit2<T4, keyof __jymfony.JObject> &
+                            __jymfony.JObject
+                            >
+                        : M0 & M1 & M2 & M3 & M4
+                    : M0 & M1 & M2 & M3 & M4
+                : M0 & M1 & M2 & M3 & M4
+            : M0 & M1 & M2 & M3 & M4
+        : M0 & M1 & M2 & M3 & M4;
+
+declare function implementationOf<M0, M1, M2, M3, M4, M5>(interface0: M0, interface1: M1, interface2: M2, interface3: M3, interface4: M4, interface5: M5):
+    M0 extends MixinInterface<Newable<infer I0, infer T0>> ?
+        M1 extends MixinInterface<Newable<infer I1, infer T1>> ?
+            M2 extends MixinInterface<Newable<infer I2, infer T2>> ?
+                M3 extends MixinInterface<Newable<infer I3, infer T3>> ?
+                    M4 extends MixinInterface<Newable<infer I4, infer T4>> ?
+                        M5 extends MixinInterface<Newable<infer I5, infer T5>> ?
+                            Newable<I0 & I1 & I2 & I3 & I4 & I5,
+                                Omit2<T0, keyof __jymfony.JObject> &
+                                Omit2<T1, keyof __jymfony.JObject> &
+                                Omit2<T2, keyof __jymfony.JObject> &
+                                Omit2<T3, keyof __jymfony.JObject> &
+                                Omit2<T4, keyof __jymfony.JObject> &
+                                Omit2<T5, keyof __jymfony.JObject> &
+                                __jymfony.JObject
+                                >
+                            : M0 & M1 & M2 & M3 & M4 & M5
+                        : M0 & M1 & M2 & M3 & M4 & M5
+                    : M0 & M1 & M2 & M3 & M4 & M5
+                : M0 & M1 & M2 & M3 & M4 & M5
+            : M0 & M1 & M2 & M3 & M4 & M5
+        : M0 & M1 & M2 & M3 & M4 & M5;
+
+declare function implementationOf<M0, M1, M2, M3, M4, M5, M6>(interface0: M0, interface1: M1, interface2: M2, interface3: M3, interface4: M4, interface5: M5, interface6: M6):
+    M0 extends MixinInterface<Newable<infer I0, infer T0>> ?
+        M1 extends MixinInterface<Newable<infer I1, infer T1>> ?
+            M2 extends MixinInterface<Newable<infer I2, infer T2>> ?
+                M3 extends MixinInterface<Newable<infer I3, infer T3>> ?
+                    M4 extends MixinInterface<Newable<infer I4, infer T4>> ?
+                        M5 extends MixinInterface<Newable<infer I5, infer T5>> ?
+                            M6 extends MixinInterface<Newable<infer I6, infer T6>> ?
+                                Newable<I0 & I1 & I2 & I3 & I4 & I5 & I6,
+                                    Omit2<T0, keyof __jymfony.JObject> &
+                                    Omit2<T1, keyof __jymfony.JObject> &
+                                    Omit2<T2, keyof __jymfony.JObject> &
+                                    Omit2<T3, keyof __jymfony.JObject> &
+                                    Omit2<T4, keyof __jymfony.JObject> &
+                                    Omit2<T5, keyof __jymfony.JObject> &
+                                    Omit2<T6, keyof __jymfony.JObject> &
+                                    __jymfony.JObject
+                                    >
+                                : M0 & M1 & M2 & M3 & M4 & M5 & M6
+                            : M0 & M1 & M2 & M3 & M4 & M5 & M6
+                        : M0 & M1 & M2 & M3 & M4 & M5 & M6
+                    : M0 & M1 & M2 & M3 & M4 & M5 & M6
+                : M0 & M1 & M2 & M3 & M4 & M5 & M6
+            : M0 & M1 & M2 & M3 & M4 & M5 & M6
+        : M0 & M1 & M2 & M3 & M4 & M5 & M6;
+
+declare function implementationOf<TParams extends any[]>(...interfaces: TParams): Newable<any, any & __jymfony.JObject> & any;
 
 declare function isArguments(value: any): value is IArguments;
 declare function isBoolean(value: any): value is boolean;

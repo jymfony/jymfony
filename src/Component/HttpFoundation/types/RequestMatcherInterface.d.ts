@@ -2,7 +2,7 @@ declare namespace Jymfony.Component.HttpFoundation {
     /**
      * RequestMatcherInterface is an interface for strategies to match a Request.
      */
-    export class RequestMatcherInterface implements MixinInterface {
+    export class RequestMatcherInterface {
         public static readonly definition: Newable<RequestMatcherInterface>;
 
         /**

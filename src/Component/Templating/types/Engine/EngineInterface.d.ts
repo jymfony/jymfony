@@ -14,7 +14,7 @@ declare namespace Jymfony.Component.Templating.Engine {
      * Each template loader uses the logical template name to look for
      * the template.
      */
-    export class EngineInterface implements MixinInterface {
+    export class EngineInterface {
         public static readonly definition: Newable<EngineInterface>;
 
         /**

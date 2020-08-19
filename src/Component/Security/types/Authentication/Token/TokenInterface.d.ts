@@ -5,7 +5,7 @@ declare namespace Jymfony.Component.Security.Authentication.Token {
     /**
      * TokenInterface is the interface for the user authentication information.
      */
-    export class TokenInterface implements MixinInterface {
+    export class TokenInterface {
         public static readonly definition: Newable<TokenInterface>;
 
         /**

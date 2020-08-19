@@ -1,7 +1,7 @@
 declare namespace Jymfony.Component.DependencyInjection.Extension {
     import ContainerBuilder = Jymfony.Component.DependencyInjection.ContainerBuilder;
 
-    export class ExtensionInterface implements MixinInterface {
+    export class ExtensionInterface {
         public static readonly definition: Newable<ExtensionInterface>;
 
         /**

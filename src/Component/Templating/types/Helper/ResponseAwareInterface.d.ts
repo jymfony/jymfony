@@ -4,7 +4,7 @@ declare namespace Jymfony.Component.Templating.Helper {
     /**
      * Represents an helper accepting a request context.
      */
-    export class ResponseAwareInterface implements MixinInterface {
+    export class ResponseAwareInterface {
         public static readonly definition: Newable<ResponseAwareInterface>;
 
         /**

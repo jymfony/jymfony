@@ -1,5 +1,5 @@
 declare namespace Jymfony.Component.Logger.Handler {
-    export class ProcessableHandlerInterface implements MixinInterface {
+    export class ProcessableHandlerInterface {
         public static readonly definition: Newable<ProcessableHandlerInterface>;
 
         /**

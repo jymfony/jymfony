@@ -5,7 +5,7 @@ declare namespace Jymfony.Component.HttpServer.Controller {
     /**
      * Responsible for resolving the value of an argument based on its metadata.
      */
-    export class ArgumentValueResolverInterface extends MixinInterface {
+    export class ArgumentValueResolverInterface {
         public static readonly definition: Newable<ArgumentValueResolverInterface>;
 
         /**

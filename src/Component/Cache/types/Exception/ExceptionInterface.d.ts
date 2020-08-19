@@ -1,5 +1,5 @@
 declare namespace Jymfony.Component.Cache.Exception {
-    export class ExceptionInterface implements MixinInterface {
+    export class ExceptionInterface {
         public static readonly definition: Newable<ExceptionInterface>;
     }
 }

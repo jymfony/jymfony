@@ -5,7 +5,7 @@ declare namespace Jymfony.Contracts.Stopwatch {
     /**
      * Stopwatch provides a way to profile code.
      */
-    export class StopwatchInterface extends MixinInterface {
+    export class StopwatchInterface {
         public static readonly definition: Newable<StopwatchInterface>;
 
         /**

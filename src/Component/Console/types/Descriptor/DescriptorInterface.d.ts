@@ -1,7 +1,7 @@
 declare namespace Jymfony.Component.Console.Descriptor {
     import OutputInterface = Jymfony.Component.Console.Output.OutputInterface;
 
-    export class DescriptorInterface implements MixinInterface {
+    export class DescriptorInterface {
         public static readonly definition: Newable<DescriptorInterface>;
 
         /**

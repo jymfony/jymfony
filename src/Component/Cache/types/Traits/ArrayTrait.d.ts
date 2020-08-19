@@ -4,7 +4,7 @@ declare namespace Jymfony.Component.Cache.Traits {
     /**
      * @memberOf Jymfony.Component.Cache.Traits
      */
-    export class ArrayTrait extends LoggerAwareTrait implements MixinInterface {
+    export class ArrayTrait extends LoggerAwareTrait {
         public static readonly definition: Newable<ArrayTrait>;
 
         /**

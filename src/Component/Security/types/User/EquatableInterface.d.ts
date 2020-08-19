@@ -3,7 +3,7 @@ declare namespace Jymfony.Component.Security.User {
      * EquatableInterface used to test if two objects are equal in security
      * and re-authentication context.
      */
-    export class EquatableInterface implements MixinInterface {
+    export class EquatableInterface {
         public static readonly definition: Newable<EquatableInterface>;
 
         /**

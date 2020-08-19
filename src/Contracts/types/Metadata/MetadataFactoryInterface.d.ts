@@ -3,7 +3,7 @@ declare namespace Jymfony.Contracts.Metadata {
      * Represents a Metadata factory.
      * Returns instances of {@see Jymfony.Contracts.Metadata.MetadataInterface}.
      */
-    export class MetadataFactoryInterface<T extends MetadataInterface = MetadataInterface> extends MixinInterface {
+    export class MetadataFactoryInterface<T extends MetadataInterface = MetadataInterface> {
         public static readonly definition: Newable<MetadataFactoryInterface>;
 
         /**

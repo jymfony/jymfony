@@ -1,5 +1,5 @@
 declare namespace Jymfony.Component.HttpServer.RequestParser {
-    export class ParserInterface implements MixinInterface {
+    export class ParserInterface {
         public static readonly definition: Newable<ParserInterface>;
 
         /**

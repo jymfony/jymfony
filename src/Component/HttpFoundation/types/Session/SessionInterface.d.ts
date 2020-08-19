@@ -4,7 +4,7 @@ declare namespace Jymfony.Component.HttpFoundation.Session {
     /**
      * Interface for the session.
      */
-    export class SessionInterface implements MixinInterface {
+    export class SessionInterface {
         public static readonly definition: Newable<SessionInterface>;
 
         /**

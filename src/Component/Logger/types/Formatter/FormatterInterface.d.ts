@@ -1,5 +1,5 @@
 declare namespace Jymfony.Component.Logger.Formatter {
-    export class FormatterInterface implements MixinInterface {
+    export class FormatterInterface {
         /**
          * Formats a log record.
          */

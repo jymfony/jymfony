@@ -1,7 +1,7 @@
 declare namespace Jymfony.Component.Config {
     import ResourceInterface = Jymfony.Component.Config.Resource.ResourceInterface;
 
-    export class ResourceCheckerInterface implements MixinInterface {
+    export class ResourceCheckerInterface {
         public static readonly definition: Newable<ResourceCheckerInterface>;
 
         /**

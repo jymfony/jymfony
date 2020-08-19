@@ -6,7 +6,7 @@ declare namespace Jymfony.Component.Security.Authentication.Token.Storage {
      * TokenStorage contains TokenInterfaces.
      * It gives access to the token representing the user authentications.
      */
-    export class TokenStorageInterface implements MixinInterface {
+    export class TokenStorageInterface {
         public static readonly definition: Newable<TokenStorageInterface>;
 
         /**

@@ -1,5 +1,5 @@
 declare namespace Jymfony.Contracts.PropertyAccess {
-    export class PropertyPathIteratorInterface implements MixinInterface, Iterator<string> {
+    export class PropertyPathIteratorInterface implements Iterator<string> {
         public static readonly definition: Newable<PropertyPathIteratorInterface>;
 
         /**

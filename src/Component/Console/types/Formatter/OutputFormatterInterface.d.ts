@@ -1,5 +1,5 @@
 declare namespace Jymfony.Component.Console.Formatter {
-    export class OutputFormatterInterface implements MixinInterface {
+    export class OutputFormatterInterface {
         public static readonly definition: Newable<OutputFormatterInterface>;
 
         /**

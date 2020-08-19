@@ -1,5 +1,5 @@
 declare namespace Jymfony.Component.Testing.Argument.Token {
-    export class TokenInterface implements MixinInterface {
+    export class TokenInterface {
         public static readonly definition: Newable<TokenInterface>;
 
         /**

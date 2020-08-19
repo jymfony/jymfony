@@ -1,7 +1,7 @@
 declare namespace Jymfony.Component.Cache.Traits {
     import LoggerAwareTrait = Jymfony.Component.Logger.LoggerAwareTrait;
 
-    export abstract class AbstractTrait extends LoggerAwareTrait implements MixinInterface {
+    export abstract class AbstractTrait extends LoggerAwareTrait {
         public static readonly definition: Newable<AbstractTrait>;
 
         public readonly MAX_ID_LENGTH;

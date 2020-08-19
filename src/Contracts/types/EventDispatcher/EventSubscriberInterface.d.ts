@@ -1,7 +1,7 @@
 declare namespace Jymfony.Contracts.EventDispatcher {
     export type EventSubscriptions = Record<string, string|[string, number]|[string, number][]>;
 
-    export class EventSubscriberInterface implements MixinInterface {
+    export class EventSubscriberInterface {
         public static readonly definition: Newable<EventSubscriberInterface>;
 
         /**

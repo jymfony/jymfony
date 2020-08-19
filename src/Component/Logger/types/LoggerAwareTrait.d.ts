@@ -2,7 +2,7 @@ declare namespace Jymfony.Component.Logger {
     /**
      * Basic Implementation of LoggerAwareInterface.
      */
-    export class LoggerAwareTrait implements MixinInterface {
+    export class LoggerAwareTrait {
         public static readonly definition: Newable<LoggerAwareTrait>;
 
         /**

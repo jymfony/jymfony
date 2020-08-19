@@ -2,7 +2,7 @@ declare namespace Jymfony.Component.Security.Logout {
     import Request = Jymfony.Component.HttpFoundation.Request;
     import Response = Jymfony.Component.HttpFoundation.Response;
 
-    export class LogoutHandlerInterface implements MixinInterface {
+    export class LogoutHandlerInterface {
         public static readonly definition: Newable<LogoutHandlerInterface>;
 
         /**

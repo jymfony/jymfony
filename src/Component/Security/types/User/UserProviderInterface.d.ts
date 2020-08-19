@@ -14,7 +14,7 @@ declare namespace Jymfony.Component.Security.User {
      *
      * @see {Jymfony.Component.Security.User.UserInterface}
      */
-    export class UserProviderInterface implements MixinInterface {
+    export class UserProviderInterface {
         public static readonly definition: Newable<UserProviderInterface>;
 
         /**

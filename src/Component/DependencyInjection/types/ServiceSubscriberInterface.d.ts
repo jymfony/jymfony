@@ -12,7 +12,7 @@ declare namespace Jymfony.Component.DependencyInjection {
      * This interface does not dictate any injection method for these service locators, although constructor
      * injection is recommended.
      */
-    export class ServiceSubscriberInterface implements MixinInterface {
+    export class ServiceSubscriberInterface {
         public static readonly definition: Newable<ServiceSubscriberInterface>;
 
         /**

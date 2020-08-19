@@ -4,7 +4,7 @@ declare namespace Jymfony.Component.Routing.Matcher {
     /**
      * Matcher for request objects.
      */
-    export class MatcherInterface implements MixinInterface {
+    export class MatcherInterface {
         public static readonly definition: Newable<MatcherInterface>;
 
         /**

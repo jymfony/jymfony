@@ -1,5 +1,5 @@
 declare namespace Jymfony.Component.Security.Encoder {
-    export class EncoderAwareInterface implements MixinInterface {
+    export class EncoderAwareInterface {
         /**
          * Gets the name of the encoder used to encode the password.
          *

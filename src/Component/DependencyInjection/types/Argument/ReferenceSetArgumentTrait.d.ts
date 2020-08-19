@@ -1,7 +1,7 @@
 declare namespace Jymfony.Component.DependencyInjection.Argument {
     import Reference = Jymfony.Component.DependencyInjection.Reference;
 
-    export class ReferenceSetArgumentTrait implements MixinInterface {
+    export class ReferenceSetArgumentTrait {
         public static readonly definition: Newable<ReferenceSetArgumentTrait>;
 
         /**

@@ -1,5 +1,5 @@
 declare namespace Jymfony.Component.Logger {
-    export class LoggerAwareInterface implements MixinInterface {
+    export class LoggerAwareInterface {
         public static readonly definition: Newable<LoggerAwareInterface>;
 
         /**

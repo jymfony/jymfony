@@ -4,7 +4,7 @@ declare namespace Jymfony.Component.Security.Authorization {
     /**
      * AccessDecisionManagerInterface makes authorization decisions.
      */
-    export class AccessDecisionManagerInterface implements MixinInterface {
+    export class AccessDecisionManagerInterface {
         public static readonly definition: Newable<AccessDecisionManagerInterface>;
 
         /**

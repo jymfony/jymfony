@@ -1,5 +1,5 @@
 declare namespace Jymfony.Contracts.HttpFoundation {
-    export class HeaderBagInterface implements MixinInterface, Iterable<[string, string[]]> {
+    export class HeaderBagInterface implements Iterable<[string, string[]]> {
         public static readonly definition: Newable<HeaderBagInterface>;
 
         /**

@@ -1,7 +1,7 @@
 declare namespace Jymfony.Component.Config.Definition {
     import TreeBuilder = Jymfony.Component.Config.Definition.Builder.TreeBuilder;
 
-    export class ConfigurationInterface implements MixinInterface {
+    export class ConfigurationInterface {
         public static readonly definition: Newable<ConfigurationInterface>;
 
         /**

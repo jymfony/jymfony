@@ -4,7 +4,7 @@ declare namespace Jymfony.Component.Security.Authentication {
     /**
      * Resolves the authentication status of a given token.
      */
-    export class AuthenticationTrustResolverInterface implements MixinInterface {
+    export class AuthenticationTrustResolverInterface {
         public static readonly definition: Newable<AuthenticationTrustResolverInterface>;
 
         /**

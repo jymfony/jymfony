@@ -1,7 +1,7 @@
 declare namespace Jymfony.Component.Logger.Handler {
     import FormatterInterface = Jymfony.Component.Logger.Formatter.FormatterInterface;
 
-    export class FormattableHandlerInterface implements MixinInterface {
+    export class FormattableHandlerInterface {
         public static readonly definition: Newable<FormattableHandlerInterface>;
 
         /**

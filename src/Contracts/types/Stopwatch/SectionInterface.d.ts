@@ -2,7 +2,7 @@ declare namespace Jymfony.Contracts.Stopwatch {
     /**
      * Stopwatch section.
      */
-    export class SectionInterface extends MixinInterface {
+    export class SectionInterface {
         public static readonly definition: Newable<SectionInterface>;
 
         /**

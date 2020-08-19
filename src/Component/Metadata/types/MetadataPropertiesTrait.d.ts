@@ -1,5 +1,5 @@
 declare namespace Jymfony.Component.Metadata {
-    export class MetadataPropertiesTrait extends MixinInterface {
+    export class MetadataPropertiesTrait {
         public static readonly definition: Newable<MetadataPropertiesTrait>;
 
         /**

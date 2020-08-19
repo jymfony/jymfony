@@ -2,7 +2,7 @@ declare namespace Jymfony.Contracts.Console {
     import OutputInterface = Jymfony.Contracts.Console.OutputInterface;
     import InputInterface = Jymfony.Contracts.Console.InputInterface;
 
-    export class CommandInterface implements MixinInterface {
+    export class CommandInterface {
         public static readonly definition: Newable<CommandInterface>;
 
         /**

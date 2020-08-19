@@ -5,7 +5,7 @@ declare namespace Jymfony.Bundle.SecurityBundle.DependencyInjection.UserProvider
     /**
      * UserProviderFactoryInterface is the interface for all user provider factories.
      */
-    export class UserProviderFactoryInterface implements MixinInterface {
+    export class UserProviderFactoryInterface {
         public static readonly definition: Newable<UserProviderFactoryInterface>;
 
         /**

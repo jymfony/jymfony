@@ -5,7 +5,7 @@ declare namespace Jymfony.Bundle.SecurityBundle.DependencyInjection.Security.Fac
     /**
      * SecurityFactoryInterface is the interface for all security authentication listener.
      */
-    export class SecurityFactoryInterface implements MixinInterface {
+    export class SecurityFactoryInterface {
         public static readonly definition: Newable<SecurityFactoryInterface>;
 
         /**

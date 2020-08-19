@@ -5,7 +5,7 @@ declare namespace Jymfony.Component.Security.Authorization {
      * AccessMap allows configuration of different access control rules for
      * specific parts of the website.
      */
-    export class AccessMapInterface implements MixinInterface {
+    export class AccessMapInterface {
         public static readonly definition: Newable<AccessMapInterface>;
 
         /**

@@ -1,5 +1,5 @@
 declare namespace Jymfony.Contracts.Console {
-    export class InputInterface implements MixinInterface {
+    export class InputInterface {
         public static readonly definition: Newable<InputInterface>;
 
         /**

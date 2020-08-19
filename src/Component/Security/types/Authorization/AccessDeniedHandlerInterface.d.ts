@@ -6,7 +6,7 @@ declare namespace Jymfony.Component.Security.Authorization {
     /**
      * Handles an access denied exception and return a response.
      */
-    export class AccessDeniedHandlerInterface implements MixinInterface {
+    export class AccessDeniedHandlerInterface {
         public static readonly definition: Newable<AccessDeniedHandlerInterface>;
 
         /**

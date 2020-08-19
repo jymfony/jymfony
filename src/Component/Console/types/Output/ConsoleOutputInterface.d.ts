@@ -1,5 +1,5 @@
 declare namespace Jymfony.Component.Console.Output {
-    export class ConsoleOutputInterface extends OutputInterface.definition implements MixinInterface {
+    export class ConsoleOutputInterface extends OutputInterface.definition {
         public static readonly definition: Newable<ConsoleOutputInterface>;
 
         /**

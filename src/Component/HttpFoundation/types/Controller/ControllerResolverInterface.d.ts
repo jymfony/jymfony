@@ -1,5 +1,5 @@
 declare namespace Jymfony.Component.HttpFoundation.Controller {
-    export class ControllerResolverInterface implements MixinInterface {
+    export class ControllerResolverInterface {
         public static readonly definition: Newable<ControllerResolverInterface>;
 
         /**

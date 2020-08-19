@@ -2,7 +2,7 @@ declare namespace Jymfony.Contracts.Stopwatch {
     /**
      * Represents an Period for an Event.
      */
-    export class StopwatchPeriodInterface extends MixinInterface {
+    export class StopwatchPeriodInterface {
         public static readonly definition: Newable<StopwatchPeriodInterface>;
 
         /**

@@ -1,7 +1,7 @@
 declare namespace Jymfony.Component.DependencyInjection.Compiler {
     import ContainerBuilder = Jymfony.Component.DependencyInjection.ContainerBuilder;
 
-    export class CompilerPassInterface implements MixinInterface {
+    export class CompilerPassInterface {
         public static readonly definition: Newable<CompilerPassInterface>;
 
         /**

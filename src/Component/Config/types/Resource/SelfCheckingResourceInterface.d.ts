@@ -1,5 +1,5 @@
 declare namespace Jymfony.Component.Config.Resource {
-    export class SelfCheckingResourceInterface extends ResourceInterface implements MixinInterface {
+    export class SelfCheckingResourceInterface extends ResourceInterface {
         public static readonly definition: Newable<SelfCheckingResourceInterface>;
 
         /**

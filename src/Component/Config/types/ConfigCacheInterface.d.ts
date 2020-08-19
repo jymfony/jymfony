@@ -1,7 +1,7 @@
 declare namespace Jymfony.Component.Config {
     import ResourceInterface = Jymfony.Component.Config.Resource.ResourceInterface;
 
-    export class ConfigCacheInterface implements MixinInterface {
+    export class ConfigCacheInterface {
         public static readonly definition: Newable<ConfigCacheInterface>;
 
         /**
