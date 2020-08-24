@@ -3,7 +3,7 @@ const Lexer = Jymfony.Component.DateTime.Parser.Lexer;
 const TimeDescriptor = Jymfony.Component.DateTime.Struct.TimeDescriptor;
 
 const DATE_REGEX = /^[-+](\d{4,})-(\d{2})-(\d{2})/;
-const TIME_REGEX = /^(\d{2}):(\d{2}):(\d{2})(?:.(\d+))?([+-]\d{2}:?\d{2})?/;
+const TIME_REGEX = /^(\d{2}):(\d{2}):(\d{2})(?:\.(\d+))?([+-]\d{2}:?\d{2})?/;
 
 /**
  * DateTime parser.
@@ -177,6 +177,11 @@ export default class Parser {
         this._tm.minutes = ~~matches[2];
         this._tm.seconds = ~~matches[3];
         this._tm.milliseconds = ~~ String(matches[4] || 0).substr(0, 3);
+
+        if (matches[5]) {
+            this._tm.timeZone = Jymfony.Component.DateTime.DateTimeZone.get(matches[5]);
+            return;
+        }
 
         if (! this._lexer.lookahead) {
             return;

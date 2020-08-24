@@ -299,6 +299,7 @@ export default class DateTime {
 
         const val = this.copy();
         val._tm.timeZone = timezone;
+        this._tm._updateTime();
 
         return val;
     }

@@ -114,7 +114,9 @@ export default class TimeDescriptor {
             this._year = 1900 + year;
         }
 
-        this._makeTime();
+        if (this._complete) {
+            this._makeTime();
+        }
     }
 
     /**
@@ -141,7 +143,9 @@ export default class TimeDescriptor {
         }
 
         this._day = day;
-        this._makeTime();
+        if (this._complete) {
+            this._makeTime();
+        }
     }
 
     /**
@@ -168,7 +172,9 @@ export default class TimeDescriptor {
         }
 
         this._month = month;
-        this._makeTime();
+        if (this._complete) {
+            this._makeTime();
+        }
     }
 
     /**
@@ -195,7 +201,9 @@ export default class TimeDescriptor {
         }
 
         this._seconds = sec;
-        this._makeTime();
+        if (this._complete) {
+            this._makeTime();
+        }
     }
 
     /**
@@ -239,7 +247,9 @@ export default class TimeDescriptor {
         }
 
         this._minutes = min;
-        this._makeTime();
+        if (this._complete) {
+            this._makeTime();
+        }
     }
 
     /**
@@ -266,7 +276,9 @@ export default class TimeDescriptor {
         }
 
         this._hour = hour;
-        this._makeTime();
+        if (this._complete) {
+            this._makeTime();
+        }
     }
 
     /**
