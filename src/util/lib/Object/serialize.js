@@ -258,7 +258,7 @@ const unserialize = (serialized) => {
                 const class_ = readUntil(']');
 
                 const reflClass = new ReflectionClass(class_);
-                const obj = reflClass.newInstanceWithoutConstructor();
+                let obj = reflClass.newInstanceWithoutConstructor();
 
                 expect(':');
                 expect('{');
@@ -274,7 +274,10 @@ const unserialize = (serialized) => {
                 readData();
 
                 if (obj.__wakeup instanceof Function) {
-                    obj.__wakeup();
+                    const retVal = obj.__wakeup();
+                    if (undefined !== retVal) {
+                        obj = retVal;
+                    }
                 }
 
                 if (__jymfony.autoload.debug) {
