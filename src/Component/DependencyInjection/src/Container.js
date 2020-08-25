@@ -132,6 +132,8 @@ export default class Container extends implementationOf(ContainerInterface) {
      * @param {*} service
      */
     set(id, service) {
+        id = __self.normalizeId(id);
+
         if ('service_container' === id) {
             throw new InvalidArgumentException('A service with name "service_container" cannot be set');
         }
