@@ -122,7 +122,13 @@ export default class Doubler {
             const reflMethod = reflection.getMethod(methodName);
             let method;
 
-            if (reflMethod.isGenerator) {
+            if (reflMethod.isAsync && reflMethod.isGenerator) {
+                method = __jymfony.Platform.hasAsyncGeneratorFunctionSupport() ?
+                    eval('async function * () { return yield * self._prophecy.makeProphecyMethodCall(methodName, $args); }') :
+                    function () {
+                        throw new Error('Async generators are not supported by the current version of node');
+                    };
+            } else if (reflMethod.isGenerator) {
                 method = function * (...$args) {
                     return yield * self._prophecy.makeProphecyMethodCall(methodName, $args);
                 };
