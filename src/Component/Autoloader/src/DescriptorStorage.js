@@ -92,7 +92,12 @@ class DescriptorStorage {
         source = require.resolve(source, { paths: [ dirname(this._filename) ] });
         this._classLoader.getCode(source);
 
-        return this._storage[source + descriptorName];
+        const key = source + descriptorName;
+        if (undefined === this._storage[key]) {
+            throw new Error(__jymfony.sprintf('Cannot find decorator %s in "%s"', descriptorName, source));
+        }
+
+        return this._storage[key];
     }
 }
 
