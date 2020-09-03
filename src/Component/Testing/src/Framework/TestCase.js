@@ -1,3 +1,4 @@
+import { DataProvider } from '@jymfony/decorators';
 import Suite from 'mocha/lib/suite';
 import Test from 'mocha/lib/test';
 
@@ -75,7 +76,8 @@ export default class TestCase {
 
                 const reflectionMethod = reflectionClass.getMethod(method);
                 const testName = method.replace(/[A-Z]/g, letter => ` ${letter.toLowerCase()}`);
-                const data = self.dataProviders[method];
+                const providers = reflectionMethod.metadata.filter(([ klass ]) => klass === DataProvider).map(a => a[1]);
+                const data = providers.length ? providers.map(provider => [ ...reflectionClass.getMethod(provider.provider).invoke(self) ]).flat() : undefined;
 
                 const runTest = args => {
                     const exec = execution(reflectionMethod, args);
@@ -108,10 +110,6 @@ export default class TestCase {
         const prophet = getProphet(this);
 
         return prophet.prophesize(classOrInterface);
-    }
-
-    get dataProviders() {
-        return { };
     }
 
     /**

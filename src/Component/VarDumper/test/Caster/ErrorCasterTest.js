@@ -1,7 +1,5 @@
 const VarCloner = Jymfony.Component.VarDumper.Cloner.VarCloner;
 const CliDumper = Jymfony.Component.VarDumper.Dumper.CliDumper;
-
-require('../../fixtures/namespace');
 const Fixtures = Jymfony.Component.VarDumper.Fixtures;
 
 const { expect } = require('chai');
@@ -18,14 +16,14 @@ Error {
   message: ""
   code: undefined
   trace: {
-    %aErrorCasterTest.js:12 {
+    %aErrorCasterTest.js:10 {
       › 
       › const getTestError = () => {
       ›     return new Error();
       › };
       › 
     }
-    %aErrorCasterTest.js:31 {…}
+    %aErrorCasterTest.js:29 {…}
 %A`;
 
         expect(getTestError()).to.dump.as.format(dump);
@@ -59,7 +57,7 @@ Error@anonymous {
       › }
       › 
     }
-    %aErrorCasterTest.js:65 {…}
+    %aErrorCasterTest.js:63 {…}
 %A`;
 
         expect(Fixtures.ErrorCasterFixtures.getAnonymousError()).to.dump.as.format(dump);

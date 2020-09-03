@@ -36,6 +36,7 @@
     },
     "jymfony-autoload-dev": {
       "namespaces": {
+        "Jymfony.Component.PropertyAccess.Fixtures": "fixtures/",
         "Jymfony.Component.PropertyAccess.Tests": "test/"
       }
     }

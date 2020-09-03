@@ -1,4 +1,3 @@
-require('../fixtures/namespace');
 const { expect } = require('chai');
 const NoSuchPropertyException = Jymfony.Component.PropertyAccess.Exception.NoSuchPropertyException;
 const UnexpectedTypeException = Jymfony.Component.PropertyAccess.Exception.UnexpectedTypeException;

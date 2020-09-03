@@ -1,9 +1,7 @@
+const Fixtures = Jymfony.Component.VarExporter.Fixtures;
 const VarExporter = Jymfony.Component.VarExporter.VarExporter;
 const { expect } = require('chai');
 const fs = require('fs');
-
-require('../fixtures/namespace');
-const Fixtures = Jymfony.Component.VarExporter.Fixtures;
 
 describe('[VarExporter] VarExporter', function () {
     const exporterTests = function * () {

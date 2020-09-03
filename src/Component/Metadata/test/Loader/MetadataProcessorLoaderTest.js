@@ -1,5 +1,3 @@
-require('../../fixtures/namespace');
-
 const ClassMetadata = Jymfony.Component.Metadata.ClassMetadata;
 const MetadataProcessorLoader = Jymfony.Component.Metadata.Loader.MetadataProcessorLoader;
 const ProcessorFactoryInterface = Jymfony.Component.Metadata.Loader.Processor.ProcessorFactoryInterface;

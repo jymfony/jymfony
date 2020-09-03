@@ -90,10 +90,10 @@ export default class Runner {
             this._mocha.addFile(f.replace(/\//g, sep));
         });
 
-        [ ...targetClasses ].forEach(class_ => {
+        for (const class_ of targetClasses) {
             const reflection = new ReflectionClass(class_);
             reflection.newInstance().runTestCase(this._mocha);
-        });
+        }
 
         if (0 === this._mocha.suite.suites.length && 0 === this._mocha.files.length) {
             console.error('No tests found');

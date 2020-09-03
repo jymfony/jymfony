@@ -53,7 +53,8 @@
     },
     "jymfony-autoload-dev": {
       "namespaces": {
-        "Jymfony.Bundle.FrameworkBundle.Tests": "test/"
+        "Jymfony.Bundle.FrameworkBundle.Tests": "test/",
+        "Jymfony.Bundle.FrameworkBundle.Tests.Fixtures": "fixtures/"
       }
     }
   }

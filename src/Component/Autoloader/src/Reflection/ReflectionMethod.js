@@ -18,13 +18,6 @@ class ReflectionMethod {
      */
     constructor(reflectionClass, methodName) {
         /**
-         * @type {ReflectionClass}
-         *
-         * @private
-         */
-        this._class = reflectionClass;
-
-        /**
          * @type {string}
          *
          * @private
@@ -51,6 +44,13 @@ class ReflectionMethod {
         }
 
         this._method = method.value;
+
+        /**
+         * @type {ReflectionClass}
+         *
+         * @private
+         */
+        this._class = new ReflectionClass(method.ownClass);
 
         /**
          * @type {string}

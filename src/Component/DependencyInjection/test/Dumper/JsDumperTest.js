@@ -1,16 +1,15 @@
 const fs = require('fs');
 const path = require('path');
 const { expect } = require('chai');
-require('../../fixtures/namespace');
 
 const ContainerBuilder = Jymfony.Component.DependencyInjection.ContainerBuilder;
 const ContainerInterface = Jymfony.Component.DependencyInjection.ContainerInterface;
-const ServiceClosureArgument = Jymfony.Component.DependencyInjection.Argument.ServiceClosureArgument;
 const Definition = Jymfony.Component.DependencyInjection.Definition;
 const JsDumper = Jymfony.Component.DependencyInjection.Dumper.JsDumper;
 const Fixtures = Jymfony.Component.DependencyInjection.Fixtures;
 const ParameterBag = Jymfony.Component.DependencyInjection.ParameterBag.ParameterBag;
 const Reference = Jymfony.Component.DependencyInjection.Reference;
+const ServiceClosureArgument = Jymfony.Component.DependencyInjection.Argument.ServiceClosureArgument;
 const ServiceLocator = Jymfony.Component.DependencyInjection.ServiceLocator;
 const Variable = Jymfony.Component.DependencyInjection.Variable;
 const fixturesPath = path.join(__dirname, '..', '..', 'fixtures');

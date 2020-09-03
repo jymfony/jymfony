@@ -36,6 +36,7 @@
     },
     "jymfony-autoload-dev": {
       "namespaces": {
+        "Jymfony.Component.Metadata.Fixtures": "fixtures/",
         "Jymfony.Component.Metadata.Tests": "test/"
       }
     }

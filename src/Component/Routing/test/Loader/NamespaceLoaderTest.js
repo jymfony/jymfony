@@ -1,5 +1,3 @@
-require('../../fixtures/namespace');
-
 const AnnotationClassLoader = Jymfony.Component.Routing.Loader.AnnotationClassLoader;
 const NamespaceLoader = Jymfony.Component.Routing.Loader.NamespaceLoader;
 const { expect } = require('chai');

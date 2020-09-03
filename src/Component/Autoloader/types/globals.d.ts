@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-declare class ReflectionClass<T = any> {
+declare class ReflectionClass<T extends object = any> {
     private _isInterface: boolean;
     private _methods: any;
     private _staticMethods: any;
@@ -16,7 +16,7 @@ declare class ReflectionClass<T = any> {
     /**
      * Constructor.
      */
-    constructor(value: string|Object|Newable<T>);
+    constructor(value: string | T | Newable<T>);
 
     /**
      * Checks if a class exists.
@@ -27,12 +27,13 @@ declare class ReflectionClass<T = any> {
      * Gets a class constructor given an object or a string
      * containing a FQCN.
      */
-    static getClass<T = any>(className: string|Object): Newable<T>;
+    static getClass<T extends object = any, S extends object = object>(className: string): Newable<T, S>;
+    static getClass<T extends object = any, S extends object = object>(className: T | Newable<T, S>): Newable<T, S>;
 
     /**
      * Gets a FQCN from an object, constructor or a string.
      */
-    static getClassName(className: string|Object): string;
+    static getClassName(className: string | object): string;
 
     /**
      * Construct a new object.
@@ -47,37 +48,37 @@ declare class ReflectionClass<T = any> {
     /**
      * Checks if this class contains a method.
      */
-    hasMethod(name: string|symbol): boolean;
+    hasMethod(name: string | symbol): boolean;
 
     /**
      * Gets the reflection method instance for a given method name.
      */
-    getMethod(name: string|symbol): ReflectionMethod;
+    getMethod(name: string | symbol): ReflectionMethod<T>;
 
     /**
      * Checks if class has defined property (getter/setter).
      */
-    hasProperty(name: string|symbol): boolean;
+    hasProperty(name: string | symbol): boolean;
 
     /**
      * Checks if class has readable property (getter).
      */
-    hasReadableProperty(name: string|symbol): boolean;
+    hasReadableProperty(name: string | symbol): boolean;
 
     /**
      * Gets the readable property (getter) reflection object.
      */
-    getReadableProperty(name: string|symbol): ReflectionProperty;
+    getReadableProperty(name: string | symbol): ReflectionProperty<T>;
 
     /**
      * Checks if class has writable property (setter).
      */
-    hasWritableProperty(name: string|symbol): boolean;
+    hasWritableProperty(name: string | symbol): boolean;
 
     /**
      * Gets the writable property (setter) reflection object.
      */
-    getWritableProperty(name: string|symbol): ReflectionProperty;
+    getWritableProperty(name: string | symbol): ReflectionProperty<T>;
 
     /**
      * Checks if class has defined the given class field.
@@ -87,17 +88,17 @@ declare class ReflectionClass<T = any> {
     /**
      * Gets the reflection field instance for a given field name.
      */
-    getField(name: string): ReflectionField;
+    getField(name: string): ReflectionField<T>;
 
     /**
      * Gets the property descriptor.
      */
-    getPropertyDescriptor(name: string|symbol): PropertyDescriptor;
+    getPropertyDescriptor(name: string | symbol): PropertyDescriptor;
 
     /**
      * Returns the ReflectionClass object for the parent class.
      */
-    getParentClass(): ReflectionClass|undefined;
+    getParentClass(): ReflectionClass | undefined;
 
     /**
      * Gets the class constructor.
@@ -107,12 +108,12 @@ declare class ReflectionClass<T = any> {
     /**
      * Checks whether this class is a subclass of a given subclass.
      */
-    isSubclassOf(superClass: string|Newable<any>): boolean;
+    isSubclassOf(superClass: string | Newable): boolean;
 
     /**
      * Checks whether this class is an instance of the given class.
      */
-    isInstanceOf(superClass: string|Newable<any>): boolean;
+    isInstanceOf(superClass: string | Newable): boolean;
 
     /**
      * Is this class an interface?
@@ -132,12 +133,12 @@ declare class ReflectionClass<T = any> {
     /**
      * Get the Namespace object containing this class.
      */
-    readonly namespace: null|Jymfony.Component.Autoloader.Namespace;
+    readonly namespace: null | Jymfony.Component.Autoloader.Namespace;
 
     /**
      * Get the namespace name.
      */
-    readonly namespaceName: null|string;
+    readonly namespaceName: null | string;
 
     /**
      * Filename declaring this class.
@@ -152,7 +153,7 @@ declare class ReflectionClass<T = any> {
     /**
      * Get all methods names.
      */
-    readonly methods: (string|symbol)[];
+    readonly methods: (string | symbol)[];
 
     /**
      * Gets the docblock for this class.
@@ -169,7 +170,7 @@ declare class ReflectionClass<T = any> {
      * Other properties are added dynamically and are not
      * enumerable in the prototype.
      */
-    readonly properties: (string|symbol)[];
+    readonly properties: (string | symbol)[];
 
     /**
      * Get constants.
@@ -189,13 +190,13 @@ declare class ReflectionClass<T = any> {
     /**
      * Gets the class metadata.
      */
-    readonly metadata: [Newable<any>, any];
+    readonly metadata: [Newable, any][];
 }
 
 /**
  * Reflection utility for class method.
  */
-declare class ReflectionMethod {
+declare class ReflectionMethod<Class extends object = any> {
     static readonly FUNCTION = 'function';
     static readonly ASYNC_FUNCTION = 'async function';
     static readonly GENERATOR = 'generator';
@@ -203,7 +204,7 @@ declare class ReflectionMethod {
     /**
      * Constructor.
      */
-    constructor(reflectionClass: ReflectionClass, methodName: string);
+    constructor(reflectionClass: ReflectionClass<Class>, methodName: string);
 
     /**
      * Invokes the method.
@@ -213,7 +214,7 @@ declare class ReflectionMethod {
     /**
      * Gets the reflection class.
      */
-    readonly reflectionClass: ReflectionClass;
+    readonly reflectionClass: ReflectionClass<Class>;
 
     /**
      * Gets the method name.
@@ -243,12 +244,12 @@ declare class ReflectionMethod {
     /**
      * Gets the method metadata.
      */
-    readonly metadata: [Newable<any>, any];
+    readonly metadata: [Newable, any][];
 
     /**
      * Gets the parameters' reflection objects.
      */
-    readonly parameters: ReflectionParameter[];
+    readonly parameters: ReflectionParameter<Class>[];
 
     /**
      * Gets the reflected method.
@@ -256,7 +257,7 @@ declare class ReflectionMethod {
     readonly method: Invokable;
 }
 
-declare class ReflectionParameter {
+declare class ReflectionParameter<Class extends object = any> {
     private constructor(reflectionMethod: ReflectionMethod,
                         name: string,
                         index: number,
@@ -268,12 +269,12 @@ declare class ReflectionParameter {
     /**
      * Gets the reflection class.
      */
-    readonly reflectionClass: ReflectionClass;
+    readonly reflectionClass: ReflectionClass<Class>;
 
     /**
      * Gets the reflection method.
      */
-    readonly reflectionMethod: ReflectionMethod;
+    readonly reflectionMethod: ReflectionMethod<Class>;
 
     /**
      * Gets the parameter name.
@@ -303,22 +304,22 @@ declare class ReflectionParameter {
     /**
      * Gets the parameter metadata.
      */
-    readonly metadata: [Newable<any>, any];
+    readonly metadata: [Newable, any][];
 }
 
 /**
  * Reflection utility for class field.
  */
-declare class ReflectionField {
+declare class ReflectionField<Class extends object = any> {
     /**
      * Constructor.
      */
-    constructor(reflectionClass: ReflectionClass, methodName: string);
+    constructor(reflectionClass: ReflectionClass<Class>, methodName: string);
 
     /**
      * Gets the reflection class.
      */
-    readonly reflectionClass: ReflectionClass;
+    readonly reflectionClass: ReflectionClass<Class>;
 
     /**
      * Gets the field name.
@@ -349,7 +350,7 @@ declare class ReflectionField {
     /**
      * Gets the class metadata.
      */
-    readonly metadata: [Newable<any>, any];
+    readonly metadata: [Newable, any][];
 
     /**
      * Gets the field current value.
@@ -370,11 +371,11 @@ declare class ReflectionField {
 /**
  * Reflection utility for class method.
  */
-declare class ReflectionProperty {
+declare class ReflectionProperty<Class extends object = any> {
     public static readonly KIND_GET = 'get';
     public static readonly KIND_SET = 'set';
 
-    private _class: ReflectionClass;
+    private _class: ReflectionClass<Class>;
     private _name: string;
     private _method: Invokable;
     private _docblock: string;
@@ -386,7 +387,7 @@ declare class ReflectionProperty {
      * @param {string} kind
      * @param {string} propertyName
      */
-    constructor(reflectionClass: ReflectionClass, kind: 'get' | 'set', propertyName: string);
+    constructor(reflectionClass: ReflectionClass<Class>, kind: 'get' | 'set', propertyName: string);
 
     /**
      * Invokes the getter/setter method.
@@ -396,7 +397,7 @@ declare class ReflectionProperty {
     /**
      * Gets the reflection class.
      */
-    readonly reflectionClass: ReflectionClass;
+    readonly reflectionClass: ReflectionClass<Class>;
 
     /**
      * Gets the method name.
@@ -415,11 +416,10 @@ declare class ReflectionProperty {
     /**
      * Gets the class property metadata.
      */
-    readonly metadata: [Newable<any>, any];
+    readonly metadata: [Newable, any][];
 }
 
 declare class ReflectionException extends Error {}
-
 declare function __assert(condition: any, msg?: string): asserts condition;
 
 declare interface SymbolConstructor {
@@ -429,12 +429,12 @@ declare interface SymbolConstructor {
 
 declare module NodeJS {
     interface Global {
-        ReflectionClass: Newable<ReflectionClass<any>>;
+        ReflectionClass: Newable<ReflectionClass, typeof ReflectionClass>;
         ReflectionException: Newable<ReflectionException>;
-        ReflectionField: Newable<ReflectionField>;
-        ReflectionMethod: Newable<ReflectionMethod>;
-        ReflectionProperty: Newable<ReflectionProperty>;
-        ReflectionParameter: Newable<ReflectionParameter>;
+        ReflectionField: Newable<ReflectionField, typeof ReflectionField>;
+        ReflectionMethod: Newable<ReflectionMethod, typeof ReflectionMethod>;
+        ReflectionProperty: Newable<ReflectionProperty, typeof ReflectionProperty>;
+        ReflectionParameter: Newable<ReflectionParameter, typeof ReflectionParameter>;
         __assert: (condition: any, msg?: string) => asserts condition;
     }
 }

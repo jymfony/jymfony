@@ -1,13 +1,11 @@
-const ResolveChildDefinitionsPass = Jymfony.Component.DependencyInjection.Compiler.ResolveChildDefinitionsPass;
-const ResolveInstanceofConditionalsPass = Jymfony.Component.DependencyInjection.Compiler.ResolveInstanceofConditionalsPass;
 const ChildDefinition = Jymfony.Component.DependencyInjection.ChildDefinition;
 const ContainerBuilder = Jymfony.Component.DependencyInjection.ContainerBuilder;
-const InvalidArgumentException = Jymfony.Component.DependencyInjection.Exception.InvalidArgumentException;
-const RuntimeException = Jymfony.Component.DependencyInjection.Exception.RuntimeException;
-
-const { expect } = require('chai');
-require('../../fixtures/namespace');
 const Fixtures = Jymfony.Component.DependencyInjection.Fixtures;
+const InvalidArgumentException = Jymfony.Component.DependencyInjection.Exception.InvalidArgumentException;
+const ResolveChildDefinitionsPass = Jymfony.Component.DependencyInjection.Compiler.ResolveChildDefinitionsPass;
+const ResolveInstanceofConditionalsPass = Jymfony.Component.DependencyInjection.Compiler.ResolveInstanceofConditionalsPass;
+const RuntimeException = Jymfony.Component.DependencyInjection.Exception.RuntimeException;
+const { expect } = require('chai');
 
 describe('[DependencyInjection] Compiler.ResolveInstanceofConditionalsPass', function () {
     it ('process should work', () => {

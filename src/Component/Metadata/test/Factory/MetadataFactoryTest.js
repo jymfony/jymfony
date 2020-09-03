@@ -1,5 +1,3 @@
-require('../../fixtures/namespace');
-
 const Argument = Jymfony.Component.Testing.Argument.Argument;
 const ClassMetadataInterface = Jymfony.Component.Metadata.ClassMetadataInterface;
 const Fixtures = Jymfony.Component.Metadata.Fixtures;

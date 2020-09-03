@@ -1,5 +1,3 @@
-require('../../fixtures/namespace');
-
 const ClassMetadata = Jymfony.Component.Metadata.ClassMetadata;
 const FilesLoader = Jymfony.Component.Metadata.Loader.FilesLoader;
 const LoaderInterface = Jymfony.Component.Metadata.Loader.LoaderInterface;

@@ -1,5 +1,3 @@
-require('../../fixtures/namespace');
-
 const InvalidArgumentException = Jymfony.Component.Cache.Exception.InvalidArgumentException;
 const PruneableInterface = Jymfony.Component.Cache.PruneableInterface;
 const NotUnserializable = Jymfony.Component.Cache.Fixtures.NotUnserializable;

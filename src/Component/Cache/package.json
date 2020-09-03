@@ -39,6 +39,7 @@
     },
     "jymfony-autoload-dev": {
       "namespaces": {
+        "Jymfony.Component.Cache.Fixtures": "fixtures/",
         "Jymfony.Component.Cache.Tests": "test/"
       }
     }

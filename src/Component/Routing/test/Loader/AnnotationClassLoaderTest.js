@@ -1,5 +1,3 @@
-require('../../fixtures/namespace');
-
 const ActionPathController = Jymfony.Component.Routing.Fixtures.Annotation.ActionPathController;
 const BazClass = Jymfony.Component.Routing.Fixtures.Annotation.BazClass;
 const DefaultValueController = Jymfony.Component.Routing.Fixtures.Annotation.DefaultValueController;

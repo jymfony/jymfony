@@ -1,6 +1,5 @@
 const path = require('path');
 const { expect } = require('chai');
-require('../../fixtures/namespace');
 
 const FileLocator = Jymfony.Component.Config.FileLocator;
 const LoaderResolver = Jymfony.Component.Config.Loader.LoaderResolver;

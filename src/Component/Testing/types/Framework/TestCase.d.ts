@@ -17,8 +17,6 @@ declare namespace Jymfony.Component.Testing.Framework {
         prophesize<T = any>(classOrInterface?: string): ObjectProphecy<T> & Prophecy<T>;
         prophesize<T = any>(classOrInterface?: undefined): ObjectProphecy<T>;
 
-        get dataProviders(): Record<string, string>;
-
         /**
          * Performs assertions shared by all tests of a test case.
          *

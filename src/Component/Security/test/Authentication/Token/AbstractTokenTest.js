@@ -1,5 +1,3 @@
-require('../../../fixtures/namespace');
-
 const Fixtures = Jymfony.Component.Security.Fixtures.Authentication.Token;
 const SwitchUserRole = Jymfony.Component.Security.Role.SwitchUserRole;
 const Prophet = Jymfony.Component.Testing.Prophet;

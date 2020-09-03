@@ -1,14 +1,12 @@
-require('../../fixtures/namespace');
-
-const FileLocator = Jymfony.Component.Config.FileLocator;
 const Alias = Jymfony.Component.DependencyInjection.Alias;
-const ServiceLocatorArgument = Jymfony.Component.DependencyInjection.Argument.ServiceLocatorArgument;
-const TaggedIteratorArgument = Jymfony.Component.DependencyInjection.Argument.TaggedIteratorArgument;
 const ContainerBuilder = Jymfony.Component.DependencyInjection.ContainerBuilder;
-const YamlFileLoader = Jymfony.Component.DependencyInjection.Loader.YamlFileLoader;
+const FileLocator = Jymfony.Component.Config.FileLocator;
 const Fixtures = Jymfony.Component.DependencyInjection.Fixtures;
 const Reference = Jymfony.Component.DependencyInjection.Reference;
 const ServiceLocator = Jymfony.Component.DependencyInjection.ServiceLocator;
+const ServiceLocatorArgument = Jymfony.Component.DependencyInjection.Argument.ServiceLocatorArgument;
+const TaggedIteratorArgument = Jymfony.Component.DependencyInjection.Argument.TaggedIteratorArgument;
+const YamlFileLoader = Jymfony.Component.DependencyInjection.Loader.YamlFileLoader;
 const { expect } = require('chai');
 
 describe('[DependencyInjection] Compiler', function () {

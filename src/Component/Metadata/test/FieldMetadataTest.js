@@ -1,4 +1,3 @@
-require('../fixtures/namespace');
 const Fixtures = Jymfony.Component.Metadata.Fixtures;
 const { expect } = require('chai');
 

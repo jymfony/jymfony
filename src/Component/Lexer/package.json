@@ -36,6 +36,7 @@
     },
     "jymfony-autoload-dev": {
       "namespaces": {
+        "Jymfony.Component.Lexer.Fixtures": "fixtures/",
         "Jymfony.Component.Lexer.Tests": "test/"
       }
     }

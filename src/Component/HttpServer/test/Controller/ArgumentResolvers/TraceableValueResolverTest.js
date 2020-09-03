@@ -1,5 +1,3 @@
-require('../../../fixtures/namespace');
-
 const Request = Jymfony.Component.HttpFoundation.Request;
 const TraceableValueResolver = Jymfony.Component.HttpServer.Controller.ArgumentResolvers.TraceableValueResolver;
 const Fixtures = Jymfony.Component.HttpServer.Tests.Fixtures.ArgumentResolver;

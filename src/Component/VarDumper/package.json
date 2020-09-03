@@ -41,6 +41,7 @@
     },
     "jymfony-autoload-dev": {
       "namespaces": {
+        "Jymfony.Component.VarDumper.Fixtures": "fixtures/",
         "Jymfony.Component.VarDumper.Tests": "test/"
       }
     }

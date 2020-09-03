@@ -1,5 +1,3 @@
-require('../../fixtures/namespace');
-
 const ServiceClosureArgument = Jymfony.Component.DependencyInjection.Argument.ServiceClosureArgument;
 const Container = Jymfony.Component.DependencyInjection.Container;
 const ContainerBuilder = Jymfony.Component.DependencyInjection.ContainerBuilder;
