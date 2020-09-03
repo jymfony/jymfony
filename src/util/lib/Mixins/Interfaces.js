@@ -30,6 +30,10 @@ class Interfaces {
                         continue;
                     }
 
+                    if ('__construct' === descriptor.fn) {
+                        continue;
+                    }
+
                     if (descriptor['static'] && 'function' === typeof obj.constructor[descriptor.fn]) {
                         continue;
                     }

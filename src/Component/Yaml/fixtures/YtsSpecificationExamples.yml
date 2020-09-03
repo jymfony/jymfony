@@ -463,7 +463,7 @@ yaml: |
 js: |
   {
     'canonical': 12345,
-    'octal': 014,
+    'octal': 0o14,
     'hexadecimal': 0xC
   }
 ---

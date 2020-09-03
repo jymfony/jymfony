@@ -34,6 +34,11 @@
       "namespaces": {
         "Jymfony.Component.Mime": "src/"
       }
+    },
+    "jymfony-autoload-dev": {
+      "namespaces": {
+        "Jymfony.Component.Mime.Tests": "test/"
+      }
     }
   }
 }

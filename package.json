@@ -88,6 +88,46 @@
         "src/Component/VarDumper/src/functions.js",
         "src/Component/VarDumper/src/Test/ChaiExpectation.js"
       ]
+    },
+    "jymfony-autoload-dev": {
+      "namespaces": {
+        "Jymfony.Bundle.FrameworkBundle.Tests": "src/Bundle/FrameworkBundle/test",
+        "Jymfony.Bundle.SecurityBundle.Tests": "src/Bundle/SecurityBundle/test",
+        "Jymfony.Component.Autoloader.Tests": "src/Component/Autoloader/test",
+        "Jymfony.Component.Cache.Tests": "src/Component/Cache/test",
+        "Jymfony.Component.Config.Tests": "src/Component/Config/test",
+        "Jymfony.Component.Console.Tests": "src/Component/Console/test",
+        "Jymfony.Component.Crontab.Tests": "src/Component/Crontab/test",
+        "Jymfony.Component.DateTime.Tests": "src/Component/DateTime/test",
+        "Jymfony.Component.Debug.Tests": "src/Component/Debug/test",
+        "Jymfony.Component.DependencyInjection.Tests": "src/Component/DependencyInjection/test",
+        "Jymfony.Component.DevServer.Tests": "src/Component/DevServer/test",
+        "Jymfony.Component.Dotenv.Tests": "src/Component/Dotenv/test",
+        "Jymfony.Component.EventDispatcher.Tests": "src/Component/EventDispatcher/test",
+        "Jymfony.Component.Filesystem.Tests": "src/Component/Filesystem/test",
+        "Jymfony.Component.HttpFoundation.Tests": "src/Component/HttpFoundation/test",
+        "Jymfony.Component.HttpServer.Tests": "src/Component/HttpServer/test",
+        "Jymfony.Component.Kernel.Tests": "src/Component/Kernel/test",
+        "Jymfony.Component.Lexer.Tests": "src/Component/Lexer/test",
+        "Jymfony.Component.Logger.Tests": "src/Component/Logger/test",
+        "Jymfony.Component.Metadata.Tests": "src/Component/Metadata/test",
+        "Jymfony.Component.Mime.Tests": "src/Component/Mime/test",
+        "Jymfony.Component.OptionsResolver.Tests": "src/Component/OptionsResolver/test",
+        "Jymfony.Component.PropertyAccess.Tests": "src/Component/PropertyAccess/test",
+        "Jymfony.Component.Routing.Tests": "src/Component/Routing/test",
+        "Jymfony.Component.Security.Tests": "src/Component/Security/test",
+        "Jymfony.Component.Stopwatch.Tests": "src/Component/Stopwatch/test",
+        "Jymfony.Component.Templating.Tests": "src/Component/Templating/test",
+        "Jymfony.Component.Testing.Tests": "src/Component/Testing/test",
+        "Jymfony.Component.Validator.Tests": "src/Component/Validator/test",
+        "Jymfony.Component.VarDumper.Tests": "src/Component/VarDumper/test",
+        "Jymfony.Component.VarExporter.Tests": "src/Component/VarExporter/test",
+        "Jymfony.Component.Yaml.Tests": "src/Component/Yaml/test",
+        "Jymfony.Contracts.Tests": "src/Contracts/test",
+        "Jymfony.DataStructures.Tests": "src/DataStructure/test",
+        "Jymfony.Exceptions.Tests": "src/Exceptions/test",
+        "Jymfony.Util.Tests": "src/util/test"
+      }
     }
   },
   "nyc": {

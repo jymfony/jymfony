@@ -32,6 +32,11 @@
       "namespaces": {
         "Jymfony.Component.Templating": "src/"
       }
+    },
+    "jymfony-autoload-dev": {
+      "namespaces": {
+        "Jymfony.Component.Templating.Tests": "test/"
+      }
     }
   }
 }

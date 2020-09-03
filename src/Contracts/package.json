@@ -19,6 +19,7 @@
   "devDependencies": {
     "@jymfony/autoloader": "https://github.com/jymfony/autoloader.git",
     "@jymfony/debug": "https://github.com/jymfony/debug.git",
+    "@jymfony/testing": "https://github.com/jymfony/testing.git",
     "@jymfony/util": "https://github.com/jymfony/util.git",
     "@types/node": "*",
     "chai": "^4.2",
@@ -28,6 +29,11 @@
     "jymfony-autoload": {
       "namespaces": {
         "Jymfony.Contracts": "src/"
+      }
+    },
+    "jymfony-autoload-dev": {
+      "namespaces": {
+        "Jymfony.Contracts.Tests": "test/"
       }
     }
   }

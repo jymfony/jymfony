@@ -185,6 +185,16 @@ class ClassLoader {
             return _cache[fn];
         }
 
+        if (require.cache[fn]) {
+            try {
+                return _cache[fn] = require(fn);
+            } catch (e) {
+                if ('MODULE_NOT_FOUND' !== e.code) {
+                    throw e;
+                }
+            }
+        }
+
         return _cache[fn] = this._doLoadFile(fn, self, exports);
     }
 
@@ -309,6 +319,7 @@ class ClassLoader {
             return this.loadFile(id, null);
         };
 
+        req.extensions = require.extensions;
         req.nocompile = id => require(id);
 
         _cache[fn] = new __jymfony.ManagedProxy(function () { }, proxy => {
@@ -371,9 +382,10 @@ class ClassLoader {
                 if (e.required === fn) {
                     delete _cache[e.requiring];
                     _pending = _cache[e.requiring] = req.proxy(e.requiring);
-                    this._vm.runInThisContext(this.getCode(fn).code, opts)(module.exports, req, module, fn, dirname, self);
 
                     require.cache[fn] = module;
+                    this._vm.runInThisContext(this.getCode(fn).code, opts)(module.exports, req, module, fn, dirname, self);
+
                     return _cache[fn] = module.exports;
                 }
             }

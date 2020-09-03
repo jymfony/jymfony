@@ -608,6 +608,10 @@ class ReflectionClass {
                 }
 
                 if ('function' === typeof descriptor.value) {
+                    if ('__construct' === name) {
+                        continue;
+                    }
+
                     this._methods[name] = { ...descriptor, ownClass: proto.constructor };
                 } else {
                     if ('function' === typeof descriptor.get) {

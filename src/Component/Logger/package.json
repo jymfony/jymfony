@@ -35,6 +35,11 @@
       "namespaces": {
         "Jymfony.Component.Logger": "src/"
       }
+    },
+    "jymfony-autoload-dev": {
+      "namespaces": {
+        "Jymfony.Component.Logger.Tests": "test/"
+      }
     }
   }
 }

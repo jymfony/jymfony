@@ -26,6 +26,7 @@
   "devDependencies": {
     "@jymfony/http-foundation": "https://github.com/jymfony/http-foundation.git",
     "@jymfony/kernel": "https://github.com/jymfony/kernel.git",
+    "@jymfony/testing": "https://github.com/jymfony/testing.git",
     "chai": "^4.2",
     "mocha": "^6.0"
   },
@@ -33,6 +34,11 @@
     "jymfony-autoload": {
       "namespaces": {
         "Jymfony.Component.Debug": "src/"
+      }
+    },
+    "jymfony-autoload-dev": {
+      "namespaces": {
+        "Jymfony.Component.Debug.Tests": "test/"
       }
     }
   }

@@ -15,7 +15,7 @@ describe('[Autoloader] Annotations transpiler', () => {
     });
 
     it('should transpile annotations', __jymfony.Platform.hasPublicFieldSupport() ? () => {
-        global.Foo = new Namespace(__jymfony.autoload, 'Foo', fixturesDir, require);
+        global.Foo = new Namespace(__jymfony.autoload, 'Foo', fixturesDir, __jymfony.autoload.classLoader._internalRequire);
         const a = new Foo.Annotated();
         const r = new ReflectionClass(a);
 

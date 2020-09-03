@@ -35,6 +35,11 @@
       "namespaces": {
         "Jymfony.Component.Console": "src/"
       }
+    },
+    "jymfony-autoload-dev": {
+      "namespaces": {
+        "Jymfony.Component.Console.Tests": "test/"
+      }
     }
   }
 }

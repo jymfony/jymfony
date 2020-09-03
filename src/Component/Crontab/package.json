@@ -33,6 +33,11 @@
       "namespaces": {
         "Jymfony.Component.Crontab": "src/"
       }
+    },
+    "jymfony-autoload-dev": {
+      "namespaces": {
+        "Jymfony.Component.Crontab.Tests": "test/"
+      }
     }
   }
 }

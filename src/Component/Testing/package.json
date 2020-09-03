@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@jymfony/autoloader": "https://github.com/jymfony/autoloader.git",
+    "@jymfony/config": "https://github.com/jymfony/config.git",
     "@jymfony/exceptions": "https://github.com/jymfony/exceptions.git",
     "@jymfony/util": "https://github.com/jymfony/util.git"
   },
@@ -29,6 +30,11 @@
     "jymfony-autoload": {
       "namespaces": {
         "Jymfony.Component.Testing": "src/"
+      }
+    },
+    "jymfony-autoload-dev": {
+      "namespaces": {
+        "Jymfony.Component.Testing.Tests": "test/"
       }
     }
   }

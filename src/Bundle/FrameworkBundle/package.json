@@ -50,6 +50,11 @@
       "namespaces": {
         "Jymfony.Bundle.FrameworkBundle": "src/"
       }
+    },
+    "jymfony-autoload-dev": {
+      "namespaces": {
+        "Jymfony.Bundle.FrameworkBundle.Tests": "test/"
+      }
     }
   }
 }

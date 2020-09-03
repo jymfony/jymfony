@@ -24,6 +24,7 @@
   "devDependencies": {
     "@jymfony/cache": "https://github.com/jymfony/cache.git",
     "@jymfony/debug": "https://github.com/jymfony/debug.git",
+    "@jymfony/testing": "https://github.com/jymfony/testing.git",
     "chai": "^4.2",
     "mocha": "^6.0"
   },
@@ -31,6 +32,11 @@
     "jymfony-autoload": {
       "namespaces": {
         "Jymfony.Component.PropertyAccess": "src/"
+      }
+    },
+    "jymfony-autoload-dev": {
+      "namespaces": {
+        "Jymfony.Component.PropertyAccess.Tests": "test/"
       }
     }
   }

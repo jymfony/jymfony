@@ -34,6 +34,11 @@
       "namespaces": {
         "Jymfony.Component.EventDispatcher": "src/"
       }
+    },
+    "jymfony-autoload-dev": {
+      "namespaces": {
+        "Jymfony.Component.EventDispatcher.Tests": "test/"
+      }
     }
   }
 }
