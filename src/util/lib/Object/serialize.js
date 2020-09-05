@@ -63,6 +63,10 @@ const serialize = (value) => {
             value.toArray().map(serialize).join(';') + (value.length ? ';' : '') + '}';
     }
 
+    if (isFunction(value)) {
+        throw new RuntimeException('Cannot serialize functions');
+    }
+
     const reflClass = new ReflectionClass(value);
     if (! reflClass.name) {
         throw new RuntimeException('Cannot serialize non-autoloaded object (no metadata present for deserialization)');

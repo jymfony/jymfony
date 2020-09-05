@@ -8,7 +8,7 @@ const VarCloner = Jymfony.Component.VarDumper.Cloner.VarCloner;
  */
 export default class CliErrorRenderer extends implementationOf(ErrorRendererInterface) {
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     render(exception) {
         const cloner = new VarCloner();

@@ -31,7 +31,7 @@ export default class Websocket {
      *
      * @param {Jymfony.Component.HttpFoundation.Websocket.Message} message
      *
-     * @return {Promise<void>}
+     * @returns {Promise<void>}
      */
     send(message) {
         const frame = new Frame();

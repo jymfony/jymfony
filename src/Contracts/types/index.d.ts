@@ -44,3 +44,7 @@
 /// <reference path="Stopwatch/StopwatchInterface.d.ts" />
 /// <reference path="Stopwatch/StopwatchEventInterface.d.ts" />
 /// <reference path="Stopwatch/StopwatchPeriodInterface.d.ts" />
+/// <reference path="Translation/Exception/InvalidArgumentException.d.ts" />
+/// <reference path="Translation/LocaleAwareInterface.d.ts" />
+/// <reference path="Translation/TranslatorInterface.d.ts" />
+/// <reference path="Translation/TranslatorTrait.d.ts" />

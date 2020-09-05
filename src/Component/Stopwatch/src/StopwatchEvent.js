@@ -165,7 +165,7 @@ export default class StopwatchEvent extends implementationOf(StopwatchEventInter
     }
 
     /**
-     * @return string
+     * @returns {string}
      */
     toString() {
         return __jymfony.sprintf('%s: %.2F MiB - %d ms', this.category, this.memory / 1024 / 1024, this.duration);

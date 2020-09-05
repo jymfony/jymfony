@@ -14,7 +14,7 @@ export default class TestHandler extends AbstractProcessingHandler {
      * @param {int} [level = LogLevel.DEBUG]
      * @param {boolean} [bubble = true]
      *
-     * @return {Jymfony.Component.Logger.Handler.TestHandler}
+     * @returns {Jymfony.Component.Logger.Handler.TestHandler}
      */
     __construct(level = LogLevel.DEBUG, bubble = true) {
         super.__construct(level, bubble);

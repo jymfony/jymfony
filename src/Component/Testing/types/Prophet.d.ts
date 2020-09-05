@@ -18,9 +18,9 @@ declare namespace Jymfony.Component.Testing {
         /**
          * Creates new object prophecy.
          */
-        prophesize<T>(classOrInterface?: Newable<T>): ObjectProphecy<T> & Prophecy<T>;
-        prophesize(classOrInterface?: string): ObjectProphecy;
-        prophesize(classOrInterface?: undefined): ObjectProphecy;
+        prophesize<T extends object>(classOrInterface?: Newable<T>): ObjectProphecy<T> & Prophecy<T>;
+        prophesize<T = any>(classOrInterface?: string): ObjectProphecy<T> & Prophecy<T>;
+        prophesize<T = any>(classOrInterface?: undefined): ObjectProphecy<T>;
 
         /**
          * Checks all predictions defined by prophecies of this Prophet.

@@ -1,4 +1,5 @@
 declare namespace Jymfony.Component.HttpFoundation.Session {
+    import AttributeBagInterface = Jymfony.Component.HttpFoundation.Session.Attribute.AttributeBagInterface;
     import FlashBagInterface = Jymfony.Component.HttpFoundation.Session.Flash.FlashBagInterface;
 
     /**

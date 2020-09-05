@@ -106,12 +106,10 @@ export default class ClassMetadata extends implementationOf(ClassMetadataInterfa
     getAttributeMetadata(name) {
         name = name.toLowerCase();
         if (! this._attributesNames.has(name)) {
-            return new NullMetadata(name);
+            return this._createNullMetadata(name);
         }
 
-        name = this._attributesNames.get(name);
-
-        return this._attributesMetadata[name];
+        return this._attributesMetadata[this._attributesNames.get(name)];
     }
 
     /**
@@ -136,5 +134,16 @@ export default class ClassMetadata extends implementationOf(ClassMetadataInterfa
      */
     get attributesMetadata() {
         return { ...this._attributesMetadata };
+    }
+
+    /**
+     * Creates a new metadata object.
+     *
+     * @param {string} name
+     *
+     * @protected
+     */
+    _createNullMetadata(name) {
+        return new NullMetadata(name);
     }
 }

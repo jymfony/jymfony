@@ -36,6 +36,7 @@ declare namespace Jymfony.Component.Console.Command {
         /**
          * Gets/sets an array of argument and option instances.
          */
+        // @ts-ignore
         public definition: InputDefinition | (InputArgument | InputOption)[];
 
         /**

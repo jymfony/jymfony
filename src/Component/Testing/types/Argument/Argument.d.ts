@@ -4,7 +4,7 @@ declare namespace Jymfony.Component.Testing.Argument {
     export class Argument {
         static exact(value: any): Token.ExactValueToken;
 
-        static type(type: Constructor<any>): Token.TypeToken;
+        static type(type: Newable): Token.TypeToken;
 
         static that(callback: Invokable<boolean>): Token.CallbackToken;
 

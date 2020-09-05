@@ -80,4 +80,14 @@ Jymfony.Contracts = {
      * @namespace
      */
     Stopwatch: {},
+
+    /**
+     * @namespace
+     */
+    Translation: {
+        /**
+         * @namespace
+         */
+        Exception: {},
+    },
 };

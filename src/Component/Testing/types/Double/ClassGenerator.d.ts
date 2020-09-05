@@ -1,14 +1,14 @@
 declare namespace Jymfony.Component.Testing.Double {
     export class ClassGenerator {
-        private _superClass: Constructor<any>;
-        private _interfaces: Constructor<any>[];
+        private _superClass: Newable;
+        private _interfaces: Newable[];
 
         /**
          * Constructor.
          */
-        __construct(superClass: Constructor<any>, interfaces: Constructor<any>[]): void;
-        constructor(superClass: Constructor<any>, interfaces: Constructor<any>[]);
+        __construct(superClass: Newable, interfaces: Newable[]): void;
+        constructor(superClass: Newable, interfaces: Newable[]);
 
-        generate(): Constructor<any>;
+        generate(): Newable;
     }
 }

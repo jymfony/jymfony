@@ -86,7 +86,7 @@ export default class ArchiveReader {
      *
      * @param {string} name
      *
-     * @return {null|Buffer}
+     * @returns {null|Buffer}
      */
     getFile(name) {
         const file = this._files[name];

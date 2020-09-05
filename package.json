@@ -75,6 +75,7 @@
         "Jymfony.Component.Stopwatch": "src/Component/Stopwatch/src",
         "Jymfony.Component.Templating": "src/Component/Templating/src",
         "Jymfony.Component.Testing": "src/Component/Testing/src",
+        "Jymfony.Component.Validator": "src/Component/Validator/src",
         "Jymfony.Component.VarDumper": "src/Component/VarDumper/src",
         "Jymfony.Component.VarExporter": "src/Component/VarExporter/src",
         "Jymfony.Component.Yaml": "src/Component/Yaml/src",
@@ -85,6 +86,7 @@
         "src/Exceptions/index.js",
         "src/DataStructure/src/all.js",
         "src/Component/Autoloader/src/Test/ChaiExpectation.js",
+        "src/Component/Validator/src/Test/ChaiExpectation.js",
         "src/Component/VarDumper/src/functions.js",
         "src/Component/VarDumper/src/Test/ChaiExpectation.js"
       ]

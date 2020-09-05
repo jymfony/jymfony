@@ -1,0 +1,128 @@
+{
+  "namespaces": {
+    "custom": "Jymfony.Component.Validator.Fixtures."
+  },
+  "Jymfony.Component.Validator.Fixtures.Entity": {
+    "group_sequence": [
+      "Foo",
+      "Entity"
+    ],
+    "constraints": [
+      {
+        "Jymfony.Component.Validator.Fixtures.ConstraintA": null
+      },
+      {
+        "custom:ConstraintB": null
+      },
+      {
+        "Callback": "validateMe"
+      },
+      {
+        "Callback": "validateMeStatic"
+      },
+      {
+        "Callback": [
+          "Jymfony.Component.Validator.Fixtures.CallbackClass",
+          "callback"
+        ]
+      }
+    ],
+    "fields": {
+      "firstName": [
+        {
+          "NotNull": null
+        },
+        {
+          "Range": {
+            "min": 3
+          }
+        },
+        {
+          "Choice": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "All": [
+            {
+              "NotNull": null
+            },
+            {
+              "Range": {
+                "min": 3
+              }
+            }
+          ]
+        },
+        {
+          "All": {
+            "constraints": [
+              {
+                "NotNull": null
+              },
+              {
+                "Range": {
+                  "min": 3
+                }
+              }
+            ]
+          }
+        },
+        {
+          "Collection": {
+            "fields": {
+              "foo": [
+                {
+                  "NotNull": null
+                },
+                {
+                  "Range": {
+                    "min": 3
+                  }
+                }
+              ],
+              "bar": [
+                {
+                  "Range": {
+                    "min": 5
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Choice": {
+            "choices": [
+              "A",
+              "B"
+            ],
+            "message": "Must be one of %choices%"
+          }
+        }
+      ],
+      "dummy": null
+    },
+    "getters": {
+      "lastName": [
+        {
+          "NotNull": null
+        }
+      ],
+      "valid": [
+        {
+          "IsTrue": null
+        }
+      ],
+      "permissions": [
+        {
+          "IsTrue": null
+        }
+      ]
+    }
+  },
+  "Jymfony.Component.Validator.Fixtures.GroupSequenceProviderEntity": {
+    "group_sequence_provider": true
+  }
+}

@@ -25,6 +25,13 @@ class ReflectionMethod {
         this._name = methodName;
 
         /**
+         * @type {boolean}
+         *
+         * @private
+         */
+        this._private = '#' === methodName.substr(0, 1);
+
+        /**
          * @type {Function}
          *
          * @private
@@ -119,6 +126,15 @@ class ReflectionMethod {
      */
     get isStatic() {
         return this._static;
+    }
+
+    /**
+     * If this method is private.
+     *
+     * @returns {boolean}
+     */
+    get isPrivate() {
+        return this._private;
     }
 
     /**

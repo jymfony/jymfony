@@ -22,6 +22,14 @@ for (const name of [ 'Arguments', 'Boolean', 'String', 'Number', 'Date', 'RegExp
 
 const primitives = [ Number, String, Boolean ];
 
+global.isNumeric = function isNumeric(value) {
+    if (isNumber(value)) {
+        return true;
+    }
+
+    return !! String(value).match(/^(\d+|\.\d+|\d+.\d+)$/);
+};
+
 /**
  * @param {*} value
  *

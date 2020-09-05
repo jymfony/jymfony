@@ -5,7 +5,7 @@ class MetadataPropertiesTrait {
     /**
      * @see __jymfony.serialize
      *
-     * @return {string[]}
+     * @returns {string[]}
      */
     __sleep() {
         return this._getSerializableProperties();

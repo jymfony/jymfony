@@ -61,7 +61,7 @@ export default class Command extends implementationOf(CommandInterface) {
     /**
      * Gets the default command name.
      *
-     * @return {string}
+     * @returns {string}
      */
     static get defaultName() {
         return null;

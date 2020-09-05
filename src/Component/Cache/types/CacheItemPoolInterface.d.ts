@@ -8,7 +8,7 @@ declare namespace Jymfony.Component.Cache {
      * All configuration and initialization of the Pool is left up to an
      * Implementing Library.
      */
-    export class CacheItemPoolInterface<T> {
+    export class CacheItemPoolInterface<T = any> {
         public static readonly definition: Newable<CacheItemPoolInterface<any>>;
 
         /**

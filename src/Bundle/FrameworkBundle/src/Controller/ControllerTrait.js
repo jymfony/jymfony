@@ -287,7 +287,7 @@ class ControllerTrait {
     /**
      * Get a user from the Security Token Storage.
      *
-     * @return {object|null}
+     * @returns {object|null}
      *
      * @throws {LogicException} If SecurityBundle is not available
      *

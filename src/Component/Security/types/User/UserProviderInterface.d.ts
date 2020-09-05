@@ -43,6 +43,6 @@ declare namespace Jymfony.Component.Security.User {
         /**
          * Whether this provider supports the given user class.
          */
-        supportsClass(class_: string | Constructor<any>): boolean;
+        supportsClass(class_: string | Newable<any>): boolean;
     }
 }

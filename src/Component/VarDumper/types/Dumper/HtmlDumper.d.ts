@@ -45,7 +45,7 @@ declare namespace Jymfony.Component.VarDumper.Dumper {
         setDumpBoundaries(prefix: string, suffix: string): void;
 
         /**
-         * {@inheritdoc}
+         * @inheritdoc
          */
         dump(data: Data, output?: number|WritableStream|string|Invokable|null|undefined, extraDisplayOptions?: Record<string, any>): void;
         dump(data: Data, output: true, extraDisplayOptions?: Record<string, any>): string;

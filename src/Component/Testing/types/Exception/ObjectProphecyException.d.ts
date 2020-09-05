@@ -7,6 +7,7 @@ declare namespace Jymfony.Component.Testing.Exception {
         /**
          * Constructor.
          */
+        // @ts-ignore
         __construct(message: string, objectProphecy: ObjectProphecy): void;
         constructor(message: string, objectProphecy: ObjectProphecy);
 

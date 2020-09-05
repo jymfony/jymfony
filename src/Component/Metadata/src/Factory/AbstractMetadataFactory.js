@@ -142,6 +142,10 @@ export default class AbstractMetadataFactory extends implementationOf(MetadataFa
             return false;
         }
 
+        if (isArray(value) || isObjectLiteral(value)) {
+            return false;
+        }
+
         if (isObject(value)) {
             try {
                 return ReflectionClass.getClassName(value);

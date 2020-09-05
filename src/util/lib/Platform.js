@@ -61,7 +61,7 @@ class Platform {
     /**
      * Checks if this node version has native decorators support.
      *
-     * @return {boolean}
+     * @returns {boolean}
      */
     static hasNativeDecoratorsSupport() {
         if (undefined === _nativeDecoratorSupport) {

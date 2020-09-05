@@ -1,4 +1,5 @@
 declare namespace Jymfony.Bundle.FrameworkBundle.Controller {
+    import ErrorRendererInterface = Jymfony.Component.Debug.ErrorRenderer.ErrorRendererInterface;
     import Request = Jymfony.Component.HttpFoundation.Request;
     import Response = Jymfony.Component.HttpFoundation.Response;
 

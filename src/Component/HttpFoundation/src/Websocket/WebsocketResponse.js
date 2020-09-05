@@ -141,7 +141,7 @@ export default class WebsocketResponse extends mix(Response, EventSubscriberInte
     /**
      * Called upon http server termination.
      *
-     * @return {Promise<void>}
+     * @returns {Promise<void>}
      */
     onTerminate() {
         return this.closeConnection(__self.CLOSE_SHUTDOWN);

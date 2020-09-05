@@ -5,8 +5,7 @@ const Debug = Jymfony.Component.Debug.Debug;
 const Runner = Jymfony.Component.Testing.Framework.Runner;
 Debug.enable();
 
-let argv0, argv1, argv;
-[ argv0, argv1, ...argv ] = [ ...process.argv ];
+let [ , , ...argv ] = [ ...process.argv ];
 
 if (0 === argv.length) {
     argv.push('src/*/test/**/*.js', 'src/{Component,Bundle}/*/test/**/*.js');

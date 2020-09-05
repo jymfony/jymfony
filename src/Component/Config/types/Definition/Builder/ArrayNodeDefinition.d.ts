@@ -1,6 +1,7 @@
 declare namespace Jymfony.Component.Config.Definition.Builder {
-    export class ArrayNodeDefinition<T extends NodeDefinition = any>
-        extends mix<NodeDefinition, ParentNodeDefinitionInterface>(NodeDefinition, ParentNodeDefinitionInterface) {
+    import NodeDefinition = Jymfony.Component.Config.Definition.Builder.NodeDefinition;
+
+    export class ArrayNodeDefinition<T extends NodeDefinition = any> extends mix(NodeDefinition, ParentNodeDefinitionInterface) {
         protected _performDeepMerging: boolean;
         protected _ignoreExtraKeys: boolean;
         protected _removeExtraKeys: boolean;
