@@ -168,6 +168,11 @@ Jymfony = {
         /**
          * @namespace
          */
+        Validator: {},
+
+        /**
+         * @namespace
+         */
         Yaml: {},
     },
 

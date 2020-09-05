@@ -1,12 +1,12 @@
 declare namespace Jymfony.Component.Testing.Argument.Token {
     export class TypeToken extends implementationOf(TokenInterface) {
-        private _type: Constructor<any>;
+        private _type: Newable;
 
         /**
          * Constructor.
          */
-        __construct(type: Constructor<any>): void;
-        constructor(type: Constructor<any>);
+        __construct(type: Newable): void;
+        constructor(type: Newable);
 
         /**
          * @inheritdoc

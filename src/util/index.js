@@ -7,6 +7,7 @@ require('./lib/is');
 
 require('./lib/Debug/get_debug_type');
 
+require('./lib/Array/flat.polyfill');
 require('./lib/Array/values.polyfill');
 require('./lib/Symbol/description.polyfill');
 require('./lib/Iterator/EmptyIterator');

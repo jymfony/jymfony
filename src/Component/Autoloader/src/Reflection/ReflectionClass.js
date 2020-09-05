@@ -511,8 +511,19 @@ class ReflectionClass {
         this._filename = metadata.filename;
         this._module = metadata.module;
         this._constructor = this._isInterface ? value : metadata.constructor;
+
         if (metadata.fields) {
             this._fields = metadata.fields;
+        }
+
+        const parent = this.getParentClass();
+        if (parent && parent.name) {
+            const parentFields = parent._fields;
+            for (const name of Object.keys(parentFields)) {
+                if ('#' !== name[0] && ! (name in this._fields)) {
+                    this._fields[name] = parentFields[name];
+                }
+            }
         }
 
         if (metadata.staticFields) {

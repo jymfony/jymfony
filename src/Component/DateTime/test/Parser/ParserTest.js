@@ -451,15 +451,6 @@ describe('[DateTime] Parser', function () {
             expect(tm.month).to.be.equal(5);
             expect(tm.day).to.be.equal(8);
         } ],
-        [ '+ 1 month', tm => {
-            const d = new Date();
-
-            expect(tm._year).to.be.equal(d.getUTCFullYear());
-            expect(tm.month).to.be.equal(d.getUTCMonth() + 2);
-            expect(tm.day).to.be.equal(d.getUTCDate());
-            expect(tm.hour).to.be.equal(d.getUTCHours());
-            expect(tm.minutes).to.be.equal(d.getUTCMinutes());
-        } ],
         [ '1 month before Europe/Rome 2020-05-01 5pm', tm => {
             expect(tm._year).to.be.equal(2020);
             expect(tm.month).to.be.equal(4);

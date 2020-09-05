@@ -72,7 +72,7 @@ export default class ResolveInstanceofConditionalsPass extends implementationOf(
             }
 
             for (let [ key, instanceofDef ] of __jymfony.getEntries(instanceofDefs)) {
-                /** @var ChildDefinition $instanceofDef */
+                /** @var ChildDefinition instanceofDef */
                 instanceofDef = __jymfony.clone(instanceofDef);
                 instanceofDef.setAbstract(true).setParent(parent || '.abstract.instanceof.' + id);
                 parent = '.instanceof.' + superclass + '.' + key + '.' + id;

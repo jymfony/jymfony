@@ -11,11 +11,11 @@ declare namespace Jymfony.Component.HttpServer.Controller {
         /**
          * Whether this resolver can resolve the value for the given ReflectionParameter.
          */
-        supports(request: RequestInterface, argument: ControllerArgumentMetadata): boolean
+        supports(request: RequestInterface, argument: ReflectionParameter): boolean
 
         /**
          * Returns the possible value(s).
          */
-        resolve(request: RequestInterface, argument: ControllerArgumentMetadata): Iterable<any> | IterableIterator<any> | Iterator<any> | AsyncIterable<any> | AsyncIterableIterator<any> | AsyncIterator<any>;
+        resolve(request: RequestInterface, argument: ReflectionParameter): Iterable<any> | IterableIterator<any> | Iterator<any> | AsyncIterable<any> | AsyncIterableIterator<any> | AsyncIterator<any>;
     }
 }

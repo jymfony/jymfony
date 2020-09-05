@@ -64,7 +64,7 @@ declare namespace Jymfony.Component.HttpFoundation {
          * @param key The parameter key
          * @param [defaultValue] The default value
          *
-         * @return The parsed DateTime or the default value if the header does not exist
+         * @returns The parsed DateTime or the default value if the header does not exist
          *
          * @throws {RuntimeException} When the HTTP header is not parseable
          */

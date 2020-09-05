@@ -39,7 +39,7 @@ export default class RuleSet {
     /**
      * Gets the ruleset name.
      *
-     * @return {string}
+     * @returns {string}
      */
     get name() {
         return this._name;

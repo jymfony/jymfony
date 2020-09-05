@@ -178,7 +178,7 @@ export default class AbstractToken extends implementationOf(TokenInterface) {
     /**
      * @see __jymfony.serialize
      *
-     * @return {string[]}
+     * @returns {string[]}
      */
     __sleep() {
         this._rolesArray = this.roles;

@@ -16,7 +16,7 @@ class ConfiguratorTrait {
      *
      * @param {Jymfony.Component.Routing.Loader.Configurator.ConfiguratorInterface} childConfigurator
      *
-     * @return {Jymfony.Component.Routing.Loader.Configurator.ConfiguratorInterface}
+     * @returns {Jymfony.Component.Routing.Loader.Configurator.ConfiguratorInterface}
      *
      * @private
      */

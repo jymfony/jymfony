@@ -16,7 +16,7 @@ class ProcessableHandlerTrait {
      *
      * @param {Function} processor
      *
-     * @return {Jymfony.Component.Logger.Handler.ProcessableHandlerTrait}
+     * @returns {Jymfony.Component.Logger.Handler.ProcessableHandlerTrait}
      */
     pushProcessor(processor) {
         this._processors.unshift(processor);
@@ -27,7 +27,7 @@ class ProcessableHandlerTrait {
     /**
      * Pop the first processor of the stack.
      *
-     * @return {Function}
+     * @returns {Function}
      */
     popProcessor() {
         if (0 === this._processors.length) {

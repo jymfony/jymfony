@@ -25,7 +25,7 @@ class EntryPointInterface {
      * @param {Jymfony.Component.HttpFoundation.Request} request The request that resulted in an AuthenticationException
      * @param {Jymfony.Component.Security.Exception.AuthenticationException} [authException] The exception that started the authentication process
      *
-     * @return Response
+     * @returns {Jymfony.Component.HttpFoundation.Response}
      */
     start(request, authException = undefined) { }
 }

@@ -14,14 +14,14 @@ export default class ProcessorFactory extends implementationOf(ProcessorFactoryI
      */
     __construct() {
         /**
-         * @var Object.<string, string|string[]>
+         * @type Object.<string, string|string[]>
          *
          * @private
          */
         this._processors = {};
 
         /**
-         * @var Object.<string, ProcessorInterface>
+         * @type Object.<string, {Jymfony.Component.Metadata.Processor.ProcessorInterface}>
          *
          * @private
          */

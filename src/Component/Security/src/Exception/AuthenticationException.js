@@ -7,7 +7,7 @@ export default class AuthenticationException extends RuntimeException {
     /**
      * Gets the authentication token for the current exception.
      *
-     * @return {undefined|Jymfony.Component.Security.Authentication.Token.TokenInterface}
+     * @returns {undefined|Jymfony.Component.Security.Authentication.Token.TokenInterface}
      */
     get token() {
         return this._token;
@@ -30,7 +30,7 @@ export default class AuthenticationException extends RuntimeException {
     /**
      * Gets the name of properties to be serialized.
      *
-     * @return {string[]}
+     * @returns {string[]}
      */
     __sleep() {
         return [

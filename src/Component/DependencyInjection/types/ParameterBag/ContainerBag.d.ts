@@ -18,7 +18,8 @@ declare namespace Jymfony.Component.DependencyInjection.ParameterBag {
         /**
          * @inheritdoc
          */
-        get(name: string): any;
+        get<T extends object>(id: Newable<T> | symbol): never;
+        get<T = any>(name: string): T;
 
         /**
          * @inheritdoc

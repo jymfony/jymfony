@@ -1,0 +1,52 @@
+{
+  "name": "@jymfony/validator",
+  "version": "0.1.0-dev",
+  "description": "Jymfony Validator component",
+  "typings": "types/index.d.ts",
+  "scripts": {
+    "test": "node ./tests.js test/**"
+  },
+  "keywords": [
+    "validation",
+    "validator",
+    "bean validator",
+    "jsr-303",
+    "jymfony"
+  ],
+  "author": "Alessandro Chitolina <alekitto@gmail.com>",
+  "license": "MIT",
+  "engines": {
+    "node": ">=8.10.0"
+  },
+  "dependencies": {
+    "@jymfony/autoloader": "https://github.com/jymfony/autoloader.git",
+    "@jymfony/datetime": "https://github.com/jymfony/date-time.git",
+    "@jymfony/exceptions": "https://github.com/jymfony/exceptions.git",
+    "@jymfony/metadata": "https://github.com/jymfony/metadata.git",
+    "@jymfony/util": "https://github.com/jymfony/util.git"
+  },
+  "devDependencies": {
+    "@jymfony/debug": "https://github.com/jymfony/debug.git",
+    "@jymfony/dependency-injection": "https://github.com/jymfony/dependency-injection.git",
+    "@jymfony/testing": "https://github.com/jymfony/testing.git",
+    "@jymfony/var-dumper": "https://github.com/jymfony/var-dumper.git",
+    "chai": "^4.2",
+    "mocha": "^6.0"
+  },
+  "config": {
+    "jymfony-autoload": {
+      "includes": [
+        "src/Test/ChaiExpectation.js"
+      ],
+      "namespaces": {
+        "Jymfony.Component.Validator": "src/"
+      }
+    },
+    "jymfony-autoload-dev": {
+      "namespaces": {
+        "Jymfony.Component.Validator.Fixtures": "fixtures/",
+        "Jymfony.Component.Validator.Tests": "test/"
+      }
+    }
+  }
+}

@@ -2,8 +2,8 @@ declare namespace Jymfony.Component.Testing.Double {
     import ObjectProphecy = Jymfony.Component.Testing.Prophecy.ObjectProphecy;
 
     export class Doubler {
-        private _superClass?: Constructor<any>;
-        private _interfaces: Constructor<any>[];
+        private _superClass?: Newable;
+        private _interfaces: Newable[];
         private _instance: any;
         private _constructorArgs?: any[];
         private _prophecy: ObjectProphecy;
@@ -17,12 +17,12 @@ declare namespace Jymfony.Component.Testing.Double {
         /**
          * Adds an interface to be implemented by the double.
          */
-        addInterface(interface_: Constructor<any>): this;
+        addInterface(interface_: Newable): this;
 
         /**
          * Sets the class to be extended by the double.
          */
-        public /* writeonly */ superClass: Constructor<any>;
+        public /* writeonly */ superClass: Newable;
 
         /**
          * Sets the constructor arguments.

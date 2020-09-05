@@ -284,7 +284,7 @@ export default class TableStyle {
     /**
      * Gets cell padding type.
      *
-     * @return {string}
+     * @returns {string}
      */
     get padType() {
         return this._padType;

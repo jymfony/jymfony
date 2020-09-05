@@ -180,7 +180,7 @@ export default class Router extends implementationOf(RouterInterface, MatcherInt
      * Provides the ConfigCache factory implementation, falling back to a
      * default implementation if necessary.
      *
-     * @return {Jymfony.Component.Config.ConfigCacheFactoryInterface}
+     * @returns {Jymfony.Component.Config.ConfigCacheFactoryInterface}
      */
     _getConfigCacheFactory() {
         if (undefined === this._configCacheFactory) {

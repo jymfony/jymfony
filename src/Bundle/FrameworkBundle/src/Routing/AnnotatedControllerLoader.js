@@ -21,7 +21,7 @@ export default class AnnotatedControllerLoader extends AnnotationClassLoader {
     /**
      * Makes the default route name more sane by removing common keywords.
      *
-     * @return {string}
+     * @returns {string}
      */
     _getDefaultRouteName(reflectionClass, method) {
         return super._getDefaultRouteName(reflectionClass, method)

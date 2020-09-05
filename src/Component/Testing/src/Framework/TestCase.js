@@ -57,11 +57,11 @@ export default class TestCase {
                 }
             };
 
-            const before = () => {
+            const before = function () {
                 const exec = execution(reflectionClass.getMethod('beforeEach'), []);
                 this._prophet = null;
 
-                return exec();
+                return exec.call(this);
             };
 
             this.beforeAll(self.before.bind(null));
@@ -82,10 +82,10 @@ export default class TestCase {
                 const runTest = args => {
                     const exec = execution(reflectionMethod, args);
 
-                    return async () => {
+                    return async function() {
                         self.assertPreConditions();
 
-                        await exec();
+                        await exec.call(this);
 
                         verifyMockObjects();
                         self.assertPostConditions();

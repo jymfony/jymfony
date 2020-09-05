@@ -242,7 +242,7 @@ export default class AnnotationClassLoader extends implementationOf(LoaderInterf
      * @param {ReflectionClass} reflectionClass
      * @param {ReflectionMethod} method
      *
-     * @return {string}
+     * @returns {string}
      *
      * @protected
      */

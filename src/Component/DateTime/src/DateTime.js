@@ -35,6 +35,8 @@ export default class DateTime {
             this._tm = new TimeDescriptor(timezone);
             this._tm.unixTimestamp = ~~(val / 1000);
             this._tm.milliseconds = val % 1000;
+        } else if (datetime instanceof __self) {
+            this._tm = datetime._tm.copy();
         } else {
             throw new InvalidArgumentException('Argument 1 passed to new DateTime should be a string, a number or undefined');
         }
@@ -293,11 +295,11 @@ export default class DateTime {
      * @returns {Jymfony.Component.DateTime.DateTime}
      */
     setTimeZone(timezone) {
+        const val = this.copy();
         if (timezone === val._tm.timeZone) {
             return this;
         }
 
-        const val = this.copy();
         val._tm.timeZone = timezone;
         this._tm._updateTime();
 

@@ -39,7 +39,7 @@ export default class RedirectResponse extends Response {
      * @param {int} [status = Jymfony.Component.HttpFoundation.Response.HTTP_FOUND] The response status code
      * @param {Object} [headers = {}] An array of response headers
      *
-     * @return {Jymfony.Component.HttpFoundation.RedirectResponse}
+     * @returns {Jymfony.Component.HttpFoundation.RedirectResponse}
      */
     static create(url, status = Response.HTTP_FOUND, headers = {}) {
         return new __self(url, status, headers);
