@@ -36,7 +36,7 @@ export default class CompiledSchedule {
      * Calculates the start of the next valid occurrence of a particular schedule
      * that occurs on or after the specified start time.
      *
-     * @param {Jymfony.Component.DateTime.DateTime} startDate The first possible valid occurrence
+     * @param {Jymfony.Contracts.DateTime.DateTimeInterface} startDate The first possible valid occurrence
      */
     start(startDate) {
         let next = startDate;
@@ -73,7 +73,7 @@ export default class CompiledSchedule {
      * Given a valid start time, finds the next schedule that is invalid.
      * Useful for finding the end of a valid time range.
      *
-     * @param {Jymfony.Component.DateTime.DateTime} startDate The first possible valid occurrence
+     * @param {Jymfony.Contracts.DateTime.DateTimeInterface} startDate The first possible valid occurrence
      */
     end(startDate) {
         let result;
@@ -99,7 +99,7 @@ export default class CompiledSchedule {
     /**
      * Ticks the date by the minimum constraint in this schedule
      *
-     * @param {Jymfony.Component.DateTime.DateTime} date The start date to tick from
+     * @param {Jymfony.Contracts.DateTime.DateTimeInterface} date The start date to tick from
      */
     tick(date) {
         return this._tickPeriod.end(date.modify(SECOND));

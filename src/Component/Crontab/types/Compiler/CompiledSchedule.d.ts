@@ -1,5 +1,5 @@
 declare namespace Jymfony.Component.Crontab.Compiler {
-    import DateTime = Jymfony.Component.DateTime.DateTime;
+    import DateTimeInterface = Jymfony.Contracts.DateTime.DateTimeInterface;
 
     interface InputConstraint {
         constraint: Jymfony.Component.Crontab.Constraints.ConstraintInterface & Jymfony.Component.Crontab.Constraints.PeriodInterface,
@@ -22,7 +22,7 @@ declare namespace Jymfony.Component.Crontab.Compiler {
          *
          * @param startDate The first possible valid occurrence
          */
-        start(startDate: DateTime): DateTime;
+        start(startDate: DateTimeInterface): DateTimeInterface;
 
         /**
          * Given a valid start time, finds the next schedule that is invalid.
@@ -30,13 +30,13 @@ declare namespace Jymfony.Component.Crontab.Compiler {
          *
          * @param startDate The first possible valid occurrence
          */
-        end(startDate: DateTime): DateTime;
+        end(startDate: DateTimeInterface): DateTimeInterface;
 
         /**
          * Ticks the date by the minimum constraint in this schedule
          *
          * @param date The start date to tick from
          */
-        tick(date: DateTime): DateTime;
+        tick(date: DateTimeInterface): DateTimeInterface;
     }
 }

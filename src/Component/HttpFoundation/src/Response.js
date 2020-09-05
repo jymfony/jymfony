@@ -2,6 +2,7 @@ import * as zlib from 'zlib';
 import { PassThrough } from 'stream';
 
 const DateTime = Jymfony.Component.DateTime.DateTime;
+const DateTimeInterface = Jymfony.Contracts.DateTime.DateTimeInterface;
 const DateTimeZone = Jymfony.Component.DateTime.DateTimeZone;
 const EncodingNegotiator = Jymfony.Component.HttpFoundation.Negotiation.EncodingNegotiator;
 const Request = Jymfony.Component.HttpFoundation.Request;
@@ -320,7 +321,7 @@ export default class Response extends implementationOf(ResponseInterface) {
     /**
      * Returns the Date header as a DateTime instance.
      *
-     * @returns {Jymfony.Component.DateTime.DateTime}
+     * @returns {Jymfony.Contracts.DateTime.DateTimeInterface}
      *
      * @throws {RuntimeException} When the header is not parseable
      *
@@ -333,14 +334,14 @@ export default class Response extends implementationOf(ResponseInterface) {
     /**
      * Sets the Date header.
      *
-     * @param {Jymfony.Component.DateTime.DateTime} date
+     * @param {Jymfony.Contracts.DateTime.DateTimeInterface} date
      *
      * @returns {Jymfony.Component.HttpFoundation.Response}
      *
      * @final
      */
     setDate(date) {
-        if (date instanceof DateTime) {
+        if (date instanceof DateTimeInterface) {
             date = date.timestamp;
         }
 
@@ -383,7 +384,7 @@ export default class Response extends implementationOf(ResponseInterface) {
     /**
      * Returns the value of the Expires header as a DateTime instance.
      *
-     * @returns {undefined|Jymfony.Component.DateTime.DateTime}
+     * @returns {undefined|Jymfony.Contracts.DateTime.DateTimeInterface}
      *
      * @final
      */
@@ -401,7 +402,7 @@ export default class Response extends implementationOf(ResponseInterface) {
      *
      * Passing null as value will remove the header.
      *
-     * @param {int|Jymfony.Component.DateTime.DateTime} [date]
+     * @param {int|Jymfony.Contracts.DateTime.DateTimeInterface} [date]
      *
      * @returns {Jymfony.Component.HttpFoundation.Response}
      *
@@ -414,7 +415,7 @@ export default class Response extends implementationOf(ResponseInterface) {
             return this;
         }
 
-        if (date instanceof DateTime) {
+        if (date instanceof DateTimeInterface) {
             date = date.timestamp;
         }
 
@@ -541,7 +542,7 @@ export default class Response extends implementationOf(ResponseInterface) {
     /**
      * Returns the Last-Modified HTTP header as a DateTime instance.
      *
-     * @returns {Jymfony.Component.DateTime.DateTime}
+     * @returns {Jymfony.Contracts.DateTime.DateTimeInterface}
      *
      * @throws {RuntimeException} When the HTTP header is not parseable
      *
@@ -565,7 +566,7 @@ export default class Response extends implementationOf(ResponseInterface) {
             return;
         }
 
-        date = new DateTime(date instanceof DateTime ? date.timestamp : date, DateTimeZone.get('UTC'));
+        date = new DateTime(date instanceof DateTimeInterface ? date.timestamp : date, DateTimeZone.get('UTC'));
         this.headers.set('Last-Modified', date.format('D, d M Y H:i:s') + ' GMT');
     }
 

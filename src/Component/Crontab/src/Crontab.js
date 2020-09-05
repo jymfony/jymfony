@@ -17,14 +17,14 @@ export default class Crontab {
      * Constructor.
      *
      * @param {Object.<string, *>} schedule
-     * @param {Jymfony.Component.DateTime.DateTime} currentDate
+     * @param {Jymfony.Contracts.DateTime.DateTimeInterface} currentDate
      */
     __construct(schedule, currentDate) {
         this._schedules = schedule.schedules.map(Compiler.compile);
         this._exceptions = schedule.exceptions.map(Compiler.compile);
 
         /**
-         * @type {Jymfony.Component.DateTime.DateTime}
+         * @type {Jymfony.Contracts.DateTime.DateTimeInterface}
          *
          * @private
          */

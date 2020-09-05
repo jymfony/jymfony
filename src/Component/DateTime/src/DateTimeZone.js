@@ -1,7 +1,8 @@
 import abbreviations from '../data/abbrevs.json';
 import zones from '../data/zones.json';
 
-const DateTime = Jymfony.Component.DateTime.DateTime;
+const DateTimeInterface = Jymfony.Contracts.DateTime.DateTimeInterface;
+const DateTimeZoneInterface = Jymfony.Contracts.DateTime.DateTimeZoneInterface;
 const Parser = Jymfony.Component.DateTime.Parser.Parser;
 const TimeDescriptor = Jymfony.Component.DateTime.Struct.TimeDescriptor;
 const UnknownTimeZoneException = Jymfony.Component.DateTime.Exception.UnknownTimeZoneException;
@@ -15,7 +16,7 @@ const collator = new Intl.Collator('en');
  *
  * @memberOf Jymfony.Component.DateTime
  */
-export default class DateTimeZone {
+export default class DateTimeZone extends implementationOf(DateTimeZoneInterface) {
     /**
      * Constructor.
      */
@@ -62,12 +63,12 @@ export default class DateTimeZone {
     /**
      * Get the offset for a given datetime or timestamp.
      *
-     * @param {Jymfony.Component.DateTime.DateTime|int} datetime
+     * @param {Jymfony.Contracts.DateTime.DateTimeInterface|int} datetime
      *
      * @returns {int|undefined}
      */
     getOffset(datetime) {
-        if (datetime instanceof DateTime) {
+        if (datetime instanceof DateTimeInterface) {
             datetime = datetime.timestamp;
         }
 
@@ -82,7 +83,7 @@ export default class DateTimeZone {
     /**
      * Gets the timezone abbrev name for a given timestamp or DateTime.
      *
-     * @param {Jymfony.Component.DateTime.DateTime|int} datetime
+     * @param {Jymfony.Contracts.DateTime.DateTimeInterface|int} datetime
      *
      * @returns {string}
      */
@@ -98,7 +99,7 @@ export default class DateTimeZone {
     /**
      * Checks if DST is applicable for a given timestamp or DateTime.
      *
-     * @param {Jymfony.Component.DateTime.DateTime|int} datetime
+     * @param {Jymfony.Contracts.DateTime.DateTimeInterface|int} datetime
      *
      * @returns {boolean}
      */
@@ -132,7 +133,7 @@ export default class DateTimeZone {
     /**
      * Gets the data for a given timestamp or DateTime.
      *
-     * @param {Jymfony.Component.DateTime.DateTime|int} datetime
+     * @param {Jymfony.Contracts.DateTime.DateTimeInterface|int} datetime
      * @param {boolean} wallTs
      *
      * @returns {*}
@@ -140,7 +141,7 @@ export default class DateTimeZone {
      * @private
      */
     _getData(datetime, wallTs = false) {
-        if (datetime instanceof DateTime) {
+        if (datetime instanceof DateTimeInterface) {
             datetime = datetime.timestamp;
         }
 

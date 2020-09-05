@@ -19,6 +19,11 @@ Jymfony.Contracts = {
     /**
      * @namespace
      */
+    DateTime: {},
+
+    /**
+     * @namespace
+     */
     EventDispatcher: {},
 
     /**

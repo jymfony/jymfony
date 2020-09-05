@@ -1,5 +1,6 @@
 const AbstractLogger = Jymfony.Component.Logger.AbstractLogger;
 const DateTime = Jymfony.Component.DateTime.DateTime;
+const DateTimeInterface = Jymfony.Contracts.DateTime.DateTimeInterface;
 const LogLevel = Jymfony.Component.Logger.LogLevel;
 
 const levels = {
@@ -88,9 +89,9 @@ export default class BufferingLogger extends AbstractLogger {
                     if (null === val || undefined === val || isScalar(val)) {
                         formattedMessage = formattedMessage.replace(regex, String(val));
                     } else if (val instanceof Date) {
-                        formattedMessage = formattedMessage.replace(regex, new DateTime(val).format(DateTime.RFC3339));
-                    } else if (val instanceof DateTime) {
-                        formattedMessage = formattedMessage.replace(regex, val.format(DateTime.RFC3339));
+                        formattedMessage = formattedMessage.replace(regex, new DateTime(val).format(DateTimeInterface.RFC3339));
+                    } else if (val instanceof DateTimeInterface) {
+                        formattedMessage = formattedMessage.replace(regex, val.format(DateTimeInterface.RFC3339));
                     } else if (isObject(val)) {
                         formattedMessage = formattedMessage.replace(regex, val.toString());
                     } else {

@@ -30,15 +30,15 @@
     "node": ">=10.0.0"
   },
   "devDependencies": {
-    "@jymfony/compiler": "https://github.com/jymfony/compiler.git",
-    "@jymfony/decorators": "https://github.com/jymfony/decorators.git",
+    "@jymfony/compiler": "git+https://github.com/jymfony/compiler.git",
+    "@jymfony/decorators": "git+https://github.com/jymfony/decorators.git",
     "@types/chai": "^4.1.7",
     "@types/mocha": "^5.2.7",
-    "@types/node": "*",
+    "@types/node": "^14.6.4",
     "chai": "^4.2",
     "ioredis": "^4.0",
     "mocha": "^6.0",
-    "mongodb": "^3.0",
+    "mongodb": "^3.6.1",
     "nyc": "^14.1.1",
     "typescript": "^3.9.7"
   },

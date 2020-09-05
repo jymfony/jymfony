@@ -1,4 +1,5 @@
 const DateTimeZone = Jymfony.Component.DateTime.DateTimeZone;
+const DateTimeZoneInterface = Jymfony.Contracts.DateTime.DateTimeZoneInterface;
 
 if (':UTC' === process.env.TZ) {
     delete process.env.TZ;
@@ -27,7 +28,7 @@ export default class TimeDescriptor {
             tz = DEFAULT_TZ;
         }
 
-        if (! (tz instanceof DateTimeZone)) {
+        if (! (tz instanceof DateTimeZoneInterface)) {
             tz = DateTimeZone.get(tz);
         }
 
@@ -506,7 +507,7 @@ export default class TimeDescriptor {
      * @param {Jymfony.Component.DateTime.DateTimeZone} timezone
      */
     set timeZone(timezone) {
-        if (! (timezone instanceof DateTimeZone)) {
+        if (! (timezone instanceof DateTimeZoneInterface)) {
             timezone = DateTimeZone.get(timezone);
         }
 
@@ -516,7 +517,7 @@ export default class TimeDescriptor {
     /**
      * Adds a timespan.
      *
-     * @param {Jymfony.Component.DateTime.TimeSpan} timespan
+     * @param {Jymfony.Contracts.DateTime.TimeSpanInterface} timespan
      */
     add(timespan) {
         this._addMilliseconds((timespan.inverse ? -1 : 1) * timespan.milliseconds);

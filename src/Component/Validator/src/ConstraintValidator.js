@@ -1,4 +1,5 @@
 const DateTime = Jymfony.Component.DateTime.DateTime;
+const DateTimeInterface = Jymfony.Contracts.DateTime.DateTimeInterface;
 const DateTimeZone = Jymfony.Component.DateTime.DateTimeZone;
 const ConstraintValidatorInterface = Jymfony.Component.Validator.ConstraintValidatorInterface;
 
@@ -62,7 +63,7 @@ export default class ConstraintValidator extends implementationOf(ConstraintVali
      * (i.e. "false" for false, "1" for 1 etc.). Strings are always wrapped
      * in double quotes ("). Objects, arrays and resources are formatted as
      * "object", "array" and "resource". If the $format bitmask contains
-     * the PRETTY_DATE bit, then {@link Jymfony.Component.DateTime.DateTime}
+     * the PRETTY_DATE bit, then {@link Jymfony.Contracts.DateTime.DateTimeInterface}
      * objects will be formatted as RFC-3339 dates ("Y-m-d H:i:s").
      *
      * Be careful when passing message parameters to a constraint violation
@@ -80,7 +81,7 @@ export default class ConstraintValidator extends implementationOf(ConstraintVali
      */
     _formatValue(value, format = 0) {
         value = value instanceof Date ? new DateTime(value) : value;
-        const isDateTime = value instanceof DateTime;
+        const isDateTime = value instanceof DateTimeInterface;
 
         if ((format & __self.PRETTY_DATE) && isDateTime) {
             try {
@@ -159,7 +160,7 @@ export default class ConstraintValidator extends implementationOf(ConstraintVali
 
 Object.defineProperties(ConstraintValidator, {
     /**
-     * Whether to format {@link Jymfony.Component.DateTime.DateTime} objects as RFC-3339 dates ("Y-m-d H:i:s").
+     * Whether to format {@link Jymfony.Contracts.DateTime.DateTimeInterface} objects as RFC-3339 dates ("Y-m-d H:i:s").
      */
     PRETTY_DATE: { writable: false, value: 1 },
 

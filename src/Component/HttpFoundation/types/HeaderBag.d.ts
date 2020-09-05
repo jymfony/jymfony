@@ -1,5 +1,5 @@
 declare namespace Jymfony.Component.HttpFoundation {
-    import DateTime = Jymfony.Component.DateTime.DateTime;
+    import DateTimeInterface = Jymfony.Contracts.DateTime.DateTimeInterface;
 
     export class HeaderBag implements Iterable<[string, string[]]> {
         protected _headers: Record<string, string[]>;
@@ -68,7 +68,7 @@ declare namespace Jymfony.Component.HttpFoundation {
          *
          * @throws {RuntimeException} When the HTTP header is not parseable
          */
-        getDate(key: string, defaultValue?: DateTime | undefined): DateTime;
+        getDate(key: string, defaultValue?: DateTimeInterface | undefined): DateTimeInterface;
 
         /**
          * Gets a key/value iterator.

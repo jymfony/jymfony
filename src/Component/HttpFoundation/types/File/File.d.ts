@@ -1,5 +1,5 @@
 declare namespace Jymfony.Component.HttpFoundation.File {
-    import DateTime = Jymfony.Component.DateTime.DateTime;
+    import DateTimeInterface = Jymfony.Contracts.DateTime.DateTimeInterface;
 
     export class File {
         private _fileName: string;
@@ -44,6 +44,6 @@ declare namespace Jymfony.Component.HttpFoundation.File {
         /**
          * Gets the last modification time.
          */
-        public readonly modificationTime: DateTime;
+        public readonly modificationTime: DateTimeInterface;
     }
 }

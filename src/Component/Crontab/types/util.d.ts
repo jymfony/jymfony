@@ -1,5 +1,5 @@
 import CompiledSchedule = Jymfony.Component.Crontab.Compiler.CompiledSchedule;
-import DateTime = Jymfony.Component.DateTime.DateTime;
+import DateTimeInterface = Jymfony.Contracts.DateTime.DateTimeInterface;
 
 export const NEVER: Symbol;
 
@@ -9,12 +9,12 @@ export function nextInvalidVal(val: number, values: number[], extent: [number, n
 /**
  * Advances the schedule start date times.
  */
-export function tickStarts(schedules: CompiledSchedule, starts: DateTime[], startDate: DateTime): void;
+export function tickStarts(schedules: CompiledSchedule, starts: DateTimeInterface[], startDate: DateTimeInterface): void;
 
 /**
  * Finds the smallest date time into the given array.
  */
-export function findNext(arr: DateTime[]): DateTime | undefined;
+export function findNext(arr: DateTimeInterface[]): DateTimeInterface | undefined;
 
 /**
  * Updates the set of cached ranges to the next valid ranges. Only
@@ -25,7 +25,7 @@ export function findNext(arr: DateTime[]): DateTime | undefined;
  * @param ranges The set of start dates for the schedules
  * @param startDate Starts earlier than this date will be calculated
  */
-export function updateRangeStarts(schedules: CompiledSchedule[], ranges: [DateTime, DateTime][], startDate: DateTime): void;
+export function updateRangeStarts(schedules: CompiledSchedule[], ranges: [DateTimeInterface, DateTimeInterface][], startDate: DateTimeInterface): void;
 
 /**
  * Calculates the end of the overlap between any exception schedule and the
@@ -34,7 +34,7 @@ export function updateRangeStarts(schedules: CompiledSchedule[], ranges: [DateTi
  * @param ranges The set of cached start dates for the schedules
  * @param startDate The valid date for which the overlap will be found
  */
-export function calcRangeOverlap(ranges: [DateTime, DateTime][], startDate: DateTime): DateTime;
+export function calcRangeOverlap(ranges: [DateTimeInterface, DateTimeInterface][], startDate: DateTimeInterface): DateTimeInterface;
 
 /**
  * Updates the set of cached start dates to the next valid start dates. Only
@@ -45,4 +45,4 @@ export function calcRangeOverlap(ranges: [DateTime, DateTime][], startDate: Date
  * @param starts The set of start dates for the schedules
  * @param startDate Starts earlier than this date will be calculated
  */
-export function updateNextStarts(schedules: CompiledSchedule[], starts: DateTime[], startDate: DateTime): void;
+export function updateNextStarts(schedules: CompiledSchedule[], starts: DateTimeInterface[], startDate: DateTimeInterface): void;

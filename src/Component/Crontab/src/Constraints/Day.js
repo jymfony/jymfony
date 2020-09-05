@@ -74,10 +74,10 @@ export default class Day extends implementationOf(ConstraintInterface, PeriodInt
     }
 
     /**
-     * @param {Jymfony.Component.DateTime.DateTime} d
+     * @param {Jymfony.Contracts.DateTime.DateTimeInterface} d
      * @param {int} val
      *
-     * @returns {Jymfony.Component.DateTime.DateTime}
+     * @returns {Jymfony.Contracts.DateTime.DateTimeInterface}
      *
      * @private
      */

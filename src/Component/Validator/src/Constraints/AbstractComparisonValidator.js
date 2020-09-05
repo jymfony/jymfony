@@ -3,6 +3,7 @@ const AbstractComparison = Jymfony.Component.Validator.Constraints.AbstractCompa
 const ConstraintDefinitionException = Jymfony.Component.Validator.Exception.ConstraintDefinitionException;
 const ConstraintValidator = Jymfony.Component.Validator.ConstraintValidator;
 const DateTime = Jymfony.Component.DateTime.DateTime;
+const DateTimeInterface = Jymfony.Contracts.DateTime.DateTimeInterface;
 const UnexpectedTypeException = Jymfony.Component.Validator.Exception.UnexpectedTypeException;
 
 /**
@@ -63,7 +64,7 @@ export default class AbstractComparisonValidator extends ConstraintValidator {
 
         // Convert strings to DateTimes if comparing another DateTime
         // This allows to compare with any date/time value supported by the DateTime constructor
-        if (isString(comparedValue) && (value instanceof DateTime || value instanceof Date)) {
+        if (isString(comparedValue) && (value instanceof DateTimeInterface || value instanceof Date)) {
             const dateTimeClass = ReflectionClass.getClassName(value);
             value = (value instanceof Date ? new DateTime(value) : value).microtime;
 
@@ -74,7 +75,7 @@ export default class AbstractComparisonValidator extends ConstraintValidator {
             }
         }
 
-        if ((value instanceof Date || value instanceof DateTime) && (comparedValue instanceof Date || comparedValue instanceof DateTime)) {
+        if ((value instanceof Date || value instanceof DateTimeInterface) && (comparedValue instanceof Date || comparedValue instanceof DateTimeInterface)) {
             value = (new DateTime(value)).microtime;
             comparedValue = (new DateTime(comparedValue)).microtime;
         }

@@ -12,7 +12,7 @@ class ConstraintInterface {
     /**
      * Gets the value for this constraint.
      *
-     * @param {Jymfony.Component.DateTime.DateTime} d
+     * @param {Jymfony.Contracts.DateTime.DateTimeInterface} d
      *
      * @returns {int}
      */
@@ -21,7 +21,7 @@ class ConstraintInterface {
     /**
      * Checks if the value is valid for the given date time.
      *
-     * @param {Jymfony.Component.DateTime.DateTime} d
+     * @param {Jymfony.Contracts.DateTime.DateTimeInterface} d
      * @param {int} val
      *
      * @returns {boolean}
@@ -32,7 +32,7 @@ class ConstraintInterface {
      * The minimum and maximum valid day values of the month specified.
      * Zero to specify the last day of the month.
      *
-     * @param {Jymfony.Component.DateTime.DateTime} d The date indicating the month to find the extent of
+     * @param {Jymfony.Contracts.DateTime.DateTimeInterface} d The date indicating the month to find the extent of
      *
      * @returns [int, int]
      */

@@ -1,5 +1,5 @@
 declare namespace Jymfony.Component.Crontab.Constraints {
-    import DateTime = Jymfony.Component.DateTime.DateTime;
+    import DateTimeInterface = Jymfony.Contracts.DateTime.DateTimeInterface;
 
     export class PeriodInterface {
         public static readonly definition: Newable<PeriodInterface>;
@@ -7,12 +7,12 @@ declare namespace Jymfony.Component.Crontab.Constraints {
         /**
          * Returns the start of the day.
          */
-        start(d: DateTime): DateTime;
+        start(d: DateTimeInterface): DateTimeInterface;
 
         /**
          * Returns the end of the day.
          */
-        end(d: DateTime): DateTime;
+        end(d: DateTimeInterface): DateTimeInterface;
 
         /**
          * Returns the start of the next instance of the day value indicated. Returns
@@ -22,6 +22,6 @@ declare namespace Jymfony.Component.Crontab.Constraints {
          * @param d The starting date
          * @param val The desired value, must be within extent
          */
-        next(d: DateTime, val: number): DateTime;
+        next(d: DateTimeInterface, val: number): DateTimeInterface;
     }
 }

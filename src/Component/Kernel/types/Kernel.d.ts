@@ -1,5 +1,5 @@
 declare namespace Jymfony.Component.Kernel {
-    import DateTime = Jymfony.Component.DateTime.DateTime;
+    import DateTimeInterface = Jymfony.Contracts.DateTime.DateTimeInterface;
     import ContainerInterface = Jymfony.Component.DependencyInjection.ContainerInterface;
     import ContainerBuilder = Jymfony.Component.DependencyInjection.ContainerBuilder;
     import ConfigCache = Jymfony.Component.Config.ConfigCache;
@@ -16,7 +16,7 @@ declare namespace Jymfony.Component.Kernel {
         protected _projectDir: string;
         private _warmupDir: string;
         protected _name: string;
-        protected _startTime: DateTime;
+        protected _startTime: DateTimeInterface;
         protected _container: ContainerInterface;
         protected _bundles: Record<string, Bundle>;
         private _booted: boolean;
@@ -76,7 +76,7 @@ declare namespace Jymfony.Component.Kernel {
         /**
          * Gets the start date time.
          */
-        public readonly startTime?: DateTime;
+        public readonly startTime?: DateTimeInterface;
 
         /**
          * Get the application logs dir.

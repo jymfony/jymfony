@@ -5,18 +5,18 @@ class PeriodInterface {
     /**
      * Returns the start of the day.
      *
-     * @param {Jymfony.Component.DateTime.DateTime} d
+     * @param {Jymfony.Contracts.DateTime.DateTimeInterface} d
      *
-     * @returns {Jymfony.Component.DateTime.DateTime}
+     * @returns {Jymfony.Contracts.DateTime.DateTimeInterface}
      */
     start(d) { }
 
     /**
      * Returns the end of the day.
      *
-     * @param {Jymfony.Component.DateTime.DateTime} d
+     * @param {Jymfony.Contracts.DateTime.DateTimeInterface} d
      *
-     * @returns {Jymfony.Component.DateTime.DateTime}
+     * @returns {Jymfony.Contracts.DateTime.DateTimeInterface}
      */
     end(d) { }
 
@@ -25,10 +25,10 @@ class PeriodInterface {
      * the first day of the next month if val is greater than the number of
      * days in the following month.
      *
-     * @param {Jymfony.Component.DateTime.DateTime} d The starting date
+     * @param {Jymfony.Contracts.DateTime.DateTimeInterface} d The starting date
      * @param {int} val The desired value, must be within extent
      *
-     * @returns {Jymfony.Component.DateTime.DateTime}
+     * @returns {Jymfony.Contracts.DateTime.DateTimeInterface}
      */
     next(d, val) { }
 }

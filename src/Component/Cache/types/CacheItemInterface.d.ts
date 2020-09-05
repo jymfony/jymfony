@@ -1,6 +1,6 @@
 declare namespace Jymfony.Component.Cache {
-    import DateTime = Jymfony.Component.DateTime.DateTime;
-    import TimeSpan = Jymfony.Component.DateTime.TimeSpan;
+    import DateTimeInterface = Jymfony.Contracts.DateTime.DateTimeInterface;
+    import TimeSpanInterface = Jymfony.Contracts.DateTime.TimeSpanInterface;
 
     /**
      * CacheItemInterface defines an interface for interacting with objects inside a cache.
@@ -22,7 +22,7 @@ declare namespace Jymfony.Component.Cache {
      * compatible with a Pool from another Implementing Library.
      */
     export class CacheItemInterface<T = any> {
-        public static readonly definition: Newable<CacheItemInterface<any>>;
+        public static readonly definition: Newable<CacheItemInterface>;
 
         /**
          * Returns the key for the current cache item.
@@ -71,7 +71,7 @@ declare namespace Jymfony.Component.Cache {
          *   If none is set, the value should be stored permanently or for as long as the
          *   implementation allows.
          */
-        expiresAt(expiration: null|undefined|DateTime): CacheItemInterface<T>;
+        expiresAt(expiration: null | undefined | DateTimeInterface): CacheItemInterface<T>;
 
         /**
          * Sets the expiration time for this cache item.
@@ -83,6 +83,6 @@ declare namespace Jymfony.Component.Cache {
          *   If none is set, the value should be stored permanently or for as long as the
          *   implementation allows.
          */
-        expiresAfter(time: null|undefined|TimeSpan|number): CacheItemInterface<T>;
+        expiresAfter(time: null | undefined | TimeSpanInterface | number): CacheItemInterface<T>;
     }
 }

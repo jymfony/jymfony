@@ -1,5 +1,5 @@
 declare namespace Jymfony.Component.Filesystem {
-    import DateTime = Jymfony.Component.DateTime.DateTime;
+    import DateTimeInterface = Jymfony.Contracts.DateTime.DateTimeInterface;
     import StreamWrapperInterface = Jymfony.Component.Filesystem.StreamWrapper.StreamWrapperInterface;
 
     /**
@@ -37,22 +37,22 @@ declare namespace Jymfony.Component.Filesystem {
         /**
          * Gets the file access time.
          */
-        getAtime(): Promise<DateTime>;
+        getAtime(): Promise<DateTimeInterface>;
 
         /**
          * Gets the file inode change time.
          */
-        getCtime(): Promise<DateTime>;
+        getCtime(): Promise<DateTimeInterface>;
 
         /**
          * Gets the file modification time.
          */
-        getMtime(): Promise<DateTime>;
+        getMtime(): Promise<DateTimeInterface>;
 
         /**
          * Gets the file creation time.
          */
-        getBirthtime(): Promise<DateTime>;
+        getBirthtime(): Promise<DateTimeInterface>;
 
         /**
          * The file name.

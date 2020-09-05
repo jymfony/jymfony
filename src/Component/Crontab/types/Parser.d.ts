@@ -1,5 +1,5 @@
 declare namespace Jymfony.Component.Crontab {
-    import DateTime = Jymfony.Component.DateTime.DateTime;
+    import DateTimeInterface = Jymfony.Contracts.DateTime.DateTimeInterface;
 
     type ConstraintType = 'Y'|'M'|'D'|'d'|'h'|'m'|'s';
     type Schedule = Record<string, number[]>;
@@ -12,7 +12,7 @@ declare namespace Jymfony.Component.Crontab {
         /**
          * Parses a cron expression.
          */
-        parse(expr: string, now?: DateTime): Crontab;
+        parse(expr: string, now?: DateTimeInterface): Crontab;
 
         /**
          * Returns the value + offset if value is a number, otherwise it

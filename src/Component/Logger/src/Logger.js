@@ -14,7 +14,7 @@ export default class Logger extends mix(AbstractLogger, EventSubscriberInterface
      * @param {string} name
      * @param {Jymfony.Component.Logger.Handler.HandlerInterface[]} [handlers = []]
      * @param {Function[]} [processors = []]
-     * @param {undefined|string|Jymfony.Component.DateTime.DateTimeZone} [timezone]
+     * @param {undefined|string|Jymfony.Contracts.DateTime.DateTimeZoneInterface} [timezone]
      */
     __construct(name, handlers = [], processors = [], timezone = undefined) {
         /**
@@ -39,7 +39,7 @@ export default class Logger extends mix(AbstractLogger, EventSubscriberInterface
         this._processors = processors;
 
         /**
-         * @type {undefined|string|Jymfony.Component.DateTime.DateTimeZone}
+         * @type {undefined|string|Jymfony.Contracts.DateTime.DateTimeZoneInterface}
          *
          * @protected
          */

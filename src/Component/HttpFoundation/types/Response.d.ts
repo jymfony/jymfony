@@ -1,5 +1,5 @@
 declare namespace Jymfony.Component.HttpFoundation {
-    import DateTime = Jymfony.Component.DateTime.DateTime;
+    import DateTimeInterface = Jymfony.Contracts.DateTime.DateTimeInterface;
     import ResponseInterface = Jymfony.Contracts.HttpFoundation.ResponseInterface;
 
     export class Response extends implementationOf(ResponseInterface) {
@@ -232,14 +232,14 @@ declare namespace Jymfony.Component.HttpFoundation {
          *
          * @final
          */
-        public readonly date: DateTime;
+        public readonly date: DateTimeInterface;
 
         /**
          * Sets the Date header.
          *
          * @final
          */
-        setDate(date: DateTime): this;
+        setDate(date: DateTimeInterface): this;
 
         /**
          * Returns the age of the response in seconds.
@@ -267,7 +267,7 @@ declare namespace Jymfony.Component.HttpFoundation {
          *
          * @final
          */
-        setExpires(date?: DateTime | number | undefined): this;
+        setExpires(date?: DateTimeInterface | number | undefined): this;
 
         /**
          * Returns the number of seconds after the time specified in the response's Date
@@ -335,7 +335,7 @@ declare namespace Jymfony.Component.HttpFoundation {
          *
          * @final
          */
-        public lastModified: DateTime | undefined;
+        public lastModified: DateTimeInterface | undefined;
 
         /**
          * Returns the literal value of the ETag HTTP header.

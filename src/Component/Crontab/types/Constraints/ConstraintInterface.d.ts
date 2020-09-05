@@ -1,5 +1,5 @@
 declare namespace Jymfony.Component.Crontab.Constraints {
-    import DateTime = Jymfony.Component.DateTime.DateTime;
+    import DateTimeInterface = Jymfony.Contracts.DateTime.DateTimeInterface;
 
     export class ConstraintInterface {
         public static readonly definition: Newable<ConstraintInterface>;
@@ -12,12 +12,12 @@ declare namespace Jymfony.Component.Crontab.Constraints {
         /**
          * Gets the value for this constraint.
          */
-        val(d: DateTime): number;
+        val(d: DateTimeInterface): number;
 
         /**
          * Checks if the value is valid for the given date time.
          */
-        isValid(d: DateTime, val: number): boolean;
+        isValid(d: DateTimeInterface, val: number): boolean;
 
         /**
          * The minimum and maximum valid day values of the month specified.
@@ -25,6 +25,6 @@ declare namespace Jymfony.Component.Crontab.Constraints {
          *
          * @param d The date indicating the month to find the extent of
          */
-        extent(d: DateTime): [number, number];
+        extent(d: DateTimeInterface): [number, number];
     }
 }

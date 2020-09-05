@@ -54,8 +54,8 @@ export function nextInvalidVal(val, values, extent) {
  * Advances the schedule start date times.
  *
  * @param schedules
- * @param {Jymfony.Component.DateTime.DateTime[]} starts
- * @param {Jymfony.Component.DateTime.DateTime} startDate
+ * @param {Jymfony.Contracts.DateTime.DateTimeInterface[]} starts
+ * @param {Jymfony.Contracts.DateTime.DateTimeInterface} startDate
  */
 export function tickStarts (schedules, starts, startDate) {
     for (let i = 0, len = schedules.length; i < len; i++) {
@@ -94,8 +94,8 @@ export function findNext(arr) {
  * specified startDate need to be updated.
  *
  * @param {Array} schedules The set of schedules to use
- * @param {[Jymfony.Component.DateTime.DateTime, Jymfony.Component.DateTime.DateTime][]} ranges The set of start dates for the schedules
- * @param {Jymfony.Component.DateTime.DateTime} startDate Starts earlier than this date will be calculated
+ * @param {[Jymfony.Contracts.DateTime.DateTimeInterface, Jymfony.Contracts.DateTime.DateTimeInterface][]} ranges The set of start dates for the schedules
+ * @param {Jymfony.Contracts.DateTime.DateTimeInterface} startDate Starts earlier than this date will be calculated
  */
 export function updateRangeStarts(schedules, ranges, startDate) {
     for (let i = 0, len = schedules.length; i < len; i++) {
@@ -113,8 +113,8 @@ export function updateRangeStarts(schedules, ranges, startDate) {
  * Calculates the end of the overlap between any exception schedule and the
  * specified start date. Returns undefined if there is no overlap.
  *
- * @param {[Jymfony.Component.DateTime.DateTime, Jymfony.Component.DateTime.DateTime][]} ranges The set of cached start dates for the schedules
- * @param {Jymfony.Component.DateTime.DateTime} startDate The valid date for which the overlap will be found
+ * @param {[Jymfony.Contracts.DateTime.DateTimeInterface, Jymfony.Contracts.DateTime.DateTimeInterface][]} ranges The set of cached start dates for the schedules
+ * @param {Jymfony.Contracts.DateTime.DateTimeInterface} startDate The valid date for which the overlap will be found
  */
 export function calcRangeOverlap(ranges, startDate) {
     let result;
@@ -143,8 +143,8 @@ export function calcRangeOverlap(ranges, startDate) {
  * specified startDate need to be updated.
  *
  * @param {Array} schedules The set of schedules to use
- * @param {Jymfony.Component.DateTime.DateTime[]} starts The set of start dates for the schedules
- * @param {Jymfony.Component.DateTime.DateTime} startDate Starts earlier than this date will be calculated
+ * @param {Jymfony.Contracts.DateTime.DateTimeInterface[]} starts The set of start dates for the schedules
+ * @param {Jymfony.Contracts.DateTime.DateTimeInterface} startDate Starts earlier than this date will be calculated
  */
 export function updateNextStarts(schedules, starts, startDate) {
     for (let i = 0, len = schedules.length; i < len; ++i) {

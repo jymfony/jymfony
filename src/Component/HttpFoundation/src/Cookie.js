@@ -1,4 +1,5 @@
 const DateTime = Jymfony.Component.DateTime.DateTime;
+const DateTimeInterface = Jymfony.Contracts.DateTime.DateTimeInterface;
 const HeaderUtils = Jymfony.Component.HttpFoundation.HeaderUtils;
 
 /**
@@ -44,7 +45,7 @@ export default class Cookie {
      *
      * @param {string} name The name of the cookie
      * @param {string|null} [value = null] The value of the cookie
-     * @param {int|Jymfony.Component.DateTime.DateTime} [expire = 0] The time the cookie expires
+     * @param {int|Jymfony.Contracts.DateTime.DateTimeInterface} [expire = 0] The time the cookie expires
      * @param {string} [path = '/'] The path on the server in which the cookie will be available on
      * @param {string|undefined} [domain] The domain that the cookie is available to
      * @param {boolean} [secure = false] Whether the cookie should only be transmitted over a secure HTTPS connection from the client
@@ -65,7 +66,7 @@ export default class Cookie {
         }
 
         // Convert expiration time to a Unix timestamp
-        if (expire instanceof DateTime) {
+        if (expire instanceof DateTimeInterface) {
             expire = expire.timestamp;
         } else if (! isNumber(expire)) {
             try {

@@ -1,5 +1,5 @@
 declare namespace Jymfony.Component.HttpFoundation.File {
-    import DateTime = Jymfony.Component.DateTime.DateTime;
+    import DateTimeInterface = Jymfony.Contracts.DateTime.DateTimeInterface;
 
     export class UploadedFile extends File {
         private _buf: Buffer;
@@ -47,6 +47,6 @@ declare namespace Jymfony.Component.HttpFoundation.File {
         /**
          * @inheritdoc
          */
-        public readonly modificationTime: DateTime;
+        public readonly modificationTime: DateTimeInterface;
     }
 }

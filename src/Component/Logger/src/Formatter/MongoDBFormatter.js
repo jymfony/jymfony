@@ -1,4 +1,5 @@
 const DateTime = Jymfony.Component.DateTime.DateTime;
+const DateTimeInterface = Jymfony.Contracts.DateTime.DateTimeInterface;
 const FormatterInterface = Jymfony.Component.Logger.Formatter.FormatterInterface;
 
 /**
@@ -51,7 +52,7 @@ export default class MongoDBFormatter extends implementationOf(FormatterInterfac
             for (const [ name, value ] of __jymfony.getEntries(record)) {
                 if (value instanceof Date) {
                     record[name] = this._formatDate(new DateTime(value), nestingLevel + 1);
-                } else if (value instanceof DateTime) {
+                } else if (value instanceof DateTimeInterface) {
                     record[name] = this._formatDate(value, nestingLevel + 1);
                 } else if (value instanceof Error) {
                     record[name] = this._formatError(value, nestingLevel + 1);
@@ -108,7 +109,7 @@ export default class MongoDBFormatter extends implementationOf(FormatterInterfac
     /**
      * Treat and format the given record as a date.
      *
-     * @param {Jymfony.Component.DateTime.DateTime} record
+     * @param {Jymfony.Contracts.DateTime.DateTimeInterface} record
      *
      * @protected
      */

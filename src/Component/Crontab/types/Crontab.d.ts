@@ -1,21 +1,21 @@
 declare namespace Jymfony.Component.Crontab {
-    import DateTime = Jymfony.Component.DateTime.DateTime;
+    import DateTimeInterface = Jymfony.Contracts.DateTime.DateTimeInterface;
     import CompiledSchedule = Jymfony.Component.Crontab.Compiler.CompiledSchedule;
 
     /**
      * @memberOf Jymfony.Component.Crontab
      */
-    export class Crontab implements Iterable<DateTime> {
+    export class Crontab implements Iterable<DateTimeInterface> {
         private _schedules: CompiledSchedule[];
         private _exceptions: CompiledSchedule[];
-        private _currentDate: DateTime;
+        private _currentDate: DateTimeInterface;
 
         /**
          * Constructor.
          */
-        __construct(schedule: ScheduleSet, currentDate: DateTime): void;
-        constructor(schedule: ScheduleSet, currentDate: DateTime);
+        __construct(schedule: ScheduleSet, currentDate: DateTimeInterface): void;
+        constructor(schedule: ScheduleSet, currentDate: DateTimeInterface);
 
-        [Symbol.iterator](): IterableIterator<DateTime>;
+        [Symbol.iterator](): IterableIterator<DateTimeInterface>;
     }
 }

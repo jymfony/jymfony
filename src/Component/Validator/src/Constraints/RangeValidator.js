@@ -1,6 +1,7 @@
 const ConstraintDefinitionException = Jymfony.Component.Validator.Exception.ConstraintDefinitionException;
 const ConstraintValidator = Jymfony.Component.Validator.ConstraintValidator;
 const DateTime = Jymfony.Component.DateTime.DateTime;
+const DateTimeInterface = Jymfony.Contracts.DateTime.DateTimeInterface;
 const Range = Jymfony.Component.Validator.Constraints.Range;
 const UnexpectedTypeException = Jymfony.Component.Validator.Exception.UnexpectedTypeException;
 
@@ -36,7 +37,7 @@ export default class RangeValidator extends ConstraintValidator {
             return;
         }
 
-        if (! isNumeric(value) && ! (value instanceof Date) && ! (value instanceof DateTime)) {
+        if (! isNumeric(value) && ! (value instanceof Date) && ! (value instanceof DateTimeInterface)) {
             this._context.buildViolation(constraint.invalidMessage)
                 .setParameter('{{ value }}', this._formatValue(value, __self.PRETTY_DATE))
                 .setCode(Range.INVALID_CHARACTERS_ERROR)
@@ -56,7 +57,7 @@ export default class RangeValidator extends ConstraintValidator {
             return a > b ? 1 : -1;
         };
 
-        if (value instanceof Date || value instanceof DateTime) {
+        if (value instanceof Date || value instanceof DateTimeInterface) {
             const getValue = val => val instanceof DateTime ? val : new DateTime(val);
             comparand = value instanceof DateTime ? value.copy() : new DateTime(value);
 

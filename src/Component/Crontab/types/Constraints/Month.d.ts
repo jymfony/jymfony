@@ -1,5 +1,5 @@
 declare namespace Jymfony.Component.Crontab.Constraints {
-    import DateTime = Jymfony.Component.DateTime.DateTime;
+    import DateTimeInterface = Jymfony.Contracts.DateTime.DateTimeInterface;
 
     export class Month extends implementationOf(ConstraintInterface, PeriodInterface) {
         public readonly range: number;
@@ -7,22 +7,22 @@ declare namespace Jymfony.Component.Crontab.Constraints {
         /**
          * @inheritdoc
          */
-        val(d: DateTime): number;
+        val(d: DateTimeInterface): number;
 
         /**
          * @inheritdoc
          */
-        isValid(d: DateTime, val: number): boolean;
+        isValid(d: DateTimeInterface, val: number): boolean;
 
         /**
          * @inheritdoc
          */
-        extent(d: DateTime): [number, number];
+        extent(d: DateTimeInterface): [number, number];
 
         /**
          * @inheritdoc
          */
-        start(d: DateTime): DateTime;
+        start(d: DateTimeInterface): DateTimeInterface;
 
         /**
          * @inheritdoc

@@ -1,3 +1,4 @@
+const DateTimeInterface = Jymfony.Contracts.DateTime.DateTimeInterface;
 const DateTimeFormatter = Jymfony.Component.DateTime.Formatter.DateTimeFormatter;
 const Parser = Jymfony.Component.DateTime.Parser.Parser;
 const TimeDescriptor = Jymfony.Component.DateTime.Struct.TimeDescriptor;
@@ -12,12 +13,12 @@ const TimeSpan = Jymfony.Component.DateTime.TimeSpan;
  *
  * @memberOf Jymfony.Component.DateTime
  */
-export default class DateTime {
+export default class DateTime extends implementationOf(DateTimeInterface) {
     /**
      * Constructor.
      *
      * @param {undefined|string|int|Date} [datetime] The datetime string or unix timestamp
-     * @param {undefined|string|Jymfony.Component.DateTime.DateTimeZone} [timezone] The timezone of the datetime
+     * @param {undefined|string|Jymfony.Contracts.DateTime.DateTimeZoneInterface} [timezone] The timezone of the datetime
      */
     __construct(datetime = undefined, timezone = undefined) {
         if (undefined === datetime) {
@@ -47,9 +48,9 @@ export default class DateTime {
      *
      * @param {string} format
      * @param {string} time
-     * @param {undefined|string|Jymfony.Component.DateTime.DateTimeZone} [timezone]
+     * @param {undefined|string|Jymfony.Contracts.DateTime.DateTimeZoneInterface} [timezone]
      *
-     * @returns {Jymfony.Component.DateTime.DateTime}
+     * @returns {Jymfony.Contracts.DateTime.DateTimeInterface}
      */
     static createFromFormat(format, time, timezone = undefined) {
         const obj = new __self();
@@ -64,7 +65,7 @@ export default class DateTime {
     /**
      * Gets a new DateTime representing the current datetime.
      *
-     * @returns {Jymfony.Component.DateTime.DateTime}
+     * @returns {Jymfony.Contracts.DateTime.DateTimeInterface}
      */
     static get now() {
         return new DateTime();
@@ -82,7 +83,7 @@ export default class DateTime {
     /**
      * Gets a new DateTime representing midnight of today.
      *
-     * @returns {Jymfony.Component.DateTime.DateTime}
+     * @returns {Jymfony.Contracts.DateTime.DateTimeInterface}
      */
     static get today() {
         return (new DateTime()).setTime(0, 0, 0);
@@ -91,7 +92,7 @@ export default class DateTime {
     /**
      * Gets a new DateTime representing midnight of today.
      *
-     * @returns {Jymfony.Component.DateTime.DateTime}
+     * @returns {Jymfony.Contracts.DateTime.DateTimeInterface}
      */
     static get yesterday() {
         const dt = DateTime.today;
@@ -166,7 +167,7 @@ export default class DateTime {
     /**
      * Gets the timezone.
      *
-     * @returns {Jymfony.Component.DateTime.DateTimeZone}
+     * @returns {Jymfony.Contracts.DateTime.DateTimeZoneInterface}
      */
     get timezone() {
         return this._tm.timeZone;
@@ -236,7 +237,7 @@ export default class DateTime {
      * @param {int} seconds
      * @param {int} [milliseconds = 0]
      *
-     * @returns {Jymfony.Component.DateTime.DateTime}
+     * @returns {Jymfony.Contracts.DateTime.DateTimeInterface}
      */
     setTime(hours, minutes, seconds, milliseconds = 0) {
         if (
@@ -264,7 +265,7 @@ export default class DateTime {
      * @param {int} month
      * @param {int} day
      *
-     * @returns {Jymfony.Component.DateTime.DateTime}
+     * @returns {Jymfony.Contracts.DateTime.DateTimeInterface}
      */
     setDate(year, month, day) {
         if (
@@ -290,9 +291,9 @@ export default class DateTime {
     /**
      * Modify the timezone.
      *
-     * @param {Jymfony.Component.DateTime.DateTimeZone} timezone
+     * @param {Jymfony.Contracts.DateTime.DateTimeZoneInterface} timezone
      *
-     * @returns {Jymfony.Component.DateTime.DateTime}
+     * @returns {Jymfony.Contracts.DateTime.DateTimeInterface}
      */
     setTimeZone(timezone) {
         const val = this.copy();
@@ -309,9 +310,9 @@ export default class DateTime {
     /**
      * Adds or subtracts a TimeSpan interval.
      *
-     * @param {Jymfony.Component.DateTime.TimeSpan} interval
+     * @param {Jymfony.Contracts.DateTime.TimeSpanInterface} interval
      *
-     * @returns {Jymfony.Component.DateTime.DateTime}
+     * @returns {Jymfony.Contracts.DateTime.DateTimeInterface}
      */
     modify(interval) {
         const val = this.copy();
@@ -323,7 +324,7 @@ export default class DateTime {
     /**
      * Returns a copy of the current instance.
      *
-     * @returns {Jymfony.Component.DateTime.DateTime}
+     * @returns {Jymfony.Contracts.DateTime.DateTimeInterface}
      */
     copy() {
         const retVal = new DateTime();
@@ -347,12 +348,12 @@ export default class DateTime {
      * Returns a value indicating whether this object has
      * the same date time value of the specified instance.
      *
-     * @param {Jymfony.Component.DateTime.DateTime} instance
+     * @param {Jymfony.Contracts.DateTime.DateTimeInterface} instance
      *
      * @returns {boolean}
      */
     equals(instance) {
-        return instance instanceof DateTime &&
+        return instance instanceof DateTimeInterface &&
             instance.timestamp === this.timestamp &&
             instance.millisecond === this.millisecond;
     }
@@ -373,14 +374,16 @@ export default class DateTime {
 }
 
 /* Constants */
-DateTime.ATOM = 'Y-m-d\\TH:i:sP' ;
-DateTime.COOKIE = 'l, d-M-Y H:i:s T' ;
-DateTime.ISO8601 = 'Y-m-d\\TH:i:sO' ;
-DateTime.RFC822 = 'D, d M y H:i:s O' ;
-DateTime.RFC850 = 'l, d-M-y H:i:s T' ;
-DateTime.RFC1036 = 'D, d M y H:i:s O' ;
-DateTime.RFC1123 = 'D, d M Y H:i:s O' ;
-DateTime.RFC2822 = 'D, d M Y H:i:s O' ;
-DateTime.RFC3339 = 'Y-m-d\\TH:i:sP' ;
-DateTime.RSS = 'D, d M Y H:i:s O' ;
-DateTime.W3C = 'Y-m-d\\TH:i:sP' ;
+Object.defineProperties(DateTime, {
+    ATOM: { writable: false, value: DateTimeInterface.ATOM },
+    COOKIE: { writable: false, value: DateTimeInterface.COOKIE },
+    ISO8601: { writable: false, value: DateTimeInterface.ISO8601 },
+    RFC822: { writable: false, value: DateTimeInterface.RFC822 },
+    RFC850: { writable: false, value: DateTimeInterface.RFC850 },
+    RFC1036: { writable: false, value: DateTimeInterface.RFC1036 },
+    RFC1123: { writable: false, value: DateTimeInterface.RFC1123 },
+    RFC2822: { writable: false, value: DateTimeInterface.RFC2822 },
+    RFC3339: { writable: false, value: DateTimeInterface.RFC3339 },
+    RSS: { writable: false, value: DateTimeInterface.RSS },
+    W3C: { writable: false, value: DateTimeInterface.W3C },
+});

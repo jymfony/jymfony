@@ -1,5 +1,5 @@
 declare namespace Jymfony.Component.Logger {
-    import DateTimeZone = Jymfony.Component.DateTime.DateTimeZone;
+    import DateTimeZoneInterface = Jymfony.Contracts.DateTime.DateTimeZoneInterface;
     import HandlerInterface = Jymfony.Component.Logger.Handler.HandlerInterface;
     import EventSubscriberInterface = Jymfony.Contracts.EventDispatcher.EventSubscriberInterface;
     import EventSubscriptions = Jymfony.Contracts.EventDispatcher.EventSubscriptions;
@@ -18,13 +18,13 @@ declare namespace Jymfony.Component.Logger {
         protected _name: string;
         protected _handlers: HandlerInterface[];
         protected _processors: InvokableProcessor[];
-        protected _timezone: DateTimeZone | undefined;
+        protected _timezone: DateTimeZoneInterface | undefined;
 
         /**
          * Construct the logger.
          */
-        __construct(name: string, handlers?: HandlerInterface[], processors?: InvokableProcessor[], timezone?: DateTimeZone): void;
-        constructor(name: string, handlers?: HandlerInterface[], processors?: InvokableProcessor[], timezone?: DateTimeZone);
+        __construct(name: string, handlers?: HandlerInterface[], processors?: InvokableProcessor[], timezone?: DateTimeZoneInterface): void;
+        constructor(name: string, handlers?: HandlerInterface[], processors?: InvokableProcessor[], timezone?: DateTimeZoneInterface);
 
         /**
          * Returns a new cloned instance with name changed.

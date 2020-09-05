@@ -43,7 +43,7 @@ export default class Parser {
      * Parses a cron expression.
      *
      * @param {string} expr
-     * @param {Jymfony.Component.DateTime.DateTime} now
+     * @param {Jymfony.Contracts.DateTime.DateTimeInterface} now
      *
      * @returns {Jymfony.Component.Crontab.Crontab}
      */

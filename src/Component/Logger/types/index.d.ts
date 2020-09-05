@@ -34,7 +34,7 @@
 /// <reference path="NullLogger.d.ts" />
 
 declare namespace Jymfony.Component.Logger {
-    import DateTime = Jymfony.Component.DateTime.DateTime;
+    import DateTimeInterface = Jymfony.Contracts.DateTime.DateTimeInterface;
 
     export interface LogRecordLevel {
         level: number;
@@ -45,7 +45,7 @@ declare namespace Jymfony.Component.Logger {
         context: any,
         level_name: string,
         channel: string,
-        datetime: DateTime,
+        datetime: DateTimeInterface,
         extra: any,
     }
 }

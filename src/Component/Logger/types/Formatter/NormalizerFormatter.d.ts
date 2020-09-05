@@ -1,5 +1,5 @@
 declare namespace Jymfony.Component.Logger.Formatter {
-    import DateTime = Jymfony.Component.DateTime.DateTime;
+    import DateTimeInterface = Jymfony.Contracts.DateTime.DateTimeInterface;
 
     export class NormalizerFormatter extends implementationOf(FormatterInterface) {
         public static readonly SIMPLE_DATE = 'Y-m-d\\TH:i:sP';
@@ -37,6 +37,6 @@ declare namespace Jymfony.Component.Logger.Formatter {
         /**
          * Formats a datetime object.
          */
-        protected _formatDate(record: DateTime): any;
+        protected _formatDate(record: DateTimeInterface): any;
     }
 }

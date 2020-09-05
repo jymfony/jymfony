@@ -1,6 +1,6 @@
 declare namespace Jymfony.Component.Cache {
-    import DateTime = Jymfony.Component.DateTime.DateTime;
-    import TimeSpan = Jymfony.Component.DateTime.TimeSpan;
+    import DateTimeInterface = Jymfony.Contracts.DateTime.DateTimeInterface;
+    import TimeSpanInterface = Jymfony.Contracts.DateTime.TimeSpanInterface;
 
     export class CacheItem<T> extends implementationOf(CacheItemInterface) {
         private _key?: string;
@@ -33,19 +33,19 @@ declare namespace Jymfony.Component.Cache {
         /**
          * @inheritdoc
          */
-        expiresAt(expiration: null|undefined|DateTime): this;
+        expiresAt(expiration: null | undefined | DateTimeInterface): this;
 
         /**
          * @inheritdoc
          */
-        expiresAfter(time: null|undefined|TimeSpan|number): this;
+        expiresAfter(time: null | undefined | TimeSpanInterface | number): this;
 
         /**
          * Adds a tag to a cache item.
          *
          * @throws {Jymfony.Component.Cache.Exception.InvalidArgumentException} When tag is not valid
          */
-        tag(tags: string|string[]): this;
+        tag(tags: string | string[]): this;
 
         /**
          * Throws exception if key is invalid.

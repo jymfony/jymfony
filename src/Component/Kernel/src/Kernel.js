@@ -65,7 +65,7 @@ export default class Kernel extends implementationOf(KernelInterface) {
         this._name = this.getName();
 
         /**
-         * @type {Jymfony.Component.DateTime.DateTime}
+         * @type {Jymfony.Contracts.DateTime.DateTimeInterface}
          *
          * @protected
          */
@@ -213,7 +213,7 @@ export default class Kernel extends implementationOf(KernelInterface) {
     /**
      * Gets the start date time.
      *
-     * @returns {undefined|Jymfony.Component.DateTime.DateTime}
+     * @returns {undefined|Jymfony.Contracts.DateTime.DateTimeInterface}
      */
     get startTime() {
         return this._startTime;
