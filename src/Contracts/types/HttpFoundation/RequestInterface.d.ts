@@ -1,5 +1,5 @@
 declare namespace Jymfony.Contracts.HttpFoundation {
-    export class RequestInterface extends MixinInterface {
+    export class RequestInterface {
         public static readonly definition: Newable<RequestInterface>;
 
         public server: ParameterBagInterface;

@@ -2,7 +2,7 @@ declare namespace Jymfony.Component.Mime {
     /**
      * Guesses the MIME type of a file.
      */
-    export class MimeTypeGuesserInterface implements MixinInterface {
+    export class MimeTypeGuesserInterface {
         public static readonly definition: Newable<MimeTypeGuesserInterface>;
 
         /**

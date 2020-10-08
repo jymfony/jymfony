@@ -2,7 +2,7 @@ declare namespace Jymfony.Component.Kernel.CacheWarmer {
     /**
      * Interface for classes that support warming their cache.
      */
-    export class WarmableInterface implements MixinInterface {
+    export class WarmableInterface {
         public static readonly definition: Newable<WarmableInterface>;
 
         /**

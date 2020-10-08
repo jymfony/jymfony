@@ -29,6 +29,7 @@
     "@jymfony/config": "0.1.0-alpha.25",
     "@jymfony/console": "0.1.0-alpha.25",
     "@jymfony/contracts": "0.1.0-alpha.25",
+    "@jymfony/crontab": "0.1.0-dev",
     "@jymfony/datetime": "0.1.0-alpha.25",
     "@jymfony/datastructure": "0.1.0-alpha.25",
     "@jymfony/debug": "0.1.0-alpha.25",
@@ -55,6 +56,7 @@
     "@jymfony/templating": "0.1.0-alpha.25",
     "@jymfony/testing": "0.1.0-alpha.25",
     "@jymfony/util": "0.1.0-alpha.25",
+    "@jymfony/validator": "0.1.0-dev",
     "@jymfony/var-dumper": "0.1.0-alpha.25",
     "@jymfony/var-exporter": "0.1.0-alpha.25",
     "@jymfony/yaml": "0.1.0-alpha.25"

@@ -1,5 +1,5 @@
 declare namespace Jymfony.Component.Metadata.Loader {
-    export class LoaderInterface extends MixinInterface {
+    export class LoaderInterface {
         public static readonly definition: Newable<LoaderInterface>;
 
         /**

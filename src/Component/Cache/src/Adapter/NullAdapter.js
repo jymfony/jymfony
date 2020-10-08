@@ -1,5 +1,7 @@
+const AdapterInterface = Jymfony.Component.Cache.Adapter.AdapterInterface;
 const CacheItem = Jymfony.Component.Cache.CacheItem;
-const CacheItemPoolInterface = Jymfony.Component.Cache.CacheItemPoolInterface;
+const CacheInterface = Jymfony.Contracts.Cache.CacheInterface;
+const ValueHolder = Jymfony.Contracts.Cache.ValueHolder;
 
 const createCacheItem = (key) => {
     const item = new CacheItem();
@@ -9,7 +11,16 @@ const createCacheItem = (key) => {
     return item;
 };
 
-export default class NullAdapter extends implementationOf(CacheItemPoolInterface) {
+export default class NullAdapter extends implementationOf(AdapterInterface, CacheInterface) {
+    /**
+     * @inheritdoc
+     */
+    get(key, callback, /* beta = undefined */) {
+        const save = new ValueHolder(true);
+
+        return callback(createCacheItem(key), save);
+    }
+
     /**
      * @inheritdoc
      */

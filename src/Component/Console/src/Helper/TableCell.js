@@ -25,7 +25,7 @@ export default class TableCell {
     /**
      * Returns the cell value.
      *
-     * @return {string}
+     * @returns {string}
      */
     toString() {
         return this._value;
@@ -34,7 +34,7 @@ export default class TableCell {
     /**
      * Gets number of colspan.
      *
-     * @return {int}
+     * @returns {int}
      */
     get colspan() {
         return this._options.colspan;

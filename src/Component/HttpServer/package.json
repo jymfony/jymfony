@@ -46,6 +46,12 @@
       "namespaces": {
         "Jymfony.Component.HttpServer": "src/"
       }
+    },
+    "jymfony-autoload-dev": {
+      "namespaces": {
+        "Jymfony.Component.HttpServer.Tests": "test/",
+        "Jymfony.Component.HttpServer.Tests.Fixtures": "fixtures/"
+      }
     }
   }
 }

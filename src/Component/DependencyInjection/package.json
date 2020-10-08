@@ -27,6 +27,7 @@
   },
   "devDependencies": {
     "@jymfony/debug": "*",
+    "@jymfony/testing": "*",
     "@jymfony/var-dumper": "*",
     "@jymfony/yaml": "*",
     "chai": "^4.2",
@@ -36,6 +37,12 @@
     "jymfony-autoload": {
       "namespaces": {
         "Jymfony.Component.DependencyInjection": "src/"
+      }
+    },
+    "jymfony-autoload-dev": {
+      "namespaces": {
+        "Jymfony.Component.DependencyInjection.Fixtures": "fixtures/",
+        "Jymfony.Component.DependencyInjection.Tests": "test/"
       }
     }
   }

@@ -1,15 +1,10 @@
-const AdapterTestCase = require('./AdapterTestCase');
+import { AdapterTestCase } from './AdapterTestCase';
+import { expect } from 'chai';
+
 const ArrayAdapter = Jymfony.Component.Cache.Adapter.ArrayAdapter;
-const { expect } = require('chai');
 
-describe('[Cache] ArrayAdapter', function () {
-    AdapterTestCase.shouldPassAdapterTests.call(this);
-
-    afterEach(async () => {
-        await this._cache.clear();
-    });
-
-    it('values should return all the values', async () => {
+export default class ArrayAdapterTest extends AdapterTestCase {
+    async testValuesShouldReturnAllTheValues() {
         let item = await this._cache.getItem('key');
         item.set('4711');
         await this._cache.save(item);
@@ -21,9 +16,9 @@ describe('[Cache] ArrayAdapter', function () {
         const values = this._cache.values;
         expect(Object.keys(values)).to.be.deep.equal([ 'key', 'key2' ]);
         expect(values['key']).to.be.equal(__jymfony.serialize('4711'));
-    });
+    }
 
-    this._createCachePool = (defaultLifetime = undefined) => {
+    _createCachePool(defaultLifetime = undefined) {
         return new ArrayAdapter(defaultLifetime);
-    };
-});
+    }
+}

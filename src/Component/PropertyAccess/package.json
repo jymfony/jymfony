@@ -24,6 +24,7 @@
   "devDependencies": {
     "@jymfony/cache": "*",
     "@jymfony/debug": "*",
+    "@jymfony/testing": "*",
     "chai": "^4.2",
     "mocha": "^6.0"
   },
@@ -31,6 +32,12 @@
     "jymfony-autoload": {
       "namespaces": {
         "Jymfony.Component.PropertyAccess": "src/"
+      }
+    },
+    "jymfony-autoload-dev": {
+      "namespaces": {
+        "Jymfony.Component.PropertyAccess.Fixtures": "fixtures/",
+        "Jymfony.Component.PropertyAccess.Tests": "test/"
       }
     }
   }

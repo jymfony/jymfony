@@ -128,8 +128,8 @@ declare namespace Jymfony.Component.DependencyInjection {
         /**
          * Gets a service.
          */
-        get<T>(id: Newable<T>, invalidBehavior?: number): T;
-        get(id: string|symbol, invalidBehavior?: number): any;
+        get<T extends object>(id: Newable<T>, invalidBehavior?: number): T;
+        get(id: string | symbol, invalidBehavior?: number): any;
 
         /**
          * Merges a container into this one.

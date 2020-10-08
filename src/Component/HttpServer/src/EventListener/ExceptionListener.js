@@ -3,7 +3,7 @@ const EventSubscriberInterface = Jymfony.Contracts.EventDispatcher.EventSubscrib
 const Events = Jymfony.Component.HttpServer.Event.HttpServerEvents;
 const HttpExceptionInterface = Jymfony.Component.HttpFoundation.Exception.HttpExceptionInterface;
 const NotFoundHttpException = Jymfony.Component.HttpFoundation.Exception.NotFoundHttpException;
-const NullLogger = Jymfony.Component.Logger.NullLogger;
+const NullLogger = Jymfony.Contracts.Logger.NullLogger;
 const Request = Jymfony.Component.HttpFoundation.Request;
 
 /**
@@ -14,7 +14,7 @@ export default class ExceptionListener extends implementationOf(EventSubscriberI
      * Constructor.
      *
      * @param {Function|string} controller
-     * @param {Jymfony.Component.Logger.LoggerInterface} [logger]
+     * @param {Jymfony.Contracts.Logger.LoggerInterface} [logger]
      * @param {boolean} [debug = false]
      */
     __construct(controller, logger = undefined, debug = false) {
@@ -26,7 +26,7 @@ export default class ExceptionListener extends implementationOf(EventSubscriberI
         this._controller = controller;
 
         /**
-         * @type {Jymfony.Component.Logger.LoggerInterface}
+         * @type {Jymfony.Contracts.Logger.LoggerInterface}
          *
          * @private
          */

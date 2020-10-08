@@ -35,6 +35,11 @@
       "namespaces": {
         "Jymfony.Component.Kernel": "src/"
       }
+    },
+    "jymfony-autoload-dev": {
+      "namespaces": {
+        "Jymfony.Component.Kernel.Tests": "test/"
+      }
     }
   }
 }

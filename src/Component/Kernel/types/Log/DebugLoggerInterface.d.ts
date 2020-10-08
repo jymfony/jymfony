@@ -9,7 +9,7 @@ declare namespace Jymfony.Component.Kernel.Log {
         priorityName: string;
     }
 
-    export class DebugLoggerInterface implements MixinInterface {
+    export class DebugLoggerInterface {
         public static readonly definition: Newable<DebugLoggerInterface>;
 
         /**

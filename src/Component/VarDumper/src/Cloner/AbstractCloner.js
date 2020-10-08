@@ -144,7 +144,7 @@ export default class AbstractCloner extends implementationOf(ClonerInterface) {
     }
 
     /**
-     * Effectively clones the PHP variable.
+     * Effectively clones the variable.
      *
      * @param {*} variable
      * @returns {Object}
@@ -174,7 +174,12 @@ export default class AbstractCloner extends implementationOf(ClonerInterface) {
         if (undefined !== class_ && 'Object' !== class_ && this._classInfo[class_]) {
             [ i, parents, hasDebugInfo, fileInfo ] = this._classInfo[class_];
         } else {
-            const r = new ReflectionClass(class_ || obj);
+            let r;
+            try {
+                r = new ReflectionClass(class_);
+            } catch (e) {
+                r = new ReflectionClass(obj);
+            }
 
             if (undefined === class_) {
                 class_ = r.getConstructor().name;

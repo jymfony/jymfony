@@ -19,6 +19,7 @@
   "devDependencies": {
     "@jymfony/autoloader": "*",
     "@jymfony/debug": "*",
+    "@jymfony/testing": "*",
     "@jymfony/util": "*",
     "@types/node": "*",
     "chai": "^4.2",
@@ -28,6 +29,12 @@
     "jymfony-autoload": {
       "namespaces": {
         "Jymfony.Contracts": "src/"
+      }
+    },
+    "jymfony-autoload-dev": {
+      "namespaces": {
+        "Jymfony.Contracts.Fixtures": "fixtures/",
+        "Jymfony.Contracts.Tests": "test/"
       }
     }
   }

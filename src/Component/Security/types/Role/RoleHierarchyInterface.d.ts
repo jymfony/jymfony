@@ -2,7 +2,7 @@ declare namespace Jymfony.Component.Security.Role {
     /**
      * Represents a role hierarchy.
      */
-    export class RoleHierarchyInterface implements MixinInterface {
+    export class RoleHierarchyInterface {
         public static readonly definition: Newable<RoleHierarchyInterface>;
 
         /**

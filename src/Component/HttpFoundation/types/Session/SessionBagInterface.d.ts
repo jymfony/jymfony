@@ -2,7 +2,7 @@ declare namespace Jymfony.Component.HttpFoundation.Session {
     /**
      * Session Bag store.
      */
-    export class SessionBagInterface implements MixinInterface {
+    export class SessionBagInterface {
         public static readonly definition: Newable<SessionBagInterface>;
 
         /**

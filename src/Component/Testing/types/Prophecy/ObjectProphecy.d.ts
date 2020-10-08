@@ -29,12 +29,12 @@ declare namespace Jymfony.Component.Testing.Prophecy {
         /**
          * Forces double to implement specific interface.
          */
-        willImplement(Interface: Constructor<any>): this;
+        willImplement(Interface: Newable): this;
 
         /**
          * Forces double to extend specific class.
          */
-        willExtend(Class: Constructor<any>): this;
+        willExtend(Class: Newable): this;
 
         /**
          * Sets constructor arguments.

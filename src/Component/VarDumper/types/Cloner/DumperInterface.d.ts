@@ -9,7 +9,7 @@ declare namespace Jymfony.Component.VarDumper.Cloner {
          * Dumps a scalar value.
          *
          * @param cursor The Cursor position in the dump
-         * @param type The PHP type of the value being dumped
+         * @param type The type of the value being dumped
          * @param value The scalar value being dumped
          */
         dumpScalar(cursor: Cursor, type: string, value: string|number|boolean): void;

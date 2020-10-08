@@ -1,5 +1,5 @@
-const LoggerInterface = Jymfony.Component.Logger.LoggerInterface;
-const LogLevel = Jymfony.Component.Logger.LogLevel;
+const LoggerInterface = Jymfony.Contracts.Logger.LoggerInterface;
+const LogLevel = Jymfony.Contracts.Logger.LogLevel;
 
 /**
  * @memberOf Jymfony.Component.Logger

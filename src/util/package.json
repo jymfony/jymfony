@@ -23,6 +23,7 @@
     "@jymfony/autoloader": "*",
     "@jymfony/datastructure": "*",
     "@jymfony/debug": "*",
+    "@jymfony/testing": "*",
     "chai": "^4.2",
     "mocha": "^6.0"
   },
@@ -31,6 +32,11 @@
       "includes": [
         "index.js"
       ]
+    },
+    "jymfony-autoload-dev": {
+      "namespaces": {
+        "Jymfony.Util.Tests": "test/"
+      }
     }
   }
 }

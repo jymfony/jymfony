@@ -1,5 +1,5 @@
 declare namespace Jymfony.Component.HttpFoundation.Controller {
-    import LoggerInterface = Jymfony.Component.Logger.LoggerInterface;
+    import LoggerInterface = Jymfony.Contracts.Logger.LoggerInterface;
 
     export class FunctionControllerResolver extends implementationOf(ControllerResolverInterface) {
         private _logger: LoggerInterface;

@@ -4,7 +4,7 @@ declare namespace Jymfony.Component.Security.Firewall {
     /**
      * @memberOf Jymfony.Component.Security.Firewall
      */
-    export class ListenerInterface implements MixinInterface {
+    export class ListenerInterface {
         public static readonly definition: Newable<ListenerInterface>;
 
         /**

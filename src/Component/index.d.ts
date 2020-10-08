@@ -29,6 +29,7 @@
 /// <reference path="Stopwatch/types/index.d.ts" />
 /// <reference path="Templating/types/index.d.ts" />
 /// <reference path="Testing/types/index.d.ts" />
+/// <reference path="Validator/types/index.d.ts" />
 /// <reference path="VarDumper/types/index.d.ts" />
 /// <reference path="VarExporter/types/index.d.ts" />
 /// <reference path="Yaml/types/index.d.ts" />

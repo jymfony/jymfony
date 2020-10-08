@@ -2,7 +2,7 @@ declare namespace Jymfony.Component.DependencyInjection.Compiler {
     import ContainerBuilder = Jymfony.Component.DependencyInjection.ContainerBuilder;
     import Reference = Jymfony.Component.DependencyInjection.Reference;
 
-    export class PriorityTaggedServiceTrait implements MixinInterface {
+    export class PriorityTaggedServiceTrait {
         public static readonly definition: Newable<PriorityTaggedServiceTrait>;
 
         /**

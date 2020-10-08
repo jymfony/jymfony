@@ -34,6 +34,7 @@ As said, Jymfony is made of reusable Javascript components:
 - [@jymfony/cache](https://github.com/jymfony/cache)
 - [@jymfony/config](https://github.com/jymfony/config)
 - [@jymfony/console](https://github.com/jymfony/console)
+- [@jymfony/crontab](https://github.com/jymfony/crontab)
 - [@jymfony/datetime](https://github.com/jymfony/date-time)
 - [@jymfony/debug](https://github.com/jymfony/debug)
 - [@jymfony/dependency-injection](https://github.com/jymfony/dependency-injection)

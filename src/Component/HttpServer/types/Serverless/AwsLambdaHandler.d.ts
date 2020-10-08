@@ -1,7 +1,7 @@
 declare namespace Jymfony.Component.HttpServer.Serverless {
     import ContentType = Jymfony.Component.HttpFoundation.Header.ContentType;
     import RouteCollection = Jymfony.Component.Routing.RouteCollection;
-    import LoggerInterface = Jymfony.Component.Logger.LoggerInterface;
+    import LoggerInterface = Jymfony.Contracts.Logger.LoggerInterface;
 
     export class AwsLambdaHandler extends RequestHandler {
         /**

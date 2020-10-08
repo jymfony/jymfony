@@ -3,7 +3,7 @@ const Lexer = Jymfony.Component.DateTime.Parser.Lexer;
 const TimeDescriptor = Jymfony.Component.DateTime.Struct.TimeDescriptor;
 
 const DATE_REGEX = /^[-+](\d{4,})-(\d{2})-(\d{2})/;
-const TIME_REGEX = /^(\d{2}):(\d{2}):(\d{2})(?:.(\d+))?([+-]\d{2}:?\d{2})?/;
+const TIME_REGEX = /^(\d{2}):(\d{2}):(\d{2})(?:\.(\d+))?([+-]\d{2}:?\d{2})?/;
 
 /**
  * DateTime parser.
@@ -43,7 +43,7 @@ export default class Parser {
      * @throws {InvalidDateTimeStringException}
      */
     parse(datetime, timezone = undefined) {
-        datetime = datetime.trim();
+        datetime = __jymfony.trim(datetime);
         this._tm = new TimeDescriptor(timezone);
         this._lexer.input = datetime;
 
@@ -169,7 +169,7 @@ export default class Parser {
 
         if (24 === hour) {
             this._tm.hour = 0;
-            this._tm._addDays(1);
+            this._tm._doAddDays(1);
         } else {
             this._tm.hour = ~~matches[1];
         }
@@ -177,6 +177,11 @@ export default class Parser {
         this._tm.minutes = ~~matches[2];
         this._tm.seconds = ~~matches[3];
         this._tm.milliseconds = ~~ String(matches[4] || 0).substr(0, 3);
+
+        if (matches[5]) {
+            this._tm.timeZone = Jymfony.Component.DateTime.DateTimeZone.get(matches[5]);
+            return;
+        }
 
         if (! this._lexer.lookahead) {
             return;
@@ -214,27 +219,27 @@ export default class Parser {
 
     _parseDayName(value) {
         if (8 === value) {
-            this._tm._addDays(1);
+            this._tm._doAddDays(1);
         } else if (-1 === value) {
-            this._tm._addDays(-1);
+            this._tm._doAddDays(-1);
         } else if (0 === value) {
             // Do nothing.
         } else if (this._tm.weekDay > value) {
             const diff = this._tm.weekDay - value;
-            this._tm._addDays(7 - diff);
+            this._tm._doAddDays(7 - diff);
         } else if (value > this._tm.weekDay) {
             const diff = value - this._tm.weekDay;
-            this._tm._addDays(diff);
+            this._tm._doAddDays(diff);
         }
     }
 
     _parseMonthName(value) {
         if (this._tm.month > value) {
             const diff = this._tm.month - value;
-            this._tm._addMonths(12 - diff);
+            this._tm._doAddMonths(12 - diff);
         } else if (value > this._tm.month) {
             const diff = value - this._tm.month;
-            this._tm._addMonths(diff);
+            this._tm._doAddMonths(diff);
         }
     }
 
@@ -269,11 +274,11 @@ export default class Parser {
                 break;
 
             case value.relative === Lexer.RELATIVE_DAYS:
-                this._tm._addDays(value.modifier);
+                this._tm._doAddDays(value.modifier);
                 break;
 
             case value.relative === Lexer.RELATIVE_WEEKS:
-                this._tm._addDays(value.modifier * 7);
+                this._tm._doAddDays(value.modifier * 7);
                 break;
         }
 
@@ -284,7 +289,7 @@ export default class Parser {
 
     _relativeMonth(value) {
         if (Lexer.RELATIVE_MONTHS === value.relative) {
-            this._tm._addMonths(value.modifier);
+            this._tm._doAddMonths(value.modifier);
             return;
         }
 
@@ -293,14 +298,14 @@ export default class Parser {
         if (currentMonth === month) {
             switch (value.modifier) {
                 case 1:
-                case -1: this._tm._addYears(value.modifier); break;
+                case -1: this._tm._doAddYears(value.modifier); break;
             }
 
             return;
         }
 
         if (-1 === value.modifier) {
-            this._tm._addYears(-1);
+            this._tm._doAddYears(-1);
         }
 
         this._parseMonthName(month);
@@ -311,10 +316,10 @@ export default class Parser {
             this._tm.day = 1;
 
             if (-100 === value.modifier) {
-                this._tm._addMonths(1);
-                this._tm._addDays(-1);
+                this._tm._doAddMonths(1);
+                this._tm._doAddDays(-1);
                 while (this._tm.weekDay !== value.time) {
-                    this._tm._addDays(-1);
+                    this._tm._doAddDays(-1);
                 }
             } else {
                 const firstDoW = this._tm.weekDay;
@@ -323,7 +328,7 @@ export default class Parser {
                     diff += 7;
                 }
 
-                this._tm._addDays(diff + (value.modifier - 1) * 7);
+                this._tm._doAddDays(diff + (value.modifier - 1) * 7);
             }
 
             value.time = undefined;
@@ -331,7 +336,7 @@ export default class Parser {
         }
 
         if (-1 === value.modifier) {
-            this._tm._addDays(-7);
+            this._tm._doAddDays(-7);
         }
 
         this._parseDayName(value.relative - Lexer.RELATIVE_WEEKDAY);

@@ -4,7 +4,7 @@ declare namespace Jymfony.Component.Security.Encoder {
     /**
      * EncoderFactoryInterface to support different encoders for different accounts.
      */
-    export class EncoderFactoryInterface implements MixinInterface {
+    export class EncoderFactoryInterface {
         public static readonly definition: Newable<EncoderFactoryInterface>;
 
         /**

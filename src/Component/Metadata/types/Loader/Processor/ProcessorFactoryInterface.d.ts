@@ -1,5 +1,5 @@
 declare namespace Jymfony.Component.Metadata.Loader.Processor {
-    export class ProcessorFactoryInterface extends MixinInterface {
+    export class ProcessorFactoryInterface {
         public static readonly definition: Newable<ProcessorFactoryInterface>;
 
         /**

@@ -56,7 +56,7 @@ declare namespace Jymfony.Component.Dotenv {
         loadEnv(path: string, envKey?: string | null, defaultEnv?: string, testEnvs?: string[]): void;
 
         /**
-         * Loads env vars from .env.local.php if the file exists or from the other .env files otherwise.
+         * Loads env vars from .env.local.js if the file exists or from the other .env files otherwise.
          *
          * This method also configures the APP_DEBUG env var according to the current APP_ENV.
          *

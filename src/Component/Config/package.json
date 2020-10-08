@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "@jymfony/debug": "*",
+    "@jymfony/testing": "*",
     "chai": "^4.2",
     "mocha": "^6.0"
   },
@@ -30,6 +31,11 @@
     "jymfony-autoload": {
       "namespaces": {
         "Jymfony.Component.Config": "src/"
+      }
+    },
+    "jymfony-autoload-dev": {
+      "namespaces": {
+        "Jymfony.Component.Config.Tests": "test/"
       }
     }
   }

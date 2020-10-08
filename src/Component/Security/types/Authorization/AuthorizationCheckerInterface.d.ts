@@ -1,7 +1,7 @@
 declare namespace Jymfony.Component.Security.Authorization {
     import TokenInterface = Jymfony.Component.Security.Authentication.Token.TokenInterface;
 
-    export class AuthorizationCheckerInterface implements MixinInterface {
+    export class AuthorizationCheckerInterface {
         /**
          * Checks if the attributes are granted against the given authentication token and optionally supplied subject.
          */

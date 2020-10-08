@@ -35,7 +35,7 @@ export default class ProgressBar {
         }
 
         /**
-         * @var OutputInterface
+         * @type {Jymfony.Contracts.Console.OutputInterface}
          */
         this._output = output;
         this.maxSteps = max;

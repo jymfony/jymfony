@@ -74,7 +74,7 @@ export default class Rule {
     /**
      * Gets the initial year (inclusive).
      *
-     * @return {int}
+     * @returns {int}
      */
     get fromYear() {
         return this._fromYear;
@@ -83,7 +83,7 @@ export default class Rule {
     /**
      * Gets the end year (inclusive).
      *
-     * @return {int}
+     * @returns {int}
      */
     get toYear() {
         return this._toYear;
@@ -92,7 +92,7 @@ export default class Rule {
     /**
      * Gets the transition day month.
      *
-     * @return {int}
+     * @returns {int}
      */
     get month() {
         return this._inMonth;
@@ -147,7 +147,7 @@ export default class Rule {
      *
      * @param {int} year
      *
-     * @return {[string, string]}
+     * @returns {[string, string]}
      */
     getTransitionTime(year) {
         if (year < this._fromYear) {

@@ -1,4 +1,6 @@
 declare namespace Jymfony.Component.PropertyAccess.Exception {
+    import PropertyPathInterface = Jymfony.Contracts.PropertyAccess.PropertyPathInterface;
+
     export class UnexpectedTypeException extends RuntimeException {
         /**
          * Constructor.

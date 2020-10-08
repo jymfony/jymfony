@@ -37,6 +37,11 @@
       "namespaces": {
         "Jymfony.Component.HttpFoundation": "src/"
       }
+    },
+    "jymfony-autoload-dev": {
+      "namespaces": {
+        "Jymfony.Component.HttpFoundation.Tests": "test/"
+      }
     }
   }
 }

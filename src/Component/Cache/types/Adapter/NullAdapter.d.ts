@@ -1,6 +1,6 @@
 declare namespace Jymfony.Component.Cache.Adapter {
-    import CacheItemInterface = Jymfony.Component.Cache.CacheItemInterface;
-    import CacheItemPoolInterface = Jymfony.Component.Cache.CacheItemPoolInterface;
+    import CacheItemInterface = Jymfony.Contracts.Cache.CacheItemInterface;
+    import CacheItemPoolInterface = Jymfony.Contracts.Cache.CacheItemPoolInterface;
 
     export class NullAdapter<T = any> extends implementationOf(CacheItemPoolInterface) {
         /**

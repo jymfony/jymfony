@@ -9,12 +9,27 @@ Jymfony.Contracts = {
     /**
      * @namespace
      */
+    Cache: {
+        /**
+         * @namespace
+         */
+        Exception: {},
+    },
+
+    /**
+     * @namespace
+     */
     Console: {
         /**
          * @namespace
          */
         Event: {},
     },
+
+    /**
+     * @namespace
+     */
+    DateTime: {},
 
     /**
      * @namespace
@@ -54,6 +69,16 @@ Jymfony.Contracts = {
     /**
      * @namespace
      */
+    Logger: {
+        /**
+         * @namespace
+         */
+        Exception: {},
+    },
+
+    /**
+     * @namespace
+     */
     Metadata: {
         /**
          * @namespace
@@ -69,5 +94,25 @@ Jymfony.Contracts = {
     /**
      * @namespace
      */
+    PropertyAccess: {
+        /**
+         * @namespace
+         */
+        Exception: {},
+    },
+
+    /**
+     * @namespace
+     */
     Stopwatch: {},
+
+    /**
+     * @namespace
+     */
+    Translation: {
+        /**
+         * @namespace
+         */
+        Exception: {},
+    },
 };

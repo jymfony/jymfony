@@ -5,7 +5,7 @@ declare namespace Jymfony.Component.Security.User {
      * Can be used when you want to check the account status, e.g when the account is
      * disabled or blocked. This should not be used to make authentication decisions.
      */
-    export class UserCheckerInterface implements MixinInterface {
+    export class UserCheckerInterface {
         public static readonly definition: Newable<UserCheckerInterface>;
 
         /**

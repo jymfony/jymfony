@@ -1,4 +1,7 @@
 declare namespace Jymfony.Component.PropertyAccess {
+    import PropertyPathInterface = Jymfony.Contracts.PropertyAccess.PropertyPathInterface;
+    import PropertyPathIteratorInterface = Jymfony.Contracts.PropertyAccess.PropertyPathIteratorInterface;
+
     export class PropertyPathIterator extends implementationOf(PropertyPathIteratorInterface) {
         private _elements: string[];
         private _path: PropertyPathInterface;

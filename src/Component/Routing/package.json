@@ -27,6 +27,7 @@
   "devDependencies": {
     "@jymfony/depedency-injection": "*",
     "@jymfony/debug": "*",
+    "@jymfony/testing": "*",
     "@jymfony/yaml": "*",
     "chai": "^4.2",
     "mocha": "^6.0"
@@ -35,6 +36,12 @@
     "jymfony-autoload": {
       "namespaces": {
         "Jymfony.Component.Routing": "src/"
+      }
+    },
+    "jymfony-autoload-dev": {
+      "namespaces": {
+        "Jymfony.Component.Routing.Fixtures": "fixtures/",
+        "Jymfony.Component.Routing.Tests": "test/"
       }
     }
   }

@@ -1,5 +1,5 @@
 declare namespace Jymfony.Component.DependencyInjection {
-    export class ContainerInterface implements MixinInterface {
+    export class ContainerInterface {
         public static readonly definition: Newable<ContainerInterface>;
 
         /**
@@ -10,7 +10,8 @@ declare namespace Jymfony.Component.DependencyInjection {
          * @throws {Jymfony.Component.DependencyInjection.Exception.NotFoundExceptionInterface}  No entry was found for **this** identifier.
          * @throws {Jymfony.Component.DependencyInjection.Exception.ExceptionInterface} Error while retrieving the entry.
          */
-        get(id: string): any;
+        get<T extends object>(id: Newable<T>): T;
+        get(id: string | symbol): any;
 
         /**
          * Returns true if the container can return an entry for the given identifier.

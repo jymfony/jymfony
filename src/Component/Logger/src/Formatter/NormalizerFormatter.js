@@ -1,4 +1,5 @@
 const DateTime = Jymfony.Component.DateTime.DateTime;
+const DateTimeInterface = Jymfony.Contracts.DateTime.DateTimeInterface;
 const FormatterInterface = Jymfony.Component.Logger.Formatter.FormatterInterface;
 
 /**
@@ -92,7 +93,7 @@ export default class NormalizerFormatter extends implementationOf(FormatterInter
             record = new DateTime(record);
         }
 
-        if (record instanceof DateTime) {
+        if (record instanceof DateTimeInterface) {
             return this._formatDate(record);
         }
 
@@ -145,7 +146,7 @@ export default class NormalizerFormatter extends implementationOf(FormatterInter
     /**
      * Formats a datetime object
      *
-     * @param {Jymfony.Component.DateTime.DateTime} record
+     * @param {Jymfony.Contracts.DateTime.DateTimeInterface} record
      *
      * @protected
      */

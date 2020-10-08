@@ -37,6 +37,12 @@
       "namespaces": {
         "Jymfony.Component.Security": "src/"
       }
+    },
+    "jymfony-autoload-dev": {
+      "namespaces": {
+        "Jymfony.Component.Security.Fixtures": "fixtures/",
+        "Jymfony.Component.Security.Tests": "test/"
+      }
     }
   }
 }

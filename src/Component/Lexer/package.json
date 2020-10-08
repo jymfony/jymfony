@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "@jymfony/debug": "*",
+    "@jymfony/debug": "*",
     "@jymfony/var-dumper": "*",
     "chai": "^4.2",
     "mocha": "^6.0"
@@ -31,6 +32,12 @@
     "jymfony-autoload": {
       "namespaces": {
         "Jymfony.Component.Lexer": "src/"
+      }
+    },
+    "jymfony-autoload-dev": {
+      "namespaces": {
+        "Jymfony.Component.Lexer.Fixtures": "fixtures/",
+        "Jymfony.Component.Lexer.Tests": "test/"
       }
     }
   }

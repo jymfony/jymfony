@@ -2,7 +2,7 @@ declare namespace Jymfony.Component.Security.Firewall {
     import EventSubscriberInterface = Jymfony.Contracts.EventDispatcher.EventSubscriberInterface;
     import TokenStorageInterface = Jymfony.Component.Security.Authentication.Token.Storage.TokenStorageInterface;
     import AuthenticationTrustResolverInterface = Jymfony.Component.Security.Authentication.AuthenticationTrustResolverInterface;
-    import LoggerInterface = Jymfony.Component.Logger.LoggerInterface;
+    import LoggerInterface = Jymfony.Contracts.Logger.LoggerInterface;
     import RequestEvent = Jymfony.Contracts.HttpServer.Event.RequestEvent;
     import ResponseEvent = Jymfony.Contracts.HttpServer.Event.ResponseEvent;
     import EventSubscriptions = Jymfony.Contracts.EventDispatcher.EventSubscriptions;

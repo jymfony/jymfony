@@ -10,12 +10,19 @@ const CliDumper = Jymfony.Component.VarDumper.Dumper.CliDumper;
 const { Assertion, util } = chai;
 const path = require('path');
 
-const getDump = (data, key = undefined, filter = 0) => {
-    const cloner = new VarCloner();
-    cloner.maxItems = -1;
+let cloner = null;
+let dumper = null;
 
-    const dumper = new CliDumper();
-    dumper.colors = false;
+const getDump = (data, key = undefined, filter = 0) => {
+    if (null === cloner) {
+        cloner = new VarCloner();
+        cloner.maxItems = -1;
+    }
+
+    if (null === dumper) {
+        dumper = new CliDumper();
+        dumper.colors = false;
+    }
 
     data = cloner.cloneVar(data, filter);
     if (undefined !== key && null === (data = data.seek(key))) {

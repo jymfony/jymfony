@@ -1,5 +1,5 @@
 declare namespace Jymfony.Component.Metadata.Loader.Locator {
-    export class FileLocatorInterface extends MixinInterface {
+    export class FileLocatorInterface {
         public static readonly definition: Newable<FileLocatorInterface>;
 
         /**

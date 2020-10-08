@@ -2,7 +2,7 @@ declare namespace Jymfony.Contracts.Metadata {
     /**
      * Represents a metadata object.
      */
-    export class MetadataInterface extends MixinInterface {
+    export class MetadataInterface {
         public static readonly definition: Newable<MetadataInterface>;
 
         /**

@@ -14,7 +14,7 @@ declare namespace Jymfony.Component.Security.User {
      *
      * @see {Jymfony.Component.Security.User.UserInterface}
      */
-    export class UserProviderInterface implements MixinInterface {
+    export class UserProviderInterface {
         public static readonly definition: Newable<UserProviderInterface>;
 
         /**
@@ -43,6 +43,6 @@ declare namespace Jymfony.Component.Security.User {
         /**
          * Whether this provider supports the given user class.
          */
-        supportsClass(class_: string | Constructor<any>): boolean;
+        supportsClass(class_: string | Newable<any>): boolean;
     }
 }

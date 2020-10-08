@@ -1,5 +1,5 @@
 declare namespace Jymfony.Component.Config {
-    export class FileLocatorInterface implements MixinInterface {
+    export class FileLocatorInterface {
         public static readonly definition: Newable<FileLocatorInterface>;
 
         /**

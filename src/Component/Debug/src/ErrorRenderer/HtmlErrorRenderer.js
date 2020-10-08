@@ -37,7 +37,7 @@ export default class HtmlErrorRenderer extends implementationOf(ErrorRendererInt
      *
      * @param {boolean|Function} [debug = false] The debugging mode as a boolean or a callable that should return it
      * @param {string|null} [projectDir = null]
-     * @param {Jymfony.Component.Logger.LoggerInterface} [logger = null]
+     * @param {Jymfony.Contracts.Logger.LoggerInterface} [logger = null]
      */
     __construct(debug = false, projectDir = null, logger = null) {
         if (! isBoolean(debug) && ! isFunction(debug)) {
@@ -59,7 +59,7 @@ export default class HtmlErrorRenderer extends implementationOf(ErrorRendererInt
         this._projectDir = projectDir;
 
         /**
-         * @type {Jymfony.Component.Logger.LoggerInterface}
+         * @type {Jymfony.Contracts.Logger.LoggerInterface}
          *
          * @private
          */
@@ -80,7 +80,7 @@ export default class HtmlErrorRenderer extends implementationOf(ErrorRendererInt
      * Gets the HTML content associated with the given exception.
      */
     getBody(exception) {
-        return this._renderException(exception, 'views/exception.html.php');
+        return this._renderException(exception, 'views/exception.html.js');
     }
 
     /**

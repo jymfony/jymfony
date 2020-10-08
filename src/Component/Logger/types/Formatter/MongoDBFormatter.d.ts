@@ -1,5 +1,5 @@
 declare namespace Jymfony.Component.Logger.Formatter {
-    import DateTime = Jymfony.Component.DateTime.DateTime;
+    import DateTimeInterface = Jymfony.Contracts.DateTime.DateTimeInterface;
 
     export class MongoDBFormatter extends implementationOf(FormatterInterface) {
         /**
@@ -45,6 +45,6 @@ declare namespace Jymfony.Component.Logger.Formatter {
         /**
          * Treat and format the given record as a date.
          */
-        protected _formatDate(record: DateTime): Date;
+        protected _formatDate(record: DateTimeInterface): Date;
     }
 }

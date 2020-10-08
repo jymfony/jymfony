@@ -168,9 +168,9 @@ export default class HeaderBag {
      * Returns the HTTP header value converted to a date.
      *
      * @param {string} key The parameter key
-     * @param {Jymfony.Component.DateTime.DateTime} [defaultValue] The default value
+     * @param {Jymfony.Contracts.DateTime.DateTimeInterface} [defaultValue] The default value
      *
-     * @return {Jymfony.Component.DateTime.DateTime} The parsed DateTime or the default value if the header does not exist
+     * @returns {Jymfony.Contracts.DateTime.DateTimeInterface} The parsed DateTime or the default value if the header does not exist
      *
      * @throws {RuntimeException} When the HTTP header is not parseable
      */

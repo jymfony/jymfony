@@ -1,6 +1,6 @@
 declare namespace Jymfony.Component.HttpFoundation.Controller {
     import Container = Jymfony.Component.DependencyInjection.Container;
-    import LoggerInterface = Jymfony.Component.Logger.LoggerInterface;
+    import LoggerInterface = Jymfony.Contracts.Logger.LoggerInterface;
 
     export class ContainerControllerResolver extends implementationOf(ControllerResolverInterface) {
         private _container: Container;

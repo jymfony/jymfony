@@ -1,5 +1,3 @@
-require('../../../fixtures/namespace');
-
 const Fixtures = Jymfony.Component.Security.Fixtures.Authentication.Token;
 const UsernamePasswordToken = Jymfony.Component.Security.Authentication.Token.UsernamePasswordToken;
 const Role = Jymfony.Component.Security.Role.Role;

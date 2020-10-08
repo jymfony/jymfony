@@ -2,7 +2,7 @@ const ChildDefinition = Jymfony.Component.DependencyInjection.ChildDefinition;
 const AbstractRecursivePass = Jymfony.Component.DependencyInjection.Compiler.AbstractRecursivePass;
 const Alias = Jymfony.Component.DependencyInjection.Alias;
 const Reference = Jymfony.Component.DependencyInjection.Reference;
-const LoggerInterface = Jymfony.Component.Logger.LoggerInterface;
+const LoggerInterface = Jymfony.Contracts.Logger.LoggerInterface;
 
 /**
  * @memberOf Jymfony.Bundle.FrameworkBundle.DependencyInjection.Compiler

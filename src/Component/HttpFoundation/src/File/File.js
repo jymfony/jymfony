@@ -105,7 +105,7 @@ export default class File {
     /**
      * Gets the last modification time.
      *
-     * @returns {Jymfony.Component.DateTime.DateTime}
+     * @returns {Jymfony.Contracts.DateTime.DateTimeInterface}
      */
     get modificationTime() {
         if (undefined === this._stat && ! this.exists()) {

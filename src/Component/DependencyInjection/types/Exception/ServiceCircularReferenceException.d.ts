@@ -9,6 +9,7 @@ declare namespace Jymfony.Component.DependencyInjection.Exception {
         /**
          * Constructor.
          */
+        // @ts-ignore
         __construct(id: string, path: string|string[]): void;
         constructor(id: string, path: string|string[]);
     }

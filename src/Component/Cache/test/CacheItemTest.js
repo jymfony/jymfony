@@ -1,5 +1,5 @@
 const CacheItem = Jymfony.Component.Cache.CacheItem;
-const InvalidArgumentException = Jymfony.Component.Cache.Exception.InvalidArgumentException;
+const InvalidArgumentException = Jymfony.Contracts.Cache.Exception.InvalidArgumentException;
 
 const { expect } = require('chai');
 
@@ -38,6 +38,7 @@ describe('[Cache] CacheItem', function () {
 
     it('tag sould work', () => {
         const item = new CacheItem();
+        item._isTaggable = true;
 
         expect(item.tag('foo')).to.be.equal(item);
         expect(item.tag([ 'bar', 'baz' ])).to.be.equal(item);
@@ -51,6 +52,7 @@ describe('[Cache] CacheItem', function () {
         it('should throw on invalid tag with dataset #' + index++, () => {
             expect(() => {
                 const item = new CacheItem();
+                item._isTaggable = true;
                 item.tag(key);
             }).to.throw(InvalidArgumentException);
         });

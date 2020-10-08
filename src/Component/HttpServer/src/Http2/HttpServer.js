@@ -52,7 +52,7 @@ export default class HttpServer extends BaseServer {
      *
      * @param {Jymfony.Component.Routing.RouteCollection} routes
      * @param {Object} options
-     * @param {Jymfony.Component.Logger.LoggerInterface} logger
+     * @param {Jymfony.Contracts.Logger.LoggerInterface} logger
      *
      * @returns {Jymfony.Component.HttpServer.HttpServer}
      */

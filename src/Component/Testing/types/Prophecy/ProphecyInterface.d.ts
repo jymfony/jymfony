@@ -1,5 +1,5 @@
 declare namespace Jymfony.Component.Testing.Prophecy {
-    export class ProphecyInterface implements MixinInterface {
+    export class ProphecyInterface {
         public static readonly definition: Newable<ProphecyInterface>;
 
         /**

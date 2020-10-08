@@ -32,15 +32,15 @@ declare namespace Jymfony.Component.VarDumper.Cloner {
         /**
          * Var casters.
          */
-        private _casters: Map<Constructor, Invokable[]>;
+        private _casters: Map<Newable, Invokable[]>;
 
         /**
          * Constructor.
          *
          * @param {Map.<Function, Function[]>} casters
          */
-        __construct(casters?: Map<Constructor|string, Invokable>): void;
-        constructor(casters?: Map<Constructor|string, Invokable>);
+        __construct(casters?: Map<Newable|string, Invokable>): void;
+        constructor(casters?: Map<Newable|string, Invokable>);
 
         /**
          * Add casters for objects.
@@ -48,7 +48,7 @@ declare namespace Jymfony.Component.VarDumper.Cloner {
          *
          * @param {Object.<string|symbol, Function>} casters
          */
-        addCasters(casters: Map<Constructor|string, Invokable>|Record<string, Invokable>): void;
+        addCasters(casters: Map<Newable|string, Invokable>|Record<string, Invokable>): void;
 
         /**
          * Sets the maximum number of items to past past the minimum depth in nested structure.
@@ -72,7 +72,7 @@ declare namespace Jymfony.Component.VarDumper.Cloner {
         cloneVar(variable: any, filter?: number): Data;
 
         /**
-         * Effectively clones the PHP variable.
+         * Effectively clones the variable.
          */
         protected abstract _doClone(variable: any): any;
 

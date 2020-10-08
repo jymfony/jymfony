@@ -1,5 +1,5 @@
 declare namespace Jymfony.Component.Console.Input {
-    export class InputAwareInterface implements MixinInterface {
+    export class InputAwareInterface {
         public static readonly definition: Newable<InputAwareInterface>;
 
         /**

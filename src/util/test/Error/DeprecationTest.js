@@ -1,7 +1,7 @@
 require('../../lib/Error/trigger_deprecated');
 
 const ErrorHandler = Jymfony.Component.Debug.ErrorHandler;
-const NullLogger = Jymfony.Component.Logger.NullLogger;
+const NullLogger = Jymfony.Contracts.Logger.NullLogger;
 const { expect } = require('chai');
 
 describe('Deprecation Trigger', function () {

@@ -1,5 +1,5 @@
 declare namespace Jymfony.Contracts.HttpFoundation {
-    export class ParameterBagInterface implements MixinInterface, Iterable<[string, any]> {
+    export class ParameterBagInterface implements Iterable<[string, any]> {
         public static readonly definition: Newable<ParameterBagInterface>;
 
         /**

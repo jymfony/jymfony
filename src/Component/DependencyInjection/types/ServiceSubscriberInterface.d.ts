@@ -12,7 +12,7 @@ declare namespace Jymfony.Component.DependencyInjection {
      * This interface does not dictate any injection method for these service locators, although constructor
      * injection is recommended.
      */
-    export class ServiceSubscriberInterface implements MixinInterface {
+    export class ServiceSubscriberInterface {
         public static readonly definition: Newable<ServiceSubscriberInterface>;
 
         /**
@@ -20,19 +20,19 @@ declare namespace Jymfony.Component.DependencyInjection {
          *
          * For mandatory dependencies:
          *
-         *  * yield [ 'logger', 'Jymfony.Component.Logger.LoggerInterface' ] means the objects use the "logger" name
-         *    internally to fetch a service which must implement Jymfony.Component.Logger.LoggerInterface.
-         *  * yield [ 'loggers', 'Jymfony.Component.Logger.LoggerInterface[]' ] means the objects use the "loggers" name
-         *    internally to fetch an iterable of Jymfony.Component.Logger.LoggerInterface instances.
-         *  * yield 'Jymfony.Component.Logger.LoggerInterface' is a shortcut for
-         *  * yield [ 'Jymfony.Component.Logger.LoggerInterface', 'Jymfony.Component.Logger.LoggerInterface' ]
+         *  * yield [ 'logger', 'Jymfony.Contracts.Logger.LoggerInterface' ] means the objects use the "logger" name
+         *    internally to fetch a service which must implement Jymfony.Contracts.Logger.LoggerInterface.
+         *  * yield [ 'loggers', 'Jymfony.Contracts.Logger.LoggerInterface[]' ] means the objects use the "loggers" name
+         *    internally to fetch an iterable of Jymfony.Contracts.Logger.LoggerInterface instances.
+         *  * yield 'Jymfony.Contracts.Logger.LoggerInterface' is a shortcut for
+         *  * yield [ 'Jymfony.Contracts.Logger.LoggerInterface', 'Jymfony.Contracts.Logger.LoggerInterface' ]
          *
          * otherwise:
          *
-         *  * yield [ 'logger', '?Jymfony.Component.Logger.LoggerInterface' ] denotes an optional dependency
-         *  * yield [ 'loggers', '?Jymfony.Component.Logger.LoggerInterface[]' ] denotes an optional iterable dependency
-         *  * yield '?Jymfony.Component.Logger.LoggerInterface' is a shortcut for
-         *  * yield [ 'Jymfony.Component.Logger.LoggerInterface', '?Jymfony.Component.Logger.LoggerInterface' ]
+         *  * yield [ 'logger', '?Jymfony.Contracts.Logger.LoggerInterface' ] denotes an optional dependency
+         *  * yield [ 'loggers', '?Jymfony.Contracts.Logger.LoggerInterface[]' ] denotes an optional iterable dependency
+         *  * yield '?Jymfony.Contracts.Logger.LoggerInterface' is a shortcut for
+         *  * yield [ 'Jymfony.Contracts.Logger.LoggerInterface', '?Jymfony.Contracts.Logger.LoggerInterface' ]
          *
          * @returns The required service types, optionally keyed by service names
          */

@@ -134,7 +134,7 @@ export default class LineFormatter extends NormalizerFormatter {
     /**
      * @param {*} data
      *
-     * @return {string}
+     * @returns {string}
      *
      * @private
      */

@@ -55,18 +55,18 @@ export default class ClassGenerator {
 
         for (const [ methodName, reflMethod ] of __jymfony.getEntries(methods)) {
             let method;
-            if (reflMethod.isGenerator) {
-                method = function * (...$args) {
-                    return yield * self._prophecy.makeProphecyMethodCall(methodName, $args);
-                };
+            if (reflMethod.isAsync && reflMethod.isGenerator) {
+                method = __jymfony.Platform.hasAsyncGeneratorFunctionSupport() ?
+                    eval('async function * () { }') :
+                    function () {
+                        throw new Error('Async generators are not supported by the current version of node');
+                    };
+            } else if (reflMethod.isGenerator) {
+                method = function * () { };
             } else if (reflMethod.isAsync) {
-                method = function (...$args) {
-                    return Promise.resolve(self._prophecy.makeProphecyMethodCall(methodName, $args));
-                };
+                method = function () { };
             } else {
-                method = function (...$args) {
-                    return self._prophecy.makeProphecyMethodCall(methodName, $args);
-                };
+                method = function () { };
             }
 
             proto[methodName] = method;

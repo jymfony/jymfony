@@ -511,8 +511,19 @@ class ReflectionClass {
         this._filename = metadata.filename;
         this._module = metadata.module;
         this._constructor = this._isInterface ? value : metadata.constructor;
+
         if (metadata.fields) {
             this._fields = metadata.fields;
+        }
+
+        const parent = this.getParentClass();
+        if (parent && parent.name) {
+            const parentFields = parent._fields;
+            for (const name of Object.keys(parentFields)) {
+                if ('#' !== name[0] && ! (name in this._fields)) {
+                    this._fields[name] = parentFields[name];
+                }
+            }
         }
 
         if (metadata.staticFields) {
@@ -574,7 +585,7 @@ class ReflectionClass {
      * @private
      */
     _loadWithoutMetadata(value) {
-        this._className = undefined;
+        this._className = value.name;
         this._module = ReflectionClass._searchModule(value);
         this._filename = this._module ? this._module.filename : undefined;
         this._constructor = value;
@@ -608,6 +619,10 @@ class ReflectionClass {
                 }
 
                 if ('function' === typeof descriptor.value) {
+                    if ('__construct' === name) {
+                        continue;
+                    }
+
                     this._methods[name] = { ...descriptor, ownClass: proto.constructor };
                 } else {
                     if ('function' === typeof descriptor.get) {

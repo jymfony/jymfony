@@ -1,5 +1,5 @@
 const BufferingLogger = Jymfony.Component.Debug.BufferingLogger;
-const LogLevel = Jymfony.Component.Logger.LogLevel;
+const LogLevel = Jymfony.Contracts.Logger.LogLevel;
 const { expect } = require('chai');
 
 describe('[Debug] BufferingLogger', function () {

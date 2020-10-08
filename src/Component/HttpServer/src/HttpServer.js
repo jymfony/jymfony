@@ -54,7 +54,7 @@ export default class HttpServer extends mix(RequestHandler, HttpServerInterface)
      * Creates a new Http server instance.
      *
      * @param {Jymfony.Component.Routing.RouteCollection} routes
-     * @param {Jymfony.Component.Logger.LoggerInterface} logger
+     * @param {Jymfony.Contracts.Logger.LoggerInterface} logger
      *
      * @returns {Jymfony.Component.HttpServer.HttpServer}
      */

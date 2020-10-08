@@ -3,7 +3,7 @@ declare namespace Jymfony.Component.Testing.Prediction {
     import MethodProphecy = Jymfony.Component.Testing.Prophecy.MethodProphecy;
     import ObjectProphecy = Jymfony.Component.Testing.Prophecy.ObjectProphecy;
 
-    export class PredictionInterface implements MixinInterface {
+    export class PredictionInterface {
         public static readonly definition: Newable<PredictionInterface>;
 
         /**

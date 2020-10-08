@@ -1,9 +1,10 @@
-const Escaper = Jymfony.Component.Yaml.Escaper;
+const DateTimeInterface = Jymfony.Contracts.DateTime.DateTimeInterface;
 const DumpException = Jymfony.Component.Yaml.Exception.DumpException;
+const Escaper = Jymfony.Component.Yaml.Escaper;
 const ParseException = Jymfony.Component.Yaml.Exception.ParseException;
+const Parser = Jymfony.Component.Yaml.Parser;
 const ValueHolder = Jymfony.Component.Yaml.Internal.ValueHolder;
 const TaggedValue = Jymfony.Component.Yaml.Tag.TaggedValue;
-const Parser = Jymfony.Component.Yaml.Parser;
 const Unescaper = Jymfony.Component.Yaml.Unescaper;
 const Yaml = Jymfony.Component.Yaml.Yaml;
 
@@ -108,10 +109,8 @@ export default class Inline {
      * @throws {Jymfony.Component.Yaml.Exception.DumpException} When trying to dump JS resource
      */
     static dump(value, flags = 0) {
-        if (ReflectionClass.exists('Jymfony.Component.DateTime.DateTime')) {
-            if (value instanceof Jymfony.Component.DateTime.DateTime) {
-                return value.format('c');
-            }
+        if (value instanceof DateTimeInterface) {
+            return value.format('c');
         }
 
         switch (true) {

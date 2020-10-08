@@ -8,7 +8,7 @@ class DumperInterface {
      * Dumps a scalar value.
      *
      * @param {Jymfony.Component.VarDumper.Cloner.Cursor} cursor The Cursor position in the dump
-     * @param {string} type The PHP type of the value being dumped
+     * @param {string} type The type of the value being dumped
      * @param {string|int|float|boolean} value The scalar value being dumped
      */
     dumpScalar(cursor, type, value) { }

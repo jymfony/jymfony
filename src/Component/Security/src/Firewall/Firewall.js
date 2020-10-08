@@ -3,7 +3,7 @@ const AccessDeniedHttpException = Jymfony.Component.HttpFoundation.Exception.Acc
 const Request = Jymfony.Component.HttpFoundation.Request;
 const Response = Jymfony.Component.HttpFoundation.Response;
 const Events = Jymfony.Component.HttpServer.Event.HttpServerEvents;
-const NullLogger = Jymfony.Component.Logger.NullLogger;
+const NullLogger = Jymfony.Contracts.Logger.NullLogger;
 const AuthenticationException = Jymfony.Component.Security.Exception.AuthenticationException;
 const AccessDeniedException = Jymfony.Component.Security.Exception.AccessDeniedException;
 const AccountStatusException = Jymfony.Component.Security.Exception.AccountStatusException;
@@ -28,7 +28,7 @@ export default class Firewall extends implementationOf(EventSubscriberInterface,
      * @param {Jymfony.Component.Security.Firewall.FirewallMapInterface} map
      * @param {Jymfony.Component.Security.Authentication.Token.Storage.TokenStorageInterface} tokenStorage
      * @param {Jymfony.Component.Security.Authentication.AuthenticationTrustResolverInterface} authenticationTrustResolver
-     * @param {Jymfony.Component.Logger.LoggerInterface} [logger]
+     * @param {Jymfony.Contracts.Logger.LoggerInterface} [logger]
      */
     __construct(map, tokenStorage, authenticationTrustResolver, logger = undefined) {
         /**
@@ -53,7 +53,7 @@ export default class Firewall extends implementationOf(EventSubscriberInterface,
         this._authenticationTrustResolver = authenticationTrustResolver;
 
         /**
-         * @type {Jymfony.Component.Logger.LoggerInterface}
+         * @type {Jymfony.Contracts.Logger.LoggerInterface}
          *
          * @private
          */

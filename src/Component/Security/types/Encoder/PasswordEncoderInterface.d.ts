@@ -2,7 +2,7 @@ declare namespace Jymfony.Component.Security.Encoder {
     /**
      * Represents a password encoder.
      */
-    export class PasswordEncoderInterface implements MixinInterface {
+    export class PasswordEncoderInterface {
         public static readonly definition: Newable<PasswordEncoderInterface>;
 
         /**

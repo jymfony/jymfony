@@ -11,7 +11,7 @@ const esc = (str) => __jymfony.htmlentities(str);
  */
 export default class HtmlDumper extends CliDumper {
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     __construct(output = null, flags = 0) {
         /**
@@ -144,7 +144,7 @@ export default class HtmlDumper extends CliDumper {
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     dump(data, output = null, extraDisplayOptions = {}) {
         this._extraDisplayOptions = extraDisplayOptions;
@@ -788,7 +788,7 @@ pre.jf-dump .jf-dump-search-wrapper > .jf-dump-search-count {
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     enterHash(cursor, type, class_, hasChild) {
         super.enterHash(cursor, type, class_, false);
@@ -819,7 +819,7 @@ pre.jf-dump .jf-dump-search-wrapper > .jf-dump-search-count {
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     leaveHash(cursor, type, class_, hasChild, cut) {
         this._dumpEllipsis(cursor, hasChild, cut);
@@ -831,7 +831,7 @@ pre.jf-dump .jf-dump-search-wrapper > .jf-dump-search-count {
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     _style(style, value, attr = []) {
         if ('' === value) {
@@ -933,7 +933,7 @@ pre.jf-dump .jf-dump-search-wrapper > .jf-dump-search-count {
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     _dumpLine(depth, endOfValue = false) { // eslint-disable-line no-unused-vars
         if (-1 === this._lastDepth) {

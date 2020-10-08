@@ -119,7 +119,7 @@ export default class Table {
         this._columnStyles = {};
 
         /**
-         * @var {int[]}
+         * @type {int[]}
          *
          * @private
          */

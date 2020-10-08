@@ -8,7 +8,9 @@ require('../../src/Reflection/ReflectionClass');
 const Namespace = require('../../src/Namespace');
 const path = require('path');
 
-class GrandParent {
+const Empty = function () {};
+
+class GrandParent extends Empty {
     get readProp() { }
     set writeProp(v) { }
 }
@@ -45,7 +47,7 @@ class Son2 extends mix(Parent, ISon, ISon2, SonTrait) {
     set prop(v) { }
 }
 
-Son2[Symbol.reflection] = {
+Object.defineProperty(Son2, Symbol.reflection, { get: () => ({
     fqcn: 'FooNs.Son2',
     namespace: undefined,
     filename: __filename,
@@ -54,12 +56,21 @@ Son2[Symbol.reflection] = {
     isModule: (val) => {
         return val === Son2;
     },
-};
+}) });
 
 Parent.CONST_1 = 'foobar';
 Son.CONST_2 = 'foo';
 
 describe('[Autoloader] ReflectionClass', function () {
+    it('getClass should work with internal classes', () => {
+        expect(ReflectionClass.getClass(Date)).to.be.equal(Date);
+    });
+
+    it('getClassName should work with internal classes', () => {
+        expect(ReflectionClass.getClassName(Date)).to.be.equal('Date');
+        expect(ReflectionClass.getClassName(String)).to.be.equal('String');
+    });
+
     it('newInstance should return an object', () => {
         const reflClass = new ReflectionClass(Son);
         const obj = reflClass.newInstance();
@@ -225,7 +236,7 @@ describe('[Autoloader] ReflectionClass', function () {
     });
 
     it('exposes public instance fields', __jymfony.Platform.hasPublicFieldSupport() ? () => {
-        const ns = new Namespace(__jymfony.autoload, 'Foo', path.join(__dirname, '..', '..', 'fixtures'), require);
+        const ns = new Namespace(__jymfony.autoload, 'Foo', path.join(__dirname, '..', '..', 'fixtures'), __jymfony.autoload.classLoader._internalRequire);
         const x = new ns.PublicFieldsClass();
 
         const reflClass = new ReflectionClass(x);
@@ -244,14 +255,14 @@ describe('[Autoloader] ReflectionClass', function () {
     } : undefined);
 
     it('class instance fields are initialized before __construct call', __jymfony.Platform.hasPublicFieldSupport() ? () => {
-        const ns = new Namespace(__jymfony.autoload, 'Foo', path.join(__dirname, '..', '..', 'fixtures'), require);
+        const ns = new Namespace(__jymfony.autoload, 'Foo', path.join(__dirname, '..', '..', 'fixtures'), __jymfony.autoload.classLoader._internalRequire);
         const x = new ns.PublicFieldsClassWithConstruct();
 
         expect(x.initializedField).to.be.equal('foobar');
     } : undefined);
 
     it('exposes private instance fields', __jymfony.Platform.hasPrivateFieldSupport() ? () => {
-        const ns = new Namespace(__jymfony.autoload, 'Foo', path.join(__dirname, '..', '..', 'fixtures'), require);
+        const ns = new Namespace(__jymfony.autoload, 'Foo', path.join(__dirname, '..', '..', 'fixtures'), __jymfony.autoload.classLoader._internalRequire);
         const x = new ns.PrivateFieldsClass();
 
         const reflClass = new ReflectionClass(x);
@@ -279,7 +290,7 @@ describe('[Autoloader] ReflectionClass', function () {
     } : undefined);
 
     it('exposes private instance fields', __jymfony.Platform.hasPublicFieldSupport() ? () => {
-        const ns = new Namespace(__jymfony.autoload, 'Foo', path.join(__dirname, '..', '..', 'fixtures'), require);
+        const ns = new Namespace(__jymfony.autoload, 'Foo', path.join(__dirname, '..', '..', 'fixtures'), __jymfony.autoload.classLoader._internalRequire);
         const x = new ns.ParameterMetadata();
 
         const reflClass = new ReflectionClass(x);

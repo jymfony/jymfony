@@ -1,5 +1,5 @@
 declare namespace Jymfony.Contracts.EventDispatcher {
-    export class EventDispatcherInterface implements MixinInterface {
+    export class EventDispatcherInterface {
         public static readonly definition: Newable<EventDispatcherInterface>;
 
         /**

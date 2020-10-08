@@ -1,14 +1,16 @@
-const CacheItem = Jymfony.Component.Cache.CacheItem;
-const CacheItemPoolInterface = Jymfony.Component.Cache.CacheItemPoolInterface;
+const AdapterInterface = Jymfony.Component.Cache.Adapter.AdapterInterface;
 const ArrayTrait = Jymfony.Component.Cache.Traits.ArrayTrait;
+const CacheItem = Jymfony.Component.Cache.CacheItem;
+const CacheInterface = Jymfony.Contracts.Cache.CacheInterface;
 const DateTime = Jymfony.Component.DateTime.DateTime;
-const LoggerAwareInterface = Jymfony.Component.Logger.LoggerAwareInterface;
-const NullLogger = Jymfony.Component.Logger.NullLogger;
+const LoggerAwareInterface = Jymfony.Contracts.Logger.LoggerAwareInterface;
+const NullLogger = Jymfony.Contracts.Logger.NullLogger;
+const ValueHolder = Jymfony.Contracts.Cache.ValueHolder;
 
 /**
  * @memberOf Jymfony.Component.Cache.Adapter
  */
-export default class ArrayAdapter extends implementationOf(CacheItemPoolInterface, LoggerAwareInterface, ArrayTrait) {
+export default class ArrayAdapter extends implementationOf(AdapterInterface, CacheInterface, LoggerAwareInterface, ArrayTrait) {
     __construct(defaultLifetime = 0) {
         /**
          * Create a cache item for the current adapter.
@@ -32,7 +34,7 @@ export default class ArrayAdapter extends implementationOf(CacheItemPoolInterfac
         };
 
         /**
-         * @type {Jymfony.Component.Logger.LoggerInterface}
+         * @type {Jymfony.Contracts.Logger.LoggerInterface}
          *
          * @private
          */
@@ -62,6 +64,20 @@ export default class ArrayAdapter extends implementationOf(CacheItemPoolInterfac
         }
 
         return this._createCacheItem(key, value, isHit);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    async get(key, callback, beta = undefined) {
+        const item = await this.getItem(key);
+
+        // ArrayAdapter works in memory, we don't care about stampede protection
+        if (Infinity === beta || ! item.isHit) {
+            await this.save(item.set(await callback(item, new ValueHolder(true))));
+        }
+
+        return item.get();
     }
 
     /**

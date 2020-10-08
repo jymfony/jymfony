@@ -5,7 +5,7 @@ declare namespace Jymfony.Contracts.HttpServer {
         path?: string;
     }
 
-    export class HttpServerInterface implements MixinInterface {
+    export class HttpServerInterface {
         public static readonly definition: Newable<HttpServerInterface>;
 
         /**

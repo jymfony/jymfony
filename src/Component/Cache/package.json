@@ -26,6 +26,7 @@
   "devDependencies": {
     "@jymfony/debug": "*",
     "@jymfony/filesystem": "*",
+    "@jymfony/testing": "*",
     "chai": "^4.2",
     "ioredis": "^4.0",
     "mocha": "^6.0"
@@ -34,6 +35,12 @@
     "jymfony-autoload": {
       "namespaces": {
         "Jymfony.Component.Cache": "src/"
+      }
+    },
+    "jymfony-autoload-dev": {
+      "namespaces": {
+        "Jymfony.Component.Cache.Fixtures": "fixtures/",
+        "Jymfony.Component.Cache.Tests": "test/"
       }
     }
   }

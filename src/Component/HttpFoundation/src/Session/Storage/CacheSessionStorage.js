@@ -13,12 +13,12 @@ export default class CacheSessionStorage extends implementationOf(SessionStorage
     /**
      * Constructor.
      *
-     * @param {Jymfony.Component.Cache.CacheItemPoolInterface} cache
+     * @param {Jymfony.Contracts.Cache.CacheItemPoolInterface} cache
      * @param {int} [lifetime = 0]
      */
     __construct(cache, lifetime = 0) {
         /**
-         * @type {Jymfony.Component.Cache.CacheItemPoolInterface}
+         * @type {Jymfony.Contracts.Cache.CacheItemPoolInterface}
          *
          * @private
          */

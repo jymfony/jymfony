@@ -7,12 +7,14 @@ require('./lib/is');
 
 require('./lib/Debug/get_debug_type');
 
+require('./lib/Array/flat.polyfill');
 require('./lib/Array/values.polyfill');
 require('./lib/Symbol/description.polyfill');
 require('./lib/Iterator/EmptyIterator');
 require('./lib/Iterator/RecursiveDirectoryIterator');
 
 require('./lib/Object/polyfills/values');
+require('./lib/Object/polyfills/weak-ref');
 require('./lib/Object/clone');
 require('./lib/Object/deepMerge');
 require('./lib/Object/diffKey');

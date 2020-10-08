@@ -1,7 +1,7 @@
 declare namespace Jymfony.Component.HttpServer.EventListener {
     import EventSubscriberInterface = Jymfony.Contracts.EventDispatcher.EventSubscriberInterface;
     import EventSubscriptions = Jymfony.Contracts.EventDispatcher.EventSubscriptions;
-    import LoggerInterface = Jymfony.Component.Logger.LoggerInterface;
+    import LoggerInterface = Jymfony.Contracts.Logger.LoggerInterface;
     import Response = Jymfony.Component.HttpFoundation.Response;
     import MatcherInterface = Jymfony.Component.Routing.Matcher.MatcherInterface;
     import ExceptionEvent = Jymfony.Contracts.HttpServer.Event.ExceptionEvent;
@@ -16,7 +16,7 @@ declare namespace Jymfony.Component.HttpServer.EventListener {
         private _matcher: MatcherInterface;
 
         /**
-         * @type {Jymfony.Component.Logger.LoggerInterface}
+         * @type {Jymfony.Contracts.Logger.LoggerInterface}
          *
          * @private
          */

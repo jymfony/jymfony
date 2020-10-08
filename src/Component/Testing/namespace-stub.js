@@ -39,6 +39,16 @@ Jymfony.Component.Testing = {
     /**
      * @namespace
      */
+    Framework: {
+        /**
+         * @namespace
+         */
+        Exception: {},
+    },
+
+    /**
+     * @namespace
+     */
     Prediction: {},
 
     /**

@@ -71,11 +71,13 @@ export default class Yaml {
     }
 }
 
-Yaml.DUMP_OBJECT = 1;
-Yaml.PARSE_EXCEPTION_ON_INVALID_TYPE = 2;
-Yaml.PARSE_OBJECT = 4;
-Yaml.DUMP_EXCEPTION_ON_INVALID_TYPE = 8;
-Yaml.PARSE_DATETIME = 16;
-Yaml.DUMP_MULTI_LINE_LITERAL_BLOCK = 32;
-Yaml.PARSE_CUSTOM_TAGS = 64;
-Yaml.DUMP_EMPTY_ARRAY_AS_SEQUENCE = 128;
+Object.defineProperties(Yaml, {
+    DUMP_OBJECT: { value: 1, writable: false },
+    PARSE_EXCEPTION_ON_INVALID_TYPE: { value: 2, writable: false },
+    PARSE_OBJECT: { value: 4, writable: false },
+    DUMP_EXCEPTION_ON_INVALID_TYPE: { value: 8, writable: false },
+    PARSE_DATETIME: { value: 16, writable: false },
+    DUMP_MULTI_LINE_LITERAL_BLOCK: { value: 32, writable: false },
+    PARSE_CUSTOM_TAGS: { value: 64, writable: false },
+    DUMP_EMPTY_ARRAY_AS_SEQUENCE: { value: 128, writable: false },
+});

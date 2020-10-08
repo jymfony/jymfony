@@ -1,5 +1,5 @@
 declare namespace Jymfony.Component.HttpFoundation {
-    import DateTime = Jymfony.Component.DateTime.DateTime;
+    import DateTimeInterface = Jymfony.Contracts.DateTime.DateTimeInterface;
 
     export class Cookie {
         public static readonly SAMESITE_LAX = 'lax';
@@ -37,8 +37,8 @@ declare namespace Jymfony.Component.HttpFoundation {
          *
          * @throws {InvalidArgumentException}
          */
-        __construct(name: string, value?: string | null, expire?: number | DateTime, path?: string, domain?: string | undefined, secure?: boolean, httpOnly?: boolean, raw?: boolean, sameSite?: string | null): void;
-        constructor(name: string, value?: string | null, expire?: number | DateTime, path?: string, domain?: string | undefined, secure?: boolean, httpOnly?: boolean, raw?: boolean, sameSite?: string | null);
+        __construct(name: string, value?: string | null, expire?: number | DateTimeInterface, path?: string, domain?: string | undefined, secure?: boolean, httpOnly?: boolean, raw?: boolean, sameSite?: string | null): void;
+        constructor(name: string, value?: string | null, expire?: number | DateTimeInterface, path?: string, domain?: string | undefined, secure?: boolean, httpOnly?: boolean, raw?: boolean, sameSite?: string | null);
 
         /**
          * Returns the cookie as a string.

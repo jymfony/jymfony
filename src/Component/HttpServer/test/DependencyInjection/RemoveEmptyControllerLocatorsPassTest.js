@@ -1,5 +1,3 @@
-require('../../fixtures/namespace');
-
 const ResolveInvalidReferencesPass = Jymfony.Component.DependencyInjection.Compiler.ResolveInvalidReferencesPass;
 const ContainerBuilder = Jymfony.Component.DependencyInjection.ContainerBuilder;
 const Reference = Jymfony.Component.DependencyInjection.Reference;

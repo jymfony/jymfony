@@ -5,7 +5,7 @@ declare namespace Jymfony.Component.HttpServer.Controller {
      * An ArgumentResolverInterface instance knows how to determine the
      * arguments for a specific action.
      */
-    export class ArgumentResolverInterface extends MixinInterface {
+    export class ArgumentResolverInterface {
         public static readonly definition: Newable<ArgumentResolverInterface>;
 
         /**

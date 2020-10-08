@@ -25,7 +25,7 @@ export default class DateCaster {
     /**
      * Casts a Jymfony datetime object.
      *
-     * @param {Jymfony.Component.DateTime.DateTime} dateTime
+     * @param {Jymfony.Contracts.DateTime.DateTimeInterface} dateTime
      * @param {Object} a
      * @param {Jymfony.Component.VarDumper.Cloner.Stub} stub
      *
@@ -47,7 +47,7 @@ export default class DateCaster {
     /**
      * Casts a Jymfony timezone object.
      *
-     * @param {Jymfony.Component.DateTime.DateTimeZone} timezone
+     * @param {Jymfony.Contracts.DateTime.DateTimeZoneInterface} timezone
      *
      * @returns {Object}
      */

@@ -30,6 +30,7 @@
     "@jymfony/console": "*",
     "@jymfony/debug": "*",
     "@jymfony/filesystem": "*",
+    "@jymfony/testing": "*",
     "chai": "^4.2",
     "eslint": "^6.8.0",
     "mocha": "^6.0"
@@ -38,6 +39,11 @@
     "jymfony-autoload": {
       "namespaces": {
         "Jymfony.Component.DateTime": "src/"
+      }
+    },
+    "jymfony-autoload-dev": {
+      "namespaces": {
+        "Jymfony.Component.DateTime.Tests": "test/"
       }
     }
   }

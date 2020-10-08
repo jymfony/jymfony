@@ -40,7 +40,7 @@ export default class File {
     /**
      * Gets the file access time.
      *
-     * @returns {Promise<Jymfony.Component.DateTime.DateTime>}
+     * @returns {Promise<Jymfony.Contracts.DateTime.DateTimeInterface>}
      */
     async getAtime() {
         return new DateTime((await this._stat()).atime);
@@ -49,7 +49,7 @@ export default class File {
     /**
      * Gets the file inode change time.
      *
-     * @returns {Promise<Jymfony.Component.DateTime.DateTime>}
+     * @returns {Promise<Jymfony.Contracts.DateTime.DateTimeInterface>}
      */
     async getCtime() {
         return new DateTime((await this._stat()).ctime);
@@ -58,7 +58,7 @@ export default class File {
     /**
      * Gets the file modification time.
      *
-     * @returns {Promise<Jymfony.Component.DateTime.DateTime>}
+     * @returns {Promise<Jymfony.Contracts.DateTime.DateTimeInterface>}
      */
     async getMtime() {
         return new DateTime((await this._stat()).mtime);
@@ -67,7 +67,7 @@ export default class File {
     /**
      * Gets the file creation time.
      *
-     * @returns {Promise<Jymfony.Component.DateTime.DateTime>}
+     * @returns {Promise<Jymfony.Contracts.DateTime.DateTimeInterface>}
      */
     async getBirthtime() {
         return new DateTime((await this._stat()).birthtime);

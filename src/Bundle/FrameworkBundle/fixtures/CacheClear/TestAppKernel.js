@@ -33,6 +33,6 @@ export default class TestAppKernel extends AbstractTestKernel {
      * @inheritdoc
      */
     _build(container) {
-        container.register('logger', Jymfony.Component.Logger.NullLogger);
+        container.register('logger', Jymfony.Contracts.Logger.NullLogger);
     }
 }

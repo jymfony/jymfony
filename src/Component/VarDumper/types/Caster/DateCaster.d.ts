@@ -1,7 +1,7 @@
 declare namespace Jymfony.Component.VarDumper.Caster {
     import Stub = Jymfony.Component.VarDumper.Cloner.Stub;
-    import DateTime = Jymfony.Component.DateTime.DateTime;
-    import DateTimeZone = Jymfony.Component.DateTime.DateTimeZone;
+    import DateTimeInterface = Jymfony.Contracts.DateTime.DateTimeInterface;
+    import DateTimeZoneInterface = Jymfony.Contracts.DateTime.DateTimeZoneInterface;
 
     export class DateCaster {
         /**
@@ -12,11 +12,11 @@ declare namespace Jymfony.Component.VarDumper.Caster {
         /**
          * Casts a Jymfony datetime object.
          */
-        static castDateTime(dateTime: DateTime, a: any, stub: Stub): any;
+        static castDateTime(dateTime: DateTimeInterface, a: any, stub: Stub): any;
 
         /**
          * Casts a Jymfony timezone object.
          */
-        static castDateTimeZone(timezone: DateTimeZone): any;
+        static castDateTimeZone(timezone: DateTimeZoneInterface): any;
     }
 }

@@ -1,6 +1,6 @@
 const LineFormatter = Jymfony.Component.Logger.Formatter.LineFormatter;
 const HandlerInterface = Jymfony.Component.Logger.Handler.HandlerInterface;
-const LogLevel = Jymfony.Component.Logger.LogLevel;
+const LogLevel = Jymfony.Contracts.Logger.LogLevel;
 
 /**
  * @memberOf Jymfony.Component.Logger.Handler

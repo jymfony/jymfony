@@ -10,6 +10,7 @@ declare namespace Jymfony.Component.DependencyInjection.Exception {
         /**
          * Constructor.
          */
+        // @ts-ignore
         __construct(key: string, sourceId?: string, sourceKey?: boolean): void;
         constructor(key: string, sourceId?: string, sourceKey?: boolean);
 

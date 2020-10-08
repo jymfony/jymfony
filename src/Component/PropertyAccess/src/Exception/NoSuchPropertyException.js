@@ -1,4 +1,4 @@
-const AccessException = Jymfony.Component.PropertyAccess.Exception.AccessException;
+const AccessException = Jymfony.Contracts.PropertyAccess.Exception.AccessException;
 
 /**
  * @memberOf Jymfony.Component.PropertyAccess.Exception

@@ -1,5 +1,3 @@
-require('../fixtures/namespace');
-
 const ConcreteLexer = Jymfony.Component.Lexer.Fixtures.ConcreteLexer;
 const { expect } = require('chai');
 

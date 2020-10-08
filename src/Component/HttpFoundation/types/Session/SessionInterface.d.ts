@@ -1,10 +1,11 @@
 declare namespace Jymfony.Component.HttpFoundation.Session {
+    import AttributeBagInterface = Jymfony.Component.HttpFoundation.Session.Attribute.AttributeBagInterface;
     import FlashBagInterface = Jymfony.Component.HttpFoundation.Session.Flash.FlashBagInterface;
 
     /**
      * Interface for the session.
      */
-    export class SessionInterface implements MixinInterface {
+    export class SessionInterface {
         public static readonly definition: Newable<SessionInterface>;
 
         /**

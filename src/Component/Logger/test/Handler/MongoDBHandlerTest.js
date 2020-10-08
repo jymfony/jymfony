@@ -3,7 +3,7 @@ const Db = require('mongodb').Db;
 const MongoClient = require('mongodb').MongoClient;
 const DateTime = Jymfony.Component.DateTime.DateTime;
 const MongoDBHandler = Jymfony.Component.Logger.Handler.MongoDBHandler;
-const LogLevel = Jymfony.Component.Logger.LogLevel;
+const LogLevel = Jymfony.Contracts.Logger.LogLevel;
 const Argument = Jymfony.Component.Testing.Argument.Argument;
 const Prophet = Jymfony.Component.Testing.Prophet;
 

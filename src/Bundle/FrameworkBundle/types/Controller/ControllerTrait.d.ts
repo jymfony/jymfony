@@ -9,7 +9,7 @@ declare namespace Jymfony.Bundle.FrameworkBundle.Controller {
      * @internal
      * @memberOf Jymfony.Bundle.FrameworkBundle.Controller
      */
-    export class ControllerTrait implements MixinInterface {
+    export class ControllerTrait {
         public static readonly definition: Newable<ControllerTrait>;
 
         /**

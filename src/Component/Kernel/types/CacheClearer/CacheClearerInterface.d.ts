@@ -1,5 +1,5 @@
 declare namespace Jymfony.Component.Kernel.CacheClearer {
-    export class CacheClearerInterface implements MixinInterface {
+    export class CacheClearerInterface {
         /**
          * Clears any caches necessary
          *

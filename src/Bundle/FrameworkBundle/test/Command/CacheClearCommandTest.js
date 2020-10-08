@@ -1,5 +1,3 @@
-require('../../fixtures/namespace');
-
 const TestAppKernel = Jymfony.Bundle.FrameworkBundle.Tests.Fixtures.CacheClear.TestAppKernel;
 const ConfigCacheFactory = Jymfony.Component.Config.ConfigCacheFactory;
 const ArrayInput = Jymfony.Component.Console.Input.ArrayInput;

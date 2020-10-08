@@ -26,7 +26,6 @@
     "@jymfony/datetime": "*",
     "@jymfony/debug": "*",
     "@jymfony/testing": "*",
-    "bson": "^2.0",
     "chai": "^4.2",
     "mocha": "^6.0",
     "mongodb": "^3.0"
@@ -35,6 +34,11 @@
     "jymfony-autoload": {
       "namespaces": {
         "Jymfony.Component.Logger": "src/"
+      }
+    },
+    "jymfony-autoload-dev": {
+      "namespaces": {
+        "Jymfony.Component.Logger.Tests": "test/"
       }
     }
   }

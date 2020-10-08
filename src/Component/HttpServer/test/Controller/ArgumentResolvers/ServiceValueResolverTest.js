@@ -1,5 +1,3 @@
-require('../../../fixtures/namespace');
-
 const ContainerBuilder = Jymfony.Component.DependencyInjection.ContainerBuilder;
 const ServiceNotFoundException = Jymfony.Component.DependencyInjection.Exception.ServiceNotFoundException;
 const ServiceLocator = Jymfony.Component.DependencyInjection.ServiceLocator;

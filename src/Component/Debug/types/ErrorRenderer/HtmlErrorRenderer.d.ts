@@ -1,6 +1,6 @@
 declare namespace Jymfony.Component.Debug.ErrorRenderer {
     import FlattenException = Jymfony.Component.Debug.Exception.FlattenException;
-    import LoggerInterface = Jymfony.Component.Logger.LoggerInterface;
+    import LoggerInterface = Jymfony.Contracts.Logger.LoggerInterface;
     import RequestInterface = Jymfony.Contracts.HttpFoundation.RequestInterface;
 
     export class HtmlErrorRenderer extends implementationOf(ErrorRendererInterface) {

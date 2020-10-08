@@ -1,0 +1,15 @@
+{
+  "namespaces": {
+    "custom": "Jymfony.Component.Validator.Fixtures."
+  },
+  "Jymfony.Component.Validator.Fixtures.Entity": {
+    "constraints": [
+      {
+        "Jymfony.Component.Validator.Fixtures.ConstraintA": null
+      }
+      {
+        "custom:ConstraintB": null
+      }
+    ]
+  }
+}

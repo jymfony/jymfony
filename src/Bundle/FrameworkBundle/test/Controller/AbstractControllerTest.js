@@ -1,5 +1,3 @@
-require('../../fixtures/namespace');
-
 const ConcreteController = Jymfony.Bundle.FrameworkBundle.Tests.Fixtures.Controller.ConcreteController;
 const TestAbstractController = Jymfony.Bundle.FrameworkBundle.Tests.Fixtures.Controller.TestAbstractController;
 const KernelTestUtil = Jymfony.Bundle.FrameworkBundle.Test.KernelTestUtil;

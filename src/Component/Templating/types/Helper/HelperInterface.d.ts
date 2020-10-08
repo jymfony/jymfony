@@ -2,7 +2,7 @@ declare namespace Jymfony.Component.Templating.Helper {
     /**
      * HelperInterface is the interface all helpers must implement.
      */
-    export class HelperInterface implements MixinInterface {
+    export class HelperInterface {
         public static readonly definition: Newable<HelperInterface>;
 
         /**

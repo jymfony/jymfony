@@ -339,7 +339,7 @@ describe('[Autoloader] Namespace', function () {
         const ns = new Namespace({
             classLoader: new ClassLoader(finder, path, vm),
             finder: finder,
-        }, 'Foo', path.join(__dirname, '..', 'fixtures'), require);
+        }, 'Foo', path.join(__dirname, '..', 'fixtures'), __jymfony.autoload.classLoader._internalRequire);
         try {
             global.Foo = ns;
 

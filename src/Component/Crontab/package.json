@@ -1,0 +1,43 @@
+{
+  "name": "@jymfony/crontab",
+  "version": "0.1.0-dev",
+  "description": "Jymfony Crontab",
+  "typings": "types/index.d.ts",
+  "scripts": {
+    "test": "node ./tests.js test/**"
+  },
+  "keywords": [
+    "crontab",
+    "jymfony"
+  ],
+  "author": "Alessandro Chitolina <alekitto@gmail.com>",
+  "license": "MIT",
+  "engines": {
+    "node": ">=8.10.0"
+  },
+  "dependencies": {
+    "@jymfony/autoloader": "https://github.com/jymfony/autoloader.git",
+    "@jymfony/datetime": "https://github.com/jymfony/date-time.git",
+    "@jymfony/exceptions": "https://github.com/jymfony/exceptions.git",
+    "@jymfony/util": "https://github.com/jymfony/util.git"
+  },
+  "devDependencies": {
+    "@jymfony/debug": "https://github.com/jymfony/debug.git",
+    "@jymfony/testing": "https://github.com/jymfony/testing.git",
+    "chai": "^4.2",
+    "mocha": "^6.0",
+    "mongodb": "^3.0"
+  },
+  "config": {
+    "jymfony-autoload": {
+      "namespaces": {
+        "Jymfony.Component.Crontab": "src/"
+      }
+    },
+    "jymfony-autoload-dev": {
+      "namespaces": {
+        "Jymfony.Component.Crontab.Tests": "test/"
+      }
+    }
+  }
+}

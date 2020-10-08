@@ -1,5 +1,3 @@
-require('../../fixtures/namespace');
-
 const Request = Jymfony.Component.HttpFoundation.Request;
 const Session = Jymfony.Component.HttpFoundation.Session.Session;
 const MockArraySessionStorage = Jymfony.Component.HttpFoundation.Session.Storage.MockArraySessionStorage;

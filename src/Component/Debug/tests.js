@@ -2,4 +2,5 @@ require('@jymfony/autoloader');
 
 __jymfony.autoload.debug = true;
 
-require('mocha/bin/_mocha');
+const Runner = Jymfony.Component.Testing.Framework.Runner;
+new Runner().run();

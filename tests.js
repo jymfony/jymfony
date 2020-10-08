@@ -2,10 +2,10 @@ process.env.DEBUG = '1';
 require('./src/Component/Autoloader');
 
 const Debug = Jymfony.Component.Debug.Debug;
+const Runner = Jymfony.Component.Testing.Framework.Runner;
 Debug.enable();
 
-let argv0, argv1, argv;
-[ argv0, argv1, ...argv ] = [ ...process.argv ];
+let [ , , ...argv ] = [ ...process.argv ];
 
 if (0 === argv.length) {
     argv.push('src/*/test/**/*.js', 'src/{Component,Bundle}/*/test/**/*.js');
@@ -31,7 +31,6 @@ if (0 === argv.length) {
     argv = argv.join('" "').split(/"\s+"/g);
 }
 
-argv.unshift('--full-trace', '--bail');
 process.argv = argv;
 
-require('mocha/bin/_mocha');
+new Runner().run();

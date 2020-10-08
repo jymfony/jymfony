@@ -5,7 +5,7 @@ declare namespace Jymfony.Component.Security.Authentication {
      * AuthenticationManagerInterface is the interface for authentication managers,
      * which process Token authentication.
      */
-    export class AuthenticationManagerInterface implements MixinInterface {
+    export class AuthenticationManagerInterface {
         public static readonly definition: Newable<AuthenticationManagerInterface>;
 
         /**

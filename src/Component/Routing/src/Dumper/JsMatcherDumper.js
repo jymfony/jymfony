@@ -5,7 +5,7 @@ const firstChars = 'abcdefghijklmnopqrstuvwxyz';
 const nonFirstChars = 'abcdefghijklmnopqrstuvwxyz0123456789';
 
 /**
- * PhpMatcherDumper creates a PHP class able to match URLs for a given set of routes.
+ * PhpMatcherDumper creates a JS class able to match URLs for a given set of routes.
  *
  * @memberOf Jymfony.Component.Routing.Dumper
  */
@@ -112,7 +112,7 @@ module.exports = ${options['class']};
         const host = request.host.toLowerCase();
         const scheme = request.scheme;
 
-        let ret, requiredHost, requiredMethods, requiredSchemes, hasRequiredScheme;
+        let ret, vars, requiredHost, requiredMethods, requiredSchemes, hasRequiredScheme;
 
         const requestMethod = request.method;
         let canonicalMethod = request.method;
@@ -401,7 +401,7 @@ ${this._compileSwitchDefault(false, matchHost)}
             const routes = {
 ${this._indent(state['default'], 4)}            };
 
-            const [ret, vars, requiredMethods, requiredSchemes] = routes[m];
+            [ret, vars, requiredMethods, requiredSchemes] = routes[m];
 ${this._compileSwitchDefault(true, matchHost)}
 `;
         }

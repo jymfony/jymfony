@@ -1,5 +1,5 @@
 const EventSubscriberInterface = Jymfony.Contracts.EventDispatcher.EventSubscriberInterface;
-const NullLogger = Jymfony.Component.Logger.NullLogger;
+const NullLogger = Jymfony.Contracts.Logger.NullLogger;
 const UnhandledRejectionException = Jymfony.Component.HttpServer.Exception.UnhandledRejectionException;
 
 /**
@@ -9,12 +9,12 @@ export default class UnhandledRejectionListener extends implementationOf(EventSu
     /**
      * Constructor.
      *
-     * @param {Jymfony.Component.Logger.LoggerInterface} [logger]
+     * @param {Jymfony.Contracts.Logger.LoggerInterface} [logger]
      * @param {boolean} [debug = false]
      */
     __construct(logger = undefined, debug = false) {
         /**
-         * @type {Jymfony.Component.Logger.LoggerInterface}
+         * @type {Jymfony.Contracts.Logger.LoggerInterface}
          *
          * @private
          */

@@ -2,7 +2,7 @@ declare namespace Jymfony.Component.Templating {
     /**
      * Internal representation of a template.
      */
-    export class TemplateReferenceInterface implements MixinInterface {
+    export class TemplateReferenceInterface {
         public static readonly definition: Newable<TemplateReferenceInterface>;
 
         /**

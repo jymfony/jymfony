@@ -1,2 +1,8 @@
+require('@jymfony/autoloader');
 require('./index.js');
-require('mocha/bin/_mocha');
+
+const Debug = Jymfony.Component.Debug.Debug;
+const Runner = Jymfony.Component.Testing.Framework.Runner;
+Debug.enable();
+
+new Runner().run();

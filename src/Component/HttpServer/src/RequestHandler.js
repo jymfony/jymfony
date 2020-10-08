@@ -1,4 +1,4 @@
-const LoggerAwareInterface = Jymfony.Component.Logger.LoggerAwareInterface;
+const LoggerAwareInterface = Jymfony.Contracts.Logger.LoggerAwareInterface;
 const ArgumentResolver = Jymfony.Component.HttpServer.Controller.ArgumentResolver;
 const BadRequestHttpException = Jymfony.Component.HttpFoundation.Exception.BadRequestHttpException;
 const HttpExceptionInterface = Jymfony.Component.HttpFoundation.Exception.HttpExceptionInterface;
@@ -8,7 +8,7 @@ const Response = Jymfony.Component.HttpFoundation.Response;
 const HttpServerEvents = Jymfony.Component.HttpServer.Event.HttpServerEvents;
 const RequestTimeoutException = Jymfony.Component.HttpServer.Exception.RequestTimeoutException;
 const RequestParser = Jymfony.Component.HttpServer.RequestParser;
-const NullLogger = Jymfony.Component.Logger.NullLogger;
+const NullLogger = Jymfony.Contracts.Logger.NullLogger;
 const Event = Jymfony.Contracts.HttpServer.Event;
 
 /**
@@ -48,7 +48,7 @@ export default class RequestHandler extends implementationOf(LoggerAwareInterfac
         this._argumentResolver = argumentResolver || new ArgumentResolver();
 
         /**
-         * @type {Jymfony.Component.Logger.LoggerInterface}
+         * @type {Jymfony.Contracts.Logger.LoggerInterface}
          *
          * @protected
          */
@@ -87,7 +87,7 @@ export default class RequestHandler extends implementationOf(LoggerAwareInterfac
     /**
      * Sets the logger for the current http server.
      *
-     * @param {Jymfony.Component.Logger.LoggerInterface} logger
+     * @param {Jymfony.Contracts.Logger.LoggerInterface} logger
      */
     setLogger(logger) {
         this._logger = logger;

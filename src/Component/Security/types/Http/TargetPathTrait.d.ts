@@ -4,7 +4,7 @@ declare namespace Jymfony.Component.Security.Http {
     /**
      * Trait to get (and set) the URL the user last visited before being forced to authenticate.
      */
-    export class TargetPathTrait implements MixinInterface {
+    export class TargetPathTrait {
         public static readonly definition: Newable<TargetPathTrait>;
 
         /**

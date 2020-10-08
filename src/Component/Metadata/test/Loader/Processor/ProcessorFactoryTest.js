@@ -1,5 +1,3 @@
-require('../../../fixtures/namespace');
-
 const CompositeProcessor = Jymfony.Component.Metadata.Loader.Processor.CompositeProcessor;
 const ProcessorFactory = Jymfony.Component.Metadata.Loader.Processor.ProcessorFactory;
 const InvalidArgumentException = Jymfony.Contracts.Metadata.Exception.InvalidArgumentException;

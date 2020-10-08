@@ -3,7 +3,7 @@ declare namespace __jymfony {
     import FinishRequestEvent = Jymfony.Contracts.HttpServer.Event.FinishRequestEvent;
     import RequestEvent = Jymfony.Contracts.HttpServer.Event.RequestEvent;
 
-    export class ClsTrait implements MixinInterface {
+    export class ClsTrait {
         public static readonly definition: Newable<ClsTrait>;
         public static readonly COMMAND_SYMBOL: symbol;
         public static readonly REQUEST_SYMBOL: symbol;

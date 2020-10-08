@@ -368,8 +368,8 @@ export default class JymfonyStyle extends OutputStyle {
      * @private
      */
     _reduceBuffer(messages) {
-        // We need to know if the two last chars are PHP_EOL
-        // Preserve the last 4 chars inserted (PHP_EOL on windows is two chars) in the history buffer
+        // We need to know if the two last chars are EOL
+        // Preserve the last 4 chars inserted (EOL on windows is two chars) in the history buffer
         return [ this._bufferedOutput.fetch(), ...messages ].map(value => value.substr(-4));
     }
 

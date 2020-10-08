@@ -131,7 +131,7 @@ export default class AbstractNegotiator {
     /**
      * @param {string} header A string that contains an `Accept*` header.
      *
-     * @return {string[]}
+     * @returns {string[]}
      *
      * @private
      */

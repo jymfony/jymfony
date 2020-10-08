@@ -1,5 +1,3 @@
-require('../../fixtures/namespace');
-
 const KernelTestUtil = Jymfony.Bundle.FrameworkBundle.Test.KernelTestUtil;
 const Prophet = Jymfony.Component.Testing.Prophet;
 const { expect } = require('chai');

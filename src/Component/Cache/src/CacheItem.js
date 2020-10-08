@@ -1,13 +1,14 @@
-const CacheItemInterface = Jymfony.Component.Cache.CacheItemInterface;
-const InvalidArgumentException = Jymfony.Component.Cache.Exception.InvalidArgumentException;
 const DateTime = Jymfony.Component.DateTime.DateTime;
-const TimeSpan = Jymfony.Component.DateTime.TimeSpan;
+const DateTimeInterface = Jymfony.Contracts.DateTime.DateTimeInterface;
+const InvalidArgumentException = Jymfony.Contracts.Cache.Exception.InvalidArgumentException;
+const ItemInterface = Jymfony.Contracts.Cache.ItemInterface;
+const TimeSpanInterface = Jymfony.Contracts.DateTime.TimeSpanInterface;
 
 /**
  * @memberOf Jymfony.Component.Cache
  * @final
  */
-export default class CacheItem extends implementationOf(CacheItemInterface) {
+export default class CacheItem extends implementationOf(ItemInterface) {
     /**
      * Constructor.
      */
@@ -62,11 +63,18 @@ export default class CacheItem extends implementationOf(CacheItemInterface) {
         this._innerItem = undefined;
 
         /**
-         * @type {*}
+         * @type {WeakRef<Jymfony.Contracts.Cache.CacheItemPoolInterface>}
          *
          * @private
          */
-        this._poolHash = undefined;
+        this._pool = undefined;
+
+        /**
+         * @type {boolean}
+         *
+         * @private
+         */
+        this._isTaggable = false;
     }
 
     /**
@@ -105,7 +113,7 @@ export default class CacheItem extends implementationOf(CacheItemInterface) {
     expiresAt(expiration) {
         if (null === expiration || undefined === expiration) {
             this._expiry = 0 < this._defaultLifetime ? DateTime.unixTime : undefined;
-        } else if (expiration instanceof DateTime) {
+        } else if (expiration instanceof DateTimeInterface) {
             this._expiry = expiration.timestamp;
         } else {
             throw new InvalidArgumentException(__jymfony.sprintf('Expiration date must an instance of DateTime or be null or undefined, "%s" given', __jymfony.get_debug_type(expiration)));
@@ -120,7 +128,7 @@ export default class CacheItem extends implementationOf(CacheItemInterface) {
     expiresAfter(time) {
         if (null === time || undefined === time) {
             this._expiry = 0 < this._defaultLifetime ? DateTime.unixTime : undefined;
-        } else if (time instanceof TimeSpan) {
+        } else if (time instanceof TimeSpanInterface) {
             this._expiry = DateTime.now.modify(time).timestamp;
         } else if (isNumber(time)) {
             this._expiry = new DateTime(DateTime.unixTime + time).timestamp;
@@ -138,9 +146,13 @@ export default class CacheItem extends implementationOf(CacheItemInterface) {
      *
      * @returns {Jymfony.Component.Cache.CacheItem}
      *
-     * @throws {Jymfony.Component.Cache.Exception.InvalidArgumentException} When tag is not valid
+     * @throws {Jymfony.Contracts.Cache.Exception.InvalidArgumentException} When tag is not valid
      */
     tag(tags) {
+        if (! this._isTaggable) {
+            throw new LogicException(__jymfony.sprintf('Cache item "%s" comes from a non tag-aware pool: you cannot tag it.', this._key));
+        }
+
         if (! isArray(tags)) {
             tags = [ tags ];
         }
@@ -171,7 +183,7 @@ export default class CacheItem extends implementationOf(CacheItemInterface) {
     /**
      * @param {string} key
      *
-     * @throws {Jymfony.Component.Cache.Exception.InvalidArgumentException} When key is not a valid string key.
+     * @throws {Jymfony.Contracts.Cache.Exception.InvalidArgumentException} When key is not a valid string key.
      */
     static validateKey(key) {
         if (! isString(key)) {

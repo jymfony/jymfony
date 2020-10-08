@@ -35,13 +35,13 @@ export default class AcceptLanguage extends mix(BaseAccept, AcceptHeader) {
         }
     }
     /**
-     * @return {string}
+     * @returns {string}
      */
     get subPart() {
         return this._region;
     }
     /**
-     * @return {string}
+     * @returns {string}
      */
     get basePart() {
         return this._language;

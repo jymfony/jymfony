@@ -4,7 +4,7 @@ declare namespace Jymfony.Component.Templating.Loader {
     /**
      * Represents a template loader.
      */
-    export class LoaderInterface implements MixinInterface {
+    export class LoaderInterface {
         /**
          * Loads a template.
          */

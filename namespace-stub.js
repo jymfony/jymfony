@@ -48,6 +48,11 @@ Jymfony = {
         /**
          * @namespace
          */
+        Crontab: {},
+
+        /**
+         * @namespace
+         */
         DateTime: {},
 
         /**
@@ -159,6 +164,11 @@ Jymfony = {
          * @namespace
          */
         VarExporter: {},
+
+        /**
+         * @namespace
+         */
+        Validator: {},
 
         /**
          * @namespace

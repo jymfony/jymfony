@@ -1,5 +1,6 @@
 declare namespace Jymfony.Component.PropertyAccess {
-    import CacheItemPoolInterface = Jymfony.Component.Cache.CacheItemPoolInterface;
+    import PropertyAccessorInterface = Jymfony.Contracts.PropertyAccess.PropertyAccessorInterface;
+    import PropertyPathInterface = Jymfony.Contracts.PropertyAccess.PropertyPathInterface;
 
     interface AccessInfo {
         type: string;

@@ -11,6 +11,7 @@ describe('[FrameworkBundle] FrameworkExtension', function () {
             'kernel.root_dir': __dirname,
             'kernel.project_dir': __dirname,
             'kernel.cache_dir': __dirname + '/cache',
+            'kernel.bundles_metadata': {},
         }));
         this.extension = new FrameworkExtension();
     });

@@ -1,5 +1,3 @@
-require('../../fixtures/namespace');
-
 const Application = Jymfony.Bundle.FrameworkBundle.Console.Application;
 const Kernel = Jymfony.Component.Kernel.Kernel;
 const TestKernel = Jymfony.Bundle.FrameworkBundle.Tests.Fixtures.TestKernel;

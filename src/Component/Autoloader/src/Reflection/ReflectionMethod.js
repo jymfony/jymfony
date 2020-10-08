@@ -18,18 +18,18 @@ class ReflectionMethod {
      */
     constructor(reflectionClass, methodName) {
         /**
-         * @type {ReflectionClass}
-         *
-         * @private
-         */
-        this._class = reflectionClass;
-
-        /**
          * @type {string}
          *
          * @private
          */
         this._name = methodName;
+
+        /**
+         * @type {boolean}
+         *
+         * @private
+         */
+        this._private = '#' === methodName.substr(0, 1);
 
         /**
          * @type {Function}
@@ -51,6 +51,13 @@ class ReflectionMethod {
         }
 
         this._method = method.value;
+
+        /**
+         * @type {ReflectionClass}
+         *
+         * @private
+         */
+        this._class = new ReflectionClass(method.ownClass);
 
         /**
          * @type {string}
@@ -83,6 +90,18 @@ class ReflectionMethod {
     }
 
     /**
+     * Invokes the method.
+     *
+     * @param {*} object
+     * @param {*[]} args
+     *
+     * @returns {*}
+     */
+    invoke(object, ...args) {
+        return this._method.call(object, ...args);
+    }
+
+    /**
      * Gets the reflection class.
      *
      * @returns {ReflectionClass}
@@ -107,6 +126,15 @@ class ReflectionMethod {
      */
     get isStatic() {
         return this._static;
+    }
+
+    /**
+     * If this method is private.
+     *
+     * @returns {boolean}
+     */
+    get isPrivate() {
+        return this._private;
     }
 
     /**

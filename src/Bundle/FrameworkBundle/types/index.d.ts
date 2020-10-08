@@ -1,4 +1,6 @@
+/// <reference path="CacheWarmer/AbstractFileCacheWarmer.d.ts" />
 /// <reference path="CacheWarmer/RouterCacheWarmer.d.ts" />
+/// <reference path="CacheWarmer/ValidatorCacheWarmer.d.ts" />
 /// <reference path="Command/CacheClearCommand.d.ts" />
 /// <reference path="Command/CacheWarmupCommand.d.ts" />
 /// <reference path="Console/Application.d.ts" />

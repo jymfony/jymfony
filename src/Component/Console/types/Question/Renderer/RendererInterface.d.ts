@@ -4,7 +4,7 @@ declare namespace Jymfony.Component.Console.Question.Renderer {
      *
      * @internal
      */
-    export class RendererInterface implements MixinInterface {
+    export class RendererInterface {
         public static readonly definition: Newable<RendererInterface>;
 
         /**

@@ -5,6 +5,7 @@ class MyWakeup {
     __construct() {
         this.sub = undefined;
         this.biz = undefined;
+        this.bis = undefined;
         this.baz = undefined;
         this.def = 234;
     }

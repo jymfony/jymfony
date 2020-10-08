@@ -1,5 +1,5 @@
 declare namespace Jymfony.Component.HttpFoundation.Session.Storage {
-    import CacheItemPoolInterface = Jymfony.Component.Cache.CacheItemPoolInterface;
+    import CacheItemPoolInterface = Jymfony.Contracts.Cache.CacheItemPoolInterface;
     import SessionBagInterface = Jymfony.Component.HttpFoundation.Session.SessionBagInterface;
 
     /**

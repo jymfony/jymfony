@@ -1,31 +1,29 @@
-const AdapterTestCase = require('./AdapterTestCase');
-const RedisAdapter = Jymfony.Component.Cache.Adapter.RedisAdapter;
+import { AdapterTestCase } from './AdapterTestCase';
 
+const RedisAdapter = Jymfony.Component.Cache.Adapter.RedisAdapter;
 const hosts = 'redis:?host[' + (process.env['REDIS_CLUSTER_HOSTS'] || 'localhost').replace(/ /g, ']&host[') + ']&redis_cluster=1';
 const redis = RedisAdapter.createConnection(hosts);
 
-describe('[Cache] RedisAdapter - Cluster', function () {
-    AdapterTestCase.shouldPassAdapterTests.call(this);
-
-    before(async function () {
+export default class RedisClusterTest extends AdapterTestCase {
+    async before() {
         const redis = RedisAdapter.createConnection(hosts);
 
         try {
             await redis.connect();
         } catch (e) {
-            this.skip();
+            __self.markTestSkipped();
         } finally {
             if ('end' !== redis.status) {
                 await redis.quit();
             }
         }
-    });
+    }
 
-    after(async () => {
+    async after() {
         await redis.quit();
-    });
+    }
 
-    this._createCachePool = (defaultLifetime = undefined) => {
+    _createCachePool(defaultLifetime = undefined) {
         return new RedisAdapter(redis, 'RedisClusterTest', defaultLifetime);
-    };
-});
+    }
+}

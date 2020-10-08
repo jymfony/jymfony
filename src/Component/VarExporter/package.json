@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "@jymfony/debug": "*",
+    "@jymfony/testing": "*",
     "chai": "^4.2",
     "mocha": "^6.0"
   },
@@ -30,6 +31,12 @@
     "jymfony-autoload": {
       "namespaces": {
         "Jymfony.Component.VarExporter": "src/"
+      }
+    },
+    "jymfony-autoload-dev": {
+      "namespaces": {
+        "Jymfony.Component.VarExporter.Fixtures": "fixtures/",
+        "Jymfony.Component.VarExporter.Tests": "test/"
       }
     }
   }

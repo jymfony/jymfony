@@ -2,7 +2,7 @@ import { inspect } from 'util';
 
 const OutputFormatter = Jymfony.Component.Console.Formatter.OutputFormatter;
 const NormalizerFormatter = Jymfony.Component.Logger.Formatter.NormalizerFormatter;
-const LogLevel = Jymfony.Component.Logger.LogLevel;
+const LogLevel = Jymfony.Contracts.Logger.LogLevel;
 
 const levelColorMap = {
     [LogLevel.DEBUG]: 'fg=white',

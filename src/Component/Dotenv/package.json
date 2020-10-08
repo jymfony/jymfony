@@ -9,7 +9,7 @@
   "keywords": [
     "dotenv",
     "environment",
-    "environment variabled",
+    "environment variables",
     "jymfony"
   ],
   "author": "Alessandro Chitolina <alekitto@gmail.com>",
@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "@jymfony/debug": "*",
+    "@jymfony/testing": "*",
     "@jymfony/var-dumper": "*",
     "chai": "^4.2",
     "mocha": "^6.0"
@@ -32,6 +33,11 @@
     "jymfony-autoload": {
       "namespaces": {
         "Jymfony.Component.Dotenv": "src/"
+      }
+    },
+    "jymfony-autoload-dev": {
+      "namespaces": {
+        "Jymfony.Component.Cache.Tests": "test/"
       }
     }
   }

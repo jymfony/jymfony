@@ -4,7 +4,7 @@ const ConsoleOutputInterface = Jymfony.Component.Console.Output.ConsoleOutputInt
 const EventSubscriberInterface = Jymfony.Contracts.EventDispatcher.EventSubscriberInterface;
 const ConsoleFormatter = Jymfony.Component.Logger.Formatter.ConsoleFormatter;
 const AbstractProcessingHandler = Jymfony.Component.Logger.Handler.AbstractProcessingHandler;
-const LogLevel = Jymfony.Component.Logger.LogLevel;
+const LogLevel = Jymfony.Contracts.Logger.LogLevel;
 
 const DEFAULT_VERBOSITY_MAP = {
     [OutputInterface.VERBOSITY_QUIET]: LogLevel.ERROR,

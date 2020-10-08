@@ -1,11 +1,12 @@
 const InvalidDateTimeStringException = Jymfony.Component.DateTime.Exception.InvalidDateTimeStringException;
+const TimeSpanInterface = Jymfony.Contracts.DateTime.TimeSpanInterface;
 
 /**
  * Represents a time interval.
  *
  * @memberOf Jymfony.Component.DateTime
  */
-export default class TimeSpan {
+export default class TimeSpan extends implementationOf(TimeSpanInterface) {
     /**
      * Constructor.
      *

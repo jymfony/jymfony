@@ -1,4 +1,5 @@
 const DateTimeZone = Jymfony.Component.DateTime.DateTimeZone;
+const DateTimeZoneInterface = Jymfony.Contracts.DateTime.DateTimeZoneInterface;
 
 if (':UTC' === process.env.TZ) {
     delete process.env.TZ;
@@ -27,7 +28,7 @@ export default class TimeDescriptor {
             tz = DEFAULT_TZ;
         }
 
-        if (! (tz instanceof DateTimeZone)) {
+        if (! (tz instanceof DateTimeZoneInterface)) {
             tz = DateTimeZone.get(tz);
         }
 
@@ -114,7 +115,9 @@ export default class TimeDescriptor {
             this._year = 1900 + year;
         }
 
-        this._makeTime();
+        if (this._complete) {
+            this._makeTime();
+        }
     }
 
     /**
@@ -141,7 +144,9 @@ export default class TimeDescriptor {
         }
 
         this._day = day;
-        this._makeTime();
+        if (this._complete) {
+            this._makeTime();
+        }
     }
 
     /**
@@ -168,7 +173,9 @@ export default class TimeDescriptor {
         }
 
         this._month = month;
-        this._makeTime();
+        if (this._complete) {
+            this._makeTime();
+        }
     }
 
     /**
@@ -195,7 +202,9 @@ export default class TimeDescriptor {
         }
 
         this._seconds = sec;
-        this._makeTime();
+        if (this._complete) {
+            this._makeTime();
+        }
     }
 
     /**
@@ -239,7 +248,9 @@ export default class TimeDescriptor {
         }
 
         this._minutes = min;
-        this._makeTime();
+        if (this._complete) {
+            this._makeTime();
+        }
     }
 
     /**
@@ -266,7 +277,9 @@ export default class TimeDescriptor {
         }
 
         this._hour = hour;
-        this._makeTime();
+        if (this._complete) {
+            this._makeTime();
+        }
     }
 
     /**
@@ -494,7 +507,7 @@ export default class TimeDescriptor {
      * @param {Jymfony.Component.DateTime.DateTimeZone} timezone
      */
     set timeZone(timezone) {
-        if (! (timezone instanceof DateTimeZone)) {
+        if (! (timezone instanceof DateTimeZoneInterface)) {
             timezone = DateTimeZone.get(timezone);
         }
 
@@ -504,7 +517,7 @@ export default class TimeDescriptor {
     /**
      * Adds a timespan.
      *
-     * @param {Jymfony.Component.DateTime.TimeSpan} timespan
+     * @param {Jymfony.Contracts.DateTime.TimeSpanInterface} timespan
      */
     add(timespan) {
         this._addMilliseconds((timespan.inverse ? -1 : 1) * timespan.milliseconds);
@@ -594,7 +607,7 @@ export default class TimeDescriptor {
 
         if (0 > this._hour) {
             this._hour += 24;
-            this._addDays(-1);
+            this._doAddDays(-1);
         }
     }
 
@@ -637,9 +650,7 @@ export default class TimeDescriptor {
      *
      * @private
      */
-    _addDays(days) {
-        days = ~~days;
-
+    _doAddDays(days) {
         if (! days) {
             return;
         }
@@ -649,7 +660,7 @@ export default class TimeDescriptor {
 
         while (this._day >= daysPerMonth[this.leap ? 1 : 0][month()]) {
             this._day -= daysPerMonth[this.leap ? 1 : 0][month()];
-            this._addMonths(1);
+            this._doAddMonths(1);
         }
 
         while (1 > this._day) {
@@ -657,7 +668,55 @@ export default class TimeDescriptor {
             m = 0 === m ? 11 : m - 1;
 
             this._day += daysPerMonth[this.leap ? 1 : 0][m];
-            this._addMonths(-1);
+            this._doAddMonths(-1);
+        }
+    }
+
+    /**
+     * @param {int} days
+     *
+     * @private
+     */
+    _addDays(days) {
+        days = ~~days;
+
+        if (! days) {
+            return;
+        }
+
+        this._doAddDays(days);
+
+        if (this._complete) {
+            const targetWallTimestamp = this._wallClockTimestamp;
+            this._unixTime += (86400 * days) - (this.timeZone._getOffsetForWallClock(targetWallTimestamp) - this.timeZone.getOffset(this._unixTime));
+        }
+    }
+
+    /**
+     * @param {int} months
+     *
+     * @private
+     */
+    _doAddMonths(months) {
+        if (! months) {
+            return;
+        }
+
+        const month = () => 1 < this._month ? this._month - 1 : 11;
+        this._month += months;
+
+        while (12 < this._month) {
+            this._month -= 12;
+            this._doAddYears(1);
+        }
+
+        while (1 > this._month) {
+            this._month += 12;
+            this._doAddYears(-1);
+        }
+
+        if (this._day > daysPerMonth[this.leap ? 1 : 0][month()]) {
+            this._day = daysPerMonth[this.leap ? 1 : 0][month()];
         }
     }
 
@@ -673,18 +732,27 @@ export default class TimeDescriptor {
             return;
         }
 
+        const wallTimestamp = this._wallClockTimestamp;
+        this._doAddMonths(months);
+
+        if (this._complete) {
+            const targetWallTimestamp = this._wallClockTimestamp;
+            this._unixTime += targetWallTimestamp - wallTimestamp - (this.timeZone._getOffsetForWallClock(targetWallTimestamp) - this.timeZone.getOffset(this._unixTime));
+        }
+    }
+
+    /**
+     * @param {int} years
+     *
+     * @private
+     */
+    _doAddYears(years) {
+        if (! years) {
+            return;
+        }
+
         const month = () => 1 < this._month ? this._month - 1 : 11;
-        this._month += months;
-
-        while (12 < this._month) {
-            this._month -= 12;
-            this._addYears(1);
-        }
-
-        while (1 > this._month) {
-            this._month += 12;
-            this._addYears(-1);
-        }
+        this._year += years;
 
         if (this._day > daysPerMonth[this.leap ? 1 : 0][month()]) {
             this._day = daysPerMonth[this.leap ? 1 : 0][month()];
@@ -703,11 +771,12 @@ export default class TimeDescriptor {
             return;
         }
 
-        const month = () => 1 < this._month ? this._month - 1 : 11;
-        this._year += years;
+        const wallTimestamp = this._wallClockTimestamp;
+        this._doAddYears(years);
 
-        if (this._day > daysPerMonth[this.leap ? 1 : 0][month()]) {
-            this._day = daysPerMonth[this.leap ? 1 : 0][month()];
+        if (this._complete) {
+            const targetWallTimestamp = this._wallClockTimestamp;
+            this._unixTime += targetWallTimestamp - wallTimestamp - (this.timeZone._getOffsetForWallClock(targetWallTimestamp) - this.timeZone.getOffset(this._unixTime));
         }
     }
 }

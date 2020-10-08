@@ -1,4 +1,4 @@
-const NullLogger = Jymfony.Component.Logger.NullLogger;
+const NullLogger = Jymfony.Contracts.Logger.NullLogger;
 const AnonymousToken = Jymfony.Component.Security.Authentication.Token.AnonymousToken;
 const AuthenticationException = Jymfony.Component.Security.Exception.AuthenticationException;
 const ListenerInterface = Jymfony.Component.Security.Firewall.ListenerInterface;
@@ -15,7 +15,7 @@ export default class AnonymousAuthenticationListener extends implementationOf(Li
      *
      * @param {Jymfony.Component.Security.Authentication.Token.Storage.TokenStorageInterface} tokenStorage
      * @param {string} secret
-     * @param {Jymfony.Component.Logger.LoggerInterface} [logger]
+     * @param {Jymfony.Contracts.Logger.LoggerInterface} [logger]
      * @param {Jymfony.Component.Security.Authentication.AuthenticationManagerInterface} [authenticationManager]
      */
     __construct(tokenStorage, secret, logger = undefined, authenticationManager = undefined) {
@@ -34,7 +34,7 @@ export default class AnonymousAuthenticationListener extends implementationOf(Li
         this._secret = secret;
 
         /**
-         * @type {Jymfony.Component.Logger.LoggerInterface}
+         * @type {Jymfony.Contracts.Logger.LoggerInterface}
          *
          * @private
          */

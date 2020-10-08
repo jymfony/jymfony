@@ -441,7 +441,7 @@ describe('[Console] Application', function () {
 
         application.register('foo').code = () => {
             const ex = new Exception('ERROR');
-            ex.stackTrace = null;
+            Object.defineProperty(ex, 'stackTrace', { value: null });
             ex.stack = '';
 
             throw ex;

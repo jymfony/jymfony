@@ -25,6 +25,7 @@
     "@jymfony/datetime": "*",
     "@jymfony/debug": "*",
     "@jymfony/dependency-injection": "*",
+    "@jymfony/testing": "*",
     "chai": "^4.2",
     "mocha": "^6.0"
   },
@@ -36,6 +37,12 @@
       ],
       "namespaces": {
         "Jymfony.Component.VarDumper": "src/"
+      }
+    },
+    "jymfony-autoload-dev": {
+      "namespaces": {
+        "Jymfony.Component.VarDumper.Fixtures": "fixtures/",
+        "Jymfony.Component.VarDumper.Tests": "test/"
       }
     }
   }

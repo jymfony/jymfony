@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@jymfony/autoloader": "0.1.0-alpha.25",
+    "@jymfony/config": "0.1.0-alpha.25",
     "@jymfony/exceptions": "0.1.0-alpha.25",
     "@jymfony/util": "0.1.0-alpha.25"
   },
@@ -29,6 +30,11 @@
     "jymfony-autoload": {
       "namespaces": {
         "Jymfony.Component.Testing": "src/"
+      }
+    },
+    "jymfony-autoload-dev": {
+      "namespaces": {
+        "Jymfony.Component.Testing.Tests": "test/"
       }
     }
   }
