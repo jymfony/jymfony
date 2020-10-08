@@ -4,7 +4,7 @@
   "description": "Jymfony Validator component",
   "typings": "types/index.d.ts",
   "scripts": {
-    "test": "node ./tests.js test/**"
+    "test": "node ./tests.js"
   },
   "keywords": [
     "validation",

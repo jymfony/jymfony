@@ -5,7 +5,7 @@
   "main": "index.js",
   "typings": "types/index.d.ts",
   "scripts": {
-    "test": "node ./tests.js test/**"
+    "test": "node ./tests.js"
   },
   "keywords": [
     "jymfony",
@@ -18,6 +18,7 @@
     "node": ">=8.10.0"
   },
   "devDependencies": {
+    "@jymfony/debug": "https://github.com/jymfony/debug.git",
     "@jymfony/testing": "https://github.com/jymfony/testing.git",
     "chai": "^4.2",
     "mocha": "^6.0"

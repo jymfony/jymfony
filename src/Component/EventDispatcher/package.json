@@ -4,7 +4,7 @@
   "description": "Jymfony EventDispatcher",
   "typings": "types/index.d.ts",
   "scripts": {
-    "test": "node ./tests.js test/**"
+    "test": "node ./tests.js"
   },
   "keywords": [
     "event-dispatcher",

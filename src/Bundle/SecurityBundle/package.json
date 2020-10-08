@@ -3,7 +3,7 @@
   "version": "0.1.0-dev",
   "description": "Jymfony Security Bundle",
   "scripts": {
-    "test": "node ./tests.js test/**"
+    "test": "node ./tests.js"
   },
   "keywords": [
     "jymfony"
