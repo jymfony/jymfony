@@ -18,6 +18,7 @@
   "dependencies": {
     "@jymfony/autoloader": "0.1.0-alpha.25",
     "@jymfony/config": "0.1.0-alpha.25",
+    "@jymfony/decorators": "^0.2",
     "@jymfony/exceptions": "0.1.0-alpha.25",
     "@jymfony/util": "0.1.0-alpha.25"
   },
