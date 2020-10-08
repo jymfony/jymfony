@@ -3,8 +3,8 @@ import { existsSync, realpathSync } from 'fs';
 import { createHash } from 'crypto';
 import { tmpdir } from 'os';
 
-const CacheException = Jymfony.Component.Cache.Exception.CacheException;
-const InvalidArgumentException = Jymfony.Component.Cache.Exception.InvalidArgumentException;
+const CacheException = Jymfony.Contracts.Cache.Exception.CacheException;
+const InvalidArgumentException = Jymfony.Contracts.Cache.Exception.InvalidArgumentException;
 const DateTime = Jymfony.Component.DateTime.DateTime;
 const RecursiveDirectoryIterator = Jymfony.Component.Filesystem.Iterator.RecursiveDirectoryIterator;
 const File = Jymfony.Component.Filesystem.File;

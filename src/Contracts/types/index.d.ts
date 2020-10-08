@@ -4,6 +4,16 @@
  * of a jymfony project.
  */
 
+/// <reference path="Cache/Exception/CacheException.d.ts" />
+/// <reference path="Cache/Exception/ExceptionInterface.d.ts" />
+/// <reference path="Cache/Exception/InvalidArgumentException.d.ts" />
+/// <reference path="Cache/CacheInterface.d.ts" />
+/// <reference path="Cache/CacheItemInterface.d.ts" />
+/// <reference path="Cache/CacheItemPoolInterface.d.ts" />
+/// <reference path="Cache/CacheTrait.d.ts" />
+/// <reference path="Cache/ItemInterface.d.ts" />
+/// <reference path="Cache/TagAwareCacheInterface.d.ts" />
+/// <reference path="Cache/ValueHolder.d.ts" />
 /// <reference path="Console/Event/ConsoleCommandEvent.d.ts" />
 /// <reference path="Console/Event/ConsoleErrorEvent.d.ts" />
 /// <reference path="Console/Event/ConsoleEvent.d.ts" />

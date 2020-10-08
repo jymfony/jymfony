@@ -1,4 +1,4 @@
-declare namespace Jymfony.Component.Cache {
+declare namespace Jymfony.Contracts.Cache {
     /**
      * CacheItemPoolInterface generates CacheItemInterface objects.
      *
@@ -9,7 +9,7 @@ declare namespace Jymfony.Component.Cache {
      * Implementing Library.
      */
     export class CacheItemPoolInterface<T = any> {
-        public static readonly definition: Newable<CacheItemPoolInterface<any>>;
+        public static readonly definition: Newable<CacheItemPoolInterface>;
 
         /**
          * Returns a Cache Item representing the specified key.
@@ -19,7 +19,7 @@ declare namespace Jymfony.Component.Cache {
          *
          * @param key The key for which to return the corresponding Cache Item.
          *
-         * @throws {Jymfony.Component.Cache.Exception.InvalidArgumentException}
+         * @throws {Jymfony.Contracts.Cache.Exception.InvalidArgumentException}
          *   If the key string is not a legal value a InvalidArgumentException
          *   MUST be thrown.
          *
@@ -32,7 +32,7 @@ declare namespace Jymfony.Component.Cache {
          *
          * @param [keys = []] An indexed array of keys of items to retrieve.
          *
-         * @throws {Jymfony.Component.Cache.Exception.InvalidArgumentException}
+         * @throws {Jymfony.Contracts.Cache.Exception.InvalidArgumentException}
          *   If any of the keys in keys are not a legal value a InvalidArgumentException
          *   MUST be thrown.
          *
@@ -52,7 +52,7 @@ declare namespace Jymfony.Component.Cache {
          *
          * @param key The key for which to check existence.
          *
-         * @throws {Jymfony.Component.Cache.Exception.InvalidArgumentException}
+         * @throws {Jymfony.Contracts.Cache.Exception.InvalidArgumentException}
          *   If the key string is not a legal value a InvalidArgumentException
          *   MUST be thrown.
          *
@@ -72,7 +72,7 @@ declare namespace Jymfony.Component.Cache {
          *
          * @param key The key to delete.
          *
-         * @throws {Jymfony.Component.Cache.Exception.InvalidArgumentException}
+         * @throws {Jymfony.Contracts.Cache.Exception.InvalidArgumentException}
          *   If the key string is not a legal value a InvalidArgumentException
          *   MUST be thrown.
          *
@@ -85,7 +85,7 @@ declare namespace Jymfony.Component.Cache {
          *
          * @param keys An array of keys that should be removed from the pool.
          *
-         * @throws {Jymfony.Component.Cache.Exception.InvalidArgumentException}
+         * @throws {Jymfony.Contracts.Cache.Exception.InvalidArgumentException}
          *   If any of the keys in keys are not a legal value a InvalidArgumentException
          *   MUST be thrown.
          *

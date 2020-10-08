@@ -7,7 +7,7 @@
  * All configuration and initialization of the Pool is left up to an
  * Implementing Library.
  *
- * @memberOf Jymfony.Component.Cache
+ * @memberOf Jymfony.Contracts.Cache
  */
 class CacheItemPoolInterface {
     /**
@@ -18,11 +18,11 @@ class CacheItemPoolInterface {
      *
      * @param {string} key The key for which to return the corresponding Cache Item.
      *
-     * @throws {Jymfony.Component.Cache.Exception.InvalidArgumentException}
+     * @throws {Jymfony.Contracts.Cache.Exception.InvalidArgumentException}
      *   If the key string is not a legal value a InvalidArgumentException
      *   MUST be thrown.
      *
-     * @returns {Promise<Jymfony.Component.Cache.CacheItemInterface>} The corresponding Cache Item.
+     * @returns {Promise<Jymfony.Contracts.Cache.CacheItemInterface>} The corresponding Cache Item.
      */
     getItem(key) { }
 
@@ -32,11 +32,11 @@ class CacheItemPoolInterface {
      * @param {string[]} [keys = []]
      *   An indexed array of keys of items to retrieve.
      *
-     * @throws {Jymfony.Component.Cache.Exception.InvalidArgumentException}
+     * @throws {Jymfony.Contracts.Cache.Exception.InvalidArgumentException}
      *   If any of the keys in keys are not a legal value a InvalidArgumentException
      *   MUST be thrown.
      *
-     * @returns {Promise<Map<string, Jymfony.Component.Cache.CacheItemInterface>>}
+     * @returns {Promise<Map<string, Jymfony.Contracts.Cache.CacheItemInterface>>}
      *   A collection (Map) of Cache Items keyed by the cache keys of
      *   each item. A Cache item will be returned for each key, even if that
      *   key is not found. However, if no keys are specified then an empty
@@ -53,7 +53,7 @@ class CacheItemPoolInterface {
      *
      * @param {string} key The key for which to check existence.
      *
-     * @throws {Jymfony.Component.Cache.Exception.InvalidArgumentException}
+     * @throws {Jymfony.Contracts.Cache.Exception.InvalidArgumentException}
      *   If the key string is not a legal value a InvalidArgumentException
      *   MUST be thrown.
      *
@@ -73,7 +73,7 @@ class CacheItemPoolInterface {
      *
      * @param {string} key The key to delete.
      *
-     * @throws {Jymfony.Component.Cache.Exception.InvalidArgumentException}
+     * @throws {Jymfony.Contracts.Cache.Exception.InvalidArgumentException}
      *   If the key string is not a legal value a InvalidArgumentException
      *   MUST be thrown.
      *
@@ -87,7 +87,7 @@ class CacheItemPoolInterface {
      * @param {string[]} keys
      *   An array of keys that should be removed from the pool.
 
-     * @throws {Jymfony.Component.Cache.Exception.InvalidArgumentException}
+     * @throws {Jymfony.Contracts.Cache.Exception.InvalidArgumentException}
      *   If any of the keys in keys are not a legal value a InvalidArgumentException
      *   MUST be thrown.
      *
@@ -98,7 +98,7 @@ class CacheItemPoolInterface {
     /**
      * Persists a cache item.
      *
-     * @param {Jymfony.Component.Cache.CacheItemInterface} item The cache item to save.
+     * @param {Jymfony.Contracts.Cache.CacheItemInterface} item The cache item to save.
      *
      * @returns {Promise<boolean>} True if the item was successfully persisted. False if there was an error.
      */

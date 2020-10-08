@@ -1,11 +1,11 @@
 declare namespace Jymfony.Component.Cache.Adapter {
-    import CacheItemInterface = Jymfony.Component.Cache.CacheItemInterface;
-    import CacheItemPoolInterface = Jymfony.Component.Cache.CacheItemPoolInterface;
-    import LoggerAwareInterface = Jymfony.Component.Logger.LoggerAwareInterface;
+    import CacheInterface = Jymfony.Contracts.Cache.CacheInterface;
+    import CacheItemInterface = Jymfony.Contracts.Cache.CacheItemInterface;
+    import LoggerAwareInterface = Jymfony.Contracts.Logger.LoggerAwareInterface;
     import ArrayTrait = Jymfony.Component.Cache.Traits.ArrayTrait;
-    import LoggerInterface = Jymfony.Component.Logger.LoggerInterface;
+    import LoggerInterface = Jymfony.Contracts.Logger.LoggerInterface;
 
-    export class ArrayAdapter<T = any> extends implementationOf(CacheItemPoolInterface, LoggerAwareInterface, ArrayTrait) {
+    export class ArrayAdapter<T = any> extends implementationOf(AdapterInterface, CacheInterface, LoggerAwareInterface, ArrayTrait) {
         private _createCacheItem: (key: string, value: any, isHit: boolean) => CacheItemInterface<T>;
         private _logger: LoggerInterface;
 

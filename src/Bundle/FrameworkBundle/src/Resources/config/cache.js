@@ -9,7 +9,7 @@ container.setDefinition('cache.app', new ChildDefinition('cache.adapter.filesyst
     .addTag('cache.pool', { clearer: 'cache.app_clearer', reset: 'reset' })
 ;
 
-container.register('cache.adapter.system', Jymfony.Component.Cache.CacheItemPoolInterface)
+container.register('cache.adapter.system', Jymfony.Contracts.Cache.CacheItemPoolInterface)
     .setAbstract(true)
     .addTag('cache.pool', { clearer: 'cache.system_clearer' })
     .addTag('jymfony.logger', { channel: 'cache' })

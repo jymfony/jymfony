@@ -1,4 +1,4 @@
-declare namespace Jymfony.Component.Cache.Exception {
+declare namespace Jymfony.Contracts.Cache.Exception {
     export class ExceptionInterface {
         public static readonly definition: Newable<ExceptionInterface>;
     }

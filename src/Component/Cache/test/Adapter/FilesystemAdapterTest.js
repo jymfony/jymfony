@@ -1,20 +1,17 @@
-const AdapterTestCase = require('./AdapterTestCase');
+import { AdapterTestCase } from './AdapterTestCase';
+import { tmpdir } from 'os';
+
 const FilesystemAdapter = Jymfony.Component.Cache.Adapter.FilesystemAdapter;
 const Filesystem = Jymfony.Component.Filesystem.Filesystem;
+const cacheFolder = tmpdir() + '/jymfony-cache';
 
-const os = require('os');
-
-describe('[Cache] FilesystemAdapter', function () {
-    const cacheFolder = os.tmpdir() + '/jymfony-cache';
-
-    after(async () => {
+export default class FilesystemAdapterTest extends AdapterTestCase {
+    async after() {
         const fs = new Filesystem();
         await fs.remove(cacheFolder);
-    });
+    }
 
-    AdapterTestCase.shouldPassAdapterTests.call(this);
-
-    this._createCachePool = (defaultLifetime = undefined) => {
+    _createCachePool(defaultLifetime = undefined) {
         return new FilesystemAdapter('', defaultLifetime, cacheFolder);
     };
-});
+}

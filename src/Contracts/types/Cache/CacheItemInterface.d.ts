@@ -1,4 +1,4 @@
-declare namespace Jymfony.Component.Cache {
+declare namespace Jymfony.Contracts.Cache {
     import DateTimeInterface = Jymfony.Contracts.DateTime.DateTimeInterface;
     import TimeSpanInterface = Jymfony.Contracts.DateTime.TimeSpanInterface;
 

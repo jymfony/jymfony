@@ -33,6 +33,7 @@
     },
     "jymfony-autoload-dev": {
       "namespaces": {
+        "Jymfony.Contracts.Fixtures": "fixtures/",
         "Jymfony.Contracts.Tests": "test/"
       }
     }

@@ -17,7 +17,7 @@
  * SHOULD NOT assume that an Item created by one Implementing Library is
  * compatible with a Pool from another Implementing Library.
  *
- * @memberOf Jymfony.Component.Cache
+ * @memberOf Jymfony.Contracts.Cache
  */
 class CacheItemInterface {
     /**
@@ -62,7 +62,7 @@ class CacheItemInterface {
      *
      * @param {*} value The serializable value to be stored.
      *
-     * @returns {Jymfony.Component.Cache.CacheItemInterface} The invoked object.
+     * @returns {Jymfony.Contracts.Cache.CacheItemInterface} The invoked object.
      */
     set(value) { }
 
@@ -75,7 +75,7 @@ class CacheItemInterface {
      *   If none is set, the value should be stored permanently or for as long as the
      *   implementation allows.
      *
-     * @returns {Jymfony.Component.Cache.CacheItemInterface} The invoked object.
+     * @returns {Jymfony.Contracts.Cache.CacheItemInterface} The invoked object.
      */
     expiresAt(expiration) { }
 
@@ -89,7 +89,7 @@ class CacheItemInterface {
      *   If none is set, the value should be stored permanently or for as long as the
      *   implementation allows.
      *
-     * @returns {Jymfony.Component.Cache.CacheItemInterface} The invoked object.
+     * @returns {Jymfony.Contracts.Cache.CacheItemInterface} The invoked object.
      */
     expiresAfter(time) { }
 }

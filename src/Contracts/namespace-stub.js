@@ -9,6 +9,16 @@ Jymfony.Contracts = {
     /**
      * @namespace
      */
+    Cache: {
+        /**
+         * @namespace
+         */
+        Exception: {},
+    },
+
+    /**
+     * @namespace
+     */
     Console: {
         /**
          * @namespace

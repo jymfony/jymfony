@@ -1,5 +1,5 @@
 /**
- * @memberOf Jymfony.Component.Cache.Exception
+ * @memberOf Jymfony.Contracts.Cache.Exception
  *
  * @interface
  */

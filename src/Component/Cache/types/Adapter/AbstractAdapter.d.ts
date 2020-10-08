@@ -1,11 +1,13 @@
 declare namespace Jymfony.Component.Cache.Adapter {
-    import CacheItemInterface = Jymfony.Component.Cache.CacheItemInterface;
-    import CacheItemPoolInterface = Jymfony.Component.Cache.CacheItemPoolInterface;
-    import LoggerAwareInterface = Jymfony.Component.Logger.LoggerAwareInterface;
-    import AbstractTrait = Jymfony.Component.Cache.Traits.AbstractTrait;
-    import LoggerInterface = Jymfony.Component.Logger.LoggerInterface;
+    import AbstractAdapterTrait = Jymfony.Component.Cache.Traits.AbstractAdapterTrait;
+    import CacheItemInterface = Jymfony.Contracts.Cache.CacheItemInterface;
+    import CacheItemPoolInterface = Jymfony.Contracts.Cache.CacheItemPoolInterface;
+    import ContractsTrait = Jymfony.Contracts.Cache.CacheTrait;
+    import LoggerAwareInterface = Jymfony.Contracts.Logger.LoggerAwareInterface;
+    import LoggerInterface = Jymfony.Contracts.Logger.LoggerInterface;
+    import CacheInterface = Jymfony.Contracts.Cache.CacheInterface;
 
-    export abstract class AbstractAdapter<T = any> extends implementationOf(CacheItemPoolInterface, LoggerAwareInterface, AbstractTrait) {
+    export abstract class AbstractAdapter<T = any> extends implementationOf(AdapterInterface, CacheInterface, LoggerAwareInterface, AbstractAdapterTrait, ContractsTrait) {
         private _namespace: string;
         private _createCacheItem: (key: string, value: any, isHit: boolean) => CacheItemInterface<T>;
         private _logger: LoggerInterface;
@@ -14,6 +16,7 @@ declare namespace Jymfony.Component.Cache.Adapter {
          * Constructor.
          */
         __construct(namespace?: string, defaultLifetime?: number): void;
+        protected constructor(namespace?: string, defaultLifetime?: number);
 
         /**
          * Creates a system cache pool.

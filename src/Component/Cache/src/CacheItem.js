@@ -1,14 +1,14 @@
-const CacheItemInterface = Jymfony.Component.Cache.CacheItemInterface;
 const DateTime = Jymfony.Component.DateTime.DateTime;
 const DateTimeInterface = Jymfony.Contracts.DateTime.DateTimeInterface;
-const InvalidArgumentException = Jymfony.Component.Cache.Exception.InvalidArgumentException;
+const InvalidArgumentException = Jymfony.Contracts.Cache.Exception.InvalidArgumentException;
+const ItemInterface = Jymfony.Contracts.Cache.ItemInterface;
 const TimeSpanInterface = Jymfony.Contracts.DateTime.TimeSpanInterface;
 
 /**
  * @memberOf Jymfony.Component.Cache
  * @final
  */
-export default class CacheItem extends implementationOf(CacheItemInterface) {
+export default class CacheItem extends implementationOf(ItemInterface) {
     /**
      * Constructor.
      */
@@ -63,11 +63,18 @@ export default class CacheItem extends implementationOf(CacheItemInterface) {
         this._innerItem = undefined;
 
         /**
-         * @type {*}
+         * @type {WeakRef<Jymfony.Contracts.Cache.CacheItemPoolInterface>}
          *
          * @private
          */
-        this._poolHash = undefined;
+        this._pool = undefined;
+
+        /**
+         * @type {boolean}
+         *
+         * @private
+         */
+        this._isTaggable = false;
     }
 
     /**
@@ -139,9 +146,13 @@ export default class CacheItem extends implementationOf(CacheItemInterface) {
      *
      * @returns {Jymfony.Component.Cache.CacheItem}
      *
-     * @throws {Jymfony.Component.Cache.Exception.InvalidArgumentException} When tag is not valid
+     * @throws {Jymfony.Contracts.Cache.Exception.InvalidArgumentException} When tag is not valid
      */
     tag(tags) {
+        if (! this._isTaggable) {
+            throw new LogicException(__jymfony.sprintf('Cache item "%s" comes from a non tag-aware pool: you cannot tag it.', this._key));
+        }
+
         if (! isArray(tags)) {
             tags = [ tags ];
         }
@@ -172,7 +183,7 @@ export default class CacheItem extends implementationOf(CacheItemInterface) {
     /**
      * @param {string} key
      *
-     * @throws {Jymfony.Component.Cache.Exception.InvalidArgumentException} When key is not a valid string key.
+     * @throws {Jymfony.Contracts.Cache.Exception.InvalidArgumentException} When key is not a valid string key.
      */
     static validateKey(key) {
         if (! isString(key)) {

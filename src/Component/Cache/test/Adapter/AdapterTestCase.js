@@ -1,55 +1,63 @@
-const InvalidArgumentException = Jymfony.Component.Cache.Exception.InvalidArgumentException;
-const PruneableInterface = Jymfony.Component.Cache.PruneableInterface;
-const NotUnserializable = Jymfony.Component.Cache.Fixtures.NotUnserializable;
+import { @dataProvider } from '@jymfony/decorators';
+
+const CacheItem = Jymfony.Component.Cache.CacheItem;
 const DateTime = Jymfony.Component.DateTime.DateTime;
+const InvalidArgumentException = Jymfony.Contracts.Cache.Exception.InvalidArgumentException;
+const NotUnserializable = Jymfony.Component.Cache.Fixtures.NotUnserializable;
+const PruneableInterface = Jymfony.Component.Cache.PruneableInterface;
 const TimeSpan = Jymfony.Component.DateTime.TimeSpan;
+const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 const { expect } = require('chai');
 
 /**
- * Data provider for invalid keys.
+ * @memberOf Jymfony.Component.Cache.Tests.Adapter
  */
-function * invalidKeys() {
-    yield true;
-    yield false;
-    yield null;
-    yield 2;
-    yield 2.5;
-    yield '{str';
-    yield 'rand{';
-    yield 'rand{str';
-    yield 'rand}str';
-    yield 'rand(str';
-    yield 'rand)str';
-    yield 'rand/str';
-    yield 'rand\\str';
-    yield 'rand@str';
-    yield 'rand:str';
-    yield {};
-    yield [ 'array' ];
-}
+export class AdapterTestCase extends TestCase {
+    __construct() {
+        super.__construct();
 
-exports.shouldPassAdapterTests = function () {
-    this.timeout(60000);
-    this._skippedTests = this._skippedTests || {};
+        this._cache = undefined;
+    }
 
-    before(() => {
-        const pool = this._createCachePool();
-        if (! (pool instanceof PruneableInterface)) {
-            this.testPrune = undefined;
-        }
-    });
-
-    beforeEach(() => {
+    beforeEach() {
         this._cache = this._createCachePool();
-    });
 
-    afterEach(async () => {
+        if (this._context.currentTest === 'testPrune' && ! (this._cache instanceof PruneableInterface)) {
+            this.markTestSkipped();
+        }
+    }
+
+    async afterEach() {
         if (this._cache) {
             await this._cache.clear();
         }
-    });
+    }
 
-    this.testBasicUsage = async () => {
+
+    /**
+     * Data provider for invalid keys.
+     */
+    * provideInvalidKeys() {
+        yield [ true ];
+        yield [ false ];
+        yield [ null ];
+        yield [ 2 ];
+        yield [ 2.5 ];
+        yield [ '{str' ];
+        yield [ 'rand{' ];
+        yield [ 'rand{str' ];
+        yield [ 'rand}str' ];
+        yield [ 'rand(str' ];
+        yield [ 'rand)str' ];
+        yield [ 'rand/str' ];
+        yield [ 'rand\\str' ];
+        yield [ 'rand@str' ];
+        yield [ 'rand:str' ];
+        yield [ {} ];
+        yield [ [ 'array' ] ];
+    }
+
+    async testBasicUsage() {
         let item = await this._cache.getItem('key');
         item.set('4711');
         await this._cache.save(item);
@@ -73,9 +81,9 @@ exports.shouldPassAdapterTests = function () {
         await this._cache.deleteItem('key2');
         expect((await this._cache.getItem('key')).isHit).to.be.false;
         expect((await this._cache.getItem('key2')).isHit).to.be.false;
-    };
+    }
 
-    this.testBasicUsageWithLongKeys = async () => {
+    async testBasicUsageWithLongKeys() {
         const key = 'a'.repeat(300);
 
         let item = await this._cache.getItem(key);
@@ -93,17 +101,18 @@ exports.shouldPassAdapterTests = function () {
 
         item = await this._cache.getItem(key);
         expect(item.isHit).to.be.false;
-    };
+    }
 
-    this.testItemModifiersReturnsSelf = async () => {
+
+    async testItemModifiersReturnsSelf() {
         const item = await this._cache.getItem('key');
 
         expect(item.set('4711')).to.be.equal(item);
         expect(item.expiresAfter(2)).to.be.equal(item);
         expect(item.expiresAt(DateTime.now.modify(new TimeSpan('PT2H')))).to.be.equal(item);
-    };
+    }
 
-    this.testGetItem = async () => {
+    async testGetItem() {
         let item = await this._cache.getItem('key');
         item.set('value');
         await this._cache.save(item);
@@ -116,9 +125,9 @@ exports.shouldPassAdapterTests = function () {
         item = await this._cache.getItem('key2');
         expect(item.isHit).to.be.false;
         expect(item.get()).to.be.undefined;
-    };
+    }
 
-    this.testGetItems = async () => {
+    async testGetItems() {
         const keys = [ 'foo', 'bar', 'baz' ];
         let items = await this._cache.getItems(keys);
 
@@ -148,18 +157,18 @@ exports.shouldPassAdapterTests = function () {
         items = await this._cache.getItems([]);
         expect(items).to.be.instanceOf(Map);
         expect(items.size).to.be.equal(0);
-    };
+    }
 
-    this.testHasItem = async () => {
+    async testHasItem() {
         const item = await this._cache.getItem('key');
         item.set('value');
         await this._cache.save(item);
 
         expect(await this._cache.hasItem('key')).to.be.true;
         expect(await this._cache.hasItem('key2')).to.be.false;
-    };
+    }
 
-    this.testClear = async () => {
+    async testClear() {
         const item = await this._cache.getItem('key');
         item.set('value');
         await this._cache.save(item);
@@ -167,9 +176,9 @@ exports.shouldPassAdapterTests = function () {
         expect(await this._cache.clear()).to.be.true;
         expect((await this._cache.getItem('key')).isHit).to.be.false;
         expect(await this._cache.hasItem('key2')).to.be.false;
-    };
+    }
 
-    this.testDeleteItem = async () => {
+    async testDeleteItem() {
         const item = await this._cache.getItem('key');
         item.set('value');
         await this._cache.save(item);
@@ -180,9 +189,9 @@ exports.shouldPassAdapterTests = function () {
 
         // Requesting deletion of non-existent key should return true
         expect(await this._cache.deleteItem('key2')).to.be.true;
-    };
+    }
 
-    this.testDeleteItems = async () => {
+    async testDeleteItems() {
         const keys = [ 'foo', 'bar', 'baz' ];
         const items = await this._cache.getItems(keys);
 
@@ -202,17 +211,17 @@ exports.shouldPassAdapterTests = function () {
         expect(await this._cache.hasItem('bar')).to.be.false;
         expect(await this._cache.hasItem('baz')).to.be.false;
         expect(await this._cache.hasItem('biz')).to.be.false;
-    };
+    }
 
-    this.testSave = async () => {
+    async testSave() {
         const item = await this._cache.getItem('key');
         item.set('value');
 
         expect(await this._cache.save(item)).to.be.true;
         expect((await this._cache.getItem('key')).get()).to.be.equal('value');
-    };
+    }
 
-    this.testSaveExpired = async () => {
+    async testSaveExpired() {
         const item = await this._cache.getItem('key');
         item.set('value');
         item.expiresAt(new DateTime(DateTime.unixTime + 10));
@@ -221,9 +230,10 @@ exports.shouldPassAdapterTests = function () {
         await this._cache.save(item);
 
         expect(await this._cache.hasItem('key')).to.be.false;
-    };
+    }
 
-    this.testGetItemInvalidKeys = async (key) => {
+    @dataProvider('provideInvalidKeys')
+    async testGetItemInvalidKeys(key) {
         let caught;
         try {
             await this._cache.getItem(key);
@@ -232,9 +242,10 @@ exports.shouldPassAdapterTests = function () {
         }
 
         expect(caught).to.be.instanceOf(InvalidArgumentException);
-    };
+    }
 
-    this.testGetItemsInvalidKeys = async (key) => {
+    @dataProvider('provideInvalidKeys')
+    async testGetItemsInvalidKeys(key) {
         let caught;
         try {
             await this._cache.getItems([ 'key', key, 'key2' ]);
@@ -243,9 +254,10 @@ exports.shouldPassAdapterTests = function () {
         }
 
         expect(caught).to.be.instanceOf(InvalidArgumentException);
-    };
+    }
 
-    this.testHasItemInvalidKeys = async (key) => {
+    @dataProvider('provideInvalidKeys')
+    async testHasItemInvalidKeys(key) {
         let caught;
         try {
             await this._cache.hasItem(key);
@@ -254,9 +266,10 @@ exports.shouldPassAdapterTests = function () {
         }
 
         expect(caught).to.be.instanceOf(InvalidArgumentException);
-    };
+    }
 
-    this.testDeleteItemInvalidKeys = async (key) => {
+    @dataProvider('provideInvalidKeys')
+    async testDeleteItemInvalidKeys(key) {
         let caught;
         try {
             await this._cache.deleteItem(key);
@@ -265,9 +278,10 @@ exports.shouldPassAdapterTests = function () {
         }
 
         expect(caught).to.be.instanceOf(InvalidArgumentException);
-    };
+    }
 
-    this.testDeleteItemsInvalidKeys = async (key) => {
+    @dataProvider('provideInvalidKeys')
+    async testDeleteItemsInvalidKeys(key) {
         let caught;
         try {
             await this._cache.deleteItems([ 'key', key, 'key2' ]);
@@ -276,9 +290,10 @@ exports.shouldPassAdapterTests = function () {
         }
 
         expect(caught).to.be.instanceOf(InvalidArgumentException);
-    };
+    }
 
-    this.testDefaultLifetime = async () => {
+    async testDefaultLifetime() {
+        this.setTimeout(60000);
         const cache = this._createCachePool(2);
 
         let item = await cache.getItem('key.dlt');
@@ -292,9 +307,10 @@ exports.shouldPassAdapterTests = function () {
         await __jymfony.sleep(3000);
         item = await cache.getItem('key.dlt');
         expect(item.isHit).to.be.false;
-    };
+    }
 
-    this.testExpiration = async () => {
+    async testExpiration() {
+        this.setTimeout(60000);
         await this._cache.save((await this._cache.getItem('k1')).set('v1').expiresAfter(2));
         await this._cache.save((await this._cache.getItem('k2')).set('v2').expiresAfter(366 * 86400));
 
@@ -306,67 +322,14 @@ exports.shouldPassAdapterTests = function () {
         item = await this._cache.getItem('k2');
         expect(item.isHit).to.be.true;
         expect(item.get()).to.be.equal('v2');
-    };
+    }
 
-    this.testNotUnserializable = async () => {
+    async testNotUnserializable() {
         let item = await this._cache.getItem('foo');
         await this._cache.save(item.set(new NotUnserializable()));
 
         item = await this._cache.getItem('foo');
         expect(item.isHit).to.be.false;
-    };
-
-    it('should work', this.testBasicUsage);
-    it('should use default lifetime', this.testDefaultLifetime);
-    it('should respect expiration', this.testExpiration);
-    it('should not hit unserializable values', this.testNotUnserializable);
-    it('should work with long keys', this.testBasicUsageWithLongKeys);
-    it('modifiers should returns same object (fluid interface)', this.testItemModifiersReturnsSelf);
-    it('getItem should work', this.testGetItem);
-    it('getItems should work', this.testGetItems);
-    it('hasItem should work', this.testHasItem);
-    it('clear should work', this.testClear);
-    it('deleteItem should work', this.testDeleteItem);
-    it('deleteItems should work', this.testDeleteItems);
-    it('save should work', this.testSave);
-    it('save should discard expired items', this.testSaveExpired);
-
-    let index = 0;
-    for (const key of invalidKeys()) {
-        it(
-            'getItem should throw on invalid key with dataset #' + index++,
-            this.testGetItemInvalidKeys ?
-                () => this.testGetItemInvalidKeys(key)
-                : undefined
-        );
-
-        it(
-            'getItems should throw on invalid key with dataset #' + index,
-            this.testGetItemsInvalidKeys ?
-                () => this.testGetItemsInvalidKeys(key)
-                : undefined
-        );
-
-        it(
-            'hasItem should throw on invalid key with dataset #' + index,
-            this.testHasItemInvalidKeys ?
-                () => this.testHasItemInvalidKeys(key)
-                : undefined
-        );
-
-        it(
-            'deleteItem should throw on invalid key with dataset #' + index,
-            this.testDeleteItemInvalidKeys ?
-                () => this.testDeleteItemInvalidKeys(key)
-                : undefined
-        );
-
-        it(
-            'deleteItems should throw on invalid key with dataset #' + index,
-            this.testDeleteItemsInvalidKeys ?
-                () => this.testDeleteItemsInvalidKeys(key)
-                : undefined
-        );
     }
 
     /**
@@ -374,12 +337,12 @@ exports.shouldPassAdapterTests = function () {
      *
      * @param {int} [defaultLifetime]
      *
-     * @returns {Jymfony.Component.Cache.CacheItemPoolInterface}
+     * @returns {Jymfony.Contracts.Cache.CacheItemPoolInterface}
      *
      * @protected
      * @abstract
      */
-    this._createCachePool = (defaultLifetime = undefined) => { // eslint-disable-line no-unused-vars
+    _createCachePool(defaultLifetime = undefined) { // eslint-disable-line no-unused-vars
         throw new Error('You should implement _createCachePool method');
     };
-};
+}

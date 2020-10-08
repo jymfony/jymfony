@@ -1,12 +1,13 @@
 import { createHash } from 'crypto';
 
 const CacheItem = Jymfony.Component.Cache.CacheItem;
-const LoggerAwareTrait = Jymfony.Component.Logger.LoggerAwareTrait;
+const DateTime = Jymfony.Component.DateTime.DateTime;
+const LoggerAwareTrait = Jymfony.Contracts.Logger.LoggerAwareTrait;
 
 /**
  * @memberOf Jymfony.Component.Cache.Traits
  */
-class AbstractTrait extends LoggerAwareTrait.definition {
+class AbstractAdapterTrait extends LoggerAwareTrait.definition {
     /**
      * Constructor.
      */
@@ -222,8 +223,98 @@ class AbstractTrait extends LoggerAwareTrait.definition {
 
         return id;
     }
+
+
+    /**
+     * @inheritdoc
+     */
+    async getItem(key) {
+        const id = await this._getId(key);
+
+        let isHit = false;
+        let value = undefined;
+
+        try {
+            for (const val of Object.values(await this._doFetch([ id ]))) {
+                value = val;
+                isHit = true;
+            }
+        } catch (e) {
+            this._logger.warning('Failed to fetch key "{key}"', { key, exception: e });
+        }
+
+        return this._createCacheItem(key, value, isHit);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    async getItems(keys = []) {
+        let ids = await Promise.all(keys.map(key => this._getId(key)));
+
+        let items;
+        try {
+            items = await this._doFetch(ids);
+        } catch (e) {
+            this._logger.warning('Failed to fetch requested items', { keys, exception: e });
+
+            items = [];
+        }
+
+        ids = Object.entries(ids)
+            .reduce((res, val) => (res[val[1]] = keys[val[0]], res), {});
+
+        return new Map(this._generateItems(items, ids));
+    }
+
+    /**
+     * @inheritdoc
+     */
+    save(item) {
+        if (! (item instanceof CacheItem)) {
+            return false;
+        }
+
+        let lifetime = item._expiry - DateTime.unixTime;
+        if (undefined === item._expiry) {
+            lifetime = item._defaultLifetime;
+        }
+
+        if (undefined !== lifetime && 0 > lifetime) {
+            return this._doDelete([ item.key ]);
+        }
+
+        return this._doSave({ [item.key]: item.get() }, lifetime);
+    }
+
+    * _generateItems(items, keys) {
+        try {
+            for (const [ id, value ] of __jymfony.getEntries(items)) {
+                if (undefined === keys[id]) {
+                    continue;
+                }
+
+                const key = keys[id];
+                delete keys[id];
+                yield [ key, this._createCacheItem(key, value, true) ];
+            }
+        } catch (e) {
+            this._logger.warning('Failed to fetch requested items', { keys: Object.values(keys), exception: e });
+        }
+
+        for (const key of Object.values(keys)) {
+            yield [ key, this._createCacheItem(key, undefined, false) ];
+        }
+    }
+
+    /**
+     * @inheritdoc
+     */
+    async close() {
+        // Nothing to do.
+    }
 }
 
-AbstractTrait.MAX_ID_LENGTH = undefined;
+AbstractAdapterTrait.MAX_ID_LENGTH = undefined;
 
-export default getTrait(AbstractTrait);
+export default getTrait(AbstractAdapterTrait);

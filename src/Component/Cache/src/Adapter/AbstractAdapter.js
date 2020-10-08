@@ -1,21 +1,22 @@
 import * as fs from 'fs';
 
+const AbstractAdapterTrait = Jymfony.Component.Cache.Traits.AbstractAdapterTrait;
+const AdapterInterface = Jymfony.Component.Cache.Adapter.AdapterInterface;
 const ArrayAdapter = Jymfony.Component.Cache.Adapter.ArrayAdapter;
-const FilesystemAdapter = Jymfony.Component.Cache.Adapter.FilesystemAdapter;
-const RedisAdapter = Jymfony.Component.Cache.Adapter.RedisAdapter;
 const CacheItem = Jymfony.Component.Cache.CacheItem;
-const CacheItemPoolInterface = Jymfony.Component.Cache.CacheItemPoolInterface;
-const InvalidArgumentException = Jymfony.Component.Cache.Exception.InvalidArgumentException;
-const AbstractTrait = Jymfony.Component.Cache.Traits.AbstractTrait;
-const DateTime = Jymfony.Component.DateTime.DateTime;
-const LoggerAwareInterface = Jymfony.Component.Logger.LoggerAwareInterface;
-const NullLogger = Jymfony.Component.Logger.NullLogger;
+const CacheInterface = Jymfony.Contracts.Cache.CacheInterface;
+const ContractsTrait = Jymfony.Component.Cache.Traits.ContractsTrait;
+const FilesystemAdapter = Jymfony.Component.Cache.Adapter.FilesystemAdapter;
+const LoggerAwareInterface = Jymfony.Contracts.Logger.LoggerAwareInterface;
+const InvalidArgumentException = Jymfony.Contracts.Cache.Exception.InvalidArgumentException;
+const NullLogger = Jymfony.Contracts.Logger.NullLogger;
+const RedisAdapter = Jymfony.Component.Cache.Adapter.RedisAdapter;
 
 /**
  * @memberOf Jymfony.Component.Cache.Adapter
  * @abstract
  */
-export default class AbstractAdapter extends implementationOf(CacheItemPoolInterface, LoggerAwareInterface, AbstractTrait) {
+export default class AbstractAdapter extends implementationOf(AdapterInterface, CacheInterface, LoggerAwareInterface, AbstractAdapterTrait, ContractsTrait) {
     /**
      * Constructor.
      *
@@ -108,88 +109,6 @@ export default class AbstractAdapter extends implementationOf(CacheItemPoolInter
         }
 
         throw new InvalidArgumentException(__jymfony.sprintf('Unsupported DSN: %s.', dsn));
-    }
-
-    /**
-     * @inheritdoc
-     */
-    async getItem(key) {
-        const id = await this._getId(key);
-
-        let isHit = false;
-        let value = undefined;
-
-        try {
-            for (const val of Object.values(await this._doFetch([ id ]))) {
-                value = val;
-                isHit = true;
-            }
-        } catch (e) {
-            this._logger.warning('Failed to fetch key "{key}"', { key, exception: e });
-        }
-
-        return this._createCacheItem(key, value, isHit);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    async getItems(keys = []) {
-        let ids = await Promise.all(keys.map(key => this._getId(key)));
-
-        let items;
-        try {
-            items = await this._doFetch(ids);
-        } catch (e) {
-            this._logger.warning('Failed to fetch requested items', { keys, exception: e });
-
-            items = [];
-        }
-
-        ids = Object.entries(ids)
-            .reduce((res, val) => (res[val[1]] = keys[val[0]], res), {});
-
-        return new Map(this._generateItems(items, ids));
-    }
-
-    /**
-     * @inheritdoc
-     */
-    save(item) {
-        if (! (item instanceof CacheItem)) {
-            return false;
-        }
-
-        let lifetime = item._expiry - DateTime.unixTime;
-        if (undefined === item._expiry) {
-            lifetime = item._defaultLifetime;
-        }
-
-        if (undefined !== lifetime && 0 > lifetime) {
-            return this._doDelete([ item.key ]);
-        }
-
-        return this._doSave({ [item.key]: item.get() }, lifetime);
-    }
-
-    * _generateItems(items, keys) {
-        try {
-            for (const [ id, value ] of __jymfony.getEntries(items)) {
-                if (undefined === keys[id]) {
-                    continue;
-                }
-
-                const key = keys[id];
-                delete keys[id];
-                yield [ key, this._createCacheItem(key, value, true) ];
-            }
-        } catch (e) {
-            this._logger.warning('Failed to fetch requested items', { keys: Object.values(keys), exception: e });
-        }
-
-        for (const key of Object.values(keys)) {
-            yield [ key, this._createCacheItem(key, undefined, false) ];
-        }
     }
 
     /**
