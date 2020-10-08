@@ -14,6 +14,7 @@ require('./lib/Iterator/EmptyIterator');
 require('./lib/Iterator/RecursiveDirectoryIterator');
 
 require('./lib/Object/polyfills/values');
+require('./lib/Object/polyfills/weak-ref');
 require('./lib/Object/clone');
 require('./lib/Object/deepMerge');
 require('./lib/Object/diffKey');
