@@ -1,6 +1,7 @@
 import { DataProvider } from '@jymfony/decorators';
 import Suite from 'mocha/lib/suite';
 import Test from 'mocha/lib/test';
+import { expect } from 'chai';
 
 const Prophet = Jymfony.Component.Testing.Prophet;
 const SkipException = Jymfony.Component.Testing.Framework.Exception.SkipException;
@@ -18,6 +19,29 @@ const getProphet = obj => {
  * @memberOf Jymfony.Component.Testing.Framework
  */
 export default class TestCase {
+    __construct() {
+        /**
+         * @type {Object.<string, *>}
+         *
+         * @protected
+         */
+        this._context = {};
+
+        /**
+         * @type {undefined | ReflectionClass}
+         *
+         * @private
+         */
+        this._expectedException = undefined;
+
+        /**
+         * @type {undefined | string}
+         *
+         * @private
+         */
+        this._expectedExceptionMessage = undefined;
+    }
+
     /**
      * Run test case.
      * Not to be called directly, will be called by the test runner.
@@ -27,15 +51,14 @@ export default class TestCase {
      * @internal
      */
     runTestCase(mocha) {
-        const self = this;
         const reflectionClass = new ReflectionClass(this);
 
         const suite = new Suite(this.testCaseName, mocha.suite.ctx, false);
-        (function () {
+        (function (self) {
             const execution = function (reflectionMethod, args) {
-                return function () {
+                return async function () {
                     try {
-                        return reflectionMethod.invoke(self, ...args);
+                        return await reflectionMethod.invoke(self, ...args);
                     } catch (e) {
                         if (e instanceof SkipException) {
                             this.skip();
@@ -64,7 +87,18 @@ export default class TestCase {
                 return exec.call(this);
             };
 
-            this.beforeAll(self.before.bind(null));
+            this.beforeAll(async function () {
+                try {
+                    await self.before();
+                } catch (e) {
+                    if (e instanceof SkipException) {
+                        this.skip();
+                    } else {
+                        throw e;
+                    }
+                }
+            });
+
             this.afterAll(self.after.bind(null));
             this.beforeEach(before);
             this.afterEach(execution(reflectionClass.getMethod('afterEach'), []));
@@ -81,14 +115,35 @@ export default class TestCase {
 
                 const runTest = args => {
                     const exec = execution(reflectionMethod, args);
+                    const doExec = async (this_) => {
+                        let exception;
+                        try {
+                            await exec.call(this_);
+                        } catch (e) {
+                            exception = e;
+                        }
+
+                        if (undefined !== exception) {
+                            self._checkExpectedException(exception);
+                        }
+                    };
 
                     return async function() {
-                        self.assertPreConditions();
+                        self._context = {
+                            currentTest: reflectionMethod.name,
+                            setTimeout: this.timeout.bind(this),
+                        };
 
-                        await exec.call(this);
+                        try {
+                            self.assertPreConditions();
 
-                        verifyMockObjects();
-                        self.assertPostConditions();
+                            await doExec(this);
+
+                            verifyMockObjects();
+                            self.assertPostConditions();
+                        } finally {
+                            self._context = {};
+                        }
                     };
                 };
 
@@ -101,11 +156,18 @@ export default class TestCase {
                     this.addTest(new Test(testName, runTest([])));
                 }
             }
-        }).call(suite);
+        }).call(suite, this);
 
         mocha.suite.addSuite(suite);
     }
 
+    /**
+     * Creates new object prophecy.
+     *
+     * @param {undefined|string} classOrInterface
+     *
+     * @returns {Jymfony.Component.Testing.Prophecy.ObjectProphecy}
+     */
     prophesize(classOrInterface) {
         const prophet = getProphet(this);
 
@@ -165,7 +227,79 @@ export default class TestCase {
         return String(this.constructor.name).replace(/Test$/, '');
     }
 
+    /**
+     * Sets the timeout for the currently running test.
+     *
+     * @param {number} ms
+     */
+    setTimeout(ms) {
+        this._context && this._context.setTimeout(ms);
+    }
+
+    /**
+     * Register an exception to be expected.
+     * The test will pass only if an exception of the given class (or one of its subclasses)
+     * has been thrown while executing the test.
+     *
+     * @param {string | Function} exception
+     */
+    expectException(exception) {
+        this._expectedException = new ReflectionClass(exception);
+    }
+
+    /**
+     * Register an exception message to be expected.
+     * The test will pass only if an exception is thrown and its message is *EXACTLY* equals
+     * to the one given to this method.
+     *
+     * @param {string} message
+     */
+    expectExceptionMessage(message) {
+        if (! isString(message)) {
+            throw new InvalidArgumentException('Argument #1 passed to expectedExceptionMessage must be a string');
+        }
+
+        this._expectedExceptionMessage = message;
+    }
+
+    /**
+     * Marks current test as skipped and stops execution.
+     */
     markTestSkipped() {
+        __self.markTestSkipped();
+    }
+
+    /**
+     * Marks current test as skipped and stops execution.
+     */
+    static markTestSkipped() {
         throw new SkipException();
+    }
+
+    /**
+     * Checks if the catched exception is the expected one.
+     *
+     * @param {Error} exception
+     *
+     * @returns {boolean}
+     *
+     * @private
+     */
+    _checkExpectedException(exception) {
+        if (exception instanceof Jymfony.Component.Testing.Framework.Exception.Exception) {
+            throw exception;
+        }
+
+        if (this._expectedException !== undefined) {
+            expect(exception).to.be.instanceOf(this._expectedException.getConstructor());
+        }
+
+        if (this._expectedExceptionMessage !== undefined) {
+            expect(exception.message).to.be.equal(this._expectedExceptionMessage);
+        }
+
+        if (this._expectedException === undefined && this._expectedExceptionMessage === undefined) {
+            throw exception;
+        }
     }
 }

@@ -1,7 +1,15 @@
 declare namespace Jymfony.Component.Testing.Framework {
     import ObjectProphecy = Jymfony.Component.Testing.Prophecy.ObjectProphecy;
 
+    interface TestCaseContext {
+        currentTest: string;
+    }
+
     export class TestCase {
+        protected _context: Partial<TestCaseContext>;
+        private _expectedException: undefined | ReflectionClass;
+        private _expectedExceptionMessage: undefined | string;
+
         /**
          * Run test case.
          * Not to be called directly, will be called by the test runner.
@@ -46,13 +54,13 @@ declare namespace Jymfony.Component.Testing.Framework {
          * Extend this method to execute preliminary/preparation work
          * before each test of current test case.
          */
-        protected beforeEach(): void;
+        protected beforeEach(): void | Promise<void>;
 
         /**
          * Extends this method to execute cleanup work after each test
          * of the current test class.
          */
-        protected afterEach(): void;
+        protected afterEach(): void | Promise<void>;
 
         public readonly testCaseName: string;
 

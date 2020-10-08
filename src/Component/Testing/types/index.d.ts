@@ -27,6 +27,7 @@
 /// <reference path="Exception/UnexpectedCallException.d.ts" />
 /// <reference path="Exception/UnexpectedCallsCountException.d.ts" />
 /// <reference path="Exception/UnexpectedCallsException.d.ts" />
+/// <reference path="Framework/Exception/Exception.d.ts" />
 /// <reference path="Framework/Exception/SkipException.d.ts" />
 /// <reference path="Framework/Runner.d.ts" />
 /// <reference path="Framework/TestCase.d.ts" />
