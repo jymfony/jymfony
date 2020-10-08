@@ -172,7 +172,7 @@ export default class IbanValidator extends ConstraintValidator {
         canonicalized = canonicalized.substr(4) + canonicalized.substr(0, 4);
 
         // Convert all remaining letters to their ordinals
-        // The result is an integer, which is too large for PHP's int
+        // The result is an integer, which is too large for number
         // Data type, so we store it in a string instead.
         // E.g. 0076 2011 6238 5295 7 CH93
         //   -> 0076 2011 6238 5295 7 121893

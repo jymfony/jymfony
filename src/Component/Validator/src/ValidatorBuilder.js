@@ -51,6 +51,13 @@ export default class ValidatorBuilder {
         this._metadataFactory = null;
 
         /**
+         * @type {Jymfony.Contracts.Cache.CacheItemPoolInterface}
+         *
+         * @private
+         */
+        this._mappingCache = null;
+
+        /**
          * @type {Jymfony.Component.Validator.ConstraintValidatorFactoryInterface|null}
          *
          * @private
@@ -213,6 +220,24 @@ export default class ValidatorBuilder {
         }
 
         this._metadataFactory = metadataFactory;
+
+        return this;
+    }
+
+
+    /**
+     * Sets the cache for caching class metadata.
+     *
+     * @param {Jymfony.Contracts.Cache.CacheItemPoolInterface} cache
+     *
+     * @returns {Jymfony.Component.Validator.ValidatorBuilder}
+     */
+    setMappingCache(cache) {
+        if (null !== this._metadataFactory) {
+            throw new ValidatorException('You cannot add custom mappings after setting a custom metadata factory. Configure your metadata factory instead.');
+        }
+
+        this._mappingCache = cache;
 
         return this;
     }

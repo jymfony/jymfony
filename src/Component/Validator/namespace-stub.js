@@ -19,6 +19,11 @@ Jymfony.Component.Validator = {
     /**
      * @namespace
      */
+    DependencyInjection: {},
+
+    /**
+     * @namespace
+     */
     Exception: {},
 
     /**

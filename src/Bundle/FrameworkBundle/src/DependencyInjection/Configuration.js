@@ -34,6 +34,7 @@ export default class Configuration extends implementationOf(ConfigurationInterfa
         this._addRouterSection(rootNode);
         this._addSessionSection(rootNode);
         this._addTemplatingSection(rootNode);
+        this._addValidationSection(rootNode);
 
         return treeBuilder;
     }
@@ -466,4 +467,54 @@ export default class Configuration extends implementationOf(ConfigurationInterfa
             .end()
         ;
     }
+
+    /**
+     * @param {Jymfony.Component.Config.Definition.Builder.ArrayNodeDefinition} rootNode
+     *
+     * @private
+     */
+    _addValidationSection(rootNode) {
+        rootNode
+            .children()
+                .arrayNode('validation')
+                    .info('validation configuration')
+                    [ReflectionClass.exists('Jymfony.Component.Validator.Validation') ? 'canBeDisabled' : 'canBeEnabled']()
+                    .children()
+                        .scalarNode('cache').end()
+                        .booleanNode('enable_decorators').defaultTrue().end()
+                        .arrayNode('static_method')
+                            .defaultValue([ 'loadValidatorMetadata' ])
+                            .prototype('scalar').end()
+                            .treatFalseLike([])
+                            .validate().castToArray().end()
+                        .end()
+                        .scalarNode('translation_domain').defaultValue('validators').end()
+                        .enumNode('email_validation_mode').values([ 'html5', 'loose', 'strict' ]).defaultUndefined().end()
+                        .arrayNode('mapping')
+                            .addDefaultsIfNotSet()
+                                .children()
+                                    .arrayNode('paths')
+                                    .prototype('scalar').end()
+                                .end()
+                            .end()
+                        .end()
+                        // .arrayNode('not_compromised_password')
+                        //     .canBeDisabled()
+                        //     .children()
+                        //         .booleanNode('enabled')
+                        //             .defaultTrue()
+                        //             .info('When disabled, compromised passwords will be accepted as valid.')
+                        //         .end()
+                        //         .scalarNode('endpoint')
+                        //             .defaultNull()
+                        //             .info('API endpoint for the NotCompromisedPassword Validator.')
+                        //         .end()
+                        //     .end()
+                        // .end()
+                    .end()
+                .end()
+            .end()
+        ;
+    }
+
 }

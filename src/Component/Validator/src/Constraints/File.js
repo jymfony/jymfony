@@ -31,15 +31,6 @@ export default class File extends Constraint {
         this.mimeTypesMessage = 'The mime type of the file is invalid ({{ type }}). Allowed mime types are {{ types }}.';
         this.disallowEmptyMessage = 'An empty file is not allowed.';
 
-        this.uploadIniSizeErrorMessage = 'The file is too large. Allowed maximum size is {{ limit }} {{ suffix }}.';
-        this.uploadFormSizeErrorMessage = 'The file is too large.';
-        this.uploadPartialErrorMessage = 'The file was only partially uploaded.';
-        this.uploadNoFileErrorMessage = 'No file was uploaded.';
-        this.uploadNoTmpDirErrorMessage = 'No temporary folder was configured in php.ini.';
-        this.uploadCantWriteErrorMessage = 'Cannot write temporary file to disk.';
-        this.uploadExtensionErrorMessage = 'A PHP extension caused the upload to fail.';
-        this.uploadErrorMessage = 'The file could not be uploaded.';
-
         this._maxSize = undefined;
         this.binaryFormat = undefined;
 

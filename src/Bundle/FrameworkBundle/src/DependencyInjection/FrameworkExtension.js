@@ -1,10 +1,13 @@
 import { join } from 'path';
+import { statSync } from 'fs';
+import ContainerBuilder from '../../../../Component/DependencyInjection/src/ContainerBuilder';
 
 const Alias = Jymfony.Component.DependencyInjection.Alias;
 const CachePoolPass = Jymfony.Component.Cache.DependencyInjection.CachePoolPass;
 const ChildDefinition = Jymfony.Component.DependencyInjection.ChildDefinition;
 const Configuration = Jymfony.Bundle.FrameworkBundle.DependencyInjection.Configuration;
 const Container = Jymfony.Component.DependencyInjection.Container;
+const DirectoryResource = Jymfony.Component.Config.Resource.DirectoryResource;
 const Extension = Jymfony.Component.DependencyInjection.Extension.Extension;
 const InvalidConfigurationException = Jymfony.Component.Config.Definition.Exception.InvalidConfigurationException;
 const JsFileLoader = Jymfony.Component.DependencyInjection.Loader.JsFileLoader;
@@ -20,6 +23,7 @@ export default class FrameworkExtension extends Extension {
         super.__construct();
 
         this._sessionConfigEnabled = false;
+        this._validatorConfigEnabled = false;
     }
 
     /**
@@ -44,6 +48,7 @@ export default class FrameworkExtension extends Extension {
                     emacs: 'emacs://open?url=file://%%f&line=%%l',
                     sublime: 'subl://open?url=file://%%f&line=%%l',
                     phpstorm: 'phpstorm://open?file=%%f&line=%%l',
+                    webstorm: 'webstorm://open?file=%%f&line=%%l',
                     atom: 'atom://core/open/file?filename=%%f&line=%%l',
                 };
 
@@ -64,6 +69,7 @@ export default class FrameworkExtension extends Extension {
         this._registerDevServer(container, loader);
         this._registerMime(loader);
         this._registerTemplatingConfiguration(config.templating, container, loader);
+        this._registerValidationConfiguration(config.validation, container, loader);
 
         container.registerForAutoconfiguration('Jymfony.Component.Console.Command.Command').addTag('console.command');
         container.registerForAutoconfiguration('Jymfony.Component.DependencyInjection.ServiceLocator').addTag('container.service_locator');
@@ -71,6 +77,7 @@ export default class FrameworkExtension extends Extension {
         container.registerForAutoconfiguration('Jymfony.Component.Kernel.CacheClearer.CacheClearerInterface').addTag('kernel.cache_clearer');
         container.registerForAutoconfiguration('Jymfony.Component.Kernel.CacheClearer.CacheWarmerInterface').addTag('kernel.cache_warmer');
         container.registerForAutoconfiguration('Jymfony.Contracts.EventDispatcher.EventSubscriberInterface').addTag('kernel.event_subscriber');
+        container.registerForAutoconfiguration('Jymfony.Component.Validator.ConstraintValidatorInterface').addTag('validator.constraint_validator');
 
         container.registerForAutoconfiguration('Jymfony.Bundle.FrameworkBundle.Controller.AbstractController')
             .setPublic(true)
@@ -536,5 +543,140 @@ export default class FrameworkExtension extends Extension {
         }
 
         loader.load('mime.js');
+    }
+
+    /**
+     * @param {Object} config
+     * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
+     * @param {Jymfony.Component.Config.Loader.LoaderInterface} loader
+     *
+     * @private
+     */
+    _registerValidationConfiguration(config, container, loader) {
+        if (! (this._validatorConfigEnabled = this._isConfigEnabled(container, config))) {
+            return;
+        }
+
+        if (! ReflectionClass.exists('Jymfony.Component.Validator.Validation')) {
+            throw new LogicException('Validation support cannot be enabled as the Validator component is not installed. Try running "yarn add @jymfony/validator".');
+        }
+
+        if (undefined === config.email_validation_mode) {
+            config.email_validation_mode = 'loose';
+        }
+
+        loader.load('validator.js');
+
+        const validatorBuilder = container.getDefinition('validator.builder');
+        container.setParameter('validator.translation_domain', config.translation_domain);
+
+        const files = { json: [], yaml: [] };
+        this._registerValidatorMapping(container, config, files);
+
+        if (0 !== files.json.length) {
+            validatorBuilder.addMethodCall('addJsonMappings', [ files.json ]);
+        }
+
+        if (0 !== files.yaml.length) {
+            validatorBuilder.addMethodCall('addYamlMappings', [ files.yaml ]);
+        }
+
+        const definition = container.findDefinition('validator.email');
+        definition.replaceArgument(0, config.email_validation_mode);
+
+        if (config.enable_decorators) {
+            validatorBuilder.addMethodCall('enableAnnotationMapping');
+        }
+
+        if (undefined !== config.static_method) {
+            for (const methodName of config.static_method) {
+                validatorBuilder.addMethodCall('addMethodMapping', [ methodName ]);
+            }
+        }
+
+        if (! container.getParameter('kernel.debug')) {
+            validatorBuilder.addMethodCall('setMappingCache', [ new Reference('validator.mapping.cache.adapter') ]);
+        }
+
+        // Container
+        //     .getDefinition('validator.not_compromised_password')
+        //     .setArgument(2, config.not_compromised_password.enabled)
+        //     .setArgument(3, config.not_compromised_password.endpoint)
+        // ;
+    }
+
+    /**
+     * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
+     * @param {Object} config
+     * @param {{ yaml: string[], json: string[] }} files
+     * @private
+     */
+    _registerValidatorMapping(container, config, files) {
+        const fileRecorder = (extension, path) => {
+            files['yml' === extension ? 'yaml' : extension].push(path);
+        };
+
+        const isDir = path => {
+            try {
+                const s = statSync(path);
+
+                return s.isDirectory();
+            } catch (e) {
+                return false;
+            }
+        };
+
+        const registerMappingFilesFromDir = (dir) => {
+            for (const file of Finder.create().sync().followLinks().files().in(dir).name(/\.(json|ya?ml)$/).sortByName()) {
+                fileRecorder(file.extension, file.realpath);
+            }
+        };
+
+        const registerMappingFilesFromConfig = () => {
+            for (const path of Object.values(config.mapping.paths)) {
+                if (isDir(path)) {
+                    registerMappingFilesFromDir(path);
+                    container.addResource(new DirectoryResource(path, '/^$/'));
+                } else if (container.fileExists(path, false)) {
+                    const matches = path.match(/\.(json|ya?ml)$/);
+                    if (! matches) {
+                        throw new RuntimeException(__jymfony.sprintf('Unsupported mapping type in "%s", supported types are JSON & Yaml.', path));
+                    }
+
+                    fileRecorder(matches[1], path);
+                } else {
+                    throw new RuntimeException(__jymfony.sprintf('Could not open file or directory "%s".', path));
+                }
+            }
+        };
+
+        for (const bundle of Object.values(container.getParameter('kernel.bundles_metadata'))) {
+            let file;
+            const configDir = isDir(bundle.path + '/config') ? bundle.path + '/config' : bundle.path + '/Resources/config';
+
+            if (
+                container.fileExists(file = configDir + '/validation.yaml', false) ||
+                container.fileExists(file = configDir + '/validation.yml', false)
+            ) {
+                fileRecorder('yaml', file);
+            }
+
+            if (container.fileExists(file = configDir + '/validation.json', false)) {
+                fileRecorder('json', file);
+            }
+
+            const dir = configDir + '/validation';
+            if (container.fileExists(dir, '/^$/')) {
+                registerMappingFilesFromDir(dir, fileRecorder);
+            }
+        }
+
+        const projectDir = container.getParameter('kernel.project_dir');
+        const dir = projectDir + '/config/validator';
+        if (container.fileExists(dir, '/^$/')) {
+            registerMappingFilesFromDir(dir, fileRecorder);
+        }
+
+        registerMappingFilesFromConfig(container, config, fileRecorder);
     }
 }

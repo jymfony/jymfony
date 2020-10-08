@@ -14,14 +14,6 @@ declare namespace Jymfony.Component.Validator.Constraints {
         public maxSizeMessage: string;
         public mimeTypesMessage: string;
         public disallowEmptyMessage: string;
-        public uploadIniSizeErrorMessage: string;
-        public uploadFormSizeErrorMessage: string;
-        public uploadPartialErrorMessage: string;
-        public uploadNoFileErrorMessage: string;
-        public uploadNoTmpDirErrorMessage: string;
-        public uploadCantWriteErrorMessage: string;
-        public uploadExtensionErrorMessage: string;
-        public uploadErrorMessage: string;
         public binaryFormat?: number;
         public maxSize: number;
 
