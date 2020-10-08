@@ -1,8 +1,5 @@
 const CacheTrait = Jymfony.Contracts.Cache.CacheTrait;
-const CacheItem = Jymfony.Component.Cache.CacheItem;
-const DateTime = Jymfony.Component.DateTime.DateTime;
 const InvalidArgumentException = Jymfony.Contracts.Cache.Exception.InvalidArgumentException;
-const ValueHolder = Jymfony.Contracts.Cache.ValueHolder;
 
 /**
  * @memberOf Jymfony.Component.Cache.Traits

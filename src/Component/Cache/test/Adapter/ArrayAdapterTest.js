@@ -1,5 +1,5 @@
-import { expect } from 'chai';
 import { AdapterTestCase } from './AdapterTestCase';
+import { expect } from 'chai';
 
 const ArrayAdapter = Jymfony.Component.Cache.Adapter.ArrayAdapter;
 

@@ -1,4 +1,3 @@
-const ItemInterface = Jymfony.Contracts.Cache.ItemInterface;
 const ValueHolder = Jymfony.Contracts.Cache.ValueHolder;
 
 /**
@@ -26,18 +25,17 @@ class CacheTrait {
      * @param {string} key
      * @param {function} callback
      * @param {float} [beta = 1.0]
-     * @param {Jymfony.Contracts.Logger.LoggerInterface} [logger]
      *
      * @private
      */
-    async _doGet(pool, key, callback, beta = 1.0, logger = undefined) {
+    async _doGet(pool, key, callback, beta = 1.0, /* logger = undefined */) {
         if (0 > beta) {
             const exceptionClass = class extends Jymfony.Contracts.Cache.Exception.InvalidArgumentException {};
             throw new exceptionClass(__jymfony.sprintf('Argument "beta" provided to "%s.get()" must be a positive number, %f given.', ReflectionClass.getClassName(this), beta));
         }
 
         const item = await pool.getItem(key);
-        let recompute = ! item.isHit || Infinity === beta;
+        const recompute = ! item.isHit || Infinity === beta;
 
         if (recompute) {
             const save = new ValueHolder(true);

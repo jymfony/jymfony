@@ -46,7 +46,7 @@ export default class ValidatorCacheWarmer extends AbstractFileCacheWarmer {
      * @inheritdoc
      */
     _warmUpArrayAdapter(arrayAdapter, values) {
-        // make sure we don't cache null values
+        // Make sure we don't cache null values
         return super._warmUpArrayAdapter(arrayAdapter, Object.filter(values));
     }
 

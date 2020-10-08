@@ -15,7 +15,7 @@ export default class NullAdapter extends implementationOf(AdapterInterface, Cach
     /**
      * @inheritdoc
      */
-    get(key, callback, beta = undefined) {
+    get(key, callback, /* beta = undefined */) {
         const save = new ValueHolder(true);
 
         return callback(createCacheItem(key), save);

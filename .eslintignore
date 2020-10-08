@@ -18,6 +18,7 @@ src/Bundle/FrameworkBundle/fixtures/Routing/AnnotatedController.js
 src/Bundle/FrameworkBundle/fixtures/templates
 src/Component/Cache/src/Adapter/RedisAdapter.js
 src/Component/Cache/src/Traits/RedisTrait.js
+src/Component/Cache/test/Adapter/AdapterTestCase.js
 src/Component/DependencyInjection/src/Compiler/ResolveInjectDecoratorPass.js
 src/Component/Routing/src/Loader/AnnotationClassLoader.js
 src/Component/Validator/fixtures/CascadedChild.js

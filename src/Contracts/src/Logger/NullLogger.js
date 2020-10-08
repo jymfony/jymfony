@@ -7,63 +7,63 @@ export default class NullLogger extends implementationOf(LoggerInterface) {
     /**
      * @inheritdoc
      */
-    emergency(message, context = {}) {
+    emergency(/* message, context = {} */) {
         // Do nothing
     }
 
     /**
      * @inheritdoc
      */
-    alert(message, context = {}) {
+    alert(/* message, context = {} */) {
         // Do nothing
     }
 
     /**
      * @inheritdoc
      */
-    critical(message, context = {}) {
+    critical(/* message, context = {} */) {
         // Do nothing
     }
 
     /**
      * @inheritdoc
      */
-    error(message, context = {}) {
+    error(/* message, context = {} */) {
         // Do nothing
     }
 
     /**
      * @inheritdoc
      */
-    warning(message, context = {}) {
+    warning(/* message, context = {} */) {
         // Do nothing
     }
 
     /**
      * @inheritdoc
      */
-    notice(message, context = {}) {
+    notice(/* message, context = {} */) {
         // Do nothing
     }
 
     /**
      * @inheritdoc
      */
-    info(message, context = {}) {
+    info(/* message, context = {} */) {
         // Do nothing
     }
 
     /**
      * @inheritdoc
      */
-    debug(message, context = {}) {
+    debug(/* message, context = {} */) {
         // Do nothing
     }
 
     /**
      * @inheritdoc
      */
-    log(level, message, context = {}) {
+    log(/* level, message, context = {} */) {
         // Do nothing
     }
 }

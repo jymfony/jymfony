@@ -39,9 +39,9 @@ export default class AbstractFileCacheWarmer extends implementationOf(CacheWarme
             return;
         }
 
-        // the ArrayAdapter stores the values serialized
-        // to avoid mutation of the data after it was written to the cache
-        // so here we un-serialize the values first
+        // The ArrayAdapter stores the values serialized
+        // To avoid mutation of the data after it was written to the cache
+        // So here we un-serialize the values first
         const values = arrayAdapter.values;
         for (const [ key, val ] of __jymfony.getEntries(values)) {
             values[key] = undefined !== val && null !== val ? __jymfony.unserialize(val) : val;
@@ -65,7 +65,7 @@ export default class AbstractFileCacheWarmer extends implementationOf(CacheWarme
      *
      * @protected
      */
-    _doWarmUp(cacheDir, arrayAdapter) {
+    _doWarmUp(cacheDir, arrayAdapter) { // eslint-disable-line no-unused-vars
         throw new Error('Must be implemented');
     }
 }

@@ -93,7 +93,7 @@ export default class ProxyAdapter extends implementationOf(AdapterInterface, Cac
         return this._pool.get(this._getId(key), async (innerItem, save) => {
             const item = this._createCacheItem(key, innerItem);
 
-            let value = await callback(item, save);
+            const value = await callback(item, save);
             item.set(value);
 
             this._setInnerItem(innerItem, item);
@@ -201,15 +201,15 @@ export default class ProxyAdapter extends implementationOf(AdapterInterface, Cac
         }
 
         let innerItem;
-        let innerPool = item._pool.deref();
+        const innerPool = item._pool.deref();
 
         if (innerPool === this && item._innerItem) {
             innerItem = item._innerItem;
         } else if (! innerPool) {
             return false;
         } else if (innerPool instanceof AdapterInterface) {
-            // this is an optimization specific for AdapterInterface implementations
-            // so we can save a round-trip to the backend by just creating a new item
+            // This is an optimization specific for AdapterInterface implementations
+            // So we can save a round-trip to the backend by just creating a new item
             const f = this._createCacheItem;
             innerItem = f(this._namespace + item._key, null);
         } else {

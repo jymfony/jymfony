@@ -18,6 +18,6 @@ declare namespace Jymfony.Contracts.Cache {
          */
         delete(key: string): Promise<boolean>;
 
-        private _doGet(pool: CacheItemPoolInterface, key: string, callback: (item: CacheItemPoolInterface, save: ValueHolder<boolean>) => any, beta?: null | number): Promise<any>;
+        /* private */ _doGet(pool: CacheItemPoolInterface, key: string, callback: (item: CacheItemPoolInterface, save: ValueHolder<boolean>) => any, beta?: null | number): Promise<any>;
     }
 }

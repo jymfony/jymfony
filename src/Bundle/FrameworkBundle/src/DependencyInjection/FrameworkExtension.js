@@ -1,12 +1,12 @@
 import { join } from 'path';
 import { statSync } from 'fs';
-import ContainerBuilder from '../../../../Component/DependencyInjection/src/ContainerBuilder';
 
 const Alias = Jymfony.Component.DependencyInjection.Alias;
 const CachePoolPass = Jymfony.Component.Cache.DependencyInjection.CachePoolPass;
 const ChildDefinition = Jymfony.Component.DependencyInjection.ChildDefinition;
 const Configuration = Jymfony.Bundle.FrameworkBundle.DependencyInjection.Configuration;
 const Container = Jymfony.Component.DependencyInjection.Container;
+const ContainerBuilder = Jymfony.Component.DependencyInjection.ContainerBuilder;
 const DirectoryResource = Jymfony.Component.Config.Resource.DirectoryResource;
 const Extension = Jymfony.Component.DependencyInjection.Extension.Extension;
 const InvalidConfigurationException = Jymfony.Component.Config.Definition.Exception.InvalidConfigurationException;

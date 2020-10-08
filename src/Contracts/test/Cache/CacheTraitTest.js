@@ -1,5 +1,3 @@
-import { expect } from 'chai';
-
 const Argument = Jymfony.Component.Testing.Argument.Argument;
 const CacheItemInterface = Jymfony.Contracts.Cache.CacheItemInterface;
 const CacheTestPool = Jymfony.Contracts.Fixtures.CacheTestPool;
@@ -17,29 +15,30 @@ export default class CacheTraitTest extends TestCase {
             .willReturn(item);
 
         const cache = new class extends CacheTestPool {
-            getItem(key) {
+            getItem() {
                 return item.reveal();
             }
-        }
+        }();
 
         const callback = () => 'computed data';
         await cache.get('key', callback);
     }
 
-    async testNoCallbackCallOnHit()
-    {
+    async testNoCallbackCallOnHit() {
         const item = this.prophesize(CacheItemInterface);
         item.isHit().willReturn(true);
         item.set(Argument.any()).shouldNotBeCalled();
         item.get().willReturn();
 
         const cache = new class extends CacheTestPool {
-            getItem(key) {
+            getItem() {
                 return item.reveal();
             }
-        }
+        }();
 
-        const callback = () => { throw new Error('This code should never be reached') };
+        const callback = () => {
+            throw new Error('This code should never be reached');
+        };
         await cache.get('key', callback);
     }
 
@@ -54,10 +53,10 @@ export default class CacheTraitTest extends TestCase {
             .willReturn(item);
 
         const cache = new class extends CacheTestPool {
-            getItem(key) {
+            getItem() {
                 return item.reveal();
             }
-        }
+        }();
 
         const callback = () => 'computed data';
         await cache.get('key', callback, Infinity);
@@ -66,18 +65,14 @@ export default class CacheTraitTest extends TestCase {
     async testExceptionOnNegativeBeta() {
         const item = this.prophesize(CacheItemInterface);
         const cache = new class extends CacheTestPool {
-            getItem(key) {
+            getItem() {
                 return item.reveal();
             }
-        }
+        }();
 
         const callback = () => 'computed data';
 
-        try {
-            await cache.get('key', callback, -2);
-            throw new Error('FAIL');
-        } catch (e) {
-            expect(e).to.be.instanceOf(InvalidArgumentException);
-        }
+        this.expectException(InvalidArgumentException);
+        await cache.get('key', callback, -2);
     }
 }

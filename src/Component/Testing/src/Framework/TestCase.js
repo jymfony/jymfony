@@ -233,7 +233,9 @@ export default class TestCase {
      * @param {number} ms
      */
     setTimeout(ms) {
-        this._context && this._context.setTimeout(ms);
+        if (this._context) {
+            this._context.setTimeout(ms);
+        }
     }
 
     /**

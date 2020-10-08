@@ -1,5 +1,5 @@
-import { expect } from 'chai';
 import { AdapterTestCase } from './AdapterTestCase';
+import { expect } from 'chai';
 
 const ArrayAdapter = Jymfony.Component.Cache.Adapter.ArrayAdapter;
 const CacheItem = Jymfony.Component.Cache.CacheItem;
@@ -29,7 +29,7 @@ class TestingArrayAdapter extends ArrayAdapter {
         this._item = item;
     }
 
-    getItem(key) {
+    getItem() {
         return this._item;
     }
 

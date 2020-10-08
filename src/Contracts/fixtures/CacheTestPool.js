@@ -5,22 +5,22 @@ const CacheTrait = Jymfony.Contracts.Cache.CacheTrait;
  * @memberOf Jymfony.Contracts.Fixtures
  */
 export default class CacheTestPool extends implementationOf(CacheItemPoolInterface, CacheTrait) {
-    hasItem(key) {
+    hasItem(/* key */) {
     }
 
-    deleteItem(key){
+    deleteItem(/* key */){
     }
 
-    deleteItems(keys = []) {
+    deleteItems(/* keys = [] */) {
     }
 
-    getItem(key) {
+    getItem(/* key */) {
     }
 
-    getItems(key = []) {
+    getItems(/* keys = [] */) {
     }
 
-    save(item) {
+    save(/* item */) {
     }
 
     clear() {

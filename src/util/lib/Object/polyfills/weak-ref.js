@@ -15,4 +15,4 @@
     }
 
     global.WeakRef = WeakRef;
-})();
+}());
