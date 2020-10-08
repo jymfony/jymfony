@@ -1,6 +1,6 @@
 const TraceableEventDispatcher = Jymfony.Component.EventDispatcher.Debug.TraceableEventDispatcher;
 const EventDispatcher = Jymfony.Component.EventDispatcher.EventDispatcher;
-const LoggerInterface = Jymfony.Component.Logger.LoggerInterface;
+const LoggerInterface = Jymfony.Contracts.Logger.LoggerInterface;
 const Stopwatch = Jymfony.Component.Stopwatch.Stopwatch;
 const Prophet = Jymfony.Component.Testing.Prophet;
 const { expect } = require('chai');

@@ -59,6 +59,16 @@ Jymfony.Contracts = {
     /**
      * @namespace
      */
+    Logger: {
+        /**
+         * @namespace
+         */
+        Exception: {},
+    },
+
+    /**
+     * @namespace
+     */
     Metadata: {
         /**
          * @namespace

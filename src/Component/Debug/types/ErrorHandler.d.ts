@@ -1,6 +1,6 @@
 declare namespace Jymfony.Component.Debug {
     import ErrorEnhancerInterface = Jymfony.Component.Debug.ErrorEnhancer.ErrorEnhancerInterface;
-    import LoggerInterface = Jymfony.Component.Logger.LoggerInterface;
+    import LoggerInterface = Jymfony.Contracts.Logger.LoggerInterface;
 
     export class ErrorHandler {
         private _bootstrappingLogger: BufferingLogger;

@@ -22,7 +22,7 @@ export default class AwsLambdaHandler extends RequestHandler {
      * Creates a new Http server instance.
      *
      * @param {Jymfony.Component.Routing.RouteCollection} routes
-     * @param {Jymfony.Component.Logger.LoggerInterface} logger
+     * @param {Jymfony.Contracts.Logger.LoggerInterface} logger
      *
      * @returns {Jymfony.Component.HttpServer.Serverless.AwsLambdaHandler}
      */

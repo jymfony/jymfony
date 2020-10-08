@@ -72,7 +72,7 @@ declare namespace Jymfony.Component.VarDumper.Cloner {
         cloneVar(variable: any, filter?: number): Data;
 
         /**
-         * Effectively clones the PHP variable.
+         * Effectively clones the variable.
          */
         protected abstract _doClone(variable: any): any;
 

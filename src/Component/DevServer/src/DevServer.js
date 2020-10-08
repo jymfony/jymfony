@@ -1,5 +1,5 @@
 import { spawn } from 'child_process';
-const NullLogger = Jymfony.Component.Logger.NullLogger;
+const NullLogger = Jymfony.Contracts.Logger.NullLogger;
 
 /**
  * Development server.
@@ -11,7 +11,7 @@ export default class DevServer {
      * Constructor.
      *
      * @param {string} projectDir
-     * @param {Jymfony.Component.Logger.LoggerInterface} logger
+     * @param {Jymfony.Contracts.Logger.LoggerInterface} logger
      * @param {module:fs} fs
      */
     __construct(projectDir, logger = undefined, fs = require('fs')) {
@@ -23,7 +23,7 @@ export default class DevServer {
         this._projectDir = projectDir;
 
         /**
-         * @type {Jymfony.Component.Logger.LoggerInterface}
+         * @type {Jymfony.Contracts.Logger.LoggerInterface}
          *
          * @private
          */

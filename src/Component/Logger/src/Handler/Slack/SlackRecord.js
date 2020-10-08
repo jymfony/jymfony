@@ -1,5 +1,5 @@
 const NormalizerFormatter = Jymfony.Component.Logger.Formatter.NormalizerFormatter;
-const LogLevel = Jymfony.Component.Logger.LogLevel;
+const LogLevel = Jymfony.Contracts.Logger.LogLevel;
 
 /**
  * @memberOf Jymfony.Component.Logger.Handler.Slack

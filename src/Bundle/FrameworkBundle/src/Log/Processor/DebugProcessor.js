@@ -1,5 +1,5 @@
 const DebugLoggerInterface = Jymfony.Component.Kernel.Log.DebugLoggerInterface;
-const LogLevel = Jymfony.Component.Logger.LogLevel;
+const LogLevel = Jymfony.Contracts.Logger.LogLevel;
 const ClsTrait = __jymfony.ClsTrait;
 
 /**

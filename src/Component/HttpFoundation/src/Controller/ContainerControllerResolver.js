@@ -1,5 +1,5 @@
 const ControllerResolverInterface = Jymfony.Component.HttpFoundation.Controller.ControllerResolverInterface;
-const NullLogger = Jymfony.Component.Logger.NullLogger;
+const NullLogger = Jymfony.Contracts.Logger.NullLogger;
 
 /**
  * @memberOf Jymfony.Component.HttpFoundation.Controller
@@ -9,7 +9,7 @@ export default class ContainerControllerResolver extends implementationOf(Contro
      * Constructor.
      *
      * @param {Jymfony.Component.DependencyInjection.Container} container
-     * @param {Jymfony.Component.Logger.LoggerInterface} [logger]
+     * @param {Jymfony.Contracts.Logger.LoggerInterface} [logger]
      */
     __construct(container, logger = undefined) {
         /**
@@ -20,7 +20,7 @@ export default class ContainerControllerResolver extends implementationOf(Contro
         this._container = container;
 
         /**
-         * @type {Jymfony.Component.Logger.LoggerInterface}
+         * @type {Jymfony.Contracts.Logger.LoggerInterface}
          *
          * @private
          */

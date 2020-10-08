@@ -11,7 +11,7 @@ export default class TraceableEventDispatcher extends implementationOf(Traceable
      *
      * @param {Jymfony.Contracts.EventDispatcher.EventDispatcherInterface} dispatcher
      * @param {Jymfony.Contracts.Stopwatch.StopwatchInterface} stopwatch
-     * @param {undefined|Jymfony.Component.Logger.LoggerInterface} [logger]
+     * @param {undefined|Jymfony.Contracts.Logger.LoggerInterface} [logger]
      */
     __construct(dispatcher, stopwatch, logger = undefined) {
         /**
@@ -29,7 +29,7 @@ export default class TraceableEventDispatcher extends implementationOf(Traceable
         this._stopwatch = stopwatch;
 
         /**
-         * @type {undefined|Jymfony.Component.Logger.LoggerInterface}
+         * @type {undefined|Jymfony.Contracts.Logger.LoggerInterface}
          *
          * @private
          */

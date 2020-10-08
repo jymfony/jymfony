@@ -1,8 +1,8 @@
 declare namespace Jymfony.Component.Templating.Loader {
-    import LoggerAwareTrait = Jymfony.Component.Logger.LoggerAwareTrait;
-    import LoggerAwareInterface = Jymfony.Component.Logger.LoggerAwareInterface;
+    import LoggerAwareTrait = Jymfony.Contracts.Logger.LoggerAwareTrait;
+    import LoggerAwareInterface = Jymfony.Contracts.Logger.LoggerAwareInterface;
     import Filesystem = Jymfony.Component.Filesystem.Filesystem;
-    import LoggerInterface = Jymfony.Component.Logger.LoggerInterface;
+    import LoggerInterface = Jymfony.Contracts.Logger.LoggerInterface;
     import TemplateInterface = Jymfony.Component.Templating.Template.TemplateInterface;
 
     /**

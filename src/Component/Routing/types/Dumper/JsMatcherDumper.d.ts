@@ -8,7 +8,7 @@ declare namespace Jymfony.Component.Routing.Dumper {
     }
 
     /**
-     * PhpMatcherDumper creates a PHP class able to match URLs for a given set of routes.
+     * JsMatcherDumper creates a JS class able to match URLs for a given set of routes.
      */
     export class JsMatcherDumper {
         private _routes: RouteCollection;

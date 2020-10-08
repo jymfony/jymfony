@@ -1,8 +1,8 @@
 const DateTime = Jymfony.Component.DateTime.DateTime;
 const EventSubscriberInterface = Jymfony.Contracts.EventDispatcher.EventSubscriberInterface;
 const AbstractLogger = Jymfony.Component.Logger.AbstractLogger;
-const LogicException = Jymfony.Component.Logger.Exception.LogicException;
-const LogLevel = Jymfony.Component.Logger.LogLevel;
+const LogicException = Jymfony.Contracts.Logger.Exception.LogicException;
+const LogLevel = Jymfony.Contracts.Logger.LogLevel;
 
 /**
  * @memberOf Jymfony.Component.Logger
@@ -83,7 +83,7 @@ export default class Logger extends mix(AbstractLogger, EventSubscriberInterface
      *
      * @returns {Jymfony.Component.Logger.Handler.HandlerInterface}
      *
-     * @throws {Jymfony.Component.Logger.Exception.LogicException}
+     * @throws {Jymfony.Contracts.Logger.Exception.LogicException}
      */
     popHandler() {
         if (! this._handlers.length) {
@@ -140,7 +140,7 @@ export default class Logger extends mix(AbstractLogger, EventSubscriberInterface
      *
      * @returns {Function}
      *
-     * @throws {Jymfony.Component.Logger.Exception.LogicException}
+     * @throws {Jymfony.Contracts.Logger.Exception.LogicException}
      */
     popProcessor() {
         if (! this._processors.length) {

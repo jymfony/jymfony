@@ -10,7 +10,7 @@ declare namespace Jymfony.Component.Logger.Handler {
         /**
          * Removes the processor on top of the stack and returns it.
          *
-         * @throws {Jymfony.Component.Logger.Exception.LogicException} In case the processor stack is empty
+         * @throws {Jymfony.Contracts.Logger.Exception.LogicException} In case the processor stack is empty
          */
         popProcessor(): InvokableProcessor;
     }

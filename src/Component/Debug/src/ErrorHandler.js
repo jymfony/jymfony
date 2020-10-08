@@ -1,6 +1,6 @@
 const CliErrorRenderer = Jymfony.Component.Debug.ErrorRenderer.CliErrorRenderer;
 const ErrorException = Jymfony.Component.Debug.Exception.ErrorException;
-const LogLevel = Jymfony.Component.Logger.LogLevel;
+const LogLevel = Jymfony.Contracts.Logger.LogLevel;
 
 /**
  * @memberOf Jymfony.Component.Debug
@@ -24,7 +24,7 @@ export default class ErrorHandler {
         }
 
         /**
-         * @type {Jymfony.Component.Logger.LoggerInterface}
+         * @type {Jymfony.Contracts.Logger.LoggerInterface}
          *
          * @private
          */
@@ -74,9 +74,9 @@ export default class ErrorHandler {
     /**
      * Sets the default logger.
      *
-     * @param {Jymfony.Component.Logger.LoggerInterface} logger
+     * @param {Jymfony.Contracts.Logger.LoggerInterface} logger
      *
-     * @returns {Jymfony.Component.Logger.LoggerInterface}
+     * @returns {Jymfony.Contracts.Logger.LoggerInterface}
      */
     setDefaultLogger(logger) {
         const previousLogger = this._defaultLogger;

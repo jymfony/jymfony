@@ -137,6 +137,7 @@
         "Jymfony.Component.VarExporter.Fixtures": "src/Component/VarExporter/fixtures",
         "Jymfony.Component.VarExporter.Tests": "src/Component/VarExporter/test",
         "Jymfony.Component.Yaml.Tests": "src/Component/Yaml/test",
+        "Jymfony.Contracts.Fixtures": "src/Contracts/fixtures",
         "Jymfony.Contracts.Tests": "src/Contracts/test",
         "Jymfony.DataStructures.Tests": "src/DataStructure/test",
         "Jymfony.Exceptions.Tests": "src/Exceptions/test",

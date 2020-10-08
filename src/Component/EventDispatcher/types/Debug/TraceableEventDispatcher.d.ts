@@ -1,6 +1,6 @@
 declare namespace Jymfony.Component.EventDispatcher.Debug {
     import Event = Jymfony.Contracts.EventDispatcher.Event;
-    import LoggerInterface = Jymfony.Component.Logger.LoggerInterface;
+    import LoggerInterface = Jymfony.Contracts.Logger.LoggerInterface;
     import EventDispatcherInterface = Jymfony.Contracts.EventDispatcher.EventDispatcherInterface;
     import StopwatchInterface = Jymfony.Contracts.Stopwatch.StopwatchInterface;
 

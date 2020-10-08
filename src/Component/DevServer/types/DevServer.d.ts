@@ -1,5 +1,5 @@
 declare namespace Jymfony.Component.DevServer {
-    import LoggerInterface = Jymfony.Component.Logger.LoggerInterface;
+    import LoggerInterface = Jymfony.Contracts.Logger.LoggerInterface;
 
     /**
      * Development server.

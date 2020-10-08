@@ -1,7 +1,7 @@
 const AbstractLogger = Jymfony.Component.Logger.AbstractLogger;
 const DateTime = Jymfony.Component.DateTime.DateTime;
 const DateTimeInterface = Jymfony.Contracts.DateTime.DateTimeInterface;
-const LogLevel = Jymfony.Component.Logger.LogLevel;
+const LogLevel = Jymfony.Contracts.Logger.LogLevel;
 
 const levels = {
     [LogLevel.DEBUG]: 'Debug',

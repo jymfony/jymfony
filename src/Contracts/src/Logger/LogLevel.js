@@ -1,5 +1,5 @@
 /**
- * @memberOf Jymfony.Component.Logger
+ * @memberOf Jymfony.Contracts.Logger
  */
 export default class LogLevel { }
 

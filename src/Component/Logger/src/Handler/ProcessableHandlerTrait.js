@@ -1,4 +1,4 @@
-const LogicException = Jymfony.Component.Logger.Exception.LogicException;
+const LogicException = Jymfony.Contracts.Logger.Exception.LogicException;
 
 /**
  * @memberOf Jymfony.Component.Logger.Handler

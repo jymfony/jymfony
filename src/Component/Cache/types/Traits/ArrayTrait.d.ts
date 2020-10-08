@@ -1,5 +1,5 @@
 declare namespace Jymfony.Component.Cache.Traits {
-    import LoggerAwareTrait = Jymfony.Component.Logger.LoggerAwareTrait;
+    import LoggerAwareTrait = Jymfony.Contracts.Logger.LoggerAwareTrait;
 
     /**
      * @memberOf Jymfony.Component.Cache.Traits

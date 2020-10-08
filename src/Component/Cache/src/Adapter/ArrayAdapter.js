@@ -32,7 +32,7 @@ export default class ArrayAdapter extends implementationOf(CacheItemPoolInterfac
         };
 
         /**
-         * @type {Jymfony.Component.Logger.LoggerInterface}
+         * @type {Jymfony.Contracts.Logger.LoggerInterface}
          *
          * @private
          */

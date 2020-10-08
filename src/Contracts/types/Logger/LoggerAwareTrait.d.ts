@@ -1,4 +1,4 @@
-declare namespace Jymfony.Component.Logger {
+declare namespace Jymfony.Contracts.Logger {
     /**
      * Basic Implementation of LoggerAwareInterface.
      */

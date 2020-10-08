@@ -189,7 +189,7 @@ export default class Configuration extends implementationOf(ConfigurationInterfa
                                                 }
 
                                                 if (! isNumber(level)) {
-                                                    const constant = Jymfony.Component.Logger.LogLevel[level];
+                                                    const constant = Jymfony.Contracts.Logger.LogLevel[level];
                                                     if (undefined === constant) {
                                                         throw new InvalidConfigurationException(
                                                             __jymfony.sprintf('The configured minimum log level "%s" for verbosity "%s" is invalid as it is not defined in LogLevel', level, verbosity)

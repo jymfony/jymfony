@@ -7,7 +7,7 @@ const MethodNotAllowedHttpException = Jymfony.Component.HttpFoundation.Exception
 const Response = Jymfony.Component.HttpFoundation.Response;
 const Events = Jymfony.Component.HttpServer.Event.HttpServerEvents;
 const Kernel = Jymfony.Component.Kernel.Kernel;
-const NullLogger = Jymfony.Component.Logger.NullLogger;
+const NullLogger = Jymfony.Contracts.Logger.NullLogger;
 const MethodNotAllowedException = Jymfony.Component.Routing.Exception.MethodNotAllowedException;
 const NoConfigurationException = Jymfony.Component.Routing.Exception.NoConfigurationException;
 const ResourceNotFoundException = Jymfony.Component.Routing.Exception.ResourceNotFoundException;
@@ -20,7 +20,7 @@ export default class RouterListener extends implementationOf(EventSubscriberInte
      * Constructor.
      *
      * @param {Jymfony.Component.Routing.Matcher.MatcherInterface} matcher
-     * @param {Jymfony.Component.Logger.LoggerInterface} [logger]
+     * @param {Jymfony.Contracts.Logger.LoggerInterface} [logger]
      * @param {string} [projectDir = '']
      * @param {boolean} [debug = false]
      */
@@ -33,7 +33,7 @@ export default class RouterListener extends implementationOf(EventSubscriberInte
         this._matcher = matcher;
 
         /**
-         * @type {Jymfony.Component.Logger.LoggerInterface}
+         * @type {Jymfony.Contracts.Logger.LoggerInterface}
          *
          * @private
          */

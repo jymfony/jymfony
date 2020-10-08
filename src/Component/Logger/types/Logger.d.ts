@@ -39,7 +39,7 @@ declare namespace Jymfony.Component.Logger {
         /**
          * Pops out an handler off the stack.
          *
-         * @throws {Jymfony.Component.Logger.Exception.LogicException}
+         * @throws {Jymfony.Contracts.Logger.Exception.LogicException}
          */
         popHandler(): HandlerInterface;
 
@@ -51,7 +51,7 @@ declare namespace Jymfony.Component.Logger {
         /**
          * Pops out a processor off the stack.
          *
-         * @throws {Jymfony.Component.Logger.Exception.LogicException}
+         * @throws {Jymfony.Contracts.Logger.Exception.LogicException}
          */
         popProcessor(): InvokableProcessor
 

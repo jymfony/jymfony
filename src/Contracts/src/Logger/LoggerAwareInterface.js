@@ -1,13 +1,13 @@
 /**
  * Describes a logger-aware instance.
  *
- * @memberOf Jymfony.Component.Logger
+ * @memberOf Jymfony.Contracts.Logger
  */
 class LoggerAwareInterface {
     /**
      * Sets a logger instance on the object.
      *
-     * @param {Jymfony.Component.Logger.LoggerInterface} logger
+     * @param {Jymfony.Contracts.Logger.LoggerInterface} logger
      */
     setLogger(logger) { }
 }

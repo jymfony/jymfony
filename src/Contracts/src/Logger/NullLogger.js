@@ -1,63 +1,69 @@
 const LoggerInterface = Jymfony.Contracts.Logger.LoggerInterface;
-const LogLevel = Jymfony.Contracts.Logger.LogLevel;
 
 /**
- * @memberOf Jymfony.Component.Logger
+ * @memberOf Jymfony.Contracts.Logger
  */
-export default class AbstractLogger extends implementationOf(LoggerInterface) {
+export default class NullLogger extends implementationOf(LoggerInterface) {
     /**
      * @inheritdoc
      */
     emergency(message, context = {}) {
-        this.log(LogLevel.EMERGENCY, message, context);
+        // Do nothing
     }
 
     /**
      * @inheritdoc
      */
     alert(message, context = {}) {
-        this.log(LogLevel.ALERT, message, context);
+        // Do nothing
     }
 
     /**
      * @inheritdoc
      */
     critical(message, context = {}) {
-        this.log(LogLevel.CRITICAL, message, context);
+        // Do nothing
     }
 
     /**
      * @inheritdoc
      */
     error(message, context = {}) {
-        this.log(LogLevel.ERROR, message, context);
+        // Do nothing
     }
 
     /**
      * @inheritdoc
      */
     warning(message, context = {}) {
-        this.log(LogLevel.WARNING, message, context);
+        // Do nothing
     }
 
     /**
      * @inheritdoc
      */
     notice(message, context = {}) {
-        this.log(LogLevel.NOTICE, message, context);
+        // Do nothing
     }
 
     /**
      * @inheritdoc
      */
     info(message, context = {}) {
-        this.log(LogLevel.INFO, message, context);
+        // Do nothing
     }
 
     /**
      * @inheritdoc
      */
     debug(message, context = {}) {
-        this.log(LogLevel.DEBUG, message, context);
+        // Do nothing
+    }
+
+    /**
+     * @inheritdoc
+     */
+    log(level, message, context = {}) {
+        // Do nothing
     }
 }

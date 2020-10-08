@@ -5,7 +5,7 @@ const firstChars = 'abcdefghijklmnopqrstuvwxyz';
 const nonFirstChars = 'abcdefghijklmnopqrstuvwxyz0123456789';
 
 /**
- * PhpMatcherDumper creates a PHP class able to match URLs for a given set of routes.
+ * PhpMatcherDumper creates a JS class able to match URLs for a given set of routes.
  *
  * @memberOf Jymfony.Component.Routing.Dumper
  */

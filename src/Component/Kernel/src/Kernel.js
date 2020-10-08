@@ -692,9 +692,15 @@ export default class Kernel extends implementationOf(KernelInterface) {
      */
     _getKernelParameters() {
         const bundles = {};
+        const bundlesMetadata = {};
+
         for (const [ name, bundle ] of __jymfony.getEntries(this._bundles)) {
             const reflClass = new ReflectionClass(bundle);
             bundles[name] = reflClass.name;
+            bundlesMetadata[name] = {
+                path: bundle.path,
+                namespace: bundle.getNamespace(),
+            };
         }
 
         return {
@@ -706,6 +712,7 @@ export default class Kernel extends implementationOf(KernelInterface) {
             'kernel.logs_dir': this.getLogsDir(),
             'kernel.bundles': Object.keys(bundles),
             'kernel.container_class': this._getContainerClass(),
+            'kernel.bundles_metadata': bundlesMetadata,
         };
     }
 

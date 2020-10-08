@@ -1,5 +1,5 @@
 /**
- * @memberOf Jymfony.Component.Logger.Exception
+ * @memberOf Jymfony.Contracts.Logger.Exception
  */
 class ExceptionInterface {
 }

@@ -1,7 +1,7 @@
 const EventSubscriberInterface = Jymfony.Contracts.EventDispatcher.EventSubscriberInterface;
 const Request = Jymfony.Component.HttpFoundation.Request;
 const Events = Jymfony.Component.HttpServer.Event.HttpServerEvents;
-const NullLogger = Jymfony.Component.Logger.NullLogger;
+const NullLogger = Jymfony.Contracts.Logger.NullLogger;
 const TokenInterface = Jymfony.Component.Security.Authentication.Token.TokenInterface;
 const UnsupportedUserException = Jymfony.Component.Security.Exception.UnsupportedUserException;
 const UsernameNotFoundException = Jymfony.Component.Security.Exception.UsernameNotFoundException;
@@ -23,7 +23,7 @@ export default class ContextListener extends implementationOf(ListenerInterface,
      * @param {Jymfony.Component.Security.User.UserProviderInterface[]} userProviders
      * @param {Jymfony.Component.Security.Authentication.AuthenticationTrustResolverInterface} authenticationTrustResolver
      * @param {string} sessionKey
-     * @param {Jymfony.Component.Logger.LoggerInterface} [logger]
+     * @param {Jymfony.Contracts.Logger.LoggerInterface} [logger]
      */
     __construct(tokenStorage, userProviders, authenticationTrustResolver, sessionKey, logger = undefined) {
         /**
@@ -55,7 +55,7 @@ export default class ContextListener extends implementationOf(ListenerInterface,
         this._sessionKey = sessionKey;
 
         /**
-         * @type {Jymfony.Component.Logger.LoggerInterface}
+         * @type {Jymfony.Contracts.Logger.LoggerInterface}
          *
          * @private
          */

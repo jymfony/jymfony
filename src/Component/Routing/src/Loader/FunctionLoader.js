@@ -1,7 +1,7 @@
 const Loader = Jymfony.Component.Config.Loader.Loader;
 
 /**
- * ClosureLoader loads routes from a PHP closure.
+ * ClosureLoader loads routes from a function.
  *
  * The Closure must return a RouteCollection instance.
  *

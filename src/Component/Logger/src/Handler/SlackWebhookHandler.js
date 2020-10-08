@@ -2,7 +2,7 @@ import { parse } from 'url';
 import { request } from 'https';
 
 const AbstractProcessingHandler = Jymfony.Component.Logger.Handler.AbstractProcessingHandler;
-const LogLevel = Jymfony.Component.Logger.LogLevel;
+const LogLevel = Jymfony.Contracts.Logger.LogLevel;
 const SlackRecord = Jymfony.Component.Logger.Handler.Slack.SlackRecord;
 
 /**

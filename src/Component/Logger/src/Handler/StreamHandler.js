@@ -2,7 +2,7 @@ import { createWriteStream, openSync } from 'fs';
 import { dirname } from 'path';
 
 const AbstractProcessingHandler = Jymfony.Component.Logger.Handler.AbstractProcessingHandler;
-const LogLevel = Jymfony.Component.Logger.LogLevel;
+const LogLevel = Jymfony.Contracts.Logger.LogLevel;
 
 /**
  * @memberOf Jymfony.Component.Logger.Handler

@@ -3,7 +3,7 @@ declare namespace Jymfony.Component.HttpServer.Http2 {
     import EventDispatcherInterface = Jymfony.Contracts.EventDispatcher.EventDispatcherInterface;
     import ControllerResolverInterface = Jymfony.Component.HttpFoundation.Controller.ControllerResolverInterface;
     import RouteCollection = Jymfony.Component.Routing.RouteCollection;
-    import LoggerInterface = Jymfony.Component.Logger.LoggerInterface;
+    import LoggerInterface = Jymfony.Contracts.Logger.LoggerInterface;
     import ArgumentResolverInterface = Jymfony.Component.HttpServer.Controller.ArgumentResolverInterface;
 
     interface ServerOptions {

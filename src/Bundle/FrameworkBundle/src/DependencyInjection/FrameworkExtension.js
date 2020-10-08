@@ -78,8 +78,8 @@ export default class FrameworkExtension extends Extension {
 
         container.registerForAutoconfiguration('Jymfony.Component.HttpServer.Controller.ArgumentValueResolverInterface').addTag('controller.argument_value_resolver');
         container.registerForAutoconfiguration('Jymfony.Component.Mime.MimeTypeGuesserInterface').addTag('mime.mime_type_guesser');
-        container.registerForAutoconfiguration('Jymfony.Component.Logger.LoggerAwareInterface')
-            .addMethodCall('setLogger', [ new Reference('logger') ]);
+        container.registerForAutoconfiguration('Jymfony.Contracts.Logger.LoggerAwareInterface')
+            .addMethodCall('setLogger', [ new Reference('logger', ContainerBuilder.IGNORE_ON_INVALID_REFERENCE) ]);
     }
 
     /**
@@ -223,7 +223,7 @@ export default class FrameworkExtension extends Extension {
         }
 
         const definition = new ChildDefinition('jymfony.logger.handler_prototype.'+handler.type);
-        handler.level = isNumber(handler.level) ? handler.level : Jymfony.Component.Logger.LogLevel[handler.level.toUpperCase()];
+        handler.level = isNumber(handler.level) ? handler.level : Jymfony.Contracts.Logger.LogLevel[handler.level.toUpperCase()];
 
         switch (handler.type) {
             case 'stream':

@@ -1,4 +1,4 @@
-declare namespace Jymfony.Component.Logger {
+declare namespace Jymfony.Contracts.Logger {
     export enum LogLevel {
         EMERGENCY = 600,
         ALERT = 550,

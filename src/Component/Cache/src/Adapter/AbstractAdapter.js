@@ -55,7 +55,7 @@ export default class AbstractAdapter extends implementationOf(CacheItemPoolInter
         };
 
         /**
-         * @type {Jymfony.Component.Logger.LoggerInterface}
+         * @type {Jymfony.Contracts.Logger.LoggerInterface}
          *
          * @private
          */
@@ -68,7 +68,7 @@ export default class AbstractAdapter extends implementationOf(CacheItemPoolInter
      * @param {string} namespace
      * @param {int} defaultLifetime
      * @param {string} directory
-     * @param {Jymfony.Component.Logger.LoggerInterface} [logger]
+     * @param {Jymfony.Contracts.Logger.LoggerInterface} [logger]
      */
     static createSystemCache(namespace, defaultLifetime, directory, logger = undefined) {
         const cache = (() => {

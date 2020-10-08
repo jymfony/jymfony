@@ -1,17 +1,17 @@
 /**
  * Basic Implementation of LoggerAwareInterface.
  *
- * @memberOf Jymfony.Component.Logger
+ * @memberOf Jymfony.Contracts.Logger
  */
 class LoggerAwareTrait {
     /**
      * Sets a logger instance on the object.
      *
-     * @param {Jymfony.Component.Logger.LoggerInterface} logger
+     * @param {Jymfony.Contracts.Logger.LoggerInterface} logger
      */
     setLogger(logger) {
         /**
-         * @type {Jymfony.Component.Logger.LoggerInterface}
+         * @type {Jymfony.Contracts.Logger.LoggerInterface}
          *
          * @protected
          */

@@ -144,7 +144,7 @@ export default class AbstractCloner extends implementationOf(ClonerInterface) {
     }
 
     /**
-     * Effectively clones the PHP variable.
+     * Effectively clones the variable.
      *
      * @param {*} variable
      * @returns {Object}

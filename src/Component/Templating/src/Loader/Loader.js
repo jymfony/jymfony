@@ -2,9 +2,9 @@ import { isAbsolute } from 'path';
 
 const Filesystem = Jymfony.Component.Filesystem.Filesystem;
 const LoaderInterface = Jymfony.Component.Templating.Loader.LoaderInterface;
-const LoggerAwareInterface = Jymfony.Component.Logger.LoggerAwareInterface;
-const LoggerAwareTrait = Jymfony.Component.Logger.LoggerAwareTrait;
-const NullLogger = Jymfony.Component.Logger.NullLogger;
+const LoggerAwareInterface = Jymfony.Contracts.Logger.LoggerAwareInterface;
+const LoggerAwareTrait = Jymfony.Contracts.Logger.LoggerAwareTrait;
+const NullLogger = Jymfony.Contracts.Logger.NullLogger;
 const JsTemplate = Jymfony.Component.Templating.Template.JsTemplate;
 
 /**

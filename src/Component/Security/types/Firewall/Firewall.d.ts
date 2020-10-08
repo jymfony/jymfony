@@ -4,7 +4,7 @@ declare namespace Jymfony.Component.Security.Firewall {
     import TargetPathTrait = Jymfony.Component.Security.Http.TargetPathTrait;
     import TokenStorageInterface = Jymfony.Component.Security.Authentication.Token.Storage.TokenStorageInterface;
     import AuthenticationTrustResolverInterface = Jymfony.Component.Security.Authentication.AuthenticationTrustResolverInterface;
-    import LoggerInterface = Jymfony.Component.Logger.LoggerInterface;
+    import LoggerInterface = Jymfony.Contracts.Logger.LoggerInterface;
     import Request = Jymfony.Component.HttpFoundation.Request;
     import RequestEvent = Jymfony.Contracts.HttpServer.Event.RequestEvent;
     import ExceptionEvent = Jymfony.Contracts.HttpServer.Event.ExceptionEvent;

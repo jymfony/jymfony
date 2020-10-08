@@ -1,5 +1,5 @@
 const AbstractProcessingHandler = Jymfony.Component.Logger.Handler.AbstractProcessingHandler;
-const LogLevel = Jymfony.Component.Logger.LogLevel;
+const LogLevel = Jymfony.Contracts.Logger.LogLevel;
 
 /**
  * Used for testing purposes.

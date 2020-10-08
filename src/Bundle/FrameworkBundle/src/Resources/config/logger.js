@@ -21,7 +21,7 @@ container.register('jymfony.logger.formatter.mongodb', Jymfony.Component.Logger.
 container.register('jymfony.logger.handler_prototype.stream', Jymfony.Component.Logger.Handler.StreamHandler)
     .setArguments([
         null,
-        Jymfony.Component.Logger.LogLevel.DEBUG,
+        Jymfony.Contracts.Logger.LogLevel.DEBUG,
         true,
         undefined,
     ])
@@ -31,7 +31,7 @@ container.register('jymfony.logger.handler_prototype.stream', Jymfony.Component.
 
 container.register('jymfony.logger.handler_prototype.null', Jymfony.Component.Logger.Handler.NullHandler)
     .setArguments([
-        Jymfony.Component.Logger.LogLevel.DEBUG,
+        Jymfony.Contracts.Logger.LogLevel.DEBUG,
         true,
     ])
     .setAbstract(true)
@@ -51,7 +51,7 @@ container.register('jymfony.logger.handler_prototype.mongodb', Jymfony.Component
     .setArguments([
         null,
         null,
-        Jymfony.Component.Logger.LogLevel.DEBUG,
+        Jymfony.Contracts.Logger.LogLevel.DEBUG,
         true,
     ])
     .addShutdownCall('close')
@@ -61,7 +61,7 @@ container.register('jymfony.logger.handler_prototype.mongodb', Jymfony.Component
 container.register('jymfony.logger.handler_prototype.slack', Jymfony.Component.Logger.Handler.SlackHandler)
     .setArguments([
         null,
-        Jymfony.Component.Logger.LogLevel.DEBUG,
+        Jymfony.Contracts.Logger.LogLevel.DEBUG,
         true,
     ])
     .addShutdownCall('close')
@@ -71,7 +71,7 @@ container.register('jymfony.logger.handler_prototype.slack', Jymfony.Component.L
 container.register('jymfony.logger.handler_prototype.slack_webhook', Jymfony.Component.Logger.Handler.SlackWebhookHandler)
     .setArguments([
         null,
-        Jymfony.Component.Logger.LogLevel.DEBUG,
+        Jymfony.Contracts.Logger.LogLevel.DEBUG,
         true,
     ])
     .setAbstract(true)
