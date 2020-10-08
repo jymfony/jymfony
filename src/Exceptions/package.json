@@ -1,6 +1,6 @@
 {
   "name": "@jymfony/exceptions",
-  "version": "0.1.0-alpha.25",
+  "version": "0.1.0-alpha.26",
   "description": "Jymfony exception (core package)",
   "main": "index.js",
   "typings": "types/index.d.ts",
@@ -18,7 +18,7 @@
     "node": ">=8.10.0"
   },
   "devDependencies": {
-    "@jymfony/testing": "https://github.com/jymfony/testing.git",
+    "@jymfony/testing": "*",
     "chai": "^4.2",
     "mocha": "^6.0"
   },
