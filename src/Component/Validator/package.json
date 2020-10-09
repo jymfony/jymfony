@@ -30,6 +30,7 @@
     "@jymfony/dependency-injection": "https://github.com/jymfony/dependency-injection.git",
     "@jymfony/testing": "https://github.com/jymfony/testing.git",
     "@jymfony/var-dumper": "https://github.com/jymfony/var-dumper.git",
+    "@jymfony/yaml": "https://github.com/jymfony/yaml.git",
     "chai": "^4.2",
     "mocha": "^6.0"
   },
