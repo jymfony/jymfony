@@ -4,7 +4,7 @@
   "description": "Jymfony Validator component",
   "typings": "types/index.d.ts",
   "scripts": {
-    "test": "node ./tests.js test/**"
+    "test": "node ./tests.js"
   },
   "keywords": [
     "validation",
@@ -23,13 +23,14 @@
     "@jymfony/datetime": "0.1.0-alpha.26",
     "@jymfony/exceptions": "0.1.0-alpha.26",
     "@jymfony/metadata": "0.1.0-alpha.26",
-    "@jymfony/util": "0.1.0-alpha.26t"
+    "@jymfony/util": "0.1.0-alpha.26"
   },
   "devDependencies": {
     "@jymfony/debug": "*",
     "@jymfony/dependency-injection": "*t",
     "@jymfony/testing": "*",
     "@jymfony/var-dumper": "*",
+    "@jymfony/yaml": "*",
     "chai": "^4.2",
     "mocha": "^6.0"
   },

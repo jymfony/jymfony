@@ -3,7 +3,7 @@
   "version": "0.1.0-alpha.26",
   "description": "Jymfony Templating component",
   "scripts": {
-    "test": "node ./tests.js test/**"
+    "test": "node ./tests.js"
   },
   "keywords": [
     "templating",

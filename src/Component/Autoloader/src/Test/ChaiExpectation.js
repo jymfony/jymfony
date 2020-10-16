@@ -1,11 +1,4 @@
-let chai;
-try {
-    chai = require('chai');
-} catch (e) {
-    chai = { };
-}
-
-const { util } = chai;
+import { util } from 'chai' optional nocompile;
 
 if (!! util) {
     const getName = util.getName;

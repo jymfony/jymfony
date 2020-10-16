@@ -183,6 +183,7 @@ declare namespace __jymfony {
      * Replaces parts of strings.
      */
     export function strtr(str: string, replacePairs: Record<string, string>): string;
+    export function strtr(str: string, from: string, to: string): string;
 
     /**
      * Replace text within a portion of a string.

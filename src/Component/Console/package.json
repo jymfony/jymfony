@@ -5,7 +5,7 @@
   "main": "src/Application.js",
   "typings": "types/index.d.ts",
   "scripts": {
-    "test": "node ./tests.js test/**"
+    "test": "node ./tests.js"
   },
   "keywords": [
     "console",

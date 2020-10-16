@@ -1,14 +1,8 @@
-let chai;
-try {
-    chai = require('chai');
-} catch (e) {
-    chai = { };
-}
+import * as path from 'path';
+import { Assertion, util } from 'chai' optional nocompile;
 
 const VarCloner = Jymfony.Component.VarDumper.Cloner.VarCloner;
 const CliDumper = Jymfony.Component.VarDumper.Dumper.CliDumper;
-const { Assertion, util } = chai;
-const path = require('path');
 
 let cloner = null;
 let dumper = null;

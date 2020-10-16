@@ -4,7 +4,7 @@
   "description": "Jymfony Data Structures",
   "typings": "types/index.d.ts",
   "scripts": {
-    "test": "node ./tests.js test/**"
+    "test": "node ./tests.js"
   },
   "keywords": [
     "ds",
@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "@jymfony/autoloader": "*",
+    "@jymfony/debug": "*",
     "@jymfony/testing": "*",
     "chai": "^4.2",
     "mocha": "^6.0"

@@ -213,6 +213,7 @@ class Autoloader {
 
         ManagedProxy = require('./Proxy/ManagedProxy');
 
+        const includes = new Set();
         for (const module of this._finder.listModules()) {
             let packageInfo;
             const packageJson = path.join(this._rootDir, 'node_modules', module, 'package.json');
@@ -224,20 +225,30 @@ class Autoloader {
             }
 
             const dir = path.join(this._rootDir, 'node_modules', module);
-            this._processPackageInfo(packageInfo, dir);
+            this._processPackageInfo(packageInfo, dir, includes);
         }
 
-        this._processPackageInfo(JSON.parse(fs.readFileSync(this._rootDir + '/package.json', { encoding: 'utf8' })), this._rootDir, true);
+        this._processPackageInfo(
+            JSON.parse(fs.readFileSync(this._rootDir + '/package.json', { encoding: 'utf8' })),
+            this._rootDir,
+            includes,
+            true
+        );
+
+        for (const file of includes) {
+            this._classLoader.loadFile(file, null);
+        }
     }
 
     /**
      * @param {Object} packageInfo
      * @param {string} baseDir
+     * @param {Set<string>} includes
      * @param {boolean} [root = false]
      *
      * @private
      */
-    _processPackageInfo(packageInfo, baseDir, root = false) {
+    _processPackageInfo(packageInfo, baseDir, includes, root = false) {
         if (! packageInfo.config || ! packageInfo.config['jymfony-autoload']) {
             return;
         }
@@ -248,7 +259,7 @@ class Autoloader {
         }
 
         if (config.includes) {
-            this._processIncludes(config.includes, baseDir);
+            this._processIncludes(config.includes, baseDir, includes);
         }
 
         if (root) {
@@ -258,7 +269,7 @@ class Autoloader {
             }
 
             if (configDev.includes) {
-                this._processIncludes(configDev.includes, baseDir);
+                this._processIncludes(configDev.includes, baseDir, includes);
             }
         }
     }
@@ -295,12 +306,13 @@ class Autoloader {
     /**
      * @param {Object} config
      * @param {string} baseDir
+     * @param {Set<string>} includes
      *
      * @private
      */
-    _processIncludes(config, baseDir) {
+    _processIncludes(config, baseDir, includes) {
         for (const fileName of config) {
-            require(baseDir + '/' + fileName);
+            includes.add(baseDir + '/' + fileName);
         }
     }
 
