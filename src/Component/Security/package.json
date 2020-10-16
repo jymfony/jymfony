@@ -1,6 +1,6 @@
 {
   "name": "@jymfony/security",
-  "version": "0.1.0-alpha.26",
+  "version": "0.1.0-alpha.27",
   "description": "Jymfony Http Security component",
   "scripts": {
     "test": "node ./tests.js"
@@ -16,15 +16,15 @@
     "node": ">=8.10.0"
   },
   "dependencies": {
-    "@jymfony/autoloader": "0.1.0-alpha.26",
-    "@jymfony/contracts": "0.1.0-alpha.26",
-    "@jymfony/event-dispatcher": "0.1.0-alpha.26",
-    "@jymfony/exceptions": "0.1.0-alpha.26",
-    "@jymfony/http-foundation": "0.1.0-alpha.26",
-    "@jymfony/http-server": "0.1.0-alpha.26",
-    "@jymfony/logger": "0.1.0-alpha.26",
-    "@jymfony/routing": "0.1.0-alpha.26",
-    "@jymfony/util": "0.1.0-alpha.26"
+    "@jymfony/autoloader": "0.1.0-alpha.27",
+    "@jymfony/contracts": "0.1.0-alpha.27",
+    "@jymfony/event-dispatcher": "0.1.0-alpha.27",
+    "@jymfony/exceptions": "0.1.0-alpha.27",
+    "@jymfony/http-foundation": "0.1.0-alpha.27",
+    "@jymfony/http-server": "0.1.0-alpha.27",
+    "@jymfony/logger": "0.1.0-alpha.27",
+    "@jymfony/routing": "0.1.0-alpha.27",
+    "@jymfony/util": "0.1.0-alpha.27"
   },
   "devDependencies": {
     "@jymfony/debug": "*",

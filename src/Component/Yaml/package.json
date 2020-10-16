@@ -1,6 +1,6 @@
 {
   "name": "@jymfony/yaml",
-  "version": "0.1.0-alpha.26",
+  "version": "0.1.0-alpha.27",
   "description": "Jymfony Yaml component",
   "typings": "types/index.d.ts",
   "scripts": {
@@ -17,9 +17,9 @@
     "node": ">=8.10.0"
   },
   "dependencies": {
-    "@jymfony/autoloader": "0.1.0-alpha.26",
-    "@jymfony/exceptions": "0.1.0-alpha.26",
-    "@jymfony/util": "0.1.0-alpha.26"
+    "@jymfony/autoloader": "0.1.0-alpha.27",
+    "@jymfony/exceptions": "0.1.0-alpha.27",
+    "@jymfony/util": "0.1.0-alpha.27"
   },
   "devDependencies": {
     "@jymfony/debug": "*",
