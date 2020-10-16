@@ -5,44 +5,45 @@ try {
     chai = { };
 }
 
-const Argument = Jymfony.Component.Testing.Argument.Argument;
-const BlackHoleMetadataFactory = Jymfony.Component.Validator.Mapping.Factory.BlackHoleMetadataFactory;
-const CliDumper = Jymfony.Component.VarDumper.Dumper.CliDumper;
-const ClassMetadata = Jymfony.Component.Validator.Mapping.ClassMetadata;
-const ConstraintValidatorFactory = Jymfony.Component.Validator.ConstraintValidatorFactory;
-const ConstraintViolation = Jymfony.Component.Validator.ConstraintViolation;
-const ConstraintViolationList = Jymfony.Component.Validator.ConstraintViolationList;
-const ConstraintViolationListInterface = Jymfony.Component.Validator.ConstraintViolationListInterface;
-const ExecutionContext = Jymfony.Component.Validator.Context.ExecutionContext;
-const Prophet = Jymfony.Component.Testing.Prophet;
-const RecursiveContextualValidator = Jymfony.Component.Validator.Validator.RecursiveContextualValidator;
-const TranslatorInterface = Jymfony.Contracts.Translation.TranslatorInterface;
-const ValidatorInterface = Jymfony.Component.Validator.Validator.ValidatorInterface;
-const VarCloner = Jymfony.Component.VarDumper.Cloner.VarCloner;
 const { Assertion, util } = chai;
 
-let cloner = null;
-let dumper = null;
-
-const getDump = data => {
-    if (null === cloner) {
-        cloner = new VarCloner();
-        cloner.maxItems = -1;
-    }
-
-    if (null === dumper) {
-        dumper = new CliDumper();
-        dumper.colors = false;
-    }
-
-    return __jymfony.trim(dumper.dump(cloner.cloneVar(data), true));
-};
-
-const prepareViolation = ({ message, parameters, root, propertyPath = '', invalidValue, plural = null, code = null, constraint = null, cause = null }) => {
-    return new ConstraintViolation(message, message, parameters, root, propertyPath, invalidValue, plural, code, constraint, cause);
-};
-
 if (!! util) {
+    const Argument = Jymfony.Component.Testing.Argument.Argument;
+    const BlackHoleMetadataFactory = Jymfony.Component.Validator.Mapping.Factory.BlackHoleMetadataFactory;
+    const CliDumper = Jymfony.Component.VarDumper.Dumper.CliDumper;
+    const ClassMetadata = Jymfony.Component.Validator.Mapping.ClassMetadata;
+    const ConstraintValidatorFactory = Jymfony.Component.Validator.ConstraintValidatorFactory;
+    const ConstraintViolation = Jymfony.Component.Validator.ConstraintViolation;
+    const ConstraintViolationList = Jymfony.Component.Validator.ConstraintViolationList;
+    const ConstraintViolationListInterface = Jymfony.Component.Validator.ConstraintViolationListInterface;
+    const ExecutionContext = Jymfony.Component.Validator.Context.ExecutionContext;
+    const Prophet = Jymfony.Component.Testing.Prophet;
+    const RecursiveContextualValidator = Jymfony.Component.Validator.Validator.RecursiveContextualValidator;
+    const TranslatorInterface = Jymfony.Contracts.Translation.TranslatorInterface;
+    const ValidatorInterface = Jymfony.Component.Validator.Validator.ValidatorInterface;
+    const VarCloner = Jymfony.Component.VarDumper.Cloner.VarCloner;
+
+    let cloner = null;
+    let dumper = null;
+
+    const getDump = data => {
+        if (null === cloner) {
+            cloner = new VarCloner();
+            cloner.maxItems = -1;
+        }
+
+        if (null === dumper) {
+            dumper = new CliDumper();
+            dumper.colors = false;
+        }
+
+        return __jymfony.trim(dumper.dump(cloner.cloneVar(data), true));
+    };
+
+    const prepareViolation = ({ message, parameters, root, propertyPath = '', invalidValue, plural = null, code = null, constraint = null, cause = null }) => {
+        return new ConstraintViolation(message, message, parameters, root, propertyPath, invalidValue, plural, code, constraint, cause);
+    };
+
     util.addChainableMethod(Assertion.prototype, 'validated', null, function () {
         util.flag(this, '__jymfony.validated', true);
     });
@@ -185,7 +186,6 @@ if (!! util) {
 
                 return _super.apply(this, args);
             })();
-
         };
     });
 }
