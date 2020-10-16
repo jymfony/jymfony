@@ -1,11 +1,4 @@
-let chai;
-try {
-    chai = require('chai');
-} catch (e) {
-    chai = { };
-}
-
-const { Assertion, util } = chai;
+import { Assertion, util } from 'chai' optional nocompile;
 
 if (!! util) {
     const Argument = Jymfony.Component.Testing.Argument.Argument;
