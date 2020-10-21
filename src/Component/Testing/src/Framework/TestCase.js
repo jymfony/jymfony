@@ -88,10 +88,14 @@ export default class TestCase {
             };
 
             const before = function () {
-                const exec = execution(reflectionClass.getMethod('beforeEach'), []);
-                this._prophet = null;
+                self._expectedException = undefined;
+                self._expectedExceptionMessage = undefined;
+                self._expectedExceptionMessageRegex = undefined;
 
-                return exec.call(this);
+                const exec = execution(reflectionClass.getMethod('beforeEach'), []);
+                prophets.delete(self);
+
+                return exec.call(self);
             };
 
             this.beforeAll(async function () {
