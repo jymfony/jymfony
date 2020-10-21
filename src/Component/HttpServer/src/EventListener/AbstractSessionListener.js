@@ -1,4 +1,5 @@
 const EventSubscriberInterface = Jymfony.Contracts.EventDispatcher.EventSubscriberInterface;
+const HttpServerEvents = Jymfony.Component.HttpServer.Event.HttpServerEvents;
 
 /**
  * Sets the session onto the request on the "kernel.request" event and saves
@@ -18,12 +19,8 @@ export default class AbstractSessionListener extends implementationOf(EventSubsc
      */
     onRequest(event) {
         const request = event.request;
-
-        if (! request.hasSession) {
-            const self = this;
-            (function () {
-                this._session = self.getSession();
-            }).call(request);
+        if (! request.hasSession()) {
+            request._session = () => this.getSession();
         }
     }
 
@@ -34,9 +31,7 @@ export default class AbstractSessionListener extends implementationOf(EventSubsc
      */
     onResponse(event) {
         const request = event.request;
-        const session = (function () {
-            return this._session;
-        }).call(request);
+        const session = request._session;
 
         if (! session) {
             return;
@@ -75,8 +70,8 @@ export default class AbstractSessionListener extends implementationOf(EventSubsc
      */
     static getSubscribedEvents() {
         return {
-            [KernelEvents.REQUEST]: [ 'onRequest', 128 ],
-            [KernelEvents.RESPONSE]: [ 'onKernelResponse', -1000 ],
+            [HttpServerEvents.REQUEST]: [ 'onRequest', 128 ],
+            [HttpServerEvents.RESPONSE]: [ 'onResponse', -1000 ],
         };
     }
 
