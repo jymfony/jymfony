@@ -19,7 +19,7 @@ export default (() => {
             ['offset']: 19270,
             ['dst']: false,
             ['abbrev']: 'MMT',
-            ['until']: -2020705670,
+            ['until']: -2019705670,
             ['format']: 'MMT',
         },
         {
