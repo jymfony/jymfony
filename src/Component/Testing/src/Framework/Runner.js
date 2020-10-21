@@ -37,6 +37,11 @@ export default class Runner {
         while (true) {
             const nextLevel = [];
             for (const namespace of currentLevel) {
+                const ns = namespace.__namespace;
+                if (0 !== ns.directories.length) {
+                    targetNamespaces.add(ns);
+                }
+
                 for (const key in namespace) {
                     if ('__namespace' === key) {
                         continue;
@@ -48,11 +53,6 @@ export default class Runner {
 
                     if (namespace[key] && namespace[key].__namespace instanceof Namespace) {
                         nextLevel.push(namespace[key]);
-
-                        const ns = namespace[key].__namespace;
-                        if (0 !== ns.directories.length) {
-                            targetNamespaces.add(ns);
-                        }
                     }
                 }
             }
