@@ -30,8 +30,15 @@ export default class SessionListener extends AbstractSessionListener {
 
     /**
      * @inheritdoc
+     *
+     * @param {Jymfony.Component.HttpFoundation.Request} request
      */
-    getSession() {
-        return new Session(this._container.get(this._storageId));
+    getSession(request) {
+        const storage = this._container.get(this._storageId);
+        if (request.cookies.has(storage.name)) {
+            storage.id = request.cookies.get(storage.name);
+        }
+
+        return new Session(storage);
     }
 }

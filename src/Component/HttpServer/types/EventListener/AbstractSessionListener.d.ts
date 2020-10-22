@@ -1,9 +1,10 @@
 declare namespace Jymfony.Component.HttpServer.EventListener {
     import EventSubscriberInterface = Jymfony.Contracts.EventDispatcher.EventSubscriberInterface;
+    import EventSubscriptions = Jymfony.Contracts.EventDispatcher.EventSubscriptions;
     import RequestEvent = Jymfony.Contracts.HttpServer.Event.RequestEvent;
+    import RequestInterface = Jymfony.Contracts.HttpFoundation.RequestInterface;
     import ResponseEvent = Jymfony.Contracts.HttpServer.Event.ResponseEvent;
     import SessionInterface = Jymfony.Component.HttpFoundation.Session.SessionInterface;
-    import EventSubscriptions = Jymfony.Contracts.EventDispatcher.EventSubscriptions;
 
     /**
      * Sets the session onto the request on the "kernel.request" event and saves
@@ -33,6 +34,6 @@ declare namespace Jymfony.Component.HttpServer.EventListener {
          *
          * @returns A SessionInterface instance or undefined if no session is available
          */
-        abstract getSession(): SessionInterface;
+        abstract getSession(request: RequestInterface): SessionInterface;
     }
 }
