@@ -404,6 +404,7 @@ export default class Configuration extends implementationOf(ConfigurationInterfa
                     .children()
                         .scalarNode('storage_id').defaultValue('session.storage.filesystem').end()
                         .scalarNode('name')
+                            .defaultValue('JFSESSID')
                             .validate()
                                 .ifTrue(v => Object.keys(__jymfony.parse_query_string(v.toString())).join('&') !== v.toString())
                                 .thenInvalid('Session name %s contains illegal character(s)')
