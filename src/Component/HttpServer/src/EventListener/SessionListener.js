@@ -11,8 +11,15 @@ export default class SessionListener extends AbstractSessionListener {
      *
      * @param {Jymfony.Component.DependencyInjection.ContainerInterface} container
      * @param {string} storageId
+     * @param {int} cookieLifetime
+     * @param {string} cookiePath
+     * @param {undefined | string} cookieDomain
+     * @param {boolean} cookieSecure
+     * @param {boolean} cookieHttpOnly
      */
-    __construct(container, storageId) {
+    __construct(container, storageId, cookieLifetime = 0, cookiePath = '/', cookieDomain = undefined, cookieSecure = true, cookieHttpOnly = true) {
+        super.__construct(cookieLifetime, cookiePath, cookieDomain, cookieSecure, cookieHttpOnly);
+
         /**
          * @type {Jymfony.Component.DependencyInjection.ContainerInterface}
          *

@@ -13,8 +13,9 @@ declare namespace Jymfony.Component.HttpServer.EventListener {
         /**
          * Constructor.
          */
-        __construct(container: ContainerInterface, storageId: string): void;
-        constructor(container: ContainerInterface, storageId: string);
+        // @ts-ignore
+        __construct(container: ContainerInterface, storageId: string, cookieLifetime?: number, cookiePath?: string, cookieDomain?: undefined | string, cookieSecure?: boolean, cookieHttpOnly?: boolean): void;
+        constructor(container: ContainerInterface, storageId: string, cookieLifetime?: number, cookiePath?: string, cookieDomain?: undefined | string, cookieSecure?: boolean, cookieHttpOnly?: boolean);
 
         /**
          * @inheritdoc

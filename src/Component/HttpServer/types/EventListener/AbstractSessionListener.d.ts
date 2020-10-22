@@ -15,6 +15,12 @@ declare namespace Jymfony.Component.HttpServer.EventListener {
      */
     export abstract class AbstractSessionListener extends implementationOf(EventSubscriberInterface) {
         /**
+         * Constructor.
+         */
+        __construct(cookieLifetime?: number, cookiePath?: string, cookieDomain?: undefined | string, cookieSecure?: boolean, cookieHttpOnly?: boolean): void;
+        constructor(cookieLifetime?: number, cookiePath?: string, cookieDomain?: undefined | string, cookieSecure?: boolean, cookieHttpOnly?: boolean);
+
+        /**
          * Listen on http.request to inject session factory
          */
         onRequest(event: RequestEvent): void;
