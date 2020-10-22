@@ -95,7 +95,7 @@ export default class TestCase {
                 const exec = execution(reflectionClass.getMethod('beforeEach'), []);
                 prophets.delete(self);
 
-                return exec.call(self);
+                return exec.call(this);
             };
 
             this.beforeAll(async function () {
