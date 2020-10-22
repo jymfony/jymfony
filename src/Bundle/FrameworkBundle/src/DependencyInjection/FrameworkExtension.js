@@ -108,7 +108,14 @@ export default class FrameworkExtension extends Extension {
         }
 
         loader.load('session.js');
-        container.getDefinition(Jymfony.Component.HttpServer.EventListener.SessionListener).replaceArgument(1, config.storage_id);
+        container.getDefinition(Jymfony.Component.HttpServer.EventListener.SessionListener)
+            .replaceArgument(1, config.storage_id)
+            .replaceArgument(2, config.cookie_lifetime)
+            .replaceArgument(3, config.cookie_path)
+            .replaceArgument(4, config.cookie_domain)
+            .replaceArgument(5, config.cookie_secure)
+            .replaceArgument(6, config.cookie_httponly)
+        ;
         container.getDefinition(config.storage_id).replaceArgument(0, config);
     }
 

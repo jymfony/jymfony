@@ -415,7 +415,6 @@ export default class Configuration extends implementationOf(ConfigurationInterfa
                         .scalarNode('cookie_domain').end()
                         .booleanNode('cookie_secure').end()
                         .booleanNode('cookie_httponly').defaultTrue().end()
-                        .booleanNode('use_cookies').end()
                         .scalarNode('max_lifetime').end()
                         .scalarNode('save_path').defaultValue('%kernel.cache_dir%/sessions').end()
                     .end()
