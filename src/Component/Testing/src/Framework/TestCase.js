@@ -288,6 +288,8 @@ export default class TestCase {
         if (! isRegExp(message)) {
             throw new InvalidArgumentException('Argument #1 passed to expectedExceptionMessageRegex must be a string or a RegExp object');
         }
+
+        this._expectedExceptionMessageRegex = message;
     }
 
     /**
