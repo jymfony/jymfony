@@ -115,4 +115,9 @@ Jymfony.Contracts = {
          */
         Exception: {},
     },
+
+    /**
+     * @namespace
+     */
+    Uid: {},
 };

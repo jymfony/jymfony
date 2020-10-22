@@ -9,6 +9,7 @@ const GetterMetadata = Jymfony.Component.Validator.Mapping.GetterMetadata;
 const GroupSequence = Jymfony.Component.Validator.Constraints.GroupSequence;
 const LazyProperty = Jymfony.Component.Validator.Validator.LazyProperty;
 const NoSuchMetadataException = Jymfony.Component.Validator.Exception.NoSuchMetadataException;
+const NullMetadata = Jymfony.Contracts.Metadata.NullMetadata;
 const PropertyMetadataInterface = Jymfony.Component.Validator.Mapping.PropertyMetadataInterface;
 const PropertyPath = Jymfony.Component.Validator.Util.PropertyPath;
 const RuntimeException = Jymfony.Component.Validator.Exception.RuntimeException;
@@ -175,6 +176,10 @@ export default class RecursiveContextualValidator extends implementationOf(Conte
         }
 
         const propertyMetadata = classMetadata.getAttributeMetadata(propertyName);
+        if (propertyMetadata instanceof NullMetadata) {
+            return this;
+        }
+
         groups = groups ? this._normalizeGroups(groups) : [ ...this._defaultGroups ];
         const propertyPath = PropertyPath.append(this._defaultPropertyPath, propertyName);
 
@@ -214,6 +219,10 @@ export default class RecursiveContextualValidator extends implementationOf(Conte
         }
 
         const propertyMetadata = classMetadata.getAttributeMetadata(propertyName);
+        if (propertyMetadata instanceof NullMetadata) {
+            return this;
+        }
+
         groups = groups ? this._normalizeGroups(groups) : this._defaultGroups;
 
         let object, propertyPath;

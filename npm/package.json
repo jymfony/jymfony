@@ -55,6 +55,7 @@
     "@jymfony/stopwatch": "0.1.0-alpha.27",
     "@jymfony/templating": "0.1.0-alpha.27",
     "@jymfony/testing": "0.1.0-alpha.27",
+    "@jymfony/uid": "0.1.0-alpha.27",
     "@jymfony/util": "0.1.0-alpha.27",
     "@jymfony/validator": "0.1.0-alpha.27",
     "@jymfony/var-dumper": "0.1.0-alpha.27",

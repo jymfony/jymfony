@@ -5,11 +5,11 @@ const Reference = Jymfony.Component.DependencyInjection.Reference;
 container.register(Jymfony.Component.HttpServer.EventListener.SessionListener)
     .addTag('kernel.event_subscriber')
     .addArgument(new Reference('service_container'))
-    .addArgument() // Storage Id
+    .addArgument(undefined) // Storage Id
 ;
 
-container.setDefinition('session.storage.filesystem', Jymfony.Component.HttpFoundation.Session.Storage.FilesystemSessionStorage)
+container.register('session.storage.filesystem', Jymfony.Component.HttpFoundation.Session.Storage.FilesystemSessionStorage)
     .setPublic(true)
     .setShared(false)
-    .addArgument() // Options
+    .addArgument(undefined) // Options
 ;

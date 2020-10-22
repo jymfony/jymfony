@@ -40,6 +40,13 @@ export default class TestCase {
          * @private
          */
         this._expectedExceptionMessage = undefined;
+
+        /**
+         * @type {undefined | RegExp}
+         *
+         * @private
+         */
+        this._expectedExceptionMessageRegex = undefined;
     }
 
     /**
@@ -81,8 +88,12 @@ export default class TestCase {
             };
 
             const before = function () {
+                self._expectedException = undefined;
+                self._expectedExceptionMessage = undefined;
+                self._expectedExceptionMessageRegex = undefined;
+
                 const exec = execution(reflectionClass.getMethod('beforeEach'), []);
-                this._prophet = null;
+                prophets.delete(self);
 
                 return exec.call(this);
             };
@@ -265,6 +276,23 @@ export default class TestCase {
     }
 
     /**
+     * Register an exception message regex to be expected.
+     * The test will pass only if an exception is thrown and its message is matching
+     * to the regex passed to this method.
+     */
+    expectExceptionMessageRegex(message) {
+        if (isString(message)) {
+            message = new RegExp(message);
+        }
+
+        if (! isRegExp(message)) {
+            throw new InvalidArgumentException('Argument #1 passed to expectedExceptionMessageRegex must be a string or a RegExp object');
+        }
+
+        this._expectedExceptionMessageRegex = message;
+    }
+
+    /**
      * Marks current test as skipped and stops execution.
      */
     markTestSkipped() {
@@ -300,7 +328,15 @@ export default class TestCase {
             expect(exception.message).to.be.equal(this._expectedExceptionMessage);
         }
 
-        if (this._expectedException === undefined && this._expectedExceptionMessage === undefined) {
+        if (this._expectedExceptionMessageRegex !== undefined) {
+            expect(exception.message).to.match(this._expectedExceptionMessageRegex);
+        }
+
+        if (
+            this._expectedException === undefined &&
+            this._expectedExceptionMessage === undefined &&
+            this._expectedExceptionMessageRegex === undefined
+        ) {
             throw exception;
         }
     }

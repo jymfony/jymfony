@@ -68,3 +68,4 @@
 /// <reference path="Translation/LocaleAwareInterface.d.ts" />
 /// <reference path="Translation/TranslatorInterface.d.ts" />
 /// <reference path="Translation/TranslatorTrait.d.ts" />
+/// <reference path="Uid/UidInterface.d.ts" />

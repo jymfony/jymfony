@@ -1,8 +1,13 @@
 language: node_js
 
+cache:
+    npm: false
+
 node_js:
     - '10'
     - '11'
     - '12'
+    - '13'
+    - '14'
 
 script: npm test
