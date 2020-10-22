@@ -108,9 +108,9 @@ export default class UlidTest extends TestCase {
         expect(a.equals(b.toString())).to.be.equal(false);
     }
 
-    async testCompare() {
-        this.setTimeout(10000);
-        const time = String(new Date().getTime());
+    testCompare() {
+        const nTime = new Date().getTime();
+        const time = String(nTime);
 
         const a = new Ulid(Ulid.generate(time));
         const b = new Ulid(Ulid.generate(time));
@@ -119,9 +119,7 @@ export default class UlidTest extends TestCase {
         expect(a.compare(b)).to.be.lessThan(0);
         expect(b.compare(a)).to.be.greaterThan(0);
 
-        await __jymfony.sleep(1001);
-
-        const c = new Ulid();
+        const c = new Ulid(Ulid.generate(String(nTime + 1001)));
 
         expect(b.compare(c)).to.be.lessThan(0);
         expect(c.compare(b)).to.be.greaterThan(0);
