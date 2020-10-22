@@ -158,6 +158,11 @@ Jymfony = {
         /**
          * @namespace
          */
+        Uid: {},
+
+        /**
+         * @namespace
+         */
         VarDumper: {},
 
         /**
