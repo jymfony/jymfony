@@ -70,6 +70,14 @@ export default class HeaderBag {
     }
 
     /**
+     * Replaces the current HTTP headers by a new set.
+     */
+    replace(headers = {}) {
+        this._headers = {};
+        this.add(headers);
+    }
+
+    /**
      * Adds/replaces parameters in the bag.
      *
      * @param {Object.<string, *>} parameters

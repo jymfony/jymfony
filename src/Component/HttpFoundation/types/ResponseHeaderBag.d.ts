@@ -2,6 +2,8 @@ declare namespace Jymfony.Component.HttpFoundation {
     export class ResponseHeaderBag extends HeaderBag {
         public static readonly DISPOSITION_ATTACHMENT = 'attachment';
         public static readonly DISPOSITION_INLINE = 'inline';
+        public static readonly COOKIES_FLAT = 'flat';
+        public static readonly COOKIES_ARRAY = 'array';
 
         /**
          * Define the case of header names.
@@ -27,6 +29,16 @@ declare namespace Jymfony.Component.HttpFoundation {
         /**
          * @inheritdoc
          */
+        replace(parameters: Record<string, string | string[]>): void;
+
+        /**
+         * @inheritdoc
+         */
+        public readonly all: Record<string, string[]>;
+
+        /**
+         * @inheritdoc
+         */
         set(key: string, values: string | string[], replace?: boolean): void;
 
         /**
@@ -43,6 +55,21 @@ declare namespace Jymfony.Component.HttpFoundation {
          * Sets a cookie.
          */
         setCookie(cookie: Cookie): void;
+
+        /**
+         * Removes a cookie from the array, but does not unset it in the browser.
+         */
+        removeCookie(name, path?: string, domain?: string): void;
+
+        /**
+         * Returns an array with all cookies.
+         *
+         * @throws {InvalidArgumentException} When the format is invalid
+         */
+        getCookies(): Cookie[];
+        getCookies(format: 'flat'): Cookie[];
+        getCookies(format: 'array'): Record<string, Record<string, Record<string, Cookie>>>;
+        getCookies(format?: string): Cookie[] | Record<string, Record<string, Record<string, Cookie>>>;
 
         /**
          * Generates a HTTP Content-Disposition field-value.
