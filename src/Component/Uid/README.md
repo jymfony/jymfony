@@ -1,5 +1,5 @@
-Lexer Component
-===============
+Uid Component
+=============
 
 Work in progress
 
