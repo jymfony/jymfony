@@ -7,18 +7,18 @@ export default class Resource {
     /**
      * Constructor.
      *
-     * @param {int} fd
+     * @param {FileHandle} handle
      * @param {fs.Stats} stat
      */
-    __construct(fd, stat) {
+    __construct(handle, stat) {
         /**
          * File descriptor.
          *
-         * @type {int}
+         * @type {FileHandle}
          *
          * @private
          */
-        this._fd = fd;
+        this._handle = handle;
 
         /**
          * Current position.
@@ -62,12 +62,12 @@ export default class Resource {
     }
 
     /**
-     * Gets the file descriptor number.
+     * Gets the file handle.
      *
-     * @returns {int}
+     * @returns {FileHandle}
      */
-    get fd() {
-        return this._fd;
+    get handle() {
+        return this._handle;
     }
 
     /**

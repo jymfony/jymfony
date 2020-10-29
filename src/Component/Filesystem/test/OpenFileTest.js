@@ -50,7 +50,7 @@ describe('[Filesystem] OpenFile', function () {
     it('fwrite should write to file', async () => {
         const file = await new OpenFile(__dirname + '/../fixtures/WRITEFILE', 'w');
         expect(await file.fwrite(Buffer.from('TEST FILE'))).to.be.equal(9);
-        fs.fsyncSync((await file._resource).fd);
+        fs.fsyncSync((await file._resource).handle.fd);
         expect(await file.getSize()).to.be.equal(9);
 
         await file.close();
