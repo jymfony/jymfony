@@ -67,6 +67,9 @@ describe('[Filesystem] File', function () {
     });
 
     it('openFile should return an OpenFile instance', async () => {
-        expect(await new File(__dirname + '/../fixtures/TESTFILE.txt').openFile()).to.be.instanceOf(OpenFile);
+        const openFile = await new File(__dirname + '/../fixtures/TESTFILE.txt').openFile();
+        expect(openFile).to.be.instanceOf(OpenFile);
+
+        await openFile.close();
     });
 });
