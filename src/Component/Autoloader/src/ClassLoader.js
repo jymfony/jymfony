@@ -68,7 +68,7 @@ const builtinLibs = [
     'v8', 'vm', 'worker_threads', 'zlib',
 ];
 
-const builtinRequire = __jymfony.version_compare(process.versions.node, '12', '<') ? id => {
+const builtinRequire = __jymfony.version_compare(process.versions.node, '14.0.0', '<') ? id => {
     if ('fs/promises' === id) {
         return require('fs').promises;
     }
@@ -396,6 +396,8 @@ class ClassLoader {
 
                     return _cache[fn] = module.exports;
                 }
+            } else {
+                delete _cache[fn];
             }
 
             throw e;
