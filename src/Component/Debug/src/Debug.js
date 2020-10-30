@@ -22,6 +22,7 @@ export default class Debug {
             throw new MultipleResolvesException(type, promise, reason);
         });
 
+        __jymfony.ManagedProxy.enableDebug();
         ErrorHandler.register(new ErrorHandler(new BufferingLogger(), true));
     }
 }
