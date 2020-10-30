@@ -13,14 +13,15 @@ import {
     symlink,
     unlink
 } from 'fs/promises';
-import { createReadStream, createWriteStream } from 'fs';
 import { dirname, resolve as pathResolve } from 'path';
 import { parse as urlParse } from 'url';
 
-const File = Jymfony.Component.Filesystem.File;
 const AbstractStreamWrapper = Jymfony.Component.Filesystem.StreamWrapper.AbstractStreamWrapper;
+const File = Jymfony.Component.Filesystem.File;
+const ReadableStream = Jymfony.Component.Filesystem.StreamWrapper.File.ReadableStream;
 const Resource = Jymfony.Component.Filesystem.StreamWrapper.File.Resource;
 const StreamWrapperInterface = Jymfony.Component.Filesystem.StreamWrapper.StreamWrapperInterface;
+const WritableStream = Jymfony.Component.Filesystem.StreamWrapper.File.WritableStream;
 
 const Storage = function () {};
 Storage.prototype = {};
@@ -201,20 +202,14 @@ export default class FileStreamWrapper extends AbstractStreamWrapper {
      * @inheritdoc
      */
     createReadableStream(resource) {
-        return createReadStream(null, {
-            fd: resource.handle.fd,
-            autoClose: false,
-        });
+        return new ReadableStream(resource);
     }
 
     /**
      * @inheritdoc
      */
     createWritableStream(resource) {
-        return createWriteStream(null, {
-            fd: resource.handle.fd,
-            autoClose: false,
-        });
+        return new WritableStream(resource);
     }
 
     /**
