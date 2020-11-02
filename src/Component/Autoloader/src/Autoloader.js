@@ -139,7 +139,7 @@ class Autoloader {
 
             const retVal = this.__construct(...$args);
             if (undefined !== global.mixins && undefined !== this[global.mixins.initializerSymbol]) {
-                this[global.mixins.initializerSymbol]();
+                this[global.mixins.initializerSymbol](...$args);
             }
 
             if (undefined !== retVal && this !== retVal) {

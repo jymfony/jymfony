@@ -22,12 +22,12 @@ class Mixins {
     static createMixin(definition, cb = undefined, constructCb = undefined) {
         const mixin = (superclass) => {
             const m = class extends superclass {
-                [symInitalizer]() {
+                [symInitalizer](...$args) {
                     if (undefined !== super[symInitalizer]) {
-                        super[symInitalizer](this);
+                        super[symInitalizer](...$args);
                     }
 
-                    constructCb(this);
+                    constructCb(this, ...$args);
                 }
             };
 

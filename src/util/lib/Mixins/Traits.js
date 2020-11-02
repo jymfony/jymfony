@@ -39,9 +39,9 @@ class Traits {
 
                 Object.defineProperty(trait.prototype, prop, descriptor);
             }
-        }, obj => {
+        }, (obj, ...$args) => {
             if (isFunction(definition.prototype.__construct)) {
-                definition.prototype.__construct.call(obj);
+                definition.prototype.__construct.apply(obj, $args);
             }
         });
 
