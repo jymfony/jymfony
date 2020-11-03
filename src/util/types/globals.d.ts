@@ -145,6 +145,11 @@ declare namespace __jymfony {
     export function levenshtein(s: string, t: string): number;
 
     /**
+     * Converts unicode domains to ascii.
+     */
+    export function punycode_to_ascii(string: string): string;
+
+    /**
      * @internal
      */
     export function internal_parse_query_string(params: any): any;
