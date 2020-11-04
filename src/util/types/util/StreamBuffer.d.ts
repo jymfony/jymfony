@@ -2,8 +2,22 @@ declare namespace __jymfony {
     /**
      * A writable stream that buffers all the content.
      */
-    export class StreamBuffer implements NodeJS.WritableStream {
+    export class StreamBuffer implements NodeJS.WritableStream, NodeJS.ReadableStream {
         writable: boolean;
+        readable: boolean;
+
+        constructor(buffer?: Buffer);
+
+        read(size?: number): string | Buffer;
+        setEncoding(encoding: BufferEncoding): this;
+        pause(): this;
+        resume(): this;
+        isPaused(): boolean;
+        pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): T;
+        unpipe(destination?: NodeJS.WritableStream): this;
+        unshift(chunk: string | Uint8Array, encoding?: BufferEncoding): void;
+        wrap(oldStream: NodeJS.ReadableStream): this;
+        [Symbol.asyncIterator](): AsyncIterableIterator<string | Buffer>;
 
         write(buffer: string | Buffer, cb?: Function): boolean;
         write(str: string, encoding?: string, cb?: Function): boolean;
