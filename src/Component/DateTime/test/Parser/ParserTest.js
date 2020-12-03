@@ -408,7 +408,7 @@ describe('[DateTime] Parser', function () {
         [ 'next week', tm => expect(tm.weekDay).to.be.equal(1) ],
         [ 'previous week', tm => expect(tm.weekDay).to.be.equal(1) ],
         [ 'last year', tm => expect(tm._year).to.be.equal(new Date().getUTCFullYear() - 1) ],
-        [ 'next month', tm => expect(tm.month).to.be.equal(new Date().getUTCMonth() + 2) ],
+        [ 'next month', tm => expect(tm.month).to.be.equal((new Date().getUTCMonth() + 2) % 12) ],
         [ 'yesterday  4:00', tm => {
             const d = new Date();
             d.setUTCDate(d.getUTCDate() - 1);
