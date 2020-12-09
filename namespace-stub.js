@@ -88,6 +88,11 @@ Jymfony = {
         /**
          * @namespace
          */
+        HttpClient: {},
+
+        /**
+         * @namespace
+         */
         HttpFoundation: {},
 
         /**

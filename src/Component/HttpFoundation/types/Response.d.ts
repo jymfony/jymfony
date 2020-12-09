@@ -161,7 +161,7 @@ declare namespace Jymfony.Component.HttpFoundation {
         /**
          * Sets the response content.
          */
-        public content: Invokable<string> | string;
+        public content: Invokable<void> | Invokable<Promise<void>> | string;
 
         /**
          * Gets the response status code.

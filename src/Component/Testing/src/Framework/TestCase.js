@@ -143,6 +143,15 @@ export default class TestCase extends Assert {
     }
 
     /**
+     * Override this to set a default timeout for all the tests of this test case.
+     *
+     * @return {int|undefined}
+     */
+    get defaultTimeout() {
+        return undefined;
+    }
+
+    /**
      * Run test case.
      * Not to be called directly, will be called by the test runner.
      *

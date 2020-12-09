@@ -265,6 +265,10 @@ interface WeakRefConstructor {
 
 declare var WeakRef: WeakRefConstructor;
 
+declare type Nullable<T> = {
+    [P in keyof T]: null | T[P];
+};
+
 declare type FunctionPropertyNames<T> = {
     [K in keyof T]: T[K] extends Function ? K : never;
 }[keyof T];

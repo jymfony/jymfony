@@ -151,7 +151,7 @@ class Autoloader {
                 self = new Proxy(self, {
                     get: (target, p) => {
                         if (p !== Symbol.toStringTag && ! Reflect.has(target, p)) {
-                            throw new TypeError('Undefined property ' + p.toString());
+                            throw new TypeError('Undefined property ' + p.toString() + ' on instance of ' + ReflectionClass.getClassName(target));
                         }
 
                         return Reflect.get(target, p);
