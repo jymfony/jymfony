@@ -111,16 +111,39 @@ export default class RequestHandler extends implementationOf(LoggerAwareInterfac
         request.attributes.set('_handler', this);
 
         try {
-            const promise = new Promise((res, rej) => {
-                if (0 < this._requestTimeoutMs) {
-                    this._requestTimeout(rej);
+            let resolved = false, rejectFn;
+            const rejection = err => {
+                if (resolved) {
+                    return;
                 }
 
-                request.attributes.set('_abort', rej);
-                this._handleRaw(request).then(res, rej);
+                resolved = true;
+                rejectFn(err);
+            };
+
+            let promise = new Promise((res, rej) => {
+                rejectFn = rej;
+
+                request.attributes.set('_abort', rejection);
+                this._handleRaw(request).then((...args) => {
+                    if (resolved) {
+                        return;
+                    }
+
+                    resolved = true;
+                    res(...args);
+                }, rejection);
             });
 
-            promise.__multipleResolve = true;
+            if (0 < this._requestTimeoutMs) {
+                promise = __jymfony.promiseTimeout(
+                    this._requestTimeoutMs,
+                    promise,
+                    new RequestTimeoutException('Request timed out.'),
+                    true
+                );
+            }
+
             response = await promise;
         } catch (e) {
             if (e instanceof RequestExceptionInterface) {
@@ -314,17 +337,5 @@ export default class RequestHandler extends implementationOf(LoggerAwareInterfac
         await this._dispatcher.dispatch(HttpServerEvents.FINISH_REQUEST, new Event.FinishRequestEvent(this, request));
 
         return event.response;
-    }
-
-    /**
-     * Fires a request timeout after the configured time.
-     *
-     * @returns {Promise<void>}
-     *
-     * @private
-     */
-    async _requestTimeout(rejection) {
-        await __jymfony.sleep(this._requestTimeoutMs);
-        rejection(new RequestTimeoutException('Request timed out'));
     }
 }
