@@ -3,6 +3,7 @@ import Suite from 'mocha/lib/suite';
 import Test from 'mocha/lib/test';
 import { expect } from 'chai';
 
+const Assert = Jymfony.Component.Testing.Framework.Assert;
 const Prophet = Jymfony.Component.Testing.Prophet;
 const SkipException = Jymfony.Component.Testing.Framework.Exception.SkipException;
 
@@ -18,7 +19,7 @@ const getProphet = obj => {
 /**
  * @memberOf Jymfony.Component.Testing.Framework
  */
-export default class TestCase {
+export default class TestCase extends Assert {
     __construct() {
         /**
          * @type {Object.<string, *>}
@@ -64,6 +65,8 @@ export default class TestCase {
         (function (self) {
             const execution = function (reflectionMethod, args) {
                 return async function () {
+                    Assert.resetCount();
+
                     try {
                         return await reflectionMethod.invoke(self, ...args);
                     } catch (e) {
@@ -290,20 +293,6 @@ export default class TestCase {
         }
 
         this._expectedExceptionMessageRegex = message;
-    }
-
-    /**
-     * Marks current test as skipped and stops execution.
-     */
-    markTestSkipped() {
-        __self.markTestSkipped();
-    }
-
-    /**
-     * Marks current test as skipped and stops execution.
-     */
-    static markTestSkipped() {
-        throw new SkipException();
     }
 
     /**
