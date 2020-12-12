@@ -19,6 +19,10 @@ export class AdapterTestCase extends TestCase {
         this._cache = undefined;
     }
 
+    get testCaseName() {
+        return '[Cache] ' + super.testCaseName;
+    }
+
     beforeEach() {
         this._cache = this._createCachePool();
 

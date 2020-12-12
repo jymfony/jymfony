@@ -3,6 +3,8 @@ const path = require('path');
 const fs = require('fs');
 const vm = require('vm');
 
+const cwdOSRoot = path.parse(process.cwd()).root.toUpperCase();
+
 /*
  * We are testing autoloader component here
  * cannot use the autoloader itself to load classes! :)
@@ -13,7 +15,7 @@ const ClassNotFoundException = require('../src/Exception/ClassNotFoundException'
 
 describe('[Autoloader] Namespace', function () {
     afterEach(() => {
-        ClassLoader.clearCache(__jymfony.Platform.isWindows() ? 'C:\\var\\node\\foo_vendor\\' : '/var/node/foo_vendor');
+        ClassLoader.clearCache(__jymfony.Platform.isWindows() ? cwdOSRoot + 'var\\node\\foo_vendor\\' : '/var/node/foo_vendor');
     });
 
     it('constructs as a Proxy', () => {
@@ -84,7 +86,7 @@ describe('[Autoloader] Namespace', function () {
                 };
             },
             load: (fn) => {
-                expect(fn).to.be.equal(__jymfony.Platform.isWindows() ? 'C:\\var\\node\\foo_vendor\\FooClass.js' : '/var/node/foo_vendor/FooClass.js');
+                expect(fn).to.be.equal(__jymfony.Platform.isWindows() ? cwdOSRoot + 'var\\node\\foo_vendor\\FooClass.js' : '/var/node/foo_vendor/FooClass.js');
                 return '';
             },
         };
@@ -133,7 +135,7 @@ describe('[Autoloader] Namespace', function () {
                 }
             },
             load: (fn) => {
-                expect(fn).to.be.equal(__jymfony.Platform.isWindows() ? 'C:\\var\\node\\foo_vendor\\FooClass.js' : '/var/node/foo_vendor/FooClass.js');
+                expect(fn).to.be.equal(__jymfony.Platform.isWindows() ? cwdOSRoot + 'var\\node\\foo_vendor\\FooClass.js' : '/var/node/foo_vendor/FooClass.js');
                 return 'module.exports = function () { };';
             },
         };
@@ -176,7 +178,7 @@ describe('[Autoloader] Namespace', function () {
 
             },
             load: fn => {
-                expect(fn).to.be.equal(__jymfony.Platform.isWindows() ? 'C:\\var\\node\\foo_vendor\\FooClass.js' : '/var/node/foo_vendor/FooClass.js');
+                expect(fn).to.be.equal(__jymfony.Platform.isWindows() ? cwdOSRoot + 'var\\node\\foo_vendor\\FooClass.js' : '/var/node/foo_vendor/FooClass.js');
                 return 'module.exports = class FooClass {}';
             },
         };
@@ -221,7 +223,7 @@ describe('[Autoloader] Namespace', function () {
 
             },
             load: fn => {
-                expect(fn).to.be.equal(__jymfony.Platform.isWindows() ? 'C:\\var\\node\\foo_vendor\\FooClass.js' : '/var/node/foo_vendor/FooClass.js');
+                expect(fn).to.be.equal(__jymfony.Platform.isWindows() ? cwdOSRoot + 'var\\node\\foo_vendor\\FooClass.js' : '/var/node/foo_vendor/FooClass.js');
                 return `module.exports = class FooClass {
                     __construct(arg) {
                         this.constructCalled = arg;
@@ -271,13 +273,13 @@ describe('[Autoloader] Namespace', function () {
                 throw new Error('Unexpected argument');
             },
             load: fn => {
-                if ((__jymfony.Platform.isWindows() ? 'C:\\var\\node\\foo_vendor\\FooClass.js' : '/var/node/foo_vendor/FooClass.js') === fn) {
+                if ((__jymfony.Platform.isWindows() ? cwdOSRoot + 'var\\node\\foo_vendor\\FooClass.js' : '/var/node/foo_vendor/FooClass.js') === fn) {
                     return `module.exports = class FooClass extends __ns.BarClass {
                         __construct(arg) {
                             this.constructCalled = arg;
                         }
                     }`;
-                } else if ((__jymfony.Platform.isWindows() ? 'C:\\var\\node\\foo_vendor\\BarClass.js' : '/var/node/foo_vendor/BarClass.js') === fn) {
+                } else if ((__jymfony.Platform.isWindows() ? cwdOSRoot + 'var\\node\\foo_vendor\\BarClass.js' : '/var/node/foo_vendor/BarClass.js') === fn) {
                     return `module.exports = class BarClass {
                         __construct(arg) {
                             this.superCalled = arg;

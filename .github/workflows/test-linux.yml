@@ -1,0 +1,65 @@
+name: Tests - Linux
+on: [push, pull_request]
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                node_version:
+                    - 10
+                    - 11
+                    - 12
+                    - 13
+                    - 14
+                    - 15
+
+        name: Node ${{ matrix.node_version }} - ${{ matrix.architecture }} on Linux
+
+        services:
+            redis:
+                image: redis
+                options: >- # Set health checks to wait until redis has started
+                    --health-cmd "redis-cli ping"
+                    --health-interval 10s
+                    --health-timeout 5s
+                    --health-retries 5
+                ports:
+                    - 6379:6379
+
+            redis-cluster:
+                image: grokzen/redis-cluster:4.0.8
+                ports:
+                    - 7000:7000
+                    - 7001:7001
+                    - 7002:7002
+                    - 7003:7003
+                    - 7004:7004
+                    - 7005:7005
+                env:
+                    IP: '0.0.0.0'
+
+        steps:
+            - uses: actions/checkout@v2
+            - name: Setup node
+              uses: actions/setup-node@v1
+              with:
+                  node-version: ${{ matrix.node_version }}
+                  architecture: ${{ matrix.architecture }}
+            - run: npm install
+            - run: npm test
+              if: ${{ matrix.node_version != 14 }}
+              env:
+                  REDIS_HOST: localhost:6379
+                  REDIS_CLUSTER_HOSTS: 'localhost:7000 localhost:7001 localhost:7002 localhost:7003 localhost:7004 localhost:7005'
+            - run: npm run-script coverage
+              if: ${{ matrix.node_version == 14 }}
+              env:
+                  REDIS_HOST: localhost:6379
+                  REDIS_CLUSTER_HOSTS: 'localhost:7000 localhost:7001 localhost:7002 localhost:7003 localhost:7004 localhost:7005'
+            - run: npm install https://github.com/alekitto/ocular.js.git
+              if: ${{ matrix.node_version == 14 }}
+              continue-on-error: true
+            - run: $(npm bin)/ocular coverage/clover.xml
+              if: ${{ matrix.node_version == 14 }}
+              continue-on-error: true
