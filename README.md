@@ -2,7 +2,10 @@
     <img src="https://s3.amazonaws.com/jymfony.com/jymfony-logo.svg" height="150">
 </p>
 
-[![Build Status](https://travis-ci.com/jymfony/jymfony.svg?branch=master)](https://travis-ci.com/jymfony/jymfony) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/jymfony/jymfony/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/jymfony/jymfony/?branch=master) [![Code Coverage](https://scrutinizer-ci.com/g/jymfony/jymfony/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/jymfony/jymfony/?branch=master)
+![Tests - Linux](https://github.com/jymfony/jymfony/workflows/Tests%20-%20Linux/badge.svg)
+![Tests - Windows/macOS](https://github.com/jymfony/jymfony/workflows/Tests%20-%20Windows/macOS/badge.svg)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/jymfony/jymfony/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/jymfony/jymfony/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/jymfony/jymfony/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/jymfony/jymfony/?branch=master)
 
 Jymfony is a **Node.js framework** for applications and a set of reusable **Javascript components**.
 Jymfony was born from an idea of [Alessandro Chitolina](https://github.com/alekitto) as a port of the popular PHP framework, Symfony.
