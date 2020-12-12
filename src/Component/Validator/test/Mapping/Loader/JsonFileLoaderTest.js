@@ -8,6 +8,10 @@ const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 const { expect } = require('chai');
 
 export default class JsonFileLoaderTest extends TestCase {
+    get testCaseName() {
+        return '[Validator] ' + super.testCaseName;
+    }
+
     testLoadClassMetadataReturnsFalseIfEmpty() {
         if (! __jymfony.Platform.hasPrivateFieldSupport()) {
             this.markTestSkipped();
