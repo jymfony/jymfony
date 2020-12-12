@@ -15,6 +15,12 @@ declare namespace __jymfony {
     }
 
     /**
+     * Applies a timeout to the promise.
+     */
+    export function promiseTimeout<T extends AsyncFunction<K>, K>(timeoutMs: number, promise: T, timeoutError?: Error, weak?: boolean): Promise<K>;
+    export function promiseTimeout<T extends Promise<K>, K>(timeoutMs: number, promise: T, timeoutError?: Error, weak?: boolean): T;
+
+    /**
      * Executes a callback iterating asynchronously onto the given iterator.
      */
     export function forAwait(iterator: Iterable<any> | AsyncIterable<any>, callback: Invokable | Function | GeneratorFunction): Promise<any>;
@@ -299,7 +305,7 @@ declare type Mixin<T> = T extends Newable<infer I, infer M> ? MixinInterface<T> 
 declare function getInterface<T>(definition: T): Mixin<T>
 declare function getTrait<T>(definition: T): Mixin<T>;
 
-declare type AsyncFunction = (...args: any[]) => Promise<any>;
+declare type AsyncFunction<T = any> = (...args: any[]) => Promise<T>;
 
 interface AsyncGenerator<T = unknown, TReturn = any, TNext = unknown> extends AsyncIterator<T, TReturn, TNext> {
     // NOTE: 'next' is defined using a tuple to ensure we report the correct assignability errors in all places.

@@ -63,3 +63,4 @@ require('./lib/Async/ClsTrait');
 require('./lib/Async/ForAwait');
 require('./lib/Async/Mutex');
 require('./lib/Async/sleep');
+require('./lib/Async/promiseTimeout');
