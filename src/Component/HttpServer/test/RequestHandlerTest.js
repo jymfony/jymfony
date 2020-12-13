@@ -1,34 +1,50 @@
-const ControllerResolverInterface = Jymfony.Component.HttpFoundation.Controller.ControllerResolverInterface;
-const Request = Jymfony.Component.HttpFoundation.Request;
-const Response = Jymfony.Component.HttpFoundation.Response;
-const HttpServerEvents = Jymfony.Component.HttpServer.Event.HttpServerEvents;
-const RequestTimeoutException = Jymfony.Component.HttpServer.Exception.RequestTimeoutException;
+import { expect } from 'chai';
+
 const AccessDeniedHttpException = Jymfony.Component.HttpFoundation.Exception.AccessDeniedHttpException;
-const RequestHandler = Jymfony.Component.HttpServer.RequestHandler;
-const EventDispatcherInterface = Jymfony.Contracts.EventDispatcher.EventDispatcherInterface;
 const Argument = Jymfony.Component.Testing.Argument.Argument;
-const Prophet = Jymfony.Component.Testing.Prophet;
+const ControllerResolverInterface = Jymfony.Component.HttpFoundation.Controller.ControllerResolverInterface;
 const Event = Jymfony.Contracts.HttpServer.Event;
-const { expect } = require('chai');
+const EventDispatcherInterface = Jymfony.Contracts.EventDispatcher.EventDispatcherInterface;
+const HttpServerEvents = Jymfony.Component.HttpServer.Event.HttpServerEvents;
+const Request = Jymfony.Component.HttpFoundation.Request;
+const RequestHandler = Jymfony.Component.HttpServer.RequestHandler;
+const RequestTimeoutException = Jymfony.Component.HttpServer.Exception.RequestTimeoutException;
+const Response = Jymfony.Component.HttpFoundation.Response;
+const TestCase = Jymfony.Component.Testing.Framework.TestCase;
+const TimeSensitiveTestCaseTrait = Jymfony.Component.Testing.Framework.TimeSensitiveTestCaseTrait;
 
-describe('[HttpServer] RequestHandler', function () {
-    this.timeout(60000);
+export default class RequestHandlerTest extends mix(TestCase, TimeSensitiveTestCaseTrait) {
+    get testCaseName() {
+        return '[HttpServer] RequestHandler';
+    }
 
-    beforeEach(() => {
-        /**
-         * @type {Jymfony.Component.Testing.Prophet}
-         *
-         * @private
-         */
-        this._prophet = new Prophet();
+    __construct() {
+        super.__construct();
 
         /**
          * @type {Jymfony.Component.Testing.Prophecy.ObjectProphecy<Jymfony.Contracts.EventDispatcher.EventDispatcherInterface>}
          *
          * @private
          */
-        this._dispatcher = this._prophet.prophesize(EventDispatcherInterface);
+        this._dispatcher = undefined;
 
+        /**
+         * @type {Jymfony.Component.Testing.Prophecy.ObjectProphecy<Jymfony.Component.HttpFoundation.Controller.ControllerResolverInterface>}
+         *
+         * @private
+         */
+        this._resolver = undefined;
+
+        /**
+         * @type {Jymfony.Component.HttpServer.RequestHandler}
+         *
+         * @private
+         */
+        this._handler = undefined;
+    }
+
+    beforeEach() {
+        this._dispatcher = this.prophesize(EventDispatcherInterface);
         this._dispatcher.dispatch(HttpServerEvents.REQUEST, Argument.any()).willReturn();
         this._dispatcher.dispatch(HttpServerEvents.RESPONSE, Argument.any()).willReturn();
         this._dispatcher.dispatch(HttpServerEvents.FINISH_REQUEST, Argument.any()).willReturn();
@@ -36,25 +52,12 @@ describe('[HttpServer] RequestHandler', function () {
         this._dispatcher.dispatch(HttpServerEvents.CONTROLLER_ARGUMENTS, Argument.any()).willReturn();
         this._dispatcher.dispatch(HttpServerEvents.VIEW, Argument.any()).willReturn();
 
-        /**
-         * @type {Jymfony.Component.Testing.Prophecy.ObjectProphecy<Jymfony.Component.HttpFoundation.Controller.ControllerResolverInterface>}
-         *
-         * @private
-         */
-        this._resolver = this._prophet.prophesize(ControllerResolverInterface);
+        this._resolver = this.prophesize(ControllerResolverInterface);
 
         this._handler = new RequestHandler(this._dispatcher.reveal(), this._resolver.reveal());
-    });
+    }
 
-    afterEach(() => {
-        if ('failed' === this.ctx.currentTest.state) {
-            return;
-        }
-
-        this._prophet.checkPredictions();
-    });
-
-    it('should dispatch request event', async () => {
+    async testShouldDispatchRequestEvent() {
         const req = new Request('/');
 
         this._dispatcher.dispatch(HttpServerEvents.REQUEST, Argument.type(Event.RequestEvent))
@@ -65,21 +68,17 @@ describe('[HttpServer] RequestHandler', function () {
             });
 
         await this._handler.handle(req, false);
-    });
+    }
 
-    it('should throw if controller resolver returns no result', async () => {
+    async testShouldThrowIfControllerResolverReturnsNoResult() {
         const req = new Request('/');
         this._resolver.getController(req).willReturn(false);
 
-        try {
-            await this._handler.handle(req, false);
-            throw new Error('FAIL');
-        } catch (e) {
-            expect(e.message).to.match(/Unable to find the controller for path ".+"\. The route is wrongly configured\./);
-        }
-    });
+        this.expectExceptionMessageRegex(/Unable to find the controller for path ".+"\. The route is wrongly configured\./);
+        await this._handler.handle(req, false);
+    }
 
-    it('should dispatch controller event and can be changed', async () => {
+    async testShouldDispatchControllerEventAndCanBeChanged() {
         const req = new Request('/');
         const controller = () => {
             throw new Error('This should not be called');
@@ -98,9 +97,9 @@ describe('[HttpServer] RequestHandler', function () {
         this._resolver.getController(req).willReturn(controller);
 
         expect(await this._handler.handle(req, false)).to.be.instanceOf(Response);
-    });
+    }
 
-    it('should dispatch view event if controller does not return a response', async () => {
+    async testShouldDispatchViewEventIfControllerDoesNotReturnAResponse() {
         const req = new Request('/');
         const controller = () => {
             return 'foobar';
@@ -118,24 +117,20 @@ describe('[HttpServer] RequestHandler', function () {
         this._resolver.getController(req).willReturn(controller);
 
         expect(await this._handler.handle(req, false)).to.be.instanceOf(Response);
-    });
+    }
 
-    it('should throw if controller does not return a response', async () => {
+    async testShouldThrowIfControllerDoesNotReturnAResponse() {
         const req = new Request('/');
         const controller = () => {};
 
         this._resolver.getController(req).willReturn(controller);
 
-        try {
-            await this._handler.handle(req, false);
-            throw new Error('FAIL');
-        } catch (e) {
-            expect(e).to.be.instanceOf(LogicException);
-            expect(e.message).to.match(/The controller must return a response\. Did you forget to add a return statement somewhere in your controller\?/);
-        }
-    });
+        this.expectException(LogicException);
+        this.expectExceptionMessageRegex(/The controller must return a response\. Did you forget to add a return statement somewhere in your controller\?/);
+        await this._handler.handle(req, false);
+    }
 
-    it('should throw if timeout reached', async () => {
+    async testShouldThrowIfTimeoutReached() {
         this._handler.requestTimeoutMs = 1000;
 
         const req = new Request('/');
@@ -145,15 +140,11 @@ describe('[HttpServer] RequestHandler', function () {
 
         this._resolver.getController(req).willReturn(controller);
 
-        try {
-            await this._handler.handle(req, false);
-            throw new Error('FAIL');
-        } catch (e) {
-            expect(e).to.be.instanceOf(RequestTimeoutException);
-        }
-    });
+        this.expectException(RequestTimeoutException);
+        await this._handler.handle(req, false);
+    }
 
-    it('should handle exceptions and dispatch exception event', async () => {
+    async testShouldHandleExceptionsAndDispatchExceptionEvent() {
         const req = new Request('/');
         const controller = () => {};
 
@@ -167,9 +158,9 @@ describe('[HttpServer] RequestHandler', function () {
         const response = await this._handler.handle(req);
 
         expect(response.statusCode).to.be.equal(500);
-    });
+    }
 
-    it('should throw exception if no listener sets a response.', async () => {
+    async testShouldThrowExceptionIfNoListenerSetsAResponse() {
         const req = new Request('/');
         const error = new Error('TEST');
         const controller = () => {
@@ -181,13 +172,13 @@ describe('[HttpServer] RequestHandler', function () {
 
         try {
             await this._handler.handle(req);
-            throw new Error('FAIL');
+            this.fail();
         } catch (e) {
             expect(e).to.be.equal(error);
         }
-    });
+    }
 
-    it('should set correct response code on http exceptions', async () => {
+    async testShouldSetCorrectResponseCodeOnHttpExceptions() {
         const req = new Request('/');
         const controller = () => {
             throw new AccessDeniedHttpException('Fobidden.');
@@ -203,5 +194,5 @@ describe('[HttpServer] RequestHandler', function () {
         const response = await this._handler.handle(req);
 
         expect(response.statusCode).to.be.equal(403);
-    });
-});
+    }
+}
