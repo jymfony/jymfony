@@ -1,12 +1,17 @@
+import { expect } from 'chai';
+import { performance } from 'perf_hooks';
+
 const StopwatchEvent = Jymfony.Component.Stopwatch.StopwatchEvent;
 const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 const TimeSensitiveTestCaseTrait = Jymfony.Component.Testing.Framework.TimeSensitiveTestCaseTrait;
-import { expect } from 'chai';
-import { performance } from 'perf_hooks';
 
 const microtime = () => ((performance.now() + performance.timeOrigin) / 1000);
 
 export default class StopwatchEventTest extends mix(TestCase, TimeSensitiveTestCaseTrait) {
+    get testCaseName() {
+        return '[Stopwatch] ' + super.testCaseName;
+    }
+
     testOrigin() {
         const event = new StopwatchEvent(12);
         expect(event.origin).to.be.equal(12);
