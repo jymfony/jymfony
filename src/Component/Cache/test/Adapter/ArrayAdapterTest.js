@@ -2,8 +2,9 @@ import { AdapterTestCase } from './AdapterTestCase';
 import { expect } from 'chai';
 
 const ArrayAdapter = Jymfony.Component.Cache.Adapter.ArrayAdapter;
+const TimeSensitiveTestCaseTrait = Jymfony.Component.Testing.Framework.TimeSensitiveTestCaseTrait;
 
-export default class ArrayAdapterTest extends AdapterTestCase {
+export default class ArrayAdapterTest extends mix(AdapterTestCase, TimeSensitiveTestCaseTrait) {
     async testValuesShouldReturnAllTheValues() {
         let item = await this._cache.getItem('key');
         item.set('4711');

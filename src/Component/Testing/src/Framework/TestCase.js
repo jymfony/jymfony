@@ -133,6 +133,15 @@ export default class TestCase extends Assert {
     }
 
     /**
+     * Override this to set a default timeout for all the tests of this test case.
+     *
+     * @return {int|undefined}
+     */
+    get defaultTimeout() {
+        return undefined;
+    }
+
+    /**
      * Run test case.
      * Not to be called directly, will be called by the test runner.
      *
@@ -162,6 +171,11 @@ export default class TestCase extends Assert {
                 self._expectedExceptionMessage = undefined;
                 self._expectedExceptionMessageRegex = undefined;
                 prophets.delete(self);
+
+                const defaultTimeout = self.defaultTimeout;
+                if (defaultTimeout) {
+                    this.timeout(defaultTimeout);
+                }
 
                 for (const hook of self._beforeEachHooks) {
                     await hook.invoke(self);
