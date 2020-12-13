@@ -110,7 +110,12 @@ export default class TestCase extends Assert {
 
     async runBare() {
         this._numAssertions = 0;
+        await this.runTest();
 
+        return this._testResult;
+    }
+
+    async runTest() {
         const verifyMockObjects = () => {
             const prophet = prophets.get(this);
             if (prophet) {
@@ -123,13 +128,9 @@ export default class TestCase extends Assert {
         };
 
         this.assertPreConditions();
-        this._testResult = await this.runTest();
+        this._testResult = await this._context.method.invoke(this, ...this._context.args);
         verifyMockObjects();
         this.assertPostConditions();
-    }
-
-    runTest() {
-        return this._context.method.invoke(this, ...this._context.args);
     }
 
     /**
