@@ -3,6 +3,8 @@ import { expect } from 'chai';
 const Ulid = Jymfony.Component.Uid.Ulid;
 const UuidV4 = Jymfony.Component.Uid.UuidV4;
 const TestCase = Jymfony.Component.Testing.Framework.TestCase;
+const TimeSensitiveTestCaseTrait = Jymfony.Component.Testing.Framework.TimeSensitiveTestCaseTrait;
+
 const replacePairs = {
     'A': 'a',
     'B': 'b',
@@ -28,7 +30,11 @@ const replacePairs = {
     'Z': 'v',
 };
 
-export default class UlidTest extends TestCase {
+export default class UlidTest extends mix(TestCase, TimeSensitiveTestCaseTrait) {
+    get testCaseName() {
+        return '[Uid] ' + super.testCaseName;
+    }
+
     testGenerate() {
         const time = String(new Date().getTime());
 

@@ -15,6 +15,10 @@ const A_UUID_V1 = 'd9e7a184-5d5b-11ea-a62a-3499710062d0';
 const A_UUID_V4 = 'd6b3345b-2905-4048-a83c-b5988e765d98';
 
 export default class UuidTest extends TestCase {
+    get testCaseName() {
+        return '[Uid] ' + super.testCaseName;
+    }
+
     testConstructorWithInvalidUuid() {
         this.expectException(InvalidArgumentException);
         this.expectExceptionMessage('Invalid UUID: "this is not a uuid".');
