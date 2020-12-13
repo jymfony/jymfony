@@ -268,7 +268,7 @@ export default class File {
      * @private
      */
     _stat(stat_link = true) {
-        return this._streamWrapper.stat(this.filename, { stat_link });
+        return this._streamWrapper.stat(this.filename, { stat_link });
     }
 }
 

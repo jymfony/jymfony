@@ -147,7 +147,7 @@ export default class StopwatchEvent extends implementationOf(StopwatchEventInter
             total += period.duration;
         }
 
-        return total;
+        return +total.toPrecision(7);
     }
 
     /**
