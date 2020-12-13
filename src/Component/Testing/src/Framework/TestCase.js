@@ -100,6 +100,10 @@ export default class TestCase extends Assert {
         }
 
         await result.run(this);
+        if (null !== result.failure) {
+            this._checkExpectedException(result.failure);
+            this._numAssertions += Assert.getCount();
+        }
 
         return result;
     }
@@ -124,15 +128,8 @@ export default class TestCase extends Assert {
         this.assertPostConditions();
     }
 
-    async runTest() {
-        const result = await this._context.method.invoke(this, ...this._context.args);
-        if (undefined !== this._testResult.failure) {
-            this._checkExpectedException(this._testResult.failure);
-        }
-
-        this._numAssertions += Assert.getCount();
-
-        return result;
+    runTest() {
+        return this._context.method.invoke(this, ...this._context.args);
     }
 
     /**

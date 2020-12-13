@@ -58,6 +58,18 @@ class ReflectionMethod {
          * @private
          */
         this._class = new ReflectionClass(method.ownClass);
+        this._metadataClass = this._class;
+
+        for (const trait of reflectionClass.traits) {
+            if (! trait.hasMethod(this._name)) {
+                continue;
+            }
+
+            if (trait.getMethod(this._name)._method === this._method) {
+                this._metadataClass = trait;
+                break;
+            }
+        }
 
         /**
          * @type {string}
@@ -170,7 +182,7 @@ class ReflectionMethod {
      * @returns {[Function, *][]}
      */
     get metadata() {
-        return MetadataStorage.getMetadata(this._class.getConstructor(), this._name);
+        return MetadataStorage.getMetadata(this._metadataClass.getConstructor(), this._name);
     }
 
     /**

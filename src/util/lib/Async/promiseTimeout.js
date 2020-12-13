@@ -39,7 +39,7 @@ __jymfony.promiseTimeout = (timeoutMs, promise, timeoutError = new Error('Timed 
         rejection(timeoutError);
     }, timeoutMs);
 
-    if (weak && 'unref' in this._timeout) {
+    if (weak && this._timeout && 'unref' in this._timeout) {
         this._timeout.unref();
     }
 

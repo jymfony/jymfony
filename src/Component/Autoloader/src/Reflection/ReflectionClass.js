@@ -510,7 +510,7 @@ class ReflectionClass {
 
         this._filename = metadata.filename;
         this._module = metadata.module;
-        this._constructor = this._isInterface ? value : metadata.constructor;
+        this._constructor = this._isInterface || this._isTrait ? value : metadata.constructor;
 
         if (metadata.fields) {
             this._fields = metadata.fields;
@@ -653,6 +653,10 @@ class ReflectionClass {
 
         for (const p of chain) {
             loadFromPrototype(p);
+        }
+
+        if (this._isInterface || this._isTrait) {
+            return;
         }
 
         for (const IF of global.mixins.getInterfaces(this._constructor)) {
