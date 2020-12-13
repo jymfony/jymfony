@@ -1,18 +1,18 @@
 import { @dataProvider } from '@jymfony/decorators';
+import { expect } from 'chai';
 
-const CacheItem = Jymfony.Component.Cache.CacheItem;
 const DateTime = Jymfony.Component.DateTime.DateTime;
 const InvalidArgumentException = Jymfony.Contracts.Cache.Exception.InvalidArgumentException;
 const NotUnserializable = Jymfony.Component.Cache.Fixtures.NotUnserializable;
 const PruneableInterface = Jymfony.Component.Cache.PruneableInterface;
 const TimeSpan = Jymfony.Component.DateTime.TimeSpan;
 const TestCase = Jymfony.Component.Testing.Framework.TestCase;
-const { expect } = require('chai');
+const TimeSensitiveTestCaseTrait = Jymfony.Component.Testing.Framework.TimeSensitiveTestCaseTrait;
 
 /**
  * @memberOf Jymfony.Component.Cache.Tests.Adapter
  */
-export class AdapterTestCase extends TestCase {
+export class AdapterTestCase extends mix(TestCase, TimeSensitiveTestCaseTrait) {
     __construct() {
         super.__construct();
 
@@ -297,7 +297,6 @@ export class AdapterTestCase extends TestCase {
     }
 
     async testDefaultLifetime() {
-        this.setTimeout(60000);
         const cache = this._createCachePool(2);
 
         let item = await cache.getItem('key.dlt');
