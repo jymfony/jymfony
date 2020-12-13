@@ -97,6 +97,8 @@ class TimeSensitiveTestCaseTrait {
             if (ms <= 0) {
                 setImmediate(timer._handler);
             }
+
+            return timer;
         };
 
         clearTimeout = (handle) => {
