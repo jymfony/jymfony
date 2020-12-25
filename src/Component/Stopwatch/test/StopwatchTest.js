@@ -4,7 +4,7 @@ const Stopwatch = Jymfony.Component.Stopwatch.Stopwatch;
 const StopwatchEvent = Jymfony.Component.Stopwatch.StopwatchEvent;
 const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 
-export default class StopwatchPeriodTest extends TestCase {
+export default class StopwatchTest extends TestCase {
     get testCaseName() {
         return '[Stopwatch] ' + super.testCaseName;
     }
