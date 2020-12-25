@@ -6,7 +6,7 @@
     Object.defineProperty(Array.prototype, 'flat', {
         configurable: true,
         value: function flat(...args) {
-            const depth = isNaN(args[0]) ? 1 : Number(args[0]);
+            const depth = isNumeric(args[0]) ? Number(args[0]) : 1;
 
             return depth ? Array.prototype.reduce.call(this, (acc, cur) => {
                 if (isArray(cur)) {
