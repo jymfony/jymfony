@@ -22,6 +22,11 @@ for (const name of [ 'Arguments', 'Boolean', 'String', 'Number', 'Date', 'RegExp
 
 const primitives = [ Number, String, Boolean ];
 
+global.isNaN = Number.isNaN;
+global.isInfinite = function isInfinite(value) {
+    return value === Infinity || value === -Infinity;
+};
+
 global.isNumeric = function isNumeric(value) {
     if (isNumber(value)) {
         return true;
