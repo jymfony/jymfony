@@ -186,7 +186,7 @@ export default class RequestHandler extends implementationOf(LoggerAwareInterfac
             return [ {}, undefined ];
         }
 
-        const contentLength = ~~headers['content-length'];
+        const contentLength = undefined !== headers['content-length'] ? ~~headers['content-length'] : undefined;
         let parser;
         if ('application/x-www-form-urlencoded' === contentType.essence) {
             parser = new RequestParser.UrlEncodedParser(stream, contentLength);
