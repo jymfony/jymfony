@@ -25,6 +25,10 @@ class StreamBuffer extends Duplex {
         this._buffer = buffer;
     }
 
+    copy() {
+        return new __jymfony.StreamBuffer(Buffer.from(this._buffer));
+    }
+
     /**
      * Gets the buffer.
      *

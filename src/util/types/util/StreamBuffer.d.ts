@@ -8,6 +8,8 @@ declare namespace __jymfony {
 
         constructor(buffer?: Buffer);
 
+        copy(): StreamBuffer;
+
         read(size?: number): string | Buffer;
         setEncoding(encoding: BufferEncoding): this;
         pause(): this;
