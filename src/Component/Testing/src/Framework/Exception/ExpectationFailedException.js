@@ -24,6 +24,9 @@ export default class ExpectationFailedException extends AssertionFailedException
          */
         this._comparisonFailure = comparisonFailure;
 
+        this._actual = comparisonFailure ? comparisonFailure.actual : undefined;
+        this._expected = comparisonFailure ? comparisonFailure.expected : undefined;
+
         super.__construct(message, 0, previous);
     }
 
@@ -32,7 +35,15 @@ export default class ExpectationFailedException extends AssertionFailedException
      * It is currently requested by mocha.
      */
     get actual() {
-        return this._comparisonFailure ? this._comparisonFailure.actual : undefined;
+        return this._actual;
+    }
+
+    /**
+     * Sets the comparison failed actual value.
+     * It is currently requested by mocha.
+     */
+    set actual(actual) {
+        this._actual = actual;
     }
 
     /**
@@ -40,7 +51,15 @@ export default class ExpectationFailedException extends AssertionFailedException
      * It is currently requested by mocha.
      */
     get expected() {
-        return this._comparisonFailure ? this._comparisonFailure.expected : undefined;
+        return this._expected;
+    }
+
+    /**
+     * Sets the comparison failed expected value.
+     * It is currently requested by mocha.
+     */
+    set expected(expected) {
+        this._expected = expected;
     }
 
     get comparisonFailure() {
