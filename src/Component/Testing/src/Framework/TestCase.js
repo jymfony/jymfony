@@ -186,10 +186,17 @@ export default class TestCase extends Assert {
             };
 
             this.beforeAll(function () {
+                this.timeout(30000);
+
                 return execution.call(this, reflectionClass.getMethod('before'));
             });
 
-            this.afterAll(self.after.bind(null));
+            this.afterAll(function () {
+                this.timeout(30000);
+
+                return self.after.call(self);
+            });
+
             this.beforeEach(before);
             this.afterEach(async function () {
                 for (const hook of self._afterEachHooks) {

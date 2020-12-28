@@ -18,7 +18,7 @@ export default class TypeComparator extends Comparator {
      * @inheritdoc
      */
     assertEquals(expected, actual, delta = 0.0, ignoreCase = false) { // eslint-disable-line no-unused-vars
-        if (typeof expected !== typeof actual) {
+        if (__jymfony.get_debug_type(expected) !== __jymfony.get_debug_type(typeof actual)) {
             throw new ComparisonFailure(
                 expected,
                 actual,
