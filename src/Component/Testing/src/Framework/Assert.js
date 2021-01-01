@@ -4,10 +4,14 @@ const AssertionFailedException = Jymfony.Component.Testing.Framework.Exception.A
 const GreaterThan = Jymfony.Component.Testing.Constraints.GreaterThan;
 const IsEmpty = Jymfony.Component.Testing.Constraints.IsEmpty;
 const IsEqual = Jymfony.Component.Testing.Constraints.IsEqual;
+const IsFalse = Jymfony.Component.Testing.Constraints.IsFalse;
 const IsIdentical = Jymfony.Component.Testing.Constraints.IsIdentical;
 const IsNull = Jymfony.Component.Testing.Constraints.IsNull;
+const IsTrue = Jymfony.Component.Testing.Constraints.IsTrue;
 const IsUndefined = Jymfony.Component.Testing.Constraints.IsUndefined;
 const LogicalNot = Jymfony.Component.Testing.Constraints.LogicalNot;
+const RegularExpression = Jymfony.Component.Testing.Constraints.RegularExpression;
+const StringContains = Jymfony.Component.Testing.Constraints.StringContains;
 const SkippedTestException = Jymfony.Component.Testing.Framework.Exception.SkippedTestException;
 const SyntheticSkippedException = Jymfony.Component.Testing.Framework.Exception.SyntheticSkippedException;
 
@@ -74,12 +78,66 @@ export default class Assert {
     }
 
     /**
+     * Asserts that a condition is true.
+     *
+     * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+     */
+    static assertTrue(condition, message = '') {
+        this.assertThat(condition, this.isTrue(), message);
+    }
+
+    /**
+     * Asserts that a condition is not true.
+     *
+     * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+     */
+    static assertNotTrue(condition, message = '') {
+        this.assertThat(condition, this.logicalNot(this.isTrue()), message);
+    }
+
+    /**
+     * Asserts that a condition is false.
+     *
+     * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+     */
+    static assertFalse(condition, message = '') {
+        this.assertThat(condition, this.isFalse(), message);
+    }
+
+    /**
+     * Asserts that a condition is not false.
+     *
+     * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+     */
+    static assertNotFalse(condition, message = '') {
+        this.assertThat(condition, this.logicalNot(this.isFalse()), message);
+    }
+
+    /**
      * Asserts that a variable is null.
      *
      * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
      */
     static assertNull(actual, message = '') {
         this.assertThat(actual, this.isNull(), message);
+    }
+
+    /**
+     * Asserts that a variable is not null.
+     *
+     * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+     */
+    static assertNotNull(actual, message = '') {
+        this.assertThat(actual, this.logicalNot(this.isNull()), message);
+    }
+
+    /**
+     * Asserts that a string matches a given regex.
+     *
+     * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+     */
+    static assertMatchesRegularExpression(regex, string, message = '') {
+        this.assertThat(string, new RegularExpression(regex), message);
     }
 
     /**
@@ -98,6 +156,15 @@ export default class Assert {
      */
     static assertGreaterThan(expected, actual, message = '') {
         this.assertThat(actual, this.greaterThan(expected), message);
+    }
+
+    /**
+     * Asserts that a string (needle) is contained in another string (haystack).
+     *
+     * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+     */
+    static assertStringContainsString(needle, haystack, message = '') {
+        this.assertThat(haystack, new StringContains(needle, false), message);
     }
 
     /**
@@ -124,6 +191,14 @@ export default class Assert {
 
     static isEmpty() {
         return new IsEmpty();
+    }
+
+    static isTrue() {
+        return new IsTrue();
+    }
+
+    static isFalse() {
+        return new IsFalse();
     }
 
     static isNull() {

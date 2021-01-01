@@ -1,4 +1,6 @@
 const Constraint = Jymfony.Component.Testing.Constraints.Constraint;
+const LogicalAnd = Jymfony.Component.Testing.Constraints.LogicalAnd;
+const LogicalOr = Jymfony.Component.Testing.Constraints.LogicalOr;
 const IsEqual = Jymfony.Component.Testing.Constraints.IsEqual;
 
 /**
