@@ -114,18 +114,16 @@ export default class UlidTest extends mix(TestCase, TimeSensitiveTestCaseTrait) 
         expect(a.equals(b.toString())).to.be.equal(false);
     }
 
-    testCompare() {
-        const nTime = new Date().getTime();
-        const time = String(nTime);
-
-        const a = new Ulid(Ulid.generate(time));
-        const b = new Ulid(Ulid.generate(time));
+    async testCompare() {
+        const a = new Ulid();
+        const b = new Ulid();
 
         expect(a.compare(a)).to.be.equal(0);
         expect(a.compare(b)).to.be.lessThan(0);
         expect(b.compare(a)).to.be.greaterThan(0);
 
-        const c = new Ulid(Ulid.generate(String(nTime + 1001)));
+        await __jymfony.sleep(1001);
+        const c = new Ulid();
 
         expect(b.compare(c)).to.be.lessThan(0);
         expect(c.compare(b)).to.be.greaterThan(0);
