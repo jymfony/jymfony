@@ -131,12 +131,14 @@ export default class HeaderBag {
             if (true === replace || undefined === this._headers[key]) {
                 this._headers[key] = values;
             } else {
+                this._headers[key] = this._headers[key] || [];
                 this._headers[key] = this._headers[key].concat(values);
             }
         } else {
             if (true === replace || undefined === this._headers[key]) {
                 this._headers[key] = [ values ];
             } else {
+                this._headers[key] = this._headers[key] || [];
                 this._headers[key].push(values);
             }
         }

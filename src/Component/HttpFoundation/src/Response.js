@@ -831,6 +831,8 @@ export default class Response extends implementationOf(ResponseInterface) {
         }
 
         const acceptEncoding = encodingNegotiator.getBest(request.headers.get('Accept-Encoding'), priorities) || { type: null };
+        this.setVary('Accept-Encoding', false);
+
         switch (acceptEncoding.type) {
             case 'br':
                 this._encoding = ENCODING_BROTLI;
