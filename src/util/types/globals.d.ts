@@ -17,8 +17,8 @@ declare namespace __jymfony {
     /**
      * Applies a timeout to the promise.
      */
-    export function promiseTimeout<T extends AsyncFunction<K>, K>(timeoutMs: number, promise: T, timeoutError?: Error, weak?: boolean): Promise<K>;
-    export function promiseTimeout<T extends Promise<K>, K>(timeoutMs: number, promise: T, timeoutError?: Error, weak?: boolean): T;
+    export function promiseTimeout<T extends AsyncFunction<K>, K>(timeoutMs: number, promise: T, timeoutError?: () => Error, weak?: boolean): Promise<K>;
+    export function promiseTimeout<T extends Promise<K>, K>(timeoutMs: number, promise: T, timeoutError?: () => Error, weak?: boolean): T;
 
     /**
      * Executes a callback iterating asynchronously onto the given iterator.

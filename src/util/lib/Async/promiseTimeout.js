@@ -7,10 +7,10 @@ global.__jymfony = global.__jymfony || {};
  *
  * @param {int} timeoutMs Timeout of the promise in ms
  * @param {Promise|AsyncFunction} promise The promise (or async function) to complete before timeout
- * @param {Error} timeoutError The error to throw in case of timeout
+ * @param {function(): Error} timeoutError A function that generates an error to throw in case of timeout
  * @param {boolean} weak Call unref on timeout to not prevent process exit (node.js only)
  */
-__jymfony.promiseTimeout = (timeoutMs, promise, timeoutError = new Error('Timed out.'), weak = false) => {
+__jymfony.promiseTimeout = (timeoutMs, promise, timeoutError = () => new Error('Timed out.'), weak = false) => {
     if ('function' === typeof promise) {
         promise = promise();
     }
@@ -36,7 +36,7 @@ __jymfony.promiseTimeout = (timeoutMs, promise, timeoutError = new Error('Timed 
     };
 
     this._timeout = setTimeout(() => {
-        rejection(timeoutError);
+        rejection(timeoutError());
     }, timeoutMs);
 
     if (weak && this._timeout && 'unref' in this._timeout) {

@@ -139,7 +139,7 @@ export default class RequestHandler extends implementationOf(LoggerAwareInterfac
                 promise = __jymfony.promiseTimeout(
                     this._requestTimeoutMs,
                     promise,
-                    new RequestTimeoutException('Request timed out.'),
+                    () => new RequestTimeoutException('Request timed out.'),
                     true
                 );
             }
