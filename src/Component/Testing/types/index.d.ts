@@ -26,6 +26,7 @@
 /// <reference path="Constraints/IsNull.d.ts" />
 /// <reference path="Constraints/IsTrue.d.ts" />
 /// <reference path="Constraints/IsUndefined.d.ts" />
+/// <reference path="Constraints/LessThan.d.ts" />
 /// <reference path="Constraints/LogicalAnd.d.ts" />
 /// <reference path="Constraints/LogicalNot.d.ts" />
 /// <reference path="Constraints/LogicalOr.d.ts" />

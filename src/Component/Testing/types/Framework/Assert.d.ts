@@ -6,6 +6,7 @@ declare namespace Jymfony.Component.Testing.Framework {
     import IsNull = Jymfony.Component.Testing.Constraints.IsNull;
     import IsTrue = Jymfony.Component.Testing.Constraints.IsTrue;
     import IsUndefined = Jymfony.Component.Testing.Constraints.IsUndefined;
+    import LessThan = Jymfony.Component.Testing.Constraints.LessThan;
     import LogicalNot = Jymfony.Component.Testing.Constraints.LogicalNot;
 
     export class Assert {
@@ -100,6 +101,14 @@ declare namespace Jymfony.Component.Testing.Framework {
         assertUndefined(actual: any, message?: string): void;
 
         /**
+         * Asserts that a value is less than another value.
+         *
+         * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+         */
+        static assertLessThan(expected: any, actual: any, message?: string): void;
+        assertLessThan(expected: any, actual: any, message?: string): void;
+
+        /**
          * Asserts that a value is greater than another value.
          *
          * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
@@ -128,6 +137,9 @@ declare namespace Jymfony.Component.Testing.Framework {
 
         static greaterThan(value: any): GreaterThan;
         greaterThan(value: any): GreaterThan;
+
+        static lessThan(value: any): LessThan;
+        lessThan(value: any): LessThan;
 
         static isEmpty(): IsEmpty;
         isEmpty(): IsEmpty;

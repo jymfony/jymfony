@@ -16,6 +16,7 @@ declare namespace Jymfony.Component.Testing.Constraints {
          * Constructor.
          */
         __construct(constraint: Constraint | any): void;
+        constructor(constraint: Constraint | any);
 
         /**
          * @inheritdoc

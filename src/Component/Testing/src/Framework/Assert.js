@@ -9,6 +9,7 @@ const IsIdentical = Jymfony.Component.Testing.Constraints.IsIdentical;
 const IsNull = Jymfony.Component.Testing.Constraints.IsNull;
 const IsTrue = Jymfony.Component.Testing.Constraints.IsTrue;
 const IsUndefined = Jymfony.Component.Testing.Constraints.IsUndefined;
+const LessThan = Jymfony.Component.Testing.Constraints.LessThan;
 const LogicalNot = Jymfony.Component.Testing.Constraints.LogicalNot;
 const RegularExpression = Jymfony.Component.Testing.Constraints.RegularExpression;
 const StringContains = Jymfony.Component.Testing.Constraints.StringContains;
@@ -159,6 +160,15 @@ export default class Assert {
     }
 
     /**
+     * Asserts that a value is less than another value.
+     *
+     * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+     */
+    static assertLessThan(expected, actual, message = '') {
+        this.assertThat(actual, this.lessThan(expected), message);
+    }
+
+    /**
      * Asserts that a string (needle) is contained in another string (haystack).
      *
      * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
@@ -183,6 +193,10 @@ export default class Assert {
 
     static logicalNot(constraint) {
         return new LogicalNot(constraint);
+    }
+
+    static lessThan(value) {
+        return new LessThan(value);
     }
 
     static greaterThan(value) {
