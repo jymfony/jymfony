@@ -33,6 +33,7 @@ require('./lib/Filesystem/mkdir');
 require('./lib/Function/callableArray');
 require('./lib/Function/getFunction');
 
+require('./lib/Stream/BlackHoleStream');
 require('./lib/Stream/StreamBuffer');
 
 require('./lib/String/crc32');
