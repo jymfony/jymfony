@@ -9,5 +9,10 @@ Jymfony.Component.HttpClient = {
     /**
      * @namespace
      */
-    Exception: {},
+    Response: {},
+
+    /**
+     * @namespace
+     */
+    Retry: {},
 };

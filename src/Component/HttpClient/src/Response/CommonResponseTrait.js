@@ -1,3 +1,5 @@
+import { pipeline } from 'stream';
+
 const ClientException = Jymfony.Contracts.HttpClient.Exception.ClientException;
 const DecodingException = Jymfony.Contracts.HttpClient.Exception.DecodingException;
 const RedirectionException = Jymfony.Contracts.HttpClient.Exception.RedirectionException;
@@ -5,7 +7,7 @@ const ServerException = Jymfony.Contracts.HttpClient.Exception.ServerException;
 const TransportException = Jymfony.Contracts.HttpClient.Exception.TransportException;
 
 /**
- * @memberOf Jymfony.Component.HttpClient
+ * @memberOf Jymfony.Component.HttpClient.Response
  */
 class CommonResponseTrait {
     __construct() {
@@ -88,6 +90,39 @@ class CommonResponseTrait {
         }
 
         this._initializer = null;
+    }
+
+    /**
+     * @private
+     */
+    async _pipeline(input, output) {
+        let rejectionFn, resolved = false;
+        await new Promise((resolve, reject) => {
+            rejectionFn = err => {
+                if (resolved) {
+                    return;
+                }
+
+                resolved = true;
+                reject(err);
+            };
+
+            input.on('error', rejectionFn);
+            output.on('error', rejectionFn);
+
+            pipeline(input, output, err => {
+                if (err) {
+                    rejectionFn(err);
+                } else {
+                    resolve();
+                }
+            });
+        });
+
+        input.removeListener('error', rejectionFn);
+        output.removeListener('error', rejectionFn);
+
+        return output;
     }
 
     /**

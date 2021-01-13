@@ -20,6 +20,11 @@ declare namespace Jymfony.Component.HttpClient {
      */
     export class HttpClientTrait {
         /**
+         * @throws {InvalidArgumentException} When an invalid option is found
+         */
+        private _mergeDefaultOptions(options: Record<string, any>, defaultOptions: Record<string, any>, allowExtraOptions?: boolean): Record<string, any>;
+
+        /**
          * Validates and normalizes method, URL and options, and merges them with defaults.
          *
          * @throws {InvalidArgumentException} When a not-supported option is found
@@ -33,9 +38,11 @@ declare namespace Jymfony.Component.HttpClient {
          *
          * @throws {InvalidArgumentException} When an invalid URL is passed
          */
-        private _parseUrl(url: string, query?: Record<string, string>, allowedSchemes?: Record<string, number>): ParsedUrl;
+        private _parseUrl(url: string, query?: Record<string, string>, allowedSchemes?: Record<string, number>, baseUrl?: string): ParsedUrl;
+        private static _parseUrl(url: string, query?: Record<string, string>, allowedSchemes?: Record<string, number>, baseUrl?: string): ParsedUrl;
 
         private _resolveUrl(url: ParsedUrl, baseUrl: string | URL | null, queryDefaults?: Record<string, string>): URL;
+        private static _resolveUrl(url: ParsedUrl, baseUrl: string | URL | null, queryDefaults?: Record<string, string>): URL;
 
         /**
          * Loads proxy configuration from the same environment variables as curl when no proxy is explicitly set.

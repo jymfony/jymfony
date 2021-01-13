@@ -1,5 +1,5 @@
-declare namespace Jymfony.Component.HttpClient {
-    import CommonResponseTrait = Jymfony.Component.HttpClient.CommonResponseTrait;
+declare namespace Jymfony.Component.HttpClient.Response {
+    import CommonResponseTrait = Jymfony.Component.HttpClient.Response.CommonResponseTrait;
     import HttpClientRequestOptions = Jymfony.Contracts.HttpClient.HttpClientRequestOptions;
     import HttpClientInfo = Jymfony.Contracts.HttpClient.HttpClientInfo;
     import ResponseInterface = Jymfony.Contracts.HttpClient.ResponseInterface;
@@ -55,7 +55,6 @@ declare namespace Jymfony.Component.HttpClient {
          */
         close(): void;
 
-        private _pipeline(input: NodeJS.ReadableStream, output: NodeJS.WritableStream): Promise<void>;
         private _perform(): Promise<void>;
         private _open(): Promise<void>;
 

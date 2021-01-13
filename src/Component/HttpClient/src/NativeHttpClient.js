@@ -6,7 +6,7 @@ const HttpClientInterface = Jymfony.Contracts.HttpClient.HttpClientInterface;
 const HttpClientTrait = Jymfony.Component.HttpClient.HttpClientTrait;
 const LoggerAwareInterface = Jymfony.Contracts.Logger.LoggerAwareInterface;
 const LoggerAwareTrait = Jymfony.Contracts.Logger.LoggerAwareTrait;
-const NativeHttpResponse = Jymfony.Component.HttpClient.NativeHttpResponse;
+const NativeHttpResponse = Jymfony.Component.HttpClient.Response.NativeHttpResponse;
 const TransportException = Jymfony.Contracts.HttpClient.Exception.TransportException;
 
 const { Resolver, lookup } = dnsPromises;

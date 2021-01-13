@@ -1,4 +1,4 @@
-declare namespace Jymfony.Component.HttpClient {
+declare namespace Jymfony.Component.HttpClient.Response {
     export class CommonResponseTrait {
         private _decodedData: any;
 
@@ -14,14 +14,8 @@ declare namespace Jymfony.Component.HttpClient {
          */
         getDecodedContent(Throw?: boolean): Promise<any>;
 
-        /**
-         * @private
-         */
         private _initialize(): Promise<void>;
-
-        /**
-         * @private
-         */
+        private _pipeline<T extends NodeJS.WritableStream>(input: NodeJS.ReadableStream, output: T): typeof output;
         private _checkStatusCode(): void;
     }
 }

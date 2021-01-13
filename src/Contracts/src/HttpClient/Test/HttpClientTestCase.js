@@ -703,6 +703,6 @@ export default class HttpClientTestCase extends TestCase {
         }
 
         const duration = performance.now() - start;
-        __self.assertLessThan(10, duration);
+        __self.assertLessThan(20, duration);
     }
 }

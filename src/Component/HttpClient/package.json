@@ -18,6 +18,7 @@
   "dependencies": {
     "@jymfony/autoloader": "https://github.com/jymfony/autoloader.git",
     "@jymfony/contracts": "https://github.com/jymfony/contracts.git",
+    "@jymfony/datetime": "https://github.com/jymfony/date-time.git",
     "@jymfony/exceptions": "https://github.com/jymfony/exceptions.git",
     "@jymfony/util": "https://github.com/jymfony/util.git"
   },

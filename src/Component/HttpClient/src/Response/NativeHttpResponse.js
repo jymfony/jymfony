@@ -4,9 +4,8 @@ import { Socket } from 'net';
 import { promises as fsPromises } from 'fs';
 import { request as http1Request } from 'http';
 import { performance } from 'perf_hooks';
-import { pipeline } from 'stream';
 
-const CommonResponseTrait = Jymfony.Component.HttpClient.CommonResponseTrait;
+const CommonResponseTrait = Jymfony.Component.HttpClient.Response.CommonResponseTrait;
 const DecodingStream = Jymfony.Component.HttpClient.DecodingStream;
 const ResponseInterface = Jymfony.Contracts.HttpClient.ResponseInterface;
 const TransportException = Jymfony.Contracts.HttpClient.Exception.TransportException;
@@ -14,7 +13,7 @@ const TransportException = Jymfony.Contracts.HttpClient.Exception.TransportExcep
 const { readFile } = fsPromises;
 
 /**
- * @memberOf Jymfony.Component.HttpClient
+ * @memberOf Jymfony.Component.HttpClient.Response
  */
 export default class NativeHttpResponse extends implementationOf(ResponseInterface, CommonResponseTrait) {
     /**
@@ -152,7 +151,7 @@ export default class NativeHttpResponse extends implementationOf(ResponseInterfa
             this._checkStatusCode();
         }
 
-        return this._headers;
+        return __jymfony.clone(this._headers);
     }
 
     /**
@@ -255,34 +254,6 @@ export default class NativeHttpResponse extends implementationOf(ResponseInterfa
         }
 
         this._message = this._timeout = this._readable = this._onProgress = this._abortController = null;
-    }
-
-    async _pipeline(input, output) {
-        let rejectionFn, resolved = false;
-        await new Promise((resolve, reject) => {
-            rejectionFn = err => {
-                if (resolved) {
-                    return;
-                }
-
-                resolved = true;
-                reject(err);
-            };
-
-            input.on('error', rejectionFn);
-            output.on('error', rejectionFn);
-
-            pipeline(input, output, err => {
-                if (err) {
-                    rejectionFn(err);
-                } else {
-                    resolve();
-                }
-            });
-        });
-
-        input.removeListener('error', rejectionFn);
-        output.removeListener('error', rejectionFn);
     }
 
     async _perform() {

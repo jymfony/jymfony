@@ -1,5 +1,3 @@
-import { expect } from 'chai';
-
 const HttpClientTestCase = Jymfony.Contracts.HttpClient.Test.HttpClientTestCase;
 const NativeHttpClient = Jymfony.Component.HttpClient.NativeHttpClient;
 
@@ -18,10 +16,10 @@ export default class NativeHttpClientTest extends HttpClientTestCase {
             http_version: '1.0',
         });
 
-        expect(await response.getStatusCode()).to.be.equal(200);
+        __self.assertEquals(200, await response.getStatusCode());
 
         const body = await response.getDecodedContent();
-        expect(body.server.SERVER_PROTOCOL).to.be.equal('HTTP/1.1'); // Native http client does not really support HTTP/1.0
-        expect(body.server.REQUEST_METHOD).to.be.equal('GET');
+        __self.assertEquals('HTTP/1.1', body.server.SERVER_PROTOCOL); // Native http client does not really support HTTP/1.0
+        __self.assertEquals('GET', body.server.REQUEST_METHOD);
     }
 }

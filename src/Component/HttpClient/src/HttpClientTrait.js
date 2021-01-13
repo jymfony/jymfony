@@ -115,94 +115,6 @@ const normalizeHeaders = headers => {
 
 const empty = v => null === v || undefined === v || (isArray(v) && 0 === v.length) || (isObjectLiteral(v) && 0 === Object.keys(v).length);
 
-/**
- * @throws {InvalidArgumentException} When an invalid option is found
- */
-const mergeDefaultOptions = (options, defaultOptions, allowExtraOptions = false) => {
-    options.normalized_headers = normalizeHeaders(options.headers || []);
-
-    if (defaultOptions.headers) {
-        Object.assign(options.normalized_headers, normalizeHeaders(defaultOptions.headers));
-    }
-
-    options.headers = [];
-    for (const values of Object.values(options.normalized_headers)) {
-        options.headers.push(...values);
-    }
-
-    let resolve = options.resolve;
-    if (resolve) {
-        options.resolve = {};
-        for (const [ k, v ] of __jymfony.getEntries(resolve)) {
-            options.resolve[HttpClientTrait.prototype._parseUrl('http://' + k).authority.substr(2)] = String(v);
-        }
-    }
-
-    // Option "query" is never inherited from defaults
-    options.query = options.query || {};
-
-    for (const [ k, v ] of __jymfony.getEntries(defaultOptions)) {
-        if ('normalized_headers' === k || 'headers' === k) {
-            continue;
-        }
-
-        if (
-            ('user_data' === k && undefined === options[k]) ||
-            ('user_data' !== k && empty(options[k]))
-        ) {
-            options[k] = v;
-        }
-    }
-
-    if ((resolve = defaultOptions.resolve)) {
-        for (const [ k, v ] of __jymfony.getEntries(resolve)) {
-            if (! options.resolve) {
-                options.resolve = {};
-            }
-
-            const auth = this._parseUrl('http://' + k).authority.substr(2);
-            if (options.resolve[auth]) {
-                continue;
-            }
-
-            options.resolve[auth] = String(v);
-        }
-    }
-
-    if (allowExtraOptions || 0 === Object.keys(defaultOptions).length) {
-        return options;
-    }
-
-    // Look for unsupported options
-    for (const name of Object.keys(options)) {
-        if (name in defaultOptions || 'normalized_headers' === name) {
-            continue;
-        }
-
-        // If ('auth_ntlm' === name) {
-        //     If (!\extension_loaded('curl')) {
-        //         $msg = 'try installing the "curl" extension to use "%s" instead.';
-        //     } else {
-        //         $msg = 'try using "%s" instead.';
-        //     }
-        //
-        //     Throw new InvalidArgumentException(sprintf('Option "auth_ntlm" is not supported by "%s", '.$msg, __CLASS__, CurlHttpClient::class));
-        // }
-
-        const alternatives = [];
-
-        for (const key of Object.keys(defaultOptions)) {
-            if (__jymfony.levenshtein(name, key) <= name.length / 3 || key.includes(name)) {
-                alternatives.push(key);
-            }
-        }
-
-        throw new InvalidArgumentException(__jymfony.sprintf('Unsupported option "%s" passed to "%s", did you mean "%s"?', name, __jymfony.get_debug_type(this), (alternatives.length ? alternatives : Object.keys(defaultOptions)).join('", "')));
-    }
-
-    return options;
-};
-
 class GeneratorStream extends Readable {
     /**
      * @param {Generator|AsyncGenerator} generator
@@ -311,6 +223,84 @@ const normalizeBody = (body, options) => {
  */
 class HttpClientTrait {
     /**
+     * @throws {InvalidArgumentException} When an invalid option is found
+     */
+    _mergeDefaultOptions(options, defaultOptions, allowExtraOptions = false) {
+        options.normalized_headers = normalizeHeaders(options.headers || []);
+
+        if (defaultOptions.headers) {
+            Object.assign(options.normalized_headers, normalizeHeaders(defaultOptions.headers));
+        }
+
+        options.headers = [];
+        for (const values of Object.values(options.normalized_headers)) {
+            options.headers.push(...values);
+        }
+
+        let resolve = options.resolve;
+        if (resolve) {
+            options.resolve = {};
+            for (const [ k, v ] of __jymfony.getEntries(resolve)) {
+                options.resolve[HttpClientTrait.prototype._parseUrl('http://' + k).authority.substr(2)] = String(v);
+            }
+        }
+
+        // Option "query" is never inherited from defaults
+        options.query = options.query || {};
+
+        for (const [ k, v ] of __jymfony.getEntries(defaultOptions)) {
+            if ('normalized_headers' === k || 'headers' === k) {
+                continue;
+            }
+
+            if (
+                ('user_data' === k && undefined === options[k]) ||
+                ('user_data' !== k && empty(options[k]))
+            ) {
+                options[k] = v;
+            }
+        }
+
+        if ((resolve = defaultOptions.resolve)) {
+            for (const [ k, v ] of __jymfony.getEntries(resolve)) {
+                if (! options.resolve) {
+                    options.resolve = {};
+                }
+
+                const auth = this._parseUrl('http://' + k).authority.substr(2);
+                if (options.resolve[auth]) {
+                    continue;
+                }
+
+                options.resolve[auth] = String(v);
+            }
+        }
+
+        if (allowExtraOptions || 0 === Object.keys(defaultOptions).length) {
+            return options;
+        }
+
+        // Look for unsupported options
+        for (const name of Object.keys(options)) {
+            if (name in defaultOptions || 'normalized_headers' === name) {
+                continue;
+            }
+
+            const alternatives = [];
+
+            for (const key of Object.keys(defaultOptions)) {
+                if (__jymfony.levenshtein(name, key) <= name.length / 3 || key.includes(name)) {
+                    alternatives.push(key);
+                }
+            }
+
+            throw new InvalidArgumentException(__jymfony.sprintf('Unsupported option "%s" passed to "%s", did you mean "%s"?', name, __jymfony.get_debug_type(this), (alternatives.length ? alternatives : Object.keys(defaultOptions)).join('", "')));
+        }
+
+        return options;
+    }
+
+    /**
      * Validates and normalizes method, URL and options, and merges them with defaults.
      *
      * @param {string|null} method
@@ -336,7 +326,7 @@ class HttpClientTrait {
             }
         }
 
-        options = mergeDefaultOptions(options, defaultOptions, allowExtraOptions);
+        options = this._mergeDefaultOptions(options, defaultOptions, allowExtraOptions);
 
         const buffer = null === options.buffer || undefined === options.buffer ? true : options.buffer;
         if (isFunction(buffer)) {
@@ -483,7 +473,7 @@ class HttpClientTrait {
      *
      * @throws InvalidArgumentException When an invalid URL is passed
      */
-    _parseUrl(url, query = {}, allowedSchemes = { http: 80, https: 443 }, baseUrl = undefined) {
+    static _parseUrl(url, query = {}, allowedSchemes = { http: 80, https: 443 }, baseUrl = undefined) {
         const domainRegex = '^(' + Object.keys(allowedSchemes).join('|') + ')://([^/]+)';
         url = url.replace(domainRegex, (_, protocol, domain) => {
             return protocol + '://' + __jymfony.punycode_to_ascii(domain);
@@ -550,16 +540,18 @@ class HttpClientTrait {
         };
     }
 
+    _parseUrl(url, query = {}, allowedSchemes = { http: 80, https: 443 }, baseUrl = undefined) {
+        return HttpClientTrait._parseUrl(url, query, allowedSchemes, baseUrl);
+    }
+
     /**
      * @param {ParsedUrl} url
      * @param {string} baseUrl
      * @param {Object.<string, string>} queryDefaults
      *
      * @returns {URL}
-     *
-     * @private
      */
-    _resolveUrl(url, baseUrl, queryDefaults = {}) {
+    static _resolveUrl(url, baseUrl, queryDefaults = {}) {
         const queryString = mergeQueryString(url.query || '', queryDefaults, false);
 
         return new URL(
@@ -570,6 +562,10 @@ class HttpClientTrait {
                 (url.fragment || ''),
             baseUrl || undefined
         );
+    }
+
+    _resolveUrl(url, baseUrl, queryDefaults = {}) {
+        return HttpClientTrait._resolveUrl(url, baseUrl, queryDefaults);
     }
 
     /**

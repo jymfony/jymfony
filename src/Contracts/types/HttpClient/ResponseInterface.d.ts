@@ -38,7 +38,7 @@ declare namespace Jymfony.Contracts.HttpClient {
          * @throws {Jymfony.Contracts.HttpClient.Exception.ClientException} On a 4xx when Throw is true
          * @throws {Jymfony.Contracts.HttpClient.Exception.ServerException} On a 5xx when Throw is true
          */
-        getContent(Throw?: boolean): Promise<Buffer>;
+        getContent(Throw?: boolean): Promise<Buffer | NodeJS.ReadableStream>;
 
         /**
          * Gets the response body decoded as object or array, typically from a JSON payload.
