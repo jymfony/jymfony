@@ -6,6 +6,7 @@ const IsEmpty = Jymfony.Component.Testing.Constraints.IsEmpty;
 const IsEqual = Jymfony.Component.Testing.Constraints.IsEqual;
 const IsFalse = Jymfony.Component.Testing.Constraints.IsFalse;
 const IsIdentical = Jymfony.Component.Testing.Constraints.IsIdentical;
+const IsInstanceOf = Jymfony.Component.Testing.Constraints.IsInstanceOf;
 const IsNull = Jymfony.Component.Testing.Constraints.IsNull;
 const IsTrue = Jymfony.Component.Testing.Constraints.IsTrue;
 const IsUndefined = Jymfony.Component.Testing.Constraints.IsUndefined;
@@ -175,6 +176,20 @@ export default class Assert {
      */
     static assertStringContainsString(needle, haystack, message = '') {
         this.assertThat(haystack, new StringContains(needle, false), message);
+    }
+
+    /**
+     * Asserts that a variable is of a given type.
+     *
+     * @throws {ExpectationFailedException}
+     * @throws {InvalidArgumentException}
+     */
+    static assertInstanceOf(expected, actual, message = '') {
+        if (! ReflectionClass.exists(expected)) {
+            throw new InvalidArgumentException('Invalid class or interface name passed');
+        }
+
+        __self.assertThat(actual, new IsInstanceOf(expected), message);
     }
 
     /**
