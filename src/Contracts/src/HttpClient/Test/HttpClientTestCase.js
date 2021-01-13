@@ -138,10 +138,21 @@ export default class HttpClientTestCase extends TestCase {
             },
         });
 
-        await response.getContent();
+        const stream = new __jymfony.BlackHoleStream();
+        const input = await response.getContent();
+        await new Promise(async (res) => {
+            input.on('end', res);
+            input.pipe(stream);
+        });
 
-        this.expectException(TransportException);
-        await response.getContent();
+        try {
+            await response.getContent();
+            this.fail(ReflectionClass.getClassName(TransportException) + ' expected');
+        } catch (e) {
+            __self.assertInstanceOf(TransportException, e);
+        }
+
+        response.close();
     }
 
     async testReentrantBufferCallback() {
@@ -244,6 +255,7 @@ export default class HttpClientTestCase extends TestCase {
         const response = client.request('GET', 'http://localhost:8057/404');
 
         __self.assertSame(404, await response.getStatusCode());
+        response.close();
     }
 
     async testDnsError() {
@@ -344,6 +356,7 @@ export default class HttpClientTestCase extends TestCase {
         __self.assertSame([ '//?foo=bar' ], (await response.getHeaders(false)).location);
         __self.assertSame(0, await response.getInfo('redirect_count'));
         __self.assertNull(await response.getInfo('redirect_url'));
+        response.close();
 
         this.expectException(RedirectionException);
         await response.getHeaders();
@@ -364,6 +377,7 @@ export default class HttpClientTestCase extends TestCase {
 
         __self.assertSame(302, await response.getStatusCode());
         __self.assertSame('http://localhost:8057/', await response.getInfo('redirect_url'));
+        response.close();
     }
 
     async testRedirect307() {
@@ -376,6 +390,7 @@ export default class HttpClientTestCase extends TestCase {
         });
 
         __self.assertSame(307, await response.getStatusCode());
+        response.close();
 
         response = client.request('POST', 'http://localhost:8057/307', {
             body: 'foo=bar',
@@ -408,6 +423,8 @@ export default class HttpClientTestCase extends TestCase {
         __self.assertSame(1, response.getInfo('redirect_count'));
         __self.assertSame('http://localhost:8057/', response.getInfo('redirect_url'));
         __self.assertEquals([ 'application/json' ], response.getInfo('response_headers')['content-type']);
+
+        response.close();
     }
 
     async testOnProgress() {
@@ -564,6 +581,7 @@ export default class HttpClientTestCase extends TestCase {
         });
 
         __self.assertSame(200, await response.getStatusCode());
+        response.close();
 
         this.expectException(TransportException);
         client.request('GET', 'http://jymfony.net:8057/', { timeout: 1 });
@@ -576,11 +594,13 @@ export default class HttpClientTestCase extends TestCase {
             resolve: { '0-------------------------------------------------------------0.com': '127.0.0.1' },
         });
         __self.assertSame(200, await response.getStatusCode());
+        response.close();
 
         response = client.request('GET', 'http://Bücher.example:8057/', {
             resolve: { 'xn--bcher-kva.example': '127.0.0.1' },
         });
         __self.assertSame(200, await response.getStatusCode());
+        response.close();
     }
 
     async testProxy() {
@@ -640,6 +660,8 @@ export default class HttpClientTestCase extends TestCase {
 
         __self.assertSame(404, await response.getStatusCode());
         __self.assertSame([ 'application/json' ], (await response.getHeaders(false))['content-type']);
+
+        response.close();
     }
 
     async testQuery() {

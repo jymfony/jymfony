@@ -222,6 +222,7 @@ export default class NativeHttpResponse extends implementationOf(ResponseInterfa
             try {
                 await this._pipeline(this._readable, stream);
             } catch (e) {
+                this.close();
                 this._info.error = e.message;
                 throw new TransportException(e.message, 0, e);
             }
@@ -230,7 +231,11 @@ export default class NativeHttpResponse extends implementationOf(ResponseInterfa
         }
 
         if (false === this._options.buffer) {
-            return this._message;
+            if (this._readable.readableEnded) {
+                throw new TransportException('Cannot get the content of the response twice: buffering is disabled.');
+            }
+
+            return this._readable;
         }
 
         if (null === this._readable) {
@@ -267,9 +272,13 @@ export default class NativeHttpResponse extends implementationOf(ResponseInterfa
             onProgress: current => {
                 this._remaining = 0 < this._info.size_download ? this._info.size_download - current : this._remaining;
                 if (0 === this._remaining) {
-                    this._timeout.unref();
+                    if (null !== this._timeout) {
+                        this._timeout.unref();
+                        clearTimeout(this._timeout);
+                        this._timeout = null;
+                    }
+
                     this._message.removeAllListeners('timeout');
-                    clearTimeout(this._timeout);
                 }
 
                 if (this._onProgress) {
@@ -281,9 +290,13 @@ export default class NativeHttpResponse extends implementationOf(ResponseInterfa
         this._info.total_time = this._info.starttransfer_time = performance.now() - this._info.start_time;
         this._readable = this._message.pipe(decodingStream);
         this._readable.on('end', () => {
-            this._timeout.unref();
+            if (null !== this._timeout) {
+                this._timeout.unref();
+                clearTimeout(this._timeout);
+                this._timeout = null;
+            }
+
             this._message.removeAllListeners('timeout');
-            clearTimeout(this._timeout);
         });
     }
 
