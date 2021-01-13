@@ -23,6 +23,8 @@ src/Component/Cache/src/Adapter/RedisAdapter.js
 src/Component/Cache/src/Traits/RedisTrait.js
 src/Component/Cache/test/Adapter/AdapterTestCase.js
 src/Component/DependencyInjection/src/Compiler/ResolveInjectDecoratorPass.js
+src/Component/HttpClient/test/Response/MockResponseTest.js
+src/Component/HttpClient/test/ScopingHttpClientTest.js
 src/Component/Routing/src/Loader/AnnotationClassLoader.js
 src/Component/Stopwatch/test/StopwatchPeriodTest.js
 src/Component/Testing/src/Framework/TimeSensitiveTestCaseTrait.js

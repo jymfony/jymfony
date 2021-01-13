@@ -1,8 +1,9 @@
 /* eslint-disable indent */
 
-const TreeBuilder = Jymfony.Component.Config.Definition.Builder.TreeBuilder;
 const ConfigurationInterface = Jymfony.Component.Config.Definition.ConfigurationInterface;
 const InvalidConfigurationException = Jymfony.Component.Config.Definition.Exception.InvalidConfigurationException;
+const NodeBuilder = Jymfony.Component.Config.Definition.Builder.NodeBuilder;
+const TreeBuilder = Jymfony.Component.Config.Definition.Builder.TreeBuilder;
 const UnsetKeyException = Jymfony.Component.Config.Definition.Exception.UnsetKeyException;
 
 /**
@@ -29,6 +30,7 @@ export default class Configuration extends implementationOf(ConfigurationInterfa
         this._addCacheSection(rootNode);
         this._addConsoleSection(rootNode);
         this._addDebugSection(rootNode);
+        this._addHttpClientSection(rootNode);
         this._addHttpServerSection(rootNode);
         this._addLoggerSection(rootNode);
         this._addRouterSection(rootNode);
@@ -309,6 +311,323 @@ export default class Configuration extends implementationOf(ConfigurationInterfa
                 .end()
             .end()
         ;
+    }
+
+    /**
+     * @param {Jymfony.Component.Config.Definition.Builder.ArrayNodeDefinition} rootNode
+     *
+     * @private
+     */
+    _addHttpClientSection(rootNode) {
+        rootNode
+            .children()
+                .arrayNode('http_client')
+                    .info('HTTP Client configuration')
+                    [ReflectionClass.exists('Jymfony.Component.HttpClient.HttpClient') ? 'canBeDisabled' : 'canBeEnabled']()
+                    .beforeNormalization()
+                        .always(config => {
+                            if (! config.scoped_clients || ! isObjectLiteral(config.default_options && config.default_options.retry_failed)) {
+                                return config;
+                            }
+
+                            for (const scopedConfig of Object.values(config.scoped_clients)) {
+                                if (! scopedConfig.retry_failed || true === scopedConfig.retry_failed) {
+                                    scopedConfig.retry_failed = __jymfony.clone(config.default_options.retry_failed);
+                                    continue;
+                                }
+
+                                if (isObjectLiteral(scopedConfig.retry_failed)) {
+                                    Object.assign(scopedConfig.retry_failed, config.default_options.retry_failed);
+                                }
+                            }
+
+                            return config;
+                        })
+                    .end()
+                    .children()
+                        .integerNode('max_host_connections')
+                            .info('The maximum number of connections to a single host.')
+                        .end()
+                        .arrayNode('default_options')
+                            .children()
+                                .arrayNode('headers')
+                                    .info('Associative array: header => value(s).')
+                                    .useAttributeAsKey('name')
+                                    .normalizeKeys(false)
+                                    .variablePrototype().end()
+                                .end()
+                                .integerNode('max_redirects')
+                                    .info('The maximum number of redirects to follow.')
+                                .end()
+                                .scalarNode('http_version')
+                                    .info('The default HTTP version, typically 1.1 or 2.0, leave to null for the best version.')
+                                .end()
+                                .arrayNode('resolve')
+                                    .info('Associative array: domain => IP.')
+                                    .useAttributeAsKey('host')
+                                    .beforeNormalization()
+                                        .always(config => {
+                                            if (! isObjectLiteral(config)) {
+                                                return {};
+                                            }
+
+                                            if ((! config.host && ! config.value) || 2 < Object.values(config).length) {
+                                                return config;
+                                            }
+
+                                            return { [config.host]: config.value };
+                                        })
+                                    .end()
+                                    .normalizeKeys(false)
+                                    .scalarPrototype().end()
+                                .end()
+                                .scalarNode('proxy')
+                                    .info('The URL of the proxy to pass requests through or null for automatic detection.')
+                                .end()
+                                .scalarNode('no_proxy')
+                                    .info('A comma separated list of hosts that do not require a proxy to be reached.')
+                                .end()
+                                .floatNode('timeout')
+                                    .info('The idle timeout, defaults to the "default_socket_timeout" ini parameter.')
+                                .end()
+                                .floatNode('max_duration')
+                                    .info('The maximum execution time for the request+response as a whole.')
+                                .end()
+                                .scalarNode('bindto')
+                                    .info('A network interface name, IP address, a host name or a UNIX socket to bind to.')
+                                .end()
+                                .booleanNode('verify_peer')
+                                    .info('Indicates if the peer should be verified in a SSL/TLS context.')
+                                .end()
+                                .booleanNode('verify_host')
+                                    .info('Indicates if the host should exist as a certificate common name.')
+                                .end()
+                                .scalarNode('cafile')
+                                    .info('A certificate authority file.')
+                                .end()
+                                .scalarNode('capath')
+                                    .info('A directory that contains multiple certificate authority files.')
+                                .end()
+                                .scalarNode('local_cert')
+                                    .info('A PEM formatted certificate file.')
+                                .end()
+                                .scalarNode('local_pk')
+                                    .info('A private key file.')
+                                .end()
+                                .scalarNode('passphrase')
+                                    .info('The passphrase used to encrypt the "local_pk" file.')
+                                .end()
+                                .scalarNode('ciphers')
+                                    .info('A list of SSL/TLS ciphers separated by colons, commas or spaces (e.g. "RC3-SHA:TLS13-AES-128-GCM-SHA256"...)')
+                                .end()
+                                .append(this._addHttpClientRetrySection())
+                            .end()
+                        .end()
+                        .scalarNode('mock_response_factory')
+                            .info('The id of the service that should generate mock responses. It should be either an invokable or an iterable.')
+                        .end()
+                        .arrayNode('scoped_clients')
+                            .useAttributeAsKey('name')
+                            .normalizeKeys(false)
+                            .arrayPrototype()
+                                .beforeNormalization()
+                                    .always()
+                                    .then(config => {
+                                        if (! ReflectionClass.exists('Jymfony.Component.HttpClient.HttpClient')) {
+                                            throw new LogicException('HttpClient support cannot be enabled as the component is not installed. Try running "yarn add @jymfony/http-client".');
+                                        }
+
+                                        return isObjectLiteral(config) ? config : { base_uri: config };
+                                    })
+                                .end()
+                                .validate()
+                                    .ifTrue(v => ! v.scope && ! v.base_uri)
+                                    .thenInvalid('Either "scope" or "base_uri" should be defined.')
+                                .end()
+                                .validate()
+                                    .ifTrue(v => !! v.query && ! v.base_uri)
+                                    .thenInvalid('"query" applies to "base_uri" but no base URI is defined.')
+                                .end()
+                                .children()
+                                    .scalarNode('scope')
+                                        .info('The regular expression that the request URL must match before adding the other options. When none is provided, the base URI is used instead.')
+                                        .cannotBeEmpty()
+                                    .end()
+                                    .scalarNode('base_uri')
+                                        .info('The URI to resolve relative URLs, following rules in RFC 3985, section 2.')
+                                        .cannotBeEmpty()
+                                    .end()
+                                    .scalarNode('auth_basic')
+                                        .info('An HTTP Basic authentication "username:password".')
+                                    .end()
+                                    .scalarNode('auth_bearer')
+                                        .info('A token enabling HTTP Bearer authorization.')
+                                    .end()
+                                    .scalarNode('auth_ntlm')
+                                        .info('A "username:password" pair to use Microsoft NTLM authentication (requires the cURL extension).')
+                                    .end()
+                                    .arrayNode('query')
+                                        .info('Associative array of query string values merged with the base URI.')
+                                        .useAttributeAsKey('key')
+                                        .beforeNormalization()
+                                            .always(config => {
+                                                if (! isObjectLiteral(config)) {
+                                                    return {};
+                                                }
+
+                                                if ((! config.key && ! config.value) || 2 < Object.keys(config).length) {
+                                                    return config;
+                                                }
+
+                                                return { [config.key]: config.value };
+                                            })
+                                        .end()
+                                        .normalizeKeys(false)
+                                        .scalarPrototype().end()
+                                    .end()
+                                    .arrayNode('headers')
+                                        .info('Associative array: header => value(s).')
+                                        .useAttributeAsKey('name')
+                                        .normalizeKeys(false)
+                                        .variablePrototype().end()
+                                    .end()
+                                    .integerNode('max_redirects')
+                                        .info('The maximum number of redirects to follow.')
+                                    .end()
+                                    .scalarNode('http_version')
+                                        .info('The default HTTP version, typically 1.1 or 2.0, leave to null for the best version.')
+                                    .end()
+                                    .arrayNode('resolve')
+                                        .info('Associative array: domain => IP.')
+                                        .useAttributeAsKey('host')
+                                        .beforeNormalization()
+                                            .always(config => {
+                                                if (! isObjectLiteral(config)) {
+                                                    return {};
+                                                }
+
+                                                if ((! config.host && ! config.value) || 2 < Object.keys(config).length) {
+                                                    return config;
+                                                }
+
+                                                return { [config.host]: config.value };
+                                            })
+                                        .end()
+                                        .normalizeKeys(false)
+                                        .scalarPrototype().end()
+                                    .end()
+                                    .scalarNode('proxy')
+                                        .info('The URL of the proxy to pass requests through or null for automatic detection.')
+                                    .end()
+                                    .scalarNode('no_proxy')
+                                        .info('A comma separated list of hosts that do not require a proxy to be reached.')
+                                    .end()
+                                    .floatNode('timeout')
+                                        .info('The idle timeout, defaults to the "default_socket_timeout" ini parameter.')
+                                    .end()
+                                    .floatNode('max_duration')
+                                        .info('The maximum execution time for the request+response as a whole.')
+                                    .end()
+                                    .scalarNode('bindto')
+                                        .info('A network interface name, IP address, a host name or a UNIX socket to bind to.')
+                                    .end()
+                                    .booleanNode('verify_peer')
+                                        .info('Indicates if the peer should be verified in a SSL/TLS context.')
+                                    .end()
+                                    .booleanNode('verify_host')
+                                        .info('Indicates if the host should exist as a certificate common name.')
+                                    .end()
+                                    .scalarNode('cafile')
+                                        .info('A certificate authority file.')
+                                    .end()
+                                    .scalarNode('capath')
+                                        .info('A directory that contains multiple certificate authority files.')
+                                    .end()
+                                    .scalarNode('local_cert')
+                                        .info('A PEM formatted certificate file.')
+                                    .end()
+                                    .scalarNode('local_pk')
+                                        .info('A private key file.')
+                                    .end()
+                                    .scalarNode('passphrase')
+                                        .info('The passphrase used to encrypt the "local_pk" file.')
+                                    .end()
+                                    .scalarNode('ciphers')
+                                        .info('A list of SSL/TLS ciphers separated by colons, commas or spaces (e.g. "RC3-SHA:TLS13-AES-128-GCM-SHA256"...)')
+                                    .end()
+                                    .append(this._addHttpClientRetrySection())
+                                .end()
+                            .end()
+                        .end()
+                    .end()
+                .end()
+            .end()
+        ;
+    }
+
+    _addHttpClientRetrySection() {
+        const root = new NodeBuilder();
+
+        return root
+            .arrayNode('retry_failed')
+                .canBeEnabled()
+                .addDefaultsIfNotSet()
+                .beforeNormalization()
+                    .always(v => {
+                        if (!! v.retry_strategy && (!! v.http_codes || !! v.delay || !! v.multiplier || !! v.max_delay)) {
+                            throw new InvalidArgumentException('The "retry_strategy" option cannot be used along with the "http_codes", "delay", "multiplier" or "max_delay" options.');
+                        }
+
+                        return v;
+                    })
+                .end()
+                .children()
+                    .scalarNode('retry_strategy').defaultNull().info('service id to override the retry strategy').end()
+                    .arrayNode('http_codes')
+                        .performNoDeepMerging()
+                        .beforeNormalization()
+                            .ifArray()
+                            .then(v => {
+                                const list = [];
+                                for (const [ key, val ] of __jymfony.getEntries(v)) {
+                                    if (isNumeric(val)) {
+                                        list.push({ code: val });
+                                    } else if (isObjectLiteral(val)) {
+                                        if (!! val.code || !! val.methods) {
+                                            list.push(val);
+                                        } else {
+                                            list.push({ code: key, methods: val });
+                                        }
+                                    } else if (true === val || null === val) {
+                                        list.push({ code: key });
+                                    }
+                                }
+
+                                return list;
+                            })
+                        .end()
+                        .useAttributeAsKey('code')
+                        .arrayPrototype()
+                            .children()
+                                .integerNode('code').end()
+                                .arrayNode('methods')
+                                    .beforeNormalization()
+                                    .ifArray()
+                                        .then(v => String(v).toUpperCase())
+                                    .end()
+                                    .prototype('scalar').end()
+                                    .info('A list of HTTP methods that triggers a retry for this status code. When empty, all methods are retried')
+                                .end()
+                            .end()
+                        .end()
+                        .info('A list of HTTP status code that triggers a retry')
+                    .end()
+                    .integerNode('max_retries').defaultValue(3).min(0).end()
+                    .integerNode('delay').defaultValue(1000).min(0).info('Time in ms to delay (or the initial value when multiplier is used)').end()
+                    .floatNode('multiplier').defaultValue(2).min(1).info('If greater than 1, delay will grow exponentially for each retry: delay * (multiple ^ retries)').end()
+                    .integerNode('max_delay').defaultValue(0).min(0).info('Max time in ms that a retry should ever be delayed (0 = infinite)').end()
+                .end()
+            ;
     }
 
     /**

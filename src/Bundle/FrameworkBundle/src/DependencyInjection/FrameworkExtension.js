@@ -70,6 +70,7 @@ export default class FrameworkExtension extends Extension {
         this._registerMime(loader);
         this._registerTemplatingConfiguration(config.templating, container, loader);
         this._registerValidationConfiguration(config.validation, container, loader);
+        this._registerHttpClientConfiguration(config.http_client, container, loader, {} /* config.profiler */);
 
         container.registerForAutoconfiguration('Jymfony.Component.Console.Command.Command').addTag('console.command');
         container.registerForAutoconfiguration('Jymfony.Component.DependencyInjection.ServiceLocator').addTag('container.service_locator');
@@ -550,6 +551,97 @@ export default class FrameworkExtension extends Extension {
         }
 
         loader.load('mime.js');
+    }
+
+    _registerHttpClientConfiguration(config, container, loader, profilerConfig) {
+        if (! this._isConfigEnabled(container, config)) {
+            return;
+        }
+
+        loader.load('http_client.js');
+
+        const options = config.default_options || {};
+        const retryOptions = options.retry_failed || { enabled: false };
+        delete options.retry_failed;
+
+        container.getDefinition('http_client').setArguments([ options, config.max_host_connections || 6 ]);
+        if (this._isConfigEnabled(container, retryOptions)) {
+            this._registerRetryableHttpClient(retryOptions, 'http_client', container);
+        }
+
+        const httpClientId = (retryOptions.enabled || false) ? 'http_client.retryable.inner' : (this._isConfigEnabled(container, profilerConfig) ? '.debug.http_client.inner' : 'http_client');
+        for (const [ name, scopeConfig ] of __jymfony.getEntries(config.scoped_clients)) {
+            const ScopingHttpClient = Jymfony.Component.HttpClient.ScopingHttpClient;
+
+            if ('http_client' === name) {
+                throw new InvalidArgumentException(__jymfony.sprintf('Invalid scope name: "%s" is reserved.', name));
+            }
+
+            const scope = scopeConfig.scope || null;
+            delete scopeConfig.scope;
+
+            const retryOptions = scopeConfig.retry_failed || { enabled: false };
+            delete scopeConfig.retry_failed;
+
+            if (null === scope) {
+                const baseUri = scopeConfig.base_uri;
+                delete scopeConfig.base_uri;
+
+                container.register(name, ScopingHttpClient)
+                    .setFactory(ScopingHttpClient.forBaseUri)
+                    .setArguments([ new Reference(httpClientId), baseUri, scopeConfig ])
+                    .addTag('http_client.client')
+                ;
+            } else {
+                container.register(name, ScopingHttpClient)
+                    .setArguments([ new Reference(httpClientId), { scope: scopeConfig }, scope ])
+                    .addTag('http_client.client')
+                ;
+            }
+
+            if (this._isConfigEnabled(container, retryOptions)) {
+                this._registerRetryableHttpClient(retryOptions, name, container);
+            }
+        }
+
+        const responseFactoryId = config.mock_response_factory || null;
+        if (responseFactoryId) {
+            container.register(httpClientId + '.mock_client', Jymfony.Component.HttpClient.MockHttpClient)
+                .setDecoratedService(httpClientId, null, -10) // Lower priority than TraceableHttpClient
+                .setArguments([ new Reference(responseFactoryId) ]);
+        }
+    }
+
+    _registerRetryableHttpClient(options, name, container) {
+        let retryStrategy;
+        if (null !== options.retry_strategy) {
+            retryStrategy = new Reference(options['retry_strategy']);
+        } else {
+            retryStrategy = new ChildDefinition('http_client.abstract_retry_strategy');
+            const codes = {};
+            for (const [ code, codeOptions ] of options.http_codes) {
+                if (codeOptions.methods) {
+                    codes[code] = codeOptions.methods;
+                } else {
+                    codes[code] = true;
+                }
+            }
+
+            retryStrategy
+                .replaceArgument(0, 0 < Object.keys(codes).length ? codes : GenericRetryStrategy.DEFAULT_RETRY_STATUS_CODES)
+                .replaceArgument(1, options.delay)
+                .replaceArgument(2, options.multiplier)
+                .replaceArgument(3, options.max_delay);
+            container.setDefinition(name + '.retry_strategy', retryStrategy);
+
+            retryStrategy = new Reference(name + '.retry_strategy');
+        }
+
+        container
+            .register(name + '.retryable', 'Jymfony.Component.HttpClient.RetryableHttpClient')
+            .setDecoratedService(name, null, 10) // Higher priority than TraceableHttpClient
+            .setArguments([ new Reference(name + '.retryable.inner'), retryStrategy, options.max_retries, new Reference('logger', Container.IGNORE_ON_INVALID_REFERENCE) ])
+            .addTag('jymfony.logger', { channel: 'http_client' });
     }
 
     /**
