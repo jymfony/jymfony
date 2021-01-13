@@ -7,6 +7,10 @@ const workers = {};
  * @param {module:cluster.Worker} worker
  */
 const killWorker = async worker => {
+    if (! worker) {
+        return;
+    }
+
     const p = Promise.race([
         new Promise(resolve => worker.on('exit', () => {
             if (! worker.isDead()) {
