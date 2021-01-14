@@ -231,7 +231,9 @@ export default class NativeHttpResponse extends implementationOf(ResponseInterfa
         }
 
         if (false === this._options.buffer) {
-            if (this._readable.readableEnded) {
+            if (this._readable.readableEnded ||
+                (undefined === this._readable.readableEnded && this._readable._readableState.ended)
+            ) {
                 throw new TransportException('Cannot get the content of the response twice: buffering is disabled.');
             }
 
