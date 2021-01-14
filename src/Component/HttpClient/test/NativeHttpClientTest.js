@@ -11,6 +11,10 @@ export default class NativeHttpClientTest extends HttpClientTestCase {
     }
 
     async testHttpVersion() {
+        if (__jymfony.Platform.isWindows()) {
+            this.markTestSkipped();
+        }
+
         const client = this.getHttpClient();
         const response = client.request('GET', 'http://localhost:8057', {
             http_version: '1.0',
