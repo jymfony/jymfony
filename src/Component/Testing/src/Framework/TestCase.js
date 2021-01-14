@@ -225,6 +225,11 @@ export default class TestCase extends Assert {
                             setTimeout: this.timeout.bind(this),
                         };
 
+                        const defaultTimeout = self.defaultTimeout;
+                        if (defaultTimeout) {
+                            this.timeout(defaultTimeout);
+                        }
+
                         try {
                             await self.run();
                         } finally {
