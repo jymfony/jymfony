@@ -1,43 +1,46 @@
 import { Readable, Writable } from 'stream';
 import { fsyncSync, readFileSync } from 'fs';
-import { expect } from 'chai';
 import { promisify } from 'util';
 
 const OpenFile = Jymfony.Component.Filesystem.OpenFile;
 const FileStreamWrapper = Jymfony.Component.Filesystem.StreamWrapper.FileStreamWrapper;
+const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 
-
-describe('[Filesystem] OpenFile', function () {
-    beforeEach(() => {
+export default class OpenFileTest extends TestCase {
+    beforeEach() {
         FileStreamWrapper.stat_cache_ttl = -1;
-    });
+    }
 
-    it('fgetc should read one byte from stream', async () => {
+    get testCaseName() {
+        return '[Filesystem] OpenFile';
+    }
+
+    async testFgetcShouldReadOneByteFromStream() {
         const file = await new OpenFile(__dirname + '/../fixtures/TESTFILE.txt', 'r');
-        expect(await file.fgetc()).to.be.equal('T'.charCodeAt(0));
-        expect(await file.fgetc()).to.be.equal('H'.charCodeAt(0));
-        expect(await file.fgetc()).to.be.equal('I'.charCodeAt(0));
+        __self.assertEquals('T'.charCodeAt(0), await file.fgetc());
+        __self.assertEquals('H'.charCodeAt(0), await file.fgetc());
+        __self.assertEquals('I'.charCodeAt(0), await file.fgetc());
 
         await file.close();
-    });
+    }
 
-    it('fread should read from stream', async () => {
+    async testFreadShouldReadFromStream() {
         const file = await new OpenFile(__dirname + '/../fixtures/TESTFILE.txt', 'r');
-        expect(await file.fread(7)).to.be.deep.equal(Buffer.from('THIS IS'));
-        expect(await file.fread(7)).to.be.deep.equal(Buffer.from(' A TEST'));
-        expect(await file.fread(7)).to.be.deep.equal(Buffer.from('\n'));
-        expect(await file.fread(7)).to.be.deep.equal(Buffer.from(''));
+        __self.assertEquals(Buffer.from('THIS IS'), await file.fread(7));
+        __self.assertEquals(Buffer.from(' A TEST'), await file.fread(7));
+        __self.assertEquals(Buffer.from('\n'), await file.fread(7));
+        __self.assertEquals(Buffer.from(''), await file.fread(7));
 
         await file.close();
-    });
+    }
 
-    it('createReadableStream should return a stream', async () => {
+    async testCreateReadableStreamShouldReturnAStream() {
         const file = await new OpenFile(__dirname + '/../fixtures/TESTFILE.txt', 'r');
         const readable = await file.createReadableStream();
 
-        expect(readable).to.be.instanceOf(Readable);
+        __self.assertInstanceOf(Readable, readable);
         readable.on('data', buf => {
-            expect(buf.toString('utf-8')).to.be.equal('THIS IS A TEST\n');
+            __self.assertEquals('THIS IS A TEST\n', buf.toString('utf-8'));
         });
 
         await new Promise((resolve, reject) => {
@@ -47,15 +50,18 @@ describe('[Filesystem] OpenFile', function () {
             readable.read();
         });
 
-        await file.close();
-    });
+        readable.removeAllListeners('error');
+        readable.removeAllListeners('end');
 
-    it('createWritableStream should return a stream', async () => {
+        await file.close();
+    }
+
+    async testCreateWritableStreamShouldReturnAStream() {
         const path = __dirname + '/../fixtures/WRITEFILE';
         const file = await new OpenFile(path, 'w');
         const writable = await file.createWritableStream();
 
-        expect(writable).to.be.instanceOf(Writable);
+        __self.assertInstanceOf(Writable, writable);
         await promisify(Writable.prototype.write).call(writable, 'This is ', 'utf-8');
         await promisify(Writable.prototype.write).call(writable, 'a te', 'utf-8');
         await promisify(Writable.prototype.write).call(writable, 'st of writing', 'utf-8');
@@ -63,24 +69,24 @@ describe('[Filesystem] OpenFile', function () {
         await file.close();
 
         const str = readFileSync(path, { encoding: 'utf-8' });
-        expect(str).to.be.equal('This is a test of writing');
-    });
+        __self.assertEquals('This is a test of writing', str);
+    }
 
-    it('fwrite should write to file', async () => {
+    async testFwriteShouldWriteToFile() {
         const file = await new OpenFile(__dirname + '/../fixtures/WRITEFILE', 'w');
-        expect(await file.fwrite(Buffer.from('TEST FILE'))).to.be.equal(9);
+        __self.assertEquals(9, await file.fwrite(Buffer.from('TEST FILE')));
 
         fsyncSync((await file._resource).handle.fd);
-        expect(await file.getSize()).to.be.equal(9);
+        __self.assertEquals(9, await file.getSize());
 
         await file.close();
-    });
+    }
 
-    it('ftruncate should truncate to file', async () => {
+    async testFtruncateShouldTruncateToSize() {
         const file = await new OpenFile(__dirname + '/../fixtures/WRITEFILE', 'w');
         await file.ftruncate(0);
-        expect(await file.getSize()).to.be.equal(0);
+        __self.assertEquals(0, await file.getSize());
 
         await file.close();
-    });
-});
+    }
+}

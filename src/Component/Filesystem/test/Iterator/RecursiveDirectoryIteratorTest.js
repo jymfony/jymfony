@@ -1,37 +1,41 @@
+import path from 'path';
+
 const RecursiveDirectoryIterator = Jymfony.Component.Filesystem.Iterator.RecursiveDirectoryIterator;
+const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 
-const { expect } = require('chai');
-const path = require('path');
+export default class RecursiveDirectoryIteratorTest extends TestCase {
+    get testCaseName() {
+        return '[Filesystem] RecursiveDirectoryIterator';
+    }
 
-describe('[Filesystem] RecursiveDirectoryIterator', function () {
-    it('should asynchronously iterate through directory', async () => {
+    async testShouldAsynchronouslyIterateThroughDirectory() {
         const resolved = [ ...__dirname.split(path.sep).slice(0, -2), 'fixtures', 'Testdir' ].join(path.sep);
         const itr = new RecursiveDirectoryIterator(resolved);
         const result = [];
 
         while (true) {
             const next = itr.next();
-            expect(next).to.be.instanceOf(Promise);
+            __self.assertInstanceOf(Promise, next);
 
             const file = await next;
-            expect(file.done).to.be.a('boolean');
+            __self.assertIsBoolean(file.done);
 
             if (file.done) {
                 break;
             }
 
-            expect(file.value).to.be.a('string');
+            __self.assertIsString(file.value);
             result.push(file.value);
         }
 
-        expect(result.sort()).to.be.deep.equal([
+        __self.assertEquals([
             'file://'+resolved+path.sep+'Subdir'+path.sep+'another_dir'+path.sep+'test_file.txt',
             'file://'+resolved+path.sep+'bazbaz.txt',
             'file://'+resolved+path.sep+'foobar',
-        ]);
-    });
+        ], result.sort());
+    }
 
-    it('should respect child first flag', async () => {
+    async testShouldRespectChildFirstFlag() {
         const resolved = [ ...__dirname.split(path.sep).slice(0, -2), 'fixtures', 'Testdir' ].join(path.sep);
         const itr = new RecursiveDirectoryIterator(resolved, RecursiveDirectoryIterator.CHILD_FIRST);
         const result = [];
@@ -40,14 +44,14 @@ describe('[Filesystem] RecursiveDirectoryIterator', function () {
             result.push(value);
         });
 
-        expect(result).to.be.deep.equal([
+        __self.assertEquals([
             'file://'+resolved+path.sep+'Subdir'+path.sep+'another_dir'+path.sep+'test_file.txt',
             'file://'+resolved+path.sep+'bazbaz.txt',
             'file://'+resolved+path.sep+'foobar',
-        ]);
-    });
+        ], result);
+    }
 
-    it('should respect child last flag', async () => {
+    async testShouldRespectChildLastFlag() {
         const resolved = [ ...__dirname.split(path.sep).slice(0, -2), 'fixtures', 'Testdir' ].join(path.sep);
         const itr = new RecursiveDirectoryIterator(resolved, RecursiveDirectoryIterator.CHILD_LAST);
         const result = [];
@@ -56,10 +60,10 @@ describe('[Filesystem] RecursiveDirectoryIterator', function () {
             result.push(value);
         });
 
-        expect(result).to.be.deep.equal([
+        __self.assertEquals([
             'file://'+resolved+path.sep+'bazbaz.txt',
             'file://'+resolved+path.sep+'foobar',
             'file://'+resolved+path.sep+'Subdir'+path.sep+'another_dir'+path.sep+'test_file.txt',
-        ]);
-    });
-});
+        ], result);
+    }
+}

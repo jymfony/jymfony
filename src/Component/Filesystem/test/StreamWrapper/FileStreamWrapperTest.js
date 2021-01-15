@@ -1,13 +1,29 @@
+import { Readable, Writable } from 'stream';
+import fs from 'fs';
+import path from 'path';
+
 const FileStreamWrapper = Jymfony.Component.Filesystem.StreamWrapper.FileStreamWrapper;
 const Resource = Jymfony.Component.Filesystem.StreamWrapper.File.Resource;
-const fs = require('fs');
-const stream = require('stream');
-const path = require('path');
-const { expect } = require('chai');
+const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 
-describe('[Filesystem] FileStreamWrapper', function () {
-    const fixturesDir = __dirname+'/../../fixtures';
-    before(() => {
+const fixturesDir = __dirname+'/../../fixtures';
+export default class FileStreamWrapperTest extends TestCase {
+    __construct() {
+        super.__construct();
+
+        /**
+         * @type {Jymfony.Component.Filesystem.StreamWrapper.FileStreamWrapper}
+         *
+         * @private
+         */
+        this._wrapper = undefined;
+    }
+
+    get testCaseName() {
+        return '[Filesystem] FileStreamWrapper';
+    }
+
+    before() {
         try {
             fs.rmdirSync(fixturesDir + path.sep + 'dir_1' + path.sep + 'dir_2');
         } catch (e) { }
@@ -19,144 +35,133 @@ describe('[Filesystem] FileStreamWrapper', function () {
         try {
             fs.unlinkSync(fixturesDir + path.sep + 'WRITEFILE');
         } catch (e) { }
-    });
+    }
 
-    beforeEach(() => {
-        /**
-         * @type {Jymfony.Component.Filesystem.StreamWrapper.FileStreamWrapper}
-         *
-         * @private
-         */
+    beforeEach() {
         this._wrapper = new FileStreamWrapper();
-    });
+    }
 
-    it('readdir should work', async () => {
+    async testReaddirShouldWork() {
         /** @var string[] dir */
         const dir = await this._wrapper.readdir(fixturesDir);
-        expect(dir.sort()).to.be.deep.equal([ '.gitignore', 'LINKFILE', 'RENAMEBLE_FILE', 'TESTFILE.txt', 'Testdir' ]);
-    });
+        __self.assertEquals([ '.gitignore', 'LINKFILE', 'RENAMEBLE_FILE', 'TESTFILE.txt', 'Testdir' ], dir.sort());
+    }
 
-    it('mkdir should throw if recursive flag is not set', async () => {
-        return this._wrapper.mkdir(fixturesDir+'/dir_1/dir_2')
-            .then(() => {
-                fs.rmdirSync(fixturesDir+'/dir_1/dir_2');
-                fs.rmdirSync(fixturesDir+'/dir_1');
-                throw new Error('FAIL');
-            }, e => {
-                expect(e).to.be.instanceOf(Error);
-                expect(e.code).to.be.equal('ENOENT');
-            });
-    });
+    async testMkdirShouldThrowIfRecursiveFlagIsNotSet() {
+        this.expectException(Error);
+        this.expectExceptionMessageRegex(/ENOENT/);
 
-    it('mkdir should create tree if recursive is set to true', async () => {
-        return this._wrapper.mkdir(fixturesDir+'/dir_1/dir_2', 0o777, true)
-            .then(() => {
-                expect(
-                    fs.statSync(fixturesDir+'/dir_1/dir_2').isDirectory()
-                ).to.be.true;
+        await this._wrapper.mkdir(fixturesDir + '/dir_1/dir_2');
 
-                fs.rmdirSync(fixturesDir+'/dir_1/dir_2');
-                fs.rmdirSync(fixturesDir+'/dir_1');
-            });
-    });
+        // Executed only on fail
+        fs.rmdirSync(fixturesDir + '/dir_1/dir_2');
+        fs.rmdirSync(fixturesDir + '/dir_1');
+        this.fail('Expected ENOENT error');
+    }
 
-    it('rmdir should throw if directory is not empty', async () => {
+    async testMkdirShouldCreateTreeIfRecursiveIsSetToTrue() {
+        await this._wrapper.mkdir(fixturesDir+'/dir_1/dir_2', 0o777, true);
+        __self.assertTrue(fs.statSync(fixturesDir+'/dir_1/dir_2').isDirectory());
+
+        fs.rmdirSync(fixturesDir+'/dir_1/dir_2');
+        fs.rmdirSync(fixturesDir+'/dir_1');
+    }
+
+    async testRmdirShouldThrowIfDirectoryIsNotEmpty() {
         await this._wrapper.mkdir(fixturesDir+'/dir_1/dir_2', 0o777, true);
 
-        return this._wrapper.rmdir(fixturesDir+'/dir_1')
-            .then(() => {
-                throw new Error('FAIL');
-            }, () => {
-                expect(
-                    fs.statSync(fixturesDir+'/dir_1').isDirectory()
-                ).to.be.true;
+        try {
+            await this._wrapper.rmdir(fixturesDir+'/dir_1');
+        } catch (e) {
+            __self.assertTrue(fs.statSync(fixturesDir+'/dir_1').isDirectory());
 
-                try {
-                    fs.rmdirSync(fixturesDir + '/dir_1/dir_2');
-                    fs.rmdirSync(fixturesDir + '/dir_1');
-                } catch (e) { }
-            });
-    });
+            try {
+                fs.rmdirSync(fixturesDir + '/dir_1/dir_2');
+                fs.rmdirSync(fixturesDir + '/dir_1');
+            } catch (e) { }
 
-    it('rmdir should remove directory', async () => {
+            return;
+        }
+
+        this.fail('Expected Error');
+    }
+
+    async testRmdirShouldRemoveDirectory() {
         await this._wrapper.mkdir(fixturesDir+'/dir_1', 0o777, true);
 
-        return this._wrapper.rmdir(fixturesDir+'/dir_1')
-            .then(() => {
-                expect(
-                    () => fs.statSync(fixturesDir+'/dir_1')
-                ).to.throw(Error);
-            }, e => {
-                try {
-                    fs.rmdirSync(fixturesDir + '/dir_1');
-                } catch (e) { }
+        try {
+            await this._wrapper.rmdir(fixturesDir + '/dir_1');
 
-                throw e;
-            });
-    });
+            this.expectException(Error);
+            fs.statSync(fixturesDir+'/dir_1');
+        } finally {
+            try {
+                fs.rmdirSync(fixturesDir + '/dir_1');
+            } catch (e) { }
+        }
+    }
 
-    it('rename should rename files', async () => {
+    async testRenameShouldRenameFiles() {
         fs.statSync(fixturesDir+'/RENAMEBLE_FILE');
-        expect(() => fs.statSync(fixturesDir+'/RENAMED_FILE')).to.throw(Error);
+        try {
+            fs.statSync(fixturesDir+'/RENAMED_FILE');
+            this.fail('Expected Error');
+        } catch (e) { }
 
         await this._wrapper.rename(fixturesDir+'/RENAMEBLE_FILE', fixturesDir+'/RENAMED_FILE');
 
-        expect(() => fs.statSync(fixturesDir+'/RENAMEBLE_FILE')).to.throw(Error);
-        expect(
-            fs.statSync(fixturesDir+'/RENAMED_FILE').isFile()
-        ).to.be.true;
+        try {
+            fs.statSync(fixturesDir+'/RENAMEBLE_FILE');
+            this.fail('Expected Error');
+        } catch (e) { }
+
+        __self.assertTrue(fs.statSync(fixturesDir+'/RENAMED_FILE').isFile());
 
         await this._wrapper.rename(fixturesDir+'/RENAMED_FILE', fixturesDir+'/RENAMEBLE_FILE');
 
-        expect(() => fs.statSync(fixturesDir+'/RENAMED_FILE')).to.throw(Error);
-        expect(
-            fs.statSync(fixturesDir+'/RENAMEBLE_FILE').isFile()
-        ).to.be.true;
-    });
+        try {
+            fs.statSync(fixturesDir+'/RENAMED_FILE');
+            this.fail('Expected Error');
+        } catch (e) { }
 
-    it('streamOpen/streamClose should work', async () => {
+        __self.assertTrue(fs.statSync(fixturesDir+'/RENAMEBLE_FILE').isFile());
+    }
+
+    async testStreamOpenStreamCloseShouldWork() {
         const resource = await this._wrapper.streamOpen(fixturesDir+'/TESTFILE.txt', 'r');
-        expect(resource).to.be.instanceOf(Resource);
+        __self.assertInstanceOf(Resource, resource);
 
         await this._wrapper.streamClose(resource);
-    });
+    }
 
-    it('createReadableStream/createWritableStream should work', async () => {
+    async testCreateReadableStreamAndCreateWritableStreamShouldWork() {
         const resource = await this._wrapper.streamOpen(fixturesDir+'/TESTFILE.txt', 'r+');
-        expect(this._wrapper.createReadableStream(resource)).to.be.instanceOf(stream.Readable);
-        expect(this._wrapper.createWritableStream(resource)).to.be.instanceOf(stream.Writable);
+        __self.assertInstanceOf(Readable, this._wrapper.createReadableStream(resource));
+        __self.assertInstanceOf(Writable, this._wrapper.createWritableStream(resource));
 
         await this._wrapper.streamClose(resource);
-    });
+    }
 
-    it('streamRead should work', async () => {
+    async testStreamReadShouldWork() {
         const resource = await this._wrapper.streamOpen(fixturesDir+'/TESTFILE.txt', 'r');
-        await expect(
-            await this._wrapper.streamRead(resource, 1)
-        ).to.be.deep.equal(Buffer.from('T'));
-        await expect(
-            await this._wrapper.streamRead(resource, 2)
-        ).to.be.deep.equal(Buffer.from('HI'));
+        __self.assertEquals(Buffer.from('T'), await this._wrapper.streamRead(resource, 1));
+        __self.assertEquals(Buffer.from('HI'), await this._wrapper.streamRead(resource, 2));
 
         await this._wrapper.streamClose(resource);
-    });
+    }
 
-    it('streamWrite should work', async () => {
+    async testStreamWriteShouldWork() {
         const resource = await this._wrapper.streamOpen(fixturesDir+'/WRITEFILE', 'w');
-        await expect(
-            await this._wrapper.streamWrite(resource, Buffer.from('foobar'))
-        ).to.be.equal(6);
+        __self.assertEquals(6, await this._wrapper.streamWrite(resource, Buffer.from('foobar')));
 
         await this._wrapper.streamClose(resource);
-    });
+    }
 
-    it('streamTruncate should work', async () => {
+    async testStreamTruncateShouldWork() {
         const resource = await this._wrapper.streamOpen(fixturesDir+'/WRITEFILE', 'r+');
         await this._wrapper.streamTruncate(resource);
         await this._wrapper.streamClose(resource);
 
-        await expect(
-            fs.statSync(fixturesDir+'/WRITEFILE').size
-        ).to.be.equal(0);
-    });
-});
+        __self.assertEquals(0, fs.statSync(fixturesDir+'/WRITEFILE').size);
+    }
+}
