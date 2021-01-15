@@ -1,4 +1,4 @@
-let pendingTimeouts = [];
+const pendingTimeouts = [];
 
 /**
  * @memberOf Jymfony.Component.Debug
@@ -19,8 +19,9 @@ export default class Timeout {
                     return callback.bind(this)(...callbackArgs);
                 } finally {
                     const index = pendingTimeouts.indexOf(element);
-                    __assert(-1 !== index);
-                    pendingTimeouts.splice(index, 1);
+                    if (-1 !== index) {
+                        pendingTimeouts.splice(index, 1);
+                    }
                 }
             }, ms, ...args);
 
@@ -36,10 +37,9 @@ export default class Timeout {
             return clear(handle);
         };
 
-        process.on('exit', () => {
+        process.once('exit', () => {
             if (pendingTimeouts.length) {
                 console.warn(__jymfony.sprintf('Exited with %u pending timeouts', pendingTimeouts.length));
-                pendingTimeouts = [];
             }
         });
     }

@@ -211,8 +211,11 @@ export default class TestServer {
         ));
 
         const server = HttpServer.create(collection);
-        server.eventDispatcher.addListener(HttpServerEvents.EXCEPTION, dd);
+        server.eventDispatcher.addListener(HttpServerEvents.EXCEPTION, console.error);
 
-        return server.listen({ port });
+        const promise = server.listen({ port });
+        promise.close = server.close.bind(server);
+
+        return promise;
     }
 }

@@ -179,6 +179,7 @@ class GeneratorStream extends Readable {
 
 /**
  * @param {Object.<string, string>|string|NodeJS.ReadableStream|Buffer|Function} body
+ * @param {Object.<string, *>} options
  *
  * @returns {NodeJS.ReadableStream}
  *

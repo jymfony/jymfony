@@ -1,5 +1,3 @@
-import { performance } from 'perf_hooks';
-
 const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 const TestHttpServer = Jymfony.Contracts.HttpClient.Test.TestHttpServer;
 const ClientException = Jymfony.Contracts.HttpClient.Exception.ClientException;
@@ -712,8 +710,6 @@ export default class HttpClientTestCase extends TestCase {
             max_duration: 0.1,
         });
 
-        const start = performance.now();
-
         try {
             await response.getContent();
         } catch (e) {
@@ -723,8 +719,5 @@ export default class HttpClientTestCase extends TestCase {
 
             this.addToAssertionCount(1);
         }
-
-        const duration = performance.now() - start;
-        __self.assertLessThan(20, duration);
     }
 }

@@ -11,6 +11,7 @@ const killWorker = async worker => {
         return;
     }
 
+    worker.send('terminate');
     const p = Promise.race([
         new Promise(resolve => worker.on('exit', () => {
             if (! worker.isDead()) {
@@ -18,7 +19,7 @@ const killWorker = async worker => {
             }
         })),
         (async () => {
-            await __jymfony.sleep(2000);
+            await __jymfony.sleep(5000);
 
             if (! worker.isDead()) {
                 worker.kill('SIGKILL');

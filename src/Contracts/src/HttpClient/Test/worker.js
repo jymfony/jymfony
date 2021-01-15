@@ -9,5 +9,8 @@ try {
 
 const TestServer = Jymfony.Contracts.Fixtures.HttpClient.TestServer;
 (async () => {
-    await TestServer.createHttpServer(process.argv[2]);
+    const server = TestServer.createHttpServer(process.argv[2]);
+    process.on('message', () => server.close());
+
+    await server;
 })().then(() => {}, console.error);

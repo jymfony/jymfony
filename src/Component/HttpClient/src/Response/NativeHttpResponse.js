@@ -366,6 +366,21 @@ export default class NativeHttpResponse extends implementationOf(ResponseInterfa
                     socket.removeAllListeners('error');
                 }
 
+                socket.on('error', e => {
+                    if ('ECONNRESET' === e.code) {
+                        // Connection has been closed
+                        const message = this._readable || this._message;
+                        if (message) {
+                            message.emit('error', new TransportException(e.message));
+                        } else {
+                            this.close();
+                            this._info.error = e.message;
+                        }
+                    }
+
+                    // Do not throw error: should be handled elsewhere anyway.
+                });
+
                 this._info.connect_time = performance.now() - this._info.start_time;
                 if ('https:' === url.protocol) {
                     const alpnProtocols = [ 'http/1.1', 'http/1.0' ];
@@ -545,7 +560,7 @@ export default class NativeHttpResponse extends implementationOf(ResponseInterfa
                 this._info.debug += __jymfony.sprintf('\nRedirecting: "%s %s"\n', this._info.http_code, url || this._url);
             }
         } catch (e) {
-            await this.close();
+            this.close();
             throw e;
         } finally {
             this._info.pretransfer_time = this._info.total_time = performance.now() - this._info.start_time;
