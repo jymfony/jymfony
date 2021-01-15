@@ -11,7 +11,8 @@ const Constraint = Jymfony.Component.Testing.Constraints.Constraint;
  */
 export default class IsInstanceOf extends Constraint {
     __construct(className) {
-        this._className = ReflectionClass.getClassName(className);
+        this._class = ReflectionClass.getClass(className);
+        this._className = ReflectionClass.getClassName(className) || this._class.name;
     }
 
     /**
@@ -25,7 +26,7 @@ export default class IsInstanceOf extends Constraint {
      * @inheritdoc
      */
     matches(other) {
-        return (new ReflectionClass(other)).isInstanceOf(this._className);
+        return other instanceof this._class;
     }
 
     /**

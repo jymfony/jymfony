@@ -9,6 +9,7 @@ const IsIdentical = Jymfony.Component.Testing.Constraints.IsIdentical;
 const IsInstanceOf = Jymfony.Component.Testing.Constraints.IsInstanceOf;
 const IsNull = Jymfony.Component.Testing.Constraints.IsNull;
 const IsTrue = Jymfony.Component.Testing.Constraints.IsTrue;
+const IsType = Jymfony.Component.Testing.Constraints.IsType;
 const IsUndefined = Jymfony.Component.Testing.Constraints.IsUndefined;
 const LessThan = Jymfony.Component.Testing.Constraints.LessThan;
 const LogicalNot = Jymfony.Component.Testing.Constraints.LogicalNot;
@@ -181,7 +182,7 @@ export default class Assert {
     /**
      * Asserts that a variable is of a given type.
      *
-     * @throws {ExpectationFailedException}
+     * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
      * @throws {InvalidArgumentException}
      */
     static assertInstanceOf(expected, actual, message = '') {
@@ -190,6 +191,140 @@ export default class Assert {
         }
 
         __self.assertThat(actual, new IsInstanceOf(expected), message);
+    }
+
+    /**
+     * Asserts that a variable is not of a given type.
+     *
+     * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+     * @throws {InvalidArgumentException}
+     */
+    static assertNotInstanceOf(expected, actual, message = '') {
+        if (! ReflectionClass.exists(expected)) {
+            throw new InvalidArgumentException('Invalid class or interface name passed');
+        }
+
+        __self.assertThat(actual, new LogicalNot(new IsInstanceOf(expected)), message);
+    }
+
+    /**
+     * Asserts that a variable is undefined.
+     *
+     * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+     * @throws {InvalidArgumentException}
+     */
+    static assertIsUndefined(actual, message = '') {
+        __self.assertThat(actual, new IsType(IsType.TYPE_UNDEFINED), message);
+    }
+
+    /**
+     * Asserts that a variable is a boolean.
+     *
+     * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+     * @throws {InvalidArgumentException}
+     */
+    static assertIsBoolean(actual, message = '') {
+        __self.assertThat(actual, new IsType(IsType.TYPE_BOOLEAN), message);
+    }
+
+    /**
+     * Asserts that a variable is a number.
+     *
+     * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+     * @throws {InvalidArgumentException}
+     */
+    static assertIsNumber(actual, message = '') {
+        __self.assertThat(actual, new IsType(IsType.TYPE_NUMBER), message);
+    }
+
+    /**
+     * Asserts that a variable is a BigInt.
+     *
+     * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+     * @throws {InvalidArgumentException}
+     */
+    static assertIsBigInt(actual, message = '') {
+        __self.assertThat(actual, new IsType(IsType.TYPE_BIGINT), message);
+    }
+
+    /**
+     * Asserts that a variable is a string.
+     *
+     * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+     * @throws {InvalidArgumentException}
+     */
+    static assertIsString(actual, message = '') {
+        __self.assertThat(actual, new IsType(IsType.TYPE_STRING), message);
+    }
+
+    /**
+     * Asserts that a variable is a symbol.
+     *
+     * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+     * @throws {InvalidArgumentException}
+     */
+    static assertIsSymbol(actual, message = '') {
+        __self.assertThat(actual, new IsType(IsType.TYPE_SYMBOL), message);
+    }
+
+    /**
+     * Asserts that a variable is a function.
+     *
+     * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+     * @throws {InvalidArgumentException}
+     */
+    static assertIsFunction(actual, message = '') {
+        __self.assertThat(actual, new IsType(IsType.TYPE_FUNCTION), message);
+    }
+
+    /**
+     * Asserts that a variable is an object.
+     *
+     * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+     * @throws {InvalidArgumentException}
+     */
+    static assertIsObject(actual, message = '') {
+        __self.assertThat(actual, new IsType(IsType.TYPE_OBJECT), message);
+    }
+
+    /**
+     * Asserts that a variable is numeric.
+     *
+     * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+     * @throws {InvalidArgumentException}
+     */
+    static assertIsNumeric(actual, message = '') {
+        __self.assertThat(actual, new IsType(IsType.TYPE_NUMERIC), message);
+    }
+
+    /**
+     * Asserts that a variable is an array.
+     *
+     * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+     * @throws {InvalidArgumentException}
+     */
+    static assertIsArray(actual, message = '') {
+        __self.assertThat(actual, new IsType(IsType.TYPE_ARRAY), message);
+    }
+
+    /**
+     * Asserts that a variable is null.
+     *
+     * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+     * @throws {InvalidArgumentException}
+     */
+    static assertIsNull(actual, message = '') {
+        __self.assertThat(actual, new IsType(IsType.TYPE_NULL), message);
+    }
+
+    /**
+     * Asserts that a variable is scalar.
+     *
+     * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+     * @throws {InvalidArgumentException}
+     */
+    static assertIsScalar(actual, message = '') {
+        __self.assertThat(actual, new IsType(IsType.TYPE_SCALAR), message);
     }
 
     /**

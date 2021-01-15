@@ -122,7 +122,133 @@ declare namespace Jymfony.Component.Testing.Framework {
          * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
          */
         static assertStringContainsString(needle: string, haystack: string, message?: string): void;
-        assertStringContainsString(needle: string, haystack: string, message?: string);
+        assertStringContainsString(needle: string, haystack: string, message?: string): void;
+
+        /**
+         * Asserts that a variable is of a given type.
+         *
+         * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+         * @throws {InvalidArgumentException}
+         */
+        static assertInstanceOf(expected: string | Newable, actual: any, message?: string): void;
+        assertInstanceOf(expected: string | Newable, actual: any, message?: string): void;
+
+        /**
+         * Asserts that a variable is not of a given type.
+         *
+         * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+         * @throws {InvalidArgumentException}
+         */
+        static assertNotInstanceOf(expected: string | Newable, actual: any, message?: string): void;
+        assertNotInstanceOf(expected: string | Newable, actual: any, message?: string): void;
+
+        /**
+         * Asserts that a variable is undefined.
+         *
+         * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+         * @throws {InvalidArgumentException}
+         */
+        static assertIsUndefined(actual: any, message?: string): void;
+        assertIsUndefined(actual: any, message?: string): void;
+
+        /**
+         * Asserts that a variable is a boolean.
+         *
+         * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+         * @throws {InvalidArgumentException}
+         */
+        static assertIsBoolean(actual: any, message?: string): void;
+        assertIsBoolean(actual: any, message?: string): void;
+
+        /**
+         * Asserts that a variable is a number.
+         *
+         * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+         * @throws {InvalidArgumentException}
+         */
+        static assertIsNumber(actual: any, message?: string): void;
+        assertIsNumber(actual: any, message?: string): void;
+
+        /**
+         * Asserts that a variable is a BigInt.
+         *
+         * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+         * @throws {InvalidArgumentException}
+         */
+        static assertIsBigInt(actual: any, message?: string): void;
+        assertIsBigInt(actual: any, message?: string): void;
+
+        /**
+         * Asserts that a variable is a string.
+         *
+         * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+         * @throws {InvalidArgumentException}
+         */
+        static assertIsString(actual: any, message?: string): void;
+        assertIsString(actual: any, message?: string): void;
+
+        /**
+         * Asserts that a variable is a symbol.
+         *
+         * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+         * @throws {InvalidArgumentException}
+         */
+        static assertIsSymbol(actual: any, message?: string): void;
+        assertIsSymbol(actual: any, message?: string): void;
+
+        /**
+         * Asserts that a variable is a function.
+         *
+         * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+         * @throws {InvalidArgumentException}
+         */
+        static assertIsFunction(actual: any, message?: string): void;
+        assertIsFunction(actual: any, message?: string): void;
+
+        /**
+         * Asserts that a variable is an object.
+         *
+         * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+         * @throws {InvalidArgumentException}
+         */
+        static assertIsObject(actual: any, message?: string): void;
+        assertIsObject(actual: any, message?: string): void;
+
+        /**
+         * Asserts that a variable is numeric.
+         *
+         * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+         * @throws {InvalidArgumentException}
+         */
+        static assertIsNumeric(actual: any, message?: string): void;
+        assertIsNumeric(actual: any, message?: string): void;
+
+        /**
+         * Asserts that a variable is an array.
+         *
+         * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+         * @throws {InvalidArgumentException}
+         */
+        static assertIsArray(actual: any, message?: string): void;
+        assertIsArray(actual: any, message?: string): void;
+
+        /**
+         * Asserts that a variable is null.
+         *
+         * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+         * @throws {InvalidArgumentException}
+         */
+        static assertIsNull(actual: any, message?: string): void;
+        assertIsNull(actual: any, message?: string): void;
+
+        /**
+         * Asserts that a variable is scalar.
+         *
+         * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+         * @throws {InvalidArgumentException}
+         */
+        static assertIsScalar(actual: any, message?: string): void;
+        assertIsScalar(actual: any, message?: string): void;
 
         /**
          * Evaluates a Constraint matcher object.
