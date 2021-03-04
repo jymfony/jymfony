@@ -173,10 +173,10 @@ export default (() => {
                         ['2011']: [
                             o[16],
                         ],
-                        ['2019']: [
+                        ['2020']: [
                             o[16],
                         ],
-                        ['2020']: [
+                        ['2021']: [
                             o[16],
                         ],
                     },
@@ -605,8 +605,15 @@ export default (() => {
                 ['offset']: 14400,
                 ['dst']: false,
                 ['abbrev']: '+04',
-                ['until']: Infinity,
+                ['until']: 1609020000,
                 ['format']: '+04',
+            },
+            {
+                ['offset']: 10800,
+                ['dst']: false,
+                ['abbrev']: '+03',
+                ['until']: Infinity,
+                ['format']: '+03',
             },
         ],
         [

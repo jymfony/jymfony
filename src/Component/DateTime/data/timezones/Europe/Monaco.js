@@ -788,14 +788,14 @@ export default (() => {
                 ['offset']: 1772,
                 ['dst']: false,
                 ['abbrev']: 'LMT',
-                ['until']: -2486680172,
+                ['until']: -2448318572,
                 ['format']: 'LMT',
             },
             {
                 ['offset']: 561,
                 ['dst']: false,
                 ['abbrev']: 'PMT',
-                ['until']: -1855958961,
+                ['until']: -1854403761,
                 ['format']: 'PMT',
             },
             {

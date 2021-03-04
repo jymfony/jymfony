@@ -5,7 +5,7 @@ export default (() => {
             ['offset']: 13308,
             ['dst']: false,
             ['abbrev']: 'LMT',
-            ['until']: -2006653308,
+            ['until']: -1988163708,
             ['format']: 'LMT',
         },
         {

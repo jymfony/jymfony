@@ -368,7 +368,7 @@ export default (() => {
                 ['offset']: 732,
                 ['dst']: false,
                 ['abbrev']: 'LMT',
-                ['until']: -2486679072,
+                ['until']: -2486592732,
                 ['format']: 'LMT',
             },
             {

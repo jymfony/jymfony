@@ -1152,14 +1152,14 @@ export default (() => {
                 ['offset']: 561,
                 ['dst']: false,
                 ['abbrev']: 'LMT',
-                ['until']: -2486678901,
+                ['until']: -2486592561,
                 ['format']: 'LMT',
             },
             {
                 ['offset']: 561,
                 ['dst']: false,
                 ['abbrev']: 'PMT',
-                ['until']: -1855958901,
+                ['until']: -1855958961,
                 ['format']: 'PMT',
             },
             {
