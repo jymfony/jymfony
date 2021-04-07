@@ -20,7 +20,7 @@ export default class HttpClientTestCase extends TestCase {
     }
 
     get defaultTimeout() {
-        return 20000;
+        return 60000;
     }
 
     /**
