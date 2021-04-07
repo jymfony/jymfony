@@ -366,7 +366,7 @@ export default class HttpClientTestCase extends TestCase {
 
         const body = await response.getDecodedContent();
 
-        __self.assertSame('http://localhost:8057/', body.uri);
+        __self.assertMatchesRegularExpression(/^http:\/\/(localhost|127\.0\.0\.1):8057\/$/, body.uri);
         __self.assertNull(await response.getInfo('redirect_url'));
 
         response = client.request('GET', 'http://localhost:8057/302/relative', {
@@ -374,7 +374,7 @@ export default class HttpClientTestCase extends TestCase {
         });
 
         __self.assertSame(302, await response.getStatusCode());
-        __self.assertSame('http://localhost:8057/', await response.getInfo('redirect_url'));
+        __self.assertMatchesRegularExpression(/^http:\/\/(localhost|127\.0\.0\.1):8057\/$/, await response.getInfo('redirect_url'));
         response.close();
     }
 
