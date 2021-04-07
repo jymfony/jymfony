@@ -10,8 +10,10 @@ let TypescriptConfig;
 try {
     Typescript = require('typescript');
     TypescriptConfig = {
-        inlineSourceMap: true,
-        inlineSources: true,
+        sourceMap: true,
+        sourceRoot: '/',
+        inlineSourceMap: false,
+        inlineSources: false,
         declaration: true,
         module: Typescript.ModuleKind.ESNext,
         target: Typescript.ScriptTarget.ES2017,
@@ -28,7 +30,7 @@ let Parser;
 let AST;
 
 const isNyc = !! global.__coverage__;
-const { normalize } = require('path');
+const { dirname, normalize, resolve: pathResolve } = require('path');
 
 const Storage = function () {};
 Storage.prototype = {};
@@ -221,9 +223,15 @@ class ClassLoader {
             return cached;
         }
 
-        let code, program = null;
+        let code, sourceMap, program = null;
         if (fn.endsWith('.ts')) {
-            code = this._doLoadTypescript(fn);
+            const module = this._doLoadTypescript(fn);
+            code = module.outputText || '';
+            try {
+                sourceMap = JSON.parse(module.sourceMapText);
+            } catch (e) {
+                // @ignoreException
+            }
         } else {
             code = stripBOM(this._finder.load(fn));
         }
@@ -241,6 +249,14 @@ class ClassLoader {
             program.prepare();
 
             const p = new AST.Program(program.location);
+
+            if (sourceMap) {
+                sourceMap.sources = sourceMap.sources.map(s => normalize(pathResolve(sourceMap.sourceRoot + '/' + s)));
+                p.addSourceMappings(sourceMap);
+            } else {
+                p.addSourceMappings(...(program.sourceMappings.filter(isObjectLiteral)));
+            }
+
             p.add(new AST.ParenthesizedExpression(null,
                 new AST.FunctionExpression(null, new AST.BlockStatement(null, [
                     new AST.StringLiteral(null, '\'use strict\''),
@@ -286,9 +302,12 @@ class ClassLoader {
      */
     _doLoadTypescript(fn) {
         const code = this._finder.load(fn);
-        const module = Typescript.transpileModule(code, { compilerOptions: TypescriptConfig });
 
-        return module.outputText || '';
+        return Typescript.transpileModule(code, {
+            compilerOptions: { ...TypescriptConfig, sourceRoot: dirname(fn) },
+            fileName: fn,
+            moduleName: fn,
+        });
     }
 
     /**
