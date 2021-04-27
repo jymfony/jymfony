@@ -52,7 +52,10 @@ class Exception extends Error {
          */
         this._stackTrace = undefined;
 
-        Error.captureStackTrace(this, this.constructor);
+        if (typeof Error.captureStackTrace === 'function') {
+            Error.captureStackTrace(this, this.constructor);
+        }
+
         this._originalStack = this.stack.split('\n').join('\n');
 
         this._updateStack();
