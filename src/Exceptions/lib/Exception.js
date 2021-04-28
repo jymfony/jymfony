@@ -52,7 +52,7 @@ class Exception extends Error {
          */
         this._stackTrace = undefined;
 
-        if (typeof Error.captureStackTrace === 'function') {
+        if ('function' === typeof Error.captureStackTrace) {
             Error.captureStackTrace(this, this.constructor);
         }
 
