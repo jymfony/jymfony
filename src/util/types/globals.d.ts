@@ -1,4 +1,7 @@
 /// <reference lib="esnext" />
+/// <reference types="node" />
+/// <reference types="@jymfony/exceptions" />
+/// <reference types="@jymfony/contracts" />
 
 declare type int = number;
 declare type float = number;
