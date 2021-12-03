@@ -305,7 +305,7 @@ declare type Newable<Instance extends object = object, Static extends object = o
 declare type MixinInterface<T> = T extends AnyConstructorRaw<infer I, infer M> ? Omit<M, 'definition'> & {
     readonly definition: Newable<I, T>;
     [Symbol.hasInstance](): boolean;
-} & ((...args) => any) : never;
+} & ((...args: any[]) => any) : never;
 
 declare type Mixin<T> = T extends Newable<infer I, infer M> ? MixinInterface<T> : never;
 
