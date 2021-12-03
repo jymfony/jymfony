@@ -1,7 +1,7 @@
 'use strict';
 
 const os = require('os');
-global.__jymfony = global.__jymfony || {};
+globalThis.__jymfony = globalThis.__jymfony || {};
 
 /**
  * Wraps a string to a given number of characters.

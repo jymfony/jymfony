@@ -1,33 +1,33 @@
-global.isArray = Array.isArray;
-global.isBuffer = !! global.Buffer ? Buffer.isBuffer : () => false;
+globalThis.isArray = Array.isArray;
+globalThis.isBuffer = !! globalThis.Buffer ? Buffer.isBuffer : () => false;
 const toString = Object.prototype.toString;
 
 require('./Is/functions');
 
-if (! isFunction(global.isObject)) {
-    global.isObject = function (arg) {
+if (! isFunction(globalThis.isObject)) {
+    globalThis.isObject = function (arg) {
         return !! arg && 'object' === typeof arg;
     };
 }
 
 for (const name of [ 'Arguments', 'Boolean', 'String', 'Number', 'Date', 'RegExp', 'Error', 'Symbol', 'Map', 'WeakMap', 'Set', 'WeakSet' ]) {
-    if (isFunction(global['is' + name])) {
+    if (isFunction(globalThis['is' + name])) {
         continue;
     }
 
-    global['is' + name] = function (obj) {
+    globalThis['is' + name] = function (obj) {
         return toString.call(obj) === '[object ' + name + ']';
     };
 }
 
 const primitives = [ Number, String, Boolean ];
 
-global.isNaN = Number.isNaN;
-global.isInfinite = function isInfinite(value) {
+globalThis.isNaN = Number.isNaN;
+globalThis.isInfinite = function isInfinite(value) {
     return value === Infinity || value === -Infinity;
 };
 
-global.isNumeric = function isNumeric(value) {
+globalThis.isNumeric = function isNumeric(value) {
     if (isNumber(value)) {
         return true;
     }
@@ -40,7 +40,7 @@ global.isNumeric = function isNumeric(value) {
  *
  * @returns {boolean}
  */
-global.isNumeric = function isNumeric(value) {
+globalThis.isNumeric = function isNumeric(value) {
     if (! isScalar(value)) {
         return false;
     }
@@ -57,7 +57,7 @@ global.isNumeric = function isNumeric(value) {
  *
  * @returns {boolean}
  */
-global.isScalar = function isScalar(value) {
+globalThis.isScalar = function isScalar(value) {
     if (undefined === value || null === value) {
         return false;
     }
@@ -79,7 +79,7 @@ const objectPrototype = Object.getPrototypeOf({});
  *
  * @returns {boolean}
  */
-global.isObjectLiteral = function isObjectLiteral(value) {
+globalThis.isObjectLiteral = function isObjectLiteral(value) {
     if (null === value || undefined === value) {
         return false;
     }
@@ -99,7 +99,7 @@ global.isObjectLiteral = function isObjectLiteral(value) {
  *
  * @returns {boolean}
  */
-global.isPromise = function isPromise(value) {
+globalThis.isPromise = function isPromise(value) {
     return 'object' === typeof value && isFunction(value.then);
 };
 
@@ -108,6 +108,6 @@ global.isPromise = function isPromise(value) {
  *
  * @returns {boolean}
  */
-global.isStream = function isStream(stream) {
+globalThis.isStream = function isStream(stream) {
     return 'object' === typeof stream && isFunction(stream.pipe);
 };

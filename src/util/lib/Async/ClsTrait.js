@@ -1,5 +1,5 @@
 const asyncHook = require('async_hooks');
-global.__jymfony = global.__jymfony || {};
+globalThis.__jymfony = globalThis.__jymfony || {};
 
 /**
  * @memberOf __jymfony

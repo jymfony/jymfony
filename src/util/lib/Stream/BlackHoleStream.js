@@ -11,5 +11,5 @@ class BlackHoleStream extends Writable {
     }
 }
 
-global.__jymfony = global.__jymfony || {};
+globalThis.__jymfony = globalThis.__jymfony || {};
 __jymfony.BlackHoleStream = BlackHoleStream;

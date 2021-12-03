@@ -2,7 +2,7 @@ if (! Symbol.asyncIterator) {
     Symbol.asyncIterator = Symbol('asyncIterator');
 }
 
-global.__jymfony = global.__jymfony || {};
+globalThis.__jymfony = globalThis.__jymfony || {};
 
 const forAwait = (iterator, callback) => {
     if (isPromise(iterator)) {

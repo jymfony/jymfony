@@ -1,6 +1,6 @@
 'use strict';
 
-global.__jymfony = global.__jymfony || {};
+globalThis.__jymfony = globalThis.__jymfony || {};
 
 /**
  * If operator parameter is undefined returns -1 if version1 is

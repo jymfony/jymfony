@@ -2,15 +2,15 @@ const Mixins = require('./Mixins/Mixins');
 const Interfaces = require('./Mixins/Interfaces');
 const Traits = require('./Mixins/Traits');
 
-global.getInterface = function getInterface(definition) {
+globalThis.getInterface = function getInterface(definition) {
     return Interfaces.create(definition);
 };
 
-global.getTrait = function getTrait(definition) {
+globalThis.getTrait = function getTrait(definition) {
     return Traits.create(definition);
 };
 
-global.mixins = {
+globalThis.mixins = {
     isInterface: Interfaces.isInterface,
     isTrait: Traits.isTrait,
     getInterfaces: (Class) => Class[Mixins.appliedInterfacesSymbol] || [],
@@ -22,7 +22,7 @@ global.mixins = {
     initializerSymbol: Mixins.initializerSymbol,
 };
 
-global.mix = function mix(superclass, ...mixins) {
+globalThis.mix = function mix(superclass, ...mixins) {
     superclass = superclass || __jymfony.JObject || class {};
     superclass = mixins.reduce((a, b) => {
         if (! isFunction(b)) {
@@ -96,6 +96,6 @@ global.mix = function mix(superclass, ...mixins) {
     return mixed;
 };
 
-global.implementationOf = function implementationOf(...interfaces) {
-    return global.mix(undefined, ...interfaces);
+globalThis.implementationOf = function implementationOf(...interfaces) {
+    return globalThis.mix(undefined, ...interfaces);
 };

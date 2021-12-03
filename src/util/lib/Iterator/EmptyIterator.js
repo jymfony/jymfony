@@ -4,4 +4,4 @@ class EmptyIterator {
     }
 }
 
-global.EmptyIterator = EmptyIterator;
+globalThis.EmptyIterator = EmptyIterator;

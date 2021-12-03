@@ -1,3 +1,4 @@
+require('./lib/global-this');
 require('./lib/Error/trigger_deprecated');
 require('./lib/Platform');
 

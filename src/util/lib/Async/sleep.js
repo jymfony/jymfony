@@ -1,6 +1,6 @@
 'use strict';
 
-global.__jymfony = global.__jymfony || {};
+globalThis.__jymfony = globalThis.__jymfony || {};
 
 __jymfony.sleep = function sleep(ms) {
     return new Promise(resolver => {

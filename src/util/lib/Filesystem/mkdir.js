@@ -3,7 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 
-global.__jymfony = global.__jymfony || {};
+globalThis.__jymfony = globalThis.__jymfony || {};
 
 __jymfony.mkdir = function mkdir (dir, mode = 0o777) {
     for (let i = 2; 0 < i; i--) {

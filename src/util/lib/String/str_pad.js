@@ -1,6 +1,6 @@
 'use strict';
 
-global.__jymfony = global.__jymfony || {};
+globalThis.__jymfony = globalThis.__jymfony || {};
 
 const STR_PAD_LEFT = 'STR_PAD_LEFT';
 const STR_PAD_RIGHT = 'STR_PAD_RIGHT';
@@ -16,7 +16,7 @@ const STR_PAD_BOTH = 'STR_PAD_BOTH';
  *
  * @returns {string}
  */
-global.__jymfony.str_pad = (string, length = 0, pad = ' ', padType = STR_PAD_RIGHT) => {
+globalThis.__jymfony.str_pad = (string, length = 0, pad = ' ', padType = STR_PAD_RIGHT) => {
     if (length < string.length) {
         return string;
     }
@@ -46,6 +46,6 @@ global.__jymfony.str_pad = (string, length = 0, pad = ' ', padType = STR_PAD_RIG
     }
 };
 
-global.__jymfony.STR_PAD_LEFT = STR_PAD_LEFT;
-global.__jymfony.STR_PAD_RIGHT = STR_PAD_RIGHT;
-global.__jymfony.STR_PAD_BOTH = STR_PAD_BOTH;
+globalThis.__jymfony.STR_PAD_LEFT = STR_PAD_LEFT;
+globalThis.__jymfony.STR_PAD_RIGHT = STR_PAD_RIGHT;
+globalThis.__jymfony.STR_PAD_BOTH = STR_PAD_BOTH;

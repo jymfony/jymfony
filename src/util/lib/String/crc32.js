@@ -67,7 +67,7 @@ const TABLE = new Uint32Array([
     0xB40BBE37, 0xC30C8EA1, 0x5A05DF1B, 0x2D02EF8D,
 ]);
 
-global.__jymfony = global.__jymfony || {};
+globalThis.__jymfony = globalThis.__jymfony || {};
 
 __jymfony.crc32 = (stringOrBuffer) => {
     if (! isBuffer(stringOrBuffer)) {

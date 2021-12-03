@@ -1,6 +1,6 @@
 'use strict';
 
-global.__jymfony = global.__jymfony || {};
+globalThis.__jymfony = globalThis.__jymfony || {};
 
 if (! __jymfony.Platform.hasModernRegex()) {
     __jymfony.RegExp = RegExp;
@@ -78,7 +78,7 @@ if (! __jymfony.Platform.hasModernRegex()) {
         }
     };
 
-    global.RegExp = new Proxy(regexpClass, {
+    globalThis.RegExp = new Proxy(regexpClass, {
         apply(target, thisArg, argArray) {
             return new target(...argArray);
         },

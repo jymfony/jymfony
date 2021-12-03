@@ -1,6 +1,6 @@
 'use strict';
 
-global.__jymfony = global.__jymfony || {};
+globalThis.__jymfony = globalThis.__jymfony || {};
 const toString = Object.prototype.toString;
 
 const isPrimitive = function isPrimitive(value) {

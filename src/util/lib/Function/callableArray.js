@@ -7,7 +7,7 @@
  *
  * @returns {boolean}
  */
-global.isCallableArray = function isCallableArray(value) {
+globalThis.isCallableArray = function isCallableArray(value) {
     if (! isArray(value) || 2 !== value.length) {
         return false;
     }
@@ -25,7 +25,7 @@ global.isCallableArray = function isCallableArray(value) {
  *
  * @returns {BoundFunction}
  */
-global.getCallableFromArray = function getCallableFromArray(arg) {
+globalThis.getCallableFromArray = function getCallableFromArray(arg) {
     if (! isCallableArray(arg)) {
         throw new LogicException(arg + ' is not a callable array');
     }

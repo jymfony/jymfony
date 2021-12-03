@@ -1,6 +1,6 @@
 'use strict';
 
-global.__jymfony = global.__jymfony || {};
+globalThis.__jymfony = globalThis.__jymfony || {};
 
 const separators = /[\x2E\u3002\uFF0E\uFF61]/g;
 const nonASCII = /[^\x00-\x7F]/;

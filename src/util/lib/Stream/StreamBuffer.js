@@ -99,5 +99,5 @@ class StreamBuffer extends Duplex {
     }
 }
 
-global.__jymfony = global.__jymfony || {};
+globalThis.__jymfony = globalThis.__jymfony || {};
 __jymfony.StreamBuffer = StreamBuffer;
