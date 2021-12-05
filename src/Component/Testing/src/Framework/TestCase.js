@@ -143,6 +143,15 @@ export default class TestCase extends Assert {
     }
 
     /**
+     * Override this to set the retry count for flaky tests.
+     *
+     * @returns {int|undefined}
+     */
+    get retries() {
+        return undefined;
+    }
+
+    /**
      * Run test case.
      * Not to be called directly, will be called by the test runner.
      *
@@ -176,6 +185,11 @@ export default class TestCase extends Assert {
                 const defaultTimeout = self.defaultTimeout;
                 if (defaultTimeout) {
                     this.timeout(defaultTimeout);
+                }
+
+                const retries = self.retries;
+                if (1 < retries) {
+                    this.retries(retries);
                 }
 
                 for (const hook of self._beforeEachHooks) {
