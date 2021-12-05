@@ -35,6 +35,10 @@ export default class UlidTest extends mix(TestCase, TimeSensitiveTestCaseTrait) 
         return '[Uid] ' + super.testCaseName;
     }
 
+    get retries() {
+        return 3;
+    }
+
     testGenerate() {
         const time = String(new Date().getTime());
 
