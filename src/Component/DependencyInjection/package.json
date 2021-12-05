@@ -1,6 +1,6 @@
 {
   "name": "@jymfony/dependency-injection",
-  "version": "0.1.0-alpha.28",
+  "version": "0.1.0-alpha.29",
   "description": "Jymfony Dependency Injection",
   "typings": "types/index.d.ts",
   "scripts": {
@@ -17,13 +17,13 @@
     "node": ">=8.10.0"
   },
   "dependencies": {
-    "@jymfony/autoloader": "0.1.0-alpha.28",
-    "@jymfony/config": "0.1.0-alpha.28",
-    "@jymfony/datastructure": "0.1.0-alpha.28",
-    "@jymfony/decorators": "0.1.0-alpha.28",
-    "@jymfony/exceptions": "0.1.0-alpha.28",
-    "@jymfony/property-access": "0.1.0-alpha.28",
-    "@jymfony/util": "0.1.0-alpha.28"
+    "@jymfony/autoloader": "0.1.0-alpha.29",
+    "@jymfony/config": "0.1.0-alpha.29",
+    "@jymfony/datastructure": "0.1.0-alpha.29",
+    "@jymfony/decorators": "0.1.0-alpha.29",
+    "@jymfony/exceptions": "0.1.0-alpha.29",
+    "@jymfony/property-access": "0.1.0-alpha.29",
+    "@jymfony/util": "0.1.0-alpha.29"
   },
   "devDependencies": {
     "@jymfony/debug": "*",

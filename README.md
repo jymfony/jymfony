@@ -46,6 +46,7 @@ As said, Jymfony is made of reusable Javascript components:
 - [@jymfony/dotenv](https://github.com/jymfony/dotenv)
 - [@jymfony/event-dispatcher](https://github.com/jymfony/event-dispatcher)
 - [@jymfony/filesystem](https://github.com/jymfony/filesystem)
+- [@jymfony/http-client](https://github.com/jymfony/http-client)
 - [@jymfony/http-foundation](https://github.com/jymfony/http-foundation)
 - [@jymfony/http-server](https://github.com/jymfony/http-server)
 - [@jymfony/kernel](https://github.com/jymfony/kernel)

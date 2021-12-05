@@ -1,7 +1,7 @@
 {
   "name": "jymfony",
   "private": true,
-  "version": "0.1.0-alpha.28",
+  "version": "0.1.0-alpha.29",
   "description": "Jymfony",
   "main": "index.js",
   "typings": "index.d.ts",
@@ -31,7 +31,7 @@
   },
   "devDependencies": {
     "@jymfony/compiler": "0.2",
-    "@jymfony/decorators": "0.1.0-alpha.28",
+    "@jymfony/decorators": "0.1.0-alpha.29",
     "@types/chai": "^4.2.16",
     "@types/mocha": "^5.2.7",
     "@types/node": "^14.14.37",

@@ -1,6 +1,6 @@
 {
   "name": "@jymfony/dotenv",
-  "version": "0.1.0-alpha.28",
+  "version": "0.1.0-alpha.29",
   "description": "Jymfony Dotenv component",
   "typings": "types/index.d.ts",
   "scripts": {
@@ -18,9 +18,9 @@
     "node": ">=8.10.0"
   },
   "dependencies": {
-    "@jymfony/autoloader": "0.1.0-alpha.28",
-    "@jymfony/exceptions": "0.1.0-alpha.28",
-    "@jymfony/util": "0.1.0-alpha.28"
+    "@jymfony/autoloader": "0.1.0-alpha.29",
+    "@jymfony/exceptions": "0.1.0-alpha.29",
+    "@jymfony/util": "0.1.0-alpha.29"
   },
   "devDependencies": {
     "@jymfony/debug": "*",
