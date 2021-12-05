@@ -1369,7 +1369,7 @@ export default (() => {
                 ['offset']: 10800,
                 ['dst']: false,
                 ['abbrev']: 'MSK',
-                ['until']: 1616893200,
+                ['until']: 1640480400,
                 ['format']: 'MSK',
             },
             {

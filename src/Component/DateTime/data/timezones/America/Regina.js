@@ -261,7 +261,7 @@ export default (() => {
                 ['format']: 'LMT',
             },
             {
-                ['until']: 1616922000,
+                ['until']: 1640509200,
                 ['ruleSet']: o[0],
                 ['offset']: -25200,
                 ['abbrev']: 'M%sT',

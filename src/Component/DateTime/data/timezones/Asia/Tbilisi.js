@@ -447,7 +447,7 @@ export default (() => {
                 ['abbrev']: '+04/+05',
             },
             {
-                ['until']: 1616886000,
+                ['until']: 1640473200,
                 ['ruleSet']: o[0],
                 ['offset']: 10800,
                 ['abbrev']: '+03/+04',

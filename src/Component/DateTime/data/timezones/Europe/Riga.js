@@ -1252,13 +1252,13 @@ export default (() => {
                 ['abbrev']: 'CE%sT',
             },
             {
-                ['until']: 1616886000,
+                ['until']: 1640473200,
                 ['ruleSet']: o[18],
                 ['offset']: 10800,
                 ['abbrev']: 'MSK/MSD',
             },
             {
-                ['until']: 1616889600,
+                ['until']: 1640476800,
                 ['ruleSet']: undefined,
                 ['offset']: 7200,
                 ['abbrev']: 'EEST',

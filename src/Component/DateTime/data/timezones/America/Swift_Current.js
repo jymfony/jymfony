@@ -107,9 +107,6 @@ export default (() => {
                         ['1940']: [
                             o[2],
                         ],
-                        ['1944']: [
-                            o[3],
-                        ],
                         ['1945']: [
                             o[3],
                             o[4],
@@ -695,7 +692,7 @@ export default (() => {
                 ['format']: 'LMT',
             },
             {
-                ['until']: 1616918400,
+                ['until']: 1640509200,
                 ['ruleSet']: o[0],
                 ['offset']: -25200,
                 ['abbrev']: 'M%sT',
@@ -707,7 +704,7 @@ export default (() => {
                 ['abbrev']: 'M%sT',
             },
             {
-                ['until']: 1616922000,
+                ['until']: 1640509200,
                 ['ruleSet']: o[29],
                 ['offset']: -25200,
                 ['abbrev']: 'M%sT',

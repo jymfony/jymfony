@@ -2,11 +2,11 @@ export default (() => {
     let o;
     return [
         {
-            ['offset']: -41060,
+            ['offset']: 0,
             ['dst']: false,
-            ['abbrev']: 'LMT',
-            ['until']: -2177411740,
-            ['format']: 'LMT',
+            ['abbrev']: '-00',
+            ['until']: -1020470400,
+            ['format']: '-00',
         },
         {
             ['offset']: -43200,

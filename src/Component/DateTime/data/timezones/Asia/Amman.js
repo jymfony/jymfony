@@ -34,6 +34,7 @@ export default (() => {
             (new ReflectionClass('Jymfony.Component.DateTime.Internal.Rule')).newInstanceWithoutConstructor(),
             (new ReflectionClass('Jymfony.Component.DateTime.Internal.Rule')).newInstanceWithoutConstructor(),
             (new ReflectionClass('Jymfony.Component.DateTime.Internal.Rule')).newInstanceWithoutConstructor(),
+            (new ReflectionClass('Jymfony.Component.DateTime.Internal.Rule')).newInstanceWithoutConstructor(),
         ],
         null,
         {
@@ -74,6 +75,7 @@ export default (() => {
                         o[29],
                         o[30],
                         o[31],
+                        o[32],
                     ],
                 },
                 ['_cache']: {
@@ -124,6 +126,7 @@ export default (() => {
                     ['29']: 2013,
                     ['30']: 2014,
                     ['31']: 2014,
+                    ['32']: 2022,
                 },
                 ['_toYear']: {
                     ['1']: 1973,
@@ -155,8 +158,9 @@ export default (() => {
                     ['27']: 2005,
                     ['28']: 2011,
                     ['29']: 2013,
-                    ['30']: Infinity,
+                    ['30']: 2021,
                     ['31']: Infinity,
+                    ['32']: Infinity,
                 },
                 ['_inMonth']: {
                     ['1']: 6,
@@ -190,6 +194,7 @@ export default (() => {
                     ['29']: 12,
                     ['30']: 3,
                     ['31']: 10,
+                    ['32']: 2,
                 },
                 ['_on']: {
                     ['1']: '6',
@@ -223,6 +228,7 @@ export default (() => {
                     ['29']: '20',
                     ['30']: 'last thu %s',
                     ['31']: 'last fri %s',
+                    ['32']: 'last thu %s',
                 },
                 ['_at']: {
                     ['1']: '0:00',
@@ -256,6 +262,7 @@ export default (() => {
                     ['29']: '0:00',
                     ['30']: '24:00',
                     ['31']: '0:00s',
+                    ['32']: '24:00',
                 },
                 ['_save']: {
                     ['1']: 3600,
@@ -289,6 +296,7 @@ export default (() => {
                     ['29']: 0,
                     ['30']: 3600,
                     ['31']: 0,
+                    ['32']: 3600,
                 },
                 ['_letters']: {
                     ['1']: 'S',
@@ -322,6 +330,7 @@ export default (() => {
                     ['29']: '-',
                     ['30']: 'S',
                     ['31']: '-',
+                    ['32']: 'S',
                 },
                 ['_cache']: {
                     ['1']: {},
@@ -380,6 +389,7 @@ export default (() => {
                     ['29']: {},
                     ['30']: {},
                     ['31']: {},
+                    ['32']: {},
                 },
             },
         },

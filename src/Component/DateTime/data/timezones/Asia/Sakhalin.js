@@ -568,7 +568,7 @@ export default (() => {
                 ['abbrev']: '+10/+11',
             },
             {
-                ['until']: 1616857200,
+                ['until']: 1640444400,
                 ['ruleSet']: o[0],
                 ['offset']: 39600,
                 ['abbrev']: '+11/+12',
