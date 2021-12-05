@@ -86,10 +86,5 @@ declare namespace Jymfony.Component.HttpServer {
          * Filters a response object.
          */
         private _filterResponse(response: Response, request: Request): Promise<Response>;
-
-        /**
-         * Fires a request timeout after the configured time.
-         */
-        private _requestTimeout(): Promise<never>;
     }
 }

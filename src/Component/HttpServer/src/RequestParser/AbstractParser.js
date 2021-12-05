@@ -62,13 +62,14 @@ export default class AbstractParser extends implementationOf(ParserInterface) {
      * @inheritdoc
      */
     parse() {
-        return new Promise((resolve) => {
+        return new Promise((resolve, reject) => {
             this._request.on('data', /** {Buffer|string} */ chunk => {
                 this._buffer = Buffer.concat([ this._buffer, chunk ]);
             });
             this._request.on('end', () => {
                 if (undefined !== this._contentLength && this._contentLength !== this._buffer.length) {
-                    throw new BadContentLengthRequestException();
+                    reject(new BadContentLengthRequestException());
+                    return;
                 }
 
                 resolve(this.decode(this._buffer.toString('ascii')));

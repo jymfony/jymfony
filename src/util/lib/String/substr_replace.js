@@ -1,6 +1,6 @@
 'use strict';
 
-global.__jymfony = global.__jymfony || {};
+globalThis.__jymfony = globalThis.__jymfony || {};
 
 const substr_replace_internal = (search, replacement, start, length) => {
     if (0 > start) {

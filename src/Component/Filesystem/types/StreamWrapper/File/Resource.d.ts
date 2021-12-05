@@ -3,7 +3,7 @@ declare namespace Jymfony.Component.Filesystem.StreamWrapper.File {
         /**
          * File descriptor.
          */
-        private _fd: number;
+        private _handle: any;
 
         /**
          * Current position.
@@ -17,12 +17,9 @@ declare namespace Jymfony.Component.Filesystem.StreamWrapper.File {
 
         /**
          * Constructor.
-         *
-         * @param {int} fd
-         * @param {fs.Stats} stat
          */
-        __construct(fd: number, stat: any): void;
-        constructor(fd: number, stat: any);
+        __construct(handle: any, stat: any): void;
+        constructor(handle: any, stat: any);
 
         /**
          * Alters current resource position.
@@ -30,9 +27,9 @@ declare namespace Jymfony.Component.Filesystem.StreamWrapper.File {
         seek(position: number, whence?: 'set' | 'cur' | 'end'): void;
 
         /**
-         * Gets the file descriptor number.
+         * Gets the file handle.
          */
-        public readonly fd: number;
+        public readonly handle: any;
 
         /**
          * Gets the current position.

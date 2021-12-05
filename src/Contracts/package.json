@@ -19,6 +19,8 @@
   "devDependencies": {
     "@jymfony/autoloader": "*",
     "@jymfony/debug": "*",
+    "@jymfony/http-server": "*",
+    "@jymfony/logger": "*",
     "@jymfony/testing": "*",
     "@jymfony/util": "*",
     "@types/node": "*",

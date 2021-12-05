@@ -340,7 +340,6 @@ export default class Request extends implementationOf(RequestInterface) {
             method: this.method,
             uri: this.uri,
             request: this.request.all,
-            attributes: this.attributes.all,
             headers: this.headers.all,
             server: this.server.all,
             content: String(this.content),

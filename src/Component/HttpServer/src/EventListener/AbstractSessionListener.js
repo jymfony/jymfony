@@ -1,3 +1,4 @@
+const Cookie = Jymfony.Component.HttpFoundation.Cookie;
 const EventSubscriberInterface = Jymfony.Contracts.EventDispatcher.EventSubscriberInterface;
 const HttpServerEvents = Jymfony.Component.HttpServer.Event.HttpServerEvents;
 
@@ -13,6 +14,52 @@ const HttpServerEvents = Jymfony.Component.HttpServer.Event.HttpServerEvents;
  */
 export default class AbstractSessionListener extends implementationOf(EventSubscriberInterface) {
     /**
+     * Constructor.
+     *
+     * @param {int} cookieLifetime
+     * @param {string} cookiePath
+     * @param {undefined | string} cookieDomain
+     * @param {boolean} cookieSecure
+     * @param {boolean} cookieHttpOnly
+     */
+    __construct(cookieLifetime = 0, cookiePath = '/', cookieDomain = undefined, cookieSecure = true, cookieHttpOnly = true) {
+        /**
+         * @type {number}
+         *
+         * @private
+         */
+        this._cookieLifetime = cookieLifetime;
+
+        /**
+         * @type {string}
+         *
+         * @private
+         */
+        this._cookiePath = cookiePath;
+
+        /**
+         * @type {string}
+         *
+         * @private
+         */
+        this._cookieDomain = cookieDomain;
+
+        /**
+         * @type {boolean}
+         *
+         * @private
+         */
+        this._cookieSecure = cookieSecure;
+
+        /**
+         * @type {boolean}
+         *
+         * @private
+         */
+        this._cookieHttpOnly = cookieHttpOnly;
+    }
+
+    /**
      * Listen on http.request to inject session factory
      *
      * @param {Jymfony.Contracts.HttpServer.Event.RequestEvent} event
@@ -20,7 +67,7 @@ export default class AbstractSessionListener extends implementationOf(EventSubsc
     onRequest(event) {
         const request = event.request;
         if (! request.hasSession()) {
-            request._session = () => this.getSession();
+            request._session = () => this.getSession(request);
         }
     }
 
@@ -29,7 +76,7 @@ export default class AbstractSessionListener extends implementationOf(EventSubsc
      *
      * @param {Jymfony.Contracts.HttpServer.Event.ResponseEvent} event
      */
-    onResponse(event) {
+    async onResponse(event) {
         const request = event.request;
         const session = request._session;
 
@@ -42,7 +89,11 @@ export default class AbstractSessionListener extends implementationOf(EventSubsc
             response
                 .setPrivate()
                 .setMaxAge(0)
-                .headers.addCacheControlDirective('must-revalidate');
+            ;
+
+            const headers = response.headers;
+            headers.addCacheControlDirective('must-revalidate');
+            headers.setCookie(new Cookie(session.name, session.id, this._cookieLifetime, this._cookiePath, this._cookieDomain, this._cookieSecure, this._cookieHttpOnly));
 
             /*
              * Saves the session, in case it is still open, before sending the response/headers.
@@ -61,7 +112,7 @@ export default class AbstractSessionListener extends implementationOf(EventSubsc
              * Jymfony's session implementation starts the session on demand. So writing to it after
              * it is saved will just restart it.
              */
-            session.save();
+            await session.save();
         }
     }
 
@@ -78,8 +129,10 @@ export default class AbstractSessionListener extends implementationOf(EventSubsc
     /**
      * Gets the session object.
      *
+     * @param {Jymfony.Contracts.HttpFoundation.RequestInterface} request
+     *
      * @returns {SessionInterface} A SessionInterface instance or undefined if no session is available
      * @abstract
      */
-    getSession() { }
+    getSession(request) { } // eslint-disable-line no-unused-vars
 }

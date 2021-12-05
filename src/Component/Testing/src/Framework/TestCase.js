@@ -1,10 +1,12 @@
-import { DataProvider } from '@jymfony/decorators';
+import { AfterEach, BeforeEach, DataProvider } from '@jymfony/decorators';
 import Suite from 'mocha/lib/suite';
 import Test from 'mocha/lib/test';
 import { expect } from 'chai';
 
+const Assert = Jymfony.Component.Testing.Framework.Assert;
 const Prophet = Jymfony.Component.Testing.Prophet;
 const SkipException = Jymfony.Component.Testing.Framework.Exception.SkipException;
+const TestResult = Jymfony.Component.Testing.Framework.TestResult;
 
 const prophets = new WeakMap();
 const getProphet = obj => {
@@ -18,7 +20,7 @@ const getProphet = obj => {
 /**
  * @memberOf Jymfony.Component.Testing.Framework
  */
-export default class TestCase {
+export default class TestCase extends Assert {
     __construct() {
         /**
          * @type {Object.<string, *>}
@@ -26,6 +28,20 @@ export default class TestCase {
          * @protected
          */
         this._context = {};
+
+        /**
+         * @type {int}
+         *
+         * @private
+         */
+        this._numAssertions = 0;
+
+        /**
+         * @type {*}
+         *
+         * @private
+         */
+        this._testResult = undefined;
 
         /**
          * @type {undefined | ReflectionClass}
@@ -47,6 +63,92 @@ export default class TestCase {
          * @private
          */
         this._expectedExceptionMessageRegex = undefined;
+
+        this._afterEachHooks = [];
+        this._beforeEachHooks = [];
+
+        const reflectionClass = new ReflectionClass(this);
+        for (const method of reflectionClass.methods) {
+            const reflectionMethod = reflectionClass.getMethod(method);
+
+            const afterEach = reflectionMethod.metadata.filter(([ klass ]) => klass === AfterEach);
+            const beforeEach = reflectionMethod.metadata.filter(([ klass ]) => klass === BeforeEach);
+
+            if (0 < afterEach.length) {
+                this._afterEachHooks.push(reflectionMethod);
+            }
+
+            if (0 < beforeEach.length) {
+                this._beforeEachHooks.push(reflectionMethod);
+            }
+        }
+    }
+
+    get length() {
+        return 1;
+    }
+
+    /**
+     * Runs the test case and collects the results in a TestResult object.
+     * If no TestResult object is passed a new one will be created.
+     *
+     * @param {Jymfony.Component.Testing.Framework.TestResult} result
+     */
+    async run(result = null) {
+        if (null === result) {
+            result = new TestResult();
+        }
+
+        await result.run(this);
+        if (null !== result.failure) {
+            this._checkExpectedException(result.failure);
+            this._numAssertions += Assert.getCount();
+        }
+
+        return result;
+    }
+
+    async runBare() {
+        this._numAssertions = 0;
+        await this.runTest();
+
+        return this._testResult;
+    }
+
+    async runTest() {
+        const verifyMockObjects = () => {
+            const prophet = prophets.get(this);
+            if (prophet) {
+                try {
+                    prophet.checkPredictions();
+                } finally {
+                    prophets.delete(this);
+                }
+            }
+        };
+
+        this.assertPreConditions();
+        this._testResult = await this._context.method.invoke(this, ...this._context.args);
+        verifyMockObjects();
+        this.assertPostConditions();
+    }
+
+    /**
+     * Override this to set a default timeout for all the tests of this test case.
+     *
+     * @return {int|undefined}
+     */
+    get defaultTimeout() {
+        return undefined;
+    }
+
+    /**
+     * Override this to set the retry count for flaky tests.
+     *
+     * @returns {int|undefined}
+     */
+    get retries() {
+        return undefined;
     }
 
     /**
@@ -62,45 +164,9 @@ export default class TestCase {
 
         const suite = new Suite(this.testCaseName, mocha.suite.ctx, false);
         (function (self) {
-            const execution = function (reflectionMethod, args) {
-                return async function () {
-                    try {
-                        return await reflectionMethod.invoke(self, ...args);
-                    } catch (e) {
-                        if (e instanceof SkipException) {
-                            this.skip();
-                        } else {
-                            throw e;
-                        }
-                    }
-                };
-            };
-
-            const verifyMockObjects = () => {
-                const prophet = prophets.get(self);
-                if (prophet) {
-                    try {
-                        prophet.checkPredictions();
-                    } finally {
-                        prophets.delete(self);
-                    }
-                }
-            };
-
-            const before = function () {
-                self._expectedException = undefined;
-                self._expectedExceptionMessage = undefined;
-                self._expectedExceptionMessageRegex = undefined;
-
-                const exec = execution(reflectionClass.getMethod('beforeEach'), []);
-                prophets.delete(self);
-
-                return exec.call(this);
-            };
-
-            this.beforeAll(async function () {
+            const execution = async function (reflectionMethod, args = []) {
                 try {
-                    await self.before();
+                    await reflectionMethod.invoke(self, ...args);
                 } catch (e) {
                     if (e instanceof SkipException) {
                         this.skip();
@@ -108,11 +174,51 @@ export default class TestCase {
                         throw e;
                     }
                 }
+            };
+
+            const before = async function () {
+                self._expectedException = undefined;
+                self._expectedExceptionMessage = undefined;
+                self._expectedExceptionMessageRegex = undefined;
+                prophets.delete(self);
+
+                const defaultTimeout = self.defaultTimeout;
+                if (defaultTimeout) {
+                    this.timeout(defaultTimeout);
+                }
+
+                const retries = self.retries;
+                if (1 < retries) {
+                    this.retries(retries);
+                }
+
+                for (const hook of self._beforeEachHooks) {
+                    await hook.invoke(self);
+                }
+
+                return execution.call(this, reflectionClass.getMethod('beforeEach'));
+            };
+
+            this.beforeAll(function () {
+                this.timeout(30000);
+
+                return execution.call(this, reflectionClass.getMethod('before'));
             });
 
-            this.afterAll(self.after.bind(null));
+            this.afterAll(function () {
+                this.timeout(30000);
+
+                return self.after.call(self);
+            });
+
             this.beforeEach(before);
-            this.afterEach(execution(reflectionClass.getMethod('afterEach'), []));
+            this.afterEach(async function () {
+                for (const hook of self._afterEachHooks) {
+                    await hook.invoke(self);
+                }
+
+                return execution.call(this, reflectionClass.getMethod('afterEach'));
+            });
 
             for (const method of reflectionClass.methods) {
                 if (! method.startsWith('test')) {
@@ -125,33 +231,21 @@ export default class TestCase {
                 const data = providers.length ? providers.map(provider => [ ...reflectionClass.getMethod(provider.provider).invoke(self) ]).flat() : undefined;
 
                 const runTest = args => {
-                    const exec = execution(reflectionMethod, args);
-                    const doExec = async (this_) => {
-                        let exception;
-                        try {
-                            await exec.call(this_);
-                        } catch (e) {
-                            exception = e;
-                        }
-
-                        if (undefined !== exception) {
-                            self._checkExpectedException(exception);
-                        }
-                    };
-
                     return async function() {
                         self._context = {
+                            method: reflectionMethod,
+                            args,
                             currentTest: reflectionMethod.name,
                             setTimeout: this.timeout.bind(this),
                         };
 
+                        const defaultTimeout = self.defaultTimeout;
+                        if (defaultTimeout) {
+                            this.timeout(defaultTimeout);
+                        }
+
                         try {
-                            self.assertPreConditions();
-
-                            await doExec(this);
-
-                            verifyMockObjects();
-                            self.assertPostConditions();
+                            await self.run();
                         } finally {
                             self._context = {};
                         }
@@ -290,20 +384,6 @@ export default class TestCase {
         }
 
         this._expectedExceptionMessageRegex = message;
-    }
-
-    /**
-     * Marks current test as skipped and stops execution.
-     */
-    markTestSkipped() {
-        __self.markTestSkipped();
-    }
-
-    /**
-     * Marks current test as skipped and stops execution.
-     */
-    static markTestSkipped() {
-        throw new SkipException();
     }
 
     /**

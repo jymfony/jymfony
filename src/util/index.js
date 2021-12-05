@@ -1,3 +1,4 @@
+require('./lib/global-this');
 require('./lib/Error/trigger_deprecated');
 require('./lib/Platform');
 
@@ -33,12 +34,14 @@ require('./lib/Filesystem/mkdir');
 require('./lib/Function/callableArray');
 require('./lib/Function/getFunction');
 
+require('./lib/Stream/BlackHoleStream');
 require('./lib/Stream/StreamBuffer');
 
 require('./lib/String/crc32');
 require('./lib/String/escapeshellarg');
 require('./lib/String/htmlentities');
 require('./lib/String/levenshtein');
+require('./lib/String/punycode');
 require('./lib/String/querystring');
 require('./lib/String/sprintf');
 require('./lib/String/str_pad');
@@ -62,3 +65,4 @@ require('./lib/Async/ClsTrait');
 require('./lib/Async/ForAwait');
 require('./lib/Async/Mutex');
 require('./lib/Async/sleep');
+require('./lib/Async/promiseTimeout');

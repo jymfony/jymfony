@@ -1,5 +1,5 @@
 (function () {
-    if (global.WeakRef) {
+    if (globalThis.WeakRef) {
         return;
     }
 
@@ -14,5 +14,5 @@
         }
     }
 
-    global.WeakRef = WeakRef;
+    globalThis.WeakRef = WeakRef;
 }());

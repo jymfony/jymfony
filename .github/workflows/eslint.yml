@@ -1,0 +1,16 @@
+name: Lint
+on: [ push, pull_request ]
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        name: Node 14 - on Linux
+        steps:
+            - uses: actions/checkout@v2
+            - name: Setup node
+              uses: actions/setup-node@v1
+              with:
+                  node-version: 14
+            - run: npm install
+            - run: npm install -g eslint
+            - run: npm run-script lint

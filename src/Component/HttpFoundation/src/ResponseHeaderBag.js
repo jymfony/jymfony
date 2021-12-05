@@ -55,6 +55,38 @@ export default class ResponseHeaderBag extends HeaderBag {
     /**
      * @inheritdoc
      */
+    replace(headers = {}) {
+        this._headerNames = {};
+        this._cookies = {};
+
+        super.replace(headers);
+
+        if (! this._headers['cache-control']) {
+            this.set('Cache-Control', '');
+        }
+
+        if (! this._headers['date']) {
+            this._initDate();
+        }
+    }
+
+    /**
+     * @inheritdoc
+     */
+    get all() {
+        const headers = super.all;
+
+        headers['set-cookie'] = [];
+        for (const cookie of this.getCookies()) {
+            headers['set-cookie'].push(String(cookie));
+        }
+
+        return headers;
+    }
+
+    /**
+     * @inheritdoc
+     */
     set(key, values, replace = true) {
         const uniqueKey = key.toLowerCase().replace('_', '-');
         this._headerNames[uniqueKey] = key;
@@ -106,11 +138,71 @@ export default class ResponseHeaderBag extends HeaderBag {
      * @param {Jymfony.Component.HttpFoundation.Cookie} cookie
      */
     setCookie(cookie) {
-        this._cookies[cookie.domain] = this._cookies[cookie.domain] || {};
-        this._cookies[cookie.domain][cookie.path] = this._cookies[cookie.domain][cookie.path] || {};
-        this._cookies[cookie.domain][cookie.path][cookie.name] = cookie;
+        let domain = cookie.domain;
+        if (null === domain || undefined === domain) {
+            domain = '';
+        }
+
+        this._cookies[domain] = this._cookies[domain] || {};
+        this._cookies[domain][cookie.path] = this._cookies[domain][cookie.path] || {};
+        this._cookies[domain][cookie.path][cookie.name] = cookie;
 
         this._headerNames['set-cookie'] = 'Set-Cookie';
+    }
+
+    /**
+     * Removes a cookie from the array, but does not unset it in the browser.
+     */
+    removeCookie(name, path = '/', domain = undefined) {
+        if (null === domain || undefined === domain) {
+            domain = '';
+        }
+
+        if (! path) {
+            path = '/';
+        }
+
+        delete this._cookies[domain][path][name];
+
+        if (this._cookies[domain] && this._cookies[domain][path] && 0 === Object.values(this._cookies[domain][path]).length) {
+            delete this._cookies[domain][path];
+
+            if (0 === Object.values(this._cookies[domain]).length) {
+                delete this._cookies[domain];
+            }
+        }
+
+        if (0 === Object.values(this._cookies).length) {
+            delete this._headerNames['set-cookie'];
+        }
+    }
+
+    /**
+     * Returns an array with all cookies.
+     *
+     * @returns {Jymfony.Component.HttpFoundation.Cookie[]}
+     *
+     * @throws {InvalidArgumentException} When the format is invalid
+     */
+    getCookies(format = __self.COOKIES_FLAT) {
+        if (! [ __self.COOKIES_FLAT, __self.COOKIES_ARRAY ].includes(format)) {
+            throw new InvalidArgumentException(__jymfony.sprintf('Format "%s" invalid (%s).', format, [ __self.COOKIES_FLAT, __self.COOKIES_ARRAY ].join(', ')));
+        }
+
+        if (__self.COOKIES_ARRAY === format) {
+            return { ...this._cookies };
+        }
+
+        const flattenedCookies = [];
+        for (const path of Object.values(this._cookies)) {
+            for (const cookies of Object.values(path)) {
+                for (const cookie of Object.values(cookies)) {
+                    flattenedCookies.push(cookie);
+                }
+            }
+        }
+
+        return flattenedCookies;
     }
 
     /**
@@ -227,5 +319,8 @@ export default class ResponseHeaderBag extends HeaderBag {
     }
 }
 
-ResponseHeaderBag.DISPOSITION_ATTACHMENT = 'attachment';
-ResponseHeaderBag.DISPOSITION_INLINE = 'inline';
+Object.defineProperty(ResponseHeaderBag, 'DISPOSITION_ATTACHMENT', { writable: false, enumerable: true, configurable: true, value: 'attachment' });
+Object.defineProperty(ResponseHeaderBag, 'DISPOSITION_INLINE', { writable: false, enumerable: true, configurable: true, value: 'inline' });
+
+Object.defineProperty(ResponseHeaderBag, 'COOKIES_FLAT', { writable: false, enumerable: true, configurable: true, value: 'flat' });
+Object.defineProperty(ResponseHeaderBag, 'COOKIES_ARRAY', { writable: false, enumerable: true, configurable: true, value: 'array' });

@@ -91,4 +91,4 @@ class RecursiveDirectoryIterator {
     }
 }
 
-global.RecursiveDirectoryIterator = RecursiveDirectoryIterator;
+globalThis.RecursiveDirectoryIterator = RecursiveDirectoryIterator;

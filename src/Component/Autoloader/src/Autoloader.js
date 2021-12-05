@@ -139,7 +139,7 @@ class Autoloader {
 
             const retVal = this.__construct(...$args);
             if (undefined !== global.mixins && undefined !== this[global.mixins.initializerSymbol]) {
-                this[global.mixins.initializerSymbol]();
+                this[global.mixins.initializerSymbol](...$args);
             }
 
             if (undefined !== retVal && this !== retVal) {
@@ -151,7 +151,7 @@ class Autoloader {
                 self = new Proxy(self, {
                     get: (target, p) => {
                         if (p !== Symbol.toStringTag && ! Reflect.has(target, p)) {
-                            throw new TypeError('Undefined property ' + p.toString());
+                            throw new TypeError('Undefined property ' + p.toString() + ' on instance of ' + ReflectionClass.getClassName(target));
                         }
 
                         return Reflect.get(target, p);

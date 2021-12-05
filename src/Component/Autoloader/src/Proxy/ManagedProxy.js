@@ -4,6 +4,8 @@ try {
     require('../../../../util');
 }
 
+let capture = () => {};
+
 /**
  * @memberOf Jymfony.Component.Autoloader.Proxy
  */
@@ -18,6 +20,7 @@ class ManagedProxy {
     constructor(target, initializer = null, traps = {}) {
         this._target = null;
         this._initializer = initializer;
+        capture.call(this, target);
 
         traps.get = traps.get || ((target, key) => Reflect.get(target, key));
         traps.set = traps.set || ((target, key, value) => Reflect.set(target, key, value));
@@ -133,6 +136,36 @@ class ManagedProxy {
     set initializer(initializer) {
         this._initializer = initializer;
     }
+
+    /**
+     * Enables debug of proxies.
+     */
+    static enableDebug() {
+        capture = function (target) {
+            this._traceError = new Error();
+            this._initialTarget = target;
+        };
+    }
+
+    /**
+     * Gets proxy debug info.
+     *
+     * @returns {Object.<string, *>}
+     */
+    get debugInfo() {
+        if (! this._trace && this._traceError) {
+            this._trace = Exception.parseStackTrace(this._traceError).slice(2);
+        }
+
+        return {
+            trace: this._trace,
+            target: this._initialTarget,
+        };
+    }
+}
+
+if (process.env.DEBUG || global.__jymfony.debug) {
+    ManagedProxy.enableDebug();
 }
 
 module.exports = __jymfony.ManagedProxy = ManagedProxy;

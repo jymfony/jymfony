@@ -3,6 +3,8 @@ import { expect } from 'chai';
 const Ulid = Jymfony.Component.Uid.Ulid;
 const UuidV4 = Jymfony.Component.Uid.UuidV4;
 const TestCase = Jymfony.Component.Testing.Framework.TestCase;
+const TimeSensitiveTestCaseTrait = Jymfony.Component.Testing.Framework.TimeSensitiveTestCaseTrait;
+
 const replacePairs = {
     'A': 'a',
     'B': 'b',
@@ -28,7 +30,15 @@ const replacePairs = {
     'Z': 'v',
 };
 
-export default class UlidTest extends TestCase {
+export default class UlidTest extends mix(TestCase, TimeSensitiveTestCaseTrait) {
+    get testCaseName() {
+        return '[Uid] ' + super.testCaseName;
+    }
+
+    get retries() {
+        return 3;
+    }
+
     testGenerate() {
         const time = String(new Date().getTime());
 
@@ -108,18 +118,16 @@ export default class UlidTest extends TestCase {
         expect(a.equals(b.toString())).to.be.equal(false);
     }
 
-    testCompare() {
-        const nTime = new Date().getTime();
-        const time = String(nTime);
-
-        const a = new Ulid(Ulid.generate(time));
-        const b = new Ulid(Ulid.generate(time));
+    async testCompare() {
+        const a = new Ulid();
+        const b = new Ulid();
 
         expect(a.compare(a)).to.be.equal(0);
         expect(a.compare(b)).to.be.lessThan(0);
         expect(b.compare(a)).to.be.greaterThan(0);
 
-        const c = new Ulid(Ulid.generate(String(nTime + 1001)));
+        await __jymfony.sleep(1001);
+        const c = new Ulid();
 
         expect(b.compare(c)).to.be.lessThan(0);
         expect(c.compare(b)).to.be.greaterThan(0);

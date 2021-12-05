@@ -1,6 +1,7 @@
 const BufferingLogger = Jymfony.Component.Debug.BufferingLogger;
 const ErrorHandler = Jymfony.Component.Debug.ErrorHandler;
 const MultipleResolvesException = Jymfony.Component.Debug.Exception.MultipleResolvesException;
+const Timeout = Jymfony.Component.Debug.Timeout;
 const UnhandledRejectionException = Jymfony.Component.Debug.Exception.UnhandledRejectionException;
 
 /**
@@ -22,6 +23,8 @@ export default class Debug {
             throw new MultipleResolvesException(type, promise, reason);
         });
 
+        __jymfony.ManagedProxy.enableDebug();
+        Timeout.enable();
         ErrorHandler.register(new ErrorHandler(new BufferingLogger(), true));
     }
 }

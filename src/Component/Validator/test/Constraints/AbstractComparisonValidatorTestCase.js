@@ -12,6 +12,10 @@ const DEFAULT_INVALID_CONSTRAINT_OPTIONS = [ {} ];
  * @abstract
  */
 export class AbstractComparisonValidatorTestCase extends TestCase {
+    get testCaseName() {
+        return '[Validator] ' + super.testCaseName;
+    }
+
     provideInvalidConstraintOptions() {
         return [ DEFAULT_INVALID_CONSTRAINT_OPTIONS ];
     }

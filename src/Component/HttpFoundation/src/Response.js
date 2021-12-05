@@ -791,14 +791,16 @@ export default class Response extends implementationOf(ResponseInterface) {
                     responseStream = new PassThrough();
             }
 
+            if (this.headers.has('Transfer-Encoding')) {
+                res.chunkedEncoding = false;
+            }
+
             const content = this.content;
             responseStream.pipe(res);
 
             if (isFunction(content)) {
                 await content(responseStream);
-                await new Promise((resolve) => {
-                    responseStream.end(resolve);
-                });
+                await new Promise((resolve) => responseStream.end(resolve));
             } else {
                 await new Promise((resolve) => {
                     responseStream.end(content, 'utf8', () => {
@@ -831,6 +833,8 @@ export default class Response extends implementationOf(ResponseInterface) {
         }
 
         const acceptEncoding = encodingNegotiator.getBest(request.headers.get('Accept-Encoding'), priorities) || { type: null };
+        this.setVary('Accept-Encoding', false);
+
         switch (acceptEncoding.type) {
             case 'br':
                 this._encoding = ENCODING_BROTLI;

@@ -69,10 +69,17 @@ export default (() => {
         },
         [
             {
+                ['offset']: 48056,
+                ['dst']: false,
+                ['abbrev']: 'LMT',
+                ['until']: -2209555256,
+                ['format']: 'LMT',
+            },
+            {
                 ['offset']: -38344,
                 ['dst']: false,
                 ['abbrev']: 'LMT',
-                ['until']: -2177414456,
+                ['until']: -543072056,
                 ['format']: 'LMT',
             },
             {

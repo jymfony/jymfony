@@ -23,6 +23,7 @@
     "@jymfony/autoloader": "*",
     "@jymfony/datastructure": "*",
     "@jymfony/debug": "*",
+    "@jymfony/filesystem": "*",
     "@jymfony/testing": "*",
     "chai": "^4.2",
     "mocha": "^6.0"

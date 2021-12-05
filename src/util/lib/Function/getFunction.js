@@ -1,6 +1,6 @@
 'use strict';
 
-global.__jymfony = global.__jymfony || {};
+globalThis.__jymfony = globalThis.__jymfony || {};
 
 __jymfony.getFunction = (object, funcName) => {
     if (isFunction(object.constructor[funcName])) {

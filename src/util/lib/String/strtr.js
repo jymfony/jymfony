@@ -2,7 +2,7 @@
 
 require('../Regex/quote');
 
-global.__jymfony = global.__jymfony || {};
+globalThis.__jymfony = globalThis.__jymfony || {};
 
 /**
  * @param {string} string

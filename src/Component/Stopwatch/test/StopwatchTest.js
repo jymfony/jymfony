@@ -1,26 +1,32 @@
+import { expect } from 'chai';
+
 const Stopwatch = Jymfony.Component.Stopwatch.Stopwatch;
 const StopwatchEvent = Jymfony.Component.Stopwatch.StopwatchEvent;
-const { expect } = require('chai');
+const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 
-describe('[Stopwatch] Stopwatch', function () {
-    it('start', () => {
+export default class StopwatchTest extends TestCase {
+    get testCaseName() {
+        return '[Stopwatch] ' + super.testCaseName;
+    }
+
+    testStart() {
         const stopwatch = new Stopwatch();
         const event = stopwatch.start('foo', 'cat');
 
         expect(event).to.be.instanceOf(StopwatchEvent);
         expect(event.category).to.be.equal('cat');
         expect(stopwatch.getEvent('foo')).to.be.equal(event);
-    });
+    }
 
-    it('start without category', () => {
+    testStartWithoutCategory() {
         const stopwatch = new Stopwatch();
         const event = stopwatch.start('bar');
 
         expect(event.category).to.be.equal('default');
         expect(stopwatch.getEvent('bar')).to.be.equal(event);
-    });
+    }
 
-    it('is started', () => {
+    testIsStarted() {
         const stopwatch = new Stopwatch();
 
         expect(stopwatch.isStarted('foo')).to.be.equal(false);
@@ -28,19 +34,19 @@ describe('[Stopwatch] Stopwatch', function () {
         expect(stopwatch.isStarted('foo')).to.be.equal(true);
         stopwatch.stop('foo');
         expect(stopwatch.isStarted('foo')).to.be.equal(false);
-    });
+    }
 
-    it('getEvent should throw on unknown event', () => {
+    testGetEventShouldThrowOnUnknownEvent() {
         const stopwatch = new Stopwatch();
         expect(() => stopwatch.getEvent('foo')).to.throw(LogicException);
-    });
+    }
 
-    it('stop without start', () => {
+    testStopWithoutStart() {
         const stopwatch = new Stopwatch();
         expect(() => stopwatch.stop('foo')).to.throw(LogicException);
-    });
+    }
 
-    it('sections', () => {
+    testSections() {
         const stopwatch = new Stopwatch();
 
         stopwatch.openSection();
@@ -63,9 +69,9 @@ describe('[Stopwatch] Stopwatch', function () {
         expect(Object.keys(stopwatch.getSectionEvents('1'))).to.have.length(3);
         expect(Object.keys(stopwatch.getSectionEvents('2'))).to.have.length(2);
         expect(Object.keys(stopwatch.getSectionEvents('0'))).to.have.length(2);
-    });
+    }
 
-    it('reopen section', () => {
+    testReopenSection() {
         const stopwatch = new Stopwatch();
 
         stopwatch.openSection();
@@ -80,5 +86,5 @@ describe('[Stopwatch] Stopwatch', function () {
 
         expect(Object.keys(events)).to.have.length(3);
         expect(events['__section__'].periods).to.have.length(2);
-    });
-});
+    }
+}

@@ -302,10 +302,10 @@ export default (() => {
                         ['2011']: [
                             o[34],
                         ],
-                        ['2019']: [
+                        ['2020']: [
                             o[34],
                         ],
-                        ['2020']: [
+                        ['2021']: [
                             o[34],
                         ],
                     },
@@ -1252,13 +1252,13 @@ export default (() => {
                 ['abbrev']: 'CE%sT',
             },
             {
-                ['until']: 1590879600,
+                ['until']: 1640473200,
                 ['ruleSet']: o[18],
                 ['offset']: 10800,
                 ['abbrev']: 'MSK/MSD',
             },
             {
-                ['until']: 1590883200,
+                ['until']: 1640476800,
                 ['ruleSet']: undefined,
                 ['offset']: 7200,
                 ['abbrev']: 'EEST',

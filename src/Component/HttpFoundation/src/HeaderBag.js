@@ -70,6 +70,14 @@ export default class HeaderBag {
     }
 
     /**
+     * Replaces the current HTTP headers by a new set.
+     */
+    replace(headers = {}) {
+        this._headers = {};
+        this.add(headers);
+    }
+
+    /**
      * Adds/replaces parameters in the bag.
      *
      * @param {Object.<string, *>} parameters
@@ -123,12 +131,14 @@ export default class HeaderBag {
             if (true === replace || undefined === this._headers[key]) {
                 this._headers[key] = values;
             } else {
+                this._headers[key] = this._headers[key] || [];
                 this._headers[key] = this._headers[key].concat(values);
             }
         } else {
             if (true === replace || undefined === this._headers[key]) {
                 this._headers[key] = [ values ];
             } else {
+                this._headers[key] = this._headers[key] || [];
                 this._headers[key].push(values);
             }
         }

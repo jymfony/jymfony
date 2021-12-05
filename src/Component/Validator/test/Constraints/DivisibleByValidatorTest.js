@@ -6,6 +6,10 @@ const DivisibleBy = Jymfony.Component.Validator.Constraints.DivisibleBy;
 const UnexpectedValueException = Jymfony.Component.Validator.Exception.UnexpectedValueException;
 
 export default class DivisibleByValidatorTest extends AbstractComparisonValidatorTestCase {
+    get testCaseName() {
+        return '[Validator] ' + super.testCaseName;
+    }
+
     createConstraint(options = null) {
         return new DivisibleBy(options);
     }

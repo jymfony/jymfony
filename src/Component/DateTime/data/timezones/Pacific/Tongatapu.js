@@ -99,17 +99,17 @@ export default (() => {
         },
         [
             {
-                ['offset']: 44360,
+                ['offset']: 44352,
                 ['dst']: false,
                 ['abbrev']: 'LMT',
-                ['until']: -2177497160,
+                ['until']: -767189952,
                 ['format']: 'LMT',
             },
             {
                 ['offset']: 44400,
                 ['dst']: false,
                 ['abbrev']: '+1220',
-                ['until']: -915193200,
+                ['until']: -284041200,
                 ['format']: '+1220',
             },
             {

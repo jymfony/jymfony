@@ -7,6 +7,10 @@ const UnexpectedValueException = Jymfony.Component.Validator.Exception.Unexpecte
 const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 
 export class CountValidatorTest extends TestCase {
+    get testCaseName() {
+        return '[Validator] ' + super.testCaseName;
+    }
+
     /**
      * @returns {ArrayLike}
      *

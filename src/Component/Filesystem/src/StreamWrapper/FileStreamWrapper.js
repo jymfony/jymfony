@@ -1,29 +1,27 @@
-import * as fs from 'fs';
+import {
+    chmod,
+    chown,
+    open as fopen,
+    futimes,
+    lstat,
+    mkdir,
+    readdir,
+    readlink,
+    realpath,
+    rename,
+    rmdir,
+    symlink,
+    unlink
+} from 'fs/promises';
 import { dirname, resolve as pathResolve } from 'path';
-import { promisify } from 'util';
 import { parse as urlParse } from 'url';
 
-const File = Jymfony.Component.Filesystem.File;
 const AbstractStreamWrapper = Jymfony.Component.Filesystem.StreamWrapper.AbstractStreamWrapper;
+const File = Jymfony.Component.Filesystem.File;
+const ReadableStream = Jymfony.Component.Filesystem.StreamWrapper.File.ReadableStream;
 const Resource = Jymfony.Component.Filesystem.StreamWrapper.File.Resource;
 const StreamWrapperInterface = Jymfony.Component.Filesystem.StreamWrapper.StreamWrapperInterface;
-
-const readlink = promisify(fs.readlink);
-const lstat = promisify(fs.lstat);
-const readdir = promisify(fs.readdir);
-const rmdir = promisify(fs.rmdir);
-const mkdir = promisify(fs.mkdir);
-const rename = promisify(fs.rename);
-const fopen = promisify(fs.open);
-const fclose = promisify(fs.close);
-const fwrite = promisify(fs.write);
-const ftruncate = promisify(fs.ftruncate);
-const futimes = promisify(fs.futimes);
-const chown = promisify(fs.chown);
-const chmod = promisify(fs.chmod);
-const unlink = promisify(fs.unlink);
-const symlink = promisify(fs.symlink);
-const realpath = promisify(fs.realpath);
+const WritableStream = Jymfony.Component.Filesystem.StreamWrapper.File.WritableStream;
 
 const Storage = function () {};
 Storage.prototype = {};
@@ -197,27 +195,21 @@ export default class FileStreamWrapper extends AbstractStreamWrapper {
      * @inheritdoc
      */
     async streamClose(resource) {
-        await fclose(resource.fd);
+        await resource.handle.close();
     }
 
     /**
      * @inheritdoc
      */
     createReadableStream(resource) {
-        return fs.createReadStream(null, {
-            fd: resource.fd,
-            autoClose: false,
-        });
+        return new ReadableStream(resource);
     }
 
     /**
      * @inheritdoc
      */
     createWritableStream(resource) {
-        return fs.createWriteStream(null, {
-            fd: resource.fd,
-            autoClose: false,
-        });
+        return new WritableStream(resource);
     }
 
     /**
@@ -225,24 +217,17 @@ export default class FileStreamWrapper extends AbstractStreamWrapper {
      */
     async streamRead(resource, count, position = 0, whence = File.SEEK_CUR) {
         const buf = Buffer.alloc(count);
-
         resource.seek(position, whence);
-        const result = await new Promise((resolve, reject) => {
-            fs.read(resource.fd, buf, 0, count, resource.position, (err, bytesRead) => {
-                if (err) {
-                    reject(err);
-                }
 
-                resource.advance(count);
-                resolve(bytesRead);
-            });
-        });
+        const handle = resource.handle;
+        const { bytesRead } = await handle.read(buf, 0, count, resource.position);
 
-        if (result === count) {
+        resource.advance(bytesRead);
+        if (bytesRead === count) {
             return buf;
         }
 
-        return buf.slice(0, result);
+        return buf.slice(0, bytesRead);
     }
 
     /**
@@ -250,10 +235,13 @@ export default class FileStreamWrapper extends AbstractStreamWrapper {
      */
     async streamWrite(resource, buffer, position = 0, whence = File.SEEK_CUR) {
         resource.seek(position, whence);
-        const result = await fwrite(resource.fd, Buffer.from(buffer), 0, buffer.length, resource.position);
-        resource.advance(buffer.length);
 
-        return result.bytesWritten;
+        const handle = resource.handle;
+        const { bytesWritten } = await handle.write(Buffer.from(buffer), 0, buffer.length, resource.position);
+
+        resource.advance(bytesWritten);
+
+        return bytesWritten;
     }
 
     /**
@@ -262,7 +250,7 @@ export default class FileStreamWrapper extends AbstractStreamWrapper {
     streamTruncate(resource, length = 0) {
         resource.seek(0, File.SEEK_SET);
 
-        return ftruncate(resource.fd, length);
+        return resource.handle.truncate(length);
     }
 
     /**

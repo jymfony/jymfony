@@ -10,8 +10,10 @@ let TypescriptConfig;
 try {
     Typescript = require('typescript');
     TypescriptConfig = {
-        inlineSourceMap: true,
-        inlineSources: true,
+        sourceMap: true,
+        sourceRoot: '/',
+        inlineSourceMap: false,
+        inlineSources: false,
         declaration: true,
         module: Typescript.ModuleKind.ESNext,
         target: Typescript.ScriptTarget.ES2017,
@@ -28,7 +30,7 @@ let Parser;
 let AST;
 
 const isNyc = !! global.__coverage__;
-const { normalize } = require('path');
+const { dirname, normalize, resolve: pathResolve } = require('path');
 
 const Storage = function () {};
 Storage.prototype = {};
@@ -37,7 +39,7 @@ let codeCache = new Storage();
 let _cache = new Storage();
 
 let { resolve } = require;
-if (__jymfony.version_compare(process.versions.v8, '12.0.0', '<')) {
+if (__jymfony.version_compare(process.versions.node, '12.0.0', '<')) {
     resolve = (id, { paths } = { paths: [ __dirname ]}) => {
         if (id.startsWith('.')) {
             return require.resolve(id, { paths });
@@ -62,11 +64,19 @@ const stripBOM = (content) => 0xFEFF === content.charCodeAt(0) ? content.slice(1
 // From node source:/lib/internal/modules/cjs/helpers.js
 const builtinLibs = [
     'assert', 'async_hooks', 'buffer', 'child_process', 'cluster', 'crypto',
-    'dgram', 'dns', 'domain', 'events', 'fs', 'http', 'http2', 'https', 'net',
+    'dgram', 'dns', 'domain', 'events', 'fs', 'fs/promises', 'http', 'http2', 'https', 'net',
     'os', 'path', 'perf_hooks', 'punycode', 'querystring', 'readline', 'repl',
     'stream', 'string_decoder', 'tls', 'trace_events', 'tty', 'url', 'util',
     'v8', 'vm', 'worker_threads', 'zlib',
 ];
+
+const builtinRequire = __jymfony.version_compare(process.versions.node, '14.0.0', '<') ? id => {
+    if ('fs/promises' === id) {
+        return require('fs').promises;
+    }
+
+    return require(id);
+} : require;
 
 /**
  * Patching-replacement for "require" function in Autoloader component.
@@ -213,9 +223,15 @@ class ClassLoader {
             return cached;
         }
 
-        let code, program = null;
+        let code, sourceMap, program = null;
         if (fn.endsWith('.ts')) {
-            code = this._doLoadTypescript(fn);
+            const module = this._doLoadTypescript(fn);
+            code = module.outputText || '';
+            try {
+                sourceMap = JSON.parse(module.sourceMapText);
+            } catch (e) {
+                // @ignoreException
+            }
         } else {
             code = stripBOM(this._finder.load(fn));
         }
@@ -233,6 +249,14 @@ class ClassLoader {
             program.prepare();
 
             const p = new AST.Program(program.location);
+
+            if (sourceMap) {
+                sourceMap.sources = sourceMap.sources.map(s => normalize(pathResolve(sourceMap.sourceRoot + '/' + s)));
+                p.addSourceMappings(sourceMap);
+            } else {
+                p.addSourceMappings(...(program.sourceMappings.filter(isObjectLiteral)));
+            }
+
             p.add(new AST.ParenthesizedExpression(null,
                 new AST.FunctionExpression(null, new AST.BlockStatement(null, [
                     new AST.StringLiteral(null, '\'use strict\''),
@@ -278,9 +302,12 @@ class ClassLoader {
      */
     _doLoadTypescript(fn) {
         const code = this._finder.load(fn);
-        const module = Typescript.transpileModule(code, { compilerOptions: TypescriptConfig });
 
-        return module.outputText || '';
+        return Typescript.transpileModule(code, {
+            compilerOptions: { ...TypescriptConfig, sourceRoot: dirname(fn) },
+            fileName: fn,
+            moduleName: fn,
+        });
     }
 
     /**
@@ -304,7 +331,7 @@ class ClassLoader {
 
         const req = id => {
             if (builtinLibs.includes(id) || this._compilerIgnorelist.includes(id)) {
-                return require(id);
+                return builtinRequire(id);
             }
 
             if (id.startsWith('.')) {
@@ -333,7 +360,7 @@ class ClassLoader {
 
         req.proxy = id => {
             if (builtinLibs.includes(id)) {
-                return require(id);
+                return builtinRequire(id);
             }
 
             id = resolve(id, { paths: [ dirname ] });
@@ -388,6 +415,8 @@ class ClassLoader {
 
                     return _cache[fn] = module.exports;
                 }
+            } else {
+                delete _cache[fn];
             }
 
             throw e;

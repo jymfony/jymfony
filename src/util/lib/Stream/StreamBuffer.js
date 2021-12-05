@@ -1,19 +1,35 @@
 'use strict';
 
-const { Writable } = require('stream');
+const { Duplex } = require('stream');
 const INITIAL_SIZE = 7 * 1024;
 const SIZE_INCREMENT = 4 * 1024;
 
-class StreamBuffer extends Writable {
+class StreamBuffer extends Duplex {
     /**
      * Constructor.
+     *
+     * @param {Buffer} [buffer]
      */
-    constructor() {
+    constructor(buffer = null) {
         super();
 
-        this._size = 0;
-        this._bufSize = INITIAL_SIZE;
-        this._buffer = Buffer.alloc(INITIAL_SIZE);
+        if (null === buffer) {
+            buffer = Buffer.allocUnsafe(INITIAL_SIZE);
+            this._size = 0;
+        } else {
+            this._size = buffer.length;
+        }
+
+        this._position = 0;
+        this._bufSize = buffer.length;
+        this._buffer = buffer;
+    }
+
+    copy() {
+        const buffer = new __jymfony.StreamBuffer(Buffer.from(this._buffer));
+        buffer._size = this._size;
+
+        return buffer;
     }
 
     /**
@@ -32,6 +48,28 @@ class StreamBuffer extends Writable {
      */
     get size() {
         return this._size;
+    }
+
+    /**
+     * @param {number} size
+     *
+     * @returns {void}
+     */
+    _read(size) {
+        let result = true;
+        do {
+            if (this._position + size >= this._size) {
+                size = this._size - this._position;
+            }
+
+            if (0 === size) {
+                this.push(null);
+                return;
+            }
+
+            result = this.push(this._buffer.slice(this._position, this._position + size));
+            this._position += size;
+        } while (result);
     }
 
     /**
@@ -61,5 +99,5 @@ class StreamBuffer extends Writable {
     }
 }
 
-global.__jymfony = global.__jymfony || {};
+globalThis.__jymfony = globalThis.__jymfony || {};
 __jymfony.StreamBuffer = StreamBuffer;

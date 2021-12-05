@@ -107,8 +107,15 @@ export default (() => {
                 ['offset']: 10800,
                 ['dst']: false,
                 ['abbrev']: 'EAT',
-                ['until']: Infinity,
+                ['until']: 1612126800,
                 ['format']: 'EAT',
+            },
+            {
+                ['offset']: 7200,
+                ['dst']: false,
+                ['abbrev']: 'CAT',
+                ['until']: Infinity,
+                ['format']: 'CAT',
             },
         ],
         [

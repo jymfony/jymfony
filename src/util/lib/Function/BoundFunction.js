@@ -88,4 +88,4 @@ class BoundFunction {
     }
 }
 
-global.BoundFunction = BoundFunction;
+globalThis.BoundFunction = BoundFunction;

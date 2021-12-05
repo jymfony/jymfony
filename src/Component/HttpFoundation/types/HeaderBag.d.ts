@@ -29,6 +29,11 @@ declare namespace Jymfony.Component.HttpFoundation {
         public readonly keys: string[];
 
         /**
+         * Replaces the current HTTP headers by a new set.
+         */
+        replace(parameters: Record<string, string | string[]>): void;
+
+        /**
          * Adds/replaces parameters in the bag.
          */
         add(parameters: Record<string, string | string[]>): void;

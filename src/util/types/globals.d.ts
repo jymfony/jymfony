@@ -1,4 +1,7 @@
 /// <reference lib="esnext" />
+/// <reference types="node" />
+/// <reference types="@jymfony/exceptions" />
+/// <reference types="@jymfony/contracts" />
 
 declare type int = number;
 declare type float = number;
@@ -13,6 +16,12 @@ declare namespace __jymfony {
          */
         __construct(...args: any[]): any | undefined;
     }
+
+    /**
+     * Applies a timeout to the promise.
+     */
+    export function promiseTimeout<T extends AsyncFunction<K>, K>(timeoutMs: number, promise: T, timeoutError?: () => Error, weak?: boolean): Promise<K>;
+    export function promiseTimeout<T extends Promise<K>, K>(timeoutMs: number, promise: T, timeoutError?: () => Error, weak?: boolean): T;
 
     /**
      * Executes a callback iterating asynchronously onto the given iterator.
@@ -145,6 +154,11 @@ declare namespace __jymfony {
     export function levenshtein(s: string, t: string): number;
 
     /**
+     * Converts unicode domains to ascii.
+     */
+    export function punycode_to_ascii(string: string): string;
+
+    /**
      * @internal
      */
     export function internal_parse_query_string(params: any): any;
@@ -254,6 +268,10 @@ interface WeakRefConstructor {
 
 declare var WeakRef: WeakRefConstructor;
 
+declare type Nullable<T> = {
+    [P in keyof T]: null | T[P];
+};
+
 declare type FunctionPropertyNames<T> = {
     [K in keyof T]: T[K] extends Function ? K : never;
 }[keyof T];
@@ -287,14 +305,14 @@ declare type Newable<Instance extends object = object, Static extends object = o
 declare type MixinInterface<T> = T extends AnyConstructorRaw<infer I, infer M> ? Omit<M, 'definition'> & {
     readonly definition: Newable<I, T>;
     [Symbol.hasInstance](): boolean;
-} & ((...args) => any) : never;
+} & ((...args: any[]) => any) : never;
 
 declare type Mixin<T> = T extends Newable<infer I, infer M> ? MixinInterface<T> : never;
 
 declare function getInterface<T>(definition: T): Mixin<T>
 declare function getTrait<T>(definition: T): Mixin<T>;
 
-declare type AsyncFunction = (...args: any[]) => Promise<any>;
+declare type AsyncFunction<T = any> = (...args: any[]) => Promise<T>;
 
 interface AsyncGenerator<T = unknown, TReturn = any, TNext = unknown> extends AsyncIterator<T, TReturn, TNext> {
     // NOTE: 'next' is defined using a tuple to ensure we report the correct assignability errors in all places.
@@ -612,7 +630,8 @@ declare module NodeJS {
         isBoolean(value: any): value is boolean;
         isString(value: any): value is string;
         isNumber(value: any): value is number;
-        isNumeric(value: any): boolean;
+        isInfinite<T>(value: T): T extends number ? boolean : false;
+        isNumeric<T>(value: T): T extends number ? true : boolean;
         isDate(value: any): value is Date;
         isRegExp(value: any): value is RegExp;
         isError(value: any): value is Error;
@@ -906,7 +925,9 @@ declare function isArguments(value: any): value is IArguments;
 declare function isBoolean(value: any): value is boolean;
 declare function isString(value: any): value is string;
 declare function isNumber(value: any): value is number;
-declare function isNumeric(value: any): boolean;
+declare function isNaN<T>(value: T): T extends number ? boolean : false;
+declare function isInfinite<T>(value: T): T extends number ? boolean : false;
+declare function isNumeric<T>(value: T): T extends number ? true : boolean;
 declare function isDate(value: any): value is Date;
 declare function isRegExp(value: any): value is RegExp;
 declare function isError(value: any): value is Error;

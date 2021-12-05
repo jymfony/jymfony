@@ -24,6 +24,16 @@ Jymfony.Component.Testing = {
     /**
      * @namespace
      */
+    Comparator: {},
+
+    /**
+     * @namespace
+     */
+    Constraints: {},
+
+    /**
+     * @namespace
+     */
     Double: {},
 
     /**

@@ -5,6 +5,10 @@ const EqualTo = Jymfony.Component.Validator.Constraints.EqualTo;
 const Fixtures = Jymfony.Component.Validator.Fixtures.Constraints;
 
 export default class EqualToValidatorTest extends AbstractComparisonValidatorTestCase {
+    get testCaseName() {
+        return '[Validator] ' + super.testCaseName;
+    }
+
     createConstraint(options) {
         return new EqualTo(options);
     }

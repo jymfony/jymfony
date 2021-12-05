@@ -66,6 +66,16 @@ declare namespace Jymfony.Component.Testing.Framework {
         public readonly testCaseName: string;
 
         /**
+         * Override this to set a default timeout for all the tests of this test case.
+         */
+        public readonly defaultTimeout: undefined | number;
+
+        /**
+         * Override this to set the retry count for flaky tests.
+         */
+        public readonly retries: undefined | number;
+
+        /**
          * Sets the timeout for the currently running test.
          */
         setTimeout(ms: number): void;

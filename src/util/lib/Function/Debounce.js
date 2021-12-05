@@ -197,7 +197,7 @@ class Debounce {
     }
 }
 
-global.__jymfony = global.__jymfony || {};
+globalThis.__jymfony = globalThis.__jymfony || {};
 
 /**
  * Create a Debounce.

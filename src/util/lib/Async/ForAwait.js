@@ -2,7 +2,7 @@ if (! Symbol.asyncIterator) {
     Symbol.asyncIterator = Symbol('asyncIterator');
 }
 
-global.__jymfony = global.__jymfony || {};
+globalThis.__jymfony = globalThis.__jymfony || {};
 
 const forAwait = (iterator, callback) => {
     if (isPromise(iterator)) {
@@ -21,7 +21,7 @@ const forAwait = (iterator, callback) => {
     if (! iterator) {
         throw new Error(Object.prototype.toString.call(originalIterator) + ' is not iterable');
     } else if (! isFunction(iterator.next) && isFunction(iterator)) {
-        iterator = iterator();
+        iterator = iterator.call(originalIterator);
     }
 
     return new Promise((resolve, reject) => {
