@@ -6,6 +6,10 @@ export default class NativeHttpClientTest extends HttpClientTestCase {
         return new NativeHttpClient();
     }
 
+    get retries() {
+        return 3;
+    }
+
     get testCaseName() {
         return '[HttpClient] ' + super.testCaseName;
     }
