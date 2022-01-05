@@ -1,5 +1,3 @@
-import { pipeline } from 'stream';
-
 const ClientException = Jymfony.Contracts.HttpClient.Exception.ClientException;
 const DecodingException = Jymfony.Contracts.HttpClient.Exception.DecodingException;
 const RedirectionException = Jymfony.Contracts.HttpClient.Exception.RedirectionException;
@@ -96,31 +94,39 @@ class CommonResponseTrait {
      * @private
      */
     async _pipeline(input, output) {
-        let rejectionFn, resolved = false;
-        await new Promise((resolve, reject) => {
-            rejectionFn = err => {
-                if (resolved) {
-                    return;
-                }
+        let rejectionFn, resolveFn, resolved = false;
 
-                resolved = true;
-                reject(err);
-            };
+        try {
+            await new Promise((resolve, reject) => {
+                rejectionFn = err => {
+                    if (resolved) {
+                        return;
+                    }
 
-            input.on('error', rejectionFn);
-            output.on('error', rejectionFn);
+                    resolved = true;
+                    reject(err);
+                };
 
-            pipeline(input, output, err => {
-                if (err) {
-                    rejectionFn(err);
-                } else {
+                resolveFn = () => {
+                    if (resolved) {
+                        return;
+                    }
+
+                    resolved = true;
                     resolve();
-                }
-            });
-        });
+                };
 
-        input.removeListener('error', rejectionFn);
-        output.removeListener('error', rejectionFn);
+                input.on('error', rejectionFn);
+                output.on('error', rejectionFn);
+
+                output.on('finish', resolveFn);
+                input.pipe(output);
+            });
+        } finally {
+            output.removeListener('finish', resolveFn);
+            input.removeListener('error', rejectionFn);
+            output.removeListener('error', rejectionFn);
+        }
 
         return output;
     }
