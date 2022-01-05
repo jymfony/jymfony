@@ -58,6 +58,13 @@ export default class Request extends implementationOf(RequestInterface) {
         this._isHostValid = undefined;
 
         /**
+         * @type {boolean}
+         *
+         * @private
+         */
+        this._isFromTrustedProxy = undefined;
+
+        /**
          * @type {string}
          *
          * @protected
@@ -719,11 +726,18 @@ export default class Request extends implementationOf(RequestInterface) {
      * @returns {boolean} true if the request came from a trusted proxy, false otherwise
      */
     get isFromTrustedProxy() {
-        if (! this.server.has('REMOTE_ADDR')) {
-            return false;
+        if (undefined !== this._isFromTrustedProxy) {
+            return this._isFromTrustedProxy;
         }
 
-        return _trustedProxies.length && Ip.check(this.server.get('REMOTE_ADDR'), _trustedProxies);
+        if (! this.server.has('REMOTE_ADDR')) {
+            return this._isFromTrustedProxy = false;
+        }
+
+        const remoteAddr = this.server.get('REMOTE_ADDR');
+        const proxies = _trustedProxies.map(v => 'REMOTE_ADDR' === v ? remoteAddr : v);
+
+        return this._isFromTrustedProxy = (proxies.length && Ip.check(remoteAddr, proxies));
     }
 
     /**
