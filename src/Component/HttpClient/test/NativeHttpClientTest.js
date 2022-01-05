@@ -2,6 +2,12 @@ const HttpClientTestCase = Jymfony.Contracts.HttpClient.Test.HttpClientTestCase;
 const NativeHttpClient = Jymfony.Component.HttpClient.NativeHttpClient;
 
 export default class NativeHttpClientTest extends HttpClientTestCase {
+    beforeEach() {
+        if (!! process.env.GITHUB_WORKFLOW && __jymfony.Platform.isWindows()) { // Tests on windows are too unstable on GHA
+            this.markTestSkipped();
+        }
+    }
+
     getHttpClient() {
         return new NativeHttpClient();
     }

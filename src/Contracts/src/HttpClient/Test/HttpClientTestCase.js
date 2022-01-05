@@ -20,7 +20,7 @@ export default class HttpClientTestCase extends TestCase {
     }
 
     get defaultTimeout() {
-        return __jymfony.Platform.isWindows() ? 180000 : 60000;
+        return 60000;
     }
 
     /**
