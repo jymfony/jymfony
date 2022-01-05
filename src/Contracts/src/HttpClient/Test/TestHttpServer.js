@@ -79,6 +79,18 @@ export default class TestHttpServer {
         });
 
         const worker = fork();
+        worker.on('exit', (code, signal) => {
+            if (signal) {
+                console.log(`worker was killed by signal: ${signal}`);
+            } else if (0 !== code) {
+                console.log(`worker exited with error code: ${code}`);
+            }
+        });
+
+        worker.on('error', err => {
+            console.error(err);
+        });
+
         do {
             await __jymfony.sleep(50);
         } while (! await isOpen(port));

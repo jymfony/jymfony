@@ -119,11 +119,15 @@ class CommonResponseTrait {
                 input.on('error', rejectionFn);
                 output.on('error', rejectionFn);
 
+                input.on('end', resolveFn);
+                input.on('complete', resolveFn);
                 output.on('finish', resolveFn);
                 input.pipe(output);
             });
         } finally {
             output.removeListener('finish', resolveFn);
+            input.removeListener('end', resolveFn);
+            input.removeListener('complete', resolveFn);
             input.removeListener('error', rejectionFn);
             output.removeListener('error', rejectionFn);
         }
