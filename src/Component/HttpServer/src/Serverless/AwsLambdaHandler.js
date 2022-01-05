@@ -140,18 +140,34 @@ export default class AwsLambdaHandler extends RequestHandler {
         await response.prepare(request);
 
         content = null;
+        let isBase64Encoded = false;
         if (! response.isEmpty && response.content) {
-            content = isFunction(response.content) ? await response.content(new __jymfony.StreamBuffer()) : response.content;
+            content = response.content;
+            if (isFunction(content)) {
+                const buf = new __jymfony.StreamBuffer();
+                await content(buf);
+
+                content = buf.buffer.toString('base64');
+                isBase64Encoded = true;
+            }
         }
 
         const responseHeaders = {};
+        const hasMultiHeaders = undefined !== event.multiValueHeaders;
+        const headersKey = hasMultiHeaders ? 'multiValueHeaders' : 'headers';
+
         for (const hdr of response.headers.keys) {
-            responseHeaders[hdr] = response.headers.get(hdr);
+            if (hasMultiHeaders) {
+                responseHeaders[hdr] = response.headers.get(hdr, false).map(String);
+            } else {
+                responseHeaders[hdr] = String(response.headers.get(hdr));
+            }
         }
 
         const result = {
+            isBase64Encoded,
             statusCode: response.statusCode,
-            headers: responseHeaders,
+            [headersKey]: responseHeaders,
             body: content,
         };
 
