@@ -25,11 +25,11 @@ declare namespace __jymfony {
         write(str: string, encoding?: string, cb?: Function): boolean;
         write(str: any, encoding?: any, cb?: any): boolean;
 
-        end(cb?: Function): void;
-        end(buffer: Buffer, cb?: Function): void;
-        end(str: string, cb?: Function): void;
-        end(str: string, encoding?: string, cb?: Function): void;
-        end(str?: any, encoding?: any, cb?: any): void;
+        end(cb?: Function): this;
+        end(buffer: Buffer, cb?: Function): this;
+        end(str: string, cb?: Function): this;
+        end(str: string, encoding?: string, cb?: Function): this;
+        end(str?: any, encoding?: any, cb?: any): this;
 
         addListener(event: string | symbol, listener: (...args: any[]) => void): this;
         on(event: string | symbol, listener: (...args: any[]) => void): this;
