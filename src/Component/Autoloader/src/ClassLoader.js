@@ -212,10 +212,11 @@ class ClassLoader {
      * Gets a file code.
      *
      * @param {string} fn
+     * @param {boolean} self
      *
      * @returns {{code: string, program: Program}}
      */
-    getCode(fn) {
+    getCode(fn, self = true) {
         if (codeCache[fn]) {
             const cached = codeCache[fn];
             Object.assign(this._descriptorStorage._storage, cached.decorators);
@@ -257,18 +258,23 @@ class ClassLoader {
                 p.addSourceMappings(...(program.sourceMappings.filter(isObjectLiteral)));
             }
 
+            const args = [
+                new AST.Identifier(null, 'exports'),
+                new AST.Identifier(null, 'require'),
+                new AST.Identifier(null, 'module'),
+                new AST.Identifier(null, '__filename'),
+                new AST.Identifier(null, '__dirname'),
+            ];
+
+            if (self) {
+                args.push(new AST.Identifier(null, '__self'));
+            }
+
             p.add(new AST.ParenthesizedExpression(null,
                 new AST.FunctionExpression(null, new AST.BlockStatement(null, [
                     new AST.StringLiteral(null, '\'use strict\''),
                     ...program.body,
-                ]), null, [
-                    new AST.Identifier(null, 'exports'),
-                    new AST.Identifier(null, 'require'),
-                    new AST.Identifier(null, 'module'),
-                    new AST.Identifier(null, '__filename'),
-                    new AST.Identifier(null, '__dirname'),
-                    new AST.Identifier(null, '__self'),
-                ])
+                ]), null, args)
             ));
 
             code = compiler.compile(p);
@@ -339,7 +345,7 @@ class ClassLoader {
             }
 
             id = resolve(id, { paths: [ dirname ] });
-            if (! id.endsWith('.js') && ! id.endsWith('.ts')) {
+            if (! id.endsWith('.js') && ! id.endsWith('.ts') && ! id.endsWith('.mjs')) {
                 return require(id);
             }
 
@@ -368,7 +374,7 @@ class ClassLoader {
                 return _cache[id];
             }
 
-            const code = this.getCode(id);
+            const code = this.getCode(id, !!self);
             const exports = function () {};
 
             return _cache[id] = new ManagedProxy(exports, proxy => {
@@ -398,8 +404,9 @@ class ClassLoader {
         };
 
         let _pending;
+        const code = this.getCode(fn, !!self);
         try {
-            this._vm.runInThisContext(this.getCode(fn).code, opts)(module.exports, req, module, fn, dirname, self);
+            this._vm.runInThisContext(code.code, opts)(module.exports, req, module, fn, dirname, self);
         } catch (e) {
             if (e instanceof CircularDependencyException) {
                 if (e.requiring === undefined) {
@@ -411,7 +418,7 @@ class ClassLoader {
                     _pending = _cache[e.requiring] = req.proxy(e.requiring);
 
                     require.cache[fn] = module;
-                    this._vm.runInThisContext(this.getCode(fn).code, opts)(module.exports, req, module, fn, dirname, self);
+                    this._vm.runInThisContext(this.getCode(fn, !!self).code, opts)(module.exports, req, module, fn, dirname, self);
 
                     return _cache[fn] = module.exports;
                 }

@@ -45,16 +45,19 @@ declare class RuntimeException extends Exception {}
 declare class UnderflowException extends Exception {}
 declare class UnexpectedValueException extends Exception {}
 
-declare module NodeJS {
-    interface Global {
-        Exception: Newable<Exception>;
-        BadMethodCallException: Newable<BadMethodCallException>;
-        DomainException: Newable<DomainException>;
-        InvalidArgumentException: Newable<InvalidArgumentException>;
-        LogicException: Newable<LogicException>;
-        OutOfBoundsException: Newable<OutOfBoundsException>;
-        RuntimeException: Newable<RuntimeException>;
-        UnderflowException: Newable<UnderflowException>;
-        UnexpectedValueException: Newable<UnexpectedValueException>;
+export {};
+declare global {
+    namespace NodeJS {
+        interface Global {
+            Exception: Newable<Exception>;
+            BadMethodCallException: Newable<BadMethodCallException>;
+            DomainException: Newable<DomainException>;
+            InvalidArgumentException: Newable<InvalidArgumentException>;
+            LogicException: Newable<LogicException>;
+            OutOfBoundsException: Newable<OutOfBoundsException>;
+            RuntimeException: Newable<RuntimeException>;
+            UnderflowException: Newable<UnderflowException>;
+            UnexpectedValueException: Newable<UnexpectedValueException>;
+        }
     }
 }

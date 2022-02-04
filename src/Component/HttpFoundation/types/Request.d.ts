@@ -34,6 +34,7 @@ declare namespace Jymfony.Component.HttpFoundation {
         protected _format?: string;
 
         private _isHostValid: boolean;
+        private _isFromTrustedProxy: boolean;
         private _method?: string;
         private _url: any;
 

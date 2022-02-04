@@ -20,6 +20,10 @@ export class AbstractComparisonValidatorTestCase extends TestCase {
         return [ DEFAULT_INVALID_CONSTRAINT_OPTIONS ];
     }
 
+    get defaultTimeout() {
+        return 10000;
+    }
+
     @dataProvider('provideInvalidConstraintOptions')
     testThrowsContstraintExceptionIfNoValueOrPropertyPath(options) {
         expect(() => this.createConstraint(options)).to.throw(

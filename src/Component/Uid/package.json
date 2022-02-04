@@ -7,7 +7,9 @@
     "test": "node ./tests.js"
   },
   "keywords": [
-    "lexer",
+    "uuid",
+    "guid",
+    "ulid",
     "jymfony"
   ],
   "author": "Alessandro Chitolina <alekitto@gmail.com>",

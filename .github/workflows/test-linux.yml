@@ -1,5 +1,5 @@
 name: Tests - Linux
-on: [push, pull_request]
+on: [ push, pull_request_target ]
 
 jobs:
     build:
@@ -8,11 +8,11 @@ jobs:
             matrix:
                 node_version:
                     - 10
-                    - 11
                     - 12
-                    - 13
                     - 14
                     - 15
+                    - 16
+                    - 17
 
         name: Node ${{ matrix.node_version }} - ${{ matrix.architecture }} on Linux
 
@@ -48,18 +48,18 @@ jobs:
                   architecture: ${{ matrix.architecture }}
             - run: npm install
             - run: npm test
-              if: ${{ matrix.node_version != 14 }}
+              if: ${{ matrix.node_version != 16 }}
               env:
                   REDIS_HOST: localhost:6379
                   REDIS_CLUSTER_HOSTS: 'localhost:7000 localhost:7001 localhost:7002 localhost:7003 localhost:7004 localhost:7005'
             - run: npm run-script coverage
-              if: ${{ matrix.node_version == 14 }}
+              if: ${{ matrix.node_version == 16 }}
               env:
                   REDIS_HOST: localhost:6379
                   REDIS_CLUSTER_HOSTS: 'localhost:7000 localhost:7001 localhost:7002 localhost:7003 localhost:7004 localhost:7005'
             - run: npm install https://github.com/alekitto/ocular.js.git
-              if: ${{ matrix.node_version == 14 }}
+              if: ${{ matrix.node_version == 16 }}
               continue-on-error: true
             - run: $(npm bin)/ocular coverage/clover.xml
-              if: ${{ matrix.node_version == 14 }}
+              if: ${{ matrix.node_version == 16 }}
               continue-on-error: true

@@ -30,7 +30,7 @@ declare namespace Jymfony.Component.Autoloader {
         /**
          * Gets a file code.
          */
-        getCode(fn: string): Code;
+        getCode(fn: string, self?: boolean): Code;
 
         /**
          * Loads and transpile typescript file.
