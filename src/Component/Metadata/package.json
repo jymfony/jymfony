@@ -1,6 +1,6 @@
 {
   "name": "@jymfony/metadata",
-  "version": "0.1.0-alpha.29",
+  "version": "0.1.0-alpha.30",
   "description": "Jymfony Metadata component",
   "typings": "types/index.d.ts",
   "scripts": {
@@ -16,10 +16,10 @@
     "node": ">=8.10.0"
   },
   "dependencies": {
-    "@jymfony/autoloader": "0.1.0-alpha.29",
-    "@jymfony/contracts": "0.1.0-alpha.29",
-    "@jymfony/exceptions": "0.1.0-alpha.29",
-    "@jymfony/util": "0.1.0-alpha.29"
+    "@jymfony/autoloader": "0.1.0-alpha.30",
+    "@jymfony/contracts": "0.1.0-alpha.30",
+    "@jymfony/exceptions": "0.1.0-alpha.30",
+    "@jymfony/util": "0.1.0-alpha.30"
   },
   "devDependencies": {
     "@jymfony/debug": "*",

@@ -1,6 +1,6 @@
 {
   "name": "@jymfony/debug",
-  "version": "0.1.0-alpha.29",
+  "version": "0.1.0-alpha.30",
   "description": "Jymfony Debug component",
   "typings": "types/index.d.ts",
   "scripts": {
@@ -16,12 +16,12 @@
     "node": ">=8.10.0"
   },
   "dependencies": {
-    "@jymfony/autoloader": "0.1.0-alpha.29",
-    "@jymfony/datetime": "0.1.0-alpha.29",
-    "@jymfony/exceptions": "0.1.0-alpha.29",
-    "@jymfony/logger": "0.1.0-alpha.29",
-    "@jymfony/util": "0.1.0-alpha.29",
-    "@jymfony/var-dumper": "0.1.0-alpha.29"
+    "@jymfony/autoloader": "0.1.0-alpha.30",
+    "@jymfony/datetime": "0.1.0-alpha.30",
+    "@jymfony/exceptions": "0.1.0-alpha.30",
+    "@jymfony/logger": "0.1.0-alpha.30",
+    "@jymfony/util": "0.1.0-alpha.30",
+    "@jymfony/var-dumper": "0.1.0-alpha.30"
   },
   "devDependencies": {
     "@jymfony/http-foundation": "*",

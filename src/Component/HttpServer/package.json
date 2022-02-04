@@ -1,6 +1,6 @@
 {
   "name": "@jymfony/http-server",
-  "version": "0.1.0-alpha.29",
+  "version": "0.1.0-alpha.30",
   "description": "Jymfony Http Server",
   "typings": "types/index.d.ts",
   "scripts": {
@@ -18,18 +18,18 @@
     "node": ">=8.10.0"
   },
   "dependencies": {
-    "@jymfony/autoloader": "0.1.0-alpha.29",
-    "@jymfony/console": "0.1.0-alpha.29",
-    "@jymfony/contracts": "0.1.0-alpha.29",
-    "@jymfony/debug": "0.1.0-alpha.29",
-    "@jymfony/event-dispatcher": "0.1.0-alpha.29",
-    "@jymfony/exceptions": "0.1.0-alpha.29",
-    "@jymfony/http-foundation": "0.1.0-alpha.29",
-    "@jymfony/kernel": "0.1.0-alpha.29",
-    "@jymfony/logger": "0.1.0-alpha.29",
-    "@jymfony/metadata": "0.1.0-alpha.29",
-    "@jymfony/routing": "0.1.0-alpha.29",
-    "@jymfony/util": "0.1.0-alpha.29"
+    "@jymfony/autoloader": "0.1.0-alpha.30",
+    "@jymfony/console": "0.1.0-alpha.30",
+    "@jymfony/contracts": "0.1.0-alpha.30",
+    "@jymfony/debug": "0.1.0-alpha.30",
+    "@jymfony/event-dispatcher": "0.1.0-alpha.30",
+    "@jymfony/exceptions": "0.1.0-alpha.30",
+    "@jymfony/http-foundation": "0.1.0-alpha.30",
+    "@jymfony/kernel": "0.1.0-alpha.30",
+    "@jymfony/logger": "0.1.0-alpha.30",
+    "@jymfony/metadata": "0.1.0-alpha.30",
+    "@jymfony/routing": "0.1.0-alpha.30",
+    "@jymfony/util": "0.1.0-alpha.30"
   },
   "devDependencies": {
     "@jymfony/cache": "*",
