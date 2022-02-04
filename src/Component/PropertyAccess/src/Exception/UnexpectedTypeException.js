@@ -1,4 +1,4 @@
-const RuntimeException = Jymfony.Component.PropertyAccess.Exception.RuntimeException;
+const RuntimeException = Jymfony.Contracts.PropertyAccess.Exception.RuntimeException;
 
 /**
  * @memberOf Jymfony.Component.PropertyAccess.Exception
