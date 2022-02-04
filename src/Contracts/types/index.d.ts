@@ -65,6 +65,7 @@
 /// <reference path="Metadata/MetadataInterface.d.ts" />
 /// <reference path="Metadata/NullMetadata.d.ts" />
 /// <reference path="PropertyAccess/Exception/AccessException.d.ts" />
+/// <reference path="PropertyAccess/Exception/RuntimeException.d.ts" />
 /// <reference path="PropertyAccess/Exception/OutOfBoundsException.d.ts" />
 /// <reference path="PropertyAccess/PropertyAccessorInterface.d.ts" />
 /// <reference path="PropertyAccess/PropertyPathInterface.d.ts" />
