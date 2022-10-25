@@ -13,6 +13,7 @@ jobs:
                     - 12
                     - 14
                     - 16
+                    - 18
                 architecture:
                     - x64
                 # an extra windows-x86 run:
