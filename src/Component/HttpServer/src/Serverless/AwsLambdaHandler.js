@@ -120,9 +120,10 @@ export default class AwsLambdaHandler extends RequestHandler {
         }
 
         const requestUrl = urlFormat({ pathname: event.path, query: event.queryStringParameters });
+        const sourceIp = event.requestContext && event.requestContext.identity ? event.requestContext.identity.sourceIp : undefined;
         const request = new Request(requestUrl, requestParams, {}, event.headers || {}, {
             'REQUEST_METHOD': event.httpMethod,
-            'REMOTE_ADDR': event.requestContext.identity.sourceIp,
+            'REMOTE_ADDR': sourceIp || '127.0.0.1',
             'SCHEME': this._getScheme(headers.all),
             'SERVER_NAME': headers.get('Host'),
             'SERVER_PORT': headers.get('x-forwarded-port'),
@@ -158,7 +159,7 @@ export default class AwsLambdaHandler extends RequestHandler {
 
         for (const hdr of response.headers.keys) {
             if (hasMultiHeaders) {
-                responseHeaders[hdr] = response.headers.get(hdr, false).map(String);
+                responseHeaders[hdr] = response.headers.get(hdr, null, false).map(String);
             } else {
                 responseHeaders[hdr] = String(response.headers.get(hdr));
             }
