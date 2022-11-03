@@ -1,6 +1,6 @@
-import { @dataProvider } from '@jymfony/decorators';
 import { expect } from 'chai';
 
+const DataProvider = Jymfony.Component.Testing.Annotation.DataProvider;
 const NilUuid = Jymfony.Component.Uid.NilUuid;
 const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 const Ulid = Jymfony.Component.Uid.Ulid;
@@ -104,7 +104,7 @@ export default class UuidTest extends TestCase {
         let uuid = new NilUuid();
         expect(uuid.toBase58()).to.be.equal('1111111111111111111111');
 
-        uuid = Uuid.fromString("\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF");
+        uuid = Uuid.fromString('\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF');
         expect(uuid.toBase58()).to.be.equal('YcVfxkQb6JRzqk5kF2tNLv');
         expect(uuid.equals(Uuid.fromString('YcVfxkQb6JRzqk5kF2tNLv'))).to.be.true;
     }
@@ -124,7 +124,7 @@ export default class UuidTest extends TestCase {
         expect(uuid1.equals(uuid2)).to.be.false;
     }
 
-    @dataProvider('provideInvalidEqualType')
+    @DataProvider('provideInvalidEqualType')
     testEqualsAgainstOtherType(other) {
         expect((new UuidV4(A_UUID_V4)).equals(other)).to.be.false;
     }

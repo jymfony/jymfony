@@ -1,3 +1,6 @@
+/// <reference path="Annotation/AfterEach.d.ts" />
+/// <reference path="Annotation/BeforeEach.d.ts" />
+/// <reference path="Annotation/DataProvider.d.ts" />
 /// <reference path="Argument/Token/AnyValuesToken.d.ts" />
 /// <reference path="Argument/Token/AnyValueToken.d.ts" />
 /// <reference path="Argument/Token/ApproximateValueToken.d.ts" />

@@ -9,6 +9,11 @@ Jymfony.Component.Metadata = {
     /**
      * @namespace
      */
+    Annotation: {},
+
+    /**
+     * @namespace
+     */
     Exception: {},
 
     /**

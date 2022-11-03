@@ -23,6 +23,10 @@ export default class Runner {
      * Run the test suite.
      */
     run(patterns = process.argv) {
+        global.dataProvider = value => Jymfony.Component.Testing.Annotation.DataProvider(value);
+        global.afterEach = value => Jymfony.Component.Testing.Annotation.AfterEach(value);
+        global.beforeEach = value => Jymfony.Component.Testing.Annotation.BeforeEach(value);
+
         patterns = patterns
             .filter(p => ! p.startsWith('-'))
             .map(p => resolve(p).replace(/\\/g, '/'));

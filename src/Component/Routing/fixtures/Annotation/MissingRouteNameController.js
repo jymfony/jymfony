@@ -1,4 +1,4 @@
-import { @Route } from '@jymfony/decorators';
+const Route = Jymfony.Component.Routing.Annotation.Route;
 
 /**
  * @memberOf Jymfony.Component.Routing.Fixtures.Annotation

@@ -147,7 +147,7 @@ class ReflectionParameter {
      * @returns {[Function, *][]}
      */
     get metadata() {
-        return MetadataStorage.getMetadata(this._reflectionMethod._method, this._index);
+        return MetadataStorage.getMetadata(this._reflectionMethod._method[Symbol.metadata], this._index);
     }
 }
 

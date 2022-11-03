@@ -1,4 +1,4 @@
-import { @Type } from '@jymfony/decorators';
+const Type = Jymfony.Component.Autoloader.Decorator.Type;
 
 export default class ParameterMetadata {
     method(

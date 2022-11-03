@@ -1,9 +1,9 @@
-import { @dataProvider } from '@jymfony/decorators';
 import { expect } from 'chai';
 
 const ConstraintDefinitionException = Jymfony.Component.Validator.Exception.ConstraintDefinitionException;
 const DateTime = Jymfony.Component.DateTime.DateTime;
 const Fixtures = Jymfony.Component.Validator.Fixtures.Constraints;
+const DataProvider = Jymfony.Component.Testing.Annotation.DataProvider;
 const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 
 const DEFAULT_INVALID_CONSTRAINT_OPTIONS = [ {} ];
@@ -24,7 +24,7 @@ export class AbstractComparisonValidatorTestCase extends TestCase {
         return 10000;
     }
 
-    @dataProvider('provideInvalidConstraintOptions')
+    @DataProvider('provideInvalidConstraintOptions')
     testThrowsContstraintExceptionIfNoValueOrPropertyPath(options) {
         expect(() => this.createConstraint(options)).to.throw(
             ConstraintDefinitionException,
@@ -49,7 +49,7 @@ export class AbstractComparisonValidatorTestCase extends TestCase {
         throw new Error('Must be implemented');
     }
 
-    @dataProvider('provideValidComparisons')
+    @DataProvider('provideValidComparisons')
     async testShouldNotRaiseViolationsOnValidComparison(dirtyValue, comparisonValue) {
         const constraint = this.createConstraint({ value: comparisonValue });
         await expect(dirtyValue).to.be.validated.by(constraint.validatedBy)
@@ -64,7 +64,7 @@ export class AbstractComparisonValidatorTestCase extends TestCase {
         throw new Error('Must be implemented');
     }
 
-    @dataProvider('provideValidComparisonsToPropertyPath')
+    @DataProvider('provideValidComparisonsToPropertyPath')
     async testShouldNotRaiseViolationsOnPropertyPath(comparedValue) {
         const constraint = this.createConstraint({ propertyPath: 'value' });
         const object = new Fixtures.ComparisonTest_Class(5);
@@ -102,7 +102,7 @@ export class AbstractComparisonValidatorTestCase extends TestCase {
         throw new Error('Must be implemented');
     }
 
-    @dataProvider('provideInvalidComparisons')
+    @DataProvider('provideInvalidComparisons')
     async testShouldRaiseViolationOnInvalidValue(dirtyValue, dirtyValueAsString, comparedValue, comparedValueAsString, comparedValueType) {
         const constraint = this.createConstraint({ value: comparedValue });
         constraint.message = 'Constraint Message';
@@ -155,7 +155,7 @@ export class AbstractComparisonValidatorTestCase extends TestCase {
         ];
     }
 
-    @dataProvider('throwsOnInvalidStringDatesProvider')
+    @DataProvider('throwsOnInvalidStringDatesProvider')
     async throwsOnInvalidStringDates(constraint, expectedMessageRegex, value) {
         await expect(value)
             .to.be.validated.by(constraint.validatedBy)
@@ -170,7 +170,7 @@ export class AbstractComparisonValidatorTestCase extends TestCase {
         throw new Error('Must be implemented');
     }
 
-    @dataProvider('provideComparisonsToNullValueAtPropertyPath')
+    @DataProvider('provideComparisonsToNullValueAtPropertyPath')
     async compareWithNullValueAtPropertyAt([ dirtyValue, dirtyValueAsString, isValid ]) {
         const constraint = this.createConstraint({ propertyPath: 'value' });
         constraint.message = 'Constraint Message';

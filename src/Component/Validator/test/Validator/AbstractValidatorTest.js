@@ -1,8 +1,8 @@
-import { @dataProvider } from '@jymfony/decorators';
 import { expect } from 'chai';
 
 const Callback = Jymfony.Component.Validator.Constraints.Callback;
 const ClassMetadata = Jymfony.Component.Validator.Mapping.ClassMetadata;
+const DataProvider = Jymfony.Component.Testing.Annotation.DataProvider;
 const FakeMetadataFactory = Jymfony.Component.Validator.Fixtures.FakeMetadataFactory;
 const GroupSequence = Jymfony.Component.Validator.Constraints.GroupSequence;
 const GroupSequenceProviderEntity = Jymfony.Component.Validator.Fixtures.GroupSequenceProviderEntity;
@@ -587,7 +587,7 @@ export class AbstractValidatorTest extends TestCase {
         }
     }
 
-    @dataProvider('getConstraintMethods')
+    @DataProvider('getConstraintMethods')
     async testHashmapReference(constraintMethod) {
         const entity = new Entity();
         entity.reference = { key: new Reference() };
@@ -628,7 +628,7 @@ export class AbstractValidatorTest extends TestCase {
         expect(violations.get(0).code).to.be.null;
     }
 
-    @dataProvider('getConstraintMethods')
+    @DataProvider('getConstraintMethods')
     async testRecursiveArrayReference(constraintMethod) {
         const entity = new Entity();
         entity.reference = [ { key: new Reference() } ];
@@ -690,7 +690,7 @@ export class AbstractValidatorTest extends TestCase {
         expect(violations).to.have.length(0);
     }
 
-    @dataProvider('getConstraintMethods')
+    @DataProvider('getConstraintMethods')
     async testArrayTraversalCannotBeDisabled(constraintMethod) {
         const entity = new Entity();
         entity.reference = { key: new Reference() };
@@ -708,7 +708,7 @@ export class AbstractValidatorTest extends TestCase {
         expect(violations).to.have.length(1);
     }
 
-    @dataProvider('getConstraintMethods')
+    @DataProvider('getConstraintMethods')
     async testRecursiveArrayTraversalCannotBeDisabled(constraintMethod) {
         const entity = new Entity();
         entity.reference = [ null, null, { key: new Reference() } ];
@@ -727,7 +727,7 @@ export class AbstractValidatorTest extends TestCase {
         expect(violations).to.have.length(1);
     }
 
-    @dataProvider('getConstraintMethods')
+    @DataProvider('getConstraintMethods')
     async testIgnoreScalarsDuringArrayTraversal(constraintMethod) {
         const entity = new Entity();
         entity.reference = [ 'string', 1234 ];
@@ -737,7 +737,7 @@ export class AbstractValidatorTest extends TestCase {
         expect(violations).to.have.length(0);
     }
 
-    @dataProvider('getConstraintMethods')
+    @DataProvider('getConstraintMethods')
     async testIgnoreNullDuringArrayTraversal(constraintMethod) {
         const entity = new Entity();
         entity.reference = [ null ];
@@ -1043,7 +1043,7 @@ export class AbstractValidatorTest extends TestCase {
         expect(violations.get(0).message).to.be.equal('Violation in other group');
     }
 
-    @dataProvider('getTestReplaceDefaultGroup')
+    @DataProvider('getTestReplaceDefaultGroup')
     async testReplaceDefaultGroup(sequence, assertViolations) {
         const entity = new GroupSequenceProviderEntity(sequence);
 

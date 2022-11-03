@@ -1,5 +1,3 @@
-import { @afterEach, @beforeEach } from '@jymfony/decorators';
-
 const sym = Symbol('time sensitive test case hashtable');
 
 let kTimerHandle = 0;
@@ -85,7 +83,7 @@ class TimeSensitiveTestCaseTrait {
         }
 
         setTimeout = (handler, ms) => {
-            let handle;
+            let handle; // eslint-disable-line
             const timer = new Timer(() => {
                 delete this[sym].timers[handle];
                 return handler();
@@ -94,7 +92,7 @@ class TimeSensitiveTestCaseTrait {
             handle = Number(timer);
             this[sym].timers[handle] = { timer, on: this[sym].currentDate.valueOf() + ms };
 
-            if (ms <= 0) {
+            if (0 >= ms) {
                 setImmediate(timer._handler);
             }
 
@@ -115,7 +113,7 @@ class TimeSensitiveTestCaseTrait {
 
             this[sym].currentHrTime[0] += Math.floor(ms / 1000);
             this[sym].currentHrTime[1] += Math.floor(ms % 1000) * 1000000;
-            if (this[sym].currentHrTime[1] > 1000000000) {
+            if (1000000000 < this[sym].currentHrTime[1]) {
                 this[sym].currentHrTime[0] += Math.floor(this[sym].currentHrTime[1] / 1000000000);
                 this[sym].currentHrTime[1] %= 1000000000;
             }

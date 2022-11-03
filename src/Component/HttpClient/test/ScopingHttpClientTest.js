@@ -1,5 +1,4 @@
-import { @dataProvider } from '@jymfony/decorators';
-
+const DataProvider = Jymfony.Component.Testing.Annotation.DataProvider;
 const MockHttpClient = Jymfony.Component.HttpClient.MockHttpClient;
 const ScopingHttpClient = Jymfony.Component.HttpClient.ScopingHttpClient;
 const TestCase = Jymfony.Component.Testing.Framework.TestCase;
@@ -21,7 +20,7 @@ export default class ScopingHttpClientTest extends TestCase {
         __self.assertSame('http://example.com/foo', response.getInfo('url'));
     }
 
-    @dataProvider('provideMatchingUrls')
+    @DataProvider('provideMatchingUrls')
     async testMatchingUrls(regexp, url, options) {
         const mockClient = new MockHttpClient();
         const client = new ScopingHttpClient(mockClient, options);
@@ -38,9 +37,9 @@ export default class ScopingHttpClientTest extends TestCase {
             '.*': { 'case': 2 },
         };
 
-        yield ['.*/foo-bar', 'http://example.com/foo-bar', defaultOptions];
-        yield ['.*', 'http://example.com/bar-foo', defaultOptions];
-        yield ['.*', 'http://example.com/foobar', defaultOptions];
+        yield [ '.*/foo-bar', 'http://example.com/foo-bar', defaultOptions ];
+        yield [ '.*', 'http://example.com/bar-foo', defaultOptions ];
+        yield [ '.*', 'http://example.com/foobar', defaultOptions ];
     }
 
     async testMatchingUrlsAndOptions() {

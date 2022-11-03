@@ -1,8 +1,8 @@
-import { @dataProvider } from '@jymfony/decorators';
 import { expect } from 'chai';
 
 const Count = Jymfony.Component.Validator.Constraints.Count;
 const CountValidator = Jymfony.Component.Validator.Constraints.CountValidator;
+const DataProvider = Jymfony.Component.Testing.Annotation.DataProvider;
 const UnexpectedValueException = Jymfony.Component.Validator.Exception.UnexpectedValueException;
 const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 
@@ -16,7 +16,7 @@ export class CountValidatorTest extends TestCase {
      *
      * @abstract
      */
-    createCollection(content) {
+    createCollection(content) { // eslint-disable-line
         throw new Error('Must be implemented');
     }
 
@@ -62,28 +62,28 @@ export class CountValidatorTest extends TestCase {
         ];
     }
 
-    @dataProvider('getThreeOrLessElements')
+    @DataProvider('getThreeOrLessElements')
     async testValidValuesMax(value) {
         await expect(value).to.be.validated.by(CountValidator)
             .with.constraint(new Count({ max: 3 }))
             .and.raise.no.violations();
     }
 
-    @dataProvider('getFiveOrMoreElements')
+    @DataProvider('getFiveOrMoreElements')
     async testValidValuesMin(value) {
         await expect(value).to.be.validated.by(CountValidator)
             .with.constraint(new Count({ min: 5 }))
             .and.raise.no.violations();
     }
 
-    @dataProvider('getFourElements')
+    @DataProvider('getFourElements')
     async testValidValuesExact(value) {
         await expect(value).to.be.validated.by(CountValidator)
             .with.constraint(new Count(4))
             .and.raise.no.violations();
     }
 
-    @dataProvider('getFiveOrMoreElements')
+    @DataProvider('getFiveOrMoreElements')
     async testTooManyValues(value) {
         await expect(value).to.be.validated.by(CountValidator)
             .with.constraint(new Count({
@@ -101,7 +101,7 @@ export class CountValidatorTest extends TestCase {
             } ]);
     }
 
-    @dataProvider('getThreeOrLessElements')
+    @DataProvider('getThreeOrLessElements')
     async testTooFewValues(value) {
         await expect(value).to.be.validated.by(CountValidator)
             .with.constraint(new Count({
@@ -119,7 +119,7 @@ export class CountValidatorTest extends TestCase {
             } ]);
     }
 
-    @dataProvider('getFiveOrMoreElements')
+    @DataProvider('getFiveOrMoreElements')
     async testTooManyValuesExact(value) {
         await expect(value).to.be.validated.by(CountValidator)
             .with.constraint(new Count({
@@ -138,7 +138,7 @@ export class CountValidatorTest extends TestCase {
             } ]);
     }
 
-    @dataProvider('getThreeOrLessElements')
+    @DataProvider('getThreeOrLessElements')
     async testTooFewValuesExact(value) {
         await expect(value).to.be.validated.by(CountValidator)
             .with.constraint(new Count({
@@ -173,14 +173,14 @@ export class CountValidatorTest extends TestCase {
     }
 
     // Since the contextual validator is mocked, this test only asserts that it
-    // is called with the right DivisibleBy constraint.
+    // Is called with the right DivisibleBy constraint.
     async testDivisibleBy() {
         const constraint = new Count({
             divisibleBy: 3,
             divisibleByMessage: 'foo {{ compared_value }}',
         });
 
-        await expect(['foo', 'bar', 'ccc']).to.be.validated.by(CountValidator)
+        await expect([ 'foo', 'bar', 'ccc' ]).to.be.validated.by(CountValidator)
             .with.constraint(constraint)
             .and.raise.no.violations();
     }

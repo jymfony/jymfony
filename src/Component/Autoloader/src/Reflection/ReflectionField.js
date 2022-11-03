@@ -9,6 +9,13 @@ class ReflectionField {
          */
         this._class = reflectionClass;
 
+        const metadata = this._class._fields[fieldName];
+        if (! metadata) {
+            throw new ReflectionException('Unknown class field "' + fieldName + '\'');
+        }
+
+        privateAccessors.set(this, metadata);
+
         /**
          * @type {string}
          *
@@ -21,7 +28,7 @@ class ReflectionField {
          *
          * @private
          */
-        this._private = '#' === fieldName.substr(0, 1);
+        this._private = metadata.private;
 
         /**
          * @type {boolean}
@@ -35,14 +42,7 @@ class ReflectionField {
          *
          * @private
          */
-        this._static = false;
-
-        const metadata = this._class._fields[fieldName] || (this._static = true, this._class._staticFields[fieldName]);
-        if (! metadata) {
-            throw new ReflectionException('Unknown class field "' + fieldName + '\'');
-        }
-
-        privateAccessors.set(this, metadata);
+        this._static = metadata.static;
 
         /**
          * @type {string}
@@ -113,7 +113,7 @@ class ReflectionField {
      * @returns {[Function, *][]}
      */
     get metadata() {
-        return MetadataStorage.getMetadata(this._class.getConstructor(), this._name);
+        return MetadataStorage.getMetadata(privateAccessors.get(this).get[Symbol.metadata], null);
     }
 
     /**

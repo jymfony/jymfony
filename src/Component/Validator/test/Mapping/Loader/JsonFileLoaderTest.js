@@ -1,7 +1,6 @@
-import { @dataProvider } from '@jymfony/decorators';
-
 const ClassMetadata = Jymfony.Component.Validator.Mapping.ClassMetadata;
 const Constraints = Jymfony.Component.Validator.Constraints;
+const DataProvider = Jymfony.Component.Testing.Annotation.DataProvider;
 const Fixtures = Jymfony.Component.Validator.Fixtures;
 const JsonFileLoader = Jymfony.Component.Validator.Mapping.Loader.JsonFileLoader;
 const TestCase = Jymfony.Component.Testing.Framework.TestCase;
@@ -31,7 +30,7 @@ export default class JsonFileLoaderTest extends TestCase {
         return __dirname + '/empty-mapping.json';
     }
 
-    @dataProvider('provideInvalidFiles')
+    @DataProvider('provideInvalidFiles')
     testInvalidFiles(file) {
         if (! __jymfony.Platform.hasPrivateFieldSupport()) {
             this.markTestSkipped();

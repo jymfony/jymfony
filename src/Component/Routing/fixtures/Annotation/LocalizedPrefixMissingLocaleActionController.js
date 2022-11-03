@@ -1,11 +1,12 @@
-import { @Route } from '@jymfony/decorators';
+const Route = Jymfony.Component.Routing.Annotation.Route;
 
 /**
  * @memberOf Jymfony.Component.Routing.Fixtures.Annotation
  */
+export default
 @Route({ path: { nl: '/nl' } })
-export default class LocalizedPrefixMissingLocaleActionController {
-    @Route({ path: { nl: '/actie', en: '/action' }, name: "action" })
+class LocalizedPrefixMissingLocaleActionController {
+    @Route({ path: { nl: '/actie', en: '/action' }, name: 'action' })
     action() {
     }
 }

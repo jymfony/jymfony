@@ -717,7 +717,7 @@ export default class HttpClientTestCase extends TestCase {
                 throw e;
             }
 
-            this.addToAssertionCount(1);
+            __self.addToAssertionCount(1);
         }
     }
 }

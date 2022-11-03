@@ -1,7 +1,6 @@
-import { @Processor } from '@jymfony/decorators';
-
-const ProcessorInterface = Jymfony.Component.Metadata.Loader.Processor.ProcessorInterface;
 const Annotation = Jymfony.Component.Metadata.Fixtures.Annotation;
+const ProcessorInterface = Jymfony.Component.Metadata.Loader.Processor.ProcessorInterface;
+const Processor = Jymfony.Component.Metadata.Annotation.Processor;
 
 /**
  * @memberOf Jymfony.Component.Metadata.Fixtures.Processor

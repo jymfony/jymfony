@@ -1,8 +1,8 @@
-import { @Route, @Type } from '@jymfony/decorators';
-
 const AbstractController = Jymfony.Bundle.FrameworkBundle.Controller.AbstractController;
-const Request = Jymfony.Component.HttpFoundation.Request;
 const EventDispatcherInterface = Jymfony.Contracts.EventDispatcher.EventDispatcherInterface;
+const Request = Jymfony.Component.HttpFoundation.Request;
+const Route = Jymfony.Component.Routing.Annotation.Route;
+const Type = Jymfony.Component.Autoloader.Decorator.Type;
 
 /**
  * @memberOf Jymfony.Bundle.FrameworkBundle.Tests.Fixtures.Controller

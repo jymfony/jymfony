@@ -421,15 +421,12 @@ export default class Assert {
     }
 }
 
-const reflectionClass = new ReflectionClass(Assert);
 
-/**
- * @type {ReflectionMethod[]}
- */
-const assertMethods = reflectionClass.methods
-    .map(reflectionClass.getMethod.bind(reflectionClass))
-    .filter(method => method.reflectionClass.getConstructor() === reflectionClass.getConstructor() && method.isStatic);
+for (const m of Object.getOwnPropertyNames(Assert)) {
+    const method = Assert[m];
+    if (!isFunction(method)) {
+        continue;
+    }
 
-for (const method of assertMethods) {
-    Assert.prototype[method.name] = Assert[method.name];
+    Assert.prototype[m] = method;
 }

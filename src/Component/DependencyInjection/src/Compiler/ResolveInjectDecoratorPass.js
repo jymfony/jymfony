@@ -1,22 +1,14 @@
-import { Inject, Parameter } from '@jymfony/decorators' optional;
 const AbstractRecursivePass = Jymfony.Component.DependencyInjection.Compiler.AbstractRecursivePass;
 const Definition = Jymfony.Component.DependencyInjection.Definition;
+const Inject = Jymfony.Component.DependencyInjection.Annotation.Inject;
 const DIParameter = Jymfony.Component.DependencyInjection.Parameter;
+const Parameter = Jymfony.Component.DependencyInjection.Annotation.Parameter;
 const Reference = Jymfony.Component.DependencyInjection.Reference;
 
 /**
  * @memberOf Jymfony.Component.DependencyInjection.Compiler
  */
 export default class ResolveInjectDecoratorPass extends AbstractRecursivePass {
-    process(container) {
-        if (undefined === Inject || undefined === Parameter) {
-            // @jymfony/decorators is not installed.
-            return;
-        }
-
-        super.process(container);
-    }
-
     /**
      * @inheritdoc
      */

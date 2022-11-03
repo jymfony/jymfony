@@ -23,7 +23,7 @@ describe('get_debug_type', function () {
         yield [ 'object', { value: 'with_value' } ];
 
         yield [ 'Exception', new Exception() ];
-        yield [ 'Jymfony.Component.Autoloader.Exception.ReflectionException', new Jymfony.Component.Autoloader.Exception.ReflectionException() ];
+        yield [ 'ReflectionException', new Jymfony.Component.Autoloader.Exception.ReflectionException() ];
     };
 
     let i = 0;

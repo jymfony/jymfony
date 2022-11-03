@@ -9,6 +9,11 @@ Jymfony.Component.Autoloader = {
     /**
      * @namespace
      */
+    Decorator: {},
+
+    /**
+     * @namespace
+     */
     Exception: {},
 
     /**

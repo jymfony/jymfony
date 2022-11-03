@@ -1,9 +1,11 @@
-import { AfterEach, BeforeEach, DataProvider } from '@jymfony/decorators';
 import Suite from 'mocha/lib/suite';
 import Test from 'mocha/lib/test';
 import { expect } from 'chai';
 
 const Assert = Jymfony.Component.Testing.Framework.Assert;
+const AfterEachAnnotation = Jymfony.Component.Testing.Annotation.AfterEach;
+const BeforeEachAnnotation = Jymfony.Component.Testing.Annotation.BeforeEach;
+const DataProviderAnnotation = Jymfony.Component.Testing.Annotation.DataProvider;
 const Prophet = Jymfony.Component.Testing.Prophet;
 const SkipException = Jymfony.Component.Testing.Framework.Exception.SkipException;
 const TestResult = Jymfony.Component.Testing.Framework.TestResult;
@@ -70,6 +72,9 @@ export default class TestCase extends Assert {
         const reflectionClass = new ReflectionClass(this);
         for (const method of reflectionClass.methods) {
             const reflectionMethod = reflectionClass.getMethod(method);
+
+            const AfterEach = new ReflectionClass(AfterEachAnnotation).getConstructor();
+            const BeforeEach = new ReflectionClass(BeforeEachAnnotation).getConstructor();
 
             const afterEach = reflectionMethod.metadata.filter(([ klass ]) => klass === AfterEach);
             const beforeEach = reflectionMethod.metadata.filter(([ klass ]) => klass === BeforeEach);
@@ -161,6 +166,7 @@ export default class TestCase extends Assert {
      */
     runTestCase(mocha) {
         const reflectionClass = new ReflectionClass(this);
+        const DataProvider = new ReflectionClass(DataProviderAnnotation).getConstructor();
 
         const suite = new Suite(this.testCaseName, mocha.suite.ctx, false);
         (function (self) {

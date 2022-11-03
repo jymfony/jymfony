@@ -9,6 +9,11 @@ Jymfony.Component.Routing = {
     /**
      * @namespace
      */
+    Annotation: {},
+
+    /**
+     * @namespace
+     */
     DependencyInjection: {},
 
     /**

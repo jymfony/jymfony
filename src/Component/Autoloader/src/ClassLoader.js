@@ -1,4 +1,3 @@
-const DescriptorStorage = require('./DescriptorStorage');
 const Generator = require('@jymfony/compiler/src/SourceMap/Generator');
 const ManagedProxy = require('./Proxy/ManagedProxy');
 const StackHandler = require('@jymfony/compiler/src/SourceMap/StackHandler');
@@ -115,13 +114,6 @@ class ClassLoader {
         this._vm = vm;
 
         /**
-         * @type {Jymfony.Component.Autoloader.DescriptorStorage}
-         *
-         * @private
-         */
-        this._descriptorStorage = new DescriptorStorage(this);
-
-        /**
          * @type {string[]}
          *
          * @private
@@ -171,11 +163,12 @@ class ClassLoader {
      *
      * @param {string} fn
      * @param {*} self
+     * @param {string} namespace
      *
      * @returns {*}
      */
-    loadClass(fn, self) {
-        const exports = this.loadFile(fn, self);
+    loadClass(fn, self, namespace) {
+        const exports = this.loadFile(fn, self, {}, namespace);
 
         return exports.__esModule ? exports.default : exports;
     }
@@ -185,11 +178,12 @@ class ClassLoader {
      *
      * @param {string} fn
      * @param {*} self
-     * @param {*} exports
+     * @param {*} [exports]
+     * @param {string} [namespace]
      *
      * @returns {*}
      */
-    loadFile(fn, self, exports = {}) {
+    loadFile(fn, self, exports = {}, namespace = undefined) {
         fn = this._path.resolve(fn);
         if (_cache[fn]) {
             return _cache[fn];
@@ -205,23 +199,21 @@ class ClassLoader {
             }
         }
 
-        return _cache[fn] = this._doLoadFile(fn, self, exports);
+        return _cache[fn] = this._doLoadFile(fn, self, exports, namespace);
     }
 
     /**
      * Gets a file code.
      *
      * @param {string} fn
-     * @param {boolean} self
+     * @param {boolean} [self]
+     * @param {string} [namespace]
      *
      * @returns {{code: string, program: Program}}
      */
-    getCode(fn, self = true) {
+    getCode(fn, self = true, namespace = '') {
         if (codeCache[fn]) {
-            const cached = codeCache[fn];
-            Object.assign(this._descriptorStorage._storage, cached.decorators);
-
-            return cached;
+            return codeCache[fn];
         }
 
         let code, sourceMap, program = null;
@@ -238,13 +230,11 @@ class ClassLoader {
         }
 
         const sourceMapGenerator = new Generator({ file: fn, skipValidation: ! __jymfony.autoload.debug });
-        const descriptorStorage = this._descriptorStorage;
         const decorators = {};
 
         try {
-            this._descriptorStorage = this._descriptorStorage.setFile(fn);
-            const parser = new Parser(this._descriptorStorage);
-            const compiler = new Compiler(sourceMapGenerator);
+            const parser = new Parser();
+            const compiler = new Compiler(sourceMapGenerator, { filename: fn, namespace });
 
             program = parser.parse(code);
             program.prepare();
@@ -281,15 +271,11 @@ class ClassLoader {
             StackHandler.registerSourceMap(fn, sourceMapGenerator.toJSON().mappings);
         } catch (err) {
             // Compiler have failed. Code is unpatched, but can be included.
-
             if (! (err instanceof SyntaxError)) {
                 throw err;
             } else {
                 console.warn('Syntax error while parsing ' + fn + ': ' + err.message);
             }
-        } finally {
-            Object.assign(decorators, this._descriptorStorage._storage);
-            this._descriptorStorage = descriptorStorage;
         }
 
         return codeCache[fn] = {
@@ -322,12 +308,13 @@ class ClassLoader {
      * @param {string} fn
      * @param {*} self
      * @param {*} exports
+     * @param {string} namespace
      *
      * @returns {*}
      *
      * @private
      */
-    _doLoadFile(fn, self, exports) {
+    _doLoadFile(fn, self, exports, namespace) {
         const module = this._getModuleObject(fn, exports);
         const dirname = module.paths[0];
         const opts = isNyc ? fn : {
@@ -374,7 +361,7 @@ class ClassLoader {
                 return _cache[id];
             }
 
-            const code = this.getCode(id, !!self);
+            const code = this.getCode(id, !!self, namespace);
             const exports = function () {};
 
             return _cache[id] = new ManagedProxy(exports, proxy => {
@@ -404,7 +391,7 @@ class ClassLoader {
         };
 
         let _pending;
-        const code = this.getCode(fn, !!self);
+        const code = this.getCode(fn, !!self, namespace);
         try {
             this._vm.runInThisContext(code.code, opts)(module.exports, req, module, fn, dirname, self);
         } catch (e) {
@@ -418,7 +405,7 @@ class ClassLoader {
                     _pending = _cache[e.requiring] = req.proxy(e.requiring);
 
                     require.cache[fn] = module;
-                    this._vm.runInThisContext(this.getCode(fn, !!self).code, opts)(module.exports, req, module, fn, dirname, self);
+                    this._vm.runInThisContext(this.getCode(fn, !!self, namespace).code, opts)(module.exports, req, module, fn, dirname, self);
 
                     return _cache[fn] = module.exports;
                 }

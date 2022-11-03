@@ -27,6 +27,13 @@ class ReflectionProperty {
         this._name = propertyName;
 
         /**
+         * @type {string}
+         *
+         * @private
+         */
+        this._kind = kind;
+
+        /**
          * @type {Function}
          *
          * @private
@@ -96,7 +103,7 @@ class ReflectionProperty {
      * @returns {[Function, *][]}
      */
     get metadata() {
-        return MetadataStorage.getMetadata(this._class.getConstructor(), this._name);
+        return MetadataStorage.getMetadata(this._method[Symbol.metadata], undefined);
     }
 }
 

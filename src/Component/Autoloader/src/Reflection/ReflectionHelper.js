@@ -1,4 +1,4 @@
-import { Type } from '@jymfony/decorators' optional;
+import Type from '../Decorator/Type';
 
 /**
  * @memberOf Jymfony.Component.Autoloader.Reflection

@@ -1,7 +1,6 @@
-import { @Type } from '@jymfony/decorators';
-
 const Response = Jymfony.Component.HttpFoundation.Response;
 const Request = Jymfony.Component.HttpFoundation.Request;
+const Type = Jymfony.Component.Autoloader.Decorator.Type;
 
 /**
  * @memberOf Jymfony.Bundle.FrameworkBundle.Controller

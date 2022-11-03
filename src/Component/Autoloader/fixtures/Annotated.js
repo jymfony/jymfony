@@ -1,33 +1,34 @@
-import { @FooAnnot } from './FooAnnot';
+const TestAnnotation = Foo.Decorators.TestAnnotation;
 
 /**
  * Annotated class
  *
  * @memberOf Foo
  */
-@FooAnnot({ value: 12 })
-@FooAnnot({ value: 24 })
-export default class Annotated {
+export default
+@TestAnnotation({ value: 12 })
+@TestAnnotation({ value: 24 })
+class Annotated {
     /**
      * @type {Object}
      *
      * @private
      */
-    @FooAnnot({ prop: 'test' })
-    _value;
+    @TestAnnotation({ prop: 'test' })
+    accessor _value;
 
     /**
      * @type {Object}
      *
      * @private
      */
-    @FooAnnot({ prop: 'test' })
-    _initValue = 'init';
+    @TestAnnotation({ prop: 'test' })
+    accessor _initValue = 'init';
 
-    @FooAnnot(null)
+    @TestAnnotation(null)
     get value() { return 'pizza'; }
 
-    @FooAnnot
+    @TestAnnotation()
     getValue() {
         return 'bar';
     }

@@ -1,10 +1,7 @@
 const { AST, Compiler, Parser } = require('@jymfony/compiler');
 const SourceMapGenerator = require('@jymfony/compiler/src/SourceMap/Generator');
-const DescriptorStorage = require('../DescriptorStorage');
 const ReflectionParameter = require('./ReflectionParameter');
 const vm = require('vm');
-
-const descriptorStorage = new DescriptorStorage(__jymfony.autoload.classLoader);
 
 /**
  * Reflection utility for class method.
@@ -24,33 +21,31 @@ class ReflectionMethod {
          */
         this._name = methodName;
 
+        const method = reflectionClass._methods[methodName];
+        if (undefined === method) {
+            throw new ReflectionException('Unknown method "' + methodName + '\'');
+        }
+
         /**
          * @type {boolean}
          *
          * @private
          */
-        this._private = '#' === methodName.substr(0, 1);
+        this._private = method.private;
 
         /**
          * @type {Function}
          *
          * @private
          */
-        this._method = undefined;
+        this._method = method.value;
 
         /**
          * @type {boolean}
          *
          * @private
          */
-        this._static = false;
-
-        const method = reflectionClass._methods[methodName] || (this._static = true, reflectionClass._staticMethods[methodName]);
-        if (undefined === method) {
-            throw new ReflectionException('Unknown method "' + methodName + '\'');
-        }
-
-        this._method = method.value;
+        this._static = method.static;
 
         /**
          * @type {ReflectionClass}
@@ -58,18 +53,6 @@ class ReflectionMethod {
          * @private
          */
         this._class = new ReflectionClass(method.ownClass);
-        this._metadataClass = this._class;
-
-        for (const trait of reflectionClass.traits) {
-            if (! trait.hasMethod(this._name)) {
-                continue;
-            }
-
-            if (trait.getMethod(this._name)._method === this._method) {
-                this._metadataClass = trait;
-                break;
-            }
-        }
 
         /**
          * @type {string}
@@ -182,7 +165,7 @@ class ReflectionMethod {
      * @returns {[Function, *][]}
      */
     get metadata() {
-        return MetadataStorage.getMetadata(this._metadataClass.getConstructor(), this._name);
+        return MetadataStorage.getMetadata(this._method[Symbol.metadata], null);
     }
 
     /**
@@ -211,7 +194,7 @@ class ReflectionMethod {
     _parseParameters() {
         let parsed;
         try {
-            const parser = new Parser(descriptorStorage);
+            const parser = new Parser();
             parsed = parser.parse('function ' + this._method.toString().replace(/^(async\s+)?(\*\s*)?(function\s+)?/, ''));
         } catch (e) {
             // Do nothing.

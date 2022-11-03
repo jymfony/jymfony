@@ -101,7 +101,7 @@ if (!! util) {
             });
 
         if (!! object) {
-            context.setNode(obj, object, metadata || new ClassMetadata(object), propertyPath || '');
+            context.setNode(obj, object, metadata || new ClassMetadata(new ReflectionClass(object)), propertyPath || '');
         }
 
         /**

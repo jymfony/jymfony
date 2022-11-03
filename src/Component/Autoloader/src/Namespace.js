@@ -162,6 +162,7 @@ class Namespace {
      * @private
      */
     _require(filename) {
+        const { Compiler } = require('@jymfony/compiler');
         const fn = this._internalRequire.resolve(filename);
         let self = undefined;
 
@@ -171,7 +172,7 @@ class Namespace {
 
             try {
                 if (fn !== __filename) {
-                    mod = this._autoloader.classLoader.loadClass(fn, self);
+                    mod = this._autoloader.classLoader.loadClass(fn, self, this._fullyQualifiedName);
                 } else {
                     mod = this._internalRequire(fn);
                 }
@@ -185,19 +186,12 @@ class Namespace {
                 throw e;
             }
 
-            const name = mod.definition ? mod.definition.name : mod.name;
-            const modReflection = mod[Symbol.reflection] || {};
-            const meta = {
-                ...modReflection,
-                filename: fn,
-                fqcn: this._fullyQualifiedName + '.' + name,
+            Compiler.setExtraReflectionData(mod, {
                 module: this._internalRequire.cache[fn],
-                constructor: mod,
-                namespace: this,
                 isModule: (val) => {
                     return self === val || mod === val || mod.definition === val;
                 },
-            };
+            });
 
             if (! mod.hasOwnProperty('arguments')) {
                 Object.defineProperty(mod, 'arguments', {value: null, writable: false, enumerable: false, configurable: false});
@@ -207,20 +201,13 @@ class Namespace {
                 Object.defineProperty(mod, 'caller', {value: null, writable: false, enumerable: false, configurable: false});
             }
 
-            Object.defineProperty(mod, Symbol.reflection, {
-                enumerable: false,
-                writable: false,
-                configurable: false,
-                value: meta,
-            });
-
             if (mod.definition) {
                 // Interface or Trait
-                Object.defineProperty(mod.definition, Symbol.reflection, {
-                    enumerable: false,
-                    writable: false,
-                    configurable: false,
-                    value: meta,
+                Compiler.setExtraReflectionData(mod.definition, {
+                    module: this._internalRequire.cache[fn],
+                    isModule: (val) => {
+                        return self === val || mod === val || mod.definition === val;
+                    },
                 });
             }
 

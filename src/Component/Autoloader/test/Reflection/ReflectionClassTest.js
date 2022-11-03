@@ -8,9 +8,7 @@ require('../../src/Reflection/ReflectionClass');
 const Namespace = require('../../src/Namespace');
 const path = require('path');
 
-const Empty = function () {};
-
-class GrandParent extends Empty {
+class GrandParent {
     get readProp() { }
     set writeProp(v) { }
 }
@@ -33,7 +31,7 @@ class Son extends mix(Parent, ISon, SonTrait2) {
     getFoo() { }
 
     get prop() { }
-    set prop(v) { }
+    set prop(v) { }
 }
 
 class Son2 extends mix(Parent, ISon, ISon2, SonTrait) {
@@ -44,19 +42,8 @@ class Son2 extends mix(Parent, ISon, ISon2, SonTrait) {
     getFoo() { }
 
     get prop() { }
-    set prop(v) { }
+    set prop(v) { }
 }
-
-Object.defineProperty(Son2, Symbol.reflection, { get: () => ({
-    fqcn: 'FooNs.Son2',
-    namespace: undefined,
-    filename: __filename,
-    module: module,
-    constructor: Son2,
-    isModule: (val) => {
-        return val === Son2;
-    },
-}) });
 
 Parent.CONST_1 = 'foobar';
 Son.CONST_2 = 'foo';
@@ -103,7 +90,7 @@ describe('[Autoloader] ReflectionClass', function () {
         const reflClass = new ReflectionClass(Son2);
         const obj = reflClass.newInstanceWithoutConstructor();
 
-        expect((new ReflectionClass(obj)).name).to.be.equal('FooNs.Son2');
+        expect((new ReflectionClass(obj)).name).to.be.equal('Jymfony.Component.Autoloader.Tests.Reflection.Son2');
     });
 
     it('hasMethod should work', () => {
@@ -168,13 +155,13 @@ describe('[Autoloader] ReflectionClass', function () {
     it('methods getter should work', () => {
         const reflClass = new ReflectionClass(Son);
 
-        expect(reflClass.methods).to.be.deep.equal([ 'parentMethod', 'getFoo' ]);
+        expect(reflClass.methods).to.be.deep.equal([ 'getFoo', 'parentMethod' ]);
     });
 
     it('properties getter should work', () => {
         const reflClass = new ReflectionClass(Son);
 
-        expect(reflClass.properties).to.be.deep.equal([ 'readProp', 'writeProp', 'prop' ]);
+        expect(reflClass.properties).to.be.deep.equal([ 'prop', 'readProp', 'writeProp' ]);
     });
 
     it('constants getter should work', () => {

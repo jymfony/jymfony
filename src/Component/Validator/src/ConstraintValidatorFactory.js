@@ -32,6 +32,10 @@ export default class ConstraintValidatorFactory extends implementationOf(Constra
             throw new UnexpectedTypeException(className, ConstraintValidatorInterface);
         }
 
+        if (undefined === className) {
+            return reflectionClass.newInstance();
+        }
+
         if (undefined === this._validators[className]) {
             this._validators[className] = reflectionClass.newInstance();
         }

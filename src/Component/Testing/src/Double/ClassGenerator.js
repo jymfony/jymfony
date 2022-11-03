@@ -30,6 +30,10 @@ export default class ClassGenerator {
     generate() {
         const self = this;
         const mirrorClass = class extends mix(this._superClass, ...this._interfaces) { };
+
+        // Reset reflection metadata
+        delete mirrorClass[Symbol.reflection];
+
         const proto = mirrorClass.prototype;
 
         const methods = {};

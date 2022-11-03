@@ -1,7 +1,6 @@
-import { @Inject } from '@jymfony/decorators';
-
 const AbstractController = Jymfony.Bundle.FrameworkBundle.Controller.AbstractController;
 const ContainerInterface = Jymfony.Component.DependencyInjection.ContainerInterface;
+const Inject = Jymfony.Component.DependencyInjection.Annotation.Inject;
 
 /**
  * @memberOf Jymfony.Bundle.FrameworkBundle.Tests.Fixtures.Controller

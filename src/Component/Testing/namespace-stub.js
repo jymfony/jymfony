@@ -9,6 +9,11 @@ Jymfony.Component.Testing = {
     /**
      * @namespace
      */
+    Annotation: {},
+
+    /**
+     * @namespace
+     */
     Argument: {
         /**
          * @namespace

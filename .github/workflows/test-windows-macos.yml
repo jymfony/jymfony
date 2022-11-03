@@ -29,4 +29,6 @@ jobs:
                   node-version: ${{ matrix.node_version }}
                   architecture: ${{ matrix.architecture }}
             - run: npm install
+            - run: npm install @jymfony/compiler
+              if: ${{ matrix.node_version < 16 }}
             - run: npm test

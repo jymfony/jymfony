@@ -71,7 +71,7 @@ export default class CacheClearCommand extends mix(Command, ContainerAwareInterf
 
         // The warmup cache dir name must have the same length as the real one
         // To avoid the many problems in serialized resources files
-        const warmupDir = realCacheDir.substr(0, realCacheDir.length - 1) + ('_' === realCacheDir[realCacheDir.length - 1] ? '-' : '_');
+        const warmupDir = realCacheDir.substring(0, realCacheDir.length - 1) + ('_' === realCacheDir[realCacheDir.length - 1] ? '-' : '_');
 
         if (await fs.exists(warmupDir)) {
             if (isOutputVerbose) {

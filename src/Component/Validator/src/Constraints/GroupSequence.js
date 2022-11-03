@@ -1,8 +1,10 @@
+const Annotation = Jymfony.Component.Autoloader.Decorator.Annotation;
+
 /**
  * A sequence of validation groups.
  *
  * When validating a group sequence, each group will only be validated if all
- * of the previous groups in the sequence succeeded. For example:
+ * the previous groups in the sequence succeeded. For example:
  *
  *     validator.validate(address, null, new GroupSequence(['Basic', 'Strict']));
  *
@@ -33,7 +35,9 @@
  *
  * @memberOf Jymfony.Component.Validator.Constraints
  */
-export default class GroupSequence {
+export default
+@Annotation(Annotation.ANNOTATION_TARGET_ALL ^ Annotation.ANNOTATION_TARGET_PARAMETER)
+class GroupSequence {
     /**
      * Creates a new group sequence.
      *

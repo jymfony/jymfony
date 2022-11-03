@@ -1,7 +1,6 @@
-import { Route } from '@jymfony/decorators' optional;
-
 const LoaderInterface = Jymfony.Component.Config.Loader.LoaderInterface;
 const FileResource = Jymfony.Component.Config.Resource.FileResource;
+const Route = new ReflectionClass(Jymfony.Component.Routing.Annotation.Route).getConstructor();
 const RoutingRoute = Jymfony.Component.Routing.Route;
 const RouteCollection = Jymfony.Component.Routing.RouteCollection;
 
@@ -54,10 +53,6 @@ export default class AnnotationClassLoader extends implementationOf(LoaderInterf
      * @throws {InvalidArgumentException} When route can't be parsed
      */
     load(class_) {
-        if (undefined === Route) {
-            throw new LogicException('Route decorator is not present. Try execute yarn add @jymfony/decorators.');
-        }
-
         if (! ReflectionClass.exists(class_)) {
             throw new InvalidArgumentException(__jymfony.sprintf('Class "%s" does not exist.', class_));
         }
@@ -123,7 +118,7 @@ export default class AnnotationClassLoader extends implementationOf(LoaderInterf
             const condition = annot.condition || globals.condition;
             const path = annot.localizedPaths || annot.path || '';
 
-            const prefix = (globals.localizedPaths && Object.keys(globals.localizedPaths).length > 0) ?
+            const prefix = (globals.localizedPaths && 0 < Object.keys(globals.localizedPaths).length) ?
                 globals.localizedPaths :
                 globals.path || '';
             const paths = {};
