@@ -9,7 +9,8 @@ jobs:
                 node_version:
                     - 12
                     - 14
-                    - 15
+                    - 16
+                    - 18
 
         name: Node ${{ matrix.node_version }} - ${{ matrix.architecture }} on Linux
 
@@ -44,6 +45,8 @@ jobs:
                   node-version: ${{ matrix.node_version }}
                   architecture: ${{ matrix.architecture }}
             - run: npm install
+            - run: npm install @jymfony/compiler
+              if: ${{ matrix.node_version < 16 }}
             - run: npm test
               env:
                   REDIS_HOST: localhost:6379

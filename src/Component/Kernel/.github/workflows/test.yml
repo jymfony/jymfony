@@ -2,23 +2,6 @@ name: Tests
 on: [push, pull_request_target]
 
 jobs:
-    build:
-        runs-on: ubuntu-latest
-        strategy:
-            matrix:
-                node_version:
-                    - 12
-                    - 14
-                    - 15
-
-        name: Node ${{ matrix.node_version }} - ${{ matrix.architecture }} on Linux
-
-        steps:
-            - uses: actions/checkout@v2
-            - name: Setup node
-              uses: actions/setup-node@v1
-              with:
-                  node-version: ${{ matrix.node_version }}
-                  architecture: ${{ matrix.architecture }}
-            - run: npm install
-            - run: npm test
+    tests:
+        uses: jymfony/jymfony/.github/workflows/test-packages.yml@master
+        secrets: inherit
