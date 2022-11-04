@@ -609,11 +609,28 @@ class ReflectionClass {
         for (const IF of global.mixins.getInterfaces(this._constructor)) {
             const reflectionInterface = new ReflectionClass(IF);
             this._interfaces.push(reflectionInterface);
+
+            const interfaceConstants = reflectionInterface._constants;
+            for (const name of Object.keys(interfaceConstants)) {
+                if ('#' !== name[0] && !(name in this._constants)) {
+                    this._constants[name] = interfaceConstants[name];
+                }
+            }
         }
 
         for (const TR of global.mixins.getTraits(this._constructor)) {
             const reflectionTrait = new ReflectionClass(TR);
             this._traits.push(reflectionTrait);
+
+            const traitMethods = reflectionTrait._methods;
+            for (const name of Object.keys(traitMethods)) {
+                if ('#' !== name[0] && !(name in this._methods)) {
+                    this._methods[name] = {
+                        ...traitMethods[name],
+                        ownClass: this._constructor,
+                    };
+                }
+            }
         }
 
         if (!TheBigReflectionDataCache.data.has(value)) {
