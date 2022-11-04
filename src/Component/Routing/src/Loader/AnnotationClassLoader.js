@@ -67,7 +67,7 @@ export default class AnnotationClassLoader extends implementationOf(LoaderInterf
             const method = reflectionClass.getMethod(methodName);
             this._defaultRouteIndex = 0;
             for (const [ annotationClass, annotations ] of method.metadata) {
-                if (annotationClass === Route) {
+                if (new ReflectionClass(annotationClass).isInstanceOf(Route)) {
                     this._addRoute(collection, annotations, globals, reflectionClass, method);
                 }
             }
@@ -76,7 +76,7 @@ export default class AnnotationClassLoader extends implementationOf(LoaderInterf
         if (0 === collection.length && reflectionClass.hasMethod('__invoke')) {
             globals = this._resetGlobals();
             for (const [ annotationClass, annotations ] of reflectionClass.metadata) {
-                if (annotationClass === Route) {
+                if (new ReflectionClass(annotationClass).isInstanceOf(Route)) {
                     this._addRoute(collection, annotations, globals, reflectionClass, reflectionClass.getMethod('__invoke'));
                 }
             }

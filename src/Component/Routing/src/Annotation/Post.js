@@ -19,7 +19,7 @@ const Route = Jymfony.Component.Routing.Annotation.Route;
  * @memberOf Jymfony.Component.Routing.Annotation
  */
 export default
-@Annotation(ANNOTATION_TARGET_CLASS | ANNOTATION_TARGET_METHOD)
+@Annotation(Annotation.ANNOTATION_TARGET_CLASS | Annotation.ANNOTATION_TARGET_METHOD)
 class Post extends Route {
     __construct(options) {
         super.__construct(isString(options) ? { path: options, methods: [ 'POST' ] } : { ...options, methods: [ 'POST' ] });
