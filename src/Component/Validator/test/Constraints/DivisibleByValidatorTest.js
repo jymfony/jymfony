@@ -1,7 +1,6 @@
 import { AbstractComparisonValidatorTestCase } from './AbstractComparisonValidatorTestCase';
 import { expect } from 'chai';
 
-const DataProvider = Jymfony.Component.Testing.Annotation.DataProvider;
 const DivisibleBy = Jymfony.Component.Validator.Constraints.DivisibleBy;
 const UnexpectedValueException = Jymfony.Component.Validator.Exception.UnexpectedValueException;
 
@@ -57,7 +56,7 @@ export default class DivisibleByValidatorTest extends AbstractComparisonValidato
         ];
     }
 
-    @DataProvider('throwsOnNonNumericValuesProvider')
+    @dataProvider('throwsOnNonNumericValuesProvider')
     async testThrowsOnNonNumericValues(expectedGivenType, value, comparedValue) {
         const constraint = this.createConstraint({
             value: comparedValue,

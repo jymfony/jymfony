@@ -24,8 +24,8 @@ export default class Runner {
      */
     run(patterns = process.argv) {
         global.dataProvider = value => Jymfony.Component.Testing.Annotation.DataProvider(value);
-        global.afterEach = value => Jymfony.Component.Testing.Annotation.AfterEach(value);
-        global.beforeEach = value => Jymfony.Component.Testing.Annotation.BeforeEach(value);
+        global.afterEach = Jymfony.Component.Testing.Annotation.AfterEach;
+        global.beforeEach = Jymfony.Component.Testing.Annotation.BeforeEach;
 
         patterns = patterns
             .filter(p => ! p.startsWith('-'))

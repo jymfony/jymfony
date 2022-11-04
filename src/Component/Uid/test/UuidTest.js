@@ -1,6 +1,5 @@
 import { expect } from 'chai';
 
-const DataProvider = Jymfony.Component.Testing.Annotation.DataProvider;
 const NilUuid = Jymfony.Component.Uid.NilUuid;
 const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 const Ulid = Jymfony.Component.Uid.Ulid;
@@ -124,7 +123,7 @@ export default class UuidTest extends TestCase {
         expect(uuid1.equals(uuid2)).to.be.false;
     }
 
-    @DataProvider('provideInvalidEqualType')
+    @dataProvider('provideInvalidEqualType')
     testEqualsAgainstOtherType(other) {
         expect((new UuidV4(A_UUID_V4)).equals(other)).to.be.false;
     }

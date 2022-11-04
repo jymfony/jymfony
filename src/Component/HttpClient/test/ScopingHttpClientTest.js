@@ -1,4 +1,3 @@
-const DataProvider = Jymfony.Component.Testing.Annotation.DataProvider;
 const MockHttpClient = Jymfony.Component.HttpClient.MockHttpClient;
 const ScopingHttpClient = Jymfony.Component.HttpClient.ScopingHttpClient;
 const TestCase = Jymfony.Component.Testing.Framework.TestCase;
@@ -20,7 +19,7 @@ export default class ScopingHttpClientTest extends TestCase {
         __self.assertSame('http://example.com/foo', response.getInfo('url'));
     }
 
-    @DataProvider('provideMatchingUrls')
+    @dataProvider('provideMatchingUrls')
     async testMatchingUrls(regexp, url, options) {
         const mockClient = new MockHttpClient();
         const client = new ScopingHttpClient(mockClient, options);

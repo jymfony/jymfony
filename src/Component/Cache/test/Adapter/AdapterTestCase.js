@@ -1,6 +1,5 @@
 import { expect } from 'chai';
 
-const DataProvider = Jymfony.Component.Testing.Annotation.DataProvider;
 const DateTime = Jymfony.Component.DateTime.DateTime;
 const InvalidArgumentException = Jymfony.Contracts.Cache.Exception.InvalidArgumentException;
 const NotUnserializable = Jymfony.Component.Cache.Fixtures.NotUnserializable;
@@ -235,7 +234,7 @@ export class AdapterTestCase extends TestCase {
         expect(await this._cache.hasItem('key')).to.be.false;
     }
 
-    @DataProvider('provideInvalidKeys')
+    @dataProvider('provideInvalidKeys')
     async testGetItemInvalidKeys(key) {
         let caught;
         try {
@@ -247,7 +246,7 @@ export class AdapterTestCase extends TestCase {
         expect(caught).to.be.instanceOf(InvalidArgumentException);
     }
 
-    @DataProvider('provideInvalidKeys')
+    @dataProvider('provideInvalidKeys')
     async testGetItemsInvalidKeys(key) {
         let caught;
         try {
@@ -259,7 +258,7 @@ export class AdapterTestCase extends TestCase {
         expect(caught).to.be.instanceOf(InvalidArgumentException);
     }
 
-    @DataProvider('provideInvalidKeys')
+    @dataProvider('provideInvalidKeys')
     async testHasItemInvalidKeys(key) {
         let caught;
         try {
@@ -271,7 +270,7 @@ export class AdapterTestCase extends TestCase {
         expect(caught).to.be.instanceOf(InvalidArgumentException);
     }
 
-    @DataProvider('provideInvalidKeys')
+    @dataProvider('provideInvalidKeys')
     async testDeleteItemInvalidKeys(key) {
         let caught;
         try {
@@ -283,7 +282,7 @@ export class AdapterTestCase extends TestCase {
         expect(caught).to.be.instanceOf(InvalidArgumentException);
     }
 
-    @DataProvider('provideInvalidKeys')
+    @dataProvider('provideInvalidKeys')
     async testDeleteItemsInvalidKeys(key) {
         let caught;
         try {

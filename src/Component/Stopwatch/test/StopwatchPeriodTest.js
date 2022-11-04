@@ -1,6 +1,5 @@
 import { expect } from 'chai';
 
-const DataProvider = Jymfony.Component.Testing.Annotation.DataProvider;
 const StopwatchPeriod = Jymfony.Component.Stopwatch.StopwatchPeriod;
 const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 
@@ -31,7 +30,7 @@ export default class StopwatchPeriodTest extends TestCase {
         yield [ 2.71, 3.14, 0.43 ];
     }
 
-    @DataProvider('provideDurationValues')
+    @dataProvider('provideDurationValues')
     testDuration(start, end, duration) {
         const period = new StopwatchPeriod(start, end);
         expect(period.duration).to.be.equal(duration);

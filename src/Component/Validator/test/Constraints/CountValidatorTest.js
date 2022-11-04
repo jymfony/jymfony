@@ -2,7 +2,6 @@ import { expect } from 'chai';
 
 const Count = Jymfony.Component.Validator.Constraints.Count;
 const CountValidator = Jymfony.Component.Validator.Constraints.CountValidator;
-const DataProvider = Jymfony.Component.Testing.Annotation.DataProvider;
 const UnexpectedValueException = Jymfony.Component.Validator.Exception.UnexpectedValueException;
 const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 
@@ -62,28 +61,28 @@ export class CountValidatorTest extends TestCase {
         ];
     }
 
-    @DataProvider('getThreeOrLessElements')
+    @dataProvider('getThreeOrLessElements')
     async testValidValuesMax(value) {
         await expect(value).to.be.validated.by(CountValidator)
             .with.constraint(new Count({ max: 3 }))
             .and.raise.no.violations();
     }
 
-    @DataProvider('getFiveOrMoreElements')
+    @dataProvider('getFiveOrMoreElements')
     async testValidValuesMin(value) {
         await expect(value).to.be.validated.by(CountValidator)
             .with.constraint(new Count({ min: 5 }))
             .and.raise.no.violations();
     }
 
-    @DataProvider('getFourElements')
+    @dataProvider('getFourElements')
     async testValidValuesExact(value) {
         await expect(value).to.be.validated.by(CountValidator)
             .with.constraint(new Count(4))
             .and.raise.no.violations();
     }
 
-    @DataProvider('getFiveOrMoreElements')
+    @dataProvider('getFiveOrMoreElements')
     async testTooManyValues(value) {
         await expect(value).to.be.validated.by(CountValidator)
             .with.constraint(new Count({
@@ -101,7 +100,7 @@ export class CountValidatorTest extends TestCase {
             } ]);
     }
 
-    @DataProvider('getThreeOrLessElements')
+    @dataProvider('getThreeOrLessElements')
     async testTooFewValues(value) {
         await expect(value).to.be.validated.by(CountValidator)
             .with.constraint(new Count({
@@ -119,7 +118,7 @@ export class CountValidatorTest extends TestCase {
             } ]);
     }
 
-    @DataProvider('getFiveOrMoreElements')
+    @dataProvider('getFiveOrMoreElements')
     async testTooManyValuesExact(value) {
         await expect(value).to.be.validated.by(CountValidator)
             .with.constraint(new Count({
@@ -138,7 +137,7 @@ export class CountValidatorTest extends TestCase {
             } ]);
     }
 
-    @DataProvider('getThreeOrLessElements')
+    @dataProvider('getThreeOrLessElements')
     async testTooFewValuesExact(value) {
         await expect(value).to.be.validated.by(CountValidator)
             .with.constraint(new Count({

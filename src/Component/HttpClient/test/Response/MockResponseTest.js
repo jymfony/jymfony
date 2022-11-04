@@ -1,4 +1,3 @@
-const DataProvider = Jymfony.Component.Testing.Annotation.DataProvider;
 const DecodingException = Jymfony.Contracts.HttpClient.Exception.DecodingException;
 const MockResponse = Jymfony.Component.HttpClient.Response.MockResponse;
 const TestCase = Jymfony.Component.Testing.Framework.TestCase;
@@ -16,7 +15,7 @@ export default class MockResponseTest extends TestCase {
         __self.assertSame(data, await response.getDecodedContent());
     }
 
-    @DataProvider('toArrayErrors')
+    @dataProvider('toArrayErrors')
     async testToArrayError(content, responseHeaders, message) {
         this.expectException(DecodingException);
         this.expectExceptionMessage(message);
