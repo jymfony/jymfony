@@ -1,7 +1,9 @@
 const { resolve } = require('path');
 
 try {
+    process.env.LAMBDA_TASK_ROOT = resolve(__dirname + '/../../../../../../');
     require('@jymfony/autoloader');
+    Jymfony.Contracts.Fixtures = new Jymfony.Component.Autoloader.Namespace(__jymfony.autoload, 'Jymfony.Contracts.Fixtures', [ __dirname + '/../../../fixtures' ]);
 } catch (e) {
     process.env.LAMBDA_TASK_ROOT = resolve(__dirname + '/../../../../../');
     require('../../../../Component/Autoloader');
