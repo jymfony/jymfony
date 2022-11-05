@@ -45,12 +45,12 @@ export default class RequestHandlerTest extends mix(TestCase, TimeSensitiveTestC
 
     beforeEach() {
         this._dispatcher = this.prophesize(EventDispatcherInterface);
-        this._dispatcher.dispatch(HttpServerEvents.REQUEST, Argument.any()).willReturn();
-        this._dispatcher.dispatch(HttpServerEvents.RESPONSE, Argument.any()).willReturn();
-        this._dispatcher.dispatch(HttpServerEvents.FINISH_REQUEST, Argument.any()).willReturn();
-        this._dispatcher.dispatch(HttpServerEvents.CONTROLLER, Argument.any()).willReturn();
-        this._dispatcher.dispatch(HttpServerEvents.CONTROLLER_ARGUMENTS, Argument.any()).willReturn();
-        this._dispatcher.dispatch(HttpServerEvents.VIEW, Argument.any()).willReturn();
+        this._dispatcher.dispatch(Argument.any(), HttpServerEvents.REQUEST).willReturn();
+        this._dispatcher.dispatch(Argument.any(), HttpServerEvents.RESPONSE).willReturn();
+        this._dispatcher.dispatch(Argument.any(), HttpServerEvents.FINISH_REQUEST).willReturn();
+        this._dispatcher.dispatch(Argument.any(), HttpServerEvents.CONTROLLER).willReturn();
+        this._dispatcher.dispatch(Argument.any(), HttpServerEvents.CONTROLLER_ARGUMENTS).willReturn();
+        this._dispatcher.dispatch(Argument.any(), HttpServerEvents.VIEW).willReturn();
 
         this._resolver = this.prophesize(ControllerResolverInterface);
 
@@ -60,9 +60,9 @@ export default class RequestHandlerTest extends mix(TestCase, TimeSensitiveTestC
     async testShouldDispatchRequestEvent() {
         const req = new Request('/');
 
-        this._dispatcher.dispatch(HttpServerEvents.REQUEST, Argument.type(Event.RequestEvent))
+        this._dispatcher.dispatch(Argument.type(Event.RequestEvent), HttpServerEvents.REQUEST)
             .shouldBeCalled()
-            .will((eventName, e) => {
+            .will(e => {
                 expect(e.request).to.be.equal(req);
                 e.response = new Response();
             });
@@ -85,9 +85,9 @@ export default class RequestHandlerTest extends mix(TestCase, TimeSensitiveTestC
         };
         const controller2 = () => new Response();
 
-        this._dispatcher.dispatch(HttpServerEvents.CONTROLLER, Argument.type(Event.ControllerEvent))
+        this._dispatcher.dispatch(Argument.type(Event.ControllerEvent), HttpServerEvents.CONTROLLER)
             .shouldBeCalled()
-            .will((eventName, e) => {
+            .will(e => {
                 expect(e.request).to.be.equal(req);
                 expect(e.controller).to.be.equal(controller);
 
@@ -105,9 +105,9 @@ export default class RequestHandlerTest extends mix(TestCase, TimeSensitiveTestC
             return 'foobar';
         };
 
-        this._dispatcher.dispatch(HttpServerEvents.VIEW, Argument.type(Event.ViewEvent))
+        this._dispatcher.dispatch(Argument.type(Event.ViewEvent), HttpServerEvents.VIEW)
             .shouldBeCalled()
-            .will((eventName, e) => {
+            .will(e => {
                 expect(e.request).to.be.equal(req);
                 expect(e.controllerResult).to.be.equal('foobar');
 
@@ -148,9 +148,9 @@ export default class RequestHandlerTest extends mix(TestCase, TimeSensitiveTestC
         const req = new Request('/');
         const controller = () => {};
 
-        this._dispatcher.dispatch(HttpServerEvents.EXCEPTION, Argument.type(Event.ExceptionEvent))
+        this._dispatcher.dispatch(Argument.type(Event.ExceptionEvent), HttpServerEvents.EXCEPTION)
             .shouldBeCalled()
-            .will((eventName, e) => {
+            .will(e => {
                 e.response = new Response(null, Response.HTTP_INTERNAL_SERVER_ERROR);
             });
 
@@ -167,7 +167,7 @@ export default class RequestHandlerTest extends mix(TestCase, TimeSensitiveTestC
             throw error;
         };
 
-        this._dispatcher.dispatch(HttpServerEvents.EXCEPTION, Argument.type(Event.ExceptionEvent)).shouldBeCalled();
+        this._dispatcher.dispatch(Argument.type(Event.ExceptionEvent), HttpServerEvents.EXCEPTION).shouldBeCalled();
         this._resolver.getController(req).willReturn(controller);
 
         try {
@@ -184,9 +184,9 @@ export default class RequestHandlerTest extends mix(TestCase, TimeSensitiveTestC
             throw new AccessDeniedHttpException('Fobidden.');
         };
 
-        this._dispatcher.dispatch(HttpServerEvents.EXCEPTION, Argument.type(Event.ExceptionEvent))
+        this._dispatcher.dispatch(Argument.type(Event.ExceptionEvent), HttpServerEvents.EXCEPTION)
             .shouldBeCalled()
-            .will((eventName, e) => {
+            .will(e => {
                 e.response = new Response(e.exception.message);
             });
 

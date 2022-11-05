@@ -177,7 +177,7 @@ export default class AwsLambdaHandler extends RequestHandler {
         }
 
         const postResponseEvent = new Event.PostResponseEvent(this, request, response);
-        await this._dispatcher.dispatch(HttpServerEvents.POST_RESPONSE, postResponseEvent);
+        await this._dispatcher.dispatch(postResponseEvent, HttpServerEvents.POST_RESPONSE);
 
         return result;
     }

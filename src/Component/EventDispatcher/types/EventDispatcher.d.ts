@@ -27,27 +27,27 @@ declare namespace Jymfony.Component.EventDispatcher {
         /**
          * @inheritdoc
          */
-        dispatch(eventName: string, event?: Event): Promise<Event>;
+        dispatch<T extends object>(event: T, eventName?: string|Newable): Promise<T>;
 
         /**
          * @inheritdoc
          */
-        getListeners(eventName?: string): IterableIterator<Invokable>;
+        getListeners(eventName?: string|Newable): IterableIterator<Invokable>;
 
         /**
          * @inheritdoc
          */
-        addListener(eventName: string, listener: Invokable|[object|string, string|symbol], priority?: number): void;
+        addListener(eventName: string|Newable, listener: Invokable|[object|string, string|symbol], priority?: number): void;
 
         /**
          * @inheritdoc
          */
-        hasListeners(eventName: string): boolean;
+        hasListeners(eventName: string|Newable): boolean;
 
         /**
          * @inheritdoc
          */
-        removeListener(eventName: string, listener: Invokable|[object|string, string|symbol]): void;
+        removeListener(eventName: string|Newable, listener: Invokable|[object|string, string|symbol]): void;
 
         /**
          * @inheritdoc
@@ -62,7 +62,7 @@ declare namespace Jymfony.Component.EventDispatcher {
         /**
          * @inheritdoc
          */
-        getListenerPriority(eventName: string, listener: Invokable|[object|string, string|symbol]): undefined|number;
+        getListenerPriority(eventName: string|Newable, listener: Invokable|[object|string, string|symbol]): undefined|number;
 
         /**
          * Sorts the array of listeners based on priority.

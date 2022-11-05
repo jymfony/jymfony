@@ -30,17 +30,17 @@ declare namespace Jymfony.Component.EventDispatcher.Debug {
         /**
          * @inheritdoc
          */
-        dispatch(eventName: string, event?: Event): Promise<Event>;
+        dispatch<T extends object>(event: T, eventName?: string|Newable): Promise<T>;
 
         /**
          * Called before dispatching an event.
          */
-        protected _preDispatch(eventName: string, event: Event): void;
+        protected _preDispatch(eventName: string, event: object): void;
 
         /**
          * Called after dispatching an event.
          */
-        protected _postDispatch(eventName: string, event: Event): void;
+        protected _postDispatch(eventName: string, event: object): void;
 
         /**
          * Wrap event listeners to track calls.

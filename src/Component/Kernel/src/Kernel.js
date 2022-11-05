@@ -6,7 +6,6 @@ const ContainerBuilder = Jymfony.Component.DependencyInjection.ContainerBuilder;
 const DateTime = Jymfony.Component.DateTime.DateTime;
 const DelegatingLoader = Jymfony.Component.Config.Loader.DelegatingLoader;
 const FileLocator = Jymfony.Component.Kernel.Config.FileLocator;
-const KernelEvents = Jymfony.Component.Kernel.KernelEvents;
 const KernelInterface = Jymfony.Component.Kernel.KernelInterface;
 const Loader = Jymfony.Component.DependencyInjection.Loader;
 const LoaderResolver = Jymfony.Component.Config.Loader.LoaderResolver;
@@ -733,9 +732,7 @@ export default class Kernel extends implementationOf(KernelInterface) {
 
         try {
             const eventDispatcher = this._container.get('event_dispatcher');
-            const event = new Jymfony.Contracts.Kernel.Event.UnhandledRejectionEvent(reason, promise);
-
-            await eventDispatcher.dispatch(KernelEvents.UNHANDLED_REJECTION, event);
+            await eventDispatcher.dispatch(new Jymfony.Contracts.Kernel.Event.UnhandledRejectionEvent(reason, promise));
         } catch (e) {
             // Do nothing.
         }

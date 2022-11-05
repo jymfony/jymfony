@@ -1,4 +1,5 @@
 const TraceableEventDispatcher = Jymfony.Component.EventDispatcher.Debug.TraceableEventDispatcher;
+const Event = Jymfony.Contracts.EventDispatcher.Event;
 const EventDispatcher = Jymfony.Component.EventDispatcher.EventDispatcher;
 const LoggerInterface = Jymfony.Contracts.Logger.LoggerInterface;
 const Stopwatch = Jymfony.Component.Stopwatch.Stopwatch;
@@ -51,7 +52,7 @@ describe('[EventDispatcher] TraceableEventDispatcher', function () {
             .debug('Notified event "{event}" to listener "{listener}"', { event: 'foo', 'listener': 'Function' })
             .shouldBeCalledTimes(2);
 
-        return tdispatcher.dispatch('foo');
+        return tdispatcher.dispatch(new Event(), 'foo');
     });
 
     it('should log event stopped propagation', () => {
@@ -70,7 +71,7 @@ describe('[EventDispatcher] TraceableEventDispatcher', function () {
         logger.debug('Listener "{listener}" stopped propagation of event "{event}"', { event: 'foo', 'listener': 'Function' }).shouldBeCalledTimes(1);
         logger.debug('Listener "{listener}" was not called for event "{event}"', { event: 'foo', 'listener': 'Function' }).shouldBeCalledTimes(1);
 
-        return tdispatcher.dispatch('foo');
+        return tdispatcher.dispatch(new Event(), 'foo');
     });
 
     it('dispatch should call listeners with priority', () => {
@@ -87,7 +88,7 @@ describe('[EventDispatcher] TraceableEventDispatcher', function () {
         tdispatcher.addListener('foo', listener, 10);
         tdispatcher.addListener('foo', listener2, 20);
 
-        return tdispatcher.dispatch('foo')
+        return tdispatcher.dispatch(new Event(), 'foo')
             .then(() => {
                 expect(called).to.be.deep.equal([ 'foo2', 'foo1' ]);
             });

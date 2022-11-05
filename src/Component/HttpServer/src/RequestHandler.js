@@ -214,7 +214,7 @@ export default class RequestHandler extends implementationOf(LoggerAwareInterfac
      */
     async _handleRaw(request) {
         let event = new Event.RequestEvent(this, request);
-        await this._dispatcher.dispatch(HttpServerEvents.REQUEST, event);
+        await this._dispatcher.dispatch(event, HttpServerEvents.REQUEST);
 
         if (event.hasResponse()) {
             return await this._filterResponse(event.response, request);
@@ -226,14 +226,14 @@ export default class RequestHandler extends implementationOf(LoggerAwareInterfac
         }
 
         event = new Event.ControllerEvent(this, controller, request);
-        await this._dispatcher.dispatch(HttpServerEvents.CONTROLLER, event);
+        await this._dispatcher.dispatch(event, HttpServerEvents.CONTROLLER);
         controller = event.controller;
 
         // Controller arguments
         let args = await this._argumentResolver.getArguments(request, controller);
 
         event = new Event.ControllerArgumentsEvent(this, controller, args, request);
-        await this._dispatcher.dispatch(HttpServerEvents.CONTROLLER_ARGUMENTS, event);
+        await this._dispatcher.dispatch(event, HttpServerEvents.CONTROLLER_ARGUMENTS);
         controller = event.controller;
         args = event.args;
 
@@ -242,7 +242,7 @@ export default class RequestHandler extends implementationOf(LoggerAwareInterfac
 
         if (! (response instanceof Response)) {
             const event = new Event.ViewEvent(this, request, response);
-            await this._dispatcher.dispatch(HttpServerEvents.VIEW, event);
+            await this._dispatcher.dispatch(event, HttpServerEvents.VIEW);
 
             if (event.hasResponse()) {
                 response = event.response;
@@ -273,12 +273,12 @@ export default class RequestHandler extends implementationOf(LoggerAwareInterfac
      */
     async _handleException(e, request) {
         const event = new Event.ExceptionEvent(this, request, e);
-        await this._dispatcher.dispatch(HttpServerEvents.EXCEPTION, event);
+        await this._dispatcher.dispatch(event, HttpServerEvents.EXCEPTION);
 
         // A listener might have replaced the exception
         e = event.exception;
         if (! event.hasResponse()) {
-            await this._dispatcher.dispatch(HttpServerEvents.FINISH_REQUEST, new Event.FinishRequestEvent(this, request));
+            await this._dispatcher.dispatch(new Event.FinishRequestEvent(this, request), HttpServerEvents.FINISH_REQUEST);
 
             throw e;
         }
@@ -333,8 +333,8 @@ export default class RequestHandler extends implementationOf(LoggerAwareInterfac
      */
     async _filterResponse(response, request) {
         const event = new Event.ResponseEvent(this, request, response);
-        await this._dispatcher.dispatch(HttpServerEvents.RESPONSE, event);
-        await this._dispatcher.dispatch(HttpServerEvents.FINISH_REQUEST, new Event.FinishRequestEvent(this, request));
+        await this._dispatcher.dispatch(event, HttpServerEvents.RESPONSE);
+        await this._dispatcher.dispatch(new Event.FinishRequestEvent(this, request), HttpServerEvents.FINISH_REQUEST);
 
         return event.response;
     }

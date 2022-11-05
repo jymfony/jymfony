@@ -56,7 +56,7 @@ export default class UnhandledRejectionListener extends implementationOf(EventSu
         return {
             'http.request': [ '_onHttpRequest', 1024 ],
             'http.finish_request': [ '_onHttpFinishRequest', -1024 ],
-            'kernel.unhandled_rejection': [ 'onUnhandledRejection', -128 ],
+            'Jymfony.Contracts.Kernel.Event.UnhandledRejectionEvent': [ 'onUnhandledRejection', -128 ],
         };
     }
 }

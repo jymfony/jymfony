@@ -1,5 +1,4 @@
 const Command = Jymfony.Component.Console.Command.Command;
-const ConsoleEvents = Jymfony.Component.Console.ConsoleEvents;
 const CommandNotFoundException = Jymfony.Component.Console.Exception.CommandNotFoundException;
 const ExceptionInterface = Jymfony.Component.Console.Exception.ExceptionInterface;
 const ArgvInput = Jymfony.Component.Console.Input.ArgvInput;
@@ -529,7 +528,7 @@ export default class Application {
         } catch (e) {
             if (this._eventDispatcher) {
                 const event = new Jymfony.Contracts.Console.Event.ConsoleErrorEvent(input, output, e, command);
-                await this._eventDispatcher.dispatch(ConsoleEvents.ERROR, event);
+                await this._eventDispatcher.dispatch(event);
 
                 e = event.error;
                 if (0 === event.exitCode) {
@@ -580,7 +579,7 @@ export default class Application {
         let exitCode;
         let e;
         let event = new Jymfony.Contracts.Console.Event.ConsoleCommandEvent(command, input, output);
-        await this._eventDispatcher.dispatch(ConsoleEvents.COMMAND, event);
+        await this._eventDispatcher.dispatch(event);
 
         if (event.commandShouldRun) {
             try {
@@ -591,7 +590,7 @@ export default class Application {
 
             if (undefined !== e) {
                 event = new Jymfony.Contracts.Console.Event.ConsoleErrorEvent(input, output, e, command);
-                await this._eventDispatcher.dispatch(ConsoleEvents.ERROR, event);
+                await this._eventDispatcher.dispatch(event);
                 e = event.error;
 
                 if (0 === (exitCode = event.exitCode)) {
@@ -603,7 +602,7 @@ export default class Application {
         }
 
         event = new Jymfony.Contracts.Console.Event.ConsoleTerminateEvent(command, input, output, exitCode);
-        await this._eventDispatcher.dispatch(ConsoleEvents.TERMINATE, event);
+        await this._eventDispatcher.dispatch(event);
 
         if (undefined !== e) {
             throw e;

@@ -1,6 +1,6 @@
+const StoppableEventInterface = Jymfony.Contracts.EventDispatcher.StoppableEventInterface;
 const TraceableEventDispatcherInterface = Jymfony.Component.EventDispatcher.Debug.TraceableEventDispatcherInterface;
 const WrappedListener = Jymfony.Component.EventDispatcher.Debug.WrappedListener;
-const Event = Jymfony.Contracts.EventDispatcher.Event;
 
 /**
  * @memberOf Jymfony.Component.EventDispatcher.Debug
@@ -64,9 +64,17 @@ export default class TraceableEventDispatcher extends implementationOf(Traceable
     /**
      * @inheritdoc
      */
-    dispatch(eventName, event = new Event()) {
-        if (undefined !== this._logger && event.isPropagationStopped()) {
-            this._logger.debug('The "'+eventName+'" event is already stopped. No listeners have been called.');
+    dispatch(event, eventName = undefined) {
+        if (undefined === eventName) {
+            eventName = ReflectionClass.getClassName(event);
+        }
+
+        if (ReflectionClass.exists(eventName)) {
+            eventName = ReflectionClass.getClassName(eventName);
+        }
+
+        if (undefined !== this._logger && event instanceof StoppableEventInterface && event.isPropagationStopped()) {
+            this._logger.debug('The "' + eventName + '" event is already stopped. No listeners have been called.');
         }
 
         this._preProcess(eventName);
@@ -74,7 +82,7 @@ export default class TraceableEventDispatcher extends implementationOf(Traceable
         const e = this._stopwatch.start(eventName, 'section');
 
         return (async () => {
-            event = await this._dispatcher.dispatch(eventName, event);
+            event = await this._dispatcher.dispatch(event, eventName);
 
             if (e.isStarted()) {
                 e.stop();
