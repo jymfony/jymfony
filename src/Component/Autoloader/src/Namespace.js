@@ -188,6 +188,7 @@ class Namespace {
 
             Compiler.setExtraReflectionData(mod, {
                 module: this._internalRequire.cache[fn],
+                self: mod.__self__ || mod.definition || mod,
                 isModule: (val) => {
                     return self === val || mod === val || mod.definition === val;
                 },
@@ -205,6 +206,7 @@ class Namespace {
                 // Interface or Trait
                 Compiler.setExtraReflectionData(mod.definition, {
                     module: this._internalRequire.cache[fn],
+                    self: mod.definition,
                     isModule: (val) => {
                         return self === val || mod === val || mod.definition === val;
                     },

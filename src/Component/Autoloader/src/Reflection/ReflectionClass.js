@@ -537,7 +537,7 @@ class ReflectionClass {
 
         this._filename = metadata.filename;
         this._module = metadata.module;
-        this._constructor = this._isInterface || this._isTrait ? value : metadata.constructor;
+        this._constructor = this._isInterface || this._isTrait ? value : (metadata.self || metadata.constructor);
 
         if (metadata.fields) {
             for (const field of metadata.fields) {
