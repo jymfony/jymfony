@@ -32,6 +32,10 @@ export default class DateTimeZone extends implementationOf(DateTimeZoneInterface
      * @returns {DateTimeZone}
      */
     static get(timezone) {
+        if ('Z' === timezone) {
+            timezone = 'Etc/UTC';
+        }
+
         let o = instances.get(timezone);
         if (undefined === o) {
             const reflClass = new ReflectionClass('Jymfony.Component.DateTime.DateTimeZone');
