@@ -1,3 +1,5 @@
+/// <reference path="Annotation/Inject.d.ts" />
+/// <reference path="Annotation/Parameter.d.ts" />
 /// <reference path="Argument/ArgumentInterface.d.ts" />
 /// <reference path="Argument/IteratorArgument.d.ts" />
 /// <reference path="Argument/ReferenceSetArgumentTrait.d.ts" />
