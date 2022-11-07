@@ -832,11 +832,7 @@ class ReflectionClass {
                 });
 
             for (const name of names) {
-                if (Symbol.reflection === name) {
-                    continue;
-                }
-
-                if (! consts.hasOwnProperty(name) && Object.prototype.hasOwnProperty.call(parent, name)) {
+                if ('symbol' !== typeof name && ! consts.hasOwnProperty(name) && Object.prototype.hasOwnProperty.call(parent, name)) {
                     const descriptor = Object.getOwnPropertyDescriptor(parent, name);
 
                     if (descriptor.hasOwnProperty('value')) {
