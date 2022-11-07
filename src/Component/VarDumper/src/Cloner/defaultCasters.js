@@ -23,6 +23,8 @@ const casters = [
     [ PriorityQueue, Caster.DataStructureCaster.castDataStructure ],
     [ BTree, Caster.DataStructureCaster.castDataStructure ],
     [ LinkedList, Caster.DataStructureCaster.castDataStructure ],
+
+    [ Set, Caster.DataStructureCaster.castSet ],
 ];
 
 if (__jymfony.RegExp) {
