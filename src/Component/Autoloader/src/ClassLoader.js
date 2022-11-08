@@ -409,10 +409,9 @@ class ClassLoader {
 
                     return _cache[fn] = module.exports;
                 }
-            } else {
-                delete _cache[fn];
             }
 
+            delete _cache[fn];
             throw e;
         } finally {
             if (_pending) {
