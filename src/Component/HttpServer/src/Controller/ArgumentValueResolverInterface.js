@@ -10,7 +10,7 @@ class ArgumentValueResolverInterface {
      * @param {Jymfony.Component.HttpFoundation.Request} request
      * @param {Jymfony.Component.HttpServer.Controller.Metadata.ControllerArgumentMetadata} argument
      *
-     * @returns {boolean}
+     * @returns {Promise<boolean>}
      */
     supports(request, argument) { }
 

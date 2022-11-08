@@ -5,12 +5,12 @@ const Stopwatch = Jymfony.Component.Stopwatch.Stopwatch;
 const { expect } = require('chai');
 
 describe('[HttpServer] TraceableValueResolver', function () {
-    it ('should register timings in support', () => {
+    it ('should register timings in support', async () => {
         const stopwatch = new Stopwatch();
         const resolver = new TraceableValueResolver(new Fixtures.DummyResolver(), stopwatch);
         const request = new Request('/');
 
-        expect(resolver.supports(request, {})).to.be.equal(true);
+        expect(await resolver.supports(request, {})).to.be.equal(true);
 
         const event = stopwatch.getEvent('Jymfony.Component.HttpServer.Tests.Fixtures.ArgumentResolver.DummyResolver.supports');
         expect(event.periods).to.have.length(1);

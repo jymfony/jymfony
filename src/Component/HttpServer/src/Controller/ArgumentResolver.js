@@ -49,7 +49,7 @@ export default class ArgumentResolver extends implementationOf(ArgumentResolverI
 
         controller_argument: for (const parameter of metadata.parameters) {
             for (const resolver of this._argumentValueResolvers) {
-                if (! resolver.supports(request, parameter)) {
+                if (! await resolver.supports(request, parameter)) {
                     continue;
                 }
 
