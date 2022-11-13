@@ -33,4 +33,8 @@ if (0 === argv.length) {
 
 process.argv = argv;
 
-new Runner().run();
+try {
+    new Runner().run();
+} catch (e) {
+    console.error(e.stack);
+}

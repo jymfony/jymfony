@@ -316,6 +316,21 @@ class ReflectionClass {
     }
 
     /**
+     * @returns {ReflectionMethod | null}
+     */
+    get constructorMethod() {
+        if (this._methods['constructor']) {
+            return this.getMethod('constructor');
+        }
+
+        if (this._methods['__construct']) {
+            return this.getMethod('__construct');
+        }
+
+        return null;
+    }
+
+    /**
      * Checks whether this class is a subclass of a given subclass.
      *
      * @param {Function|string} superClass

@@ -191,6 +191,11 @@ declare class ReflectionClass<T extends object = any> {
      * Gets the class metadata.
      */
     readonly metadata: [Newable, any][];
+
+    /**
+     * Gets the constructor method (reflection).
+     */
+    readonly constructorMethod: ReflectionMethod | null;
 }
 
 /**

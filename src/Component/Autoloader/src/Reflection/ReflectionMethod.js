@@ -74,7 +74,11 @@ class ReflectionMethod {
          * @private
          */
         this._parameters = [];
-        this._parseParameters();
+        if (method.parameters !== undefined) {
+            this._parameters = method.parameters.map(p => new ReflectionParameter(this, p.name, p.index, p.default, p.objectPattern, p.arrayPattern, p.restElement));
+        } else {
+            this._parseParameters();
+        }
 
         /**
          * @type {string}

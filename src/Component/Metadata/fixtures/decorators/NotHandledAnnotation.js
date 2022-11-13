@@ -1,5 +1,5 @@
 const Annotation = Jymfony.Component.Autoloader.Decorator.Annotation;
 
-@Annotation()
-export class NotHandledAnnotation {
+export
+@Annotation() class NotHandledAnnotation {
 }

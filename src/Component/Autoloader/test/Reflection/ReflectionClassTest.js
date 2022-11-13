@@ -155,7 +155,7 @@ describe('[Autoloader] ReflectionClass', function () {
     it('methods getter should work', () => {
         const reflClass = new ReflectionClass(Son);
 
-        expect(reflClass.methods).to.be.deep.equal([ 'getFoo', 'parentMethod' ]);
+        expect(reflClass.methods).to.be.deep.equal([ 'constructor', 'getFoo', 'parentMethod' ]);
     });
 
     it('properties getter should work', () => {
@@ -291,4 +291,13 @@ describe('[Autoloader] ReflectionClass', function () {
         expect(method.parameters[2].metadata).to.have.length(1);
         expect(method.parameters[2].metadata[0][1]).to.be.equal('string');
     } : undefined);
+
+    it('exposes constructor method', () => {
+        const ns = new Namespace(__jymfony.autoload, 'Foo', path.join(__dirname, '..', '..', 'fixtures'), __jymfony.autoload.classLoader._internalRequire);
+        const x = new ns.FoobarClass();
+
+        const reflClass = new ReflectionClass(x);
+        expect(reflClass.constructorMethod).not.to.be.undefined;
+        expect(reflClass.constructorMethod.parameters).to.have.length(1);
+    });
 });

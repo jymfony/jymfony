@@ -196,6 +196,10 @@ export default class Runner {
                 try {
                     r = new ReflectionClass(Class);
                 } catch (e) {
+                    if (e instanceof SyntaxError) {
+                        throw e;
+                    }
+
                     tFiles[path] = true;
                     continue;
                 }

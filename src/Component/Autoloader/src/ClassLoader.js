@@ -232,51 +232,51 @@ class ClassLoader {
         const sourceMapGenerator = new Generator({ file: fn, skipValidation: ! __jymfony.autoload.debug });
         const decorators = {};
 
+        const parser = new Parser();
+        const compiler = new Compiler(sourceMapGenerator, { filename: fn, namespace });
+
         try {
-            const parser = new Parser();
-            const compiler = new Compiler(sourceMapGenerator, { filename: fn, namespace });
-
             program = parser.parse(code);
-            program.prepare();
-
-            const p = new AST.Program(program.location);
-
-            if (sourceMap) {
-                sourceMap.sources = sourceMap.sources.map(s => normalize(pathResolve(sourceMap.sourceRoot + '/' + s)));
-                p.addSourceMappings(sourceMap);
-            } else {
-                p.addSourceMappings(...(program.sourceMappings.filter(isObjectLiteral)));
+        } catch (e) {
+            if (e instanceof SyntaxError) {
+                e.message = 'Syntax error while parsing ' + fn + ': ' + e.message;
             }
 
-            const args = [
-                new AST.Identifier(null, 'exports'),
-                new AST.Identifier(null, 'require'),
-                new AST.Identifier(null, 'module'),
-                new AST.Identifier(null, '__filename'),
-                new AST.Identifier(null, '__dirname'),
-            ];
-
-            if (self) {
-                args.push(new AST.Identifier(null, '__self'));
-            }
-
-            p.add(new AST.ParenthesizedExpression(null,
-                new AST.FunctionExpression(null, new AST.BlockStatement(null, [
-                    new AST.StringLiteral(null, '\'use strict\''),
-                    ...program.body,
-                ]), null, args)
-            ));
-
-            code = compiler.compile(p);
-            StackHandler.registerSourceMap(fn, sourceMapGenerator.toJSON().mappings);
-        } catch (err) {
-            // Compiler have failed. Code is unpatched, but can be included.
-            if (! (err instanceof SyntaxError)) {
-                throw err;
-            } else {
-                console.warn('Syntax error while parsing ' + fn + ': ' + err.message);
-            }
+            throw e;
         }
+
+        program.prepare();
+
+        const p = new AST.Program(program.location);
+
+        if (sourceMap) {
+            sourceMap.sources = sourceMap.sources.map(s => normalize(pathResolve(sourceMap.sourceRoot + '/' + s)));
+            p.addSourceMappings(sourceMap);
+        } else {
+            p.addSourceMappings(...(program.sourceMappings.filter(isObjectLiteral)));
+        }
+
+        const args = [
+            new AST.Identifier(null, 'exports'),
+            new AST.Identifier(null, 'require'),
+            new AST.Identifier(null, 'module'),
+            new AST.Identifier(null, '__filename'),
+            new AST.Identifier(null, '__dirname'),
+        ];
+
+        if (self) {
+            args.push(new AST.Identifier(null, '__self'));
+        }
+
+        p.add(new AST.ParenthesizedExpression(null,
+            new AST.FunctionExpression(null, new AST.BlockStatement(null, [
+                new AST.StringLiteral(null, '\'use strict\''),
+                ...program.body,
+            ]), null, args)
+        ));
+
+        code = compiler.compile(p);
+        StackHandler.registerSourceMap(fn, sourceMapGenerator.toJSON().mappings);
 
         return codeCache[fn] = {
             code,
