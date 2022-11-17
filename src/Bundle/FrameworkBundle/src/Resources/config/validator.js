@@ -51,7 +51,10 @@ container.register('validator.mapping.cache.adapter', Jymfony.Component.Cache.Ad
     .addArgument(new Reference('cache.validator'))
 ;
 
-container.register('validator.validator_factory', Jymfony.Component.Validator.ContainerConstraintValidatorFactory);
+container.register('validator.validator_factory', Jymfony.Component.Validator.ContainerConstraintValidatorFactory)
+    .addArgument(new Reference('service_container'))
+;
+
 container.register('validator.email', Jymfony.Component.Validator.Constraints.EmailValidator)
     .addArgument(undefined)
     .addTag('validator.constraint_validator', {
