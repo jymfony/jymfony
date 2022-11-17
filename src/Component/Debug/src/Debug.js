@@ -1,6 +1,5 @@
 const BufferingLogger = Jymfony.Component.Debug.BufferingLogger;
 const ErrorHandler = Jymfony.Component.Debug.ErrorHandler;
-const MultipleResolvesException = Jymfony.Component.Debug.Exception.MultipleResolvesException;
 const Timeout = Jymfony.Component.Debug.Timeout;
 const UnhandledRejectionException = Jymfony.Component.Debug.Exception.UnhandledRejectionException;
 
@@ -13,14 +12,6 @@ export default class Debug {
 
         process.on('unhandledRejection', (reason, p) => {
             throw new UnhandledRejectionException(p, reason instanceof Error ? reason : undefined);
-        });
-
-        process.on('multipleResolves', (type, promise, reason) => {
-            if (promise.__multipleResolve) {
-                return;
-            }
-
-            throw new MultipleResolvesException(type, promise, reason);
         });
 
         __jymfony.ManagedProxy.enableDebug();
