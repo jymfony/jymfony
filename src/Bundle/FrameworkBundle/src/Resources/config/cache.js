@@ -9,6 +9,15 @@ container.setDefinition('cache.app', new ChildDefinition('cache.adapter.filesyst
     .addTag('cache.pool', { clearer: 'cache.app_clearer', reset: 'reset' })
 ;
 
+container.setDefinition('cache.system', new ChildDefinition('cache.adapter.system'))
+    .setPublic(true)
+    .addTag('cache.pool')
+;
+
+container.setDefinition('cache.validator', new ChildDefinition('cache.system'))
+    .addTag('cache.pool')
+;
+
 container.register('cache.adapter.system', Jymfony.Contracts.Cache.CacheItemPoolInterface)
     .setAbstract(true)
     .addTag('cache.pool', { clearer: 'cache.system_clearer' })
