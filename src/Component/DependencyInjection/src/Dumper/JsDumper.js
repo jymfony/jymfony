@@ -68,12 +68,12 @@ export default class JsDumper {
         (new AnalyzeServiceReferencesPass()).process(this._container);
 
         if (options.dir) {
-            const dir = __jymfony.rtrim(options.dir, '/').split(path.sep);
+            const dir = __jymfony.rtrim(options.dir, path.sep).split(path.sep);
             let i = dir.length;
 
             if (3 <= i) {
                 let regex = '';
-                const lastOptionalDir = 8 < i ? i - 5 : 3;
+                const lastOptionalDir = Math.max(i - 5, 4);
                 this._targetDirMaxMatches = i - lastOptionalDir;
 
                 while (--i >= lastOptionalDir) {
@@ -146,15 +146,6 @@ module.exports = new Container${hash}({
      * @private
      */
     _startClass(className, baseClass) {
-        const targetDirs = undefined === this._targetDirMaxMatches ? '' : `
-        let dir = path.dirname(__dirname);
-        this._targetDirs = [ dir ];
-        for (let i = 1; i <= ${this._targetDirMaxMatches}; ++i) {
-            this._targetDirs.push(dir = path.dirname(dir));
-        }
-
-`;
-
         return `const Container = Jymfony.Component.DependencyInjection.Container;
 const LogicException = Jymfony.Component.DependencyInjection.Exception.LogicException;
 const RuntimeException = Jymfony.Component.DependencyInjection.Exception.RuntimeException;
@@ -163,7 +154,7 @@ const RewindableGenerator = Jymfony.Component.DependencyInjection.Argument.Rewin
 const path = require('path');
 
 class ${className} extends ${baseClass} {
-    __construct(buildParameters = {}) {${targetDirs}
+    __construct(buildParameters = {}) {
         super.__construct(new FrozenParameterBag(Object.assign({}, this._getDefaultsParameters(), buildParameters)));
 
         ${this._getMethodMap()}
@@ -276,7 +267,7 @@ module.exports = ${className};
                         continue;
                     }
 
-                    return '" + this._targetDirs[' + (this._targetDirMaxMatches - i) + '] + "';
+                    return '" + ' + 'path.dirname('.repeat(this._targetDirMaxMatches - i + 1) + '__dirname' + ')'.repeat(this._targetDirMaxMatches - i + 1) + ' + "';
                 }
             });
 
