@@ -119,10 +119,37 @@ export default class AwsLambdaHandler extends RequestHandler {
             return response;
         }
 
-        const requestUrl = urlFormat({ pathname: event.path, query: event.queryStringParameters });
+        const requestUrl = (() => {
+            if (URL !== undefined) {
+                const url = new URL('https://' + (event.requestContext.domainName || 'localhost') + '/');
+                url.pathname = event.rawPath || event.path;
+                url.search = undefined !== event.rawQueryString ? event.rawQueryString : new URLSearchParams(event.queryStringParameters).toString();
+
+                return url.href;
+            }
+
+            return urlFormat({
+                pathname: event.rawPath || event.path,
+                query: undefined !== event.rawQueryString ? event.rawQueryString : event.queryStringParameters,
+            });
+        })();
+
         const sourceIp = event.requestContext && event.requestContext.identity ? event.requestContext.identity.sourceIp : undefined;
+        const httpMethod = (() => {
+            if (event.requestContext) {
+                if (event.requestContext.http && event.requestContext.http.method) {
+                    return event.requestContext.http.method;
+                }
+
+                if (event.requestContext.httpMethod) {
+                    return event.requestContext.httpMethod;
+                }
+            }
+
+            return event.httpMethod;
+        })();
         const request = new Request(requestUrl, requestParams, {}, event.headers || {}, {
-            'REQUEST_METHOD': event.httpMethod,
+            'REQUEST_METHOD': httpMethod,
             'REMOTE_ADDR': sourceIp || '127.0.0.1',
             'SCHEME': this._getScheme(headers.all),
             'SERVER_NAME': headers.get('Host'),
