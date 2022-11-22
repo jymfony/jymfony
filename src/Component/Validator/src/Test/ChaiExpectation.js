@@ -137,7 +137,7 @@ if (!! util) {
         for (const violation of context.violations) {
             const expectation = prepareViolation({ root: obj, ...val[index] });
             this.assert(
-                getDump(violation) === getDump(expectation),
+                getDump(violation).replace(new RegExp(' ', 'g'), ' ') === getDump(expectation),
                 'expected #{this} to raise violation #{exp}',
                 'expected #{this} not to raise violation #{exp}',
                 getDump(expectation),
