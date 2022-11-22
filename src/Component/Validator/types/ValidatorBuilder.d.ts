@@ -1,4 +1,5 @@
 declare namespace Jymfony.Component.Validator {
+    import CacheItemPoolInterface = Jymfony.Contracts.Cache.CacheItemPoolInterface;
     import LoaderInterface = Jymfony.Component.Metadata.Loader.LoaderInterface;
     import MetadataFactoryInterface = Jymfony.Contracts.Metadata.MetadataFactoryInterface;
     import TranslatorInterface = Jymfony.Contracts.Translation.TranslatorInterface;
@@ -70,6 +71,11 @@ declare namespace Jymfony.Component.Validator {
          * Sets the class metadata factory used by the validator.
          */
         setMetadataFactory(metadataFactory: MetadataFactoryInterface): this;
+
+        /**
+         * Sets the cache for caching class metadata.
+         */
+        setMappingCache(cache: CacheItemPoolInterface): this;
 
         /**
          * Sets the constraint validator factory used by the validator.
