@@ -20,12 +20,13 @@ container.setDefinition('cache.validator', new ChildDefinition('cache.system'))
 
 container.register('cache.adapter.system', Jymfony.Contracts.Cache.CacheItemPoolInterface)
     .setAbstract(true)
+    .setFactory('Jymfony.Component.Cache.Adapter.AbstractAdapter#createSystemCache')
     .addTag('cache.pool', { clearer: 'cache.system_clearer' })
     .addTag('jymfony.logger', { channel: 'cache' })
     .addArgument(undefined)
     .addArgument(0)
     .addArgument(undefined)
-    .addArgument('%kernel.cache_dir%/pools')
+    .addArgument('%kernel.cache_dir%/pools/system')
     .addMethodCall('setLogger', [ new Reference('logger', Container.IGNORE_ON_INVALID_REFERENCE) ])
 ;
 
