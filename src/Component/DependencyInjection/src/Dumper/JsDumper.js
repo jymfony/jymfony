@@ -66,14 +66,16 @@ export default class JsDumper {
         }, options);
 
         (new AnalyzeServiceReferencesPass()).process(this._container);
+        const projectDirParam = this._container.hasParameter('kernel.project_dir') ? this._container.getParameter('kernel.project_dir') : undefined;
 
-        if (options.dir) {
+        if (projectDirParam !== undefined && options.dir) {
+            const projectDir = __jymfony.rtrim(projectDirParam, path.sep).split(path.sep);
             const dir = __jymfony.rtrim(options.dir, path.sep).split(path.sep);
             let i = dir.length;
 
-            if (3 <= i) {
+            if (1 < projectDir.length) {
                 let regex = '';
-                const lastOptionalDir = Math.max(i - 5, 4);
+                const lastOptionalDir = projectDir.length;
                 this._targetDirMaxMatches = i - lastOptionalDir;
 
                 while (--i >= lastOptionalDir) {
@@ -262,13 +264,16 @@ module.exports = ${className};
         if (undefined !== this._targetDirRegex && isString(value) && value.match(this._targetDirRegex)) {
             value = JSON.stringify(value);
             value = value.replace(this._targetDirRegex, (...args) => {
-                for (let i = this._targetDirMaxMatches; 1 <= i; --i) {
+                let i = this._targetDirMaxMatches;
+                for (; 1 <= i; --i) {
                     if (undefined === args[i]) {
                         continue;
                     }
 
-                    return '" + ' + 'path.dirname('.repeat(this._targetDirMaxMatches - i + 1) + '__dirname' + ')'.repeat(this._targetDirMaxMatches - i + 1) + ' + "';
+                    break;
                 }
+
+                return '" + ' + 'path.dirname('.repeat(this._targetDirMaxMatches - i + 1) + '__dirname' + ')'.repeat(this._targetDirMaxMatches - i + 1) + ' + "';
             });
 
             return value.replace(/"" \+ /g, '').replace(/ \+ ""/g, '');
