@@ -42,7 +42,7 @@ export default class Application extends SingleCommandApplication {
         const io = new JymfonyStyle(input, output);
         io.title('Tzdata updater');
 
-        const file = await new OpenFile('https://data.iana.org/time-zones/releases/tzdata2021e.tar.gz', 'r');
+        const file = await new OpenFile('https://data.iana.org/time-zones/releases/tzdata2022f.tar.gz', 'r');
         const buf = await file.fread(await file.getSize());
 
         this._archive = new ArchiveReader(buf);

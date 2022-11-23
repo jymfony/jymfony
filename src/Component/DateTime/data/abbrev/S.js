@@ -1,1 +1,1 @@
-export default {'offset': 4772, 'dst': true, 'abbrev': 'S'};
+export default {'offset': 12679, 'dst': true, 'abbrev': 'S'};

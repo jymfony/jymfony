@@ -1,1 +1,1 @@
-export default {'offset': 4772, 'dst': true, 'abbrev': 'NST'};
+export default {'offset': -39600, 'dst': false, 'abbrev': 'NST'};
