@@ -4,6 +4,8 @@ const Alias = Jymfony.Component.DependencyInjection.Alias;
 const TaggedIteratorArgument = Jymfony.Component.DependencyInjection.Argument.TaggedIteratorArgument;
 const Reference = Jymfony.Component.DependencyInjection.Reference;
 
+container.setAlias(Jymfony.Component.DependencyInjection.ContainerInterface, 'service_container');
+
 container.register('parameter_bag', Jymfony.Component.DependencyInjection.ParameterBag.ContainerBag)
     .addArgument(new Reference('service_container'))
 ;
