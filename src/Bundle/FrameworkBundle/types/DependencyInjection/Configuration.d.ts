@@ -11,9 +11,17 @@ declare namespace Jymfony.Bundle.FrameworkBundle.DependencyInjection {
 
         private _addConsoleSection(rootNode: ArrayNodeDefinition): void;
 
+        private _addDebugSection(rootNode: ArrayNodeDefinition): void;
+
         private _addLoggerSection(rootNode: ArrayNodeDefinition): void;
 
         private _addRouterSection(rootNode: ArrayNodeDefinition): void;
+
+        private _addHttpClientSection(rootNode: ArrayNodeDefinition): void;
+
+        private _addMessengerSection(rootNode: ArrayNodeDefinition): void;
+
+        private _addHttpClientRetrySection(): void;
 
         private _addHttpServerSection(rootNode: ArrayNodeDefinition): void;
 
@@ -22,5 +30,7 @@ declare namespace Jymfony.Bundle.FrameworkBundle.DependencyInjection {
         private _addSessionSection(rootNode: ArrayNodeDefinition): void;
 
         private _addTemplatingSection(rootNode: ArrayNodeDefinition): void;
+
+        private _addValidationSection(rootNode: ArrayNodeDefinition): void;
     }
 }

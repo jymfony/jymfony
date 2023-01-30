@@ -30,7 +30,7 @@
     "node": ">=10.0.0"
   },
   "peerDependencies": {
-    "@jymfony/compiler": "^0.3"
+    "@jymfony/compiler": "https://github.com/jymfony/compiler.git"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.19.1",
@@ -70,6 +70,7 @@
         "Jymfony.Component.Kernel": "src/Component/Kernel/src",
         "Jymfony.Component.Lexer": "src/Component/Lexer/src",
         "Jymfony.Component.Logger": "src/Component/Logger/src",
+        "Jymfony.Component.Messenger": "src/Component/Messenger/src",
         "Jymfony.Component.Metadata": "src/Component/Metadata/src",
         "Jymfony.Component.Mime": "src/Component/Mime/src",
         "Jymfony.Component.OptionsResolver": "src/Component/OptionsResolver/src",
@@ -123,6 +124,8 @@
         "Jymfony.Component.Lexer.Fixtures": "src/Component/Lexer/fixtures",
         "Jymfony.Component.Lexer.Tests": "src/Component/Lexer/test",
         "Jymfony.Component.Logger.Tests": "src/Component/Logger/test",
+        "Jymfony.Component.Messenger.Fixtures": "src/Component/Messenger/fixtures",
+        "Jymfony.Component.Messenger.Tests": "src/Component/Messenger/test",
         "Jymfony.Component.Metadata.Fixtures": "src/Component/Metadata/fixtures",
         "Jymfony.Component.Metadata.Tests": "src/Component/Metadata/test",
         "Jymfony.Component.Mime.Tests": "src/Component/Mime/test",

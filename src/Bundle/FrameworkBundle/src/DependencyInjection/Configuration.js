@@ -31,6 +31,7 @@ export default class Configuration extends implementationOf(ConfigurationInterfa
         this._addConsoleSection(rootNode);
         this._addDebugSection(rootNode);
         this._addHttpClientSection(rootNode);
+        this._addMessengerSection(rootNode);
         this._addHttpServerSection(rootNode);
         this._addLoggerSection(rootNode);
         this._addRouterSection(rootNode);
@@ -556,6 +557,150 @@ export default class Configuration extends implementationOf(ConfigurationInterfa
                                         .info('A list of SSL/TLS ciphers separated by colons, commas or spaces (e.g. "RC3-SHA:TLS13-AES-128-GCM-SHA256"...)')
                                     .end()
                                     .append(this._addHttpClientRetrySection())
+                                .end()
+                            .end()
+                        .end()
+                    .end()
+                .end()
+            .end()
+        ;
+    }
+
+    _addMessengerSection(rootNode) {
+        rootNode
+            .children()
+                .arrayNode('messenger')
+                    .info('Messenger configuration')
+                    [ReflectionClass.exists('Jymfony.Component.Messenger.MessageBusInterface') ? 'canBeDisabled' : 'canBeEnabled']()
+                    .validate()
+                        .ifTrue(v => !! v.buses && Object.keys(v.buses).length > 1 && null === v.default_bus)
+                        .thenInvalid('You must specify the "default_bus" if you define more than one bus.')
+                    .end()
+                    .validate()
+                        .ifTrue(v => !! v.buses && null !== v.default_bus && !v.buses[v.default_bus])
+                        .then(v => { throw new InvalidConfigurationException(__jymfony.sprintf('The specified default bus "%s" is not configured. Available buses are "%s".', v.default_bus, Object.keys(v.buses).join('", "'))); })
+                    .end()
+                    .children()
+                        .arrayNode('routing')
+                            .normalizeKeys(false)
+                            .useAttributeAsKey('message_class')
+                            .prototype('array')
+                                .performNoDeepMerging()
+                                .children()
+                                    .arrayNode('senders')
+                                        .requiresAtLeastOneElement()
+                                        .prototype('scalar').end()
+                                    .end()
+                                .end()
+                            .end()
+                        .end()
+                        .arrayNode('serializer')
+                            .addDefaultsIfNotSet()
+                            .children()
+                                .scalarNode('default_serializer')
+                                    .defaultValue('messenger.transport.native_js_serializer')
+                                    .info('Service id to use as the default serializer for the transports.')
+                                .end()
+                            .end()
+                        .end()
+                        .arrayNode('transports')
+                            .normalizeKeys(false)
+                            .useAttributeAsKey('name')
+                            .arrayPrototype()
+                                .beforeNormalization()
+                                    .ifString()
+                                    .then(dsn => ({ dsn }))
+                                .end()
+                                .children()
+                                    .scalarNode('dsn').end()
+                                    .scalarNode('serializer').defaultNull().info('Service id of a custom serializer to use.').end()
+                                    .arrayNode('options')
+                                        .normalizeKeys(false)
+                                        .defaultValue([])
+                                        .prototype('variable')
+                                        .end()
+                                    .end()
+                                    .scalarNode('failure_transport')
+                                        .defaultNull()
+                                        .info('Transport name to send failed messages to (after all retries have failed).')
+                                    .end()
+                                    // .arrayNode('retry_strategy')
+                                    //     .addDefaultsIfNotSet()
+                                    //     .beforeNormalization()
+                                    //         .always(function ($v) {
+                                    //             if (isset($v['service']) && (isset($v['max_retries']) || isset($v['delay']) || isset($v['multiplier']) || isset($v['max_delay']))) {
+                                    //                 throw new \InvalidArgumentException('The "service" cannot be used along with the other "retry_strategy" options.');
+                                    //             }
+                                    //
+                                    //             return $v;
+                                    //         })
+                                    //     .end()
+                                    //     .children()
+                                    //         .scalarNode('service').defaultNull().info('Service id to override the retry strategy entirely').end()
+                                    //         .integerNode('max_retries').defaultValue(3).min(0).end()
+                                    //         .integerNode('delay').defaultValue(1000).min(0).info('Time in ms to delay (or the initial value when multiplier is used)').end()
+                                    //         .floatNode('multiplier').defaultValue(2).min(1).info('If greater than 1, delay will grow exponentially for each retry: this delay = (delay * (multiple ^ retries))').end()
+                                    //         .integerNode('max_delay').defaultValue(0).min(0).info('Max time in ms that a retry should ever be delayed (0 = infinite)').end()
+                                    //     .end()
+                                    // .end()
+                                .end()
+                            .end()
+                        .end()
+                        .scalarNode('failure_transport')
+                            .defaultNull()
+                            .info('Transport name to send failed messages to (after all retries have failed).')
+                        .end()
+                        .scalarNode('default_bus').defaultNull().end()
+                        .arrayNode('buses')
+                            .defaultValue({'messenger.bus.default': { default_middleware: true, middleware: [] } })
+                            .normalizeKeys(false)
+                            .useAttributeAsKey('name')
+                            .arrayPrototype()
+                                .addDefaultsIfNotSet()
+                                .children()
+                                    .enumNode('default_middleware')
+                                        .values([true, false, 'allow_no_handlers'])
+                                        .defaultTrue()
+                                    .end()
+                                    .arrayNode('middleware')
+                                        .performNoDeepMerging()
+                                        .beforeNormalization()
+                                            .ifTrue(v => isString(v) || isObjectLiteral(v))
+                                            .then(v => [v])
+                                        .end()
+                                        .defaultValue([])
+                                        .arrayPrototype()
+                                            .beforeNormalization()
+                                                .always()
+                                                .then(middleware => {
+                                                    if (! isObjectLiteral(middleware)) {
+                                                        return { id: middleware };
+                                                    }
+
+                                                    if (!! middleware.id) {
+                                                        return middleware;
+                                                    }
+
+                                                    if (1 < Object.keys(middleware).length) {
+                                                        throw new InvalidArgumentException('Invalid middleware at path "framework.messenger": a map with a single factory id as key and its arguments as value was expected, ' + JSON.stringify(middleware) + ' given.');
+                                                    }
+
+                                                    return {
+                                                        id: Object.keys(middleware)[0],
+                                                        arguments: Object.values(middleware)[0],
+                                                    };
+                                                })
+                                            .end()
+                                            .children()
+                                                .scalarNode('id').isRequired().cannotBeEmpty().end()
+                                                .arrayNode('arguments')
+                                                    .normalizeKeys(false)
+                                                    .defaultValue([])
+                                                    .prototype('variable')
+                                                .end()
+                                            .end()
+                                        .end()
+                                    .end()
                                 .end()
                             .end()
                         .end()

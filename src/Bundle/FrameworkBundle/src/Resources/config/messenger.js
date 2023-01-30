@@ -1,0 +1,148 @@
+/** @global {Jymfony.Component.DependencyInjection.ContainerBuilder} container */
+
+const Container = Jymfony.Component.DependencyInjection.Container;
+const Reference = Jymfony.Component.DependencyInjection.Reference;
+const TaggedIteratorArgument = Jymfony.Component.DependencyInjection.Argument.TaggedIteratorArgument;
+
+container.setAlias(Jymfony.Component.Messenger.Transport.Serialization.SerializerInterface, 'messenger.default_serializer');
+
+container.register('messenger.senders_locator', Jymfony.Component.Messenger.Transport.Sender.SendersLocator)
+    .setArguments([ null, null ]);
+
+container.register('messenger.middleware.send_message', Jymfony.Component.Messenger.Middleware.SendMessageMiddleware)
+    .setArguments([
+        new Reference('messenger.senders_locator'),
+        new Reference('event_dispatcher'),
+    ])
+    .addMethodCall('setLogger', [ new Reference('logger', Container.IGNORE_ON_INVALID_REFERENCE) ])
+    .addTag('jymfony.logger', { channel: 'messenger' });
+
+
+container.register('messenger.transport.native_js_serializer', Jymfony.Component.Messenger.Transport.Serialization.NativeSerializer);
+
+// Middleware
+container.register('messenger.middleware.handle_message', Jymfony.Component.Messenger.Middleware.HandleMessageMiddleware)
+    .setAbstract(true)
+    .setArguments([ null ])
+    .addMethodCall('setLogger', [ new Reference('logger', Container.IGNORE_ON_INVALID_REFERENCE) ]);
+
+container.register('messenger.middleware.add_bus_name_stamp_middleware', Jymfony.Component.Messenger.Middleware.AddBusNameStampMiddleware)
+    .setAbstract(true);
+
+container.register('messenger.middleware.dispatch_after_current_bus', Jymfony.Component.Messenger.Middleware.DispatchAfterCurrentBusMiddleware);
+
+// container.register('messenger.middleware.validation', Jymfony.Component.Messenger.Middleware.ValidationMiddleware)
+//     .setArguments([ new Reference('validator') ]);
+
+// container.register('messenger.middleware.reject_redelivered_message_middleware', Jymfony.Component.Messenger.Middleware.RejectRedeliveredMessageMiddleware);
+
+container.register('messenger.middleware.failed_message_processing_middleware', Jymfony.Component.Messenger.Middleware.FailedMessageProcessingMiddleware);
+
+// container.register('messenger.middleware.traceable', Jymfony.Component.Messenger.Middleware.TraceableMiddleware)
+//     .setAbstract(true)
+//     .setArguments([
+//         new Reference('debug.stopwatch'),
+//     ]);
+
+// container.register('messenger.middleware.router_context', Jymfony.Component.Messenger.Middleware.RouterContextMiddleware)
+//     .setAbstract(true)
+//     .setArguments([
+//         new Reference('router')
+//     ]);
+
+// Discovery
+container.register('messenger.receiver_locator', Jymfony.Component.DependencyInjection.ServiceLocator)
+    .setArguments([
+        [],
+    ])
+    .addTag('container.service_locator');
+
+// Transports
+container.register('messenger.transport_factory', Jymfony.Component.Messenger.Transport.TransportFactory)
+    .setArguments([
+        new TaggedIteratorArgument('messenger.transport_factory'),
+    ]);
+
+// container.register('messenger.transport.amqp.factory', AmqpTransportFactory);
+
+// container.register('messenger.transport.redis.factory', RedisTransportFactory);
+
+container.register('messenger.transport.sync.factory', Jymfony.Component.Messenger.Transport.Sync.SyncTransportFactory)
+    .setArguments([
+        new Reference('messenger.routable_message_bus'),
+    ])
+    .addTag('messenger.transport_factory');
+
+container.register('messenger.transport.in_memory.factory', Jymfony.Component.Messenger.Transport.InMemoryTransportFactory)
+    .addTag('messenger.transport_factory');
+
+// container.register('messenger.transport.sqs.factory', AmazonSqsTransportFactory)
+//     .setArguments([
+//         new Reference('logger', Container.IGNORE_ON_INVALID_REFERENCE),
+//     ]);
+//
+// container.register('messenger.transport.beanstalkd.factory', BeanstalkdTransportFactory);
+
+// retry
+// container.register('messenger.retry_strategy_locator', ServiceLocator)
+//     .setArguments([
+//         [],
+//     ])
+//     .addTag('container.service_locator');
+//
+// container.register('messenger.retry.abstract_multiplier_retry_strategy', MultiplierRetryStrategy)
+//     .setAbstract(true)
+//     .setArguments([
+//         null, // max retries
+//         null, // delay ms
+//         null, // multiplier
+//         null, // max delay ms
+//     ]);
+//
+// // worker event listener
+// container.register('messenger.retry.send_failed_message_for_retry_listener', SendFailedMessageForRetryListener)
+//     .setArguments([
+//         null, // senders service locator,
+//         new Reference('messenger.retry_strategy_locator'),
+//         new Reference('logger', Container.IGNORE_ON_INVALID_REFERENCE),
+//         new Reference('event_dispatcher'),
+//     ])
+//     .addTag('kernel.event_subscriber')
+//     .addTag('jymfony.logger', { channel: 'messenger' })
+
+container.register('messenger.failure.add_error_details_stamp_listener', Jymfony.Component.Messenger.EventListener.AddErrorDetailsStampListener)
+    .addTag('kernel.event_subscriber');
+
+// container.register('messenger.failure.send_failed_message_to_failure_transport_listener', SendFailedMessageToFailureTransportListener)
+//     .setArguments([
+//         null, // failure transports
+//         new Reference('logger', Container.IGNORE_ON_INVALID_REFERENCE),
+//     ])
+//     .addTag('kernel.event_subscriber')
+//     .addTag('jymfony.logger', { channel: 'messenger' })
+//
+// container.register('messenger.listener.dispatch_pcntl_signal_listener', DispatchPcntlSignalListener)
+//     .addTag('kernel.event_subscriber')
+//
+// container.register('messenger.listener.stop_worker_on_restart_signal_listener', StopWorkerOnRestartSignalListener)
+//     .setArguments([
+//         new Reference('cache.messenger.restart_workers_signal'),
+//         new Reference('logger', Container.IGNORE_ON_INVALID_REFERENCE),
+//     ])
+//     .addTag('kernel.event_subscriber')
+//     .addTag('jymfony.logger', { channel: 'messenger' })
+
+container.register('messenger.listener.stop_worker_on_sigterm_signal_listener', Jymfony.Component.Messenger.EventListener.StopWorkerOnSigtermSignalListener)
+    .setArguments([
+        new Reference('logger', Container.IGNORE_ON_INVALID_REFERENCE),
+    ])
+    .addTag('kernel.event_subscriber');
+
+// container.register('messenger.listener.stop_worker_on_stop_exception_listener', StopWorkerOnCustomStopExceptionListener)
+//     .addTag('kernel.event_subscriber');
+
+container.register('messenger.routable_message_bus', Jymfony.Component.Messenger.RoutableMessageBus)
+    .setArguments([
+        null,
+        new Reference('messenger.default_bus'),
+    ]);
