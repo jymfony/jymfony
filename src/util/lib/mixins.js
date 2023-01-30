@@ -2,8 +2,8 @@ const Mixins = require('./Mixins/Mixins');
 const Interfaces = require('./Mixins/Interfaces');
 const Traits = require('./Mixins/Traits');
 
-globalThis.getInterface = function getInterface(definition) {
-    return Interfaces.create(definition);
+globalThis.getInterface = function getInterface(definition, ...parents) {
+    return Interfaces.create(definition, ...parents);
 };
 
 globalThis.getTrait = function getTrait(definition) {
@@ -31,6 +31,16 @@ globalThis.mix = function mix(superclass, ...mixins) {
 
         return b(a);
     }, superclass);
+
+    for (const i of mixins) {
+        if (! Interfaces.isInterface(i)) {
+            continue;
+        }
+
+        for (const sup of i[Mixins.superInterfaces]) {
+            mixins.push(sup);
+        }
+    }
 
     const interfaces = Array.from((function * () {
         for (const i of mixins) {

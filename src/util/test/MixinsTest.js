@@ -162,6 +162,19 @@ describe('Mixins.getInterface', function () {
         expect(o).to.be.instanceOf(iTest2);
         expect(o).to.be.instanceOf(iTest);
     });
+
+    it('should extend multiple interfaces', () => {
+        const iParent = getInterface(class ParentInterface {});
+        const iParent2 = getInterface(class Parent2Interface {});
+        const iTest = getInterface(class TestInterface {}, iParent, iParent2);
+
+        class Foo extends implementationOf(iTest) {}
+
+        const o = new Foo();
+        expect(o).to.be.instanceOf(iTest);
+        expect(o).to.be.instanceOf(iParent);
+        expect(o).to.be.instanceOf(iParent2);
+    });
 });
 
 describe('Mixins.getTrait', function () {

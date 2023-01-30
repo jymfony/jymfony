@@ -4,6 +4,7 @@ const symOuterMixin = Symbol('outerMixin');
 const symAppliedInterfaces = Symbol('appliedInterfaces');
 const symAppliedTraits = Symbol('appliedTraits');
 const symClassType = Symbol('classType');
+const symSuperInterfaces = Symbol('superInterfaces');
 const symInitalizer = Symbol('Initializer');
 
 /**
@@ -59,6 +60,15 @@ class Mixins {
      */
     static getMixin(definition) {
         return definition[symOuterMixin];
+    }
+
+    /**
+     * @param {Object} definition
+     *
+     * @returns {*[]}
+     */
+    static getParents(definition) {
+        return definition[symSuperInterfaces];
     }
 
     /**
@@ -174,6 +184,7 @@ class Mixins {
 Mixins.appliedInterfacesSymbol = symAppliedInterfaces;
 Mixins.appliedTraitsSymbol = symAppliedTraits;
 Mixins.classTypeSymbol = symClassType;
+Mixins.superInterfaces = symSuperInterfaces;
 Mixins.initializerSymbol = symInitalizer;
 
 module.exports = Mixins;

@@ -309,7 +309,17 @@ declare type MixinInterface<T> = T extends AnyConstructorRaw<infer I, infer M> ?
 
 declare type Mixin<T> = T extends Newable<infer I, infer M> ? MixinInterface<T> : never;
 
-declare function getInterface<T>(definition: T): Mixin<T>
+declare function getInterface<T>(definition: T): Mixin<T>;
+declare function getInterface<T, P0>(definition: T, p0: MixinInterface<P0>): Mixin<T & P0>;
+declare function getInterface<T, P0, P1>(definition: T, p0: MixinInterface<P0>, p1: MixinInterface<P1>): Mixin<T & P0 & P1>;
+declare function getInterface<T, P0, P1, P2>
+    (definition: T, p0: MixinInterface<P0>, p1: MixinInterface<P1>, p2: MixinInterface<P2>): Mixin<T & P0 & P1 & P2>;
+declare function getInterface<T, P0, P1, P2, P3>
+    (definition: T, p0: MixinInterface<P0>, p1: MixinInterface<P1>, p2: MixinInterface<P2>, p3: MixinInterface<P3>): Mixin<T & P0 & P1 & P2 & P3>;
+declare function getInterface<T, P0, P1, P2, P3, P4>
+    (definition: T, p0: MixinInterface<P0>, p1: MixinInterface<P1>, p2: MixinInterface<P2>, p3: MixinInterface<P3>, p4: MixinInterface<P4>): Mixin<T & P0 & P1 & P2 & P3 & P4>;
+declare function getInterface<T>
+    (definition: T, ...parents: MixinInterface<any>[]): Mixin<T & any>;
 declare function getTrait<T>(definition: T): Mixin<T>;
 
 declare type AsyncFunction<T = any> = (...args: any[]) => Promise<T>;
@@ -359,6 +369,16 @@ declare module NodeJS {
         RecursiveDirectoryIterator: Newable<RecursiveDirectoryIterator>;
 
         getInterface<T>(definition: T): T extends Newable<infer I, infer M> ? MixinInterface<T> : never;
+        getInterface<T, P0>(definition: T, p0: MixinInterface<P0>): T extends Newable<infer I, infer M> ? MixinInterface<T & P0> : never;
+        getInterface<T, P0, P1>(definition: T, p0: MixinInterface<P0>, p1: MixinInterface<P1>): T extends Newable<infer I, infer M> ? MixinInterface<T & P0 & P1> : never;
+        getInterface<T, P0, P1, P2>
+        (definition: T, p0: MixinInterface<P0>, p1: MixinInterface<P1>, p2: MixinInterface<P2>): T extends Newable<infer I, infer M> ? MixinInterface<T & P0 & P1 & P2> : never;
+        getInterface<T, P0, P1, P2, P3>
+        (definition: T, p0: MixinInterface<P0>, p1: MixinInterface<P1>, p2: MixinInterface<P2>, p3: MixinInterface<P3>): T extends Newable<infer I, infer M> ? MixinInterface<T & P0 & P1 & P2 & P3> : never;
+        getInterface<T, P0, P1, P2, P3, P4>
+        (definition: T, p0: MixinInterface<P0>, p1: MixinInterface<P1>, p2: MixinInterface<P2>, p3: MixinInterface<P3>, p4: MixinInterface<P4>): T extends Newable<infer I, infer M> ? MixinInterface<T & P0 & P1 & P2 & P3 & P4> : never;
+        getInterface<T>
+        (definition: T, ...parents: MixinInterface<any>[]): T extends Newable<infer I, infer M> ? MixinInterface<T & any> : never;
         getTrait<T>(definition: T): T extends Newable<infer I, infer M> ? MixinInterface<T> : never;
         mixins: {
             isInterface: <T extends Newable<any>>(mixin: T) => boolean,
