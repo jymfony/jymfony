@@ -1,7 +1,7 @@
 /**
  * @memberOf Jymfony.Component.Messenger.Transport.Sender
  */
-export default class SenderInterface {
+class SenderInterface {
     /**
      * Sends the given envelope.
      *
@@ -16,3 +16,5 @@ export default class SenderInterface {
      */
     async send(envelope) { }
 }
+
+export default getInterface(SenderInterface);
