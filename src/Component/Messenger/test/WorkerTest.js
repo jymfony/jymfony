@@ -75,7 +75,7 @@ export default class WorkerTest extends TestCase {
         const ipaMessage = new DummyMessage('IPA');
 
         const receiver = new DummyReceiver([
-            [new Envelope(apiMessage), new Envelope(ipaMessage)],
+            [ new Envelope(apiMessage), new Envelope(ipaMessage) ],
         ]);
 
         const bus = this.prophesize(MessageBusInterface);

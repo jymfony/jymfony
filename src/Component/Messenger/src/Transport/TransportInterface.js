@@ -1,10 +1,10 @@
-const ReceiverInterface = Jymfony.Component.Messenger.Transport.Receiver;
-const SenderInterface = Jymfony.Component.Messenger.Transport.Sender;
+const ReceiverInterface = Jymfony.Component.Messenger.Transport.Receiver.ReceiverInterface;
+const SenderInterface = Jymfony.Component.Messenger.Transport.Sender.SenderInterface;
 
 /**
  * @memberOf Jymfony.Component.Messenger.Transport
  */
-class TransportInterface extends ReceiverInterface.definition, SenderInterface.definition {
+class TransportInterface  {
 }
 
-export default getInterface(TransportInterface);
+export default getInterface(TransportInterface, ReceiverInterface, SenderInterface);
