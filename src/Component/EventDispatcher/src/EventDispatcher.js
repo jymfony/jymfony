@@ -1,5 +1,6 @@
 const EventDispatcherInterface = Jymfony.Contracts.EventDispatcher.EventDispatcherInterface;
 const InvalidArgumentException = Jymfony.Component.EventDispatcher.Exception.InvalidArgumentException;
+const StoppableEventInterface = Jymfony.Contracts.EventDispatcher.StoppableEventInterface;
 
 /**
  * @memberOf Jymfony.Component.EventDispatcher
@@ -41,7 +42,7 @@ export default class EventDispatcher extends implementationOf(EventDispatcherInt
         }
 
         for (const listener of this.getListeners(eventName)) {
-            if (event.isPropagationStopped()) {
+            if (event instanceof StoppableEventInterface && event.isPropagationStopped()) {
                 return event;
             }
 
