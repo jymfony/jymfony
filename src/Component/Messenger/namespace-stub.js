@@ -9,6 +9,16 @@ Jymfony.Component.Messenger = {
     /**
      * @namespace
      */
+    Command: {},
+
+    /**
+     * @namespace
+     */
+    DependencyInjection: {},
+
+    /**
+     * @namespace
+     */
     Event: {},
 
     /**

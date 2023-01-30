@@ -71,6 +71,7 @@ export default class FrameworkBundle extends Bundle {
         ;
 
         this._addCompilerPassIfExists(container, 'Jymfony.Component.Routing.DependencyInjection.RoutingResolverPass');
+        this._addCompilerPassIfExists(container, 'Jymfony.Component.Messenger.DependencyInjection.MessengerPass');
         this._addCompilerPassIfExists(container, 'Jymfony.Component.Mime.DependencyInjection.AddMimeTypeGuesserPass');
 
         if (container.getParameter('kernel.debug')) {

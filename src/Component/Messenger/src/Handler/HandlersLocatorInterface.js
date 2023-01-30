@@ -11,3 +11,5 @@ class HandlersLocatorInterface {
      */
     getHandlers(envelope) { }
 }
+
+export default getInterface(HandlersLocatorInterface);

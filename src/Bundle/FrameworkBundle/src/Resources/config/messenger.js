@@ -10,6 +10,7 @@ container.register('messenger.senders_locator', Jymfony.Component.Messenger.Tran
     .setArguments([ null, null ]);
 
 container.register('messenger.middleware.send_message', Jymfony.Component.Messenger.Middleware.SendMessageMiddleware)
+    .setAbstract(true)
     .setArguments([
         new Reference('messenger.senders_locator'),
         new Reference('event_dispatcher'),
@@ -29,14 +30,16 @@ container.register('messenger.middleware.handle_message', Jymfony.Component.Mess
 container.register('messenger.middleware.add_bus_name_stamp_middleware', Jymfony.Component.Messenger.Middleware.AddBusNameStampMiddleware)
     .setAbstract(true);
 
-container.register('messenger.middleware.dispatch_after_current_bus', Jymfony.Component.Messenger.Middleware.DispatchAfterCurrentBusMiddleware);
+container.register('messenger.middleware.dispatch_after_current_bus', Jymfony.Component.Messenger.Middleware.DispatchAfterCurrentBusMiddleware)
+    .setAbstract(true);
 
 // container.register('messenger.middleware.validation', Jymfony.Component.Messenger.Middleware.ValidationMiddleware)
 //     .setArguments([ new Reference('validator') ]);
 
 // container.register('messenger.middleware.reject_redelivered_message_middleware', Jymfony.Component.Messenger.Middleware.RejectRedeliveredMessageMiddleware);
 
-container.register('messenger.middleware.failed_message_processing_middleware', Jymfony.Component.Messenger.Middleware.FailedMessageProcessingMiddleware);
+container.register('messenger.middleware.failed_message_processing_middleware', Jymfony.Component.Messenger.Middleware.FailedMessageProcessingMiddleware)
+    .setAbstract(true);
 
 // container.register('messenger.middleware.traceable', Jymfony.Component.Messenger.Middleware.TraceableMiddleware)
 //     .setAbstract(true)
@@ -146,3 +149,22 @@ container.register('messenger.routable_message_bus', Jymfony.Component.Messenger
         null,
         new Reference('messenger.default_bus'),
     ]);
+
+container.register('console.command.messenger_consume_messages', Jymfony.Component.Messenger.Command.ConsumeMessagesCommand)
+    .setArguments([
+        null,
+        new Reference('messenger.receiver_locator'),
+        new Reference('event_dispatcher'),
+        new Reference('logger', Container.IGNORE_ON_INVALID_REFERENCE),
+        [], // Receiver names
+        [], // Bus names
+    ])
+    .addTag('console.command')
+    .addTag('jymfony.logger', { channel: 'messenger' });
+
+// container.register('console.command.messenger_setup_transports', Jymfony.Component.Messenger.Command.SetupTransportsCommand)
+//     .setArguments([
+//         new Reference('messenger.receiver_locator'),
+//         [], // Receiver names
+//     ])
+//     .addTag('console.command');

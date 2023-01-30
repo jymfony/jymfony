@@ -76,15 +76,6 @@ export default class FrameworkExtension extends Extension {
         // Messenger depends on validation being registered
         if (this._messengerConfigEnabled = this._isConfigEnabled(container, config.messenger)) {
             this._registerMessengerConfiguration(config.messenger, container, loader, config.validation);
-        } else {
-            container.removeDefinition('console.command.messenger_consume_messages');
-            container.removeDefinition('console.command.messenger_debug');
-            container.removeDefinition('console.command.messenger_stop_workers');
-            container.removeDefinition('console.command.messenger_setup_transports');
-            container.removeDefinition('console.command.messenger_failed_messages_retry');
-            container.removeDefinition('console.command.messenger_failed_messages_show');
-            container.removeDefinition('console.command.messenger_failed_messages_remove');
-            container.removeDefinition('cache.messenger.restart_workers_signal');
         }
 
         this._registerHttpClientConfiguration(config.http_client, container, loader, {} /* config.profiler */);
@@ -774,9 +765,9 @@ export default class FrameworkExtension extends Extension {
                 }
             }
 
-            if (container.getParameter('kernel.debug') && ReflectionClass.exists('Jymfony.Component.Stopwatch.Stopwatch')) {
-                middleware.unshift({ id: 'traceable', arguments: [ busId ] });
-            }
+            // if (container.getParameter('kernel.debug') && ReflectionClass.exists('Jymfony.Component.Stopwatch.Stopwatch')) {
+            //     middleware.unshift({ id: 'traceable', arguments: [ busId ] });
+            // }
 
             container.setParameter(busId + '.middleware', middleware);
             container.register(busId, 'Jymfony.Component.Messenger.MessageBus').addArgument([]).addTag('messenger.bus');
@@ -914,10 +905,6 @@ export default class FrameworkExtension extends Extension {
             container.removeDefinition('console.command.messenger_failed_messages_retry');
             container.removeDefinition('console.command.messenger_failed_messages_show');
             container.removeDefinition('console.command.messenger_failed_messages_remove');
-        }
-
-        if (! container.hasDefinition('console.command.messenger_consume_messages')) {
-            container.removeDefinition('messenger.listener.reset_services');
         }
     }
 
