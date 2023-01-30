@@ -1,6 +1,7 @@
 const ArrayComparator = Jymfony.Component.Testing.Comparator.ArrayComparator;
 const BufferComparator = Jymfony.Component.Testing.Comparator.BufferComparator;
 const NumericComparator = Jymfony.Component.Testing.Comparator.NumericComparator;
+const ObjectComparator = Jymfony.Component.Testing.Comparator.ObjectComparator;
 const ScalarComparator = Jymfony.Component.Testing.Comparator.ScalarComparator;
 const TypeComparator = Jymfony.Component.Testing.Comparator.TypeComparator;
 
@@ -93,7 +94,7 @@ export default class ComparatorFactory {
         // $this->registerDefaultComparator(new SplObjectStorageComparator);
         // $this->registerDefaultComparator(new ExceptionComparator);
         this.registerDefaultComparator(new BufferComparator());
-        // $this->registerDefaultComparator(new ObjectComparator);
+        this.registerDefaultComparator(new ObjectComparator(this));
         // $this->registerDefaultComparator(new ResourceComparator);
         this.registerDefaultComparator(new ArrayComparator(this));
         // $this->registerDefaultComparator(new DoubleComparator);

@@ -77,6 +77,33 @@ class ExporterTrait {
 
         return this.export(value);
     }
+
+    /**
+     * Converts an object to an array containing all of its private, protected
+     * and public properties.
+     *
+     * @returns {*}
+     */
+    toObjectLiteral(value) {
+        if (isObjectLiteral(value)) {
+            return value;
+        }
+
+        const o = {};
+
+        if (value instanceof Set || value instanceof Map || isArray(value)) {
+            for (const [ key, val ] of __jymfony.getEntries(value)) {
+                o[key] = val;
+            }
+        } else {
+            for (const key of [ ...Object.keys(value), ...Object.getOwnPropertySymbols(value) ]) {
+                const val = value[key];
+                o[key] = val;
+            }
+        }
+
+        return o;
+    }
 }
 
 export default getTrait(ExporterTrait);
