@@ -342,7 +342,8 @@ class ReflectionClass {
             superClass = ReflectionClass._recursiveGet(global, superClass.split('.'));
         }
 
-        return this._constructor.prototype instanceof superClass;
+        return this._constructor.prototype instanceof superClass
+            || (this._isInterface && mixins.getParents(this._constructor).includes(superClass));
     }
 
     /**
@@ -359,7 +360,8 @@ class ReflectionClass {
 
         return this._constructor === superClass
             || this._constructor === new ReflectionClass(superClass).getConstructor()
-            || this._constructor.prototype instanceof superClass;
+            || this._constructor.prototype instanceof superClass
+            || (this._isInterface && mixins.getParents(this._constructor).includes(superClass));
     }
 
     /**
