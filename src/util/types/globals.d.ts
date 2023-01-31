@@ -383,6 +383,7 @@ declare module NodeJS {
         mixins: {
             isInterface: <T extends Newable<any>>(mixin: T) => boolean,
             isTrait: <T extends Newable<any>>(mixin: T) => boolean,
+            getParents: <T extends Newable>(Class: T) => MixinInterface<T>[],
             getInterfaces: <T extends Newable>(Class: T) => MixinInterface<T>[],
             getTraits: <T extends Newable>(Class: T) => MixinInterface<T>[],
 

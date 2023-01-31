@@ -13,6 +13,7 @@ globalThis.getTrait = function getTrait(definition) {
 globalThis.mixins = {
     isInterface: Interfaces.isInterface,
     isTrait: Traits.isTrait,
+    getParents: Mixins.getParents,
     getInterfaces: (Class) => Class[Mixins.appliedInterfacesSymbol] || [],
     getTraits: (Class) => Class[Mixins.appliedTraitsSymbol] || [],
 

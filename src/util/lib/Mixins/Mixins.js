@@ -68,7 +68,24 @@ class Mixins {
      * @returns {*[]}
      */
     static getParents(definition) {
-        return definition[symSuperInterfaces];
+        if (definition[symOuterMixin]) {
+            definition = definition[symOuterMixin];
+        }
+
+        const parents = [ ...definition[symSuperInterfaces] ];
+
+        let last = [ ...parents ];
+        do {
+            const current = [];
+            for (const p of last) {
+                current.push(...(p[symSuperInterfaces] || []));
+            }
+
+            parents.push(...current);
+            last = current;
+        } while (0 < last.length);
+
+        return parents;
     }
 
     /**
