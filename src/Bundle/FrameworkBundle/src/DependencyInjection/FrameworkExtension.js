@@ -7,6 +7,7 @@ const ChildDefinition = Jymfony.Component.DependencyInjection.ChildDefinition;
 const Configuration = Jymfony.Bundle.FrameworkBundle.DependencyInjection.Configuration;
 const Container = Jymfony.Component.DependencyInjection.Container;
 const ContainerBuilder = Jymfony.Component.DependencyInjection.ContainerBuilder;
+const Definition = Jymfony.Component.DependencyInjection.Definition;
 const DirectoryResource = Jymfony.Component.Config.Resource.DirectoryResource;
 const Extension = Jymfony.Component.DependencyInjection.Extension.Extension;
 const FileLocator = Jymfony.Component.Config.FileLocator;
@@ -78,7 +79,7 @@ export default class FrameworkExtension extends Extension {
             this._registerMessengerConfiguration(config.messenger, container, loader, config.validation);
         }
 
-        this._registerHttpClientConfiguration(config.http_client, container, loader, {} /* config.profiler */);
+        this._registerHttpClientConfiguration(config.http_client, container, loader, { enabled: false } /* config.profiler */);
 
         container.registerForAutoconfiguration('Jymfony.Component.Console.Command.Command').addTag('console.command');
         container.registerForAutoconfiguration('Jymfony.Component.DependencyInjection.ServiceLocator').addTag('container.service_locator');
@@ -567,7 +568,7 @@ export default class FrameworkExtension extends Extension {
             return;
         }
 
-        loader.load('http_client.js');
+        loader.load('http-client.js');
 
         const options = config.default_options || {};
         const retryOptions = options.retry_failed || { enabled: false };
@@ -597,7 +598,7 @@ export default class FrameworkExtension extends Extension {
                 delete scopeConfig.base_uri;
 
                 container.register(name, ScopingHttpClient)
-                    .setFactory(ScopingHttpClient.forBaseUri)
+                    .setFactory('Jymfony.Component.HttpClient.ScopingHttpClient#forBaseUri')
                     .setArguments([ new Reference(httpClientId), baseUri, scopeConfig ])
                     .addTag('http_client.client')
                 ;

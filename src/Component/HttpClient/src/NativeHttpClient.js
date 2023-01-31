@@ -298,7 +298,7 @@ export default class NativeHttpClient extends implementationOf(
                 await dnsResolve(proxy.hostname, context, info, onProgress);
             }
 
-            return [ this._createRedirectResolver(options, host, proxy, info, onProgress), url ];
+            return [ this._createRedirectResolver(options, host, proxy, info, onProgress), url, host ];
         };
 
         if ('' !== url.username && ! options.normalized_headers['authorization']) {
@@ -391,7 +391,7 @@ export default class NativeHttpClient extends implementationOf(
                 await dnsResolve(proxy.hostname, context, info, onProgress);
             }
 
-            return url;
+            return [ url, host ];
         };
     };
 }
