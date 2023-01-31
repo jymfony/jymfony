@@ -7,6 +7,7 @@ const InvalidOptionException = Jymfony.Component.Console.Exception.InvalidOption
 const JymfonyStyle = Jymfony.Component.Console.Style.JymfonyStyle;
 const OutputInterface = Jymfony.Component.Console.Output.OutputInterface;
 const StopWorkerOnMessageLimitListener = Jymfony.Component.Messenger.EventListener.StopWorkerOnMessageLimitListener;
+const Worker = Jymfony.Component.Messenger.Worker;
 
 /**
  * @memberOf Jymfony.Component.Messenger.Command
@@ -171,12 +172,12 @@ Use the --no-reset option to prevent services resetting after each message (may 
                 throw new RuntimeException(message);
             }
 
-            receivers[receiverName] = this._receiverLocator.get(receiverName);
+            receivers[receiverName] = await this._receiverLocator.get(receiverName);
         }
 
         let stopsWhen = [];
         const limit = input.getOption('limit');
-        if (null !== input) {
+        if (undefined !== limit && null !== limit) {
             if (!isNumeric(limit) || 0 >= limit) {
                 throw new InvalidOptionException(__jymfony.sprintf('Option "limit" must be a positive integer, "%s" passed.', limit));
             }

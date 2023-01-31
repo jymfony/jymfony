@@ -71,9 +71,7 @@ container.register('messenger.transport_factory', Jymfony.Component.Messenger.Tr
 // container.register('messenger.transport.redis.factory', RedisTransportFactory);
 
 container.register('messenger.transport.sync.factory', Jymfony.Component.Messenger.Transport.Sync.SyncTransportFactory)
-    .setArguments([
-        new Reference('messenger.routable_message_bus'),
-    ])
+    .addProperty('_messageBus', new Reference('messenger.routable_message_bus'))
     .addTag('messenger.transport_factory');
 
 container.register('messenger.transport.in_memory.factory', Jymfony.Component.Messenger.Transport.InMemoryTransportFactory)

@@ -586,6 +586,27 @@ export default class Configuration extends implementationOf(ConfigurationInterfa
                         .arrayNode('routing')
                             .normalizeKeys(false)
                             .useAttributeAsKey('message_class')
+                            .beforeNormalization()
+                                .always()
+                                .then(config => {
+                                    if (! isObjectLiteral(config)) {
+                                        return {};
+                                    }
+
+                                    const newConfig = {};
+                                    for (const [ k, v ] of __jymfony.getEntries(config)) {
+                                        if (! isNumeric(k)) {
+                                            newConfig[k] = {
+                                                senders: v.senders || (isArray(v) ? v : [ v ]),
+                                            };
+                                        } else {
+                                            newConfig[v['message-class']].senders = v.sender.map(a => isString(a) ? a : a.service);
+                                        }
+                                    }
+
+                                    return newConfig;
+                                })
+                            .end()
                             .prototype('array')
                                 .performNoDeepMerging()
                                 .children()
