@@ -94,6 +94,7 @@ export default class FrameworkExtension extends Extension {
 
         container.registerForAutoconfiguration('Jymfony.Component.HttpServer.Controller.ArgumentValueResolverInterface').addTag('controller.argument_value_resolver');
         container.registerForAutoconfiguration('Jymfony.Component.Mime.MimeTypeGuesserInterface').addTag('mime.mime_type_guesser');
+        container.registerForAutoconfiguration('Jymfony.Component.Messenger.Transport.TransportFactoryInterface').addTag('messenger.transport_factory');
         container.registerForAutoconfiguration('Jymfony.Contracts.Logger.LoggerAwareInterface')
             .addMethodCall('setLogger', [ new Reference('logger', ContainerBuilder.IGNORE_ON_INVALID_REFERENCE) ]);
     }
