@@ -720,4 +720,22 @@ export default class HttpClientTestCase extends TestCase {
             __self.addToAssertionCount(1);
         }
     }
+
+    async testLongFile() {
+        const client = this.getHttpClient();
+        const response = client.request('GET', 'http://localhost:8057/long-file');
+
+        const content = await response.getContent();
+        const decoded = Buffer.from(content.toString(), 'base64');
+        __self.assertEquals(decoded.length, 80 * 1024);
+    }
+
+    async testLongFileCompressed() {
+        const client = this.getHttpClient();
+        const response = client.request('GET', 'http://localhost:8057/long-file-compressed');
+
+        const content = await response.getContent();
+        const decoded = Buffer.from(content.toString(), 'base64');
+        __self.assertEquals(decoded.length, 80 * 1024);
+    }
 }

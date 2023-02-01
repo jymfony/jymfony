@@ -25,6 +25,7 @@ export default class DecodingStream extends Transform {
             case __self.ENCODING_NONE:
             default:
                 contentStream = new PassThrough();
+                contentStream.setMaxListeners(20);
         }
 
         /**
@@ -33,6 +34,7 @@ export default class DecodingStream extends Transform {
          * @private
          */
         this._stream = contentStream;
+        this._stream.on('data', data => this.push(data));
 
         /**
          * @type {function(currentSize: int): void}
@@ -64,9 +66,11 @@ export default class DecodingStream extends Transform {
             } catch (e) {
                 callback(e);
                 return;
+            } finally {
+                this._stream.off('error', callback);
             }
 
-            callback(null, this._stream.read());
+            callback(null, null);
         });
     }
 }

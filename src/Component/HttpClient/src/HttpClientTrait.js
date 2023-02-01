@@ -242,12 +242,13 @@ class HttpClientTrait {
         if (resolve) {
             options.resolve = {};
             for (const [ k, v ] of __jymfony.getEntries(resolve)) {
-                options.resolve[HttpClientTrait.prototype._parseUrl('http://' + k).authority.substr(2)] = String(v);
+                options.resolve[HttpClientTrait.prototype._parseUrl('http://' + k).authority.substring(2)] = String(v);
             }
         }
 
         // Option "query" is never inherited from defaults
         options.query = options.query || {};
+        options = { ...defaultOptions, ...options };
 
         for (const [ k, v ] of __jymfony.getEntries(defaultOptions)) {
             if ('normalized_headers' === k || 'headers' === k) {
@@ -456,7 +457,7 @@ class HttpClientTrait {
         }
 
         if (! contentType.includes(';')) {
-            contentType = contentType.substr(0, contentType.indexOf(';'));
+            contentType = contentType.substring(0, contentType.indexOf(';'));
         }
 
         return contentType && contentType.match(/^(?:text\/|application\/(?:.+\+)?(?:json|xml)$)/i);
