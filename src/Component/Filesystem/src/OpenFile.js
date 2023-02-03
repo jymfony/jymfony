@@ -14,7 +14,7 @@ export default class OpenFile extends File {
          *
          * @private
          */
-        this._resource = undefined;
+        this._internalResource = undefined;
 
         /**
          * Whether the file is closed or not.
@@ -25,10 +25,22 @@ export default class OpenFile extends File {
          */
         this._closed = false;
 
-        return (async () => {
-            this._resource = await this._streamWrapper.streamOpen(this.filename, mode);
+        /**
+         * @type {string}
+         *
+         * @private
+         */
+        this._mode = mode;
+    }
 
-            return this;
+    get _resource() {
+        return (async () => {
+            if (this._internalResource !== undefined) {
+                return this._internalResource;
+            }
+
+            this._internalResource = await this._streamWrapper.streamOpen(this.filename, this._mode);
+            return this._internalResource;
         })();
     }
 

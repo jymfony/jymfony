@@ -3,14 +3,15 @@ declare namespace Jymfony.Component.Filesystem {
         /**
          * Open file's resource.
          */
-        private _resource?: Promise<any>;
+        private _internalResource?: Promise<any>;
+        private readonly _resource?: Promise<any>;
 
         /**
          * Whether the file is closed or not.
          */
         private _closed: boolean;
 
-        __construct(fileName: string, mode?: string): Promise<OpenFile>;
+        __construct(fileName: string, mode?: string): void;
         constructor(fileName: string, mode?: string);
 
         /**

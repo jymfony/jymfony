@@ -158,8 +158,11 @@ export default class File {
      *
      * @returns {Promise<Jymfony.Component.Filesystem.OpenFile>}
      */
-    openFile(mode = 'r') {
-        return new OpenFile(this.filename, mode);
+    async openFile(mode = 'r') {
+        const of = new OpenFile(this.filename, mode);
+        await of._resource;
+
+        return of;
     }
 
     /**

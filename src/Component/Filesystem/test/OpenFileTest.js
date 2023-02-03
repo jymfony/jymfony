@@ -16,7 +16,7 @@ export default class OpenFileTest extends TestCase {
     }
 
     async testFgetcShouldReadOneByteFromStream() {
-        const file = await new OpenFile(__dirname + '/../fixtures/TESTFILE.txt', 'r');
+        const file = new OpenFile(__dirname + '/../fixtures/TESTFILE.txt', 'r');
         __self.assertEquals('T'.charCodeAt(0), await file.fgetc());
         __self.assertEquals('H'.charCodeAt(0), await file.fgetc());
         __self.assertEquals('I'.charCodeAt(0), await file.fgetc());
@@ -25,7 +25,7 @@ export default class OpenFileTest extends TestCase {
     }
 
     async testFreadShouldReadFromStream() {
-        const file = await new OpenFile(__dirname + '/../fixtures/TESTFILE.txt', 'r');
+        const file = new OpenFile(__dirname + '/../fixtures/TESTFILE.txt', 'r');
         __self.assertEquals(Buffer.from('THIS IS'), await file.fread(7));
         __self.assertEquals(Buffer.from(' A TEST'), await file.fread(7));
         __self.assertEquals(Buffer.from('\n'), await file.fread(7));
@@ -35,7 +35,7 @@ export default class OpenFileTest extends TestCase {
     }
 
     async testCreateReadableStreamShouldReturnAStream() {
-        const file = await new OpenFile(__dirname + '/../fixtures/TESTFILE.txt', 'r');
+        const file = new OpenFile(__dirname + '/../fixtures/TESTFILE.txt', 'r');
         const readable = await file.createReadableStream();
 
         __self.assertInstanceOf(Readable, readable);
@@ -58,7 +58,7 @@ export default class OpenFileTest extends TestCase {
 
     async testCreateWritableStreamShouldReturnAStream() {
         const path = __dirname + '/../fixtures/WRITEFILE';
-        const file = await new OpenFile(path, 'w');
+        const file = new OpenFile(path, 'w');
         const writable = await file.createWritableStream();
 
         __self.assertInstanceOf(Writable, writable);
@@ -73,7 +73,7 @@ export default class OpenFileTest extends TestCase {
     }
 
     async testFwriteShouldWriteToFile() {
-        const file = await new OpenFile(__dirname + '/../fixtures/WRITEFILE', 'w');
+        const file = new OpenFile(__dirname + '/../fixtures/WRITEFILE', 'w');
         __self.assertEquals(9, await file.fwrite(Buffer.from('TEST FILE')));
 
         fsyncSync((await file._resource).handle.fd);
@@ -83,7 +83,7 @@ export default class OpenFileTest extends TestCase {
     }
 
     async testFtruncateShouldTruncateToSize() {
-        const file = await new OpenFile(__dirname + '/../fixtures/WRITEFILE', 'w');
+        const file = new OpenFile(__dirname + '/../fixtures/WRITEFILE', 'w');
         await file.ftruncate(0);
         __self.assertEquals(0, await file.getSize());
 
