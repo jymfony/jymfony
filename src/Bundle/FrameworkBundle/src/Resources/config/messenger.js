@@ -41,11 +41,11 @@ container.register('messenger.middleware.dispatch_after_current_bus', Jymfony.Co
 container.register('messenger.middleware.failed_message_processing_middleware', Jymfony.Component.Messenger.Middleware.FailedMessageProcessingMiddleware)
     .setAbstract(true);
 
-// container.register('messenger.middleware.traceable', Jymfony.Component.Messenger.Middleware.TraceableMiddleware)
-//     .setAbstract(true)
-//     .setArguments([
-//         new Reference('debug.stopwatch'),
-//     ]);
+container.register('messenger.middleware.traceable', Jymfony.Component.Messenger.Middleware.TraceableMiddleware)
+    .setAbstract(true)
+    .setArguments([
+        new Reference('debug.stopwatch'),
+    ]);
 
 // container.register('messenger.middleware.router_context', Jymfony.Component.Messenger.Middleware.RouterContextMiddleware)
 //     .setAbstract(true)
@@ -120,18 +120,15 @@ container.register('messenger.failure.add_error_details_stamp_listener', Jymfony
 //         new Reference('logger', Container.IGNORE_ON_INVALID_REFERENCE),
 //     ])
 //     .addTag('kernel.event_subscriber')
-//     .addTag('jymfony.logger', { channel: 'messenger' })
+//     .addTag('jymfony.logger', { channel: 'messenger' });
 //
-// container.register('messenger.listener.dispatch_pcntl_signal_listener', DispatchPcntlSignalListener)
-//     .addTag('kernel.event_subscriber')
-//
-// container.register('messenger.listener.stop_worker_on_restart_signal_listener', StopWorkerOnRestartSignalListener)
-//     .setArguments([
-//         new Reference('cache.messenger.restart_workers_signal'),
-//         new Reference('logger', Container.IGNORE_ON_INVALID_REFERENCE),
-//     ])
-//     .addTag('kernel.event_subscriber')
-//     .addTag('jymfony.logger', { channel: 'messenger' })
+container.register('messenger.listener.stop_worker_on_restart_signal_listener', Jymfony.Component.Messenger.EventListener.StopWorkerOnRestartSignalListener)
+    .setArguments([
+        new Reference('cache.messenger.restart_workers_signal'),
+        new Reference('logger', Container.IGNORE_ON_INVALID_REFERENCE),
+    ])
+    .addTag('kernel.event_subscriber')
+    .addTag('jymfony.logger', { channel: 'messenger' });
 
 container.register('messenger.listener.stop_worker_on_sigterm_signal_listener', Jymfony.Component.Messenger.EventListener.StopWorkerOnSigtermSignalListener)
     .setArguments([
@@ -166,3 +163,9 @@ container.register('console.command.messenger_consume_messages', Jymfony.Compone
 //         [], // Receiver names
 //     ])
 //     .addTag('console.command');
+
+container.register('console.command.messenger_stop_workers', Jymfony.Component.Messenger.Command.StopWorkersCommand)
+    .setArguments([
+        new Reference('cache.messenger.restart_workers_signal'),
+    ])
+    .addTag('console.command');

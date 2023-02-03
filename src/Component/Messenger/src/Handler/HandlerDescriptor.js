@@ -32,30 +32,24 @@ export default class HandlerDescriptor {
          */
         this._options = options;
 
-        debugger;
-        dd(this._handler.name);
-
         /**
          * @type {string}
          *
          * @private
          */
-        this._name = '';
-        // const r = new ReflectionFunction(handler);
-        //
-        // if (str_contains($r->name, '{closure}')) {
-        //     $this->name = 'Closure';
-        // } elseif (!$handler = $r->getClosureThis()) {
-        //     $class = $r->getClosureScopeClass();
-        //
-        //     $this->name = ($class ? $class->name.'::' : '').$r->name;
-        // } else {
-        //     if ($handler instanceof BatchHandlerInterface) {
-        //         $this->batchHandler = $handler;
-        //     }
-        //
-        //     $this->name = \get_class($handler).'::'.$r->name;
-        // }
+        this._name = ReflectionClass.getClassName(this._handler);
+        if (this._name.startsWith('_anonymous_xΞ')) {
+            this._name = 'Closure';
+        } else if (this._name.startsWith('bound ')) {
+            this._name = this._name.substring(6) || 'Closure';
+        } else if ('innerObject' in this._handler && this._handler.innerObject instanceof BoundFunction) {
+            const { innerObject } = this._handler;
+            this._name = ReflectionClass.getClassName(innerObject.getObject()) + '#' + this._handler.name;
+        } else if ('__invoke' in this._handler) {
+            this._name += '#__invoke';
+        } else if ('' === this._name || 'Object' === this._name) {
+            this._name = 'Closure';
+        }
     }
 
     /**

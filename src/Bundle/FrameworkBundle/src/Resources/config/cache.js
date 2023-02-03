@@ -18,6 +18,11 @@ container.setDefinition('cache.validator', new ChildDefinition('cache.system'))
     .addTag('cache.pool')
 ;
 
+container.setDefinition('cache.messenger.restart_workers_signal', new ChildDefinition('cache.app'))
+    .setPublic(false)
+    .addTag('cache.pool')
+;
+
 container.register('cache.adapter.system', Jymfony.Contracts.Cache.CacheItemPoolInterface)
     .setAbstract(true)
     .setFactory('Jymfony.Component.Cache.Adapter.AbstractAdapter#createSystemCache')

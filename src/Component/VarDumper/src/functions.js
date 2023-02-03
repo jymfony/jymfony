@@ -1,4 +1,4 @@
-global.dump = (variable, ...moreVars) => {
+global.dump = function dump(variable, ...moreVars) {
     Jymfony.Component.VarDumper.VarDumper.dump(variable);
 
     for (const v of moreVars) {
@@ -12,7 +12,7 @@ global.dump = (variable, ...moreVars) => {
     return variable;
 };
 
-global.dd = (...vars) => {
+global.dd = function dd(...vars) {
     for (const v of vars) {
         Jymfony.Component.VarDumper.VarDumper.dump(v);
     }

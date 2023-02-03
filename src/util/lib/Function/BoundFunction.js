@@ -48,6 +48,16 @@ class BoundFunction {
                         return Reflect.get(target, name, receiver);
                 }
             },
+            has(target, p) {
+                switch (p) {
+                    case 'innerObject':
+                    case 'equals':
+                        return true;
+
+                    default:
+                        return Reflect.has(target, p);
+                }
+            },
             apply: (target, thisArg1, argArray) => {
                 return this._func.apply(this._thisArg, argArray);
             },

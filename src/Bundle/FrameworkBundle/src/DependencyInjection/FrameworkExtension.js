@@ -77,6 +77,8 @@ export default class FrameworkExtension extends Extension {
         // Messenger depends on validation being registered
         if (this._messengerConfigEnabled = this._isConfigEnabled(container, config.messenger)) {
             this._registerMessengerConfiguration(config.messenger, container, loader, config.validation);
+        } else {
+            container.removeDefinition('cache.messenger.restart_workers_signal');
         }
 
         this._registerHttpClientConfiguration(config.http_client, container, loader, { enabled: false } /* config.profiler */);
@@ -96,6 +98,7 @@ export default class FrameworkExtension extends Extension {
         container.registerForAutoconfiguration('Jymfony.Component.HttpServer.Controller.ArgumentValueResolverInterface').addTag('controller.argument_value_resolver');
         container.registerForAutoconfiguration('Jymfony.Component.Mime.MimeTypeGuesserInterface').addTag('mime.mime_type_guesser');
         container.registerForAutoconfiguration('Jymfony.Component.Messenger.Transport.TransportFactoryInterface').addTag('messenger.transport_factory');
+        container.registerForAutoconfiguration('Jymfony.Component.Messenger.Handler.MessageHandlerInterface').addTag('messenger.message_handler');
         container.registerForAutoconfiguration('Jymfony.Contracts.Logger.LoggerAwareInterface')
             .addMethodCall('setLogger', [ new Reference('logger', ContainerBuilder.IGNORE_ON_INVALID_REFERENCE) ]);
     }
@@ -767,9 +770,11 @@ export default class FrameworkExtension extends Extension {
                 }
             }
 
-            // if (container.getParameter('kernel.debug') && ReflectionClass.exists('Jymfony.Component.Stopwatch.Stopwatch')) {
-            //     middleware.unshift({ id: 'traceable', arguments: [ busId ] });
-            // }
+            if (container.getParameter('kernel.debug') && ReflectionClass.exists('Jymfony.Component.Stopwatch.Stopwatch')) {
+                middleware.unshift({ id: 'traceable', arguments: [ busId ] });
+            } else {
+                container.removeDefinition('messenger.middleware.traceable');
+            }
 
             container.setParameter(busId + '.middleware', middleware);
             container.register(busId, 'Jymfony.Component.Messenger.MessageBus').addArgument([]).addTag('messenger.bus');
