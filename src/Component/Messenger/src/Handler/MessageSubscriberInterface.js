@@ -35,3 +35,5 @@ class MessageSubscriberInterface extends MessageHandlerInterface.definition {
      */
     static getHandledMessages() { }
 }
+
+export default getInterface(MessageSubscriberInterface);

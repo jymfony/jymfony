@@ -27,7 +27,7 @@ export default class Envelope {
         this._message = message;
 
         for (const stamp of stamps) {
-            const kl = ReflectionClass.getClass(stamp);
+            const kl = ReflectionClass.getClassName(stamp);
             if (this._stamps[kl] === undefined) {
                 this._stamps[kl] = [];
             }
