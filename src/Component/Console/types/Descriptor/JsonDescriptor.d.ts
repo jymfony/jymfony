@@ -37,7 +37,7 @@ declare namespace Jymfony.Component.Console.Descriptor {
 
         private _getInputArgumentData(argument: InputArgument): Record<string, string|boolean|number>;
 
-        private _getInputOptionData(option: InputOption): Record<string, string|boolean|number>;
+        private _getInputOptionData(option: InputOption, negate?: boolean): Record<string, string|boolean|number>;
 
         private _getInputDefinitionData(definition: InputDefinition): any;
 

@@ -14,6 +14,16 @@ Jymfony.Component.Console = {
     /**
      * @namespace
      */
+    Completion: {
+        /**
+         * @namespace
+         */
+        Output: {},
+    },
+
+    /**
+     * @namespace
+     */
     DependencyInjection: {},
 
     /**

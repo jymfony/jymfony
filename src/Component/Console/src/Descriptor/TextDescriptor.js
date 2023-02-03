@@ -54,7 +54,7 @@ export default class TextDescriptor extends Descriptor {
         const totalWidth = options.total_width || this._calculateTotalWidthForOptions([ option ]);
         const synopsis = __jymfony.sprintf('%s%s',
             option.getShortcut() ? __jymfony.sprintf('-%s, ', option.getShortcut()) : '    ',
-            __jymfony.sprintf('--%s%s', option.getName(), value)
+            __jymfony.sprintf(option.isNegatable() ? '--%1$s|--no-%1$s' : '--%1$s%2$s', option.getName(), value)
         );
 
         const spacingWidth = totalWidth - synopsis.length;
@@ -281,7 +281,9 @@ export default class TextDescriptor extends Descriptor {
             // "-" + shortcut + ", --" + name
             let nameLength = 1 + Math.max(option.getShortcut().length, 1) + 4 + option.getName().length;
 
-            if (option.acceptValue()) {
+            if (option.isNegatable()) {
+                nameLength += 6 + option.getName().length; // |--no- + name
+            } else if (option.acceptValue()) {
                 let valueLength = 1 + option.getName().length; // = + value
                 valueLength += option.isValueOptional() ? 2 : 0; // [ + ]
 

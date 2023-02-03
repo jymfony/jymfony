@@ -45,13 +45,26 @@ export default class Command extends implementationOf(CommandInterface) {
          */
         this._application = undefined;
 
-        if (name || (name = this.constructor.defaultName)) {
-            this.name = name;
+        if (undefined === name || null === name) {
+            name = this.constructor.defaultName;
         }
 
+        if (!! name) {
+            const aliases = name.split('|');
+            name = aliases.shift();
+
+            if ('' === name) {
+                this.hidden = true;
+                name = aliases.shift();
+            }
+
+            this.aliases = aliases;
+        }
+
+        this.name = name;
         this.configure();
 
-        if (! this.name) {
+        if (null === this.name || undefined === this.name) {
             throw new LogicException(
                 __jymfony.sprintf('The command defined in "%s" cannot have an empty name.', ReflectionClass.getClassName(this))
             );
@@ -207,6 +220,15 @@ export default class Command extends implementationOf(CommandInterface) {
         const statusCode = await (undefined !== this._code ? this._code(input, output) : this.execute(input, output));
 
         return ! Number.isNaN(statusCode) ? ~~statusCode : 0;
+    }
+
+    /**
+     * Adds suggestions to $suggestions for the current completion input (e.g. option or argument).
+     *
+     * @param {Jymfony.Component.Console.Completion.CompletionInput} input
+     * @param {Jymfony.Component.Console.Completion.CompletionSuggestions} suggestions
+     */
+    async complete(input, suggestions) { // eslint-disable-line no-unused-vars
     }
 
     /**
@@ -516,3 +538,7 @@ export default class Command extends implementationOf(CommandInterface) {
         }
     }
 }
+
+Object.defineProperty(Command, 'SUCCESS', { value: 0, writable: false });
+Object.defineProperty(Command, 'FAILURE', { value: 1, writable: false });
+Object.defineProperty(Command, 'INVALID', { value: 2, writable: false });

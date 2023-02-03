@@ -72,8 +72,18 @@ export default class InputOption {
          */
         this._description = description;
 
+        /**
+         * @type {*}
+         *
+         * @private
+         */
+        this._default = null;
+
         if (this.isArray() && ! this.acceptValue()) {
             throw new InvalidArgumentException('Impossible to have an option mode VALUE_IS_ARRAY if the option does not accept a value.');
+        }
+        if (this.isNegatable() && this.acceptValue()) {
+            throw new InvalidArgumentException('Impossible to have an option mode VALUE_NEGATABLE if the option also accepts a value.');
         }
 
         this.setDefault(defaultValue);
@@ -134,6 +144,15 @@ export default class InputOption {
     }
 
     /**
+     * Whether the option is negatable (has "no-" variant).
+     *
+     * @returns {boolean}
+     */
+    isNegatable() {
+        return InputOption.VALUE_NEGATABLE === (this._mode & InputOption.VALUE_NEGATABLE);
+    }
+
+    /**
      * Sets the default value
      *
      * @param {*} defaultValue
@@ -153,12 +172,7 @@ export default class InputOption {
             }
         }
 
-        /**
-         * @type {*}
-         *
-         * @private
-         */
-        this._default = this.acceptValue() ? defaultValue : false;
+        this._default = this.acceptValue() || this.isNegatable() ? defaultValue : false;
     }
 
     /**
@@ -190,6 +204,7 @@ export default class InputOption {
         return option.getName() === this.getName()
             && option.getShortcut() === this.getShortcut()
             && option.getDefault() === this.getDefault()
+            && option.isNegatable() === this.isNegatable()
             && option.isArray() === this.isArray()
             && option.isValueRequired() === this.isValueRequired()
             && option.isValueOptional() === this.isValueOptional()
@@ -197,7 +212,10 @@ export default class InputOption {
     }
 }
 
-InputOption.VALUE_NONE = 1;
-InputOption.VALUE_REQUIRED = 2;
-InputOption.VALUE_OPTIONAL = 4;
-InputOption.VALUE_IS_ARRAY = 8;
+Object.defineProperties(InputOption, {
+    VALUE_NONE: { value: 1, writable: false },
+    VALUE_REQUIRED: { value: 2, writable: false },
+    VALUE_OPTIONAL: { value: 4, writable: false },
+    VALUE_IS_ARRAY: { value: 8, writable: false },
+    VALUE_NEGATABLE: { value: 16, writable: false },
+});

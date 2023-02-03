@@ -6,6 +6,7 @@ declare namespace Jymfony.Component.Console.Input {
         private _hasOptional: boolean;
         private _hasAnArrayArgument: boolean;
         private _shortcuts: Record<string, string>;
+        private _negations: Record<string, string>;
 
         /**
          * Constructor.
@@ -97,6 +98,24 @@ declare namespace Jymfony.Component.Console.Input {
          * Gets the option for shortcut.
          */
         getOptionForShortcut(shortcut: string): InputOption;
+
+        /**
+         * Returns the InputOption name given a shortcut.
+         *
+         * @throws {InvalidArgumentException} When option given does not exist
+         *
+         * @internal
+         */
+        shortcutToName(shortcut: string): string;
+
+        /**
+         * Returns the InputOption name given a negation.
+         *
+         * @throws {InvalidArgumentException} When option given does not exist
+         *
+         * @internal
+         */
+        negationToName(negation: string): string;
 
         /**
          * Get default option values.

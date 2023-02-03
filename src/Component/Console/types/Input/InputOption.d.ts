@@ -4,6 +4,7 @@ declare namespace Jymfony.Component.Console.Input {
         public static readonly VALUE_REQUIRED = 2;
         public static readonly VALUE_OPTIONAL = 4;
         public static readonly VALUE_IS_ARRAY = 8;
+        public static readonly VALUE_NEGATABLE = 8;
 
         private _name: string;
         private _shortcut: string;
@@ -46,6 +47,11 @@ declare namespace Jymfony.Component.Console.Input {
          * Whether the argument is an array.
          */
         isArray(): boolean;
+
+        /**
+         * Whether the option is negatable (has "no-" variant).
+         */
+        isNegatable(): boolean;
 
         /**
          * Sets the default value

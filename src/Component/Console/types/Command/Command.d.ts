@@ -1,15 +1,21 @@
 declare namespace Jymfony.Component.Console.Command {
+    import CommandInterface = Jymfony.Contracts.Console.CommandInterface;
+    import CompletionInput = Jymfony.Component.Console.Completion.CompletionInput;
+    import CompletionSuggestions = Jymfony.Component.Console.Completion.CompletionSuggestions;
     import InputDefinition = Jymfony.Component.Console.Input.InputDefinition;
     import InputArgument = Jymfony.Component.Console.Input.InputArgument;
+    import InputInterface = Jymfony.Component.Console.Input.InputInterface;
     import InputOption = Jymfony.Component.Console.Input.InputOption;
     import OutputInterface = Jymfony.Component.Console.Output.OutputInterface;
-    import InputInterface = Jymfony.Component.Console.Input.InputInterface;
-    import CommandInterface = Jymfony.Contracts.Console.CommandInterface;
 
     /**
      * Base class for all commands.
      */
     export class Command extends implementationOf(CommandInterface) {
+        public static readonly SUCCESS: number;
+        public static readonly FAILURE: number;
+        public static readonly INVALID: number;
+
         /**
          * The command default name.
          */
@@ -173,6 +179,11 @@ declare namespace Jymfony.Component.Console.Command {
          * @see execute()
          */
         run(input: InputInterface, output: OutputInterface): Promise<number>;
+
+        /**
+         * Adds suggestions to $suggestions for the current completion input (e.g. option or argument).
+         */
+        complete(input: CompletionInput, suggestions: CompletionSuggestions): Promise<void>;
 
         /**
          * Merges the application definition with the command definition.
