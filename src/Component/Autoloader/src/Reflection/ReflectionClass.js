@@ -153,10 +153,41 @@ class ReflectionClass {
      * @returns {*}
      */
     newInstanceWithoutConstructor() {
-        const surrogateCtor = function () { };
+        const surrogateCtor = function _reflectionClass_surrogateCtor_() { };
         surrogateCtor.prototype = this._constructor.prototype;
 
-        return new surrogateCtor();
+        const obj = new surrogateCtor();
+        if (this.hasMethod('__invoke')) {
+            return new __jymfony.ManagedProxy(obj.__invoke, proxy => {
+                proxy.target = obj;
+                return null;
+            }, {
+                get: (target, key) => {
+                    if ('__self__' === key) {
+                        return target;
+                    }
+
+                    return Reflect.get(target, key);
+                },
+                apply: (target, ctx, args) => {
+                    return target.__invoke(...args);
+                },
+                preventExtensions: (target) => {
+                    Reflect.preventExtensions(target);
+
+                    return false;
+                },
+                getOwnPropertyDescriptor: (target, key) => {
+                    if ('__self__' === key) {
+                        return { configurable: true, enumerable: false };
+                    }
+
+                    return Reflect.getOwnPropertyDescriptor(target, key);
+                },
+            });
+        }
+
+        return obj;
     }
 
     /**

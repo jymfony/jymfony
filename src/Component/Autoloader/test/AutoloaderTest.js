@@ -84,4 +84,36 @@ describe('[Autoloader] Autoloader', () => {
         expect(InvokeCalled).to.be.deep.equal([ 'foo', 'bar' ]);
         expect(MethodCalled).to.be.true;
     });
+
+    // it('JObject __invoke could access private methods', __jymfony.Platform.hasPrivateMethodsSupport() ? () => {
+    //     const glob = {
+    //         Symbol: {},
+    //     };
+    //     const autoloader = new Autoloader({
+    //         findRoot: () => {
+    //             return __dirname + '/..';
+    //         },
+    //         listModules: () => [],
+    //     }, glob);
+    //     autoloader.register();
+    //
+    //     let MethodCalled = false;
+    //
+    //     let cl;
+    //     eval(`cl = class TestClass extends glob.__jymfony.JObject {
+    //         __invoke() {
+    //             this.#privateMethod()
+    //         }
+    //
+    //         #privateMethod() {
+    //             MethodCalled = true;
+    //         }
+    //     }`);
+    //
+    //     const obj = new cl();
+    //     obj();
+    //
+    //     expect(obj instanceof cl).to.be.true;
+    //     expect(MethodCalled).to.be.true;
+    // } : undefined);
 });
