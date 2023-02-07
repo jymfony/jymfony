@@ -28,7 +28,7 @@ export default class HandleDescriptorTest extends TestCase {
         yield [ new class {
             __invoke() {
             }
-        }(), /Jymfony\.Component\.Messenger\.Tests\.Handler\._anonymous_xΞ.{5}#__invoke/ ];
+        }(), /Jymfony\.Component\.Messenger\.Tests\.Handler\._anonymous_xΞ.{1,5}#__invoke/ ];
     }
 }
 

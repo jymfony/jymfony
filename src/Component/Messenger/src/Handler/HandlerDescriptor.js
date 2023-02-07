@@ -1,3 +1,5 @@
+const BatchHandlerInterface = Jymfony.Component.Messenger.Handler.BatchHandlerInterface;
+
 /**
  * Describes a handler and the possible associated options, such as `from_transport`, `bus`, etc.
  *
@@ -23,7 +25,7 @@ export default class HandlerDescriptor {
          * @type {Jymfony.Component.Messenger.Handler.BatchHandlerInterface | null}
          * @private
          */
-        this._batchHandler = null;
+        this._batchHandler = handler instanceof BatchHandlerInterface ? handler : null;
 
         /**
          * @type {*}
@@ -38,6 +40,11 @@ export default class HandlerDescriptor {
          * @private
          */
         this._name = ReflectionClass.getClassName(this._handler);
+        if ('_reflectionClass_surrogateCtor_' === this._name || '_jymfony_testing_doubler_double__' === this._name) {
+            const reflClass = new ReflectionClass(this._handler);
+            this._name = reflClass.getParentClass().name;
+        }
+
         if (this._name.startsWith('_anonymous_xΞ')) {
             this._name = 'Closure';
         } else if (this._name.startsWith('bound ')) {

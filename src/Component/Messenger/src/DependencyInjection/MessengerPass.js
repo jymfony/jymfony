@@ -74,10 +74,10 @@ export default class MessengerPass extends implementationOf(CompilerPassInterfac
                     handles = this._guessHandledClasses(r, serviceId);
                 }
 
-                const message = null;
+                let message = null, options = null;
                 const handlerBuses = tag.bus ? (isArray(tag.bus) ? tag.bus : [ tag.bus ]) : busIds;
 
-                for (let [ message, options ] of __jymfony.getEntries(handles)) {
+                for ([ message, options ] of __jymfony.getEntries(handles)) {
                     let buses = handlerBuses;
                     if (isNumeric(message)) {
                         if (isString(options)) {
@@ -119,15 +119,9 @@ export default class MessengerPass extends implementationOf(CompilerPassInterfac
                         throw new RuntimeException(__jymfony.sprintf('Invalid handler service "%s": method "%s.%s()" does not exist.', serviceId, r.name, method));
                     }
 
-                    let definitionId;
-                    if ('__invoke' !== method) {
-                        const wrapperDefinition = (new Definition('BoundFunction')).addArgument([ new Reference(serviceId), method ]).setFactory('getCallableFromArray');
-
-                        definitionId = '.messenger.method_on_object_wrapper.' + ContainerBuilder.hash(message + ':' + priority + ':' + serviceId + ':' + method);
-                        definitions[definitionId] = wrapperDefinition;
-                    } else {
-                        definitionId = serviceId;
-                    }
+                    const wrapperDefinition = (new Definition('BoundFunction')).addArgument([ new Reference(serviceId), method ]).setFactory('getCallableFromArray');
+                    const definitionId = '.messenger.method_on_object_wrapper.' + ContainerBuilder.hash(message + ':' + priority + ':' + serviceId + ':' + method);
+                    definitions[definitionId] = wrapperDefinition;
 
                     handlerToOriginalServiceIdMapping[definitionId] = serviceId;
 
@@ -147,7 +141,7 @@ export default class MessengerPass extends implementationOf(CompilerPassInterfac
 
         for (const [ bus, handlersByMessage ] of __jymfony.getEntries(handlersByBusAndMessage)) {
             for (const [ message, handlersByPriority ] of __jymfony.getEntries(handlersByMessage)) {
-                handlersByBusAndMessage[bus][message] = [ ...Object.values(Object.ksort(handlersByPriority)) ];
+                handlersByBusAndMessage[bus][message] = Object.values(Object.ksort(handlersByPriority)).reverse().flat(1);
             }
         }
 
@@ -161,6 +155,7 @@ export default class MessengerPass extends implementationOf(CompilerPassInterfac
                     handlerDescriptors.push(new Reference(definitionId));
                 }
 
+                handlersLocatorMappingByBus[bus] = handlersLocatorMappingByBus[bus] || {};
                 handlersLocatorMappingByBus[bus][message] = new IteratorArgument(handlerDescriptors);
             }
         }

@@ -1,6 +1,7 @@
 const AckStamp = Jymfony.Component.Messenger.Stamp.AckStamp;
 const Acknowledger = Jymfony.Component.Messenger.Handler.Acknowledger;
 const FlushBatchHandlersStamp = Jymfony.Component.Messenger.Stamp.FlushBatchHandlersStamp;
+const HandlerArgumentsStamp = Jymfony.Component.Messenger.Stamp.HandlerArgumentsStamp;
 const HandlerFailedException = Jymfony.Component.Messenger.Exception.HandlerFailedException;
 const HandledStamp = Jymfony.Component.Messenger.Stamp.HandledStamp;
 const LoggerAwareTrait = Jymfony.Contracts.Logger.LoggerAwareTrait;
@@ -81,7 +82,7 @@ export default class HandleMessageMiddleware extends implementationOf(Middleware
                         await ackStamp.ack(envelope, e);
                     });
 
-                    let result = await handler(message, ack);
+                    let result = await this._callHandler(handler, message, ack, envelope.last(HandlerArgumentsStamp));
                     if (! Number.isInteger(result) || 0 > result) {
                         throw new LogicException(__jymfony.sprintf('A handler implementing BatchHandlerInterface must return the size of the current batch as a positive integer, "%s" returned from "%s".', isNumber(result) ? result : __jymfony.get_debug_type(result), __jymfony.get_debug_type(batchHandler)));
                     }
@@ -94,7 +95,7 @@ export default class HandleMessageMiddleware extends implementationOf(Middleware
                         result = ack.result;
                     }
                 } else {
-                    result = await handler(message);
+                    result = await this._callHandler(handler, message, null, envelope.last(HandlerArgumentsStamp));
                 }
 
                 const handledStamp = HandledStamp.fromDescriptor(handlerDescriptor, result);
@@ -149,5 +150,26 @@ export default class HandleMessageMiddleware extends implementationOf(Middleware
         }
 
         return false;
+    }
+
+
+    /**
+     * @param {function(*, Jymfony.Component.Messenger.Handler.Acknowledger?): Promise<void>} handler
+     * @param {object} message
+     * @param {Jymfony.Component.Messenger.Handler.Acknowledger | null} ack
+     * @param {Jymfony.Component.Messenger.Stamp.HandlerArgumentsStamp | null} handlerArgumentsStamp
+     *
+     * @returns {Promise<*>}
+     */
+    async _callHandler(handler, message, ack, handlerArgumentsStamp) {
+        const args = [ message ];
+        if (null !== ack) {
+            args.push(ack);
+        }
+        if (null !== handlerArgumentsStamp) {
+            args.push(...handlerArgumentsStamp.additionalArguments);
+        }
+
+        return await handler(...args);
     }
 }

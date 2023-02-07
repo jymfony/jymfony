@@ -1,3 +1,5 @@
+const StampInterface = Jymfony.Component.Messenger.Stamp.StampInterface;
+
 /**
  * Stamp identifying a message handled by the `HandleMessageMiddleware` middleware
  * and storing the handler returned value.

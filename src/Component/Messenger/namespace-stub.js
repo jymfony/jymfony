@@ -49,6 +49,11 @@ Jymfony.Component.Messenger = {
     /**
      * @namespace
      */
+    Test: {},
+
+    /**
+     * @namespace
+     */
     Transport: {
         /**
          * @namespace
