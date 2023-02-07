@@ -29,7 +29,7 @@ export default class ClassGenerator {
      */
     generate() {
         const self = this;
-        const mirrorClass = class extends mix(this._superClass, ...this._interfaces) { };
+        const mirrorClass = class _jymfony_testing_doubler_double__ extends mix(this._superClass, ...this._interfaces) { };
 
         // Reset reflection metadata
         delete mirrorClass[Symbol.reflection];
