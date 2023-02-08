@@ -260,6 +260,10 @@ export default class NativeHttpResponse extends implementationOf(ResponseInterfa
             clearTimeout(this._timeout);
         }
 
+        if (this._message) {
+            this._message.removeAllListeners('timeout');
+        }
+
         this._message = this._timeout = this._readable = this._onProgress = this._abortController = null;
     }
 

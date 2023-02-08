@@ -140,16 +140,22 @@ class CommonResponseTrait {
      */
     _checkStatusCode() {
         const code = this.getInfo('http_code');
+        let e = null;
         if (500 <= code) {
-            throw new ServerException(this);
+            e = new ServerException(this);
+        } else if (400 <= code) {
+            e = new ClientException(this);
+        } else if (300 <= code) {
+            e = new RedirectionException(this);
         }
 
-        if (400 <= code) {
-            throw new ClientException(this);
-        }
+        if (null !== e) {
+            this._abortController = null;
+            if (this._timeout) {
+                clearTimeout(this._timeout);
+            }
 
-        if (300 <= code) {
-            throw new RedirectionException(this);
+            throw e;
         }
     }
 }
