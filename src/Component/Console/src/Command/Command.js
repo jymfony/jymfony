@@ -443,10 +443,11 @@ export default class Command extends implementationOf(CommandInterface) {
      */
     get processedHelp() {
         const name = this._name;
+        const isSingleCommand = this._application && this._application._singleCommand;
 
         return (this.help || this.description)
             .replace(/%command\.name%/g, name)
-            .replace(/%command\.full_name%/g, process.argv[1] + ' ' + name)
+            .replace(/%command\.full_name%/g, isSingleCommand ? process.argv[1] : process.argv[1] + ' ' + name)
         ;
     }
 

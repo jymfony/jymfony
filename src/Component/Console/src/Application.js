@@ -29,6 +29,12 @@ export default class Application {
         this._version = version;
         this._eventDispatcher = undefined;
         this._defaultCommand = 'list';
+
+        /**
+         * @type {Jymfony.Component.Console.Input.InputDefinition}
+         *
+         * @private
+         */
         this._definition = this._getDefaultInputDefinition();
         this._commands = {};
         this._terminal = new Terminal();
@@ -36,6 +42,7 @@ export default class Application {
         this._autoExit = true;
         this._runningCommand = undefined;
         this._wantHelps = false;
+        this._singleCommand = false;
 
         for (const command of this._getDefaultCommands()) {
             this.add(command);
@@ -66,6 +73,13 @@ export default class Application {
      * @returns {Jymfony.Component.Console.Input.InputDefinition} The InputDefinition instance
      */
     get definition() {
+        if (this._singleCommand) {
+            const inputDefinition = this._definition;
+            inputDefinition.setArguments();
+
+            return inputDefinition;
+        }
+
         return this._definition;
     }
 
@@ -121,6 +135,15 @@ export default class Application {
      */
     set defaultCommand(commandName) {
         this._defaultCommand = commandName;
+    }
+
+    /**
+     * Sets whether this application is a single command application.
+     *
+     * @param {boolean} singleCommand
+     */
+    set isSingleCommand(singleCommand) {
+        this._singleCommand = singleCommand;
     }
 
     /**
@@ -733,7 +756,7 @@ export default class Application {
      * @protected
      */
     _getCommandName(input) {
-        return input.firstArgument;
+        return this._singleCommand ? this._defaultCommand : input.firstArgument;
     }
 
     /**

@@ -42,10 +42,12 @@ export default class SingleCommandApplication extends Command {
 
         // We use the command name as the application name
         const application = new Application(this.name || 'UNKNOWN', this._version);
+        this.name = process.argv[1];
 
         // Fix the usage of the command displayed with "--help"
         application.add(this);
         application.defaultCommand = this.name;
+        application.isSingleCommand = true;
 
         this._running = true;
         try {

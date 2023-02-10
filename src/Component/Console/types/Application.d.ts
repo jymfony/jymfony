@@ -25,6 +25,11 @@ declare namespace Jymfony.Component.Console {
         public /* writeonly */ defaultCommand: string;
 
         /**
+         * Sets whether this application is a single command application.
+         */
+        public /* writeonly */ isSingleCommand: string;
+
+        /**
          * Input definition to be used with this application.
          */
         public definition: InputDefinition;
@@ -76,6 +81,7 @@ declare namespace Jymfony.Component.Console {
         private _autoExit: boolean;
         private _runningCommand?: Command;
         private _wantHelps: boolean;
+        private _singleCommand: boolean;
 
         /**
          * Constructor.
