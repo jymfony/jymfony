@@ -195,11 +195,11 @@ const generateController = port =>
                 break;
 
             case 'long-file':
-                response.content = Buffer.allocUnsafeSlow(80 * 1024).toString('base64url');
+                response.content = Buffer.allocUnsafeSlow(80 * 1024).toString('base64');
                 break;
 
             case 'long-file-compressed':
-                response.content = Buffer.allocUnsafeSlow(80 * 1024).toString('base64url');
+                response.content = Buffer.allocUnsafeSlow(80 * 1024).toString('base64');
                 response.encoding = true;
                 break;
         }
