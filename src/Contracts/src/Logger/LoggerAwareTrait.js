@@ -10,7 +10,7 @@ class LoggerAwareTrait {
          *
          * @protected
          */
-        this._logger = null;
+        this._logger = '_logger' in this ? this._logger : null;
     }
 
     /**
