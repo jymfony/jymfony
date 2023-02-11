@@ -122,7 +122,7 @@ class Exception extends Error {
                 continue;
             }
 
-            if ('Object.construct' === element.function && element.file.match(/Namespace\.js$/)) {
+            if ('Object.construct' === element.function && element.file.match(/(Namespace|ManagedProxy)\.js$/)) {
                 continue;
             }
 
