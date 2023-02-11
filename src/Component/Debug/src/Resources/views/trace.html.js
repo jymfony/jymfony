@@ -1,4 +1,4 @@
-const isInternal = trace.file.startsWith('internal/');
+const isInternal = trace.file.startsWith('internal/') || trace.file.startsWith('node:internal') || trace.file.startsWith('/node:');
 let html = `<div class="trace-line-header break-long-words ${trace.file ? 'jf-toggle' : ''}" ${! isInternal ? `data-toggle-selector="#trace-html-${prefix}-${i}"` : ''} data-toggle-initial="${'expanded' === style ? 'display' : ''}">`;
 
 if (! isInternal && !! trace.file) {

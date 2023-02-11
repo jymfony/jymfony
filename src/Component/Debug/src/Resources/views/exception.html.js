@@ -48,6 +48,8 @@ for (const [ i, e ] of __jymfony.getEntries(exceptionAsArray)) {
             ! trace.file.includes('/node_modules/') &&
             ! trace.file.includes('/var/cache/') &&
             ! trace.file.startsWith('internal/') &&
+            ! trace.file.startsWith('node:internal/') &&
+            ! trace.file.startsWith('/node:') &&
             i < last) {
             exceptionWithUserCode.push(i);
         }
