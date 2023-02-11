@@ -53,6 +53,7 @@ export default class SendMessageMiddleware extends implementationOf(MiddlewareIn
         } else {
             let shouldDispatchEvent = true;
             for ([ alias, sender ] of __jymfony.getEntries(this._sendersLocator.getSenders(envelope))) {
+                sender = await sender;
                 if (null !== this._eventDispatcher && shouldDispatchEvent) {
                     const event = new SendMessageToTransportsEvent(envelope);
                     await this._eventDispatcher.dispatch(event);
