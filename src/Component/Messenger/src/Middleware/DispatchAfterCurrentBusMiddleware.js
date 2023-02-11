@@ -117,7 +117,7 @@ export default class DispatchAfterCurrentBusMiddleware extends implementationOf(
         // "Root dispatch" call is finished, dispatch stored messages.
         const exceptions = [];
         let queueItem;
-        while (null !== (queueItem = this._queue.shift())) {
+        while (undefined !== (queueItem = this._queue.shift())) {
             // Save how many messages are left in queue before handling the message
             const queueLengthBefore = this._queue.length;
             try {
