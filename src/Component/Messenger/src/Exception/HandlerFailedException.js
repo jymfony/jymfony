@@ -56,6 +56,6 @@ export default class HandlerFailedException extends RuntimeException {
      * @returns {Error[]}
      */
     getNestedExceptionOfClass(exceptionClassName) {
-        return this._exceptions.filter(e => new ReflectionClass(e).isSubclassOf(exceptionClassName));
+        return this._exceptions.filter(e => new ReflectionClass(e).isInstanceOf(exceptionClassName));
     }
 }
