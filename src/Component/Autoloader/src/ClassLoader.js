@@ -341,6 +341,7 @@ class ClassLoader {
 
         req.extensions = require.extensions;
         req.nocompile = id => require(id);
+        req.cache = require.cache;
 
         _cache[fn] = new __jymfony.ManagedProxy(function () { }, proxy => {
             if (! require.cache[fn]) {
