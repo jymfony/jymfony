@@ -1,3 +1,4 @@
+const FlattenExceptionInterface = Jymfony.Contracts.Debug.Exception.FlattenExceptionInterface;
 const HttpExceptionInterface = Jymfony.Component.HttpFoundation.Exception.HttpExceptionInterface;
 const RequestExceptionInterface = Jymfony.Component.HttpFoundation.Exception.RequestExceptionInterface;
 const Response = Jymfony.Component.HttpFoundation.Response;
@@ -9,7 +10,7 @@ const asyncReflection = new ReflectionClass(__jymfony.Async);
  *
  * @memberOf Jymfony.Component.Debug.Exception
  */
-export default class FlattenException {
+export default class FlattenException extends implementationOf(FlattenExceptionInterface) {
     __construct() {
         this.message = undefined;
         this.code = undefined;

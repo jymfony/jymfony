@@ -24,6 +24,7 @@
 /// <reference path="DateTime/DateTimeInterface.d.ts" />
 /// <reference path="DateTime/DateTimeZoneInterface.d.ts" />
 /// <reference path="DateTime/TimeSpanInterface.d.ts" />
+/// <reference path="Debug/Exception/FlattenExceptionInterface.d.ts" />
 /// <reference path="EventDispatcher/Event.d.ts" />
 /// <reference path="EventDispatcher/EventDispatcherInterface.d.ts" />
 /// <reference path="EventDispatcher/EventSubscriberInterface.d.ts" />

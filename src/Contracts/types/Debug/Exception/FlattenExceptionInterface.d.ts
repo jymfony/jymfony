@@ -1,7 +1,5 @@
-declare namespace Jymfony.Component.Debug.Exception {
-    import FlattenExceptionInterface = Jymfony.Contracts.Debug.Exception.FlattenExceptionInterface;
-
-    export class FlattenException extends implementationOf(FlattenExceptionInterface) {
+declare namespace Jymfony.Contracts.Debug.Exception {
+    export class FlattenExceptionInterface {
         public message?: string;
         public code?: number;
         public statusCode?: number;
@@ -17,14 +15,9 @@ declare namespace Jymfony.Component.Debug.Exception {
         private _asString: null | string;
 
         /**
-         * Creates a new FlattenException object
-         */
-        static create(exception: Error|Exception, statusCode?: number, headers?: Record<string, string>): FlattenException;
-
-        /**
          * Gets all the previous exceptions.
          */
-        public readonly allPrevious: FlattenException[];
+        public readonly allPrevious: FlattenExceptionInterface[];
 
         /**
          * The string representation of the exception.

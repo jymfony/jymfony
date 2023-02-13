@@ -34,6 +34,16 @@ Jymfony.Contracts = {
     /**
      * @namespace
      */
+    Debug: {
+        /**
+         * @namespace
+         */
+        Exception: {},
+    },
+
+    /**
+     * @namespace
+     */
     EventDispatcher: {},
 
     /**
