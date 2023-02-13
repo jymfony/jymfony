@@ -4,7 +4,7 @@ import { sep } from 'path';
 
 const DateTime = Jymfony.Component.DateTime.DateTime;
 const DebugLoggerInterface = Jymfony.Component.Kernel.Log.DebugLoggerInterface;
-const ErrorRendererInterface = Jymfony.Component.Debug.ErrorRenderer.ErrorRendererInterface;
+const ErrorRendererInterface = Jymfony.Contracts.Debug.ErrorRenderer.ErrorRendererInterface;
 const ErrorException = Jymfony.Component.Debug.Exception.ErrorException;
 const FlattenException = Jymfony.Component.Debug.Exception.FlattenException;
 

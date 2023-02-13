@@ -1,5 +1,5 @@
 /**
- * @memberOf Jymfony.Component.Debug.ErrorEnhancer
+ * @memberOf Jymfony.Contracts.Debug.ErrorEnhancer
  */
 class ErrorEnhancerInterface {
     /**

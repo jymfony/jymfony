@@ -1,5 +1,7 @@
 declare namespace Jymfony.Contracts.Debug.Exception {
     export class FlattenExceptionInterface {
+        public static readonly definition: Newable<FlattenExceptionInterface>;
+
         public message?: string;
         public code?: number;
         public statusCode?: number;

@@ -1,6 +1,4 @@
-/// <reference path="ErrorEnhancer/ErrorEnhancerInterface.d.ts" />
 /// <reference path="ErrorRenderer/CliErrorRenderer.d.ts" />
-/// <reference path="ErrorRenderer/ErrorRendererInterface.d.ts" />
 /// <reference path="ErrorRenderer/HtmlErrorRenderer.d.ts" />
 /// <reference path="Exception/ErrorException.d.ts" />
 /// <reference path="Exception/FlattenException.d.ts" />

@@ -38,6 +38,16 @@ Jymfony.Contracts = {
         /**
          * @namespace
          */
+        ErrorEnhancer: {},
+
+        /**
+         * @namespace
+         */
+        ErrorRenderer: {},
+
+        /**
+         * @namespace
+         */
         Exception: {},
     },
 

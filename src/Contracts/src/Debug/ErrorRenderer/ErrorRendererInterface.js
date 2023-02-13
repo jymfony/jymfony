@@ -1,7 +1,7 @@
 /**
  * Formats an exception to be used as response content.
  *
- * @memberOf Jymfony.Component.Debug.ErrorRenderer
+ * @memberOf Jymfony.Contracts.Debug.ErrorRenderer
  */
 class ErrorRendererInterface {
     /**
@@ -9,7 +9,7 @@ class ErrorRendererInterface {
      *
      * @param {Error} exception
      *
-     * @returns {Jymfony.Component.Debug.Exception.FlattenException}
+     * @returns {Jymfony.Contracts.Debug.Exception.FlattenExceptionInterface}
      */
     render(exception) { }
 }

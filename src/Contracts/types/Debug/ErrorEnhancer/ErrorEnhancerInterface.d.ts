@@ -1,4 +1,4 @@
-declare namespace Jymfony.Component.Debug.ErrorEnhancer {
+declare namespace Jymfony.Contracts.Debug.ErrorEnhancer {
     export class ErrorEnhancerInterface {
         public static readonly definition: Newable<ErrorEnhancerInterface>;
 
