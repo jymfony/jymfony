@@ -1,17 +1,17 @@
-let html = `<div class="exception-summary ${! exceptionMessage ? 'exception-without-message' : ''}">
+emit(`<div class="exception-summary ${! exceptionMessage ? 'exception-without-message' : ''}">
     <div class="exception-metadata">
         <div class="container">
             <h2 class="exception-hierarchy">
-`;
+`);
 
 for (const [ index, previousException ] of __jymfony.getEntries(exception.allPrevious.reverse())) {
-    html += `
+    emit(`
                 <a href="#trace-box-${index + 2}">${abbrClass(previousException.class)}</a>
                 <span class="icon">${include('assets/images/chevron-right.svg')}</span>
-`;
+`);
 }
 
-html += `
+emit(`
                 <a href="#trace-box-1">${abbrClass(exception.class)}</a>
             </h2>
             <h2 class="exception-http">
@@ -34,7 +34,7 @@ html += `
 <div class="container">
     <div class="jf-tabs">
         <div class="tab">
-`;
+`);
 
 const exceptionAsArray = exception.toArray();
 const exceptionWithUserCode = [];
@@ -56,26 +56,26 @@ for (const [ i, e ] of __jymfony.getEntries(exceptionAsArray)) {
     }
 }
 
-html += `<h3 class="tab-title">Exception${exceptionAsArrayCount > 1 ? 's <span class="badge">' + exceptionAsArrayCount + '</span>' : ''}</h3>`;
+emit(`<h3 class="tab-title">Exception${exceptionAsArrayCount > 1 ? 's <span class="badge">' + exceptionAsArrayCount + '</span>' : ''}</h3>`);
 
-html += '<div class="tab-content">';
+emit('<div class="tab-content">');
 for (const [ i, e ] of __jymfony.getEntries(exceptionAsArray)) {
-    html += include('views/traces.html.js', {
+    include('views/traces.html.js', {
         exception: e,
         index: i + 1,
         expand: exceptionWithUserCode.includes(i) || (0 === exceptionWithUserCode.length && 0 === 0),
     });
 }
 
-html += `
+emit(`
             </div>
         </div>
-`;
+`);
 
 if (logger) {
     const logs = logger.getLogs(logSubject);
     const errorCount = logger.countErrors(logSubject);
-    html += `<div class="tab ${0 === logs.length ? 'disabled' : ''}">
+    emit(`<div class="tab ${0 === logs.length ? 'disabled' : ''}">
             <h3 class="tab-title">
                 Logs
                 ${errorCount ? '<span class="badge status-error">' + errorCount + '</span>' : ''}
@@ -90,10 +90,10 @@ if (logger) {
                     </div>
                 `}
             </div>
-        </div>`;
+        </div>`);
 }
 
-html += `<div class="tab">
+emit(`<div class="tab">
             <h3 class="tab-title">
                 Stack Trace${1 < exceptionAsArrayCount ? `s <span class="badge">${exceptionAsArrayCount}</span>` : ''}
             </h3>
@@ -109,6 +109,4 @@ html += `<div class="tab">
         </div>
     </div>
 </div>
-`;
-
-return html;
+`);

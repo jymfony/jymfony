@@ -1,7 +1,7 @@
 const classParts = exception.class.split('.');
 const className = classParts.pop();
 
-let html = `<div class="trace trace-as-html" id="trace-box-${index}">
+emit(`<div class="trace trace-as-html" id="trace-box-${index}">
     <div class="trace-details">
         <div class="trace-head">
             <span class="jf-toggle" data-toggle-selector="#trace-html-${index}" data-toggle-initial="${expand ? 'display' : ''}">
@@ -19,7 +19,7 @@ let html = `<div class="trace trace-as-html" id="trace-box-${index}">
             </span>
         </div>
 
-        <div id="trace-html-${index}" class="jf-toggle-content">`;
+        <div id="trace-html-${index}" class="jf-toggle-content">`);
 
 let isFirstUserCode = true;
 for (const [ i, trace ] of __jymfony.getEntries(exception.trace)) {
@@ -30,7 +30,7 @@ for (const [ i, trace ] of __jymfony.getEntries(exception.trace)) {
         isFirstUserCode = false;
     }
 
-    html += `
+    emit(`
             <div class="trace-line ${isVendorTrace ? 'trace-from-vendor' : ''}${isInternal ? 'trace-internal' : ''}">
                 ${include('views/trace.html.js', {
                     prefix: index,
@@ -39,12 +39,11 @@ for (const [ i, trace ] of __jymfony.getEntries(exception.trace)) {
                     style: isVendorTrace ? 'compact' : (displayCodeSnippet ? 'expanded' : ''),
                 })}
             </div>
-        `
+        `);
 }
 
-html += `        </div>
+emit(`        </div>
     </div>
 </div>
-`;
+`);
 
-return html;

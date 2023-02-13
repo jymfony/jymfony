@@ -1,4 +1,4 @@
-let html = `<table class="trace trace-as-text">
+emit(`<table class="trace trace-as-text">
     <thead class="trace-head">
         <tr>
             <th class="jf-toggle" data-toggle-selector="#trace-text-${index}" data-toggle-initial="${1 === index ? 'display' : ''}">
@@ -15,33 +15,31 @@ let html = `<table class="trace trace-as-text">
     <tbody id="trace-text-${index}">
         <tr>
             <td>
-`;
+`);
 
 if (!! exception.trace) {
-    html += '<pre class="stacktrace">';
-    html += escape(exception.class) + ':\n';
+    emit('<pre class="stacktrace">');
+    emit(escape(exception.class) + ':\n');
     if (exception.message) {
-        html += exception.message + '\n';
+        emit(exception.message + '\n');
     }
 
     for (const trace of exception.trace) {
-        html += '\n  ';
+        emit('\n  ');
         if (trace.function) {
             const func = trace.function;
             const file = trace.file || 'n/a';
             const line = trace.line || 'n/a';
-            html += __jymfony.sprintf('%s() at %s:%s</info>', func, file, line);
+            emit(__jymfony.sprintf('%s() at %s:%s</info>', func, file, line));
         }
     }
 
-    html += '</pre>';
+    emit('</pre>');
 }
 
-html += `
+emit(`
             </td>
         </tr>
     </tbody>
 </table>
-`;
-
-return html;
+`);

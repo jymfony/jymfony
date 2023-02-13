@@ -243,7 +243,12 @@ export default class HtmlErrorRenderer extends implementationOf(ErrorRendererInt
             request = request.attributes.get('_parent_request');
         }
 
-        return runInNewContext('(function() { "use strict"; ' + code + '})', {
+        let retVal = '';
+        const emit = (str) => {
+            retVal += String(str);
+        };
+
+        runInNewContext('(function() { "use strict"; ' + code + '})', {
             ...global,
             ...context,
             context,
@@ -251,12 +256,20 @@ export default class HtmlErrorRenderer extends implementationOf(ErrorRendererInt
             abbrClass: this._abbrClass,
             addElementToGhost: this._addElementToGhost,
             date: (format, timestamp) => new DateTime(timestamp).format(format),
+            emit,
             DIRECTORY_SEPARATOR: sep,
             fileExcerpt: this._fileExcerpt,
             formatLogMessage: (...args) => this._formatLogMessage(...args),
             logSubject: request || (this._logger && this._logger._activeContext[__jymfony.ClsTrait.COMMAND_SYMBOL]) || null,
-            include: (...args) => this._include(...args),
+            include: (...args) => {
+                const included = this._include(...args);
+                if (included) {
+                    emit(included);
+                }
+            },
             formatFile: (...args) => this._formatFile(...args),
         }, { filename })();
+
+        return retVal;
     }
 }

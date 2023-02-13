@@ -1,4 +1,4 @@
-return `<!DOCTYPE html>
+emit(`<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -17,5 +17,4 @@ return `<!DOCTYPE html>
     </p>
 </div>
 </body>
-</html>
-`;
+</html>`);
