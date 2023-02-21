@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "baseUrl": "./",
+        "target": "ESNext",
+        "noEmit": true,
+        "inlineSourceMap": true,
+        "experimentalDecorators": true
+    },
+    "include": [
+        "test/**/*.ts"
+    ],
+    "exclude": [
+        "node_modules",
+        "index.d.ts",
+        "src/**/*.ts"
+    ]
+}
