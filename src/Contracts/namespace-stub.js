@@ -155,4 +155,34 @@ Jymfony.Contracts = {
      * @namespace
      */
     Uid: {},
+
+    /**
+     * @namespace
+     */
+    Validator: {
+        /**
+         * @namespace
+         */
+        Constraints: {},
+
+        /**
+         * @namespace
+         */
+        Context: {},
+
+        /**
+         * @namespace
+         */
+        Exception: {},
+
+        /**
+         * @namespace
+         */
+        Validator: {},
+
+        /**
+         * @namespace
+         */
+        Violation: {},
+    },
 };

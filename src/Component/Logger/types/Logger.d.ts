@@ -1,8 +1,9 @@
 declare namespace Jymfony.Component.Logger {
     import DateTimeZoneInterface = Jymfony.Contracts.DateTime.DateTimeZoneInterface;
-    import HandlerInterface = Jymfony.Component.Logger.Handler.HandlerInterface;
     import EventSubscriberInterface = Jymfony.Contracts.EventDispatcher.EventSubscriberInterface;
     import EventSubscriptions = Jymfony.Contracts.EventDispatcher.EventSubscriptions;
+    import HandlerInterface = Jymfony.Component.Logger.Handler.HandlerInterface;
+    import LogLevel = Jymfony.Contracts.Logger.LogLevel;
 
     type InvokableProcessor = (record: LogRecord) => LogRecord | {
         __invoke(record: LogRecord): LogRecord;

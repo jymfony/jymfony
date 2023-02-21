@@ -9,7 +9,7 @@ declare namespace Jymfony.Component.Autoloader.Decorator {
         ANNOTATION_TARGET_PARAMETER: number;
         ANNOTATION_TARGET_ALL: number;
 
-        (target: number): <T>(value: T, context: any) => T;
+        (target?: number): <T>(value: T, context: any) => T;
     }
 
     export var Annotation: AnnotationConstructor;

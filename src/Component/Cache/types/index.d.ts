@@ -1,6 +1,7 @@
 /// <reference path="Adapter/AbstractAdapter.d.ts" />
 /// <reference path="Adapter/AdapterInterface.d.ts" />
 /// <reference path="Adapter/ArrayAdapter.d.ts" />
+/// <reference path="Adapter/JsFileAdapter.d.ts" />
 /// <reference path="Adapter/FilesystemAdapter.d.ts" />
 /// <reference path="Adapter/NullAdapter.d.ts" />
 /// <reference path="Adapter/ProxyAdapter.d.ts" />

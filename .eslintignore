@@ -4,6 +4,7 @@ src/Component/Debug/src/Resources
 src/Component/DependencyInjection/fixtures
 src/Component/HttpServer/fixtures
 src/Component/Metadata/fixtures
+src/Component/Messenger/fixtures
 src/Component/Templating/fixtures
 src/Component/Validator/src/Test/ChaiExpectation.js
 src/Component/VarExporter/fixtures

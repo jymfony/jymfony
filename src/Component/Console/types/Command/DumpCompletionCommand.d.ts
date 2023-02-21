@@ -20,6 +20,6 @@ declare namespace Jymfony.Component.Console.Command {
 
         private static _guessShell(): string;
         private _tailDebugLog(commandName: string, output: OutputInterface): Promise<void>;
-        private _getSupportedShells(): Promise<string[]>.
+        private _getSupportedShells(): Promise<string[]>
     }
 }

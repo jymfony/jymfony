@@ -16,6 +16,7 @@ declare namespace Jymfony.Component.Console.Command {
         /**
          * @param completionOutputs A list of additional completion outputs, with shell name as key and FQCN as value
          */
+        // @ts-ignore
         __construct(completionOutputs?: Record<string, string>): void;
         constructor(completionOutputs?: Record<string, string>);
 
