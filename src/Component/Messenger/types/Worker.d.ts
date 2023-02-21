@@ -2,6 +2,7 @@ declare namespace Jymfony.Component.Messenger {
     import BatchHandlerInterface = Jymfony.Component.Messenger.Handler.BatchHandlerInterface;
     import EventDispatcherInterface = Jymfony.Contracts.EventDispatcher.EventDispatcherInterface;
     import LoggerInterface = Jymfony.Contracts.Logger.LoggerInterface;
+    import ReceiverInterface = Jymfony.Component.Messenger.Transport.Receiver.ReceiverInterface
 
     interface WorkerOptions {
         sleep?: number;

@@ -647,25 +647,30 @@ export default class Configuration extends implementationOf(ConfigurationInterfa
                                         .defaultNull()
                                         .info('Transport name to send failed messages to (after all retries have failed).')
                                     .end()
-                                    // .arrayNode('retry_strategy')
-                                    //     .addDefaultsIfNotSet()
-                                    //     .beforeNormalization()
-                                    //         .always(function ($v) {
-                                    //             if (isset($v['service']) && (isset($v['max_retries']) || isset($v['delay']) || isset($v['multiplier']) || isset($v['max_delay']))) {
-                                    //                 throw new \InvalidArgumentException('The "service" cannot be used along with the other "retry_strategy" options.');
-                                    //             }
-                                    //
-                                    //             return $v;
-                                    //         })
-                                    //     .end()
-                                    //     .children()
-                                    //         .scalarNode('service').defaultNull().info('Service id to override the retry strategy entirely').end()
-                                    //         .integerNode('max_retries').defaultValue(3).min(0).end()
-                                    //         .integerNode('delay').defaultValue(1000).min(0).info('Time in ms to delay (or the initial value when multiplier is used)').end()
-                                    //         .floatNode('multiplier').defaultValue(2).min(1).info('If greater than 1, delay will grow exponentially for each retry: this delay = (delay * (multiple ^ retries))').end()
-                                    //         .integerNode('max_delay').defaultValue(0).min(0).info('Max time in ms that a retry should ever be delayed (0 = infinite)').end()
-                                    //     .end()
-                                    // .end()
+                                    .arrayNode('retry_strategy')
+                                        .addDefaultsIfNotSet()
+                                        .beforeNormalization()
+                                            .always((v) => {
+                                                if (!!v.service && (undefined !== v.max_retries || undefined !== v.delay || undefined !== v.multiplier || undefined !== v.max_delay)) {
+                                                    throw new InvalidArgumentException('The "service" cannot be used along with the other "retry_strategy" options.');
+                                                }
+
+                                                return v;
+                                            })
+                                        .end()
+                                        .children()
+                                            .scalarNode('service').defaultNull().info('Service id to override the retry strategy entirely').end()
+                                            .enumNode('strategy')
+                                                .values([ 'exponential', 'fixed', 'none' ])
+                                                .defaultValue('exponential')
+                                                .info('If sets to false, disables the retry of the failed messages.')
+                                            .end()
+                                            .integerNode('max_retries').defaultValue(3).min(0).end()
+                                            .integerNode('delay').defaultValue(1000).min(0).info('Time in ms to delay (or the initial value when multiplier is used)').end()
+                                            .floatNode('multiplier').defaultValue(2).min(1).info('If greater than 1, delay will grow exponentially for each retry: this delay = (delay * (multiple ^ retries))').end()
+                                            .integerNode('max_delay').defaultValue(0).min(0).info('Max time in ms that a retry should ever be delayed (0 = infinite)').end()
+                                        .end()
+                                    .end()
                                 .end()
                             .end()
                         .end()

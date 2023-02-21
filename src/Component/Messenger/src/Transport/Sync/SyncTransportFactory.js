@@ -7,17 +7,19 @@ const TransportFactoryInterface = Jymfony.Component.Messenger.Transport.Transpor
 export default class SyncTransportFactory extends implementationOf(TransportFactoryInterface) {
     /**
      * Constructor.
+     *
+     * @param {Jymfony.Component.Messenger.MessageBusInterface} messageBus
      */
-    __construct() {
+    __construct(messageBus) {
         /**
          * @type {Jymfony.Component.Messenger.MessageBusInterface}
          *
          * @private
          */
-        this._messageBus = undefined;
+        this._messageBus = messageBus;
     }
 
-    createTransport() {
+    async createTransport() {
         return new SyncTransport(this._messageBus);
     }
 

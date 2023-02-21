@@ -21,7 +21,7 @@ declare namespace Jymfony.Component.Messenger {
         /**
          * Adds one or more stamps.
          */
-        withStamps(...stamps: StampInterface): this;
+        withStamps(...stamps: StampInterface[]): this;
 
         /**
          * Removes all stamps of the given class.
@@ -41,7 +41,7 @@ declare namespace Jymfony.Component.Messenger {
          * @returns {null|Jymfony.Component.Messenger.Stamp.StampInterface}
          */
         last(stampFqcn: string): StampInterface | null;
-        last<N>(stampFqcn: Newable<N>): N | null;
+        last<N extends object>(stampFqcn: Newable<N>): N | null;
         last(stampFqcn: string | Newable): StampInterface | null;
 
         /**
@@ -50,7 +50,7 @@ declare namespace Jymfony.Component.Messenger {
          * @return {Jymfony.Component.Messenger.Stamp.StampInterface[]|Object.<string, Jymfony.Component.Messenger.Stamp.StampInterface[]>} The stamps for the specified FQCN, or all stamps by their class name
          */
         all(stampFqcn: string): StampInterface[];
-        all<N>(stampFqcn: Newable<N>): N[];
+        all<N extends object>(stampFqcn: Newable<N>): N[];
         all(): Record<string, StampInterface[]>;
         all(stampFqcn?: string | Newable): StampInterface[] | Record<string, StampInterface[]>;
 

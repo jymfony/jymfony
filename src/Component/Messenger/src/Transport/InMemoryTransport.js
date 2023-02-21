@@ -36,11 +36,11 @@ export default class InMemoryTransport extends implementationOf(TransportInterfa
         this._rejected = [];
 
         /**
-         * @type {Object.<*, Jymfony.Component.Messenger.Envelope>}
+         * @type {Map.<*, Jymfony.Component.Messenger.Envelope>}
          *
          * @private
          */
-        this._queue = {};
+        this._queue = new Map();
 
         /**
          * @type {int}
@@ -60,14 +60,14 @@ export default class InMemoryTransport extends implementationOf(TransportInterfa
     /**
      * @inheritdoc
      */
-    get() {
-        return this._decode(this._queue);
+    async get() {
+        return this._decode([ ...this._queue.values() ]);
     }
 
     /**
      * @inheritdoc
      */
-    ack(envelope) {
+    async ack(envelope) {
         this._acknowledged.push(this._encode(envelope));
 
         const transportMessageIdStamp = envelope.last(TransportMessageIdStamp);
@@ -75,13 +75,13 @@ export default class InMemoryTransport extends implementationOf(TransportInterfa
             throw new LogicException('No TransportMessageIdStamp found on the Envelope.');
         }
 
-        delete this._queue[transportMessageIdStamp.id];
+        this._queue.delete(transportMessageIdStamp.id);
     }
 
     /**
      * @inheritdoc
      */
-    reject(envelope) {
+    async reject(envelope) {
         this._rejected.push(this._encode(envelope));
 
         const transportMessageIdStamp = envelope.last(TransportMessageIdStamp);
@@ -89,18 +89,18 @@ export default class InMemoryTransport extends implementationOf(TransportInterfa
             throw new LogicException('No TransportMessageIdStamp found on the Envelope.');
         }
 
-        delete this._queue[transportMessageIdStamp.id];
+        this._queue.delete(transportMessageIdStamp.id);
     }
 
     /**
      * @inheritdoc
      */
-    send(envelope) {
+    async send(envelope) {
         const id = this._nextId++;
         envelope = envelope.withStamps(new TransportMessageIdStamp(id));
         const encodedEnvelope = this._encode(envelope);
         this._sent.push(encodedEnvelope);
-        this._queue[id] = encodedEnvelope;
+        this._queue.set(id, encodedEnvelope);
 
         return envelope;
     }
@@ -127,7 +127,7 @@ export default class InMemoryTransport extends implementationOf(TransportInterfa
     }
 
     /**
-     * @param {Jymfony.Component.Messenger.Envelope[]} envelope
+     * @param {Jymfony.Component.Messenger.Envelope} envelope
      *
      * @returns {*}
      *

@@ -7,10 +7,8 @@ declare namespace Jymfony.Component.Messenger {
         /**
          * Dispatches the given message.
          *
-         * @param {object|Jymfony.Component.Messenger.Envelope}  message The message or the message pre-wrapped in an envelope
-         * @param {Jymfony.Component.Messenger.Stamp.StampInterface[]} [stamps]
-         *
-         * @returns {Promise<Jymfony.Component.Messenger.Envelope>}
+         * @param message The message or the message pre-wrapped in an envelope
+         * @param stamps
          */
         dispatch<T extends object>(message: T | Envelope<T>, stamps?: StampInterface[]): Promise<Envelope<T>>;
     }

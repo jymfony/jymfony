@@ -8,7 +8,5 @@ const NonSendableStampInterface = Jymfony.Component.Messenger.Stamp.NonSendableS
  * @memberOf Jymfony.Component.Messenger.Stamp
  * @final
  */
-class DispatchAfterCurrentBusStamp extends implementationOf(NonSendableStampInterface) {
+export default class DispatchAfterCurrentBusStamp extends implementationOf(NonSendableStampInterface) {
 }
-
-export default getInterface(DispatchAfterCurrentBusStamp);

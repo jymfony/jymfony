@@ -44,6 +44,11 @@ Jymfony.Component.Messenger = {
     /**
      * @namespace
      */
+    Retry: {},
+
+    /**
+     * @namespace
+     */
     Stamp: {},
 
     /**

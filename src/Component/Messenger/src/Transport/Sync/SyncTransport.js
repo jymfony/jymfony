@@ -23,19 +23,19 @@ export default class SyncTransport extends implementationOf(TransportInterface) 
         this._messageBus = messageBus;
     }
 
-    get() {
+    async get() {
         throw new InvalidArgumentException('You cannot receive messages from the Messenger SyncTransport.');
     }
 
-    stop() {
+    async stop() {
         throw new InvalidArgumentException('You cannot call stop() on the Messenger SyncTransport.');
     }
 
-    ack() {
+    async ack() {
         throw new InvalidArgumentException('You cannot call ack() on the Messenger SyncTransport.');
     }
 
-    reject() {
+    async reject() {
         throw new InvalidArgumentException('You cannot call reject() on the Messenger SyncTransport.');
     }
 

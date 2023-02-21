@@ -816,7 +816,7 @@ export default class FrameworkExtension extends Extension {
         }
 
         const senderAliases = {};
-        // Const transportRetryReferences = {};
+        const transportRetryReferences = {};
         for (const [ name, transport ] of __jymfony.getEntries(config.transports)) {
             const serializerId = transport.serializer || 'messenger.default_serializer';
             const transportDefinition = new Definition('Jymfony.Component.Messenger.Transport.TransportInterface')
@@ -831,20 +831,31 @@ export default class FrameworkExtension extends Extension {
             container.setDefinition(transportId, transportDefinition);
             senderAliases[name] = transportId;
 
-            // If (null !== $transport['retry_strategy']['service']) {
-            //     $transportRetryReferences[$name] = new Reference($transport['retry_strategy']['service']);
-            // } else {
-            //     $retryServiceId = sprintf('messenger.retry.multiplier_retry_strategy.%s', $name);
-            //     $retryDefinition = new ChildDefinition('messenger.retry.abstract_multiplier_retry_strategy');
-            //     $retryDefinition
-            //         ->replaceArgument(0, $transport['retry_strategy']['max_retries'])
-            //         ->replaceArgument(1, $transport['retry_strategy']['delay'])
-            //         ->replaceArgument(2, $transport['retry_strategy']['multiplier'])
-            //         ->replaceArgument(3, $transport['retry_strategy']['max_delay']);
-            //     $container->setDefinition($retryServiceId, $retryDefinition);
-            //
-            //     $transportRetryReferences[$name] = new Reference($retryServiceId);
-            // }
+            if (!! transport.retry_strategy.service) {
+                transportRetryReferences[name] = new Reference(transport.retry_strategy.service);
+            } else if ('exponential' === transport.retry_strategy.strategy) {
+                const retryServiceId = __jymfony.sprintf('messenger.retry.multiplier_retry_strategy.%s', name);
+                const retryDefinition = new ChildDefinition('messenger.retry.abstract_multiplier_retry_strategy');
+                retryDefinition
+                    .replaceArgument(0, transport.retry_strategy.max_retries)
+                    .replaceArgument(1, transport.retry_strategy.delay)
+                    .replaceArgument(2, transport.retry_strategy.multiplier)
+                    .replaceArgument(3, transport.retry_strategy.max_delay);
+                container.setDefinition(retryServiceId, retryDefinition);
+
+                transportRetryReferences[name] = new Reference(retryServiceId);
+            } else if ('fixed' !== transport.retry_strategy.strategy) {
+                const retryServiceId = __jymfony.sprintf('messenger.retry.fixed_retry_strategy.%s', name);
+                const retryDefinition = new ChildDefinition('messenger.retry.abstract_multiplier_retry_strategy');
+                retryDefinition
+                    .replaceArgument(0, transport.retry_strategy.max_retries)
+                    .replaceArgument(1, transport.retry_strategy.delay)
+                    .replaceArgument(2, 1)
+                    .replaceArgument(3, 0);
+                container.setDefinition(retryServiceId, retryDefinition);
+
+                transportRetryReferences[name] = new Reference(retryServiceId);
+            }
         }
 
         const senderReferences = {};
@@ -892,9 +903,10 @@ export default class FrameworkExtension extends Extension {
         // Container.getDefinition('messenger.retry.send_failed_message_for_retry_listener')
         //     .replaceArgument(0, sendersServiceLocator)
         // ;
-        //
-        // Container.getDefinition('messenger.retry_strategy_locator')
-        //     .replaceArgument(0, transportRetryReferences);
+
+        container
+            .getDefinition('messenger.retry_strategy_locator')
+            .replaceArgument(0, transportRetryReferences);
 
         if (0 < failureTransports.length) {
             container.getDefinition('console.command.messenger_failed_messages_retry')

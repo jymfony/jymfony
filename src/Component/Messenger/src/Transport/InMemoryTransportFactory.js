@@ -14,13 +14,9 @@ export default class InMemoryTransportFactory extends implementationOf(Transport
     }
 
     /**
-     * @param {string} dsn
-     * @param {*} options
-     * @param {Jymfony.Component.Messenger.Transport.Serialization.SerializerInterface} serializer
-     *
-     * @returns {Jymfony.Component.Messenger.Transport.TransportInterface}
+     * @inheritDoc
      */
-    createTransport(dsn, options, serializer) {
+    async createTransport(dsn, options, serializer) {
         const { serialize } = this._parseDsn(dsn);
 
         const transport = new InMemoryTransport(serialize ? serializer : null);

@@ -5,6 +5,8 @@ declare namespace Jymfony.Component.Messenger.Transport {
      * Creates a Messenger transport.
      */
     export class TransportFactoryInterface {
+        public static readonly definition: Newable<TransportFactoryInterface>;
+
         createTransport(dsn: string, options: any, serializer: SerializerInterface): Promise<TransportInterface>;
 
         supports(dsn: string, options: any): boolean;

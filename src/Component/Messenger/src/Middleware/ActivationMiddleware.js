@@ -21,7 +21,7 @@ export default class ActivationMiddleware extends implementationOf(MiddlewareInt
         this._inner = inner;
 
         /**
-         * @type {(function(Jymfony.Component.Messenger.Middleware.ActivationMiddleware.Envelope): Promise<Jymfony.Component.Messenger.Middleware.ActivationMiddleware.Envelope>)|boolean}
+         * @type {(function(Jymfony.Component.Messenger.Envelope): Promise<Jymfony.Component.Messenger.Envelope>) | boolean}
          *
          * @private
          */

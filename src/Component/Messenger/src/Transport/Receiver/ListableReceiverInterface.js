@@ -15,7 +15,7 @@ class ListableReceiverInterface {
      *
      * @param {int | null} [limit = null]
      *
-     * @returns {Iterable<Jymfony.Component.Messenger.Envelope>}
+     * @returns {AsyncIterator<Jymfony.Component.Messenger.Envelope>}
      */
     async all(limit = null) { }
 

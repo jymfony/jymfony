@@ -85,31 +85,31 @@ container.register('messenger.transport.in_memory.factory', Jymfony.Component.Me
 // container.register('messenger.transport.beanstalkd.factory', BeanstalkdTransportFactory);
 
 // retry
-// container.register('messenger.retry_strategy_locator', ServiceLocator)
-//     .setArguments([
-//         [],
-//     ])
-//     .addTag('container.service_locator');
-//
-// container.register('messenger.retry.abstract_multiplier_retry_strategy', MultiplierRetryStrategy)
-//     .setAbstract(true)
-//     .setArguments([
-//         null, // max retries
-//         null, // delay ms
-//         null, // multiplier
-//         null, // max delay ms
-//     ]);
-//
-// // worker event listener
-// container.register('messenger.retry.send_failed_message_for_retry_listener', SendFailedMessageForRetryListener)
-//     .setArguments([
-//         null, // senders service locator,
-//         new Reference('messenger.retry_strategy_locator'),
-//         new Reference('logger', Container.IGNORE_ON_INVALID_REFERENCE),
-//         new Reference('event_dispatcher'),
-//     ])
-//     .addTag('kernel.event_subscriber')
-//     .addTag('jymfony.logger', { channel: 'messenger' })
+container.register('messenger.retry_strategy_locator', Jymfony.Component.DependencyInjection.ServiceLocator)
+    .setArguments([
+        [],
+    ])
+    .addTag('container.service_locator');
+
+container.register('messenger.retry.abstract_multiplier_retry_strategy', Jymfony.Component.Messenger.Retry.MultiplierRetryStrategy)
+    .setAbstract(true)
+    .setArguments([
+        null, // max retries
+        null, // delay ms
+        null, // multiplier
+        null, // max delay ms
+    ]);
+
+// worker event listener
+container.register('messenger.retry.send_failed_message_for_retry_listener', Jymfony.Component.Messenger.EventListener.SendFailedMessageForRetryListener)
+    .setArguments([
+        null, // senders service locator,
+        new Reference('messenger.retry_strategy_locator'),
+        new Reference('logger', Container.IGNORE_ON_INVALID_REFERENCE),
+        new Reference('event_dispatcher'),
+    ])
+    .addTag('kernel.event_subscriber')
+    .addTag('jymfony.logger', { channel: 'messenger' })
 
 container.register('messenger.failure.add_error_details_stamp_listener', Jymfony.Component.Messenger.EventListener.AddErrorDetailsStampListener)
     .addTag('kernel.event_subscriber');

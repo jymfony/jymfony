@@ -4,5 +4,6 @@ declare namespace Jymfony.Component.Messenger.Transport {
 
     interface TransportInterface extends ReceiverInterface, SenderInterface {}
     export class TransportInterface {
+        public static readonly definition: Newable<TransportInterface>;
     }
 }

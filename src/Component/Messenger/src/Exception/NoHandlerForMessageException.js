@@ -1,3 +1,5 @@
+const LogicException = Jymfony.Component.Messenger.Exception.LogicException;
+
 /**
  * @memberOf Jymfony.Component.Messenger.Exception
  */

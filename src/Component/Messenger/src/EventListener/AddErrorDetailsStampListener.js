@@ -2,6 +2,9 @@ const EventSubscriberInterface = Jymfony.Contracts.EventDispatcher.EventSubscrib
 const WorkerMessageFailedEvent = Jymfony.Component.Messenger.Event.WorkerMessageFailedEvent;
 const ErrorDetailsStamp = Jymfony.Component.Messenger.Stamp.ErrorDetailsStamp;
 
+/**
+ * @memberOf Jymfony.Component.Messenger.EventListener
+ */
 export default class AddErrorDetailsStampListener extends implementationOf(EventSubscriberInterface) {
     /**
      * @param {Jymfony.Component.Messenger.Event.WorkerMessageFailedEvent} event

@@ -10,13 +10,13 @@ export default class TraceableMiddleware extends implementationOf(MiddlewareInte
     /**
      * Constructor.
      *
-     * @param {Jymfony.Component.Stopwatch.Stopwatch} stopwatch
+     * @param {Jymfony.Contracts.Stopwatch.StopwatchInterface} stopwatch
      * @param {string} busName
      * @param {string} [eventCategory = 'messenger.middleware']
      */
     __construct(stopwatch, busName, eventCategory = 'messenger.middleware') {
         /**
-         * @type {Jymfony.Component.Stopwatch.Stopwatch}
+         * @type {Jymfony.Contracts.Stopwatch.StopwatchInterface}
          *
          * @private
          */
@@ -59,7 +59,7 @@ class TraceableStack extends implementationOf(StackInterface) {
      * Constructor.
      *
      * @param {Jymfony.Component.Messenger.Middleware.StackInterface} stack
-     * @param {Jymfony.Component.Stopwatch.Stopwatch} stopwatch
+     * @param {Jymfony.Contracts.Stopwatch.StopwatchInterface} stopwatch
      * @param {string} busName
      * @param {string} eventCategory
      */
@@ -72,7 +72,7 @@ class TraceableStack extends implementationOf(StackInterface) {
         this._stack = stack;
 
         /**
-         * @type {Jymfony.Component.Stopwatch.Stopwatch}
+         * @type {Jymfony.Contracts.Stopwatch.StopwatchInterface}
          *
          * @private
          */
