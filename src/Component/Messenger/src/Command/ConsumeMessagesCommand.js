@@ -198,7 +198,7 @@ Use the --no-reset option to prevent services resetting after each message (may 
         // }
         //
         const timeLimit = input.getOption('time-limit');
-        if (null !== timeLimit) {
+        if (undefined !== timeLimit && null !== timeLimit) {
             if (!isNumeric(timeLimit) || 0 >= timeLimit) {
                 throw new InvalidOptionException(__jymfony.sprintf('Option "time-limit" must be a positive integer, "%s" passed.', timeLimit));
             }
