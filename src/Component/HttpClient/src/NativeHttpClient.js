@@ -292,7 +292,7 @@ export default class NativeHttpClient extends implementationOf(
 
             const proxy = this._getProxy(options.proxy, url, options.no_proxy);
             if (! configureHeadersAndProxy(context, host, options.headers, proxy, 'https:' === url.protocol)) {
-                url.host = await dnsResolve(host, context, info, onProgress);
+                url.hostname = await dnsResolve(host, context, info, onProgress);
                 url.port = null;
             } else {
                 await dnsResolve(proxy.hostname, context, info, onProgress);
@@ -385,7 +385,7 @@ export default class NativeHttpClient extends implementationOf(
 
             const shouldResolve = ! configureHeadersAndProxy(context, host, requestHeaders, proxy, 'https:' === url.protocol) || undefined !== context.ssl.peer_name;
             if (shouldResolve) {
-                url.host = await dnsResolve(host, context, info, onProgress);
+                url.hostname = await dnsResolve(host, context, info, onProgress);
                 url.port = null;
             } else {
                 await dnsResolve(proxy.hostname, context, info, onProgress);
