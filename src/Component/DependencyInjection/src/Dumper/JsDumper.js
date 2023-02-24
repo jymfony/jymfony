@@ -1187,7 +1187,7 @@ ${this._addReturn(id, definition)}\
                 args[k] = argument.values[0];
             }
 
-            return __jymfony.sprintf(`        ${ret}%s;\n`, this._dumpValue(new ServiceLocatorArgument(args)));
+            return __jymfony.sprintf(`        ${ret}${instantiation}%s;\n`, this._dumpValue(new ServiceLocatorArgument(args)));
         }
 
         let class_ = this._dumpValue(definition.getClass());
