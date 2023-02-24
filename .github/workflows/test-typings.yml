@@ -21,4 +21,4 @@ jobs:
                   node-version: ${{ matrix.node_version }}
                   architecture: ${{ matrix.architecture }}
             - run: npm install
-            - run: $(npm bin)/tsc
+            - run: $(npm root)/.bin/tsc
