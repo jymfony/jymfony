@@ -7,6 +7,7 @@ const InvalidOptionException = Jymfony.Component.Console.Exception.InvalidOption
 const JymfonyStyle = Jymfony.Component.Console.Style.JymfonyStyle;
 const OutputInterface = Jymfony.Component.Console.Output.OutputInterface;
 const StopWorkerOnMessageLimitListener = Jymfony.Component.Messenger.EventListener.StopWorkerOnMessageLimitListener;
+const StopWorkerOnTimeLimitListener = Jymfony.Component.Messenger.EventListener.StopWorkerOnTimeLimitListener;
 const Worker = Jymfony.Component.Messenger.Worker;
 
 /**
@@ -196,14 +197,15 @@ Use the --no-reset option to prevent services resetting after each message (may 
         //     This._eventDispatcher->addSubscriber(new StopWorkerOnMemoryLimitListener(this._convertToBytes($memoryLimit), this._logger));
         // }
         //
-        // If (null !== $timeLimit = $input->getOption('time-limit')) {
-        //     If (!is_numeric($timeLimit) || 0 >= $timeLimit) {
-        //         Throw new InvalidOptionException(sprintf('Option "time-limit" must be a positive integer, "%s" passed.', $timeLimit));
-        //     }
-        //
-        //     $stopsWhen[] = "been running for {$timeLimit}s";
-        //     This._eventDispatcher->addSubscriber(new StopWorkerOnTimeLimitListener($timeLimit, this._logger));
-        // }
+        const timeLimit = input.getOption('time-limit');
+        if (null !== timeLimit) {
+            if (!isNumeric(timeLimit) || 0 >= timeLimit) {
+                throw new InvalidOptionException(__jymfony.sprintf('Option "time-limit" must be a positive integer, "%s" passed.', timeLimit));
+            }
+
+            stopsWhen.push(`been running for ${timeLimit}s`);
+            this._eventDispatcher.addSubscriber(new StopWorkerOnTimeLimitListener(timeLimit, this._logger));
+        }
 
         stopsWhen.push('received a stop signal via the messenger:stop-workers command');
 

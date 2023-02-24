@@ -36,7 +36,7 @@ export default class DelayStamp extends implementationOf(StampInterface) {
      */
     static delayFor(interval) {
         const now = DateTime.now;
-        const end = now.modify(interval)
+        const end = now.modify(interval);
 
         return new __self((end.timestamp - now.timestamp) * 1000);
     }
