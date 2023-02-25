@@ -261,12 +261,7 @@ export default class HtmlErrorRenderer extends implementationOf(ErrorRendererInt
             fileExcerpt: this._fileExcerpt,
             formatLogMessage: (...args) => this._formatLogMessage(...args),
             logSubject: request || (this._logger && this._logger._activeContext[__jymfony.ClsTrait.COMMAND_SYMBOL]) || null,
-            include: (...args) => {
-                const included = this._include(...args);
-                if (included) {
-                    emit(included);
-                }
-            },
+            include: this._include.bind(this),
             formatFile: (...args) => this._formatFile(...args),
         }, { filename })();
 

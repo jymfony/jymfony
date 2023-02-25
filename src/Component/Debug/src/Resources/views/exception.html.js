@@ -60,11 +60,11 @@ emit(`<h3 class="tab-title">Exception${exceptionAsArrayCount > 1 ? 's <span clas
 
 emit('<div class="tab-content">');
 for (const [ i, e ] of __jymfony.getEntries(exceptionAsArray)) {
-    include('views/traces.html.js', {
+    emit(include('views/traces.html.js', {
         exception: e,
         index: i + 1,
         expand: exceptionWithUserCode.includes(i) || (0 === exceptionWithUserCode.length && 0 === 0),
-    });
+    }));
 }
 
 emit(`
