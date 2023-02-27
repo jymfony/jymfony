@@ -54,23 +54,27 @@ export default class DecodingStream extends Transform {
     /**
      * @inheritdoc
      */
+    _destroy(error, callback) {
+        this._stream.destroy();
+        super._destroy(error, callback);
+    }
+
+    /**
+     * @inheritdoc
+     */
     _transform(chunk, encoding, callback) {
         this._stream.on('error', callback);
         this._stream.write(chunk, encoding, (err) => {
-            if (err) {
-                callback(err);
+            if (!err) {
+                try {
+                    this._onProgress(this._current += chunk.length);
+                } catch (e) {
+                    err = e;
+                }
             }
 
-            try {
-                this._onProgress(this._current += chunk.length);
-            } catch (e) {
-                callback(e);
-                return;
-            } finally {
-                this._stream.off('error', callback);
-            }
-
-            callback(null, null);
+            this._stream.off('error', callback);
+            callback(err, null);
         });
     }
 }

@@ -302,6 +302,7 @@ export default class NativeHttpResponse extends implementationOf(ResponseInterfa
                 this._timeout = null;
             }
 
+            decodingStream.destroy();
             this._message.removeAllListeners('timeout');
         });
     }
