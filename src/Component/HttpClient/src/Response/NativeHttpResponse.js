@@ -554,8 +554,6 @@ export default class NativeHttpResponse extends implementationOf(ResponseInterfa
                 this._message.on('timeout', timeoutFn);
                 this._timeout = setTimeout(timeoutFn, context.http.timeout * 1000);
 
-                socket.end();
-
                 if (null === url) {
                     this._headers = __jymfony.deepClone(this._info.response_headers);
                     break;
