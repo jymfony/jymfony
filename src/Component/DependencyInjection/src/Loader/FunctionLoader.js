@@ -10,9 +10,10 @@ export default class FunctionLoader extends Loader {
      * Constructor.
      *
      * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container A ContainerBuilder instance
+     * @param {string | null} [env = null]
      */
-    __construct(container) {
-        super.__construct();
+    __construct(container, env = null) {
+        super.__construct(env);
 
         /**
          * @type {Jymfony.Component.DependencyInjection.ContainerBuilder}

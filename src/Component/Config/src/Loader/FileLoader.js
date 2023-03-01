@@ -18,9 +18,10 @@ export default class FileLoader extends Loader {
      * Constructor
      *
      * @param {Jymfony.Component.Config.FileLocatorInterface} locator
+     * @param {string | null} [env = null]
      */
-    __construct(locator) {
-        super.__construct();
+    __construct(locator, env = null) {
+        super.__construct(env);
 
         /**
          * @type {Jymfony.Component.Config.FileLocatorInterface}

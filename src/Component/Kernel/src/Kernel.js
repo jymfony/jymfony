@@ -576,10 +576,10 @@ export default class Kernel extends implementationOf(KernelInterface) {
     _getContainerLoader(container) {
         const locator = new FileLocator(this);
         const resolver = new LoaderResolver([
-            new Loader.YamlFileLoader(container, locator),
-            new Loader.JsFileLoader(container, locator),
-            new Loader.JsonFileLoader(container, locator),
-            new Loader.FunctionLoader(container),
+            new Loader.YamlFileLoader(container, locator, this.environment),
+            new Loader.JsFileLoader(container, locator, this.environment),
+            new Loader.JsonFileLoader(container, locator, this.environment),
+            new Loader.FunctionLoader(container, this.environment),
         ]);
 
         return new DelegatingLoader(resolver);

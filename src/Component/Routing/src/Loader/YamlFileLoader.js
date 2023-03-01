@@ -9,8 +9,8 @@ const JsonFileLoader = Jymfony.Component.Routing.Loader.JsonFileLoader;
  * @memberOf Jymfony.Component.Routing.Loader
  */
 export default class YamlFileLoader extends JsonFileLoader {
-    __construct(locator) {
-        super.__construct(locator);
+    __construct(locator, env = null) {
+        super.__construct(locator, env);
 
         /**
          * @type {Jymfony.Component.Yaml.Parser}

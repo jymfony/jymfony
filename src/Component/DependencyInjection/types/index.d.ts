@@ -1,3 +1,4 @@
+/// <reference path="Annotation/Exclude.d.ts" />
 /// <reference path="Annotation/Inject.d.ts" />
 /// <reference path="Annotation/Parameter.d.ts" />
 /// <reference path="Argument/ArgumentInterface.d.ts" />

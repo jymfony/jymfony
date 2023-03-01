@@ -11,14 +11,23 @@ const LoaderInterface = Jymfony.Component.Config.Loader.LoaderInterface;
 export default class Loader extends implementationOf(LoaderInterface) {
     /**
      * Constructor.
+     *
+     * @param {string | null} [env = null]
      */
-    __construct() {
+    __construct(env = null) {
         /**
          * @type {undefined}
          *
          * @protected
          */
         this._resolver = undefined;
+
+        /**
+         * @type {string | null}
+         *
+         * @protected
+         */
+        this._env = env;
     }
 
     /**

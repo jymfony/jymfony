@@ -19,8 +19,9 @@ export default class JsFileLoader extends FileLoader {
      *
      * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container A ContainerBuilder instance
      * @param {Jymfony.Component.Config.FileLocatorInterface} locator A FileLocator instance
+     * @param {string | null} [env = null]
      */
-    __construct(container, locator) {
+    __construct(container, locator, env = null) {
         /**
          * @type {Jymfony.Component.DependencyInjection.ContainerBuilder}
          *
@@ -28,7 +29,7 @@ export default class JsFileLoader extends FileLoader {
          */
         this._container = container;
 
-        super.__construct(locator);
+        super.__construct(locator, env);
     }
 
     /**

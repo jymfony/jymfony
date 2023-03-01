@@ -17,8 +17,8 @@ declare namespace Jymfony.Component.Config.Loader {
          * Constructor
          */
         // @ts-ignore
-        __construct(locator: FileLocatorInterface): void;
-        constructor(locator: FileLocatorInterface);
+        __construct(locator: FileLocatorInterface, env?: string | null): void;
+        constructor(locator: FileLocatorInterface, env?: string | null);
 
         /**
          * Imports a resource.

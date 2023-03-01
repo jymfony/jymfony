@@ -34,13 +34,25 @@ const RouteCollection = Jymfony.Component.Routing.RouteCollection;
  * @memberOf Jymfony.Component.Routing.Loader
  */
 export default class AnnotationClassLoader extends implementationOf(LoaderInterface) {
-    __construct() {
+    /**
+     * Constructor.
+     *
+     * @param {string | null} [env = null]
+     */
+    __construct(env = null) {
         /**
          * @type {int}
          *
          * @protected
          */
         this._defaultRouteIndex = 0;
+
+        /**
+         * @type {string|null}
+         *
+         * @private
+         */
+        this._env = env;
     }
 
     /**

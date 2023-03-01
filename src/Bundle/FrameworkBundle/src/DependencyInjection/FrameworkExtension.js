@@ -383,6 +383,7 @@ export default class FrameworkExtension extends Extension {
         definition.replaceArgument(2, options);
 
         container.register('routing.loader.annotation', Jymfony.Bundle.FrameworkBundle.Routing.AnnotatedControllerLoader)
+            .addArgument('%kernel.environment%')
             .addTag('routing.loader', { priority: -10 })
         ;
 

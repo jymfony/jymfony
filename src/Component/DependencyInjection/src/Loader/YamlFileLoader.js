@@ -20,9 +20,10 @@ export default class YamlFileLoader extends JsonFileLoader {
      *
      * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
      * @param {Jymfony.Component.Config.FileLocatorInterface} locator
+     * @param {string | null} [env = null]
      */
-    __construct(container, locator) {
-        super.__construct(container, locator);
+    __construct(container, locator, env = null) {
+        super.__construct(container, locator, env);
 
         /**
          * @type {Jymfony.Component.Yaml.Parser}
