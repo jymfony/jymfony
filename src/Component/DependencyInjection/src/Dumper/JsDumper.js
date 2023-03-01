@@ -846,6 +846,16 @@ ${this._addReturn(id, definition)}\
                 args.push(this._dumpValue(argument));
             }
 
+            const definitionModule = value.getModule();
+            if (definitionModule) {
+                const [ module, property ] = definitionModule;
+                if (property) {
+                    return __jymfony.sprintf('new (require(%s)[%s])(%s)', this._dumpValue(module), this._dumpValue(property), args.join(', '));
+                }
+
+                return __jymfony.sprintf('require(%s)', this._dumpValue(module));
+            }
+
             const factory = value.getFactory();
             if (factory) {
                 if (isString(factory)) {

@@ -13,6 +13,9 @@ class ProjectContainer extends Jymfony.Component.DependencyInjection.Container {
             "bar": "getBarService",
             "foo": "getFooService",
             "foo.baz": "getFoo_BazService",
+            "foo.mbaz": "getFoo_MbazService",
+            "foo.mbaz.property": "getFoo_Mbaz_PropertyService",
+            "foo.mbaz.simple": "getFoo_Mbaz_SimpleService",
             "foo_bar": "getFooBarService",
         };
 
@@ -77,6 +80,33 @@ class ProjectContainer extends Jymfony.Component.DependencyInjection.Container {
 
         BazClass.configureStatic1(instance);
         return instance;
+    }
+
+    /**
+     * Gets the public 'foo.mbaz' shared service.
+     *
+     * @returns {BazClass}
+     */
+    getFoo_MbazService() {
+        return this._services["foo.mbaz"] = new BazClass(require("BazClass"), new (require("BazClass")["getInstance"])());
+    }
+
+    /**
+     * Gets the public 'foo.mbaz.property' shared service.
+     *
+     * @returns {BazClass}
+     */
+    getFoo_Mbaz_PropertyService() {
+        return this._services["foo.mbaz.property"] = new (require("BazClass")["getInstance"])();
+    }
+
+    /**
+     * Gets the public 'foo.mbaz.simple' shared service.
+     *
+     * @returns {BazClass}
+     */
+    getFoo_Mbaz_SimpleService() {
+        return this._services["foo.mbaz.simple"] = require("BazClass");
     }
 
     /**
