@@ -42,9 +42,9 @@ jobs:
                     IP: '0.0.0.0'
 
         steps:
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v3
             - name: Setup node
-              uses: actions/setup-node@v1
+              uses: actions/setup-node@v3
               with:
                   node-version: ${{ matrix.node_version }}
                   architecture: ${{ matrix.architecture }}
@@ -52,18 +52,18 @@ jobs:
             - run: npm install @jymfony/compiler
               if: ${{ matrix.node_version < 16 }}
             - run: npm test
-              if: ${{ matrix.node_version != 16 }}
+              if: ${{ matrix.node_version != 18 }}
               env:
                   REDIS_HOST: localhost:6379
                   REDIS_CLUSTER_HOSTS: 'localhost:7000 localhost:7001 localhost:7002 localhost:7003 localhost:7004 localhost:7005'
             - run: npm run-script coverage
-              if: ${{ matrix.node_version == 16 }}
+              if: ${{ matrix.node_version == 18 }}
               env:
                   REDIS_HOST: localhost:6379
                   REDIS_CLUSTER_HOSTS: 'localhost:7000 localhost:7001 localhost:7002 localhost:7003 localhost:7004 localhost:7005'
             - run: npm install https://github.com/alekitto/ocular.js.git
-              if: ${{ matrix.node_version == 16 }}
+              if: ${{ matrix.node_version == 18 }}
               continue-on-error: true
-            - run: $(npm bin)/ocular coverage/clover.xml
-              if: ${{ matrix.node_version == 16 }}
+            - run: $(npm root)/.bin/ocular coverage/clover.xml
+              if: ${{ matrix.node_version == 18 }}
               continue-on-error: true
