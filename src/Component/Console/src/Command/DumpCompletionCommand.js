@@ -31,15 +31,23 @@ export default class DumpCompletionCommand extends Command {
 
     configure() {
         this.description = 'Dump the shell completion script';
-        let fullCommand = process.argv[1];
-        const commandName = basename(fullCommand);
-        fullCommand = (() => {
-            try {
-                return realpathSync(fullCommand);
-            } catch (_) {
-                return null;
+        const [ fullCommand, commandName ] = (() => {
+            let fullCommand = process.argv[1];
+            if (! fullCommand) {
+                return [ process.argv[0], process.argv[0] ];
             }
-        })() || fullCommand;
+
+            const commandName = basename(fullCommand);
+            fullCommand = (() => {
+                try {
+                    return realpathSync(fullCommand);
+                } catch (_) {
+                    return null;
+                }
+            })() || fullCommand;
+
+            return [ fullCommand, commandName ];
+        })();
 
         this.help = `The <info>%command.name%</> command dumps the shell completion script required
 to use shell autocompletion (currently only bash completion is supported).
