@@ -96,13 +96,13 @@ container.register('messenger.retry.send_failed_message_for_retry_listener', Jym
 container.register('messenger.failure.add_error_details_stamp_listener', Jymfony.Component.Messenger.EventListener.AddErrorDetailsStampListener)
     .addTag('kernel.event_subscriber');
 
-// TODO: container.register('messenger.failure.send_failed_message_to_failure_transport_listener', SendFailedMessageToFailureTransportListener)
-//     .setArguments([
-//         Null, // failure transports
-//         New Reference('logger', Container.IGNORE_ON_INVALID_REFERENCE),
-//     ])
-//     .addTag('kernel.event_subscriber')
-//     .addTag('jymfony.logger', { channel: 'messenger' });
+container.register('messenger.failure.send_failed_message_to_failure_transport_listener', Jymfony.Component.Messenger.EventListener.SendFailedMessageToFailureTransportListener)
+    .setArguments([
+        null, // Failure transports
+        new Reference('logger', Container.IGNORE_ON_INVALID_REFERENCE),
+    ])
+    .addTag('kernel.event_subscriber')
+    .addTag('jymfony.logger', { channel: 'messenger' });
 
 container.register('messenger.listener.stop_worker_on_restart_signal_listener', Jymfony.Component.Messenger.EventListener.StopWorkerOnRestartSignalListener)
     .setArguments([
@@ -118,8 +118,8 @@ container.register('messenger.listener.stop_worker_on_sigterm_signal_listener', 
     ])
     .addTag('kernel.event_subscriber');
 
-// TODO: container.register('messenger.listener.stop_worker_on_stop_exception_listener', StopWorkerOnCustomStopExceptionListener)
-//     .addTag('kernel.event_subscriber');
+container.register('messenger.listener.stop_worker_on_stop_exception_listener', Jymfony.Component.Messenger.EventListener.StopWorkerOnCustomStopExceptionListener)
+    .addTag('kernel.event_subscriber');
 
 container.register('messenger.routable_message_bus', Jymfony.Component.Messenger.RoutableMessageBus)
     .setArguments([

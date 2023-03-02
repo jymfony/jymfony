@@ -6,6 +6,8 @@ const InputOption = Jymfony.Component.Console.Input.InputOption;
 const InvalidOptionException = Jymfony.Component.Console.Exception.InvalidOptionException;
 const JymfonyStyle = Jymfony.Component.Console.Style.JymfonyStyle;
 const OutputInterface = Jymfony.Component.Console.Output.OutputInterface;
+const StopWorkerOnFailureLimitListener = Jymfony.Component.Messenger.EventListener.StopWorkerOnFailureLimitListener;
+const StopWorkerOnMemoryLimitListener = Jymfony.Component.Messenger.EventListener.StopWorkerOnMemoryLimitListener;
 const StopWorkerOnMessageLimitListener = Jymfony.Component.Messenger.EventListener.StopWorkerOnMessageLimitListener;
 const StopWorkerOnTimeLimitListener = Jymfony.Component.Messenger.EventListener.StopWorkerOnTimeLimitListener;
 const Worker = Jymfony.Component.Messenger.Worker;
@@ -187,16 +189,18 @@ Use the --no-reset option to prevent services resetting after each message (may 
             this._eventDispatcher.addSubscriber(new StopWorkerOnMessageLimitListener(limit, this._logger));
         }
 
-        // If ($failureLimit = $input->getOption('failure-limit')) {
-        //     $stopsWhen[] = "reached {$failureLimit} failed messages";
-        //     This._eventDispatcher->addSubscriber(new StopWorkerOnFailureLimitListener($failureLimit, this._logger));
-        // }
-        //
-        // If ($memoryLimit = $input->getOption('memory-limit')) {
-        //     $stopsWhen[] = "exceeded {$memoryLimit} of memory";
-        //     This._eventDispatcher->addSubscriber(new StopWorkerOnMemoryLimitListener(this._convertToBytes($memoryLimit), this._logger));
-        // }
-        //
+        const failureLimit = input.getOption('failure-limit');
+        if (undefined !== failureLimit && null !== failureLimit) {
+            stopsWhen.push(`reached ${failureLimit} failed messages`);
+            this._eventDispatcher.addSubscriber(new StopWorkerOnFailureLimitListener(failureLimit, this._logger));
+        }
+
+        const memoryLimit = input.getOption('memory-limit');
+        if (undefined !== memoryLimit && null !== memoryLimit) {
+            stopsWhen.push(`exceeded ${memoryLimit} of memory`);
+            this._eventDispatcher.addSubscriber(new StopWorkerOnMemoryLimitListener(this._convertToBytes(memoryLimit), this._logger));
+        }
+
         const timeLimit = input.getOption('time-limit');
         if (undefined !== timeLimit && null !== timeLimit) {
             if (!isNumeric(timeLimit) || 0 >= timeLimit) {
