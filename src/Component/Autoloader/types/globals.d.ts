@@ -193,6 +193,13 @@ declare class ReflectionClass<T extends object = any> {
     readonly metadata: [Newable, any][];
 
     /**
+     * Gets the annotation instances of the given class.
+     */
+    getAnnotations<T extends object>(class_: Newable<T>, subclass?: boolean): T[];
+    getAnnotations(class_: string, subclass?: boolean): object[];
+    getAnnotations(class_: Newable | string, subclass?: boolean): object[];
+
+    /**
      * Gets the constructor method (reflection).
      */
     readonly constructorMethod: ReflectionMethod | null;
