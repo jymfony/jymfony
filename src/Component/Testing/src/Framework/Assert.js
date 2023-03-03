@@ -180,6 +180,15 @@ export default class Assert {
     }
 
     /**
+     * Asserts that a string (needle) is NOT contained in another string (haystack).
+     *
+     * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+     */
+    static assertStringNotContainsString(needle, haystack, message = '') {
+        this.assertThat(haystack, this.logicalNot(new StringContains(needle, false)), message);
+    }
+
+    /**
      * Asserts that a variable is of a given type.
      *
      * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}

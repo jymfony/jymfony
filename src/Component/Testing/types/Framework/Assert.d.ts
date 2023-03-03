@@ -125,6 +125,14 @@ declare namespace Jymfony.Component.Testing.Framework {
         assertStringContainsString(needle: string, haystack: string, message?: string): void;
 
         /**
+         * Asserts that a string (needle) is notcontained in another string (haystack).
+         *
+         * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+         */
+        static assertStringNotContainsString(needle: string, haystack: string, message?: string): void;
+        assertStringNotContainsString(needle: string, haystack: string, message?: string): void;
+
+        /**
          * Asserts that a variable is of a given type.
          *
          * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
