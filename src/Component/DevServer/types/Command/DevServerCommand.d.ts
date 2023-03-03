@@ -5,11 +5,6 @@ declare namespace Jymfony.Component.DevServer.Command {
     import OutputInterface = Jymfony.Contracts.Console.OutputInterface;
 
     export class DevServerCommand extends Command {
-        /**
-         * @inheritDoc
-         */
-        public static readonly defaultName: string;
-
         private _devServer: DevServer;
 
         /**

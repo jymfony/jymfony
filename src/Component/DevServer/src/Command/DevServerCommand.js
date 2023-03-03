@@ -1,10 +1,13 @@
+const AsCommand = Jymfony.Component.Console.Annotation.AsCommand;
 const Command = Jymfony.Component.Console.Command.Command;
 const JymfonyStyle = Jymfony.Component.Console.Style.JymfonyStyle;
 
 /**
  * @memberOf Jymfony.Component.DevServer.Command
  */
-export default class DevServerCommand extends Command {
+export default
+@AsCommand({ name: 'dev-server:run', description: 'Runs the dev server' })
+class DevServerCommand extends Command {
     /**
      * Constructor.
      *
@@ -22,17 +25,9 @@ export default class DevServerCommand extends Command {
     }
 
     /**
-     * @inheritDoc
-     */
-    static get defaultName() {
-        return 'dev-server:run';
-    }
-
-    /**
      * @inheritdoc
      */
     configure() {
-        this.description = 'Runs the dev server';
         this.help = 'The <info>%command.name%</info> runs the dev server and spawns a subprocess with given arguments.';
         this.ignoreValidationError();
     }

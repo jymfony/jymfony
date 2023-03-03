@@ -9,11 +9,6 @@ declare namespace Jymfony.Bundle.FrameworkBundle.Command {
         /**
          * @inheritDoc
          */
-        public static readonly defaultName: string;
-
-        /**
-         * @inheritDoc
-         */
         configure(): void;
 
         /**

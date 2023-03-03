@@ -1,5 +1,6 @@
 import { format } from 'url';
 
+const AsCommand = Jymfony.Component.Console.Annotation.AsCommand;
 const Command = Jymfony.Component.Console.Command.Command;
 const JymfonyStyle = Jymfony.Component.Console.Style.JymfonyStyle;
 const InputArgument = Jymfony.Component.Console.Input.InputArgument;
@@ -7,7 +8,9 @@ const InputArgument = Jymfony.Component.Console.Input.InputArgument;
 /**
  * @memberOf Jymfony.Component.HttpServer.Command
  */
-export default class HttpServerRunCommand extends Command {
+export default
+@AsCommand({ name: 'http:listen', description: 'Run the http server and listen for incoming connections' })
+class HttpServerRunCommand extends Command {
     /**
      * Constructor.
      *
@@ -25,17 +28,9 @@ export default class HttpServerRunCommand extends Command {
     }
 
     /**
-     * @inheritDoc
-     */
-    static get defaultName() {
-        return 'http:listen';
-    }
-
-    /**
      * @inheritdoc
      */
     configure() {
-        this.description = 'Run the http server and listen for incoming connections';
         this.help = `The <info>%command.name%</info> command will run the http server and listen for connections on the given address and port:
 
   <info>%command.full_name%</info>
