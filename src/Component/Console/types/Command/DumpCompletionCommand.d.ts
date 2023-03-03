@@ -10,8 +10,6 @@ declare namespace Jymfony.Component.Console.Command {
      * @final
      */
     export class DumpCompletionCommand extends Command {
-        public static readonly defaultName: string;
-
         complete(input: CompletionInput, suggestions: CompletionSuggestions): Promise<void>;
 
         configure(): void;

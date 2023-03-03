@@ -1,5 +1,4 @@
 import { EOL } from 'os';
-import { PassThrough } from 'stream';
 
 const ArrayInput = Jymfony.Component.Console.Input.ArrayInput;
 const ConsoleOutput = Jymfony.Component.Console.Output.ConsoleOutput;
@@ -92,7 +91,7 @@ export default class ApplicationTester {
 
         this._captureStdErrSeparately = !! options.stderr;
         if (! this._captureStdErrSeparately) {
-            this._output = new StreamOutput(new PassThrough());
+            this._output = new StreamOutput(new __jymfony.StreamBuffer());
             this._output.deferUncork = false;
 
             if (options.verbosity) {
@@ -109,14 +108,14 @@ export default class ApplicationTester {
             );
             this._output.deferUncork = false;
 
-            const stdErr = new StreamOutput(new PassThrough());
+            const stdErr = new StreamOutput(new __jymfony.StreamBuffer());
             stdErr.formatter = this._output.formatter;
             stdErr.verbosity = this._output.verbosity;
             stdErr.decorated = this._output.decorated;
             stdErr.deferUncork = false;
 
             this._output._stderr = stdErr;
-            this._output._stream = new PassThrough();
+            this._output._stream = new __jymfony.StreamBuffer();
         }
 
         const statusCode = await this._application.run(this._input, this._output);

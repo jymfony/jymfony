@@ -87,7 +87,9 @@ export default class CompletionInput extends ArgvInput {
      * @inheritdoc
      */
     bind(definition) {
+        const cmdName = this._tokens.shift();
         super.bind(definition);
+        this._tokens.unshift(cmdName);
 
         const relevantToken = this._getRelevantToken();
         if ('-' === relevantToken[0]) {
@@ -114,7 +116,7 @@ export default class CompletionInput extends ArgvInput {
 
             if (null !== option && option.acceptValue()) {
                 this._completionType = __self.TYPE_OPTION_VALUE;
-                this._completionName = option.name;
+                this._completionName = option.getName();
                 this._completionValue = optionValue || (!optionToken.startsWith('--') ? optionToken.substring(2) : '');
 
                 return;
@@ -127,7 +129,7 @@ export default class CompletionInput extends ArgvInput {
             const previousOption = this._getOptionFromToken(previousToken);
             if (null !== previousOption && previousOption.acceptValue()) {
                 this._completionType = __self.TYPE_OPTION_VALUE;
-                this._completionName = previousOption.name;
+                this._completionName = previousOption.getName();
                 this._completionValue = relevantToken;
 
                 return;

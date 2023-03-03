@@ -12,8 +12,9 @@ export default class InputArgument {
      * @param {int|undefined} [mode]
      * @param {string} [description = '']
      * @param {*} [defaultValue]
+     * @param {(string | Jymfony.Component.Console.Completion.Suggestion)[] | function(Jymfony.Component.Console.Completion.CompletionInput, Jymfony.Component.Console.Completion.CompletionSuggestions): (string | Jymfony.Component.Console.Completion.Suggestion)[]} [suggestedValues = []]
      */
-    __construct(name, mode = undefined, description = '', defaultValue = undefined) {
+    __construct(name, mode = undefined, description = '', defaultValue = undefined, suggestedValues = []) {
         if (undefined === mode) {
             mode = InputArgument.OPTIONAL;
         } else if (! isNumber(mode) || 7 < mode || 1 > mode) {
@@ -40,6 +41,13 @@ export default class InputArgument {
          * @private
          */
         this._description = description;
+
+        /**
+         * @type {(string | Jymfony.Component.Console.Completion.Suggestion)[] | function(Jymfony.Component.Console.Completion.CompletionInput, Jymfony.Component.Console.Completion.CompletionSuggestions): (string | Jymfony.Component.Console.Completion.Suggestion)[]}
+         *
+         * @private
+         */
+        this._suggestedValues = suggestedValues;
 
         this.setDefault(defaultValue);
     }
@@ -106,6 +114,29 @@ export default class InputArgument {
      */
     getDefault() {
         return this._default;
+    }
+
+    hasCompletion() {
+        return [] !== this._suggestedValues;
+    }
+
+    /**
+     * Adds suggestions to $suggestions for the current completion input.
+     *
+     * @param {Jymfony.Component.Console.Completion.CompletionInput} input
+     * @param {Jymfony.Component.Console.Completion.CompletionSuggestions} suggestions
+     *
+     * @see Jymfony.Component.Console.Command.Command.complete()
+     */
+    async complete(input, suggestions) {
+        let values = this._suggestedValues;
+        if (isFunction(values) && !isArray(values = await values(input))) {
+            throw new LogicException(__jymfony.sprintf('Closure for argument "%s" must return an array. Got "%s".', this._name, __jymfony.get_debug_type(values)));
+        }
+
+        if (0 < values.length) {
+            suggestions.suggestValues(values);
+        }
     }
 
     /**

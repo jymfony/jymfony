@@ -13,8 +13,9 @@ export default class InputOption {
      * @param {int|undefined} [mode]
      * @param {string} [description = '']
      * @param {*} [defaultValue]
+     * @param {(string | Jymfony.Component.Console.Completion.Suggestion)[] | function(Jymfony.Component.Console.Completion.CompletionInput, Jymfony.Component.Console.Completion.CompletionSuggestions): (string | Jymfony.Component.Console.Completion.Suggestion)[]} [suggestedValues = []]
      */
-    __construct(name, shortcut = undefined, mode = undefined, description = '', defaultValue = undefined) {
+    __construct(name, shortcut = undefined, mode = undefined, description = '', defaultValue = undefined, suggestedValues = []) {
         if (0 === name.indexOf('--')) {
             name = name.substring(2);
         }
@@ -78,6 +79,17 @@ export default class InputOption {
          * @private
          */
         this._default = null;
+
+        /**
+         * @type {(string | Jymfony.Component.Console.Completion.Suggestion)[] | function(Jymfony.Component.Console.Completion.CompletionInput, Jymfony.Component.Console.Completion.CompletionSuggestions): (string | Jymfony.Component.Console.Completion.Suggestion)[]}
+         *
+         * @private
+         */
+        this._suggestedValues = suggestedValues;
+
+        if ((!isArray(suggestedValues) || 0 < suggestedValues.length) && ! this.acceptValue()) {
+            throw new LogicException('Cannot set suggested values if the option does not accept a value.');
+        }
 
         if (this.isArray() && ! this.acceptValue()) {
             throw new InvalidArgumentException('Impossible to have an option mode VALUE_IS_ARRAY if the option does not accept a value.');
@@ -182,6 +194,29 @@ export default class InputOption {
      */
     getDefault() {
         return this._default;
+    }
+
+    hasCompletion() {
+        return [] !== this._suggestedValues;
+    }
+
+    /**
+     * Adds suggestions to $suggestions for the current completion input.
+     *
+     * @param {Jymfony.Component.Console.Completion.CompletionInput} input
+     * @param {Jymfony.Component.Console.Completion.CompletionSuggestions} suggestions
+     *
+     * @see Jymfony.Component.Console.Command.Command.complete()
+     */
+    async complete(input, suggestions) {
+        let values = this._suggestedValues;
+        if (isFunction(values) && !isArray(values = await values(input))) {
+            throw new LogicException(__jymfony.sprintf('Closure for argument "%s" must return an array. Got "%s".', this._name, __jymfony.get_debug_type(values)));
+        }
+
+        if (0 < values.length) {
+            suggestions.suggestValues(values);
+        }
     }
 
     /**

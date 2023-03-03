@@ -1,10 +1,12 @@
+const AsCommand = Jymfony.Component.Console.Annotation.AsCommand;
+const CommandInterface = Jymfony.Contracts.Console.CommandInterface;
+const CompletionInput = Jymfony.Component.Console.Completion.CompletionInput;
 const ExceptionInterface = Jymfony.Component.Console.Exception.ExceptionInterface;
-const InvalidArgumentException = Jymfony.Component.Console.Exception.InvalidArgumentException;
-const LogicException = Jymfony.Component.Console.Exception.LogicException;
+const InputDefinition = Jymfony.Component.Console.Input.InputDefinition;
 const InputArgument = Jymfony.Component.Console.Input.InputArgument;
 const InputOption = Jymfony.Component.Console.Input.InputOption;
-const InputDefinition = Jymfony.Component.Console.Input.InputDefinition;
-const CommandInterface = Jymfony.Contracts.Console.CommandInterface;
+const InvalidArgumentException = Jymfony.Component.Console.Exception.InvalidArgumentException;
+const LogicException = Jymfony.Component.Console.Exception.LogicException;
 
 /**
  * Base class for all commands.
@@ -24,11 +26,10 @@ export default class Command extends implementationOf(CommandInterface) {
         this._usages = [];
         this._ignoreValidationError = false;
         this._definition = new InputDefinition();
+        this._fullDefinition = null;
         this._help = '';
-        this._description = '';
+        this._description = this.constructor.getDefaultDescription() || '';
         this._hidden = false;
-        this._applicationDefinitionMerged = false;
-        this._applicationDefinitionMergedWithArgs = false;
         this._code = undefined;
 
         /**
@@ -46,7 +47,7 @@ export default class Command extends implementationOf(CommandInterface) {
         this._application = undefined;
 
         if (undefined === name || null === name) {
-            name = this.constructor.defaultName;
+            name = this.constructor.getDefaultName();
         }
 
         if (!! name) {
@@ -76,8 +77,31 @@ export default class Command extends implementationOf(CommandInterface) {
      *
      * @returns {string}
      */
-    static get defaultName() {
-        return null;
+    static getDefaultName() {
+        const reflClass = new ReflectionClass(this);
+        const attributes = reflClass.getAnnotations(AsCommand);
+
+        if (0 < attributes.length) {
+            return attributes[0].name;
+        }
+
+        return undefined;
+    }
+
+    /**
+     * Gets the default command description.
+     *
+     * @returns {string}
+     */
+    static getDefaultDescription() {
+        const reflClass = new ReflectionClass(this);
+        const attributes = reflClass.getAnnotations(AsCommand);
+
+        if (0 < attributes.length) {
+            return attributes[0].description;
+        }
+
+        return undefined;
     }
 
     /**
@@ -191,7 +215,7 @@ export default class Command extends implementationOf(CommandInterface) {
 
         // Bind the input against the command specific arguments/options
         try {
-            input.bind(this._definition);
+            input.bind(this.definition);
         } catch (e) {
             if (! (e instanceof ExceptionInterface) || ! this._ignoreValidationError) {
                 throw e;
@@ -228,7 +252,13 @@ export default class Command extends implementationOf(CommandInterface) {
      * @param {Jymfony.Component.Console.Completion.CompletionInput} input
      * @param {Jymfony.Component.Console.Completion.CompletionSuggestions} suggestions
      */
-    async complete(input, suggestions) { // eslint-disable-line no-unused-vars
+    async complete(input, suggestions) {
+        const definition = this.definition;
+        if (CompletionInput.TYPE_OPTION_VALUE === input.completionType && definition.hasOption(input.completionName)) {
+            await definition.getOption(input.completionName).complete(input, suggestions);
+        } else if (CompletionInput.TYPE_ARGUMENT_VALUE === input.completionType && definition.hasArgument(input.completionName)) {
+            await definition.getArgument(input.completionName).complete(input, suggestions);
+        }
     }
 
     /**
@@ -239,21 +269,19 @@ export default class Command extends implementationOf(CommandInterface) {
      * @param {boolean} mergeArgs Whether to merge or not the Application definition arguments to Command definition arguments
      */
     mergeApplicationDefinition(mergeArgs = true) {
-        if (! this._application || (true === this._applicationDefinitionMerged && (this._applicationDefinitionMergedWithArgs || mergeArgs))) {
+        if (! this._application) {
             return;
         }
 
-        this._definition.addOptions(this._application.definition.getOptions());
+        this._fullDefinition = new InputDefinition();
+        this._fullDefinition.setOptions(this._definition.getOptions());
+        this._fullDefinition.addOptions(this._application.definition.getOptions());
 
         if (mergeArgs) {
-            const currentArguments = this._definition.getArguments();
-            this._definition.setArguments(this._application.definition.getArguments());
-            this._definition.addArguments(currentArguments);
-        }
-
-        this._applicationDefinitionMerged = true;
-        if (mergeArgs) {
-            this._applicationDefinitionMergedWithArgs = true;
+            this._fullDefinition.setArguments(this._application.definition.getArguments());
+            this._fullDefinition.addArguments(this._definition.getArguments());
+        } else {
+            this._fullDefinition.setArguments(this._definition.getArguments());
         }
     }
 
@@ -263,7 +291,12 @@ export default class Command extends implementationOf(CommandInterface) {
      * @param {Jymfony.Component.Console.Application} application An Application instance
      */
     set application(application) {
-        this._application = application;
+        try {
+            this._application = application;
+            this._fullDefinition = null;
+        } catch (e) {
+            // Do nothing...
+        }
     }
 
     /**
@@ -287,7 +320,7 @@ export default class Command extends implementationOf(CommandInterface) {
             this._definition.setDefinition(definition);
         }
 
-        this._applicationDefinitionMerged = false;
+        this._fullDefinition = null;
     }
 
     /**
@@ -296,7 +329,7 @@ export default class Command extends implementationOf(CommandInterface) {
      * @returns {Jymfony.Component.Console.Input.InputDefinition} An InputDefinition instance
      */
     get definition() {
-        return this._definition;
+        return this._fullDefinition || this.nativeDefinition;
     }
 
     /**
@@ -310,7 +343,7 @@ export default class Command extends implementationOf(CommandInterface) {
      * @returns {Jymfony.Component.Console.Input.InputDefinition} An InputDefinition instance
      */
     get nativeDefinition() {
-        return this.definition;
+        return this._definition;
     }
 
     /**
@@ -320,11 +353,15 @@ export default class Command extends implementationOf(CommandInterface) {
      * @param {int} [mode] The argument mode: InputArgument.REQUIRED or InputArgument.OPTIONAL
      * @param {string} [description = ''] A description text
      * @param {*} [defaultValue] The default value (for InputArgument::OPTIONAL mode only)
+     * @param {(string | Jymfony.Component.Console.Completion.Suggestion)[] | function(Jymfony.Component.Console.Completion.CompletionInput, Jymfony.Component.Console.Completion.CompletionSuggestions): (string | Jymfony.Component.Console.Completion.Suggestion)[]} [suggestedValues = []] The values used for input completion
      *
      * @returns {Jymfony.Component.Console.Command.Command} The current instance
      */
-    addArgument(name, mode = undefined, description = '', defaultValue = undefined) {
-        this._definition.addArgument(new InputArgument(name, mode, description, defaultValue));
+    addArgument(name, mode = undefined, description = '', defaultValue = undefined, suggestedValues = []) {
+        this._definition.addArgument(new InputArgument(name, mode, description, defaultValue, suggestedValues));
+        if (this._fullDefinition) {
+            this._fullDefinition.addArgument(new InputArgument(name, mode, description, defaultValue, suggestedValues));
+        }
 
         return this;
     }
@@ -337,11 +374,15 @@ export default class Command extends implementationOf(CommandInterface) {
      * @param {int} [mode] The option mode: One of the InputOption.VALUE_* constants
      * @param {string} [description = ''] A description text
      * @param {*} [defaultValue] The default value (must be undefined for InputOption.VALUE_NONE)
+     * @param {(string | Jymfony.Component.Console.Completion.Suggestion)[] | function(Jymfony.Component.Console.Completion.CompletionInput, Jymfony.Component.Console.Completion.CompletionSuggestions): (string | Jymfony.Component.Console.Completion.Suggestion)[]} [suggestedValues = []] The values used for input completion
      *
      * @returns {Jymfony.Component.Console.Command.Command} The current instance
      */
-    addOption(name, shortcut = undefined, mode = undefined, description = '', defaultValue = undefined) {
-        this._definition.addOption(new InputOption(name, shortcut, mode, description, defaultValue));
+    addOption(name, shortcut = undefined, mode = undefined, description = '', defaultValue = undefined, suggestedValues = []) {
+        this._definition.addOption(new InputOption(name, shortcut, mode, description, defaultValue, suggestedValues));
+        if (this._fullDefinition) {
+            this._fullDefinition.addOption(new InputOption(name, shortcut, mode, description, defaultValue, suggestedValues));
+        }
 
         return this;
     }

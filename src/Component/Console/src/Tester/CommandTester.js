@@ -1,5 +1,5 @@
-import { PassThrough, Readable } from 'stream';
 import { EOL } from 'os';
+import { Readable } from 'stream';
 
 const ArrayInput = Jymfony.Component.Console.Input.ArrayInput;
 const StreamOutput = Jymfony.Component.Console.Output.StreamOutput;
@@ -91,7 +91,7 @@ export default class CommandTester {
         this._statusCode = undefined;
         this._input.interactive = !! options.interactive;
 
-        this._output = new StreamOutput(new PassThrough());
+        this._output = new StreamOutput(new __jymfony.StreamBuffer());
         this._output.deferUncork = false;
         this._output.decorated = !! options.decorated;
 
@@ -99,7 +99,6 @@ export default class CommandTester {
             this._output.verbosity = options.verbosity;
         }
 
-        this._command.configure();
         this._input.bind(this._command.definition);
 
         return this._statusCode = await this._command.run(this._input, this._output);

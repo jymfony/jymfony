@@ -2,6 +2,7 @@ import { EOL, tmpdir } from 'os';
 import { appendFileSync } from 'fs';
 import { basename } from 'path';
 
+const AsCommand = Jymfony.Component.Console.Annotation.AsCommand;
 const Command = Jymfony.Component.Console.Command.Command;
 const CommandNotFoundException = Jymfony.Component.Console.Exception.CommandNotFoundException;
 const CompletionInput = Jymfony.Component.Console.Completion.CompletionInput;
@@ -9,6 +10,7 @@ const CompletionSuggestions = Jymfony.Component.Console.Completion.CompletionSug
 const DateTime = Jymfony.Component.DateTime.DateTime;
 const ExceptionInterface = Jymfony.Component.Console.Exception.ExceptionInterface;
 const InputOption = Jymfony.Component.Console.Input.InputOption;
+const LazyCommand = Jymfony.Component.Console.Command.LazyCommand;
 
 /**
  * Responsible for providing the values to the shell completion.
@@ -16,11 +18,9 @@ const InputOption = Jymfony.Component.Console.Input.InputOption;
  * @memberOf Jymfony.Component.Console.Command
  * @final
  */
-export default class CompleteCommand extends Command {
-    static get defaultName() {
-        return '|_complete';
-    }
-
+export default
+@AsCommand({ name: '|_complete', description: 'Internal command to provide shell completion suggestions' })
+class CompleteCommand extends Command {
     /**
      * @param {Object.<string, string>} completionOutputs A list of additional completion outputs, with shell name as key and FQCN as value
      */
@@ -45,7 +45,6 @@ export default class CompleteCommand extends Command {
     }
 
     configure() {
-        this.description = 'Internal command to provide shell completion suggestions';
         this
             .addOption('shell', 's', InputOption.VALUE_REQUIRED, 'The shell type ("' + Object.keys(this._completionOutputs).join('", "') + '")')
             .addOption('input', 'i', InputOption.VALUE_REQUIRED | InputOption.VALUE_IS_ARRAY, 'An array of input tokens (e.g. COMP_WORDS or argv)')
@@ -191,8 +190,8 @@ export default class CompleteCommand extends Command {
      */
     _findCommand(completionInput) {
         try {
-            const inputName = completionInput.firstArgument;
-            if (null === inputName) {
+            const inputName = completionInput.arguments.command;
+            if (undefined === inputName) {
                 return null;
             }
 

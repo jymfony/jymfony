@@ -7,6 +7,7 @@ declare namespace Jymfony.Component.Console.Command {
     import InputInterface = Jymfony.Component.Console.Input.InputInterface;
     import InputOption = Jymfony.Component.Console.Input.InputOption;
     import OutputInterface = Jymfony.Component.Console.Output.OutputInterface;
+    import Suggestion = Jymfony.Component.Console.Completion.Suggestion;
 
     /**
      * Base class for all commands.
@@ -19,7 +20,12 @@ declare namespace Jymfony.Component.Console.Command {
         /**
          * The command default name.
          */
-        public static readonly defaultName: string|null;
+        public static getDefaultName(): string | undefined;
+
+        /**
+         * The command default description.
+         */
+        public static getDefaultDescription(): string | undefined;
 
         /**
          * The aliases for the command.
@@ -201,10 +207,11 @@ declare namespace Jymfony.Component.Console.Command {
          * @param [mode] The argument mode: InputArgument.REQUIRED or InputArgument.OPTIONAL
          * @param [description = ''] A description text
          * @param [defaultValue] The default value (for InputArgument::OPTIONAL mode only)
+         * @param [suggestedValues] The values used for input completion
          *
          * @returns The current instance
          */
-        addArgument(name: string, mode?: number, description?: string, defaultValue?: any): this;
+        addArgument(name: string, mode?: number, description?: string, defaultValue?: any, suggestedValues?: (string | Suggestion)[] | ((input: CompletionInput, suggestions: CompletionSuggestions) => Promise<(string | Suggestion)[]>)): this;
 
         /**
          * Adds an option.
@@ -214,10 +221,11 @@ declare namespace Jymfony.Component.Console.Command {
          * @param [mode] The option mode: One of the InputOption.VALUE_* constants
          * @param [description = ''] A description text
          * @param [defaultValue] The default value (must be undefined for InputOption.VALUE_NONE)
+         * @param [suggestedValues] The values used for input completion
          *
          * @returns The current instance
          */
-        addOption(name: string, shortcut?: string|undefined, mode?: number, description?: string, defaultValue?: any): this;
+        addOption(name: string, shortcut?: string|undefined, mode?: number, description?: string, defaultValue?: any, suggestedValues?: (string | Suggestion)[] | ((input: CompletionInput, suggestions: CompletionSuggestions) => Promise<(string | Suggestion)[]>)): this;
 
         /**
          * Returns the synopsis for the command.

@@ -66,4 +66,11 @@ export default class DescriptorHelper extends Helper {
 
         return this;
     }
+
+    /**
+     * @return {string[]}
+     */
+    get formats() {
+        return Object.keys(this._descriptors);
+    }
 }

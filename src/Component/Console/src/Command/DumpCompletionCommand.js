@@ -3,6 +3,7 @@ import { basename } from 'path';
 import { spawn } from 'child_process';
 import { tmpdir } from 'os';
 
+const AsCommand = Jymfony.Component.Console.Annotation.AsCommand;
 const Command = Jymfony.Component.Console.Command.Command;
 const ConsoleOutputInterface = Jymfony.Component.Console.Output.ConsoleOutputInterface;
 const InputArgument = Jymfony.Component.Console.Input.InputArgument;
@@ -14,23 +15,21 @@ const InputOption = Jymfony.Component.Console.Input.InputOption;
  * @memberOf Jymfony.Component.Console.Command
  * @final
  */
-export default class DumpCompletionCommand extends Command {
-    static get defaultName() {
-        return 'completion';
-    }
+export default
+@AsCommand({ name: 'completion', description: 'Dump the shell completion script' })
+class DumpCompletionCommand extends Command {
+    __construct(name) {
+        super.__construct(name);
 
-    /**
-     * @param {Jymfony.Component.Console.Completion.CompletionInput} input
-     * @param {Jymfony.Component.Console.Command.CompletionSuggestions} suggestions
-     */
-    async complete(input, suggestions) {
-        if (input.mustSuggestArgumentValuesFor('shell')) {
-            suggestions.suggestValues(await this._getSupportedShells());
-        }
+        /**
+         * @type {string[]}
+         *
+         * @private
+         */
+        this._supportedShells = null;
     }
 
     configure() {
-        this.description = 'Dump the shell completion script';
         const [ fullCommand, commandName ] = (() => {
             let fullCommand = process.argv[1];
             if (! fullCommand) {
@@ -77,7 +76,7 @@ Add this to the end of your shell configuration file (e.g. <info>"~/.bashrc"</>)
     <info>eval "$(${fullCommand} completion bash)"</>
 `;
         this
-            .addArgument('shell', InputArgument.OPTIONAL, 'The shell type (e.g. "bash"), the value of the "$SHELL" env var will be used if this is not given')
+            .addArgument('shell', InputArgument.OPTIONAL, 'The shell type (e.g. "bash"), the value of the "$SHELL" env var will be used if this is not given', null, this._getSupportedShells.bind(this))
             .addOption('debug', null, InputOption.VALUE_NONE, 'Tail the completion debug log')
         ;
     }
@@ -153,12 +152,16 @@ Add this to the end of your shell configuration file (e.g. <info>"~/.bashrc"</>)
      * @returns {Promise<string[]>}
      */
     async _getSupportedShells() {
+        if (null !== this._supportedShells) {
+            return this._supportedShells;
+        }
+
         const Filesystem = Jymfony.Component.Filesystem.Filesystem;
         const fs = new Filesystem();
 
         /** @type {string[]} */
         const dir = await fs.readdir(__dirname + '/../Resources');
-        return dir
+        return this._supportedShells = dir
             .filter(file => file.match(/^completion\./))
             .map(file => file.replace(/^completion\.(.+)/, '$1'));
     }

@@ -9,6 +9,11 @@ Jymfony.Component.Console = {
     /**
      * @namespace
      */
+    Annotation: {},
+
+    /**
+     * @namespace
+     */
     Command: {},
 
     /**

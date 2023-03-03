@@ -8,8 +8,6 @@ declare namespace Jymfony.Component.Console.Command {
      * @final
      */
     export class CompleteCommand extends Command {
-        public static readonly defaultName;
-
         private _completionOutputs: Record<string, string>;
         private _isDebug: boolean;
 

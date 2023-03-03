@@ -1,3 +1,4 @@
+const ApplicationDescription = Jymfony.Component.Console.Descriptor.ApplicationDescription;
 const Command = Jymfony.Component.Console.Command.Command;
 const InputArgument = Jymfony.Component.Console.Input.InputArgument;
 const InputOption = Jymfony.Component.Console.Input.InputOption;
@@ -20,8 +21,8 @@ export default class HelpCommand extends Command {
 
         this.name = 'help';
         this.definition = [
-            new InputArgument('command_name', InputArgument.OPTIONAL, 'The command name', 'help'),
-            new InputOption('format', undefined, InputOption.VALUE_REQUIRED, 'The output format (txt, xml, json, or md)', 'txt'),
+            new InputArgument('command_name', InputArgument.OPTIONAL, 'The command name', 'help', () => Object.keys(new ApplicationDescription(this.application).commands)),
+            new InputOption('format', undefined, InputOption.VALUE_REQUIRED, 'The output format (txt, xml, json, or md)', 'txt', () => new DescriptorHelper().formats),
             new InputOption('raw', undefined, InputOption.VALUE_NONE, 'To output raw command help'),
         ];
         this.description = 'Displays help for a command';

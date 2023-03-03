@@ -1,3 +1,4 @@
+const ApplicationDescription = Jymfony.Component.Console.Descriptor.ApplicationDescription;
 const Command = Jymfony.Component.Console.Command.Command;
 const InputArgument = Jymfony.Component.Console.Input.InputArgument;
 const InputDefinition = Jymfony.Component.Console.Input.InputDefinition;
@@ -57,9 +58,12 @@ It's also possible to get raw list of commands (useful for embedding command run
      */
     _createDefinition() {
         return new InputDefinition([
-            new InputArgument('namespace', InputArgument.OPTIONAL, 'The namespace name'),
+            new InputArgument('namespace', InputArgument.OPTIONAL, 'The namespace name', null, () => {
+                const namespaces = new ApplicationDescription(this.application).namespaces;
+                return namespaces.map(n => n.id).filter(n => '_global' !== n);
+            }),
             new InputOption('raw', undefined, InputOption.VALUE_NONE, 'To output raw command list'),
-            new InputOption('format', undefined, InputOption.VALUE_REQUIRED, 'The output format (txt, xml, json, or md)', 'txt'),
+            new InputOption('format', undefined, InputOption.VALUE_REQUIRED, 'The output format (txt, xml, json, or md)', 'txt', () => new DescriptorHelper().formats),
         ]);
     }
 }

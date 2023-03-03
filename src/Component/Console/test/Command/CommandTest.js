@@ -1,232 +1,312 @@
-const { expect } = require('chai');
 const path = require('path');
 const os = require('os');
 
 const Application = Jymfony.Component.Console.Application;
 const Command = Jymfony.Component.Console.Command.Command;
-const InvalidOptionException = Jymfony.Component.Console.Exception.InvalidOptionException;
+const CommandTester = Jymfony.Component.Console.Tester.CommandTester;
 const InputArgument = Jymfony.Component.Console.Input.InputArgument;
 const InputDefinition = Jymfony.Component.Console.Input.InputDefinition;
 const InputOption = Jymfony.Component.Console.Input.InputOption;
-const CommandTester = Jymfony.Component.Console.Tester.CommandTester;
+const InvalidOptionException = Jymfony.Component.Console.Exception.InvalidOptionException;
+const NullOutput = Jymfony.Component.Console.Output.NullOutput;
+const StringInput = Jymfony.Component.Console.Input.StringInput;
+const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 
 const fixtures_path = path.join(__dirname, '..', '..', 'fixtures');
 const Fixtures = new Jymfony.Component.Autoloader.Namespace(__jymfony.autoload, 'Fixtures', [
     fixtures_path,
 ]);
 
-describe('[Console] Command', function () {
-    it('constructor takes command name as first argument', () => {
-        const cmd = new Command('foo:bar');
-        expect(cmd.name).to.be.equal('foo:bar');
-    });
-
-    it('cannot be constructed without name', () => {
-        expect(() => new Command()).to.throw(
-            LogicException,
-            'The command defined in "Jymfony.Component.Console.Command.Command" cannot have an empty name.'
-        );
-    });
-
-    it('application can be set', () => {
-        const cmd = new Command('foo:bar');
-        const application = new Application();
-
-        cmd.application = application;
-        expect(cmd.application).to.be.equal(application);
-    });
-
-    it('application can be set to undefined', () => {
-        const cmd = new Command('foo:bar');
-        cmd.application = undefined;
-        expect(cmd.application).to.be.undefined;
-    });
-
-    it('definition can be set and get', () => {
-        const cmd = new Fixtures.TestCommand();
-        let definition;
-
-        cmd.definition = definition = new InputDefinition();
-        expect(cmd.definition).to.be.equal(definition);
-
-        cmd.definition = [ new InputArgument('foo'), new InputOption('bar') ];
-        expect(cmd.definition).to.be.instanceOf(InputDefinition);
-        expect(cmd.definition.hasArgument('foo')).to.be.true;
-        expect(cmd.definition.hasOption('bar')).to.be.true;
-    });
-
-    it('argument can be added', () => {
-        const cmd = new Fixtures.TestCommand();
-        const ret = cmd.addArgument('foo');
-
-        expect(ret).to.be.equal(cmd);
-        expect(cmd.definition.hasArgument('foo')).to.be.true;
-    });
-
-    it('option can be added', () => {
-        const cmd = new Fixtures.TestCommand();
-        const ret = cmd.addOption('bar');
-
-        expect(ret).to.be.equal(cmd);
-        expect(cmd.definition.hasOption('bar')).to.be.true;
-    });
-
-    it('can be set hidden', () => {
-        const cmd = new Fixtures.TestCommand();
-        cmd.hidden = true;
-
-        expect(cmd.hidden).to.be.true;
-    });
-
-    it('name/namespace can be set', () => {
-        const cmd = new Fixtures.TestCommand();
-        expect(cmd.name).to.be.equal('namespace:name');
-
-        cmd.name = 'foo';
-        expect(cmd.name).to.be.equal('foo');
-
-        cmd.name = 'foobar:bar';
-        expect(cmd.name).to.be.equal('foobar:bar');
-    });
-
-    const tests = [
-        '',
-        'foo:',
-    ];
-
-    for (const [ key, name ] of __jymfony.getEntries(tests)) {
-        it('set invalid name should throw with dataset #' + key, () => {
-            const cmd = new Fixtures.TestCommand();
-            expect(() => {
-                cmd.name = name;
-            })
-                .to.throw(InvalidArgumentException);
-        });
+export default class CommandTest extends TestCase {
+    get testCaseName() {
+        return '[Console] ' + super.testCaseName;
     }
 
-    it('description can be set', () => {
-        const cmd = new Fixtures.TestCommand();
-        cmd.description = 'description1';
+    testConstructor() {
+        const command = new Command('foo:bar');
+        __self.assertEquals('foo:bar', command.name, '__construct() takes the command name as its first argument');
+    }
 
-        expect(cmd.description).to.be.equal('description1');
-    });
+    testCommandNameCannotBeEmpty() {
+        this.expectException(LogicException);
+        this.expectExceptionMessage('The command defined in "Jymfony.Component.Console.Command.Command" cannot have an empty name.');
+        (new Application()).add(new Command());
+    }
 
-    it('help can be set', () => {
-        const cmd = new Fixtures.TestCommand();
-        cmd.help = 'help1';
+    testSetApplication() {
+        const application = new Application();
+        const command = new Fixtures.TestCommand();
+        command.application = application;
 
-        expect(cmd.help).to.be.equal('help1');
-    });
+        __self.assertEquals(application, command.application, 'set application sets the current application');
+    }
 
-    it('help should be processed', () => {
-        const cmd = new Fixtures.TestCommand();
-        cmd.help = 'The %command.name% command does... Example: %command.full_name%.';
-        expect(cmd.processedHelp).to.have.string('The namespace:name command does...');
-        expect(cmd.processedHelp).not.to.have.string('%command.full_name%');
+    testSetApplicationNull() {
+        const command = new Fixtures.TestCommand();
+        command.application = null;
+        __self.assertNull(command.application);
+    }
 
-        cmd.help = '';
-        expect(cmd.processedHelp).to.be.equal('description');
-    });
+    testSetGetDefinition() {
+        const command = new Fixtures.TestCommand();
+        const definition = new InputDefinition();
+        command.definition = definition;
 
-    it('alias can be set', () => {
-        const cmd = new Fixtures.TestCommand();
-        expect(cmd.aliases).to.be.deep.equal([ 'name' ]);
+        __self.assertEquals(definition, command.definition, 'set definition() sets the current InputDefinition instance');
 
-        cmd.aliases = [ 'name1' ];
-        expect(cmd.aliases).to.be.deep.equal([ 'name1' ]);
-    });
+        command.definition = [ new InputArgument('foo'), new InputOption('bar') ];
 
-    it('set alias throws if argument is not an array', () => {
-        const cmd = new Fixtures.TestCommand();
-        expect(() => cmd.aliases = undefined)
-            .to.throw(InvalidArgumentException);
-    });
+        __self.assertTrue(command.definition.hasArgument('foo'), 'set definition() also takes an array of InputArguments and InputOptions as an argument');
+        __self.assertTrue(command.definition.hasOption('bar'), 'set definition() also takes an array of InputArguments and InputOptions as an argument');
+    }
 
-    it('get synopsis', () => {
-        const cmd = new Fixtures.TestCommand();
-        cmd.addOption('foo');
-        cmd.addArgument('bar');
+    testAddArgument() {
+        const command = new Fixtures.TestCommand();
+        const ret = command.addArgument('foo');
 
-        expect(cmd.getSynopsis())
-            .to.be.equal('namespace:name [--foo] [--] [<bar>]');
-    });
+        __self.assertEquals(command, ret, '.addArgument() implements a fluent interface');
+        __self.assertTrue(command.definition.hasArgument('foo'), '.addArgument() adds an argument to the command');
+    }
 
-    it('usages', () => {
-        const cmd = new Fixtures.TestCommand();
-        cmd.addUsage('foo1');
-        cmd.addUsage('foo2');
+    testAddArgumentFull() {
+        const command = new Fixtures.TestCommand();
+        command.addArgument('foo', InputArgument.OPTIONAL, 'Description', 'default', [ 'a', 'b' ]);
 
-        expect(cmd.usages).to.contain('namespace:name foo1');
-        expect(cmd.usages).to.contain('namespace:name foo2');
-    });
+        const argument = command.definition.getArgument('foo');
+        __self.assertEquals('Description', argument.getDescription());
+        __self.assertEquals('default', argument.getDefault());
+        __self.assertTrue(argument.hasCompletion());
+    }
 
-    it('should call interactive', () => {
+    testAddOption() {
+        const command = new Fixtures.TestCommand();
+        const ret = command.addOption('foo');
+        __self.assertEquals(command, ret, '.addOption() implements a fluent interface');
+        __self.assertTrue(command.definition.hasOption('foo'), '.addOption() adds an option to the command');
+    }
+
+    testAddOptionFull() {
+        const command = new Fixtures.TestCommand();
+        command.addOption('foo', [ 'f' ], InputOption.VALUE_OPTIONAL, 'Description', 'default', [ 'a', 'b' ]);
+
+        const option = command.definition.getOption('foo');
+        __self.assertSame('f', option.getShortcut());
+        __self.assertSame('Description', option.getDescription());
+        __self.assertSame('default', option.getDefault());
+        __self.assertTrue(option.hasCompletion());
+    }
+
+    testSetHidden() {
+        const command = new Fixtures.TestCommand();
+        command.hidden = true;
+        __self.assertTrue(command.hidden);
+    }
+
+    testGetNamespaceGetNameSetName() {
+        const command = new Fixtures.TestCommand();
+        __self.assertEquals('namespace:name', command.name, 'get name() returns the command name');
+
+        command.name = 'foo';
+        __self.assertEquals('foo', command.name, 'set name() sets the command name');
+
+        command.name = 'foobar:bar';
+        __self.assertEquals('foobar:bar', command.name, 'set name() sets the command name');
+    }
+
+    @dataProvider('provideInvalidCommandNames')
+    testInvalidCommandNames(name) {
+        this.expectException(InvalidArgumentException);
+        this.expectExceptionMessage(__jymfony.sprintf('Command name "%s" is invalid.', name));
+
+        const command = new Fixtures.TestCommand();
+        command.name = name;
+    }
+
+    provideInvalidCommandNames() {
+        return [
+            [ '' ],
+            [ 'foo:' ],
+        ];
+    }
+
+    testGetSetDescription() {
+        const command = new Fixtures.TestCommand();
+        __self.assertEquals('description', command.description, 'get description() returns the description');
+
+        command.description = 'description1';
+        __self.assertEquals('description1', command.description, 'set description() sets the description');
+    }
+
+    testGetSetHelp() {
+        const command = new Fixtures.TestCommand();
+        __self.assertEquals('help', command.help, 'get help() returns the help');
+
+        command.help = 'help1';
+        __self.assertEquals('help1', command.help, 'set help() sets the help');
+
+        command.help = '';
+        __self.assertEquals('', command.help, 'get help() does not fall back to the description');
+    }
+
+    testGetProcessedHelp() {
+        let command = new Fixtures.TestCommand();
+        command.help = 'The %command.name% command does... Example: %command.full_name%.';
+        __self.assertStringContainsString('The namespace:name command does...', command.processedHelp, 'get processedHelp() replaces %command.name% correctly');
+        __self.assertStringNotContainsString('%command.full_name%', command.processedHelp, 'get processedHelp() replaces %command.full_name%');
+
+        command = new Fixtures.TestCommand();
+        command.help = '';
+        __self.assertStringContainsString('description', command.processedHelp, 'get processedHelp() falls back to the description');
+
+        command = new Fixtures.TestCommand();
+        command.help = 'The %command.name% command does... Example: %command.full_name%.';
+
+        const application = new Application();
+        application.add(command);
+        application.defaultCommand = 'namespace:name';
+        application.isSingleCommand = true;
+
+        __self.assertStringContainsString('The namespace:name command does...', command.processedHelp, 'get processedHelp() replaces %command.name% correctly in single command applications');
+        __self.assertStringNotContainsString('%command.full_name%', command.processedHelp, 'get processedHelp() replaces %command.full_name% in single command applications');
+    }
+
+    testGetSetAliases() {
+        const command = new Fixtures.TestCommand();
+        __self.assertEquals([ 'name' ], command.aliases, 'get aliases() returns the aliases');
+
+        command.aliases = [ 'name1' ];
+        __self.assertEquals([ 'name1' ], command.aliases, 'set aliases() sets the aliases');
+    }
+
+    testGetSynopsis() {
+        const command = new Fixtures.TestCommand();
+        command.addOption('foo');
+        command.addArgument('bar');
+        command.addArgument('info');
+        __self.assertEquals('namespace:name [--foo] [--] [<bar> [<info>]]', command.getSynopsis(), '.getSynopsis() returns the synopsis');
+    }
+
+    testAddGetUsages() {
+        const command = new Fixtures.TestCommand();
+        command.addUsage('foo1');
+        command.addUsage('foo2');
+        __self.assertStringContainsString('namespace:name foo1', command.usages);
+        __self.assertStringContainsString('namespace:name foo2', command.usages);
+    }
+
+    testMergeApplicationDefinition() {
+        const application1 = new Application();
+        application1.definition.addArguments([ new InputArgument('foo', InputArgument.REQUIRED) ]);
+        application1.definition.addOptions([ new InputOption('bar') ]);
+
+        const command = new Fixtures.TestCommand();
+        command.application = application1;
+        command.definition = new InputDefinition([ new InputArgument('bar', InputArgument.REQUIRED), new InputOption('foo') ]);
+
+        command.mergeApplicationDefinition();
+        __self.assertTrue(command.definition.hasArgument('foo'), '.mergeApplicationDefinition() merges the application arguments and the command arguments');
+        __self.assertTrue(command.definition.hasArgument('bar'), '.mergeApplicationDefinition() merges the application arguments and the command arguments');
+        __self.assertTrue(command.definition.hasOption('foo'), '.mergeApplicationDefinition() merges the application options and the command options');
+        __self.assertTrue(command.definition.hasOption('bar'), '.mergeApplicationDefinition() merges the application options and the command options');
+
+        command.mergeApplicationDefinition();
+        __self.assertEquals(3, command.definition.getArgumentCount(), '->mergeApplicationDefinition() does not try to merge twice the application arguments and options');
+    }
+
+    testMergeApplicationDefinitionWithoutArgsThenWithArgsAddsArgs() {
+        const application1 = new Application();
+        application1.definition.addArguments([ new InputArgument('foo', InputArgument.REQUIRED) ]);
+        application1.definition.addOptions([ new InputOption('bar') ]);
+
+        const command = new Fixtures.TestCommand();
+        command.application = application1;
+        const definition = new InputDefinition([]);
+        command.definition = definition;
+
+        command.mergeApplicationDefinition(false);
+        __self.assertTrue(command.definition.hasOption('bar'), '.mergeApplicationDefinition(false) merges the application and the command options');
+        __self.assertFalse(command.definition.hasArgument('foo'), '.mergeApplicationDefinition(false) does not merge the application arguments');
+
+        command.mergeApplicationDefinition(true);
+        __self.assertTrue(command.definition.hasArgument('foo'), '.mergeApplicationDefinition(true) merges the application arguments and the command arguments');
+
+        command.mergeApplicationDefinition();
+        __self.assertEquals(2, command.definition.getArgumentCount(), '.mergeApplicationDefinition() does not try to merge twice the application arguments');
+    }
+
+    async testRunInteractive() {
         const tester = new CommandTester(new Fixtures.TestCommand());
-        return tester.run([], {interactive: true})
-            .then(() => {
-                expect(tester.getDisplay()).to.be.equal('interact called' + os.EOL + 'execute called' + os.EOL);
-            });
-    });
+        await tester.run({}, { interactive: true });
 
-    it('should not call interactive', () => {
+        __self.assertEquals('interact called' + os.EOL + 'execute called' + os.EOL, tester.getDisplay(), '.run() calls the interact() method if the input is interactive');
+    }
+
+    async testRunNonInteractive() {
         const tester = new CommandTester(new Fixtures.TestCommand());
-        return tester.run([], {interactive: false})
-            .then(() => {
-                expect(tester.getDisplay()).to.be.equal('execute called' + os.EOL);
-            });
-    });
+        await tester.run({}, { interactive: false });
 
-    it('execute should be overridden', () => {
-        const tester = new CommandTester(new Command('foo'));
-        return tester.run({})
-            .then(() => {
-                throw Error('Should not be resolved');
-            }, err => {
-                expect(err).to.be.instanceOf(LogicException);
-                expect(err.message).to.be.equal('You must override the execute() method in the concrete command class.');
-            });
-    });
+        __self.assertEquals('execute called' + os.EOL, tester.getDisplay(), '.run() does not call the interact() method if the input is not interactive');
+    }
 
-    it('run with invalid option should throw', () => {
-        const tester = new CommandTester(new Fixtures.TestCommand());
-        return tester.run({'--bar': true})
-            .then(() => {
-                throw Error('Should not be resolved');
-            }, err => {
-                expect(err).to.be.instanceOf(InvalidOptionException);
-                expect(err.message).to.be.equal('The "--bar" option does not exist.');
-            });
-    });
+    async testExecuteMethodNeedsToBeOverridden() {
+        this.expectException(LogicException);
+        this.expectExceptionMessage('You must override the execute() method in the concrete command class.');
 
-    it('should return exit code', () => {
-        const tester = new CommandTester(new Fixtures.TestCommand());
-        return tester.run({})
-            .then((exitCode) => {
-                expect(exitCode).to.be.equal(0);
-            });
-    });
+        const command = new Command('foo');
+        await command.run(new StringInput(''), new NullOutput());
+    }
 
-    it('should return integer exit code', () => {
-        const cmd = new Fixtures.TestCommand();
-        cmd.code = function () {
-            return '2.3';
+    async testRunWithInvalidOption() {
+        this.expectException(InvalidOptionException);
+        this.expectExceptionMessage('The "--bar" option does not exist.');
+
+        const command = new Fixtures.TestCommand();
+        const tester = new CommandTester(command);
+        await tester.run({ '--bar': true });
+    }
+
+    async testRunWithApplication() {
+        const command = new Fixtures.TestCommand();
+        command.application = new Application();
+        const exitCode = await command.run(new StringInput(''), new NullOutput());
+
+        __self.assertSame(0, exitCode, '.run() returns an integer exit code');
+    }
+
+    async testRunReturnsAlwaysInteger() {
+        const command = new Fixtures.TestCommand();
+        __self.assertSame(0, await command.run(new StringInput(''), new NullOutput()));
+    }
+
+    async testRunWithProcessTitle() {
+        const command = new Fixtures.TestCommand();
+        command.application = new Application();
+        command.processTitle = 'foo';
+
+        __self.assertSame(0, await command.run(new StringInput(''), new NullOutput()));
+        __self.assertEquals('foo', process.title);
+    }
+
+    async testSetCode() {
+        const command = new Fixtures.TestCommand();
+        command.code = async function (input, output) {
+            output.writeln('from the code...');
         };
 
-        const tester = new CommandTester(cmd);
-        return tester.run({})
-            .then((exitCode) => {
-                expect(exitCode).to.be.equal(2);
-            });
-    });
+        const tester = new CommandTester(command);
+        await tester.run({}, { interactive: true });
+        __self.assertEquals('interact called' + os.EOL + 'from the code...' + os.EOL, tester.getDisplay());
+    }
 
-    it('should set process title', () => {
-        const cmd = new Fixtures.TestCommand();
-        cmd.processTitle = 'TEST';
+    testCommandAttribute() {
+        __self.assertSame('|foo|f', Fixtures.CommandWithAttribute.getDefaultName());
+        __self.assertSame('desc', Fixtures.CommandWithAttribute.getDefaultDescription());
 
-        const tester = new CommandTester(cmd);
-        return tester.run({})
-            .then(() => {
-                expect(process.title).to.be.equal('TEST');
-            });
-    });
-});
+        const command = new Fixtures.CommandWithAttribute();
+
+        __self.assertSame('foo', command.name);
+        __self.assertSame('desc', command.description);
+        __self.assertTrue(command.hidden);
+        __self.assertSame([ 'f' ], command.aliases);
+    }
+}

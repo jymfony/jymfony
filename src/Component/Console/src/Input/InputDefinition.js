@@ -405,21 +405,21 @@ export default class InputDefinition {
             elements.push('[--]');
         }
 
+        let tail = '';
         for (const argument of this.getArguments()) {
             let element = '<' + argument.getName() + '>';
-            if (! argument.isRequired()) {
-                element = '[' + element + ']';
-            } else if (argument.isArray()) {
-                element = element + ' (' + element + ')';
-            }
-
             if (argument.isArray()) {
                 element += '...';
+            }
+
+            if (! argument.isRequired()) {
+                element = '[' + element;
+                tail += ']';
             }
 
             elements.push(element);
         }
 
-        return elements.join(' ');
+        return elements.join(' ') + tail;
     }
 }
