@@ -13,12 +13,12 @@ container.register(Jymfony.Bundle.FrameworkBundle.Console.Application)
 
 container.register('framework.cache_clear_command', Jymfony.Bundle.FrameworkBundle.Command.CacheClearCommand)
     .addMethodCall('setContainer', [ new Reference('service_container') ])
+    .setAutoconfigured(true)
     .setPublic(true)
-    .addTag('console.command')
 ;
 
 container.register('framework.cache_warmup_command', Jymfony.Bundle.FrameworkBundle.Command.CacheWarmupCommand)
     .addArgument(new Reference('cache_warmer'))
+    .setAutoconfigured(true)
     .setPublic(true)
-    .addTag('console.command')
 ;

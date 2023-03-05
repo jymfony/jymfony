@@ -326,6 +326,20 @@ export default class Definition {
     }
 
     /**
+     * Sets an argument.
+     *
+     * @param {int} index
+     * @param {*} argument
+     *
+     * @returns {Jymfony.Component.DependencyInjection.Definition}
+     */
+    setArgument(index, argument) {
+        this._arguments.put(index, argument);
+
+        return this;
+    }
+
+    /**
      * Gets the argument list.
      *
      * @returns {Array|Object}

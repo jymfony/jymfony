@@ -151,7 +151,7 @@ export default class ResolveChildDefinitionsPass extends AbstractRecursivePass {
             if (isNumber(k)) {
                 def.addArgument(v);
             } else if (String(k).startsWith('index_')) {
-                def.replaceArgument(~~ (String(k).substr(6)), v);
+                def.replaceArgument(~~ (String(k).substring(6)), v);
             } else {
                 def.setArgument(k, v);
             }

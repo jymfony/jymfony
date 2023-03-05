@@ -136,18 +136,21 @@ container.register('console.command.messenger_consume_messages', Jymfony.Compone
         [], // Receiver names
         [], // Bus names
     ])
-    .addTag('console.command')
-    .addTag('jymfony.logger', { channel: 'messenger' });
+    .addTag('jymfony.logger', { channel: 'messenger' })
+    .setAutoconfigured(true)
+;
 
 container.register('console.command.messenger_setup_transports', Jymfony.Component.Messenger.Command.SetupTransportsCommand)
     .setArguments([
         new Reference('messenger.receiver_locator'),
         [], // Receiver names
     ])
-    .addTag('console.command');
+    .setAutoconfigured(true)
+;
 
 container.register('console.command.messenger_stop_workers', Jymfony.Component.Messenger.Command.StopWorkersCommand)
     .setArguments([
         new Reference('cache.messenger.restart_workers_signal'),
     ])
-    .addTag('console.command');
+    .setAutoconfigured(true)
+;
