@@ -12,7 +12,7 @@ declare namespace Jymfony.Contracts.Async {
         private _activeContext: any;
         private _contextSet: any[];
         private _consoleContext?: any;
-        private _requestContexts: Map<any, any>;
+        private _requestContexts: WeakMap<any, any>;
         private _contexts: Map<number, any>;
 
         /**

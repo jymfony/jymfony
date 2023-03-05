@@ -44,11 +44,11 @@ class ClsTrait {
         this._consoleContext = undefined;
 
         /**
-         * @type {Map<Jymfony.Component.HttpFoundation.Request, object>}
+         * @type {WeakMap<Jymfony.Component.HttpFoundation.Request, object>}
          *
          * @private
          */
-        this._requestContexts = new Map();
+        this._requestContexts = new WeakMap();
 
         /**
          * @type {Map<int, object>}
