@@ -1,6 +1,5 @@
 import Suite from 'mocha/lib/suite';
 import Test from 'mocha/lib/test';
-import { expect } from 'chai';
 
 const Assert = Jymfony.Component.Testing.Framework.Assert;
 const AfterEachAnnotation = Jymfony.Component.Testing.Annotation.AfterEach;
@@ -407,15 +406,15 @@ export default class TestCase extends Assert {
         }
 
         if (this._expectedException !== undefined) {
-            expect(exception).to.be.instanceOf(this._expectedException.getConstructor());
+            Assert.assertInstanceOf(this._expectedException.getConstructor(), exception);
         }
 
         if (this._expectedExceptionMessage !== undefined) {
-            expect(exception.message).to.be.equal(this._expectedExceptionMessage);
+            Assert.assertEquals(this._expectedExceptionMessage, exception.message);
         }
 
         if (this._expectedExceptionMessageRegex !== undefined) {
-            expect(exception.message).to.match(this._expectedExceptionMessageRegex);
+            Assert.assertMatchesRegularExpression(this._expectedExceptionMessageRegex, exception.message);
         }
 
         if (
