@@ -234,6 +234,11 @@ declare class ReflectionMethod<Class extends object = any> {
     readonly name: string;
 
     /**
+     * Whether this method is private.
+     */
+    readonly isPrivate: boolean;
+
+    /**
      * Gets if this method is static.
      */
     readonly isStatic: boolean;
@@ -317,6 +322,13 @@ declare class ReflectionParameter<Class extends object = any> {
      * Gets the parameter metadata.
      */
     readonly metadata: [Newable, any][];
+
+    /**
+     * Gets the annotation instances of the given class.
+     */
+    getAnnotations<T extends object>(class_: Newable<T>, subclass?: boolean): T[];
+    getAnnotations(class_: string, subclass?: boolean): object[];
+    getAnnotations(class_: Newable | string, subclass?: boolean): object[];
 }
 
 /**
