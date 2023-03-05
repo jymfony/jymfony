@@ -1,6 +1,7 @@
+const ReflectorTrait = require('./ReflectorTrait');
 const privateAccessors = new WeakMap();
 
-class ReflectionField extends implementationOf(ReflectorInterface) {
+class ReflectionField extends implementationOf(ReflectorInterface, ReflectorTrait) {
     constructor(reflectionClass, fieldName) {
         super();
 

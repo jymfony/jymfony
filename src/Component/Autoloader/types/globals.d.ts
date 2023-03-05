@@ -2,6 +2,18 @@
 
 declare class ReflectorInterface {
     public static readonly definition: Newable<ReflectorInterface>;
+
+    /**
+     * Gets the class metadata.
+     */
+    readonly metadata: [Newable, any][];
+
+    /**
+     * Gets the annotation instances of the given class.
+     */
+    getAnnotations<T extends object>(class_: Newable<T>, subclass?: boolean): T[];
+    getAnnotations(class_: string, subclass?: boolean): object[];
+    getAnnotations(class_: Newable | string, subclass?: boolean): object[];
 }
 
 declare class ReflectionClass<T extends object = any> extends implementationOf(ReflectorInterface) {
@@ -262,10 +274,18 @@ declare class ReflectionMethod<Class extends object = any> extends implementatio
      */
     readonly docblock: string;
 
+
     /**
-     * Gets the method metadata.
+     * Gets the class metadata.
      */
     readonly metadata: [Newable, any][];
+
+    /**
+     * Gets the annotation instances of the given class.
+     */
+    getAnnotations<T extends object>(class_: Newable<T>, subclass?: boolean): T[];
+    getAnnotations(class_: string, subclass?: boolean): object[];
+    getAnnotations(class_: Newable | string, subclass?: boolean): object[];
 
     /**
      * Gets the parameters' reflection objects.
@@ -381,6 +401,13 @@ declare class ReflectionField<Class extends object = any> extends implementation
     readonly metadata: [Newable, any][];
 
     /**
+     * Gets the annotation instances of the given class.
+     */
+    getAnnotations<T extends object>(class_: Newable<T>, subclass?: boolean): T[];
+    getAnnotations(class_: string, subclass?: boolean): object[];
+    getAnnotations(class_: Newable | string, subclass?: boolean): object[];
+
+    /**
      * Gets the field current value.
      */
     getValue(object: any): any;
@@ -442,9 +469,16 @@ declare class ReflectionProperty<Class extends object = any> extends implementat
     readonly docblock: string;
 
     /**
-     * Gets the class property metadata.
+     * Gets the class metadata.
      */
     readonly metadata: [Newable, any][];
+
+    /**
+     * Gets the annotation instances of the given class.
+     */
+    getAnnotations<T extends object>(class_: Newable<T>, subclass?: boolean): T[];
+    getAnnotations(class_: string, subclass?: boolean): object[];
+    getAnnotations(class_: Newable | string, subclass?: boolean): object[];
 }
 
 declare class ReflectionException extends Error {}

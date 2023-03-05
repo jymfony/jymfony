@@ -1,7 +1,9 @@
+const ReflectorTrait = require('./ReflectorTrait');
+
 /**
  * Reflection utility for class getters/setters.
  */
-class ReflectionProperty extends implementationOf(ReflectorInterface) {
+class ReflectionProperty extends implementationOf(ReflectorInterface, ReflectorTrait) {
     /**
      * Constructor.
      *

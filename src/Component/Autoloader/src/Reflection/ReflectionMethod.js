@@ -1,12 +1,13 @@
 const { AST, Compiler, Parser } = require('@jymfony/compiler');
 const SourceMapGenerator = require('@jymfony/compiler/src/SourceMap/Generator');
 const ReflectionParameter = require('./ReflectionParameter');
+const ReflectorTrait = require('./ReflectorTrait');
 const vm = require('vm');
 
 /**
  * Reflection utility for class method.
  */
-class ReflectionMethod extends implementationOf(ReflectorInterface) {
+class ReflectionMethod extends implementationOf(ReflectorInterface, ReflectorTrait) {
     /**
      * Constructor.
      *
