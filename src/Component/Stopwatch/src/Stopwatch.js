@@ -1,14 +1,13 @@
-const EventSubscriberInterface = Jymfony.Contracts.EventDispatcher.EventSubscriberInterface;
-const StopwatchInterface = Jymfony.Contracts.Stopwatch.StopwatchInterface;
+const ClsTrait = Jymfony.Contracts.Async.ClsTrait;
 const Section = Jymfony.Component.Stopwatch.Section;
-const ClsTrait = __jymfony.ClsTrait;
+const StopwatchInterface = Jymfony.Contracts.Stopwatch.StopwatchInterface;
 
 /**
  * Stopwatch provides a way to profile code.
  *
  * @memberOf Jymfony.Component.Stopwatch
  */
-export default class Stopwatch extends implementationOf(StopwatchInterface, EventSubscriberInterface, ClsTrait) {
+export default class Stopwatch extends implementationOf(StopwatchInterface, ClsTrait) {
     /**
      * Constructor.
      */
@@ -156,17 +155,5 @@ export default class Stopwatch extends implementationOf(StopwatchInterface, Even
         const subject = this._activeContext[ClsTrait.REQUEST_SYMBOL] || this._activeContext[ClsTrait.COMMAND_SYMBOL] || '__root__';
 
         return this._sections.has(subject) ? this._sections.get(subject) : (this._sections.set(subject, [ new Section() ]), this._sections.get(subject));
-    }
-
-    /**
-     * @inheritdoc
-     */
-    static getSubscribedEvents() {
-        return {
-            'console.command': [ '_onConsoleCommand', 1024 ],
-            'console.terminate': [ '_onConsoleTerminate', -1024 ],
-            'http.request': [ '_onHttpRequest', 1024 ],
-            'http.finish_request': [ '_onHttpFinishRequest', -1024 ],
-        };
     }
 }

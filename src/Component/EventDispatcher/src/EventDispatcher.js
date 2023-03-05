@@ -266,12 +266,26 @@ export default class EventDispatcher extends implementationOf(EventDispatcherInt
      * @private
      */
     static _funcEquals(func1, func2) {
-        if (func1.innerObject) {
+        if (Reflect.has(func1, 'innerObject')) {
             func1 = func1.innerObject;
         }
 
-        if (func2.innerObject) {
+        if (Reflect.has(func2, 'innerObject')) {
             func2 = func2.innerObject;
+        }
+
+        if (Object.prototype.hasOwnProperty.call(func1, 'wrappedListener')) {
+            func1 = func1.wrappedListener;
+            if (Reflect.has(func1, 'innerObject')) {
+                func1 = func1.innerObject;
+            }
+        }
+
+        if (Object.prototype.hasOwnProperty.call(func2, 'wrappedListener')) {
+            func2 = func2.wrappedListener;
+            if (Reflect.has(func2, 'innerObject')) {
+                func2 = func2.innerObject;
+            }
         }
 
         if (func1.constructor.name !== func2.constructor.name) {

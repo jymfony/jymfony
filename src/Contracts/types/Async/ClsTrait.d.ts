@@ -1,4 +1,4 @@
-declare namespace __jymfony {
+declare namespace Jymfony.Contracts.Async {
     import ConsoleCommandEvent = Jymfony.Contracts.Console.Event.ConsoleCommandEvent;
     import FinishRequestEvent = Jymfony.Contracts.HttpServer.Event.FinishRequestEvent;
     import RequestEvent = Jymfony.Contracts.HttpServer.Event.RequestEvent;

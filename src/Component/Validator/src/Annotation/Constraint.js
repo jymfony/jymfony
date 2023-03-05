@@ -9,7 +9,7 @@ const Annotation = Jymfony.Component.Autoloader.Decorator.Annotation;
  * @memberOf Jymfony.Component.Validator.Annotation
  */
 export default
-@Annotation(Annotation.ANNOTATION_TARGET_CLASS)
+@Annotation(Annotation.ANNOTATION_TARGET_CLASS | Annotation.ANNOTATION_TARGET_ACCESSOR | Annotation.ANNOTATION_TARGET_METHOD | Annotation.ANNOTATION_TARGET_GETTER)
 class Constraint {
     __construct(class_, options = null) {
         this._class = new ReflectionClass(class_);

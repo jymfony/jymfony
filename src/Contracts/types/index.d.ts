@@ -4,6 +4,7 @@
  * of a jymfony project.
  */
 
+/// <reference path="Async/ClsTrait.d.ts" />
 /// <reference path="Cache/Exception/CacheException.d.ts" />
 /// <reference path="Cache/Exception/ExceptionInterface.d.ts" />
 /// <reference path="Cache/Exception/InvalidArgumentException.d.ts" />

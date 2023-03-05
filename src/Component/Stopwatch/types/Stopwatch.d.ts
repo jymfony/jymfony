@@ -1,9 +1,9 @@
 declare namespace Jymfony.Component.Stopwatch {
-    import EventSubscriberInterface = Jymfony.Contracts.EventDispatcher.EventSubscriberInterface;
-    import ClsTrait = __jymfony.ClsTrait;
-    import Request = Jymfony.Component.HttpFoundation.Request;
+    import ClsTrait = Jymfony.Contracts.Async.ClsTrait;
     import Command = Jymfony.Component.Console.Command.Command;
+    import EventSubscriberInterface = Jymfony.Contracts.EventDispatcher.EventSubscriberInterface;
     import EventSubscriptions = Jymfony.Contracts.EventDispatcher.EventSubscriptions;
+    import Request = Jymfony.Component.HttpFoundation.Request;
     import StopwatchInterface = Jymfony.Contracts.Stopwatch.StopwatchInterface;
 
     /**

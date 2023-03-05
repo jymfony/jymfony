@@ -1,11 +1,16 @@
+const ClsTrait = Jymfony.Contracts.Async.ClsTrait;
+const EventDispatcherInterface = Jymfony.Contracts.EventDispatcher.EventDispatcherInterface;
+const NullLogger = Jymfony.Contracts.Logger.NullLogger;
 const StoppableEventInterface = Jymfony.Contracts.EventDispatcher.StoppableEventInterface;
-const TraceableEventDispatcherInterface = Jymfony.Component.EventDispatcher.Debug.TraceableEventDispatcherInterface;
 const WrappedListener = Jymfony.Component.EventDispatcher.Debug.WrappedListener;
+
+const collator = new Intl.Collator('en');
+const EmptyObject = {};
 
 /**
  * @memberOf Jymfony.Component.EventDispatcher.Debug
  */
-export default class TraceableEventDispatcher extends implementationOf(TraceableEventDispatcherInterface) {
+export default class TraceableEventDispatcher extends implementationOf(EventDispatcherInterface, ClsTrait) {
     /**
      * Constructor.
      *
@@ -33,7 +38,7 @@ export default class TraceableEventDispatcher extends implementationOf(Traceable
          *
          * @private
          */
-        this._logger = logger;
+        this._logger = logger || new NullLogger();
 
         /**
          * @type {Object.<string, Set<Function>>}
@@ -42,29 +47,101 @@ export default class TraceableEventDispatcher extends implementationOf(Traceable
          */
         this._called = {};
 
-        return new Proxy(this, {
-            get: (target, key) => {
-                if (Reflect.has(this, key)) {
-                    return Reflect.get(target, key);
-                }
+        /**
+         * @type {WeakMap<Jymfony.Component.HttpFoundation.Request, [ string, Jymfony.Component.EventDispatcher.Debug.WrappedListener ][]>}
+         *
+         * @private
+         */
+        this._callStack = new WeakMap();
 
-                const ret = Reflect.get(this._dispatcher, key);
-                if (isFunction(ret)) {
-                    return ret.bind(this._dispatcher);
-                }
+        /**
+         * @type {Object.<string, Jymfony.Component.EventDispatcher.Debug.WrappedListener[]>}
+         *
+         * @private
+         */
+        this._wrappedListeners = {};
 
-                return ret;
-            },
-            has: (target, key) => {
-                return Reflect.has(this, key) || Reflect.has(this._dispatcher, key);
-            },
-        });
+        /**
+         * @type {WeakMap<Jymfony.Component.HttpFoundation.Request, any>}
+         *
+         * @private
+         */
+        this._orphanedEvents = new WeakMap();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    addListener(eventName, listener, priority = 0) {
+        this._dispatcher.addListener(eventName, listener, priority);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    addSubscriber(subscriber) {
+        this._dispatcher.addSubscriber(subscriber);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    removeListener(eventName, listener) {
+        if (undefined !== this._wrappedListeners[eventName]) {
+            for (const [ index, wrappedListener ] of __jymfony.getEntries(this._wrappedListeners[eventName])) {
+                if (wrappedListener.wrappedListener === listener) {
+                    listener = wrappedListener;
+                    this._wrappedListeners[eventName].splice(index, 1);
+                    break;
+                }
+            }
+        }
+
+        return this._dispatcher.removeListener(eventName, listener);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    removeSubscriber(subscriber) {
+        return this._dispatcher.removeSubscriber(subscriber);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    getListeners(eventName = undefined) {
+        return this._dispatcher.getListeners(eventName);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    getListenerPriority(eventName, listener) {
+        // We might have wrapped listeners for the event (if called while dispatching)
+        // In that case get the priority by wrapper
+        if (undefined !== this._wrappedListeners[eventName]) {
+            for (const [ , wrappedListener ] of __jymfony.getEntries(this._wrappedListeners[eventName])) {
+                if (wrappedListener.wrappedListener === listener) {
+                    return this._dispatcher.getListenerPriority(eventName, wrappedListener);
+                }
+            }
+        }
+
+        return this._dispatcher.getListenerPriority(eventName, listener);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    hasListeners(eventName) {
+        return this._dispatcher.hasListeners(eventName);
     }
 
     /**
      * @inheritdoc
      */
-    dispatch(event, eventName = undefined) {
+    async dispatch(event, eventName = undefined) {
         if (undefined === eventName) {
             eventName = ReflectionClass.getClassName(event);
         }
@@ -73,79 +150,93 @@ export default class TraceableEventDispatcher extends implementationOf(Traceable
             eventName = ReflectionClass.getClassName(eventName);
         }
 
-        if (undefined !== this._logger && event instanceof StoppableEventInterface && event.isPropagationStopped()) {
+        if (event instanceof StoppableEventInterface && event.isPropagationStopped()) {
             this._logger.debug('The "' + eventName + '" event is already stopped. No listeners have been called.');
         }
 
         this._preProcess(eventName);
-        this._preDispatch(eventName, event);
-        const e = this._stopwatch.start(eventName, 'section');
-
-        return (async () => {
-            event = await this._dispatcher.dispatch(event, eventName);
-
-            if (e.isStarted()) {
-                e.stop();
-            }
-
-            this._postDispatch(eventName, event);
-            this._postProcess(eventName);
-
-            return event;
-        })();
-    }
-
-    /**
-     * @inheritdoc
-     */
-    get calledListeners() {
-        const self = this;
-
-        return (function * () {
-            for (const [ k, set ] of __jymfony.getEntries(self._called)) {
-                yield [ k, new Set(set) ];
-            }
-        }());
-    }
-
-    /**
-     * @inheritdoc
-     */
-    get notCalledListeners() {
-        let allListeners;
-        const notCalled = new Map();
-
         try {
-            allListeners = Array.from(this.getListeners());
+            this._preDispatch(eventName, event);
+            try {
+                const e = this._stopwatch.start(eventName, 'section');
+                try {
+                    await this._dispatcher.dispatch(event, eventName);
+                } finally {
+                    if (e.isStarted()) {
+                        e.stop();
+                    }
+                }
+            } finally {
+                this._postDispatch(eventName, event);
+            }
+        } finally {
+            this._postProcess(eventName);
+        }
+
+        return event;
+    }
+
+    /**
+     * @param {Jymfony.Component.HttpFoundation.Request | null} request
+     *
+     * @returns {Object.<string, *>[]}
+     */
+    getCalledListeners(request) {
+        request = request || EmptyObject;
+        const called = [];
+        for (const [ eventName, listener ] of this._callStack.get(request) || []) {
+            called.push(listener.getInfo(eventName));
+        }
+
+        return called;
+    }
+
+    /**
+     * @param {Jymfony.Component.HttpFoundation.Request | null} request
+     *
+     * @returns {Object.<string, *>[]}
+     */
+    getNotCalledListeners(request) {
+        request = request || EmptyObject;
+
+        let allListeners;
+        try {
+            allListeners = [ ...this.getListeners() ];
         } catch (e) {
-            if (undefined !== this._logger) {
-                this._logger.info('An error was thrown while getting the uncalled listeners.', { exception: e });
-            }
+            this._logger.info('An exception was thrown while getting the uncalled listeners.', { exception: e });
 
-            return new Map();
+            // Unable to retrieve the uncalled listeners
+            return [];
         }
 
+        const calledListeners = [];
+        for (const [ , calledListener ] of this._callStack.get(request) || []) {
+            calledListeners.push(calledListener.wrappedListener);
+        }
+
+        const notCalled = [];
         for (const [ eventName, listeners ] of allListeners) {
-            for (const listener of listeners) {
-                if (this._called[eventName].has(listener)) {
-                    break;
+            for (let listener of listeners) {
+                if (!calledListeners.includes(listener)) {
+                    if (! (listener instanceof WrappedListener)) {
+                        listener = new WrappedListener(listener, null, this._stopwatch, this);
+                    }
+
+                    notCalled.push(listener.getInfo(eventName));
                 }
-
-                if (! notCalled.has(eventName)) {
-                    notCalled.set(eventName, []);
-                }
-
-                notCalled[eventName].push(listener);
-            }
-
-            if (notCalled.has(eventName)) {
-                notCalled.set(eventName, notCalled[eventName].sort((a, b) => {
-                    return this._dispatcher.getListenerPriority(eventName, a) - this._dispatcher.getListenerPriority(eventName, b);
-                }));
             }
         }
+
+        notCalled.sort(__self._sortNotCalledListeners);
 
         return notCalled;
+    }
+
+    /**
+     * @param {Jymfony.Component.HttpFoundation.Request | null} request
+     */
+    getOrphanedEvents(request) {
+        return this._orphanedEvents.get(request || EmptyObject) || [];
     }
 
     /**
@@ -176,12 +267,28 @@ export default class TraceableEventDispatcher extends implementationOf(Traceable
      * @private
      */
     _preProcess(eventName) {
-        for (const listener of Array.from(this._dispatcher.getListeners(eventName))) {
-            const priority = this._dispatcher.getListenerPriority(eventName, listener);
-            const wrapped = new WrappedListener(listener, eventName, this);
+        const currentRequest = this._activeContext[ClsTrait.REQUEST_SYMBOL] || EmptyObject;
+        if (! this._dispatcher.hasListeners(eventName)) {
+            if (! this._orphanedEvents.has(currentRequest)) {
+                this._orphanedEvents.set(currentRequest, []);
+            }
 
-            this._dispatcher.removeListener(eventName, listener);
-            this._dispatcher.addListener(eventName, wrapped, priority);
+            this._orphanedEvents.get(currentRequest).push(eventName);
+        } else {
+            for (const listener of this._dispatcher.getListeners(eventName)) {
+                const priority = this.getListenerPriority(eventName, listener);
+
+                const wrappedListener = new WrappedListener(listener instanceof WrappedListener ? listener.wrappedListener : listener, null, this._stopwatch, this);
+                this._wrappedListeners[eventName] = this._wrappedListeners[eventName] || [];
+                this._wrappedListeners[eventName].push(wrappedListener);
+
+                this._dispatcher.removeListener(eventName, listener);
+                this._dispatcher.addListener(eventName, wrappedListener, priority);
+
+                const listeners = this._callStack.get(currentRequest) || [];
+                listeners.push([ eventName, wrappedListener ]);
+                this._callStack.set(currentRequest, listeners);
+            }
         }
     }
 
@@ -193,34 +300,62 @@ export default class TraceableEventDispatcher extends implementationOf(Traceable
      * @private
      */
     _postProcess(eventName) {
+        const currentRequest = this._activeContext[ClsTrait.REQUEST_SYMBOL] || EmptyObject;
+        delete this._wrappedListeners[eventName];
+
+        let skipped = false;
         for (const listener of this._dispatcher.getListeners(eventName)) {
-            if (undefined === listener.wasCalled) {
+            if (! (listener instanceof WrappedListener)) { // A new listener was added during dispatch.
                 continue;
             }
 
-            const priority = this._dispatcher.getListenerPriority(eventName, listener);
+            // Unwrap listener
+            const priority = this.getListenerPriority(eventName, listener);
             this._dispatcher.removeListener(eventName, listener);
             this._dispatcher.addListener(eventName, listener.wrappedListener, priority);
 
-            if (!! this._logger) {
-                const ctx = { event: eventName, listener: listener.pretty };
+            const context = { event: eventName, listener: listener.pretty };
 
-                if (listener.wasCalled) {
-                    this._logger.debug('Notified event "{event}" to listener "{listener}"', ctx);
+            if (listener.wasCalled) {
+                this._logger.debug('Notified event "{event}" to listener "{listener}".', context);
+            } else {
+                const listeners = this._callStack.get(currentRequest);
+                this._callStack.set(currentRequest, listeners.filter(([ , wl ]) => wl !== listener));
+            }
 
-                    if (undefined === this._called[eventName]) {
-                        this._called[eventName] = new Set();
-                    }
+            if (skipped) {
+                this._logger.debug('Listener "{listener}" was not called for event "{event}".', context);
+            }
 
-                    this._called[eventName].add(listener);
-                } else {
-                    this._logger.debug('Listener "{listener}" was not called for event "{event}"', ctx);
-                }
-
-                if (listener.stoppedPropagation) {
-                    this._logger.debug('Listener "{listener}" stopped propagation of event "{event}"', ctx);
-                }
+            if (listener.stoppedPropagation) {
+                this._logger.debug('Listener "{listener}" stopped propagation of the event "{event}".', context);
+                skipped = true;
             }
         }
+    }
+
+    static _sortNotCalledListeners(a, b) {
+        const cmp = collator.compare(a.event, b.event);
+        if (0 !== cmp) {
+            return cmp;
+        }
+
+        if (isNumber(a.priority) && !isNumber(b.priority)) {
+            return 1;
+        }
+
+        if (!isNumber(a.priority) && isNumber(b.priority)) {
+            return -1;
+        }
+
+        if (a.priority === b.priority) {
+            return 0;
+        }
+
+        if (a.priority > b.priority) {
+            return -1;
+        }
+
+        return 1;
     }
 }

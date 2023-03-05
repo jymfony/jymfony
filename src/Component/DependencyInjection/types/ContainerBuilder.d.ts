@@ -75,7 +75,7 @@ declare namespace Jymfony.Component.DependencyInjection {
          *
          * @final
          */
-        getReflectionClass(Class: string, Throw?: boolean): ReflectionClass;
+        getReflectionClass(Class: string, Throw?: boolean): ReflectionClass | null;
 
         /**
          * Adds the given class hierarchy as resources.

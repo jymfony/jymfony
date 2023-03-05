@@ -1,10 +1,10 @@
 declare namespace Jymfony.Component.EventDispatcher.Debug {
-    import Event = Jymfony.Contracts.EventDispatcher.Event;
+    import ClsTrait = Jymfony.Contracts.Async.ClsTrait;
     import LoggerInterface = Jymfony.Contracts.Logger.LoggerInterface;
     import EventDispatcherInterface = Jymfony.Contracts.EventDispatcher.EventDispatcherInterface;
     import StopwatchInterface = Jymfony.Contracts.Stopwatch.StopwatchInterface;
 
-    export class TraceableEventDispatcher extends implementationOf(TraceableEventDispatcherInterface) {
+    export class TraceableEventDispatcher extends implementationOf(EventDispatcherInterface, ClsTrait) {
         /**
          * @inheritdoc
          */
