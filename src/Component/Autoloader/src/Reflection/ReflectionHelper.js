@@ -16,6 +16,6 @@ export default class ReflectionHelper {
             return null;
         }
 
-        return (parameter.metadata.find(([ t ]) => t === Type) || [])[1] || null;
+        return parameter.getAnnotations(Type)[0] || null;
     }
 }

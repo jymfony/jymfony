@@ -6,7 +6,7 @@ const vm = require('vm');
 /**
  * Reflection utility for class method.
  */
-class ReflectionMethod {
+class ReflectionMethod extends implementationOf(ReflectorInterface) {
     /**
      * Constructor.
      *
@@ -14,6 +14,8 @@ class ReflectionMethod {
      * @param {string} methodName
      */
     constructor(reflectionClass, methodName) {
+        super();
+
         /**
          * @type {string}
          *

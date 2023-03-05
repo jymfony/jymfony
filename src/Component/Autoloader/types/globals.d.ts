@@ -1,6 +1,10 @@
 /// <reference types="node" />
 
-declare class ReflectionClass<T extends object = any> {
+declare class ReflectorInterface {
+    public static readonly definition: Newable<ReflectorInterface>;
+}
+
+declare class ReflectionClass<T extends object = any> extends implementationOf(ReflectorInterface) {
     private _isInterface: boolean;
     private _methods: any;
     private _staticMethods: any;
@@ -208,7 +212,7 @@ declare class ReflectionClass<T extends object = any> {
 /**
  * Reflection utility for class method.
  */
-declare class ReflectionMethod<Class extends object = any> {
+declare class ReflectionMethod<Class extends object = any> extends implementationOf(ReflectorInterface) {
     static readonly FUNCTION = 'function';
     static readonly ASYNC_FUNCTION = 'async function';
     static readonly GENERATOR = 'generator';
@@ -274,7 +278,7 @@ declare class ReflectionMethod<Class extends object = any> {
     readonly method: Invokable;
 }
 
-declare class ReflectionParameter<Class extends object = any> {
+declare class ReflectionParameter<Class extends object = any> extends implementationOf(ReflectorInterface) {
     private constructor(reflectionMethod: ReflectionMethod,
                         name: string,
                         index: number,
@@ -334,7 +338,7 @@ declare class ReflectionParameter<Class extends object = any> {
 /**
  * Reflection utility for class field.
  */
-declare class ReflectionField<Class extends object = any> {
+declare class ReflectionField<Class extends object = any> extends implementationOf(ReflectorInterface) {
     /**
      * Constructor.
      */
@@ -395,7 +399,7 @@ declare class ReflectionField<Class extends object = any> {
 /**
  * Reflection utility for class method.
  */
-declare class ReflectionProperty<Class extends object = any> {
+declare class ReflectionProperty<Class extends object = any> extends implementationOf(ReflectorInterface) {
     public static readonly KIND_GET = 'get';
     public static readonly KIND_SET = 'set';
 

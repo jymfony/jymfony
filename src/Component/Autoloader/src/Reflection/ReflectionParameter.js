@@ -1,7 +1,7 @@
 /**
  * Reflection utility for method parameters.
  */
-class ReflectionParameter {
+class ReflectionParameter extends implementationOf(ReflectorInterface) {
     /**
      * Constructor.
      *
@@ -24,6 +24,8 @@ class ReflectionParameter {
         arrayPattern = false,
         restElement = false,
     ) {
+        super();
+
         /**
          * @type {ReflectionMethod}
          *

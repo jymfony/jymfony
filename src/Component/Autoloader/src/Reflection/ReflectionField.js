@@ -1,7 +1,9 @@
 const privateAccessors = new WeakMap();
 
-class ReflectionField {
+class ReflectionField extends implementationOf(ReflectorInterface) {
     constructor(reflectionClass, fieldName) {
+        super();
+
         /**
          * @type {ReflectionClass}
          *

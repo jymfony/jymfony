@@ -1,3 +1,4 @@
+const ReflectorInterface = require('./ReflectorInterface');
 const ReflectionMethod = require('./ReflectionMethod');
 const ReflectionField = require('./ReflectionField');
 const ReflectionProperty = require('./ReflectionProperty');
@@ -55,13 +56,14 @@ const getClass = function getClass(value) {
 /**
  * Utility class for classes reflection.
  */
-class ReflectionClass {
+class ReflectionClass extends implementationOf(ReflectorInterface) {
     /**
      * Constructor.
      *
      * @param {string|Object} value
      */
     constructor(value) {
+        super();
         this._isInterface = false;
         this._isTrait = false;
         value = getClass.apply(this, [ value ]);

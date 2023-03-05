@@ -1,7 +1,7 @@
 /**
  * Reflection utility for class getters/setters.
  */
-class ReflectionProperty {
+class ReflectionProperty extends implementationOf(ReflectorInterface) {
     /**
      * Constructor.
      *
@@ -10,6 +10,7 @@ class ReflectionProperty {
      * @param {string} propertyName
      */
     constructor(reflectionClass, kind, propertyName) {
+        super();
         const descriptor = reflectionClass.getPropertyDescriptor(propertyName);
 
         /**
