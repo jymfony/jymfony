@@ -9,6 +9,11 @@ Jymfony.Component.Messenger = {
     /**
      * @namespace
      */
+    Annotation: {},
+
+    /**
+     * @namespace
+     */
     Command: {},
 
     /**

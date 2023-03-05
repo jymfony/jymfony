@@ -25,6 +25,7 @@
     "@jymfony/util": "https://github.com/jymfony/util.git"
   },
   "devDependencies": {
+    "@jymfony/console": "https://github.com/jymfony/console.git",
     "@jymfony/debug": "https://github.com/jymfony/debug.git",
     "@jymfony/event-dispatcher": "https://github.com/jymfony/event-dispatcher.git",
     "@jymfony/stopwatch": "https://github.com/jymfony/stopwatch.git",

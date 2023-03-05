@@ -1,3 +1,4 @@
+/// <reference path="Annotation/MessageHandler.d.ts" />
 /// <reference path="Command/ConsumeMessagesCommand.d.ts" />
 /// <reference path="Command/SetupTransportsCommand.d.ts" />
 /// <reference path="Command/StopWorkersCommand.d.ts" />

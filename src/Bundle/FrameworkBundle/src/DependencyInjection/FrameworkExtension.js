@@ -121,6 +121,19 @@ export default class FrameworkExtension extends Extension {
                 });
             }
         });
+
+        container.registerAnnotationForAutoconfiguration('Jymfony.Component.Messenger.Annotation.MessageHandler', (definition, attribute, reflector) => {
+            const tagAttributes = attribute.asTag;
+            if (reflector instanceof ReflectionMethod) {
+                if (!! tagAttributes.method) {
+                    throw new LogicException(__jymfony.sprintf('MessageHandler annotation cannot declare a method on "%s.%s()".', reflector.reflectionClass.name, reflector.name));
+                }
+
+                tagAttributes.method = reflector.name;
+            }
+
+            definition.addTag('messenger.message_handler', tagAttributes);
+        });
     }
 
     /**
