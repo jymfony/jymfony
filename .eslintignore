@@ -1,7 +1,12 @@
+src/Bundle/FrameworkBundle/fixtures/Controller/TypedController.js
+src/Bundle/FrameworkBundle/src/Controller/ExceptionController.js
 src/Component/Autoloader/fixtures
 src/Component/Autoloader/src/Test/ChaiExpectation.js
+src/Component/Cache/src/Adapter/RedisAdapter.js
+src/Component/Cache/src/Traits/RedisTrait.js
 src/Component/Debug/src/Resources
 src/Component/DependencyInjection/fixtures
+src/Component/DevServer/src/DevServer.js
 src/Component/HttpServer/fixtures
 src/Component/Metadata/fixtures
 src/Component/Messenger/fixtures
@@ -10,8 +15,3 @@ src/Component/Validator/src/Test/ChaiExpectation.js
 src/Component/VarExporter/fixtures
 src/Component/VarDumper/src/Test/ChaiExpectation.js
 src/**/*Interface.js
-
-src/Bundle/FrameworkBundle/fixtures/Controller/TypedController.js
-src/Bundle/FrameworkBundle/src/Controller/ExceptionController.js
-src/Component/Cache/src/Adapter/RedisAdapter.js
-src/Component/Cache/src/Traits/RedisTrait.js

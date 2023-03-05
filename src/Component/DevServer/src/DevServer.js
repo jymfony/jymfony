@@ -1,4 +1,5 @@
 import { spawn } from 'child_process';
+import { watch } from 'chokidar' optional;
 const NullLogger = Jymfony.Contracts.Logger.NullLogger;
 
 /**
@@ -72,19 +73,33 @@ export default class DevServer {
 
         let res;
         const promise = new Promise(resolve => res = resolve);
-        this._watcher = this._fs.watch(this._projectDir, {
-            persistent: true,
-            recursive: true,
-        }, (eventType, filename) => {
-            if (filename.match(/(^\.idea|^.git|^.vscode|(^|\/).DS_Store)/)) {
+        const handler = (eventType, filename) => {
+            if (filename.match(/(^\.idea\/|^\.git|^\.vscode\/|(^|\/).DS_Store\/)/)) {
                 return;
             }
 
             this._logger.debug('File changes detected. Restarting...', { eventType, filename });
             restart();
-        });
+        };
 
-        this._watcher.on('close', () => res());
+        if (watch !== undefined) {
+            this._watcher = watch(this._projectDir, {
+                persistent: true,
+                cwd: process.cwd(),
+            });
+
+            this._watcher.once('ready', () => {
+                this._watcher.on('all', handler);
+            });
+        } else {
+            this._logger.warning('NodeFs watcher is unreliable and not available in all environments. It is advised to use chokidar instead (npm install chokidar).');
+            this._watcher = this._fs.watch(this._projectDir, {
+                persistent: true,
+                recursive: true,
+            }, handler);
+        }
+
+        this._watcher.once('close', () => res());
         restart();
 
         return promise;
@@ -93,18 +108,22 @@ export default class DevServer {
     /**
      * Closes the subprocess and the filesystem watcher.
      */
-    close() {
+    async close() {
         if (undefined !== this._process) {
             this._process.kill('SIGTERM');
         }
 
-        this._watcher.close();
+        await this._watcher.close();
+        this._watcher.emit('close')
     }
 
-    _restart() {
+    async _restart() {
         if (undefined !== this._process) {
             this._process.removeAllListeners();
-            this._process.kill('SIGTERM');
+            await new Promise(resolve => {
+                this._process.on('exit', resolve);
+                this._process.kill('SIGTERM');
+            });
         }
 
         const argv = [ ...this._argv ];
@@ -115,9 +134,9 @@ export default class DevServer {
             stdio: 'inherit',
         });
 
-        this._process.on('exit', () => {
+        this._process.on('exit', async () => {
             this._process = undefined;
-            this.close();
+            await this.close();
         });
     }
 }
