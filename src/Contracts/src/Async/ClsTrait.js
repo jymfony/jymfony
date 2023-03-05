@@ -5,7 +5,9 @@ const EventListener = (() => {
     if (ReflectionClass.exists('Jymfony.Component.EventDispatcher.Annotation.EventListener')) {
         return Jymfony.Component.EventDispatcher.Annotation.EventListener;
     } else {
-        return () => {};
+        return function() {
+            return () => {};
+        };
     }
 })();
 
