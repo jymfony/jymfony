@@ -4,6 +4,8 @@ const CachePoolPass = Jymfony.Component.Cache.DependencyInjection.CachePoolPass;
 const ClassExistenceResource = Jymfony.Component.Config.Resource.ClassExistenceResource;
 const Compiler = Jymfony.Bundle.FrameworkBundle.DependencyInjection.Compiler;
 const ErrorHandler = Jymfony.Component.Debug.ErrorHandler;
+const LoggerAddProcessorsPass = Jymfony.Component.Logger.DependencyInjection.Compiler.LoggerAddProcessorsPass;
+const LoggerChannelPass = Jymfony.Component.Logger.DependencyInjection.Compiler.LoggerChannelPass;
 const PassConfig = Jymfony.Component.DependencyInjection.Compiler.PassConfig;
 const RegisterListenerPass = Jymfony.Component.EventDispatcher.DependencyInjection.Compiler.RegisterListenerPass;
 
@@ -56,8 +58,8 @@ export default class FrameworkBundle extends Bundle {
         container
             .addCompilerPass(new AddConsoleCommandPass())
             .addCompilerPass(new RegisterListenerPass(), PassConfig.TYPE_BEFORE_REMOVING)
-            .addCompilerPass(new Compiler.LoggerChannelPass())
-            .addCompilerPass(new Compiler.LoggerAddProcessorsPass())
+            .addCompilerPass(new LoggerChannelPass())
+            .addCompilerPass(new LoggerAddProcessorsPass())
         ;
 
         this._addCompilerPassIfExists(container, 'Jymfony.Component.HttpServer.DependencyInjection.RegisterControllerArgumentLocatorsPass');

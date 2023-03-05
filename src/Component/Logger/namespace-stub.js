@@ -9,6 +9,16 @@ Jymfony.Component.Logger = {
     /**
      * @namespace
      */
+    DependencyInjection: {
+        /**
+         * @namespace
+         */
+        Compiler: {},
+    },
+
+    /**
+     * @namespace
+     */
     Exception: {},
 
     /**

@@ -1,3 +1,5 @@
+/// <reference path="DependencyInjection/Compiler/LoggerAddProcessorsPass.d.ts" />
+/// <reference path="DependencyInjection/Compiler/LoggerChannelPass.d.ts" />
 /// <reference path="Formatter/ConsoleFormatter.d.ts" />
 /// <reference path="Formatter/FormatterInterface.d.ts" />
 /// <reference path="Formatter/JsonFormatter.d.ts" />

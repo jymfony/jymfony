@@ -5,7 +5,7 @@ const Reference = Jymfony.Component.DependencyInjection.Reference;
 const LoggerInterface = Jymfony.Contracts.Logger.LoggerInterface;
 
 /**
- * @memberOf Jymfony.Bundle.FrameworkBundle.DependencyInjection.Compiler
+ * @memberOf Jymfony.Component.Logger.DependencyInjection.Compiler
  */
 export default class LoggerChannelPass extends AbstractRecursivePass {
     __construct() {
@@ -53,7 +53,6 @@ export default class LoggerChannelPass extends AbstractRecursivePass {
                 if (! container.hasDefinition(loggerId)) {
                     const definition = new ChildDefinition('jymfony.logger_prototype');
                     definition.replaceArgument(0, resolvedChannel);
-                    definition.addTag('kernel.event_subscriber');
                     container.setDefinition(loggerId, definition);
                 }
 

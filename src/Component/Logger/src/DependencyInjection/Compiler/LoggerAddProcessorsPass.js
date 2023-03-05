@@ -2,7 +2,7 @@ const CompilerPassInterface = Jymfony.Component.DependencyInjection.Compiler.Com
 const Reference = Jymfony.Component.DependencyInjection.Reference;
 
 /**
- * @memberOf Jymfony.Bundle.FrameworkBundle.DependencyInjection.Compiler
+ * @memberOf Jymfony.Component.Logger.DependencyInjection.Compiler
  */
 export default class LoggerAddProcessorsPass extends implementationOf(CompilerPassInterface) {
 

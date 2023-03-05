@@ -4,11 +4,11 @@ globalThis.__jymfony = globalThis.__jymfony || {};
 const EventListener = (() => {
     if (ReflectionClass.exists('Jymfony.Component.EventDispatcher.Annotation.EventListener')) {
         return Jymfony.Component.EventDispatcher.Annotation.EventListener;
-    } else {
-        return function() {
-            return () => {};
-        };
     }
+
+    return function() {
+        return () => {};
+    };
 })();
 
 /**
