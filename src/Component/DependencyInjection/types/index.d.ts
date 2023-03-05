@@ -12,6 +12,7 @@
 /// <reference path="Compiler/AbstractRecursivePass.d.ts" />
 /// <reference path="Compiler/AliasDeprecatedPublicServicesPass.d.ts" />
 /// <reference path="Compiler/AnalyzeServiceReferencesPass.d.ts" />
+/// <reference path="Compiler/AnnotationAutoconfigurationPass.d.ts" />
 /// <reference path="Compiler/CheckCircularReferencesPass.d.ts" />
 /// <reference path="Compiler/CheckDefinitionValidityPass.d.ts" />
 /// <reference path="Compiler/CheckExceptionOnInvalidReferenceBehaviorPass.d.ts" />

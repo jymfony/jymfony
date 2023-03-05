@@ -11,7 +11,7 @@ const EmptyChildDefinitionJSON = JSON.stringify(EmptyChildDefinition);
  */
 export default class AnnotationAutoconfigurationPass extends AbstractRecursivePass {
     process(container) {
-        if (0 === Object.keys(container.getAutoconfiguredAttributes()).length) {
+        if (0 === Object.keys(container.getAutoconfiguredAnnotations()).length) {
             return;
         }
 
@@ -33,7 +33,7 @@ export default class AnnotationAutoconfigurationPass extends AbstractRecursivePa
         const instanceOf = value.getInstanceofConditionals();
         const conditionals = instanceOf[classReflector.name] || new ChildDefinition('');
 
-        const configurators = this._container.getAutoconfiguredAttributes();
+        const configurators = this._container.getAutoconfiguredAnnotations();
         for (const [ klass, attributes ] of classReflector.metadata) {
             const configurator = configurators[klass];
             if (configurator) {

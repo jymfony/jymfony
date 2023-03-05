@@ -1,7 +1,6 @@
 declare namespace Jymfony.Component.Logger {
     import ClsTrait = Jymfony.Contracts.Async.ClsTrait;
     import DateTimeZoneInterface = Jymfony.Contracts.DateTime.DateTimeZoneInterface;
-    import EventSubscriberInterface = Jymfony.Contracts.EventDispatcher.EventSubscriberInterface;
     import EventSubscriptions = Jymfony.Contracts.EventDispatcher.EventSubscriptions;
     import HandlerInterface = Jymfony.Component.Logger.Handler.HandlerInterface;
     import LogLevel = Jymfony.Contracts.Logger.LogLevel;
@@ -10,7 +9,7 @@ declare namespace Jymfony.Component.Logger {
         __invoke(record: LogRecord): LogRecord;
     };
 
-    export class Logger extends mix(AbstractLogger, EventSubscriberInterface, ClsTrait) {
+    export class Logger extends mix(AbstractLogger, ClsTrait) {
         public static readonly levels: Record<LogLevel, string>;
 
         public readonly name: string;

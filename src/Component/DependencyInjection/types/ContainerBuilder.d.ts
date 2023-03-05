@@ -6,6 +6,8 @@ declare namespace Jymfony.Component.DependencyInjection {
     import ExtensionInterface = Jymfony.Component.DependencyInjection.Extension.ExtensionInterface;
     import ResourceInterface = Jymfony.Component.Config.Resource.ResourceInterface;
 
+    export type AnnotationConfigurator = (definition: ChildDefinition, attribute: object, reflector: ReflectorInterface) => void;
+
     export class ContainerBuilder extends Container {
         private _extensions: Record<string, ExtensionInterface>;
         private _extensionConfigs: Record<string, Record<string, any>[]>;
@@ -15,6 +17,7 @@ declare namespace Jymfony.Component.DependencyInjection {
         private _trackResources: boolean;
         private _compiler: Compiler;
         private _autoconfiguredInstanceof: Record<string, ChildDefinition>;
+        private _autoconfiguredAnnotations: Record<string, AnnotationConfigurator>;
 
         constructor(parameterBag?: ParameterBag);
         __construct(parameterBag?: ParameterBag);
@@ -270,9 +273,21 @@ declare namespace Jymfony.Component.DependencyInjection {
         registerForAutoconfiguration(IF: Newable<any> | string): ChildDefinition;
 
         /**
+         * Registers an attribute that will be used for autoconfiguring annotated classes.
+         *
+         * The configurator will receive a Definition instance and an instance of the attribute, in that order.
+         */
+        registerAnnotationForAutoconfiguration(attributeClass: string | Newable, configurator: AnnotationConfigurator): void;
+
+        /**
          * Returns a map of ChildDefinition keyed by interface.
          */
         getAutoconfiguredInstanceof(): Record<string, ChildDefinition>;
+
+        /**
+         * Returns a map of configurators, keyed by annotation class.
+         */
+        getAutoconfiguredAnnotations(): Record<string, AnnotationConfigurator>;
 
         /**
          * @final

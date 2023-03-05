@@ -41,13 +41,6 @@ export default class TraceableEventDispatcher extends implementationOf(EventDisp
         this._logger = logger || new NullLogger();
 
         /**
-         * @type {Object.<string, Set<Function>>}
-         *
-         * @private
-         */
-        this._called = {};
-
-        /**
          * @type {WeakMap<Jymfony.Component.HttpFoundation.Request, [ string, Jymfony.Component.EventDispatcher.Debug.WrappedListener ][]>}
          *
          * @private
@@ -62,7 +55,7 @@ export default class TraceableEventDispatcher extends implementationOf(EventDisp
         this._wrappedListeners = {};
 
         /**
-         * @type {WeakMap<Jymfony.Component.HttpFoundation.Request, any>}
+         * @type {WeakMap<Jymfony.Component.HttpFoundation.Request, string[]>}
          *
          * @private
          */

@@ -6,12 +6,12 @@ declare namespace Jymfony.Contracts.EventDispatcher {
          * Dispatches an event.
          * Returns a promise that resolves asynchronously running all the listeners.
          */
-        dispatch<T extends object>(event: T, eventName?: string|Newable): Promise<T>;
+        dispatch<T extends object>(event: T, eventName?: string | Newable): Promise<T>;
 
         /**
          * Attach a listener to an event.
          */
-        addListener(eventName: string|Newable, listener: Invokable|[object|string, string|symbol], priority?: number): void;
+        addListener(eventName: string | Newable, listener: Invokable | [object|string, string|symbol], priority?: number): void;
 
         /**
          * Adds and event subscriber
@@ -21,7 +21,7 @@ declare namespace Jymfony.Contracts.EventDispatcher {
         /**
          * Detach a listener.
          */
-        removeListener(eventName: string|Newable, listener: Invokable|[object|string, string|symbol]): void;
+        removeListener(eventName: string | Newable, listener: Invokable | [object|string, string|symbol]): void;
 
         /**
          * Detaches all the listeners from a subscriber
@@ -31,19 +31,19 @@ declare namespace Jymfony.Contracts.EventDispatcher {
         /**
          * Gets the listeners associated to an event.
          */
-        getListeners(eventName?: string|Newable): IterableIterator<Invokable>;
+        getListeners(eventName?: string | Newable): IterableIterator<Invokable>;
 
         /**
          * Gets the listener priority for a specific event.
          * Returns undefined if the event or the listener does not exist.
          */
-        getListenerPriority(eventName: string|Newable, listener: Invokable|[object|string, string|symbol]): undefined|number;
+        getListenerPriority(eventName: string | Newable, listener: Invokable | [object|string, string|symbol]): undefined | number;
 
         /**
          * Whether an event has listeners attached.
          *
          * @returns true if at least one listener is registered, false otherwise
          */
-        hasListeners(eventName: string|Newable): boolean;
+        hasListeners(eventName: string | Newable): boolean;
     }
 }
