@@ -102,6 +102,10 @@ export default class FrameworkExtension extends Extension {
         container.registerForAutoconfiguration('Jymfony.Contracts.Logger.LoggerAwareInterface')
             .addMethodCall('setLogger', [ new Reference('logger', ContainerBuilder.IGNORE_ON_INVALID_REFERENCE) ]);
 
+        container.registerAnnotationForAutoconfiguration('Jymfony.Component.Console.Annotation.AsCommand', (definition) => {
+            definition.addTag('console.command');
+        });
+
         container.registerAnnotationForAutoconfiguration('Jymfony.Component.EventDispatcher.Annotation.EventListener', (definition, annotation, reflector) => {
             if (reflector instanceof ReflectionClass) {
                 definition.addTag('kernel.event_listener', {
