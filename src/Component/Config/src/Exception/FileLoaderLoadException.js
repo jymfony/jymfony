@@ -18,13 +18,13 @@ export default class FileLoaderLoadException extends Exception {
         if (previous) {
             // Include the previous exception, to help the user see what might be the underlying cause
             // Trim the trailing period of the previous message. We only want 1 period remove so no rtrim...
-            if ('.' === previous.message.substr(-1)) {
-                message += previous.message.substr(0, -1)+' in ';
+            if ('.' === previous.message.substring(previous.message.length - 1)) {
+                message += previous.message.substr(0, previous.message.length - 1)+' in ';
             } else {
                 message += previous.message+' in ';
             }
 
-            message += String(resource)+' ';
+            message += String(resource) + ' ';
 
             // Show tweaked trace to complete the human readable sentence
             if (! sourceResource) {
