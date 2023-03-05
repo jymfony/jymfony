@@ -1,7 +1,9 @@
 import { EOL } from 'os';
 
 const AssertionFailedException = Jymfony.Component.Testing.Framework.Exception.AssertionFailedException;
+const Count = Jymfony.Component.Testing.Constraints.Count;
 const GreaterThan = Jymfony.Component.Testing.Constraints.GreaterThan;
+const InvalidArgumentException = Jymfony.Component.Testing.Exception.InvalidArgumentException;
 const IsEmpty = Jymfony.Component.Testing.Constraints.IsEmpty;
 const IsEqual = Jymfony.Component.Testing.Constraints.IsEqual;
 const IsFalse = Jymfony.Component.Testing.Constraints.IsFalse;
@@ -52,12 +54,61 @@ const detectLocationHint = (message) => {
  */
 export default class Assert {
     /**
+     * Asserts the number of elements of an object.
+     *
+     * @param {int} expectedCount
+     * @param {Iterator | *[] | Generator | Map | Set | Object} haystack
+     * @param {string} message
+     *
+     * @throws {Jymfony.Component.Testing.Exception.InvalidArgumentException}
+     * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+     */
+    static assertCount(expectedCount, haystack, message = '') {
+        if (isArray(haystack) || isObjectLiteral(haystack) ||
+            haystack instanceof Map || haystack instanceof Set ||
+            undefined !== haystack[Symbol.iterator] || isFunction(haystack.next)) {
+            this.assertThat(haystack, new Count(expectedCount), message);
+        } else {
+            throw new InvalidArgumentException(__jymfony.sprintf('Argument #2 of assertCount must be countable or iterable, %s given.', __jymfony.get_debug_type(haystack)));
+        }
+    }
+
+    /**
+     * Asserts the number of elements of an object is not equals to expected.
+     *
+     * @param {int} expectedCount
+     * @param {Iterator | *[] | Generator | Map | Set | Object} haystack
+     * @param {string} message
+     *
+     * @throws {Jymfony.Component.Testing.Exception.InvalidArgumentException}
+     * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+     */
+    static assertNotCount(expectedCount, haystack, message = '') {
+        if (isArray(haystack) || isObjectLiteral(haystack) ||
+            haystack instanceof Map || haystack instanceof Set ||
+            undefined !== haystack[Symbol.iterator] || isFunction(haystack.next)) {
+            this.assertThat(haystack, this.logicalNot(new Count(expectedCount)), message);
+        } else {
+            throw new InvalidArgumentException(__jymfony.sprintf('Argument #2 of assertCount must be countable or iterable, %s given.', __jymfony.get_debug_type(haystack)));
+        }
+    }
+
+    /**
      * Asserts that two variables are equal.
      *
      * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
      */
     static assertEquals(expected, actual, message = '') {
         this.assertThat(actual, new IsEqual(expected), message);
+    }
+
+    /**
+     * Asserts that a variable is empty.
+     *
+     * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+     */
+    static assertEmpty(actual, message = '') {
+        this.assertThat(actual, this.isEmpty(), message);
     }
 
     /**

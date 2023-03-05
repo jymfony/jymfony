@@ -11,12 +11,38 @@ declare namespace Jymfony.Component.Testing.Framework {
 
     export class Assert {
         /**
+         * Asserts the number of elements of an object.
+         *
+         * @throws {Jymfony.Component.Testing.Exception.InvalidArgumentException}
+         * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+         */
+        static assertCount(expected: any, actual: any, message?: string): void;
+        assertCount(expected: any, actual: any, message?: string): void;
+
+        /**
+         * Asserts the number of elements of an object is not equals to expected.
+         *
+         * @throws {Jymfony.Component.Testing.Exception.InvalidArgumentException}
+         * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+         */
+        static assertNotCount(expected: any, actual: any, message?: string): void;
+        assertNotCount(expected: any, actual: any, message?: string): void;
+
+        /**
          * Asserts that two variables are equal.
          *
          * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
          */
         static assertEquals(expected: any, actual: any, message?: string): void;
         assertEquals(expected: any, actual: any, message?: string): void;
+
+        /**
+         * Asserts that a variable is empty.
+         *
+         * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+         */
+        static assertEmpty(actual: any, message?: string): void;
+        assertEmpty(actual: any, message?: string): void;
 
         /**
          * Asserts that a variable is not empty.

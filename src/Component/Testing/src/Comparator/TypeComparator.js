@@ -18,7 +18,7 @@ export default class TypeComparator extends Comparator {
      * @inheritdoc
      */
     assertEquals(expected, actual, delta = 0.0, ignoreCase = false) { // eslint-disable-line no-unused-vars
-        if (__jymfony.get_debug_type(expected) !== __jymfony.get_debug_type(typeof actual)) {
+        if (__jymfony.get_debug_type(expected) !== __jymfony.get_debug_type(actual)) {
             throw new ComparisonFailure(
                 expected,
                 actual,
@@ -28,7 +28,7 @@ export default class TypeComparator extends Comparator {
                 __jymfony.sprintf(
                     '%s does not match expected type "%s".',
                     this.export(actual),
-                    typeof expected
+                    __jymfony.get_debug_type(actual)
                 )
             );
         }
