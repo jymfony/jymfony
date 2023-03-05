@@ -17,8 +17,6 @@ declare namespace Jymfony.Component.Messenger.Command {
         __construct(restartSignalCachePool: CacheItemPoolInterface): void;
         constructor(restartSignalCachePool: CacheItemPoolInterface);
 
-        public static readonly defaultName: string;
-
         /**
          * {@inheritdoc}
          */

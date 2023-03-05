@@ -1,3 +1,4 @@
+const AsCommand = Jymfony.Component.Console.Annotation.AsCommand;
 const ChoiceQuestion = Jymfony.Component.Console.Question.ChoiceQuestion;
 const Command = Jymfony.Component.Console.Command.Command;
 const ConsoleOutputInterface = Jymfony.Component.Console.Output.ConsoleOutputInterface;
@@ -15,7 +16,9 @@ const Worker = Jymfony.Component.Messenger.Worker;
 /**
  * @memberOf Jymfony.Component.Messenger.Command
  */
-export default class ConsumeMessagesCommand extends Command {
+export default
+@AsCommand({ name: 'messenger:consume', description: 'Consume messages' })
+class ConsumeMessagesCommand extends Command {
     /**
      * @param {Jymfony.Component.Messenger.RoutableMessageBus} routableBus
      * @param {Jymfony.Component.DependencyInjection.ContainerInterface} receiverLocator
@@ -70,27 +73,21 @@ export default class ConsumeMessagesCommand extends Command {
         super.__construct();
     }
 
-    static get defaultName() {
-        return 'messenger:consume';
-    }
-
     /**
      * @inheritdoc
      */
     configure() {
         const defaultReceiverName = 1 === this._receiverNames.length ? this._receiverNames[0] : null;
 
-        this.description = 'Consume messages';
-        this.definition = [
-            new InputArgument('receivers', InputArgument.IS_ARRAY, 'Names of the receivers/transports to consume in order of priority', defaultReceiverName ? [ defaultReceiverName ] : []),
-            new InputOption('limit', 'l', InputOption.VALUE_REQUIRED, 'Limit the number of received messages'),
-            new InputOption('failure-limit', 'f', InputOption.VALUE_REQUIRED, 'The number of failed messages the worker can consume'),
-            new InputOption('memory-limit', 'm', InputOption.VALUE_REQUIRED, 'The memory limit the worker can consume'),
-            new InputOption('time-limit', 't', InputOption.VALUE_REQUIRED, 'The time limit in seconds the worker can handle new messages'),
-            new InputOption('sleep', null, InputOption.VALUE_REQUIRED, 'Seconds to sleep before asking for new messages after no messages were found', 1),
-            new InputOption('bus', 'b', InputOption.VALUE_REQUIRED, 'Name of the bus to which received messages should be dispatched (if not passed, bus is determined automatically)'),
-            new InputOption('queues', null, InputOption.VALUE_REQUIRED | InputOption.VALUE_IS_ARRAY, 'Limit receivers to only consume from the specified queues'),
-        ];
+        this
+            .addArgument('receivers', InputArgument.IS_ARRAY, 'Names of the receivers/transports to consume in order of priority', defaultReceiverName ? [ defaultReceiverName ] : [])
+            .addOption('limit', 'l', InputOption.VALUE_REQUIRED, 'Limit the number of received messages')
+            .addOption('failure-limit', 'f', InputOption.VALUE_REQUIRED, 'The number of failed messages the worker can consume')
+            .addOption('memory-limit', 'm', InputOption.VALUE_REQUIRED, 'The memory limit the worker can consume')
+            .addOption('time-limit', 't', InputOption.VALUE_REQUIRED, 'The time limit in seconds the worker can handle new messages')
+            .addOption('sleep', null, InputOption.VALUE_REQUIRED, 'Seconds to sleep before asking for new messages after no messages were found', 1)
+            .addOption('bus', 'b', InputOption.VALUE_REQUIRED, 'Name of the bus to which received messages should be dispatched (if not passed, bus is determined automatically)')
+            .addOption('queues', null, InputOption.VALUE_REQUIRED | InputOption.VALUE_IS_ARRAY, 'Limit receivers to only consume from the specified queues');
 
         this.help = `The <info>%command.name%</info> command consumes messages and dispatches them to the message bus.
 
@@ -243,6 +240,19 @@ Use the --no-reset option to prevent services resetting after each message (may 
         await worker.run(options);
 
         return 0;
+    }
+
+    complete(input, suggestions) {
+        if (input.mustSuggestArgumentValuesFor('receivers')) {
+            const rec = input.getArgument('receivers').filter(r => r !== input.completionValue);
+            suggestions.suggestValues(this._receiverNames.filter(r => !rec.includes(r)));
+
+            return;
+        }
+
+        if (input.mustSuggestOptionValuesFor('bus')) {
+            suggestions.suggestValues(this._busIds);
+        }
     }
 
     _convertToBytes(memoryLimit) {

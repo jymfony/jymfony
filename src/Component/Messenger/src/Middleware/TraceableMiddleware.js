@@ -38,7 +38,7 @@ export default class TraceableMiddleware extends implementationOf(MiddlewareInte
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     handle(envelope, stack) {
         stack = new TraceableStack(stack, this._stopwatch, this._busName, this._eventCategory);

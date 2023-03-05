@@ -3,6 +3,10 @@ const HandlerDescriptor = Jymfony.Component.Messenger.Handler.HandlerDescriptor;
 const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 
 export default class HandleDescriptorTest extends TestCase {
+    get testCaseName() {
+        return '[Messenger] ' + super.testCaseName;
+    }
+
     @dataProvider('provideHandlers')
     testDescriptorNames(handler, expectedHandler) {
         const descriptor = new HandlerDescriptor(handler);

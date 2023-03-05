@@ -70,6 +70,9 @@ class DummyReceiver extends implementationOf(ReceiverInterface) {
 }
 
 export default class WorkerTest extends TestCase {
+    get testCaseName() {
+        return '[Messenger] ' + super.testCaseName;
+    }
     async testWorkerDispatchTheReceivedMessage() {
         const apiMessage = new DummyMessage('API');
         const ipaMessage = new DummyMessage('IPA');

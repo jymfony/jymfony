@@ -17,8 +17,6 @@ declare namespace Jymfony.Component.Messenger.Command {
         __construct(transportLocator: ContainerInterface, transportNames?: string[]): void;
         constructor(transportLocator: ContainerInterface, transportNames?: string[]);
 
-        public static readonly defaultName: string;
-
         configure(): void;
 
         execute(input: InputInterface, output: OutputInterface): Promise<number>;

@@ -12,6 +12,10 @@ export default class InMemoryTransportTest extends TestCase {
     _transport;
     _serializeTransport;
 
+    get testCaseName() {
+        return '[Messenger] ' + super.testCaseName;
+    }
+
     beforeEach() {
         this._serializer = this.prophesize(SerializerInterface);
         this._transport = new InMemoryTransport();

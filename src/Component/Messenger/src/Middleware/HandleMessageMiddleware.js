@@ -44,7 +44,7 @@ export default class HandleMessageMiddleware extends implementationOf(Middleware
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      *
      * @throws {Jymfony.Component.Messenger.Exception.NoHandlerForMessageException} When no handler is found and allowNoHandlers is false
      */

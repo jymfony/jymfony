@@ -1,3 +1,4 @@
+const AsCommand = Jymfony.Component.Console.Annotation.AsCommand;
 const Command = Jymfony.Component.Console.Command.Command;
 const InputArgument = Jymfony.Component.Console.Input.InputArgument;
 const JymfonyStyle = Jymfony.Component.Console.Style.JymfonyStyle;
@@ -6,7 +7,9 @@ const SetupableTransportInterface = Jymfony.Component.Messenger.Transport.Setupa
 /**
  * @memberOf Jymfony.Component.Messenger.Command
  */
-export default class SetupTransportsCommand extends Command {
+export default
+@AsCommand({ name: 'messenger:setup-transports', description: 'Prepare the required infrastructure for the transport' })
+class SetupTransportsCommand extends Command {
     /**
      * Constructor.
      *
@@ -31,12 +34,8 @@ export default class SetupTransportsCommand extends Command {
         super.__construct();
     }
 
-    static get defaultName() {
-        return 'messenger:setup-transports';
-    }
 
     configure() {
-        this.description = 'Prepare the required infrastructure for the transport';
         this.help = `The <info>%command.name%</info> command setups the transports:
 
     <info>%command.full_name%</info>
@@ -46,7 +45,7 @@ Or a specific transport only:
     <info>%command.full_name% <transport></info>
 `;
 
-        this.addArgument('transport', InputArgument.OPTIONAL, 'Name of the transport to setup', null);
+        this.addArgument('transport', InputArgument.OPTIONAL, 'Name of the transport to setup', null, this._transportNames);
     }
 
     async execute(input, output) {
@@ -74,13 +73,5 @@ Or a specific transport only:
         }
 
         return __self.SUCCESS;
-    }
-
-    complete(input, suggestions) {
-        if (input.mustSuggestArgumentValuesFor('transport')) {
-            suggestions.suggestValues(this._transportNames);
-
-            return;
-        }
     }
 }

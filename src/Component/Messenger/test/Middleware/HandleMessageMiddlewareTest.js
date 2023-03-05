@@ -15,6 +15,10 @@ const NoHandlerForMessageException = Jymfony.Component.Messenger.Exception.NoHan
 const StackMiddleware = Jymfony.Component.Messenger.Middleware.StackMiddleware;
 
 export default class HandleMessageMiddlewareTest extends MiddlewareTestCase {
+    get testCaseName() {
+        return '[Messenger] ' + super.testCaseName;
+    }
+
     async testItCallsTheHandlerAndNextMiddleware() {
         const message = new DummyMessage('Hey');
         const envelope = new Envelope(message);

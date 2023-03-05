@@ -8,7 +8,7 @@ declare namespace Jymfony.Component.Messenger.Command {
     import OutputInterface = Jymfony.Component.Console.Output.OutputInterface;
 
     export class ConsumeMessagesCommand extends Command {
-        private _routableBus:RoutableMessageBus;
+        private _routableBus: RoutableMessageBus;
         private _receiverLocator: ContainerInterface;
         private _eventDispatcher: EventDispatcherInterface;
         private _logger: null | LoggerInterface;
@@ -21,8 +21,6 @@ declare namespace Jymfony.Component.Messenger.Command {
         // @ts-ignore
         __construct(routableBus: RoutableMessageBus, receiverLocator: ContainerInterface, eventDispatcher: EventDispatcherInterface, logger?: LoggerInterface, receiverNames?: string[], busIds?: string[]): void;
         constructor(routableBus: RoutableMessageBus, receiverLocator: ContainerInterface, eventDispatcher: EventDispatcherInterface, logger?: LoggerInterface, receiverNames?: string[], busIds?: string[]);
-
-        public static readonly defaultName: string;
 
         /**
          * @inheritdoc

@@ -1,3 +1,4 @@
+const AsCommand = Jymfony.Component.Console.Annotation.AsCommand;
 const Command = Jymfony.Component.Console.Command.Command;
 const ConsoleOutputInterface = Jymfony.Component.Console.Output.ConsoleOutputInterface;
 const DateTime = Jymfony.Component.DateTime.DateTime;
@@ -7,7 +8,9 @@ const StopWorkerOnRestartSignalListener = Jymfony.Component.Messenger.EventListe
 /**
  * @memberOf Jymfony.Component.Messenger.Command
  */
-export default class StopWorkersCommand extends Command {
+export default
+@AsCommand({ name: 'messenger:stop-workers', description: 'Stop workers after their current message' })
+class StopWorkersCommand extends Command {
     /**
      * Constructor.
      *
@@ -24,15 +27,10 @@ export default class StopWorkersCommand extends Command {
         super.__construct();
     }
 
-    static get defaultName() {
-        return 'messenger:stop-workers';
-    }
-
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     configure() {
-        this.description = 'Stop workers after their current message';
         this.help = `The <info>%command.name%</info> command sends a signal to stop any <info>messenger:consume</info> processes that are running.
 
     <info>%command.full_name%</info>
