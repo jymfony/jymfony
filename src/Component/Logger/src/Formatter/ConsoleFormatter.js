@@ -1,8 +1,9 @@
 import { inspect } from 'util';
 
-const OutputFormatter = Jymfony.Component.Console.Formatter.OutputFormatter;
-const NormalizerFormatter = Jymfony.Component.Logger.Formatter.NormalizerFormatter;
+const ClsTrait = Jymfony.Contracts.Async.ClsTrait;
 const LogLevel = Jymfony.Contracts.Logger.LogLevel;
+const NormalizerFormatter = Jymfony.Component.Logger.Formatter.NormalizerFormatter;
+const OutputFormatter = Jymfony.Component.Console.Formatter.OutputFormatter;
 
 const levelColorMap = {
     [LogLevel.DEBUG]: 'fg=white',
@@ -43,7 +44,7 @@ export default class ConsoleFormatter extends NormalizerFormatter {
         record = this._replacePlaceHolder(record);
 
         let context = { ...record.context }, extra;
-        delete context[__jymfony.ClsTrait.COMMAND_SYMBOL];
+        delete context[ClsTrait.COMMAND_SYMBOL];
 
         context = ' ' + inspect(context);
         extra = ' ' + inspect(record.extra);

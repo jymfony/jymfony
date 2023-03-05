@@ -1,8 +1,16 @@
 const asyncHook = require('async_hooks');
 globalThis.__jymfony = globalThis.__jymfony || {};
 
+const EventListener = (() => {
+    if (ReflectionClass.exists('Jymfony.Component.EventDispatcher.Annotation.EventListener')) {
+        return Jymfony.Component.EventDispatcher.Annotation.EventListener;
+    } else {
+        return () => {};
+    }
+})();
+
 /**
- * @memberOf __jymfony
+ * @memberOf Jymfony.Contracts.Async
  */
 class ClsTrait {
     __construct() {
@@ -54,6 +62,7 @@ class ClsTrait {
      *
      * @private
      */
+    @EventListener({ event: 'console.command', priority: 1024 })
     _onConsoleCommand(event) {
         this._contextSet.push(this._activeContext);
         this._consoleContext = this._activeContext = Object.create(this._activeContext);
@@ -66,6 +75,7 @@ class ClsTrait {
      *
      * @private
      */
+    @EventListener({ event: 'console.terminate', priority: -1024 })
     _onConsoleTerminate() {
         if (this._activeContext === this._consoleContext) {
             this._activeContext = this._contextSet.pop();
@@ -87,6 +97,7 @@ class ClsTrait {
      *
      * @private
      */
+    @EventListener({ event: 'http.request', priority: 1024 })
     _onHttpRequest(event) {
         const request = event.request;
 
@@ -102,6 +113,7 @@ class ClsTrait {
      *
      * @private
      */
+    @EventListener({ event: 'http.finish_request', priority: -1024 })
     _onHttpFinishRequest(event) {
         const request = event.request;
         const context = this._requestContexts.get(request);
@@ -165,4 +177,4 @@ class ClsTrait {
 ClsTrait.COMMAND_SYMBOL = Symbol.for('command');
 ClsTrait.REQUEST_SYMBOL = Symbol.for('request');
 
-__jymfony.ClsTrait = getTrait(ClsTrait);
+export default getTrait(ClsTrait);

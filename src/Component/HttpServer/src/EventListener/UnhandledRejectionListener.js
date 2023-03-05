@@ -1,3 +1,4 @@
+const ClsTrait = Jymfony.Contracts.Async.ClsTrait;
 const EventSubscriberInterface = Jymfony.Contracts.EventDispatcher.EventSubscriberInterface;
 const NullLogger = Jymfony.Contracts.Logger.NullLogger;
 const UnhandledRejectionException = Jymfony.Component.HttpServer.Exception.UnhandledRejectionException;
@@ -5,7 +6,7 @@ const UnhandledRejectionException = Jymfony.Component.HttpServer.Exception.Unhan
 /**
  * @memberOf Jymfony.Component.HttpServer.EventListener
  */
-export default class UnhandledRejectionListener extends implementationOf(EventSubscriberInterface, __jymfony.ClsTrait) {
+export default class UnhandledRejectionListener extends implementationOf(EventSubscriberInterface, ClsTrait) {
     /**
      * Constructor.
      *
@@ -36,7 +37,7 @@ export default class UnhandledRejectionListener extends implementationOf(EventSu
      * @returns {Promise<void>}
      */
     async onUnhandledRejection(event) {
-        const request = this._activeContext[__jymfony.ClsTrait.REQUEST_SYMBOL];
+        const request = this._activeContext[ClsTrait.REQUEST_SYMBOL];
         if (! request) {
             return;
         }
@@ -54,8 +55,6 @@ export default class UnhandledRejectionListener extends implementationOf(EventSu
      */
     static getSubscribedEvents() {
         return {
-            'http.request': [ '_onHttpRequest', 1024 ],
-            'http.finish_request': [ '_onHttpFinishRequest', -1024 ],
             'Jymfony.Contracts.Kernel.Event.UnhandledRejectionEvent': [ 'onUnhandledRejection', -128 ],
         };
     }

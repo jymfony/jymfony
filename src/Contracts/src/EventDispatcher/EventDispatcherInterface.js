@@ -52,7 +52,7 @@ class EventDispatcherInterface {
      *
      * @returns {Array}
      */
-    * getListeners(eventName = undefined) { }
+    getListeners(eventName = undefined) { }
 
     /**
      * Gets the listener priority for a specific event.

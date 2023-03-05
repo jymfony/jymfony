@@ -25,6 +25,7 @@ export default class PassConfig {
                 new Compiler.ResolveClassPass(),
             ],
             100: [
+                new Compiler.AnnotationAutoconfigurationPass(),
                 new Compiler.ResolveInstanceofConditionalsPass(),
             ],
             [(-1000)]: [

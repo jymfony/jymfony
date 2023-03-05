@@ -96,6 +96,13 @@ export default class ContainerBuilder extends Container {
          */
         this._autoconfiguredInstanceof = {};
 
+        /**
+         * @type {Object.<string, function(Jymfony.Component.DependencyInjection.ChildDefinition, object, ReflectionClass | ReflectionMethod | ReflectionField | ReflectionProperty): void>}
+         *
+         * @private
+         */
+        this._autoconfiguredAttributes = {};
+
         this.setDefinition(
             'service_container',
             (new Definition(Container))
@@ -227,7 +234,7 @@ export default class ContainerBuilder extends Container {
      * @param {string} Class
      * @param {boolean} Throw
      *
-     * @returns {ReflectionClass}
+     * @returns {ReflectionClass | null}
      *
      * @throws {ReflectionException} when a parent class/interface/trait is not found and $throw is true
      *
@@ -537,6 +544,14 @@ export default class ContainerBuilder extends Container {
             }
 
             this._autoconfiguredInstanceof[IF] = childDefinition;
+        }
+
+        for (const [ attribute, configurator ] of __jymfony.getEntries(container._autoconfiguredAttributes)) {
+            if (undefined !== this._autoconfiguredAttributes[attribute]) {
+                throw new InvalidArgumentException(__jymfony.sprintf('"%s" has already been autoconfigured and merge() does not support merging autoconfiguration for the same attribute.', attribute));
+            }
+
+            this._autoconfiguredAttributes[attribute] = configurator;
         }
     }
 
@@ -978,12 +993,32 @@ export default class ContainerBuilder extends Container {
     }
 
     /**
+     * Registers an attribute that will be used for autoconfiguring annotated classes.
+     *
+     * The configurator will receive a Definition instance and an instance of the attribute, in that order.
+     *
+     * @param {string | Function} attributeClass
+     * @param {function(Jymfony.Component.DependencyInjection.ChildDefinition, object, ReflectionClass | ReflectionMethod | ReflectionField | ReflectionProperty): void} configurator
+     */
+    registerAnnotationForAutoconfiguration(attributeClass, configurator) {
+        attributeClass = ReflectionClass.getClassName(attributeClass);
+        this._autoconfiguredAttributes[attributeClass] = configurator;
+    }
+
+    /**
      * Returns a map of ChildDefinition keyed by interface.
      *
      * @returns {Object.<string, Jymfony.Component.DependencyInjection.ChildDefinition>}
      */
     getAutoconfiguredInstanceof() {
         return { ...this._autoconfiguredInstanceof };
+    }
+
+    /**
+     * @returns {Object.<string, function(Jymfony.Component.DependencyInjection.ChildDefinition, object, ReflectionClass | ReflectionMethod | ReflectionField | ReflectionProperty): void>}
+     */
+    getAutoconfiguredAttributes() {
+        return { ...this._autoconfiguredAttributes };
     }
 
     /**

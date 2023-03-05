@@ -101,6 +101,22 @@ export default class FrameworkExtension extends Extension {
         container.registerForAutoconfiguration('Jymfony.Component.Messenger.Handler.MessageHandlerInterface').addTag('messenger.message_handler');
         container.registerForAutoconfiguration('Jymfony.Contracts.Logger.LoggerAwareInterface')
             .addMethodCall('setLogger', [ new Reference('logger', ContainerBuilder.IGNORE_ON_INVALID_REFERENCE) ]);
+
+        container.registerAnnotationForAutoconfiguration('Jymfony.Component.EventDispatcher.Annotation.EventListener', (definition, annotation, reflector) => {
+            if (reflector instanceof ReflectionClass) {
+                definition.addTag('kernel.event_listener', {
+                    event: annotation.event,
+                    method: annotation.method,
+                    priority: annotation.priority,
+                });
+            } else if (reflector instanceof ReflectionMethod) {
+                definition.addTag('kernel.event_listener', {
+                    event: annotation.event,
+                    method: reflector.name,
+                    priority: annotation.priority,
+                });
+            }
+        });
     }
 
     /**

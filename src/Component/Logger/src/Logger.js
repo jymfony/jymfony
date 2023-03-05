@@ -1,13 +1,13 @@
-const DateTime = Jymfony.Component.DateTime.DateTime;
-const EventSubscriberInterface = Jymfony.Contracts.EventDispatcher.EventSubscriberInterface;
 const AbstractLogger = Jymfony.Component.Logger.AbstractLogger;
+const ClsTrait = Jymfony.Contracts.Async.ClsTrait;
+const DateTime = Jymfony.Component.DateTime.DateTime;
 const LogicException = Jymfony.Contracts.Logger.Exception.LogicException;
 const LogLevel = Jymfony.Contracts.Logger.LogLevel;
 
 /**
  * @memberOf Jymfony.Component.Logger
  */
-export default class Logger extends mix(AbstractLogger, EventSubscriberInterface, __jymfony.ClsTrait) {
+export default class Logger extends mix(AbstractLogger, ClsTrait) {
     /**
      * Construct the logger
      *
@@ -334,18 +334,6 @@ export default class Logger extends mix(AbstractLogger, EventSubscriberInterface
      */
     log(level, message, context = {}) {
         this.addRecord(level, message.toString(), context);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    static getSubscribedEvents() {
-        return {
-            'console.command': [ '_onConsoleCommand', 1024 ],
-            'console.terminate': [ '_onConsoleTerminate', -1024 ],
-            'http.request': [ '_onHttpRequest', 1024 ],
-            'http.finish_request': [ '_onHttpFinishRequest', -1024 ],
-        };
     }
 }
 

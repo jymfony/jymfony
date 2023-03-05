@@ -9,6 +9,11 @@ Jymfony.Contracts = {
     /**
      * @namespace
      */
+    Async: {},
+
+    /**
+     * @namespace
+     */
     Cache: {
         /**
          * @namespace
