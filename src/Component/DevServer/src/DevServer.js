@@ -2,6 +2,8 @@ import { spawn } from 'child_process';
 import { watch } from 'chokidar' optional;
 const NullLogger = Jymfony.Contracts.Logger.NullLogger;
 
+const IGNORED_PATHS = /(^\.idea\/|^\.git|^node_modules\/|^\.vscode\/|(^|\/).DS_Store\/)/
+
 /**
  * Development server.
  *
@@ -68,13 +70,12 @@ export default class DevServer {
      */
     run(argv = []) {
         this._argv = [ ...argv ];
-
-        const restart = __jymfony.debounce(this._restart.bind(this), 750);
+        const restart = __jymfony.debounce(this._restart.bind(this), 100);
 
         let res;
         const promise = new Promise(resolve => res = resolve);
         const handler = (eventType, filename) => {
-            if (filename.match(/(^\.idea\/|^\.git|^\.vscode\/|(^|\/).DS_Store\/)/)) {
+            if (filename.match(IGNORED_PATHS)) {
                 return;
             }
 
@@ -85,14 +86,15 @@ export default class DevServer {
         if (watch !== undefined) {
             this._watcher = watch(this._projectDir, {
                 persistent: true,
+                ignored: IGNORED_PATHS,
                 cwd: process.cwd(),
+                usePolling: false,
             });
 
             this._watcher.once('ready', () => {
                 this._watcher.on('all', handler);
             });
         } else {
-            this._logger.warning('NodeFs watcher is unreliable and not available in all environments. It is advised to use chokidar instead (npm install chokidar).');
             this._watcher = this._fs.watch(this._projectDir, {
                 persistent: true,
                 recursive: true,
