@@ -105,9 +105,9 @@ Add this to the end of your shell configuration file (e.g. <info>"~/.bashrc"</>)
             }
 
             if (shell) {
-                output.writeln(__jymfony.sprintf('<error>Detected shell "%s", which is not supported by Symfony shell completion (supported shells: "%s").</>', shell, supportedShells.join('", "')));
+                output.writeln(__jymfony.sprintf('<error>Detected shell "%s", which is not supported by Jymfony shell completion (supported shells: "%s").</>', shell, supportedShells.join('", "')));
             } else {
-                output.writeln(__jymfony.sprintf('<error>Shell not detected, Symfony shell completion only supports "%s").</>', supportedShells.join('", "')));
+                output.writeln(__jymfony.sprintf('<error>Shell not detected, Jymfony shell completion only supports "%s").</>', supportedShells.join('", "')));
             }
 
             return __self.INVALID;

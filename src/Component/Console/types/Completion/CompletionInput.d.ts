@@ -76,17 +76,17 @@ declare namespace Jymfony.Component.Console.Completion {
 
         protected _parseToken(token: string, parseOptions: boolean): boolean;
 
-        _getOptionFromToken(optionToken: string): null | InputOption;
+        private _getOptionFromToken(optionToken: string): null | InputOption;
 
         /**
          * The token of the cursor, or the last token if the cursor is at the end of the input.
          */
-        _getRelevantToken(): string;
+        private _getRelevantToken(): string;
 
         /**
          * Whether the cursor is "free" (i.e. at the end of the input preceded by a space).
          */
-        _isCursorFree(): boolean;
+        private _isCursorFree(): boolean;
 
         toString(): string;
     }

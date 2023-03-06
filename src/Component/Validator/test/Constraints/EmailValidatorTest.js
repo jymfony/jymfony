@@ -60,7 +60,7 @@ describe('[Validator] Constraints.EmailValidator', function () {
     };
 
     const getValidEmailsHtml5 = function * () {
-        yield [ 'alekitto@symfony.com' ];
+        yield [ 'alekitto@jymfony.io' ];
         yield [ 'example@example.co.uk' ];
         yield [ 'ale_kitto@example.it' ];
         yield [ '{}~!@example.com' ];

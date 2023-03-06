@@ -39,14 +39,14 @@ export default class CompletionInputTest extends TestCase {
 
         // Option values
         yield [ CompletionInput.fromTokens([ 'bin/console', '-r' ], 1), CompletionInput.TYPE_OPTION_VALUE, 'with-required-value', '' ];
-        yield [ CompletionInput.fromTokens([ 'bin/console', '-rsymf' ], 1), CompletionInput.TYPE_OPTION_VALUE, 'with-required-value', 'symf' ];
+        yield [ CompletionInput.fromTokens([ 'bin/console', '-rjymf' ], 1), CompletionInput.TYPE_OPTION_VALUE, 'with-required-value', 'jymf' ];
         yield [ CompletionInput.fromTokens([ 'bin/console', '-r' ], 2), CompletionInput.TYPE_OPTION_VALUE, 'with-required-value', '' ];
-        yield [ CompletionInput.fromTokens([ 'bin/console', '-r', 'symf' ], 2), CompletionInput.TYPE_OPTION_VALUE, 'with-required-value', 'symf' ];
-        yield [ CompletionInput.fromTokens([ 'bin/console', '-r', 'symfony' ], 1), CompletionInput.TYPE_OPTION_VALUE, 'with-required-value', '' ];
+        yield [ CompletionInput.fromTokens([ 'bin/console', '-r', 'jymf' ], 2), CompletionInput.TYPE_OPTION_VALUE, 'with-required-value', 'jymf' ];
+        yield [ CompletionInput.fromTokens([ 'bin/console', '-r', 'jymfony' ], 1), CompletionInput.TYPE_OPTION_VALUE, 'with-required-value', '' ];
         yield [ CompletionInput.fromTokens([ 'bin/console', '--with-required-value=' ], 1), CompletionInput.TYPE_OPTION_VALUE, 'with-required-value', '' ];
-        yield [ CompletionInput.fromTokens([ 'bin/console', '--with-required-value=symf' ], 1), CompletionInput.TYPE_OPTION_VALUE, 'with-required-value', 'symf' ];
+        yield [ CompletionInput.fromTokens([ 'bin/console', '--with-required-value=jymf' ], 1), CompletionInput.TYPE_OPTION_VALUE, 'with-required-value', 'jymf' ];
         yield [ CompletionInput.fromTokens([ 'bin/console', '--with-required-value' ], 2), CompletionInput.TYPE_OPTION_VALUE, 'with-required-value', '' ];
-        yield [ CompletionInput.fromTokens([ 'bin/console', '--with-required-value', 'symf' ], 2), CompletionInput.TYPE_OPTION_VALUE, 'with-required-value', 'symf' ];
+        yield [ CompletionInput.fromTokens([ 'bin/console', '--with-required-value', 'jymf' ], 2), CompletionInput.TYPE_OPTION_VALUE, 'with-required-value', 'jymf' ];
 
         yield [ CompletionInput.fromTokens([ 'bin/console', '-o' ], 1), CompletionInput.TYPE_OPTION_VALUE, 'with-optional-value', '' ];
         yield [ CompletionInput.fromTokens([ 'bin/console', '-o' ], 2), CompletionInput.TYPE_OPTION_VALUE, 'with-optional-value', '' ];
@@ -55,15 +55,15 @@ export default class CompletionInputTest extends TestCase {
 
         // Arguments
         yield [ CompletionInput.fromTokens([ 'bin/console' ], 1), CompletionInput.TYPE_ARGUMENT_VALUE, 'required-arg', '' ];
-        yield [ CompletionInput.fromTokens([ 'bin/console', 'symfony' ], 2), CompletionInput.TYPE_ARGUMENT_VALUE, 'optional-arg', '' ];
-        yield [ CompletionInput.fromTokens([ 'bin/console', 'symf' ], 1), CompletionInput.TYPE_ARGUMENT_VALUE, 'required-arg', 'symf' ];
-        yield [ CompletionInput.fromTokens([ 'bin/console', 'symfony', 'sen' ], 2), CompletionInput.TYPE_ARGUMENT_VALUE, 'optional-arg', 'sen' ];
+        yield [ CompletionInput.fromTokens([ 'bin/console', 'jymfony' ], 2), CompletionInput.TYPE_ARGUMENT_VALUE, 'optional-arg', '' ];
+        yield [ CompletionInput.fromTokens([ 'bin/console', 'jymf' ], 1), CompletionInput.TYPE_ARGUMENT_VALUE, 'required-arg', 'jymf' ];
+        yield [ CompletionInput.fromTokens([ 'bin/console', 'jymfony', 'sen' ], 2), CompletionInput.TYPE_ARGUMENT_VALUE, 'optional-arg', 'sen' ];
 
         yield [ CompletionInput.fromTokens([ 'bin/console', '--without-value' ], 2), CompletionInput.TYPE_ARGUMENT_VALUE, 'required-arg', '' ];
         yield [ CompletionInput.fromTokens([ 'bin/console', '--with-optional-value', '--' ], 3), CompletionInput.TYPE_ARGUMENT_VALUE, 'required-arg', '' ];
 
         // End of definition
-        yield [ CompletionInput.fromTokens([ 'bin/console', 'symfony', 'sensiolabs' ], 3), CompletionInput.TYPE_NONE, null, '' ];
+        yield [ CompletionInput.fromTokens([ 'bin/console', 'jymfony', 'sensiolabs' ], 3), CompletionInput.TYPE_NONE, null, '' ];
     }
 
     /**
@@ -85,8 +85,8 @@ export default class CompletionInputTest extends TestCase {
 
     * provideBindWithLastArrayArgumentData() {
         yield [ CompletionInput.fromTokens([ 'bin/console' ], 1), '' ];
-        yield [ CompletionInput.fromTokens([ 'bin/console', 'symfony', 'sensiolabs' ], 3), '' ];
-        yield [ CompletionInput.fromTokens([ 'bin/console', 'symfony', 'sen' ], 2), 'sen' ];
+        yield [ CompletionInput.fromTokens([ 'bin/console', 'jymfony', 'sensiolabs' ], 3), '' ];
+        yield [ CompletionInput.fromTokens([ 'bin/console', 'jymfony', 'sen' ], 2), 'sen' ];
     }
 
     testBindArgumentWithDefault() {
