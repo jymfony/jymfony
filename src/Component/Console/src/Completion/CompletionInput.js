@@ -48,6 +48,20 @@ export default class CompletionInput extends ArgvInput {
     }
 
     /**
+     * @returns {string[]}
+     */
+    get tokens() {
+        return [ ...this._tokens ];
+    }
+
+    /**
+     * @returns {number}
+     */
+    get currentIndex() {
+        return this._currentIndex;
+    }
+
+    /**
      * Converts a terminal string into tokens.
      *
      * This is required for shell completions without COMP_WORDS support.

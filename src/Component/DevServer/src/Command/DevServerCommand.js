@@ -27,8 +27,8 @@ class DevServerCommand extends Command {
     }
 
     complete(input, suggestions) {
-        const tokens = input._tokens;
-        let index = input._currentIndex;
+        const tokens = input.tokens;
+        let index = input.currentIndex;
 
         const cmdNameIdx = tokens.findIndex(v => v === this.name);
         if (-1 !== cmdNameIdx) {
