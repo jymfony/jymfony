@@ -43,6 +43,10 @@ export default class Count extends Constraint {
             return other.size;
         }
 
+        if (other instanceof EmptyIterator) {
+            return 0;
+        }
+
         if (isArray(other)) {
             return other.length;
         }
