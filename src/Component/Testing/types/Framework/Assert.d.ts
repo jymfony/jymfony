@@ -11,6 +11,15 @@ declare namespace Jymfony.Component.Testing.Framework {
 
     export class Assert {
         /**
+         * Asserts that an object has a specified key.
+         *
+         * @throws {Jymfony.Component.Testing.Exception.InvalidArgumentException}
+         * @throws {Jymfony.Component.Testing.Exception.ExpectationFailedException}
+         */
+        static assertHasKey(key: any, object: any, message?: string): void;
+        assertHasKey(key: any, object: any, message?: string): void;
+
+        /**
          * Asserts the number of elements of an object.
          *
          * @throws {Jymfony.Component.Testing.Exception.InvalidArgumentException}

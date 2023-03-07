@@ -52,7 +52,7 @@ export default class Count extends Constraint {
         }
 
         if (isObjectLiteral(other)) {
-            return [ ...Object.keys(object), ...Object.getOwnPropertySymbols(object) ].length;
+            return [ ...Object.keys(other), ...Object.getOwnPropertySymbols(other) ].length;
         }
 
         while (undefined !== other[Symbol.iterator]) {

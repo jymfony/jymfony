@@ -22,12 +22,12 @@ export default class ObjectComparator extends ArrayComparator {
             throw new ComparisonFailure(
                 expected,
                 actual,
-                this._exporter.export(expected),
-                this._exporter.export(actual),
+                this.export(expected),
+                this.export(actual),
                 false,
                 __jymfony.sprintf(
                     '%s is not instance of expected class "%s".',
-                    this._exporter.export(actual),
+                    this.export(actual),
                     ReflectionClass.getClassName(expected)
                 )
             );

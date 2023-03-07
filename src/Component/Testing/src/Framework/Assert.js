@@ -3,6 +3,7 @@ import { EOL } from 'os';
 const AssertionFailedException = Jymfony.Component.Testing.Framework.Exception.AssertionFailedException;
 const Count = Jymfony.Component.Testing.Constraints.Count;
 const GreaterThan = Jymfony.Component.Testing.Constraints.GreaterThan;
+const HasKey = Jymfony.Component.Testing.Constraints.HasKey;
 const InvalidArgumentException = Jymfony.Component.Testing.Exception.InvalidArgumentException;
 const IsEmpty = Jymfony.Component.Testing.Constraints.IsEmpty;
 const IsEqual = Jymfony.Component.Testing.Constraints.IsEqual;
@@ -53,6 +54,20 @@ const detectLocationHint = (message) => {
  * @memberOf Jymfony.Component.Testing.Framework
  */
 export default class Assert {
+    /**
+     * Asserts that an object has a specified key.
+     *
+     * @param {*} key
+     * @param {*} object
+     * @param {string} [message = '']
+     *
+     * @throws {Jymfony.Component.Testing.Exception.InvalidArgumentException}
+     * @throws {Jymfony.Component.Testing.Exception.ExpectationFailedException}
+     */
+    static assertHasKey(key, object, message = '') {
+        this.assertThat(object, new HasKey(key), message);
+    }
+
     /**
      * Asserts the number of elements of an object.
      *

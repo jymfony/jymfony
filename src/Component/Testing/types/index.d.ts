@@ -25,6 +25,7 @@
 /// <reference path="Constraints/Constraint.d.ts" />
 /// <reference path="Constraints/Count.d.ts" />
 /// <reference path="Constraints/GreaterThan.d.ts" />
+/// <reference path="Constraints/HasKey.d.ts" />
 /// <reference path="Constraints/IsEmpty.d.ts" />
 /// <reference path="Constraints/IsEqual.d.ts" />
 /// <reference path="Constraints/IsFalse.d.ts" />
