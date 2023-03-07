@@ -10,7 +10,7 @@ export default class NotTaggedControllerValueResolver extends implementationOf(A
     /**
      * Constructor.
      *
-     * @param {Jymfony.Component.DependencyInjection.ContainerInterface} container
+     * @param {Jymfony.Contracts.DependencyInjection.ContainerInterface} container
      */
     __construct(container) {
         this._container = container;

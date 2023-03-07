@@ -3,7 +3,7 @@ const path = require('path');
 const { expect } = require('chai');
 
 const ContainerBuilder = Jymfony.Component.DependencyInjection.ContainerBuilder;
-const ContainerInterface = Jymfony.Component.DependencyInjection.ContainerInterface;
+const ContainerInterface = Jymfony.Contracts.DependencyInjection.ContainerInterface;
 const Definition = Jymfony.Component.DependencyInjection.Definition;
 const JsDumper = Jymfony.Component.DependencyInjection.Dumper.JsDumper;
 const Fixtures = Jymfony.Component.DependencyInjection.Fixtures;

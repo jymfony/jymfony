@@ -1,7 +1,7 @@
 /**
  * Base interface representing an exception in a container.
  *
- * @memberOf Jymfony.Component.DependencyInjection.Exception
+ * @memberOf Jymfony.Contracts.DependencyInjection.Exception
  */
 class ExceptionInterface {
 }

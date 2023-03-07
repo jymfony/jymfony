@@ -1,5 +1,5 @@
 /**
- * @memberOf Jymfony.Component.DependencyInjection
+ * @memberOf Jymfony.Contracts.DependencyInjection
  */
 class ContainerInterface {
     /**
@@ -7,8 +7,8 @@ class ContainerInterface {
      *
      * @param {string} id Identifier of the entry to look for.
      *
-     * @throws {Jymfony.Component.DependencyInjection.Exception.NotFoundExceptionInterface}  No entry was found for **this** identifier.
-     * @throws {Jymfony.Component.DependencyInjection.Exception.ExceptionInterface} Error while retrieving the entry.
+     * @throws {Jymfony.Contracts.DependencyInjection.Exception.NotFoundExceptionInterface}  No entry was found for **this** identifier.
+     * @throws {Jymfony.Contracts.DependencyInjection.Exception.ExceptionInterface} Error while retrieving the entry.
      *
      * @returns {*} Entry.
      */
@@ -19,7 +19,7 @@ class ContainerInterface {
      * Returns false otherwise.
      *
      * `has(id)` returning true does not mean that `get(id)` will not throw an exception.
-     * It does however mean that `get($id)` will not throw a `NotFoundExceptionInterface`.
+     * It does however mean that `get(id)` will not throw a `NotFoundExceptionInterface`.
      *
      * @param {string} id Identifier of the entry to look for.
      *

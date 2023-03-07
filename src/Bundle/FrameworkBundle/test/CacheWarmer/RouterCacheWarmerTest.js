@@ -1,5 +1,5 @@
 const RouterCacheWarmer = Jymfony.Bundle.FrameworkBundle.CacheWarmer.RouterCacheWarmer;
-const ContainerInterface = Jymfony.Component.DependencyInjection.ContainerInterface;
+const ContainerInterface = Jymfony.Contracts.DependencyInjection.ContainerInterface;
 const Prophet = Jymfony.Component.Testing.Prophet;
 const { expect } = require('chai');
 
@@ -13,7 +13,7 @@ describe('[FrameworkBundle] RouterCacheWarmer', function () {
         this._prophet = new Prophet();
 
         /**
-         * @type {Jymfony.Component.DependencyInjection.ContainerInterface|Jymfony.Component.Testing.Prophecy.ObjectProphecy}
+         * @type {Jymfony.Contracts.DependencyInjection.ContainerInterface|Jymfony.Component.Testing.Prophecy.ObjectProphecy}
          *
          * @private
          */

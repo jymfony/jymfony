@@ -1,5 +1,5 @@
 const InvalidArgumentException = Jymfony.Component.DependencyInjection.Exception.InvalidArgumentException;
-const NotFoundExceptionInterface = Jymfony.Component.DependencyInjection.Exception.NotFoundExceptionInterface;
+const NotFoundExceptionInterface = Jymfony.Contracts.DependencyInjection.Exception.NotFoundExceptionInterface;
 
 /**
  * @memberOf Jymfony.Component.DependencyInjection.Exception

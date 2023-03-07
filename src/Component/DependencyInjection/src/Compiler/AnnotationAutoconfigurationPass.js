@@ -22,7 +22,7 @@ export default class AnnotationAutoconfigurationPass extends AbstractRecursivePa
         /** @type {ReflectionClass} classReflector */
         let classReflector;
         if (!(value instanceof Definition)
-            || !value.autoconfigured
+            || !value.isAutoconfigured()
             || value.isAbstract()
             || value.hasTag('container.ignore_attributes')
             || !(classReflector = this._container.getReflectionClass(value.getClass(), false))
@@ -34,10 +34,11 @@ export default class AnnotationAutoconfigurationPass extends AbstractRecursivePa
         const conditionals = instanceOf[classReflector.name] || new ChildDefinition('');
 
         const configurators = this._container.getAutoconfiguredAnnotations();
-        for (const [ klass, attributes ] of classReflector.metadata) {
-            const configurator = configurators[klass];
+        for (const [ klass, attribute ] of classReflector.metadata) {
+            const className = ReflectionClass.getClassName(klass);
+            const configurator = configurators[className];
             if (configurator) {
-                attributes.forEach(attribute => configurator(conditionals, attribute, classReflector));
+                configurator(conditionals, attribute, classReflector);
             }
         }
 
@@ -56,10 +57,10 @@ export default class AnnotationAutoconfigurationPass extends AbstractRecursivePa
 
         if (null !== constructorReflector) {
             for (const parameter of constructorReflector.parameters) {
-                for (const [ klass, attributes ] of parameter.metadata) {
+                for (const [ klass, attribute ] of parameter.metadata) {
                     const configurator = configurators[klass];
                     if (configurator) {
-                        attributes.forEach(attribute => configurator(conditionals, attribute, parameter));
+                        configurator(conditionals, attribute, parameter);
                     }
                 }
             }
@@ -71,10 +72,10 @@ export default class AnnotationAutoconfigurationPass extends AbstractRecursivePa
                 continue;
             }
 
-            for (const [ klass, attributes ] of methodReflector.metadata) {
+            for (const [ klass, attribute ] of methodReflector.metadata) {
                 const configurator = configurators[klass];
                 if (configurator) {
-                    attributes.forEach(attribute => configurator(conditionals, attribute, methodReflector));
+                    configurator(conditionals, attribute, methodReflector);
                 }
             }
         }
@@ -85,10 +86,10 @@ export default class AnnotationAutoconfigurationPass extends AbstractRecursivePa
                 continue;
             }
 
-            for (const [ klass, attributes ] of reflector.metadata) {
+            for (const [ klass, attribute ] of reflector.metadata) {
                 const configurator = configurators[klass];
                 if (configurator) {
-                    attributes.forEach(attribute => configurator(conditionals, attribute, reflector));
+                    configurator(conditionals, attribute, reflector);
                 }
             }
         }
@@ -96,20 +97,20 @@ export default class AnnotationAutoconfigurationPass extends AbstractRecursivePa
         for (const propertyName of classReflector.properties) {
             if (classReflector.hasWritableProperty(propertyName)) {
                 const reflector = classReflector.getWritableProperty(propertyName);
-                for (const [ klass, attributes ] of reflector.metadata) {
+                for (const [ klass, attribute ] of reflector.metadata) {
                     const configurator = configurators[klass];
                     if (configurator) {
-                        attributes.forEach(attribute => configurator(conditionals, attribute, reflector));
+                        configurator(conditionals, attribute, reflector);
                     }
                 }
             }
 
             if (classReflector.hasReadableProperty(propertyName)) {
                 const reflector = classReflector.getReadableProperty(propertyName);
-                for (const [ klass, attributes ] of reflector.metadata) {
+                for (const [ klass, attribute ] of reflector.metadata) {
                     const configurator = configurators[klass];
                     if (configurator) {
-                        attributes.forEach(attribute => configurator(conditionals, attribute, reflector));
+                        configurator(conditionals, attribute, reflector);
                     }
                 }
             }

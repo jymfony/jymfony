@@ -1,7 +1,7 @@
 const AbstractRecursivePass = Jymfony.Component.DependencyInjection.Compiler.AbstractRecursivePass;
 const ChildDefinition = Jymfony.Component.DependencyInjection.ChildDefinition;
 const Definition = Jymfony.Component.DependencyInjection.Definition;
-const ExceptionInterface = Jymfony.Component.DependencyInjection.Exception.ExceptionInterface;
+const ExceptionInterface = Jymfony.Contracts.DependencyInjection.Exception.ExceptionInterface;
 
 /**
  * This replaces all ChildDefinition instances with their equivalent fully

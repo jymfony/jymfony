@@ -11,13 +11,13 @@ export default class RouterCacheWarmer extends implementationOf(CacheWarmerInter
     /**
      * Constructor
      *
-     * @param {Jymfony.Component.DependencyInjection.ContainerInterface} container
+     * @param {Jymfony.Contracts.DependencyInjection.ContainerInterface} container
      */
     __construct(container) {
         /**
          * As this cache warmer is optional, dependencies should be lazy-loaded, that's why a container should be injected.
          *
-         * @type {Jymfony.Component.DependencyInjection.ContainerInterface}
+         * @type {Jymfony.Contracts.DependencyInjection.ContainerInterface}
          *
          * @private
          */

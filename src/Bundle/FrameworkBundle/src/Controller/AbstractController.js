@@ -1,5 +1,5 @@
 const ControllerTrait = Jymfony.Bundle.FrameworkBundle.Controller.ControllerTrait;
-const ContainerInterface = Jymfony.Component.DependencyInjection.ContainerInterface;
+const ContainerInterface = Jymfony.Contracts.DependencyInjection.ContainerInterface;
 const Inject = Jymfony.Component.DependencyInjection.Annotation.Inject;
 const ServiceNotFoundException = Jymfony.Component.DependencyInjection.Exception.ServiceNotFoundException;
 const ServiceSubscriberInterface = Jymfony.Component.DependencyInjection.ServiceSubscriberInterface;

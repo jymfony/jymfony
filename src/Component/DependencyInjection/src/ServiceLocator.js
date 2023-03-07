@@ -1,12 +1,12 @@
 const Container = Jymfony.Component.DependencyInjection.Container;
-const ContainerInterface = Jymfony.Component.DependencyInjection.ContainerInterface;
+const ServiceProviderInterface = Jymfony.Contracts.DependencyInjection.ServiceProviderInterface;
 const ServiceNotFoundException = Jymfony.Component.DependencyInjection.Exception.ServiceNotFoundException;
 const ServiceCircularReferenceException = Jymfony.Component.DependencyInjection.Exception.ServiceCircularReferenceException;
 
 /**
  * @memberOf Jymfony.Component.DependencyInjection
  */
-export default class ServiceLocator extends implementationOf(ContainerInterface) {
+export default class ServiceLocator extends implementationOf(ServiceProviderInterface) {
     /**
      * Constructor.
      *
@@ -40,6 +40,13 @@ export default class ServiceLocator extends implementationOf(ContainerInterface)
          * @private
          */
         this._container = undefined;
+
+        /**
+         * @type {Object.<string, string>}
+         *
+         * @private
+         */
+        this._providedTypes = {};
     }
 
     /**
@@ -55,19 +62,21 @@ export default class ServiceLocator extends implementationOf(ContainerInterface)
     get(id) {
         id = Container.normalizeId(id);
 
-        if (undefined === this._factories[id]) {
-            throw this._createNotFoundException(id);
+        if (! this._externalId) {
+            return this._doGet(id);
         }
 
-        if (this._loading[id]) {
-            throw new ServiceCircularReferenceException(id, Object.keys(this._loading));
-        }
-
-        this._loading[id] = true;
         try {
-            return this._factories[id]();
-        } finally {
-            delete this._loading[id];
+            return this._doGet(id);
+        } catch (e) {
+            const what = __jymfony.sprintf('service "%s" required by "%s"', id, this._externalId);
+            let message = e.message.replace(/service ".service_locator.[^"]+"/, what);
+            if (e.message === message) {
+                message = __jymfony.sprintf('Cannot resolve %s: %s', what, message);
+            }
+
+            e.message = message;
+            throw e;
         }
     }
 
@@ -145,5 +154,41 @@ export default class ServiceLocator extends implementationOf(ContainerInterface)
         const last = alternatives.pop();
 
         return __jymfony.sprintf(format, alternatives ? alternatives.join('", "') : last, alternatives ? __jymfony.sprintf(' %s "%s"', separator, last) : '');
+    }
+
+    /**
+     * @param {string} id
+     * @returns {*}
+     */
+    _doGet(id) {
+        if (undefined === this._factories[id]) {
+            throw this._createNotFoundException(id);
+        }
+
+        if (this._loading[id]) {
+            throw new ServiceCircularReferenceException(id, Object.keys(this._loading));
+        }
+
+        this._loading[id] = true;
+        try {
+            return this._factories[id]();
+        } finally {
+            delete this._loading[id];
+        }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    getProvidedServices() {
+        if (null === this._providedTypes) {
+            this._providedTypes = {};
+
+            for (const name of Object.keys(this._factories)) {
+                this._providedTypes[name] = '?';
+            }
+        }
+
+        return this._providedTypes;
     }
 }

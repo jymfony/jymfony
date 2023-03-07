@@ -1,5 +1,5 @@
 const AbstractController = Jymfony.Bundle.FrameworkBundle.Controller.AbstractController;
-const ContainerInterface = Jymfony.Component.DependencyInjection.ContainerInterface;
+const ContainerInterface = Jymfony.Contracts.DependencyInjection.ContainerInterface;
 const Inject = Jymfony.Component.DependencyInjection.Annotation.Inject;
 
 /**
