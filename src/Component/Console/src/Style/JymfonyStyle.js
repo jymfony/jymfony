@@ -176,8 +176,8 @@ export default class JymfonyStyle extends OutputStyle {
         style.cellHeaderFormat = '<info>%s</info>';
 
         const table = new Table(this);
-        table.headers = headers;
-        table.rows = rows;
+        table.setHeaders(headers);
+        table.setRows(rows);
         table.style = style;
 
         table.render();

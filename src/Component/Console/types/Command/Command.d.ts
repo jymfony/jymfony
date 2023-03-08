@@ -189,7 +189,7 @@ declare namespace Jymfony.Component.Console.Command {
         /**
          * Adds suggestions to $suggestions for the current completion input (e.g. option or argument).
          */
-        complete(input: CompletionInput, suggestions: CompletionSuggestions): Promise<void>;
+        complete(input: CompletionInput, suggestions: CompletionSuggestions): Promise<void> | void;
 
         /**
          * Merges the application definition with the command definition.
