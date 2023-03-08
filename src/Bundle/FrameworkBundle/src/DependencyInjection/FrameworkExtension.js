@@ -764,6 +764,9 @@ export default class FrameworkExtension extends Extension {
         }
 
         loader.load('messenger.js');
+        if (ReflectionClass.exists('Jymfony.Component.Console.Command.Command')) {
+            loader.load('messenger_console.js');
+        }
 
         if (null === config.default_bus && 1 === Object.keys(config.buses).length) {
             config.default_bus = Object.keys(config.buses)[0];

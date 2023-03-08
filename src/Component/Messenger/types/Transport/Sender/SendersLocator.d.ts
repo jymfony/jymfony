@@ -1,5 +1,5 @@
 declare namespace Jymfony.Component.Messenger.Transport.Sender {
-    import ContainerInterface = Jymfony.Component.DependencyInjection.ContainerInterface;
+    import ContainerInterface = Jymfony.Contracts.DependencyInjection.ContainerInterface;
     import Envelope = Jymfony.Component.Messenger.Envelope;
 
     /**

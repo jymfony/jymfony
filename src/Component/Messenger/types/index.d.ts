@@ -1,5 +1,7 @@
 /// <reference path="Annotation/MessageHandler.d.ts" />
+/// <reference path="Command/AbstractFailedMessagesCommand.d.ts" />
 /// <reference path="Command/ConsumeMessagesCommand.d.ts" />
+/// <reference path="Command/DebugCommand.d.ts" />
 /// <reference path="Command/SetupTransportsCommand.d.ts" />
 /// <reference path="Command/StopWorkersCommand.d.ts" />
 /// <reference path="DependencyInjection/MessengerPass.d.ts" />

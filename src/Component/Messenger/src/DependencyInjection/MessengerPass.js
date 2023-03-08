@@ -71,28 +71,33 @@ export default class MessengerPass extends implementationOf(CompilerPassInterfac
                 if (tag.handles) {
                     handles = tag.method ? { [tag.handles]: tag.method } : [ tag['handles'] ];
                 } else {
-                    handles = this._guessHandledClasses(r, serviceId);
+                    handles = this._guessHandledClasses(r, serviceId, tag.method || '__invoke');
                 }
 
                 let message = null, options = null;
                 const handlerBuses = tag.bus ? (isArray(tag.bus) ? tag.bus : [ tag.bus ]) : busIds;
 
-                for ([ message, options ] of __jymfony.getEntries(handles)) {
+                for ([ message, options ] of isGenerator(handles) ? handles : __jymfony.getEntries(handles)) {
                     let buses = handlerBuses;
                     if (isNumeric(message)) {
-                        if (isString(options)) {
+                        if (ReflectionClass.exists(options)) {
+                            message = ReflectionClass.getClassName(options);
+                            options = {};
+                        } else if (isString(options)) {
                             message = options;
                             options = {};
                         } else {
                             throw new RuntimeException(__jymfony.sprintf('The handler configuration needs to return an array of messages or an associated array of message and configuration. Found value of type "%s" at position "%d" for service "%s".', __jymfony.get_debug_type(options), message, serviceId));
                         }
+                    } else if (ReflectionClass.exists(message)) {
+                        message = ReflectionClass.getClassName(message);
                     }
 
                     if (isString(options)) {
                         options = { method: options };
                     }
 
-                    if (!! options.from_transport && !! tag.from_transport) {
+                    if (!options.from_transport && !!tag.from_transport) {
                         options.from_transport = tag.from_transport;
                     }
 
@@ -103,7 +108,7 @@ export default class MessengerPass extends implementationOf(CompilerPassInterfac
                         if (!busIds.includes(options.bus)) {
                             const messageLocation = tag.handles ? 'declared in your tag attribute "handles"' : (r.isInstanceOf(MessageSubscriberInterface) ? __jymfony.sprintf('returned by method "%s.getHandledMessages()"', r.name) : __jymfony.sprintf('used as argument type in method "%s.%s()"', r.name, method));
 
-                            throw new RuntimeException(__jymfony.sprintf('Invalid configuration "%s" for message "%s": bus "%s" does not exist.', messageLocation, message, options.bus));
+                            throw new RuntimeException(__jymfony.sprintf('Invalid configuration %s for message "%s": bus "%s" does not exist.', messageLocation, message, options.bus));
                         }
 
                         buses = [ options['bus'] ];
@@ -112,7 +117,7 @@ export default class MessengerPass extends implementationOf(CompilerPassInterfac
                     if ('*' !== message && !ReflectionClass.exists(message)) {
                         const messageLocation = tag.handles ? 'declared in your tag attribute "handles"' : (r.isInstanceOf(MessageSubscriberInterface) ? __jymfony.sprintf('returned by method "%s.getHandledMessages()"', r.name) : __jymfony.sprintf('used as argument type in method "%s.%s()"', r.name, method));
 
-                        throw new RuntimeException(__jymfony.sprintf('Invalid handler service "%s": class or interface "%s" "%s" not found.', serviceId, message, messageLocation));
+                        throw new RuntimeException(__jymfony.sprintf('Invalid handler service "%s": class or interface "%s" %s not found.', serviceId, message, messageLocation));
                     }
 
                     if (!r.hasMethod(method)) {
@@ -199,33 +204,37 @@ export default class MessengerPass extends implementationOf(CompilerPassInterfac
      *
      * @param {ReflectionClass} handlerClass
      * @param {string} serviceId
+     * @param {string} methodName
      *
      * @private
      */
-    _guessHandledClasses(handlerClass, serviceId) {
+    _guessHandledClasses(handlerClass, serviceId, methodName) {
         if (handlerClass.isInstanceOf(MessageSubscriberInterface)) {
             return handlerClass.getMethod('getHandledMessages').invoke(null);
         }
 
         const method = (() => {
             try {
-                return handlerClass.getMethod('__invoke');
+                return handlerClass.getMethod(methodName);
             } catch (e) {
-                throw new RuntimeException(__jymfony.sprintf('Invalid handler service "%s": class "%s" must have an "__invoke()" method.', serviceId, handlerClass.name));
+                throw new RuntimeException(__jymfony.sprintf('Invalid handler service "%s": class "%s" must have a "%s()" method.', serviceId, handlerClass.name, methodName));
             }
         })();
 
         if (0 === method.parameters.length) {
-            throw new RuntimeException(__jymfony.sprintf('Invalid handler service "%s": method "%s.__invoke()" requires at least one argument, first one being the message it handles.', serviceId, handlerClass.name));
+            throw new RuntimeException(__jymfony.sprintf('Invalid handler service "%s": method "%s.%s()" requires at least one argument, first one being the message it handles.', serviceId, handlerClass.name, methodName));
         }
 
         const parameters = method.parameters;
         const type = ReflectionHelper.getParameterType(parameters[0]);
-        if (! type || ! ReflectionClass.exists(type)) {
-            throw new RuntimeException(__jymfony.sprintf('Invalid handler service "%s": argument "%s" of method "%s.__invoke()" must have a type decorator corresponding to the message class it handles.', serviceId, parameters[0].name, handlerClass.name));
+        if (! type) {
+            throw new RuntimeException(__jymfony.sprintf('Invalid handler service "%s": argument "%s" of method "%s.%s()" must have a type decorator corresponding to the message class it handles.', serviceId, parameters[0].name, handlerClass.name, methodName));
+        }
+        if (! ReflectionClass.exists(type)) {
+            throw new RuntimeException(__jymfony.sprintf('Invalid handler service "%s": class or interface "%s" used as argument type in method "%s.%s()" not found.', serviceId, type, handlerClass.name, methodName));
         }
 
-        return [ ReflectionClass.getClassName(type) ];
+        return '__invoke' === methodName ? [ ReflectionClass.getClassName(type) ] : { [ReflectionClass.getClassName(type)]: methodName };
     }
 
     _registerReceivers(container, busIds) {
@@ -344,7 +353,7 @@ export default class MessengerPass extends implementationOf(CompilerPassInterfac
                 }
 
                 container.setDefinition(messengerMiddlewareId, childDefinition);
-            } else if (args) {
+            } else if (0 < args.length) {
                 throw new RuntimeException(__jymfony.sprintf('Invalid middleware factory "%s": a middleware factory must be an abstract definition.', id));
             }
 

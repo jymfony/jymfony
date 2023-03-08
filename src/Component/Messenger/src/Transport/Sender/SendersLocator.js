@@ -11,7 +11,7 @@ export default class SendersLocator extends implementationOf(SendersLocatorInter
      * Constructor.
      *
      * @param {Object.<string, string[]>} sendersMap An array, keyed by "type", set to an array of sender aliases
-     * @param {Jymfony.Component.DependencyInjection.ContainerInterface} sendersLocator Locator of senders, keyed by sender alias
+     * @param {Jymfony.Contracts.DependencyInjection.ContainerInterface} sendersLocator Locator of senders, keyed by sender alias
      */
     __construct(sendersMap, sendersLocator) {
         /**
@@ -22,7 +22,7 @@ export default class SendersLocator extends implementationOf(SendersLocatorInter
         this._sendersMap = sendersMap;
 
         /**
-         * @type {Jymfony.Component.DependencyInjection.ContainerInterface}
+         * @type {Jymfony.Contracts.DependencyInjection.ContainerInterface}
          *
          * @private
          */
