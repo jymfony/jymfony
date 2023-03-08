@@ -327,7 +327,7 @@ export default class Configuration extends implementationOf(ConfigurationInterfa
                     [ReflectionClass.exists('Jymfony.Component.HttpClient.HttpClient') ? 'canBeDisabled' : 'canBeEnabled']()
                     .beforeNormalization()
                         .always(config => {
-                            if (! config.scoped_clients || ! isObjectLiteral(config.default_options && config.default_options.retry_failed)) {
+                            if (! config || ! config.scoped_clients || ! isObjectLiteral(config.default_options && config.default_options.retry_failed)) {
                                 return config;
                             }
 
