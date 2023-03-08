@@ -489,7 +489,7 @@ class ReflectionClass extends implementationOf(ReflectorInterface, ReflectorTrai
      * @returns {string}
      */
     get docblock() {
-        return this._docblock.class;
+        return this._docblock;
     }
 
     /**

@@ -121,7 +121,7 @@ class ClassLoader {
         this._compilerIgnorelist = (process.env.JYMFONY_COMPILER_IGNORE || '')
             .split(',')
             .map(v => __jymfony.trim(v))
-            .filter(v => v !== '')
+            .filter(v => '' !== v)
             .map(v => v.startsWith('.') ? path.resolve(process.cwd(), v) : v)
         ;
 
