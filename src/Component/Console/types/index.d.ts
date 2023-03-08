@@ -29,6 +29,7 @@
 /// <reference path="Formatter/OutputFormatterStyleStack.d.ts" />
 /// <reference path="Helper/DebugFormatterHelper.d.ts" />
 /// <reference path="Helper/DescriptorHelper.d.ts" />
+/// <reference path="Helper/Dumper.d.ts" />
 /// <reference path="Helper/FormatterHelper.d.ts" />
 /// <reference path="Helper/Helper.d.ts" />
 /// <reference path="Helper/InputAwareHelper.d.ts" />
