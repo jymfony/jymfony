@@ -5,7 +5,7 @@ parameters:
 
 services:
     service_container:
-        class: Jymfony.Component.DependencyInjection.ContainerInterface
+        class: Jymfony.Contracts.DependencyInjection.ContainerInterface
         public: true
         synthetic: true
     foo:
@@ -161,7 +161,7 @@ services:
     Container.ContainerInterface:
         alias: service_container
         public: false
-    Jymfony.Component.DependencyInjection.ContainerInterface:
+    Jymfony.Contracts.DependencyInjection.ContainerInterface:
         alias: service_container
         public: false
     alias_for_foo:

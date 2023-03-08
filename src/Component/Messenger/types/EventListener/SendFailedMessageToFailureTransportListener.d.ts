@@ -1,5 +1,5 @@
 declare namespace Jymfony.Component.Messenger.EventListener {
-    import ContainerInterface = Jymfony.Component.DependencyInjection.ContainerInterface;
+    import ContainerInterface = Jymfony.Contracts.DependencyInjection.ContainerInterface;
     import EventSubscriptions = Jymfony.Contracts.EventDispatcher.EventSubscriptions;
     import EventSubscriberInterface = Jymfony.Contracts.EventDispatcher.EventSubscriberInterface;
     import LoggerInterface = Jymfony.Contracts.Logger.LoggerInterface;

@@ -1,5 +1,5 @@
 declare namespace Jymfony.Component.DependencyInjection.ParameterBag {
-    import ContainerInterface = Jymfony.Component.DependencyInjection.ContainerInterface;
+    import ContainerInterface = Jymfony.Contracts.DependencyInjection.ContainerInterface;
 
     export class ContainerBagInterface extends ContainerInterface.definition {
         /**

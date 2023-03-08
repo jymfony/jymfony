@@ -1,4 +1,4 @@
-declare namespace Jymfony.Component.DependencyInjection.Exception {
+declare namespace Jymfony.Contracts.DependencyInjection.Exception {
     /**
      * Base interface representing an exception in a container.
      */

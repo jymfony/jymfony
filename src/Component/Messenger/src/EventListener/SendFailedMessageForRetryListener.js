@@ -14,22 +14,22 @@ export default class SendFailedMessageForRetryListener extends implementationOf(
     /**
      * Constructor.
      *
-     * @param {Jymfony.Component.DependencyInjection.ContainerInterface} sendersLocator
-     * @param {Jymfony.Component.DependencyInjection.ContainerInterface} retryStrategyLocator
+     * @param {Jymfony.Contracts.DependencyInjection.ContainerInterface} sendersLocator
+     * @param {Jymfony.Contracts.DependencyInjection.ContainerInterface} retryStrategyLocator
      * @param {Jymfony.Contracts.Logger.LoggerInterface | null} [logger = null]
      * @param {Jymfony.Contracts.EventDispatcher.EventDispatcherInterface | null} [eventDispatcher = null]
      * @param {int} [historySize = 10]
      */
     __construct(sendersLocator, retryStrategyLocator, logger = null, eventDispatcher = null, historySize = 10) {
         /**
-         * @type {Jymfony.Component.DependencyInjection.ContainerInterface}
+         * @type {Jymfony.Contracts.DependencyInjection.ContainerInterface}
          *
          * @private
          */
         this._sendersLocator = sendersLocator;
 
         /**
-         * @type {Jymfony.Component.DependencyInjection.ContainerInterface}
+         * @type {Jymfony.Contracts.DependencyInjection.ContainerInterface}
          *
          * @private
          */

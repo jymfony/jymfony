@@ -13,12 +13,12 @@ class SetupTransportsCommand extends Command {
     /**
      * Constructor.
      *
-     * @param {Jymfony.Component.DependencyInjection.ContainerInterface} transportLocator
+     * @param {Jymfony.Contracts.DependencyInjection.ContainerInterface} transportLocator
      * @param {string[]} [transportNames = []]
      */
     __construct(transportLocator, transportNames = []) {
         /**
-         * @type {Jymfony.Component.DependencyInjection.ContainerInterface}
+         * @type {Jymfony.Contracts.DependencyInjection.ContainerInterface}
          *
          * @private
          */

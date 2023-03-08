@@ -1,5 +1,5 @@
 declare namespace Jymfony.Component.HttpServer.Controller.ArgumentResolvers {
-    import ContainerInterface = Jymfony.Component.DependencyInjection.ContainerInterface;
+    import ContainerInterface = Jymfony.Contracts.DependencyInjection.ContainerInterface;
     import RequestInterface = Jymfony.Contracts.HttpFoundation.RequestInterface;
 
     /**

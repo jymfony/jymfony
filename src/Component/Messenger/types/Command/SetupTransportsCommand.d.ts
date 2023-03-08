@@ -2,7 +2,7 @@ declare namespace Jymfony.Component.Messenger.Command {
     import Command = Jymfony.Component.Console.Command.Command;
     import CompletionInput = Jymfony.Component.Console.Completion.CompletionInput;
     import CompletionSuggestions = Jymfony.Component.Console.Completion.CompletionSuggestions;
-    import ContainerInterface = Jymfony.Component.DependencyInjection.ContainerInterface;
+    import ContainerInterface = Jymfony.Contracts.DependencyInjection.ContainerInterface;
     import InputInterface = Jymfony.Component.Console.Input.InputInterface;
     import OutputInterface = Jymfony.Component.Console.Output.OutputInterface;
 

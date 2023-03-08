@@ -1,5 +1,6 @@
 declare namespace Jymfony.Component.DependencyInjection {
     import Container = Jymfony.Component.DependencyInjection.Container;
+    import ContainerInterface = Jymfony.Contracts.DependencyInjection.ContainerInterface;
     import ServiceNotFoundException = Jymfony.Component.DependencyInjection.Exception.ServiceNotFoundException;
 
     export class ServiceLocator extends implementationOf(ContainerInterface) {

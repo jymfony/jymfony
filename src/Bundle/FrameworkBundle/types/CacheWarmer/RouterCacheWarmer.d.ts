@@ -1,5 +1,5 @@
 declare namespace Jymfony.Bundle.FrameworkBundle.CacheWarmer {
-    import ContainerInterface = Jymfony.Component.DependencyInjection.ContainerInterface;
+    import ContainerInterface = Jymfony.Contracts.DependencyInjection.ContainerInterface;
     import CacheWarmerInterface = Jymfony.Component.Kernel.CacheWarmer.CacheWarmerInterface;
 
     /**

@@ -15,12 +15,12 @@ export default class RoutableMessageBus extends implementationOf(MessageBusInter
     /**
      * Constructor.
      *
-     * @param {Jymfony.Component.DependencyInjection.ContainerInterface} busLocator
+     * @param {Jymfony.Contracts.DependencyInjection.ContainerInterface} busLocator
      * @param {Jymfony.Component.Messenger.MessageBusInterface} [fallbackBus = null]
      */
     __construct(busLocator, fallbackBus = null) {
         /**
-         * @type {Jymfony.Component.DependencyInjection.ContainerInterface}
+         * @type {Jymfony.Contracts.DependencyInjection.ContainerInterface}
          *
          * @private
          */

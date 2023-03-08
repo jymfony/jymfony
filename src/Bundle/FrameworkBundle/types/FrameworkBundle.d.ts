@@ -1,5 +1,5 @@
 declare namespace Jymfony.Bundle.FrameworkBundle {
-    import ContainerInterface = Jymfony.Component.DependencyInjection.ContainerInterface;
+    import ContainerInterface = Jymfony.Contracts.DependencyInjection.ContainerInterface;
     import Bundle = Jymfony.Component.Kernel.Bundle;
 
     /**

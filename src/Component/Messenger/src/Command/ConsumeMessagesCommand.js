@@ -21,7 +21,7 @@ export default
 class ConsumeMessagesCommand extends Command {
     /**
      * @param {Jymfony.Component.Messenger.RoutableMessageBus} routableBus
-     * @param {Jymfony.Component.DependencyInjection.ContainerInterface} receiverLocator
+     * @param {Jymfony.Contracts.DependencyInjection.ContainerInterface} receiverLocator
      * @param {Jymfony.Contracts.EventDispatcher.EventDispatcherInterface} eventDispatcher
      * @param {Jymfony.Contracts.Logger.LoggerInterface} [logger = null]
      * @param {string[]} [receiverNames = []]
@@ -36,7 +36,7 @@ class ConsumeMessagesCommand extends Command {
         this._routableBus = routableBus;
 
         /**
-         * @type {Jymfony.Component.DependencyInjection.ContainerInterface}
+         * @type {Jymfony.Contracts.DependencyInjection.ContainerInterface}
          *
          * @private
          */

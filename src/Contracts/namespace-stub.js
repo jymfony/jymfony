@@ -34,6 +34,16 @@ Jymfony.Contracts = {
     /**
      * @namespace
      */
+    DependencyInjection: {
+        /**
+         * @namespace
+         */
+        Exception: {},
+    },
+
+    /**
+     * @namespace
+     */
     DateTime: {},
 
     /**

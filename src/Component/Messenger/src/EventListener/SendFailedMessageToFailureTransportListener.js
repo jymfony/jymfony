@@ -14,12 +14,12 @@ export default class SendFailedMessageToFailureTransportListener extends impleme
     /**
      * Constructor.
      *
-     * @param {Jymfony.Component.DependencyInjection.ContainerInterface} failureSenders
+     * @param {Jymfony.Contracts.DependencyInjection.ContainerInterface} failureSenders
      * @param {Jymfony.Contracts.Logger.LoggerInterface} logger
      */
     __construct(failureSenders, logger = null) {
         /**
-         * @type {Jymfony.Component.DependencyInjection.ContainerInterface}
+         * @type {Jymfony.Contracts.DependencyInjection.ContainerInterface}
          *
          * @private
          */

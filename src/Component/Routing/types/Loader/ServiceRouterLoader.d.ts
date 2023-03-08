@@ -1,7 +1,7 @@
 declare namespace Jymfony.Component.Routing.Loader {
     import Loader = Jymfony.Component.Config.Loader.Loader;
     import RouteCollection = Jymfony.Component.Routing.RouteCollection;
-    import ContainerInterface = Jymfony.Component.DependencyInjection.ContainerInterface;
+    import ContainerInterface = Jymfony.Contracts.DependencyInjection.ContainerInterface;
 
     export class ServiceRouterLoader extends Loader {
         private _container: ContainerInterface;

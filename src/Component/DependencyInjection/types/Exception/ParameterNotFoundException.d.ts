@@ -1,4 +1,6 @@
 declare namespace Jymfony.Component.DependencyInjection.Exception {
+    import NotFoundExceptionInterface = Jymfony.Contracts.DependencyInjection.Exception.NotFoundExceptionInterface;
+
     export class ParameterNotFoundException extends mix(InvalidArgumentException, NotFoundExceptionInterface) {
         public /* writeonly */ sourceId: string;
         public /* writeonly */ sourceKey: string;

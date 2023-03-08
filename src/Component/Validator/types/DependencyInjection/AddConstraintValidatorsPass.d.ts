@@ -1,6 +1,6 @@
 declare namespace Jymfony.Component.Validator.DependencyInjection {
     import CompilerPassInterface = Jymfony.Component.DependencyInjection.Compiler.CompilerPassInterface;
-    import ContainerInterface = Jymfony.Component.DependencyInjection.ContainerInterface;
+    import ContainerInterface = Jymfony.Contracts.DependencyInjection.ContainerInterface;
 
     export class AddConstraintValidatorsPass extends implementationOf(CompilerPassInterface) {
         private _validatorFactoryServiceId: string;

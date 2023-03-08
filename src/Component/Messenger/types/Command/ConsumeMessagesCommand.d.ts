@@ -1,6 +1,6 @@
 declare namespace Jymfony.Component.Messenger.Command {
     import Command = Jymfony.Component.Console.Command.Command;
-    import ContainerInterface = Jymfony.Component.DependencyInjection.ContainerInterface;
+    import ContainerInterface = Jymfony.Contracts.DependencyInjection.ContainerInterface;
     import EventDispatcherInterface = Jymfony.Contracts.EventDispatcher.EventDispatcherInterface;
     import InputInterface = Jymfony.Component.Console.Input.InputInterface;
     import LoggerInterface = Jymfony.Contracts.Logger.LoggerInterface;

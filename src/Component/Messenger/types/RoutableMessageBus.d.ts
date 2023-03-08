@@ -1,5 +1,5 @@
 declare namespace Jymfony.Component.Messenger {
-    import ContainerInterface = Jymfony.Component.DependencyInjection.ContainerInterface;
+    import ContainerInterface = Jymfony.Contracts.DependencyInjection.ContainerInterface;
     import StampInterface = Jymfony.Component.Messenger.Stamp.StampInterface;
 
 

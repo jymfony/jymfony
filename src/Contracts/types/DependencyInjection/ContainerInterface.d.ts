@@ -1,4 +1,4 @@
-declare namespace Jymfony.Component.DependencyInjection {
+declare namespace Jymfony.Contracts.DependencyInjection {
     export class ContainerInterface {
         public static readonly definition: Newable<ContainerInterface>;
 

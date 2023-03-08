@@ -1,7 +1,7 @@
 declare namespace Jymfony.Bundle.FrameworkBundle.Test {
     import Container = Jymfony.Component.DependencyInjection.Container;
     import ParameterBag = Jymfony.Component.DependencyInjection.ParameterBag.ParameterBag;
-    import ContainerInterface = Jymfony.Component.DependencyInjection.ContainerInterface;
+    import ContainerInterface = Jymfony.Contracts.DependencyInjection.ContainerInterface;
     import ServiceIdentifier = Jymfony.Component.DependencyInjection.ServiceIdentifier;
 
     export class TestContainer extends Container {
