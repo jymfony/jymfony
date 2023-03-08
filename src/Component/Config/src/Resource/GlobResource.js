@@ -114,9 +114,21 @@ export default class GlobResource extends implementationOf(SelfCheckingResourceI
         const prefixLen = this._prefix.length;
         const regex = this._pattern ? __self.globToRegex(this._pattern) : /.*/;
 
-        recursive: for (const path of new RecursiveDirectoryIterator(this._prefix)) {
+        let paths = new RecursiveDirectoryIterator(this._prefix);
+        if ('' === this._pattern) {
+            try {
+                const s = statSync(this._prefix);
+                if (!s.isDirectory()) {
+                    paths = [ this._prefix ];
+                }
+            } catch (e) {
+                // Do nothing.
+            }
+        }
+
+        recursive: for (const path of paths) {
             let normalizedPath = path.replace(/\\/g, '/');
-            if (! normalizedPath.substr(prefixLen).match(regex)) {
+            if (! normalizedPath.substring(prefixLen).match(regex)) {
                 continue;
             }
 
