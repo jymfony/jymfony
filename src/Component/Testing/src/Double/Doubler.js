@@ -67,6 +67,13 @@ export default class Doubler {
     }
 
     /**
+     * @returns {Function}
+     */
+    get superClass() {
+        return this._superClass;
+    }
+
+    /**
      * Sets the class to be extended by the double.
      *
      * @param {Function} class_

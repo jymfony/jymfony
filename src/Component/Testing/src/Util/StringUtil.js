@@ -26,6 +26,14 @@ export default class StringUtil {
             return 'false';
         }
 
+        if (isFunction(value)) {
+            if (ReflectionClass.exists(value)) {
+                return 'class ' + ReflectionClass.getClassName(value);
+            }
+
+            return 'function';
+        }
+
         if (isArray(value)) {
             for (const key of Object.keys(value)) {
                 value[key] = __self.stringify(value[key]);
