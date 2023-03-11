@@ -31,7 +31,6 @@
     "@jymfony/stopwatch": "https://github.com/jymfony/stopwatch.git",
     "@jymfony/testing": "https://github.com/jymfony/testing.git",
     "@jymfony/var-dumper": "https://github.com/jymfony/var-dumper.git",
-    "chai": "^4.2",
     "mocha": "^6.0"
   },
   "config": {

@@ -13,14 +13,10 @@ const MultipleBusesMessageHandler = Jymfony.Component.Messenger.Fixtures.Multipl
 const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 
 export default class DebugCommandTest extends TestCase {
+    _colSize;
+
     get testCaseName() {
         return '[Messenger] ' + super.testCaseName;
-    }
-
-    __construct() {
-        super.__construct();
-
-        this._colSize = undefined;
     }
 
     beforeEach() {

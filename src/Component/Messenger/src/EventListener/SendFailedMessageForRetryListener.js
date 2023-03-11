@@ -119,7 +119,7 @@ export default class SendFailedMessageForRetryListener extends implementationOf(
                 continue;
             }
 
-            history = [ history[0], history.slice(history.length - this._historySize + 2), stamp ];
+            history = [ history[0], ...history.slice(history.length - this._historySize + 2), stamp ];
             envelope = envelope.withoutAllStamps(ReflectionClass.getClassName(stamp)).withStamps(...history);
         }
 
