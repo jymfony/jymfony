@@ -28,7 +28,7 @@ export default class TypeComparator extends Comparator {
                 __jymfony.sprintf(
                     '%s does not match expected type "%s".',
                     this.export(actual),
-                    __jymfony.get_debug_type(actual)
+                    __jymfony.get_debug_type(expected)
                 )
             );
         }

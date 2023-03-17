@@ -59,6 +59,11 @@ Jymfony.Component.Testing = {
          * @namespace
          */
         Exception: {},
+
+        /**
+         * @namespace
+         */
+        TimeSensitive: {},
     },
 
     /**

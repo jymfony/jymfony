@@ -45,18 +45,17 @@ export default class LogicalAnd extends Constraint {
     /**
      * @inheritdoc
      */
-    evaluate(other, description = '', returnResult = false) {
+    evaluate(other, description = '', Throw = true) {
         let success = true;
 
         for (const constraint of this._constraints) {
-            if (! constraint.evaluate(other, description, true)) {
+            if (! constraint.evaluate(other, description, false)) {
                 success = false;
-
                 break;
             }
         }
 
-        if (returnResult) {
+        if (!Throw) {
             return success;
         }
 

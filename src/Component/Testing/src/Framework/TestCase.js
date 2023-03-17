@@ -2,12 +2,13 @@ import Suite from 'mocha/lib/suite';
 import Test from 'mocha/lib/test';
 
 const Assert = Jymfony.Component.Testing.Framework.Assert;
-const AfterEachAnnotation = Jymfony.Component.Testing.Annotation.AfterEach;
-const BeforeEachAnnotation = Jymfony.Component.Testing.Annotation.BeforeEach;
-const DataProviderAnnotation = Jymfony.Component.Testing.Annotation.DataProvider;
+const AfterEach = Jymfony.Component.Testing.Annotation.AfterEach;
+const BeforeEach = Jymfony.Component.Testing.Annotation.BeforeEach;
+const DataProvider = Jymfony.Component.Testing.Annotation.DataProvider;
 const Prophet = Jymfony.Component.Testing.Prophet;
 const SkipException = Jymfony.Component.Testing.Framework.Exception.SkipException;
 const TestResult = Jymfony.Component.Testing.Framework.TestResult;
+const TimeSensitive = Jymfony.Component.Testing.Annotation.TimeSensitive;
 
 const prophets = new WeakMap();
 const getProphet = obj => {
@@ -72,11 +73,8 @@ export default class TestCase extends Assert {
         for (const method of reflectionClass.methods) {
             const reflectionMethod = reflectionClass.getMethod(method);
 
-            const AfterEach = new ReflectionClass(AfterEachAnnotation).getConstructor();
-            const BeforeEach = new ReflectionClass(BeforeEachAnnotation).getConstructor();
-
-            const afterEach = reflectionMethod.metadata.filter(([ klass ]) => klass === AfterEach);
-            const beforeEach = reflectionMethod.metadata.filter(([ klass ]) => klass === BeforeEach);
+            const afterEach = reflectionMethod.getAnnotations(AfterEach);
+            const beforeEach = reflectionMethod.getAnnotations(BeforeEach);
 
             if (0 < afterEach.length) {
                 this._afterEachHooks.push(reflectionMethod);
@@ -165,8 +163,6 @@ export default class TestCase extends Assert {
      */
     runTestCase(mocha) {
         const reflectionClass = new ReflectionClass(this);
-        const DataProvider = new ReflectionClass(DataProviderAnnotation).getConstructor();
-
         const suite = new Suite(this.testCaseName, mocha.suite.ctx, false);
         (function (self) {
             const execution = async function (reflectionMethod, args = []) {
@@ -232,11 +228,24 @@ export default class TestCase extends Assert {
 
                 const reflectionMethod = reflectionClass.getMethod(method);
                 const testName = method.replace(/[A-Z]/g, letter => ` ${letter.toLowerCase()}`);
-                const providers = reflectionMethod.metadata.filter(([ klass ]) => klass === DataProvider).map(a => a[1]);
+                const providers = reflectionMethod.getAnnotations(DataProvider);
                 const data = providers.length ? providers.map(provider => [ ...reflectionClass.getMethod(provider.provider).invoke(self) ]).flat() : undefined;
+
+                let timeSensitive = 0 < reflectionMethod.getAnnotations(TimeSensitive).length;
+                let kl = reflectionClass;
+                do {
+                    timeSensitive = timeSensitive || 0 < kl.getAnnotations(TimeSensitive).length;
+                    if (timeSensitive) {
+                        break;
+                    }
+                } while ((kl = kl.getParentClass()));
 
                 const runTest = args => {
                     return async function() {
+                        if (timeSensitive) {
+                            Jymfony.Component.Testing.Framework.TimeSensitive.TimeSensitive.install(this);
+                        }
+
                         self._context = {
                             method: reflectionMethod,
                             args,
@@ -252,6 +261,9 @@ export default class TestCase extends Assert {
                         try {
                             await self.run();
                         } finally {
+                            if (timeSensitive) {
+                                Jymfony.Component.Testing.Framework.TimeSensitive.TimeSensitive.uninstall(this);
+                            }
                             self._context = {};
                         }
                     };

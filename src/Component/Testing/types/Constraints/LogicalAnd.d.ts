@@ -22,7 +22,7 @@ declare namespace Jymfony.Component.Testing.Constraints {
         /**
          * @inheritdoc
          */
-        evaluate(other: any, description?: string, returnResult?: boolean): boolean;
+        evaluate(other: any, description?: string, Throw?: boolean): boolean;
 
         /**
          * Returns a string representation of the constraint.

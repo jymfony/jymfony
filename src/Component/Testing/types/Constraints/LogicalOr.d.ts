@@ -14,12 +14,12 @@ declare namespace Jymfony.Component.Testing.Constraints {
         __construct(): void;
         constructor();
 
-        setConstraints(constraints: (Constraint | any)[]): void;
+        public /* writeonly */ constraints(constraints: (Constraint | any)[]): void;
 
         /**
          * @inheritdoc
          */
-        evaluate(other: any, description?: string, returnResult?: boolean): boolean;
+        evaluate(other: any, description?: string, Throw?: boolean): boolean;
 
         /**
          * Returns a string representation of the constraint.

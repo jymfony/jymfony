@@ -10,7 +10,7 @@ const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 /**
  * @memberOf Jymfony.Component.Cache.Tests.Adapter
  */
-export class AdapterTestCase extends TestCase {
+export default @timeSensitive() class AdapterTestCase extends TestCase {
     __construct() {
         super.__construct();
 

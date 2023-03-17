@@ -1,12 +1,11 @@
-import { AdapterTestCase } from './AdapterTestCase';
 import { expect } from 'chai';
 
+const AdapterTestCase = Jymfony.Component.Cache.Tests.Adapter.AdapterTestCase;
 const ArrayAdapter = Jymfony.Component.Cache.Adapter.ArrayAdapter;
 const CacheItem = Jymfony.Component.Cache.CacheItem;
 const ProxyAdapter = Jymfony.Component.Cache.Adapter.ProxyAdapter;
-const TimeSensitiveTestCaseTrait = Jymfony.Component.Testing.Framework.TimeSensitiveTestCaseTrait;
 
-export default class ProxyAdapterTest extends mix(AdapterTestCase, TimeSensitiveTestCaseTrait) {
+export default class ProxyAdapterTest extends AdapterTestCase {
     _createCachePool(defaultLifetime = 0) {
         return new ProxyAdapter(new ArrayAdapter(), '', defaultLifetime);
     }

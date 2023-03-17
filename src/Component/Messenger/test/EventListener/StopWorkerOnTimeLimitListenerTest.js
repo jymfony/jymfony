@@ -1,11 +1,10 @@
 const LoggerInterface = Jymfony.Contracts.Logger.LoggerInterface;
 const StopWorkerOnTimeLimitListener = Jymfony.Component.Messenger.EventListener.StopWorkerOnTimeLimitListener;
 const TestCase = Jymfony.Component.Testing.Framework.TestCase;
-const TimeSensitiveTestCaseTrait = Jymfony.Component.Testing.Framework.TimeSensitiveTestCaseTrait;
 const Worker = Jymfony.Component.Messenger.Worker;
 const WorkerRunningEvent = Jymfony.Component.Messenger.Event.WorkerRunningEvent;
 
-export default class StopWorkerOnTimeLimitListenerTest extends mix(TestCase, TimeSensitiveTestCaseTrait) {
+export default @timeSensitive() class StopWorkerOnTimeLimitListenerTest extends TestCase {
     get testCaseName() {
         return '[Messenger] ' + super.testCaseName;
     }

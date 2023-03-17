@@ -1,13 +1,12 @@
-import { AdapterTestCase } from './AdapterTestCase';
 import { sep } from 'path';
 import { tmpdir } from 'os';
 
+const AdapterTestCase = Jymfony.Component.Cache.Tests.Adapter.AdapterTestCase;
 const FilesystemAdapter = Jymfony.Component.Cache.Adapter.FilesystemAdapter;
 const Filesystem = Jymfony.Component.Filesystem.Filesystem;
-const TimeSensitiveTestCaseTrait = Jymfony.Component.Testing.Framework.TimeSensitiveTestCaseTrait;
 const cacheFolder = (process.env.RUNNER_TEMP ? process.env.RUNNER_TEMP : tmpdir()) + sep + 'jymfony-cache';
 
-export default class FilesystemAdapterTest extends mix(AdapterTestCase, TimeSensitiveTestCaseTrait) {
+export default class FilesystemAdapterTest extends AdapterTestCase {
     async after() {
         const fs = new Filesystem();
         await fs.remove(cacheFolder);

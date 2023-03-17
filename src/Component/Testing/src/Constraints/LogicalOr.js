@@ -30,7 +30,7 @@ export default class LogicalOr extends Constraint {
     /**
      * @param {Jymfony.Component.Testing.Constraints.Constraint[]} constraints
      */
-    setConstraints(constraints) {
+    set constraints(constraints) {
         this._constraints = [];
 
         for (let constraint of constraints) {
@@ -45,17 +45,17 @@ export default class LogicalOr extends Constraint {
     /**
      * @inheritdoc
      */
-    evaluate(other, description = '', returnResult = false) {
+    evaluate(other, description = '', Throw = true) {
         let success = false;
 
         for (const constraint of this._constraints) {
-            if (constraint.evaluate(other, description, true)) {
+            if (constraint.evaluate(other, description, false)) {
                 success = true;
                 break;
             }
         }
 
-        if (returnResult) {
+        if (!Throw) {
             return success;
         }
 

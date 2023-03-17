@@ -11,9 +11,8 @@ const RequestHandler = Jymfony.Component.HttpServer.RequestHandler;
 const RequestTimeoutException = Jymfony.Component.HttpServer.Exception.RequestTimeoutException;
 const Response = Jymfony.Component.HttpFoundation.Response;
 const TestCase = Jymfony.Component.Testing.Framework.TestCase;
-const TimeSensitiveTestCaseTrait = Jymfony.Component.Testing.Framework.TimeSensitiveTestCaseTrait;
 
-export default class RequestHandlerTest extends mix(TestCase, TimeSensitiveTestCaseTrait) {
+export default @timeSensitive() class RequestHandlerTest extends TestCase {
     get testCaseName() {
         return '[HttpServer] RequestHandler';
     }

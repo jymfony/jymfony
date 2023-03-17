@@ -4,11 +4,10 @@ const CacheItemPoolInterface = Jymfony.Contracts.Cache.CacheItemPoolInterface;
 const DateTime = Jymfony.Component.DateTime.DateTime;
 const StopWorkerOnRestartSignalListener = Jymfony.Component.Messenger.EventListener.StopWorkerOnRestartSignalListener;
 const TestCase = Jymfony.Component.Testing.Framework.TestCase;
-const TimeSensitiveTestCaseTrait = Jymfony.Component.Testing.Framework.TimeSensitiveTestCaseTrait;
 const Worker = Jymfony.Component.Messenger.Worker;
 const WorkerRunningEvent = Jymfony.Component.Messenger.Event.WorkerRunningEvent;
 
-export default class StopWorkerOnRestartSignalListenerTest extends mix(TestCase, TimeSensitiveTestCaseTrait) {
+export default @timeSensitive() class StopWorkerOnRestartSignalListenerTest extends TestCase {
     get testCaseName() {
         return '[Messenger] ' + super.testCaseName;
     }

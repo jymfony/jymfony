@@ -20,12 +20,8 @@ export default class DateTime extends implementationOf(DateTimeInterface) {
      * @param {undefined|string|int|Date} [datetime] The datetime string or unix timestamp
      * @param {undefined|string|Jymfony.Contracts.DateTime.DateTimeZoneInterface} [timezone] The timezone of the datetime
      */
-    __construct(datetime = undefined, timezone = undefined) {
-        if (undefined === datetime) {
-            const d = new Date();
-            this._tm = new TimeDescriptor(timezone);
-            this._tm.unixTimestamp = ~~(d.getTime() / 1000);
-        } else if (isString(datetime)) {
+    __construct(datetime = new Date(), timezone = undefined) {
+        if (isString(datetime)) {
             const p = new Parser();
             this._tm = p.parse(datetime, timezone);
         } else if (isNumber(datetime)) {

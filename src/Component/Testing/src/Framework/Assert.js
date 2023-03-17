@@ -16,6 +16,7 @@ const IsType = Jymfony.Component.Testing.Constraints.IsType;
 const IsUndefined = Jymfony.Component.Testing.Constraints.IsUndefined;
 const LessThan = Jymfony.Component.Testing.Constraints.LessThan;
 const LogicalNot = Jymfony.Component.Testing.Constraints.LogicalNot;
+const LogicalOr = Jymfony.Component.Testing.Constraints.LogicalOr;
 const RegularExpression = Jymfony.Component.Testing.Constraints.RegularExpression;
 const StringContains = Jymfony.Component.Testing.Constraints.StringContains;
 const SkippedTestException = Jymfony.Component.Testing.Framework.Exception.SkippedTestException;
@@ -228,12 +229,30 @@ export default class Assert {
     }
 
     /**
+     * Asserts that a value is greater than or equal to another value.
+     *
+     * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+     */
+    static assertGreaterThanOrEqual(expected, actual, message = '') {
+        this.assertThat(actual, this.greaterThanOrEqual(expected), message);
+    }
+
+    /**
      * Asserts that a value is less than another value.
      *
      * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
      */
     static assertLessThan(expected, actual, message = '') {
         this.assertThat(actual, this.lessThan(expected), message);
+    }
+
+    /**
+     * Asserts that a value is less than or equal to another value.
+     *
+     * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+     */
+    static assertLessThanOrEqual(expected, actual, message = '') {
+        this.assertThat(actual, this.lessThanOrEqual(expected), message);
     }
 
     /**
@@ -416,6 +435,10 @@ export default class Assert {
         constraint.evaluate(value, message);
     }
 
+    static logicalOr(...constraints) {
+        return LogicalOr.fromConstraints(...constraints);
+    }
+
     static logicalNot(constraint) {
         return new LogicalNot(constraint);
     }
@@ -424,8 +447,22 @@ export default class Assert {
         return new LessThan(value);
     }
 
+    static lessThanOrEqual(value) {
+        return this.logicalOr(
+            new IsEqual(value),
+            new LessThan(value)
+        );
+    }
+
     static greaterThan(value) {
         return new GreaterThan(value);
+    }
+
+    static greaterThanOrEqual(value) {
+        return this.logicalOr(
+            new IsEqual(value),
+            new GreaterThan(value)
+        );
     }
 
     static isEmpty() {

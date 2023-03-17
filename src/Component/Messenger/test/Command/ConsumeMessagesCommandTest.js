@@ -129,6 +129,7 @@ export default class ConsumeMessagesCommandTest extends TestCase {
         yield [ '--time-limit', 'whatever', 'Option "time-limit" must be a positive integer, "whatever" passed.' ];
     }
 
+    @timeSensitive()
     async testRunWithTimeLimit() {
         this.setTimeout(10000);
         const envelope = new Envelope({}, [ new BusNameStamp('dummy-bus') ]);

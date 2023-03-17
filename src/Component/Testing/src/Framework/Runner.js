@@ -26,6 +26,7 @@ export default class Runner {
         global.dataProvider = value => Jymfony.Component.Testing.Annotation.DataProvider(value);
         global.afterEach = Jymfony.Component.Testing.Annotation.AfterEach;
         global.beforeEach = Jymfony.Component.Testing.Annotation.BeforeEach;
+        global.timeSensitive = Jymfony.Component.Testing.Annotation.TimeSensitive;
 
         patterns = patterns
             .filter(p => ! p.startsWith('-'))
@@ -81,7 +82,7 @@ export default class Runner {
             f.forEach(targetFiles.add.bind(targetFiles));
             c.forEach(class_ => {
                 const reflection = new ReflectionClass(class_);
-                if (! reflection.isSubclassOf(TestCase)) {
+                if (! reflection.isSubclassOf(TestCase) || ! reflection.name.endsWith('Test')) {
                     return;
                 }
 

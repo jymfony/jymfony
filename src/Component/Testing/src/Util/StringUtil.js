@@ -49,6 +49,20 @@ export default class StringUtil {
 
         try {
             const reflection = new ReflectionClass(value);
+            if ('_jymfony_testing_doubler_double__' === reflection.name) {
+                const parent = reflection.getParentClass();
+                const construct = parent.getConstructor();
+                let name = parent.name;
+                if (construct === __jymfony.JObject || construct === Object) {
+                    const interfaces = reflection.interfaces;
+                    if (0 < interfaces.length) {
+                        name = interfaces.map(i => i.name).join('&');
+                    }
+                }
+
+                return 'mock(' + name + ')';
+            }
+
             return reflection.name || 'Object';
         } catch (e) {
             return value.toString();

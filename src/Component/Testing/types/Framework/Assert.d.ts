@@ -8,6 +8,7 @@ declare namespace Jymfony.Component.Testing.Framework {
     import IsUndefined = Jymfony.Component.Testing.Constraints.IsUndefined;
     import LessThan = Jymfony.Component.Testing.Constraints.LessThan;
     import LogicalNot = Jymfony.Component.Testing.Constraints.LogicalNot;
+    import LogicalOr = Jymfony.Component.Testing.Constraints.LogicalOr;
 
     export class Assert {
         /**
@@ -144,12 +145,28 @@ declare namespace Jymfony.Component.Testing.Framework {
         assertLessThan(expected: any, actual: any, message?: string): void;
 
         /**
+         * Asserts that a value is less than or equal to another value.
+         *
+         * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+         */
+        static assertLessThanOrEqual(expected: any, actual: any, message?: string): void;
+        assertLessThanOrEqual(expected: any, actual: any, message?: string): void;
+
+        /**
          * Asserts that a value is greater than another value.
          *
          * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
          */
         static assertGreaterThan(expected: any, actual: any, message?: string): void;
         assertGreaterThan(expected: any, actual: any, message?: string): void;
+
+        /**
+         * Asserts that a value is greater than or equal to another value.
+         *
+         * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+         */
+        static assertGreaterThanOrEqual(expected: any, actual: any, message?: string): void;
+        assertGreaterThanOrEqual(expected: any, actual: any, message?: string): void;
 
         /**
          * Asserts that a string (needle) is contained in another string (haystack).
@@ -301,14 +318,23 @@ declare namespace Jymfony.Component.Testing.Framework {
         static assertThat(value: any, constraint: Constraint, message?: string): void;
         assertThat(value: any, constraint: Constraint, message?: string): void;
 
+        static logicalOr(...constraints: Constraint[]): LogicalOr;
+        logicalOr(...constraints: Constraint[]): LogicalOr;
+
         static logicalNot(constraint: Constraint): LogicalNot;
         logicalNot(constraint: Constraint): LogicalNot;
 
         static greaterThan(value: any): GreaterThan;
         greaterThan(value: any): GreaterThan;
 
+        static greaterThanOrEqual(value: any): LogicalOr;
+        greaterThanOrEqual(value: any): LogicalOr;
+
         static lessThan(value: any): LessThan;
         lessThan(value: any): LessThan;
+
+        static lessThanOrEqual(value: any): LogicalOr;
+        lessThanOrEqual(value: any): LogicalOr;
 
         static isEmpty(): IsEmpty;
         isEmpty(): IsEmpty;
