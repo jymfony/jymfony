@@ -559,7 +559,7 @@ class ReflectionClass extends implementationOf(ReflectorInterface, ReflectorTrai
      * @private
      */
     _loadFromMetadata(value) {
-        const { Compiler } = require('@jymfony/compiler');
+        const { Compiler } = __jymfony.autoload.classLoader.constructor.compiler;
         const metadata = Compiler.getReflectionData(value);
         if (metadata === undefined) {
             this._loadWithoutMetadata(value);

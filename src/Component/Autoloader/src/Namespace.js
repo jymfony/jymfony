@@ -162,7 +162,7 @@ class Namespace {
      * @private
      */
     _require(filename) {
-        const { Compiler } = require('@jymfony/compiler');
+        const { Compiler } = this._autoloader.classLoader.constructor.compiler;
         const fn = this._internalRequire.resolve(filename);
         let self = undefined;
 

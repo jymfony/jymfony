@@ -131,6 +131,21 @@ class ClassLoader {
     }
 
     /**
+     * @internal
+     */
+    static get compiler() {
+        if (undefined === Compiler) {
+            ClassLoader.compiler = require('@jymfony/compiler');
+        }
+
+        return {
+            Compiler,
+            Parser,
+            AST,
+        };
+    }
+
+    /**
      * Sets the compiler class components.
      */
     static set compiler({ Compiler: compilerClass, Parser: parserClass, AST: astBase }) {

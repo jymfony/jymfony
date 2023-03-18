@@ -1,4 +1,3 @@
-const { AST, Compiler, Parser } = require('@jymfony/compiler');
 const SourceMapGenerator = require('@jymfony/compiler/src/SourceMap/Generator');
 const ReflectionParameter = require('./ReflectionParameter');
 const ReflectorTrait = require('./ReflectorTrait');
@@ -199,6 +198,7 @@ class ReflectionMethod extends implementationOf(ReflectorInterface, ReflectorTra
      * @private
      */
     _parseParameters() {
+        const { Compiler, AST, Parser } = __jymfony.autoload.classLoader.constructor.compiler;
         let parsed;
         try {
             const parser = new Parser();
