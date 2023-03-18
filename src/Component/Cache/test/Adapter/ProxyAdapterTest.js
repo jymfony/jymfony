@@ -1,11 +1,9 @@
-import { expect } from 'chai';
-
 const AdapterTestCase = Jymfony.Component.Cache.Tests.Adapter.AdapterTestCase;
 const ArrayAdapter = Jymfony.Component.Cache.Adapter.ArrayAdapter;
 const CacheItem = Jymfony.Component.Cache.CacheItem;
 const ProxyAdapter = Jymfony.Component.Cache.Adapter.ProxyAdapter;
 
-export default class ProxyAdapterTest extends AdapterTestCase {
+export default @timeSensitive() class ProxyAdapterTest extends AdapterTestCase {
     _createCachePool(defaultLifetime = 0) {
         return new ProxyAdapter(new ArrayAdapter(), '', defaultLifetime);
     }
@@ -19,7 +17,7 @@ export default class ProxyAdapterTest extends AdapterTestCase {
 
         const proxyItem = await pool.getItem('foo');
 
-        expect(item).to.be.not.equal(proxyItem);
+        __self.assertNotSame(proxyItem, item);
         await pool.save(proxyItem.set('bar'));
     }
 }

@@ -1,5 +1,3 @@
-import { expect } from 'chai';
-
 const DateTime = Jymfony.Component.DateTime.DateTime;
 const InvalidArgumentException = Jymfony.Contracts.Cache.Exception.InvalidArgumentException;
 const NotUnserializable = Jymfony.Component.Cache.Fixtures.NotUnserializable;
@@ -10,12 +8,8 @@ const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 /**
  * @memberOf Jymfony.Component.Cache.Tests.Adapter
  */
-export default @timeSensitive() class AdapterTestCase extends TestCase {
-    __construct() {
-        super.__construct();
-
-        this._cache = undefined;
-    }
+export default class AdapterTestCase extends TestCase {
+    _cache;
 
     get testCaseName() {
         return '[Cache] ' + super.testCaseName;
@@ -69,49 +63,49 @@ export default @timeSensitive() class AdapterTestCase extends TestCase {
         await this._cache.save(item);
 
         const fooItem = await this._cache.getItem('key');
-        expect(fooItem.isHit).to.be.true;
-        expect(fooItem.get()).to.be.equal('4711');
+        __self.assertTrue(fooItem.isHit);
+        __self.assertEquals('4711', fooItem.get());
 
         const barItem = await this._cache.getItem('key2');
-        expect(barItem.isHit).to.be.true;
-        expect(barItem.get()).to.be.equal('4712');
+        __self.assertTrue(barItem.isHit);
+        __self.assertEquals('4712', barItem.get());
 
         await this._cache.deleteItem('key');
-        expect((await this._cache.getItem('key')).isHit).to.be.false;
-        expect((await this._cache.getItem('key2')).isHit).to.be.true;
+        __self.assertFalse((await this._cache.getItem('key')).isHit);
+        __self.assertTrue((await this._cache.getItem('key2')).isHit);
 
         await this._cache.deleteItem('key2');
-        expect((await this._cache.getItem('key')).isHit).to.be.false;
-        expect((await this._cache.getItem('key2')).isHit).to.be.false;
+        __self.assertFalse((await this._cache.getItem('key')).isHit);
+        __self.assertFalse((await this._cache.getItem('key2')).isHit);
     }
 
     async testBasicUsageWithLongKeys() {
         const key = 'a'.repeat(300);
 
         let item = await this._cache.getItem(key);
-        expect(item.isHit).to.be.false;
-        expect(item.key).to.be.equal(key);
+        __self.assertFalse(item.isHit);
+        __self.assertEquals(key, item.key);
         item.set('value');
-        expect(await this._cache.save(item)).to.be.true;
+        __self.assertTrue(await this._cache.save(item));
 
         item = await this._cache.getItem(key);
-        expect(item.isHit).to.be.true;
-        expect(item.key).to.be.equal(key);
-        expect(item.get()).to.be.equal('value');
+        __self.assertTrue(item.isHit);
+        __self.assertEquals(key, item.key);
+        __self.assertEquals('value', item.get());
 
-        expect(await this._cache.deleteItem(key)).to.be.true;
+        __self.assertTrue(await this._cache.deleteItem(key));
 
         item = await this._cache.getItem(key);
-        expect(item.isHit).to.be.false;
+        __self.assertFalse(item.isHit);
     }
 
 
     async testItemModifiersReturnsSelf() {
         const item = await this._cache.getItem('key');
 
-        expect(item.set('4711')).to.be.equal(item);
-        expect(item.expiresAfter(2)).to.be.equal(item);
-        expect(item.expiresAt(DateTime.now.modify(new TimeSpan('PT2H')))).to.be.equal(item);
+        __self.assertEquals(item, item.set('4711'));
+        __self.assertEquals(item, item.expiresAfter(2));
+        __self.assertEquals(item, item.expiresAt(DateTime.now.modify(new TimeSpan('PT2H'))));
     }
 
     async testGetItem() {
@@ -120,13 +114,13 @@ export default @timeSensitive() class AdapterTestCase extends TestCase {
         await this._cache.save(item);
 
         item = await this._cache.getItem('key');
-        expect(item.isHit).to.be.true;
-        expect(item.key).to.be.equal('key');
-        expect(item.get()).to.be.equal('value');
+        __self.assertTrue(item.isHit);
+        __self.assertEquals('key', item.key);
+        __self.assertEquals('value', item.get());
 
         item = await this._cache.getItem('key2');
-        expect(item.isHit).to.be.false;
-        expect(item.get()).to.be.undefined;
+        __self.assertFalse(item.isHit);
+        __self.assertUndefined(item.get());
     }
 
     async testGetItems() {
@@ -138,7 +132,7 @@ export default @timeSensitive() class AdapterTestCase extends TestCase {
             await this._cache.save(item);
         }
 
-        expect(items.size).to.be.equal(3);
+        __self.assertEquals(3, items.size);
 
         keys.push('biz');
         items = await this._cache.getItems(keys);
@@ -146,19 +140,19 @@ export default @timeSensitive() class AdapterTestCase extends TestCase {
         for (const [ key, item ] of items.entries()) {
             const itemKey = item.key;
 
-            expect(itemKey).to.be.equal(key);
-            expect(item.isHit).to.be.equal('biz' !== key);
-            expect(item.get()).to.be.equal('biz' !== key ? key : undefined);
-            expect(keys.indexOf(key)).not.to.be.equal(-1);
+            __self.assertEquals(key, itemKey);
+            __self.assertEquals('biz' !== key, item.isHit);
+            __self.assertEquals('biz' !== key ? key : undefined, item.get());
+            __self.assertNotEquals(-1, keys.indexOf(key));
 
             count++;
         }
 
-        expect(count).to.be.equal(4);
+        __self.assertEquals(4, count);
 
         items = await this._cache.getItems([]);
-        expect(items).to.be.instanceOf(Map);
-        expect(items.size).to.be.equal(0);
+        __self.assertInstanceOf(Map, items);
+        __self.assertEquals(0, items.size);
     }
 
     async testHasItem() {
@@ -166,8 +160,8 @@ export default @timeSensitive() class AdapterTestCase extends TestCase {
         item.set('value');
         await this._cache.save(item);
 
-        expect(await this._cache.hasItem('key')).to.be.true;
-        expect(await this._cache.hasItem('key2')).to.be.false;
+        __self.assertTrue(await this._cache.hasItem('key'));
+        __self.assertFalse(await this._cache.hasItem('key2'));
     }
 
     async testClear() {
@@ -175,9 +169,9 @@ export default @timeSensitive() class AdapterTestCase extends TestCase {
         item.set('value');
         await this._cache.save(item);
 
-        expect(await this._cache.clear()).to.be.true;
-        expect((await this._cache.getItem('key')).isHit).to.be.false;
-        expect(await this._cache.hasItem('key2')).to.be.false;
+        __self.assertTrue(await this._cache.clear());
+        __self.assertFalse((await this._cache.getItem('key')).isHit);
+        __self.assertFalse(await this._cache.hasItem('key2'));
     }
 
     async testDeleteItem() {
@@ -185,12 +179,12 @@ export default @timeSensitive() class AdapterTestCase extends TestCase {
         item.set('value');
         await this._cache.save(item);
 
-        expect(await this._cache.deleteItem('key')).to.be.true;
-        expect((await this._cache.getItem('key')).isHit).to.be.false;
-        expect(await this._cache.hasItem('key')).to.be.false;
+        __self.assertTrue(await this._cache.deleteItem('key'));
+        __self.assertFalse((await this._cache.getItem('key')).isHit);
+        __self.assertFalse(await this._cache.hasItem('key'));
 
         // Requesting deletion of non-existent key should return true
-        expect(await this._cache.deleteItem('key2')).to.be.true;
+        __self.assertTrue(await this._cache.deleteItem('key2'));
     }
 
     async testDeleteItems() {
@@ -202,36 +196,36 @@ export default @timeSensitive() class AdapterTestCase extends TestCase {
             await this._cache.save(item);
         }
 
-        expect(await this._cache.hasItem('foo')).to.be.true;
-        expect(await this._cache.hasItem('bar')).to.be.true;
-        expect(await this._cache.hasItem('baz')).to.be.true;
-        expect(await this._cache.hasItem('biz')).to.be.false;
+        __self.assertTrue(await this._cache.hasItem('foo'));
+        __self.assertTrue(await this._cache.hasItem('bar'));
+        __self.assertTrue(await this._cache.hasItem('baz'));
+        __self.assertFalse(await this._cache.hasItem('biz'));
 
         await this._cache.deleteItems(keys);
 
-        expect(await this._cache.hasItem('foo')).to.be.false;
-        expect(await this._cache.hasItem('bar')).to.be.false;
-        expect(await this._cache.hasItem('baz')).to.be.false;
-        expect(await this._cache.hasItem('biz')).to.be.false;
+        __self.assertFalse(await this._cache.hasItem('foo'));
+        __self.assertFalse(await this._cache.hasItem('bar'));
+        __self.assertFalse(await this._cache.hasItem('baz'));
+        __self.assertFalse(await this._cache.hasItem('biz'));
     }
 
     async testSave() {
         const item = await this._cache.getItem('key');
         item.set('value');
 
-        expect(await this._cache.save(item)).to.be.true;
-        expect((await this._cache.getItem('key')).get()).to.be.equal('value');
+        __self.assertTrue(await this._cache.save(item));
+        __self.assertEquals('value', (await this._cache.getItem('key')).get());
     }
 
     async testSaveExpired() {
         const item = await this._cache.getItem('key');
         item.set('value');
         item.expiresAt(new DateTime(DateTime.unixTime + 10));
-        expect(await this._cache.save(item)).to.be.true;
+        __self.assertTrue(await this._cache.save(item));
         item.expiresAt(new DateTime(DateTime.unixTime -1));
         await this._cache.save(item);
 
-        expect(await this._cache.hasItem('key')).to.be.false;
+        __self.assertFalse(await this._cache.hasItem('key'));
     }
 
     @dataProvider('provideInvalidKeys')
@@ -243,7 +237,7 @@ export default @timeSensitive() class AdapterTestCase extends TestCase {
             caught = e;
         }
 
-        expect(caught).to.be.instanceOf(InvalidArgumentException);
+        __self.assertInstanceOf(InvalidArgumentException, caught);
     }
 
     @dataProvider('provideInvalidKeys')
@@ -255,7 +249,7 @@ export default @timeSensitive() class AdapterTestCase extends TestCase {
             caught = e;
         }
 
-        expect(caught).to.be.instanceOf(InvalidArgumentException);
+        __self.assertInstanceOf(InvalidArgumentException, caught);
     }
 
     @dataProvider('provideInvalidKeys')
@@ -267,7 +261,7 @@ export default @timeSensitive() class AdapterTestCase extends TestCase {
             caught = e;
         }
 
-        expect(caught).to.be.instanceOf(InvalidArgumentException);
+        __self.assertInstanceOf(InvalidArgumentException, caught);
     }
 
     @dataProvider('provideInvalidKeys')
@@ -279,7 +273,7 @@ export default @timeSensitive() class AdapterTestCase extends TestCase {
             caught = e;
         }
 
-        expect(caught).to.be.instanceOf(InvalidArgumentException);
+        __self.assertInstanceOf(InvalidArgumentException, caught);
     }
 
     @dataProvider('provideInvalidKeys')
@@ -291,7 +285,7 @@ export default @timeSensitive() class AdapterTestCase extends TestCase {
             caught = e;
         }
 
-        expect(caught).to.be.instanceOf(InvalidArgumentException);
+        __self.assertInstanceOf(InvalidArgumentException, caught);
     }
 
     async testDefaultLifetime() {
@@ -304,11 +298,11 @@ export default @timeSensitive() class AdapterTestCase extends TestCase {
 
         await __jymfony.sleep(1);
         item = await cache.getItem('key.dlt');
-        expect(item.isHit).to.be.true;
+        __self.assertTrue(item.isHit);
 
         await __jymfony.sleep(3000);
         item = await cache.getItem('key.dlt');
-        expect(item.isHit).to.be.false;
+        __self.assertFalse(item.isHit);
     }
 
     async testExpiration() {
@@ -318,12 +312,12 @@ export default @timeSensitive() class AdapterTestCase extends TestCase {
 
         await __jymfony.sleep(3000);
         let item = await this._cache.getItem('k1');
-        expect(item.isHit).to.be.false;
-        expect(item.get()).to.be.undefined;
+        __self.assertFalse(item.isHit);
+        __self.assertUndefined(item.get());
 
         item = await this._cache.getItem('k2');
-        expect(item.isHit).to.be.true;
-        expect(item.get()).to.be.equal('v2');
+        __self.assertTrue(item.isHit);
+        __self.assertEquals('v2', item.get());
     }
 
     async testNotUnserializable() {
@@ -331,7 +325,7 @@ export default @timeSensitive() class AdapterTestCase extends TestCase {
         await this._cache.save(item.set(new NotUnserializable()));
 
         item = await this._cache.getItem('foo');
-        expect(item.isHit).to.be.false;
+        __self.assertFalse(item.isHit);
     }
 
     /**

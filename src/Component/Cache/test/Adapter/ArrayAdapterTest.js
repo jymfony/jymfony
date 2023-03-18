@@ -1,7 +1,7 @@
 const AdapterTestCase = Jymfony.Component.Cache.Tests.Adapter.AdapterTestCase;
 const ArrayAdapter = Jymfony.Component.Cache.Adapter.ArrayAdapter;
 
-export default class ArrayAdapterTest extends AdapterTestCase {
+export default @timeSensitive() class ArrayAdapterTest extends AdapterTestCase {
     async testValuesShouldReturnAllTheValues() {
         let item = await this._cache.getItem('key');
         item.set('4711');
