@@ -47,6 +47,14 @@ declare namespace Jymfony.Component.Testing.Framework {
         assertEquals(expected: any, actual: any, message?: string): void;
 
         /**
+         * Asserts that two variables are not equal.
+         *
+         * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+         */
+        static assertNotEquals(expected: any, actual: any, message?: string): void;
+        assertNotEquals(expected: any, actual: any, message?: string): void;
+
+        /**
          * Asserts that a variable is empty.
          *
          * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
@@ -71,6 +79,16 @@ declare namespace Jymfony.Component.Testing.Framework {
          */
         static assertSame(expected: any, actual: any, message?: string): void;
         assertSame(expected: any, actual: any, message?: string): void;
+
+        /**
+         * Asserts that two variables have not the same type and value.
+         * Used on objects, it asserts that two variables reference
+         * different objects.
+         *
+         * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+         */
+        static assertNotSame(expected: any, actual: any, message?: string): void;
+        assertNotSame(expected: any, actual: any, message?: string): void;
 
         /**
          * Asserts that a condition is true.

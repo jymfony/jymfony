@@ -119,6 +119,15 @@ export default class Assert {
     }
 
     /**
+     * Asserts that two variables are not equal.
+     *
+     * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+     */
+    static assertNotEquals(expected, actual, message = '') {
+        this.assertThat(actual, this.logicalNot(new IsEqual(expected)), message);
+    }
+
+    /**
      * Asserts that a variable is empty.
      *
      * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
@@ -145,6 +154,17 @@ export default class Assert {
      */
     static assertSame(expected, actual, message = '') {
         this.assertThat(actual, new IsIdentical(expected), message);
+    }
+
+    /**
+     * Asserts that two variables have not the same type and value.
+     * Used on objects, it asserts that two variables reference
+     * different objects.
+     *
+     * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+     */
+    static assertNotSame(expected, actual, message = '') {
+        this.assertThat(actual, this.logicalNot(new IsIdentical(expected)), message);
     }
 
     /**
