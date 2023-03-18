@@ -3,6 +3,10 @@ const InvalidArgumentException = Jymfony.Contracts.Cache.Exception.InvalidArgume
 const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 
 export default class CacheItemTest extends TestCase {
+    get testCaseName() {
+        return '[Cache] ' + super.testCaseName;
+    }
+
     testShouldAcceptValidKeys() {
         // TODO: assert no exception is thrown
         CacheItem.validateKey('foo');
