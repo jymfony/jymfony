@@ -249,11 +249,11 @@ class Autoloader {
      * @private
      */
     _processPackageInfo(packageInfo, baseDir, includes, root = false) {
-        if (! packageInfo.config || ! packageInfo.config['jymfony-autoload']) {
+        if (! packageInfo.config || (! packageInfo.config['jymfony-autoload'] && ! packageInfo.config['jymfony-autoload-dev'])) {
             return;
         }
 
-        const config = packageInfo.config['jymfony-autoload'];
+        const config = packageInfo.config['jymfony-autoload'] || {};
         if (config.namespaces) {
             this._processNamespaces(config.namespaces, baseDir);
         }
