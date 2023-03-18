@@ -251,6 +251,7 @@ export default class TestCase extends Assert {
                             args,
                             currentTest: reflectionMethod.name,
                             setTimeout: this.timeout.bind(this),
+                            setTitle: newTitle => this._runnable.title = newTitle,
                         };
 
                         const defaultTimeout = self.defaultTimeout;
@@ -357,6 +358,17 @@ export default class TestCase extends Assert {
     setTimeout(ms) {
         if (this._context) {
             this._context.setTimeout(ms);
+        }
+    }
+
+    /**
+     * Sets the title for the currently running test.
+     *
+     * @param title
+     */
+    setTitle(title) {
+        if (this._context) {
+            this._context.setTitle(title);
         }
     }
 

@@ -81,6 +81,11 @@ declare namespace Jymfony.Component.Testing.Framework {
         setTimeout(ms: number): void;
 
         /**
+         * Sets the title for the currently running test.
+         */
+        setTitle(title: string): void;
+
+        /**
          * Register an exception to be expected.
          * The test will pass only if an exception of the given class (or one of its subclasses)
          * has been thrown while executing the test.
