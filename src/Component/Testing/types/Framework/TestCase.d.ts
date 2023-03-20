@@ -5,7 +5,7 @@ declare namespace Jymfony.Component.Testing.Framework {
         currentTest: string;
     }
 
-    export class TestCase {
+    export class TestCase extends Assert {
         protected _context: Partial<TestCaseContext>;
         private _expectedException: undefined | ReflectionClass;
         private _expectedExceptionMessage: undefined | string;
