@@ -42,6 +42,7 @@ export default class VarCloner extends AbstractCloner {
                     case null === v:
                     case isBoolean(v):
                     case isNumber(v):
+                    case isBigInt(v):
                         continue;
 
                     case isString(v): {
