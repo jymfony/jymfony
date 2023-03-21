@@ -646,6 +646,7 @@ declare module NodeJS {
         implementationOf<TParams extends any[]>(...interfaces: TParams): Newable<any, any & __jymfony.JObject> & any;
 
         isArguments(value: any): value is IArguments;
+        isBigInt(value: any): value is bigint;
         isBoolean(value: any): value is boolean;
         isString(value: any): value is string;
         isNumber(value: any): value is number;
@@ -941,6 +942,7 @@ declare function implementationOf<M0 extends object, M1 extends object, M2 exten
 declare function implementationOf<TParams extends any[]>(...interfaces: TParams): Newable<any, any & __jymfony.JObject> & any;
 
 declare function isArguments(value: any): value is IArguments;
+declare function isBigInt(value: any): value is bigint;
 declare function isBoolean(value: any): value is boolean;
 declare function isString(value: any): value is string;
 declare function isNumber(value: any): value is number;

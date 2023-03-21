@@ -10,7 +10,7 @@ if (! isFunction(globalThis.isObject)) {
     };
 }
 
-for (const name of [ 'Arguments', 'Boolean', 'String', 'Number', 'Date', 'RegExp', 'Error', 'Symbol', 'Map', 'WeakMap', 'Set', 'WeakSet' ]) {
+for (const name of [ 'Arguments', 'BigInt', 'Boolean', 'String', 'Number', 'Date', 'RegExp', 'Error', 'Symbol', 'Map', 'WeakMap', 'Set', 'WeakSet' ]) {
     if (isFunction(globalThis['is' + name])) {
         continue;
     }
