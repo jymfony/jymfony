@@ -1,6 +1,5 @@
-const Generator = require('@jymfony/compiler/src/SourceMap/Generator');
+const { Generator, registerSourceMap } = require('@jymfony/compiler/src/SourceMap');
 const ManagedProxy = require('./Proxy/ManagedProxy');
-const StackHandler = require('@jymfony/compiler/src/SourceMap/StackHandler');
 const CircularDependencyException = require('./Exception/CircularDependencyException');
 
 let Typescript;
@@ -245,60 +244,64 @@ class ClassLoader {
             code = stripBOM(this._finder.load(fn));
         }
 
-        const sourceMapGenerator = new Generator({ file: fn, skipValidation: ! __jymfony.autoload.debug });
-        const decorators = {};
-
-        const parser = new Parser();
-        const compiler = new Compiler(sourceMapGenerator, { filename: fn, namespace });
-
+        const sourceMapGenerator = new Generator(fn, ! __jymfony.autoload.debug);
         try {
-            program = parser.parse(code);
-        } catch (e) {
-            if (e instanceof SyntaxError) {
-                e.message = 'Syntax error while parsing ' + fn + ': ' + e.message;
+            const decorators = {};
+
+            const parser = new Parser();
+            const compiler = new Compiler(sourceMapGenerator, {filename: fn, namespace});
+
+            try {
+                program = parser.parse(code);
+            } catch (e) {
+                if (e instanceof SyntaxError) {
+                    e.message = 'Syntax error while parsing ' + fn + ': ' + e.message;
+                }
+
+                throw e;
             }
 
-            throw e;
+            program.prepare();
+
+            const p = new AST.Program(program.location);
+
+            if (sourceMap) {
+                sourceMap.sources = sourceMap.sources.map(s => normalize(pathResolve(sourceMap.sourceRoot + '/' + s)));
+                p.addSourceMappings(sourceMap);
+            } else {
+                p.addSourceMappings(...(program.sourceMappings.filter(isObjectLiteral)));
+            }
+
+            const args = [
+                new AST.Identifier(null, 'exports'),
+                new AST.Identifier(null, 'require'),
+                new AST.Identifier(null, 'module'),
+                new AST.Identifier(null, '__filename'),
+                new AST.Identifier(null, '__dirname'),
+            ];
+
+            if (self) {
+                args.push(new AST.Identifier(null, '__self'));
+            }
+
+            p.add(new AST.ParenthesizedExpression(null,
+                new AST.FunctionExpression(null, new AST.BlockStatement(null, [
+                    new AST.StringLiteral(null, '\'use strict\''),
+                    ...program.body,
+                ]), null, args)
+            ));
+
+            code = compiler.compile(p);
+            registerSourceMap(fn, sourceMapGenerator.getMappings());
+
+            return codeCache[fn] = {
+                code,
+                program,
+                decorators,
+            };
+        } finally {
+            sourceMapGenerator.free();
         }
-
-        program.prepare();
-
-        const p = new AST.Program(program.location);
-
-        if (sourceMap) {
-            sourceMap.sources = sourceMap.sources.map(s => normalize(pathResolve(sourceMap.sourceRoot + '/' + s)));
-            p.addSourceMappings(sourceMap);
-        } else {
-            p.addSourceMappings(...(program.sourceMappings.filter(isObjectLiteral)));
-        }
-
-        const args = [
-            new AST.Identifier(null, 'exports'),
-            new AST.Identifier(null, 'require'),
-            new AST.Identifier(null, 'module'),
-            new AST.Identifier(null, '__filename'),
-            new AST.Identifier(null, '__dirname'),
-        ];
-
-        if (self) {
-            args.push(new AST.Identifier(null, '__self'));
-        }
-
-        p.add(new AST.ParenthesizedExpression(null,
-            new AST.FunctionExpression(null, new AST.BlockStatement(null, [
-                new AST.StringLiteral(null, '\'use strict\''),
-                ...program.body,
-            ]), null, args)
-        ));
-
-        code = compiler.compile(p);
-        StackHandler.registerSourceMap(fn, sourceMapGenerator.toJSON().mappings);
-
-        return codeCache[fn] = {
-            code,
-            program,
-            decorators,
-        };
     }
 
     /**

@@ -1,4 +1,4 @@
-const SourceMapGenerator = require('@jymfony/compiler/src/SourceMap/Generator');
+const { Generator: SourceMapGenerator } = require('@jymfony/compiler/src/SourceMap');
 const ReflectionParameter = require('./ReflectionParameter');
 const ReflectorTrait = require('./ReflectorTrait');
 const vm = require('vm');
