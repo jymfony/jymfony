@@ -26,7 +26,7 @@
     "@jymfony/filesystem": "https://github.com/jymfony/filesystem.git",
     "@jymfony/testing": "https://github.com/jymfony/testing.git",
     "chai": "^4.2",
-    "mocha": "^6.0"
+    "mocha": "^10.2"
   },
   "config": {
     "jymfony-autoload": {

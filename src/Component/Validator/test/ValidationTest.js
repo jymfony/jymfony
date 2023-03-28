@@ -4,6 +4,10 @@ const ValidationFailedException = Jymfony.Component.Validator.Exception.Validati
 const Validation = Jymfony.Component.Validator.Validation;
 
 export default class ValidationTest extends TestCase {
+    get testCaseName() {
+        return '[Validator] ' + super.testCaseName;
+    }
+
     async testCreateCallableShouldWork() {
         const validator = Validation.createCallable(new Email());
         __self.assertEquals('test@example.org', await validator('test@example.org'));

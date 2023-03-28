@@ -27,7 +27,7 @@
     "@jymfony/testing": "https://github.com/jymfony/testing.git",
     "chai": "^4.2",
     "libxmljs": "^0.19",
-    "mocha": "^6.0"
+    "mocha": "^10.2"
   },
   "config": {
     "jymfony-autoload": {

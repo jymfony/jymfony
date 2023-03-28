@@ -24,8 +24,7 @@
     "@jymfony/testing": "https://github.com/jymfony/testing.git",
     "@jymfony/util": "https://github.com/jymfony/util.git",
     "@types/node": "*",
-    "chai": "^4.2",
-    "mocha": "^6.0"
+    "mocha": "^10.2"
   },
   "config": {
     "jymfony-autoload": {

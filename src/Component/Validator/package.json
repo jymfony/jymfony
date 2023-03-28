@@ -32,7 +32,7 @@
     "@jymfony/var-dumper": "https://github.com/jymfony/var-dumper.git",
     "@jymfony/yaml": "https://github.com/jymfony/yaml.git",
     "chai": "^4.2",
-    "mocha": "^6.0"
+    "mocha": "^10.2"
   },
   "config": {
     "jymfony-autoload": {

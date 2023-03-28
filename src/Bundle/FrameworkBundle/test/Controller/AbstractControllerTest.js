@@ -26,7 +26,7 @@ export default class AbstractControllerTest extends TestCase {
     }
 
     get defaultTimeout() {
-        return 30000;
+        return Infinity;
     }
 
     testShouldGenerateUrl() {

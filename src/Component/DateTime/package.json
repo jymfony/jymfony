@@ -33,7 +33,7 @@
     "@jymfony/testing": "https://github.com/jymfony/testing.git",
     "chai": "^4.2",
     "eslint": "^6.8.0",
-    "mocha": "^6.0"
+    "mocha": "^10.2"
   },
   "config": {
     "jymfony-autoload": {
