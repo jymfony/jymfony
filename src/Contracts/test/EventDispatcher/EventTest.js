@@ -1,17 +1,21 @@
 const Event = Jymfony.Contracts.EventDispatcher.Event;
-const { expect } = require('chai');
+const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 
-describe('[Contracts] Event', function () {
-    it('stop propagation flag is falsy at construction', () => {
-        const event = new Event();
-        expect(event.isPropagationStopped()).to.be.false;
-    });
+export default class EventTest extends TestCase {
+    get testCaseName() {
+        return '[Contracts] ' + super.testCaseName;
+    }
 
-    it('stop propagation flag should be set correctly', () => {
+    testStopPropagationFlagIsFalsyAtConstruction() {
         const event = new Event();
-        expect(event.isPropagationStopped()).to.be.false;
+        __self.assertFalse(event.isPropagationStopped());
+    }
+
+    testStopPropagationFlagShouldBeSetCorrectly() {
+        const event = new Event();
+        __self.assertFalse(event.isPropagationStopped());
 
         event.stopPropagation();
-        expect(event.isPropagationStopped()).to.be.true;
-    });
-});
+        __self.assertTrue(event.isPropagationStopped());
+    }
+}
