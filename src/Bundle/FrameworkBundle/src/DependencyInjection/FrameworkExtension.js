@@ -536,7 +536,7 @@ export default class FrameworkExtension extends Extension {
         }
 
         if (! ReflectionClass.exists('Jymfony.Component.Templating.Engine.JsEngine')) {
-            throw new LogicException('Templating support cannot be enabled as the Templating component is not installed. Try running "yarn add @jymfony/templating".');
+            throw new LogicException('Templating support cannot be enabled as the Templating component is not installed. Try running "npm install @jymfony/templating".');
         }
 
         loader.load('templating.js');
@@ -703,7 +703,7 @@ export default class FrameworkExtension extends Extension {
         }
 
         if (! ReflectionClass.exists('Jymfony.Component.Validator.Validation')) {
-            throw new LogicException('Validation support cannot be enabled as the Validator component is not installed. Try running "yarn add @jymfony/validator".');
+            throw new LogicException('Validation support cannot be enabled as the Validator component is not installed. Try running "npm install @jymfony/validator".');
         }
 
         if (undefined === config.email_validation_mode) {

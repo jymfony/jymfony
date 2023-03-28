@@ -435,7 +435,7 @@ export default class Configuration extends implementationOf(ConfigurationInterfa
                                     .always()
                                     .then(config => {
                                         if (! ReflectionClass.exists('Jymfony.Component.HttpClient.HttpClient')) {
-                                            throw new LogicException('HttpClient support cannot be enabled as the component is not installed. Try running "yarn add @jymfony/http-client".');
+                                            throw new LogicException('HttpClient support cannot be enabled as the component is not installed. Try running "npm install @jymfony/http-client".');
                                         }
 
                                         return isObjectLiteral(config) ? config : { base_uri: config };
