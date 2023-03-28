@@ -26,6 +26,7 @@
   },
   "devDependencies": {
     "@jymfony/debug": "https://github.com/jymfony/debug.git",
+    "@jymfony/filesystem": "https://github.com/jymfony/filesystem.git",
     "@jymfony/testing": "https://github.com/jymfony/testing.git",
     "chai": "^4.2",
     "mocha": "^6.0"
@@ -38,7 +39,8 @@
     },
     "jymfony-autoload-dev": {
       "namespaces": {
-        "Jymfony.Component.Kernel.Tests": "test/"
+        "Jymfony.Component.Kernel.Tests": "test/",
+        "Jymfony.Component.Kernel.Fixtures": "fixtures/"
       }
     }
   }

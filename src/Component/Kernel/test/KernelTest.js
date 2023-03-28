@@ -1,17 +1,11 @@
-const Namespace = Jymfony.Component.Autoloader.Namespace;
-const ContainerBuilder = Jymfony.Component.DependencyInjection.ContainerBuilder;
-const DateTime = Jymfony.Component.DateTime.DateTime;
-const Bundle = Jymfony.Component.Kernel.Bundle;
-const Kernel = Jymfony.Component.Kernel.Kernel;
 const Argument = Jymfony.Component.Testing.Argument.Argument;
-const Prophet = Jymfony.Component.Testing.Prophet;
-
-const { expect } = require('chai');
-const path = require('path');
-
-const Fixtures = new Namespace(__jymfony.autoload, 'Jymfony.Component.Kernel.Fixtures', [
-    path.join(__dirname, '..', 'fixtures'),
-]);
+const ContainerBuilder = Jymfony.Component.DependencyInjection.ContainerBuilder;
+const Bundle = Jymfony.Component.Kernel.Bundle;
+const DateTime = Jymfony.Component.DateTime.DateTime;
+const Filesystem = Jymfony.Component.Filesystem.Filesystem;
+const Fixtures = Jymfony.Component.Kernel.Fixtures;
+const Kernel = Jymfony.Component.Kernel.Kernel;
+const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 
 class CallTracingKernel extends Kernel {
     __construct(methods = [], bundles = []) {
@@ -32,6 +26,11 @@ class CallTracingKernel extends Kernel {
         this._bundles = bundles;
     }
 
+    async boot() {
+        await super.boot();
+        this._container = this._container || { shutdown() {} };
+    }
+
     getCallCount(method) {
         return ~~this._calls[method];
     }
@@ -43,77 +42,84 @@ class CallTracingKernel extends Kernel {
     }
 }
 
-const getKernel = function (methods = [], bundles = []) {
-    return new CallTracingKernel(methods, bundles);
-};
+export default class KernelTest extends TestCase {
+    _kernel;
 
-/**
- * @type {Jymfony.Component.Testing.Prophet}
- */
-let prophet;
+    async afterEach() {
+        if (undefined !== this._kernel) {
+            await this._kernel.shutdown();
+        }
 
-describe('[Kernel] Kernel', function () {
-    beforeEach(() => {
-        prophet = new Prophet();
-    });
+        this._kernel = undefined;
+    }
 
-    afterEach(() => {
-        prophet.checkPredictions();
-    });
+    async after() {
+        const fs = new Filesystem();
+        await fs.remove(__dirname + '/../var');
+    }
 
-    it('constructor', () => {
+    getKernel(methods = [], bundles = []) {
+        return this._kernel = new CallTracingKernel(methods, bundles);
+    }
+
+    testConstructor() {
         const kernel = new Fixtures.KernelForTest('test_env', true);
 
-        expect(kernel.environment).to.be.equal('test_env');
-        expect(kernel.debug).to.be.true;
-        expect(kernel.booted).to.be.false;
-        expect(kernel.container).to.be.equal(undefined);
-        expect(kernel.startTime.microtime <= DateTime.now.microtime).to.be.true;
-    });
+        __self.assertEquals('test_env', kernel.environment);
+        __self.assertTrue(kernel.debug);
+        __self.assertFalse(kernel.booted);
+        __self.assertUndefined(kernel.container);
+        __self.assertGreaterThanOrEqual(kernel.startTime.microtime, DateTime.now.microtime);
+    }
 
-    it('boot should initialize bundles and container', () => {
-        const kernel = getKernel([ '_initializeBundles', '_initializeContainer' ]);
-        kernel.boot();
+    async testBootShouldInitializeBundlesAndContainer() {
+        const kernel = this.getKernel([ '_initializeBundles', '_initializeContainer' ]);
+        await kernel.boot();
 
-        expect(kernel.getCallCount('_initializeBundles')).to.be.equal(1);
-        expect(kernel.getCallCount('_initializeContainer')).to.be.equal(1);
-    });
+        __self.assertEquals(1, kernel.getCallCount('_initializeBundles'));
+        __self.assertEquals(1, kernel.getCallCount('_initializeContainer'));
+    }
 
-    it('boot sets the container to bundles', async () => {
-        const bundle = prophet.prophesize(Bundle);
+    async testBootSetsTheContainerToBundles() {
+        const bundle = this.prophesize(Bundle);
         bundle.setContainer(Argument.any()).willReturn();
         bundle.boot().willReturn();
+        bundle.path().willReturn();
+        bundle.getNamespace().willReturn();
+        bundle.getContainerExtension().willReturn();
+        bundle.build(Argument.any()).willReturn();
+        bundle.shutdown().willReturn();
 
-        const kernel = getKernel([ '_initializeBundles', '_initializeContainer' ], [ bundle.reveal() ]);
+        const kernel = this.getKernel([ '_initializeBundles' ], [ bundle.reveal() ]);
         await kernel.boot();
 
         bundle.setContainer(kernel.container).shouldHaveBeenCalled();
-    });
+    }
 
-    it('boot should set the booted flag', () => {
-        const kernel = getKernel([ '_initializeBundles', '_initializeContainer' ]);
-        kernel.boot();
+    async testBootShouldSetTheBootedFlag() {
+        const kernel = this.getKernel([ '_initializeBundles', '_initializeContainer' ]);
+        await kernel.boot();
 
-        expect(kernel._booted).to.be.true;
-    });
+        __self.assertTrue(kernel._booted);
+    }
 
-    it('boot should initialize bundles once if multiple boot has called', async () => {
-        const kernel = getKernel([ '_initializeBundles', '_initializeContainer' ]);
+    async testBootShouldInitializeBundlesOnceIfMultipleBootHasCalled() {
+        const kernel = this.getKernel([ '_initializeBundles', '_initializeContainer' ]);
         await kernel.boot();
         await kernel.boot();
 
-        expect(kernel.getCallCount('_initializeBundles')).to.be.equal(1);
-        expect(kernel.getCallCount('_initializeContainer')).to.be.equal(1);
-    });
+        __self.assertEquals(1, kernel.getCallCount('_initializeBundles'));
+        __self.assertEquals(1, kernel.getCallCount('_initializeContainer'));
+    }
 
-    it('shutdown should call shutdown on all bundles', async () => {
-        const bundle = prophet.prophesize(Bundle);
-        const kernel = getKernel([ '_initializeContainer' ], [ bundle.reveal() ]);
+    async testShutdownShouldCallShutdownOnAllBundles() {
+        const bundle = this.prophesize(Bundle);
+        const kernel = this.getKernel([ '_initializeContainer' ], [ bundle.reveal() ]);
         kernel._container = new ContainerBuilder();
 
         await kernel.boot();
         await kernel.shutdown();
 
         bundle.shutdown().shouldHaveBeenCalled();
-    });
-});
+    }
+}

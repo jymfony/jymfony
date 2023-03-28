@@ -99,7 +99,7 @@ export default class FileValidator extends ConstraintValidator {
             if (ReflectionClass.exists('Jymfony.Component.Mime.MimeTypes')) {
                 mime = Jymfony.Component.Mime.MimeTypes.instance.guessMimeType(path);
             } else {
-                throw new LogicException('You cannot validate the mime-type of files as the Mime component is not installed. Try running "yarn add @jymfony/mime".');
+                throw new LogicException('You cannot validate the mime-type of files as the Mime component is not installed. Try running "npm install @jymfony/mime".');
             }
 
             /** @var {string[]} mimeTypes */
