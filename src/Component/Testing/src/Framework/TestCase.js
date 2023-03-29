@@ -141,7 +141,7 @@ export default class TestCase extends Assert {
      * @return {int|undefined}
      */
     get defaultTimeout() {
-        return undefined;
+        return Infinity;
     }
 
     /**
