@@ -145,7 +145,7 @@ export default class Runner {
 
         for (const file of new RecursiveDirectoryIterator(prefix)) {
             const normalizedPath = file.replace(/\\/g, '/');
-            if (! normalizedPath.substr(prefixLen).match(regex)) {
+            if (! normalizedPath.substring(prefixLen).match(regex)) {
                 continue;
             }
 
@@ -191,7 +191,7 @@ export default class Runner {
                     continue;
                 }
 
-                const Class = namespace.name + '.' + __jymfony.ltrim(path.substr(prefixLen, path.length - prefixLen - m[0].length).replace(/[/\\]/g, '.'), '.');
+                const Class = namespace.name + '.' + __jymfony.ltrim(path.substring(prefixLen, path.length - m[0].length).replace(/[/\\]/g, '.'), '.');
                 let r = null;
 
                 try {

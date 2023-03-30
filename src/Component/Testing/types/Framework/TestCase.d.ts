@@ -10,6 +10,7 @@ declare namespace Jymfony.Component.Testing.Framework {
         private _expectedException: undefined | ReflectionClass;
         private _expectedExceptionMessage: undefined | string;
         private _expectedExceptionMessageRegex: undefined | RegExp;
+        private _doesNotPerformAssertions: undefined | boolean;
 
         /**
          * Run test case.
@@ -90,7 +91,7 @@ declare namespace Jymfony.Component.Testing.Framework {
          * The test will pass only if an exception of the given class (or one of its subclasses)
          * has been thrown while executing the test.
          */
-        expectException(exception: string | Newable): void;
+        expectException(exception: string | Newable | ErrorConstructor): void;
 
         /**
          * Register an exception message to be expected.
@@ -105,6 +106,8 @@ declare namespace Jymfony.Component.Testing.Framework {
          * to the regex passed to this method.
          */
         expectExceptionMessageRegex(message: string | RegExp): void;
+
+        expectNotToPerformAssertions(): void;
 
         /**
          * Marks current test as skipped and stops execution.

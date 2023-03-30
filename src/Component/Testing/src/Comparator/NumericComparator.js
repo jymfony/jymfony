@@ -1,3 +1,4 @@
+const ComparisonFailure = Jymfony.Component.Testing.Comparator.ComparisonFailure;
 const ScalarComparator = Jymfony.Component.Testing.Comparator.ScalarComparator;
 
 /**
@@ -13,7 +14,6 @@ export default class NumericComparator extends ScalarComparator {
         // All numerical values, but not if one of them is a double
         // Or both of them are strings
         return isNumeric(expected) && isNumeric(actual) &&
-               !(isNumber(expected) || isNumber(actual)) &&
                !(isString(expected) && isString(actual));
     }
 
@@ -22,6 +22,10 @@ export default class NumericComparator extends ScalarComparator {
      */
     assertEquals(expected, actual, delta = 0.0, ignoreCase = false) { // eslint-disable-line no-unused-vars
         if (isInfinite(actual) && isInfinite(expected)) {
+            return;
+        }
+
+        if (isNaN(actual) && isNaN(expected)) {
             return;
         }
 

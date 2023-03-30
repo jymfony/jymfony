@@ -66,6 +66,13 @@ export default class TestCase extends Assert {
          */
         this._expectedExceptionMessageRegex = undefined;
 
+        /**
+         * @type {undefined | boolean}
+         *
+         * @private
+         */
+        this._doesNotPerformAssertions = undefined;
+
         this._afterEachHooks = [];
         this._beforeEachHooks = [];
 
@@ -181,6 +188,7 @@ export default class TestCase extends Assert {
                 self._expectedException = undefined;
                 self._expectedExceptionMessage = undefined;
                 self._expectedExceptionMessageRegex = undefined;
+                self._doesNotPerformAssertions = undefined;
                 prophets.delete(self);
 
                 const defaultTimeout = self.defaultTimeout;
@@ -377,7 +385,7 @@ export default class TestCase extends Assert {
      * The test will pass only if an exception of the given class (or one of its subclasses)
      * has been thrown while executing the test.
      *
-     * @param {string | Function} exception
+     * @param {string | Function | ErrorConstructor} exception
      */
     expectException(exception) {
         this._expectedException = new ReflectionClass(exception);
@@ -413,6 +421,10 @@ export default class TestCase extends Assert {
         }
 
         this._expectedExceptionMessageRegex = message;
+    }
+
+    expectNotToPerformAssertions() {
+        this._doesNotPerformAssertions = true;
     }
 
     /**

@@ -329,6 +329,15 @@ declare namespace Jymfony.Component.Testing.Framework {
         assertIsScalar(actual: any, message?: string): void;
 
         /**
+         * Asserts that a variable is a promise.
+         *
+         * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+         * @throws {InvalidArgumentException}
+         */
+        static assertIsPromise(actual: any, message?: string): void;
+        assertIsPromise(actual: any, message?: string): void;
+
+        /**
          * Evaluates a Constraint matcher object.
          *
          * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}

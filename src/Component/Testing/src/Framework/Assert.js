@@ -442,6 +442,16 @@ export default class Assert {
     }
 
     /**
+     * Asserts that a variable is a promise.
+     *
+     * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+     * @throws {InvalidArgumentException}
+     */
+    static assertIsPromise(actual, message = '') {
+        __self.assertThat(actual, new IsType(IsType.TYPE_PROMISE), message);
+    }
+
+    /**
      * Evaluates a Constraint matcher object.
      *
      * @param {*} value

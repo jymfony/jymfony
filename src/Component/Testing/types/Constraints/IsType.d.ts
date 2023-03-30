@@ -23,6 +23,7 @@ declare namespace Jymfony.Component.Testing.Constraints {
         public static readonly TYPE_ARRAY: 'array';
         public static readonly TYPE_NULL: 'null';
         public static readonly TYPE_SCALAR: 'scalar';
+        public static readonly TYPE_PROMISE: 'promise';
 
         private _type: string;
 
