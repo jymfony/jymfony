@@ -58,7 +58,8 @@ export default class AnnotationAutoconfigurationPass extends AbstractRecursivePa
         if (null !== constructorReflector) {
             for (const parameter of constructorReflector.parameters) {
                 for (const [ klass, attribute ] of parameter.metadata) {
-                    const configurator = configurators[klass];
+                    const className = ReflectionClass.getClassName(klass);
+                    const configurator = configurators[className];
                     if (configurator) {
                         configurator(conditionals, attribute, parameter);
                     }
@@ -73,7 +74,8 @@ export default class AnnotationAutoconfigurationPass extends AbstractRecursivePa
             }
 
             for (const [ klass, attribute ] of methodReflector.metadata) {
-                const configurator = configurators[klass];
+                const className = ReflectionClass.getClassName(klass);
+                const configurator = configurators[className];
                 if (configurator) {
                     configurator(conditionals, attribute, methodReflector);
                 }
@@ -87,7 +89,8 @@ export default class AnnotationAutoconfigurationPass extends AbstractRecursivePa
             }
 
             for (const [ klass, attribute ] of reflector.metadata) {
-                const configurator = configurators[klass];
+                const className = ReflectionClass.getClassName(klass);
+                const configurator = configurators[className];
                 if (configurator) {
                     configurator(conditionals, attribute, reflector);
                 }
@@ -98,7 +101,8 @@ export default class AnnotationAutoconfigurationPass extends AbstractRecursivePa
             if (classReflector.hasWritableProperty(propertyName)) {
                 const reflector = classReflector.getWritableProperty(propertyName);
                 for (const [ klass, attribute ] of reflector.metadata) {
-                    const configurator = configurators[klass];
+                    const className = ReflectionClass.getClassName(klass);
+                    const configurator = configurators[className];
                     if (configurator) {
                         configurator(conditionals, attribute, reflector);
                     }
@@ -108,7 +112,8 @@ export default class AnnotationAutoconfigurationPass extends AbstractRecursivePa
             if (classReflector.hasReadableProperty(propertyName)) {
                 const reflector = classReflector.getReadableProperty(propertyName);
                 for (const [ klass, attribute ] of reflector.metadata) {
-                    const configurator = configurators[klass];
+                    const className = ReflectionClass.getClassName(klass);
+                    const configurator = configurators[className];
                     if (configurator) {
                         configurator(conditionals, attribute, reflector);
                     }
