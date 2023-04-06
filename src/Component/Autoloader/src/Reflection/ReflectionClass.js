@@ -234,7 +234,7 @@ class ReflectionClass extends implementationOf(ReflectorInterface, ReflectorTrai
      * @returns {boolean}
      */
     hasReadableProperty(name) {
-        return this._readableProperties[name] !== undefined;
+        return true === this._readableProperties[name];
     }
 
     /**
@@ -256,7 +256,7 @@ class ReflectionClass extends implementationOf(ReflectorInterface, ReflectorTrai
      * @returns {boolean}
      */
     hasWritableProperty(name) {
-        return this._writableProperties[name] !== undefined;
+        return true === this._writableProperties[name];
     }
 
     /**
