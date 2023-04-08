@@ -7,6 +7,10 @@ const Stopwatch = Jymfony.Component.Stopwatch.Stopwatch;
 const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 
 export default class TraceableEventDispatcherTest extends TestCase {
+    get testCaseName() {
+        return '[EventDispatcher] ' + super.testCaseName;
+    }
+
     get defaultTimeout() {
         return Infinity;
     }

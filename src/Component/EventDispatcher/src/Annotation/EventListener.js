@@ -11,11 +11,19 @@ class EventListener {
     /**
      * Constructor.
      *
-     * @param {string} event
+     * @param {string | Function} event
      * @param {string} method
      * @param {int} priority
      */
-    __construct({ event = null, method = null, priority = 0 }) {
+    __construct({ event, method = null, priority = 0 }) {
+        if (isFunction(event)) {
+            event = ReflectionClass.getClassName(event);
+        }
+
+        if (undefined === event) {
+            throw new LogicException('Invalid EventListener annotation: the event property must be passed in the argument');
+        }
+
         /**
          * @type {string | null}
          *

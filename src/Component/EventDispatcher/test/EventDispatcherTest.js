@@ -68,7 +68,7 @@ export default class EventDispatcherTest extends TestCase {
     }
 
     get testCaseName() {
-        return '[EventDispatcher] EventDispatcher';
+        return '[EventDispatcher] ' + super.testCaseName;
     }
 
     testConstruct() {
