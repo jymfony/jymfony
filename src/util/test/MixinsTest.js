@@ -1,30 +1,28 @@
-require('../lib/mixins');
-const { expect } = require('chai');
+const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 
-describe('Mixins', function () {
-    it ('should throw passing undefined to mix', () => {
-        expect(() => {
-            // eslint-disable-next-line no-unused-vars
-            class Foo extends implementationOf(undefined) { }
-        }).to.throw(LogicException, /Cannot implement\/use undefined as interface\/trait\. You probably passed a broken reference to mix\/implementationOf\./);
-    });
+export default class MixinsTest extends TestCase {
+    testShouldThrowPassingUndefinedToMix() {
+        this.expectException(LogicException);
+        this.expectExceptionMessage('Cannot implement/use undefined as interface/trait. You probably passed a broken reference to mix/implementationOf.');
 
-    it ('should throw passing non-function to mix', () => {
-        expect(() => {
-            // eslint-disable-next-line no-unused-vars
-            class Foo extends implementationOf('foobar') { }
-        }).to.throw(LogicException, /Cannot implement\/use string as interface\/trait\. You probably passed a broken reference to mix\/implementationOf\./);
-    });
-});
+        // eslint-disable-next-line no-unused-vars
+        class Foo extends implementationOf(undefined) { }
+    }
 
-describe('Mixins.getInterface', function () {
-    it('should return an extendable expression', () => {
+    testShouldThrowPassingNonFunctionToMix() {
+        this.expectException(LogicException);
+        this.expectExceptionMessage('Cannot implement/use string as interface/trait. You probably passed a broken reference to mix/implementationOf.');
+
+        // eslint-disable-next-line no-unused-vars
+        class Foo extends implementationOf('foobar') { }
+    }
+
+    testShouldReturnAnExtendableExpression() {
         const iTest = getInterface(class TestInterface {});
+        __self.assertIsFunction(iTest);
+    }
 
-        return expect('function' === typeof iTest).to.be.true;
-    });
-
-    it('should check for unimplemented methods', () => {
+    testShouldCheckForUnimplementedMethods() {
         const iTest = getInterface(class TestInterface {
             foo() { }
         });
@@ -36,10 +34,12 @@ describe('Mixins.getInterface', function () {
 
         new cTest2();
 
-        expect(() => new cTest()).to.throw(SyntaxError, 'Method "foo" must be implemented.');
-    });
+        this.expectException(SyntaxError);
+        this.expectExceptionMessage('Method "foo" must be implemented.');
+        new cTest();
+    }
 
-    it('should check for unimplemented static methods', () => {
+    testShouldCheckForUnimplementedStaticMethods() {
         const iTest = getInterface(class TestInterface {
             static foo() { }
         });
@@ -55,15 +55,33 @@ describe('Mixins.getInterface', function () {
         new cTest2();
         new cTest3();
 
-        expect(() => new cTest()).to.throw(SyntaxError, 'Method "foo" must be implemented.');
-    });
+        this.expectException(SyntaxError);
+        this.expectExceptionMessage('Method "foo" must be implemented.');
+        new cTest();
+    }
 
-    it('should check for unimplemented getters', () => {
+    testShouldCheckForUnimplementedGetSetters() {
         const iTest = getInterface(class TestInterface {
             get foo() { }
         });
 
         const cTest = class extends implementationOf(iTest) {};
+        const cTest2 = class extends implementationOf(iTest) {
+            get foo() { }
+        };
+
+        new cTest2();
+
+        this.expectException(SyntaxError);
+        this.expectExceptionMessage('Getter/Setter for "foo" property must be implemented.');
+        new cTest();
+    }
+
+    testShouldCheckForUnimplementedGetters() {
+        const iTest = getInterface(class TestInterface {
+            get foo() { }
+        });
+
         const cTest2 = class extends implementationOf(iTest) {
             get foo() { }
         };
@@ -73,11 +91,12 @@ describe('Mixins.getInterface', function () {
 
         new cTest2();
 
-        expect(() => new cTest()).to.throw(SyntaxError, 'Getter/Setter for "foo" property must be implemented.');
-        expect(() => new cTest3()).to.throw(SyntaxError, 'Getter for "foo" property must be implemented.');
-    });
+        this.expectException(SyntaxError);
+        this.expectExceptionMessage('Getter for "foo" property must be implemented.');
+        new cTest3();
+    }
 
-    it('should check for unimplemented static getters', () => {
+    testShouldCheckForUnimplementedStaticGetters() {
         const iTest = getInterface(class TestInterface {
             static get foo() { }
         });
@@ -89,15 +108,33 @@ describe('Mixins.getInterface', function () {
 
         new cTest2();
 
-        expect(() => new cTest()).to.throw(SyntaxError, 'Getter for "foo" property must be implemented.');
-    });
+        this.expectException(SyntaxError);
+        this.expectExceptionMessage('Getter for "foo" property must be implemented.');
+        new cTest();
+    }
 
-    it('should check for unimplemented setters', () => {
+    testShouldCheckForUnimplementedSetGetters() {
         const iTest = getInterface(class TestInterface {
             set foo(foo) { }
         });
 
         const cTest = class extends implementationOf(iTest) {};
+        const cTest2 = class extends implementationOf(iTest) {
+            set foo(foo) { }
+        };
+
+        new cTest2();
+
+        this.expectException(SyntaxError);
+        this.expectExceptionMessage('Getter/Setter for "foo" property must be implemented.');
+        new cTest();
+    }
+
+    testShouldCheckForUnimplementedSetters() {
+        const iTest = getInterface(class TestInterface {
+            set foo(foo) { }
+        });
+
         const cTest2 = class extends implementationOf(iTest) {
             set foo(foo) { }
         };
@@ -107,11 +144,12 @@ describe('Mixins.getInterface', function () {
 
         new cTest2();
 
-        expect(() => new cTest()).to.throw(SyntaxError, 'Setter for "foo" property must be implemented.');
-        expect(() => new cTest3()).to.throw(SyntaxError, 'Setter for "foo" property must be implemented.');
-    });
+        this.expectException(SyntaxError);
+        this.expectExceptionMessage('Setter for "foo" property must be implemented.');
+        new cTest3();
+    }
 
-    it('should check for unimplemented static setters', () => {
+    testShouldCheckForUnimplementedStaticSetters() {
         const iTest = getInterface(class TestInterface {
             static set foo(foo) { }
         });
@@ -123,34 +161,36 @@ describe('Mixins.getInterface', function () {
 
         new cTest2();
 
-        expect(() => new cTest()).to.throw(SyntaxError, 'Setter for "foo" property must be implemented.');
-    });
+        this.expectException(SyntaxError);
+        this.expectExceptionMessage('Setter for "foo" property must be implemented.');
+        new cTest();
+    }
 
-    it('should make instanceof work', () => {
+    testShouldMakeInstanceofWork() {
         const iTest = getInterface(class TestInterface {});
         const iTest2 = getInterface(class Test2Interface {});
 
         class Foobar extends implementationOf(iTest) { }
         const o = new Foobar();
 
-        return expect(o).to.be.instanceOf(Foobar) &&
-            expect(o).to.be.instanceOf(iTest) &&
-            expect(o).not.to.be.instanceOf(iTest2);
-    });
+        __self.assertInstanceOf(Foobar, o);
+        __self.assertInstanceOf(iTest, o);
+        __self.assertNotInstanceOf(iTest2, o);
+    }
 
-    it('can be extended', () => {
+    testCanBeExtended() {
         const iTest = getInterface(class TestInterface {});
-        const iTest2 = getInterface(class Test2Interface extends iTest.definition {});
+        const iTest2 = getInterface(class Test2Interface {}, iTest);
 
         class Foobar extends implementationOf(iTest2) { }
         const o = new Foobar();
 
-        return expect(o).to.be.instanceOf(Foobar) &&
-            expect(o).to.be.instanceOf(iTest) &&
-            expect(o).to.be.instanceOf(iTest2);
-    });
+        __self.assertInstanceOf(Foobar, o);
+        __self.assertInstanceOf(iTest, o);
+        __self.assertInstanceOf(iTest2, o);
+    }
 
-    it('should inherit interfaces from parent classes', () => {
+    testShouldInheritInterfacesFromParentClasses() {
         const iTest = getInterface(class TestInterface {});
         const iTest2 = getInterface(class Test2Interface {});
 
@@ -158,12 +198,13 @@ describe('Mixins.getInterface', function () {
         class FooBar extends mix(Foo, iTest2) {}
 
         const o = new FooBar();
-        expect(o).to.be.instanceOf(FooBar);
-        expect(o).to.be.instanceOf(iTest2);
-        expect(o).to.be.instanceOf(iTest);
-    });
 
-    it('should extend multiple interfaces', () => {
+        __self.assertInstanceOf(FooBar, o);
+        __self.assertInstanceOf(iTest, o);
+        __self.assertInstanceOf(iTest2, o);
+    }
+
+    testShouldExtendMultipleInterfaces() {
         const iParent = getInterface(class ParentInterface {});
         const iParent2 = getInterface(class Parent2Interface {});
         const iTest = getInterface(class TestInterface {}, iParent, iParent2);
@@ -171,28 +212,29 @@ describe('Mixins.getInterface', function () {
         class Foo extends implementationOf(iTest) {}
 
         const o = new Foo();
-        expect(o).to.be.instanceOf(iTest);
-        expect(o).to.be.instanceOf(iParent);
-        expect(o).to.be.instanceOf(iParent2);
-    });
-});
 
-describe('Mixins.getTrait', function () {
-    it('getTrait should return an extendable expression', () => {
+        __self.assertInstanceOf(iTest, o);
+        __self.assertInstanceOf(iParent, o);
+        __self.assertInstanceOf(iParent2, o);
+    }
+
+    testGetTraitShouldReturnAnExtendableExpression() {
         const traitTest = getTrait(class TestTrait {});
+        __self.assertIsFunction(traitTest);
+    }
 
-        return expect('function' === typeof traitTest).to.be.true;
-    });
-
-    it('getTrait should not have instanceof', () => {
+    testGetTraitShouldNotHaveInstanceof() {
         const traitTest = getTrait(class TestTrait {});
         class Foobar extends mix(undefined, traitTest) { }
         const o = new Foobar();
 
-        expect(() => o instanceof traitTest).to.throw(TypeError, 'Function has non-object prototype \'undefined\' in instanceof check');
-    });
+        this.expectException(TypeError);
+        this.expectExceptionMessage('Function has non-object prototype \'undefined\' in instanceof check');
 
-    it('traits should be extended', () => {
+        (() => o instanceof traitTest)();
+    }
+
+    testTraitsShouldBeExtended() {
         const testTrait = getTrait(class TestTrait {
             foo() {
                 return 'foo';
@@ -215,13 +257,13 @@ describe('Mixins.getTrait', function () {
         class Foobar extends mix(undefined, testTraitEx) { }
         const o = new Foobar();
 
-        return expect(o.foo).to.be.instanceOf(Function) &&
-            expect(o.foo()).to.be.equal('bar') &&
-            expect(o.bar).to.be.instanceOf(Function) &&
-            expect(o.foobar).to.be.instanceOf(Function);
-    });
+        __self.assertIsFunction(o.foo);
+        __self.assertEquals('bar', o.foo());
+        __self.assertIsFunction(o.bar);
+        __self.assertIsFunction(o.foobar);
+    }
 
-    it('traits constructor should be called upon object creation', () => {
+    testTraitsConstructorShouldBeCalledUponObjectCreation() {
         const traitTest = getTrait(class TestTrait {
             __construct() {
                 this.foo = 'foobar';
@@ -232,16 +274,16 @@ describe('Mixins.getTrait', function () {
         }
 
         const obj = new Foobar();
-        expect(obj.foo).to.be.equal('foobar');
-    });
+        __self.assertEquals('foobar', obj.foo);
+    }
 
-    it('constants should be inherited from trait', () => {
+    testConstantsShouldBeInheritedFromTrait() {
         const traitClass = class TestTrait { };
         traitClass.STATIC_VALUE = 'static';
 
         const traitTest = getTrait(traitClass);
         class Foobar extends mix(undefined, traitTest) { }
 
-        expect(Foobar.STATIC_VALUE).to.be.equal('static');
-    });
-});
+        __self.assertEquals('static', Foobar.STATIC_VALUE);
+    }
+}

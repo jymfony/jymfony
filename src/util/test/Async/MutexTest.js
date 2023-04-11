@@ -1,8 +1,7 @@
-require('../../index');
-const { expect } = require('chai');
+const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 
-describe('Mutex', function () {
-    it('ownership should be exclusive', async () => {
+export default class MutexTest extends TestCase {
+    async testOwnershipShouldBeExclusive() {
         let flag = false;
 
         const mutex = new __jymfony.Mutex();
@@ -16,39 +15,35 @@ describe('Mutex', function () {
         await mutex.acquire();
         mutex.release();
 
-        expect(flag).to.be.true;
-    });
+        __self.assertTrue(flag);
+    }
 
-    it('runExclusive should pass the result (immediate)', async () => {
+    async testRunExclusiveShouldPassTheResult() {
         const mutex = new __jymfony.Mutex();
 
         const result = await mutex.runExclusive(() => 10);
-        expect(result).to.be.equal(10);
-    });
+        __self.assertEquals(10, result);
+    }
 
-    it('runExclusive should pass the result (promise)', async () => {
+    async testRunExclusiveShouldPassThePromiseResult() {
         const mutex = new __jymfony.Mutex();
 
         const result = await mutex.runExclusive(() => Promise.resolve(10));
-        expect(result).to.be.equal(10);
-    });
+        __self.assertEquals(10, result);
+    }
 
-    it('runExclusive should pass the exception', async () => {
+    async testRunExclusiveShouldPassTheException() {
         const mutex = new __jymfony.Mutex();
 
-        try {
-            await mutex.runExclusive(() => {
-                throw new Error('foo');
-            });
-        } catch (e) {
-            expect(e).to.be.instanceOf(Error);
-            return;
-        }
+        this.expectException(Error);
+        this.expectExceptionMessage('foo');
 
-        throw new Error('FAILED TEST');
-    });
+        await mutex.runExclusive(() => {
+            throw new Error('foo');
+        });
+    }
 
-    it('runExclusive should be exclusive', async () => {
+    async testRunExclusiveShouldBeExclusive() {
         const mutex = new __jymfony.Mutex();
         let flag = false;
 
@@ -57,12 +52,12 @@ describe('Mutex', function () {
             flag = true;
         });
 
-        const ex2 = mutex.runExclusive(() => expect(flag).to.be.true);
+        const ex2 = mutex.runExclusive(() => __self.assertTrue(flag));
 
         await Promise.all([ ex1, ex2 ]);
-    });
+    }
 
-    it('errors during runExclusive do not leave mutex locked', async () => {
+    async testErrorsDuringRunExclusiveDoNotLeaveMutexLocked() {
         const mutex = new __jymfony.Mutex();
 
         try {
@@ -73,32 +68,32 @@ describe('Mutex', function () {
             // Do nothing
         }
 
-        expect(mutex.locked).to.be.false;
-    });
+        __self.assertFalse(mutex.locked);
+    }
 
-    it('new mutex should be unlocked', () => {
+    testNewMutexShouldBeUnlocked() {
         const mutex = new __jymfony.Mutex();
-        expect(mutex.locked).to.be.false;
-    });
+        __self.assertFalse(mutex.locked);
+    }
 
-    it('mutex locked should reflect the mutex state', async () => {
+    async testMutexLockedShouldReflectTheMutexState() {
         const mutex = new __jymfony.Mutex();
-        expect(mutex.locked).to.be.false;
+        __self.assertFalse(mutex.locked);
 
         const lock1 = mutex.acquire();
         const lock2 = mutex.acquire();
 
-        expect(mutex.locked).to.be.true;
+        __self.assertTrue(mutex.locked);
 
         await lock1;
-        expect(mutex.locked).to.be.true;
+        __self.assertTrue(mutex.locked);
 
         mutex.release();
-        expect(mutex.locked).to.be.true;
+        __self.assertTrue(mutex.locked);
 
         await lock2;
         mutex.release();
 
-        expect(mutex.locked).to.be.false;
-    });
-});
+        __self.assertFalse(mutex.locked);
+    }
+}

@@ -1,7 +1,6 @@
-const { expect } = require('chai');
+const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 
-describe('Uppercase first words characters', function () {
-    const testLowerCase =
+const testLowerCase =
 `lorem ipsum dolor sit amet, consectetur adipiscing elit.
 vivamus pretium nibh quis purus congue malesuada.
 aliquam euismod ornare libero, a aliquet felis gravida at.
@@ -13,7 +12,7 @@ proin ut iaculis orci.
 vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;
 praesent nec auctor risus.`;
 
-    const testSomeLowerSomeUpper =
+const testSomeLowerSomeUpper =
 `Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 Vivamus pretium nibh quis purus congue malesuada.
 Aliquam euismod ornare libero, a aliquet felis gravida at.
@@ -25,7 +24,7 @@ Proin ut iaculis orci.
 Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;
 Praesent nec auctor risus.`;
 
-    const expected =
+const expected =
 `Lorem Ipsum Dolor Sit Amet, Consectetur Adipiscing Elit.
 Vivamus Pretium Nibh Quis Purus Congue Malesuada.
 Aliquam Euismod Ornare Libero, A Aliquet Felis Gravida At.
@@ -37,13 +36,7 @@ Proin Ut Iaculis Orci.
 Vestibulum Ante Ipsum Primis In Faucibus Orci Luctus Et Ultrices Posuere Cubilia Curae;
 Praesent Nec Auctor Risus.`;
 
-    it('ucwords should upper case every word contained in the specified string', () => {
-        expect(__jymfony.ucwords(testLowerCase)).to.be.equal(expected);
-        expect(__jymfony.ucwords(testSomeLowerSomeUpper)).to.be.equal(expected);
-    });
-
-
-    const testUpperCase =
+const testUpperCase =
 `LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISCING ELIT.
 VIVAMUS PRETIUM NIBH QUIS PURUS CONGUE MALESUADA.
 ALIQUAM EUISMOD ORNARE LIBERO, A ALIQUET FELIS GRAVIDA AT.
@@ -55,7 +48,13 @@ PROIN UT IACULIS ORCI.
 VESTIBULUM ANTE IPSUM PRIMIS IN FAUCIBUS ORCI LUCTUS ET ULTRICES POSUERE CUBILIA CURAE;
 PRAESENT NEC AUCTOR RISUS.`;
 
-    it('ucwords over an already upper cased string should return the same string', () => {
-        expect(__jymfony.ucwords(testUpperCase)).to.be.equal(testUpperCase);
-    });
-});
+export default class UcWordsTest extends TestCase {
+    testUcwordsShouldUpperCaseEveryWordContainedInTheSpecifiedString() {
+        __self.assertEquals(expected, __jymfony.ucwords(testLowerCase));
+        __self.assertEquals(expected, __jymfony.ucwords(testSomeLowerSomeUpper));
+    }
+
+    testUcwordsOverAnAlreadyUpperCasedStringShouldReturnTheSameString() {
+        __self.assertEquals(testUpperCase, __jymfony.ucwords(testUpperCase));
+    }
+}

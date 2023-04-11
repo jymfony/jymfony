@@ -1,5 +1,4 @@
-require('../../lib/Function/BoundFunction');
-const { expect } = require('chai');
+const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 
 class TestObject {
     constructor(val) {
@@ -15,49 +14,50 @@ class TestObject {
     }
 }
 
-describe('BoundFunction', function () {
-    it('call should ignore thisArg', () => {
+export default class BoundFunctionTest extends TestCase {
+    testCallShouldIgnoreThisArg() {
         const bf = new BoundFunction(new TestObject('foobar'), TestObject.prototype.foo);
-        expect(bf.call(new TestObject('bar'))).to.be.equal('foobar');
-    });
+        __self.assertEquals('foobar', bf.call(new TestObject('bar')));
+    }
 
-    it('apply should ignore thisArg', () => {
+    testApplyShouldIgnoreThisArg() {
         const bf = new BoundFunction(new TestObject('foobar'), TestObject.prototype.foo);
-        expect(bf.apply(new TestObject('bar'))).to.be.equal('foobar');
-    });
+        __self.assertEquals('foobar', bf.apply(new TestObject('bar')));
+    }
 
-    it('GeneratorFunction should be called', () => {
+    testGeneratorFunctionShouldBeCalled() {
         const bf = new BoundFunction(new TestObject('foobar'), TestObject.prototype.generator);
         const retVal = bf();
 
-        expect(isGenerator(retVal)).to.be.true;
+        __self.assertTrue(isGenerator(retVal));
         const ret = retVal.next().value;
-        expect(ret).to.be.equal('foobar');
-    });
+        __self.assertEquals('foobar', ret);
+    }
 
-    it('should throw if argument is not a function', () => {
-        expect(() => new BoundFunction(new TestObject('val'), 'foo')).to.throw(LogicException);
-    });
+    testShouldThrowIfArgumentIsNotAFunction() {
+        this.expectException(LogicException);
+        new BoundFunction(new TestObject('val'), 'foo');
+    }
 
-    it('equals should work', () => {
+    testEqualsShouldWork() {
         const o = new TestObject('foobar');
         const func1 = new BoundFunction(o, TestObject.prototype.foo);
         const func2 = new BoundFunction(o, TestObject.prototype.foo);
 
-        expect(func1.equals(func2)).to.be.true;
-    });
+        __self.assertTrue(func1.equals(func2));
+    }
 
-    it('equals should compare array callables', () => {
+    testEqualsShouldCompareArrayCallables() {
         const o = new TestObject('foobar');
         const func = new BoundFunction(o, TestObject.prototype.foo);
 
-        expect(func.equals([ o, 'foo' ])).to.be.true;
-    });
+        __self.assertTrue(func.equals([ o, 'foo' ]));
+    }
 
-    it('equals should return false if not a BoundFunction is passed', () => {
+    testEqualsShouldReturnFalseIfNotABoundFunctionIsPassed() {
         const o = new TestObject('foobar');
         const func = new BoundFunction(o, TestObject.prototype.foo);
 
-        expect(func.equals(TestObject.prototype.foo)).to.be.false;
-    });
-});
+        __self.assertFalse(func.equals(TestObject.prototype.foo));
+    }
+}

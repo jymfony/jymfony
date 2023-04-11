@@ -1,11 +1,6 @@
 declare namespace __jymfony {
     export class Platform {
         /**
-         * Checks if this node version has async function support.
-         */
-        static hasAsyncFunctionSupport(): boolean;
-
-        /**
          * Checks if this node version has async generator function support.
          */
         static hasAsyncGeneratorFunctionSupport(): boolean;

@@ -1,47 +1,27 @@
-require('../../lib/Object/sort');
-const { expect } = require('chai');
+const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 
-describe('Sort', function () {
+export default class SortTest extends TestCase {
+    testStringSortsByStringValue() {
+        __self.assertEquals({ foo: 'action', baz: 'echo', bar: 'zulu' }, Object.sort({ foo: 'action', bar: 'zulu', baz: 'echo' }));
+    }
 
-    describe('strings', function () {
+    testStringSortsByKey() {
+        __self.assertEquals({ bar: 'zulu', baz: 'echo', foo: 'action' }, Object.ksort({ foo: 'action', bar: 'zulu', baz: 'echo' }));
+    }
 
-        it('sorts by string value', () => {
-            expect(Object.sort({ foo: 'action', bar: 'zulu', baz: 'echo' }))
-                .to.be.deep.equal({ foo: 'action', baz: 'echo', bar: 'zulu' });
-        });
+    testNumberSortsByStringValue() {
+        __self.assertEquals({ foo: 0, baz: 20, bar: 1000 }, Object.sort({ foo: 0, bar: 1000, baz: 20 }));
+    }
 
-        it('sorts by key', () => {
-            expect(Object.ksort({ foo: 'action', bar: 'zulu', baz: 'echo' }))
-                .to.be.deep.equal({ bar: 'zulu', baz: 'echo', foo: 'action' });
-        });
+    testNumberSortsByKey() {
+        __self.assertEquals({ 10: 'zulu', 25: 'echo', 50: 'action' }, Object.ksort({ 50: 'action', 10: 'zulu', 25: 'echo' }));
+    }
 
-    });
+    testSortsByStringValue() {
+        __self.assertEquals({ foo: 0, baz: 20, bar: 'echo', foobar: 'zulu' }, Object.sort({ foo: 0, bar: 'echo', baz: 20, foobar: 'zulu' }));
+    }
 
-    describe('numbers', function () {
-
-        it('sorts by string value', () => {
-            expect(Object.sort({ foo: 0, bar: 1000, baz: 20 }))
-                .to.be.deep.equal({ foo: 0, baz: 20, bar: 1000 });
-        });
-
-        it('sorts by key', () => {
-            expect(Object.ksort({ 50: 'action', 10: 'zulu', 25: 'echo' }))
-                .to.be.deep.equal({ 10: 'zulu', 25: 'echo', 50: 'action' });
-        });
-
-    });
-
-    describe('mixed', function () {
-
-        it('sorts by string value', () => {
-            expect(Object.sort({ foo: 0, bar: 'echo', baz: 20, foobar: 'zulu' }))
-                .to.be.deep.equal({ foo: 0, baz: 20, bar: 'echo', foobar: 'zulu' });
-        });
-
-        it('sorts by key', () => {
-            expect(Object.ksort({ 'tango': 'action', 10: 'zulu', 25: 'echo', 'sierra': 'foxtrot' }))
-                .to.be.deep.equal({ 10: 'zulu', 25: 'echo', 'tango': 'action', 'sierra': 'foxtrot' });
-        });
-
-    });
-});
+    testSortsByKey() {
+        __self.assertEquals({ 10: 'zulu', 25: 'echo', 'tango': 'action', 'sierra': 'foxtrot' }, Object.ksort({ 'tango': 'action', 10: 'zulu', 25: 'echo', 'sierra': 'foxtrot' }));
+    }
+}

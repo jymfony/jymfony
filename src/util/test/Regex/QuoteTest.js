@@ -1,15 +1,19 @@
-require('../../lib/Regex/quote');
-const { expect } = require('chai');
+const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 
-describe('Regex quote', function () {
-    it('basic', () => {
-        expect(__jymfony.regex_quote('/this *-has \\ metacharacters^ in $'))
-            .to.be.equal('/this \\*\\-has \\\\ metacharacters\\^ in \\$');
-    });
-
-    if (! __jymfony.Platform.hasModernRegex()) {
-        it('native regex instanceof named regex should return true', () => {
-            expect(/23/gi instanceof RegExp).to.be.true;
-        });
+export default class QuoteTest extends TestCase {
+    get testCaseName() {
+        return 'Regex quote';
     }
-});
+
+    testBasicFunctionality() {
+        __self.assertEquals('/this \\*\\-has \\\\ metacharacters\\^ in \\$', __jymfony.regex_quote('/this *-has \\ metacharacters^ in $'));
+    }
+
+    testNativeRegexInstanceOfNamedRegexShouldReturnTrue() {
+        if (! __jymfony.Platform.hasModernRegex()) {
+            __self.markTestSkipped();
+        }
+
+        __self.assertInstanceOf(RegExp, /23/gi);
+    }
+}

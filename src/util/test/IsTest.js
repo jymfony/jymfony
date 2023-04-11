@@ -1,5 +1,4 @@
-require('../lib/is');
-const { expect } = require('chai');
+const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 
 class InvokableObject {
     __invoke(arg) {
@@ -7,22 +6,22 @@ class InvokableObject {
     }
 }
 
-describe('Is', function () {
-    it('isFunction should work', () => {
-        expect(isFunction(function () {})).to.be.true;
-        expect(isFunction(() => {})).to.be.true;
-        expect(isFunction(function * () { })).to.be.true;
-        expect(isFunction(async function () { })).to.be.true;
-        expect(isFunction(new InvokableObject())).to.be.true;
+export default class IsTest extends TestCase {
+    testIsFunctionShouldWork() {
+        __self.assertTrue(isFunction(function () {}));
+        __self.assertTrue(isFunction(() => {}));
+        __self.assertTrue(isFunction(function * () { }));
+        __self.assertTrue(isFunction(async function () { }));
+        __self.assertTrue(isFunction(new InvokableObject()));
 
         if (__jymfony.Platform.hasAsyncGeneratorFunctionSupport()) {
-            eval('expect(isFunction(async function* () {})).to.be.true');
+            eval('__self.assertTrue(isFunction(async function* () {}))');
         }
 
-        expect(isFunction('foobar')).to.be.false;
-        expect(isFunction(42)).to.be.false;
-        expect(isFunction({})).to.be.false;
-        expect(isFunction([])).to.be.false;
-        expect(isFunction([ 'go', 'go' ])).to.be.false;
-    });
-});
+        __self.assertFalse(isFunction('foobar'));
+        __self.assertFalse(isFunction(42));
+        __self.assertFalse(isFunction({}));
+        __self.assertFalse(isFunction([]));
+        __self.assertFalse(isFunction([ 'go', 'go' ]));
+    }
+}

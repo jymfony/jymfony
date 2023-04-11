@@ -178,7 +178,7 @@ declare namespace __jymfony {
     /**
      * Pad a string to a certain length with another string.
      */
-    export function str_pad(string: string, length?: number, pad?: string, padType?: 'STR_PAD_RIGHT' | 'STR_PAD_LEFT' | 'STR_PAD_BOTH'): void;
+    export function str_pad(string: string, length?: number, pad?: string, padType?: 'STR_PAD_RIGHT' | 'STR_PAD_LEFT' | 'STR_PAD_BOTH'): string;
 
     /**
      * The strcspn() function returns the number of characters (including whitespaces)
@@ -973,7 +973,7 @@ declare function isCallableArray(value: any): value is [string, string];
 declare function getCallableFromArray(value: [object, string]): Invokable<any>;
 
 declare interface BoundFunction extends Function {
-    new(thisArg: Object, func: Invokable|Function|GeneratorFunction): Function;
+    new(thisArg: Object, func: Invokable|Function|GeneratorFunction|string|symbol): Function;
 
     arguments: any;
     caller: Function;

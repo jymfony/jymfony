@@ -1,5 +1,4 @@
-require('../../lib/Function/callableArray');
-const { expect } = require('chai');
+const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 
 class TestObject {
     foo() {
@@ -11,35 +10,32 @@ class TestObject {
     }
 }
 
-describe('callable array', function () {
-    let tests = [
-        [ 'foo' ],
-        [ [] ],
-        [ [ 'test', 'foo', 'bar' ] ],
-        [ { foo: 'foo', bar: 'bar' } ],
-        [ new TestObject(), undefined ],
-    ];
-
-    for (const index of tests.keys()) {
-        const t = tests[index];
-        it('isCallableArray should return false if invalid argument is passed with data #'+index, () => {
-            expect(isCallableArray(...t)).to.be.false;
-        });
+export default class CallableArrayTest extends TestCase {
+    @dataProvider('provideInvalidArguments')
+    testIsCallableArrayShouldReturnFalseIfInvalidArgumentIsPassed(...args) {
+        __self.assertFalse(isCallableArray(...args));
     }
 
-    tests = [
-        [ [ new TestObject(), 'foo' ] ],
-        [ [ new TestObject(), 'gen' ] ],
-    ];
+    * provideInvalidArguments() {
+        yield [ 'foo' ];
+        yield [ [] ];
+        yield [ [ 'test', 'foo', 'bar' ] ];
+        yield [ {foo: 'foo', bar: 'bar'} ];
+        yield [ new TestObject(), undefined ];
+    };
 
-    for (const index of tests.keys()) {
-        const t = tests[index];
-        it('isCallableArray should work with data #'+index, () => {
-            expect(isCallableArray(...t)).to.be.true;
-        });
+    * provideValidArguments() {
+        yield [ [ new TestObject(), 'foo' ] ];
+        yield [ [ new TestObject(), 'gen' ] ];
     }
 
-    it('getCallableArray throws if invalid argument is passed', () => {
-        expect(getCallableFromArray.bind(undefined, 'foo')).to.throw(LogicException);
-    });
-});
+    @dataProvider('provideValidArguments')
+    testIsCallableArrayShouldWork(...args) {
+        __self.assertTrue(isCallableArray(...args));
+    }
+
+    testGetCallableArrayThrowsIfInvalidArgumentIsPassed() {
+        this.expectException(LogicException);
+        getCallableFromArray('foo');
+    }
+}

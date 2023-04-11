@@ -12,7 +12,7 @@ class BoundFunction {
      * a callable anonymous function.
      *
      * @param {Object} thisArg
-     * @param {Function|GeneratorFunction} func
+     * @param {Function|GeneratorFunction|string|symbol} func
      *
      * @returns {Function|GeneratorFunction}
      */

@@ -1,4 +1,4 @@
-const { expect } = require('chai');
+const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 
 const special_forms = [ '-dev', 'a1', 'b1', 'RC1', 'rc1', '', 'pl1' ];
 const operators = [
@@ -10,8 +10,8 @@ const operators = [
     'ne', '<>', '!=',
 ];
 
-describe('Version Compare', function () {
-    it('compare', () => {
+export default class VersionCompareTest extends TestCase {
+    testCompare() {
         let result = '';
         const test = (v1, v2) => {
             const res = __jymfony.version_compare(v1, v2);
@@ -96,10 +96,10 @@ describe('Version Compare', function () {
 1.0pl1 = 1.0pl1
 `;
 
-        expect(result).to.be.equal(expected);
-    });
+        __self.assertEquals(expected, result);
+    }
 
-    it('operators', () => {
+    testOperators() {
         let result = '';
 
         for (const f1 of special_forms) {
@@ -807,6 +807,6 @@ describe('Version Compare', function () {
  1.0pl1 != 1.0pl1  : false
 `;
 
-        expect(result).to.be.equal(expected);
-    });
-});
+        __self.assertEquals(expected, result);
+    }
+}

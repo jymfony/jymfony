@@ -1,4 +1,3 @@
-import '../../lib/String/strtr';
 import { expect } from 'chai';
 
 const TestCase = Jymfony.Component.Testing.Framework.TestCase;

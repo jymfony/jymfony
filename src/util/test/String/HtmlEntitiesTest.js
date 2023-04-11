@@ -1,12 +1,13 @@
-require('../../lib/String/htmlentities');
-const { expect } = require('chai');
+const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 
-describe('htmlentities', function () {
-    it('should pass example 1', () => {
-        expect(__jymfony.htmlentities('Kevin & van Zonneveld')).to.be.equal( 'Kevin &amp; van Zonneveld');
-    });
+export default class HtmlEntitiesTest extends TestCase {
+    @dataProvider('provideValues')
+    testShouldPassExample(expected, original, quoteStyle) {
+        __self.assertEquals(expected, __jymfony.htmlentities(original, quoteStyle));
+    }
 
-    it('should pass example 2', () => {
-        expect(__jymfony.htmlentities('foo\'bar', 'ENT_QUOTES')).to.be.equal('foo&#39;bar');
-    });
-});
+    * provideValues() {
+        yield [ 'Kevin &amp; van Zonneveld', 'Kevin & van Zonneveld' ];
+        yield [ 'foo&#39;bar', 'foo\'bar', 'ENT_QUOTES' ];
+    }
+}

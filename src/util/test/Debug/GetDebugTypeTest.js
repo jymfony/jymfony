@@ -1,8 +1,12 @@
-require('../../lib/Debug/get_debug_type');
-const { expect } = require('chai');
+const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 
-describe('get_debug_type', function () {
-    const tests = function * () {
+export default class GetDebugTypeTest extends TestCase {
+    @dataProvider('provideValues')
+    testGetDebugTypeShouldWork(expected, value) {
+        __self.assertEquals(expected, __jymfony.get_debug_type(value));
+    }
+
+    * provideValues() {
         yield [ 'null', null ];
         yield [ 'undefined', undefined ];
 
@@ -24,12 +28,5 @@ describe('get_debug_type', function () {
 
         yield [ 'Exception', new Exception() ];
         yield [ 'ReflectionException', new Jymfony.Component.Autoloader.Exception.ReflectionException() ];
-    };
-
-    let i = 0;
-    for (const [ expected, value ] of tests()) {
-        it('get_debug_type should work #'+ (++i), () => {
-            expect(__jymfony.get_debug_type(value)).to.be.equal(expected);
-        });
     }
-});
+}

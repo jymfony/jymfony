@@ -1,8 +1,6 @@
-import '../../lib/Stream/StreamBuffer';
 import { createReadStream, createWriteStream } from 'fs';
 import { dirname, join } from 'path';
 import { readFile, stat } from 'fs/promises';
-import { expect } from 'chai';
 import { promisify } from 'util';
 import { tmpdir } from 'os';
 
@@ -28,19 +26,19 @@ export default class StreamBufferTest extends TestCase {
 
     async testShouldWriteIntoABufferObject() {
         await streamWrite.call(this._stream, 'This is a test', 'utf-8');
-        expect(this._stream.buffer.length).to.be.equal(14);
-        expect(this._stream._buffer.length).to.be.greaterThan(14);
+        __self.assertEquals(14, this._stream.buffer.length);
+        __self.assertGreaterThan(14, this._stream._buffer.length);
     }
 
     async testShouldBeginToReadFromBeginning() {
         await streamWrite.call(this._stream, 'This is a test', 'utf-8');
-        expect(this._stream.buffer.length).to.be.equal(14);
+        __self.assertEquals(14, this._stream.buffer.length);
 
-        expect(this._stream.read(4).toString('utf-8')).to.be.equal('This');
-        expect(this._stream.read(3).toString('utf-8')).to.be.equal(' is');
-        expect(this._stream.read(3).toString('utf-8')).to.be.equal(' a ');
-        expect(this._stream.read(30).toString('utf-8')).to.be.equal('test');
-        expect(this._stream.read(30)).to.be.equal(null);
+        __self.assertEquals('This', this._stream.read(4).toString('utf-8'));
+        __self.assertEquals(' is', this._stream.read(3).toString('utf-8'));
+        __self.assertEquals(' a ', this._stream.read(3).toString('utf-8'));
+        __self.assertEquals('test', this._stream.read(30).toString('utf-8'));
+        __self.assertEquals(null, this._stream.read(30));
     }
 
     async testCouldBeInitializedByExistingBuffer() {
@@ -49,13 +47,13 @@ export default class StreamBufferTest extends TestCase {
 
         await streamWrite.call(this._stream, 'This is a test', 'utf-8');
 
-        expect(this._stream.read(4).toString('utf-8')).to.be.equal('TEST');
-        expect(this._stream.read(4).toString('utf-8')).to.be.equal('TEST');
-        expect(this._stream.read(4).toString('utf-8')).to.be.equal('This');
-        expect(this._stream.read(3).toString('utf-8')).to.be.equal(' is');
-        expect(this._stream.read(3).toString('utf-8')).to.be.equal(' a ');
-        expect(this._stream.read(30).toString('utf-8')).to.be.equal('test');
-        expect(this._stream.read(30)).to.be.equal(null);
+        __self.assertEquals('TEST', this._stream.read(4).toString('utf-8'));
+        __self.assertEquals('TEST', this._stream.read(4).toString('utf-8'));
+        __self.assertEquals('This', this._stream.read(4).toString('utf-8'));
+        __self.assertEquals(' is', this._stream.read(3).toString('utf-8'));
+        __self.assertEquals(' a ', this._stream.read(3).toString('utf-8'));
+        __self.assertEquals('test', this._stream.read(30).toString('utf-8'));
+        __self.assertEquals(null, this._stream.read(30));
     }
 
     async testShouldSupportPipeFromReadableStream() {
@@ -67,7 +65,7 @@ export default class StreamBufferTest extends TestCase {
             readStream.pipe(this._stream);
         });
 
-        expect(this._stream.read(70).toString('utf-8')).to.be.equal('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fringilla');
+        __self.assertEquals('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fringilla', this._stream.read(70).toString('utf-8'));
     }
 
     async testCouldPipeIntoWritableStream() {
@@ -89,7 +87,7 @@ export default class StreamBufferTest extends TestCase {
             writeStream.close();
 
             const s = await stat(fn);
-            expect(s.size).to.be.equal(buf.length);
+            __self.assertEquals(buf.length, s.size);
         } finally {
             const fs = new Filesystem();
             await fs.remove(dirname(fn));
