@@ -129,6 +129,19 @@ export default class SerializeTest extends TestCase {
         __self.assertTrue(foo.wakeupCalled);
     }
 
+    testShouldNotUnserializeObjectsWhenAllowedClassesIsFalse() {
+        const obj = __jymfony.unserialize('C[Jymfony.Util.Fixtures.BarClass]:{S(7):"hello":S(7):"world";}', { allowedClasses: false });
+        __self.assertEquals('__Incomplete_Class', obj.constructor.name);
+        __self.assertEquals('Jymfony.Util.Fixtures.BarClass', obj.__Class_Name);
+        __self.assertEquals('world', obj.hello);
+
+        const foo = __jymfony.unserialize('C[Jymfony.Util.Fixtures.FooClass]:{S(3):"a":S(7):"hello";S(3):"c":S(7):"world";}', { allowedClasses: [ 'Jymfony.FooBar' ] });
+        __self.assertEquals('__Incomplete_Class', foo.constructor.name);
+        __self.assertEquals('Jymfony.Util.Fixtures.FooClass', foo.__Class_Name);
+        __self.assertEquals('hello', foo.a);
+        __self.assertEquals('world', foo.c);
+    }
+
     testShouldUnserializeHashTables() {
         const obj = __jymfony.unserialize('T[HashTable](3):{A(2):{0:S(6):"test";1:D(3):123;};A(2):{0:S(5):"foo";1:S(5):"bar";};A(2):{0:S(5):"bar";1:S(8):"barbar";};}');
         __self.assertEquals(HashTable, obj.constructor);

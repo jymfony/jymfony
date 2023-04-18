@@ -84,19 +84,22 @@ const serialize = (value) => {
 
 /**
  * @param {string} serialized
+ * @param {boolean | string[]} [allowedClasses = true]
+ *
+ * @returns {*}
  */
-const unserialize = (serialized) => {
+const unserialize = (serialized, { allowedClasses = true } = {}) => {
     serialized = serialized.toString();
     let i = 0;
     const readData = (length = 1) => {
-        const read = serialized.substr(i, length);
+        const read = serialized.substring(i, i + length);
         i += Number(length);
 
         return read;
     };
 
     const peek = () => {
-        return serialized.substr(i, 1);
+        return serialized.substring(i, i + 1);
     };
 
     const readUntil = (char) => {
@@ -142,21 +145,21 @@ const unserialize = (serialized) => {
                 length = readUntil(')');
                 expect(':');
 
-                return Number(readData(length));
+                return Number(readData(~~length));
             }
 
             case 'S': {
                 expect('(');
                 length = readUntil(')');
                 expect(':');
-                return JSON.parse(readData(length));
+                return JSON.parse(readData(~~length));
             }
 
             case 'X': {
                 expect('(');
                 length = readUntil(')');
                 expect(':');
-                return Buffer.from(readData(length), 'hex');
+                return Buffer.from(readData(~~length), 'hex');
             }
 
             case 'T': {
@@ -169,7 +172,7 @@ const unserialize = (serialized) => {
                 expect('{');
 
                 const values = [];
-                values.length = length;
+                values.length = ~~length;
 
                 let idx = 0;
                 while (idx < length) {
@@ -225,7 +228,7 @@ const unserialize = (serialized) => {
                 expect('{');
 
                 ret = [];
-                ret.length = length;
+                ret.length = ~~length;
 
                 while ('}' !== peek()) {
                     const key = readUntil(':');
@@ -239,7 +242,7 @@ const unserialize = (serialized) => {
 
             case 'O': {
                 expect('(');
-                length = readUntil(')');
+                length = ~~readUntil(')');
 
                 expect(':');
                 expect('{');
@@ -261,8 +264,14 @@ const unserialize = (serialized) => {
                 expect('[');
                 const class_ = readUntil(']');
 
-                const reflClass = new ReflectionClass(class_);
-                let obj = reflClass.newInstanceWithoutConstructor();
+                let obj;
+                let reflClass = new ReflectionClass(class_);
+                if (true === allowedClasses || (isArray(allowedClasses) && allowedClasses.some(c => reflClass.isInstanceOf(c)))) {
+                    obj = reflClass.newInstanceWithoutConstructor();
+                } else {
+                    reflClass = new ReflectionClass(__Incomplete_Class);
+                    obj = new __Incomplete_Class(class_);
+                }
 
                 expect(':');
                 expect('{');
@@ -295,6 +304,12 @@ const unserialize = (serialized) => {
 
     return doUnserialize();
 };
+
+class __Incomplete_Class {
+    constructor(className) {
+        this.__Class_Name = className;
+    }
+}
 
 __jymfony.serialize = serialize;
 __jymfony.unserialize = unserialize;
