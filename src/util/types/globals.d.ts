@@ -124,7 +124,7 @@ declare namespace __jymfony {
     /**
      * Unserializes values from a serialized string.
      */
-    export function unserialize(serialized: string, options?: { allowedClasses: boolean | string[] }): any;
+    export function unserialize(serialized: string, options?: { allowedClasses?: boolean | string[], throwOnInvalidClass?: boolean }): any;
 
     /**
      * Escapes a regex pattern.

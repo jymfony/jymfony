@@ -130,12 +130,12 @@ export default class SerializeTest extends TestCase {
     }
 
     testShouldNotUnserializeObjectsWhenAllowedClassesIsFalse() {
-        const obj = __jymfony.unserialize('C[Jymfony.Util.Fixtures.BarClass]:{S(7):"hello":S(7):"world";}', { allowedClasses: false });
+        const obj = __jymfony.unserialize('C[Jymfony.Util.Fixtures.BarClass]:{S(7):"hello":S(7):"world";}', { allowedClasses: false, throwOnInvalidClass: false });
         __self.assertEquals('__Incomplete_Class', obj.constructor.name);
         __self.assertEquals('Jymfony.Util.Fixtures.BarClass', obj.__Class_Name);
         __self.assertEquals('world', obj.hello);
 
-        const foo = __jymfony.unserialize('C[Jymfony.Util.Fixtures.FooClass]:{S(3):"a":S(7):"hello";S(3):"c":S(7):"world";}', { allowedClasses: [ 'Jymfony.FooBar' ] });
+        const foo = __jymfony.unserialize('C[Jymfony.Util.Fixtures.FooClass]:{S(3):"a":S(7):"hello";S(3):"c":S(7):"world";}', { allowedClasses: [ 'Jymfony.FooBar' ], throwOnInvalidClass: false });
         __self.assertEquals('__Incomplete_Class', foo.constructor.name);
         __self.assertEquals('Jymfony.Util.Fixtures.FooClass', foo.__Class_Name);
         __self.assertEquals('hello', foo.a);

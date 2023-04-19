@@ -67,9 +67,13 @@ const serialize = (value) => {
         throw new RuntimeException('Cannot serialize functions');
     }
 
+    if (value instanceof __Incomplete_Class) {
+        throw new RuntimeException('Cannot serialize incomplete classes');
+    }
+
     const reflClass = new ReflectionClass(value);
     if (! reflClass.name) {
-        throw new RuntimeException('Cannot serialize non-autoloaded object (no metadata present for deserialization)');
+        throw new RuntimeException('Cannot serialize non-autoloaded objects (no metadata available for deserialization)');
     }
 
     const vals = [];
@@ -85,10 +89,11 @@ const serialize = (value) => {
 /**
  * @param {string} serialized
  * @param {boolean | string[]} [allowedClasses = true]
+ * @param {boolean} [throwOnInvalidClass = true]
  *
  * @returns {*}
  */
-const unserialize = (serialized, { allowedClasses = true } = {}) => {
+const unserialize = (serialized, { allowedClasses = true, throwOnInvalidClass = true } = {}) => {
     serialized = serialized.toString();
     let i = 0;
     const readData = (length = 1) => {
@@ -269,6 +274,10 @@ const unserialize = (serialized, { allowedClasses = true } = {}) => {
                 if (true === allowedClasses || (isArray(allowedClasses) && allowedClasses.some(c => reflClass.isInstanceOf(c)))) {
                     obj = reflClass.newInstanceWithoutConstructor();
                 } else {
+                    if (throwOnInvalidClass) {
+                        throw new Error('Invalid serialized value. Unknown or disallowed class ' + class_);
+                    }
+
                     reflClass = new ReflectionClass(__Incomplete_Class);
                     obj = new __Incomplete_Class(class_);
                 }
