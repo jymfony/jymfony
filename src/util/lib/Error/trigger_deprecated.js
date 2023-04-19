@@ -63,7 +63,7 @@ process.emitWarning = function emitWarning(warning, type, code, ctor) {
 
     const warningObject = createWarningObject(warning, type, code, ctor, detail);
     const errorHandlers = getErrorHandlers();
-    if ('DeprecationWarning' === type) {
+    if ('DeprecationWarning' === type && 0 < errorHandlers.length) {
         for (const handler of errorHandlers) {
             handler.handleError(warningObject);
         }
