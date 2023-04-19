@@ -152,6 +152,7 @@
         "Jymfony.Contracts.Tests": "src/Contracts/test",
         "Jymfony.DataStructures.Tests": "src/DataStructure/test",
         "Jymfony.Exceptions.Tests": "src/Exceptions/test",
+        "Jymfony.Util.Fixtures": "src/util/fixtures",
         "Jymfony.Util.Tests": "src/util/test"
       }
     }
