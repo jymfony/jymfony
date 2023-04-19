@@ -376,6 +376,10 @@ class ReflectionClass extends implementationOf(ReflectorInterface, ReflectorTrai
             superClass = ReflectionClass._recursiveGet(global, superClass.split('.'));
         }
 
+        if (! isFunction(superClass)) {
+            return false;
+        }
+
         return this._constructor.prototype instanceof superClass
             || (this._isInterface && mixins.getParents(this._constructor).includes(superClass));
     }
@@ -390,6 +394,10 @@ class ReflectionClass extends implementationOf(ReflectorInterface, ReflectorTrai
     isInstanceOf(superClass) {
         if ('string' === typeof superClass) {
             superClass = ReflectionClass._recursiveGet(global, superClass.split('.'));
+        }
+
+        if (! isFunction(superClass)) {
+            return false;
         }
 
         return this._constructor === superClass
