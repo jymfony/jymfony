@@ -25,4 +25,9 @@ Jymfony.Component.VarDumper = {
      * @namespace
      */
     Exception: {},
+
+    /**
+     * @namespace
+     */
+    Test: {},
 };

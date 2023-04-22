@@ -1,13 +1,18 @@
+const ArgumentResolver = Jymfony.Component.HttpServer.Controller.ArgumentResolver;
 const ContainerBuilder = Jymfony.Component.DependencyInjection.ContainerBuilder;
+const ControllerArgumentValueResolverPass = Jymfony.Component.HttpServer.DependencyInjection.ControllerArgumentValueResolverPass;
 const Definition = Jymfony.Component.DependencyInjection.Definition;
 const Reference = Jymfony.Component.DependencyInjection.Reference;
-const ArgumentResolver = Jymfony.Component.HttpServer.Controller.ArgumentResolver;
-const ControllerArgumentValueResolverPass = Jymfony.Component.HttpServer.DependencyInjection.ControllerArgumentValueResolverPass;
 const Stopwatch = Jymfony.Component.Stopwatch.Stopwatch;
-const { expect } = require('chai');
+const TestCase = Jymfony.Component.Testing.Framework.TestCase;
+const VarDumperTestTrait = Jymfony.Component.VarDumper.Test.VarDumperTestTrait;
 
-describe('[HttpServer] ControllerArgumentResolverPass', function () {
-    it ('services should be ordered according to priority', () => {
+export default class ControllerArgumentResolverPassTest extends mix(TestCase, VarDumperTestTrait) {
+    get testCaseName() {
+        return '[HttpServer] ' + super.testCaseName;
+    }
+
+    testServicesShouldBeOrderedAccordingToPriority() {
         const services = {
             n3: [ {} ],
             n1: [ {priority: 200} ],
@@ -31,14 +36,14 @@ describe('[HttpServer] ControllerArgumentResolverPass', function () {
         container.setParameter('kernel.debug', false);
 
         (new ControllerArgumentValueResolverPass()).process(container);
-        expect(definition.getArgument(1).values).to.dump.as(expected);
+        this.assertDumpEquals(expected, definition.getArgument(1).values);
 
-        expect(container.hasDefinition('debug.n1')).to.be.equal(false);
-        expect(container.hasDefinition('debug.n2')).to.be.equal(false);
-        expect(container.hasDefinition('debug.n3')).to.be.equal(false);
-    });
+        __self.assertEquals(false, container.hasDefinition('debug.n1'));
+        __self.assertEquals(false, container.hasDefinition('debug.n2'));
+        __self.assertEquals(false, container.hasDefinition('debug.n3'));
+    }
 
-    it ('stopwatch should be injected in debug', () => {
+    testStopwatchShouldBeInjectedInDebug() {
         const services = {
             n3: [ {} ],
             n1: [ {priority: 200} ],
@@ -64,18 +69,18 @@ describe('[HttpServer] ControllerArgumentResolverPass', function () {
         container.setParameter('kernel.debug', true);
 
         (new ControllerArgumentValueResolverPass()).process(container);
-        expect(definition.getArgument(1).values).to.dump.as(expected);
+        this.assertDumpEquals(expected, definition.getArgument(1).values);
 
-        expect(container.hasDefinition('debug.n1')).to.be.equal(true);
-        expect(container.hasDefinition('debug.n2')).to.be.equal(true);
-        expect(container.hasDefinition('debug.n3')).to.be.equal(true);
+        __self.assertEquals(true, container.hasDefinition('debug.n1'));
+        __self.assertEquals(true, container.hasDefinition('debug.n2'));
+        __self.assertEquals(true, container.hasDefinition('debug.n3'));
 
-        expect(container.hasDefinition('n1')).to.be.equal(true);
-        expect(container.hasDefinition('n2')).to.be.equal(true);
-        expect(container.hasDefinition('n3')).to.be.equal(true);
-    });
+        __self.assertEquals(true, container.hasDefinition('n1'));
+        __self.assertEquals(true, container.hasDefinition('n2'));
+        __self.assertEquals(true, container.hasDefinition('n3'));
+    }
 
-    it ('should not inject stopwatch if not registered', () => {
+    testShouldNotInjectStopwatchIfNotRegistered() {
         const expected = [ new Reference('n1') ];
 
         const definition = new Definition(ArgumentResolver, [ null, [] ]);
@@ -86,13 +91,13 @@ describe('[HttpServer] ControllerArgumentResolverPass', function () {
         container.setParameter('kernel.debug', true);
 
         (new ControllerArgumentValueResolverPass()).process(container);
-        expect(definition.getArgument(1).values).to.dump.as(expected);
+        this.assertDumpEquals(expected, definition.getArgument(1).values);
 
-        expect(container.hasDefinition('debug.n1')).to.be.equal(false);
-        expect(container.hasDefinition('n1')).to.be.equal(true);
-    });
+        __self.assertEquals(false, container.hasDefinition('debug.n1'));
+        __self.assertEquals(true, container.hasDefinition('n1'));
+    }
 
-    it ('should return empty array when no service is present', () => {
+    testShouldReturnEmptyArrayWhenNoServiceIsPresent() {
         const definition = new Definition(ArgumentResolver, [ null, [] ]);
         const container = new ContainerBuilder();
         container.setDefinition('argument_resolver', definition);
@@ -100,13 +105,13 @@ describe('[HttpServer] ControllerArgumentResolverPass', function () {
         container.setParameter('kernel.debug', false);
 
         (new ControllerArgumentValueResolverPass()).process(container);
-        expect(definition.getArgument(1).values).to.be.deep.equal([]);
-    });
+        __self.assertEquals([], definition.getArgument(1).values);
+    }
 
-    it ('should not break if resolver is absent', () => {
+    testShouldNotBreakIfResolverIsAbsent() {
         const container = new ContainerBuilder();
         (new ControllerArgumentValueResolverPass()).process(container);
 
-        expect(container.hasDefinition('argument_resolver')).to.be.equal(false);
-    });
-});
+        __self.assertEquals(false, container.hasDefinition('argument_resolver'));
+    }
+}

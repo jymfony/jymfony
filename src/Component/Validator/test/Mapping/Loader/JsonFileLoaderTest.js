@@ -3,9 +3,9 @@ const Constraints = Jymfony.Component.Validator.Constraints;
 const Fixtures = Jymfony.Component.Validator.Fixtures;
 const JsonFileLoader = Jymfony.Component.Validator.Mapping.Loader.JsonFileLoader;
 const TestCase = Jymfony.Component.Testing.Framework.TestCase;
-const { expect } = require('chai');
+const VarDumperTestTrait = Jymfony.Component.VarDumper.Test.VarDumperTestTrait;
 
-export default class JsonFileLoaderTest extends TestCase {
+export default class JsonFileLoaderTest extends mix(TestCase, VarDumperTestTrait) {
     get testCaseName() {
         return '[Validator] ' + super.testCaseName;
     }
@@ -22,7 +22,7 @@ export default class JsonFileLoaderTest extends TestCase {
         const r = (new ReflectionClass(loader)).getField('_classes');
         r.accessible = true;
 
-        expect(r.getValue(loader)).to.be.deep.equal({});
+        __self.assertEquals({}, r.getValue(loader));
     }
 
     provideEmptyMapping() {
@@ -38,7 +38,8 @@ export default class JsonFileLoaderTest extends TestCase {
         const loader = this._createLoader(file);
         const metadata = new ClassMetadata(new ReflectionClass(Fixtures.Entity));
 
-        expect(() => loader.loadClassMetadata(metadata)).to.throw(InvalidArgumentException);
+        this.expectException(InvalidArgumentException);
+        loader.loadClassMetadata(metadata);
     }
 
     * provideInvalidFiles() {
@@ -84,7 +85,7 @@ export default class JsonFileLoaderTest extends TestCase {
         expected.addGetterConstraint('valid', new Constraints.IsTrue());
         expected.addGetterConstraint('permissions', new Constraints.IsTrue());
 
-        expect(metadata).to.be.dump.as(expected);
+        this.assertDumpEquals(expected, metadata);
     }
 
     testLoadGroupSequenceProvider() {
@@ -96,7 +97,7 @@ export default class JsonFileLoaderTest extends TestCase {
         const expected = new ClassMetadata(new ReflectionClass(Fixtures.GroupSequenceProviderEntity));
         expected.setGroupSequenceProvider(true);
 
-        expect(metadata).to.be.dump.as(expected);
+        this.assertDumpEquals(expected, metadata);
     }
 
     _createLoader(file) {

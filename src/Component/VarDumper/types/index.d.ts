@@ -21,6 +21,6 @@
 /// <reference path="Dumper/DataDumperInterface.d.ts" />
 /// <reference path="Dumper/HtmlDumper.d.ts" />
 /// <reference path="Exception/ThrowingCasterException.d.ts" />
-/// <reference path="Test/ChaiExpectation.d.ts" />
+/// <reference path="Test/VarDumperTestTrait.d.ts" />
 /// <reference path="globals.d.ts" />
 /// <reference path="VarDumper.d.ts" />

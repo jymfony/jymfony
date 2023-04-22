@@ -26,14 +26,12 @@
     "@jymfony/debug": "https://github.com/jymfony/debug.git",
     "@jymfony/dependency-injection": "https://github.com/jymfony/dependency-injection.git",
     "@jymfony/testing": "https://github.com/jymfony/testing.git",
-    "chai": "^4.2",
     "mocha": "^10.2"
   },
   "config": {
     "jymfony-autoload": {
       "includes": [
-        "src/functions.js",
-        "src/Test/ChaiExpectation.js"
+        "src/functions.js"
       ],
       "namespaces": {
         "Jymfony.Component.VarDumper": "src/"

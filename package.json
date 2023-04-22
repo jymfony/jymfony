@@ -93,8 +93,7 @@
         "src/DataStructure/src/all.js",
         "src/Component/Autoloader/src/Test/ChaiExpectation.js",
         "src/Component/Validator/src/Test/ChaiExpectation.js",
-        "src/Component/VarDumper/src/functions.js",
-        "src/Component/VarDumper/src/Test/ChaiExpectation.js"
+        "src/Component/VarDumper/src/functions.js"
       ]
     },
     "jymfony-autoload-dev": {

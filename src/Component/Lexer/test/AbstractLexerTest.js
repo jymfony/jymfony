@@ -1,155 +1,154 @@
 const ConcreteLexer = Jymfony.Component.Lexer.Fixtures.ConcreteLexer;
-const { expect } = require('chai');
+const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 
-describe('[Lexer] AbstractLexer', function () {
-    /**
-     * @type {Jymfony.Component.Lexer.Fixtures.ConcreteLexer}
-     *
-     * @private
-     */
-    this._concreteLexer = undefined;
+const INPUT = 'price=10';
+const expectedTokens = [
+    {
+        value: 'price',
+        type: 'string',
+        position: 0,
+        index: 0,
+    },
+    {
+        value: '=',
+        type: 'operator',
+        position: 5,
+        index: 1,
+    },
+    {
+        value: '10',
+        type: 'int',
+        position: 6,
+        index: 2,
+    },
+];
 
-    beforeEach(() => {
+export default class AbstractLexerTest extends TestCase {
+    _concreteLexer;
+
+    get testCaseName() {
+        return '[Lexer] ' + super.testCaseName;
+    }
+
+    beforeEach() {
         this._concreteLexer = new ConcreteLexer();
-    });
+    }
 
-    const INPUT = 'price=10';
-    const expectedTokens = [
-        {
-            value: 'price',
-            type: 'string',
-            position: 0,
-            index: 0,
-        },
-        {
-            value: '=',
-            type: 'operator',
-            position: 5,
-            index: 1,
-        },
-        {
-            value: '10',
-            type: 'int',
-            position: 6,
-            index: 2,
-        },
-    ];
-
-    it ('resetPeek should work', () => {
+    testResetPeekShouldWork() {
         this._concreteLexer.input = INPUT;
-        expect(this._concreteLexer.peek()).to.dump.as(expectedTokens[0]);
-        expect(this._concreteLexer.peek()).to.dump.as(expectedTokens[1]);
+        __self.assertEquals(expectedTokens[0], this._concreteLexer.peek());
+        __self.assertEquals(expectedTokens[1], this._concreteLexer.peek());
         this._concreteLexer.resetPeek();
-        expect(this._concreteLexer.peek()).to.dump.as(expectedTokens[0]);
-    });
+        __self.assertEquals(expectedTokens[0], this._concreteLexer.peek());
+    }
 
-    it ('reset position should work', () => {
+    testResetPosition() {
         this._concreteLexer.input = INPUT;
-        expect(this._concreteLexer.token).to.be.equal(undefined);
+        __self.assertUndefined(this._concreteLexer.token);
 
-        expect(this._concreteLexer.moveNext()).to.be.equal(true);
-        expect(this._concreteLexer.token).to.dump.as(expectedTokens[0]);
+        __self.assertTrue(this._concreteLexer.moveNext());
+        __self.assertEquals(expectedTokens[0], this._concreteLexer.token);
 
-        expect(this._concreteLexer.moveNext()).to.be.equal(true);
-        expect(this._concreteLexer.token).to.dump.as(expectedTokens[1]);
+        __self.assertTrue(this._concreteLexer.moveNext());
+        __self.assertEquals(expectedTokens[1], this._concreteLexer.token);
 
         this._concreteLexer.resetPosition(0);
 
-        expect(this._concreteLexer.moveNext()).to.be.equal(true);
-        expect(this._concreteLexer.token).to.dump.as(expectedTokens[0]);
-    });
+        __self.assertTrue(this._concreteLexer.moveNext());
+        __self.assertEquals(expectedTokens[0], this._concreteLexer.token);
+    }
 
-    it ('should move to next token', () => {
+    testShouldMoveToNextToken() {
         this._concreteLexer.input = INPUT;
-        expect(this._concreteLexer.token).to.be.equal(undefined);
+        __self.assertUndefined(this._concreteLexer.token);
 
         for (let i = 0; i < expectedTokens.length; ++i) {
-            expect(this._concreteLexer.moveNext()).to.be.equal(true);
-            expect(this._concreteLexer.token).to.dump.as(expectedTokens[i]);
+            __self.assertTrue(this._concreteLexer.moveNext());
+            __self.assertEquals(expectedTokens[i], this._concreteLexer.token);
         }
 
-        expect(this._concreteLexer.moveNext()).to.be.equal(false);
-        expect(this._concreteLexer.token).to.be.equal(undefined);
-    });
+        __self.assertFalse(this._concreteLexer.moveNext());
+        __self.assertUndefined(this._concreteLexer.token);
+    }
 
-    it ('skipUntil should work', () => {
+    testSkipUntilShouldWork() {
         this._concreteLexer.input = INPUT;
 
-        expect(this._concreteLexer.moveNext()).to.be.equal(true);
+        __self.assertTrue(this._concreteLexer.moveNext());
         this._concreteLexer.skipUntil('operator');
 
-        expect(this._concreteLexer.token).to.dump.as(expectedTokens[1]);
-    });
+        __self.assertEquals(expectedTokens[1], this._concreteLexer.token);
+    }
 
-    it ('should parse utf-8 input', () => {
+    testShouldParseUtf8Input() {
         this._concreteLexer.input = '\xE9=10';
 
-        expect(this._concreteLexer.moveNext()).to.be.equal(true);
-        expect(this._concreteLexer.token).to.dump.as({
+        __self.assertTrue(this._concreteLexer.moveNext());
+        __self.assertEquals({
             value: '\xE9',
             type: 'string',
             position: 0,
             index: 0,
-        });
-    });
+        }, this._concreteLexer.token);
+    }
 
-    it ('peek should work', () => {
+    testPeekShouldWork() {
         this._concreteLexer.input = INPUT;
         for (const expectedToken of expectedTokens) {
-            expect(this._concreteLexer.peek()).to.dump.as(expectedToken);
+            __self.assertEquals(expectedToken, this._concreteLexer.peek());
         }
 
-        expect(this._concreteLexer.peek()).to.be.equal(undefined);
-    });
+        __self.assertUndefined(this._concreteLexer.peek());
+    }
 
-    it ('glimpse should work', () => {
+    testGlimpseShouldWork() {
         this._concreteLexer.input = INPUT;
         for (const expectedToken of expectedTokens) {
-            expect(this._concreteLexer.glimpse()).to.dump.as(expectedToken);
+            __self.assertEquals(expectedToken, this._concreteLexer.glimpse());
             this._concreteLexer.moveNext();
         }
 
-        expect(this._concreteLexer.glimpse()).to.be.equal(undefined);
-    });
+        __self.assertUndefined(this._concreteLexer.glimpse());
+    }
 
-    it ('getInputUntilPosition should work', () => {
+    testGetInputUntilPositionShouldWork() {
         this._concreteLexer.input = INPUT;
-        expect(this._concreteLexer.getInputUntilPosition(5)).to.be.equal('price');
-    });
+        __self.assertEquals('price', this._concreteLexer.getInputUntilPosition(5));
+    }
 
-    it ('isNextToken should work', () => {
+    testIsNextTokenShouldWork() {
         this._concreteLexer.input = INPUT;
 
         this._concreteLexer.moveNext();
-        for (let i = 0; i < expectedTokens.length; ++i) {
-            expect(this._concreteLexer.isNextToken(expectedTokens[i].type));
+        for (let i = 0; i < expectedTokens.length - 1; ++i) {
+            __self.assertTrue(this._concreteLexer.isNextToken(expectedTokens[i + 1].type));
             this._concreteLexer.moveNext();
         }
-    });
+    }
 
-    it ('isNextTokenAny should work', () => {
+    testIsNextTokenAnyShouldWork() {
         const allTokenTypes = expectedTokens.map(t => t.type);
         this._concreteLexer.input = INPUT;
 
         this._concreteLexer.moveNext();
         for (let i = 0; i < expectedTokens.length - 1; ++i) {
-            expect(this._concreteLexer.isNextTokenAny([ expectedTokens[i + 1].type ])).to.be.equal(true);
-            expect(this._concreteLexer.isNextTokenAny(allTokenTypes)).to.be.equal(true);
+            __self.assertTrue(this._concreteLexer.isNextTokenAny([ expectedTokens[i + 1].type ]));
+            __self.assertTrue(this._concreteLexer.isNextTokenAny(allTokenTypes));
             this._concreteLexer.moveNext();
         }
-    });
+    }
 
-    it ('should returns literal constants', () => {
-        expect(this._concreteLexer.getLiteral('int')).to.be.equal('INT');
-        expect(this._concreteLexer.getLiteral('fake_token')).to.be.equal('fake_token');
-    });
+    testShouldReturnLiteralConstants() {
+        __self.assertEquals('INT', this._concreteLexer.getLiteral('int'));
+        __self.assertEquals('fake_token', this._concreteLexer.getLiteral('fake_token'));
+    }
 
-    it ('isA should work', () => {
-        expect(this._concreteLexer.isA(11, 'int')).to.be.equal(true);
-        expect(this._concreteLexer.isA(1.1, 'int')).to.be.equal(true);
-        expect(this._concreteLexer.isA('=', 'operator')).to.be.equal(true);
-        expect(this._concreteLexer.isA('>', 'operator')).to.be.equal(true);
-        expect(this._concreteLexer.isA('<', 'operator')).to.be.equal(true);
-        expect(this._concreteLexer.isA('fake_text', 'string')).to.be.equal(true);
-    });
-});
+    testIsAShouldWork() {
+        __self.assertTrue(this._concreteLexer.isA(11, 'int'));
+        __self.assertTrue(this._concreteLexer.isA(1.1, 'int'));
+        __self.assertTrue(this._concreteLexer.isA('=', 'operator'));
+        __self.assertTrue(this._concreteLexer.isA('>', 'operator'));
+        __self.assertTrue(this._concreteLexer.isA('<', 'operator'));
+        __self.assertTrue(this._concreteLexer.isA('fake_text', 'string'));
+    }
+}
