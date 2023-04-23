@@ -41,6 +41,7 @@
 /// <reference path="Constraints/LogicalOr.d.ts" />
 /// <reference path="Constraints/RegularExpression.d.ts" />
 /// <reference path="Constraints/StringContains.d.ts" />
+/// <reference path="Constraints/StringFormat.d.ts" />
 /// <reference path="Double/ClassGenerator.d.ts" />
 /// <reference path="Double/Doubler.d.ts" />
 /// <reference path="Exception/Prediction/AggregateException.d.ts" />

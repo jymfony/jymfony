@@ -146,6 +146,15 @@ declare namespace Jymfony.Component.Testing.Framework {
         static assertMatchesRegularExpression(regex: RegExp, string: string, message?: string): void;
         assertMatchesRegularExpression(regex: RegExp, string: string, message?: string): void;
 
+
+        /**
+         * Asserts that a string matches a given format.
+         *
+         * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+         */
+        static assertStringMatchesFormat(format: string, string: string, message?: string): void;
+        assertStringMatchesFormat(format: string, string: string, message?: string): void;
+
         /**
          * Asserts that a variable is undefined.
          *

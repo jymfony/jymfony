@@ -19,6 +19,7 @@ const LogicalNot = Jymfony.Component.Testing.Constraints.LogicalNot;
 const LogicalOr = Jymfony.Component.Testing.Constraints.LogicalOr;
 const RegularExpression = Jymfony.Component.Testing.Constraints.RegularExpression;
 const StringContains = Jymfony.Component.Testing.Constraints.StringContains;
+const StringFormat = Jymfony.Component.Testing.Constraints.StringFormat;
 const SkippedTestException = Jymfony.Component.Testing.Framework.Exception.SkippedTestException;
 const SyntheticSkippedException = Jymfony.Component.Testing.Framework.Exception.SyntheticSkippedException;
 
@@ -228,6 +229,15 @@ export default class Assert {
      */
     static assertMatchesRegularExpression(regex, string, message = '') {
         this.assertThat(string, new RegularExpression(regex), message);
+    }
+
+    /**
+     * Asserts that a string matches a given format.
+     *
+     * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+     */
+    static assertStringMatchesFormat(format, string, message = '') {
+        this.assertThat(string, new StringFormat(format), message);
     }
 
     /**
