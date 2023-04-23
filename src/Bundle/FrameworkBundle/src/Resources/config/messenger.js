@@ -63,7 +63,7 @@ container.register('messenger.transport.sync.factory', Jymfony.Component.Messeng
     .addProperty('_messageBus', new Reference('messenger.routable_message_bus'))
     .addTag('messenger.transport_factory');
 
-container.register('messenger.transport.in_memory.factory', Jymfony.Component.Messenger.Transport.InMemoryTransportFactory)
+container.register('messenger.transport.in_memory.factory', Jymfony.Component.Messenger.Transport.InMemory.InMemoryTransportFactory)
     .addTag('messenger.transport_factory');
 
 // Retry

@@ -40,14 +40,16 @@ export default class TraceableMiddleware extends implementationOf(MiddlewareInte
     /**
      * @inheritDoc
      */
-    handle(envelope, stack) {
+    async handle(envelope, stack) {
         stack = new TraceableStack(stack, this._stopwatch, this._busName, this._eventCategory);
 
         try {
-            return stack.next().handle(envelope, stack);
+            envelope = await stack.next().handle(envelope, stack);
         } finally {
             stack.stop();
         }
+
+        return envelope;
     }
 }
 

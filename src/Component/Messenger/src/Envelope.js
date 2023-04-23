@@ -96,7 +96,7 @@ export default class Envelope {
      * @returns {Jymfony.Component.Messenger.Envelope}
      */
     withoutStampsOfType(type) {
-        type = ReflectionClass.exists(type) ? ReflectionClass.getClassName(type) : stampFqcn;
+        type = ReflectionClass.exists(type) ? ReflectionClass.getClassName(type) : type;
 
         const cloned = __jymfony.clone(this);
         for (const klass of Object.keys(cloned._stamps)) {

@@ -15,7 +15,7 @@ export default class WorkerMetadata {
      * @param {Object.<string, *>} newMetadata
      */
     set(newMetadata) {
-        this._metadata = { ...this._metadata, newMetadata };
+        this._metadata = { ...this._metadata, ...newMetadata };
     }
 
     /**

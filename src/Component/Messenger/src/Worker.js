@@ -278,7 +278,7 @@ export default class Worker {
         this._unacks = new Map();
 
         for (const batchHandler of unacks.keys()) {
-            let [ envelope, transportName ] = unacks[batchHandler];
+            let [ envelope, transportName ] = unacks.get(batchHandler);
 
             try {
                 await this._bus.dispatch(envelope.withStamps(new FlushBatchHandlersStamp(force)));

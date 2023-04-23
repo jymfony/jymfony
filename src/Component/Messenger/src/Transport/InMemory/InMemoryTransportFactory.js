@@ -1,7 +1,8 @@
+const InMemoryTransport = Jymfony.Component.Messenger.Transport.InMemory.InMemoryTransport;
 const TransportFactoryInterface = Jymfony.Component.Messenger.Transport.TransportFactoryInterface;
 
 /**
- * @memberOf Jymfony.Component.Messenger.Transport
+ * @memberOf Jymfony.Component.Messenger.Transport.InMemory
  */
 export default class InMemoryTransportFactory extends implementationOf(TransportFactoryInterface) {
     __construct() {
@@ -42,9 +43,9 @@ export default class InMemoryTransportFactory extends implementationOf(Transport
      */
     _parseDsn(dsn) {
         const url = new URL(dsn);
+        let serialize = url.searchParams.get('serialize');
+        serialize = serialize && '0' !== serialize && 'false' !== serialize.toLowerCase();
 
-        return {
-            serialize: !!url.searchParams.get('serialize'),
-        };
+        return { serialize };
     }
 }

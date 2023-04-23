@@ -1,3 +1,5 @@
+const DateTime = Jymfony.Component.DateTime.DateTime;
+const DelayStamp = Jymfony.Component.Messenger.Stamp.DelayStamp;
 const LogicException = Jymfony.Component.Messenger.Exception.LogicException;
 const TransportInterface = Jymfony.Component.Messenger.Transport.TransportInterface;
 const TransportMessageIdStamp = Jymfony.Component.Messenger.Stamp.TransportMessageIdStamp;
@@ -5,7 +7,7 @@ const TransportMessageIdStamp = Jymfony.Component.Messenger.Stamp.TransportMessa
 /**
  * Transport that stays in memory. Useful for testing purpose.
  *
- * @memberOf Jymfony.Component.Messenger.Transport
+ * @memberOf Jymfony.Component.Messenger.Transport.InMemory
  */
 export default class InMemoryTransport extends implementationOf(TransportInterface) {
     /**
@@ -43,6 +45,13 @@ export default class InMemoryTransport extends implementationOf(TransportInterfa
         this._queue = new Map();
 
         /**
+         * @type {Map.<*, float>}
+         *
+         * @private
+         */
+        this._availableAt = new Map();
+
+        /**
          * @type {int}
          *
          * @private
@@ -61,7 +70,16 @@ export default class InMemoryTransport extends implementationOf(TransportInterfa
      * @inheritdoc
      */
     async get() {
-        return this._decode([ ...this._queue.values() ]);
+        const envelopes = [];
+        const now = DateTime.now;
+
+        for (const [ id, envelope ] of this._queue.entries()) {
+            if (!this._availableAt.has(id) || now.microtime >= this._availableAt.get(id)) {
+                envelopes.push(...this._decode([ envelope ]));
+            }
+        }
+
+        return envelopes;
     }
 
     /**
@@ -76,6 +94,7 @@ export default class InMemoryTransport extends implementationOf(TransportInterfa
         }
 
         this._queue.delete(transportMessageIdStamp.id);
+        this._availableAt.delete(transportMessageIdStamp.id);
     }
 
     /**
@@ -90,6 +109,7 @@ export default class InMemoryTransport extends implementationOf(TransportInterfa
         }
 
         this._queue.delete(transportMessageIdStamp.id);
+        this._availableAt.delete(transportMessageIdStamp.id);
     }
 
     /**
@@ -101,6 +121,12 @@ export default class InMemoryTransport extends implementationOf(TransportInterfa
         const encodedEnvelope = this._encode(envelope);
         this._sent.push(encodedEnvelope);
         this._queue.set(id, encodedEnvelope);
+
+        const delayStamp = envelope.last(DelayStamp);
+        if (null !== delayStamp) {
+            const now = new DateTime();
+            this._availableAt.set(id, now.microtime + delayStamp.delay / 1000);
+        }
 
         return envelope;
     }

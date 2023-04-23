@@ -68,6 +68,11 @@ Jymfony.Component.Messenger = {
         /**
          * @namespace
          */
+        InMemory: {},
+
+        /**
+         * @namespace
+         */
         Receiver: {},
 
         /**

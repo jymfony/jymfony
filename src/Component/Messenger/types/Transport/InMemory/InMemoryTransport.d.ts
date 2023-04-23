@@ -1,4 +1,4 @@
-declare namespace Jymfony.Component.Messenger.Transport {
+declare namespace Jymfony.Component.Messenger.Transport.InMemory {
     import Envelope = Jymfony.Component.Messenger.Envelope;
     import SerializerInterface = Jymfony.Component.Messenger.Transport.Serialization.SerializerInterface;
 

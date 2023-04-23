@@ -17,10 +17,10 @@ export default class DelayedMessageHandlingException extends RuntimeException {
 
         const message = (() => {
             if (1 === exceptions.length) {
-                return __jymfony.sprintf('A delayed message handler threw an exception: \n\n%s', exceptionMessages);
+                return __jymfony.sprintf('A delayed message handler threw an exception:\n\n%s', exceptionMessages);
             }
 
-            return __jymfony.sprintf('Some delayed message handlers threw an exception: \n\n%s', exceptionMessages);
+            return __jymfony.sprintf('Some delayed message handlers threw an exception:\n\n%s', exceptionMessages);
         })();
 
         /**

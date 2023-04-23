@@ -59,7 +59,7 @@ export default class HandlersLocator extends implementationOf(HandlersLocatorInt
         const types = [ reflClass.name ];
         let p = reflClass;
         while (p = p.getParentClass()) {
-            types.push(reflClass.name);
+            types.push(p.name);
         }
 
         for (const i of reflClass.interfaces) {

@@ -1,4 +1,4 @@
-declare namespace Jymfony.Component.Messenger.Transport {
+declare namespace Jymfony.Component.Messenger.Transport.InMemory {
     import SerializerInterface = Jymfony.Component.Messenger.Transport.Serialization.SerializerInterface;
 
     export class InMemoryTransportFactory extends implementationOf(TransportFactoryInterface) {

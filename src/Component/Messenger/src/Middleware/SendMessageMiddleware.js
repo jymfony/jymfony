@@ -1,5 +1,6 @@
 const LoggerAwareTrait = Jymfony.Contracts.Logger.LoggerAwareTrait;
 const MiddlewareInterface = Jymfony.Component.Messenger.Middleware.MiddlewareInterface;
+const NoSenderForMessageException = Jymfony.Component.Messenger.Exception.NoSenderForMessageException;
 const NullLogger = Jymfony.Contracts.Logger.NullLogger;
 const ReceivedStamp = Jymfony.Component.Messenger.Stamp.ReceivedStamp;
 const SendMessageToTransportsEvent = Jymfony.Component.Messenger.Event.SendMessageToTransportsEvent;
@@ -12,8 +13,9 @@ export default class SendMessageMiddleware extends implementationOf(MiddlewareIn
     /**
      * @param {Jymfony.Component.Messenger.Transport.Sender.SendersLocatorInterface} sendersLocator
      * @param {Jymfony.Contracts.EventDispatcher.EventDispatcherInterface} [eventDispatcher = null]
+     * @param {boolean} [allowNoSenders = true]
      */
-    __construct(sendersLocator, eventDispatcher = null) {
+    __construct(sendersLocator, eventDispatcher = null, allowNoSenders = true) {
         /**
          * @type {Jymfony.Component.Messenger.Transport.Sender.SendersLocatorInterface}
          *
@@ -27,6 +29,13 @@ export default class SendMessageMiddleware extends implementationOf(MiddlewareIn
          * @private
          */
         this._eventDispatcher = eventDispatcher;
+
+        /**
+         * @type {boolean}
+         *
+         * @private
+         */
+        this._allowNoSenders = allowNoSenders;
 
         /**
          * @type {Jymfony.Contracts.Logger.LoggerInterface}
@@ -63,6 +72,10 @@ export default class SendMessageMiddleware extends implementationOf(MiddlewareIn
 
                 this._logger.info('Sending message {class} with {alias} sender using {sender}', { ...context, alias, sender: ReflectionClass.getClassName(sender) });
                 envelope = await sender.send(envelope.withStamps(new SentStamp(ReflectionClass.getClassName(sender), isString(alias) ? alias : null)));
+            }
+
+            if (! this._allowNoSenders && ! sender) {
+                throw new NoSenderForMessageException(__jymfony.sprintf('No sender for message "%s".', context.class));
             }
         }
 

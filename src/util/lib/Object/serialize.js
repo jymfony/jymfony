@@ -270,8 +270,10 @@ const unserialize = (serialized, { allowedClasses = true, throwOnInvalidClass = 
                 const class_ = readUntil(']');
 
                 let obj;
-                let reflClass = new ReflectionClass(class_);
-                if (true === allowedClasses || (isArray(allowedClasses) && allowedClasses.some(c => reflClass.isInstanceOf(c)))) {
+                let reflClass;
+
+                reflClass = ReflectionClass.exists(class_) ? new ReflectionClass(class_) : false;
+                if (false !== reflClass && (true === allowedClasses || (isArray(allowedClasses) && allowedClasses.some(c => reflClass.isInstanceOf(c))))) {
                     obj = reflClass.newInstanceWithoutConstructor();
                 } else {
                     if (throwOnInvalidClass) {

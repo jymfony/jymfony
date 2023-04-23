@@ -32,10 +32,10 @@ export default class ActivationMiddleware extends implementationOf(MiddlewareInt
      * @inheritdoc
      */
     async handle(envelope, stack) {
-        if (isFunction(this._activated) ? (await this._activated(envelope)) : this._activated) {
-            return this._inner.handle(envelope, stack);
+        if (isFunction(this._activated) ? await this._activated(envelope) : this._activated) {
+            return await this._inner.handle(envelope, stack);
         }
 
-        return stack.next().handle(envelope, stack);
+        return await stack.next().handle(envelope, stack);
     }
 }
