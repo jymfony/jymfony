@@ -1,33 +1,39 @@
-require('../../lib/String/levenshtein');
-const { expect } = require('chai');
+const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 
-describe('Levenshtein distance', function () {
-    it('equals', () => {
-        expect(__jymfony.levenshtein('12345', '12345')).to.be.equal(0);
-    });
-    it('1st empty', () => {
-        expect(__jymfony.levenshtein('', 'xyz')).to.be.equal(3);
-    });
-    it('2nd empty', () => {
-        expect(__jymfony.levenshtein('xyz', '')).to.be.equal(3);
-    });
-    it('both empty', () => {
-        expect(__jymfony.levenshtein('', '')).to.be.equal(0);
-    });
-    it('1 char', () => {
-        expect(__jymfony.levenshtein('1', '2')).to.be.equal(1);
-    });
-    it('2 char swap', () => {
-        expect(__jymfony.levenshtein('12', '21')).to.be.equal(2);
-    });
+export default class LevenshteinTest extends TestCase {
+    testEquals() {
+        __self.assertEquals(0, __jymfony.levenshtein('12345', '12345'));
+    }
 
-    it('delete', () => {
-        expect(__jymfony.levenshtein('2121', '11')).to.be.equal(2);
-    });
-    it('insert', () => {
-        expect(__jymfony.levenshtein('11', '2121')).to.be.equal(2);
-    });
-    it('replace', () => {
-        expect(__jymfony.levenshtein('121', '111')).to.be.equal(1);
-    });
-});
+    test1stEmpty() {
+        __self.assertEquals(3, __jymfony.levenshtein('', 'xyz'));
+    }
+
+    test2ndEmpty() {
+        __self.assertEquals(3, __jymfony.levenshtein('xyz', ''));
+    }
+
+    testBothEmpty() {
+        __self.assertEquals(0, __jymfony.levenshtein('', ''));
+    }
+
+    test1Char() {
+        __self.assertEquals(1, __jymfony.levenshtein('1', '2'));
+    }
+
+    test2CharSwap() {
+        __self.assertEquals(2, __jymfony.levenshtein('12', '21'));
+    }
+
+    testDelete() {
+        __self.assertEquals(2, __jymfony.levenshtein('2121', '11'));
+    }
+
+    testInsert() {
+        __self.assertEquals(2, __jymfony.levenshtein('11', '2121'));
+    }
+
+    testReplace() {
+        __self.assertEquals(1, __jymfony.levenshtein('121', '111'));
+    }
+}

@@ -84,5 +84,3 @@ export default class Logger extends mix(BaseLogger, DebugLoggerInterface) {
         return null;
     }
 }
-
-module.exports = Logger;

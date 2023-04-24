@@ -1,7 +1,7 @@
 const AbstractRecursivePass = Jymfony.Component.DependencyInjection.Compiler.AbstractRecursivePass;
 const ChildDefinition = Jymfony.Component.DependencyInjection.ChildDefinition;
 const Definition = Jymfony.Component.DependencyInjection.Definition;
-const ExceptionInterface = Jymfony.Component.DependencyInjection.Exception.ExceptionInterface;
+const ExceptionInterface = Jymfony.Contracts.DependencyInjection.Exception.ExceptionInterface;
 
 /**
  * This replaces all ChildDefinition instances with their equivalent fully
@@ -151,7 +151,7 @@ export default class ResolveChildDefinitionsPass extends AbstractRecursivePass {
             if (isNumber(k)) {
                 def.addArgument(v);
             } else if (String(k).startsWith('index_')) {
-                def.replaceArgument(~~ (String(k).substr(6)), v);
+                def.replaceArgument(~~ (String(k).substring(6)), v);
             } else {
                 def.setArgument(k, v);
             }

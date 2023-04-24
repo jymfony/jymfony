@@ -15,10 +15,17 @@ class Interfaces {
 
     /**
      * @param {Object} definition
+     * @param {MixinInterface} parents
      *
      * @returns {Function}
      */
-    static create(definition) {
+    static create(definition, ...parents) {
+        for (const p of parents) {
+            if (! Interfaces.isInterface(p)) {
+                throw new TypeError(__jymfony.sprintf('Cannot use %s as interface', p.toString()));
+            }
+        }
+
         const checks = obj => {
             if (checkedClassesCache.has(obj.constructor)) {
                 return;
@@ -62,10 +69,10 @@ class Interfaces {
         };
 
         const mixin = Mixins.createMixin(definition, undefined, checks);
-
         Object.setPrototypeOf(mixin, {
             definition: definition,
             [Mixins.classTypeSymbol]: CLASS_TYPE,
+            [Mixins.superInterfaces]: parents,
             [Symbol.hasInstance]: Interfaces._createHasInstance(mixin),
         });
 

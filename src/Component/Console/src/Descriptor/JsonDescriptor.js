@@ -17,6 +17,9 @@ export default class JsonDescriptor extends Descriptor {
      */
     describeInputOption(option, options = {}) {
         this._writeData(this._getInputOptionData(option), options);
+        if (option.isNegatable()) {
+            this._writeData(this._getInputOptionData(option, true), options);
+        }
     }
 
     /**
@@ -78,11 +81,20 @@ export default class JsonDescriptor extends Descriptor {
 
     /**
      * @param {Jymfony.Component.Console.Input.InputOption} option
+     * @param {boolean} [negated = false]
      *
      * @returns {Object}
      */
-    _getInputOptionData(option) {
-        return {
+    _getInputOptionData(option, negated = false) {
+        return negated ? {
+            name: '--no-' + option.getName(),
+            shortcut: '',
+            accept_value: false,
+            is_value_required: false,
+            is_multiple: false,
+            description: 'Negate the "--' + option.getName() + '" option',
+            'default': false,
+        } : {
             name: '--' + option.getName(),
             shortcut: option.getShortcut() ? '-' + option.getShortcut().replace(/|/, '|-') : '',
             accept_value: option.acceptValue(),
@@ -107,6 +119,9 @@ export default class JsonDescriptor extends Descriptor {
         const inputOptions = {};
         for (const option of definition.getOptions()) {
             inputOptions[option.getName()] = this._getInputOptionData(option);
+            if (option.isNegatable()) {
+                inputOptions['no-' + option.getName()] = this._getInputOptionData(option, true);
+            }
         }
 
         return { arguments: inputArguments, options: inputOptions };

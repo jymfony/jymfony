@@ -6,7 +6,7 @@ const ContainerBuilder = Jymfony.Component.DependencyInjection.ContainerBuilder;
 const DateTime = Jymfony.Component.DateTime.DateTime;
 const DelegatingLoader = Jymfony.Component.Config.Loader.DelegatingLoader;
 const FileLocator = Jymfony.Component.Kernel.Config.FileLocator;
-const KernelEvents = Jymfony.Component.Kernel.KernelEvents;
+const FileResource = Jymfony.Component.Config.Resource.FileResource;
 const KernelInterface = Jymfony.Component.Kernel.KernelInterface;
 const Loader = Jymfony.Component.DependencyInjection.Loader;
 const LoaderResolver = Jymfony.Component.Config.Loader.LoaderResolver;
@@ -539,7 +539,22 @@ export default class Kernel extends implementationOf(KernelInterface) {
             });
         }
 
-        cache.write(rootCode[1], container.getResources());
+        const resources = container.getResources();
+        if (this._debug && __jymfony.autoload) {
+            const finder = __jymfony.autoload.finder;
+            const rootDir = finder.findRoot();
+            for (const module of finder.listModules()) {
+                try {
+                    resources.push(new FileResource(path.join(rootDir, 'node_modules', module, 'package.json')));
+                } catch (e) {
+                    // Do nothing
+                }
+            }
+
+            resources.push(new FileResource(rootDir + '/package.json'));
+        }
+
+        cache.write(rootCode[1], resources);
     }
 
     /**
@@ -577,10 +592,10 @@ export default class Kernel extends implementationOf(KernelInterface) {
     _getContainerLoader(container) {
         const locator = new FileLocator(this);
         const resolver = new LoaderResolver([
-            new Loader.YamlFileLoader(container, locator),
-            new Loader.JsFileLoader(container, locator),
-            new Loader.JsonFileLoader(container, locator),
-            new Loader.FunctionLoader(container),
+            new Loader.YamlFileLoader(container, locator, this.environment),
+            new Loader.JsFileLoader(container, locator, this.environment),
+            new Loader.JsonFileLoader(container, locator, this.environment),
+            new Loader.FunctionLoader(container, this.environment),
         ]);
 
         return new DelegatingLoader(resolver);
@@ -733,9 +748,7 @@ export default class Kernel extends implementationOf(KernelInterface) {
 
         try {
             const eventDispatcher = this._container.get('event_dispatcher');
-            const event = new Jymfony.Contracts.Kernel.Event.UnhandledRejectionEvent(reason, promise);
-
-            await eventDispatcher.dispatch(KernelEvents.UNHANDLED_REJECTION, event);
+            await eventDispatcher.dispatch(new Jymfony.Contracts.Kernel.Event.UnhandledRejectionEvent(reason, promise));
         } catch (e) {
             // Do nothing.
         }

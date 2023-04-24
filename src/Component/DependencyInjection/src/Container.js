@@ -1,4 +1,4 @@
-const ContainerInterface = Jymfony.Component.DependencyInjection.ContainerInterface;
+const ContainerInterface = Jymfony.Contracts.DependencyInjection.ContainerInterface;
 const ServiceNotFoundException = Jymfony.Component.DependencyInjection.Exception.ServiceNotFoundException;
 const ServiceCircularReferenceException = Jymfony.Component.DependencyInjection.Exception.ServiceCircularReferenceException;
 const FrozenParameterBag = Jymfony.Component.DependencyInjection.ParameterBag.FrozenParameterBag;

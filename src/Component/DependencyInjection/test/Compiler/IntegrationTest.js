@@ -6,10 +6,15 @@ const Reference = Jymfony.Component.DependencyInjection.Reference;
 const ServiceLocator = Jymfony.Component.DependencyInjection.ServiceLocator;
 const ServiceLocatorArgument = Jymfony.Component.DependencyInjection.Argument.ServiceLocatorArgument;
 const TaggedIteratorArgument = Jymfony.Component.DependencyInjection.Argument.TaggedIteratorArgument;
+const TestCase = Jymfony.Component.Testing.Framework.TestCase;
+const VarDumperTestTrait = Jymfony.Component.VarDumper.Test.VarDumperTestTrait;
 const YamlFileLoader = Jymfony.Component.DependencyInjection.Loader.YamlFileLoader;
-const { expect } = require('chai');
 
-describe('[DependencyInjection] Compiler', function () {
+export default class IntegrationTest extends mix(TestCase, VarDumperTestTrait) {
+    get testCaseName() {
+        return '[DependencyInjection] ' + super.testCaseName;
+    }
+
     /**
      * This tests that dependencies are correctly processed.
      *
@@ -19,7 +24,7 @@ describe('[DependencyInjection] Compiler', function () {
      *   * A -> C
      *   * B -> C
      */
-    it ('should remove and inline services recursively', () => {
+    testShouldRemoveAndInlineServicesRecursively() {
         const container = new ContainerBuilder();
         container.setResourceTracking(false);
 
@@ -42,14 +47,14 @@ describe('[DependencyInjection] Compiler', function () {
 
         container.compile();
 
-        expect(container.hasDefinition('a')).to.be.equal(true);
+        __self.assertEquals(true, container.hasDefinition('a'));
         const args = a.getArguments();
-        expect(args[0]).to.be.equal(c);
-        expect(container.hasDefinition('b')).to.be.equal(false);
-        expect(container.hasDefinition('c')).to.be.equal(false);
-    });
+        __self.assertEquals(c, args[0]);
+        __self.assertEquals(false, container.hasDefinition('b'));
+        __self.assertEquals(false, container.hasDefinition('c'));
+    }
 
-    it ('should inline references to aliases', () => {
+    testShouldInlineReferencesToAliases() {
         const container = new ContainerBuilder();
         container.setResourceTracking(false);
 
@@ -68,14 +73,14 @@ describe('[DependencyInjection] Compiler', function () {
 
         container.compile();
 
-        expect(container.hasDefinition('a')).to.be.equal(true);
+        __self.assertEquals(true, container.hasDefinition('a'));
         const args = a.getArguments();
-        expect(args[0]).to.be.equal(c);
-        expect(container.hasAlias('b')).to.be.equal(false);
-        expect(container.hasDefinition('c')).to.be.equal(false);
-    });
+        __self.assertEquals(c, args[0]);
+        __self.assertEquals(false, container.hasAlias('b'));
+        __self.assertEquals(false, container.hasDefinition('c'));
+    }
 
-    it ('should inline when there are multiple references but for the same definition', () => {
+    testShouldInlineWhenThereAreMultipleReferencesButForTheSameDefinition() {
         const container = new ContainerBuilder();
         container.setResourceTracking(false);
 
@@ -99,12 +104,12 @@ describe('[DependencyInjection] Compiler', function () {
 
         container.compile();
 
-        expect(container.hasDefinition('a')).to.be.equal(true);
-        expect(container.hasDefinition('b')).to.be.equal(false);
-        expect(container.hasDefinition('c')).to.be.equal(false, 'Service C was not inlined');
-    });
+        __self.assertTrue(container.hasDefinition('a'));
+        __self.assertFalse(container.hasDefinition('b'));
+        __self.assertFalse(container.hasDefinition('c'), 'Service C was not inlined');
+    }
 
-    it ('service subscriber could be decorated', () => {
+    testServiceSubscriberCouldBeDecorated() {
         const container = new ContainerBuilder();
         container.register(Fixtures.Integration.ServiceSubscriberStub)
             .addTag('container.service_subscriber')
@@ -115,11 +120,10 @@ describe('[DependencyInjection] Compiler', function () {
 
         container.compile();
 
-        expect(container.get(Fixtures.Integration.ServiceSubscriberStub))
-            .to.be.instanceOf(Fixtures.Integration.DecoratedServiceSubscriber);
-    });
+        __self.assertInstanceOf(Fixtures.Integration.DecoratedServiceSubscriber, container.get(Fixtures.Integration.ServiceSubscriberStub));
+    }
 
-    it ('service locators could be decorated', () => {
+    testServiceLocatorsCouldBeDecorated() {
         const container = new ContainerBuilder();
         container.register('foo', 'Object').setPublic(true);
 
@@ -136,11 +140,11 @@ describe('[DependencyInjection] Compiler', function () {
 
         container.compile();
 
-        expect(container.get(ServiceLocator)).to.be.instanceOf(Fixtures.Integration.DecoratedServiceLocator);
-        expect(container.get(ServiceLocator).get('foo')).to.be.equal(container.get('foo'));
-    });
+        __self.assertInstanceOf(Fixtures.Integration.DecoratedServiceLocator, container.get(ServiceLocator));
+        __self.assertEquals(container.get('foo'), container.get(ServiceLocator).get('foo'));
+    }
 
-    const getYamlCompileTests = function * () {
+    * getYamlCompileTests() {
         let container = new ContainerBuilder();
         container.registerForAutoconfiguration(Fixtures.Integration.IntegrationTestStub);
         yield [ 'autoconfigure_child_not_applied', 'child_service', 'child_service_expected', container ];
@@ -169,39 +173,38 @@ describe('[DependencyInjection] Compiler', function () {
         yield [ 'instanceof_and_calls', 'main_service', 'main_service_expected', container ];
     };
 
-    for (const [ directory, actualServiceId, expectedServiceId, mainContainer = null ] of getYamlCompileTests()) {
-        it('yaml container should compile: ' + directory, () => {
-            // Allow a container to be passed in, which might have autoconfigure settings
-            let container = mainContainer || new ContainerBuilder();
-            container.setResourceTracking(false);
-            let loader = new YamlFileLoader(container,
-                new FileLocator(__dirname + '/../../fixtures/yaml/integration/' + directory)
-            );
+    @dataProvider('getYamlCompileTests')
+    testYamlContainerShouldCompile(directory, actualServiceId, expectedServiceId, mainContainer = null) {
+        // Allow a container to be passed in, which might have autoconfigure settings
+        let container = mainContainer || new ContainerBuilder();
+        container.setResourceTracking(false);
+        let loader = new YamlFileLoader(container,
+            new FileLocator(__dirname + '/../../fixtures/yaml/integration/' + directory)
+        );
 
-            loader.load('main.yml');
-            container.compile();
-            const actualService = container.getDefinition(actualServiceId);
+        loader.load('main.yml');
+        container.compile();
+        const actualService = container.getDefinition(actualServiceId);
 
-            // Create a fresh ContainerBuilder, to avoid autoconfigure stuff
-            container = new ContainerBuilder();
-            container.setResourceTracking(false);
-            loader = new YamlFileLoader(container,
-                new FileLocator(__dirname + '/../../fixtures/yaml/integration/' + directory)
-            );
+        // Create a fresh ContainerBuilder, to avoid autoconfigure stuff
+        container = new ContainerBuilder();
+        container.setResourceTracking(false);
+        loader = new YamlFileLoader(container,
+            new FileLocator(__dirname + '/../../fixtures/yaml/integration/' + directory)
+        );
 
-            loader.load('expected.yml');
-            container.compile();
-            const expectedService = container.getDefinition(expectedServiceId);
+        loader.load('expected.yml');
+        container.compile();
+        const expectedService = container.getDefinition(expectedServiceId);
 
-            // Reset changes, we don't care if these differ
-            actualService.setChanges({});
-            expectedService.setChanges({});
+        // Reset changes, we don't care if these differ
+        actualService.setChanges({});
+        expectedService.setChanges({});
 
-            expect(actualService).to.dump.as(expectedService);
-        });
+        this.assertDumpEquals(expectedService, actualService);
     }
 
-    it ('should register service locator with fallback', () => {
+    testShouldRegisterServiceLocatorWithFallback() {
         const container = new ContainerBuilder();
         container.register('bar_tag', 'Object')
             .setPublic(true)
@@ -217,13 +220,9 @@ describe('[DependencyInjection] Compiler', function () {
 
         const s = container.get('foo_bar_tagged');
 
-        /** @var ServiceLocator $serviceLocator */
+        /** @var {ServiceLocator} serviceLocator */
         const serviceLocator = s.getParam();
-        expect(serviceLocator).to.be.instanceOf(
-            ServiceLocator,
-            __jymfony.sprintf('Wrong instance, should be an instance of ServiceLocator, %s given', typeof serviceLocator)
-        );
-
-        expect(serviceLocator.get('bar_tag')).to.be.equal(container.get('bar_tag'));
-    });
-});
+        __self.assertInstanceOf(ServiceLocator, serviceLocator, __jymfony.sprintf('Wrong instance, should be an instance of ServiceLocator, %s given', typeof serviceLocator));
+        __self.assertEquals(container.get('bar_tag'), serviceLocator.get('bar_tag'));
+    }
+}

@@ -1,10 +1,7 @@
-import { AdapterTestCase } from './AdapterTestCase';
-import { expect } from 'chai';
-
+const AdapterTestCase = Jymfony.Component.Cache.Tests.Adapter.AdapterTestCase;
 const ArrayAdapter = Jymfony.Component.Cache.Adapter.ArrayAdapter;
-const TimeSensitiveTestCaseTrait = Jymfony.Component.Testing.Framework.TimeSensitiveTestCaseTrait;
 
-export default class ArrayAdapterTest extends mix(AdapterTestCase, TimeSensitiveTestCaseTrait) {
+export default @timeSensitive() class ArrayAdapterTest extends AdapterTestCase {
     async testValuesShouldReturnAllTheValues() {
         let item = await this._cache.getItem('key');
         item.set('4711');
@@ -15,8 +12,8 @@ export default class ArrayAdapterTest extends mix(AdapterTestCase, TimeSensitive
         await this._cache.save(item);
 
         const values = this._cache.values;
-        expect(Object.keys(values)).to.be.deep.equal([ 'key', 'key2' ]);
-        expect(values['key']).to.be.equal(__jymfony.serialize('4711'));
+        __self.assertEquals([ 'key', 'key2' ], Object.keys(values));
+        __self.assertEquals(__jymfony.serialize('4711'), values.key);
     }
 
     _createCachePool(defaultLifetime = undefined) {

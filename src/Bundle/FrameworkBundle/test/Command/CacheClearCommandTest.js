@@ -1,29 +1,35 @@
-const TestAppKernel = Jymfony.Bundle.FrameworkBundle.Tests.Fixtures.CacheClear.TestAppKernel;
-const ConfigCacheFactory = Jymfony.Component.Config.ConfigCacheFactory;
+import { readFileSync } from 'fs';
+import { sep } from 'path';
+
 const ArrayInput = Jymfony.Component.Console.Input.ArrayInput;
-const NullOutput = Jymfony.Component.Console.Output.NullOutput;
+const ConfigCacheFactory = Jymfony.Component.Config.ConfigCacheFactory;
 const Filesystem = Jymfony.Component.Filesystem.Filesystem;
-const { expect } = require('chai');
-const { readFileSync } = require('fs');
-const { sep } = require('path');
+const NullOutput = Jymfony.Component.Console.Output.NullOutput;
+const TestAppKernel = Jymfony.Bundle.FrameworkBundle.Tests.Fixtures.CacheClear.TestAppKernel;
+const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 
-describe('[FrameworkBundle] CacheClearCommand', function () {
-    this.timeout(60000);
+export default class CacheClearCommandTest extends TestCase {
+    _fs;
+    _kernel;
 
-    beforeEach(async () => {
+    get testCaseName() {
+        return '[FrameworkBundle] ' + super.testCaseName;
+    }
+
+    async beforeEach() {
         this._fs = new Filesystem();
         this._kernel = new TestAppKernel('test', true);
         await this._fs.mkdir(this._kernel.getProjectDir());
 
         await this._kernel.boot();
-    });
+    }
 
-    afterEach(async () => {
+    async afterEach() {
         await this._kernel.shutdown();
         await this._fs.remove(this._kernel.getProjectDir());
-    });
+    }
 
-    it ('cache should be fresh after cache clear with warmup', async () => {
+    async testCacheShouldBeFreshAfterCacheClearWithWarmup() {
         const input = new ArrayInput({command: 'cache:clear'});
         const application = this._kernel.container.get('console.application');
         application.catchExceptions = false;
@@ -56,6 +62,6 @@ describe('[FrameworkBundle] CacheClearCommand', function () {
             }
         }
 
-        expect(found, 'Kernel file should be present as resource').to.be.true;
-    });
-});
+        __self.assertTrue(found, 'Kernel file should be present as resource');
+    }
+}

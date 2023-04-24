@@ -4,11 +4,6 @@ declare namespace Jymfony.Component.HttpServer.Command {
     import OutputInterface = Jymfony.Contracts.Console.OutputInterface;
 
     export class HttpServerRunCommand extends Command {
-        /**
-         * @inheritDoc
-         */
-        public static readonly defaultName: string;
-
         private _server: HttpServer;
 
         /**

@@ -12,8 +12,8 @@ declare namespace Jymfony.Component.DependencyInjection.Loader {
          * Constructor.
          */
         // @ts-ignore
-        __construct(container: ContainerBuilder): void;
-        constructor(container: ContainerBuilder);
+        __construct(container: ContainerBuilder, env?: string | null): void;
+        constructor(container: ContainerBuilder, env?: string | null);
 
         /**
          * @inheritdoc

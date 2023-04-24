@@ -1,5 +1,5 @@
 const AbstractRecursivePass = Jymfony.Component.DependencyInjection.Compiler.AbstractRecursivePass;
-const ContainerInterface = Jymfony.Component.DependencyInjection.ContainerInterface;
+const ContainerInterface = Jymfony.Contracts.DependencyInjection.ContainerInterface;
 const Definition = Jymfony.Component.DependencyInjection.Definition;
 const Reference = Jymfony.Component.DependencyInjection.Reference;
 

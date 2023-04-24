@@ -5,6 +5,7 @@
 /// <reference path="Retry/GenericRetryStrategy.d.ts" />
 /// <reference path="Retry/RetryStrategyInterface.d.ts" />
 /// <reference path="DecodingStream.d.ts" />
+/// <reference path="HttpClient.d.ts" />
 /// <reference path="HttpClientTrait.d.ts" />
 /// <reference path="MockHttpClient.d.ts" />
 /// <reference path="NativeHttpClient.d.ts" />

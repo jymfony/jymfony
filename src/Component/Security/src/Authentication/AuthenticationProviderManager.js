@@ -103,7 +103,7 @@ export default class AuthenticationProviderManager extends implementationOf(Auth
             }
 
             if (undefined !== this._eventDispatcher) {
-                await this._eventDispatcher.dispatch(AuthenticationEvents.AUTHENTICATION_SUCCESS, new AuthenticationEvent(result));
+                await this._eventDispatcher.dispatch(new AuthenticationEvent(result), AuthenticationEvents.AUTHENTICATION_SUCCESS);
             }
 
             return result;
@@ -114,7 +114,7 @@ export default class AuthenticationProviderManager extends implementationOf(Auth
         }
 
         if (undefined !== this._eventDispatcher) {
-            await this._eventDispatcher.dispatch(AuthenticationEvents.AUTHENTICATION_FAILURE, new AuthenticationFailureEvent(token, lastException));
+            await this._eventDispatcher.dispatch(new AuthenticationFailureEvent(token, lastException), AuthenticationEvents.AUTHENTICATION_FAILURE);
         }
 
         lastException.token = token;

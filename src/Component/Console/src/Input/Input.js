@@ -149,6 +149,15 @@ export default class Input extends implementationOf(StreamableInputInterface) {
      * @inheritdoc
      */
     getOption(name) {
+        if (this._definition.hasNegation(name)) {
+            const value = this.getOption(this._definition.negationToName(name));
+            if (null === value) {
+                return value;
+            }
+
+            return !value;
+        }
+
         if (! this._definition.hasOption(name)) {
             throw new InvalidArgumentException(`The "${name}" option does not exist.`);
         }
@@ -160,7 +169,11 @@ export default class Input extends implementationOf(StreamableInputInterface) {
      * @inheritdoc
      */
     setOption(name, value) {
-        if (! this._definition.hasOption(name)) {
+        if (this._definition.hasNegation(name)) {
+            this._options[this._definition.negationToName(name)] = !value;
+
+            return;
+        } else if (! this._definition.hasOption(name)) {
             throw new InvalidArgumentException(`The "${name}" option does not exist.`);
         }
 
@@ -171,7 +184,7 @@ export default class Input extends implementationOf(StreamableInputInterface) {
      * @inheritdoc
      */
     hasOption(name) {
-        return this._definition.hasOption(name);
+        return this._definition.hasOption(name) || this._definition.hasNegation(name);
     }
 
     /**

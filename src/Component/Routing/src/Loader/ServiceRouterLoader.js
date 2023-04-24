@@ -10,9 +10,10 @@ export default class ServiceRouterLoader extends Loader {
      * Constructor.
      *
      * @param {Jymfony.Component.DependencyInjection.Container} container
+     * @param {string | null} [env = null]
      */
-    __construct(container) {
-        super.__construct();
+    __construct(container, env = null) {
+        super.__construct(env);
 
         /**
          * @type {Jymfony.Component.DependencyInjection.Container}

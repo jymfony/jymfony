@@ -1,10 +1,11 @@
-import { @Route } from '@jymfony/decorators';
+const Route = Jymfony.Component.Routing.Annotation.Route;
 
 /**
  * @memberOf Jymfony.Component.Routing.Fixtures.Annotation
  */
+export default
 @Route('/prefix')
-export default class PrefixedActionLocalizedRouteController {
+class PrefixedActionLocalizedRouteController {
     @Route({ path: { en: '/path', nl: '/pad' }, name: 'action' })
     action() {
     }

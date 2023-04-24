@@ -1,5 +1,6 @@
 declare namespace Jymfony.Component.DependencyInjection.Compiler {
     import ContainerBuilder = Jymfony.Component.DependencyInjection.ContainerBuilder;
+    import Definition = Jymfony.Component.DependencyInjection.Definition;
 
     export abstract class AbstractRecursivePass extends implementationOf(CompilerPassInterface) {
         /**
@@ -30,5 +31,15 @@ declare namespace Jymfony.Component.DependencyInjection.Compiler {
          * @returns The processed value
          */
         protected _processValue(value: any, isRoot?: boolean): any;
+
+        /**
+         * @throws {RuntimeException}
+         */
+        protected _getConstructor(definition: Definition, required: boolean): ReflectionMethod | null;
+
+        /**
+         * @throws {RuntimeException}
+         */
+        protected _getReflectionMethod(definition: Definition, method: string | symbol): ReflectionMethod;
     }
 }

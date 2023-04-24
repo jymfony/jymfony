@@ -152,8 +152,15 @@ export default class ArrayInput extends Input {
      * @private
      */
     _addLongOption(name, value) {
-        if (! this._definition.hasOption(name)) {
-            throw new InvalidOptionException(`The "--${name}" option does not exist.`);
+        if (!this._definition.hasOption(name)) {
+            if (!this._definition.hasNegation(name)) {
+                throw new InvalidOptionException(__jymfony.sprintf('The "--%s" option does not exist.', name));
+            }
+
+            const optionName = this._definition.negationToName(name);
+            this._options[optionName] = false;
+
+            return;
         }
 
         const option = this._definition.getOption(name);

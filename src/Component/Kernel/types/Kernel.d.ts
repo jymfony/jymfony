@@ -1,6 +1,6 @@
 declare namespace Jymfony.Component.Kernel {
     import DateTimeInterface = Jymfony.Contracts.DateTime.DateTimeInterface;
-    import ContainerInterface = Jymfony.Component.DependencyInjection.ContainerInterface;
+    import ContainerInterface = Jymfony.Contracts.DependencyInjection.ContainerInterface;
     import ContainerBuilder = Jymfony.Component.DependencyInjection.ContainerBuilder;
     import ConfigCache = Jymfony.Component.Config.ConfigCache;
     import LoaderInterface = Jymfony.Component.Config.Loader.LoaderInterface;

@@ -8,5 +8,4 @@
 /// <reference path="Log/Logger.d.ts" />
 /// <reference path="Bundle.d.ts" />
 /// <reference path="Kernel.d.ts" />
-/// <reference path="KernelEvents.d.ts" />
 /// <reference path="KernelInterface.d.ts" />

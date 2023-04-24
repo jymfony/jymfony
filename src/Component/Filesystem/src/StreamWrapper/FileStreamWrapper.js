@@ -263,7 +263,7 @@ export default class FileStreamWrapper extends AbstractStreamWrapper {
         const p = (() => {
             switch (option) {
                 case StreamWrapperInterface.META_TOUCH:
-                    return futimes(path, new Date(), new Date());
+                    return futimes(path, value || new Date(), value || new Date());
 
                 case StreamWrapperInterface.META_OWNER:
                     return chown(path, value, stat.gid);

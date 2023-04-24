@@ -31,10 +31,6 @@ export default class CollectionValidator extends ConstraintValidator {
          * Since the context of the validator is overwritten when initialize()
          * is called for the nested constraint, the outer validator is
          * acting on the wrong context when the nested validation terminates.
-         *
-         * A better solution - which should be approached in Symfony 3.0 - is to
-         * remove the initialize() method and pass the context as last argument
-         * to validate() instead.
          */
         const context = this._context;
         const exists = value instanceof Map ? (f => value.has(f)) : (f => Object.prototype.hasOwnProperty.call(value, f));

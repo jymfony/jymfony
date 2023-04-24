@@ -1,15 +1,15 @@
-import { @Constraint, @GroupSequence } from '@jymfony/decorators';
-
 const ConstraintA = Jymfony.Component.Validator.Fixtures.ConstraintA;
 const CallbackClass = Jymfony.Component.Validator.Fixtures.CallbackClass;
+const Constraint = Jymfony.Component.Validator.Annotation.Constraint;
 const Constraints = Jymfony.Component.Validator.Constraints;
 const EntityInterfaceB = Jymfony.Component.Validator.Fixtures.EntityInterfaceB;
 const EntityParent = Jymfony.Component.Validator.Fixtures.EntityParent;
 
+export default
 @Constraint(ConstraintA)
 @Constraint(Constraints.Callback, CallbackClass.callback)
-@GroupSequence([ 'Foo', 'Entity' ])
-export default class Entity extends mix(EntityParent, EntityInterfaceB) {
+@Constraints.GroupSequence([ 'Foo', 'Entity' ])
+class Entity extends mix(EntityParent, EntityInterfaceB) {
     @Constraint(Constraints.NotNull)
     @Constraint(Constraints.Range, { min: 3 })
     @Constraint(Constraints.Choice, { choices: [ 'A', 'B' ], message: 'Must be one of %choices%' })
@@ -23,15 +23,15 @@ export default class Entity extends mix(EntityParent, EntityInterfaceB) {
     ] })
     @Constraint(Constraints.Collection, { fields: {
         foo: [ new Constraints.NotNull(), new Constraints.Range({ min: 3 }) ],
-        bar: new Constraints.Range({ min: 5 })
+        bar: new Constraints.Range({ min: 5 }),
     } })
-    firstName;
+    accessor firstName;
 
     @Constraint(Constraints.Valid)
-    childA;
+    accessor childA;
 
     @Constraint(Constraints.Valid)
-    childB;
+    accessor childB;
 
     /**
      * @protected
@@ -87,7 +87,7 @@ export default class Entity extends mix(EntityParent, EntityInterfaceB) {
      * @param {Jymfony.Component.Validator.Context.ExecutionContextInterface} context
      */
     @Constraint(Constraints.Callback, { payload: 'foo' })
-    validateMe(context) {
+    validateMe(context) { // eslint-disable-line
     }
 
     /**
@@ -95,8 +95,7 @@ export default class Entity extends mix(EntityParent, EntityInterfaceB) {
      * @param {Jymfony.Component.Validator.Context.ExecutionContextInterface} context
      */
     @Constraint(Constraints.Callback)
-    static validateMeStatic(object, context)
-    {
+    static validateMeStatic(object, context) { // eslint-disable-line
     }
 
     /**

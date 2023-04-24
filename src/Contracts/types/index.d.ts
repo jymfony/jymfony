@@ -4,6 +4,7 @@
  * of a jymfony project.
  */
 
+/// <reference path="Async/ClsTrait.d.ts" />
 /// <reference path="Cache/Exception/CacheException.d.ts" />
 /// <reference path="Cache/Exception/ExceptionInterface.d.ts" />
 /// <reference path="Cache/Exception/InvalidArgumentException.d.ts" />
@@ -21,12 +22,20 @@
 /// <reference path="Console/CommandInterface.d.ts" />
 /// <reference path="Console/InputInterface.d.ts" />
 /// <reference path="Console/OutputInterface.d.ts" />
+/// <reference path="DependencyInjection/Exception/ExceptionInterface.d.ts" />
+/// <reference path="DependencyInjection/Exception/NotFoundExceptionInterface.d.ts" />
+/// <reference path="DependencyInjection/ContainerInterface.d.ts" />
+/// <reference path="DependencyInjection/ServiceProviderInterface.d.ts" />
 /// <reference path="DateTime/DateTimeInterface.d.ts" />
 /// <reference path="DateTime/DateTimeZoneInterface.d.ts" />
 /// <reference path="DateTime/TimeSpanInterface.d.ts" />
+/// <reference path="Debug/ErrorEnhancer/ErrorEnhancerInterface.d.ts" />
+/// <reference path="Debug/ErrorRenderer/ErrorRendererInterface.d.ts" />
+/// <reference path="Debug/Exception/FlattenExceptionInterface.d.ts" />
 /// <reference path="EventDispatcher/Event.d.ts" />
 /// <reference path="EventDispatcher/EventDispatcherInterface.d.ts" />
 /// <reference path="EventDispatcher/EventSubscriberInterface.d.ts" />
+/// <reference path="EventDispatcher/StoppableEventInterface.d.ts" />
 /// <reference path="HttpClient/Exception/ClientException.d.ts" />
 /// <reference path="HttpClient/Exception/DecodingException.d.ts" />
 /// <reference path="HttpClient/Exception/ExceptionInterface.d.ts" />
@@ -48,6 +57,7 @@
 /// <reference path="HttpServer/Event/PostResponseEvent.d.ts" />
 /// <reference path="HttpServer/Event/RequestEvent.d.ts" />
 /// <reference path="HttpServer/Event/ResponseEvent.d.ts" />
+/// <reference path="HttpServer/Event/ServerTerminateEvent.d.ts" />
 /// <reference path="HttpServer/Event/ViewEvent.d.ts" />
 /// <reference path="HttpServer/HttpServerInterface.d.ts" />
 /// <reference path="Kernel/Event/UnhandledRejectionEvent.d.ts" />

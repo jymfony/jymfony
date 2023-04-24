@@ -9,6 +9,11 @@ Jymfony.Component.Testing = {
     /**
      * @namespace
      */
+    Annotation: {},
+
+    /**
+     * @namespace
+     */
     Argument: {
         /**
          * @namespace
@@ -54,6 +59,11 @@ Jymfony.Component.Testing = {
          * @namespace
          */
         Exception: {},
+
+        /**
+         * @namespace
+         */
+        TimeSensitive: {},
     },
 
     /**

@@ -13,20 +13,19 @@
   "author": "Alessandro Chitolina <alekitto@gmail.com>",
   "license": "MIT",
   "engines": {
-    "node": ">=8.10.0"
+    "node": ">=12.0.0"
   },
   "dependencies": {
     "@jymfony/autoloader": "0.1.0-alpha.30",
     "@jymfony/config": "0.1.0-alpha.30",
-    "@jymfony/decorators": "0.1.0-alpha.30",
     "@jymfony/exceptions": "0.1.0-alpha.30",
+    "@jymfony/var-dumper": "0.1.0-alpha.30",
     "@jymfony/util": "0.1.0-alpha.30"
   },
   "devDependencies": {
     "@jymfony/debug": "*",
-    "@jymfony/var-dumper": "*",
     "chai": "^4.2",
-    "mocha": "^6.0"
+    "mocha": "^10.2"
   },
   "config": {
     "jymfony-autoload": {

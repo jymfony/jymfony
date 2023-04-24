@@ -9,7 +9,7 @@ export default class TestContainer extends Container {
      *
      * @param {Jymfony.Component.DependencyInjection.ParameterBag.ParameterBag} parameterBag
      * @param {Jymfony.Component.DependencyInjection.Container} publicContainer
-     * @param {Jymfony.Component.DependencyInjection.ContainerInterface} serviceLocator
+     * @param {Jymfony.Contracts.DependencyInjection.ContainerInterface} serviceLocator
      */
     __construct(parameterBag, publicContainer, serviceLocator) {
         this._parameterBag = parameterBag || publicContainer.parameterBag;
@@ -22,7 +22,7 @@ export default class TestContainer extends Container {
         this._publicContainer = publicContainer;
 
         /**
-         * @type {Jymfony.Component.DependencyInjection.ContainerInterface}
+         * @type {Jymfony.Contracts.DependencyInjection.ContainerInterface}
          *
          * @private
          */

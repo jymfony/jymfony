@@ -1,5 +1,4 @@
-import { @Constraint } from '@jymfony/decorators';
-
+const Constraint = Jymfony.Component.Validator.Annotation.Constraint;
 const Constraints = Jymfony.Component.Validator.Constraints;
 const EntityInterfaceA = Jymfony.Component.Validator.Fixtures.EntityInterfaceA;
 
@@ -13,7 +12,7 @@ export default class EntityParent extends implementationOf(EntityInterfaceA) {
      * @NotNull
      */
     @Constraint(Constraints.NotNull)
-    other;
+    accessor other;
 
     getData() {
         return 'Data';

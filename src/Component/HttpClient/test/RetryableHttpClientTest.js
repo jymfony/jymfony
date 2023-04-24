@@ -6,6 +6,10 @@ const ServerException = Jymfony.Contracts.HttpClient.Exception.ServerException;
 const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 
 export default class RetryableHttpClientTest extends TestCase {
+    get testCaseName() {
+        return '[HttpClient] ' + super.testCaseName;
+    }
+
     async testRetryOnError() {
         const client = new RetryableHttpClient(
             new MockHttpClient([

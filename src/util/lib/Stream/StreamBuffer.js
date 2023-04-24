@@ -38,7 +38,7 @@ class StreamBuffer extends Duplex {
      * @returns {Buffer}
      */
     get buffer() {
-        return this._buffer.slice(0, this._size);
+        return this._buffer.subarray(0, this._size);
     }
 
     /**
@@ -67,7 +67,7 @@ class StreamBuffer extends Duplex {
                 return;
             }
 
-            result = this.push(this._buffer.slice(this._position, this._position + size));
+            result = this.push(this._buffer.subarray(this._position, this._position + size));
             this._position += size;
         } while (result);
     }

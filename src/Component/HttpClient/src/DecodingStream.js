@@ -25,6 +25,7 @@ export default class DecodingStream extends Transform {
             case __self.ENCODING_NONE:
             default:
                 contentStream = new PassThrough();
+                contentStream.setMaxListeners(20);
         }
 
         /**
@@ -33,6 +34,7 @@ export default class DecodingStream extends Transform {
          * @private
          */
         this._stream = contentStream;
+        this._stream.on('data', data => this.push(data));
 
         /**
          * @type {function(currentSize: int): void}
@@ -52,21 +54,27 @@ export default class DecodingStream extends Transform {
     /**
      * @inheritdoc
      */
+    _destroy(error, callback) {
+        this._stream.destroy();
+        super._destroy(error, callback);
+    }
+
+    /**
+     * @inheritdoc
+     */
     _transform(chunk, encoding, callback) {
         this._stream.on('error', callback);
         this._stream.write(chunk, encoding, (err) => {
-            if (err) {
-                callback(err);
+            if (!err) {
+                try {
+                    this._onProgress(this._current += chunk.length);
+                } catch (e) {
+                    err = e;
+                }
             }
 
-            try {
-                this._onProgress(this._current += chunk.length);
-            } catch (e) {
-                callback(e);
-                return;
-            }
-
-            callback(null, this._stream.read());
+            this._stream.off('error', callback);
+            callback(err, null);
         });
     }
 }

@@ -1,3 +1,4 @@
+const Assert = Jymfony.Component.Testing.Framework.Assert;
 const Collection = Jymfony.Component.Validator.Constraints.Collection;
 const CollectionValidator = Jymfony.Component.Validator.Constraints.CollectionValidator;
 const Constraint = Jymfony.Component.Validator.Constraint;
@@ -7,57 +8,48 @@ const ExecutionContext = Jymfony.Component.Validator.Context.ExecutionContext;
 const Email = Jymfony.Component.Validator.Constraints.Email;
 const NotNull = Jymfony.Component.Validator.Constraints.NotNull;
 const Optional = Jymfony.Component.Validator.Constraints.Optional;
-const Prophet = Jymfony.Component.Testing.Prophet;
 const Range = Jymfony.Component.Validator.Constraints.Range;
 const Required = Jymfony.Component.Validator.Constraints.Required;
+const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 const UnexpectedValueException = Jymfony.Component.Validator.Exception.UnexpectedValueException;
 const Valid = Jymfony.Component.Validator.Constraints.Valid;
 const { expect } = require('chai');
 
-describe('[Validator] Constraints.CollectionValidator', function () {
-    /**
-     * @type {Jymfony.Component.Testing.Prophet}
-     */
-    let prophet;
+export default class CollectionValidatorTest extends TestCase {
+    get testCaseName() {
+        return '[Validator] ' + super.testCaseName;
+    }
 
-    beforeEach(() => {
-        prophet = new Prophet();
-    });
+    testShouldRejectInvalidFieldsOptions() {
+        this.expectException(ConstraintDefinitionException);
+        new Collection({ fields: 'foo' });
+    }
 
-    afterEach(() => {
-        if ('failed' === this.ctx.currentTest.state) {
-            return;
-        }
+    testShouldRejectInvalidOptions() {
+        this.expectException(ConstraintDefinitionException);
+        this.expectExceptionMessage('The value "bar" is not an instance of Constraint in constraint "Jymfony.Component.Validator.Constraints.Required".');
+        new Collection({ foo: 'bar' });
+    }
 
-        prophet.checkPredictions();
-    });
+    testShouldRejectValidConstraint() {
+        this.expectException(ConstraintDefinitionException);
+        this.expectExceptionMessage('The constraint Valid cannot be nested inside constraint "Jymfony.Component.Validator.Constraints.Required". You can only declare the Valid constraint directly on a field or method.');
+        new Collection({ foo: new Valid() });
+    }
 
-    it ('should reject invalid fields options', async () => {
-        await expect(() => new Collection({ fields: 'foo' }))
-            .to.throw(ConstraintDefinitionException);
-    });
+    testShouldRejectValidConstraintWithinOptional() {
+        this.expectException(ConstraintDefinitionException);
+        this.expectExceptionMessage('The constraint Valid cannot be nested inside constraint "Jymfony.Component.Validator.Constraints.Optional". You can only declare the Valid constraint directly on a field or method.');
+        new Collection({ foo: new Optional(new Valid()) });
+    }
 
-    it ('should reject invalid options', async () => {
-        await expect(() => new Collection({ foo: 'bar' }))
-            .to.throw(ConstraintDefinitionException);
-    });
+    testShouldRejectValidConstraintWithinRequired() {
+        this.expectException(ConstraintDefinitionException);
+        this.expectExceptionMessage('The constraint Valid cannot be nested inside constraint "Jymfony.Component.Validator.Constraints.Required". You can only declare the Valid constraint directly on a field or method.');
+        new Collection({ foo: new Required(new Valid()) });
+    }
 
-    it ('should reject valid constraints', async () => {
-        await expect(() => new Collection({ foo: new Valid() }))
-            .to.throw(ConstraintDefinitionException);
-    });
-
-    it ('should reject valid constraint within optional', async () => {
-        await expect(() => new Collection({ foo: new Optional(new Valid()) }))
-            .to.throw(ConstraintDefinitionException);
-    });
-
-    it ('should reject valid constraint within required', async () => {
-        await expect(() => new Collection({ foo: new Required(new Valid()) }))
-            .to.throw(ConstraintDefinitionException);
-    });
-
-    it ('should accept optional constraint as one element', async () => {
+    testShouldAcceptOptionalConstraintAsOneElement() {
         const constraint1 = new Collection({
             fields: {
                 alternate_email: [
@@ -72,10 +64,10 @@ describe('[Validator] Constraints.CollectionValidator', function () {
             },
         });
 
-        await expect(constraint1).to.dump.as(constraint2);
-    });
+        __self.assertEquals(constraint2, constraint1);
+    }
 
-    it ('should accept required constraint as one element', async () => {
+    testShouldAcceptRequiredConstraintAsOneElement() {
         const constraint1 = new Collection({
             fields: {
                 alternate_email: [
@@ -90,38 +82,38 @@ describe('[Validator] Constraints.CollectionValidator', function () {
             },
         });
 
-        await expect(constraint1).to.dump.as(constraint2);
-    });
+        __self.assertEquals(constraint2, constraint1);
+    }
 
-    it ('should not raise any violation on null value', async () => {
+    async testShouldNotRaiseAnyViolationOnNullValue() {
         await expect(null).to.be.validated.by(CollectionValidator)
             .with.constraint(new Collection({ fields: {
                 foo: [ new Range({ min: 5 }) ],
             } })).and.raise.no.violations();
-    });
+    }
 
-    it ('should not raise any violation on undefined', async () => {
+    async testShouldNotRaiseAnyViolationOnUndefined() {
         await expect(undefined).to.be.validated.by(CollectionValidator)
             .with.constraint(new Collection({ fields: {
                 foo: [ new Range({ min: 5 }) ],
             } })).and.raise.no.violations();
-    });
+    }
 
-    it ('should use fields as default option', async () => {
+    async testShouldUseFieldsAsDefaultOption() {
         let initializeCalled = 0;
-        const inner = prophet.prophesize(Constraint);
+        const inner = this.prophesize(Constraint);
 
         const innerValidator = class extends implementationOf(ConstraintValidatorInterface) {
             initialize(context) {
-                expect(context).to.be.instanceOf(ExecutionContext);
-                expect(context.getPropertyPath()).to.be.equal('foo');
+                Assert.assertInstanceOf(ExecutionContext, context);
+                Assert.assertEquals('foo', context.getPropertyPath());
 
                 ++initializeCalled;
             }
 
             validate(value, constraint) {
-                expect(value).to.be.equal('foobar');
-                expect(constraint).to.be.equal(inner.reveal());
+                Assert.assertEquals('foobar', value);
+                Assert.assertEquals(inner.reveal(), constraint);
             }
         };
 
@@ -132,17 +124,17 @@ describe('[Validator] Constraints.CollectionValidator', function () {
             .with.constraint(new Collection({ foo: inner.reveal() }))
             .and.raise.no.violations();
 
-        expect(initializeCalled).to.be.equal(1, 'initialized not called');
-    });
+        __self.assertEquals(1, initializeCalled, 'initialized not called');
+    }
 
-    it ('should throw if value is not a simple object', async () => {
+    async testShouldThrowIfValueIsNotASimpleObject() {
         await expect('foobar').to.be.validated.by(CollectionValidator)
             .with.constraint(new Collection({ foo: new Range({ min: 4 }) }))
             .and.throw(UnexpectedValueException);
-    });
+    }
 
-    it ('should validate a single inner constraint', async () => {
-        const inner = prophet.prophesize(Constraint);
+    async testShouldValidateASingleInnerConstraint() {
+        const inner = this.prophesize(Constraint);
 
         const validateCalls = [];
         const innerValidator = class extends implementationOf(ConstraintValidatorInterface) {
@@ -161,15 +153,15 @@ describe('[Validator] Constraints.CollectionValidator', function () {
             .with.constraint(new Collection({ foo: inner.reveal(), bar: inner.reveal() }))
             .and.raise.no.violations();
 
-        expect(validateCalls).to.be.deep.equal([
+        __self.assertEquals([
             [ 3, inner.reveal() ],
             [ 5, inner.reveal() ],
-        ]);
-    });
+        ], validateCalls);
+    }
 
-    it ('should walk multiple constraints', async () => {
-        const inner1 = prophet.prophesize(Constraint);
-        const inner2 = prophet.prophesize(Constraint);
+    async testShouldWalkMultipleConstraints() {
+        const inner1 = this.prophesize(Constraint);
+        const inner2 = this.prophesize(Constraint);
 
         const validate1Calls = [];
         const validate2Calls = [];
@@ -207,18 +199,18 @@ describe('[Validator] Constraints.CollectionValidator', function () {
                 ],
             })).and.raise.no.violations();
 
-        expect(validate1Calls).to.be.deep.equal([
+        __self.assertEquals([
             [ 3, inner1.reveal() ],
             [ 5, inner1.reveal() ],
-        ]);
+        ], validate1Calls);
 
-        expect(validate2Calls).to.be.deep.equal([
+        __self.assertEquals([
             [ 3, inner2.reveal() ],
             [ 5, inner2.reveal() ],
-        ]);
-    });
+        ], validate2Calls);
+    }
 
-    it ('should raise violations on extra fields', async () => {
+    async testShouldRaiseViolationsOnExtraFields() {
         const obj = { foo: 3, bar: 5 };
 
         await expect(obj).to.be.validated.by(CollectionValidator)
@@ -234,9 +226,9 @@ describe('[Validator] Constraints.CollectionValidator', function () {
                 propertyPath: 'bar',
                 invalidValue: 5,
             } ]);
-    });
+    }
 
-    it ('should not raise violations if extra fields are allowed', async () => {
+    async testShouldNotRaiseViolationsIfExtraFieldsAreAllowed() {
         const obj = { foo: 3, bar: 5 };
 
         await expect(obj).to.be.validated.by(CollectionValidator)
@@ -244,9 +236,9 @@ describe('[Validator] Constraints.CollectionValidator', function () {
                 fields: { foo: new NotNull() },
                 allowExtraFields: true,
             })).and.raise.no.violations();
-    });
+    }
 
-    it ('should raise violations if required field is missing', async () => {
+    async testShouldRaiseViolationsIfRequiredFieldIsMissing() {
         await expect({}).to.be.validated.by(CollectionValidator)
             .with.constraint(new Collection({
                 fields: { foo: new NotNull() },
@@ -260,17 +252,17 @@ describe('[Validator] Constraints.CollectionValidator', function () {
                 propertyPath: 'foo',
                 invalidValue: undefined,
             } ]);
-    });
+    }
 
-    it ('should not raise violations if missing fields are allowed', async () => {
+    async testShouldNotRaiseViolationsIfMissingFieldsAreAllowed() {
         await expect({}).to.be.validated.by(CollectionValidator)
             .with.constraint(new Collection({
                 fields: { foo: new NotNull() },
                 allowMissingFields: true,
             })).and.raise.no.violations();
-    });
+    }
 
-    it ('should work with optional field', async () => {
+    async testShouldWorkWithOptionalField() {
         await expect({ foo: undefined }).to.be.validated.by(CollectionValidator)
             .with.constraint(new Collection({
                 fields: { foo: new Optional() },
@@ -282,5 +274,5 @@ describe('[Validator] Constraints.CollectionValidator', function () {
                 fields: { foo: new Optional() },
                 allowMissingFields: true,
             })).and.raise.no.violations();
-    });
-});
+    }
+}

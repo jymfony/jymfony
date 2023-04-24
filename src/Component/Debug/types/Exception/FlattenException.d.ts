@@ -1,5 +1,7 @@
 declare namespace Jymfony.Component.Debug.Exception {
-    export class FlattenException {
+    import FlattenExceptionInterface = Jymfony.Contracts.Debug.Exception.FlattenExceptionInterface;
+
+    export class FlattenException extends implementationOf(FlattenExceptionInterface) {
         public message?: string;
         public code?: number;
         public statusCode?: number;

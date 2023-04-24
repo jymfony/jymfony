@@ -1,35 +1,37 @@
-const VarCloner = Jymfony.Component.VarDumper.Cloner.VarCloner;
 const CliDumper = Jymfony.Component.VarDumper.Dumper.CliDumper;
 const Fixtures = Jymfony.Component.VarDumper.Fixtures;
+const TestCase = Jymfony.Component.Testing.Framework.TestCase;
+const VarCloner = Jymfony.Component.VarDumper.Cloner.VarCloner;
+const VarDumperTestTrait = Jymfony.Component.VarDumper.Test.VarDumperTestTrait;
 
-const { expect } = require('chai');
+export default class ErrorCasterTest extends mix(TestCase, VarDumperTestTrait) {
+    get testCaseName() {
+        return '[VarDumper] ' + super.testCaseName;
+    }
 
-describe('[VarDumper] ErrorCaster', function () {
-
-    const getTestError = () => {
+    getTestError() {
         return new Error();
-    };
+    }
 
-    it('should dump errors correctly', () => {
-        const dump = `
-Error {
+    testShouldDumpErrorsCorrectly() {
+        const dump = `Error {
   message: ""
   code: undefined
   trace: {
-    %aErrorCasterTest.js:10 {
+    %aErrorCasterTest.js:13 {
       › 
-      › const getTestError = () => {
+      › getTestError() {
       ›     return new Error();
-      › };
+      › }
       › 
     }
-    %aErrorCasterTest.js:29 {…}
+    %aErrorCasterTest.js:31 {…}
 %A`;
 
-        expect(getTestError()).to.dump.as.format(dump);
-    });
+        this.assertDumpMatchesFormat(dump, this.getTestError());
+    }
 
-    it('should leave dumper in manageable state', () => {
+    testShouldLeaveDumperInManageableState() {
         const cloner = new VarCloner();
         cloner.maxItems = -1;
 
@@ -41,13 +43,12 @@ Error {
             return __jymfony.trim(dumper.dump(data, true));
         };
 
-        dump(getTestError());
-        expect(dump(new Date())).to.match(/Date @\d+ {\n  date: .+\n}/);
-    });
+        dump(this.getTestError());
+        __self.assertMatchesRegularExpression(/Date @\d+ {\n  date: .+\n}/, dump(new Date()));
+    }
 
-    it('should correctly dump anonymous error classes', () => {
-        const dump = `
-Error@anonymous {
+    testShouldCorrectlyDumpAnonymousErrorClasses() {
+        const dump = `Error@anonymous {
   message: ""
   code: undefined
   trace: {
@@ -57,9 +58,9 @@ Error@anonymous {
       › }
       › 
     }
-    %aErrorCasterTest.js:63 {…}
+    %aErrorCasterTest.js:64 {…}
 %A`;
 
-        expect(Fixtures.ErrorCasterFixtures.getAnonymousError()).to.dump.as.format(dump);
-    });
-});
+        this.assertDumpMatchesFormat(dump, Fixtures.ErrorCasterFixtures.getAnonymousError());
+    }
+}

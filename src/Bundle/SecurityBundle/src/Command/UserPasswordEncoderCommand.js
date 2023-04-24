@@ -2,6 +2,7 @@ import { EOL } from 'os';
 import crypto from 'crypto';
 import { promisify } from 'util';
 
+const AsCommand = Jymfony.Component.Console.Annotation.AsCommand;
 const Command = Jymfony.Component.Console.Command.Command;
 const InputArgument = Jymfony.Component.Console.Input.InputArgument;
 const InputOption = Jymfony.Component.Console.Input.InputOption;
@@ -17,7 +18,9 @@ const randomBytes = promisify(crypto.randomBytes);
  *
  * @memberOf Jymfony.Bundle.SecurityBundle.Command
  */
-export default class UserPasswordEncoderCommand extends Command {
+export default
+@AsCommand({ name: 'security:encode-password', description: 'Encodes a password.' })
+class UserPasswordEncoderCommand extends Command {
     /**
      * Constructor.
      *
@@ -43,13 +46,6 @@ export default class UserPasswordEncoderCommand extends Command {
     }
 
     /**
-     * @inheritDoc
-     */
-    static get defaultName() {
-        return 'security:encode-password';
-    }
-
-    /**
      * @inheritdoc
      */
     configure() {
@@ -59,7 +55,6 @@ export default class UserPasswordEncoderCommand extends Command {
             .addOption('empty-salt', undefined, InputOption.VALUE_NONE, 'Do not generate a salt or let the encoder generate one.')
         ;
 
-        this.description = 'Encodes a password.';
         this.help = `
 The <info>%command.name%</info> command encodes passwords according to your
 security configuration. This command is mainly used to generate passwords for

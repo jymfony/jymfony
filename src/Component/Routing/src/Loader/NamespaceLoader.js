@@ -18,9 +18,10 @@ export default class NamespaceLoader extends Loader {
      * Constructor.
      *
      * @param {Jymfony.Component.Routing.Loader.AnnotationClassLoader} loader
+     * @param {string | null} [env = null]
      */
-    __construct(loader) {
-        super.__construct();
+    __construct(loader, env = null) {
+        super.__construct(env);
 
         this._locator = undefined;
         this._loader = loader;

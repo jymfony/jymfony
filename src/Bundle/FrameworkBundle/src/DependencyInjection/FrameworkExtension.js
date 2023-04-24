@@ -7,12 +7,14 @@ const ChildDefinition = Jymfony.Component.DependencyInjection.ChildDefinition;
 const Configuration = Jymfony.Bundle.FrameworkBundle.DependencyInjection.Configuration;
 const Container = Jymfony.Component.DependencyInjection.Container;
 const ContainerBuilder = Jymfony.Component.DependencyInjection.ContainerBuilder;
+const Definition = Jymfony.Component.DependencyInjection.Definition;
 const DirectoryResource = Jymfony.Component.Config.Resource.DirectoryResource;
 const Extension = Jymfony.Component.DependencyInjection.Extension.Extension;
+const FileLocator = Jymfony.Component.Config.FileLocator;
 const InvalidConfigurationException = Jymfony.Component.Config.Definition.Exception.InvalidConfigurationException;
 const JsFileLoader = Jymfony.Component.DependencyInjection.Loader.JsFileLoader;
-const FileLocator = Jymfony.Component.Config.FileLocator;
 const Parameter = Jymfony.Component.DependencyInjection.Parameter;
+const ServiceLocatorTagPass = Jymfony.Component.DependencyInjection.Compiler.ServiceLocatorTagPass;
 const Reference = Jymfony.Component.DependencyInjection.Reference;
 
 /**
@@ -24,6 +26,7 @@ export default class FrameworkExtension extends Extension {
 
         this._sessionConfigEnabled = false;
         this._validatorConfigEnabled = false;
+        this._messengerConfigEnabled = false;
     }
 
     /**
@@ -70,7 +73,15 @@ export default class FrameworkExtension extends Extension {
         this._registerMime(loader);
         this._registerTemplatingConfiguration(config.templating, container, loader);
         this._registerValidationConfiguration(config.validation, container, loader);
-        this._registerHttpClientConfiguration(config.http_client, container, loader, {} /* config.profiler */);
+
+        // Messenger depends on validation being registered
+        if (this._messengerConfigEnabled = this._isConfigEnabled(container, config.messenger)) {
+            this._registerMessengerConfiguration(config.messenger, container, loader, config.validation);
+        } else {
+            container.removeDefinition('cache.messenger.restart_workers_signal');
+        }
+
+        this._registerHttpClientConfiguration(config.http_client, container, loader, { enabled: false } /* config.profiler */);
 
         container.registerForAutoconfiguration('Jymfony.Component.Console.Command.Command').addTag('console.command');
         container.registerForAutoconfiguration('Jymfony.Component.DependencyInjection.ServiceLocator').addTag('container.service_locator');
@@ -86,8 +97,43 @@ export default class FrameworkExtension extends Extension {
 
         container.registerForAutoconfiguration('Jymfony.Component.HttpServer.Controller.ArgumentValueResolverInterface').addTag('controller.argument_value_resolver');
         container.registerForAutoconfiguration('Jymfony.Component.Mime.MimeTypeGuesserInterface').addTag('mime.mime_type_guesser');
+        container.registerForAutoconfiguration('Jymfony.Component.Messenger.Transport.TransportFactoryInterface').addTag('messenger.transport_factory');
+        container.registerForAutoconfiguration('Jymfony.Component.Messenger.Handler.MessageHandlerInterface').addTag('messenger.message_handler');
         container.registerForAutoconfiguration('Jymfony.Contracts.Logger.LoggerAwareInterface')
             .addMethodCall('setLogger', [ new Reference('logger', ContainerBuilder.IGNORE_ON_INVALID_REFERENCE) ]);
+
+        container.registerAnnotationForAutoconfiguration('Jymfony.Component.Console.Annotation.AsCommand', (definition) => {
+            definition.addTag('console.command');
+        });
+
+        container.registerAnnotationForAutoconfiguration('Jymfony.Component.EventDispatcher.Annotation.EventListener', (definition, annotation, reflector) => {
+            if (reflector instanceof ReflectionClass) {
+                definition.addTag('kernel.event_listener', {
+                    event: annotation.event,
+                    method: annotation.method,
+                    priority: annotation.priority,
+                });
+            } else if (reflector instanceof ReflectionMethod) {
+                definition.addTag('kernel.event_listener', {
+                    event: annotation.event,
+                    method: reflector.name,
+                    priority: annotation.priority,
+                });
+            }
+        });
+
+        container.registerAnnotationForAutoconfiguration('Jymfony.Component.Messenger.Annotation.MessageHandler', (definition, attribute, reflector) => {
+            const tagAttributes = attribute.asTag;
+            if (reflector instanceof ReflectionMethod) {
+                if (!! tagAttributes.method) {
+                    throw new LogicException(__jymfony.sprintf('MessageHandler annotation cannot declare a method on "%s.%s()".', reflector.reflectionClass.name, reflector.name));
+                }
+
+                tagAttributes.method = reflector.name;
+            }
+
+            definition.addTag('messenger.message_handler', tagAttributes);
+        });
     }
 
     /**
@@ -213,7 +259,6 @@ export default class FrameworkExtension extends Extension {
         const definition = (new ChildDefinition('jymfony.logger_prototype'))
             .setPublic(false)
             .replaceArgument(0, 'app')
-            .addTag('kernel.event_subscriber')
         ;
 
         container.setParameter('jymfony.logger.handlers_to_channels', handlersToChannels);
@@ -370,6 +415,7 @@ export default class FrameworkExtension extends Extension {
         definition.replaceArgument(2, options);
 
         container.register('routing.loader.annotation', Jymfony.Bundle.FrameworkBundle.Routing.AnnotatedControllerLoader)
+            .addArgument('%kernel.environment%')
             .addTag('routing.loader', { priority: -10 })
         ;
 
@@ -490,7 +536,7 @@ export default class FrameworkExtension extends Extension {
         }
 
         if (! ReflectionClass.exists('Jymfony.Component.Templating.Engine.JsEngine')) {
-            throw new LogicException('Templating support cannot be enabled as the Templating component is not installed. Try running "yarn add @jymfony/templating".');
+            throw new LogicException('Templating support cannot be enabled as the Templating component is not installed. Try running "npm install @jymfony/templating".');
         }
 
         loader.load('templating.js');
@@ -558,7 +604,7 @@ export default class FrameworkExtension extends Extension {
             return;
         }
 
-        loader.load('http_client.js');
+        loader.load('http-client.js');
 
         const options = config.default_options || {};
         const retryOptions = options.retry_failed || { enabled: false };
@@ -588,7 +634,7 @@ export default class FrameworkExtension extends Extension {
                 delete scopeConfig.base_uri;
 
                 container.register(name, ScopingHttpClient)
-                    .setFactory(ScopingHttpClient.forBaseUri)
+                    .setFactory('Jymfony.Component.HttpClient.ScopingHttpClient#forBaseUri')
                     .setArguments([ new Reference(httpClientId), baseUri, scopeConfig ])
                     .addTag('http_client.client')
                 ;
@@ -657,7 +703,7 @@ export default class FrameworkExtension extends Extension {
         }
 
         if (! ReflectionClass.exists('Jymfony.Component.Validator.Validation')) {
-            throw new LogicException('Validation support cannot be enabled as the Validator component is not installed. Try running "yarn add @jymfony/validator".');
+            throw new LogicException('Validation support cannot be enabled as the Validator component is not installed. Try running "npm install @jymfony/validator".');
         }
 
         if (undefined === config.email_validation_mode) {
@@ -703,6 +749,220 @@ export default class FrameworkExtension extends Extension {
         //     .setArgument(3, config.not_compromised_password.endpoint)
         // ;
     }
+
+    /**
+     * @param {Object} config
+     * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
+     * @param {Jymfony.Component.Config.Loader.LoaderInterface} loader
+     * @param {Object} validationConfig
+     *
+     * @private
+     */
+    _registerMessengerConfiguration(config, container, loader, validationConfig) {
+        if (!ReflectionClass.exists('Jymfony.Component.Messenger.MessageBusInterface')) {
+            throw new LogicException('Messenger support cannot be enabled as the Messenger component is not installed. Try running "npm install @jymfony/messenger".');
+        }
+
+        loader.load('messenger.js');
+        if (ReflectionClass.exists('Jymfony.Component.Console.Command.Command')) {
+            loader.load('messenger_console.js');
+        }
+
+        if (null === config.default_bus && 1 === Object.keys(config.buses).length) {
+            config.default_bus = Object.keys(config.buses)[0];
+        }
+
+        const defaultMiddleware = {
+            before: [
+                { id: 'add_bus_name_stamp_middleware' },
+                // { id: 'reject_redelivered_message_middleware' },
+                { id: 'dispatch_after_current_bus' },
+                { id: 'failed_message_processing_middleware' },
+            ],
+            after: [
+                { id: 'send_message' },
+                { id: 'handle_message' },
+            ],
+        };
+
+        for (const [ busId, bus ] of __jymfony.getEntries(config.buses)) {
+            let middleware = bus.middleware;
+
+            if (!! bus.default_middleware) {
+                if ('allow_no_handlers' === bus.default_middleware) {
+                    defaultMiddleware.after[1].arguments = [ true ];
+                } else {
+                    delete defaultMiddleware.after[1].arguments;
+                }
+
+                // Argument to add_bus_name_stamp_middleware
+                defaultMiddleware.before[0].arguments = [ busId ];
+                middleware = [ ...defaultMiddleware.before, ...middleware, ...defaultMiddleware.after ];
+            }
+
+            for (const middlewareItem of middleware) {
+                if (! validationConfig.enabled && [ 'validation', 'messenger.middleware.validation' ].includes(middlewareItem.id)) {
+                    throw new LogicException('The Validation middleware is only available when the Validator component is installed and enabled. Try running "npm install @jymfony/validator".');
+                }
+            }
+
+            if (container.getParameter('kernel.debug') && ReflectionClass.exists('Jymfony.Component.Stopwatch.Stopwatch')) {
+                middleware.unshift({ id: 'traceable', arguments: [ busId ] });
+            } else {
+                container.removeDefinition('messenger.middleware.traceable');
+            }
+
+            container.setParameter(busId + '.middleware', middleware);
+            container.register(busId, 'Jymfony.Component.Messenger.MessageBus').addArgument([]).addTag('messenger.bus');
+
+            if (busId === config.default_bus) {
+                container.setAlias('messenger.default_bus', busId).setPublic(true);
+                container.setAlias('Jymfony.Component.Messenger.MessageBusInterface', busId);
+            }
+        }
+
+        if (0 === config.transports.length) {
+            container.removeDefinition('messenger.transport.amqp.factory');
+            container.removeDefinition('messenger.transport.redis.factory');
+            container.removeDefinition('messenger.transport.sqs.factory');
+            container.removeDefinition('messenger.transport.beanstalkd.factory');
+            container.removeAlias('Jymfony.Component.Messenger.Transport.Serialization.SerializerInterface');
+        } else {
+            container.setAlias('messenger.default_serializer', config.serializer.default_serializer);
+        }
+
+        const failureTransports = [];
+        if (!! config.failure_transport) {
+            if (! config.transports[config.failure_transport]) {
+                throw new LogicException(__jymfony.sprintf('Invalid Messenger configuration: the failure transport "%s" is not a valid transport or service id.', config.failure_transport));
+            }
+
+            container.setAlias('messenger.failure_transports.default', 'messenger.transport.' + config.failure_transport);
+            failureTransports.push(config.failure_transport);
+        }
+
+        const failureTransportsByName = {};
+        for (const [ name, transport ] of __jymfony.getEntries(config.transports)) {
+            if (!! transport.failure_transport) {
+                failureTransports.push(transport.failure_transport);
+                failureTransportsByName[name] = transport.failure_transport;
+            } else if (!! config.failure_transport) {
+                failureTransportsByName[name] = config.failure_transport;
+            }
+        }
+
+        const senderAliases = {};
+        const transportRetryReferences = {};
+        for (const [ name, transport ] of __jymfony.getEntries(config.transports)) {
+            const serializerId = transport.serializer || 'messenger.default_serializer';
+            const transportDefinition = new Definition('Jymfony.Component.Messenger.Transport.TransportInterface')
+                .setFactory([ new Reference('messenger.transport_factory'), 'createTransport' ])
+                .setArguments([ transport.dsn, Object.assign({}, transport.options, { transport_name: name }), new Reference(serializerId) ])
+                .addTag('messenger.receiver', {
+                    alias: name,
+                    is_failure_transport: failureTransports.includes(name),
+                });
+
+            const transportId = 'messenger.transport.' + name;
+            container.setDefinition(transportId, transportDefinition);
+            senderAliases[name] = transportId;
+
+            if (!! transport.retry_strategy.service) {
+                transportRetryReferences[name] = new Reference(transport.retry_strategy.service);
+            } else if ('exponential' === transport.retry_strategy.strategy) {
+                const retryServiceId = __jymfony.sprintf('messenger.retry.multiplier_retry_strategy.%s', name);
+                const retryDefinition = new ChildDefinition('messenger.retry.abstract_multiplier_retry_strategy');
+                retryDefinition
+                    .replaceArgument(0, transport.retry_strategy.max_retries)
+                    .replaceArgument(1, transport.retry_strategy.delay)
+                    .replaceArgument(2, transport.retry_strategy.multiplier)
+                    .replaceArgument(3, transport.retry_strategy.max_delay);
+                container.setDefinition(retryServiceId, retryDefinition);
+
+                transportRetryReferences[name] = new Reference(retryServiceId);
+            } else if ('fixed' !== transport.retry_strategy.strategy) {
+                const retryServiceId = __jymfony.sprintf('messenger.retry.fixed_retry_strategy.%s', name);
+                const retryDefinition = new ChildDefinition('messenger.retry.abstract_multiplier_retry_strategy');
+                retryDefinition
+                    .replaceArgument(0, transport.retry_strategy.max_retries)
+                    .replaceArgument(1, transport.retry_strategy.delay)
+                    .replaceArgument(2, 1)
+                    .replaceArgument(3, 0);
+                container.setDefinition(retryServiceId, retryDefinition);
+
+                transportRetryReferences[name] = new Reference(retryServiceId);
+            }
+        }
+
+        const senderReferences = {};
+        // Alias => service_id
+        for (const [ alias, serviceId ] of __jymfony.getEntries(senderAliases)) {
+            senderReferences[alias] = new Reference(serviceId);
+        }
+        // Service_id => service_id
+        for (const serviceId of Object.values(senderAliases)) {
+            senderReferences[serviceId] = new Reference(serviceId);
+        }
+
+        for (const transport of Object.values(config.transports)) {
+            if (!! transport.failure_transport) {
+                if (! senderReferences[transport.failure_transport]) {
+                    throw new LogicException(__jymfony.sprintf('Invalid Messenger configuration: the failure transport "%s" is not a valid transport or service id.', transport.failure_transport));
+                }
+            }
+        }
+
+        const failureTransportReferencesByTransportName = Object.values(failureTransportsByName).map(failureTransportName => senderReferences[failureTransportName]);
+        const messageToSendersMapping = {};
+        for (const [ message, messageConfiguration ] of __jymfony.getEntries(config.routing)) {
+            if ('*' !== message && ! ReflectionClass.exists(message)) {
+                throw new LogicException(__jymfony.sprintf('Invalid Messenger routing configuration: class or interface "%s" not found.', message));
+            }
+
+            // Make sure senderAliases contains all senders
+            for (const sender of messageConfiguration.senders) {
+                if (!senderReferences[sender]) {
+                    throw new LogicException(__jymfony.sprintf('Invalid Messenger routing configuration: the "%s" class is being routed to a sender called "%s". This is not a valid transport or service id.', message, sender));
+                }
+            }
+
+            messageToSendersMapping[message] = messageConfiguration.senders;
+        }
+
+        const sendersServiceLocator = ServiceLocatorTagPass.register(container, senderReferences);
+
+        container.getDefinition('messenger.senders_locator')
+            .replaceArgument(0, messageToSendersMapping)
+            .replaceArgument(1, sendersServiceLocator)
+        ;
+
+        // Container.getDefinition('messenger.retry.send_failed_message_for_retry_listener')
+        //     .replaceArgument(0, sendersServiceLocator)
+        // ;
+
+        container
+            .getDefinition('messenger.retry_strategy_locator')
+            .replaceArgument(0, transportRetryReferences);
+
+        if (0 < failureTransports.length) {
+            container.getDefinition('console.command.messenger_failed_messages_retry')
+                .replaceArgument(0, config.failure_transport);
+            container.getDefinition('console.command.messenger_failed_messages_show')
+                .replaceArgument(0, config.failure_transport);
+            container.getDefinition('console.command.messenger_failed_messages_remove')
+                .replaceArgument(0, config.failure_transport);
+
+            const failureTransportsByTransportNameServiceLocator = ServiceLocatorTagPass.register(container, failureTransportReferencesByTransportName);
+            container.getDefinition('messenger.failure.send_failed_message_to_failure_transport_listener')
+                .replaceArgument(0, failureTransportsByTransportNameServiceLocator);
+        } else {
+            container.removeDefinition('messenger.failure.send_failed_message_to_failure_transport_listener');
+            container.removeDefinition('console.command.messenger_failed_messages_retry');
+            container.removeDefinition('console.command.messenger_failed_messages_show');
+            container.removeDefinition('console.command.messenger_failed_messages_remove');
+        }
+    }
+
 
     /**
      * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container

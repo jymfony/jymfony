@@ -1,5 +1,4 @@
-require('../../index');
-const { expect } = require('chai');
+const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 
 const kNext = 1;
 const kThrow = 2;
@@ -75,22 +74,15 @@ function async(iterable, features = kNext) {
 
 const ForAwait = __jymfony.forAwait;
 
-describe('For Await iterator', function () {
-    it('should throw if passing a not iterable object', async () => {
+export default class ForAwaitTest extends TestCase {
+    async testShouldThrowIfPassingANonIterableObject() {
         const obj = {};
-        let caught;
 
-        try {
-            await ForAwait(obj, () => {});
-        } catch (e) {
-            caught = e;
-        }
+        this.expectExceptionMessage('[object Object] is not iterable');
+        await ForAwait(obj, () => {});
+    }
 
-        expect(caught).not.to.be.undefined;
-        expect(caught.message).to.be.equal('[object Object] is not iterable');
-    });
-
-    it('should iterates on objects exposing asyncIterator symbol', async () => {
+    async testShouldIterateOnObjectsExposingAsyncIteratorSymbol() {
         const obj = new class {
             * [Symbol.asyncIterator]() {
                 yield Promise.resolve(1);
@@ -104,10 +96,10 @@ describe('For Await iterator', function () {
             sum += value;
         });
 
-        expect(sum).to.be.equal(6);
-    });
+        __self.assertEquals(6, sum);
+    }
 
-    it('should iterates on objects exposing iterator symbol', async () => {
+    async testShouldIterateOnObjectsExposingIteratorSymbol() {
         const obj = new class {
             * [Symbol.iterator]() {
                 yield Promise.resolve(1);
@@ -121,10 +113,10 @@ describe('For Await iterator', function () {
             sum += value;
         });
 
-        expect(sum).to.be.equal(6);
-    });
+        __self.assertEquals(6, sum);
+    }
 
-    it('should iterates on objects exposing asyncIterator symbol', async () => {
+    async testShouldIterateOnObjectsExposingAsyncIteratorSymbolAndReturningAValue() {
         const obj = new class {
             * [Symbol.asyncIterator]() {
                 yield Promise.resolve(1);
@@ -140,11 +132,11 @@ describe('For Await iterator', function () {
             sum += value;
         });
 
-        expect(sum).to.be.equal(3);
-        expect(x).to.be.equal(3);
-    });
+        __self.assertEquals(3, sum);
+        __self.assertEquals(3, x);
+    }
 
-    it('should break the loop and return if iterator returns a value', async () => {
+    async testShouldBreakTheLoopAndReturnIfIteratorReturnsAValue() {
         const collection = [ 1, 2, 3, 4, 5 ];
         const sync_iter = collection[Symbol.iterator]();
 
@@ -158,13 +150,12 @@ describe('For Await iterator', function () {
             }
         });
 
-        expect(sum).to.be.equal(3);
-        expect(ret).to.be.deep.equal({ sum: 3 });
-    });
+        __self.assertEquals(3, sum);
+        __self.assertEquals({ sum: 3 }, ret);
+    }
 
-    it('promise should be rejected if an error is thrown inside the loop', async () => {
+    async testPromiseShouldBeRejectedIfAnErrorIsThrownInsideTheLoop() {
         let sum = 0;
-        let testDone = false;
         const obj = new class {
             * [Symbol.asyncIterator]() {
                 yield 1;
@@ -179,22 +170,21 @@ describe('For Await iterator', function () {
             await ForAwait(obj, (value) => {
                 sum += value;
             });
+
+            __self.fail();
         } catch (e) {
-            expect(e.message).to.be.equal('FooBar!');
-            testDone = true;
+            __self.assertEquals('FooBar!', e.message);
         }
 
-        expect(testDone).to.be.true;
-        expect(sum).to.be.equal(3);
-    });
+        __self.assertEquals(3, sum);
+    }
 
-    it('promise should be rejected if an error is thrown by callback inside the loop', async () => {
+    async testPromiseShouldBeRejectedIfAnErrorIsThrownByCallbackInsideTheLoop() {
         const collection = [ 1, 2, 3, 4, 5 ];
         const sync_iter = collection[Symbol.iterator]();
 
         let sum = 0;
         let i = 0;
-        let testDone = false;
 
         try {
             await ForAwait(async(sync_iter, kNext | kReturnPrimitive), (value) => {
@@ -203,12 +193,12 @@ describe('For Await iterator', function () {
                     throw 'Boo!!'; // eslint-disable-line no-throw-literal
                 }
             });
+
+            __self.fail();
         } catch (e) {
-            expect(e).to.be.equal('Boo!!');
-            testDone = true;
+            __self.assertEquals('Boo!!', e);
         }
 
-        expect(testDone).to.be.true;
-        expect(sum).to.be.equal(3);
-    });
-});
+        __self.assertEquals(3, sum);
+    }
+}

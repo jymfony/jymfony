@@ -1,7 +1,7 @@
 declare namespace Jymfony.Component.Validator {
     import ConstraintValidatorFactoryInterface = Jymfony.Component.Validator.ConstraintValidatorFactoryInterface;
     import ConstraintValidatorInterface = Jymfony.Component.Validator.ConstraintValidatorInterface;
-    import ContainerInterface = Jymfony.Component.DependencyInjection.ContainerInterface;
+    import ContainerInterface = Jymfony.Contracts.DependencyInjection.ContainerInterface;
 
     /**
      * Uses a service container to create constraint validators.

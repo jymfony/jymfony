@@ -1,5 +1,5 @@
 const Caster = Jymfony.Component.VarDumper.Caster.Caster;
-const { expect } = require('chai');
+const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 
 const referenceObj = {
     null: null,
@@ -10,8 +10,24 @@ const referenceObj = {
     '\0+\0dynamic': 'dyn',
 };
 
-describe('[VarDumper] Caster', function () {
-    const filterTests = function * () {
+export default class CasterTest extends TestCase {
+    get testCaseName() {
+        return '[VarDumper] ' + super.testCaseName;
+    }
+
+    @dataProvider('provideCasterData')
+    testShouldFilter(filter, expectedDiff, listedProperties = null) {
+        let filteredObject;
+        if (null === listedProperties) {
+            filteredObject = Caster.filter(referenceObj, filter);
+        } else {
+            filteredObject = Caster.filter(referenceObj, filter, listedProperties);
+        }
+
+        __self.assertEquals(expectedDiff, __jymfony.diff_key(referenceObj, filteredObject[0]));
+    }
+
+    * provideCasterData() {
         yield [ 0, {} ];
         yield [ Caster.EXCLUDE_NULL, { null: null, undefined: undefined } ];
         yield [ Caster.EXCLUDE_EMPTY, { null: null, undefined: undefined, empty: false } ];
@@ -24,19 +40,5 @@ describe('[VarDumper] Caster', function () {
         yield [ Caster.EXCLUDE_VERBOSE | Caster.EXCLUDE_NOT_IMPORTANT, { ...referenceObj }, [ 'public', '\0+\0dynamic' ] ];
         yield [ Caster.EXCLUDE_NOT_IMPORTANT | Caster.EXCLUDE_EMPTY, { null: null, undefined: undefined, empty: false, '\0~\0virtual': 'virt', '\0+\0dynamic': 'dyn' }, [ 'public', 'empty' ] ];
         yield [ Caster.EXCLUDE_VERBOSE | Caster.EXCLUDE_EMPTY | Caster.EXCLUDE_STRICT, { empty: false }, [ 'public', 'empty' ] ];
-    };
-
-    let i = 0;
-    for (const [ filter, expectedDiff, listedProperties = null ] of filterTests()) {
-        it('should filter #' + ++i, () => {
-            let filteredObject;
-            if (null === listedProperties) {
-                filteredObject = Caster.filter(referenceObj, filter);
-            } else {
-                filteredObject = Caster.filter(referenceObj, filter, listedProperties);
-            }
-
-            expect(__jymfony.diff_key(referenceObj, filteredObject[0])).to.be.deep.equal(expectedDiff);
-        });
     }
-});
+}

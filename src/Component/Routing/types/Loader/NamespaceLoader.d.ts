@@ -15,8 +15,8 @@ declare namespace Jymfony.Component.Routing.Loader {
          * Constructor.
          */
         // @ts-ignore
-        __construct(loader: AnnotationClassLoader): void;
-        constructor(loader: AnnotationClassLoader);
+        __construct(loader: AnnotationClassLoader, env?: string | null): void;
+        constructor(loader: AnnotationClassLoader, env?: string | null);
 
         /**
          * Loads from annotations from a namespace.

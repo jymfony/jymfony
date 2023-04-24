@@ -84,6 +84,11 @@ declare namespace Jymfony.Component.DependencyInjection {
         replaceArgument(index: number, argument: any): this;
 
         /**
+         * Sets an argument.
+         */
+        setArgument(index: number, argument: any): this;
+
+        /**
          * Gets the argument list.
          */
         getArguments(): any[];

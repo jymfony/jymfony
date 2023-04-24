@@ -148,7 +148,7 @@ export default class HttpServer extends mix(RequestHandler, HttpServerInterface)
             return;
         }
 
-        await this._dispatcher.dispatch(HttpServerEvents.SERVER_TERMINATE);
+        await this._dispatcher.dispatch(new Event.ServerTerminateEvent(), HttpServerEvents.SERVER_TERMINATE);
         this._http.close();
     }
 
@@ -277,6 +277,6 @@ export default class HttpServer extends mix(RequestHandler, HttpServerInterface)
         await response.sendResponse(req, res);
 
         const event = new Event.PostResponseEvent(this, request, response);
-        await this._dispatcher.dispatch(HttpServerEvents.POST_RESPONSE, event);
+        await this._dispatcher.dispatch(event, HttpServerEvents.POST_RESPONSE);
     }
 }

@@ -66,14 +66,16 @@ export default class JsDumper {
         }, options);
 
         (new AnalyzeServiceReferencesPass()).process(this._container);
+        const projectDirParam = this._container.hasParameter('kernel.project_dir') ? this._container.getParameter('kernel.project_dir') : undefined;
 
-        if (options.dir) {
-            const dir = __jymfony.rtrim(options.dir, '/').split(path.sep);
+        if (projectDirParam !== undefined && options.dir) {
+            const projectDir = __jymfony.rtrim(projectDirParam, path.sep).split(path.sep);
+            const dir = __jymfony.rtrim(options.dir, path.sep).split(path.sep);
             let i = dir.length;
 
-            if (3 <= i) {
+            if (1 < projectDir.length) {
                 let regex = '';
-                const lastOptionalDir = 8 < i ? i - 5 : 3;
+                const lastOptionalDir = projectDir.length;
                 this._targetDirMaxMatches = i - lastOptionalDir;
 
                 while (--i >= lastOptionalDir) {
@@ -146,15 +148,6 @@ module.exports = new Container${hash}({
      * @private
      */
     _startClass(className, baseClass) {
-        const targetDirs = undefined === this._targetDirMaxMatches ? '' : `
-        let dir = path.dirname(__dirname);
-        this._targetDirs = [ dir ];
-        for (let i = 1; i <= ${this._targetDirMaxMatches}; ++i) {
-            this._targetDirs.push(dir = path.dirname(dir));
-        }
-
-`;
-
         return `const Container = Jymfony.Component.DependencyInjection.Container;
 const LogicException = Jymfony.Component.DependencyInjection.Exception.LogicException;
 const RuntimeException = Jymfony.Component.DependencyInjection.Exception.RuntimeException;
@@ -163,7 +156,7 @@ const RewindableGenerator = Jymfony.Component.DependencyInjection.Argument.Rewin
 const path = require('path');
 
 class ${className} extends ${baseClass} {
-    __construct(buildParameters = {}) {${targetDirs}
+    __construct(buildParameters = {}) {
         super.__construct(new FrozenParameterBag(Object.assign({}, this._getDefaultsParameters(), buildParameters)));
 
         ${this._getMethodMap()}
@@ -271,13 +264,16 @@ module.exports = ${className};
         if (undefined !== this._targetDirRegex && isString(value) && value.match(this._targetDirRegex)) {
             value = JSON.stringify(value);
             value = value.replace(this._targetDirRegex, (...args) => {
-                for (let i = this._targetDirMaxMatches; 1 <= i; --i) {
+                let i = this._targetDirMaxMatches;
+                for (; 1 <= i; --i) {
                     if (undefined === args[i]) {
                         continue;
                     }
 
-                    return '" + this._targetDirs[' + (this._targetDirMaxMatches - i) + '] + "';
+                    break;
                 }
+
+                return '" + ' + 'path.dirname('.repeat(this._targetDirMaxMatches - i + 1) + '__dirname' + ')'.repeat(this._targetDirMaxMatches - i + 1) + ' + "';
             });
 
             return value.replace(/"" \+ /g, '').replace(/ \+ ""/g, '');
@@ -850,6 +846,16 @@ ${this._addReturn(id, definition)}\
                 args.push(this._dumpValue(argument));
             }
 
+            const definitionModule = value.getModule();
+            if (definitionModule) {
+                const [ module, property ] = definitionModule;
+                if (property) {
+                    return __jymfony.sprintf('new (require(%s)[%s])(%s)', this._dumpValue(module), this._dumpValue(property), args.join(', '));
+                }
+
+                return __jymfony.sprintf('require(%s)', this._dumpValue(module));
+            }
+
             const factory = value.getFactory();
             if (factory) {
                 if (isString(factory)) {
@@ -1191,7 +1197,7 @@ ${this._addReturn(id, definition)}\
                 args[k] = argument.values[0];
             }
 
-            return __jymfony.sprintf(`        ${ret}%s;\n`, this._dumpValue(new ServiceLocatorArgument(args)));
+            return __jymfony.sprintf(`        ${ret}${instantiation}%s;\n`, this._dumpValue(new ServiceLocatorArgument(args)));
         }
 
         let class_ = this._dumpValue(definition.getClass());

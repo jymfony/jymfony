@@ -1,8 +1,4 @@
-import { @Annotation } from '@jymfony/decorators';
+const Annotation = Jymfony.Component.Autoloader.Decorator.Annotation;
 
-export class MethodAnnotation1 {
-}
-
-export decorator @MethodAnnotation1() {
-    @Annotation(new MethodAnnotation1())
+export @Annotation() class MethodAnnotation1 {
 }

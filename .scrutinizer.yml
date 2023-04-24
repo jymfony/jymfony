@@ -1,5 +1,8 @@
 filter:
     excluded_paths:
+        - src/*/fixtures/**
+        - src/Bundle/*/fixtures/**
+        - src/Component/*/fixtures/**
         - src/*/test/**
         - src/Bundle/*/test/**
         - src/Component/*/test/**

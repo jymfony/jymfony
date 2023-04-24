@@ -1,15 +1,15 @@
-const isInternal = trace.file.startsWith('internal/');
-let html = `<div class="trace-line-header break-long-words ${trace.file ? 'jf-toggle' : ''}" ${! isInternal ? `data-toggle-selector="#trace-html-${prefix}-${i}"` : ''} data-toggle-initial="${'expanded' === style ? 'display' : ''}">`;
+const isInternal = trace.file.startsWith('internal/') || trace.file.startsWith('node:internal') || trace.file.startsWith('/node:');
+emit(`<div class="trace-line-header break-long-words ${trace.file ? 'jf-toggle' : ''}" ${! isInternal ? `data-toggle-selector="#trace-html-${prefix}-${i}"` : ''} data-toggle-initial="${'expanded' === style ? 'display' : ''}">`);
 
 if (! isInternal && !! trace.file) {
-    html += `
+    emit(`
         <span class="icon icon-close">${include('assets/images/icon-minus-square.svg')}</span>
         <span class="icon icon-open">${include('assets/images/icon-plus-square.svg')}</span>
-`;
+`);
 }
 
 if (!! trace.function) {
-    html += `<span class="trace-method">${trace.function}</span>`;
+    emit(`<span class="trace-method">${trace.function}</span>`);
 }
 
 if (!! trace.file) {
@@ -18,18 +18,16 @@ if (!! trace.file) {
     const filePathParts = filePath.split(DIRECTORY_SEPARATOR);
     const lastPart = filePathParts.pop();
 
-    html += `<span class="block trace-file-path"> in
+    emit(`<span class="block trace-file-path"> in
             ${filePathParts.join(DIRECTORY_SEPARATOR) + DIRECTORY_SEPARATOR}<strong>${lastPart}</strong>
             (line ${lineNumber})
-        </span>`;
+        </span>`);
 }
 
-html += '</div>';
+emit('</div>');
 
 if (! isInternal && !! trace.file) {
-    html += `<div id="trace-html-${prefix}-${i}" class="trace-code jf-toggle-content">`;
-    html += fileExcerpt(trace.file, trace.line, 5);
-    html += '</div>';
+    emit(`<div id="trace-html-${prefix}-${i}" class="trace-code jf-toggle-content">`);
+    emit(fileExcerpt(trace.file, trace.line, 5));
+    emit('</div>');
 }
-
-return html;

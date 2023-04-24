@@ -4,13 +4,13 @@ on: [ push, pull_request_target ]
 jobs:
     build:
         runs-on: ubuntu-latest
-        name: Node 14 - on Linux
+        name: Node 18 - on Linux
         steps:
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v3
             - name: Setup node
-              uses: actions/setup-node@v1
+              uses: actions/setup-node@v3
               with:
-                  node-version: 14
+                  node-version: 18
             - run: npm install
             - run: npm install -g eslint
             - run: npm run-script lint

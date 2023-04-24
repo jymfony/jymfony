@@ -175,7 +175,7 @@ export default class ErrorHandler {
     /**
      * Override this method if you want to define more error enhancers.
      *
-     * @returns {Jymfony.Component.Debug.ErrorEnhancer.ErrorEnhancerInterface[]}
+     * @returns {Jymfony.Contracts.Debug.ErrorEnhancer.ErrorEnhancerInterface[]}
      */
     get _errorEnhancers() {
         return [ ];

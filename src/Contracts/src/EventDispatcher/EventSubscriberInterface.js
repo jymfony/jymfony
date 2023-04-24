@@ -16,6 +16,9 @@ class EventSubscriberInterface {
      *  * {'eventName': 'methodName'}
      *  * {'eventName': ['methodName', priority]}
      *  * {'eventName': [['methodName1', priority] ['methodName2']]}
+     *  * {EventClass: 'methodName'}
+     *  * {EventClass: ['methodName', priority]}
+     *  * {EventClass: [['methodName1', priority] ['methodName2']]}
      *
      * @returns {Jymfony.Contracts.EventDispatcher.EventSubscriptions} The events name to listen to
      */

@@ -166,7 +166,7 @@ export default class HttpServer extends BaseServer {
         await response.sendResponse(stream, stream);
 
         const event = new Event.PostResponseEvent(this, request, response);
-        await this._dispatcher.dispatch(HttpServerEvents.POST_RESPONSE, event);
+        await this._dispatcher.dispatch(event, HttpServerEvents.POST_RESPONSE);
     }
 
     /**

@@ -1,7 +1,9 @@
+const ReflectorTrait = require('./ReflectorTrait');
+
 /**
  * Reflection utility for method parameters.
  */
-class ReflectionParameter {
+class ReflectionParameter extends implementationOf(ReflectorInterface, ReflectorTrait) {
     /**
      * Constructor.
      *
@@ -24,6 +26,8 @@ class ReflectionParameter {
         arrayPattern = false,
         restElement = false,
     ) {
+        super();
+
         /**
          * @type {ReflectionMethod}
          *
@@ -147,7 +151,7 @@ class ReflectionParameter {
      * @returns {[Function, *][]}
      */
     get metadata() {
-        return MetadataStorage.getMetadata(this._reflectionMethod._method, this._index);
+        return MetadataStorage.getMetadata(this._reflectionMethod._method[Symbol.metadata], this._index);
     }
 }
 

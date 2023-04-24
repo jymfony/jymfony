@@ -1,5 +1,5 @@
 declare namespace Jymfony.Component.Kernel {
-    import ContainerInterface = Jymfony.Component.DependencyInjection.ContainerInterface;
+    import ContainerInterface = Jymfony.Contracts.DependencyInjection.ContainerInterface;
     import LoaderInterface = Jymfony.Component.Config.Loader.LoaderInterface;
 
     export class KernelInterface {

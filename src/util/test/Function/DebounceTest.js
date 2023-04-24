@@ -1,41 +1,38 @@
-require('../../lib/Function/Debounce');
-const { expect } = require('chai');
+const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 
-describe('Debounce', function () {
-    it('should debounce a function', async () => {
+export default class DebounceTest extends TestCase {
+    async testShouldDebounceAFunction() {
         let callCount = 0;
         const debounced = __jymfony.debounce(function(value) {
             ++callCount;
             return value;
         }, 32);
 
-        expect([ debounced('a'), debounced('b'), debounced('c') ])
-            .to.be.deep.equal([ undefined, undefined, undefined ]);
-        expect(callCount).to.be.equal(0);
+        __self.assertEquals([ undefined, undefined, undefined ], [ debounced('a'), debounced('b'), debounced('c') ]);
+        __self.assertEquals(0, callCount);
 
         await __jymfony.sleep(128);
 
-        expect(callCount).to.be.equal(1);
-        expect([ debounced('d'), debounced('e'), debounced('f') ])
-            .to.be.deep.equal([ 'c', 'c', 'c' ]);
-        expect(callCount).to.be.equal(1);
+        __self.assertEquals(1, callCount);
+        __self.assertEquals([ 'c', 'c', 'c' ], [ debounced('d'), debounced('e'), debounced('f') ]);
+        __self.assertEquals(1, callCount);
 
         await __jymfony.sleep(128);
-        expect(callCount).to.be.equal(2);
-    });
+        __self.assertEquals(2, callCount);
+    }
 
-    it('subsequent debounced calls return the last `func` result', async () => {
+    async testSubsequentDebouncedCallsReturnTheLastResult() {
         const debounced = __jymfony.debounce(v => v, 32);
         debounced('a');
 
         await __jymfony.sleep(64);
-        expect(debounced('b')).not.to.be.equal('b');
+        __self.assertNotEquals('b', debounced('b'));
 
         await __jymfony.sleep(64);
-        expect(debounced('c')).not.to.be.equal('c');
-    });
+        __self.assertNotEquals('c', debounced('c'));
+    }
 
-    it('should not immediately call `func` when `wait` is `0`', async () => {
+    async testShouldNotImmediatelyCallTheFunctionWhenWaitIs0() {
         let callCount = 0;
         const debounced = __jymfony.debounce(() => {
             ++callCount;
@@ -44,26 +41,26 @@ describe('Debounce', function () {
         debounced();
         debounced();
 
-        expect(callCount).to.be.equal(0);
+        __self.assertEquals(0, callCount);
 
         await __jymfony.sleep(5);
-        expect(callCount).to.be.equal(1);
-    });
+        __self.assertEquals(1, callCount);
+    }
 
-    it('should apply default options', async () => {
+    async testShouldApplyDefaultOptions() {
         let callCount = 0;
         const debounced = __jymfony.debounce(() => {
             callCount++;
         }, 32);
 
         debounced();
-        expect(callCount).to.be.equal(0);
+        __self.assertEquals(0, callCount);
 
         await __jymfony.sleep(64);
-        expect(callCount).to.be.equal(1);
-    });
+        __self.assertEquals(1, callCount);
+    }
 
-    it('should invoke the function with the correct arguments and `this` binding', async () => {
+    async testShouldInvokeTheFunctionWithTheCorrectArgumentsAndThisBinding() {
         let actual, callCount = 0;
 
         const object = {};
@@ -77,7 +74,7 @@ describe('Debounce', function () {
         debounced.call(object, 'a');
 
         await __jymfony.sleep(64);
-        expect(callCount).to.be.equal(1);
-        expect(actual).to.be.deep.equal([ object, 'a' ]);
-    });
-});
+        __self.assertEquals(1, callCount);
+        __self.assertEquals([ object, 'a' ], actual);
+    }
+}

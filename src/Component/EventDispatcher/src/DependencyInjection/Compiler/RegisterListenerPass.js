@@ -60,13 +60,10 @@ export default class RegisterListenerPass extends implementationOf(CompilerPassI
                     throw new InvalidArgumentException(__jymfony.sprintf('Service "%s" must define the "method" attribute on "%s" tags.', id, this.listenerTag));
                 }
 
-                definition.addMethodCall('addListenerService', [
+                definition.addMethodCall('addListener', [
                     event.event,
-                    [
-                        id,
-                        event.method,
-                        priority,
-                    ],
+                    [ new ServiceClosureArgument(new Reference(id)), event.method ],
+                    priority,
                 ]);
             }
         }

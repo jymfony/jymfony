@@ -9,6 +9,11 @@ Jymfony.Component.DependencyInjection = {
     /**
      * @namespace
      */
+    Annotation: {},
+
+    /**
+     * @namespace
+     */
     Argument: {},
 
     /**

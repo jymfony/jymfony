@@ -4,6 +4,8 @@ class FooClass {
         this.b = 'nodejs';
         this.c = 'world';
         this.d = '!';
+        this.sleepCalled = false;
+        this.wakeupCalled = false;
     }
 
     __sleep() {

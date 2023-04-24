@@ -920,10 +920,10 @@ export default (() => {
         },
         [
             {
-                ['offset']: -1500,
+                ['offset']: -1521,
                 ['dst']: false,
                 ['abbrev']: 'LMT',
-                ['until']: -2821649700,
+                ['until']: -2821649679,
                 ['format']: 'LMT',
             },
             {

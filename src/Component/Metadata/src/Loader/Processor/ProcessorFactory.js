@@ -1,9 +1,8 @@
-import { Processor } from '@jymfony/decorators';
-
-const ProcessorFactoryInterface = Jymfony.Component.Metadata.Loader.Processor.ProcessorFactoryInterface;
 const CompositeProcessor = Jymfony.Component.Metadata.Loader.Processor.CompositeProcessor;
-const ProcessorInterface = Jymfony.Component.Metadata.Loader.Processor.ProcessorInterface;
 const InvalidArgumentException = Jymfony.Contracts.Metadata.Exception.InvalidArgumentException;
+const Processor = Jymfony.Component.Metadata.Annotation.Processor;
+const ProcessorFactoryInterface = Jymfony.Component.Metadata.Loader.Processor.ProcessorFactoryInterface;
+const ProcessorInterface = Jymfony.Component.Metadata.Loader.Processor.ProcessorInterface;
 
 /**
  * @memberOf Jymfony.Component.Metadata.Loader.Processor
@@ -62,12 +61,12 @@ export default class ProcessorFactory extends implementationOf(ProcessorFactoryI
     registerProcessors(processors) {
         for (const processor of processors) {
             const reflClass = new ReflectionClass(processor);
-            const p = reflClass.metadata.find(([ t ]) => t === Processor);
+            const p = reflClass.metadata.find(([ , t ]) => t instanceof Processor);
             if (! p) {
                 continue;
             }
 
-            this.registerProcessor(p[1], reflClass.name);
+            this.registerProcessor(p[1].target, reflClass.name);
         }
     }
 

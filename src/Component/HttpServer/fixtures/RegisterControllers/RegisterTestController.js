@@ -1,6 +1,5 @@
-import { @Type } from '@jymfony/decorators';
-
 const ControllerDummy = Jymfony.Component.HttpServer.Tests.Fixtures.RegisterControllers.ControllerDummy;
+const Type = Jymfony.Component.Autoloader.Decorator.Type;
 
 /**
  * @memberOf Jymfony.Component.HttpServer.Tests.Fixtures.RegisterControllers

@@ -9,7 +9,9 @@ jobs:
                 node_version:
                     - 12
                     - 14
-                    - 15
+                    - 16
+                    - 18
+                    - 20
 
         name: Node ${{ matrix.node_version }} - ${{ matrix.architecture }} on Linux
 
@@ -25,7 +27,7 @@ jobs:
                     - 6379:6379
 
             redis-cluster:
-                image: grokzen/redis-cluster:5.0.4
+                image: grokzen/redis-cluster:6.0.16
                 ports:
                     - 7000:7000
                     - 7001:7001
@@ -37,13 +39,15 @@ jobs:
                     IP: '0.0.0.0'
 
         steps:
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v3
             - name: Setup node
-              uses: actions/setup-node@v1
+              uses: actions/setup-node@v3
               with:
                   node-version: ${{ matrix.node_version }}
                   architecture: ${{ matrix.architecture }}
             - run: npm install
+            - run: npm install @jymfony/compiler
+              if: ${{ matrix.node_version < 16 }}
             - run: npm test
               env:
                   REDIS_HOST: localhost:6379

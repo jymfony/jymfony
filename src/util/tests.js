@@ -1,3 +1,4 @@
+require('./index');
 require('@jymfony/autoloader');
 
 const Debug = Jymfony.Component.Debug.Debug;

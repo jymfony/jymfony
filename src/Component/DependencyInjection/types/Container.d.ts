@@ -1,4 +1,5 @@
 declare namespace Jymfony.Component.DependencyInjection {
+    import ContainerInterface = Jymfony.Contracts.DependencyInjection.ContainerInterface;
     import ParameterBag = Jymfony.Component.DependencyInjection.ParameterBag.ParameterBag;
     type ServiceIdentifier = string|symbol|Newable<any>;
 

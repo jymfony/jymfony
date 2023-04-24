@@ -14,7 +14,7 @@
   "author": "Alessandro Chitolina <alekitto@gmail.com>",
   "license": "MIT",
   "engines": {
-    "node": ">=8.10.0"
+    "node": ">=12.0.0"
   },
   "devDependencies": {
     "@jymfony/autoloader": "*",
@@ -24,8 +24,7 @@
     "@jymfony/testing": "*",
     "@jymfony/util": "*",
     "@types/node": "*",
-    "chai": "^4.2",
-    "mocha": "^6.0"
+    "mocha": "^10.2"
   },
   "config": {
     "jymfony-autoload": {

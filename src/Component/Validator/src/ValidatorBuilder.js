@@ -224,7 +224,6 @@ export default class ValidatorBuilder {
         return this;
     }
 
-
     /**
      * Sets the cache for caching class metadata.
      *

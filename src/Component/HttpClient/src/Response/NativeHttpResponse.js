@@ -260,6 +260,10 @@ export default class NativeHttpResponse extends implementationOf(ResponseInterfa
             clearTimeout(this._timeout);
         }
 
+        if (this._message) {
+            this._message.removeAllListeners('timeout');
+        }
+
         this._message = this._timeout = this._readable = this._onProgress = this._abortController = null;
     }
 
@@ -298,6 +302,7 @@ export default class NativeHttpResponse extends implementationOf(ResponseInterfa
                 this._timeout = null;
             }
 
+            decodingStream.destroy();
             this._message.removeAllListeners('timeout');
         });
     }
@@ -308,7 +313,7 @@ export default class NativeHttpResponse extends implementationOf(ResponseInterfa
         try {
             this._info.start_time = performance.now();
 
-            let [ resolver, url ] = await this._resolver();
+            let [ resolver, url, host ] = await this._resolver();
             context.http.url = String(url);
 
             while (true) {
@@ -397,7 +402,7 @@ export default class NativeHttpResponse extends implementationOf(ResponseInterfa
                         const tlsSocket = tlsConnect({
                             socket,
                             ALPNProtocols: alpnProtocols,
-                            servername: url.host,
+                            servername: host,
                             ca,
                             cert,
                             key,
@@ -429,8 +434,8 @@ export default class NativeHttpResponse extends implementationOf(ResponseInterfa
                         return cur;
                     }
 
-                    const name = hdr.substr(0, idx);
-                    cur[name] = __jymfony.trim(hdr.substr(idx + 1));
+                    const name = hdr.substring(0, idx);
+                    cur[name] = __jymfony.trim(hdr.substring(idx + 1));
 
                     return cur;
                 }, {});
@@ -468,11 +473,14 @@ export default class NativeHttpResponse extends implementationOf(ResponseInterfa
                                 return cur;
                             }, {});
 
+                        const h2url = new URL(url);
+                        h2url.host = host;
+
                         const stream = client.request({
                             [HTTP2_CONSTANTS.HTTP2_HEADER_METHOD]: context.http.method,
-                            [HTTP2_CONSTANTS.HTTP2_HEADER_PATH]: url.pathname + (url.search || ''),
-                            [HTTP2_CONSTANTS.HTTP2_HEADER_SCHEME]: url.protocol.substr(0, url.protocol.length - 1),
-                            [HTTP2_CONSTANTS.HTTP2_HEADER_AUTHORITY]: url.origin.substr(url.protocol.length + 2),
+                            [HTTP2_CONSTANTS.HTTP2_HEADER_PATH]: h2url.pathname + (h2url.search || ''),
+                            [HTTP2_CONSTANTS.HTTP2_HEADER_SCHEME]: h2url.protocol.substring(0, h2url.protocol.length - 1),
+                            [HTTP2_CONSTANTS.HTTP2_HEADER_AUTHORITY]: h2url.origin.substring(h2url.protocol.length + 2),
                             ...h2Headers,
                         }, {
                             signal: this._abortController ? this._abortController.signal : undefined,
@@ -536,7 +544,7 @@ export default class NativeHttpResponse extends implementationOf(ResponseInterfa
                 }
 
                 const location = this._info.response_headers.location ? this._info.response_headers.location[0] : null;
-                url = await resolver(location, context);
+                [ url, host ] = (await resolver(location, context)) || [ null, null ];
 
                 const timeoutFn = () => {
                     const message = this._readable || this._message;
@@ -545,8 +553,6 @@ export default class NativeHttpResponse extends implementationOf(ResponseInterfa
 
                 this._message.on('timeout', timeoutFn);
                 this._timeout = setTimeout(timeoutFn, context.http.timeout * 1000);
-
-                socket.end();
 
                 if (null === url) {
                     this._headers = __jymfony.deepClone(this._info.response_headers);

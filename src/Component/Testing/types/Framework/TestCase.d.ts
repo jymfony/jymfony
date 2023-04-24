@@ -5,11 +5,12 @@ declare namespace Jymfony.Component.Testing.Framework {
         currentTest: string;
     }
 
-    export class TestCase {
+    export class TestCase extends Assert {
         protected _context: Partial<TestCaseContext>;
         private _expectedException: undefined | ReflectionClass;
         private _expectedExceptionMessage: undefined | string;
         private _expectedExceptionMessageRegex: undefined | RegExp;
+        private _doesNotPerformAssertions: undefined | boolean;
 
         /**
          * Run test case.
@@ -81,11 +82,16 @@ declare namespace Jymfony.Component.Testing.Framework {
         setTimeout(ms: number): void;
 
         /**
+         * Sets the title for the currently running test.
+         */
+        setTitle(title: string): void;
+
+        /**
          * Register an exception to be expected.
          * The test will pass only if an exception of the given class (or one of its subclasses)
          * has been thrown while executing the test.
          */
-        expectException(exception: string | Newable): void;
+        expectException(exception: string | Newable | ErrorConstructor): void;
 
         /**
          * Register an exception message to be expected.
@@ -100,6 +106,8 @@ declare namespace Jymfony.Component.Testing.Framework {
          * to the regex passed to this method.
          */
         expectExceptionMessageRegex(message: string | RegExp): void;
+
+        expectNotToPerformAssertions(): void;
 
         /**
          * Marks current test as skipped and stops execution.

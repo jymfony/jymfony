@@ -38,33 +38,27 @@ globalThis.isGeneratorFunction = function isGeneratorFunction(value) {
     return isGenerator(constructor.prototype);
 };
 
-if (__jymfony.Platform.hasAsyncFunctionSupport()) {
-    /**
-     * @param {*} value
-     *
-     * @returns {boolean}
-     */
-    globalThis.isAsyncFunction = function isAsyncFunction(value) {
-        if (!value) {
-            return false;
-        }
-
-        const constructor = value.constructor;
-        if (!constructor) {
-            return false;
-        }
-
-        if ('AsyncFunction' === (constructor.name || constructor.displayName)) {
-            return true;
-        }
-
-        return '[object AsyncFunction]' === Object.prototype.toString.call(value);
-    };
-} else {
-    globalThis.isAsyncFunction = function isAsyncFunction() {
+/**
+ * @param {*} value
+ *
+ * @returns {boolean}
+ */
+globalThis.isAsyncFunction = function isAsyncFunction(value) {
+    if (!value) {
         return false;
-    };
-}
+    }
+
+    const constructor = value.constructor;
+    if (!constructor) {
+        return false;
+    }
+
+    if ('AsyncFunction' === (constructor.name || constructor.displayName)) {
+        return true;
+    }
+
+    return '[object AsyncFunction]' === Object.prototype.toString.call(value);
+};
 
 /**
  * @param {*} obj

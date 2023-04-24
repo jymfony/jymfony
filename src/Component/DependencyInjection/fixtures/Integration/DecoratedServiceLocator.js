@@ -1,4 +1,4 @@
-const ContainerInterface = Jymfony.Component.DependencyInjection.ContainerInterface;
+const ContainerInterface = Jymfony.Contracts.DependencyInjection.ContainerInterface;
 
 /**
  * @memberOf Jymfony.Component.DependencyInjection.Fixtures.Integration

@@ -4,17 +4,21 @@
  * @memberOf Jymfony.Contracts.Logger
  */
 class LoggerAwareTrait {
+    __construct() {
+        /**
+         * @type {Jymfony.Contracts.Logger.LoggerInterface}
+         *
+         * @protected
+         */
+        this._logger = '_logger' in this ? this._logger : null;
+    }
+
     /**
      * Sets a logger instance on the object.
      *
      * @param {Jymfony.Contracts.Logger.LoggerInterface} logger
      */
     setLogger(logger) {
-        /**
-         * @type {Jymfony.Contracts.Logger.LoggerInterface}
-         *
-         * @protected
-         */
         this._logger = logger;
     }
 }

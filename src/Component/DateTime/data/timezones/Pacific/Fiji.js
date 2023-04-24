@@ -15,8 +15,6 @@ export default (() => {
             (new ReflectionClass('Jymfony.Component.DateTime.Internal.Rule')).newInstanceWithoutConstructor(),
             (new ReflectionClass('Jymfony.Component.DateTime.Internal.Rule')).newInstanceWithoutConstructor(),
             (new ReflectionClass('Jymfony.Component.DateTime.Internal.Rule')).newInstanceWithoutConstructor(),
-            (new ReflectionClass('Jymfony.Component.DateTime.Internal.Rule')).newInstanceWithoutConstructor(),
-            (new ReflectionClass('Jymfony.Component.DateTime.Internal.Rule')).newInstanceWithoutConstructor(),
         ],
         null,
         {
@@ -38,8 +36,6 @@ export default (() => {
                         o[10],
                         o[11],
                         o[12],
-                        o[13],
-                        o[14],
                     ],
                 },
                 ['_cache']: {
@@ -60,8 +56,6 @@ export default (() => {
                     ['10']: 2015,
                     ['11']: 2019,
                     ['12']: 2020,
-                    ['13']: 2022,
-                    ['14']: 2023,
                 },
                 ['_toYear']: {
                     ['1']: 1999,
@@ -76,8 +70,6 @@ export default (() => {
                     ['10']: 2021,
                     ['11']: 2019,
                     ['12']: 2020,
-                    ['13']: Infinity,
-                    ['14']: Infinity,
                 },
                 ['_inMonth']: {
                     ['1']: 11,
@@ -92,8 +84,6 @@ export default (() => {
                     ['10']: 1,
                     ['11']: 11,
                     ['12']: 12,
-                    ['13']: 11,
-                    ['14']: 1,
                 },
                 ['_on']: {
                     ['1']: '1 %s this sun',
@@ -108,8 +98,6 @@ export default (() => {
                     ['10']: '12 %s this sun',
                     ['11']: '8 %s this sun',
                     ['12']: '20',
-                    ['13']: '8 %s this sun',
-                    ['14']: '12 %s this sun',
                 },
                 ['_at']: {
                     ['1']: '2:00',
@@ -124,8 +112,6 @@ export default (() => {
                     ['10']: '3:00',
                     ['11']: '2:00',
                     ['12']: '2:00',
-                    ['13']: '2:00',
-                    ['14']: '3:00',
                 },
                 ['_save']: {
                     ['1']: 3600,
@@ -140,8 +126,6 @@ export default (() => {
                     ['10']: 0,
                     ['11']: 3600,
                     ['12']: 3600,
-                    ['13']: 3600,
-                    ['14']: 0,
                 },
                 ['_letters']: {
                     ['1']: '-',
@@ -156,8 +140,6 @@ export default (() => {
                     ['10']: '-',
                     ['11']: '-',
                     ['12']: '-',
-                    ['13']: '-',
-                    ['14']: '-',
                 },
                 ['_cache']: {
                     ['1']: {},
@@ -172,8 +154,6 @@ export default (() => {
                     ['10']: {},
                     ['11']: {},
                     ['12']: {},
-                    ['13']: {},
-                    ['14']: {},
                 },
             },
         },

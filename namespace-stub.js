@@ -118,6 +118,11 @@ Jymfony = {
         /**
          * @namespace
          */
+        Messenger: {},
+
+        /**
+         * @namespace
+         */
         Metadata: {},
 
         /**

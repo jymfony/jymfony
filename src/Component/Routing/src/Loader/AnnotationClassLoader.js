@@ -1,7 +1,6 @@
-import { Route } from '@jymfony/decorators' optional;
-
 const LoaderInterface = Jymfony.Component.Config.Loader.LoaderInterface;
 const FileResource = Jymfony.Component.Config.Resource.FileResource;
+const Route = new ReflectionClass(Jymfony.Component.Routing.Annotation.Route).getConstructor();
 const RoutingRoute = Jymfony.Component.Routing.Route;
 const RouteCollection = Jymfony.Component.Routing.RouteCollection;
 
@@ -35,13 +34,25 @@ const RouteCollection = Jymfony.Component.Routing.RouteCollection;
  * @memberOf Jymfony.Component.Routing.Loader
  */
 export default class AnnotationClassLoader extends implementationOf(LoaderInterface) {
-    __construct() {
+    /**
+     * Constructor.
+     *
+     * @param {string | null} [env = null]
+     */
+    __construct(env = null) {
         /**
          * @type {int}
          *
          * @protected
          */
         this._defaultRouteIndex = 0;
+
+        /**
+         * @type {string|null}
+         *
+         * @private
+         */
+        this._env = env;
     }
 
     /**
@@ -54,10 +65,6 @@ export default class AnnotationClassLoader extends implementationOf(LoaderInterf
      * @throws {InvalidArgumentException} When route can't be parsed
      */
     load(class_) {
-        if (undefined === Route) {
-            throw new LogicException('Route decorator is not present. Try execute yarn add @jymfony/decorators.');
-        }
-
         if (! ReflectionClass.exists(class_)) {
             throw new InvalidArgumentException(__jymfony.sprintf('Class "%s" does not exist.', class_));
         }
@@ -72,7 +79,7 @@ export default class AnnotationClassLoader extends implementationOf(LoaderInterf
             const method = reflectionClass.getMethod(methodName);
             this._defaultRouteIndex = 0;
             for (const [ annotationClass, annotations ] of method.metadata) {
-                if (annotationClass === Route) {
+                if (new ReflectionClass(annotationClass).isInstanceOf(Route)) {
                     this._addRoute(collection, annotations, globals, reflectionClass, method);
                 }
             }
@@ -81,7 +88,7 @@ export default class AnnotationClassLoader extends implementationOf(LoaderInterf
         if (0 === collection.length && reflectionClass.hasMethod('__invoke')) {
             globals = this._resetGlobals();
             for (const [ annotationClass, annotations ] of reflectionClass.metadata) {
-                if (annotationClass === Route) {
+                if (new ReflectionClass(annotationClass).isInstanceOf(Route)) {
                     this._addRoute(collection, annotations, globals, reflectionClass, reflectionClass.getMethod('__invoke'));
                 }
             }
@@ -123,7 +130,7 @@ export default class AnnotationClassLoader extends implementationOf(LoaderInterf
             const condition = annot.condition || globals.condition;
             const path = annot.localizedPaths || annot.path || '';
 
-            const prefix = (globals.localizedPaths && Object.keys(globals.localizedPaths).length > 0) ?
+            const prefix = (globals.localizedPaths && 0 < Object.keys(globals.localizedPaths).length) ?
                 globals.localizedPaths :
                 globals.path || '';
             const paths = {};

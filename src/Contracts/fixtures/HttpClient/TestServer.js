@@ -29,7 +29,7 @@ const generateController = port =>
         const serializedRequest = request.toJson();
         const authorization = request.headers.get('Authorization', '');
         if (authorization.startsWith('Basic ')) {
-            const [ username, password ] = Buffer.from(authorization.substr(6), 'base64').toString().split(':');
+            const [ username, password ] = Buffer.from(authorization.substring(6), 'base64').toString().split(':');
             serializedRequest.username = username;
             serializedRequest.password = password || '';
         }
@@ -192,6 +192,15 @@ const generateController = port =>
                 response.content = JSON.stringify({
                     title: request.uri,
                 });
+                break;
+
+            case 'long-file':
+                response.content = Buffer.allocUnsafeSlow(80 * 1024).toString('base64');
+                break;
+
+            case 'long-file-compressed':
+                response.content = Buffer.allocUnsafeSlow(80 * 1024).toString('base64');
+                response.encoding = true;
                 break;
         }
 

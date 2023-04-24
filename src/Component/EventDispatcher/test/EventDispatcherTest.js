@@ -2,10 +2,7 @@ const { expect } = require('chai');
 
 const EventDispatcher = Jymfony.Component.EventDispatcher.EventDispatcher;
 const Event = Jymfony.Contracts.EventDispatcher.Event;
-
-const createEventDispatcher = function() {
-    return new EventDispatcher();
-};
+const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 
 const preFoo = 'event.pre_foo';
 const postFoo = 'event.post_foo';
@@ -59,36 +56,41 @@ class TestEventSubscriberWithMultipleListeners extends TestEventListener {
     }
 }
 
-describe('[EventDispatcher] EventDispatcher', function () {
-    it('construct', function () {
-        const dispatcher = createEventDispatcher();
+export default class EventDispatcherTest extends TestCase {
+    /**
+     * @type {Jymfony.Component.EventDispatcher.EventDispatcher}
+     * @private
+     */
+    _dispatcher;
 
-        return (
-            expect(Array.from(dispatcher.getListeners())).to.be.deep.equal([]) &&
-            expect(dispatcher.hasListeners(preFoo)).to.be.false &&
-            expect(dispatcher.hasListeners(postFoo)).to.be.false
-        );
-    });
+    beforeEach() {
+        this._dispatcher = new EventDispatcher();
+    }
 
-    it('addListeners', function () {
-        const dispatcher = createEventDispatcher();
+    get testCaseName() {
+        return '[EventDispatcher] ' + super.testCaseName;
+    }
+
+    testConstruct() {
+        __self.assertEquals([], [ ...this._dispatcher.getListeners() ]);
+        __self.assertFalse(this._dispatcher.hasListeners(preFoo));
+        __self.assertFalse(this._dispatcher.hasListeners(postFoo));
+    }
+
+    testAddListeners() {
         const listener = new TestEventListener();
 
-        dispatcher.addListener(preFoo, [ listener, 'preFoo' ]);
-        dispatcher.addListener(postFoo, [ listener, 'postFoo' ]);
+        this._dispatcher.addListener(preFoo, [ listener, 'preFoo' ]);
+        this._dispatcher.addListener(postFoo, [ listener, 'postFoo' ]);
 
-        return (
-            expect(dispatcher.hasListeners(preFoo)).to.be.true &&
-            expect(dispatcher.hasListeners(postFoo)).to.be.true &&
-            expect(Array.from(dispatcher.getListeners(preFoo))).to.have.lengthOf(1) &&
-            expect(Array.from(dispatcher.getListeners(postFoo))).to.have.lengthOf(1) &&
-            expect(Array.from(dispatcher.getListeners())).to.have.lengthOf(2)
-        );
-    });
+        __self.assertTrue(this._dispatcher.hasListeners(preFoo));
+        __self.assertTrue(this._dispatcher.hasListeners(postFoo));
+        __self.assertEquals(1, [ ...this._dispatcher.getListeners(preFoo) ].length);
+        __self.assertEquals(1, [ ...this._dispatcher.getListeners(postFoo) ].length);
+        __self.assertEquals(2, [ ...this._dispatcher.getListeners() ].length);
+    }
 
-    it('getListenersSortsByPriority', function () {
-        const dispatcher = createEventDispatcher();
-
+    testGetListenersSortsByPriority() {
         const listener1 = new TestEventListener();
         const listener2 = new TestEventListener();
         const listener3 = new TestEventListener();
@@ -97,75 +99,62 @@ describe('[EventDispatcher] EventDispatcher', function () {
         listener2.name = '2';
         listener3.name = '3';
 
-        dispatcher.addListener(preFoo, listener1.foo1, -10);
-        dispatcher.addListener(preFoo, listener2.foo2, 10);
-        dispatcher.addListener(preFoo, listener3.foo3, 0);
+        this._dispatcher.addListener(preFoo, listener1.foo1, -10);
+        this._dispatcher.addListener(preFoo, listener2.foo2, 10);
+        this._dispatcher.addListener(preFoo, listener3.foo3, 0);
 
-        const listeners = Array.from(dispatcher.getListeners(preFoo));
+        const listeners = [ ...this._dispatcher.getListeners(preFoo) ];
 
-        return (
-            expect(listeners[0]).to.be.equal(listener1.foo2) &&
-            expect(listeners[1]).to.be.equal(listener1.foo3) &&
-            expect(listeners[2]).to.be.equal(listener1.foo1)
-        );
-    });
+        __self.assertEquals(listener2.foo2, listeners[0]);
+        __self.assertEquals(listener3.foo3, listeners[1]);
+        __self.assertEquals(listener1.foo1, listeners[2]);
+    }
 
-    it('dispatch', function () {
-        const dispatcher = createEventDispatcher();
+    async testDispatch() {
         const listener = new TestEventListener();
 
-        dispatcher.addListener(preFoo, [ listener, 'preFoo' ]);
-        dispatcher.addListener(postFoo, [ listener, 'postFoo' ]);
+        this._dispatcher.addListener(preFoo, [ listener, 'preFoo' ]);
+        this._dispatcher.addListener(postFoo, [ listener, 'postFoo' ]);
 
-        const promise = dispatcher.dispatch('event.pre_foo');
+        const promise = this._dispatcher.dispatch(new Event(), 'event.pre_foo');
         expect(promise).to.be.instanceOf(Promise);
 
-        promise.then(() => {
-            return expect(listener.preFooCalled).to.be.true &&
-                expect(listener.postFooCalled).to.be.false;
-        });
+        await promise;
+        __self.assertTrue(listener.preFooCalled);
+        __self.assertFalse(listener.postFooCalled);
+
+        __self.assertInstanceOf(Event, await this._dispatcher.dispatch(new Event(), 'noevent'));
+        __self.assertInstanceOf(Event, await this._dispatcher.dispatch(new Event(), preFoo));
 
         const event = new Event();
-        return promise.then(() => {
-            Promise.all([
-                dispatcher.dispatch('noevent').then(event => expect(event).to.be.instanceOf(Event)),
-                dispatcher.dispatch(preFoo).then(event => expect(event).to.be.instanceOf(Event)),
-                dispatcher.dispatch(postFoo, event).then(e => expect(e === event).to.be.true),
-            ]);
-        });
-    });
+        __self.assertSame(event, await this._dispatcher.dispatch(event, postFoo));
+    }
 
-    it('dispatch for closure', function () {
-        const dispatcher = createEventDispatcher();
+    async testDispatchForClosure() {
         let invoked = 0;
         const listener = () => {
             invoked++;
         };
 
-        dispatcher.addListener(preFoo, listener);
-        dispatcher.addListener(postFoo, listener);
-        return dispatcher.dispatch(preFoo)
-            .then(() => {
-                return expect(invoked).to.be.equal(1);
-            });
-    });
+        this._dispatcher.addListener(preFoo, listener);
+        this._dispatcher.addListener(postFoo, listener);
+        await this._dispatcher.dispatch(new Event(), preFoo);
 
-    it('stop event propagation', function () {
-        const dispatcher = createEventDispatcher();
+        __self.assertEquals(1, invoked);
+    }
+
+    async testStopEventPropagation() {
         const listener = new TestEventListener();
 
-        dispatcher.addListener('event.post_foo', [ listener, 'postFoo' ], 10);
-        dispatcher.addListener('event.post_foo', [ listener, 'preFoo' ]);
-        return dispatcher.dispatch(postFoo)
-            .then(() => {
-                return expect(listener.postFooCalled).to.be.true &&
-                expect(listener.preFooCalled).to.be.false;
-            });
-    });
+        this._dispatcher.addListener('event.post_foo', [ listener, 'postFoo' ], 10);
+        this._dispatcher.addListener('event.post_foo', [ listener, 'preFoo' ]);
+        await this._dispatcher.dispatch(new Event(), postFoo);
 
-    it('dispatch by priority', function () {
-        const dispatcher = createEventDispatcher();
+        __self.assertTrue(listener.postFooCalled);
+        __self.assertFalse(listener.preFooCalled);
+    }
 
+    async testDispatchByPriority() {
         const invoked = [];
         const listener1 = () => {
             invoked.push('1');
@@ -177,130 +166,115 @@ describe('[EventDispatcher] EventDispatcher', function () {
             invoked.push('3');
         };
 
-        dispatcher.addListener(preFoo, listener1, -10);
-        dispatcher.addListener(preFoo, listener2);
-        dispatcher.addListener(preFoo, listener3, 10);
-        return dispatcher.dispatch(preFoo)
-            .then(() => {
-                return expect(invoked).to.deep.equal([ '3', '2', '1' ]);
-            });
-    });
+        this._dispatcher.addListener(preFoo, listener1, -10);
+        this._dispatcher.addListener(preFoo, listener2);
+        this._dispatcher.addListener(preFoo, listener3, 10);
+        await this._dispatcher.dispatch(new Event(), preFoo);
+        __self.assertEquals([ '3', '2', '1' ], invoked);
+    }
 
-    it('remove listener', function () {
-        const dispatcher = createEventDispatcher();
+    testRemoveListener() {
         const listener = new TestEventListener();
 
-        dispatcher.addListener('pre.bar', [ listener, 'foo1' ]);
-        const test1 = expect(dispatcher.hasListeners('pre.bar')).to.be.true;
+        this._dispatcher.addListener('pre.bar', [ listener, 'foo1' ]);
+        __self.assertTrue(this._dispatcher.hasListeners('pre.bar'));
 
-        dispatcher.removeListener('pre.bar', [ listener, 'foo1' ]);
-        const test2 = expect(dispatcher.hasListeners('pre.bar')).to.be.false;
+        this._dispatcher.removeListener('pre.bar', [ listener, 'foo1' ]);
+        __self.assertFalse(this._dispatcher.hasListeners('pre.bar'));
 
-        dispatcher.removeListener('non_exists', [ listener, 'foo1' ]);
-        return test1 && test2;
-    });
+        this._dispatcher.removeListener('non_exists', [ listener, 'foo1' ]);
+    }
 
-    it('add subscriber', function () {
-        const dispatcher = createEventDispatcher();
-        dispatcher.addSubscriber(new TestEventSubscriber());
+    testAddSubscriber() {
+        this._dispatcher.addSubscriber(new TestEventSubscriber());
 
-        return expect(dispatcher.hasListeners('preFoo')).to.be.true &&
-                expect(dispatcher.hasListeners('postFoo')).to.be.true;
-    });
+        __self.assertTrue(this._dispatcher.hasListeners('preFoo'));
+        __self.assertTrue(this._dispatcher.hasListeners('postFoo'));
+    }
 
-    it('add subscriber with priorities', function () {
-        const dispatcher = createEventDispatcher();
-        dispatcher.addSubscriber(new TestEventSubscriber());
-        dispatcher.addSubscriber(new TestEventSubscriberWithPriorities());
+    testAddSubscriberWithPriorities() {
+        this._dispatcher.addSubscriber(new TestEventSubscriber());
+        this._dispatcher.addSubscriber(new TestEventSubscriberWithPriorities());
 
-        const listeners = Array.from(dispatcher.getListeners('preFoo'));
-        return expect(dispatcher.hasListeners('preFoo')).to.be.true &&
-                expect(listeners).to.have.lengthOf(2) &&
-                expect(listeners[0].innerObject.getObject()).to.be.instanceOf(TestEventSubscriberWithPriorities);
-    });
+        const listeners = [ ...this._dispatcher.getListeners('preFoo') ];
+        __self.assertTrue(this._dispatcher.hasListeners('preFoo'));
+        __self.assertEquals(2, listeners.length);
+        __self.assertInstanceOf(TestEventSubscriberWithPriorities, listeners[0].innerObject.getObject());
+    }
 
-    it('add subscriber with multiple listeners', function () {
+    testAddSubscriberWithMultipleListeners() {
         const subscriber = new TestEventSubscriberWithMultipleListeners();
-        const dispatcher = createEventDispatcher();
-        dispatcher.addSubscriber(subscriber);
+        this._dispatcher.addSubscriber(subscriber);
 
-        const listeners = Array.from(dispatcher.getListeners('preFoo'));
-        return expect(dispatcher.hasListeners('preFoo')).to.be.true &&
-                expect(listeners).to.have.lengthOf(2) &&
-                expect(listeners[1].innerObject.equals([ subscriber, 'foo1' ])).to.be.true;
-    });
+        const listeners = [ ...this._dispatcher.getListeners('preFoo') ];
+        __self.assertTrue(this._dispatcher.hasListeners('preFoo'));
+        __self.assertEquals(2, listeners.length);
+        __self.assertTrue(listeners[1].innerObject.equals([ subscriber, 'foo1' ]));
+    }
 
-    it('remove subscriber', function () {
+    testRemoveSubscriber() {
         const subscriber = new TestEventSubscriber();
-        const dispatcher = createEventDispatcher();
-        dispatcher.addSubscriber(subscriber);
+        this._dispatcher.addSubscriber(subscriber);
 
-        const ret = expect(dispatcher.hasListeners('preFoo')).to.be.true &&
-            expect(dispatcher.hasListeners('postFoo')).to.be.true;
+        __self.assertTrue(this._dispatcher.hasListeners('preFoo'));
+        __self.assertTrue(this._dispatcher.hasListeners('postFoo'));
 
-        dispatcher.removeSubscriber(subscriber);
-        return ret && expect(dispatcher.hasListeners('preFoo')).to.be.false &&
-            expect(dispatcher.hasListeners('postFoo')).to.be.false;
-    });
+        this._dispatcher.removeSubscriber(subscriber);
 
-    it('remove subscriber with priorities', function () {
+        __self.assertFalse(this._dispatcher.hasListeners('preFoo'));
+        __self.assertFalse(this._dispatcher.hasListeners('postFoo'));
+    }
+
+    testRemoveSubscriberWithPriorities() {
         const subscriber = new TestEventSubscriberWithPriorities();
-        const dispatcher = createEventDispatcher();
-        dispatcher.addSubscriber(subscriber);
+        this._dispatcher.addSubscriber(subscriber);
 
-        const ret = expect(dispatcher.hasListeners('preFoo')).to.be.true;
+        __self.assertTrue(this._dispatcher.hasListeners('preFoo'));
 
-        dispatcher.removeSubscriber(subscriber);
-        return ret && expect(dispatcher.hasListeners('preFoo')).to.be.false;
-    });
+        this._dispatcher.removeSubscriber(subscriber);
+        __self.assertFalse(this._dispatcher.hasListeners('preFoo'));
+    }
 
-    it('add subscriber with multiple listeners', function () {
+    testAddSubscriberWithMultipleListeners2() {
         const subscriber = new TestEventSubscriberWithMultipleListeners();
-        const dispatcher = createEventDispatcher();
-        dispatcher.addSubscriber(subscriber);
+        this._dispatcher.addSubscriber(subscriber);
 
-        const ret = expect(dispatcher.hasListeners('preFoo')).to.be.true &&
-                    expect(Array.from(dispatcher.getListeners('preFoo'))).to.have.lengthOf(2);
+        __self.assertTrue(this._dispatcher.hasListeners('preFoo'));
+        __self.assertEquals(2, [ ...this._dispatcher.getListeners('preFoo') ].length);
 
-        dispatcher.removeSubscriber(subscriber);
-        return ret && expect(dispatcher.hasListeners('preFoo')).to.be.false;
-    });
+        this._dispatcher.removeSubscriber(subscriber);
+        __self.assertFalse(this._dispatcher.hasListeners('preFoo'));
+    }
 
-    it('receives correct arguments', function () {
+    async testReceivesCorrectArguments() {
         let name, instance;
-        const dispatcher = createEventDispatcher();
-
-        dispatcher.addListener('preFoo', (e, n, i) => {
+        this._dispatcher.addListener('preFoo', (e, n, i) => {
             name = n;
             instance = i;
         });
 
-        return dispatcher.dispatch('preFoo')
-            .then(() => {
-                return expect(name).to.be.equal('preFoo') &&
-                expect(instance).to.be.equal(dispatcher);
-            });
-    });
+        await this._dispatcher.dispatch(new Event(), 'preFoo');
+        __self.assertEquals('preFoo', name);
+        __self.assertEquals(this._dispatcher, instance);
+    }
 
-    it('getListenerPriority should work', () => {
-        const dispatcher = createEventDispatcher();
+    testGetListenerPriorityShouldWork() {
         const listener1 = new TestEventListener();
         const listener2 = new TestEventListener();
 
-        dispatcher.addListener('pre.foo', listener1, -10);
-        dispatcher.addListener('pre.foo', listener2);
+        this._dispatcher.addListener('pre.foo', listener1, -10);
+        this._dispatcher.addListener('pre.foo', listener2);
 
-        expect(dispatcher.getListenerPriority('pre.foo', listener1)).to.be.equal(-10);
-        expect(dispatcher.getListenerPriority('pre.foo', listener2)).to.be.equal(0);
-        expect(dispatcher.getListenerPriority('pre.bar', listener2)).to.be.undefined;
-        expect(dispatcher.getListenerPriority('pre.foo', () => {})).to.be.undefined;
-    });
+        __self.assertEquals(-10, this._dispatcher.getListenerPriority('pre.foo', listener1));
+        __self.assertEquals(0, this._dispatcher.getListenerPriority('pre.foo', listener2));
+        __self.assertUndefined(this._dispatcher.getListenerPriority('pre.bar', listener2));
+        __self.assertUndefined(this._dispatcher.getListenerPriority('pre.foo', () => {}));
+    }
 
-    it('getListenerPriority should find lazy listeners', () => {
-        const dispatcher = createEventDispatcher();
+    testGetListenerPriorityShouldFindLazyListeners() {
         const listener = new TestEventListener();
 
-        dispatcher.addListener('pre.foo', [ () => listener, 'preFoo' ], -10);
-        expect(dispatcher.getListenerPriority('pre.foo', [ listener, 'preFoo' ])).to.be.equal(-10);
-    });
-});
+        this._dispatcher.addListener('pre.foo', [ () => listener, 'preFoo' ], -10);
+        __self.assertEquals(-10, this._dispatcher.getListenerPriority('pre.foo', [ listener, 'preFoo' ]));
+    }
+}

@@ -10,7 +10,7 @@ export default class NotTaggedControllerValueResolver extends implementationOf(A
     /**
      * Constructor.
      *
-     * @param {Jymfony.Component.DependencyInjection.ContainerInterface} container
+     * @param {Jymfony.Contracts.DependencyInjection.ContainerInterface} container
      */
     __construct(container) {
         this._container = container;
@@ -47,7 +47,7 @@ export default class NotTaggedControllerValueResolver extends implementationOf(A
 
         if (! this._container.has(controller)) {
             const i = controller.lastIndexOf(':');
-            controller = controller.substr(0, i) + controller.substr(i).toLowerCase();
+            controller = controller.substring(0, i) + controller.substr(i).toLowerCase();
         }
 
         const what = __jymfony.sprintf('argument %s of "%s()"', argument.name, controller);

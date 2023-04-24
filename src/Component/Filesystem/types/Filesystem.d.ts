@@ -1,4 +1,6 @@
 declare namespace Jymfony.Component.Filesystem {
+    import DateTimeInterface = Jymfony.Contracts.DateTime.DateTimeInterface;
+
     interface MirrorOptions {
         override?: boolean;
         copy_on_windows?: boolean;
@@ -98,6 +100,11 @@ declare namespace Jymfony.Component.Filesystem {
          * @param [canonicalize = false] Whether or not to return a canonicalized path
          */
         readlink(path: string, canonicalize?: boolean): Promise<string|null>;
+
+        /**
+         * Sets access and modification time of file.
+         */
+        touch(filename: string, time?: DateTimeInterface | null): Promise<void>;
 
         /**
          * Reads the contents of a directory.

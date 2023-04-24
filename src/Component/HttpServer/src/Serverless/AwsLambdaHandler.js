@@ -119,10 +119,38 @@ export default class AwsLambdaHandler extends RequestHandler {
             return response;
         }
 
-        const requestUrl = urlFormat({ pathname: event.path, query: event.queryStringParameters });
+        const requestUrl = (() => {
+            if (URL !== undefined) {
+                const url = new URL('https://' + (event.requestContext.domainName || 'localhost') + '/');
+                url.pathname = event.rawPath || event.path;
+                url.search = undefined !== event.rawQueryString ? event.rawQueryString : new URLSearchParams(event.queryStringParameters).toString();
+
+                return url.href;
+            }
+
+            return urlFormat({
+                pathname: event.rawPath || event.path,
+                query: undefined !== event.rawQueryString ? event.rawQueryString : event.queryStringParameters,
+            });
+        })();
+
+        const sourceIp = event.requestContext && event.requestContext.identity ? event.requestContext.identity.sourceIp : undefined;
+        const httpMethod = (() => {
+            if (event.requestContext) {
+                if (event.requestContext.http && event.requestContext.http.method) {
+                    return event.requestContext.http.method;
+                }
+
+                if (event.requestContext.httpMethod) {
+                    return event.requestContext.httpMethod;
+                }
+            }
+
+            return event.httpMethod;
+        })();
         const request = new Request(requestUrl, requestParams, {}, event.headers || {}, {
-            'REQUEST_METHOD': event.httpMethod,
-            'REMOTE_ADDR': event.requestContext.identity.sourceIp,
+            'REQUEST_METHOD': httpMethod,
+            'REMOTE_ADDR': sourceIp || '127.0.0.1',
             'SCHEME': this._getScheme(headers.all),
             'SERVER_NAME': headers.get('Host'),
             'SERVER_PORT': headers.get('x-forwarded-port'),
@@ -158,7 +186,7 @@ export default class AwsLambdaHandler extends RequestHandler {
 
         for (const hdr of response.headers.keys) {
             if (hasMultiHeaders) {
-                responseHeaders[hdr] = response.headers.get(hdr, false).map(String);
+                responseHeaders[hdr] = response.headers.get(hdr, null, false).map(String);
             } else {
                 responseHeaders[hdr] = String(response.headers.get(hdr));
             }
@@ -176,7 +204,7 @@ export default class AwsLambdaHandler extends RequestHandler {
         }
 
         const postResponseEvent = new Event.PostResponseEvent(this, request, response);
-        await this._dispatcher.dispatch(HttpServerEvents.POST_RESPONSE, postResponseEvent);
+        await this._dispatcher.dispatch(postResponseEvent, HttpServerEvents.POST_RESPONSE);
 
         return result;
     }

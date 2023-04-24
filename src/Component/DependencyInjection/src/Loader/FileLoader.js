@@ -2,8 +2,9 @@ import { accessSync, constants } from 'fs';
 import { normalize } from 'path';
 
 const BaseFileLoader = Jymfony.Component.Config.Loader.FileLoader;
-const GlobResource = Jymfony.Component.Config.Resource.GlobResource;
 const ChildDefinition = Jymfony.Component.DependencyInjection.ChildDefinition;
+const GlobResource = Jymfony.Component.Config.Resource.GlobResource;
+const Exclude = Jymfony.Component.DependencyInjection.Annotation.Exclude;
 
 /**
  * FileLoader is the abstract class used by all built-in loaders that are file based.
@@ -17,8 +18,9 @@ export default class FileLoader extends BaseFileLoader {
      *
      * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
      * @param {Jymfony.Component.Config.FileLocatorInterface} locator
+     * @param {string | null} [env = null]
      */
-    __construct(container, locator) {
+    __construct(container, locator, env = null) {
         /**
          * @type {Jymfony.Component.DependencyInjection.ContainerBuilder}
          *
@@ -40,7 +42,7 @@ export default class FileLoader extends BaseFileLoader {
          */
         this._instanceof = {};
 
-        super.__construct(locator);
+        super.__construct(locator, env);
     }
 
     /**
@@ -74,6 +76,25 @@ export default class FileLoader extends BaseFileLoader {
             if (reflectionClass && reflectionClass.isInterface) {
                 interfaces.push(Class);
             } else {
+                const exclude = reflectionClass.metadata
+                    .filter(([ klass, annotations ]) => {
+                        if (klass !== Exclude) {
+                            return false;
+                        }
+
+                        for (const annot of annotations) {
+                            if (annot.env === undefined || annot.env === this._env) {
+                                return true;
+                            }
+                        }
+
+                        return false;
+                    }).map(a => a[1]);
+
+                if (0 < exclude.length) {
+                    continue;
+                }
+
                 const definition = __jymfony.unserialize(serializedPrototype);
                 this._setDefinition(Class, definition);
                 if (null !== errorMessage) {

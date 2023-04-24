@@ -1,6 +1,6 @@
 declare namespace Jymfony.Bundle.FrameworkBundle.Controller {
     import ServiceSubscriberInterface = Jymfony.Component.DependencyInjection.ServiceSubscriberInterface;
-    import ContainerInterface = Jymfony.Component.DependencyInjection.ContainerInterface;
+    import ContainerInterface = Jymfony.Contracts.DependencyInjection.ContainerInterface;
 
     /**
      * Provides common features needed in controllers.

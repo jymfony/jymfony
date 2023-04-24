@@ -3,7 +3,7 @@ const path = require('path');
 const { expect } = require('chai');
 
 const ContainerBuilder = Jymfony.Component.DependencyInjection.ContainerBuilder;
-const ContainerInterface = Jymfony.Component.DependencyInjection.ContainerInterface;
+const ContainerInterface = Jymfony.Contracts.DependencyInjection.ContainerInterface;
 const Definition = Jymfony.Component.DependencyInjection.Definition;
 const JsDumper = Jymfony.Component.DependencyInjection.Dumper.JsDumper;
 const Fixtures = Jymfony.Component.DependencyInjection.Fixtures;
@@ -98,7 +98,7 @@ module.exports = new ContainerkHWy2bx({
         container.compile();
 
         const dumper = new JsDumper(container);
-        expect(dumper.dump({ build_time: 1536621245 })['ContainerahGASul/ProjectContainer.js'])
+        expect(dumper.dump({ build_time: 1536621245 })['ContainerByUvPQs/ProjectContainer.js'])
             .to.be.equal(fs.readFileSync(path.join(fixturesPath, 'js', 'services9.js')).toString());
     });
 

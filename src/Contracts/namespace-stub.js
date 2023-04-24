@@ -9,6 +9,11 @@ Jymfony.Contracts = {
     /**
      * @namespace
      */
+    Async: {},
+
+    /**
+     * @namespace
+     */
     Cache: {
         /**
          * @namespace
@@ -29,7 +34,37 @@ Jymfony.Contracts = {
     /**
      * @namespace
      */
+    DependencyInjection: {
+        /**
+         * @namespace
+         */
+        Exception: {},
+    },
+
+    /**
+     * @namespace
+     */
     DateTime: {},
+
+    /**
+     * @namespace
+     */
+    Debug: {
+        /**
+         * @namespace
+         */
+        ErrorEnhancer: {},
+
+        /**
+         * @namespace
+         */
+        ErrorRenderer: {},
+
+        /**
+         * @namespace
+         */
+        Exception: {},
+    },
 
     /**
      * @namespace
@@ -135,4 +170,34 @@ Jymfony.Contracts = {
      * @namespace
      */
     Uid: {},
+
+    /**
+     * @namespace
+     */
+    Validator: {
+        /**
+         * @namespace
+         */
+        Constraints: {},
+
+        /**
+         * @namespace
+         */
+        Context: {},
+
+        /**
+         * @namespace
+         */
+        Exception: {},
+
+        /**
+         * @namespace
+         */
+        Validator: {},
+
+        /**
+         * @namespace
+         */
+        Violation: {},
+    },
 };

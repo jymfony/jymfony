@@ -1,4 +1,3 @@
-import { @dataProvider } from '@jymfony/decorators';
 import { AbstractComparisonValidatorTestCase } from './AbstractComparisonValidatorTestCase';
 import { expect } from 'chai';
 
@@ -6,10 +5,6 @@ const DivisibleBy = Jymfony.Component.Validator.Constraints.DivisibleBy;
 const UnexpectedValueException = Jymfony.Component.Validator.Exception.UnexpectedValueException;
 
 export default class DivisibleByValidatorTest extends AbstractComparisonValidatorTestCase {
-    get testCaseName() {
-        return '[Validator] ' + super.testCaseName;
-    }
-
     createConstraint(options = null) {
         return new DivisibleBy(options);
     }
@@ -48,12 +43,12 @@ export default class DivisibleByValidatorTest extends AbstractComparisonValidato
      */
     provideInvalidComparisons() {
         return [
-            [ 1, '1', 2, '2', 'number'],
-            [ 10, '10', 3, '3', 'number'],
-            [ 10, '10', 0, '0', 'number'],
-            [ 42, '42', Infinity, 'Infinity', 'number'],
-            [ 4.15, '4.15', 0.1, '0.1', 'number'],
-            [ '22', '"22"', '10', '"10"', 'string'],
+            [ 1, '1', 2, '2', 'number' ],
+            [ 10, '10', 3, '3', 'number' ],
+            [ 10, '10', 0, '0', 'number' ],
+            [ 42, '42', Infinity, 'Infinity', 'number' ],
+            [ 4.15, '4.15', 0.1, '0.1', 'number' ],
+            [ '22', '"22"', '10', '"10"', 'string' ],
         ];
     }
 
@@ -73,8 +68,8 @@ export default class DivisibleByValidatorTest extends AbstractComparisonValidato
 
     throwsOnNonNumericValuesProvider() {
         return [
-            ['object', 2, {}],
-            ['Set', new Set(), 12],
+            [ 'object', 2, {} ],
+            [ 'Set', new Set(), 12 ],
         ];
     }
 

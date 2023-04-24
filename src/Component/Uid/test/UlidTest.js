@@ -1,9 +1,6 @@
-import { expect } from 'chai';
-
 const Ulid = Jymfony.Component.Uid.Ulid;
 const UuidV4 = Jymfony.Component.Uid.UuidV4;
 const TestCase = Jymfony.Component.Testing.Framework.TestCase;
-const TimeSensitiveTestCaseTrait = Jymfony.Component.Testing.Framework.TimeSensitiveTestCaseTrait;
 
 const replacePairs = {
     'A': 'a',
@@ -30,7 +27,7 @@ const replacePairs = {
     'Z': 'v',
 };
 
-export default class UlidTest extends mix(TestCase, TimeSensitiveTestCaseTrait) {
+export default @timeSensitive() class UlidTest extends TestCase {
     get testCaseName() {
         return '[Uid] ' + super.testCaseName;
     }
@@ -48,12 +45,12 @@ export default class UlidTest extends mix(TestCase, TimeSensitiveTestCaseTrait) 
         a = a.toString();
         b = b.toString();
 
-        expect(a.substr(0, 20)).to.be.equal(b.substr(0, 20));
+        __self.assertEquals(b.substring(0, 20), a.substring(0, 20));
 
-        a = Number.parseInt(__jymfony.strtr(a.substr(a.length - 6), replacePairs), 32);
-        b = Number.parseInt(__jymfony.strtr(b.substr(b.length - 6), replacePairs), 32);
+        a = Number.parseInt(__jymfony.strtr(a.substring(a.length - 6), replacePairs), 32);
+        b = Number.parseInt(__jymfony.strtr(b.substring(b.length - 6), replacePairs), 32);
 
-        expect(b - a).to.be.equal(1);
+        __self.assertEquals(1, b - a);
     }
 
     testWithInvalidUlid() {
@@ -66,32 +63,32 @@ export default class UlidTest extends mix(TestCase, TimeSensitiveTestCaseTrait) 
 
     testBinary() {
         let ulid = new Ulid('00000000000000000000000000');
-        expect(ulid.toBuffer().toString('binary')).to.be.equal('\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0');
+        __self.assertEquals('\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0', ulid.toBuffer().toString('binary'));
 
         ulid = new Ulid('3zzzzzzzzzzzzzzzzzzzzzzzzz');
-        expect(ulid.toBuffer().toString('hex')).to.be.equal('7fffffffffffffffffffffffffffffff');
+        __self.assertEquals('7fffffffffffffffffffffffffffffff', ulid.toBuffer().toString('hex'));
 
         const buf = Buffer.from('7fffffffffffffffffffffffffffffff', 'hex');
-        expect(ulid.equals(Ulid.fromString(buf.toString('binary')))).to.be.equal(true);
+        __self.assertEquals(true, ulid.equals(Ulid.fromString(buf.toString('binary'))));
     }
 
     testFromUuid() {
         const uuid = new UuidV4();
         const ulid = Ulid.fromString(String(uuid));
 
-        expect(String(ulid)).to.be.equal(uuid.toBase32());
-        expect(String(ulid)).to.be.equal(ulid.toBase32());
-        expect(String(uuid)).to.be.equal(ulid.toRfc4122());
-        expect(ulid.equals(Ulid.fromString(String(uuid)))).to.be.equals(true);
+        __self.assertEquals(uuid.toBase32(), String(ulid));
+        __self.assertEquals(ulid.toBase32(), String(ulid));
+        __self.assertEquals(ulid.toRfc4122(), String(uuid));
+        __self.assertEquals(true, ulid.equals(Ulid.fromString(String(uuid))));
     }
 
     testBase58() {
         let ulid = new Ulid('00000000000000000000000000');
-        expect(ulid.toBase58()).to.be.equal('1111111111111111111111');
+        __self.assertEquals('1111111111111111111111', ulid.toBase58());
 
         ulid = Ulid.fromString('\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF');
-        expect(ulid.toBase58()).to.be.equal('YcVfxkQb6JRzqk5kF2tNLv');
-        expect(ulid.equals(Ulid.fromString('YcVfxkQb6JRzqk5kF2tNLv'))).to.be.equal(true);
+        __self.assertEquals('YcVfxkQb6JRzqk5kF2tNLv', ulid.toBase58());
+        __self.assertEquals(true, ulid.equals(Ulid.fromString('YcVfxkQb6JRzqk5kF2tNLv')));
     }
 
     testGetTime() {
@@ -101,35 +98,35 @@ export default class UlidTest extends mix(TestCase, TimeSensitiveTestCaseTrait) 
         const ulid = new Ulid(Ulid.generate(time));
         time = time.substr(11) + '.' + time.substr(2, 3);
 
-        expect(ulid.getTime()).to.be.equal(Number.parseFloat(time));
+        __self.assertEquals(Number.parseFloat(time), ulid.getTime());
     }
 
     testIsValid() {
-        expect(Ulid.isValid('not a ulid')).to.be.equal(false);
-        expect(Ulid.isValid('00000000000000000000000000')).to.be.equal(true);
+        __self.assertEquals(false, Ulid.isValid('not a ulid'));
+        __self.assertEquals(true, Ulid.isValid('00000000000000000000000000'));
     }
 
     testEquals() {
         const a = new Ulid();
         const b = new Ulid();
 
-        expect(a.equals(a)).to.be.equal(true);
-        expect(a.equals(b)).to.be.equal(false);
-        expect(a.equals(b.toString())).to.be.equal(false);
+        __self.assertEquals(true, a.equals(a));
+        __self.assertEquals(false, a.equals(b));
+        __self.assertEquals(false, a.equals(b.toString()));
     }
 
     async testCompare() {
         const a = new Ulid();
         const b = new Ulid();
 
-        expect(a.compare(a)).to.be.equal(0);
-        expect(a.compare(b)).to.be.lessThan(0);
-        expect(b.compare(a)).to.be.greaterThan(0);
+        __self.assertEquals(0, a.compare(a));
+        __self.assertLessThan(0, a.compare(b));
+        __self.assertGreaterThan(0, b.compare(a));
 
         await __jymfony.sleep(1001);
         const c = new Ulid();
 
-        expect(b.compare(c)).to.be.lessThan(0);
-        expect(c.compare(b)).to.be.greaterThan(0);
+        __self.assertLessThan(0, b.compare(c));
+        __self.assertGreaterThan(0, c.compare(b));
     }
 }

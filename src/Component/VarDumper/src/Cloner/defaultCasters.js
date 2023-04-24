@@ -23,6 +23,8 @@ const casters = [
     [ PriorityQueue, Caster.DataStructureCaster.castDataStructure ],
     [ BTree, Caster.DataStructureCaster.castDataStructure ],
     [ LinkedList, Caster.DataStructureCaster.castDataStructure ],
+
+    [ Set, Caster.DataStructureCaster.castSet ],
 ];
 
 if (__jymfony.RegExp) {
@@ -34,8 +36,8 @@ if (ReflectionClass.exists('Jymfony.Component.DateTime.DateTime')) {
     casters.push([ Jymfony.Component.DateTime.DateTimeZone, Caster.DateCaster.castDateTimeZone ]);
 }
 
-if (ReflectionClass.exists('Jymfony.Component.DependencyInjection.ContainerInterface')) {
-    casters.push([ Jymfony.Component.DependencyInjection.ContainerInterface, Caster.StubCaster.cutInternals ]);
+if (ReflectionClass.exists('Jymfony.Contracts.DependencyInjection.ContainerInterface')) {
+    casters.push([ Jymfony.Contracts.DependencyInjection.ContainerInterface, Caster.StubCaster.cutInternals ]);
 }
 
 export { casters };

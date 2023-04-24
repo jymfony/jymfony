@@ -1,7 +1,7 @@
 const CacheItemPoolInterface = Jymfony.Contracts.Cache.CacheItemPoolInterface;
 
 /**
- * Interface for adapters managing instances of Symfony's CacheItem.
+ * Interface for adapters managing instances of Jymfony's CacheItem.
  *
  * @memberOf Jymfony.Component.Cache.Adapter
  */

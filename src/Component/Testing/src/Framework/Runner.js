@@ -23,6 +23,11 @@ export default class Runner {
      * Run the test suite.
      */
     run(patterns = process.argv) {
+        global.dataProvider = value => Jymfony.Component.Testing.Annotation.DataProvider(value);
+        global.afterEach = Jymfony.Component.Testing.Annotation.AfterEach;
+        global.beforeEach = Jymfony.Component.Testing.Annotation.BeforeEach;
+        global.timeSensitive = Jymfony.Component.Testing.Annotation.TimeSensitive;
+
         patterns = patterns
             .filter(p => ! p.startsWith('-'))
             .map(p => resolve(p).replace(/\\/g, '/'));
@@ -77,7 +82,7 @@ export default class Runner {
             f.forEach(targetFiles.add.bind(targetFiles));
             c.forEach(class_ => {
                 const reflection = new ReflectionClass(class_);
-                if (! reflection.isSubclassOf(TestCase)) {
+                if (! reflection.isSubclassOf(TestCase) || ! reflection.name.endsWith('Test')) {
                     return;
                 }
 
@@ -140,7 +145,7 @@ export default class Runner {
 
         for (const file of new RecursiveDirectoryIterator(prefix)) {
             const normalizedPath = file.replace(/\\/g, '/');
-            if (! normalizedPath.substr(prefixLen).match(regex)) {
+            if (! normalizedPath.substring(prefixLen).match(regex)) {
                 continue;
             }
 
@@ -186,12 +191,16 @@ export default class Runner {
                     continue;
                 }
 
-                const Class = namespace.name + '.' + __jymfony.ltrim(path.substr(prefixLen, path.length - prefixLen - m[0].length).replace(/[/\\]/g, '.'), '.');
+                const Class = namespace.name + '.' + __jymfony.ltrim(path.substring(prefixLen, path.length - m[0].length).replace(/[/\\]/g, '.'), '.');
                 let r = null;
 
                 try {
                     r = new ReflectionClass(Class);
                 } catch (e) {
+                    if (e instanceof SyntaxError) {
+                        throw e;
+                    }
+
                     tFiles[path] = true;
                     continue;
                 }

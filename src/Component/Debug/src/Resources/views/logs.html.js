@@ -1,7 +1,7 @@
 const channelIsDefined = !! logs[0] && !! logs[0].channel;
 
-let html = '<table class="logs" data-filter-level="Emergency,Alert,Critical,Error,Warning,Notice,Info,Debug" data-filters>';
-html += `
+emit('<table class="logs" data-filter-level="Emergency,Alert,Critical,Error,Warning,Notice,Info,Debug" data-filters>');
+emit(`
     <thead>
         <tr>
             <th data-filter="level">Level</th>
@@ -11,7 +11,7 @@ html += `
     </thead>
 
     <tbody>
-`;
+`);
 
 for (const log of logs) {
     let status = '';
@@ -30,7 +30,7 @@ for (const log of logs) {
         status = 'DeprecationWarning' === severity ? 'warning' : 'normal';
     }
 
-    html += `<tr class="status-${status}" data-filter-level="${escape(log.priorityName).toLowerCase()}"${channelIsDefined ? ' data-filter-channel="' + escape(log.channel) + '"' : ''}>
+    emit(`<tr class="status-${status}" data-filter-level="${escape(log.priorityName).toLowerCase()}"${channelIsDefined ? ' data-filter-channel="' + escape(log.channel) + '"' : ''}>
             <td class="text-small" nowrap>
                 <span class="colored text-bold">${escape(log.priorityName)}</span>
                 <span class="text-muted newline">${date('H:i:s', log.timestamp)}</span>
@@ -46,9 +46,7 @@ for (const log of logs) {
                     <pre class="text-muted prewrap m-t-5">${JSON.stringify(log.context, null, 4)}</pre>
                 ` : ''}
             </td>
-        </tr>`;
+        </tr>`);
 }
 
-html += '</tbody></table>';
-
-return html;
+emit('</tbody></table>');

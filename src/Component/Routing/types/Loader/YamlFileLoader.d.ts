@@ -8,8 +8,8 @@ declare namespace Jymfony.Component.Routing.Loader {
     export class YamlFileLoader extends JsonFileLoader {
         private _yamlParser: Parser;
 
-        __construct(locator: FileLocatorInterface): void;
-        constructor(locator: FileLocatorInterface);
+        __construct(locator: FileLocatorInterface, env?: string | null): void;
+        constructor(locator: FileLocatorInterface, env?: string | null);
 
         /**
          * @inheritdoc

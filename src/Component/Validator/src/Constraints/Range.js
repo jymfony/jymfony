@@ -43,7 +43,7 @@ export default class Range extends Constraint {
             }
 
             if ((undefined !== options.minPropertyPath || undefined !== options.maxPropertyPath) && ! ReflectionClass.exists(Jymfony.Component.PropertyAccess.PropertyAccessor)) {
-                throw new LogicException(__jymfony.sprintf('The "%s" constraint requires the Symfony PropertyAccess component to use the "minPropertyPath" or "maxPropertyPath" option.', ReflectionClass.getClassName(this)));
+                throw new LogicException(__jymfony.sprintf('The "%s" constraint requires the Jymfony PropertyAccess component to use the "minPropertyPath" or "maxPropertyPath" option.', ReflectionClass.getClassName(this)));
             }
         }
 

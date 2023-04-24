@@ -56,6 +56,7 @@ container.register('kernel.exception_controller', Jymfony.Bundle.FrameworkBundle
 ;
 
 container.register(Jymfony.Component.HttpServer.EventListener.UnhandledRejectionListener)
+    .setAutoconfigured(true)
     .addTag('kernel.event_subscriber')
     .addArgument(new Reference('logger', Container.IGNORE_ON_INVALID_REFERENCE))
     .addArgument('%kernel.debug%')
@@ -78,8 +79,8 @@ container.register(Jymfony.Component.HttpServer.EventListener.RouterListener)
 ;
 
 container.register(Jymfony.Component.HttpServer.Command.HttpServerRunCommand)
-    .addTag('console.command')
     .addArgument(new Reference(Jymfony.Component.HttpServer.HttpServer))
+    .setAutoconfigured(true)
 ;
 
 container.register(Jymfony.Component.HttpServer.EventListener.WebsocketListener)

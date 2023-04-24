@@ -1,14 +1,18 @@
-const { expect } = require('chai');
+const TestCase = Jymfony.Component.Testing.Framework.TestCase;
+const VarDumperTestTrait = Jymfony.Component.VarDumper.Test.VarDumperTestTrait;
 
-describe('[VarDumper] RegExpCaster', function () {
-    it('should dump regexp object correctly', () => {
-        const dump = `
-RegExp {
+export default class RegExpCasterTest extends mix(TestCase, VarDumperTestTrait) {
+    get testCaseName() {
+        return '[VarDumper] ' + super.testCaseName;
+    }
+
+    testShouldDumpRegexpObjectCorrectly() {
+        const dump = `RegExp {
   source: 23
   flags: gi
 }`;
 
-        expect(/23/gi).to.dump.as.format(dump);
-        expect(new RegExp('23', 'gi')).to.dump.as.format(dump);
-    });
-});
+        this.assertDumpMatchesFormat(dump, /23/gi);
+        this.assertDumpMatchesFormat(dump, new RegExp('23', 'gi'));
+    }
+}

@@ -1,4 +1,3 @@
-import { @dataProvider } from '@jymfony/decorators';
 import { expect } from 'chai';
 
 const Callback = Jymfony.Component.Validator.Constraints.Callback;

@@ -1,7 +1,9 @@
+const ReflectorTrait = require('./ReflectorTrait');
+
 /**
  * Reflection utility for class getters/setters.
  */
-class ReflectionProperty {
+class ReflectionProperty extends implementationOf(ReflectorInterface, ReflectorTrait) {
     /**
      * Constructor.
      *
@@ -10,6 +12,7 @@ class ReflectionProperty {
      * @param {string} propertyName
      */
     constructor(reflectionClass, kind, propertyName) {
+        super();
         const descriptor = reflectionClass.getPropertyDescriptor(propertyName);
 
         /**
@@ -25,6 +28,13 @@ class ReflectionProperty {
          * @private
          */
         this._name = propertyName;
+
+        /**
+         * @type {string}
+         *
+         * @private
+         */
+        this._kind = kind;
 
         /**
          * @type {Function}
@@ -96,7 +106,7 @@ class ReflectionProperty {
      * @returns {[Function, *][]}
      */
     get metadata() {
-        return MetadataStorage.getMetadata(this._class.getConstructor(), this._name);
+        return MetadataStorage.getMetadata(this._method[Symbol.metadata], undefined);
     }
 }
 

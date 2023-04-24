@@ -8,21 +8,25 @@ container.register('routing.resolver', Jymfony.Component.Config.Loader.LoaderRes
 container.register(Jymfony.Component.Routing.Loader.JsFileLoader)
     .addTag('routing.loader')
     .addArgument(new Reference('file_locator'))
+    .addArgument('%kernel.environment%')
 ;
 
 container.register(Jymfony.Component.Routing.Loader.JsonFileLoader)
     .addTag('routing.loader')
     .addArgument(new Reference('file_locator'))
+    .addArgument('%kernel.environment%')
 ;
 
 container.register(Jymfony.Component.Routing.Loader.ServiceRouterLoader)
     .addTag('routing.loader')
     .addArgument(new Reference('service_container'))
+    .addArgument('%kernel.environment%')
 ;
 
 container.register(Jymfony.Component.Routing.Loader.YamlFileLoader)
     .addTag('routing.loader')
     .addArgument(new Reference('file_locator'))
+    .addArgument('%kernel.environment%')
 ;
 
 container.register('routing.loader', Jymfony.Component.Config.Loader.DelegatingLoader)

@@ -1,8 +1,9 @@
+const DateTimeInterface = Jymfony.Contracts.DateTime.DateTimeInterface;
 const IOException = Jymfony.Component.Filesystem.Exception.IOException;
-const UnsupportedOperationException = Jymfony.Component.Filesystem.Exception.UnsupportedOperationException;
 const RecursiveDirectoryIterator = Jymfony.Component.Filesystem.Iterator.RecursiveDirectoryIterator;
 const StreamWrapper = Jymfony.Component.Filesystem.StreamWrapper.StreamWrapper;
 const StreamWrapperInterface = Jymfony.Component.Filesystem.StreamWrapper.StreamWrapperInterface;
+const UnsupportedOperationException = Jymfony.Component.Filesystem.Exception.UnsupportedOperationException;
 
 const S_IRUSR = 0o0400; // Owner has read permission
 const S_IWUSR = 0o0200; // Owner has write permission
@@ -376,6 +377,19 @@ export default class Filesystem {
     }
 
     /**
+     * Sets access and modification time of file.
+     *
+     * @param {string} filename
+     * @param {Jymfony.Contracts.DateTime.DateTimeInterface | null} time
+     *
+     * @returns {Promise<void>}
+     */
+    async touch(filename, time = null) {
+        return StreamWrapper.get(filename)
+            .metadata(filename, StreamWrapperInterface.META_TOUCH, null !== time ? new Date(time.format(DateTimeInterface.ATOM)) : null);
+    }
+
+    /**
      * Reads the contents of a directory.
      *
      * @param path
@@ -383,7 +397,7 @@ export default class Filesystem {
      * @returns {Promise<string[]>}
      */
     async readdir(path) {
-        return await StreamWrapper.get(path).readdir(path);
+        return StreamWrapper.get(path).readdir(path);
     }
 
     /**

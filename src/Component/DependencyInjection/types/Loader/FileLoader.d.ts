@@ -12,13 +12,10 @@ declare namespace Jymfony.Component.DependencyInjection.Loader {
 
         /**
          * Constructor.
-         *
-         * @param {Jymfony.Component.DependencyInjection.ContainerBuilder} container
-         * @param {Jymfony.Component.Config.FileLocatorInterface} locator
          */
         // @ts-ignore
-        __construct(container: ContainerBuilder, locator: FileLocatorInterface): void;
-        constructor(container: ContainerBuilder, locator: FileLocatorInterface);
+        __construct(container: ContainerBuilder, locator: FileLocatorInterface, env?: string | null): void;
+        constructor(container: ContainerBuilder, locator: FileLocatorInterface, env?: string | null);
 
         /**
          * Registers a set of classes as services using autoloader for discovery.

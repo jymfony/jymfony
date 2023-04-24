@@ -2,9 +2,10 @@ import { readFileSync, statSync } from 'fs';
 import { runInNewContext } from 'vm';
 import { sep } from 'path';
 
+const ClsTrait = Jymfony.Contracts.Async.ClsTrait;
 const DateTime = Jymfony.Component.DateTime.DateTime;
 const DebugLoggerInterface = Jymfony.Component.Kernel.Log.DebugLoggerInterface;
-const ErrorRendererInterface = Jymfony.Component.Debug.ErrorRenderer.ErrorRendererInterface;
+const ErrorRendererInterface = Jymfony.Contracts.Debug.ErrorRenderer.ErrorRendererInterface;
 const ErrorException = Jymfony.Component.Debug.Exception.ErrorException;
 const FlattenException = Jymfony.Component.Debug.Exception.FlattenException;
 
@@ -238,12 +239,17 @@ export default class HtmlErrorRenderer extends implementationOf(ErrorRendererInt
             return code;
         }
 
-        let request = this._logger && this._logger._activeContext[__jymfony.ClsTrait.REQUEST_SYMBOL];
+        let request = this._logger && this._logger._activeContext[ClsTrait.REQUEST_SYMBOL];
         if (request && request.attributes.has('_parent_request')) {
             request = request.attributes.get('_parent_request');
         }
 
-        return runInNewContext('(function() { "use strict"; ' + code + '})', {
+        let retVal = '';
+        const emit = (str) => {
+            retVal += String(str);
+        };
+
+        runInNewContext('(function() { "use strict"; ' + code + '})', {
             ...global,
             ...context,
             context,
@@ -251,12 +257,15 @@ export default class HtmlErrorRenderer extends implementationOf(ErrorRendererInt
             abbrClass: this._abbrClass,
             addElementToGhost: this._addElementToGhost,
             date: (format, timestamp) => new DateTime(timestamp).format(format),
+            emit,
             DIRECTORY_SEPARATOR: sep,
             fileExcerpt: this._fileExcerpt,
             formatLogMessage: (...args) => this._formatLogMessage(...args),
-            logSubject: request || (this._logger && this._logger._activeContext[__jymfony.ClsTrait.COMMAND_SYMBOL]) || null,
-            include: (...args) => this._include(...args),
+            logSubject: request || (this._logger && this._logger._activeContext[ClsTrait.COMMAND_SYMBOL]) || null,
+            include: this._include.bind(this),
             formatFile: (...args) => this._formatFile(...args),
         }, { filename })();
+
+        return retVal;
     }
 }

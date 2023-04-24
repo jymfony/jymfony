@@ -27,19 +27,22 @@
   ],
   "license": "MIT",
   "engines": {
-    "node": ">=10.0.0"
+    "node": ">=12.0.0"
+  },
+  "peerDependencies": {
+    "@jymfony/compiler": "0.4"
   },
   "devDependencies": {
-    "@jymfony/compiler": "0.2",
-    "@jymfony/decorators": "0.1.0-alpha.30",
-    "@types/chai": "^4.2.16",
+    "@babel/eslint-parser": "^7.19.1",
+    "@babel/plugin-proposal-decorators": "^7.20.0",
+    "@types/chai": "^4.3.4",
     "@types/mocha": "^5.2.7",
     "@types/node": "^14.14.37",
-    "chai": "^4.3.4",
+    "chai": "^4.3.7",
     "ioredis": "^4.25.0",
-    "mocha": "^6.0",
+    "mocha": "^10.2.0",
     "mongodb": "^3.6.6",
-    "nyc": "^14.1.1",
+    "nyc": "^15.1.0",
     "typescript": "^4.0"
   },
   "repository": "https://github.com/jymfony/jymfony.git",
@@ -67,6 +70,7 @@
         "Jymfony.Component.Kernel": "src/Component/Kernel/src",
         "Jymfony.Component.Lexer": "src/Component/Lexer/src",
         "Jymfony.Component.Logger": "src/Component/Logger/src",
+        "Jymfony.Component.Messenger": "src/Component/Messenger/src",
         "Jymfony.Component.Metadata": "src/Component/Metadata/src",
         "Jymfony.Component.Mime": "src/Component/Mime/src",
         "Jymfony.Component.OptionsResolver": "src/Component/OptionsResolver/src",
@@ -89,8 +93,7 @@
         "src/DataStructure/src/all.js",
         "src/Component/Autoloader/src/Test/ChaiExpectation.js",
         "src/Component/Validator/src/Test/ChaiExpectation.js",
-        "src/Component/VarDumper/src/functions.js",
-        "src/Component/VarDumper/src/Test/ChaiExpectation.js"
+        "src/Component/VarDumper/src/functions.js"
       ]
     },
     "jymfony-autoload-dev": {
@@ -117,9 +120,12 @@
         "Jymfony.Component.HttpServer.Tests": "src/Component/HttpServer/test",
         "Jymfony.Component.HttpServer.Tests.Fixtures": "src/Component/HttpServer/fixtures",
         "Jymfony.Component.Kernel.Tests": "src/Component/Kernel/test",
+        "Jymfony.Component.Kernel.Fixtures": "src/Component/Kernel/fixtures",
         "Jymfony.Component.Lexer.Fixtures": "src/Component/Lexer/fixtures",
         "Jymfony.Component.Lexer.Tests": "src/Component/Lexer/test",
         "Jymfony.Component.Logger.Tests": "src/Component/Logger/test",
+        "Jymfony.Component.Messenger.Fixtures": "src/Component/Messenger/fixtures",
+        "Jymfony.Component.Messenger.Tests": "src/Component/Messenger/test",
         "Jymfony.Component.Metadata.Fixtures": "src/Component/Metadata/fixtures",
         "Jymfony.Component.Metadata.Tests": "src/Component/Metadata/test",
         "Jymfony.Component.Mime.Tests": "src/Component/Mime/test",
@@ -145,6 +151,7 @@
         "Jymfony.Contracts.Tests": "src/Contracts/test",
         "Jymfony.DataStructures.Tests": "src/DataStructure/test",
         "Jymfony.Exceptions.Tests": "src/Exceptions/test",
+        "Jymfony.Util.Fixtures": "src/util/fixtures",
         "Jymfony.Util.Tests": "src/util/test"
       }
     }

@@ -4,7 +4,7 @@ declare namespace Jymfony.Contracts.Cache {
     /**
      * Augments CacheItemInterface with support for tags.
      */
-    class ItemInterface extends CacheItemInterface.definition {
+    export class ItemInterface extends CacheItemInterface.definition {
         /**
          * Reserved characters that cannot be used in a key or tag.
          */

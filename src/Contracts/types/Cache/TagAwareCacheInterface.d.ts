@@ -3,10 +3,8 @@ declare namespace Jymfony.Contracts.Cache {
 
     /**
      * Allows invalidating cached items using tags.
-     *
-     * @memberOf Jymfony.Contracts.Cache
      */
-    class TagAwareCacheInterface extends CacheInterface.definition {
+    export class TagAwareCacheInterface extends CacheInterface.definition {
         /**
          * Invalidates cached items using tags.
          *

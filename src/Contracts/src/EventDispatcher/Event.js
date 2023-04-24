@@ -1,7 +1,9 @@
+const StoppableEventInterface = Jymfony.Contracts.EventDispatcher.StoppableEventInterface;
+
 /**
  * @memberOf Jymfony.Contracts.EventDispatcher
  */
-export default class Event {
+export default class Event extends implementationOf(StoppableEventInterface) {
     /**
      * Constructor.
      */

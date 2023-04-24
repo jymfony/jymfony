@@ -1,4 +1,5 @@
-const ConsoleEvents = Jymfony.Component.Console.ConsoleEvents;
+const ConsoleCommandEvent = Jymfony.Contracts.Console.Event.ConsoleCommandEvent;
+const ConsoleTerminateEvent = Jymfony.Contracts.Console.Event.ConsoleTerminateEvent;
 const OutputInterface = Jymfony.Contracts.Console.OutputInterface;
 const ConsoleOutputInterface = Jymfony.Component.Console.Output.ConsoleOutputInterface;
 const EventSubscriberInterface = Jymfony.Contracts.EventDispatcher.EventSubscriberInterface;
@@ -87,8 +88,8 @@ export default class ConsoleHandler extends mix(AbstractProcessingHandler, Event
      */
     static getSubscribedEvents() {
         return {
-            [ConsoleEvents.COMMAND]: [ 'onCommand', 255 ],
-            [ConsoleEvents.TERMINATE]: [ 'onTerminate', -255 ],
+            [ReflectionClass.getClassName(ConsoleCommandEvent)]: [ 'onCommand', 255 ],
+            [ReflectionClass.getClassName(ConsoleTerminateEvent)]: [ 'onTerminate', -255 ],
         };
     }
 

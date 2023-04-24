@@ -1,17 +1,13 @@
 const KernelTestUtil = Jymfony.Bundle.FrameworkBundle.Test.KernelTestUtil;
 const Request = Jymfony.Component.HttpFoundation.Request;
-const { expect } = require('chai');
+const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 
-describe('[FrameworkBundle] TypedController', function () {
-    this.timeout(10000);
-
-    if (! __jymfony.Platform.hasPublicFieldSupport()) {
-        beforeEach(function () {
-            this.skip();
-        });
+export default class ServiceArgumentInjectorTest extends TestCase {
+    get testCaseName() {
+        return '[Framework] ' + super.testCaseName;
     }
 
-    it ('services are injected into controller', async () => {
+    async testServicesAreInjectedIntoController() {
         const kernel = KernelTestUtil.createKernel({ kernelClass: 'Jymfony.Bundle.FrameworkBundle.Tests.Fixtures.Controller.TestKernelWithTypedController' });
         await kernel.boot();
 
@@ -21,11 +17,11 @@ describe('[FrameworkBundle] TypedController', function () {
         const handler = kernel.container.get('Jymfony.Component.HttpServer.RequestHandler');
         const response = await handler.handle(new Request('http://localhost/first'));
 
-        expect(JSON.parse(response.content)).to.be.deep.equal([
+        __self.assertEquals([
             'Jymfony.Component.EventDispatcher.EventDispatcher',
             'Jymfony.Component.HttpFoundation.Request',
-        ]);
+        ], JSON.parse(response.content));
 
         await kernel.shutdown();
-    });
-});
+    }
+}

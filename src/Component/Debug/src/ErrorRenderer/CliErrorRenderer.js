@@ -1,5 +1,5 @@
 const CliDumper = Jymfony.Component.VarDumper.Dumper.CliDumper;
-const ErrorRendererInterface = Jymfony.Component.Debug.ErrorRenderer.ErrorRendererInterface;
+const ErrorRendererInterface = Jymfony.Contracts.Debug.ErrorRenderer.ErrorRendererInterface;
 const FlattenException = Jymfony.Component.Debug.Exception.FlattenException;
 const VarCloner = Jymfony.Component.VarDumper.Cloner.VarCloner;
 

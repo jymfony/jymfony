@@ -24,8 +24,8 @@ export default class ExpectationFailedException extends AssertionFailedException
          */
         this._comparisonFailure = comparisonFailure;
 
-        this._actual = comparisonFailure ? comparisonFailure.actual : undefined;
-        this._expected = comparisonFailure ? comparisonFailure.expected : undefined;
+        this._actual = comparisonFailure ? comparisonFailure.actualAsString : undefined;
+        this._expected = comparisonFailure ? comparisonFailure.expectedAsString : undefined;
 
         super.__construct(message, 0, previous);
     }

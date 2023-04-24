@@ -32,12 +32,12 @@ export default class TraceableValueResolver extends implementationOf(ArgumentVal
     /**
      * @inheritdoc
      */
-    supports(request, argument) {
+    async supports(request, argument) {
         const method = ReflectionClass.getClassName(this._inner) + '.supports';
         this._stopwatch.start(method, 'controller.argument_value_resolver');
 
         try {
-            return this._inner.supports(request, argument);
+            return await this._inner.supports(request, argument);
         } finally {
             this._stopwatch.stop(method);
         }

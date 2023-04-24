@@ -41,5 +41,12 @@ declare namespace Jymfony.Bundle.FrameworkBundle.DependencyInjection {
         private _registerTemplatingConfiguration(config: any, container: ContainerBuilder, loader: LoaderInterface): void;
 
         private _registerMime(loader: LoaderInterface): void;
+
+        private _registerHttpClientConfiguration(config: any, container: ContainerBuilder, loader: LoaderInterface, profilerConfig: any): void;
+        private _registerRetryableHttpClient(options: any, name: string, container: ContainerBuilder): void;
+
+        private _registerValidationConfiguration(config: any, container: ContainerBuilder, loader: LoaderInterface): void;
+
+        private _registerMessengerConfiguration(config: any, container: ContainerBuilder, loader: LoaderInterface, validationConfig: any): void;
     }
 }

@@ -11,7 +11,7 @@ declare namespace Jymfony.Component.HttpServer.Controller {
         /**
          * Whether this resolver can resolve the value for the given ReflectionParameter.
          */
-        supports(request: RequestInterface, argument: ReflectionParameter): boolean
+        supports(request: RequestInterface, argument: ReflectionParameter): Promise<boolean>;
 
         /**
          * Returns the possible value(s).

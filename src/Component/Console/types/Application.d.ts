@@ -1,5 +1,7 @@
 declare namespace Jymfony.Component.Console {
     import Command = Jymfony.Component.Console.Command.Command;
+    import CompletionInput = Jymfony.Component.Console.Completion.CompletionInput;
+    import CompletionSuggestions = Jymfony.Component.Console.Completion.CompletionSuggestions;
     import EventDispatcherInterface = Jymfony.Contracts.EventDispatcher.EventDispatcherInterface;
     import InputDefinition = Jymfony.Component.Console.Input.InputDefinition;
     import InputInterface = Jymfony.Component.Console.Input.InputInterface;
@@ -23,6 +25,11 @@ declare namespace Jymfony.Component.Console {
         public /* writeonly */ defaultCommand: string;
 
         /**
+         * Sets whether this application is a single command application.
+         */
+        public /* writeonly */ isSingleCommand: string;
+
+        /**
          * Input definition to be used with this application.
          */
         public definition: InputDefinition;
@@ -36,6 +43,11 @@ declare namespace Jymfony.Component.Console {
          * The help message.
          */
         public readonly help: string;
+
+        /**
+         * Adds suggestions to $suggestions for the current completion input (e.g. option or argument).
+         */
+        complete(input: CompletionInput, suggestions: CompletionSuggestions): void;
 
         /**
          * Gets/sets the name of the application.
@@ -69,6 +81,7 @@ declare namespace Jymfony.Component.Console {
         private _autoExit: boolean;
         private _runningCommand?: Command;
         private _wantHelps: boolean;
+        private _singleCommand: boolean;
 
         /**
          * Constructor.

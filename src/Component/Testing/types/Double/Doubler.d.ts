@@ -22,7 +22,7 @@ declare namespace Jymfony.Component.Testing.Double {
         /**
          * Sets the class to be extended by the double.
          */
-        public /* writeonly */ superClass: Newable;
+        public superClass: Newable;
 
         /**
          * Sets the constructor arguments.

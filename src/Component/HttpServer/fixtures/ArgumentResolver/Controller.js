@@ -1,8 +1,7 @@
-import { @Type } from '@jymfony/decorators';
-
 const Request = Jymfony.Component.HttpFoundation.Request;
-const Session = Jymfony.Component.HttpFoundation.Session.Session;
 const RequestInterface = Jymfony.Contracts.HttpFoundation.RequestInterface;
+const Session = Jymfony.Component.HttpFoundation.Session.Session;
+const Type = Jymfony.Component.Autoloader.Decorator.Type;
 
 /**
  * @memberOf Jymfony.Component.HttpServer.Tests.Fixtures.ArgumentResolver

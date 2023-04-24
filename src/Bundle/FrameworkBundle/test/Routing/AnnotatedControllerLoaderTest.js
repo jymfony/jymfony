@@ -1,35 +1,23 @@
 const KernelTestUtil = Jymfony.Bundle.FrameworkBundle.Test.KernelTestUtil;
-const Prophet = Jymfony.Component.Testing.Prophet;
-const { expect } = require('chai');
+const Route = Jymfony.Component.Routing.Route;
+const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 
-describe('[FrameworkBundle] AnnotatedControllerLoader', function () {
-    if (! __jymfony.Platform.hasPublicFieldSupport()) {
-        beforeEach(function () {
-            this.skip();
-        });
+export default class AnnotatedControllerLoaderTest extends TestCase {
+    get testCaseName() {
+        return '[FrameworkBundle] ' + super.testCaseName;
     }
 
-    beforeEach(() => {
-        this._prophet = new Prophet();
-    });
-
-    afterEach(() => {
-        this._prophet.checkPredictions();
-    });
-
-    it ('should load controller namespace correctly', async () => {
+    async testLoad() {
         const kernel = KernelTestUtil.createKernel({ kernelClass: 'Jymfony.Bundle.FrameworkBundle.Tests.Fixtures.Routing.TestKernel' });
         await kernel.boot();
 
         /** @type {Jymfony.Component.Routing.Router} */
         const router = kernel.container.get('router');
-        expect(router.routeCollection).to.have.length(2);
+        __self.assertCount(2, router.routeCollection);
 
         const first = router.routeCollection.get('jymfony_framework_tests_fixtures_routing_annotated_first');
-        expect(first).not.to.be.undefined;
-        expect(first.path).to.be.equal('/this/is/first/action');
-        expect(first.defaults._controller).to.be.equal('Jymfony.Bundle.FrameworkBundle.Tests.Fixtures.Routing.AnnotatedController:firstAction');
-
-        await kernel.shutdown();
-    });
-});
+        __self.assertInstanceOf(Route, first);
+        __self.assertEquals('/this/is/first/action', first.path);
+        __self.assertEquals('Jymfony.Bundle.FrameworkBundle.Tests.Fixtures.Routing.AnnotatedController:firstAction', first.defaults._controller);
+    }
+}

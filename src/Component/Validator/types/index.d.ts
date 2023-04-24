@@ -1,3 +1,5 @@
+/// <reference path="Annotation/Constraint.d.ts" />
+/// <reference path="Annotation/GroupSequenceProvider.d.ts" />
 /// <reference path="Constraints/AbstractComparison.d.ts" />
 /// <reference path="Constraints/AbstractComparisonValidator.d.ts" />
 /// <reference path="Constraints/All.d.ts" />

@@ -1,21 +1,21 @@
 const Email = Jymfony.Component.Validator.Constraints.Email;
+const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 const ValidationFailedException = Jymfony.Component.Validator.Exception.ValidationFailedException;
 const Validation = Jymfony.Component.Validator.Validation;
-const { expect } = require('chai');
 
-describe('[Validator] Validation', function () {
-    it ('createCallable should work', async () => {
-        const validator = Validation.createCallable(new Email());
-        expect(await validator('text@example.com')).to.be.equal('text@example.com');
-    });
+export default class ValidationTest extends TestCase {
+    get testCaseName() {
+        return '[Validator] ' + super.testCaseName;
+    }
 
-    it ('createCallable should throw on invalid value', async () => {
+    async testCreateCallableShouldWork() {
         const validator = Validation.createCallable(new Email());
-        try {
-            await validator('test');
-            throw new Error('FAIL');
-        } catch (e) {
-            expect(e).to.be.instanceOf(ValidationFailedException);
-        }
-    });
-});
+        __self.assertEquals('test@example.org', await validator('test@example.org'));
+    }
+
+    async testCreateCallableShouldThrowOnInvalidValue() {
+        const validator = Validation.createCallable(new Email());
+        this.expectException(ValidationFailedException);
+        await validator('test');
+    }
+}

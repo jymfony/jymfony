@@ -1,6 +1,6 @@
 declare namespace Jymfony.Component.HttpServer.Controller.ArgumentResolvers {
+    import ContainerInterface = Jymfony.Contracts.DependencyInjection.ContainerInterface;
     import RequestInterface = Jymfony.Contracts.HttpFoundation.RequestInterface;
-    import ContainerInterface = Jymfony.Component.DependencyInjection.ContainerInterface;
 
     /**
      * Yields a service keyed by _controller and argument name.

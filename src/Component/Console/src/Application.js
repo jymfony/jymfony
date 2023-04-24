@@ -1,17 +1,17 @@
-const Command = Jymfony.Component.Console.Command.Command;
-const ConsoleEvents = Jymfony.Component.Console.ConsoleEvents;
-const CommandNotFoundException = Jymfony.Component.Console.Exception.CommandNotFoundException;
-const ExceptionInterface = Jymfony.Component.Console.Exception.ExceptionInterface;
 const ArgvInput = Jymfony.Component.Console.Input.ArgvInput;
 const ArrayInput = Jymfony.Component.Console.Input.ArrayInput;
+const Command = Jymfony.Component.Console.Command.Command;
+const CommandNotFoundException = Jymfony.Component.Console.Exception.CommandNotFoundException;
+const CompletionInput = Jymfony.Component.Console.Completion.CompletionInput;
+const ConsoleOutput = Jymfony.Component.Console.Output.ConsoleOutput;
+const ConsoleOutputInterface = Jymfony.Component.Console.Output.ConsoleOutputInterface;
+const ExceptionInterface = Jymfony.Component.Console.Exception.ExceptionInterface;
 const InputArgument = Jymfony.Component.Console.Input.InputArgument;
 const InputDefinition = Jymfony.Component.Console.Input.InputDefinition;
 const InputOption = Jymfony.Component.Console.Input.InputOption;
-const StreamableInputInterface = Jymfony.Component.Console.Input.StreamableInputInterface;
-const ConsoleOutput = Jymfony.Component.Console.Output.ConsoleOutput;
-const ConsoleOutputInterface = Jymfony.Component.Console.Output.ConsoleOutputInterface;
 const OutputInterface = Jymfony.Component.Console.Output.OutputInterface;
 const OutputFormatter = Jymfony.Component.Console.Formatter.OutputFormatter;
+const StreamableInputInterface = Jymfony.Component.Console.Input.StreamableInputInterface;
 const Terminal = Jymfony.Component.Console.Terminal;
 
 /**
@@ -29,6 +29,12 @@ export default class Application {
         this._version = version;
         this._eventDispatcher = undefined;
         this._defaultCommand = 'list';
+
+        /**
+         * @type {Jymfony.Component.Console.Input.InputDefinition}
+         *
+         * @private
+         */
         this._definition = this._getDefaultInputDefinition();
         this._commands = {};
         this._terminal = new Terminal();
@@ -36,6 +42,7 @@ export default class Application {
         this._autoExit = true;
         this._runningCommand = undefined;
         this._wantHelps = false;
+        this._singleCommand = false;
 
         for (const command of this._getDefaultCommands()) {
             this.add(command);
@@ -66,7 +73,50 @@ export default class Application {
      * @returns {Jymfony.Component.Console.Input.InputDefinition} The InputDefinition instance
      */
     get definition() {
+        if (this._singleCommand) {
+            const inputDefinition = this._definition;
+            inputDefinition.setArguments();
+
+            return inputDefinition;
+        }
+
         return this._definition;
+    }
+
+    /**
+     * Adds suggestions to $suggestions for the current completion input (e.g. option or argument).
+     *
+     * @param {Jymfony.Component.Console.Completion.CompletionInput} input
+     * @param {Jymfony.Component.Console.Completion.CompletionSuggestions} suggestions
+     */
+    complete(input, suggestions) {
+        if (
+            CompletionInput.TYPE_ARGUMENT_VALUE === input.completionType
+            && 'command' === input.completionName
+        ) {
+            const commandNames = [];
+            for (const [ name, command ] of __jymfony.getEntries(this.all())) {
+                // Skip hidden commands and aliased commands as they already get added below
+                if (command.hidden || command.name !== name) {
+                    continue;
+                }
+
+                commandNames.push(command.name);
+                for (const name of command.aliases) {
+                    commandNames.push(name);
+                }
+            }
+
+            suggestions.suggestValues(commandNames.filter(v => !!v));
+
+            return;
+        }
+
+        if (CompletionInput.TYPE_OPTION_NAME === input.completionType) {
+            suggestions.suggestOptions(Object.values(this.definition.getOptions()));
+
+            return;
+        }
     }
 
     /**
@@ -85,6 +135,15 @@ export default class Application {
      */
     set defaultCommand(commandName) {
         this._defaultCommand = commandName;
+    }
+
+    /**
+     * Sets whether this application is a single command application.
+     *
+     * @param {boolean} singleCommand
+     */
+    set isSingleCommand(singleCommand) {
+        this._singleCommand = singleCommand;
     }
 
     /**
@@ -529,7 +588,7 @@ export default class Application {
         } catch (e) {
             if (this._eventDispatcher) {
                 const event = new Jymfony.Contracts.Console.Event.ConsoleErrorEvent(input, output, e, command);
-                await this._eventDispatcher.dispatch(ConsoleEvents.ERROR, event);
+                await this._eventDispatcher.dispatch(event);
 
                 e = event.error;
                 if (0 === event.exitCode) {
@@ -580,7 +639,7 @@ export default class Application {
         let exitCode;
         let e;
         let event = new Jymfony.Contracts.Console.Event.ConsoleCommandEvent(command, input, output);
-        await this._eventDispatcher.dispatch(ConsoleEvents.COMMAND, event);
+        await this._eventDispatcher.dispatch(event);
 
         if (event.commandShouldRun) {
             try {
@@ -591,7 +650,7 @@ export default class Application {
 
             if (undefined !== e) {
                 event = new Jymfony.Contracts.Console.Event.ConsoleErrorEvent(input, output, e, command);
-                await this._eventDispatcher.dispatch(ConsoleEvents.ERROR, event);
+                await this._eventDispatcher.dispatch(event);
                 e = event.error;
 
                 if (0 === (exitCode = event.exitCode)) {
@@ -603,7 +662,7 @@ export default class Application {
         }
 
         event = new Jymfony.Contracts.Console.Event.ConsoleTerminateEvent(command, input, output, exitCode);
-        await this._eventDispatcher.dispatch(ConsoleEvents.TERMINATE, event);
+        await this._eventDispatcher.dispatch(event);
 
         if (undefined !== e) {
             throw e;
@@ -682,6 +741,8 @@ export default class Application {
         return [
             new Jymfony.Component.Console.Command.ListCommand(),
             new Jymfony.Component.Console.Command.HelpCommand(),
+            new Jymfony.Component.Console.Command.DumpCompletionCommand(),
+            new Jymfony.Component.Console.Command.CompleteCommand(),
         ];
     }
 
@@ -695,7 +756,7 @@ export default class Application {
      * @protected
      */
     _getCommandName(input) {
-        return input.firstArgument;
+        return this._singleCommand ? this._defaultCommand : input.firstArgument;
     }
 
     /**

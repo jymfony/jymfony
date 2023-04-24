@@ -35,7 +35,7 @@ describe('[Console] Application', function () {
         const application = new Application('foo', 'bar');
         expect(application.name).to.be.equal('foo');
         expect(application.version).to.be.equal('bar');
-        expect(application.all()).to.have.all.keys('list', 'help');
+        expect(application.all()).to.have.all.keys('_complete', 'completion', 'list', 'help');
     });
 
     it('should get/set name', () => {

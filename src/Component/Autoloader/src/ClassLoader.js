@@ -1,7 +1,5 @@
-const DescriptorStorage = require('./DescriptorStorage');
-const Generator = require('@jymfony/compiler/src/SourceMap/Generator');
+const { Generator, registerSourceMap } = require('@jymfony/compiler/src/SourceMap');
 const ManagedProxy = require('./Proxy/ManagedProxy');
-const StackHandler = require('@jymfony/compiler/src/SourceMap/StackHandler');
 const CircularDependencyException = require('./Exception/CircularDependencyException');
 
 let Typescript;
@@ -78,6 +76,8 @@ const builtinRequire = __jymfony.version_compare(process.versions.node, '14.0.0'
     return require(id);
 } : require;
 
+const sourceMapGenerator = new Generator(null, false);
+
 /**
  * Patching-replacement for "require" function in Autoloader component.
  *
@@ -115,26 +115,35 @@ class ClassLoader {
         this._vm = vm;
 
         /**
-         * @type {Jymfony.Component.Autoloader.DescriptorStorage}
-         *
-         * @private
-         */
-        this._descriptorStorage = new DescriptorStorage(this);
-
-        /**
          * @type {string[]}
          *
          * @private
          */
         this._compilerIgnorelist = (process.env.JYMFONY_COMPILER_IGNORE || '')
             .split(',')
-            .map(__jymfony.trim)
+            .map(v => __jymfony.trim(v))
+            .filter(v => '' !== v)
             .map(v => v.startsWith('.') ? path.resolve(process.cwd(), v) : v)
         ;
 
         if (undefined === Compiler) {
             ClassLoader.compiler = require('@jymfony/compiler');
         }
+    }
+
+    /**
+     * @internal
+     */
+    static get compiler() {
+        if (undefined === Compiler) {
+            ClassLoader.compiler = require('@jymfony/compiler');
+        }
+
+        return {
+            Compiler,
+            Parser,
+            AST,
+        };
     }
 
     /**
@@ -171,11 +180,12 @@ class ClassLoader {
      *
      * @param {string} fn
      * @param {*} self
+     * @param {string} namespace
      *
      * @returns {*}
      */
-    loadClass(fn, self) {
-        const exports = this.loadFile(fn, self);
+    loadClass(fn, self, namespace) {
+        const exports = this.loadFile(fn, self, {}, namespace);
 
         return exports.__esModule ? exports.default : exports;
     }
@@ -185,11 +195,12 @@ class ClassLoader {
      *
      * @param {string} fn
      * @param {*} self
-     * @param {*} exports
+     * @param {*} [exports]
+     * @param {string} [namespace]
      *
      * @returns {*}
      */
-    loadFile(fn, self, exports = {}) {
+    loadFile(fn, self, exports = {}, namespace = undefined) {
         fn = this._path.resolve(fn);
         if (_cache[fn]) {
             return _cache[fn];
@@ -205,23 +216,21 @@ class ClassLoader {
             }
         }
 
-        return _cache[fn] = this._doLoadFile(fn, self, exports);
+        return _cache[fn] = this._doLoadFile(fn, self, exports, namespace);
     }
 
     /**
      * Gets a file code.
      *
      * @param {string} fn
-     * @param {boolean} self
+     * @param {boolean} [self]
+     * @param {string} [namespace]
      *
      * @returns {{code: string, program: Program}}
      */
-    getCode(fn, self = true) {
+    getCode(fn, self = true, namespace = '') {
         if (codeCache[fn]) {
-            const cached = codeCache[fn];
-            Object.assign(this._descriptorStorage._storage, cached.decorators);
-
-            return cached;
+            return codeCache[fn];
         }
 
         let code, sourceMap, program = null;
@@ -237,60 +246,54 @@ class ClassLoader {
             code = stripBOM(this._finder.load(fn));
         }
 
-        const sourceMapGenerator = new Generator({ file: fn, skipValidation: ! __jymfony.autoload.debug });
-        const descriptorStorage = this._descriptorStorage;
         const decorators = {};
 
+        const parser = new Parser();
+        sourceMapGenerator.reset(fn, ! __jymfony.autoload.debug);
+        const compiler = new Compiler(sourceMapGenerator, {filename: fn, namespace});
+
         try {
-            this._descriptorStorage = this._descriptorStorage.setFile(fn);
-            const parser = new Parser(this._descriptorStorage);
-            const compiler = new Compiler(sourceMapGenerator);
-
             program = parser.parse(code);
-            program.prepare();
-
-            const p = new AST.Program(program.location);
-
-            if (sourceMap) {
-                sourceMap.sources = sourceMap.sources.map(s => normalize(pathResolve(sourceMap.sourceRoot + '/' + s)));
-                p.addSourceMappings(sourceMap);
-            } else {
-                p.addSourceMappings(...(program.sourceMappings.filter(isObjectLiteral)));
+        } catch (e) {
+            if (e instanceof SyntaxError) {
+                e.message = 'Syntax error while parsing ' + fn + ': ' + e.message;
             }
 
-            const args = [
-                new AST.Identifier(null, 'exports'),
-                new AST.Identifier(null, 'require'),
-                new AST.Identifier(null, 'module'),
-                new AST.Identifier(null, '__filename'),
-                new AST.Identifier(null, '__dirname'),
-            ];
-
-            if (self) {
-                args.push(new AST.Identifier(null, '__self'));
-            }
-
-            p.add(new AST.ParenthesizedExpression(null,
-                new AST.FunctionExpression(null, new AST.BlockStatement(null, [
-                    new AST.StringLiteral(null, '\'use strict\''),
-                    ...program.body,
-                ]), null, args)
-            ));
-
-            code = compiler.compile(p);
-            StackHandler.registerSourceMap(fn, sourceMapGenerator.toJSON().mappings);
-        } catch (err) {
-            // Compiler have failed. Code is unpatched, but can be included.
-
-            if (! (err instanceof SyntaxError)) {
-                throw err;
-            } else {
-                console.warn('Syntax error while parsing ' + fn + ': ' + err.message);
-            }
-        } finally {
-            Object.assign(decorators, this._descriptorStorage._storage);
-            this._descriptorStorage = descriptorStorage;
+            throw e;
         }
+
+        program.prepare();
+
+        const p = new AST.Program(program.location);
+
+        if (sourceMap) {
+            sourceMap.sources = sourceMap.sources.map(s => normalize(pathResolve(sourceMap.sourceRoot + '/' + s)));
+            p.addSourceMappings(sourceMap);
+        } else {
+            p.addSourceMappings(...(program.sourceMappings.filter(isObjectLiteral)));
+        }
+
+        const args = [
+            new AST.Identifier(null, 'exports'),
+            new AST.Identifier(null, 'require'),
+            new AST.Identifier(null, 'module'),
+            new AST.Identifier(null, '__filename'),
+            new AST.Identifier(null, '__dirname'),
+        ];
+
+        if (self) {
+            args.push(new AST.Identifier(null, '__self'));
+        }
+
+        p.add(new AST.ParenthesizedExpression(null,
+            new AST.FunctionExpression(null, new AST.BlockStatement(null, [
+                new AST.StringLiteral(null, '\'use strict\''),
+                ...program.body,
+            ]), null, args)
+        ));
+
+        code = compiler.compile(p);
+        registerSourceMap(fn, sourceMapGenerator);
 
         return codeCache[fn] = {
             code,
@@ -322,12 +325,13 @@ class ClassLoader {
      * @param {string} fn
      * @param {*} self
      * @param {*} exports
+     * @param {string} namespace
      *
      * @returns {*}
      *
      * @private
      */
-    _doLoadFile(fn, self, exports) {
+    _doLoadFile(fn, self, exports, namespace) {
         const module = this._getModuleObject(fn, exports);
         const dirname = module.paths[0];
         const opts = isNyc ? fn : {
@@ -336,7 +340,7 @@ class ClassLoader {
         };
 
         const req = id => {
-            if (builtinLibs.includes(id) || this._compilerIgnorelist.includes(id)) {
+            if (id.startsWith('node:') || builtinLibs.includes(id) || this._compilerIgnorelist.includes(id)) {
                 return builtinRequire(id);
             }
 
@@ -354,6 +358,7 @@ class ClassLoader {
 
         req.extensions = require.extensions;
         req.nocompile = id => require(id);
+        req.cache = require.cache;
 
         _cache[fn] = new __jymfony.ManagedProxy(function () { }, proxy => {
             if (! require.cache[fn]) {
@@ -374,7 +379,7 @@ class ClassLoader {
                 return _cache[id];
             }
 
-            const code = this.getCode(id, !!self);
+            const code = this.getCode(id, !!self, namespace);
             const exports = function () {};
 
             return _cache[id] = new ManagedProxy(exports, proxy => {
@@ -404,7 +409,7 @@ class ClassLoader {
         };
 
         let _pending;
-        const code = this.getCode(fn, !!self);
+        const code = this.getCode(fn, !!self, namespace);
         try {
             this._vm.runInThisContext(code.code, opts)(module.exports, req, module, fn, dirname, self);
         } catch (e) {
@@ -418,14 +423,13 @@ class ClassLoader {
                     _pending = _cache[e.requiring] = req.proxy(e.requiring);
 
                     require.cache[fn] = module;
-                    this._vm.runInThisContext(this.getCode(fn, !!self).code, opts)(module.exports, req, module, fn, dirname, self);
+                    this._vm.runInThisContext(this.getCode(fn, !!self, namespace).code, opts)(module.exports, req, module, fn, dirname, self);
 
                     return _cache[fn] = module.exports;
                 }
-            } else {
-                delete _cache[fn];
             }
 
+            delete _cache[fn];
             throw e;
         } finally {
             if (_pending) {

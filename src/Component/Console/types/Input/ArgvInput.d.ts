@@ -23,7 +23,7 @@ declare namespace Jymfony.Component.Console.Input {
      * @see http://www.opengroup.org/onlinepubs/009695399/basedefs/xbd_chap12.html#tag_12_02
      */
     export class ArgvInput extends Input {
-        private _tokens: string[];
+        protected _tokens: string[];
         private _parsed: string[];
 
         /**
@@ -37,6 +37,8 @@ declare namespace Jymfony.Component.Console.Input {
          * @inheritdoc
          */
         parse(): void;
+
+        protected _parseToken(token: string, parseOptions: boolean): boolean;
 
         /**
          * @inheritdoc

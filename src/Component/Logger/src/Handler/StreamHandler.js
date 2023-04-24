@@ -72,7 +72,10 @@ export default class StreamHandler extends AbstractProcessingHandler {
      * Flushes the stream and closes it.
      */
     close() {
-        this._stream.end('');
+        if (this._stream) {
+            this._stream.end('');
+        }
+
         this._stream = undefined;
     }
 

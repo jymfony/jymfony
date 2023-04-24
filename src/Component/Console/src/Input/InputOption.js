@@ -13,8 +13,9 @@ export default class InputOption {
      * @param {int|undefined} [mode]
      * @param {string} [description = '']
      * @param {*} [defaultValue]
+     * @param {(string | Jymfony.Component.Console.Completion.Suggestion)[] | function(Jymfony.Component.Console.Completion.CompletionInput, Jymfony.Component.Console.Completion.CompletionSuggestions): (string | Jymfony.Component.Console.Completion.Suggestion)[]} [suggestedValues = []]
      */
-    __construct(name, shortcut = undefined, mode = undefined, description = '', defaultValue = undefined) {
+    __construct(name, shortcut = undefined, mode = undefined, description = '', defaultValue = undefined, suggestedValues = []) {
         if (0 === name.indexOf('--')) {
             name = name.substring(2);
         }
@@ -72,8 +73,29 @@ export default class InputOption {
          */
         this._description = description;
 
+        /**
+         * @type {*}
+         *
+         * @private
+         */
+        this._default = null;
+
+        /**
+         * @type {(string | Jymfony.Component.Console.Completion.Suggestion)[] | function(Jymfony.Component.Console.Completion.CompletionInput, Jymfony.Component.Console.Completion.CompletionSuggestions): (string | Jymfony.Component.Console.Completion.Suggestion)[]}
+         *
+         * @private
+         */
+        this._suggestedValues = suggestedValues;
+
+        if ((!isArray(suggestedValues) || 0 < suggestedValues.length) && ! this.acceptValue()) {
+            throw new LogicException('Cannot set suggested values if the option does not accept a value.');
+        }
+
         if (this.isArray() && ! this.acceptValue()) {
             throw new InvalidArgumentException('Impossible to have an option mode VALUE_IS_ARRAY if the option does not accept a value.');
+        }
+        if (this.isNegatable() && this.acceptValue()) {
+            throw new InvalidArgumentException('Impossible to have an option mode VALUE_NEGATABLE if the option also accepts a value.');
         }
 
         this.setDefault(defaultValue);
@@ -134,6 +156,15 @@ export default class InputOption {
     }
 
     /**
+     * Whether the option is negatable (has "no-" variant).
+     *
+     * @returns {boolean}
+     */
+    isNegatable() {
+        return InputOption.VALUE_NEGATABLE === (this._mode & InputOption.VALUE_NEGATABLE);
+    }
+
+    /**
      * Sets the default value
      *
      * @param {*} defaultValue
@@ -153,12 +184,7 @@ export default class InputOption {
             }
         }
 
-        /**
-         * @type {*}
-         *
-         * @private
-         */
-        this._default = this.acceptValue() ? defaultValue : false;
+        this._default = this.acceptValue() || this.isNegatable() ? defaultValue : false;
     }
 
     /**
@@ -168,6 +194,29 @@ export default class InputOption {
      */
     getDefault() {
         return this._default;
+    }
+
+    hasCompletion() {
+        return [] !== this._suggestedValues;
+    }
+
+    /**
+     * Adds suggestions to $suggestions for the current completion input.
+     *
+     * @param {Jymfony.Component.Console.Completion.CompletionInput} input
+     * @param {Jymfony.Component.Console.Completion.CompletionSuggestions} suggestions
+     *
+     * @see Jymfony.Component.Console.Command.Command.complete()
+     */
+    async complete(input, suggestions) {
+        let values = this._suggestedValues;
+        if (isFunction(values) && !isArray(values = await values(input))) {
+            throw new LogicException(__jymfony.sprintf('Closure for argument "%s" must return an array. Got "%s".', this._name, __jymfony.get_debug_type(values)));
+        }
+
+        if (0 < values.length) {
+            suggestions.suggestValues(values);
+        }
     }
 
     /**
@@ -190,6 +239,7 @@ export default class InputOption {
         return option.getName() === this.getName()
             && option.getShortcut() === this.getShortcut()
             && option.getDefault() === this.getDefault()
+            && option.isNegatable() === this.isNegatable()
             && option.isArray() === this.isArray()
             && option.isValueRequired() === this.isValueRequired()
             && option.isValueOptional() === this.isValueOptional()
@@ -197,7 +247,10 @@ export default class InputOption {
     }
 }
 
-InputOption.VALUE_NONE = 1;
-InputOption.VALUE_REQUIRED = 2;
-InputOption.VALUE_OPTIONAL = 4;
-InputOption.VALUE_IS_ARRAY = 8;
+Object.defineProperties(InputOption, {
+    VALUE_NONE: { value: 1, writable: false },
+    VALUE_REQUIRED: { value: 2, writable: false },
+    VALUE_OPTIONAL: { value: 4, writable: false },
+    VALUE_IS_ARRAY: { value: 8, writable: false },
+    VALUE_NEGATABLE: { value: 16, writable: false },
+});

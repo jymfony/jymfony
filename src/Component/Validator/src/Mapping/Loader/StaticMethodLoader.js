@@ -25,7 +25,7 @@ export default class StaticMethodLoader extends implementationOf(LoaderInterface
      * @inheritdoc
      */
     loadClassMetadata(metadata) {
-        const reflClass = new ReflectionClass(metadata.className);
+        const reflClass = new ReflectionClass(metadata.name);
 
         if (! reflClass.isInterface && reflClass.hasMethod(this._methodName)) {
             const reflMethod = reflClass.getMethod(this._methodName);

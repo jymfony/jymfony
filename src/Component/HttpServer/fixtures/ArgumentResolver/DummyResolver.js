@@ -7,7 +7,7 @@ export default class DummyResolver extends implementationOf(ArgumentValueResolve
     /**
      * @inheritdoc
      */
-    supports(request, argument) {
+    async supports(request, argument) {
         return true;
     }
 

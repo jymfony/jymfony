@@ -156,7 +156,7 @@ class ControllerTrait {
      */
     isGranted(request, attributes, subject = null) {
         if (! this._container.has('security.authorization_checker')) {
-            throw new LogicException('The SecurityBundle is not registered in your application. Try running "yarn add @jymfony/security-bundle".');
+            throw new LogicException('The SecurityBundle is not registered in your application. Try running "npm install @jymfony/security-bundle".');
         }
 
         const token = this._container
@@ -203,7 +203,7 @@ class ControllerTrait {
      */
     async renderView(view, parameters = {}) {
         if (! this._container.has('templating')) {
-            throw new LogicException('You can not use the "renderView" method if the Templating Component is not available. Try running "yarn add @jymfony/templating".');
+            throw new LogicException('You can not use the "renderView" method if the Templating Component is not available. Try running "npm install @jymfony/templating".');
         }
 
         const buffer = new __jymfony.StreamBuffer();
@@ -226,7 +226,7 @@ class ControllerTrait {
      */
     render(view, parameters = {}, response = null) {
         if (! this._container.has('templating')) {
-            throw new LogicException('You can not use the "render" method if the Templating Component is not available. Try running "yarn add @jymfony/templating".');
+            throw new LogicException('You can not use the "render" method if the Templating Component is not available. Try running "npm install @jymfony/templating".');
         }
 
         if (null === response) {
@@ -278,7 +278,7 @@ class ControllerTrait {
      */
     createAccessDeniedException(message = 'Access Denied.', previous = null) {
         if (! ReflectionClass.exists('Jymfony.Component.Security.Exception.AccessDeniedException')) {
-            throw new LogicException('You can not use the "createAccessDeniedException" method if the Security component is not available. Try running "yarn add @jymfony/security-bundle".');
+            throw new LogicException('You can not use the "createAccessDeniedException" method if the Security component is not available. Try running "npm install @jymfony/security-bundle".');
         }
 
         return new Jymfony.Component.Security.Exception.AccessDeniedException(message, previous);
@@ -298,7 +298,7 @@ class ControllerTrait {
      */
     getUser(request) {
         if (! this._container.has('Jymfony.Component.Security.Authentication.Token.Storage.TokenStorageInterface')) {
-            throw new LogicException('The SecurityBundle is not registered in your application. Try running "yarn add @jymfony/security-bundle".');
+            throw new LogicException('The SecurityBundle is not registered in your application. Try running "npm install @jymfony/security-bundle".');
         }
 
         const token = this._container

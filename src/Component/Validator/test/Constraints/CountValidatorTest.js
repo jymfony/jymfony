@@ -1,4 +1,3 @@
-import { @dataProvider } from '@jymfony/decorators';
 import { expect } from 'chai';
 
 const Count = Jymfony.Component.Validator.Constraints.Count;
@@ -16,7 +15,7 @@ export class CountValidatorTest extends TestCase {
      *
      * @abstract
      */
-    createCollection(content) {
+    createCollection(content) { // eslint-disable-line
         throw new Error('Must be implemented');
     }
 
@@ -173,14 +172,14 @@ export class CountValidatorTest extends TestCase {
     }
 
     // Since the contextual validator is mocked, this test only asserts that it
-    // is called with the right DivisibleBy constraint.
+    // Is called with the right DivisibleBy constraint.
     async testDivisibleBy() {
         const constraint = new Count({
             divisibleBy: 3,
             divisibleByMessage: 'foo {{ compared_value }}',
         });
 
-        await expect(['foo', 'bar', 'ccc']).to.be.validated.by(CountValidator)
+        await expect([ 'foo', 'bar', 'ccc' ]).to.be.validated.by(CountValidator)
             .with.constraint(constraint)
             .and.raise.no.violations();
     }

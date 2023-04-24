@@ -9,6 +9,11 @@ Jymfony.Component.Validator = {
     /**
      * @namespace
      */
+    Annotation: {},
+
+    /**
+     * @namespace
+     */
     Constraints: {},
 
     /**

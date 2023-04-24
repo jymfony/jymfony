@@ -1,5 +1,4 @@
-require('../../lib/Object/clone');
-const { expect } = require('chai');
+const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 
 class GrandParent {
     get readProp() { }
@@ -22,21 +21,21 @@ class Son extends mix(Parent, ISon) {
     }
 }
 
-describe('Clone', function () {
-    it('clone should work', () => {
+export default class CloneTest extends TestCase {
+    testCloneShouldWork() {
         const son1 = new Son();
         const son2 = __jymfony.clone(son1);
 
-        expect(son2).to.be.instanceOf(Son);
-        expect(son2).to.be.instanceOf(ISon);
-        expect(son2).to.be.instanceOf(Parent);
-        expect(son2).to.be.instanceOf(GrandParent);
+        __self.assertInstanceOf(Son, son2);
+        __self.assertInstanceOf(ISon, son2);
+        __self.assertInstanceOf(Parent, son2);
+        __self.assertInstanceOf(GrandParent, son2);
 
-        expect(son2.foo).to.be.equal('bar');
+        __self.assertEquals('bar', son2.foo);
         son2.foo = 'foobar';
-        expect(son2.cloned).to.be.true;
+        __self.assertTrue(son2.cloned);
 
-        expect(son1.foo).to.be.equal('bar');
-        expect(son1.cloned).to.be.false;
-    });
-});
+        __self.assertEquals('bar', son1.foo);
+        __self.assertFalse(son1.cloned);
+    }
+}

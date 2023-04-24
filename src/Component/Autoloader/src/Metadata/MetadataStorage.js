@@ -1,7 +1,7 @@
 /**
  * @type {WeakMap<object, Map<*, Map<*, *>>>}
  */
-const storage = new WeakMap();
+const storage = new Map();
 const classSymbol = Symbol('class');
 
 /**

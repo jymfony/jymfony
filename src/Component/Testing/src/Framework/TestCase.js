@@ -1,12 +1,14 @@
-import { AfterEach, BeforeEach, DataProvider } from '@jymfony/decorators';
 import Suite from 'mocha/lib/suite';
 import Test from 'mocha/lib/test';
-import { expect } from 'chai';
 
 const Assert = Jymfony.Component.Testing.Framework.Assert;
+const AfterEach = Jymfony.Component.Testing.Annotation.AfterEach;
+const BeforeEach = Jymfony.Component.Testing.Annotation.BeforeEach;
+const DataProvider = Jymfony.Component.Testing.Annotation.DataProvider;
 const Prophet = Jymfony.Component.Testing.Prophet;
 const SkipException = Jymfony.Component.Testing.Framework.Exception.SkipException;
 const TestResult = Jymfony.Component.Testing.Framework.TestResult;
+const TimeSensitive = Jymfony.Component.Testing.Annotation.TimeSensitive;
 
 const prophets = new WeakMap();
 const getProphet = obj => {
@@ -64,6 +66,13 @@ export default class TestCase extends Assert {
          */
         this._expectedExceptionMessageRegex = undefined;
 
+        /**
+         * @type {undefined | boolean}
+         *
+         * @private
+         */
+        this._doesNotPerformAssertions = undefined;
+
         this._afterEachHooks = [];
         this._beforeEachHooks = [];
 
@@ -71,8 +80,8 @@ export default class TestCase extends Assert {
         for (const method of reflectionClass.methods) {
             const reflectionMethod = reflectionClass.getMethod(method);
 
-            const afterEach = reflectionMethod.metadata.filter(([ klass ]) => klass === AfterEach);
-            const beforeEach = reflectionMethod.metadata.filter(([ klass ]) => klass === BeforeEach);
+            const afterEach = reflectionMethod.getAnnotations(AfterEach);
+            const beforeEach = reflectionMethod.getAnnotations(BeforeEach);
 
             if (0 < afterEach.length) {
                 this._afterEachHooks.push(reflectionMethod);
@@ -139,7 +148,7 @@ export default class TestCase extends Assert {
      * @return {int|undefined}
      */
     get defaultTimeout() {
-        return undefined;
+        return Infinity;
     }
 
     /**
@@ -161,7 +170,6 @@ export default class TestCase extends Assert {
      */
     runTestCase(mocha) {
         const reflectionClass = new ReflectionClass(this);
-
         const suite = new Suite(this.testCaseName, mocha.suite.ctx, false);
         (function (self) {
             const execution = async function (reflectionMethod, args = []) {
@@ -180,6 +188,7 @@ export default class TestCase extends Assert {
                 self._expectedException = undefined;
                 self._expectedExceptionMessage = undefined;
                 self._expectedExceptionMessageRegex = undefined;
+                self._doesNotPerformAssertions = undefined;
                 prophets.delete(self);
 
                 const defaultTimeout = self.defaultTimeout;
@@ -227,16 +236,30 @@ export default class TestCase extends Assert {
 
                 const reflectionMethod = reflectionClass.getMethod(method);
                 const testName = method.replace(/[A-Z]/g, letter => ` ${letter.toLowerCase()}`);
-                const providers = reflectionMethod.metadata.filter(([ klass ]) => klass === DataProvider).map(a => a[1]);
+                const providers = reflectionMethod.getAnnotations(DataProvider);
                 const data = providers.length ? providers.map(provider => [ ...reflectionClass.getMethod(provider.provider).invoke(self) ]).flat() : undefined;
+
+                let timeSensitive = 0 < reflectionMethod.getAnnotations(TimeSensitive).length;
+                let kl = reflectionClass;
+                do {
+                    timeSensitive = timeSensitive || 0 < kl.getAnnotations(TimeSensitive).length;
+                    if (timeSensitive) {
+                        break;
+                    }
+                } while ((kl = kl.getParentClass()));
 
                 const runTest = args => {
                     return async function() {
+                        if (timeSensitive) {
+                            Jymfony.Component.Testing.Framework.TimeSensitive.TimeSensitive.install(this);
+                        }
+
                         self._context = {
                             method: reflectionMethod,
                             args,
                             currentTest: reflectionMethod.name,
                             setTimeout: this.timeout.bind(this),
+                            setTitle: newTitle => this._runnable.title = newTitle,
                         };
 
                         const defaultTimeout = self.defaultTimeout;
@@ -247,6 +270,9 @@ export default class TestCase extends Assert {
                         try {
                             await self.run();
                         } finally {
+                            if (timeSensitive) {
+                                Jymfony.Component.Testing.Framework.TimeSensitive.TimeSensitive.uninstall(this);
+                            }
                             self._context = {};
                         }
                     };
@@ -344,11 +370,22 @@ export default class TestCase extends Assert {
     }
 
     /**
+     * Sets the title for the currently running test.
+     *
+     * @param title
+     */
+    setTitle(title) {
+        if (this._context) {
+            this._context.setTitle(title);
+        }
+    }
+
+    /**
      * Register an exception to be expected.
      * The test will pass only if an exception of the given class (or one of its subclasses)
      * has been thrown while executing the test.
      *
-     * @param {string | Function} exception
+     * @param {string | Function | ErrorConstructor} exception
      */
     expectException(exception) {
         this._expectedException = new ReflectionClass(exception);
@@ -386,6 +423,10 @@ export default class TestCase extends Assert {
         this._expectedExceptionMessageRegex = message;
     }
 
+    expectNotToPerformAssertions() {
+        this._doesNotPerformAssertions = true;
+    }
+
     /**
      * Checks if the catched exception is the expected one.
      *
@@ -401,15 +442,15 @@ export default class TestCase extends Assert {
         }
 
         if (this._expectedException !== undefined) {
-            expect(exception).to.be.instanceOf(this._expectedException.getConstructor());
+            Assert.assertInstanceOf(this._expectedException.getConstructor(), exception);
         }
 
         if (this._expectedExceptionMessage !== undefined) {
-            expect(exception.message).to.be.equal(this._expectedExceptionMessage);
+            Assert.assertEquals(this._expectedExceptionMessage, exception.message);
         }
 
         if (this._expectedExceptionMessageRegex !== undefined) {
-            expect(exception.message).to.match(this._expectedExceptionMessageRegex);
+            Assert.assertMatchesRegularExpression(this._expectedExceptionMessageRegex, exception.message);
         }
 
         if (

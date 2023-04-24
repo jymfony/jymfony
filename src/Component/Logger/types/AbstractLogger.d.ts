@@ -1,4 +1,6 @@
 declare namespace Jymfony.Component.Logger {
+    import LoggerInterface = Jymfony.Contracts.Logger.LoggerInterface;
+
     export abstract class AbstractLogger extends implementationOf(LoggerInterface) {
         /**
          * @inheritdoc

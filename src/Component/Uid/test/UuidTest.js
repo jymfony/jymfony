@@ -1,4 +1,3 @@
-import { @dataProvider } from '@jymfony/decorators';
 import { expect } from 'chai';
 
 const NilUuid = Jymfony.Component.Uid.NilUuid;
@@ -104,7 +103,7 @@ export default class UuidTest extends TestCase {
         let uuid = new NilUuid();
         expect(uuid.toBase58()).to.be.equal('1111111111111111111111');
 
-        uuid = Uuid.fromString("\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF");
+        uuid = Uuid.fromString('\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF');
         expect(uuid.toBase58()).to.be.equal('YcVfxkQb6JRzqk5kF2tNLv');
         expect(uuid.equals(Uuid.fromString('YcVfxkQb6JRzqk5kF2tNLv'))).to.be.true;
     }

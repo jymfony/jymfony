@@ -1,26 +1,25 @@
-require('../../lib/Iterator/RecursiveDirectoryIterator');
+const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 const path = require('path');
-const { expect } = require('chai');
 
-describe('RecursiveDirectoryIterator', function () {
-    it('should synchronously iterate through directory', () => {
+export default class RecursiveDirectoryIteratorTest extends TestCase {
+    testShouldSynchronouslyIterateThroughDirectories() {
         const resolved = [ ...__dirname.split(path.sep).slice(0, -2), 'fixtures', 'Iterator' ].join(path.sep);
         const itr = new RecursiveDirectoryIterator(resolved);
         const result = [];
 
         while (true) {
             const next = itr.next();
-            expect(next.done).to.be.a('boolean');
+            __self.assertIsBoolean(next.done);
 
             if (next.done) {
                 break;
             }
 
-            expect(next.value).to.be.a('string');
+            __self.assertIsString(next.value);
             result.push(next.value);
         }
 
-        expect(result.sort()).to.be.deep.equal([
+        __self.assertEquals([
             resolved+path.sep+'TESTFILE.txt',
             resolved+path.sep+'Testdir',
             resolved+path.sep+'Testdir'+path.sep+'Subdir',
@@ -28,6 +27,6 @@ describe('RecursiveDirectoryIterator', function () {
             resolved+path.sep+'Testdir'+path.sep+'Subdir'+path.sep+'another_dir'+path.sep+'test_file.txt',
             resolved+path.sep+'Testdir'+path.sep+'bazbaz.txt',
             resolved+path.sep+'Testdir'+path.sep+'foobar',
-        ]);
-    });
-});
+        ], result.sort());
+    }
+}

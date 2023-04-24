@@ -8,8 +8,36 @@ declare namespace Jymfony.Component.Testing.Framework {
     import IsUndefined = Jymfony.Component.Testing.Constraints.IsUndefined;
     import LessThan = Jymfony.Component.Testing.Constraints.LessThan;
     import LogicalNot = Jymfony.Component.Testing.Constraints.LogicalNot;
+    import LogicalOr = Jymfony.Component.Testing.Constraints.LogicalOr;
 
     export class Assert {
+        /**
+         * Asserts that an object has a specified key.
+         *
+         * @throws {Jymfony.Component.Testing.Exception.InvalidArgumentException}
+         * @throws {Jymfony.Component.Testing.Exception.ExpectationFailedException}
+         */
+        static assertHasKey(key: any, object: any, message?: string): void;
+        assertHasKey(key: any, object: any, message?: string): void;
+
+        /**
+         * Asserts the number of elements of an object.
+         *
+         * @throws {Jymfony.Component.Testing.Exception.InvalidArgumentException}
+         * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+         */
+        static assertCount(expected: any, actual: any, message?: string): void;
+        assertCount(expected: any, actual: any, message?: string): void;
+
+        /**
+         * Asserts the number of elements of an object is not equals to expected.
+         *
+         * @throws {Jymfony.Component.Testing.Exception.InvalidArgumentException}
+         * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+         */
+        static assertNotCount(expected: any, actual: any, message?: string): void;
+        assertNotCount(expected: any, actual: any, message?: string): void;
+
         /**
          * Asserts that two variables are equal.
          *
@@ -17,6 +45,22 @@ declare namespace Jymfony.Component.Testing.Framework {
          */
         static assertEquals(expected: any, actual: any, message?: string): void;
         assertEquals(expected: any, actual: any, message?: string): void;
+
+        /**
+         * Asserts that two variables are not equal.
+         *
+         * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+         */
+        static assertNotEquals(expected: any, actual: any, message?: string): void;
+        assertNotEquals(expected: any, actual: any, message?: string): void;
+
+        /**
+         * Asserts that a variable is empty.
+         *
+         * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+         */
+        static assertEmpty(actual: any, message?: string): void;
+        assertEmpty(actual: any, message?: string): void;
 
         /**
          * Asserts that a variable is not empty.
@@ -35,6 +79,16 @@ declare namespace Jymfony.Component.Testing.Framework {
          */
         static assertSame(expected: any, actual: any, message?: string): void;
         assertSame(expected: any, actual: any, message?: string): void;
+
+        /**
+         * Asserts that two variables have not the same type and value.
+         * Used on objects, it asserts that two variables reference
+         * different objects.
+         *
+         * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+         */
+        static assertNotSame(expected: any, actual: any, message?: string): void;
+        assertNotSame(expected: any, actual: any, message?: string): void;
 
         /**
          * Asserts that a condition is true.
@@ -92,6 +146,15 @@ declare namespace Jymfony.Component.Testing.Framework {
         static assertMatchesRegularExpression(regex: RegExp, string: string, message?: string): void;
         assertMatchesRegularExpression(regex: RegExp, string: string, message?: string): void;
 
+
+        /**
+         * Asserts that a string matches a given format.
+         *
+         * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+         */
+        static assertStringMatchesFormat(format: string, string: string, message?: string): void;
+        assertStringMatchesFormat(format: string, string: string, message?: string): void;
+
         /**
          * Asserts that a variable is undefined.
          *
@@ -109,6 +172,14 @@ declare namespace Jymfony.Component.Testing.Framework {
         assertLessThan(expected: any, actual: any, message?: string): void;
 
         /**
+         * Asserts that a value is less than or equal to another value.
+         *
+         * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+         */
+        static assertLessThanOrEqual(expected: any, actual: any, message?: string): void;
+        assertLessThanOrEqual(expected: any, actual: any, message?: string): void;
+
+        /**
          * Asserts that a value is greater than another value.
          *
          * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
@@ -117,12 +188,28 @@ declare namespace Jymfony.Component.Testing.Framework {
         assertGreaterThan(expected: any, actual: any, message?: string): void;
 
         /**
+         * Asserts that a value is greater than or equal to another value.
+         *
+         * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+         */
+        static assertGreaterThanOrEqual(expected: any, actual: any, message?: string): void;
+        assertGreaterThanOrEqual(expected: any, actual: any, message?: string): void;
+
+        /**
          * Asserts that a string (needle) is contained in another string (haystack).
          *
          * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
          */
         static assertStringContainsString(needle: string, haystack: string, message?: string): void;
         assertStringContainsString(needle: string, haystack: string, message?: string): void;
+
+        /**
+         * Asserts that a string (needle) is notcontained in another string (haystack).
+         *
+         * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+         */
+        static assertStringNotContainsString(needle: string, haystack: string, message?: string): void;
+        assertStringNotContainsString(needle: string, haystack: string, message?: string): void;
 
         /**
          * Asserts that a variable is of a given type.
@@ -251,6 +338,15 @@ declare namespace Jymfony.Component.Testing.Framework {
         assertIsScalar(actual: any, message?: string): void;
 
         /**
+         * Asserts that a variable is a promise.
+         *
+         * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+         * @throws {InvalidArgumentException}
+         */
+        static assertIsPromise(actual: any, message?: string): void;
+        assertIsPromise(actual: any, message?: string): void;
+
+        /**
          * Evaluates a Constraint matcher object.
          *
          * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
@@ -258,14 +354,23 @@ declare namespace Jymfony.Component.Testing.Framework {
         static assertThat(value: any, constraint: Constraint, message?: string): void;
         assertThat(value: any, constraint: Constraint, message?: string): void;
 
+        static logicalOr(...constraints: Constraint[]): LogicalOr;
+        logicalOr(...constraints: Constraint[]): LogicalOr;
+
         static logicalNot(constraint: Constraint): LogicalNot;
         logicalNot(constraint: Constraint): LogicalNot;
 
         static greaterThan(value: any): GreaterThan;
         greaterThan(value: any): GreaterThan;
 
+        static greaterThanOrEqual(value: any): LogicalOr;
+        greaterThanOrEqual(value: any): LogicalOr;
+
         static lessThan(value: any): LessThan;
         lessThan(value: any): LessThan;
+
+        static lessThanOrEqual(value: any): LogicalOr;
+        lessThanOrEqual(value: any): LogicalOr;
 
         static isEmpty(): IsEmpty;
         isEmpty(): IsEmpty;

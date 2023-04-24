@@ -1,6 +1,6 @@
-const Event = Jymfony.Contracts.EventDispatcher.Event;
 const EventDispatcherInterface = Jymfony.Contracts.EventDispatcher.EventDispatcherInterface;
 const InvalidArgumentException = Jymfony.Component.EventDispatcher.Exception.InvalidArgumentException;
+const StoppableEventInterface = Jymfony.Contracts.EventDispatcher.StoppableEventInterface;
 
 /**
  * @memberOf Jymfony.Component.EventDispatcher
@@ -32,9 +32,17 @@ export default class EventDispatcher extends implementationOf(EventDispatcherInt
     /**
      * @inheritdoc
      */
-    async dispatch(eventName, event = new Event()) {
+    async dispatch(event, eventName = undefined) {
+        if (undefined === eventName) {
+            eventName = ReflectionClass.getClassName(event);
+        }
+
+        if (ReflectionClass.exists(eventName)) {
+            eventName = ReflectionClass.getClassName(eventName);
+        }
+
         for (const listener of this.getListeners(eventName)) {
-            if (event.isPropagationStopped()) {
+            if (event instanceof StoppableEventInterface && event.isPropagationStopped()) {
                 return event;
             }
 
@@ -49,6 +57,10 @@ export default class EventDispatcher extends implementationOf(EventDispatcherInt
      */
     * getListeners(eventName = undefined) {
         if (eventName) {
+            if (ReflectionClass.exists(eventName)) {
+                eventName = ReflectionClass.getClassName(eventName);
+            }
+
             if (! this._listeners[eventName]) {
                 return [];
             }
@@ -71,6 +83,10 @@ export default class EventDispatcher extends implementationOf(EventDispatcherInt
      * @inheritdoc
      */
     addListener(eventName, listener, priority = 0) {
+        if (ReflectionClass.exists(eventName)) {
+            eventName = ReflectionClass.getClassName(eventName);
+        }
+
         let listeners = this._listeners[eventName];
         if (undefined === listeners) {
             listeners = this._listeners[eventName] = [];
@@ -84,6 +100,10 @@ export default class EventDispatcher extends implementationOf(EventDispatcherInt
      * @inheritdoc
      */
     hasListeners(eventName) {
+        if (ReflectionClass.exists(eventName)) {
+            eventName = ReflectionClass.getClassName(eventName);
+        }
+
         return (!! this._listeners[eventName]) && 0 < this._listeners[eventName].length;
     }
 
@@ -91,6 +111,10 @@ export default class EventDispatcher extends implementationOf(EventDispatcherInt
      * @inheritdoc
      */
     removeListener(eventName, listener) {
+        if (ReflectionClass.exists(eventName)) {
+            eventName = ReflectionClass.getClassName(eventName);
+        }
+
         if (! this._listeners[eventName]) {
             return;
         }
@@ -128,7 +152,11 @@ export default class EventDispatcher extends implementationOf(EventDispatcherInt
      */
     addSubscriber(subscriber) {
         const events = __jymfony.getFunction(subscriber, 'getSubscribedEvents')();
-        for (const eventName of Object.keys(events)) {
+        for (let eventName of Object.keys(events)) {
+            if (ReflectionClass.exists(eventName)) {
+                eventName = ReflectionClass.getClassName(eventName);
+            }
+
             const params = events[eventName];
             if (isString(params)) {
                 this.addListener(eventName, [ subscriber, params ]);
@@ -147,7 +175,11 @@ export default class EventDispatcher extends implementationOf(EventDispatcherInt
      */
     removeSubscriber(subscriber) {
         const events = __jymfony.getFunction(subscriber, 'getSubscribedEvents')();
-        for (const eventName of Object.keys(events)) {
+        for (let eventName of Object.keys(events)) {
+            if (ReflectionClass.exists(eventName)) {
+                eventName = ReflectionClass.getClassName(eventName);
+            }
+
             const params = events[eventName];
             if (isArray(params) && isArray(params[0])) {
                 for(const listener of params) {
@@ -163,6 +195,10 @@ export default class EventDispatcher extends implementationOf(EventDispatcherInt
      * @inheritdoc
      */
     getListenerPriority(eventName, listener) {
+        if (ReflectionClass.exists(eventName)) {
+            eventName = ReflectionClass.getClassName(eventName);
+        }
+
         if (! this._listeners[eventName]) {
             return;
         }
@@ -230,12 +266,26 @@ export default class EventDispatcher extends implementationOf(EventDispatcherInt
      * @private
      */
     static _funcEquals(func1, func2) {
-        if (func1.innerObject) {
+        if (Reflect.has(func1, 'innerObject')) {
             func1 = func1.innerObject;
         }
 
-        if (func2.innerObject) {
+        if (Reflect.has(func2, 'innerObject')) {
             func2 = func2.innerObject;
+        }
+
+        if (Object.prototype.hasOwnProperty.call(func1, 'wrappedListener')) {
+            func1 = func1.wrappedListener;
+            if (Reflect.has(func1, 'innerObject')) {
+                func1 = func1.innerObject;
+            }
+        }
+
+        if (Object.prototype.hasOwnProperty.call(func2, 'wrappedListener')) {
+            func2 = func2.wrappedListener;
+            if (Reflect.has(func2, 'innerObject')) {
+                func2 = func2.innerObject;
+            }
         }
 
         if (func1.constructor.name !== func2.constructor.name) {

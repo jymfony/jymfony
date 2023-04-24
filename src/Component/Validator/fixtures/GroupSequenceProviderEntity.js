@@ -1,9 +1,9 @@
-import { @GroupSequenceProvider } from '@jymfony/decorators';
-
+const GroupSequenceProvider = Jymfony.Component.Validator.Annotation.GroupSequenceProvider;
 const GroupSequenceProviderInterface = Jymfony.Component.Validator.GroupSequenceProviderInterface;
 
+export default
 @GroupSequenceProvider()
-export default class GroupSequenceProviderEntity extends implementationOf(GroupSequenceProviderInterface) {
+class GroupSequenceProviderEntity extends implementationOf(GroupSequenceProviderInterface) {
     firstName;
     lastName;
 

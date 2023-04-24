@@ -37,4 +37,21 @@ export default class DataStructureCaster {
             [Caster.PREFIX_VIRTUAL + 'content']: object.toArray(),
         };
     }
+
+    /**
+     * Casts a Set object.
+     *
+     * @param {Set} object
+     * @param {Object} a
+     * @param {Jymfony.Component.VarDumper.Cloner.Stub} stub
+     *
+     * @returns {Object}
+     */
+    static castSet(object, a, stub) {
+        stub.class_ += ':' + object.size;
+
+        return {
+            [Caster.PREFIX_VIRTUAL + 'values']: [ ...object.values() ],
+        };
+    }
 }

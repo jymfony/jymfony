@@ -1,3 +1,5 @@
+const ReflectorInterface = require('./ReflectorInterface');
+const ReflectorTrait = require('./ReflectorTrait');
 const ReflectionMethod = require('./ReflectionMethod');
 const ReflectionField = require('./ReflectionField');
 const ReflectionProperty = require('./ReflectionProperty');
@@ -8,7 +10,8 @@ Storage.prototype = {};
 
 const TheBigReflectionDataCache = new Storage();
 TheBigReflectionDataCache.classes = new Storage();
-TheBigReflectionDataCache.data = new Storage();
+TheBigReflectionDataCache.data = new WeakMap();
+TheBigReflectionDataCache.reflection = new WeakMap();
 
 const getClass = function getClass(value) {
     const originalValue = value;
@@ -54,38 +57,42 @@ const getClass = function getClass(value) {
 /**
  * Utility class for classes reflection.
  */
-class ReflectionClass {
+class ReflectionClass extends implementationOf(ReflectorInterface, ReflectorTrait) {
     /**
      * Constructor.
      *
      * @param {string|Object} value
      */
     constructor(value) {
+        super();
         this._isInterface = false;
         this._isTrait = false;
         value = getClass.apply(this, [ value ]);
 
+        const cached = TheBigReflectionDataCache.reflection.get(value);
+        if (cached !== undefined) {
+            cached._isInterface = this._isInterface;
+            cached._isTrait = this._isTrait;
+            return cached;
+        }
+
         this._methods = new Storage();
-        this._staticMethods = new Storage();
         this._readableProperties = new Storage();
         this._writableProperties = new Storage();
         this._properties = new Storage();
         this._constants = new Storage();
         this._fields = new Storage();
-        this._staticFields = new Storage();
         this._interfaces = [];
         this._traits = [];
-
         this._docblock = undefined;
-        if (undefined !== value[Symbol.docblock]) {
-            this._docblock = value[Symbol.docblock];
-        }
 
-        if (undefined !== value[Symbol.reflection] && 'function' === typeof value[Symbol.reflection].isModule && value[Symbol.reflection].isModule(value)) {
+        if (value.hasOwnProperty(Symbol.reflection)) {
             this._loadFromMetadata(value);
         } else {
             this._loadWithoutMetadata(value);
         }
+
+        TheBigReflectionDataCache.reflection.set(value, this);
     }
 
     /**
@@ -149,10 +156,41 @@ class ReflectionClass {
      * @returns {*}
      */
     newInstanceWithoutConstructor() {
-        const surrogateCtor = function () { };
+        const surrogateCtor = function _reflectionClass_surrogateCtor_() { };
         surrogateCtor.prototype = this._constructor.prototype;
 
-        return new surrogateCtor();
+        const obj = new surrogateCtor();
+        if (this.hasMethod('__invoke')) {
+            return new __jymfony.ManagedProxy(obj.__invoke, proxy => {
+                proxy.target = obj;
+                return null;
+            }, {
+                get: (target, key) => {
+                    if ('__self__' === key) {
+                        return target;
+                    }
+
+                    return Reflect.get(target, key);
+                },
+                apply: (target, ctx, args) => {
+                    return target.__invoke(...args);
+                },
+                preventExtensions: (target) => {
+                    Reflect.preventExtensions(target);
+
+                    return false;
+                },
+                getOwnPropertyDescriptor: (target, key) => {
+                    if ('__self__' === key) {
+                        return { configurable: true, enumerable: false };
+                    }
+
+                    return Reflect.getOwnPropertyDescriptor(target, key);
+                },
+            });
+        }
+
+        return obj;
     }
 
     /**
@@ -163,7 +201,7 @@ class ReflectionClass {
      * @returns {boolean}
      */
     hasMethod(name) {
-        return this._methods[name] !== undefined || this._staticMethods[name] !== undefined;
+        return this._methods[name] !== undefined;
     }
 
     /**
@@ -196,7 +234,7 @@ class ReflectionClass {
      * @returns {boolean}
      */
     hasReadableProperty(name) {
-        return this._readableProperties[name] !== undefined;
+        return true === this._readableProperties[name];
     }
 
     /**
@@ -218,7 +256,7 @@ class ReflectionClass {
      * @returns {boolean}
      */
     hasWritableProperty(name) {
-        return this._writableProperties[name] !== undefined;
+        return true === this._writableProperties[name];
     }
 
     /**
@@ -240,7 +278,7 @@ class ReflectionClass {
      * @returns {boolean}
      */
     hasField(name) {
-        return !! this._fields[name] || !! this._staticFields[name];
+        return !! this._fields[name];
     }
 
     /**
@@ -282,13 +320,13 @@ class ReflectionClass {
                 return undefined;
             }
 
-            try {
-                r = new ReflectionClass(parent);
-            } catch (e) {
+            if (parent === parent[Symbol.for('_jymfony_mixin')]) {
                 continue;
             }
 
-            if (parent === r.getConstructor()[Symbol.for('_jymfony_mixin')]) {
+            try {
+                r = new ReflectionClass(parent);
+            } catch (e) {
                 continue;
             }
 
@@ -312,6 +350,21 @@ class ReflectionClass {
     }
 
     /**
+     * @returns {ReflectionMethod | null}
+     */
+    get constructorMethod() {
+        if (this._methods['constructor']) {
+            return this.getMethod('constructor');
+        }
+
+        if (this._methods['__construct']) {
+            return this.getMethod('__construct');
+        }
+
+        return null;
+    }
+
+    /**
      * Checks whether this class is a subclass of a given subclass.
      *
      * @param {Function|string} superClass
@@ -323,7 +376,12 @@ class ReflectionClass {
             superClass = ReflectionClass._recursiveGet(global, superClass.split('.'));
         }
 
-        return this._constructor.prototype instanceof superClass;
+        if (! isFunction(superClass)) {
+            return false;
+        }
+
+        return this._constructor.prototype instanceof superClass
+            || (this._isInterface && mixins.getParents(this._constructor).includes(superClass));
     }
 
     /**
@@ -338,9 +396,14 @@ class ReflectionClass {
             superClass = ReflectionClass._recursiveGet(global, superClass.split('.'));
         }
 
+        if (! isFunction(superClass)) {
+            return false;
+        }
+
         return this._constructor === superClass
             || this._constructor === new ReflectionClass(superClass).getConstructor()
-            || this._constructor.prototype instanceof superClass;
+            || this._constructor.prototype instanceof superClass
+            || (this._isInterface && mixins.getParents(this._constructor).includes(superClass));
     }
 
     /**
@@ -376,7 +439,7 @@ class ReflectionClass {
      * @returns {string}
      */
     get shortName() {
-        return this._namespace ? this._className.substr(this.namespaceName.length + 1) : this._className;
+        return this._namespace ? this._className.substring(this.namespaceName.length + 1) : this._className;
     }
 
     /**
@@ -425,7 +488,7 @@ class ReflectionClass {
      * @returns {string[]}
      */
     get methods() {
-        return [ ...Object.keys(this._methods), ...Object.keys(this._staticMethods) ];
+        return [ ...Object.keys(this._methods) ];
     }
 
     /**
@@ -434,7 +497,7 @@ class ReflectionClass {
      * @returns {string}
      */
     get docblock() {
-        return this._docblock.class;
+        return this._docblock;
     }
 
     /**
@@ -490,7 +553,12 @@ class ReflectionClass {
      * @returns {[Function, *][]}
      */
     get metadata() {
-        return MetadataStorage.getMetadata(this._constructor, null);
+        const sym = this._constructor[Symbol.metadata];
+        if (undefined === sym) {
+            return [];
+        }
+
+        return MetadataStorage.getMetadata(sym, null);
     }
 
     /**
@@ -499,47 +567,137 @@ class ReflectionClass {
      * @private
      */
     _loadFromMetadata(value) {
-        const metadata = value[Symbol.reflection];
-        this._className = metadata.fqcn;
-        this._namespace = metadata.namespace;
+        const { Compiler } = __jymfony.autoload.classLoader.constructor.compiler;
+        const metadata = Compiler.getReflectionData(value);
+        if (metadata === undefined) {
+            this._loadWithoutMetadata(value);
+            return;
+        }
 
-        if (TheBigReflectionDataCache.data[this._className]) {
-            this._loadFromCache();
+        this._className = metadata.fqcn;
+        this._namespace = (() => {
+            if (metadata.namespace) {
+                try {
+                    const ns = ReflectionClass._recursiveGet(global, metadata.namespace.split('.'));
+                    return ns ? ns.__namespace : null;
+                } catch (e) {
+                    // Do nothing
+                }
+            }
+
+            return null;
+        })();
+        this._docblock = metadata.docblock;
+
+        if (TheBigReflectionDataCache.data.has(value)) {
+            this._loadFromCache(value);
             return;
         }
 
         this._filename = metadata.filename;
         this._module = metadata.module;
-        this._constructor = this._isInterface || this._isTrait ? value : metadata.constructor;
+        this._constructor = this._isInterface || this._isTrait ? value : (metadata.self || metadata.constructor);
 
         if (metadata.fields) {
-            this._fields = metadata.fields;
+            for (const field of metadata.fields) {
+                this._fields[field.name] = field;
+            }
         }
 
+        if (metadata.methods) {
+            for (const method of metadata.methods) {
+                switch (method.kind) {
+                    case 'get':
+                    case 'set':
+                        if (this._properties[method.name] && this._properties[method.name].kind !== method.kind) {
+                            this._properties[method.name].kind = 'accessor';
+                            this._properties[method.name][method.kind] = method.value;
+                        } else {
+                            const nm = { ...method };
+                            nm[method.kind] = nm.value;
+                            delete nm.value;
+
+                            this._properties[method.name] = nm;
+                        }
+
+                        this['get' === method.kind ? '_readableProperties' : '_writableProperties'][method.name] = true;
+                        break;
+
+                    default:
+                        this._methods[method.name] = method;
+                }
+            }
+        }
+
+        this._loadStatics(false);
+
         const parent = this.getParentClass();
-        if (parent && parent.name) {
+        if (parent) {
             const parentFields = parent._fields;
             for (const name of Object.keys(parentFields)) {
                 if ('#' !== name[0] && ! (name in this._fields)) {
                     this._fields[name] = parentFields[name];
                 }
             }
+
+            const parentMethods = parent._methods;
+            for (const name of Object.keys(parentMethods)) {
+                if ('#' !== name[0] && ! (name in this._methods)) {
+                    this._methods[name] = parentMethods[name];
+                }
+            }
+
+            const parentProperties = parent._properties;
+            for (const name of Object.keys(parentProperties)) {
+                if ('#' !== name[0] && ! (name in this._properties)) {
+                    this._properties[name] = parentProperties[name];
+                    if (undefined !== parent._writableProperties[name]) {
+                        this._writableProperties[name] = parent._writableProperties[name];
+                    }
+                    if (undefined !== parent._readableProperties[name]) {
+                        this._readableProperties[name] = parent._readableProperties[name];
+                    }
+                }
+            }
         }
 
-        if (metadata.staticFields) {
-            this._staticFields = metadata.staticFields;
+        if (this._isInterface || this._isTrait) {
+            return;
         }
 
-        this._loadProperties();
-        this._loadStatics();
+        for (const IF of global.mixins.getInterfaces(this._constructor)) {
+            const reflectionInterface = new ReflectionClass(IF);
+            this._interfaces.push(reflectionInterface);
 
-        if (undefined === TheBigReflectionDataCache.data[this._className]) {
-            TheBigReflectionDataCache.data[this._className] = {
+            const interfaceConstants = reflectionInterface._constants;
+            for (const name of Object.keys(interfaceConstants)) {
+                if ('#' !== name[0] && !(name in this._constants)) {
+                    this._constants[name] = interfaceConstants[name];
+                }
+            }
+        }
+
+        for (const TR of global.mixins.getTraits(this._constructor)) {
+            const reflectionTrait = new ReflectionClass(TR);
+            this._traits.push(reflectionTrait);
+
+            const traitMethods = reflectionTrait._methods;
+            for (const name of Object.keys(traitMethods)) {
+                if ('#' !== name[0] && !(name in this._methods)) {
+                    this._methods[name] = {
+                        ...traitMethods[name],
+                        ownClass: this._constructor,
+                    };
+                }
+            }
+        }
+
+        if (!TheBigReflectionDataCache.data.has(value)) {
+            TheBigReflectionDataCache.data.set(value, {
                 filename: this._filename,
                 module: this._module,
                 constructor: this._constructor,
                 methods: this._methods,
-                staticMethods: this._staticMethods,
                 constants: this._constants,
                 properties: {
                     all: this._properties,
@@ -549,16 +707,16 @@ class ReflectionClass {
                 interfaces: this._interfaces,
                 traits: this._traits,
                 fields: this._fields,
-                staticFields: this._staticFields,
-            };
+                docblock: this._docblock,
+            });
         }
     }
 
     /**
      * @private
      */
-    _loadFromCache() {
-        const data = TheBigReflectionDataCache.data[this._className];
+    _loadFromCache(value) {
+        const data = TheBigReflectionDataCache.data.get(value);
 
         const propFunc = function (storage, data) {
             for (const v of data) {
@@ -570,7 +728,6 @@ class ReflectionClass {
         this._module = data.module;
         this._constructor = data.constructor;
         this._methods = data.methods;
-        this._staticMethods = data.staticMethods;
         this._constants = data.constants;
         this._properties = data.properties.all;
         propFunc(this._readableProperties, data.properties.readable);
@@ -578,7 +735,7 @@ class ReflectionClass {
         this._interfaces = data.interfaces;
         this._traits = data.traits;
         this._fields = data.fields;
-        this._staticFields = data.staticFields;
+        this._docblock = data.docblock;
     }
 
     /**
@@ -600,7 +757,7 @@ class ReflectionClass {
      */
     _loadProperties() {
         const loadFromPrototype = (proto) => {
-            if (undefined === proto || null === proto) {
+            if (undefined === proto || null === proto || Function === proto || Function === proto.constructor) {
                 return;
             }
 
@@ -623,16 +780,26 @@ class ReflectionClass {
                         continue;
                     }
 
-                    this._methods[name] = { ...descriptor, ownClass: proto.constructor };
+                    this._methods[name] = {
+                        name,
+                        kind: 'method',
+                        static: false,
+                        private: false,
+                        value: descriptor.value,
+                        ownClass: proto.constructor,
+                    };
                 } else {
-                    if ('function' === typeof descriptor.get) {
-                        this._properties[name] = { ...descriptor, ownClass: proto.constructor };
-                        this._readableProperties[name] = true;
-                    }
-
-                    if ('function' === typeof descriptor.set) {
-                        this._properties[name] = { ...descriptor, ownClass: proto.constructor };
-                        this._writableProperties[name] = true;
+                    if ('function' === typeof descriptor.get || 'function' === typeof descriptor.set) {
+                        this._properties[name] = {
+                            name,
+                            static: false,
+                            private: false,
+                            get: descriptor.get,
+                            set: descriptor.set,
+                            ownClass: proto.constructor,
+                        };
+                        this._readableProperties[name] = 'function' === typeof descriptor.get;
+                        this._writableProperties[name] = 'function' === typeof descriptor.set;
                     }
                 }
             }
@@ -673,7 +840,7 @@ class ReflectionClass {
     /**
      * @private
      */
-    _loadStatics() {
+    _loadStatics(methods = true) {
         const FunctionProps = [ ...Object.getOwnPropertyNames(Function.prototype), ...Object.getOwnPropertySymbols(Function.prototype) ];
 
         let parent = this._constructor;
@@ -706,7 +873,17 @@ class ReflectionClass {
                     }
 
                     if ('function' === typeof descriptor.value) {
-                        this._staticMethods[P] = { ...descriptor, ownClass: parent };
+                        if (methods) {
+                            this._methods[P] = {
+                                name: P,
+                                kind: 'method',
+                                static: true,
+                                private: false,
+                                value: descriptor.value,
+                                ownClass: parent,
+                            };
+                        }
+
                         return false;
                     }
 
@@ -714,11 +891,7 @@ class ReflectionClass {
                 });
 
             for (const name of names) {
-                if (Symbol.reflection === name) {
-                    continue;
-                }
-
-                if (! consts.hasOwnProperty(name) && Object.prototype.hasOwnProperty.call(parent, name)) {
+                if ('symbol' !== typeof name && ! consts.hasOwnProperty(name) && Object.prototype.hasOwnProperty.call(parent, name)) {
                     const descriptor = Object.getOwnPropertyDescriptor(parent, name);
 
                     if (descriptor.hasOwnProperty('value')) {

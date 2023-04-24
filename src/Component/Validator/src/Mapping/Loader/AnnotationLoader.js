@@ -1,8 +1,8 @@
-import { Constraint, GroupSequenceProvider } from '@jymfony/decorators';
-
 const AbstractLoader = Jymfony.Component.Validator.Mapping.Loader.AbstractLoader;
 const Callback = Jymfony.Component.Validator.Constraints.Callback;
+const Constraint = new ReflectionClass(Jymfony.Component.Validator.Annotation.Constraint).getConstructor();
 const GroupSequence = Jymfony.Component.Validator.Constraints.GroupSequence;
+const GroupSequenceProvider = Jymfony.Component.Validator.Annotation.GroupSequenceProvider;
 const MappingException = Jymfony.Component.Validator.Exception.MappingException;
 
 /**

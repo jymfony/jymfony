@@ -292,13 +292,12 @@ export default class NativeHttpClient extends implementationOf(
 
             const proxy = this._getProxy(options.proxy, url, options.no_proxy);
             if (! configureHeadersAndProxy(context, host, options.headers, proxy, 'https:' === url.protocol)) {
-                url.host = await dnsResolve(host, context, info, onProgress);
-                url.port = null;
+                url.hostname = await dnsResolve(host, context, info, onProgress);
             } else {
                 await dnsResolve(proxy.hostname, context, info, onProgress);
             }
 
-            return [ this._createRedirectResolver(options, host, proxy, info, onProgress), url ];
+            return [ this._createRedirectResolver(options, host, proxy, info, onProgress), url, host ];
         };
 
         if ('' !== url.username && ! options.normalized_headers['authorization']) {
@@ -385,13 +384,12 @@ export default class NativeHttpClient extends implementationOf(
 
             const shouldResolve = ! configureHeadersAndProxy(context, host, requestHeaders, proxy, 'https:' === url.protocol) || undefined !== context.ssl.peer_name;
             if (shouldResolve) {
-                url.host = await dnsResolve(host, context, info, onProgress);
-                url.port = null;
+                url.hostname = await dnsResolve(host, context, info, onProgress);
             } else {
                 await dnsResolve(proxy.hostname, context, info, onProgress);
             }
 
-            return url;
+            return [ url, host ];
         };
     };
 }

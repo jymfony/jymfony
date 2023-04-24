@@ -3,8 +3,6 @@ declare namespace Jymfony.Component.Cache.Adapter {
     import CacheInterface = Jymfony.Contracts.Cache.CacheInterface;
     import CacheItem = Jymfony.Component.Cache.CacheItem;
     import ContractsTrait = Jymfony.Contracts.Cache.CacheTrait;
-    import InvalidArgumentException = Jymfony.Contracts.Cache.Exception.InvalidArgumentException;
-    import ProxyAdapter = Jymfony.Component.Cache.Adapter.ProxyAdapter;
     import ProxyTrait = Jymfony.Component.Cache.Traits.ProxyTrait;
     import CacheItemPoolInterface = Jymfony.Contracts.Cache.CacheItemPoolInterface;
     import ValueHolder = Jymfony.Contracts.Cache.ValueHolder;

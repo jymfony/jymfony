@@ -1,10 +1,11 @@
-import { @Route } from '@jymfony/decorators';
+const Route = Jymfony.Component.Routing.Annotation.Route;
 
 /**
  * @memberOf Jymfony.Component.Routing.Fixtures.Annotation
  */
-@Route({ path: '/here', name: 'lol', methods: ["GET", "POST"], schemes: ["https"] })
-export default class InvokableController {
+export default
+@Route({ path: '/here', name: 'lol', methods: [ 'GET', 'POST' ], schemes: [ 'https' ] })
+class InvokableController {
     __invoke() {
     }
 }

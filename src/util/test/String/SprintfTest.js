@@ -1,18 +1,16 @@
-require('../../lib/String/sprintf');
-const { expect } = require('chai');
+const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 
-describe('Sprintf', function () {
-    const tests = function * () {
-        yield [ [ '%01.2f', 123.1 ], '123.10' ];
-        yield [ [ '[%10s]', 'monkey' ], '[    monkey]' ];
-        yield [ [ '[%\'#10s]', 'monkey' ], '[####monkey]' ];
-        yield [ [ '%d', 123456789012345 ], '123456789012345' ];
-        yield [ [ '%-03s', 'E' ], 'E00' ];
+export default class SprintfTest extends TestCase {
+    * provideArguments() {
+        yield [ '123.10', '%01.2f', 123.1 ];
+        yield [ '[    monkey]', '[%10s]', 'monkey' ];
+        yield [ '[####monkey]', '[%\'#10s]', 'monkey' ];
+        yield [ '123456789012345', '%d', 123456789012345 ];
+        yield [ 'E00', '%-03s', 'E' ];
     };
 
-    for (const [ args, expected ] of tests()) {
-        it ('should correctly interpret "' + args[0] + '"', () => {
-            expect(__jymfony.sprintf(...args)).to.be.equal(expected);
-        });
+    @dataProvider('provideArguments')
+    testShouldCorrectlyInterpretFormat(expected, ...args) {
+        __self.assertEquals(expected, __jymfony.sprintf(...args));
     }
-});
+}

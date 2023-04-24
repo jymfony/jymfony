@@ -1,0 +1,49 @@
+{
+  "name": "@jymfony/messenger",
+  "version": "0.1.0-dev",
+  "description": "Jymfony Messenger component",
+  "typings": "types/index.d.ts",
+  "scripts": {
+    "test": "node ./tests.js"
+  },
+  "keywords": [
+    "messenger",
+    "message-bus",
+    "jymfony"
+  ],
+  "author": "Alessandro Chitolina <alekitto@gmail.com>",
+  "license": "MIT",
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "dependencies": {
+    "@jymfony/autoloader": "0.1.0-alpha.30",
+    "@jymfony/contracts": "0.1.0-alpha.30",
+    "@jymfony/datetime": "0.1.0-alpha.30",
+    "@jymfony/dependency-injection": "0.1.0-alpha.30",
+    "@jymfony/exceptions": "0.1.0-alpha.30",
+    "@jymfony/util": "0.1.0-alpha.30"
+  },
+  "devDependencies": {
+    "@jymfony/console": "*",
+    "@jymfony/debug": "*",
+    "@jymfony/event-dispatcher": "*",
+    "@jymfony/stopwatch": "*",
+    "@jymfony/testing": "*",
+    "@jymfony/var-dumper": "*",
+    "mocha": "^10.2"
+  },
+  "config": {
+    "jymfony-autoload": {
+      "namespaces": {
+        "Jymfony.Component.Messenger": "src/"
+      }
+    },
+    "jymfony-autoload-dev": {
+      "namespaces": {
+        "Jymfony.Component.Messenger.Fixtures": "fixtures/",
+        "Jymfony.Component.Messenger.Tests": "test/"
+      }
+    }
+  }
+}

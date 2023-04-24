@@ -1,6 +1,22 @@
 /// <reference types="node" />
 
-declare class ReflectionClass<T extends object = any> {
+declare class ReflectorInterface {
+    public static readonly definition: Newable<ReflectorInterface>;
+
+    /**
+     * Gets the class metadata.
+     */
+    readonly metadata: [Newable, any][];
+
+    /**
+     * Gets the annotation instances of the given class.
+     */
+    getAnnotations<T extends object>(class_: Newable<T>, subclass?: boolean): T[];
+    getAnnotations(class_: string, subclass?: boolean): object[];
+    getAnnotations(class_: Newable | string, subclass?: boolean): object[];
+}
+
+declare class ReflectionClass<T extends object = any> extends implementationOf(ReflectorInterface) {
     private _isInterface: boolean;
     private _methods: any;
     private _staticMethods: any;
@@ -191,12 +207,24 @@ declare class ReflectionClass<T extends object = any> {
      * Gets the class metadata.
      */
     readonly metadata: [Newable, any][];
+
+    /**
+     * Gets the annotation instances of the given class.
+     */
+    getAnnotations<T extends object>(class_: Newable<T>, subclass?: boolean): T[];
+    getAnnotations(class_: string, subclass?: boolean): object[];
+    getAnnotations(class_: Newable | string, subclass?: boolean): object[];
+
+    /**
+     * Gets the constructor method (reflection).
+     */
+    readonly constructorMethod: ReflectionMethod | null;
 }
 
 /**
  * Reflection utility for class method.
  */
-declare class ReflectionMethod<Class extends object = any> {
+declare class ReflectionMethod<Class extends object = any> extends implementationOf(ReflectorInterface) {
     static readonly FUNCTION = 'function';
     static readonly ASYNC_FUNCTION = 'async function';
     static readonly GENERATOR = 'generator';
@@ -222,6 +250,11 @@ declare class ReflectionMethod<Class extends object = any> {
     readonly name: string;
 
     /**
+     * Whether this method is private.
+     */
+    readonly isPrivate: boolean;
+
+    /**
      * Gets if this method is static.
      */
     readonly isStatic: boolean;
@@ -241,10 +274,18 @@ declare class ReflectionMethod<Class extends object = any> {
      */
     readonly docblock: string;
 
+
     /**
-     * Gets the method metadata.
+     * Gets the class metadata.
      */
     readonly metadata: [Newable, any][];
+
+    /**
+     * Gets the annotation instances of the given class.
+     */
+    getAnnotations<T extends object>(class_: Newable<T>, subclass?: boolean): T[];
+    getAnnotations(class_: string, subclass?: boolean): object[];
+    getAnnotations(class_: Newable | string, subclass?: boolean): object[];
 
     /**
      * Gets the parameters' reflection objects.
@@ -257,7 +298,7 @@ declare class ReflectionMethod<Class extends object = any> {
     readonly method: Invokable;
 }
 
-declare class ReflectionParameter<Class extends object = any> {
+declare class ReflectionParameter<Class extends object = any> extends implementationOf(ReflectorInterface) {
     private constructor(reflectionMethod: ReflectionMethod,
                         name: string,
                         index: number,
@@ -305,12 +346,19 @@ declare class ReflectionParameter<Class extends object = any> {
      * Gets the parameter metadata.
      */
     readonly metadata: [Newable, any][];
+
+    /**
+     * Gets the annotation instances of the given class.
+     */
+    getAnnotations<T extends object>(class_: Newable<T>, subclass?: boolean): T[];
+    getAnnotations(class_: string, subclass?: boolean): object[];
+    getAnnotations(class_: Newable | string, subclass?: boolean): object[];
 }
 
 /**
  * Reflection utility for class field.
  */
-declare class ReflectionField<Class extends object = any> {
+declare class ReflectionField<Class extends object = any> extends implementationOf(ReflectorInterface) {
     /**
      * Constructor.
      */
@@ -353,6 +401,13 @@ declare class ReflectionField<Class extends object = any> {
     readonly metadata: [Newable, any][];
 
     /**
+     * Gets the annotation instances of the given class.
+     */
+    getAnnotations<T extends object>(class_: Newable<T>, subclass?: boolean): T[];
+    getAnnotations(class_: string, subclass?: boolean): object[];
+    getAnnotations(class_: Newable | string, subclass?: boolean): object[];
+
+    /**
      * Gets the field current value.
      */
     getValue(object: any): any;
@@ -371,7 +426,7 @@ declare class ReflectionField<Class extends object = any> {
 /**
  * Reflection utility for class method.
  */
-declare class ReflectionProperty<Class extends object = any> {
+declare class ReflectionProperty<Class extends object = any> extends implementationOf(ReflectorInterface) {
     public static readonly KIND_GET = 'get';
     public static readonly KIND_SET = 'set';
 
@@ -414,9 +469,16 @@ declare class ReflectionProperty<Class extends object = any> {
     readonly docblock: string;
 
     /**
-     * Gets the class property metadata.
+     * Gets the class metadata.
      */
     readonly metadata: [Newable, any][];
+
+    /**
+     * Gets the annotation instances of the given class.
+     */
+    getAnnotations<T extends object>(class_: Newable<T>, subclass?: boolean): T[];
+    getAnnotations(class_: string, subclass?: boolean): object[];
+    getAnnotations(class_: Newable | string, subclass?: boolean): object[];
 }
 
 declare class ReflectionException extends Error {}

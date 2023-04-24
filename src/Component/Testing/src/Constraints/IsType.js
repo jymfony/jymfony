@@ -66,6 +66,9 @@ export default class IsType extends Constraint {
 
             case 'scalar':
                 return isScalar(other);
+
+            case 'promise':
+                return isPromise(other);
         }
     }
 }
@@ -83,6 +86,7 @@ Object.defineProperty(IsType, 'TYPE_NUMERIC', { value: 'numeric', writable: fals
 Object.defineProperty(IsType, 'TYPE_ARRAY', { value: 'array', writable: false, configurable: false });
 Object.defineProperty(IsType, 'TYPE_NULL', { value: 'null', writable: false, configurable: false });
 Object.defineProperty(IsType, 'TYPE_SCALAR', { value: 'scalar', writable: false, configurable: false });
+Object.defineProperty(IsType, 'TYPE_PROMISE', { value: 'promise', writable: false, configurable: false });
 
 const KNOWN_TYPES = {
     [IsType.TYPE_UNDEFINED]: true,
@@ -98,4 +102,5 @@ const KNOWN_TYPES = {
     [IsType.TYPE_ARRAY]: true,
     [IsType.TYPE_NULL]: true,
     [IsType.TYPE_SCALAR]: true,
+    [IsType.TYPE_PROMISE]: true,
 };

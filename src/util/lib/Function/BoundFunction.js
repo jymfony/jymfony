@@ -12,7 +12,7 @@ class BoundFunction {
      * a callable anonymous function.
      *
      * @param {Object} thisArg
-     * @param {Function|GeneratorFunction} func
+     * @param {Function|GeneratorFunction|string|symbol} func
      *
      * @returns {Function|GeneratorFunction}
      */
@@ -46,6 +46,16 @@ class BoundFunction {
 
                     default:
                         return Reflect.get(target, name, receiver);
+                }
+            },
+            has(target, p) {
+                switch (p) {
+                    case 'innerObject':
+                    case 'equals':
+                        return true;
+
+                    default:
+                        return Reflect.has(target, p);
                 }
             },
             apply: (target, thisArg1, argArray) => {

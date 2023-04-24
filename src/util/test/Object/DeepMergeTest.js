@@ -1,25 +1,8 @@
-require('../../lib/Object/deepMerge');
-const { expect } = require('chai');
+const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 
-describe('Deep Merge', function () {
-    it('deepMerge should work', () => {
-        expect(
-            __jymfony.deepMerge({}, {
-                foo: 'bar',
-                bar: {
-                    baz: [ 'foobar', 'foo' ],
-                    foofoo: { test: 'test' },
-                    testbax: 'bax',
-                },
-            }, {
-                bar: {
-                    baz: [ 'barbar' ],
-                    foofoo: 1,
-                    bazbaz: true,
-                },
-                test: 'foobar',
-            })
-        ).to.be.deep.equal({
+export default class DeepMergeTest extends TestCase {
+    testDeepMergeShouldWork() {
+        __self.assertEquals({
             foo: 'bar',
             bar: {
                 baz: [ 'barbar', 'foo' ],
@@ -28,6 +11,20 @@ describe('Deep Merge', function () {
                 bazbaz: true,
             },
             test: 'foobar',
-        });
-    });
-});
+        }, __jymfony.deepMerge({}, {
+            foo: 'bar',
+            bar: {
+                baz: [ 'foobar', 'foo' ],
+                foofoo: { test: 'test' },
+                testbax: 'bax',
+            },
+        }, {
+            bar: {
+                baz: [ 'barbar' ],
+                foofoo: 1,
+                bazbaz: true,
+            },
+            test: 'foobar',
+        }));
+    }
+}

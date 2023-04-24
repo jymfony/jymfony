@@ -10,11 +10,11 @@ export default class ServiceValueResolver extends implementationOf(ArgumentValue
     /**
      * Constructor.
      *
-     * @param {Jymfony.Component.DependencyInjection.ContainerInterface} container
+     * @param {Jymfony.Contracts.DependencyInjection.ContainerInterface} container
      */
     __construct(container) {
         /**
-         * @type {Jymfony.Component.DependencyInjection.ContainerInterface}
+         * @type {Jymfony.Contracts.DependencyInjection.ContainerInterface}
          *
          * @private
          */

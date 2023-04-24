@@ -5,12 +5,13 @@ declare namespace Jymfony.Component.Config.Loader {
     export abstract class Loader extends implementationOf(LoaderInterface) {
         public resolver: LoaderResolverInterface;
         protected _resolver: LoaderResolverInterface;
+        protected _env: string | null;
 
         /**
          * Constructor.
          */
-        __construct(): void;
-        constructor();
+        __construct(env?: string | null): void;
+        constructor(env?: string | null);
 
         /**
          * Imports a resource.

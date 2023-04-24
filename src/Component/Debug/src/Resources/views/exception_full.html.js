@@ -1,6 +1,6 @@
 const _message = __jymfony.sprintf('%s (%d %s)', exceptionMessage, statusCode, statusText);
 
-let html = `<!-- ${_message} -->
+emit(`<!-- ${_message} -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -18,10 +18,10 @@ let html = `<!-- ${_message} -->
                 localStorage.getItem('jymfony/profiler/theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'theme-dark' : 'theme-light')
             );
         </script>
-`;
+`);
 
 if (ReflectionClass.exists('Jymfony.Component.Kernel.Kernel')) {
-    html += `
+    emit(`
             <header>
                 <div class="container">
                     <h1 class="logo">${include('assets/images/jymfony-logo.svg')} Jymfony Exception</h1>
@@ -41,10 +41,10 @@ if (ReflectionClass.exists('Jymfony.Component.Kernel.Kernel')) {
                     </div>
                 </div>
             </header>
-`;
+`);
 }
 
-html += `
+emit(`
         ${include('views/exception.html.js', context)}
 
         <script type="module">
@@ -53,6 +53,4 @@ html += `
     </body>
 </html>
 <!-- ${_message} -->
-`;
-
-return html;
+`);

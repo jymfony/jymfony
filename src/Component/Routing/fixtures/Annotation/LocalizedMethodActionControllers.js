@@ -1,10 +1,11 @@
-import { @Route } from '@jymfony/decorators';
+const Route = Jymfony.Component.Routing.Annotation.Route;
 
 /**
  * @memberOf Jymfony.Component.Routing.Fixtures.Annotation
  */
+export default
 @Route({ path: { en: '/the/path', nl: '/het/pad' } })
-export default class LocalizedMethodActionControllers {
+class LocalizedMethodActionControllers {
     @Route({ name: 'post', methods: [ 'POST' ] })
     post() {
     }

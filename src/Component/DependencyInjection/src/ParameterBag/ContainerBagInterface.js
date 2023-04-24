@@ -1,9 +1,9 @@
-const ContainerInterface = Jymfony.Component.DependencyInjection.ContainerInterface;
+const ContainerInterface = Jymfony.Contracts.DependencyInjection.ContainerInterface;
 
 /**
  * @memberOf Jymfony.Component.DependencyInjection.ParameterBag
  */
-class ContainerBagInterface extends ContainerInterface.definition {
+class ContainerBagInterface {
     /**
      * Gets the service container parameters.
      *
@@ -36,7 +36,7 @@ class ContainerBagInterface extends ContainerInterface.definition {
      *
      * @returns {*}
      */
-    unescapeValue(value) { }
+    unescapeValue(value) { }
 }
 
-export default getInterface(ContainerBagInterface);
+export default getInterface(ContainerBagInterface, ContainerInterface);

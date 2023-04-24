@@ -1,5 +1,4 @@
-require('../../index');
-const { expect } = require('chai');
+const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 
 function * doWork() {
     yield __jymfony.sleep(50);
@@ -8,38 +7,39 @@ function * doWork() {
 
 const Async = __jymfony.Async;
 
-describe('Async runner', function () {
-    it('run should return a promise', () => {
+export default class AsyncTest extends TestCase {
+    testRunShouldReturnAPromise() {
         const o = Async.run(function * () {
             yield doWork();
         });
 
-        return expect(o).to.be.instanceOf(Promise);
-    });
+        __self.assertIsPromise(o);
+    }
 
-    it('run should handle non-generator functions with return value', () => {
+    async testRunShouldHandleNonGeneratorFunctionsWithReturnValue() {
         const func = () => 'bar';
-        return Async.run(function * () {
+
+        await Async.run(function * () {
             const ret = yield func;
             const ret2 = yield func();
 
-            return expect(ret).to.be.equal('bar') &&
-                    expect(ret2).to.be.equal('bar');
+            __self.assertEquals('bar', ret);
+            __self.assertEquals('bar', ret2);
         });
-    });
+    }
 
-    it('run should handle non-generator functions with callback', () => {
+    async testRunShouldHandleNonGeneratorFunctionsWithCallback() {
         const func = cb => {
             cb(undefined, 47);
         };
 
-        return Async.run(function * () {
+        await Async.run(function * () {
             const ret = yield func;
-            return expect(ret).to.be.equal(47);
+            __self.assertEquals(47, ret);
         });
-    });
+    }
 
-    it('run should resolve array', () => {
+    async testRunShouldResolveArray() {
         const arr = [
             doWork,
             doWork(),
@@ -52,20 +52,20 @@ describe('Async runner', function () {
             () => 'baz',
         ];
 
-        return Async.run(function * () {
+        await Async.run(function * () {
             const values = yield arr;
 
-            expect(values).to.be.deep.equal([
+            __self.assertEquals([
                 'foo',
                 'foo',
                 'bar',
                 'foobar',
                 'baz',
-            ]);
+            ], values);
         });
-    });
+    }
 
-    it('run should resolve object', () => {
+    async testRunShouldResolveObject() {
         const arr = {
             work: doWork,
             work2: doWork(),
@@ -78,131 +78,115 @@ describe('Async runner', function () {
             baz: () => 'baz',
         };
 
-        return Async.run(function * () {
+        await Async.run(function * () {
             const values = yield arr;
 
-            expect(values).to.be.deep.equal({
+            __self.assertEquals({
                 work: 'foo',
                 work2: 'foo',
                 bar: 'bar',
                 foobar: 'foobar',
                 baz: 'baz',
-            });
+            }, values);
         });
-    });
+    }
 
-    it('run should execute a generator function', () => {
-        return Async.run(function * () {
+    async testRunShouldExecuteAGeneratorFunction() {
+        await Async.run(function * () {
             const a = yield doWork;
             const b = yield doWork;
 
-            expect(a).to.be.equal('foo');
-            expect(b).to.be.equal('foo');
+            __self.assertEquals('foo', a);
+            __self.assertEquals('foo', b);
 
             const res = yield [ doWork, doWork ];
-            expect(res).to.be.deep.equal([ 'foo', 'foo' ]);
+            __self.assertEquals([ 'foo', 'foo' ], res);
         });
-    });
+    }
 
-    it('run should pass arguments', () => {
-        return Async.run(function * (num, str, arr, obj, func) {
-            expect(47 === num).to.be.true;
-            expect('test' === str).to.be.true;
-            expect(arr).to.be.instanceOf(Array);
-            expect(obj).to.be.instanceOf(Object);
-            expect(func).to.be.instanceOf(Function);
+    async testRunShouldPassArguments() {
+        await Async.run(function * (num, str, arr, obj, func) {
+            __self.assertSame(47, num);
+            __self.assertSame('test', str);
+            __self.assertIsArray(arr);
+            __self.assertIsObject(obj);
+            __self.assertIsFunction(func);
 
             return '1';
         }, 47, 'test', [ 'red' ], {level: 47}, () => {});
-    });
+    }
 
-    it('run should reject an invalid value yielded', () => {
-        const p = Async.run(function * () {
+    async testRunShouldRejectAnInvalidValueYielded() {
+        this.expectException(TypeError);
+        await Async.run(function * () {
             yield Symbol('test');
         });
+    }
 
-        return p.then(() => {
-            throw new Error('FAIL');
-        }, err => {
-            expect(err).to.be.instanceOf(TypeError);
-        });
-    });
+    async testRunShouldRejectIfErrorIsThrownInAsyncFunc() {
+        this.expectException(Error);
+        this.expectExceptionMessage('TEST_ERROR');
 
-    it('run should reject if error is thrown in async func', () => {
-        const p = Async.run(function * () {
+        await Async.run(function * () {
             throw new Error('TEST_ERROR');
         });
+    }
 
-        return p.then(() => {
-            throw new Error('FAIL');
-        }, err => {
-            expect(err.message).to.be.equal('TEST_ERROR');
-        });
-    });
-
-    it('run should allow try..catch blocks around yield statements', () => {
-        return Async.run(function * () {
+    async testRunShouldAllowTryCatchBlocksAroundYieldStatements() {
+        this.expectNotToPerformAssertions();
+        await Async.run(function * () {
             try {
                 yield Symbol('test');
             } catch (e) { }
         });
-    });
+    }
 
-    it('run should de-nodeify callbacks', () => {
+    async testRunShouldDeNodeifyCallbacks() {
         const fn = (cb) => {
             cb(undefined, 'TEST');
         };
 
-        return Async.run(function * () {
+        const val = await Async.run(function * () {
             return yield fn;
-        }).then(val => {
-            expect(val).to.be.equal('TEST');
         });
-    });
 
-    it('run should throw if err is set', () => {
+        __self.assertEquals('TEST', val);
+    }
+
+    async testRunShouldThrowIfErrIsSet() {
         const fn = (cb) => {
             cb(new Error('foobar'), undefined);
         };
 
-        return Async.run(function * () {
-            return yield fn;
-        }).then(() => {
-            throw Error('FAIL');
-        }, err => {
-            expect(err.message).to.be.equal('foobar');
-        });
-    });
+        this.expectException(Error);
+        this.expectExceptionMessage('foobar');
 
-    it('run should resolve with multiple args', () => {
+        await Async.run(function * () {
+            return yield fn;
+        });
+    }
+
+    async testRunShouldResolveWithMultipleArgs() {
         const fn = (cb) => {
             cb(undefined, 'foo', 'bar', 'foobar');
         };
 
-        return Async.run(function * () {
+        const [ foo, bar, foobar ] = await Async.run(function * () {
             return yield fn;
-        }).then((vals) => {
-            const [ foo, bar, foobar ] = vals;
-            expect(foo).to.be.equal('foo');
-            expect(bar).to.be.equal('bar');
-            expect(foobar).to.be.equal('foobar');
         });
-    });
 
-    let asyncTest;
-    if (__jymfony.Platform.hasAsyncFunctionSupport()) {
-        // Need to use eval here, as a SyntaxError will be raised if
-        // Async/await support is disabled
-        eval(`asyncTest = () => {
-            let p = Promise.resolve('foobar');
-
-            return Async.run(async function (prom) {
-                return await prom;
-            }, p).then(val => {
-                expect(val).to.be.equal('foobar');
-            });
-        };`);
+        __self.assertEquals('foo', foo);
+        __self.assertEquals('bar', bar);
+        __self.assertEquals('foobar', foobar);
     }
 
-    it('run should execute an async function', asyncTest);
-});
+    async testRunShouldExecuteAnAsyncFunction() {
+        const p = Promise.resolve('foobar');
+        const val = await Async.run(async function (prom) {
+            const v = await prom;
+            return v;
+        }, p);
+
+        __self.assertEquals('foobar', val);
+    }
+}

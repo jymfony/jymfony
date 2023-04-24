@@ -9,7 +9,22 @@ Jymfony.Component.Console = {
     /**
      * @namespace
      */
+    Annotation: {},
+
+    /**
+     * @namespace
+     */
     Command: {},
+
+    /**
+     * @namespace
+     */
+    Completion: {
+        /**
+         * @namespace
+         */
+        Output: {},
+    },
 
     /**
      * @namespace

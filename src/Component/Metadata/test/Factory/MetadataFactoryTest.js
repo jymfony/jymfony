@@ -122,21 +122,4 @@ describe('[Metadata] MetadataFactory', function () {
 
         factory.getMetadataFor(Fixtures.SubclassForMetadata);
     });
-
-    // /**
-    //  * @test
-    //  */
-    // Public function get_metadata_for_should_not_merge_with_superclasses_if_fails()
-    // {
-    //     $this->loader->loadClassMetadata(Argument::type(ClassMetadataInterface::class))->willReturn(false);
-    //
-    //     $metadata = $this->prophesize(ClassMetadataInterface::class);
-    //
-    //     $metadata->merge(Argument::cetera())->shouldNotBeCalled();
-    //     $metadata->getReflectionClass()->willReturn(new \ReflectionClass($this));
-    //
-    //     $factory = new MockedClassMetadataFactory($this->loader->reveal());
-    //     $factory->mock = $metadata->reveal();
-    //     $factory->getMetadataFor($this);
-    // }
 });

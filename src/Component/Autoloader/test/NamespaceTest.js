@@ -203,10 +203,17 @@ describe('[Autoloader] Namespace', function () {
         const func = ns.FooClass;
 
         expect(func).to.be.instanceOf(Function);
-        expect(func[Symbol.reflection]).to.have.property('filename').that.equals('/var/node/foo_vendor/FooClass.js');
-        expect(func[Symbol.reflection]).to.have.property('fqcn').that.equals('Foo.FooClass');
-        expect(func[Symbol.reflection]).to.have.property('constructor');
-        expect(func[Symbol.reflection]).to.have.property('namespace');
+        const { Compiler } = require('@jymfony/compiler');
+        const metadata = Compiler.getReflectionData(func);
+
+        if ('\\' === path.sep) {
+            expect(metadata).to.have.property('filename').that.match(/\\var\\node\\foo_vendor\\FooClass\.js$/);
+        } else {
+            expect(metadata).to.have.property('filename').that.equals('/var/node/foo_vendor/FooClass.js');
+        }
+        expect(metadata).to.have.property('fqcn').that.equals('Foo.FooClass');
+        expect(metadata).to.have.property('constructor');
+        expect(metadata).to.have.property('namespace');
     });
 
     it('calls __construct on new if defined', () => {

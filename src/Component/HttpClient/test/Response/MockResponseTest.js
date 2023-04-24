@@ -1,10 +1,12 @@
-import { @dataProvider } from '@jymfony/decorators';
-
 const DecodingException = Jymfony.Contracts.HttpClient.Exception.DecodingException;
 const MockResponse = Jymfony.Component.HttpClient.Response.MockResponse;
 const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 
 export default class MockResponseTest extends TestCase {
+    get testCaseName() {
+        return '[HttpClient] ' + super.testCaseName;
+    }
+
     async testToArray() {
         const data = { color: 'orange', size: 42 };
         let response = new MockResponse(JSON.stringify(data), {
@@ -40,11 +42,12 @@ export default class MockResponseTest extends TestCase {
     }
 
     * toArrayErrors() {
+        const node19 = __jymfony.version_compare(process.versions.node, '19', '>=');
         const headers = [ 'Content-Type: application/json' ];
 
         yield [ '', headers, 'Response body is empty.' ];
-        yield [ 'not json', headers, 'Cannot decode content: Unexpected token o in JSON at position 1' ];
-        yield [ '[1,2}', headers, 'Cannot decode content: Unexpected token } in JSON at position 4' ];
+        yield [ 'not json', headers, node19 ? 'Cannot decode content: Unexpected token \'o\', "not json" is not valid JSON' : 'Cannot decode content: Unexpected token o in JSON at position 1' ];
+        yield [ '[1,2}', headers, node19 ? 'Cannot decode content: Expected \',\' or \']\' after array element in JSON at position 4' : 'Cannot decode content: Unexpected token } in JSON at position 4' ];
         yield [ '"not an array"', headers, 'JSON content was expected to decode to an array, "string" returned for "https://example.com/file.json".' ];
         yield [ '8', headers, 'JSON content was expected to decode to an array, "int" returned for "https://example.com/file.json".' ];
     }

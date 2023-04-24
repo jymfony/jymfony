@@ -1,5 +1,5 @@
 declare namespace Jymfony.Component.Debug {
-    import ErrorEnhancerInterface = Jymfony.Component.Debug.ErrorEnhancer.ErrorEnhancerInterface;
+    import ErrorEnhancerInterface = Jymfony.Contracts.Debug.ErrorEnhancer.ErrorEnhancerInterface;
     import LoggerInterface = Jymfony.Contracts.Logger.LoggerInterface;
 
     export class ErrorHandler {
@@ -41,8 +41,6 @@ declare namespace Jymfony.Component.Debug {
 
         /**
          * Override this method if you want to define more error enhancers.
-         *
-         * @returns {Jymfony.Component.Debug.ErrorEnhancer.ErrorEnhancerInterface[]}
          */
         public readonly _errorEnhancers: ErrorEnhancerInterface[];
 

@@ -50,31 +50,58 @@ export default class ArgvInput extends Input {
         this._parsed = [ ...this._tokens ];
 
         while (token = this._parsed.shift()) {
-            if (parseOptions && '' == token) {
-                this._parseArgument(token);
-            } else if (parseOptions && '--' == token) {
-                parseOptions = false;
-            } else if (parseOptions && 0 === token.indexOf('--')) {
-                this._parseLongOption(token);
-            } else if (parseOptions && '-' === token.charAt(0) && '-' !== token) {
-                this._parseShortOption(token);
-            } else {
-                this._parseArgument(token);
-            }
+            parseOptions = this._parseToken(token, parseOptions);
         }
+    }
+
+    _parseToken(token, parseOptions) {
+        if (parseOptions && '' == token) {
+            this._parseArgument(token);
+        } else if (parseOptions && '--' == token) {
+            return false;
+        } else if (parseOptions && 0 === token.indexOf('--')) {
+            this._parseLongOption(token);
+        } else if (parseOptions && '-' === token.charAt(0) && '-' !== token) {
+            this._parseShortOption(token);
+        } else {
+            this._parseArgument(token);
+        }
+
+        return parseOptions;
     }
 
     /**
      * @inheritdoc
      */
     get firstArgument() {
-        for (const token of this._tokens) {
+        let isOption = false;
+        for (const [ i, token ] of __jymfony.getEntries(this._tokens)) {
             if (token && '-' === token[0]) {
+                if (token.includes('=') || undefined === this._tokens[i + 1]) {
+                    continue;
+                }
+
+                // If it's a long option, consider that everything after "--" is the option name.
+                // Otherwise, use the last char (if it's a short option set, only the last one can take a value with space separator)
+                let name = '-' === token[1] ? token.substring(2) : token.substring(token.length - 1);
+                if (undefined === this._options[name] && !this._definition.hasShortcut(name)) {
+                    // Noop
+                } else if ((undefined !== this._options[name] || undefined !== this._options[name = this._definition.shortcutToName(name)]) && this._tokens[i + 1] === this._options[name]) {
+                    isOption = true;
+                }
+
+                continue;
+            }
+
+            if (isOption) {
+                isOption = false;
                 continue;
             }
 
             return token;
         }
+
+        return undefined;
     }
 
     /**
@@ -219,8 +246,19 @@ export default class ArgvInput extends Input {
      * @private
      */
     _addLongOption(name, value) {
-        if (! this._definition.hasOption(name)) {
-            throw new InvalidOptionException(`The "--${name}" option does not exist.`);
+        if (!this._definition.hasOption(name)) {
+            if (!this._definition.hasNegation(name)) {
+                throw new RuntimeException(__jymfony.sprintf('The "--%s" option does not exist.', name));
+            }
+
+            const optionName = this._definition.negationToName(name);
+            if (null !== value) {
+                throw new RuntimeException(__jymfony.sprintf('The "--%s" option does not accept a value.', name));
+            }
+
+            this._options[optionName] = false;
+
+            return;
         }
 
         const option = this._definition.getOption(name);
@@ -258,6 +296,10 @@ export default class ArgvInput extends Input {
         }
 
         if (option.isArray()) {
+            if (undefined === this._options[name]) {
+                this._options[name] = [];
+            }
+
             this._options[name].push(value);
         } else {
             this._options[name] = value;

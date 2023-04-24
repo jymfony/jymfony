@@ -1,4 +1,3 @@
-import { @dataProvider } from '@jymfony/decorators';
 import { expect } from 'chai';
 
 const ConstraintDefinitionException = Jymfony.Component.Validator.Exception.ConstraintDefinitionException;

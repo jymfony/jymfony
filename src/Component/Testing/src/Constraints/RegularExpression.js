@@ -27,7 +27,7 @@ export default class RegularExpression extends Constraint {
      * @inheritdoc
      */
     toString() {
-        return __jymfony.sprintf('matches pattern "%s"', this._regex.source);
+        return __jymfony.sprintf('matches pattern "%s"', this._regex.toString());
     }
 
     /**

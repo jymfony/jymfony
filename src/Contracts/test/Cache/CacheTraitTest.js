@@ -4,6 +4,10 @@ const CacheTestPool = Jymfony.Contracts.Fixtures.CacheTestPool;
 const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 
 export default class CacheTraitTest extends TestCase {
+    get testCaseName() {
+        return '[Contracts] ' + super.testCaseName;
+    }
+
     async testSave() {
         const item = this.prophesize(CacheItemInterface);
         item.set(Argument.any()).willReturn(item);

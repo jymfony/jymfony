@@ -41,4 +41,24 @@ container.parameterBag.add({
     'foo': 'bar',
 });
 
+container.register('foo.mbaz.simple', '%baz.class%')
+    .setModule('%baz.class%')
+    .setPublic(true);
+container.register('foo.mbaz.property', '%baz.class%')
+    .setModule('%baz.class%', 'getInstance')
+    .setPublic(true);
+
+container.register('foo.mbaz.simple.inl', '%baz.class%')
+    .setModule('%baz.class%')
+    .setPublic(false);
+container.register('foo.mbaz.property.inl', '%baz.class%')
+    .setModule('%baz.class%', 'getInstance')
+    .setPublic(false);
+container.register('foo.mbaz', '%baz.class%')
+    .setArguments([
+        new Reference('foo.mbaz.simple.inl'),
+        new Reference('foo.mbaz.property.inl')
+    ])
+    .setPublic(true);
+
 module.exports = container;

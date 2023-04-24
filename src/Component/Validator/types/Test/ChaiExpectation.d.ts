@@ -28,15 +28,18 @@ declare namespace Chai {
         (violations?: ViolationPrototype[] | ConstraintViolationListInterface): Assertion;
     }
 
-    interface Assertion extends LanguageChains, NumericComparison, TypeComparison {
-        validated: Assertion;
-        by<T extends AnyConstructorRaw<ConstraintValidator>>(validator: T, options?: ValidatorOptions): Assertion;
-        by(validator: ConstraintValidator, options?: ValidatorOptions): Assertion;
-        constraint<T extends AnyConstructorRaw<ConstraintValidator>>(constraint: T): Assertion;
-        constraint(constraint: Constraint): Assertion;
-        no: Assertion;
+    interface ValidationAssertion extends Assertion {
+        by<T extends AnyConstructorRaw<ConstraintValidator>>(validator: T, options?: ValidatorOptions): ValidationAssertion;
+        by(validator: ConstraintValidator, options?: ValidatorOptions): ValidationAssertion;
+        constraint<T extends AnyConstructorRaw<ConstraintValidator>>(constraint: T): ValidationAssertion;
+        constraint(constraint: Constraint): ValidationAssertion;
+        no: ValidationAssertion;
         raise: RaiseCall;
         violations: RaiseCall;
+    }
+
+    interface Assertion extends LanguageChains, NumericComparison, TypeComparison {
+        validated: ValidationAssertion;
     }
 
     interface Assert {

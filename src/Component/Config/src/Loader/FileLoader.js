@@ -18,9 +18,10 @@ export default class FileLoader extends Loader {
      * Constructor
      *
      * @param {Jymfony.Component.Config.FileLocatorInterface} locator
+     * @param {string | null} [env = null]
      */
-    __construct(locator) {
-        super.__construct();
+    __construct(locator, env = null) {
+        super.__construct(env);
 
         /**
          * @type {Jymfony.Component.Config.FileLocatorInterface}
@@ -110,12 +111,12 @@ export default class FileLoader extends Loader {
         if (pattern.length === (i = __jymfony.strcspn(pattern, '*?{['))) {
             prefix = pattern;
             pattern = '';
-        } else if (0 === i || -1 === pattern.substr(0, i).indexOf('/')) {
+        } else if (0 === i || -1 === pattern.substring(0, i).indexOf('/')) {
             prefix = '.';
             pattern = '/'+pattern;
         } else {
-            prefix = dirname(pattern.substr(0, 1 + i));
-            pattern = pattern.substr(prefix.length);
+            prefix = dirname(pattern.substring(0, 1 + i));
+            pattern = pattern.substring(prefix.length);
         }
 
         try {

@@ -1,5 +1,4 @@
-require('../../lib/Object/clone');
-const { expect } = require('chai');
+const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 const sym = Symbol('test');
 
 class GrandParent {
@@ -20,12 +19,12 @@ class Son extends mix(Parent, ISon) {
     }
 }
 
-describe('Keys', function () {
-    it('keys should work', () => {
+export default class KeysTest extends TestCase {
+    testKeysShouldWork() {
         const son1 = new Son();
         const son2 = __jymfony.clone(son1);
 
-        expect(__jymfony.keys(son1)).to.be.deep.equal([ 'foo', 'foobar', sym ]);
-        expect(__jymfony.keys(son2)).to.be.deep.equal([ 'foo', 'foobar', sym ]);
-    });
-});
+        __self.assertEquals([ 'foo', 'foobar', sym ], __jymfony.keys(son1));
+        __self.assertEquals([ 'foo', 'foobar', sym ], __jymfony.keys(son2));
+    }
+}

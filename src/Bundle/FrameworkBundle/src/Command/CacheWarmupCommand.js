@@ -1,3 +1,4 @@
+const AsCommand = Jymfony.Component.Console.Annotation.AsCommand;
 const Command = Jymfony.Component.Console.Command.Command;
 const InputOption = Jymfony.Component.Console.Input.InputOption;
 const JymfonyStyle = Jymfony.Component.Console.Style.JymfonyStyle;
@@ -8,14 +9,9 @@ const JymfonyStyle = Jymfony.Component.Console.Style.JymfonyStyle;
  * @final
  * @memberOf Jymfony.Bundle.FrameworkBundle.Command
  */
-export default class CacheWarmupCommand extends Command {
-    /**
-     * @inheritDoc
-     */
-    static get defaultName() {
-        return 'cache:warmup';
-    }
-
+export default
+@AsCommand({ name: 'cache:warmup', description: 'Warms up an empty cache' })
+class CacheWarmupCommand extends Command {
     /**
      * Constructor.
      *
@@ -36,8 +32,6 @@ export default class CacheWarmupCommand extends Command {
      * @inheritdoc
      */
     configure() {
-        this.name = 'cache:warmup';
-        this.description = 'Warms up an empty cache';
         this.help = `The <info>%command.name%</info> command warms up the cache.
 
 Before running this command, the cache must be empty.

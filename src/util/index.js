@@ -61,7 +61,6 @@ require('./lib/Regex/named');
 require('./lib/mixins');
 
 require('./lib/Async/Async');
-require('./lib/Async/ClsTrait');
 require('./lib/Async/ForAwait');
 require('./lib/Async/Mutex');
 require('./lib/Async/sleep');

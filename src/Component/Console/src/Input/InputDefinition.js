@@ -31,13 +31,20 @@ export default class InputDefinition {
         this._options = {};
 
         /**
+         * The negations options array
+         *
+         * @type {Object.<string, string>}
+         * @private
+         */
+        this._negations = {};
+
+        /**
          * Shortcut to name array
          *
          * @type {Object.<string, string>}
          * @private
          */
         this._shortcuts = {};
-
 
         this.setDefinition(definition);
     }
@@ -195,6 +202,7 @@ export default class InputDefinition {
     setOptions(options) {
         this._options = {};
         this._shortcuts = {};
+        this._negations = {};
 
         this.addOptions(options);
     }
@@ -222,6 +230,9 @@ export default class InputDefinition {
         if (this._options[name] && ! this._options[name].equals(option)) {
             throw new LogicException(`An option named "${name}" already exists.`);
         }
+        if (undefined !== this._negations[name]) {
+            throw new LogicException(`An option named "${name}" already exists.`);
+        }
 
         let shortcuts;
         if (option.getShortcut()) {
@@ -238,6 +249,15 @@ export default class InputDefinition {
             for (const shortcut of shortcuts) {
                 this._shortcuts[shortcut] = name;
             }
+        }
+
+        if (option.isNegatable()) {
+            const negatedName = 'no-' + option.getName();
+            if (!! this._options[negatedName]) {
+                throw new LogicException(__jymfony.sprintf('An option named "%s" already exists.', negatedName));
+            }
+
+            this._negations[negatedName] = option.getName();
         }
 
         return this;
@@ -286,16 +306,55 @@ export default class InputDefinition {
     }
 
     /**
+     * Returns true if an InputOption object exists by negated name.
+     *
+     * @param {string} name
+     */
+    hasNegation(name) {
+        return undefined !== this._negations[name];
+    }
+
+    /**
      * @param {string} shortcut
      *
      * @returns {Jymfony.Component.Console.Input.InputOption}
      */
     getOptionForShortcut(shortcut) {
-        if (! this.hasShortcut(shortcut)) {
-            throw new InvalidArgumentException(`Shortcut "${name}" does not exists`);
+        return this.getOption(this.shortcutToName(shortcut));
+    }
+
+    /**
+     * Returns the InputOption name given a shortcut.
+     *
+     * @param {string} shortcut
+     *
+     * @throws {InvalidArgumentException} When option given does not exist
+     *
+     * @internal
+     */
+    shortcutToName(shortcut) {
+        if (undefined === this._shortcuts[shortcut]) {
+            throw new InvalidArgumentException(__jymfony.sprintf('The "-%s" option does not exist.', shortcut));
         }
 
-        return this._options[this._shortcuts[shortcut]];
+        return this._shortcuts[shortcut];
+    }
+
+    /**
+     * Returns the InputOption name given a negation.
+     *
+     * @param {string} negation
+     *
+     * @throws {InvalidArgumentException} When option given does not exist
+     *
+     * @internal
+     */
+    negationToName(negation) {
+        if (undefined === this._negations[negation]) {
+            throw new InvalidArgumentException(__jymfony.sprintf('The "--%s" option does not exist.', negation));
+        }
+
+        return this._negations[negation];
     }
 
     /**
@@ -337,7 +396,8 @@ export default class InputDefinition {
                 }
 
                 const shortcut = option.getShortcut() ? __jymfony.sprintf('-%s|', option.getShortcut()) : '';
-                elements.push(__jymfony.sprintf('[%s--%s%s]', shortcut, option.getName(), value));
+                const negation = option.isNegatable() ? __jymfony.sprintf('|--no-%s', option.getName()) : '';
+                elements.push(__jymfony.sprintf('[%s--%s%s%s]', shortcut, option.getName(), value, negation));
             }
         }
 
@@ -345,21 +405,21 @@ export default class InputDefinition {
             elements.push('[--]');
         }
 
+        let tail = '';
         for (const argument of this.getArguments()) {
             let element = '<' + argument.getName() + '>';
-            if (! argument.isRequired()) {
-                element = '[' + element + ']';
-            } else if (argument.isArray()) {
-                element = element + ' (' + element + ')';
-            }
-
             if (argument.isArray()) {
                 element += '...';
+            }
+
+            if (! argument.isRequired()) {
+                element = '[' + element;
+                tail += ']';
             }
 
             elements.push(element);
         }
 
-        return elements.join(' ');
+        return elements.join(' ') + tail;
     }
 }

@@ -1,7 +1,10 @@
 import { EOL } from 'os';
 
 const AssertionFailedException = Jymfony.Component.Testing.Framework.Exception.AssertionFailedException;
+const Count = Jymfony.Component.Testing.Constraints.Count;
 const GreaterThan = Jymfony.Component.Testing.Constraints.GreaterThan;
+const HasKey = Jymfony.Component.Testing.Constraints.HasKey;
+const InvalidArgumentException = Jymfony.Component.Testing.Exception.InvalidArgumentException;
 const IsEmpty = Jymfony.Component.Testing.Constraints.IsEmpty;
 const IsEqual = Jymfony.Component.Testing.Constraints.IsEqual;
 const IsFalse = Jymfony.Component.Testing.Constraints.IsFalse;
@@ -13,8 +16,10 @@ const IsType = Jymfony.Component.Testing.Constraints.IsType;
 const IsUndefined = Jymfony.Component.Testing.Constraints.IsUndefined;
 const LessThan = Jymfony.Component.Testing.Constraints.LessThan;
 const LogicalNot = Jymfony.Component.Testing.Constraints.LogicalNot;
+const LogicalOr = Jymfony.Component.Testing.Constraints.LogicalOr;
 const RegularExpression = Jymfony.Component.Testing.Constraints.RegularExpression;
 const StringContains = Jymfony.Component.Testing.Constraints.StringContains;
+const StringFormat = Jymfony.Component.Testing.Constraints.StringFormat;
 const SkippedTestException = Jymfony.Component.Testing.Framework.Exception.SkippedTestException;
 const SyntheticSkippedException = Jymfony.Component.Testing.Framework.Exception.SyntheticSkippedException;
 
@@ -52,12 +57,84 @@ const detectLocationHint = (message) => {
  */
 export default class Assert {
     /**
+     * Asserts that an object has a specified key.
+     *
+     * @param {*} key
+     * @param {*} object
+     * @param {string} [message = '']
+     *
+     * @throws {Jymfony.Component.Testing.Exception.InvalidArgumentException}
+     * @throws {Jymfony.Component.Testing.Exception.ExpectationFailedException}
+     */
+    static assertHasKey(key, object, message = '') {
+        this.assertThat(object, new HasKey(key), message);
+    }
+
+    /**
+     * Asserts the number of elements of an object.
+     *
+     * @param {int} expectedCount
+     * @param {Iterator | *[] | Generator | Map | Set | Object} haystack
+     * @param {string} message
+     *
+     * @throws {Jymfony.Component.Testing.Exception.InvalidArgumentException}
+     * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+     */
+    static assertCount(expectedCount, haystack, message = '') {
+        if (isArray(haystack) || isObjectLiteral(haystack) ||
+            haystack instanceof Map || haystack instanceof Set ||
+            undefined !== haystack[Symbol.iterator] || isFunction(haystack.next)) {
+            this.assertThat(haystack, new Count(expectedCount), message);
+        } else {
+            throw new InvalidArgumentException(__jymfony.sprintf('Argument #2 of assertCount must be countable or iterable, %s given.', __jymfony.get_debug_type(haystack)));
+        }
+    }
+
+    /**
+     * Asserts the number of elements of an object is not equals to expected.
+     *
+     * @param {int} expectedCount
+     * @param {Iterator | *[] | Generator | Map | Set | Object} haystack
+     * @param {string} message
+     *
+     * @throws {Jymfony.Component.Testing.Exception.InvalidArgumentException}
+     * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+     */
+    static assertNotCount(expectedCount, haystack, message = '') {
+        if (isArray(haystack) || isObjectLiteral(haystack) ||
+            haystack instanceof Map || haystack instanceof Set ||
+            undefined !== haystack[Symbol.iterator] || isFunction(haystack.next)) {
+            this.assertThat(haystack, this.logicalNot(new Count(expectedCount)), message);
+        } else {
+            throw new InvalidArgumentException(__jymfony.sprintf('Argument #2 of assertCount must be countable or iterable, %s given.', __jymfony.get_debug_type(haystack)));
+        }
+    }
+
+    /**
      * Asserts that two variables are equal.
      *
      * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
      */
     static assertEquals(expected, actual, message = '') {
         this.assertThat(actual, new IsEqual(expected), message);
+    }
+
+    /**
+     * Asserts that two variables are not equal.
+     *
+     * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+     */
+    static assertNotEquals(expected, actual, message = '') {
+        this.assertThat(actual, this.logicalNot(new IsEqual(expected)), message);
+    }
+
+    /**
+     * Asserts that a variable is empty.
+     *
+     * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+     */
+    static assertEmpty(actual, message = '') {
+        this.assertThat(actual, this.isEmpty(), message);
     }
 
     /**
@@ -78,6 +155,17 @@ export default class Assert {
      */
     static assertSame(expected, actual, message = '') {
         this.assertThat(actual, new IsIdentical(expected), message);
+    }
+
+    /**
+     * Asserts that two variables have not the same type and value.
+     * Used on objects, it asserts that two variables reference
+     * different objects.
+     *
+     * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+     */
+    static assertNotSame(expected, actual, message = '') {
+        this.assertThat(actual, this.logicalNot(new IsIdentical(expected)), message);
     }
 
     /**
@@ -144,6 +232,15 @@ export default class Assert {
     }
 
     /**
+     * Asserts that a string matches a given format.
+     *
+     * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+     */
+    static assertStringMatchesFormat(format, string, message = '') {
+        this.assertThat(string, new StringFormat(format), message);
+    }
+
+    /**
      * Asserts that a variable is undefined.
      *
      * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
@@ -162,6 +259,15 @@ export default class Assert {
     }
 
     /**
+     * Asserts that a value is greater than or equal to another value.
+     *
+     * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+     */
+    static assertGreaterThanOrEqual(expected, actual, message = '') {
+        this.assertThat(actual, this.greaterThanOrEqual(expected), message);
+    }
+
+    /**
      * Asserts that a value is less than another value.
      *
      * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
@@ -171,12 +277,30 @@ export default class Assert {
     }
 
     /**
+     * Asserts that a value is less than or equal to another value.
+     *
+     * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+     */
+    static assertLessThanOrEqual(expected, actual, message = '') {
+        this.assertThat(actual, this.lessThanOrEqual(expected), message);
+    }
+
+    /**
      * Asserts that a string (needle) is contained in another string (haystack).
      *
      * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
      */
     static assertStringContainsString(needle, haystack, message = '') {
         this.assertThat(haystack, new StringContains(needle, false), message);
+    }
+
+    /**
+     * Asserts that a string (needle) is NOT contained in another string (haystack).
+     *
+     * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+     */
+    static assertStringNotContainsString(needle, haystack, message = '') {
+        this.assertThat(haystack, this.logicalNot(new StringContains(needle, false)), message);
     }
 
     /**
@@ -328,6 +452,16 @@ export default class Assert {
     }
 
     /**
+     * Asserts that a variable is a promise.
+     *
+     * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+     * @throws {InvalidArgumentException}
+     */
+    static assertIsPromise(actual, message = '') {
+        __self.assertThat(actual, new IsType(IsType.TYPE_PROMISE), message);
+    }
+
+    /**
      * Evaluates a Constraint matcher object.
      *
      * @param {*} value
@@ -341,6 +475,10 @@ export default class Assert {
         constraint.evaluate(value, message);
     }
 
+    static logicalOr(...constraints) {
+        return LogicalOr.fromConstraints(...constraints);
+    }
+
     static logicalNot(constraint) {
         return new LogicalNot(constraint);
     }
@@ -349,8 +487,22 @@ export default class Assert {
         return new LessThan(value);
     }
 
+    static lessThanOrEqual(value) {
+        return this.logicalOr(
+            new IsEqual(value),
+            new LessThan(value)
+        );
+    }
+
     static greaterThan(value) {
         return new GreaterThan(value);
+    }
+
+    static greaterThanOrEqual(value) {
+        return this.logicalOr(
+            new IsEqual(value),
+            new GreaterThan(value)
+        );
     }
 
     static isEmpty() {
@@ -421,15 +573,12 @@ export default class Assert {
     }
 }
 
-const reflectionClass = new ReflectionClass(Assert);
 
-/**
- * @type {ReflectionMethod[]}
- */
-const assertMethods = reflectionClass.methods
-    .map(reflectionClass.getMethod.bind(reflectionClass))
-    .filter(method => method.reflectionClass.getConstructor() === reflectionClass.getConstructor() && method.isStatic);
+for (const m of Object.getOwnPropertyNames(Assert)) {
+    const method = Assert[m];
+    if (!isFunction(method)) {
+        continue;
+    }
 
-for (const method of assertMethods) {
-    Assert.prototype[method.name] = Assert[method.name];
+    Assert.prototype[m] = method;
 }
