@@ -2,94 +2,99 @@ const FrameworkExtension = Jymfony.Bundle.FrameworkBundle.DependencyInjection.Fr
 const ContainerBuilder = Jymfony.Component.DependencyInjection.ContainerBuilder;
 const ParameterBag = Jymfony.Component.DependencyInjection.ParameterBag.ParameterBag;
 const JsDumper = Jymfony.Component.DependencyInjection.Dumper.JsDumper;
-const { expect } = require('chai');
+const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 
-describe('[FrameworkBundle] FrameworkExtension', function () {
-    beforeEach(() => {
-        this.container = new ContainerBuilder(new ParameterBag({
+export default class FrameworkExtensionTest extends TestCase {
+    _container;
+    _extension;
+
+    get testCaseName() {
+        return '[FrameworkExtension] ' + super.testCaseName;
+    }
+
+    beforeEach() {
+        this._container = new ContainerBuilder(new ParameterBag({
             'kernel.debug': true,
             'kernel.root_dir': __dirname,
             'kernel.project_dir': __dirname,
             'kernel.cache_dir': __dirname + '/cache',
             'kernel.bundles_metadata': {},
         }));
-        this.extension = new FrameworkExtension();
-    });
+        this._extension = new FrameworkExtension();
+    }
 
-    afterEach(() => {
-        this.container.compile();
+    afterEach() {
+        this._container.compile();
 
-        const dumper = new JsDumper(this.container);
+        const dumper = new JsDumper(this._container);
         dumper.dump();
-    });
+    }
 
-    it('should register console configuration', () => {
-        this.extension.load([
+    testShouldRegisterConsoleConfiguration() {
+        this._extension.load([
             { console: true },
-        ], this.container);
+        ], this._container);
 
-        expect(this.container.hasAlias('console.application')).to.be.true;
-        expect(this.container.hasDefinition(Jymfony.Bundle.FrameworkBundle.Console.Application)).to.be.true;
-        expect(this.container.hasDefinition('framework.cache_clear_command')).to.be.true;
-    });
+        __self.assertTrue(this._container.hasAlias('console.application'));
+        __self.assertTrue(this._container.hasDefinition(Jymfony.Bundle.FrameworkBundle.Console.Application));
+        __self.assertTrue(this._container.hasDefinition('framework.cache_clear_command'));
+    }
 
-    it('should register debug configuration', () => {
-        this.extension.load([
+    testShouldRegisterDebugConfiguration() {
+        this._extension.load([
             { debug: true },
-        ], this.container);
+        ], this._container);
 
-        expect(this.container.hasDefinition('var_dumper.cloner')).to.be.true;
-    });
+        __self.assertTrue(this._container.hasDefinition('var_dumper.cloner'));
+    }
 
-    it('should register logger configuration', () => {
-        this.extension.load([ {
+    testShouldRegisterLoggerConfiguration() {
+        this._extension.load([ {
             logger: {
                 handlers: {
                     console: { type: 'console', bubble: false },
                 },
             },
-        } ], this.container);
+        } ], this._container);
 
-        expect(this.container.hasDefinition('jymfony.logger')).to.be.true;
-        expect(this.container.hasDefinition('jymfony.logger.handler.console')).to.be.true;
-    });
+        __self.assertTrue(this._container.hasDefinition('jymfony.logger'));
+        __self.assertTrue(this._container.hasDefinition('jymfony.logger.handler.console'));
+    }
 
-    it('should register http server configuration', () => {
-        this.extension.load([ {
+    testShouldRegisterHttpServerConfiguration() {
+        this._extension.load([ {
             http_server: {
                 enabled: true,
             },
-        } ], this.container);
+        } ], this._container);
 
-        expect(this.container.hasDefinition(Jymfony.Component.HttpServer.HttpServer)).to.be.true;
-    });
+        __self.assertTrue(this._container.hasDefinition(Jymfony.Component.HttpServer.HttpServer));
+    }
 
-    it('should set http request timeout', () => {
-        this.extension.load([ {
+    testShouldSetHttpServerRequestTimeout() {
+        this._extension.load([ {
             http_server: {
                 enabled: true,
                 request_timeout: 30000,
             },
-        } ], this.container);
+        } ], this._container);
 
-        expect(this.container.hasDefinition(Jymfony.Component.HttpServer.HttpServer)).to.be.true;
-        expect(
-            this.container.getDefinition(Jymfony.Component.HttpServer.HttpServer).getProperties()
-        ).to.be.deep.equal({ requestTimeoutMs: 30000 });
-    });
+        __self.assertTrue(this._container.hasDefinition(Jymfony.Component.HttpServer.HttpServer));
+        __self.assertEquals({ requestTimeoutMs: 30000 }, this._container.getDefinition(Jymfony.Component.HttpServer.HttpServer).getProperties());
+    }
 
-    it('should set http key and certificate', __jymfony.version_compare(process.versions.node, '10.10.0', '>=') ? () => {
-        this.extension.load([ {
+    testShouldSetHttpKeyAndCertificate() {
+        this._extension.load([ {
             http_server: {
                 enabled: true,
                 key: '/path/to/file.key',
                 certificate: '/path/to/certificate.pem',
             },
-        } ], this.container);
+        } ], this._container);
 
-        expect(this.container.hasDefinition(Jymfony.Component.HttpServer.HttpServer)).to.be.true;
+        __self.assertTrue(this._container.hasDefinition(Jymfony.Component.HttpServer.HttpServer));
 
-        const def = this.container.getDefinition(Jymfony.Component.HttpServer.HttpServer);
-        expect(def.getClass()).to.be.equal('Jymfony.Component.HttpServer.Http2.HttpServer');
-    } : undefined);
-});
+        const def = this._container.getDefinition(Jymfony.Component.HttpServer.HttpServer);
+        __self.assertEquals('Jymfony.Component.HttpServer.Http2.HttpServer', def.getClass());
+    }
+}

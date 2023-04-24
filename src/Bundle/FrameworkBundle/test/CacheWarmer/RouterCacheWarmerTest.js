@@ -1,50 +1,41 @@
-const RouterCacheWarmer = Jymfony.Bundle.FrameworkBundle.CacheWarmer.RouterCacheWarmer;
 const ContainerInterface = Jymfony.Contracts.DependencyInjection.ContainerInterface;
-const Prophet = Jymfony.Component.Testing.Prophet;
-const { expect } = require('chai');
+const RouterCacheWarmer = Jymfony.Bundle.FrameworkBundle.CacheWarmer.RouterCacheWarmer;
+const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 
-describe('[FrameworkBundle] RouterCacheWarmer', function () {
-    beforeEach(() => {
-        /**
-         * @type {Jymfony.Component.Testing.Prophet}
-         *
-         * @private
-         */
-        this._prophet = new Prophet();
+export default class RouterCacheWarmerTest extends TestCase {
+    /**
+     * @type {Jymfony.Contracts.DependencyInjection.ContainerInterface|Jymfony.Component.Testing.Prophecy.ObjectProphecy}
+     *
+     * @private
+     */
+    _container;
 
-        /**
-         * @type {Jymfony.Contracts.DependencyInjection.ContainerInterface|Jymfony.Component.Testing.Prophecy.ObjectProphecy}
-         *
-         * @private
-         */
-        this._container = this._prophet.prophesize(ContainerInterface);
+    /**
+     * @type {Jymfony.Bundle.FrameworkBundle.CacheWarmer.RouterCacheWarmer}
+     *
+     * @private
+     */
+    _warmer;
 
-        /**
-         * @type {Jymfony.Bundle.FrameworkBundle.CacheWarmer.RouterCacheWarmer}
-         *
-         * @private
-         */
+    get testCaseName() {
+        return '[FrameworkBundle] ' + super.testCaseName;
+    }
+
+    beforeEach() {
+        this._container = this.prophesize(ContainerInterface);
         this._warmer = new RouterCacheWarmer(this._container.reveal());
-    });
+    }
 
-    afterEach(() => {
-        if ('failed' === this.ctx.currentTest.state) {
-            return;
-        }
+    testShouldBeOptional() {
+        __self.assertTrue(this._warmer.optional);
+    }
 
-        this._prophet.checkPredictions();
-    });
-
-    it('should be optional', () => {
-        expect(this._warmer.optional).to.be.true;
-    });
-
-    it('should warmup the router cache', () => {
-        const router = this._prophet.prophesize(Jymfony.Component.Routing.RouterInterface);
+    testShouldWarmUpTheRouterCache() {
+        const router = this.prophesize(Jymfony.Component.Routing.RouterInterface);
         this._container.get('router').willReturn(router);
 
         router.warmUp('/var/cache').shouldBeCalled();
 
         this._warmer.warmUp('/var/cache');
-    });
-});
+    }
+}

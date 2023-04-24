@@ -41,7 +41,6 @@
     "@jymfony/templating": "https://github.com/jymfony/templating.git",
     "@jymfony/testing": "https://github.com/jymfony/testing.git",
     "@jymfony/var-dumper": "https://github.com/jymfony/var-dumper.git",
-    "chai": "^4.2",
     "mocha": "^10.2"
   },
   "config": {

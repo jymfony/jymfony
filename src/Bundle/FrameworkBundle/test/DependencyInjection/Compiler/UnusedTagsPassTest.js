@@ -1,9 +1,9 @@
 const ContainerBuilder = Jymfony.Component.DependencyInjection.ContainerBuilder;
 const UnusedTagsPass = Jymfony.Bundle.FrameworkBundle.DependencyInjection.Compiler.UnusedTagsPass;
-const { expect } = require('chai');
+const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 
-describe('[FrameworkBundle] UnusedTagsPass', function () {
-    it('should push logs into container builder', () => {
+export default class UnusedTagsPassTest extends TestCase {
+    testProcess() {
         const pass = new UnusedTagsPass();
         const container = new ContainerBuilder();
 
@@ -12,9 +12,9 @@ describe('[FrameworkBundle] UnusedTagsPass', function () {
 
         pass.process(container);
 
-        expect(container.getCompiler().getLogs()).to.be.deep.equal([ __jymfony.sprintf(
+        __self.assertEquals([ __jymfony.sprintf(
             '%s: Tag "kenrel.event_subscriber" was defined on service(s) "foo", "bar", but was never used. Did you mean "kernel.event_subscriber"?',
             ReflectionClass.getClassName(UnusedTagsPass)
-        ) ]);
-    });
-});
+        ) ], container.getCompiler().getLogs());
+    }
+}

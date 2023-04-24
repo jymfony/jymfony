@@ -21,12 +21,12 @@ const UrlGeneratorInterface = Jymfony.Component.Routing.Generator.UrlGeneratorIn
 const { basename } = require('path');
 
 export default class AbstractControllerTest extends TestCase {
-    createController() {
-        return new TestAbstractController();
+    get testCaseName() {
+        return '[FrameworkBundle] ' + super.testCaseName;
     }
 
-    get defaultTimeout() {
-        return Infinity;
+    createController() {
+        return new TestAbstractController();
     }
 
     testShouldGenerateUrl() {
