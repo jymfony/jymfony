@@ -1,6 +1,6 @@
 {
   "name": "@jymfony/autoloader",
-  "version": "0.1.0-alpha.30",
+  "version": "0.1.0-alpha.31",
   "description": "Jymfony Autoloader",
   "main": "index.js",
   "typings": "types/index.d.ts",
@@ -21,8 +21,8 @@
     "@jymfony/compiler": "0.4"
   },
   "dependencies": {
-    "@jymfony/datastructure": "0.1.0-alpha.30",
-    "@jymfony/util": "0.1.0-alpha.30"
+    "@jymfony/datastructure": "0.1.0-alpha.31",
+    "@jymfony/util": "0.1.0-alpha.31"
   },
   "devDependencies": {
     "chai": "^4.2",
