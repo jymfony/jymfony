@@ -9,11 +9,10 @@ jobs:
                 node_version:
                     - 12
                     - 14
-                    - 15
                     - 16
-                    - 17
                     - 18
                     - 19
+                    - 20
 
         name: Node ${{ matrix.node_version }} - ${{ matrix.architecture }} on Linux
 

@@ -12,6 +12,7 @@ jobs:
                     - 14
                     - 16
                     - 18
+                    - 20
 
         name: Node ${{ matrix.node_version }} - ${{ matrix.architecture }} on Linux
 
