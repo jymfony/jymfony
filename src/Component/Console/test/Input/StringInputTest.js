@@ -4,6 +4,10 @@ const StringInput = Jymfony.Component.Console.Input.StringInput;
 const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 
 export default class StringInputTest extends TestCase {
+    get testCaseName() {
+        return '[Console] ' + super.testCaseName;
+    }
+
     @dataProvider('getTokenizeData')
     testTokenize(input, tokens, message) {
         input = new StringInput(input);

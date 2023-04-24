@@ -7,6 +7,10 @@ const VarDumperTestTrait = Jymfony.Component.VarDumper.Test.VarDumperTestTrait;
 export default class ParserTest extends mix(TestCase, VarDumperTestTrait) {
     _parser;
 
+    get testCaseName() {
+        return '[Crontab] ' + super.testCaseName;
+    }
+
     beforeEach() {
         this._parser = new Parser();
     }

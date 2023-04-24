@@ -5,6 +5,10 @@ const SyncTransportFactory = Jymfony.Component.Messenger.Transport.Sync.SyncTran
 const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 
 export default class SyncTransportFactoryTest extends TestCase {
+    get testCaseName() {
+        return '[Messenger] ' + super.testCaseName;
+    }
+
     async testCreateTransport() {
         const serializer = this.prophesize(SerializerInterface);
         const bus = this.prophesize(MessageBusInterface);

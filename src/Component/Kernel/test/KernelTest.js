@@ -45,6 +45,10 @@ class CallTracingKernel extends Kernel {
 export default class KernelTest extends TestCase {
     _kernel;
 
+    get testCaseName() {
+        return '[Kernel] ' + super.testCaseName;
+    }
+
     async afterEach() {
         if (undefined !== this._kernel) {
             await this._kernel.shutdown();

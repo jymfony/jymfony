@@ -8,6 +8,10 @@ const fixturesDir = __dirname + '/../fixtures/';
 export default class ParserTest extends TestCase {
     _parser;
 
+    get testCaseName() {
+        return '[Yaml] ' + super.testCaseName;
+    }
+
     beforeEach() {
         this._parser = new Parser();
     }

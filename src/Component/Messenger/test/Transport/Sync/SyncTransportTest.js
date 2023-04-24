@@ -6,6 +6,10 @@ const SyncTransport = Jymfony.Component.Messenger.Transport.Sync.SyncTransport;
 const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 
 export default class SyncTransportTest extends TestCase {
+    get testCaseName() {
+        return '[Messenger] ' + super.testCaseName;
+    }
+
     async testSend() {
         const bus = this.prophesize(MessageBusInterface);
         bus.dispatch(Argument.type(Envelope)).willReturnArgument(0);

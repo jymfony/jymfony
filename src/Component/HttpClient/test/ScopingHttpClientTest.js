@@ -3,6 +3,10 @@ const ScopingHttpClient = Jymfony.Component.HttpClient.ScopingHttpClient;
 const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 
 export default class ScopingHttpClientTest extends TestCase {
+    get testCaseName() {
+        return '[HttpClient] ' + super.testCaseName;
+    }
+
     testRelativeUrl() {
         const mockClient = new MockHttpClient();
         const client = new ScopingHttpClient(mockClient, []);

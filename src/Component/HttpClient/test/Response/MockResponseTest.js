@@ -3,6 +3,10 @@ const MockResponse = Jymfony.Component.HttpClient.Response.MockResponse;
 const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 
 export default class MockResponseTest extends TestCase {
+    get testCaseName() {
+        return '[HttpClient] ' + super.testCaseName;
+    }
+
     async testToArray() {
         const data = { color: 'orange', size: 42 };
         let response = new MockResponse(JSON.stringify(data), {

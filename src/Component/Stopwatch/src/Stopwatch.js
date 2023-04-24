@@ -128,6 +128,16 @@ export default class Stopwatch extends implementationOf(StopwatchInterface, ClsT
         return sections[id] ? sections[id].getEvents() : {};
     }
 
+    reset() {
+        this._sections = new Map();
+        this._sections.set('__root__', [
+            new Section(),
+        ]);
+
+        this._activeSections = new Map();
+        this._activeSections.set('__root__', [ ...this._sections.get('__root__') ]);
+    }
+
     /**
      * Gets the correct active sections array.
      *
