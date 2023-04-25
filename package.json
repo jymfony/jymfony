@@ -102,6 +102,7 @@
         "Jymfony.Bundle.FrameworkBundle.Tests.Fixtures": "src/Bundle/FrameworkBundle/fixtures",
         "Jymfony.Bundle.SecurityBundle.Tests": "src/Bundle/SecurityBundle/test",
         "Jymfony.Component.Autoloader.Tests": "src/Component/Autoloader/test",
+        "Jymfony.Component.Autoloader.Fixtures": "src/Component/Autoloader/fixtures",
         "Jymfony.Component.Cache.Fixtures": "src/Component/Cache/fixtures",
         "Jymfony.Component.Cache.Tests": "src/Component/Cache/test",
         "Jymfony.Component.Config.Tests": "src/Component/Config/test",
