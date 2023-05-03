@@ -2,7 +2,7 @@ declare namespace Jymfony.Component.Security.Exception {
     /**
      * LogoutException is thrown when the account cannot be logged out.
      */
-    export class LogoutException extends RuntimeException {
+    export class LogoutException extends global.RuntimeException {
         /**
          * Constructor.
          */

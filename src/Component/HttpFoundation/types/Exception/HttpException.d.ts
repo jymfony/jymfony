@@ -3,7 +3,7 @@ declare namespace Jymfony.Component.HttpFoundation.Exception {
      * Represents an http exception, which generates a response
      * with the correct status code and headers.
      */
-    export class HttpException extends mix(RuntimeException, HttpExceptionInterface) {
+    export class HttpException extends mix(global.RuntimeException, HttpExceptionInterface) {
         private _headers: Record<string, string>;
         private _statusCode: number;
 

@@ -1,5 +1,5 @@
 declare namespace Jymfony.Component.Filesystem.Exception {
-    export class IOException extends mix(RuntimeException, ExceptionInterface) {
+    export class IOException extends mix(global.RuntimeException, ExceptionInterface) {
         public readonly path: string|undefined;
         private _path?: string;
 

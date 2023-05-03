@@ -19,7 +19,7 @@ declare namespace Jymfony.Component.Debug.Exception {
         /**
          * Creates a new FlattenException object
          */
-        static create(exception: Error|Exception, statusCode?: number, headers?: Record<string, string>): FlattenException;
+        static create(exception: Error, statusCode?: number, headers?: Record<string, string>): FlattenException;
 
         /**
          * Gets all the previous exceptions.

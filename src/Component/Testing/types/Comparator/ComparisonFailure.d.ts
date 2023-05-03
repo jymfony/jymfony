@@ -2,7 +2,7 @@ declare namespace Jymfony.Component.Testing.Comparator {
     /**
      * Thrown when an assertion for string equality failed.
      */
-    export class ComparisonFailure extends RuntimeException {
+    export class ComparisonFailure extends global.RuntimeException {
         protected _expected: any;
         protected _actual: any;
         protected _expectedAsString: string;

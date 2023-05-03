@@ -7,6 +7,6 @@ declare namespace Jymfony.Component.OptionsResolver.Exception {
      * In contrast to the {@link UndefinedOptionsException}, this is a runtime exception that can
      * occur when evaluating lazy options.
      */
-    export class NoSuchOptionException extends mix(OutOfBoundsException, ExceptionInterface) {
+    export class NoSuchOptionException extends mix(global.OutOfBoundsException, ExceptionInterface) {
     }
 }
