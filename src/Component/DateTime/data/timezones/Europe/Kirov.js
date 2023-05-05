@@ -163,10 +163,10 @@ export default (() => {
                         ['2011']: [
                             o[16],
                         ],
-                        ['2021']: [
+                        ['2022']: [
                             o[16],
                         ],
-                        ['2022']: [
+                        ['2023']: [
                             o[16],
                         ],
                     },
@@ -539,7 +539,7 @@ export default (() => {
                 ['until']: 670374000,
                 ['ruleSet']: o[0],
                 ['offset']: 10800,
-                ['abbrev']: '+03/+04',
+                ['abbrev']: 'MSK/MSD',
             },
             {
                 ['offset']: 14400,
@@ -552,21 +552,21 @@ export default (() => {
                 ['until']: 1301180400,
                 ['ruleSet']: o[0],
                 ['offset']: 10800,
-                ['abbrev']: '+03/+04',
+                ['abbrev']: 'MSK/MSD',
             },
             {
                 ['offset']: 14400,
                 ['dst']: false,
-                ['abbrev']: '+04',
+                ['abbrev']: 'MSK',
                 ['until']: 1414274400,
-                ['format']: '+04',
+                ['format']: 'MSK',
             },
             {
                 ['offset']: 10800,
                 ['dst']: false,
-                ['abbrev']: '+03',
+                ['abbrev']: 'MSK',
                 ['until']: Infinity,
-                ['format']: '+03',
+                ['format']: 'MSK',
             },
         ],
         [

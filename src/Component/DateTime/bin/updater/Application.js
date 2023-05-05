@@ -5,6 +5,7 @@ import linterConfig from '../.eslintrc.json';
 const ArchiveReader = App.ArchiveReader;
 const Filesystem = Jymfony.Component.Filesystem.Filesystem;
 const IOException = Jymfony.Component.Filesystem.Exception.IOException;
+const HttpClient = Jymfony.Component.HttpClient.HttpClient;
 const JymfonyStyle = Jymfony.Component.Console.Style.JymfonyStyle;
 const OpenFile = Jymfony.Component.Filesystem.OpenFile;
 const Parser = App.Parser;
@@ -42,9 +43,11 @@ export default class Application extends SingleCommandApplication {
         const io = new JymfonyStyle(input, output);
         io.title('Tzdata updater');
 
-        const file = new OpenFile('https://data.iana.org/time-zones/releases/tzdata2022f.tar.gz', 'r');
-        const buf = await file.fread(await file.getSize());
+        const http = HttpClient.create();
+        const response = http.request('GET', 'https://data.iana.org/time-zones/releases/tzdata2023c.tar.gz');
 
+        io.text('Downloading tzdata archive...');
+        const buf = await response.getContent();
         this._archive = new ArchiveReader(buf);
 
         const files = [

@@ -53,7 +53,7 @@ export default (() => {
             ['offset']: 27000,
             ['dst']: false,
             ['abbrev']: '+0730',
-            ['until']: 378664200,
+            ['until']: 378662400,
             ['format']: '+0730',
         },
         {

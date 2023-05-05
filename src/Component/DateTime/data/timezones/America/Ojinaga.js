@@ -1151,8 +1151,14 @@ export default (() => {
                 ['offset']: -21600,
                 ['dst']: false,
                 ['abbrev']: 'CST',
-                ['until']: Infinity,
+                ['until']: 1669788000,
                 ['format']: 'CST',
+            },
+            {
+                ['until']: Infinity,
+                ['ruleSet']: o[17],
+                ['offset']: -21600,
+                ['abbrev']: 'C%sT',
             },
         ],
         [

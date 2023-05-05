@@ -1,1 +1,0 @@
-export default {'offset': -21600, 'dst': true, 'abbrev': 'PDDT'};
