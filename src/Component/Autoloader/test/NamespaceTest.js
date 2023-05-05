@@ -1,24 +1,24 @@
-const { expect } = require('chai');
-const path = require('path');
-const fs = require('fs');
-const vm = require('vm');
+import * as path from 'path';
+import * as vm from 'vm';
+import { readFileSync } from 'fs';
+
+const ClassLoader = Jymfony.Component.Autoloader.ClassLoader;
+const ClassNotFoundException = Jymfony.Component.Autoloader.Exception.ClassNotFoundException;
+const Namespace = Jymfony.Component.Autoloader.Namespace;
+const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 
 const cwdOSRoot = path.parse(process.cwd()).root.toUpperCase();
 
-/*
- * We are testing autoloader component here
- * cannot use the autoloader itself to load classes! :)
- */
-const Namespace = require('../src/Namespace');
-const ClassLoader = require('../src/ClassLoader');
-const ClassNotFoundException = require('../src/Exception/ClassNotFoundException');
+export default class NamespaceTest extends TestCase {
+    get testCaseName() {
+        return '[Autoloader] ' + super.testCaseName;
+    }
 
-describe('[Autoloader] Namespace', function () {
-    afterEach(() => {
+    afterEach() {
         ClassLoader.clearCache(__jymfony.Platform.isWindows() ? cwdOSRoot + 'var\\node\\foo_vendor\\' : '/var/node/foo_vendor');
-    });
+    }
 
-    it('constructs as a Proxy', () => {
+    testConstructsAsAProxy() {
         /*
          * ES6 Proxies are transparent virtualized objects, so
          * it is impossible to know whether an object is a
@@ -26,17 +26,16 @@ describe('[Autoloader] Namespace', function () {
          */
 
         const ns = new Namespace({});
-        expect(ns).not.to.be.instanceof(Namespace);
-        expect(ns.__namespace).to.be.instanceof(Namespace);
-    });
+        __self.assertNotInstanceOf(Namespace, ns);
+        __self.assertInstanceOf(Namespace, ns.__namespace);
+    }
 
-    it('returns undefined if a symbol is requested', () => {
+    testReturnsUndefinedIfASymbolIsRequested() {
         const ns = new Namespace({});
+        __self.assertUndefined(ns[Symbol.iterator]);
+    }
 
-        expect(ns[Symbol.iterator]).to.be.undefined;
-    });
-
-    it('returns undefined if namespace is not found', () => {
+    testReturnsUndefinedIfNamespaceIsNotFound() {
         const finder = {
             find: () => {
                 const e = new Error();
@@ -47,10 +46,10 @@ describe('[Autoloader] Namespace', function () {
         const ns = new Namespace({ finder: finder });
         const subns = ns.NotValid;
 
-        expect(subns).to.be.undefined;
-    });
+        __self.assertUndefined(subns);
+    }
 
-    it('throws if namespace is not found and debug is enabled', () => {
+    testThrowsIfNamespaceIsNotFoundAndDebugIsEnabled() {
         const finder = {
             find: () => {
                 const e = new Error();
@@ -61,11 +60,11 @@ describe('[Autoloader] Namespace', function () {
         const ns = new Namespace({ finder: finder });
         const subns = ns.NotValid;
 
-        expect(subns).to.be.undefined;
-    });
+        __self.assertUndefined(subns);
+    }
 
-    it('throws if is not a constructor and debug is enabled', () => {
-        const req = (module) => {
+    testThrowsIfIsNotAConstructorAndDebugIsEnabled() {
+        const req = module => {
             if ('path' === module || 'vm' === module) {
                 return require(module);
             }
@@ -79,14 +78,14 @@ describe('[Autoloader] Namespace', function () {
 
         const finder = {
             find: (dir, name) => {
-                expect(name).to.be.equal('FooClass');
+                __self.assertEquals('FooClass', name);
                 return {
                     filename: '/var/node/foo_vendor/FooClass.js',
                     directory: false,
                 };
             },
             load: (fn) => {
-                expect(fn).to.be.equal(__jymfony.Platform.isWindows() ? cwdOSRoot + 'var\\node\\foo_vendor\\FooClass.js' : '/var/node/foo_vendor/FooClass.js');
+                __self.assertEquals(__jymfony.Platform.isWindows() ? cwdOSRoot + 'var\\node\\foo_vendor\\FooClass.js' : '/var/node/foo_vendor/FooClass.js', fn);
                 return '';
             },
         };
@@ -99,24 +98,24 @@ describe('[Autoloader] Namespace', function () {
             '/var/node/foo_vendor',
         ], req);
 
-        expect(() => {
-            const class_ = ns.FooClass;
-            expect(class_).to.be.undefined;
-        }).to.throw(ClassNotFoundException);
-    });
+        this.expectException(ClassNotFoundException);
 
-    it('object can be set', () => {
+        const class_ = ns.FooClass;
+        __self.assertUndefined(class_);
+    }
+
+    testObjectCanBeSet() {
         const ns = new Namespace({});
         ns.subNs = {
             foo: 'bar',
         };
 
-        expect(ns.subNs).to.be.deep.equal({
+        __self.assertEquals({
             foo: 'bar',
-        });
-    });
+        }, ns.subNs);
+    }
 
-    it('searches in all base dirs', () => {
+    testSearchesInAllBaseDirs() {
         const finder = {
             find: (dir, name) => {
                 switch (dir) {
@@ -124,7 +123,7 @@ describe('[Autoloader] Namespace', function () {
                         return undefined;
 
                     case '/var/node/foo_vendor/':
-                        expect(name).to.be.equal('FooClass');
+                        __self.assertEquals('FooClass', name);
                         return {
                             filename: '/var/node/foo_vendor/FooClass.js',
                             directory: false,
@@ -135,12 +134,12 @@ describe('[Autoloader] Namespace', function () {
                 }
             },
             load: (fn) => {
-                expect(fn).to.be.equal(__jymfony.Platform.isWindows() ? cwdOSRoot + 'var\\node\\foo_vendor\\FooClass.js' : '/var/node/foo_vendor/FooClass.js');
+                __self.assertEquals(__jymfony.Platform.isWindows() ? cwdOSRoot + 'var\\node\\foo_vendor\\FooClass.js' : '/var/node/foo_vendor/FooClass.js', fn);
                 return 'module.exports = function () { };';
             },
         };
 
-        const req = (module) => {
+        const req = module => {
             if ('path' === module || 'vm' === module) {
                 return require(module);
             }
@@ -161,14 +160,14 @@ describe('[Autoloader] Namespace', function () {
         ns.__namespace.addDirectory('/var/node/foo_vendor/');
 
         const func = ns.FooClass;
-        expect(func).to.be.instanceOf(Function);
-    });
+        __self.assertInstanceOf(Function, func);
+    }
 
-    it('injects reflection metadata', () => {
+    testInjectsReflectionMetadata() {
         const finder = {
             find: (dir, name) => {
                 if ('/var/node/foo_vendor/' === dir) {
-                    expect(name).to.be.equal('FooClass');
+                    __self.assertEquals('FooClass', name);
                     return {
                         filename: '/var/node/foo_vendor/FooClass.js',
                         directory: false,
@@ -178,12 +177,12 @@ describe('[Autoloader] Namespace', function () {
 
             },
             load: fn => {
-                expect(fn).to.be.equal(__jymfony.Platform.isWindows() ? cwdOSRoot + 'var\\node\\foo_vendor\\FooClass.js' : '/var/node/foo_vendor/FooClass.js');
+                __self.assertEquals(__jymfony.Platform.isWindows() ? cwdOSRoot + 'var\\node\\foo_vendor\\FooClass.js' : '/var/node/foo_vendor/FooClass.js', fn);
                 return 'module.exports = class FooClass {}';
             },
         };
 
-        const req = (module) => {
+        const req = module => {
             if ('path' === module || 'vm' === module) {
                 return require(module);
             }
@@ -202,25 +201,26 @@ describe('[Autoloader] Namespace', function () {
 
         const func = ns.FooClass;
 
-        expect(func).to.be.instanceOf(Function);
+        __self.assertInstanceOf(Function, func);
         const { Compiler } = require('@jymfony/compiler');
         const metadata = Compiler.getReflectionData(func);
 
         if ('\\' === path.sep) {
-            expect(metadata).to.have.property('filename').that.match(/\\var\\node\\foo_vendor\\FooClass\.js$/);
+            __self.assertMatchesRegularExpression(/\\var\\node\\foo_vendor\\FooClass\.js$/, metadata.filename);
         } else {
-            expect(metadata).to.have.property('filename').that.equals('/var/node/foo_vendor/FooClass.js');
+            __self.assertEquals('/var/node/foo_vendor/FooClass.js', metadata.filename);
         }
-        expect(metadata).to.have.property('fqcn').that.equals('Foo.FooClass');
-        expect(metadata).to.have.property('constructor');
-        expect(metadata).to.have.property('namespace');
-    });
 
-    it('calls __construct on new if defined', () => {
+        __self.assertEquals('Foo.FooClass', metadata.fqcn);
+        __self.assertNotUndefined(metadata.constructor);
+        __self.assertNotUndefined(metadata.namespace);
+    }
+
+    testCalls__constructOnNewIfDefined() {
         const finder = {
             find: (dir, name) => {
                 if ('/var/node/foo_vendor/' === dir) {
-                    expect(name).to.be.equal('FooClass');
+                    __self.assertEquals('FooClass', name);
                     return {
                         filename: '/var/node/foo_vendor/FooClass.js',
                         directory: false,
@@ -230,7 +230,7 @@ describe('[Autoloader] Namespace', function () {
 
             },
             load: fn => {
-                expect(fn).to.be.equal(__jymfony.Platform.isWindows() ? cwdOSRoot + 'var\\node\\foo_vendor\\FooClass.js' : '/var/node/foo_vendor/FooClass.js');
+                __self.assertEquals(__jymfony.Platform.isWindows() ? cwdOSRoot + 'var\\node\\foo_vendor\\FooClass.js' : '/var/node/foo_vendor/FooClass.js', fn);
                 return `module.exports = class FooClass {
                     __construct(arg) {
                         this.constructCalled = arg;
@@ -239,7 +239,7 @@ describe('[Autoloader] Namespace', function () {
             },
         };
 
-        const req = (module) => {
+        const req = module => {
             if ('path' === module || 'vm' === module) {
                 return require(module);
             }
@@ -257,10 +257,10 @@ describe('[Autoloader] Namespace', function () {
         }, 'Foo', [ '/var/node/foo_vendor/' ], req);
 
         const obj = new ns.FooClass('foobar');
-        expect(obj.constructCalled).to.be.equal('foobar');
-    });
+        __self.assertEquals('foobar', obj.constructCalled);
+    }
 
-    it('calls __construct on new if defined', () => {
+    testCalls__constructOnNewIfDefined() {
         const finder = {
             find: (dir, name) => {
                 if ('/var/node/foo_vendor/' === dir) {
@@ -296,7 +296,7 @@ describe('[Autoloader] Namespace', function () {
             },
         };
 
-        const req = (module) => {
+        const req = module => {
             if ('path' === module || 'vm' === module) {
                 return require(module);
             }
@@ -316,14 +316,14 @@ describe('[Autoloader] Namespace', function () {
             global.__ns = ns;
 
             const obj = new ns.FooClass('foobar');
-            expect(obj.constructCalled).to.be.equal('foobar');
-            expect(obj.superCalled).to.be.undefined;
+            __self.assertEquals('foobar', obj.constructCalled);
+            __self.assertUndefined(obj.superCalled);
         } finally {
             delete global.__ns;
         }
-    });
+    }
 
-    it('resolves circular requirements', () => {
+    testResolvesCircularRequirements() {
         const finder = {
             find: (dir, name) => {
                 if ('FooClass' === name) {
@@ -341,7 +341,7 @@ describe('[Autoloader] Namespace', function () {
                 throw new Error('Unexpected argument');
             },
             load: fn => {
-                return fs.readFileSync(fn, 'utf-8');
+                return readFileSync(fn, 'utf-8');
             },
         };
 
@@ -355,11 +355,11 @@ describe('[Autoloader] Namespace', function () {
             const foo = new ns.FooClass();
             const bar = foo.bar;
 
-            expect(bar).to.be.instanceOf(ns.BarClass);
-            expect(foo).to.be.instanceOf(ns.FooClass);
-            expect(ns.FooClass.HELLO).to.be.equal('Hello, world!');
+            __self.assertInstanceOf(ns.BarClass, bar);
+            __self.assertInstanceOf(ns.FooClass, foo);
+            __self.assertEquals('Hello, world!', ns.FooClass.HELLO);
         } finally {
             delete global.Foo;
         }
-    });
-});
+    }
+}

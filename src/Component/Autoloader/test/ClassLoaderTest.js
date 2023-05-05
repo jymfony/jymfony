@@ -1,50 +1,59 @@
-const { expect } = require('chai');
-const { join } = require('path');
+import { join } from 'path';
 
-/*
- * We are testing autoloader component here
- * cannot use the autoloader itself to load classes! :)
- */
-const ClassLoader = require('../src/ClassLoader');
-const Finder = require('../src/Finder');
-const Namespace = require('../src/Namespace');
+const ClassLoader = Jymfony.Component.Autoloader.ClassLoader;
+const Finder = Jymfony.Component.Autoloader.Finder;
+const Namespace = Jymfony.Component.Autoloader.Namespace;
+const TestCase = Jymfony.Component.Testing.Framework.TestCase;
+
 const fixturesDir = join(__dirname, '..', 'fixtures');
 
-describe('[Autoloader] ClassLoader', function () {
-    this.timeout(30000);
-    beforeEach(() => {
+export default class ClassLoaderTest extends TestCase {
+    /**
+     * @type {Jymfony.Component.Autoloader.ClassLoader}
+     */
+    _classLoader;
+
+    get testCaseName() {
+        return '[Autoloader] ' + super.testCaseName;
+    }
+
+    beforeEach() {
         this._classLoader = new ClassLoader(new Finder(), require('path'), require('vm'));
-    });
+    }
 
-    it ('should resolve paths on require calls', () => {
+    afterEach() {
+        delete global.Foo;
+    }
+
+    testShouldResolvePathsOnRequireCalls() {
         const exports = this._classLoader.loadFile(__dirname + '/../fixtures/ClassLoader/module_with_subdirectory/subdir/fixture.js', undefined, {});
-        expect(exports).to.be.eq('This is a test: TESTTEST WOW');
-    });
+        __self.assertEquals('This is a test: TESTTEST WOW', exports);
+    }
 
-    it ('should resolve circular references', () => {
+    testShouldResolveCircularReferences() {
         const exports = this._classLoader.loadFile(__dirname + '/../fixtures/ClassLoader/circular/index.js', undefined, {});
-        expect(exports.first).to.be.an.instanceOf(Function);
-        expect(exports.second).to.be.an.instanceOf(Function);
-        expect(Object.getPrototypeOf(exports.second)).to.be.equal(exports.first);
+        __self.assertInstanceOf(Function, exports.first);
+        __self.assertInstanceOf(Function, exports.second);
+        __self.assertEquals(exports.first, Object.getPrototypeOf(exports.second));
 
         const f = new exports.first();
         const s = new exports.second();
 
-        expect(s).to.be.an.instanceOf(exports.second);
-        expect(s).to.be.an.instanceOf(f.getSecond());
-        expect(new (f.getSecond())()).to.be.an.instanceOf(exports.second);
-    });
+        __self.assertInstanceOf(exports.second, s);
+        __self.assertInstanceOf(f.getSecond(), s);
+        __self.assertInstanceOf(exports.second, new (f.getSecond())());
+    }
 
-    it ('should transpile typescript files', () => {
+    testShouldTranspileTypescriptFiles() {
         global.Foo = new Namespace(__jymfony.autoload, 'Foo', fixturesDir, require);
         const FooBar = Foo.ts.FooBar;
 
         const inst = new FooBar('value');
-        expect(inst._aNode).to.be.equal('value');
+        __self.assertEquals('value', inst._aNode);
 
         const Bar = Foo.ts.Bar;
         const barInstance = new Bar();
 
-        expect(barInstance._foo).to.be.instanceOf(FooBar);
-    });
-});
+        __self.assertInstanceOf(FooBar, barInstance._foo);
+    }
+}

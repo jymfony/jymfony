@@ -1,26 +1,26 @@
-const { expect } = require('chai');
-const fs = require('fs');
+import { realpathSync } from 'fs';
 
-/*
- * We are testing autoloader component here
- * cannot use the autoloader itself to load classes! :)
- */
-const Autoloader = require('../src/Autoloader');
+const Autoloader = Jymfony.Component.Autoloader.Autoloader;
+const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 
-describe('[Autoloader] Autoloader', () => {
-    it('autoloader should be a singleton', () => {
+export default class AutoloaderTest extends TestCase {
+    get testCaseName() {
+        return '[Autoloader] ' + super.testCaseName;
+    }
+
+    testAutoloaderShouldBeASingleton() {
         const glob = {};
         const autoloader = new Autoloader({
             findRoot() {
-                return fs.realpathSync(__dirname + '/..');
+                return realpathSync(__dirname + '/..');
             },
         }, glob);
 
-        expect(new Autoloader({}, glob)).to.be.equal(autoloader);
-        expect(glob.__jymfony.autoload).to.be.equal(autoloader);
-    });
+        __self.assertEquals(autoloader, new Autoloader({}, glob));
+        __self.assertEquals(autoloader, glob.__jymfony.autoload);
+    }
 
-    it('JObject should call __construct', () => {
+    testJObjectShouldCall__construct() {
         const glob = {
             Symbol: {},
         };
@@ -41,10 +41,10 @@ describe('[Autoloader] Autoloader', () => {
         };
 
         new cl();
-        expect(called).to.be.true;
-    });
+        __self.assertTrue(called);
+    }
 
-    it('JObject should call __invoke when needed', () => {
+    testJObjectShouldCall__invokeWhenNeeded() {
         const glob = {
             Symbol: {},
         };
@@ -78,10 +78,10 @@ describe('[Autoloader] Autoloader', () => {
         obj('foo', 'bar');
         obj.method();
 
-        expect(obj instanceof cl).to.be.true;
+        __self.assertInstanceOf(cl, obj);
 
-        expect(ConstructCalled).to.be.true;
-        expect(InvokeCalled).to.be.deep.equal([ 'foo', 'bar' ]);
-        expect(MethodCalled).to.be.true;
-    });
-});
+        __self.assertTrue(ConstructCalled);
+        __self.assertEquals([ 'foo', 'bar' ], InvokeCalled);
+        __self.assertTrue(MethodCalled);
+    }
+}

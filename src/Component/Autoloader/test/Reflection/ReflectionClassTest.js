@@ -1,12 +1,7 @@
-const { expect } = require('chai');
+import { join } from 'path';
 
-/*
- * We are testing autoloader component here
- * cannot use the autoloader itself to load classes! :)
- */
-require('../../src/Reflection/ReflectionClass');
-const Namespace = require('../../src/Namespace');
-const path = require('path');
+const Namespace = Jymfony.Component.Autoloader.Namespace;
+const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 
 class GrandParent {
     get readProp() { }
@@ -48,256 +43,259 @@ class Son2 extends mix(Parent, ISon, ISon2, SonTrait) {
 Parent.CONST_1 = 'foobar';
 Son.CONST_2 = 'foo';
 
-describe('[Autoloader] ReflectionClass', function () {
-    it('getClass should work with internal classes', () => {
-        expect(ReflectionClass.getClass(Date)).to.be.equal(Date);
-    });
+export default class ReflectionClassTest extends TestCase {
+    get testCaseName() {
+        return '[Autoloader] ' + super.testCaseName;
+    }
 
-    it('getClassName should work with internal classes', () => {
-        expect(ReflectionClass.getClassName(Date)).to.be.equal('Date');
-        expect(ReflectionClass.getClassName(String)).to.be.equal('String');
-    });
+    testGetClassShouldWorkWithInternalClasses() {
+        __self.assertSame(Date, ReflectionClass.getClass(Date));
+    }
 
-    it('newInstance should return an object', () => {
+    testGetClassNameShouldWorkWithInternalClasses() {
+        __self.assertEquals('Date', ReflectionClass.getClassName(Date));
+        __self.assertEquals('String', ReflectionClass.getClassName(String));
+    }
+
+    testNewInstanceShouldReturnAnObject() {
         const reflClass = new ReflectionClass(Son);
         const obj = reflClass.newInstance();
 
-        expect(obj).not.to.be.undefined;
-        expect(obj).to.be.instanceOf(Son);
-        expect(obj.foo).to.be.equal('bar');
-    });
+        __self.assertNotUndefined(obj);
+        __self.assertInstanceOf(Son, obj);
+        __self.assertEquals('bar', obj.foo);
+    }
 
-    it('newInstanceWithoutConstructor should return an object', () => {
+    testNewInstanceWithoutConstructorShouldReturnAnObject() {
         const reflClass = new ReflectionClass(Son);
         const obj = reflClass.newInstanceWithoutConstructor();
 
-        expect(obj).not.to.be.undefined;
-        expect(obj).to.be.instanceOf(Son);
-        expect(obj.foo).to.be.undefined;
-    });
+        __self.assertNotUndefined(obj);
+        __self.assertInstanceOf(Son, obj);
+        __self.assertUndefined(obj.foo);
+    }
 
-    it('newInstanceWithoutConstructor should not break instanceof chain', () => {
+    testNewInstanceWithoutConstructorShouldNotBreakInstanceofChain() {
         const reflClass = new ReflectionClass(Son);
         const obj = reflClass.newInstanceWithoutConstructor();
 
-        expect(obj).to.be.instanceOf(Son);
-        expect(obj).to.be.instanceOf(Parent);
-        expect(obj).to.be.instanceOf(GrandParent);
-        expect(obj).to.be.instanceOf(ISon);
-    });
+        __self.assertInstanceOf(Son, obj);
+        __self.assertInstanceOf(Parent, obj);
+        __self.assertInstanceOf(GrandParent, obj);
+        __self.assertInstanceOf(ISon, obj);
+    }
 
-    it('newInstanceWithoutConstructor should return correct class name', () => {
+    testNewInstanceWithoutConstructorShouldReturnCorrectClassName() {
         const reflClass = new ReflectionClass(Son2);
         const obj = reflClass.newInstanceWithoutConstructor();
 
-        expect((new ReflectionClass(obj)).name).to.be.equal('Jymfony.Component.Autoloader.Tests.Reflection.Son2');
-    });
+        __self.assertEquals('Jymfony.Component.Autoloader.Tests.Reflection.Son2', (new ReflectionClass(obj)).name);
+    }
 
-    it('hasMethod should work', () => {
+    testHasMethodShouldWork() {
+        const reflClass = new ReflectionClass(Son);
+        __self.assertTrue(reflClass.hasMethod('parentMethod'));
+    }
+
+    testHasPropertyShouldWork() {
         const reflClass = new ReflectionClass(Son);
 
-        expect(reflClass.hasMethod('parentMethod')).to.be.true;
-    });
+        __self.assertTrue(reflClass.hasProperty('prop'));
+        __self.assertTrue(reflClass.hasProperty('readProp'));
+        __self.assertTrue(reflClass.hasProperty('writeProp'));
+    }
 
-    it('hasProperty should work', () => {
+    testHasReadablePropertyShouldWork() {
         const reflClass = new ReflectionClass(Son);
 
-        expect(reflClass.hasProperty('prop')).to.be.true;
-        expect(reflClass.hasProperty('readProp')).to.be.true;
-        expect(reflClass.hasProperty('writeProp')).to.be.true;
-    });
+        __self.assertTrue(reflClass.hasReadableProperty('prop'));
+        __self.assertTrue(reflClass.hasReadableProperty('readProp'));
+        __self.assertFalse(reflClass.hasReadableProperty('writeProp'));
+    }
 
-    it('hasReadableProperty should work', () => {
+    testHasWritablePropertyShouldWork() {
         const reflClass = new ReflectionClass(Son);
 
-        expect(reflClass.hasReadableProperty('prop')).to.be.true;
-        expect(reflClass.hasReadableProperty('readProp')).to.be.true;
-        expect(reflClass.hasReadableProperty('writeProp')).to.be.false;
-    });
+        __self.assertTrue(reflClass.hasWritableProperty('prop'));
+        __self.assertFalse(reflClass.hasWritableProperty('readProp'));
+        __self.assertTrue(reflClass.hasWritableProperty('writeProp'));
+    }
 
-    it('hasWritableProperty should work', () => {
+    testGetParentClassShouldReturnAReflectionClassObject() {
         const reflClass = new ReflectionClass(Son);
 
-        expect(reflClass.hasWritableProperty('prop')).to.be.true;
-        expect(reflClass.hasWritableProperty('readProp')).to.be.false;
-        expect(reflClass.hasWritableProperty('writeProp')).to.be.true;
-    });
+        __self.assertInstanceOf(ReflectionClass, reflClass.getParentClass());
+        __self.assertEquals(Parent, reflClass.getParentClass().getConstructor());
+    }
 
-    it('getParentClass should return a ReflectionClass object', () => {
+    testShouldExposeInterfaces() {
         const reflClass = new ReflectionClass(Son);
-
-        expect(reflClass.getParentClass()).to.be.instanceOf(ReflectionClass);
-        expect(reflClass.getParentClass().getConstructor()).to.be.equal(Parent);
-    });
-
-    it('should expose interfaces', () => {
-        const reflClass = new ReflectionClass(Son);
-        expect(reflClass.interfaces).to.have.length(1);
-        expect(reflClass.interfaces[0].getConstructor()).to.be.eq(ISon.definition);
+        __self.assertCount(1, reflClass.interfaces);
+        __self.assertEquals(ISon.definition, reflClass.interfaces[0].getConstructor());
 
         const reflClass2 = new ReflectionClass(Son2);
-        expect(reflClass2.interfaces).to.have.length(2);
-        expect(reflClass2.interfaces[0].getConstructor()).to.be.eq(ISon.definition);
-        expect(reflClass2.interfaces[1].getConstructor()).to.be.eq(ISon2.definition);
-    });
+        __self.assertCount(2, reflClass2.interfaces);
+        __self.assertEquals(ISon.definition, reflClass2.interfaces[0].getConstructor());
+        __self.assertEquals(ISon2.definition, reflClass2.interfaces[1].getConstructor());
+    }
 
-    it('should expose traits', () => {
+    testShouldExposeTraits() {
         const reflClass = new ReflectionClass(Son);
-        expect(reflClass.traits).to.have.length(2);
-        expect(reflClass.traits[0].getConstructor()).to.be.eq(SonTrait2.definition);
-        expect(reflClass.traits[1].getConstructor()).to.be.eq(SonTrait.definition);
+        __self.assertCount(2, reflClass.traits);
+        __self.assertEquals(SonTrait2.definition, reflClass.traits[0].getConstructor());
+        __self.assertEquals(SonTrait.definition, reflClass.traits[1].getConstructor());
 
         const reflClass2 = new ReflectionClass(Son2);
-        expect(reflClass2.traits).to.have.length(1);
-        expect(reflClass2.traits[0].getConstructor()).to.be.eq(SonTrait.definition);
-    });
+        __self.assertCount(1, reflClass2.traits);
+        __self.assertEquals(SonTrait.definition, reflClass2.traits[0].getConstructor());
+    }
 
-    it('methods getter should work', () => {
+    testMethodsGetterShouldWork() {
         const reflClass = new ReflectionClass(Son);
 
-        expect(reflClass.methods).to.be.deep.equal([ 'constructor', 'getFoo', 'parentMethod' ]);
-    });
+        __self.assertEquals([ 'constructor', 'getFoo', 'parentMethod' ], reflClass.methods);
+    }
 
-    it('properties getter should work', () => {
+    testPropertiesGetterShouldWork() {
         const reflClass = new ReflectionClass(Son);
 
-        expect(reflClass.properties).to.be.deep.equal([ 'prop', 'readProp', 'writeProp' ]);
-    });
+        __self.assertEquals([ 'prop', 'readProp', 'writeProp' ], reflClass.properties);
+    }
 
-    it('constants getter should work', () => {
+    testConstantsGetterShouldWork() {
         const reflClass = new ReflectionClass(Son);
 
-        expect(reflClass.constants).to.be.deep.equal({
+        __self.assertEquals({
             CONST_1: 'foobar',
             CONST_2: 'foo',
-        });
-    });
+        }, reflClass.constants);
+    }
 
-    it('isSubclassOf should work', () => {
+    testIsSubclassOfShouldWork() {
         let reflClass = new ReflectionClass(Son2);
 
-        expect(reflClass.isSubclassOf(Son2)).to.be.false;
-        expect(reflClass.isSubclassOf(ISon2)).to.be.true;
-        expect(reflClass.isSubclassOf(ISon)).to.be.true;
-        expect(reflClass.isSubclassOf(Parent)).to.be.true;
-        expect(reflClass.isSubclassOf(GrandParent)).to.be.true;
+        __self.assertFalse(reflClass.isSubclassOf(Son2));
+        __self.assertTrue(reflClass.isSubclassOf(ISon2));
+        __self.assertTrue(reflClass.isSubclassOf(ISon));
+        __self.assertTrue(reflClass.isSubclassOf(Parent));
+        __self.assertTrue(reflClass.isSubclassOf(GrandParent));
 
         reflClass = new ReflectionClass(Son);
 
-        expect(reflClass.isSubclassOf(Son)).to.be.false;
-        expect(reflClass.isSubclassOf(ISon2)).to.be.false;
-        expect(reflClass.isSubclassOf(ISon)).to.be.true;
-        expect(reflClass.isSubclassOf(Parent)).to.be.true;
-        expect(reflClass.isSubclassOf(GrandParent)).to.be.true;
-    });
+        __self.assertFalse(reflClass.isSubclassOf(Son));
+        __self.assertFalse(reflClass.isSubclassOf(ISon2));
+        __self.assertTrue(reflClass.isSubclassOf(ISon));
+        __self.assertTrue(reflClass.isSubclassOf(Parent));
+        __self.assertTrue(reflClass.isSubclassOf(GrandParent));
+    }
 
-    it('isInstanceOf should work', () => {
+    testIsInstanceOfShouldWork() {
         let reflClass = new ReflectionClass(Son2);
 
-        expect(reflClass.isInstanceOf(Son2)).to.be.true;
-        expect(reflClass.isInstanceOf(ISon2)).to.be.true;
-        expect(reflClass.isInstanceOf(ISon)).to.be.true;
-        expect(reflClass.isInstanceOf(Parent)).to.be.true;
-        expect(reflClass.isInstanceOf(GrandParent)).to.be.true;
+        __self.assertTrue(reflClass.isInstanceOf(Son2));
+        __self.assertTrue(reflClass.isInstanceOf(ISon2));
+        __self.assertTrue(reflClass.isInstanceOf(ISon));
+        __self.assertTrue(reflClass.isInstanceOf(Parent));
+        __self.assertTrue(reflClass.isInstanceOf(GrandParent));
 
         reflClass = new ReflectionClass(Son);
 
-        expect(reflClass.isInstanceOf(Son)).to.be.true;
-        expect(reflClass.isInstanceOf(ISon2)).to.be.false;
-        expect(reflClass.isInstanceOf(ISon)).to.be.true;
-        expect(reflClass.isInstanceOf(Parent)).to.be.true;
-        expect(reflClass.isInstanceOf(GrandParent)).to.be.true;
-    });
+        __self.assertTrue(reflClass.isInstanceOf(Son));
+        __self.assertFalse(reflClass.isInstanceOf(ISon2));
+        __self.assertTrue(reflClass.isInstanceOf(ISon));
+        __self.assertTrue(reflClass.isInstanceOf(Parent));
+        __self.assertTrue(reflClass.isInstanceOf(GrandParent));
+    }
 
-    it('isInterface should work', () => {
+    testIsInterfaceShouldWork() {
         let reflClass = new ReflectionClass(Son);
-        expect(reflClass.isInterface).to.be.false;
+        __self.assertFalse(reflClass.isInterface);
 
         reflClass = new ReflectionClass(ISon);
-        expect(reflClass.isInterface).to.be.true;
-    });
+        __self.assertTrue(reflClass.isInterface);
+    }
 
-    it('exposes interface methods', () => {
+    testExposesInterfaceMethods() {
         const reflClass = new ReflectionClass(ISon);
-        expect(reflClass.methods).to.be.deep.equal([ 'getFoo' ]);
-    });
+        __self.assertEquals([ 'getFoo' ], reflClass.methods);
+    }
 
-    it('exposes public instance fields', __jymfony.Platform.hasPublicFieldSupport() ? () => {
-        const ns = new Namespace(__jymfony.autoload, 'Foo', path.join(__dirname, '..', '..', 'fixtures'), __jymfony.autoload.classLoader._internalRequire);
+    testExposesPublicInstanceFields() {
+        const ns = new Namespace(__jymfony.autoload, 'Foo', join(__dirname, '..', '..', 'fixtures'), __jymfony.autoload.classLoader._internalRequire);
         const x = new ns.PublicFieldsClass();
 
         const reflClass = new ReflectionClass(x);
-        expect(reflClass.hasField('field')).to.be.true;
-        expect(reflClass.hasField('bar')).to.be.true;
+        __self.assertTrue(reflClass.hasField('field'));
+        __self.assertTrue(reflClass.hasField('bar'));
 
         const field = reflClass.getField('field');
-        expect(field.isStatic).to.be.false;
-        expect(field.isPrivate).to.be.false;
-        expect(field.getValue(x)).to.be.equal('foobar');
+        __self.assertFalse(field.isStatic);
+        __self.assertFalse(field.isPrivate);
+        __self.assertEquals('foobar', field.getValue(x));
 
         const bar = reflClass.getField('bar');
-        expect(bar.isStatic).to.be.true;
-        expect(field.isPrivate).to.be.false;
-        expect(bar.getValue(null)).to.be.equal('bar');
-    } : undefined);
+        __self.assertTrue(bar.isStatic);
+        __self.assertFalse(field.isPrivate);
+        __self.assertEquals('bar', bar.getValue(null));
+    }
 
-    it('class instance fields are initialized before __construct call', __jymfony.Platform.hasPublicFieldSupport() ? () => {
-        const ns = new Namespace(__jymfony.autoload, 'Foo', path.join(__dirname, '..', '..', 'fixtures'), __jymfony.autoload.classLoader._internalRequire);
+    testClassInstanceFieldsAreInitializedBefore__constructCall() {
+        const ns = new Namespace(__jymfony.autoload, 'Foo', join(__dirname, '..', '..', 'fixtures'), __jymfony.autoload.classLoader._internalRequire);
         const x = new ns.PublicFieldsClassWithConstruct();
 
-        expect(x.initializedField).to.be.equal('foobar');
-    } : undefined);
+        __self.assertEquals('foobar', x.initializedField);
+    }
 
-    it('exposes private instance fields', __jymfony.Platform.hasPrivateFieldSupport() ? () => {
-        const ns = new Namespace(__jymfony.autoload, 'Foo', path.join(__dirname, '..', '..', 'fixtures'), __jymfony.autoload.classLoader._internalRequire);
+    testExposesPrivateInstanceFields() {
+        const ns = new Namespace(__jymfony.autoload, 'Foo', join(__dirname, '..', '..', 'fixtures'), __jymfony.autoload.classLoader._internalRequire);
         const x = new ns.PrivateFieldsClass();
 
         const reflClass = new ReflectionClass(x);
-        expect(reflClass.hasField('#field')).to.be.true;
-        expect(reflClass.hasField('#bar')).to.be.true;
+        __self.assertTrue(reflClass.hasField('#field'));
+        __self.assertTrue(reflClass.hasField('#bar'));
 
         const field = reflClass.getField('#field');
-        expect(field.isStatic).to.be.false;
-        expect(field.isPrivate).to.be.true;
+        __self.assertFalse(field.isStatic);
+        __self.assertTrue(field.isPrivate);
         try {
             field.getValue(x);
             throw new Error('FAIL');
         } catch (e) {
-            expect(e).to.be.instanceOf(ReflectionException);
+            __self.assertInstanceOf(ReflectionException, e);
         }
 
         field.accessible = true;
-        expect(field.getValue(x)).to.be.equal('foobar');
+        __self.assertEquals('foobar', field.getValue(x));
 
         const bar = reflClass.getField('#bar');
-        expect(bar.isStatic).to.be.true;
-        expect(bar.isPrivate).to.be.true;
+        __self.assertTrue(bar.isStatic);
+        __self.assertTrue(bar.isPrivate);
         bar.accessible = true;
-        expect(bar.getValue(null)).to.be.equal('bar');
-    } : undefined);
+        __self.assertEquals('bar', bar.getValue(null));
+    }
 
-    it('exposes private instance fields', __jymfony.Platform.hasPublicFieldSupport() ? () => {
-        const ns = new Namespace(__jymfony.autoload, 'Foo', path.join(__dirname, '..', '..', 'fixtures'), __jymfony.autoload.classLoader._internalRequire);
+    testExposesPrivateInstanceFieldsMetadata() {
+        const ns = new Namespace(__jymfony.autoload, 'Foo', join(__dirname, '..', '..', 'fixtures'), __jymfony.autoload.classLoader._internalRequire);
         const x = new ns.ParameterMetadata();
 
         const reflClass = new ReflectionClass(x);
         const method = reflClass.getMethod('method');
 
-        expect(method.parameters[0].metadata).to.be.empty;
+        __self.assertEmpty(method.parameters[0].metadata);
 
-        expect(method.parameters[1].metadata).to.have.length(1);
-        expect(method.parameters[1].metadata[0][1]).to.be.equal('foo');
+        __self.assertCount(1, method.parameters[1].metadata);
+        __self.assertEquals('foo', method.parameters[1].metadata[0][1]);
 
-        expect(method.parameters[2].metadata).to.have.length(1);
-        expect(method.parameters[2].metadata[0][1]).to.be.equal('string');
-    } : undefined);
+        __self.assertCount(1, method.parameters[2].metadata);
+        __self.assertEquals('string', method.parameters[2].metadata[0][1]);
+    }
 
-    it('exposes constructor method', () => {
-        const ns = new Namespace(__jymfony.autoload, 'Foo', path.join(__dirname, '..', '..', 'fixtures'), __jymfony.autoload.classLoader._internalRequire);
+    testExposesConstructorMethod() {
+        const ns = new Namespace(__jymfony.autoload, 'Foo', join(__dirname, '..', '..', 'fixtures'), __jymfony.autoload.classLoader._internalRequire);
         const x = new ns.FoobarClass();
 
         const reflClass = new ReflectionClass(x);
-        expect(reflClass.constructorMethod).not.to.be.undefined;
-        expect(reflClass.constructorMethod.parameters).to.have.length(1);
-    });
-});
+        __self.assertNotUndefined(reflClass.constructorMethod);
+        __self.assertCount(1, reflClass.constructorMethod.parameters);
+    }
+}

@@ -25,9 +25,9 @@
     "@jymfony/util": "https://github.com/jymfony/util.git"
   },
   "devDependencies": {
-    "chai": "^4.2",
+    "@jymfony/testing": "https://github.com/jymfony/testing.git",
     "mocha": "^10.2",
-    "typescript": "^4.0"
+    "typescript": "^4.0 || ^5.0"
   },
   "flat": true,
   "config": {
@@ -38,6 +38,12 @@
       "includes": [
         "src/Test/ChaiExpectation.js"
       ]
+    },
+    "jymfony-autoload-dev": {
+      "namespaces": {
+        "Jymfony.Component.Autoloader.Tests": "test/",
+        "Jymfony.Component.Autoloader.Fixtures": "fixtures/"
+      }
     }
   }
 }
