@@ -164,6 +164,14 @@ declare namespace Jymfony.Component.Testing.Framework {
         assertUndefined(actual: any, message?: string): void;
 
         /**
+         * Asserts that a variable is not undefined.
+         *
+         * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+         */
+        static assertNotUndefined(actual: any, message?: string): void;
+        assertNotUndefined(actual: any, message?: string): void;
+
+        /**
          * Asserts that a value is less than another value.
          *
          * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
