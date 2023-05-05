@@ -1,253 +1,250 @@
 const DateTime = Jymfony.Component.DateTime.DateTime;
 const DateTimeZone = Jymfony.Component.DateTime.DateTimeZone;
 const TimeSpan = Jymfony.Component.DateTime.TimeSpan;
+const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 
-const { expect } = require('chai');
+export default class DateTimeTest extends TestCase {
+    get testCaseName() {
+        return '[DateTime] ' + super.testCaseName;
+    }
 
-describe('[DateTime] DateTime', function () {
-    it('should accept string on construction', () => {
+    testShouldAcceptStringOnConstruction() {
         const dt = new DateTime('2017-03-24T00:00:00', 'Etc/UTC');
+        __self.assertInstanceOf(DateTime, dt);
+    }
 
-        expect(dt).to.be.instanceOf(DateTime);
-    });
-
-    it('should accept unix timestamp on construction', () => {
+    testShouldAcceptUnixTimestampOnConstruction() {
         const dt = new DateTime(1490313600, 'Etc/UTC');
+        __self.assertInstanceOf(DateTime, dt);
+    }
 
-        expect(dt).to.be.instanceOf(DateTime);
-    });
-
-    it('should accept a js Date object on construction', () => {
+    testShouldAcceptAJsDateObjectOnConstruction() {
         const date = new Date(1490313600000);
         const dt = new DateTime(date, 'Etc/UTC');
 
-        expect(dt).to.be.instanceOf(DateTime);
-        expect(dt.year).to.be.equal(2017);
-        expect(dt.month).to.be.equal(3);
-        expect(dt.day).to.be.equal(24);
-        expect(dt.hour).to.be.equal(0);
-        expect(dt.minute).to.be.equal(0);
-        expect(dt.second).to.be.equal(0);
-        expect(dt.millisecond).to.be.equal(0);
-    });
+        __self.assertInstanceOf(DateTime, dt);
+        __self.assertEquals(2017, dt.year);
+        __self.assertEquals(3, dt.month);
+        __self.assertEquals(24, dt.day);
+        __self.assertEquals(0, dt.hour);
+        __self.assertEquals(0, dt.minute);
+        __self.assertEquals(0, dt.second);
+        __self.assertEquals(0, dt.millisecond);
+    }
 
-    it('today should set time to midnight', () => {
+    testTodayShouldSetTimeToMidnight() {
         const dt = DateTime.today;
 
-        expect(dt.hour).to.be.equal(0);
-        expect(dt.minute).to.be.equal(0);
-        expect(dt.second).to.be.equal(0);
-        expect(dt.millisecond).to.be.equal(0);
-    });
+        __self.assertEquals(0, dt.hour);
+        __self.assertEquals(0, dt.minute);
+        __self.assertEquals(0, dt.second);
+        __self.assertEquals(0, dt.millisecond);
+    }
 
-    it('yesterday should set time to midnight', () => {
+    testYesterdayShouldSetTimeToMidnight() {
         const dt = DateTime.yesterday;
 
-        expect(dt.hour).to.be.equal(0);
-        expect(dt.minute).to.be.equal(0);
-        expect(dt.second).to.be.equal(0);
-        expect(dt.millisecond).to.be.equal(0);
-    });
-
-    let tests = [
-        [ '2017-01-01T00:00:00', 'P-1D', '2016-12-31T00:00:00+0000' ],
-        [ '2016-12-31T00:00:00', 'P+1D', '2017-01-01T00:00:00+0000' ],
-        [ '2016-11-30T00:00:00', 'P+1D', '2016-12-01T00:00:00+0000' ],
-        [ '2017-01-01T00:00:00', 'P-1Y', '2016-01-01T00:00:00+0000' ],
-        [ '2016-02-29T00:00:00', 'P-1Y', '2015-02-28T00:00:00+0000' ],
-    ];
-
-    for (const t of tests) {
-        it('add timespan should work correctly', () => {
-            const [ date, span, expected ] = t;
-            let dt = new DateTime(date);
-            dt = dt.modify(new TimeSpan(span));
-
-            expect(dt.toString()).to.be.equal(expected);
-        });
+        __self.assertEquals(0, dt.hour);
+        __self.assertEquals(0, dt.minute);
+        __self.assertEquals(0, dt.second);
+        __self.assertEquals(0, dt.millisecond);
     }
 
-    it('createFromFormat should correctly parse a date', () => {
+    * provideTimespanTests() {
+        yield [ '2017-01-01T00:00:00', 'P-1D', '2016-12-31T00:00:00+0000' ];
+        yield [ '2016-12-31T00:00:00', 'P+1D', '2017-01-01T00:00:00+0000' ];
+        yield [ '2016-11-30T00:00:00', 'P+1D', '2016-12-01T00:00:00+0000' ];
+        yield [ '2017-01-01T00:00:00', 'P-1Y', '2016-01-01T00:00:00+0000' ];
+        yield [ '2016-02-29T00:00:00', 'P-1Y', '2015-02-28T00:00:00+0000' ];
+    }
+
+    @dataProvider('provideTimespanTests')
+    testAddTimespanShouldWorkCorrectly(date, span, expected) {
+        let dt = new DateTime(date);
+        dt = dt.modify(new TimeSpan(span));
+
+        __self.assertEquals(expected, dt.toString());
+    }
+
+    testCreateFromFormatShouldCorrectlyParseADate() {
         const dt = DateTime.createFromFormat(DateTime.RFC2822, 'Wed, 20 Jun 2018 10:19:32 GMT');
-        expect(dt.toString()).to.be.equal('2018-06-20T10:19:32+0000');
-    });
-
-    tests = [
-        [ '2020 mar 29 01:00 Europe/Rome', 3600, 1, 0 ],
-        [ '2020 mar 29 02:00 Europe/Rome', 7200, 3, 0 ],
-        [ '2020 mar 29 03:00 Europe/Rome', 7200, 3, 0 ],
-        [ '2020 mar 29 04:00 Europe/Rome', 7200, 4, 0 ],
-        [ '2020 may 04 02:00 Europe/Rome', 7200, 2, 0 ],
-    ];
-
-    for (const index of tests.keys()) {
-        const t = tests[index];
-        it('should correctly handle timezone transitions #'+index, () => {
-            const dt = new DateTime(t[0]);
-
-            expect(dt.timezone).to.be.instanceOf(DateTimeZone);
-            expect(dt.timezone.getOffset(dt)).to.be.equal(t[1]);
-            expect(dt.hour).to.be.equal(t[2]);
-            expect(dt.minute).to.be.equal(t[3]);
-        });
+        __self.assertEquals('2018-06-20T10:19:32+0000', dt.toString());
     }
 
-    it('should correctly handle timezone transitions on modify', () => {
+    * provideTimezoneTransitionTests() {
+        yield [ '2020 mar 29 01:00 Europe/Rome', 3600, 1, 0 ];
+        yield [ '2020 mar 29 02:00 Europe/Rome', 7200, 3, 0 ];
+        yield [ '2020 mar 29 03:00 Europe/Rome', 7200, 3, 0 ];
+        yield [ '2020 mar 29 04:00 Europe/Rome', 7200, 4, 0 ];
+        yield [ '2020 may 04 02:00 Europe/Rome', 7200, 2, 0 ];
+    }
+
+    @dataProvider('provideTimezoneTransitionTests')
+    testShouldCorrectlyHandleTimezoneTransitions(date, offset, hour, minute) {
+        const dt = new DateTime(date);
+
+        __self.assertInstanceOf(DateTimeZone, dt.timezone);
+        __self.assertEquals(offset, dt.timezone.getOffset(dt));
+        __self.assertEquals(hour, dt.hour);
+        __self.assertEquals(minute, dt.minute);
+    }
+
+    testShouldCorrectlyHandleTimezoneTransitionsOnModify() {
         let dt = new DateTime('2020 mar 29 01:59:59 Europe/Rome');
-        expect(dt.timezone.getOffset(dt)).to.be.equal(3600);
+        __self.assertEquals(3600, dt.timezone.getOffset(dt));
 
         dt = dt.modify(new TimeSpan('PT1S'));
 
-        expect(dt.timezone.name).to.be.equal('Europe/Rome');
-        expect(dt.timezone.getOffset(dt)).to.be.equal(7200);
-        expect(dt.hour).to.be.equal(3);
-        expect(dt.minute).to.be.equal(0);
-    });
+        __self.assertEquals('Europe/Rome', dt.timezone.name);
+        __self.assertEquals(7200, dt.timezone.getOffset(dt));
+        __self.assertEquals(3, dt.hour);
+        __self.assertEquals(0, dt.minute);
+    }
 
-    it('should correctly handle between rules', () => {
+    testShouldCorrectlyHandleBetweenRules() {
         let dt = new DateTime('1866 dec 11 00:00 Europe/Rome');
-        expect(dt.timezone.getOffset(dt)).to.be.equal(2996);
+        __self.assertEquals(2996, dt.timezone.getOffset(dt));
 
         dt = new DateTime('1866 dec 11 23:59:59 Europe/Rome');
-        expect(dt.timezone.getOffset(dt)).to.be.equal(2996);
-        expect(dt.toString()).to.be.equal('1866-12-11T23:59:59+0049');
+        __self.assertEquals(2996, dt.timezone.getOffset(dt));
+        __self.assertEquals('1866-12-11T23:59:59+0049', dt.toString());
 
         dt = dt.modify(new TimeSpan('PT1S'));
 
-        expect(dt.timezone.name).to.be.equal('Europe/Rome');
-        expect(dt.timezone.getOffset(dt)).to.be.equal(2996);
-        expect(dt.hour).to.be.equal(0);
-        expect(dt.minute).to.be.equal(0);
+        __self.assertEquals('Europe/Rome', dt.timezone.name);
+        __self.assertEquals(2996, dt.timezone.getOffset(dt));
+        __self.assertEquals(0, dt.hour);
+        __self.assertEquals(0, dt.minute);
 
         dt = new DateTime('1893 Oct 31 23:49:55', 'Europe/Rome');
 
-        expect(dt.timezone.name).to.be.equal('Europe/Rome');
-        expect(dt.timezone.getOffset(dt)).to.be.equal(2996);
-        expect(dt.day).to.be.equal(31);
-        expect(dt.hour).to.be.equal(23);
-        expect(dt.minute).to.be.equal(49);
-        expect(dt.second).to.be.equal(55);
+        __self.assertEquals('Europe/Rome', dt.timezone.name);
+        __self.assertEquals(2996, dt.timezone.getOffset(dt));
+        __self.assertEquals(31, dt.day);
+        __self.assertEquals(23, dt.hour);
+        __self.assertEquals(49, dt.minute);
+        __self.assertEquals(55, dt.second);
 
         dt = dt.modify(new TimeSpan('PT1S'));
 
-        expect(dt.timezone.name).to.be.equal('Europe/Rome');
-        expect(dt.timezone.getOffset(dt)).to.be.equal(3600);
-        expect(dt.hour).to.be.equal(0);
-        expect(dt.minute).to.be.equal(0);
-        expect(dt.second).to.be.equal(0);
+        __self.assertEquals('Europe/Rome', dt.timezone.name);
+        __self.assertEquals(3600, dt.timezone.getOffset(dt));
+        __self.assertEquals(0, dt.hour);
+        __self.assertEquals(0, dt.minute);
+        __self.assertEquals(0, dt.second);
 
         dt = new DateTime('1916 Jun 3 23:59:59', 'Europe/Rome');
 
-        expect(dt.timezone.name).to.be.equal('Europe/Rome');
-        expect(dt.timezone.getOffset(dt)).to.be.equal(3600);
-        expect(dt.hour).to.be.equal(23);
-        expect(dt.minute).to.be.equal(59);
-        expect(dt.second).to.be.equal(59);
+        __self.assertEquals('Europe/Rome', dt.timezone.name);
+        __self.assertEquals(3600, dt.timezone.getOffset(dt));
+        __self.assertEquals(23, dt.hour);
+        __self.assertEquals(59, dt.minute);
+        __self.assertEquals(59, dt.second);
 
         dt = dt.modify(new TimeSpan('PT1S'));
 
-        expect(dt.timezone.name).to.be.equal('Europe/Rome');
-        expect(dt.timezone.getOffset(dt)).to.be.equal(7200);
-        expect(dt.month).to.be.equal(6);
-        expect(dt.day).to.be.equal(4);
-        expect(dt.hour).to.be.equal(1);
-        expect(dt.minute).to.be.equal(0);
-        expect(dt.second).to.be.equal(0);
+        __self.assertEquals('Europe/Rome', dt.timezone.name);
+        __self.assertEquals(7200, dt.timezone.getOffset(dt));
+        __self.assertEquals(6, dt.month);
+        __self.assertEquals(4, dt.day);
+        __self.assertEquals(1, dt.hour);
+        __self.assertEquals(0, dt.minute);
+        __self.assertEquals(0, dt.second);
 
         dt = new DateTime('2020 Oct 25 01:59:59', 'Europe/Rome');
 
-        expect(dt.timezone.getOffset(dt)).to.be.equal(7200);
-        expect(dt.hour).to.be.equal(1);
-        expect(dt.minute).to.be.equal(59);
-        expect(dt.second).to.be.equal(59);
+        __self.assertEquals(7200, dt.timezone.getOffset(dt));
+        __self.assertEquals(1, dt.hour);
+        __self.assertEquals(59, dt.minute);
+        __self.assertEquals(59, dt.second);
 
         dt = dt.modify(new TimeSpan('PT1H'));
 
-        expect(dt.timezone.getOffset(dt)).to.be.equal(7200);
-        expect(dt.hour).to.be.equal(2);
-        expect(dt.minute).to.be.equal(59);
-        expect(dt.second).to.be.equal(59);
+        __self.assertEquals(7200, dt.timezone.getOffset(dt));
+        __self.assertEquals(2, dt.hour);
+        __self.assertEquals(59, dt.minute);
+        __self.assertEquals(59, dt.second);
 
         dt = dt.modify(new TimeSpan('PT1S'));
 
-        expect(dt.timezone.getOffset(dt)).to.be.equal(3600);
-        expect(dt.hour).to.be.equal(2);
-        expect(dt.minute).to.be.equal(0);
-        expect(dt.second).to.be.equal(0);
+        __self.assertEquals(3600, dt.timezone.getOffset(dt));
+        __self.assertEquals(2, dt.hour);
+        __self.assertEquals(0, dt.minute);
+        __self.assertEquals(0, dt.second);
 
         dt = new DateTime('2020 Oct 25 01:59:59', 'Europe/Rome');
 
-        expect(dt.timezone.getOffset(dt)).to.be.equal(7200);
+        __self.assertEquals(7200, dt.timezone.getOffset(dt));
         dt = dt.modify(new TimeSpan('P1D'));
 
-        expect(dt.timezone.getOffset(dt)).to.be.equal(3600);
-        expect(dt.timestamp).to.be.equal(1603673999);
-        expect(dt.hour).to.be.equal(1);
-        expect(dt.minute).to.be.equal(59);
-        expect(dt.second).to.be.equal(59);
+        __self.assertEquals(3600, dt.timezone.getOffset(dt));
+        __self.assertEquals(1603673999, dt.timestamp);
+        __self.assertEquals(1, dt.hour);
+        __self.assertEquals(59, dt.minute);
+        __self.assertEquals(59, dt.second);
 
         dt = dt.modify(new TimeSpan('P-1D'));
 
-        expect(dt.timezone.getOffset(dt)).to.be.equal(7200);
-        expect(dt.timestamp).to.be.equal(1603583999);
-        expect(dt.hour).to.be.equal(1);
-        expect(dt.minute).to.be.equal(59);
-        expect(dt.second).to.be.equal(59);
+        __self.assertEquals(7200, dt.timezone.getOffset(dt));
+        __self.assertEquals(1603583999, dt.timestamp);
+        __self.assertEquals(1, dt.hour);
+        __self.assertEquals(59, dt.minute);
+        __self.assertEquals(59, dt.second);
 
         dt = dt.modify(new TimeSpan('P1M'));
 
-        expect(dt.timezone.getOffset(dt)).to.be.equal(3600);
-        expect(dt.timestamp).to.be.equal(1606265999);
-        expect(dt.hour).to.be.equal(1);
-        expect(dt.minute).to.be.equal(59);
-        expect(dt.second).to.be.equal(59);
-        expect(dt.day).to.be.equal(25);
-        expect(dt.month).to.be.equal(11);
-        expect(dt.year).to.be.equal(2020);
+        __self.assertEquals(3600, dt.timezone.getOffset(dt));
+        __self.assertEquals(1606265999, dt.timestamp);
+        __self.assertEquals(1, dt.hour);
+        __self.assertEquals(59, dt.minute);
+        __self.assertEquals(59, dt.second);
+        __self.assertEquals(25, dt.day);
+        __self.assertEquals(11, dt.month);
+        __self.assertEquals(2020, dt.year);
 
         dt = dt.modify(new TimeSpan('P-1M'));
 
-        expect(dt.timezone.getOffset(dt)).to.be.equal(7200);
-        expect(dt.timestamp).to.be.equal(1603583999);
+        __self.assertEquals(7200, dt.timezone.getOffset(dt));
+        __self.assertEquals(1603583999, dt.timestamp);
 
         dt = dt.modify(new TimeSpan('P1Y'));
 
-        expect(dt.timezone.getOffset(dt)).to.be.equal(7200);
-        expect(dt.timestamp).to.be.equal(1635119999);
-        expect(dt.hour).to.be.equal(1);
-        expect(dt.minute).to.be.equal(59);
-        expect(dt.second).to.be.equal(59);
-        expect(dt.day).to.be.equal(25);
-        expect(dt.month).to.be.equal(10);
-        expect(dt.year).to.be.equal(2021);
+        __self.assertEquals(7200, dt.timezone.getOffset(dt));
+        __self.assertEquals(1635119999, dt.timestamp);
+        __self.assertEquals(1, dt.hour);
+        __self.assertEquals(59, dt.minute);
+        __self.assertEquals(59, dt.second);
+        __self.assertEquals(25, dt.day);
+        __self.assertEquals(10, dt.month);
+        __self.assertEquals(2021, dt.year);
 
         dt = dt.modify(new TimeSpan('P7D'));
-        expect(dt.timezone.getOffset(dt)).to.be.equal(3600);
-        expect(dt.timestamp).to.be.equal(1635728399);
+        __self.assertEquals(3600, dt.timezone.getOffset(dt));
+        __self.assertEquals(1635728399, dt.timestamp);
 
         dt = dt.modify(new TimeSpan('P-1Y7D'));
 
-        expect(dt.timezone.getOffset(dt)).to.be.equal(7200);
-        expect(dt.timestamp).to.be.equal(1603583999);
-    });
+        __self.assertEquals(7200, dt.timezone.getOffset(dt));
+        __self.assertEquals(1603583999, dt.timestamp);
+    }
 
-    it ('invalid times for timezone', () => {
+    testInvalidTimesForTimezone() {
         let dt = new DateTime('1893 Oct 31 23:49:58', 'Europe/Rome');
 
-        expect(dt.timezone.name).to.be.equal('Europe/Rome');
-        expect(dt.timezone.getOffset(dt)).to.be.equal(3600);
-        expect(dt.year).to.be.equal(1893);
-        expect(dt.month).to.be.equal(11);
-        expect(dt.day).to.be.equal(1);
-        expect(dt.hour).to.be.equal(0);
-        expect(dt.minute).to.be.equal(0);
-        expect(dt.second).to.be.equal(2);
+        __self.assertEquals('Europe/Rome', dt.timezone.name);
+        __self.assertEquals(3600, dt.timezone.getOffset(dt));
+        __self.assertEquals(1893, dt.year);
+        __self.assertEquals(11, dt.month);
+        __self.assertEquals(1, dt.day);
+        __self.assertEquals(0, dt.hour);
+        __self.assertEquals(0, dt.minute);
+        __self.assertEquals(2, dt.second);
 
         dt = new DateTime('2020 mar 29 02:01:00 Europe/Rome');
 
-        expect(dt.timezone.name).to.be.equal('Europe/Rome');
-        expect(dt.timezone.getOffset(dt)).to.be.equal(7200);
-        expect(dt.hour).to.be.equal(3);
-        expect(dt.minute).to.be.equal(1);
-    });
-});
+        __self.assertEquals('Europe/Rome', dt.timezone.name);
+        __self.assertEquals(7200, dt.timezone.getOffset(dt));
+        __self.assertEquals(3, dt.hour);
+        __self.assertEquals(1, dt.minute);
+    }
+}
