@@ -260,7 +260,7 @@ export default class NamespaceTest extends TestCase {
         __self.assertEquals('foobar', obj.constructCalled);
     }
 
-    testCalls__constructOnNewIfDefined() {
+    testCalls__constructOnNewIfDefined2() {
         const finder = {
             find: (dir, name) => {
                 if ('/var/node/foo_vendor/' === dir) {

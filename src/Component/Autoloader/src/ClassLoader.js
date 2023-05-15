@@ -379,15 +379,18 @@ class ClassLoader {
                 return _cache[id];
             }
 
-            const code = this.getCode(id, !!self, namespace);
             const exports = function () {};
+            const module = this._getModuleObject(id, exports);
+
+            const code = this.getCode(id, !!self, namespace);
+            const opts = isNyc ? id : {
+                filename: id,
+                produceCachedData: false,
+            };
 
             return _cache[id] = new ManagedProxy(exports, proxy => {
                 proxy.initializer = null;
                 proxy.target = exports;
-
-                const module = this._getModuleObject(id, exports);
-                const dirname = module.paths[0];
 
                 this._vm.runInThisContext(code.code, opts)(module.exports, req, module, id, dirname, null);
                 _cache[id] = proxy.target = module.exports;
@@ -416,11 +419,12 @@ class ClassLoader {
             if (e instanceof CircularDependencyException) {
                 if (e.requiring === undefined) {
                     e.requiring = fn;
+                    e.requireFn = req;
                 }
 
                 if (e.required === fn) {
                     delete _cache[e.requiring];
-                    _pending = _cache[e.requiring] = req.proxy(e.requiring);
+                    _pending = _cache[e.requiring] = e.requireFn.proxy(e.requiring);
 
                     require.cache[fn] = module;
                     this._vm.runInThisContext(this.getCode(fn, !!self, namespace).code, opts)(module.exports, req, module, fn, dirname, self);
