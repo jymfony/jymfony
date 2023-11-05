@@ -11,6 +11,8 @@ const TransportException = Jymfony.Contracts.HttpClient.Exception.TransportExcep
  * @abstract
  */
 export default class HttpClientTestCase extends TestCase {
+    static server;
+
     async before() {
         __self.server = await TestHttpServer.start();
     }
