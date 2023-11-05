@@ -1,4 +1,4 @@
-const First = require('./first_module');
+import First from './first_module';
 
-module.exports = class Second extends First {
+export default class Second extends First {
 };

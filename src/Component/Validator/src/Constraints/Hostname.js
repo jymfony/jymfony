@@ -4,6 +4,9 @@ const Constraint = Jymfony.Component.Validator.Constraint;
  * @memberOf Jymfony.Component.Validator.Constraints
  */
 export default class Hostname extends Constraint {
+    message = 'This value is not a valid hostname.';
+    requireTld = true;
+
     /**
      * @inheritdoc
      */
@@ -13,16 +16,6 @@ export default class Hostname extends Constraint {
         }
 
         return Constraint.getErrorName(errorCode);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    __construct(options = null) {
-        this.message = 'This value is not a valid hostname.';
-        this.requireTld = true;
-
-        return super.__construct(options);
     }
 }
 

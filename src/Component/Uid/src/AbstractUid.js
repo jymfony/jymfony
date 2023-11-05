@@ -39,20 +39,20 @@ export default class AbstractUid extends implementationOf(UidInterface) {
     }
 
     /**
-     * Returns the identifier as a base-32 case insensitive string.
+     * Returns the identifier as a base-32 case-insensitive string.
      *
      * @returns {string}
      */
     toBase32() {
         let uid = this.toBuffer().toString('hex');
         uid = __jymfony.sprintf('%02s%04s%04s%04s%04s%04s%04s',
-            Number.parseInt(uid.substr(0, 2), 16).toString(32),
-            Number.parseInt(uid.substr(2, 5), 16).toString(32),
-            Number.parseInt(uid.substr(7, 5), 16).toString(32),
-            Number.parseInt(uid.substr(12, 5), 16).toString(32),
-            Number.parseInt(uid.substr(17, 5), 16).toString(32),
-            Number.parseInt(uid.substr(22, 5), 16).toString(32),
-            Number.parseInt(uid.substr(27, 5), 16).toString(32),
+            Number.parseInt(uid.substring(0, 2), 16).toString(32),
+            Number.parseInt(uid.substring(2, 7), 16).toString(32),
+            Number.parseInt(uid.substring(7, 12), 16).toString(32),
+            Number.parseInt(uid.substring(12, 17), 16).toString(32),
+            Number.parseInt(uid.substring(17, 22), 16).toString(32),
+            Number.parseInt(uid.substring(22, 27), 16).toString(32),
+            Number.parseInt(uid.substring(27, 32), 16).toString(32),
         );
 
         return __jymfony.strtr(uid, {

@@ -8,16 +8,18 @@ const ArgumentValueResolverInterface = Jymfony.Component.HttpServer.Controller.A
  */
 export default class ServiceValueResolver extends implementationOf(ArgumentValueResolverInterface) {
     /**
+     * @type {Jymfony.Contracts.DependencyInjection.ContainerInterface}
+     *
+     * @private
+     */
+    _container;
+
+    /**
      * Constructor.
      *
      * @param {Jymfony.Contracts.DependencyInjection.ContainerInterface} container
      */
     __construct(container) {
-        /**
-         * @type {Jymfony.Contracts.DependencyInjection.ContainerInterface}
-         *
-         * @private
-         */
         this._container = container;
     }
 

@@ -13,6 +13,48 @@ const path = require('path');
  */
 class Autoloader {
     /**
+     * @type {boolean}
+     *
+     * @private
+     */
+    _debug = false;
+
+    /**
+     * @type {boolean}
+     *
+     * @private
+     */
+    _registered = false;
+
+    /**
+     * @type {Jymfony.Component.Autoloader.Finder}
+     *
+     * @private
+     */
+    _finder;
+
+    /**
+     * @type {string}
+     *
+     * @private
+     */
+    _rootDir;
+
+    /**
+     * @type {Jymfony.Component.Autoloader.ClassLoader}
+     *
+     * @private
+     */
+    _classLoader;
+
+    /**
+     * @type {Object}
+     *
+     * @private
+     */
+    _global;
+
+    /**
      * Constructor.
      *
      * @param {undefined|Jymfony.Component.Autoloader.Finder} [finder]
@@ -27,40 +69,8 @@ class Autoloader {
             finder = new Finder();
         }
 
-        /**
-         * @type {boolean}
-         *
-         * @private
-         */
-        this._debug = false;
-
-        /**
-         * @type {boolean}
-         *
-         * @private
-         */
-        this._registered = false;
-
-        /**
-         * @type {Jymfony.Component.Autoloader.Finder}
-         *
-         * @private
-         */
         this._finder = finder;
         this._rootDir = this._finder.findRoot();
-
-        /**
-         * @type {Jymfony.Component.Autoloader.ClassLoader}
-         *
-         * @private
-         */
-        this._classLoader = undefined;
-
-        /**
-         * @type {Object}
-         *
-         * @private
-         */
         this._global = globalObject;
         this._global.__jymfony = this._global.__jymfony || {};
 
@@ -128,79 +138,12 @@ class Autoloader {
 
         this._registered = true;
         this._debug = !! process.env.DEBUG;
-        const autoloader = this;
-
-        let ManagedProxy = null;
-
-        const constructor = function (...$args) {
-            if (undefined !== this[Symbol.__jymfony_field_initialization]) {
-                this[Symbol.__jymfony_field_initialization]();
-            }
-
-            const retVal = this.__construct(...$args);
-            if (undefined !== global.mixins && undefined !== this[global.mixins.initializerSymbol]) {
-                this[global.mixins.initializerSymbol](...$args);
-            }
-
-            if (undefined !== retVal && this !== retVal) {
-                return retVal;
-            }
-
-            let self = this;
-            if (!! autoloader.debug) {
-                self = new Proxy(self, {
-                    get: (target, p) => {
-                        if (p !== Symbol.toStringTag && ! Reflect.has(target, p)) {
-                            throw new TypeError('Undefined property ' + p.toString() + ' on instance of ' + ReflectionClass.getClassName(target));
-                        }
-
-                        return Reflect.get(target, p);
-                    },
-                });
-            }
-
-            if (undefined !== this.__invoke) {
-                return new ManagedProxy(self.__invoke, proxy => {
-                    proxy.target = self;
-                    return null;
-                }, {
-                    get: (target, key) => {
-                        if ('__self__' === key) {
-                            return target;
-                        }
-
-                        return Reflect.get(target, key);
-                    },
-                    apply: (target, ctx, args) => {
-                        return target.__invoke(...args);
-                    },
-                    preventExtensions: (target) => {
-                        Reflect.preventExtensions(target);
-
-                        return false;
-                    },
-                    getOwnPropertyDescriptor: (target, key) => {
-                        if ('__self__' === key) {
-                            return { configurable: true, enumerable: false };
-                        }
-
-                        return Reflect.getOwnPropertyDescriptor(target, key);
-                    },
-                });
-            }
-
-            return this;
-        };
 
         /**
          * This is the base class of all the autoloaded classes.
          * It is runtime-injected where needed.
          */
         this._global.__jymfony.JObject = class JObject {
-            constructor(...$args) {
-                return constructor.bind(this)(...$args);
-            }
-
             __construct() { }
         };
 
@@ -210,8 +153,6 @@ class Autoloader {
 
         const ClassLoader = require('./ClassLoader');
         this._classLoader = new ClassLoader(this._finder, path, require('vm'));
-
-        ManagedProxy = require('./Proxy/ManagedProxy');
 
         const includes = new Set();
         for (const module of this._finder.listModules()) {

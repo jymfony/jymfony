@@ -5,6 +5,10 @@ const InvalidArgumentException = Jymfony.Component.Validator.Exception.InvalidAr
  * @memberOf Jymfony.Component.Validator.Constraints
  */
 export default class Email extends Constraint {
+    message = 'This value is not a valid email address.';
+    mode;
+    normalizer;
+
     /**
      * @inheritdoc
      */
@@ -20,10 +24,6 @@ export default class Email extends Constraint {
      * @inheritdoc
      */
     __construct(options = null) {
-        this.message = 'This value is not a valid email address.';
-        this.mode = undefined;
-        this.normalizer = undefined;
-
         if (isObjectLiteral(options) && undefined !== options.mode && ! __self.validationModes.includes(options.mode)) {
             throw new InvalidArgumentException('The "mode" parameter value is not valid.');
         }

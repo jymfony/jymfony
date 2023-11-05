@@ -4,11 +4,12 @@ const Constraint = Jymfony.Component.Validator.Constraint;
  * @memberOf Jymfony.Component.Validator.Constraints
  */
 export default class Callback extends Constraint {
+    callback;
+
     /**
      * @inheritdoc
      */
     __construct(options = null) {
-        this.callback = undefined;
         if ((isArray(options) && isCallableArray(options)) ||
             (isObjectLiteral(options) && undefined === options.callback && undefined === options.groups && undefined === options.payload)) {
             options = { callback: options };

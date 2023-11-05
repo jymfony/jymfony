@@ -1,7 +1,9 @@
+import { chmodSync, readFileSync } from 'fs';
+import { Script } from 'vm';
+
 const Parser = Jymfony.Component.Yaml.Parser;
 const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 const Yaml = Jymfony.Component.Yaml.Yaml;
-const { readFileSync, chmodSync } = require('fs');
 
 const fixturesDir = __dirname + '/../fixtures/';
 
@@ -47,8 +49,8 @@ export default class ParserTest extends TestCase {
                 if (!! test.todo) {
                     tests.push([ null, null, null ]);
                 } else {
-                    let expected;
-                    eval('expected = ' + __jymfony.trim(test['js']) + ';');
+                    const s = new Script('(function () { return ' + __jymfony.trim(test['js']) + '; })');
+                    const expected = s.runInThisContext()();
 
                     tests.push([ expected, test['yaml'], test['test'] ]);
                 }

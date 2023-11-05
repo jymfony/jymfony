@@ -1,4 +1,5 @@
 const Metadata = Jymfony.Component.Autoloader.Decorator.Metadata;
+const MetadataHelper = require('../Metadata/MetadataHelper');
 
 const verifyTarget = (target, annotationTarget, name, kind, value = undefined) => {
     if ((annotationTarget & target) !== target) {
@@ -32,39 +33,39 @@ class Annotation {
  */
 export default function AnnotationImpl(targets = Annotation.ANNOTATION_TARGET_ALL) {
     return function(value, context) {
+        if ('class' !== context.kind) {
+            throw new Error(__jymfony.sprintf('Annotation @Annotation is not valid on %s elements', context.kind));
+        }
+
         const metadataName = context.name;
-        MetadataStorage.addMetadata(Annotation, new Annotation(targets), context.metadataKey, null);
+        MetadataStorage.addMetadata(Annotation, new Annotation(targets), MetadataHelper.getMetadataTarget(context));
 
         return new Proxy(value, {
             get(target, p, receiver) {
-                if ('__self__' === p) {
+                if (Symbol.for('jymfony.namespace.class') === p || '__self__' === p) {
                     return target;
                 }
 
                 return Reflect.get(target, p, receiver);
             },
+            has: (target, key) => {
+                if (Symbol.for('jymfony.namespace.class') === key) {
+                    return true;
+                }
+
+                return Reflect.has(target, key);
+            },
             apply(target, _, argArray) {
                 const metadataFn = Metadata(new target(...argArray));
 
                 return function (target, context) {
-                    const formattedName = (() => {
-                        if ('class' === context.kind) {
-                            return ReflectionClass.getClassName(target);
-                        }
-
-                        const className = context.class ? context.class.name : '';
-                        const memberName = context.name;
-
-                        return __jymfony.sprintf('%s%s%s', className || '', className && memberName ? ':' : '', memberName || '');
-                    })();
-
                     switch (context.kind) {
-                        case 'class': verifyTarget(Annotation.ANNOTATION_TARGET_CLASS, targets, metadataName, context.kind, formattedName); break;
-                        case 'method': verifyTarget(Annotation.ANNOTATION_TARGET_METHOD, targets, metadataName, context.kind, formattedName); break;
-                        case 'field': verifyTarget(Annotation.ANNOTATION_TARGET_FIELD, targets, metadataName, context.kind, formattedName); break;
-                        case 'getter': verifyTarget(Annotation.ANNOTATION_TARGET_GETTER, targets, metadataName, context.kind, formattedName); break;
-                        case 'setter': verifyTarget(Annotation.ANNOTATION_TARGET_SETTER, targets, metadataName, context.kind, formattedName); break;
-                        case 'accessor': verifyTarget(Annotation.ANNOTATION_TARGET_ACCESSOR, targets, metadataName, context.kind, formattedName); break;
+                        case 'class': verifyTarget(Annotation.ANNOTATION_TARGET_CLASS, targets, metadataName, context.kind, context.name); break;
+                        case 'method': verifyTarget(Annotation.ANNOTATION_TARGET_METHOD, targets, metadataName, context.kind, context.name); break;
+                        case 'field': verifyTarget(Annotation.ANNOTATION_TARGET_FIELD, targets, metadataName, context.kind, context.name); break;
+                        case 'getter': verifyTarget(Annotation.ANNOTATION_TARGET_GETTER, targets, metadataName, context.kind, context.name); break;
+                        case 'setter': verifyTarget(Annotation.ANNOTATION_TARGET_SETTER, targets, metadataName, context.kind, context.name); break;
+                        case 'accessor': verifyTarget(Annotation.ANNOTATION_TARGET_ACCESSOR, targets, metadataName, context.kind, context.name); break;
                         case 'parameter': verifyTarget(Annotation.ANNOTATION_TARGET_PARAMETER, targets, metadataName, context.kind); break;
                     }
 

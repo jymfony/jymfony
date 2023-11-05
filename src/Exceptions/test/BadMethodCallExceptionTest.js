@@ -1,11 +1,15 @@
-const { expect } = require('chai');
+const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 
-describe('[Exceptions] BadMethodCallException', function () {
-    it('registered in global namespace', function () {
-        return expect(BadMethodCallException).to.be.not.undefined;
-    });
+export class BadMethodCallExceptionTest extends TestCase {
+    get testCaseName() {
+        return '[Exceptions] ' + super.testCaseName;
+    }
 
-    it('Is instance of Exception', function () {
-        return expect(new BadMethodCallException()).to.be.an.instanceof(Exception);
-    });
-});
+    testShouldBeRegisteredInGlobalNamespace() {
+        __self.assertNotUndefined(BadMethodCallException);
+    }
+
+    testIsInstanceOfException() {
+        __self.assertInstanceOf(Exception, new BadMethodCallException());
+    }
+}

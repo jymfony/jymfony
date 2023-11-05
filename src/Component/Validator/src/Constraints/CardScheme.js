@@ -4,6 +4,9 @@ const Constraint = Jymfony.Component.Validator.Constraint;
  * @memberOf Jymfony.Component.Validator.Constraints
  */
 export default class CardScheme extends Constraint {
+    message = 'Unsupported card type or invalid card number.';
+    schemes;
+
     /**
      * @inheritdoc
      */
@@ -14,16 +17,6 @@ export default class CardScheme extends Constraint {
         }
 
         return Constraint.getErrorName(errorCode);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    __construct(options = null) {
-        this.message = 'Unsupported card type or invalid card number.';
-        this.schemes = undefined;
-
-        return super.__construct(options);
     }
 
     /**

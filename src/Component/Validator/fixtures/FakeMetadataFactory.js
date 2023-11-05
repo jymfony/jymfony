@@ -2,10 +2,8 @@ const MetadataFactoryInterface = Jymfony.Contracts.Metadata.MetadataFactoryInter
 const NoSuchMetadataException = Jymfony.Component.Validator.Exception.NoSuchMetadataException;
 
 export default class FakeMetadataFactory extends implementationOf(MetadataFactoryInterface) {
-    __construct() {
-        this._metadatas = {};
-        this._objectMetadatas = new WeakMap();
-    }
+    _metadatas = {};
+    _objectMetadatas = new WeakMap();
 
     getMetadataFor($class) {
         const className = ReflectionClass.getClassName($class);

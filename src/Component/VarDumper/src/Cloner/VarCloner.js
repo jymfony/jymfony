@@ -87,7 +87,7 @@ export default class VarCloner extends AbstractCloner {
                         }
                         break;
 
-                    case isFunction(v) && ! v.__self__: {
+                    case isFunction(v) && ! v[Symbol.for('jymfony.namespace.class')]: {
                         let class_ = Object.prototype.toString.call(v);
                         const matches = class_.match(/^\[object (\w+)\]/);
                         const kind = matches ? matches[1] : 'Function';
@@ -126,7 +126,7 @@ export default class VarCloner extends AbstractCloner {
                         a = value;
                     } break;
 
-                    case isFunction(v) && !! v.__self__:
+                    case isFunction(v) && !! v[Symbol.for('jymfony.namespace.class')]:
                     case isObject(v): {
                         let h = objectIds.get(v);
                         if (undefined === h) {

@@ -17,6 +17,20 @@ const MissingOptionsException = Jymfony.Component.Validator.Exception.MissingOpt
  */
 export default class Constraint {
     /**
+     * Domain-specific data attached to a constraint.
+     *
+     * @type {*}
+     */
+    payload = null;
+
+    /**
+     * Groups
+     *
+     * @type {null|string[]}
+     */
+    _groups = [ __self.DEFAULT_GROUP ];
+
+    /**
      * Returns the name of the given error code.
      *
      * @param {string} errorCode The error code
@@ -51,20 +65,6 @@ export default class Constraint {
      * @throws {Jymfony.Component.Validator.Exception.ConstraintDefinitionException} When you don't pass an object, but defaultOption returns null
      */
     __construct(options = null) {
-        /**
-         * Domain-specific data attached to a constraint.
-         *
-         * @type {*}
-         */
-        this.payload = null;
-
-        /**
-         * Groups
-         *
-         * @type {null|string[]}
-         */
-        this._groups = [ __self.DEFAULT_GROUP ];
-
         const defaultOption = this.defaultOption;
         const invalidOptions = [];
         const missingOptions = this.requiredOptions.reduce((res, cur) => (res[cur] = true, res), {});

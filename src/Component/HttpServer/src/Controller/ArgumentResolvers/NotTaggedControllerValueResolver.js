@@ -8,6 +8,13 @@ const ArgumentValueResolverInterface = Jymfony.Component.HttpServer.Controller.A
  */
 export default class NotTaggedControllerValueResolver extends implementationOf(ArgumentValueResolverInterface) {
     /**
+     * @type {Jymfony.Contracts.DependencyInjection.ContainerInterface}
+     *
+     * @private
+     */
+    _container;
+
+    /**
      * Constructor.
      *
      * @param {Jymfony.Contracts.DependencyInjection.ContainerInterface} container

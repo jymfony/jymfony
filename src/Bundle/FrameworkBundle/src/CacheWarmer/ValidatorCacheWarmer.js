@@ -10,17 +10,18 @@ const JsonFileLoader = Jymfony.Component.Validator.Mapping.Loader.JsonFileLoader
  */
 export default class ValidatorCacheWarmer extends AbstractFileCacheWarmer {
     /**
+     * @type {Jymfony.Component.Validator.ValidatorBuilder}
+     *
+     * @private
+     */
+    _validatorBuilder;
+
+    /**
      * @param {Jymfony.Component.Validator.ValidatorBuilder} validatorBuilder
      * @param {string} jsFile The file where metadata are cached
      */
     __construct(validatorBuilder, jsFile) {
         super.__construct(jsFile);
-
-        /**
-         * @type {Jymfony.Component.Validator.ValidatorBuilder}
-         *
-         * @private
-         */
         this._validatorBuilder = validatorBuilder;
     }
 

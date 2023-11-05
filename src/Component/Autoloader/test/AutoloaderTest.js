@@ -34,7 +34,7 @@ export default class AutoloaderTest extends TestCase {
 
         let called = false;
 
-        const cl = class TestClass extends glob.__jymfony.JObject {
+        const cl = class TestClass {
             __construct() {
                 called = true;
             }
@@ -60,7 +60,7 @@ export default class AutoloaderTest extends TestCase {
         let InvokeCalled = false;
         let MethodCalled = false;
 
-        const cl = class TestClass extends glob.__jymfony.JObject {
+        const cl = class TestClass {
             __construct() {
                 ConstructCalled = true;
             }

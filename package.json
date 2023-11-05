@@ -30,11 +30,12 @@
     "node": ">=12.0.0"
   },
   "peerDependencies": {
-    "@jymfony/compiler": "https://github.com/jymfony/compiler.git"
+    "@jymfony/compiler": "next"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.21.8",
-    "@babel/plugin-proposal-decorators": "^7.21.0",
+    "@babel/eslint-parser": "^7.22.15",
+    "@babel/plugin-proposal-decorators": "^7.23.2",
+    "@babel/plugin-syntax-import-assertions": "^7.22.5",
     "@types/chai": "^4.3.4",
     "@types/mocha": "^10.0.1",
     "@types/node": "^14.14.37",
@@ -105,6 +106,7 @@
         "Jymfony.Component.Autoloader.Fixtures": "src/Component/Autoloader/fixtures",
         "Jymfony.Component.Cache.Fixtures": "src/Component/Cache/fixtures",
         "Jymfony.Component.Cache.Tests": "src/Component/Cache/test",
+        "Jymfony.Component.Config.Fixtures": "src/Component/Config/fixtures",
         "Jymfony.Component.Config.Tests": "src/Component/Config/test",
         "Jymfony.Component.Console.Tests": "src/Component/Console/test",
         "Jymfony.Component.Crontab.Tests": "src/Component/Crontab/test",

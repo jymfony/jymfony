@@ -9,6 +9,7 @@ export default class DateCasterTest extends mix(TestCase, VarDumperTestTrait) {
     get testCaseName() {
         return '[VarDumper] ' + super.testCaseName;
     }
+
     testShouldDumpDateObjectCorrectly() {
         const dump = `Date @%d {
   date: %a

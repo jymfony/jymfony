@@ -6,18 +6,20 @@ const Stub = Jymfony.Component.VarDumper.Cloner.Stub;
  * @memberOf Jymfony.Component.VarDumper.Cloner
  */
 export default class Data {
-    __construct(data) {
-        /**
-         * @type {Object}
-         *
-         * @private
-         */
-        this._data = data;
+    /**
+     * @type {Object}
+     *
+     * @private
+     */
+    _data;
 
-        this._position = 0;
-        this._key = 0;
-        this._maxDepth = 20;
-        this._maxItemsPerDepth = -1;
+    _position = 0;
+    _key = 0;
+    _maxDepth = 20;
+    _maxItemsPerDepth = -1;
+
+    __construct(data) {
+        this._data = data;
     }
 
     /**

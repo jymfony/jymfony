@@ -4,6 +4,8 @@ const Constraint = Jymfony.Component.Validator.Constraint;
  * @memberOf Jymfony.Component.Validator.Constraints
  */
 export default class Isin extends Constraint {
+    message = 'This is not a valid International Securities Identification Number (ISIN).';
+
     /**
      * @inheritdoc
      */
@@ -15,15 +17,6 @@ export default class Isin extends Constraint {
         }
 
         return Constraint.getErrorName(errorCode);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    __construct(options = null) {
-        this.message = 'This is not a valid International Securities Identification Number (ISIN).';
-
-        return super.__construct(options);
     }
 }
 

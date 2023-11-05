@@ -6,6 +6,8 @@ const Prophet = Jymfony.Component.Testing.Prophet;
 const { expect } = require('chai');
 
 class RoleVoterTest {
+    _prophet;
+
     beforeEach() {
         this._prophet = new Prophet();
     }

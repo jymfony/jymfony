@@ -18,7 +18,7 @@
     "node": ">=12.0.0"
   },
   "peerDependencies": {
-    "@jymfony/compiler": "https://github.com/jymfony/compiler.git"
+    "@jymfony/compiler": "next"
   },
   "dependencies": {
     "@jymfony/datastructure": "https://github.com/jymfony/data-structure.git",
@@ -26,8 +26,7 @@
   },
   "devDependencies": {
     "@jymfony/testing": "https://github.com/jymfony/testing.git",
-    "mocha": "^10.2",
-    "typescript": "^4.0 || ^5.0"
+    "mocha": "^10.2"
   },
   "flat": true,
   "config": {

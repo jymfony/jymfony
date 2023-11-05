@@ -5,11 +5,7 @@ const Composite = Jymfony.Component.Validator.Constraints.Composite;
  * @abstract
  */
 export default class Existence extends Composite {
-    __construct(options = null) {
-        this.constraints = [];
-
-        return super.__construct(options);
-    }
+    constraints = [];
 
     get defaultOption() {
         return 'constraints';

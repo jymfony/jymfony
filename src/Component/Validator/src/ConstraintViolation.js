@@ -7,6 +7,76 @@ const ConstraintViolationInterface = Jymfony.Component.Validator.ConstraintViola
  */
 export default class ConstraintViolation extends implementationOf(ConstraintViolationInterface) {
     /**
+     * @type {string}
+     *
+     * @private
+     */
+    _message;
+
+    /**
+     * @type {null|string}
+     *
+     * @private
+     */
+    _messageTemplate;
+
+    /**
+     * @type {Object<string, *>}
+     *
+     * @private
+     */
+    _parameters;
+
+    /**
+     * @type {int|null}
+     *
+     * @private
+     */
+    _plural;
+
+    /**
+     * @type {*}
+     *
+     * @private
+     */
+    _root;
+
+    /**
+     * @type {string}
+     *
+     * @private
+     */
+    _propertyPath;
+
+    /**
+     * @type {*}
+     *
+     * @private
+     */
+    _invalidValue;
+
+    /**
+     * @type {Jymfony.Component.Validator.Constraint}
+     *
+     * @private
+     */
+    _constraint;
+
+    /**
+     * @type {string}
+     *
+     * @private
+     */
+    _code;
+
+    /**
+     * @type {*}
+     *
+     * @private
+     */
+    _cause;
+
+    /**
      * Creates a new constraint violation.
      *
      * @param {string|object} message The violation message as a string or a stringable object
@@ -25,74 +95,15 @@ export default class ConstraintViolation extends implementationOf(ConstraintViol
             throw new InvalidArgumentException('Constraint violation message should be a string or an object which implements the toString() method.');
         }
 
-        /**
-         * @type {string}
-         *
-         * @private
-         */
         this._message = String(message);
-
-        /**
-         * @type {null|string}
-         *
-         * @private
-         */
         this._messageTemplate = messageTemplate;
-
-        /**
-         * @type {Object<string, *>}
-         *
-         * @private
-         */
         this._parameters = parameters;
-
-        /**
-         * @type {int|null}
-         *
-         * @private
-         */
         this._plural = plural;
-
-        /**
-         * @type {*}
-         *
-         * @private
-         */
         this._root = root;
-
-        /**
-         * @type {string}
-         *
-         * @private
-         */
         this._propertyPath = propertyPath;
-
-        /**
-         * @type {*}
-         *
-         * @private
-         */
         this._invalidValue = invalidValue;
-
-        /**
-         * @type {Jymfony.Component.Validator.Constraint}
-         *
-         * @private
-         */
         this._constraint = constraint;
-
-        /**
-         * @type {string}
-         *
-         * @private
-         */
         this._code = code;
-
-        /**
-         * @type {*}
-         *
-         * @private
-         */
         this._cause = cause;
     }
 

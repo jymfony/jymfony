@@ -15,66 +15,66 @@ const defaultCasters = new Map(casters);
  */
 export default class AbstractCloner extends implementationOf(ClonerInterface) {
     /**
+     * The maximum number of items to past the minimum depth in nested structure.
+     *
+     * @type {int}
+     *
+     * @protected
+     */
+    _maxItems = 2500;
+
+    /**
+     * The maximum cloned length for strings.
+     *
+     * @type {undefined|int}
+     *
+     * @protected
+     */
+    _maxString = undefined;
+
+    /**
+     * The minimum tree depth where we are guaranteed to clone all the items. After this
+     * depth is reached, only maxItems items will be cloned.
+     *
+     * @type {int}
+     *
+     * @private
+     */
+    _minDepth = 1;
+
+    /**
+     * Class info cache.
+     *
+     * @type {Object<string, [int, string[], boolean, { file: string }]>}
+     *
+     * @private
+     */
+    _classInfo = {};
+
+    /**
+     * Filter.
+     *
+     * @type {int}
+     *
+     * @private
+     */
+    _filter = 0;
+
+    /**
+     * Var casters.
+     *
+     * @type {Map.<Function, Function[]>}
+     *
+     * @private
+     */
+    _casters = new Map();
+
+    /**
      * Constructor.
      *
      * @param {Map.<Function, Function[]>} casters
      */
     __construct(casters = undefined) {
-        /**
-         * The maximum number of items to past past the minimum depth in nested structure.
-         *
-         * @type {int}
-         *
-         * @protected
-         */
-        this._maxItems = 2500;
-
-        /**
-         * The maximum cloned length for strings.
-         *
-         * @type {undefined|int}
-         *
-         * @protected
-         */
-        this._maxString = undefined;
-
-        /**
-         * The minimum tree depth where we are guaranteed to clone all the items. After this
-         * depth is reached, only maxItems items will be cloned.
-         *
-         * @type {int}
-         *
-         * @private
-         */
-        this._minDepth = 1;
-
-        /**
-         * Class info cache.
-         *
-         * @type {Object<string, [int, string[], boolean, { file: string }]>}
-         *
-         * @private
-         */
-        this._classInfo = {};
-
-        /**
-         * Filter.
-         *
-         * @type {int}
-         *
-         * @private
-         */
-        this._filter = 0;
-
-        /**
-         * Var casters.
-         *
-         * @type {Map.<Function, Function[]>}
-         *
-         * @private
-         */
-        this._casters = new Map();
-
         if (undefined === casters) {
             casters = defaultCasters;
         }

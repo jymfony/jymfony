@@ -11,14 +11,16 @@ const NullAdapter = Jymfony.Component.Cache.Adapter.NullAdapter;
  */
 export default class AbstractFileCacheWarmer extends implementationOf(CacheWarmerInterface) {
     /**
+     * @type {string}
+     *
+     * @private
+     */
+    _arrayFile;
+
+    /**
      * @param {string} arrayFile The file where metadata are cached
      */
     __construct(arrayFile) {
-        /**
-         * @type {string}
-         *
-         * @private
-         */
         this._arrayFile = arrayFile;
     }
 

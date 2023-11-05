@@ -1,10 +1,27 @@
-const Fixtures = Jymfony.Component.VarExporter.Fixtures;
-const VarExporter = Jymfony.Component.VarExporter.VarExporter;
-const { expect } = require('chai');
-const fs = require('fs');
+import { Script } from 'vm';
+import { readFileSync } from 'fs';
 
-describe('[VarExporter] VarExporter', function () {
-    const exporterTests = function * () {
+const Fixtures = Jymfony.Component.VarExporter.Fixtures;
+const TestCase = Jymfony.Component.Testing.Framework.TestCase;
+const VarExporter = Jymfony.Component.VarExporter.VarExporter;
+
+export default class VarExporterTest extends TestCase {
+    get testCaseName() {
+        return '[VarExporter] ' + super.testCaseName;
+    }
+
+    @dataProvider('provideTests')
+    testExport(testName, value) {
+        const marshalledValue = VarExporter.export(value);
+        const code = readFileSync(__dirname + '/../fixtures/exported/' + testName + '.js').toString();
+
+        __self.assertEquals(code, marshalledValue);
+
+        // Try to evaluate exported value.
+        new Script(marshalledValue).runInThisContext();
+    }
+
+    * provideTests() {
         let v;
 
         yield [ 'multiline-string', {'\0\0\r\nA': 'B\rC\n\n'} ];
@@ -22,18 +39,5 @@ describe('[VarExporter] VarExporter', function () {
 
         yield [ 'abstract-parent', new Fixtures.ConcreteClass() ];
         yield [ 'object-with-empty-string', { x: '' } ];
-    };
-
-    let i = 0;
-    for (const [ testName, value ] of exporterTests()) {
-        it('export #' + ++i, () => {
-            const marshalledValue = VarExporter.export(value);
-            const code = fs.readFileSync(__dirname + '/../fixtures/exported/' + testName + '.js').toString();
-
-            expect(marshalledValue).to.be.equal(code);
-
-            // Try to evaluate exported value.
-            eval(marshalledValue);
-        });
     }
-});
+}

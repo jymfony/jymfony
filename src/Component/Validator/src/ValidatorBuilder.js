@@ -12,72 +12,70 @@ const ValidatorException = Jymfony.Component.Validator.Exception.ValidatorExcept
  * @memberOf Jymfony.Component.Validator
  */
 export default class ValidatorBuilder {
-    __construct() {
-        this._loaders = [];
+    _loaders = [];
 
-        /**
-         * @type {boolean}
-         *
-         * @private
-         */
-        this._annotationMappings = false;
+    /**
+     * @type {boolean}
+     *
+     * @private
+     */
+    _annotationMappings = false;
 
-        /**
-         * @type {string[]}
-         *
-         * @private
-         */
-        this._jsonMappings = [];
+    /**
+     * @type {string[]}
+     *
+     * @private
+     */
+    _jsonMappings = [];
 
-        /**
-         * @type {string[]}
-         *
-         * @private
-         */
-        this._yamlMappings = [];
+    /**
+     * @type {string[]}
+     *
+     * @private
+     */
+    _yamlMappings = [];
 
-        /**
-         * @type {Function[]}
-         *
-         * @private
-         */
-        this._methodMappings = [];
+    /**
+     * @type {Function[]}
+     *
+     * @private
+     */
+    _methodMappings = [];
 
-        /**
-         * @type {Jymfony.Contracts.Metadata.MetadataFactoryInterface|null}
-         *
-         * @private
-         */
-        this._metadataFactory = null;
+    /**
+     * @type {Jymfony.Contracts.Metadata.MetadataFactoryInterface|null}
+     *
+     * @private
+     */
+    _metadataFactory = null;
 
-        /**
-         * @type {Jymfony.Contracts.Cache.CacheItemPoolInterface}
-         *
-         * @private
-         */
-        this._mappingCache = null;
+    /**
+     * @type {Jymfony.Contracts.Cache.CacheItemPoolInterface}
+     *
+     * @private
+     */
+    _mappingCache = null;
 
-        /**
-         * @type {Jymfony.Component.Validator.ConstraintValidatorFactoryInterface|null}
-         *
-         * @private
-         */
-        this._validatorFactory = null;
+    /**
+     * @type {Jymfony.Component.Validator.ConstraintValidatorFactoryInterface|null}
+     *
+     * @private
+     */
+    _validatorFactory = null;
 
-        /**
-         * @type {Jymfony.Contracts.Translation.TranslatorInterface|null}
-         *
-         * @private
-         */
-        this._translator = null;
+    /**
+     * @type {Jymfony.Contracts.Translation.TranslatorInterface|null}
+     *
+     * @private
+     */
+    _translator = null;
 
-        /**
-         * @type {string|null}
-         *
-         * @private
-         */
-        this._translationDomain = null;
-    }
+    /**
+     * @type {string|null}
+     *
+     * @private
+     */
+    _translationDomain = null;
 
     /**
      * Adds a JSON constraint mapping file to the validator.

@@ -244,12 +244,13 @@ declare namespace __jymfony {
     export function wordwrap(str: string, width?: number, strBreak?: string, cut?: boolean): string;
 }
 
-interface WeakRef<T extends object> {
+interface WeakRef<T extends WeakKey> {
     readonly [Symbol.toStringTag]: "WeakRef";
 
     /**
-     * Returns the WeakRef instance's target object, or undefined if the target object has been
+     * Returns the WeakRef instance's target value, or undefined if the target value has been
      * reclaimed.
+     * In es2023 the value can be either a symbol or an object, in previous versions only object is permissible.
      */
     deref(): T | undefined;
 }

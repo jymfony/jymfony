@@ -8,6 +8,34 @@ const ValidatorInterface = Jymfony.Component.Validator.Validator.ValidatorInterf
  */
 export default class RecursiveValidator extends implementationOf(ValidatorInterface) {
     /**
+     * @type {Jymfony.Component.Validator.Context.ExecutionContextFactoryInterface}
+     *
+     * @protected
+     */
+    _contextFactory;
+
+    /**
+     * @type {Jymfony.Contracts.Metadata.MetadataFactoryInterface}
+     *
+     * @protected
+     */
+    _metadataFactory;
+
+    /**
+     * @type {Jymfony.Component.Validator.ConstraintValidatorFactoryInterface}
+     *
+     * @protected
+     */
+    _validatorFactory;
+
+    /**
+     * @type {string}
+     *
+     * @private
+     */
+    _locale;
+
+    /**
      * Creates a new validator.
      *
      * @param {Jymfony.Component.Validator.Context.ExecutionContextFactoryInterface} contextFactory
@@ -15,33 +43,9 @@ export default class RecursiveValidator extends implementationOf(ValidatorInterf
      * @param {Jymfony.Component.Validator.ConstraintValidatorFactoryInterface} validatorFactory
      */
     __construct(contextFactory, metadataFactory, validatorFactory) {
-        /**
-         * @type {Jymfony.Component.Validator.Context.ExecutionContextFactoryInterface}
-         *
-         * @protected
-         */
         this._contextFactory = contextFactory;
-
-        /**
-         * @type {Jymfony.Contracts.Metadata.MetadataFactoryInterface}
-         *
-         * @protected
-         */
         this._metadataFactory = metadataFactory;
-
-        /**
-         * @type {Jymfony.Component.Validator.ConstraintValidatorFactoryInterface}
-         *
-         * @protected
-         */
         this._validatorFactory = validatorFactory;
-
-        /**
-         * @type {string}
-         *
-         * @private
-         */
-        this._locale = undefined;
     }
 
     /**

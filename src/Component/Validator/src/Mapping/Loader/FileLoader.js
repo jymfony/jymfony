@@ -11,6 +11,13 @@ const MappingException = Jymfony.Component.Validator.Exception.MappingException;
  */
 export default class FileLoader extends AbstractLoader {
     /**
+     * @type {string}
+     *
+     * @protected
+     */
+    _file;
+
+    /**
      * Creates a new loader.
      *
      * @param {string} file The mapping file to load
@@ -37,11 +44,6 @@ export default class FileLoader extends AbstractLoader {
             throw new MappingException(__jymfony.sprintf('The mapping file "%s" is not readable.', file), null, e);
         }
 
-        /**
-         * @type {string}
-         *
-         * @protected
-         */
         this._file = file;
     }
 }

@@ -12,14 +12,12 @@ const UnexpectedTypeException = Jymfony.Component.Validator.Exception.Unexpected
  * @memberOf Jymfony.Component.Validator
  */
 export default class ConstraintValidatorFactory extends implementationOf(ConstraintValidatorFactoryInterface) {
-    __construct() {
-        /**
-         * @type {Object.<string, Jymfony.Component.Validator.ConstraintValidatorInterface>}
-         *
-         * @private
-         */
-        this._validators = {};
-    }
+    /**
+     * @type {Object.<string, Jymfony.Component.Validator.ConstraintValidatorInterface>}
+     *
+     * @private
+     */
+    _validators = {};
 
     /**
      * @inheritdoc

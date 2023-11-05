@@ -32,7 +32,8 @@ export default class ClassGenerator {
         const mirrorClass = class _jymfony_testing_doubler_double__ extends mix(this._superClass, ...this._interfaces) { };
 
         // Reset reflection metadata
-        delete mirrorClass[Symbol.reflection];
+        delete mirrorClass[Symbol.for('jymfony.namespace.class')];
+        delete mirrorClass[Symbol.metadata];
 
         const proto = mirrorClass.prototype;
 

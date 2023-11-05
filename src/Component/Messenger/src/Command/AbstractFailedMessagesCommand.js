@@ -14,6 +14,20 @@ const TransportMessageIdStamp = Jymfony.Component.Messenger.Stamp.TransportMessa
  * @internal
  */
 export default class AbstractFailedMessagesCommand extends Command {
+    /**
+     * @type {Jymfony.Contracts.DependencyInjection.ServiceProviderInterface}
+     *
+     * @protected
+     */
+    _failureTransports;
+
+    /**
+     * @type {string | null}
+     *
+     * @private
+     */
+    _globalFailureReceiverName;
+
     static get defaultTransportOption() {
         return 'choose';
     }
@@ -25,18 +39,7 @@ export default class AbstractFailedMessagesCommand extends Command {
      * @param {Jymfony.Contracts.DependencyInjection.ServiceProviderInterface} failureTransports
      */
     __construct(globalFailureReceiverName, failureTransports) {
-        /**
-         * @type {Jymfony.Contracts.DependencyInjection.ServiceProviderInterface}
-         *
-         * @protected
-         */
         this._failureTransports = failureTransports;
-
-        /**
-         * @type {string | null}
-         *
-         * @private
-         */
         this._globalFailureReceiverName = globalFailureReceiverName;
 
         super.__construct();

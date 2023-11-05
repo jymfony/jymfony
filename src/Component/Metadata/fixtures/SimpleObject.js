@@ -3,8 +3,7 @@ import { ClassAnnot, MethodAnnotation1, MethodAnnotation2, NotHandledAnnotation 
 export default
 @ClassAnnot()
 @NotHandledAnnotation()
-class SimpleObject
-{
+class SimpleObject {
     @NotHandledAnnotation()
     _createdAt;
 

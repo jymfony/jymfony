@@ -1,5 +1,8 @@
-const Autoloader = require('./src/Autoloader');
+if (undefined === Symbol.metadata) {
+    Symbol.metadata = Symbol.for('Symbol.metadata');
+}
 
+const Autoloader = require('./src/Autoloader');
 const autoloader = new Autoloader();
 autoloader.register();
 

@@ -5,6 +5,8 @@ const Constraint = Jymfony.Component.Validator.Constraint;
  * @memberOf Jymfony.Component.Validator.Constraints
  */
 export default class NotIdenticalTo extends AbstractComparison {
+    message = 'This value should not be identical to {{ compared_value }}.';
+
     /**
      * @inheritdoc
      */
@@ -14,15 +16,6 @@ export default class NotIdenticalTo extends AbstractComparison {
         }
 
         return Constraint.getErrorName(errorCode);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    __construct(options = null) {
-        this.message = 'This value should not be identical to {{ compared_value }}.';
-
-        return super.__construct(options);
     }
 }
 

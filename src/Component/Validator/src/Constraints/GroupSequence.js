@@ -39,32 +39,34 @@ export default
 @Annotation(Annotation.ANNOTATION_TARGET_ALL ^ Annotation.ANNOTATION_TARGET_PARAMETER)
 class GroupSequence {
     /**
+     * The groups in the sequence.
+     *
+     * @type {string[]|Object.<string, string[]>|Jymfony.Component.Validator.Constraints.GroupSequence[]}
+     */
+    groups = [];
+
+    /**
+     * The group in which cascaded objects are validated when validating
+     * this sequence.
+     *
+     * By default, cascaded objects are validated in each of the groups of
+     * the sequence.
+     *
+     * If a class has a group sequence attached, that sequence replaces the
+     * "Default" group. When validating that class in the "Default" group, the
+     * group sequence is used instead, but still the "Default" group should be
+     * cascaded to other objects.
+     *
+     * @type {string|Jymfony.Component.Validator.Constraints.GroupSequence}
+     */
+    cascadedGroup = null;
+
+    /**
      * Creates a new group sequence.
      *
      * @param {string[]} groups The groups in the sequence
      */
     __construct(groups) {
-        /**
-         * The groups in the sequence.
-         *
-         * @type {string[]|Object.<string, string[]>|Jymfony.Component.Validator.Constraints.GroupSequence[]}
-         */
         this.groups = groups;
-
-        /**
-         * The group in which cascaded objects are validated when validating
-         * this sequence.
-         *
-         * By default, cascaded objects are validated in each of the groups of
-         * the sequence.
-         *
-         * If a class has a group sequence attached, that sequence replaces the
-         * "Default" group. When validating that class in the "Default" group, the
-         * group sequence is used instead, but still the "Default" group should be
-         * cascaded to other objects.
-         *
-         * @type {string|Jymfony.Component.Validator.Constraints.GroupSequence}
-         */
-        this.cascadedGroup = null;
     }
 }

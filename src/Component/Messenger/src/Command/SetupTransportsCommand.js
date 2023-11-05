@@ -11,24 +11,27 @@ export default
 @AsCommand({ name: 'messenger:setup-transports', description: 'Prepare the required infrastructure for the transport' })
 class SetupTransportsCommand extends Command {
     /**
+     * @type {Jymfony.Contracts.DependencyInjection.ContainerInterface}
+     *
+     * @private
+     */
+    _transportLocator;
+
+    /**
+     * @type {string[]}
+     *
+     * @private
+     */
+    _transportNames;
+
+    /**
      * Constructor.
      *
      * @param {Jymfony.Contracts.DependencyInjection.ContainerInterface} transportLocator
      * @param {string[]} [transportNames = []]
      */
     __construct(transportLocator, transportNames = []) {
-        /**
-         * @type {Jymfony.Contracts.DependencyInjection.ContainerInterface}
-         *
-         * @private
-         */
         this._transportLocator = transportLocator;
-
-        /**
-         * @type {string[]}
-         *
-         * @private
-         */
         this._transportNames = transportNames;
 
         super.__construct();

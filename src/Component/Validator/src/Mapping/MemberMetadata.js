@@ -17,38 +17,42 @@ const PropertyMetadataInterface = Jymfony.Component.Validator.Mapping.PropertyMe
  */
 export default class MemberMetadata extends mix(GenericMetadata, PropertyMetadataInterface) {
     /**
+     * @type {string}
+     *
+     * @private
+     */
+    _class;
+
+    /**
+     * @type {string}
+     *
+     * @private
+     */
+    _name;
+
+    /**
+     * @type {string}
+     *
+     * @private
+     */
+    _property;
+
+    /**
+     * @type {Object.<string|symbol, (ReflectionMethod|ReflectionProperty|ReflectionField)>}
+     *
+     * @private
+     */
+    _reflMember = {};
+
+    /**
      * @param {string} klass The name of the class this member is defined on
      * @param {string} name The name of the member
      * @param {string} property The property the member belongs to
      */
     __construct(klass, name, property) {
-        /**
-         * @type {string}
-         *
-         * @private
-         */
         this._class = klass;
-
-        /**
-         * @type {string}
-         *
-         * @private
-         */
         this._name = name;
-
-        /**
-         * @type {string}
-         *
-         * @private
-         */
         this._property = property;
-
-        /**
-         * @type {Object.<string|symbol, (ReflectionMethod|ReflectionProperty|ReflectionField)>}
-         *
-         * @private
-         */
-        this._reflMember = {};
     }
 
     /**

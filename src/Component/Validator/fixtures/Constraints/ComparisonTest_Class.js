@@ -2,6 +2,8 @@
  * @memberOf Jymfony.Component.Validator.Fixtures.Constraints
  */
 export default class ComparisonTest_Class {
+    _value;
+
     __construct(value) {
         this._value = value;
     }

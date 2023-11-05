@@ -1,16 +1,75 @@
+const MetadataHelper = require('../Metadata/MetadataHelper');
 const ReflectorTrait = require('./ReflectorTrait');
 
 /**
  * Reflection utility for method parameters.
  */
 class ReflectionParameter extends implementationOf(ReflectorInterface, ReflectorTrait) {
+
+    /**
+     * @type {ReflectionMethod}
+     *
+     * @private
+     */
+    _reflectionMethod;
+
+    /**
+     * @type {null|string}
+     *
+     * @private
+     */
+    _name;
+
+    /**
+     * @type {int}
+     *
+     * @private
+     */
+    _index;
+
+    /**
+     * @type {boolean}
+     *
+     * @private
+     */
+    _objectPattern;
+
+    /**
+     * @type {boolean}
+     *
+     * @private
+     */
+    _arrayPattern;
+
+    /**
+     * @type {boolean}
+     *
+     * @private
+     */
+    _restElement;
+
+    /**
+     * @type {boolean}
+     *
+     * @private
+     */
+    _hasDefaultValue;
+
+    /**
+     * @type {*}
+     *
+     * @private
+     */
+    _scalarDefaultValue;
+
     /**
      * Constructor.
      *
      * @param {ReflectionMethod} reflectionMethod
      * @param {null|string} name
      * @param {int} index
-     * @param {*} defaultValue
+     * @param {boolean} hasDefaultValue
+     * @param {*} scalarDefaultValue
      * @param {boolean} objectPattern
      * @param {boolean} arrayPattern
      * @param {boolean} restElement
@@ -21,65 +80,22 @@ class ReflectionParameter extends implementationOf(ReflectorInterface, Reflector
         reflectionMethod,
         name,
         index,
-        defaultValue = undefined,
+        hasDefaultValue = false,
+        scalarDefaultValue = undefined,
         objectPattern = false,
         arrayPattern = false,
         restElement = false,
     ) {
         super();
 
-        /**
-         * @type {ReflectionMethod}
-         *
-         * @private
-         */
         this._reflectionMethod = reflectionMethod;
-
-        /**
-         * @type {null|string}
-         *
-         * @private
-         */
         this._name = name;
-
-        /**
-         * @type {int}
-         *
-         * @private
-         */
         this._index = index;
-
-        /**
-         * @type {boolean}
-         *
-         * @private
-         */
         this._objectPattern = objectPattern;
-
-        /**
-         * @type {boolean}
-         *
-         * @private
-         */
         this._arrayPattern = arrayPattern;
-
-        /**
-         * @type {boolean}
-         *
-         * @private
-         */
         this._restElement = restElement;
-
-        /**
-         * @type {*}
-         *
-         * @private
-         */
-        this._defaultValue = defaultValue;
-
-        if (isObject(defaultValue)) {
-            Object.freeze(defaultValue);
-        }
+        this._hasDefaultValue = hasDefaultValue;
+        this._scalarDefaultValue = scalarDefaultValue;
     }
 
     /**
@@ -110,12 +126,21 @@ class ReflectionParameter extends implementationOf(ReflectorInterface, Reflector
     }
 
     /**
-     * Gets the parameter default value.
+     * Whether the parameter has a default value.
      *
      * @returns {*}
      */
-    get defaultValue() {
-        return this._defaultValue;
+    get hasDefaultValue() {
+        return this._hasDefaultValue;
+    }
+
+    /**
+     * Gets the parameter default value (if scalar).
+     *
+     * @returns {*}
+     */
+    get scalarDefaultValue() {
+        return this._scalarDefaultValue;
     }
 
     /**
@@ -151,7 +176,19 @@ class ReflectionParameter extends implementationOf(ReflectorInterface, Reflector
      * @returns {[Function, *][]}
      */
     get metadata() {
-        return MetadataStorage.getMetadata(this._reflectionMethod._method[Symbol.metadata], this._index);
+        const method = this._reflectionMethod;
+        const class_ = method.reflectionClass;
+        const metadata = class_.getConstructor()[Symbol.metadata];
+        const target = MetadataHelper.getMetadataTarget({ kind: 'parameter', index: this._index, name: this._name, metadata, function: { name: method.name } });
+        const storage = MetadataStorage.getMetadata(target);
+
+        return [ ...(function * () {
+            for (const [ class_, data ] of storage) {
+                for (const datum of isArray(data) ? data : [ data ]) {
+                    yield [ class_, datum ];
+                }
+            }
+        }()) ];
     }
 }
 

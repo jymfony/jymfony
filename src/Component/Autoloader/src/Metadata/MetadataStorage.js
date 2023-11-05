@@ -1,7 +1,7 @@
 /**
  * @type {WeakMap<object, Map<*, Map<*, *>>>}
  */
-const storage = new Map();
+const storage = new WeakMap();
 const classSymbol = Symbol('class');
 
 /**
@@ -39,10 +39,9 @@ class MetadataStorage {
      * @param {*} key
      * @param {*} value
      * @param {Function} target
-     * @param {null|string|symbol} [prop]
      */
-    static addMetadata(key, value, target, prop = null) {
-        const storage = getStorage(target, prop, true);
+    static addMetadata(key, value, target) {
+        const storage = getStorage(target, null, true);
         const currentValue = storage.get(key);
 
         if (undefined === currentValue) {
@@ -58,10 +57,9 @@ class MetadataStorage {
      * @param {*} key
      * @param {*} value
      * @param {Function} target
-     * @param {null|string|symbol} [prop]
      */
-    static defineMetadata(key, value, target, prop = null) {
-        const storage = getStorage(target, prop, true);
+    static defineMetadata(key, value, target) {
+        const storage = getStorage(target, null, true);
         storage.set(key, [ value ]);
     }
 
@@ -69,10 +67,9 @@ class MetadataStorage {
      * Retrieves metadata for target.
      *
      * @param {Function} target
-     * @param {null|string|symbol} prop
      */
-    static getMetadata(target, prop) {
-        const storage = getStorage(target, prop);
+    static getMetadata(target) {
+        const storage = getStorage(target, null);
         if (! storage) {
             return [];
         }

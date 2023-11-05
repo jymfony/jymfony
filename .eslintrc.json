@@ -2,14 +2,15 @@
   "root": true,
   "parser": "@babel/eslint-parser",
   "parserOptions": {
-    "ecmaVersion": 11,
+    "ecmaVersion": "latest",
     "sourceType": "module",
     "requireConfigFile": false,
     "babelOptions": {
       "babelrc": false,
       "configFile": false,
       "plugins": [
-        ["@babel/plugin-proposal-decorators", { "version": "2022-03" }]
+        ["@babel/plugin-proposal-decorators", { "version": "2022-03" }],
+        "@babel/plugin-syntax-import-assertions"
       ]
     }
   },

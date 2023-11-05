@@ -11,6 +11,8 @@ const DummyQuery = Jymfony.Component.Messenger.Fixtures.DummyQuery;
 const DummyQueryHandler = Jymfony.Component.Messenger.Fixtures.DummyQueryHandler;
 const DummyReceiver = Jymfony.Component.Messenger.Fixtures.DummyReceiver;
 const DummyHandlerWithCustomMethods = Jymfony.Component.Messenger.Fixtures.DummyHandlerWithCustomMethods;
+const FailedMessagesRetryCommand = Jymfony.Component.Messenger.Command.FailedMessagesRetryCommand;
+const FailedMessagesShowCommand = Jymfony.Component.Messenger.Command.FailedMessagesShowCommand;
 const HandleMessageMiddleware = Jymfony.Component.Messenger.Middleware.HandleMessageMiddleware;
 const HandleNoMessageHandler = Jymfony.Component.Messenger.Fixtures.HandleNoMessageHandler;
 const HandlerMappingMethods = Jymfony.Component.Messenger.Fixtures.HandlerMappingMethods;
@@ -733,5 +735,47 @@ export default class MessengerPassTest extends TestCase {
             },
             [emptyBus]: {},
         }, container.getDefinition('console.command.messenger_debug').getArgument(0));
+    }
+
+    // testRegistersTraceableBusesToCollector() {
+    //     const fooBusId = 'messenger.bus.foo';
+    //     const container = this.getContainerBuilder(fooBusId);
+    //     container.register('data_collector.messenger', MessengerDataCollector);
+    //     container.setParameter('kernel.debug', true);
+    //
+    //     (new MessengerPass()).process(container);
+    //
+    //     const debuggedFooBusId = 'debug.traced.' + fooBusId;
+    //     __self.assertTrue(container.hasDefinition(debuggedFooBusId));
+    //     __self.assertSame([ fooBusId, null, 0 ], container.getDefinition(debuggedFooBusId).getDecoratedService());
+    //     __self.assertEquals([ [ 'registerBus', [ fooBusId, new Reference(debuggedFooBusId) ] ] ], container.getDefinition('data_collector.messenger').getMethodCalls());
+    // }
+
+    testFailedCommandsRegisteredWithServiceLocatorArgumentReplaced() {
+        const globalReceiverName = 'global_failure_transport';
+        const messageBusId = 'message_bus';
+        const container = this.getContainerBuilder(messageBusId);
+
+        container.register('console.command.messenger_failed_messages_retry', FailedMessagesRetryCommand)
+            .setArgument(0, globalReceiverName)
+            .setArgument(1, null)
+            .setArgument(2, new Reference(messageBusId));
+        container.register('console.command.messenger_failed_messages_show', FailedMessagesShowCommand)
+            .setArgument(0, globalReceiverName)
+            .setArgument(1, null);
+        container.register('console.command.messenger_failed_messages_remove', FailedMessagesRetryCommand)
+            .setArgument(0, globalReceiverName)
+            .setArgument(1, null);
+
+        (new MessengerPass()).process(container);
+
+        const retryDefinition = container.getDefinition('console.command.messenger_failed_messages_retry');
+        __self.assertNotNull(retryDefinition.getArgument(1));
+
+        const showDefinition = container.getDefinition('console.command.messenger_failed_messages_show');
+        __self.assertNotNull(showDefinition.getArgument(1));
+
+        const removeDefinition = container.getDefinition('console.command.messenger_failed_messages_remove');
+        __self.assertNotNull(removeDefinition.getArgument(1));
     }
 }

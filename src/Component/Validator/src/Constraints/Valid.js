@@ -4,11 +4,7 @@ const Constraint = Jymfony.Component.Validator.Constraint;
  * @memberOf Jymfony.Component.Validator.Constraints
  */
 export default class Valid extends Constraint {
-    __construct(options = null) {
-        this.traverse = true;
-
-        return super.__construct(options);
-    }
+    traverse = true;
 
     set groups(groups) {
         super.groups = groups;

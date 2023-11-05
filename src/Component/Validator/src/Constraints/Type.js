@@ -4,6 +4,9 @@ const Constraint = Jymfony.Component.Validator.Constraint;
  * @memberOf Jymfony.Component.Validator.Constraints
  */
 export default class Type extends Constraint {
+    message = 'This value should be of type {{ type }}.';
+    type = undefined;
+
     /**
      * @inheritdoc
      */
@@ -13,16 +16,6 @@ export default class Type extends Constraint {
         }
 
         return Constraint.getErrorName(errorCode);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    __construct(options = null) {
-        this.message = 'This value should be of type {{ type }}.';
-        this.type = undefined;
-
-        return super.__construct(options);
     }
 
     /**

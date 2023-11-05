@@ -8,10 +8,9 @@ const preFoo = 'event.pre_foo';
 const postFoo = 'event.post_foo';
 
 class TestEventListener {
-    constructor() {
-        this.preFooCalled = false;
-        this.postFooCalled = false;
-    }
+    name;
+    preFooCalled = false;
+    postFooCalled = false;
 
     foo1 () { }
     foo2 () { }

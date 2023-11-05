@@ -35,23 +35,25 @@ const RouteCollection = Jymfony.Component.Routing.RouteCollection;
  */
 export default class AnnotationClassLoader extends implementationOf(LoaderInterface) {
     /**
+     * @type {int}
+     *
+     * @protected
+     */
+    _defaultRouteIndex = 0;
+
+    /**
+     * @type {string|null}
+     *
+     * @private
+     */
+    _env;
+
+    /**
      * Constructor.
      *
      * @param {string | null} [env = null]
      */
     __construct(env = null) {
-        /**
-         * @type {int}
-         *
-         * @protected
-         */
-        this._defaultRouteIndex = 0;
-
-        /**
-         * @type {string|null}
-         *
-         * @private
-         */
         this._env = env;
     }
 
@@ -175,14 +177,14 @@ export default class AnnotationClassLoader extends implementationOf(LoaderInterf
 
             for (const param of method.parameters) {
                 if (param.isArrayPattern || param.isObjectPattern || param.isRestElement ||
-                    undefined !== defaults[param.name] || undefined === param.defaultValue) {
+                    undefined !== defaults[param.name] || !param.hasDefaultValue) {
                     continue;
                 }
 
                 for (const path of Object.values(paths)) {
                     const regex = new RegExp('\{' + __jymfony.regex_quote(param.name) + '(?:<.*?>)?\}');
                     if (path.match(regex)) {
-                        defaults[param.name] = param.defaultValue;
+                        defaults[param.name] = param.scalarDefaultValue;
                         break;
                     }
                 }

@@ -1,34 +1,9 @@
-const { Generator, registerSourceMap } = require('@jymfony/compiler/src/SourceMap');
 const ManagedProxy = require('./Proxy/ManagedProxy');
-const CircularDependencyException = require('./Exception/CircularDependencyException');
-
-let Typescript;
-let TypescriptConfig;
-
-try {
-    Typescript = require('typescript');
-    TypescriptConfig = {
-        sourceMap: true,
-        sourceRoot: '/',
-        inlineSourceMap: false,
-        inlineSources: false,
-        declaration: true,
-        module: Typescript.ModuleKind.ESNext,
-        target: Typescript.ScriptTarget.ES2017,
-        noResolve: true,
-        isolatedModules: true,
-        strict: true,
-    };
-} catch (e) {
-    // @ignoreException
-}
-
-let Compiler;
-let Parser;
-let AST;
+const { patchVm } = require('./NodeProxies');
 
 const isNyc = !! global.__coverage__;
-const { dirname, normalize, resolve: pathResolve } = require('path');
+const { normalize } = require('path');
+const { compile } = require('@jymfony/compiler');
 
 const Storage = function () {};
 Storage.prototype = {};
@@ -47,10 +22,8 @@ if (__jymfony.version_compare(process.versions.node, '12.0.0', '<')) {
     };
 }
 
-if (Typescript) {
-    require.extensions['.ts'] = require.extensions['.ts'] ||
-        ((m, filename) => __jymfony.autoload.classLoader.loadFile(filename));
-}
+require.extensions['.ts'] = require.extensions['.ts'] ||
+    ((m, filename) => __jymfony.autoload.classLoader.loadFile(filename));
 
 /**
  * Remove byte order marker. This catches EF BB BF (the UTF-8 BOM)
@@ -76,8 +49,6 @@ const builtinRequire = __jymfony.version_compare(process.versions.node, '14.0.0'
     return require(id);
 } : require;
 
-const sourceMapGenerator = new Generator(null, false);
-
 /**
  * Patching-replacement for "require" function in Autoloader component.
  *
@@ -86,73 +57,59 @@ const sourceMapGenerator = new Generator(null, false);
  */
 class ClassLoader {
     /**
+     * @type {Jymfony.Component.Autoloader.Finder}
+     *
+     * @private
+     */
+    _finder;
+
+    /**
+     @type {import("node:path")}
+     *
+     * @private
+     */
+    _path;
+
+    /**
+     * @type {import("node:vm")}
+     *
+     * @private
+     */
+    _vm;
+
+    /**
+     * @type {import("node:vm")}
+     *
+     * @private
+     */
+    _patchedVm;
+
+    /**
+     * @type {Set<string>}
+     *
+     * @private
+     */
+    _compilerIgnorelist = new Set();
+
+    /**
      * Constructor
      *
      * @param {Jymfony.Component.Autoloader.Finder} finder
-     * @param {path} path
-     * @param {vm} vm
+     * @param {import("node:path")} path
+     * @param {import("node:vm")} vm
      */
     constructor(finder, path, vm) {
-        /**
-         * @type {Jymfony.Component.Autoloader.Finder}
-         *
-         * @private
-         */
         this._finder = finder;
-
-        /**
-         * @type {path}
-         *
-         * @private
-         */
         this._path = path;
-
-        /**
-         * @type {vm}
-         *
-         * @private
-         */
         this._vm = vm;
-
-        /**
-         * @type {string[]}
-         *
-         * @private
-         */
-        this._compilerIgnorelist = (process.env.JYMFONY_COMPILER_IGNORE || '')
-            .split(',')
-            .map(v => __jymfony.trim(v))
-            .filter(v => '' !== v)
-            .map(v => v.startsWith('.') ? path.resolve(process.cwd(), v) : v)
-        ;
-
-        if (undefined === Compiler) {
-            ClassLoader.compiler = require('@jymfony/compiler');
-        }
-    }
-
-    /**
-     * @internal
-     */
-    static get compiler() {
-        if (undefined === Compiler) {
-            ClassLoader.compiler = require('@jymfony/compiler');
-        }
-
-        return {
-            Compiler,
-            Parser,
-            AST,
-        };
-    }
-
-    /**
-     * Sets the compiler class components.
-     */
-    static set compiler({ Compiler: compilerClass, Parser: parserClass, AST: astBase }) {
-        Compiler = compilerClass;
-        Parser = parserClass;
-        AST = astBase;
+        this._patchedVm = patchVm(this._vm);
+        this._compilerIgnorelist = new Set(
+            (process.env.JYMFONY_COMPILER_IGNORE || '')
+                .split(',')
+                .map(v => __jymfony.trim(v))
+                .filter(v => '' !== v)
+                .map(v => v.startsWith('.') ? path.resolve(process.cwd(), v) : v)
+        );
     }
 
     /**
@@ -223,100 +180,25 @@ class ClassLoader {
      * Gets a file code.
      *
      * @param {string} fn
-     * @param {boolean} [self]
      * @param {string} [namespace]
      *
-     * @returns {{code: string, program: Program}}
+     * @returns {{code: string}}
      */
-    getCode(fn, self = true, namespace = '') {
+    getCode(fn, namespace = '') {
         if (codeCache[fn]) {
             return codeCache[fn];
         }
 
-        let code, sourceMap, program = null;
-        if (fn.endsWith('.ts')) {
-            const module = this._doLoadTypescript(fn);
-            code = module.outputText || '';
-            try {
-                sourceMap = JSON.parse(module.sourceMapText);
-            } catch (e) {
-                // @ignoreException
-            }
-        } else {
-            code = stripBOM(this._finder.load(fn));
-        }
-
-        const decorators = {};
-
-        const parser = new Parser();
-        sourceMapGenerator.reset(fn, ! __jymfony.autoload.debug);
-        const compiler = new Compiler(sourceMapGenerator, {filename: fn, namespace});
-
-        try {
-            program = parser.parse(code);
-        } catch (e) {
-            if (e instanceof SyntaxError) {
-                e.message = 'Syntax error while parsing ' + fn + ': ' + e.message;
-            }
-
-            throw e;
-        }
-
-        program.prepare();
-
-        const p = new AST.Program(program.location);
-
-        if (sourceMap) {
-            sourceMap.sources = sourceMap.sources.map(s => normalize(pathResolve(sourceMap.sourceRoot + '/' + s)));
-            p.addSourceMappings(sourceMap);
-        } else {
-            p.addSourceMappings(...(program.sourceMappings.filter(isObjectLiteral)));
-        }
-
-        const args = [
-            new AST.Identifier(null, 'exports'),
-            new AST.Identifier(null, 'require'),
-            new AST.Identifier(null, 'module'),
-            new AST.Identifier(null, '__filename'),
-            new AST.Identifier(null, '__dirname'),
-        ];
-
-        if (self) {
-            args.push(new AST.Identifier(null, '__self'));
-        }
-
-        p.add(new AST.ParenthesizedExpression(null,
-            new AST.FunctionExpression(null, new AST.BlockStatement(null, [
-                new AST.StringLiteral(null, '\'use strict\''),
-                ...program.body,
-            ]), null, args)
-        ));
-
-        code = compiler.compile(p);
-        registerSourceMap(fn, sourceMapGenerator);
+        const code = stripBOM(this._finder.load(fn));
+        const program = compile(code, fn, {
+            debug: __jymfony.autoload.debug,
+            namespace,
+            asFunction: true,
+        });
 
         return codeCache[fn] = {
-            code,
-            program,
-            decorators,
+            code: program,
         };
-    }
-
-    /**
-     * Loads and transpile typescript file.
-     *
-     * @param {string} fn The filename to load.
-     *
-     * @private
-     */
-    _doLoadTypescript(fn) {
-        const code = this._finder.load(fn);
-
-        return Typescript.transpileModule(code, {
-            compilerOptions: { ...TypescriptConfig, sourceRoot: dirname(fn) },
-            fileName: fn,
-            moduleName: fn,
-        });
     }
 
     /**
@@ -340,7 +222,11 @@ class ClassLoader {
         };
 
         const req = id => {
-            if (id.startsWith('node:') || builtinLibs.includes(id) || this._compilerIgnorelist.includes(id)) {
+            if ('node:vm' === id || 'vm' === id) {
+                return this._patchedVm;
+            }
+
+            if (id.startsWith('node:') || builtinLibs.includes(id) || this._compilerIgnorelist.has(id)) {
                 return builtinRequire(id);
             }
 
@@ -360,14 +246,8 @@ class ClassLoader {
         req.nocompile = id => require(id);
         req.cache = require.cache;
 
-        _cache[fn] = new __jymfony.ManagedProxy(function () { }, proxy => {
-            if (! require.cache[fn]) {
-                throw new CircularDependencyException(fn);
-            }
-
-            proxy.target = require.cache[fn].exports;
-            return null;
-        });
+        require.cache[fn] = module;
+        _cache[fn] = module.exports;
 
         req.proxy = id => {
             if (builtinLibs.includes(id)) {
@@ -382,7 +262,7 @@ class ClassLoader {
             const exports = function () {};
             const module = this._getModuleObject(id, exports);
 
-            const code = this.getCode(id, !!self, namespace);
+            const code = this.getCode(id, namespace);
             const opts = isNyc ? id : {
                 filename: id,
                 produceCachedData: false,
@@ -392,7 +272,7 @@ class ClassLoader {
                 proxy.initializer = null;
                 proxy.target = exports;
 
-                this._vm.runInThisContext(code.code, opts)(module.exports, req, module, id, dirname, null);
+                this._vm.runInThisContext(code.code, opts)(module.exports, req, module, id, dirname);
                 _cache[id] = proxy.target = module.exports;
 
                 return null;
@@ -412,28 +292,13 @@ class ClassLoader {
         };
 
         let _pending;
-        const code = this.getCode(fn, !!self, namespace);
+        const code = this.getCode(fn, namespace);
         try {
-            this._vm.runInThisContext(code.code, opts)(module.exports, req, module, fn, dirname, self);
+            this._vm.runInThisContext(code.code, opts)(module.exports, req, module, fn, dirname);
         } catch (e) {
-            if (e instanceof CircularDependencyException) {
-                if (e.requiring === undefined) {
-                    e.requiring = fn;
-                    e.requireFn = req;
-                }
-
-                if (e.required === fn) {
-                    delete _cache[e.requiring];
-                    _pending = _cache[e.requiring] = e.requireFn.proxy(e.requiring);
-
-                    require.cache[fn] = module;
-                    this._vm.runInThisContext(this.getCode(fn, !!self, namespace).code, opts)(module.exports, req, module, fn, dirname, self);
-
-                    return _cache[fn] = module.exports;
-                }
-            }
-
             delete _cache[fn];
+            delete require.cache[fn];
+
             throw e;
         } finally {
             if (_pending) {

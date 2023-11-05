@@ -10,14 +10,12 @@ const ConstraintValidatorInterface = Jymfony.Component.Validator.ConstraintValid
  * @abstract
  */
 export default class ConstraintValidator extends implementationOf(ConstraintValidatorInterface) {
-    __construct() {
-        /**
-         * @type {Jymfony.Component.Validator.Context.ExecutionContextInterface}
-         *
-         * @protected
-         */
-        this._context = undefined;
-    }
+    /**
+     * @type {Jymfony.Component.Validator.Context.ExecutionContextInterface}
+     *
+     * @protected
+     */
+    _context;
 
     /**
      * @inheritDoc

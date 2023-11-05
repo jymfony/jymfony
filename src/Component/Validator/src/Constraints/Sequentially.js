@@ -7,14 +7,7 @@ const Composite = Jymfony.Component.Validator.Constraints.Composite;
  * @memberOf Jymfony.Component.Validator.Constraints
  */
 export default class Sequentially extends Composite {
-    /**
-     * @inheritdoc
-     */
-    __construct(options = null) {
-        this.constraints = [];
-
-        return super.__construct(options);
-    }
+    constraints = [];
 
     /**
      * @inheritdoc

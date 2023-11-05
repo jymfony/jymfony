@@ -5,6 +5,9 @@ const OutputInterface = Jymfony.Component.Console.Output.OutputInterface;
  * @memberOf Jymfony.Component.Console.Output
  */
 export default class Output extends implementationOf(OutputInterface) {
+    _verbosity = OutputInterface.VERBOSITY_NORMAL;
+    _formatter;
+
     /**
      * Constructor.
      *

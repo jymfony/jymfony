@@ -11,39 +11,37 @@ const Valid = Jymfony.Component.Validator.Constraints.Valid;
  * @memberOf Jymfony.Component.Validator.Mapping
  */
 class GenericMetadataTrait {
-    __construct() {
-        /**
-         * @type {Jymfony.Component.Validator.Constraint[]}
-         */
-        this._constraints = [];
+    /**
+     * @type {Jymfony.Component.Validator.Constraint[]}
+     */
+    _constraints = [];
 
-        /**
-         * @type {Object.<string, Jymfony.Component.Validator.Constraint[]>}
-         */
-        this._constraintsByGroup = {};
+    /**
+     * @type {Object.<string, Jymfony.Component.Validator.Constraint[]>}
+     */
+    _constraintsByGroup = {};
 
-        /**
-         * The strategy for cascading objects.
-         *
-         * By default, objects are not cascaded.
-         *
-         * @type {int}
-         *
-         * @see {Jymfony.Component.Validator.Mapping.CascadingStrategy}
-         */
-        this._cascadingStrategy = CascadingStrategy.NONE;
+    /**
+     * The strategy for cascading objects.
+     *
+     * By default, objects are not cascaded.
+     *
+     * @type {int}
+     *
+     * @see {Jymfony.Component.Validator.Mapping.CascadingStrategy}
+     */
+    _cascadingStrategy = CascadingStrategy.NONE;
 
-        /**
-         * The strategy for traversing traversable objects.
-         *
-         * By default, traversable objects are not traversed.
-         *
-         * @type {int}
-         *
-         * @see {Jymfony.Component.Validator.Mapping.TraversalStrategy}
-         */
-        this._traversalStrategy = TraversalStrategy.NONE;
-    }
+    /**
+     * The strategy for traversing traversable objects.
+     *
+     * By default, traversable objects are not traversed.
+     *
+     * @type {int}
+     *
+     * @see {Jymfony.Component.Validator.Mapping.TraversalStrategy}
+     */
+    _traversalStrategy = TraversalStrategy.NONE;
 
     /**
      * Returns the names of the properties that should be serialized.

@@ -40,6 +40,17 @@ class Traits {
                 Object.defineProperty(trait.prototype, prop, descriptor);
             }
         }, (obj, ...$args) => {
+            try {
+                const refl = new ReflectionClass(definition);
+                const proto = Reflect.construct(definition, []);
+
+                for (const field of refl.fields) {
+                    obj[field] = proto[field];
+                }
+            } catch (e) {
+                // Do nothing...
+            }
+
             if (isFunction(definition.prototype.__construct)) {
                 definition.prototype.__construct.apply(obj, $args);
             }

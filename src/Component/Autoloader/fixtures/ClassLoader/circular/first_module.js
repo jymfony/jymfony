@@ -1,6 +1,6 @@
-const second = require('./second_module');
+import second from './second_module';
 
-module.exports = class First {
+export default class First {
     getSecond() {
         return second;
     }

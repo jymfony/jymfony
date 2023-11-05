@@ -1,9 +1,14 @@
+const { getReflectionData } = require('@jymfony/compiler');
 const ReflectorInterface = require('./ReflectorInterface');
 const ReflectorTrait = require('./ReflectorTrait');
 const ReflectionMethod = require('./ReflectionMethod');
 const ReflectionField = require('./ReflectionField');
 const ReflectionProperty = require('./ReflectionProperty');
 const ClassNotFoundException = require('../Exception/ClassNotFoundException');
+
+/**
+ * @typedef {import('@jymfony/compiler').JsReflectionData} JsReflectionData
+ */
 
 const Storage = function () {};
 Storage.prototype = {};
@@ -14,6 +19,8 @@ TheBigReflectionDataCache.data = new WeakMap();
 TheBigReflectionDataCache.reflection = new WeakMap();
 
 const getClass = function getClass(value) {
+    let desc;
+    value = 'function' === typeof value && (desc = Object.getOwnPropertyDescriptor(value, Symbol.for('jymfony.namespace.class'))) ? desc.value : value;
     const originalValue = value;
     if (!! value && value.__self__ !== undefined) {
         value = value.__self__;
@@ -27,6 +34,7 @@ const getClass = function getClass(value) {
             const parts = value.split('.');
             const name = value;
             value = ReflectionClass._recursiveGet(global, parts);
+            value = 'function' === typeof value && (desc = Object.getOwnPropertyDescriptor(value, Symbol.for('jymfony.namespace.class'))) ? desc.value : value;
 
             if (undefined !== value) {
                 TheBigReflectionDataCache.classes[name] = value;
@@ -86,13 +94,13 @@ class ReflectionClass extends implementationOf(ReflectorInterface, ReflectorTrai
         this._traits = [];
         this._docblock = undefined;
 
-        if (value.hasOwnProperty(Symbol.reflection)) {
-            this._loadFromMetadata(value);
+        const metadata = getReflectionData(value);
+        if (undefined !== metadata) {
+            this._loadFromMetadata(value, metadata);
+            TheBigReflectionDataCache.reflection.set(value, this);
         } else {
             this._loadWithoutMetadata(value);
         }
-
-        TheBigReflectionDataCache.reflection.set(value, this);
     }
 
     /**
@@ -147,7 +155,7 @@ class ReflectionClass extends implementationOf(ReflectorInterface, ReflectorTrai
      * @returns {*}
      */
     newInstance(...varArgs) {
-        return new this._constructor(...varArgs);
+        return _construct_jobject(this._constructor, ...varArgs);
     }
 
     /**
@@ -159,7 +167,7 @@ class ReflectionClass extends implementationOf(ReflectorInterface, ReflectorTrai
         const surrogateCtor = function _reflectionClass_surrogateCtor_() { };
         surrogateCtor.prototype = this._constructor.prototype;
 
-        const obj = new surrogateCtor();
+        const obj = Reflect.construct(surrogateCtor, []);
         if (this.hasMethod('__invoke')) {
             return new __jymfony.ManagedProxy(obj.__invoke, proxy => {
                 proxy.target = obj;
@@ -400,9 +408,12 @@ class ReflectionClass extends implementationOf(ReflectorInterface, ReflectorTrai
             return false;
         }
 
+        const superClassConstructor = new ReflectionClass(superClass).getConstructor();
+
         return this._constructor === superClass
-            || this._constructor === new ReflectionClass(superClass).getConstructor()
+            || this._constructor === superClassConstructor
             || this._constructor.prototype instanceof superClass
+            || this._constructor.prototype instanceof superClassConstructor
             || (this._isInterface && mixins.getParents(this._constructor).includes(superClass));
     }
 
@@ -563,17 +574,11 @@ class ReflectionClass extends implementationOf(ReflectorInterface, ReflectorTrai
 
     /**
      * @param {Object} value
+     * @param {JsReflectionData} metadata
      *
      * @private
      */
-    _loadFromMetadata(value) {
-        const { Compiler } = __jymfony.autoload.classLoader.constructor.compiler;
-        const metadata = Compiler.getReflectionData(value);
-        if (metadata === undefined) {
-            this._loadWithoutMetadata(value);
-            return;
-        }
-
+    _loadFromMetadata(value, metadata) {
         this._className = metadata.fqcn;
         this._namespace = (() => {
             if (metadata.namespace) {
@@ -595,36 +600,42 @@ class ReflectionClass extends implementationOf(ReflectorInterface, ReflectorTrai
         }
 
         this._filename = metadata.filename;
-        this._module = metadata.module;
-        this._constructor = this._isInterface || this._isTrait ? value : (metadata.self || metadata.constructor);
+        this._constructor = value;
+        this._module = ReflectionClass._searchModule(this._constructor);
 
-        if (metadata.fields) {
-            for (const field of metadata.fields) {
-                this._fields[field.name] = field;
-            }
-        }
+        for (const member of metadata.members) {
+            if ('field' === member.kind || 'accessor' === member.kind) {
+                this._fields[member.name] = { ...member, ownClass: this._constructor };
+            } else {
+                let kind;
+                switch (member.kind) {
+                    case 'getter':
+                    case 'setter':
+                        kind = 'getter' === member.kind ? 'get' : 'set';
 
-        if (metadata.methods) {
-            for (const method of metadata.methods) {
-                switch (method.kind) {
-                    case 'get':
-                    case 'set':
-                        if (this._properties[method.name] && this._properties[method.name].kind !== method.kind) {
-                            this._properties[method.name].kind = 'accessor';
-                            this._properties[method.name][method.kind] = method.value;
+                        if (this._properties[member.name] && this._properties[member.name].kind !== kind) {
+                            this._properties[member.name].kind = 'accessor';
+                            this._properties[member.name][kind] = member.access[kind];
                         } else {
-                            const nm = { ...method };
-                            nm[method.kind] = nm.value;
+                            const nm = {
+                                kind,
+                                static: member.static,
+                                private: member.private,
+                                name: member.name,
+                                ownClass: this._constructor,
+                            };
+
+                            nm[kind] = member.access[kind];
                             delete nm.value;
 
-                            this._properties[method.name] = nm;
+                            this._properties[member.name] = nm;
                         }
 
-                        this['get' === method.kind ? '_readableProperties' : '_writableProperties'][method.name] = true;
+                        this['getter' === member.kind ? '_readableProperties' : '_writableProperties'][member.name] = true;
                         break;
 
                     default:
-                        this._methods[method.name] = method;
+                        this._methods[member.name] = { ...member, ownClass: this._constructor };
                 }
             }
         }
@@ -785,8 +796,10 @@ class ReflectionClass extends implementationOf(ReflectorInterface, ReflectorTrai
                         kind: 'method',
                         static: false,
                         private: false,
-                        value: descriptor.value,
                         ownClass: proto.constructor,
+                        access: {
+                            get: () => descriptor.value,
+                        },
                     };
                 } else {
                     if ('function' === typeof descriptor.get || 'function' === typeof descriptor.set) {
@@ -879,7 +892,9 @@ class ReflectionClass extends implementationOf(ReflectorInterface, ReflectorTrai
                                 kind: 'method',
                                 static: true,
                                 private: false,
-                                value: descriptor.value,
+                                access: {
+                                    get: () => descriptor.value,
+                                },
                                 ownClass: parent,
                             };
                         }
@@ -941,8 +956,14 @@ class ReflectionClass extends implementationOf(ReflectorInterface, ReflectorTrai
     static _searchModule(value) {
         for (const moduleName of Object.keys(require.cache)) {
             const mod = require.cache[moduleName];
-            if (mod.exports === value) {
-                return mod;
+            const exports = mod.exports;
+
+            try {
+                if (exports === value || (exports !== undefined && exports.__esModule && exports['default'] === value)) {
+                    return mod;
+                }
+            } catch (e) {
+                // Do nothing
             }
         }
 

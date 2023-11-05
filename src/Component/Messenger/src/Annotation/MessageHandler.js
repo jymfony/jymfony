@@ -8,6 +8,12 @@ const Annotation = Jymfony.Component.Autoloader.Decorator.Annotation;
 export default
 @Annotation(Annotation.ANNOTATION_TARGET_CLASS | Annotation.ANNOTATION_TARGET_METHOD)
 class MessageHandler {
+    _bus;
+    _fromTransport;
+    _handles;
+    _method;
+    _priority = 0;
+
     /**
      * Constructor.
      *
@@ -28,7 +34,7 @@ class MessageHandler {
         this._fromTransport = fromTransport;
         this._handles = handles;
         this._method = method;
-        this._priority = priority || 0;
+        this._priority = priority ?? 0;
     }
 
     get asTag() {

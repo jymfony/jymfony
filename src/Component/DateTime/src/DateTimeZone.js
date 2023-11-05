@@ -276,4 +276,4 @@ class NullTimeZone extends DateTimeZone {
 const nullTimeZoneCtor = function () { };
 nullTimeZoneCtor.prototype = NullTimeZone.prototype;
 
-instances.push(0, new nullTimeZoneCtor());
+instances.push(0, Reflect.construct(nullTimeZoneCtor, []));

@@ -4,6 +4,10 @@ const Constraint = Jymfony.Component.Validator.Constraint;
  * @memberOf Jymfony.Component.Validator.Constraints
  */
 export default class NotBlank extends Constraint {
+    message = 'This value should not be blank.';
+    allowNull = false;
+    normalizer;
+
     /**
      * @inheritdoc
      */
@@ -19,10 +23,6 @@ export default class NotBlank extends Constraint {
      * @inheritdoc
      */
     __construct(options = null) {
-        this.message = 'This value should not be blank.';
-        this.allowNull = false;
-        this.normalizer = undefined;
-
         const ret = super.__construct(options);
 
         if (!! this.normalizer && ! isFunction(this.normalizer)) {

@@ -6,26 +6,22 @@ const ArgumentValueResolverInterface = Jymfony.Component.HttpServer.Controller.A
 const ControllerArgumentMetadata = Jymfony.Component.HttpServer.Controller.Metadata.ControllerArgumentMetadata;
 const Fixtures = Jymfony.Component.HttpServer.Tests.Fixtures.ArgumentResolver;
 const Argument = Jymfony.Component.Testing.Argument.Argument;
-const Prophet = Jymfony.Component.Testing.Prophet;
-const { expect } = require('chai');
+const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 
-describe('[HttpServer] ArgumentResolverTest', function () {
-    this._prophet = new Prophet();
+export default class ArgumentResolverTest extends TestCase {
+    get testCaseName() {
+        return '[HttpServer] ' + super.testCaseName;
+    }
 
-    afterEach(() => {
-        this._prophet.checkPredictions();
-    });
-
-    it ('should pass request if controller is not reflectable', async () => {
+    async testShouldPassRequestIfControllerIsNotReflectable() {
         const argumentResolver = new ArgumentResolver();
         const req = Request.create('/');
 
-        expect(await argumentResolver.getArguments(req, () => {}))
-            .to.be.deep.equal([ req ]);
-    });
+        __self.assertEquals([ req ], await argumentResolver.getArguments(req, () => {}));
+    }
 
-    it ('should call resolve on value resolvers', async () => {
-        const valueResolver = this._prophet.prophesize(ArgumentValueResolverInterface);
+    async testShouldCallResolveOnValueResolvers() {
+        const valueResolver = this.prophesize(ArgumentValueResolverInterface);
         const req = Request.create('/');
         const resolver = new ArgumentResolver(null, [ valueResolver.reveal() ]);
 
@@ -38,12 +34,11 @@ describe('[HttpServer] ArgumentResolverTest', function () {
             .shouldBeCalledTimes(1)
             .willReturn([ req ]);
 
-        expect(await resolver.getArguments(req, getCallableFromArray([ controller, 'fooAction' ])))
-            .to.be.deep.equal([ req ]);
-    });
+        __self.assertEquals([ req ], await resolver.getArguments(req, getCallableFromArray([ controller, 'fooAction' ])));
+    }
 
-    it ('should throw if value resolver supports parameter but does not yields any value', async () => {
-        const valueResolver = this._prophet.prophesize(ArgumentValueResolverInterface);
+    async testShouldThrowIfValueResolverSupportsParameterButDoesNotYieldsAnyValue() {
+        const valueResolver = this.prophesize(ArgumentValueResolverInterface);
         const req = Request.create('/');
         const resolver = new ArgumentResolver(null, [ valueResolver.reveal() ]);
 
@@ -55,16 +50,12 @@ describe('[HttpServer] ArgumentResolverTest', function () {
             .shouldBeCalledTimes(1)
             .willReturn([]);
 
-        try {
-            await resolver.getArguments(req, getCallableFromArray([ controller, 'fooAction' ]));
-            throw new Error('FAIL');
-        } catch (e) {
-            expect(e).to.be.instanceOf(InvalidArgumentException);
-        }
-    });
+        this.expectException(InvalidArgumentException);
+        await resolver.getArguments(req, getCallableFromArray([ controller, 'fooAction' ]));
+    }
 
-    it ('should throw if no value resolver supports the argument', async () => {
-        const valueResolver = this._prophet.prophesize(ArgumentValueResolverInterface);
+    async testShouldThrowIfNoValueResolverSupportsTheArgument() {
+        const valueResolver = this.prophesize(ArgumentValueResolverInterface);
         const req = Request.create('/');
         const resolver = new ArgumentResolver(null, [ valueResolver.reveal() ]);
 
@@ -73,25 +64,20 @@ describe('[HttpServer] ArgumentResolverTest', function () {
             .shouldBeCalledTimes(1)
             .willReturn(false);
 
-        try {
-            await resolver.getArguments(req, getCallableFromArray([ controller, 'fooAction' ]));
-            throw new Error('FAIL');
-        } catch (e) {
-            expect(e).to.be.instanceOf(RuntimeException);
-        }
-    });
+        this.expectException(RuntimeException);
+        await resolver.getArguments(req, getCallableFromArray([ controller, 'fooAction' ]));
+    }
 
-    it ('should returns empty array if controller has no argument', async () => {
+    async testShouldReturnsEmptyArrayIfControllerHasNoArgument() {
         const req = Request.create('/');
         const resolver = new ArgumentResolver();
 
         const controller = new Fixtures.Controller();
 
-        expect(await resolver.getArguments(req, getCallableFromArray([ controller, 'controllerWithoutArguments' ])))
-            .to.be.deep.equal([]);
-    });
+        __self.assertEquals([], await resolver.getArguments(req, getCallableFromArray([ controller, 'controllerWithoutArguments' ])));
+    }
 
-    it ('should use default values', async () => {
+    async testShouldUseDefaultValues() {
         const resolver = new ArgumentResolver();
 
         const request = Request.create('/');
@@ -99,10 +85,10 @@ describe('[HttpServer] ArgumentResolverTest', function () {
 
         const controller = getCallableFromArray([ new Fixtures.Controller(), 'controllerWithFooAndDefaultBar' ]);
 
-        expect(await resolver.getArguments(request, controller)).to.be.deep.equal([ 'foo', null ]);
-    });
+        __self.assertEquals([ 'foo', undefined ], await resolver.getArguments(request, controller));
+    }
 
-    it ('should use default values', async () => {
+    async testShouldUseRequestValues() {
         const resolver = new ArgumentResolver();
 
         const request = Request.create('/');
@@ -111,80 +97,72 @@ describe('[HttpServer] ArgumentResolverTest', function () {
 
         const controller = getCallableFromArray([ new Fixtures.Controller(), 'controllerWithFooAndDefaultBar' ]);
 
-        expect(await resolver.getArguments(request, controller)).to.be.deep.equal([ 'foo', 'bar' ]);
-    });
+        __self.assertEquals([ 'foo', 'bar' ], await resolver.getArguments(request, controller));
+    }
 
-    it ('should get arguments from invokable object', async () => {
+    async testShouldGetArgumentsFromInvokableObject() {
         const resolver = new ArgumentResolver();
         const request = Request.create('/');
         request.attributes.set('foo', 'foo');
 
         const controller = new Fixtures.Controller();
 
-        expect(await resolver.getArguments(request, controller)).to.be.deep.equal([ 'foo', null ]);
+        __self.assertEquals([ 'foo', undefined ], await resolver.getArguments(request, controller));
 
         request.attributes.set('bar', 'bar');
-        expect(await resolver.getArguments(request, controller)).to.be.deep.equal([ 'foo', 'bar' ]);
-    });
+        __self.assertEquals([ 'foo', 'bar' ], await resolver.getArguments(request, controller));
+    }
 
-    it ('should inject request interface', async () => {
+    async testShouldInjectRequestInterface() {
         const resolver = new ArgumentResolver();
         const request = Request.create('/');
 
         const controller = getCallableFromArray([ new Fixtures.Controller(), 'controllerWithRequestInterface' ]);
-        expect(await resolver.getArguments(request, controller)).to.be.deep.equal([ request ]);
-    });
+        __self.assertEquals([ request ], await resolver.getArguments(request, controller));
+    }
 
-    it ('should inject request', async () => {
+    async testShouldInjectRequest() {
         const resolver = new ArgumentResolver();
         const request = Request.create('/');
 
         const controller = getCallableFromArray([ new Fixtures.Controller(), 'controllerWithRequest' ]);
-        expect(await resolver.getArguments(request, controller)).to.be.deep.equal([ request ]);
-    });
+        __self.assertEquals([ request ], await resolver.getArguments(request, controller));
+    }
 
-    it ('should inject variadic argument', async () => {
+    async testShouldInjectVariadicArgument() {
         const resolver = new ArgumentResolver();
         const request = Request.create('/');
         request.attributes.set('foo', 'foo');
         request.attributes.set('bar', [ 'foo', 'bar' ]);
 
         const controller = getCallableFromArray([ new Fixtures.Controller(), 'variadicAction' ]);
-        expect(await resolver.getArguments(request, controller)).to.be.deep.equal([ 'foo', 'foo', 'bar' ]);
-    });
+        __self.assertEquals([ 'foo', 'foo', 'bar' ], await resolver.getArguments(request, controller));
+    }
 
-    it ('should throw trying to inject variadic argument without array in request', async () => {
+    async testShouldThrowTryingToInjectVariadicArgumentWithoutArrayInRequest() {
         const resolver = new ArgumentResolver();
         const request = Request.create('/');
         request.attributes.set('foo', 'foo');
         request.attributes.set('bar', 'bar');
 
-        try {
-            await resolver.getArguments(request, getCallableFromArray([ new Fixtures.Controller(), 'variadicAction' ]));
-            throw new Error('FAIL');
-        } catch (e) {
-            expect(e).to.be.instanceOf(InvalidArgumentException);
-        }
-    });
+        this.expectException(InvalidArgumentException);
+        await resolver.getArguments(request, getCallableFromArray([ new Fixtures.Controller(), 'variadicAction' ]));
+    }
 
-    it ('should throw if argument is missing', async () => {
+    async testShouldThrowIfArgumentIsMissing() {
         const resolver = new ArgumentResolver();
         const request = Request.create('/');
 
-        try {
-            await resolver.getArguments(request, getCallableFromArray([ new Fixtures.Controller(), 'controllerWithFoo' ]));
-            throw new Error('FAIL');
-        } catch (e) {
-            expect(e).to.be.instanceOf(RuntimeException);
-        }
-    });
+        this.expectException(RuntimeException);
+        await resolver.getArguments(request, getCallableFromArray([ new Fixtures.Controller(), 'controllerWithFoo' ]));
+    }
 
-    it ('should inject session', async () => {
+    async testShouldInjectSession() {
         const resolver = new ArgumentResolver();
         const request = Request.create('/');
         request.session = new Session(new MockArraySessionStorage());
 
         const controller = getCallableFromArray([ new Fixtures.Controller(), 'controllerWithSession' ]);
-        expect(await resolver.getArguments(request, controller)).to.be.deep.equal([ request.session ]);
-    });
-});
+        __self.assertEquals([ request.session ], await resolver.getArguments(request, controller));
+    }
+}

@@ -162,7 +162,6 @@ class Namespace {
      * @private
      */
     _require(filename) {
-        const { Compiler } = this._autoloader.classLoader.constructor.compiler;
         const fn = this._internalRequire.resolve(filename);
         let self = undefined;
 
@@ -186,31 +185,12 @@ class Namespace {
                 throw e;
             }
 
-            Compiler.setExtraReflectionData(mod, {
-                module: this._internalRequire.cache[fn],
-                self: mod.__self__ || mod.definition || mod,
-                isModule: (val) => {
-                    return self === val || mod === val || mod.definition === val;
-                },
-            });
-
             if (! mod.hasOwnProperty('arguments')) {
                 Object.defineProperty(mod, 'arguments', {value: null, writable: false, enumerable: false, configurable: false});
             }
 
             if (! mod.hasOwnProperty('caller')) {
                 Object.defineProperty(mod, 'caller', {value: null, writable: false, enumerable: false, configurable: false});
-            }
-
-            if (mod.definition) {
-                // Interface or Trait
-                Compiler.setExtraReflectionData(mod.definition, {
-                    module: this._internalRequire.cache[fn],
-                    self: mod.definition,
-                    isModule: (val) => {
-                        return self === val || mod === val || mod.definition === val;
-                    },
-                });
             }
 
             proxy.target = mod;
@@ -227,18 +207,32 @@ class Namespace {
                     return FunctionPrototype.valueOf.bind(target);
                 }
 
+                if (Symbol.for('jymfony.namespace.class') === key) {
+                    return target;
+                }
+
                 return Reflect.get(target, key);
+            },
+            has: (target, key) => {
+                if (Symbol.for('jymfony.namespace.class') === key) {
+                    return true;
+                }
+
+                return Reflect.has(target, key);
             },
             ownKeys: (target) => {
                 return Reflect.ownKeys(target).filter(k => k !== Symbol.reflection);
             },
-            construct: (target, argumentsList, newTarget) => {
-                const obj = Reflect.construct(target, argumentsList, newTarget);
-                if (__jymfony.autoload.debug && obj instanceof __jymfony.JObject) {
-                    Reflect.preventExtensions(obj);
+            getOwnPropertyDescriptor: (target, key) => {
+                if (Symbol.for('jymfony.namespace.class') === key) {
+                    return {
+                        configurable: true,
+                        enumerable: false,
+                        value: target,
+                    };
                 }
 
-                return obj;
+                return Reflect.getOwnPropertyDescriptor(target, key);
             },
         });
     }

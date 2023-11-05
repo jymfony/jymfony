@@ -4,6 +4,10 @@ const Constraint = Jymfony.Component.Validator.Constraint;
  * @memberOf Jymfony.Component.Validator.Constraints
  */
 export default class Issn extends Constraint {
+    message = 'This value is not a valid ISSN.';
+    caseSensitive = false;
+    requireHyphen = false;
+
     /**
      * @inheritdoc
      */
@@ -18,17 +22,6 @@ export default class Issn extends Constraint {
         }
 
         return Constraint.getErrorName(errorCode);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    __construct(options = null) {
-        this.message = 'This value is not a valid ISSN.';
-        this.caseSensitive = false;
-        this.requireHyphen = false;
-
-        return super.__construct(options);
     }
 }
 

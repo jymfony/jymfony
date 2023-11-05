@@ -30,6 +30,6 @@ jobs:
                   node-version: ${{ matrix.node_version }}
                   architecture: ${{ matrix.architecture }}
             - run: npm install
-            - run: npm install @jymfony/compiler
+            - run: npm install @jymfony/compiler@next
               if: ${{ matrix.node_version < 16 }}
             - run: npm test

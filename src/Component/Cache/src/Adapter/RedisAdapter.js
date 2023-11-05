@@ -1,4 +1,4 @@
-import Redis from 'ioredis' optional;
+import Redis from 'ioredis' with { optional: 'true' };
 import { parse as urlParse } from 'url';
 
 const RedisCluster = Redis ? Redis.Cluster : undefined;

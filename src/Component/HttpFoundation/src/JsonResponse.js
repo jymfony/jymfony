@@ -1,4 +1,4 @@
-const Lexer = require('@jymfony/compiler/src/Lexer');
+import { isValidIdentifier } from '@jymfony/compiler';
 const Response = Jymfony.Component.HttpFoundation.Response;
 
 /**
@@ -14,6 +14,20 @@ const Response = Jymfony.Component.HttpFoundation.Response;
  */
 export default class JsonResponse extends Response {
     /**
+     * @type {string}
+     *
+     * @private
+     */
+    _callback;
+
+    /**
+     * @type {*}
+     *
+     * @private
+     */
+    _data = null;
+
+    /**
      * Constructor.
      *
      * @param {*} data The response data
@@ -26,20 +40,6 @@ export default class JsonResponse extends Response {
         if (null === data) {
             data = {};
         }
-
-        /**
-         * @type {string}
-         *
-         * @private
-         */
-        this._callback = undefined;
-
-        /**
-         * @type {*}
-         *
-         * @private
-         */
-        this._data = null;
 
         if (json) {
             this.setJson(data);
@@ -76,11 +76,8 @@ export default class JsonResponse extends Response {
      * @throws {InvalidArgumentException} When the callback name is not valid
      */
     setCallback(callback = null) {
-        if (null !== callback) {
-            const lexer = new Lexer();
-            lexer.input = callback;
-
-            debugger;
+        if (null !== callback && !isValidIdentifier(callback)) {
+            throw new RuntimeException(__jymfony.sprintf('Invalid callback identifier %s passed to JsonResponse', JSON.stringify(callback)));
         }
 
         this._callback = callback;

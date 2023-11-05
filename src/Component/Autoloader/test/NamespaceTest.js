@@ -202,8 +202,8 @@ export default class NamespaceTest extends TestCase {
         const func = ns.FooClass;
 
         __self.assertInstanceOf(Function, func);
-        const { Compiler } = require('@jymfony/compiler');
-        const metadata = Compiler.getReflectionData(func);
+        const { getReflectionData } = require('@jymfony/compiler');
+        const metadata = getReflectionData(func);
 
         if ('\\' === path.sep) {
             __self.assertMatchesRegularExpression(/\\var\\node\\foo_vendor\\FooClass\.js$/, metadata.filename);

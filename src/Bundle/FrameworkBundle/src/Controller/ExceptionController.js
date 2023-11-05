@@ -7,24 +7,27 @@ const Type = Jymfony.Component.Autoloader.Decorator.Type;
  */
 export default class ExceptionController {
     /**
+     * @type {boolean}
+     *
+     * @private
+     */
+    _debug;
+
+    /**
+     * @type {Jymfony.Component.Debug.ErrorRenderer.ErrorRendererInterface}
+     *
+     * @private
+     */
+    _errorRenderer;
+
+    /**
      * Constructor.
      *
      * @param {boolean} debug
      * @param {Jymfony.Component.Debug.ErrorRenderer.ErrorRendererInterface} errorRenderer
      */
     __construct(debug, errorRenderer) {
-        /**
-         * @type {boolean}
-         *
-         * @private
-         */
         this._debug = debug;
-
-        /**
-         * @type {Jymfony.Component.Debug.ErrorRenderer.ErrorRendererInterface}
-         *
-         * @private
-         */
         this._errorRenderer = errorRenderer;
     }
 

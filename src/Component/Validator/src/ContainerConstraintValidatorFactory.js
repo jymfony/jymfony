@@ -10,24 +10,26 @@ const ValidatorException = Jymfony.Component.Validator.Exception.ValidatorExcept
  */
 export default class ContainerConstraintValidatorFactory extends implementationOf(ConstraintValidatorFactoryInterface) {
     /**
+     * @type {Jymfony.Contracts.DependencyInjection.ContainerInterface}
+     *
+     * @private
+     */
+    _container;
+
+    /**
+     * @type {Object.<string, Jymfony.Component.Validator.ConstraintValidator>}
+     *
+     * @private
+     */
+    _validators = {};
+
+    /**
      * Constructor.
      *
      * @param {Jymfony.Contracts.DependencyInjection.ContainerInterface} container
      */
     __construct(container) {
-        /**
-         * @type {Jymfony.Contracts.DependencyInjection.ContainerInterface}
-         *
-         * @private
-         */
         this._container = container;
-
-        /**
-         * @type {Object.<string, Jymfony.Component.Validator.ConstraintValidator>}
-         *
-         * @private
-         */
-        this._validators = {};
     }
 
     /**

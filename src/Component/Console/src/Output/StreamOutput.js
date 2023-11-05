@@ -11,6 +11,20 @@ const Terminal = Jymfony.Component.Console.Terminal;
  */
 export default class StreamOutput extends Output {
     /**
+     * @type {NodeJS.WritableStream}
+     *
+     * @private
+     */
+    _stream;
+
+    /**
+     * @type {boolean}
+     *
+     * @private
+     */
+    _deferUncork = true;
+
+    /**
      * Constructor.
      *
      * @param {NodeJS.WritableStream} stream
@@ -25,9 +39,6 @@ export default class StreamOutput extends Output {
 
         super.__construct(verbosity, decorated, formatter);
 
-        /**
-         * @type {NodeJS.WritableStream}
-         */
         this._stream = stream;
         this._deferUncork = true;
 

@@ -1,7 +1,7 @@
-const first = require('./first_module');
-const second = require('./second_module');
+import first from './first_module';
+import second from './second_module';
 
-module.exports = {
+export {
     first,
     second,
 };

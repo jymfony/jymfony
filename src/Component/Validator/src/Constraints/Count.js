@@ -6,6 +6,14 @@ const MissingOptionsException = Jymfony.Component.Validator.Exception.MissingOpt
  * @memberOf Jymfony.Component.Validator.Constraints
  */
 export default class Count extends Constraint {
+    minMessage = 'This collection should contain {{ limit }} element or more.|This collection should contain {{ limit }} elements or more.';
+    maxMessage = 'This collection should contain {{ limit }} element or less.|This collection should contain {{ limit }} elements or less.';
+    exactMessage = 'This collection should contain exactly {{ limit }} element.|This collection should contain exactly {{ limit }} elements.';
+    divisibleByMessage = 'The number of elements in this collection should be a multiple of {{ compared_value }}.';
+    min;
+    max;
+    divisibleBy;
+
     /**
      * @inheritdoc
      */
@@ -20,14 +28,6 @@ export default class Count extends Constraint {
     }
 
     __construct(options = null) {
-        this.minMessage = 'This collection should contain {{ limit }} element or more.|This collection should contain {{ limit }} elements or more.';
-        this.maxMessage = 'This collection should contain {{ limit }} element or less.|This collection should contain {{ limit }} elements or less.';
-        this.exactMessage = 'This collection should contain exactly {{ limit }} element.|This collection should contain exactly {{ limit }} elements.';
-        this.divisibleByMessage = 'The number of elements in this collection should be a multiple of {{ compared_value }}.';
-        this.min = undefined;
-        this.max = undefined;
-        this.divisibleBy = undefined;
-
         if (null !== options && ! isObjectLiteral(options)) {
             options = {
                 min: options,

@@ -9,18 +9,20 @@ const CacheWarmerInterface = Jymfony.Component.Kernel.CacheWarmer.CacheWarmerInt
  */
 export default class RouterCacheWarmer extends implementationOf(CacheWarmerInterface) {
     /**
+     * As this cache warmer is optional, dependencies should be lazy-loaded, that's why a container should be injected.
+     *
+     * @type {Jymfony.Contracts.DependencyInjection.ContainerInterface}
+     *
+     * @private
+     */
+    _container;
+
+    /**
      * Constructor
      *
      * @param {Jymfony.Contracts.DependencyInjection.ContainerInterface} container
      */
     __construct(container) {
-        /**
-         * As this cache warmer is optional, dependencies should be lazy-loaded, that's why a container should be injected.
-         *
-         * @type {Jymfony.Contracts.DependencyInjection.ContainerInterface}
-         *
-         * @private
-         */
         this._container = container;
     }
 

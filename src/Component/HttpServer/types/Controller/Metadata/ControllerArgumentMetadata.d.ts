@@ -4,7 +4,7 @@ declare namespace Jymfony.Component.HttpServer.Controller.Metadata {
     export class ControllerArgumentMetadata extends implementationOf(MetadataInterface) {
         private _reflectionParameter: ReflectionParameter;
         private _type: any;
-        private _defaultValue: any;
+        private _hasDefaultValue: boolean;
 
         /**
          * Constructor.
@@ -35,7 +35,7 @@ declare namespace Jymfony.Component.HttpServer.Controller.Metadata {
         /**
          * Gets the parameter default value (if any).
          */
-        public readonly defaultValue: any;
+        public readonly hasDefaultValue: boolean;
 
         /**
          * Whether the argument is a rest element.

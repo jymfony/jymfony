@@ -1,7 +1,6 @@
-const { Generator: SourceMapGenerator } = require('@jymfony/compiler/src/SourceMap');
+const MetadataHelper = require('../Metadata/MetadataHelper');
 const ReflectionParameter = require('./ReflectionParameter');
 const ReflectorTrait = require('./ReflectorTrait');
-const vm = require('vm');
 
 /**
  * Reflection utility for class method.
@@ -40,7 +39,7 @@ class ReflectionMethod extends implementationOf(ReflectorInterface, ReflectorTra
          *
          * @private
          */
-        this._method = method.value;
+        this._method = method.access.get();
 
         /**
          * @type {boolean}
@@ -77,9 +76,7 @@ class ReflectionMethod extends implementationOf(ReflectorInterface, ReflectorTra
          */
         this._parameters = [];
         if (method.parameters !== undefined) {
-            this._parameters = method.parameters.map(p => new ReflectionParameter(this, p.name, p.index, p.default, p.objectPattern, p.arrayPattern, p.restElement));
-        } else {
-            this._parseParameters();
+            this._parameters = method.parameters.map(p => new ReflectionParameter(this, p.name, p.index, p.hasDefault, p['default'], p.isObjectPattern, p.isArrayPattern, p.isRestElement));
         }
 
         /**
@@ -171,7 +168,17 @@ class ReflectionMethod extends implementationOf(ReflectorInterface, ReflectorTra
      * @returns {[Function, *][]}
      */
     get metadata() {
-        return MetadataStorage.getMetadata(this._method[Symbol.metadata], null);
+        const metadata = this._class.getConstructor()[Symbol.metadata];
+        const target = MetadataHelper.getMetadataTarget({ kind: 'method', name: this._name, metadata });
+        const storage = MetadataStorage.getMetadata(target);
+
+        return [ ...(function * () {
+            for (const [ class_, data ] of storage) {
+                for (const datum of isArray(data) ? data : [ data ]) {
+                    yield [ class_, datum ];
+                }
+            }
+        }()) ];
     }
 
     /**
@@ -190,76 +197,6 @@ class ReflectionMethod extends implementationOf(ReflectorInterface, ReflectorTra
      */
     get method() {
         return this._method;
-    }
-
-    /**
-     * Parses the method parameter.
-     *
-     * @private
-     */
-    _parseParameters() {
-        const { Compiler, AST, Parser } = __jymfony.autoload.classLoader.constructor.compiler;
-        let parsed;
-        try {
-            const parser = new Parser();
-            parsed = parser.parse('function ' + this._method.toString().replace(/^(async\s+)?(\*\s*)?(function\s+)?/, ''));
-        } catch (e) {
-            // Do nothing.
-            return;
-        }
-
-        /**
-         * @type {AST.FunctionExpression & AST.Function}
-         */
-        const func = parsed.body[0];
-        if (0 === func.params.length) {
-            return;
-        }
-
-        for (let parameter of func.params) {
-            parameter = parameter.pattern;
-
-            let $default = undefined;
-            let restElement = false;
-            if (parameter instanceof AST.AssignmentPattern) {
-                $default = parameter.right;
-                parameter = parameter.left;
-            }
-
-            if (parameter instanceof AST.RestElement) {
-                parameter = parameter.argument;
-                restElement = true;
-            } else if (parameter instanceof AST.SpreadElement) {
-                parameter = parameter.expression;
-                restElement = true;
-            }
-
-            let name = null;
-            let objectPattern = false;
-            let arrayPattern = false;
-            if (parameter instanceof AST.Identifier) {
-                name = parameter.name;
-            } else if (parameter instanceof AST.ObjectPattern) {
-                objectPattern = true;
-            } else if (parameter instanceof AST.ArrayPattern) {
-                arrayPattern = true;
-            }
-
-            const index = this._parameters.length;
-            this._parameters.push(new __jymfony.ManagedProxy({}, proxy => {
-                if (undefined !== $default) {
-                    const compiler = new Compiler(new SourceMapGenerator({ skipValidation: true }));
-                    try {
-                        $default = vm.runInNewContext(compiler.compile($default));
-                    } catch (e) {
-                        $default = undefined;
-                    }
-                }
-
-                proxy.initializer = undefined;
-                proxy.target = new ReflectionParameter(this, name, index, $default, objectPattern, arrayPattern, restElement);
-            }));
-        }
     }
 }
 

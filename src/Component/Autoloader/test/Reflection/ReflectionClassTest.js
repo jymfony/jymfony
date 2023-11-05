@@ -153,7 +153,7 @@ export default class ReflectionClassTest extends TestCase {
     testMethodsGetterShouldWork() {
         const reflClass = new ReflectionClass(Son);
 
-        __self.assertEquals([ 'constructor', 'getFoo', 'parentMethod' ], reflClass.methods);
+        __self.assertEquals([ 'getFoo', 'constructor', 'parentMethod' ], reflClass.methods);
     }
 
     testPropertiesGetterShouldWork() {

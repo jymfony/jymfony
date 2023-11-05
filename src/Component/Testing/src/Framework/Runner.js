@@ -10,14 +10,7 @@ const TestCase = Jymfony.Component.Testing.Framework.TestCase;
  * @memberOf Jymfony.Component.Testing.Framework
  */
 export default class Runner {
-    /**
-     * Constructor.
-     *
-     * @param {Mocha} mocha
-     */
-    __construct(mocha = new Mocha({ fullStackTrace: true })) {
-        this._mocha = mocha;
-    }
+    mocha = new Mocha({ fullStackTrace: true });
 
     /**
      * Run the test suite.
@@ -92,20 +85,20 @@ export default class Runner {
 
         [ ...targetFiles ].forEach(f => {
             Jymfony.Component.Autoloader.ClassLoader.clearCache(f);
-            this._mocha.addFile(f.replace(/\//g, sep));
+            this.mocha.addFile(f.replace(/\//g, sep));
         });
 
         for (const class_ of targetClasses) {
             const reflection = new ReflectionClass(class_);
-            reflection.newInstance().runTestCase(this._mocha);
+            reflection.newInstance().runTestCase(this.mocha);
         }
 
-        if (0 === this._mocha.suite.suites.length && 0 === this._mocha.files.length) {
+        if (0 === this.mocha.suite.suites.length && 0 === this.mocha.files.length) {
             console.error('No tests found');
             process.exit(2);
         }
 
-        this._mocha.run(failures => {
+        this.mocha.run(failures => {
             process.exit(failures ? 1 : 0);
         });
     }

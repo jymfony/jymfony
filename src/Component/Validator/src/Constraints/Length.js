@@ -6,6 +6,13 @@ const MissingOptionsException = Jymfony.Component.Validator.Exception.MissingOpt
  * @memberOf Jymfony.Component.Validator.Constraints
  */
 export default class Length extends Constraint {
+    maxMessage = 'This value is too long. It should have {{ limit }} character or less.|This value is too long. It should have {{ limit }} characters or less.';
+    minMessage = 'This value is too short. It should have {{ limit }} character or more.|This value is too short. It should have {{ limit }} characters or more.';
+    exactMessage = 'This value should have exactly {{ limit }} character.|This value should have exactly {{ limit }} characters.';
+    max;
+    min;
+    normalizer;
+
     /**
      * @inheritdoc
      */
@@ -31,13 +38,6 @@ export default class Length extends Constraint {
             options.min = options.max = options.value;
             delete options.value;
         }
-
-        this.maxMessage = 'This value is too long. It should have {{ limit }} character or less.|This value is too long. It should have {{ limit }} characters or less.';
-        this.minMessage = 'This value is too short. It should have {{ limit }} character or more.|This value is too short. It should have {{ limit }} characters or more.';
-        this.exactMessage = 'This value should have exactly {{ limit }} character.|This value should have exactly {{ limit }} characters.';
-        this.max = undefined;
-        this.min = undefined;
-        this.normalizer = undefined;
 
         const ret = super.__construct(options);
 

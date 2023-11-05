@@ -7,12 +7,18 @@ const ConstraintViolationListInterface = Jymfony.Component.Validator.ConstraintV
  */
 export default class ConstraintViolationList extends implementationOf(ConstraintViolationListInterface) {
     /**
+     * @type {Jymfony.Component.Validator.ConstraintViolationInterface[]}
+     *
+     * @private
+     */
+    _violations = [];
+
+    /**
      * Creates a new constraint violation list.
      *
      * @param {Jymfony.Component.Validator.ConstraintViolationInterface[]} violations The constraint violations to add to the list
      */
     __construct(violations = []) {
-        this._violations = [];
         for (const violation of violations) {
             this.add(violation);
         }

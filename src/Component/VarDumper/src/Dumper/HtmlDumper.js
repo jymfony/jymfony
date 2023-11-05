@@ -11,91 +11,91 @@ const esc = (str) => __jymfony.htmlentities(str);
  */
 export default class HtmlDumper extends CliDumper {
     /**
+     * @type {string}
+     *
+     * @protected
+     */
+    _dumpHeader;
+
+    /**
+     * @type {string}
+     *
+     * @protected
+     */
+    _dumpPrefix = '<pre class=jf-dump id=%s data-indent-pad="%s">';
+
+    /**
+     * @type {string}
+     *
+     * @protected
+     */
+    _dumpSuffix = '</pre><script>Jfdump(%s)</script>';
+
+    /**
+     * @type {string}
+     *
+     * @protected
+     */
+    _dumpId = 'jf-dump-' + ~~(Math.random() * 1000000);
+
+    /**
+     * @type {boolean}
+     *
+     * @protected
+     */
+    _headerIsDumped = false;
+
+    /**
+     * @type {number}
+     *
+     * @protected
+     */
+    _lastDepth = -1;
+
+    /**
+     * @type {Object.<string, string>}
+     *
+     * @protected
+     */
+    _styles = {};
+
+    /**
+     * @type {Object.<string, *>}
+     *
+     * @private
+     */
+    _displayOptions = {
+        'maxDepth': 1,
+        'maxStringLength': 160,
+        'fileLinkFormat': null,
+    };
+
+    /**
+     * @type {Object.<string, *>}
+     *
+     * @private
+     */
+    _extraDisplayOptions = {};
+
+    /**
+     * @type {boolean}
+     *
+     * @protected
+     */
+    _collapseNextHash = false;
+
+    /**
+     * @type {boolean}
+     *
+     * @protected
+     */
+    _expandNextHash = false;
+
+    /**
      * @inheritdoc
      */
     __construct(output = null, flags = 0) {
-        /**
-         * @type {string}
-         *
-         * @protected
-         */
-        this._dumpHeader = undefined;
-
-        /**
-         * @type {string}
-         *
-         * @protected
-         */
-        this._dumpPrefix = '<pre class=jf-dump id=%s data-indent-pad="%s">';
-
-        /**
-         * @type {string}
-         *
-         * @protected
-         */
-        this._dumpSuffix = '</pre><script>Jfdump(%s)</script>';
-
-        /**
-         * @type {string}
-         *
-         * @protected
-         */
-        this._dumpId = 'jf-dump-' + ~~(Math.random() * 1000000);
-
-        /**
-         * @type {boolean}
-         *
-         * @protected
-         */
-        this._headerIsDumped = false;
-
-        /**
-         * @type {number}
-         *
-         * @protected
-         */
-        this._lastDepth = -1;
-
-        /**
-         * @type {Object.<string, string>}
-         *
-         * @protected
-         */
-        this._styles = {};
         this.theme = 'dark';
-
-        /**
-         * @type {Object.<string, *>}
-         *
-         * @private
-         */
-        this._displayOptions = {
-            'maxDepth': 1,
-            'maxStringLength': 160,
-            'fileLinkFormat': null,
-        };
-
-        /**
-         * @type {Object.<string, *>}
-         *
-         * @private
-         */
-        this._extraDisplayOptions = {};
-
-        /**
-         * @type {boolean}
-         *
-         * @protected
-         */
-        this._collapseNextHash = false;
-
-        /**
-         * @type {boolean}
-         *
-         * @protected
-         */
-        this._expandNextHash = false;
-
         AbstractDumper.prototype.__construct.call(this, output, flags);
     }
 

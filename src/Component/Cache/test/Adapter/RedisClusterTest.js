@@ -19,7 +19,9 @@ export default class RedisClusterTest extends AdapterTestCase {
     }
 
     async after() {
-        await redis.quit();
+        if ('end' !== redis.status) {
+            await redis.quit();
+        }
     }
 
     _createCachePool(defaultLifetime = undefined) {

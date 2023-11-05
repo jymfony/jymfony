@@ -1,3 +1,4 @@
+const MetadataHelper = require('../Metadata/MetadataHelper');
 const ReflectorTrait = require('./ReflectorTrait');
 
 /**
@@ -106,7 +107,17 @@ class ReflectionProperty extends implementationOf(ReflectorInterface, ReflectorT
      * @returns {[Function, *][]}
      */
     get metadata() {
-        return MetadataStorage.getMetadata(this._method[Symbol.metadata], undefined);
+        const metadata = this._class.getConstructor()[Symbol.metadata];
+        const target = MetadataHelper.getMetadataTarget({ kind: this._kind === ReflectionProperty.KIND_GET ? 'getter' : 'setter', name: this._name, metadata });
+        const storage = MetadataStorage.getMetadata(target);
+
+        return [ ...(function * () {
+            for (const [ class_, data ] of storage) {
+                for (const datum of isArray(data) ? data : [ data ]) {
+                    yield [ class_, datum ];
+                }
+            }
+        }()) ];
     }
 }
 

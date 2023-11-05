@@ -34,6 +34,9 @@ export default class FieldMetadata extends MemberMetadata {
      */
     getPropertyValue(object) {
         const reflectionField = this.getReflectionMember(object);
+        if (reflectionField.isStatic) {
+            object = null;
+        }
 
         return reflectionField.getValue(object);
     }

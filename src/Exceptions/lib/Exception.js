@@ -2,15 +2,38 @@ const UNKNOWN_FUNCTION = '?';
 
 class Exception extends Error {
     /**
-     * @param {...} args
+     * @type {string}
      */
+    name;
+
+    /**
+     * @type {Exception}
+     */
+    previous;
+
+    /**
+     * @type {int}
+     */
+    code;
+
+    /**
+     * @type {string}
+     *
+     * @private
+     */
+    _message;
+
+    /**
+     * @type {Object.<string, string>[]}
+     *
+     * @private
+     */
+    _stackTrace;
+    _originalStack;
+
     constructor(...args) {
         super();
         delete this.message;
-
-        if (undefined !== this[Symbol.__jymfony_field_initialization]) {
-            this[Symbol.__jymfony_field_initialization]();
-        }
 
         return this.__construct(...args);
     }
@@ -23,41 +46,16 @@ class Exception extends Error {
      * @param {Exception} [previous]
      */
     __construct(message, code = null, previous = undefined) {
-        /**
-         * @type {string}
-         */
         this.name = this.constructor.name;
-
-        /**
-         * @type {Exception}
-         */
         this.previous = previous;
-
-        /**
-         * @type {int}
-         */
         this.code = code;
-
-        /**
-         * @type {string}
-         *
-         * @private
-         */
         this._message = message;
-
-        /**
-         * @type {Object.<string, string>[]}
-         *
-         * @private
-         */
-        this._stackTrace = undefined;
 
         if ('function' === typeof Error.captureStackTrace) {
             Error.captureStackTrace(this, this.constructor);
         }
 
         this._originalStack = this.stack.split('\n').join('\n');
-
         this._updateStack();
     }
 
@@ -137,5 +135,4 @@ class Exception extends Error {
     }
 }
 
-Error.prepareStackTrace = Exception.prepareStackTrace;
 global.Exception = Exception;

@@ -6,12 +6,14 @@ const MetadataFactoryInterface = Jymfony.Contracts.Metadata.MetadataFactoryInter
  * @memberOf Jymfony.Component.HttpServer.Controller.Metadata
  */
 export default class ArgumentMetadataFactory extends implementationOf(MetadataFactoryInterface) {
+    /**
+     * @type {WeakMap.<Function, Jymfony.Component.HttpServer.Controller.Metadata.ControllerMetadata>}
+     *
+     * @private
+     */
+    _instances;
+
     __construct() {
-        /**
-         * @type {WeakMap.<Function, Jymfony.Component.HttpServer.Controller.Metadata.ControllerMetadata>}
-         *
-         * @private
-         */
         this._instances = new WeakMap();
     }
 

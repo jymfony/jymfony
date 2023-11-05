@@ -27,6 +27,41 @@ const iterable = v => isArray(v) || isObjectLiteral(v) || v instanceof Set || v 
  */
 export default class RecursiveContextualValidator extends implementationOf(ContextualValidatorInterface) {
     /**
+     * @type {Jymfony.Component.Validator.Context.ExecutionContextInterface}
+     *
+     * @private
+     */
+    _context;
+
+    /**
+     * @type {string}
+     *
+     * @private
+     */
+    _defaultPropertyPath;
+
+    /**
+     * @type {string[]}
+     *
+     * @private
+     */
+    _defaultGroups;
+
+    /**
+     * @type {Jymfony.Contracts.Metadata.MetadataFactoryInterface<Jymfony.Component.Validator.Mapping.ClassMetadataInterface>}
+     *
+     * @private
+     */
+    _metadataFactory;
+
+    /**
+     * @type {Jymfony.Component.Validator.ConstraintValidatorFactoryInterface}
+     *
+     * @private
+     */
+    _validatorFactory;
+
+    /**
      * Creates a validator for the given context.
      *
      * @param {Jymfony.Component.Validator.Context.ExecutionContextInterface} context
@@ -34,39 +69,10 @@ export default class RecursiveContextualValidator extends implementationOf(Conte
      * @param {Jymfony.Component.Validator.ConstraintValidatorFactoryInterface} validatorFactory
      */
     __construct(context, metadataFactory, validatorFactory) {
-        /**
-         * @type {Jymfony.Component.Validator.Context.ExecutionContextInterface}
-         *
-         * @private
-         */
         this._context = context;
-
-        /**
-         * @type {string}
-         *
-         * @private
-         */
         this._defaultPropertyPath = context.getPropertyPath();
-
-        /**
-         * @type {string[]}
-         *
-         * @private
-         */
         this._defaultGroups = [ context.group || Constraint.DEFAULT_GROUP ];
-
-        /**
-         * @type {Jymfony.Contracts.Metadata.MetadataFactoryInterface<Jymfony.Component.Validator.Mapping.ClassMetadataInterface>}
-         *
-         * @private
-         */
         this._metadataFactory = metadataFactory;
-
-        /**
-         * @type {Jymfony.Component.Validator.ConstraintValidatorFactoryInterface}
-         *
-         * @private
-         */
         this._validatorFactory = validatorFactory;
     }
 

@@ -4,6 +4,8 @@ const Constraint = Jymfony.Component.Validator.Constraint;
  * @memberOf Jymfony.Component.Validator.Constraints
  */
 export default class Iban extends Constraint {
+    message = 'This is not a valid International Bank Account Number (IBAN).';
+
     /**
      * @inheritdoc
      */
@@ -17,15 +19,6 @@ export default class Iban extends Constraint {
         }
 
         return Constraint.getErrorName(errorCode);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    __construct(options = null) {
-        this.message = 'This is not a valid International Bank Account Number (IBAN).';
-
-        return super.__construct(options);
     }
 }
 

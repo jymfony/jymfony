@@ -23,43 +23,44 @@ const Valid = Jymfony.Component.Validator.Constraints.Valid;
  */
 export default class ClassMetadata extends mix(BaseClassMetadata, ClassMetadataInterface, GenericMetadataTrait) {
     /**
+     * @type {string}
+     *
+     * @private
+     */
+    _defaultGroup;
+
+    /**
+     * @type {string[]}
+     *
+     * @private
+     */
+    _groupSequence = null;
+
+    /**
+     * @type {boolean}
+     *
+     * @private
+     */
+    _groupSequenceProvider = false;
+
+    /**
+     * The strategy for traversing traversable objects.
+     * By default, only arrays and object literal are traversed.
+     *
+     * @type {int}
+     *
+     * @private
+     */
+    _traversalStrategy = TraversalStrategy.IMPLICIT;
+
+    /**
      * Constructs a metadata for the given class.
      *
      * @param {ReflectionClass} reflectionClass
      */
     __construct(reflectionClass) {
         super.__construct(reflectionClass);
-
-        /**
-         * @type {string}
-         *
-         * @private
-         */
         this._defaultGroup = this.reflectionClass.shortName;
-
-        /**
-         * @type {string[]}
-         *
-         * @private
-         */
-        this._groupSequence = null;
-
-        /**
-         * @type {boolean}
-         *
-         * @private
-         */
-        this._groupSequenceProvider = false;
-
-        /**
-         * The strategy for traversing traversable objects.
-         * By default, only arrays and object literal are traversed.
-         *
-         * @type {int}
-         *
-         * @private
-         */
-        this._traversalStrategy = TraversalStrategy.IMPLICIT;
     }
 
     /**

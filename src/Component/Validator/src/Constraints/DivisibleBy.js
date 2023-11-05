@@ -4,6 +4,8 @@ const AbstractComparison = Jymfony.Component.Validator.Constraints.AbstractCompa
  * @memberOf Jymfony.Component.Validator.Constraints
  */
 export default class DivisibleBy extends AbstractComparison {
+    message = 'This value should be a multiple of {{ compared_value }}.';
+
     /**
      * @inheritdoc
      */
@@ -13,15 +15,6 @@ export default class DivisibleBy extends AbstractComparison {
         }
 
         return Constraint.getErrorName(errorCode);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    __construct(options = null) {
-        this.message = 'This value should be a multiple of {{ compared_value }}.';
-
-        return super.__construct(options);
     }
 }
 

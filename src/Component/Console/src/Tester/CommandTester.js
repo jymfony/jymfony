@@ -9,52 +9,54 @@ const StreamOutput = Jymfony.Component.Console.Output.StreamOutput;
  */
 export default class CommandTester {
     /**
+     * @type {Jymfony.Component.Console.Command.Command}
+     *
+     * @private
+     */
+    _command;
+
+    /**
+     * @type {string[]}
+     *
+     * @private
+     */
+    _inputs = [];
+
+    /**
+     * @type {string}
+     *
+     * @private
+     */
+    _readOutput = '';
+
+    /**
+     * @type {Jymfony.Component.Console.Input.ArrayInput}
+     *
+     * @private
+     */
+    _input = undefined;
+
+    /**
+     * @type {int}
+     *
+     * @private
+     */
+    _statusCode = undefined;
+
+    /**
+     * @type {Jymfony.Component.Console.Output.OutputInterface}
+     *
+     * @private
+     */
+    _output = undefined;
+
+    /**
      * Constructor.
      *
      * @param {Jymfony.Component.Console.Command.Command} command
      */
     __construct(command) {
-        /**
-         * @type {Jymfony.Component.Console.Command.Command}
-         *
-         * @private
-         */
         this._command = command;
-
-        /**
-         * @type {string[]}
-         *
-         * @private
-         */
-        this._inputs = [];
-
-        /**
-         * @type {string}
-         *
-         * @private
-         */
-        this._readOutput = '';
-
-        /**
-         * @type {Jymfony.Component.Console.Input.ArrayInput}
-         *
-         * @private
-         */
-        this._input = undefined;
-
-        /**
-         * @type {int}
-         *
-         * @private
-         */
-        this._statusCode = undefined;
-
-        /**
-         * @type {Jymfony.Component.Console.Output.OutputInterface}
-         *
-         * @private
-         */
-        this._output = undefined;
     }
 
     /**

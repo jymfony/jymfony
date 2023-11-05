@@ -10,6 +10,12 @@ const DataDumperInterface = Jymfony.Component.VarDumper.Dumper.DataDumperInterfa
  * @abstract
  */
 export default class AbstractDumper extends implementationOf(DumperInterface, DataDumperInterface) {
+    _flags;
+    _outputStream;
+    _lineDumper;
+    _indentPad = '  ';
+    _line = '';
+
     /**
      * Constructor.
      *
@@ -18,10 +24,6 @@ export default class AbstractDumper extends implementationOf(DumperInterface, Da
      */
     __construct(output = undefined, flags = 0) {
         this._flags = flags;
-        this._outputStream = undefined;
-        this._lineDumper = undefined;
-        this._indentPad = '  ';
-        this._line = '';
         this.setOutput(output || process.stdout);
     }
 

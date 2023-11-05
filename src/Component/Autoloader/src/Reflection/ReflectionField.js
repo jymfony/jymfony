@@ -1,3 +1,4 @@
+const MetadataHelper = require('../Metadata/MetadataHelper');
 const ReflectorTrait = require('./ReflectorTrait');
 const privateAccessors = new WeakMap();
 
@@ -17,7 +18,7 @@ class ReflectionField extends implementationOf(ReflectorInterface, ReflectorTrai
             throw new ReflectionException('Unknown class field "' + fieldName + '\'');
         }
 
-        privateAccessors.set(this, metadata);
+        privateAccessors.set(this, metadata.access);
 
         /**
          * @type {string}
@@ -116,7 +117,17 @@ class ReflectionField extends implementationOf(ReflectorInterface, ReflectorTrai
      * @returns {[Function, *][]}
      */
     get metadata() {
-        return MetadataStorage.getMetadata(privateAccessors.get(this).get[Symbol.metadata], null);
+        const metadata = this._class.getConstructor()[Symbol.metadata];
+        const target = MetadataHelper.getMetadataTarget({ kind: 'field', name: this._name, metadata });
+        const storage = MetadataStorage.getMetadata(target);
+
+        return [ ...(function * () {
+            for (const [ class_, data ] of storage) {
+                for (const datum of isArray(data) ? data : [ data ]) {
+                    yield [ class_, datum ];
+                }
+            }
+        }()) ];
     }
 
     /**
@@ -128,8 +139,14 @@ class ReflectionField extends implementationOf(ReflectorInterface, ReflectorTrai
      */
     getValue(object) {
         this._checkAccessible();
+        if (null === object) {
+            __assert(this.isStatic);
+            object = this.reflectionClass.getConstructor();
+        } else {
+            __assert(!this.isStatic);
+        }
 
-        return privateAccessors.get(this).get(object);
+        return privateAccessors.get(this).get.bind(object)();
     }
 
     /**
@@ -140,8 +157,14 @@ class ReflectionField extends implementationOf(ReflectorInterface, ReflectorTrai
      */
     setValue(object, value) {
         this._checkAccessible();
+        if (null === object) {
+            __assert(this.isStatic);
+            object = this.reflectionClass.getConstructor();
+        } else {
+            __assert(!this.isStatic);
+        }
 
-        privateAccessors.get(this).set(object, value);
+        privateAccessors.get(this).set.bind(object)(value);
     }
 
     /**

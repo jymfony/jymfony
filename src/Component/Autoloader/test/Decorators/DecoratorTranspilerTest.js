@@ -23,7 +23,7 @@ export default class DecoratorTranspilerTest extends TestCase {
         __self.assertCount(1, r.metadata);
         __self.assertEquals(annotation, r.metadata[0][0]);
         __self.assertInstanceOf(Foo.Decorators.TestAnnotation, r.metadata[0][1][1]);
-        __self.assertEquals({ value: 24 }, r.metadata[0][1][1]._value);
+        __self.assertEquals({ value: 12 }, r.metadata[0][1][1]._value);
 
         __self.assertEquals([ [ annotation, new Foo.Decorators.TestAnnotation({ prop: 'test' }) ] ], r.getField('_value').metadata);
         __self.assertEquals([ [ annotation, new Foo.Decorators.TestAnnotation(undefined) ] ], r.getMethod('getValue').metadata);
