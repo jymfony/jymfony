@@ -2,6 +2,28 @@ name: Tests
 on: [push, pull_request_target]
 
 jobs:
-    tests:
-        uses: jymfony/jymfony/.github/workflows/test-packages.yml@master
-        secrets: inherit
+    build:
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                node_version:
+                    - 12
+                    - 14
+                    - 16
+                    - 18
+                    - 20
+
+        name: Node ${{ matrix.node_version }} - ${{ matrix.architecture }} on Linux
+
+        steps:
+            - uses: actions/checkout@v3
+            - name: Setup node
+              uses: actions/setup-node@v3
+              with:
+                  node-version: ${{ matrix.node_version }}
+                  architecture: ${{ matrix.architecture }}
+            - run: npm install
+            - run: npm install @jymfony/compiler@next
+              if: ${{ matrix.node_version < 16 }}
+            - run: rm -rf node_modules/@jymfony/autoloader
+            - run: npm test
