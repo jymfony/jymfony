@@ -163,7 +163,6 @@ class Namespace {
      */
     _require(filename) {
         const fn = this._internalRequire.resolve(filename);
-        let self = undefined;
 
         const init = proxy => {
             let mod;
@@ -171,7 +170,7 @@ class Namespace {
 
             try {
                 if (fn !== __filename) {
-                    mod = this._autoloader.classLoader.loadClass(fn, self, this._fullyQualifiedName);
+                    mod = this._autoloader.classLoader.loadClass(fn, this._fullyQualifiedName);
                 } else {
                     mod = this._internalRequire(fn);
                 }
@@ -197,7 +196,7 @@ class Namespace {
             return null;
         };
 
-        return self = new ManagedProxy(FunctionPrototype, init, {
+        return new ManagedProxy(FunctionPrototype, init, {
             get: (target, key) => {
                 if ('toString' === key && target[key] === FunctionPrototype.toString) {
                     return FunctionPrototype.toString.bind(target);

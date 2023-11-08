@@ -20,7 +20,6 @@ declare namespace Jymfony.Component.Dotenv {
         /**
          * Constructor.
          */
-        __construct(envKey?: string, debugKey?: string): void;
         constructor(envKey?: string, debugKey?: string);
 
         /**
@@ -45,15 +44,16 @@ declare namespace Jymfony.Component.Dotenv {
          * .env.local is always ignored in test env because tests should produce the same results for everyone.
          * .env.dist is loaded when it exists and .env is not found.
          *
-         * @param {string} path A file to load
-         * @param {string|null} envKey The name of the env vars that defines the app env
-         * @param {string} defaultEnv The app env to use when none is defined
-         * @param {string[]} testEnvs A list of app envs for which .env.local should be ignored
+         * @param path A file to load
+         * @param envKey The name of the env vars that defines the app env
+         * @param defaultEnv The app env to use when none is defined
+         * @param testEnvs A list of app envs for which .env.local should be ignored
+         * @param overrideExistingVars Whether to overwrite existing env variables or not
          *
          * @throws {Jymfony.Component.Dotenv.Exception.FormatException} when a file has a syntax error
          * @throws {Jymfony.Component.Dotenv.Exception.PathException} when a file does not exist or is not readable
          */
-        loadEnv(path: string, envKey?: string | null, defaultEnv?: string, testEnvs?: string[]): void;
+        loadEnv(path: string, envKey?: string | null, defaultEnv?: string, testEnvs?: string[], overrideExistingVars?: boolean): void;
 
         /**
          * Loads env vars from .env.local.js if the file exists or from the other .env files otherwise.
@@ -62,7 +62,7 @@ declare namespace Jymfony.Component.Dotenv {
          *
          * See method loadEnv() for rules related to .env files.
          */
-        bootEnv(path: string, defaultEnv?: string, testEnvs?: string[]): void;
+        bootEnv(path: string, defaultEnv?: string, testEnvs?: string[], overrideExistingVars?: boolean): void;
 
         /**
          * Loads one or several .env files and enables override existing vars.

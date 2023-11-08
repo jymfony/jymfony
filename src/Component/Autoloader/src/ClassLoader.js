@@ -136,13 +136,12 @@ class ClassLoader {
      * Loads a class.
      *
      * @param {string} fn
-     * @param {*} self
      * @param {string} namespace
      *
      * @returns {*}
      */
-    loadClass(fn, self, namespace) {
-        const exports = this.loadFile(fn, self, {}, namespace);
+    loadClass(fn, namespace) {
+        const exports = this.loadFile(fn, {}, namespace);
 
         return exports.__esModule ? exports.default : exports;
     }
@@ -151,13 +150,12 @@ class ClassLoader {
      * Loads a file and returns the file exports.
      *
      * @param {string} fn
-     * @param {*} self
      * @param {*} [exports]
      * @param {string} [namespace]
      *
      * @returns {*}
      */
-    loadFile(fn, self, exports = {}, namespace = undefined) {
+    loadFile(fn, exports = {}, namespace = undefined) {
         fn = this._path.resolve(fn);
         if (_cache[fn]) {
             return _cache[fn];
@@ -173,7 +171,7 @@ class ClassLoader {
             }
         }
 
-        return _cache[fn] = this._doLoadFile(fn, self, exports, namespace);
+        return _cache[fn] = this._doLoadFile(fn, exports, namespace);
     }
 
     /**
@@ -205,7 +203,6 @@ class ClassLoader {
      * Internal file loader.
      *
      * @param {string} fn
-     * @param {*} self
      * @param {*} exports
      * @param {string} namespace
      *
@@ -213,7 +210,7 @@ class ClassLoader {
      *
      * @private
      */
-    _doLoadFile(fn, self, exports, namespace) {
+    _doLoadFile(fn, exports, namespace) {
         const module = this._getModuleObject(fn, exports);
         const dirname = module.paths[0];
         const opts = isNyc ? fn : {
@@ -239,7 +236,7 @@ class ClassLoader {
                 return require(id);
             }
 
-            return this.loadFile(id, null);
+            return this.loadFile(id);
         };
 
         req.extensions = require.extensions;

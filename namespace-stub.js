@@ -148,6 +148,11 @@ Jymfony = {
         /**
          * @namespace
          */
+        Runtime: {},
+
+        /**
+         * @namespace
+         */
         Security: {},
 
         /**

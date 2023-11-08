@@ -20,17 +20,17 @@ declare namespace Jymfony.Component.Autoloader {
         /**
          * Loads a class.
          */
-        loadClass(fn: string, self: any): any;
+        loadClass(fn: string): any;
 
         /**
          * Loads a file and returns the file exports.
          */
-        loadFile(fn: string, self: any, exports?: any): any;
+        loadFile(fn: string, exports?: any): any;
 
         /**
          * Gets a file code.
          */
-        getCode(fn: string, self?: boolean): Code;
+        getCode(fn: string): Code;
 
         /**
          * Loads and transpile typescript file.
@@ -42,6 +42,6 @@ declare namespace Jymfony.Component.Autoloader {
         /**
          * Internal file loader.
          */
-        private _doLoadFile(fn: string, self: any, exports: any): any;
+        private _doLoadFile(fn: string, exports: any): any;
     }
 }
