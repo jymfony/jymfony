@@ -15,7 +15,7 @@ const RuntimeInterface = Jymfony.Component.Runtime.RuntimeInterface;
  *    that knows how to deal with each of them;
  *  - "error_handler" defines the class to use to handle errors;
  *  - "env_var_name" and "debug_var_name" define the name of the env
- *    vars that hold the Symfony env and the debug flag respectively.
+ *    vars that hold the Jymfony env and the debug flag respectively.
  *
  * The app-callable can declare arguments among either:
  * - "env" to get an object containing all the environment variables;

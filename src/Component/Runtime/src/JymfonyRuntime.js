@@ -7,7 +7,7 @@ const GenericRuntime = Jymfony.Component.Runtime.GenericRuntime;
 const JymfonyErrorHandler = Jymfony.Component.Runtime.Internal.JymfonyErrorHandler;
 
 /**
- * Knows the basic conventions to run Symfony apps.
+ * Knows the basic conventions to run Jymfony apps.
  *
  * In addition to the options managed by GenericRuntime, it accepts the following options:
  *  - "env" to define the name of the environment the app runs in;
@@ -19,16 +19,15 @@ const JymfonyErrorHandler = Jymfony.Component.Runtime.Internal.JymfonyErrorHandl
  *
  * When the "debug" / "env" options are not defined, they will fallback to the
  * "APP_DEBUG" / "APP_ENV" environment variables, and to the "--env|-e" / "--no-debug"
- * command line arguments if "symfony/console" is installed.
+ * command line arguments if "jymfony/console" is installed.
  *
- * When the "symfony/dotenv" component is installed, .env files are loaded.
- * When "symfony/error-handler" is installed, it is registered in debug mode.
+ * When the "jymfony/dotenv" component is installed, .env files are loaded.
+ * When "jymfony/debug" is installed, it is registered in debug mode.
  *
  * On top of the base arguments provided by GenericRuntime,
  * this runtime can feed the app-callable with arguments of type:
- *  - Request from "symfony/http-foundation" if the component is installed;
  *  - Application, Command, InputInterface and/or OutputInterface
- *    from "symfony/console" if the component is installed.
+ *    from "jymfony/console" if the component is installed.
  *
  * This runtime can handle app-callables that return instances of either:
  *  - Application,
@@ -67,7 +66,10 @@ export default class JymfonyRuntime extends GenericRuntime {
 
         const prodEnvs = options.prod_envs ?? [ 'prod' ];
         const input = JymfonyRuntime.#getInput(options);
-        if (!(options.disable_dotenv ?? false) && !!options.project_dir) {
+        if (
+            !(options.disable_dotenv ?? !ReflectionClass.exists('Jymfony.Component.Dotenv.Dotenv')) &&
+            !!options.project_dir
+        ) {
             const testEnvs = options.test_envs ?? [ 'test' ];
             try {
                 (new Jymfony.Component.Dotenv.Dotenv(envKey, debugKey))
