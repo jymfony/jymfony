@@ -9,6 +9,7 @@ try {
     }
 }
 
+const nullish = (value, cond) => ((undefined === value) || (null === value)) ? cond() : value;
 const awsLambdaTaskRoot = process.env.LAMBDA_TASK_ROOT;
 const awsHandler = process.env._HANDLER;
 const FUNCTION_EXPR = /^([^.]*)\.(.*)$/;
@@ -52,12 +53,15 @@ if (awsLambdaTaskRoot && awsHandler) {
 }
 
 delete require.cache[file];
-const mainExports = __jymfony.autoload.classLoader.loadFile(file, null);
+const mainExports = __jymfony.autoload.classLoader.loadFile(file);
+if (mainExports.__esModule) {
+    exportName = 'default';
+}
 
-let runtime = process.env.APP_RUNTIME ?? Jymfony.Component.Runtime.JymfonyRuntime;
+let runtime = nullish(process.env.APP_RUNTIME, () => Jymfony.Component.Runtime.JymfonyRuntime);
 const reflection = new ReflectionClass(runtime);
 
-runtime = reflection.newInstance(Object.assign({ project_dir: dirname(file) }, globalThis.APP_RUNTIME_OPTIONS ?? {}));
+runtime = reflection.newInstance(Object.assign({ project_dir: dirname(file) }, nullish(globalThis.APP_RUNTIME_OPTIONS, () => ({}))));
 
 let [ app, args ] = runtime.getResolver(null === exportName ? mainExports : mainExports[exportName]).resolve();
 (async function () {

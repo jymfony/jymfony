@@ -6,6 +6,20 @@ const ConsoleOutput = Jymfony.Component.Console.Output.ConsoleOutput;
 const GenericRuntime = Jymfony.Component.Runtime.GenericRuntime;
 const JymfonyErrorHandler = Jymfony.Component.Runtime.Internal.JymfonyErrorHandler;
 
+function getInput(options) {
+    const input = new ArgvInput();
+    const env = input.getParameterOption([ '--env', '-e' ], null, true);
+    if (null !== env) {
+        process.env[options.env_var_name] = env;
+    }
+
+    if (input.hasParameterOption('--no-debug', true)) {
+        process.env[options.debug_var_name] = '0';
+    }
+
+    return input;
+}
+
 /**
  * Knows the basic conventions to run Jymfony apps.
  *
@@ -65,7 +79,7 @@ export default class JymfonyRuntime extends GenericRuntime {
         }
 
         const prodEnvs = options.prod_envs ?? [ 'prod' ];
-        const input = JymfonyRuntime.#getInput(options);
+        const input = getInput(options);
         if (
             !(options.disable_dotenv ?? !ReflectionClass.exists('Jymfony.Component.Dotenv.Dotenv')) &&
             !!options.project_dir
@@ -150,19 +164,5 @@ export default class JymfonyRuntime extends GenericRuntime {
         runtime._options = __jymfony.clone(self._options);
 
         return self;
-    }
-
-    static #getInput(options) {
-        const input = new ArgvInput();
-        const env = input.getParameterOption([ '--env', '-e' ], null, true);
-        if (null !== env) {
-            process.env[options.env_var_name] = env;
-        }
-
-        if (input.hasParameterOption('--no-debug', true)) {
-            process.env[options.debug_var_name] = '0';
-        }
-
-        return input;
     }
 }
