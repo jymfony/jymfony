@@ -18,4 +18,20 @@ export default class RuntimeTest extends TestCase {
     * provideFiles() {
         yield [ 'OK Application test', 'application.js', { SOME_VAR: 'test' } ];
     }
+
+    @dataProvider('provideFilesForLambda')
+    testLambdaRuntime(expected, filename, env) {
+        const output = child_process.execFileSync(process.argv0, [
+            __dirname + '/../fixtures/' + filename,
+        ], {
+            env: { ...process.env, ...env },
+            stdio: 'pipe',
+        });
+
+        __self.assertEquals(expected, output.toString());
+    }
+
+    * provideFilesForLambda() {
+        yield [ '[test] TEST', 'lambda-handler.js', { APP_ENV: 'test' } ];
+    }
 }

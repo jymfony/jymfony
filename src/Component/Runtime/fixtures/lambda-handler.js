@@ -1,11 +1,15 @@
+const { basename } = require('path');
 require('./autoload');
+
+process.env.LAMBDA_TASK_ROOT = __dirname;
+process.env._HANDLER = basename(__filename) + '.handler';
 const lambda = require('../lambda');
 
 exports.handler = lambda(async function (env) {
-    env = env.APP_ENV ?? 'dev';
-    const debug = '0' !== env.APP_DEBUG;
-    const kernel = new App.Kernel(env, debug);
-    await kernel.boot();
-
-    return kernel.container.get(Jymfony.Component.HttpServer.Serverless.AwsLambdaHandler);
+    return function () {
+        process.stdout.write('[' + env.APP_ENV + '] TEST');
+    };
 });
+
+// Test handler
+exports.handler({}, {});

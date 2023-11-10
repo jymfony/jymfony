@@ -22,7 +22,7 @@ export default class ClosureRunner extends implementationOf(RunnerInterface) {
             return 0;
         }
 
-        if (null !== exitStatus && !isNumber(exitStatus)) {
+        if (undefined !== exitStatus && null !== exitStatus && !isNumber(exitStatus)) {
             throw new TypeError(__jymfony.sprintf('Unexpected value of type "%s" returned, "string|int|null" expected from runtime closure.', __jymfony.get_debug_type(exitStatus)));
         }
 

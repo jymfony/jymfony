@@ -1,11 +1,17 @@
 const { basename, dirname, join } = require('path');
 const { compile } = require('@jymfony/compiler');
 
+const awsLambdaTaskRoot = process.env.LAMBDA_TASK_ROOT;
+const awsHandler = process.env._HANDLER;
+const FUNCTION_EXPR = /^([^.]*)\.(.*)$/;
+
 try {
     require('@jymfony/autoloader');
 } catch (e) {
     if ('MODULE_NOT_FOUND' === e.code) {
+        process.env.LAMBDA_TASK_ROOT = __dirname + '/../../..';
         require(__dirname + '/../Autoloader');
+        process.env.LAMBDA_TASK_ROOT = awsLambdaTaskRoot;
     } else {
         throw e;
     }
@@ -13,10 +19,6 @@ try {
 
 const nullish = (value, cond) => ((undefined === value) || (null === value)) ? cond() : value;
 const AwsLambdaRunnerInterface = Jymfony.Component.Runtime.Runner.Jymfony.AwsLambdaRunnerInterface;
-
-const awsLambdaTaskRoot = process.env.LAMBDA_TASK_ROOT;
-const awsHandler = process.env._HANDLER;
-const FUNCTION_EXPR = /^([^.]*)\.(.*)$/;
 
 /**
  * Break the full handler string into two pieces, the module root and the actual
