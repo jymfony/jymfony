@@ -1,4 +1,5 @@
 const { basename, dirname, join } = require('path');
+const { compile } = require('@jymfony/compiler');
 
 try {
     require('@jymfony/autoloader');
@@ -55,6 +56,7 @@ const reflection = new ReflectionClass(runtime);
 runtime = reflection.newInstance(Object.assign({ project_dir: dirname(file) }, nullish(globalThis.APP_RUNTIME_OPTIONS, () => ({}))));
 
 module.exports = function (init) {
+    init = eval(compile('(' + init.toString() + ')', null, { asFunction: false, debug: false }));
     let started = false;
     let [ app, args ] = runtime.getResolver(init).resolve();
 
