@@ -223,6 +223,10 @@ class ClassLoader {
         };
 
         const req = id => {
+            if ('@jymfony/autoloader' === id) {
+                return require('..');
+            }
+
             if ('node:vm' === id || 'vm' === id) {
                 return this._patchedVm;
             }

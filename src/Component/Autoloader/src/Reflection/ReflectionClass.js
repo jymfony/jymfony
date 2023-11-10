@@ -13,6 +13,8 @@ const ClassNotFoundException = require('../Exception/ClassNotFoundException');
 const Storage = function () {};
 Storage.prototype = {};
 
+const InstanceCache = new WeakMap();
+
 const TheBigReflectionDataCache = new Storage();
 TheBigReflectionDataCache.classes = new Storage();
 TheBigReflectionDataCache.data = new WeakMap();
@@ -76,11 +78,16 @@ class ReflectionClass extends implementationOf(ReflectorInterface, ReflectorTrai
         this._isInterface = false;
         this._isTrait = false;
         value = getClass.apply(this, [ value ]);
+        if (InstanceCache.has(value)) {
+            return InstanceCache.get(value);
+        }
 
         const cached = TheBigReflectionDataCache.reflection.get(value);
         if (cached !== undefined) {
             cached._isInterface = this._isInterface;
             cached._isTrait = this._isTrait;
+            InstanceCache.set(value, cached);
+
             return cached;
         }
 
@@ -101,6 +108,8 @@ class ReflectionClass extends implementationOf(ReflectorInterface, ReflectorTrai
         } else {
             this._loadWithoutMetadata(value);
         }
+
+        InstanceCache.set(value, this);
     }
 
     /**
@@ -333,7 +342,7 @@ class ReflectionClass extends implementationOf(ReflectorInterface, ReflectorTrai
             }
 
             try {
-                r = new ReflectionClass(parent);
+                r = new ReflectionClass(this._isInterface ? mixins.getMixin(parent) : parent);
             } catch (e) {
                 continue;
             }

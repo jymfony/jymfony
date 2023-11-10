@@ -1,3 +1,5 @@
+import { trampoline } from '@jymfony/autoloader';
+
 const ClassMetadata = Jymfony.Component.Metadata.ClassMetadata;
 const MetadataProcessorLoader = Jymfony.Component.Metadata.Loader.MetadataProcessorLoader;
 const ProcessorFactoryInterface = Jymfony.Component.Metadata.Loader.Processor.ProcessorFactoryInterface;
@@ -6,10 +8,10 @@ const Fixtures = Jymfony.Component.Metadata.Fixtures;
 const MetadataInterface = Jymfony.Contracts.Metadata.MetadataInterface;
 const Argument = Jymfony.Component.Testing.Argument.Argument;
 const Prophet = Jymfony.Component.Testing.Prophet;
-const { ClassAnnot } = __jymfony.autoload._classLoader.loadFile(__dirname + '/../../fixtures/decorators/ClassAnnot.js');
-const { NotHandledAnnotation } = __jymfony.autoload._classLoader.loadFile(__dirname + '/../../fixtures/decorators/NotHandledAnnotation.js');
-const { MethodAnnotation1 } = __jymfony.autoload._classLoader.loadFile(__dirname + '/../../fixtures/decorators/MethodAnnotation1.js');
-const { MethodAnnotation2 } = __jymfony.autoload._classLoader.loadFile(__dirname + '/../../fixtures/decorators/MethodAnnotation2.js');
+const { ClassAnnot } = trampoline(__dirname + '/../../fixtures/decorators/ClassAnnot.js');
+const { NotHandledAnnotation } = trampoline(__dirname + '/../../fixtures/decorators/NotHandledAnnotation.js');
+const { MethodAnnotation1 } = trampoline(__dirname + '/../../fixtures/decorators/MethodAnnotation1.js');
+const { MethodAnnotation2 } = trampoline(__dirname + '/../../fixtures/decorators/MethodAnnotation2.js');
 
 describe('[Metadata] MetadataProcessorLoader', function () {
     /**

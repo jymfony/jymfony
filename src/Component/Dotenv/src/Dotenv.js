@@ -1,4 +1,5 @@
 import { accessSync, constants, readFileSync, statSync } from 'fs';
+import { trampoline } from '@jymfony/autoloader';
 
 const FormatException = Jymfony.Component.Dotenv.Exception.FormatException;
 const FormatExceptionContext = Jymfony.Component.Dotenv.Exception.FormatExceptionContext;
@@ -179,10 +180,7 @@ export default class Dotenv {
      */
     bootEnv(path, defaultEnv = 'dev', testEnvs = [ 'test' ], overrideExistingVars = false) {
         const p = path + '.local.js';
-        let env = isFile(p) ? __jymfony.autoload.classLoader.loadFile(p) : undefined;
-        if (env?.__esModule) {
-            env = env['default'];
-        }
+        const env = isFile(p) ? trampoline(p)['default'] : undefined;
 
         let k = this._envKey;
         if (isObjectLiteral(env) && (overrideExistingVars || undefined === env[k] || (process.env[k] || env[k]) === env[k])) {
