@@ -28,4 +28,7 @@ let [ app, args ] = runtime.getResolver(mainExports['default']).resolve();
     app = await app(...args);
 
     return runtime.getRunner(app).run();
-}()).then(process.exit, console.error);
+}())
+    .then(exitCode => {
+        process.nextTick(() => process.exit(exitCode));
+    }, console.error);
