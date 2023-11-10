@@ -1,4 +1,6 @@
 const { basename, dirname, join } = require('path');
+require('async_hooks').createHook({ init: () => {} }).enable();
+
 try {
     require('@jymfony/autoloader');
 } catch (e) {
