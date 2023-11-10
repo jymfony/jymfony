@@ -169,6 +169,10 @@ class ReflectionMethod extends implementationOf(ReflectorInterface, ReflectorTra
      */
     get metadata() {
         const metadata = this._class.getConstructor()[Symbol.metadata];
+        if (undefined === metadata) {
+            return [];
+        }
+
         const target = MetadataHelper.getMetadataTarget({ kind: 'method', name: this._name, metadata });
         const storage = MetadataStorage.getMetadata(target);
 

@@ -118,6 +118,10 @@ class ReflectionField extends implementationOf(ReflectorInterface, ReflectorTrai
      */
     get metadata() {
         const metadata = this._class.getConstructor()[Symbol.metadata];
+        if (undefined === metadata) {
+            return [];
+        }
+
         const target = MetadataHelper.getMetadataTarget({ kind: 'field', name: this._name, metadata });
         const storage = MetadataStorage.getMetadata(target);
 

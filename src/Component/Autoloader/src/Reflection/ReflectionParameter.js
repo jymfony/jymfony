@@ -179,6 +179,10 @@ class ReflectionParameter extends implementationOf(ReflectorInterface, Reflector
         const method = this._reflectionMethod;
         const class_ = method.reflectionClass;
         const metadata = class_.getConstructor()[Symbol.metadata];
+        if (undefined === metadata) {
+            return [];
+        }
+
         const target = MetadataHelper.getMetadataTarget({ kind: 'parameter', index: this._index, name: this._name, metadata, function: { name: method.name } });
         const storage = MetadataStorage.getMetadata(target);
 

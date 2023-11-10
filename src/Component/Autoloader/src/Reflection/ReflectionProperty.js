@@ -108,6 +108,10 @@ class ReflectionProperty extends implementationOf(ReflectorInterface, ReflectorT
      */
     get metadata() {
         const metadata = this._class.getConstructor()[Symbol.metadata];
+        if (undefined === metadata) {
+            return [];
+        }
+
         const target = MetadataHelper.getMetadataTarget({ kind: this._kind === ReflectionProperty.KIND_GET ? 'getter' : 'setter', name: this._name, metadata });
         const storage = MetadataStorage.getMetadata(target);
 
