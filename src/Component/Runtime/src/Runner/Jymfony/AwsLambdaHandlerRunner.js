@@ -28,6 +28,6 @@ export default class AwsLambdaHandlerRunner extends implementationOf(AwsLambdaRu
     }
 
     run() {
-        return this.#handler.handle(this.#event, this.#context);
+        return this.#handler.handleEvent(this.#event, this.#context);
     }
 }
