@@ -6,10 +6,10 @@ const Fixtures = Jymfony.Component.Metadata.Fixtures;
 const MetadataInterface = Jymfony.Contracts.Metadata.MetadataInterface;
 const Argument = Jymfony.Component.Testing.Argument.Argument;
 const Prophet = Jymfony.Component.Testing.Prophet;
-const { ClassAnnot } = __jymfony.autoload._classLoader.loadFile(__dirname + '/../../fixtures/decorators/ClassAnnot.js', null);
-const { NotHandledAnnotation } = __jymfony.autoload._classLoader.loadFile(__dirname + '/../../fixtures/decorators/NotHandledAnnotation.js', null);
-const { MethodAnnotation1 } = __jymfony.autoload._classLoader.loadFile(__dirname + '/../../fixtures/decorators/MethodAnnotation1.js', null);
-const { MethodAnnotation2 } = __jymfony.autoload._classLoader.loadFile(__dirname + '/../../fixtures/decorators/MethodAnnotation2.js', null);
+const { ClassAnnot } = __jymfony.autoload._classLoader.loadFile(__dirname + '/../../fixtures/decorators/ClassAnnot.js');
+const { NotHandledAnnotation } = __jymfony.autoload._classLoader.loadFile(__dirname + '/../../fixtures/decorators/NotHandledAnnotation.js');
+const { MethodAnnotation1 } = __jymfony.autoload._classLoader.loadFile(__dirname + '/../../fixtures/decorators/MethodAnnotation1.js');
+const { MethodAnnotation2 } = __jymfony.autoload._classLoader.loadFile(__dirname + '/../../fixtures/decorators/MethodAnnotation2.js');
 
 describe('[Metadata] MetadataProcessorLoader', function () {
     /**

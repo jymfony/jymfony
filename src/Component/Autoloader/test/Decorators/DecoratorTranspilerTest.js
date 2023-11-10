@@ -1,4 +1,4 @@
-import { join } from 'path';
+import { join } from 'node:path';
 
 const Namespace = Jymfony.Component.Autoloader.Namespace;
 const TestCase = Jymfony.Component.Testing.Framework.TestCase;

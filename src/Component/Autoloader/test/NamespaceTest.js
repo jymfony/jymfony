@@ -1,6 +1,6 @@
-import * as path from 'path';
-import * as vm from 'vm';
-import { readFileSync } from 'fs';
+import * as path from 'node:path';
+import * as vm from 'node:vm';
+import { readFileSync } from 'node:fs';
 
 const ClassLoader = Jymfony.Component.Autoloader.ClassLoader;
 const ClassNotFoundException = Jymfony.Component.Autoloader.Exception.ClassNotFoundException;

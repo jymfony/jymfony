@@ -1,4 +1,4 @@
-import { realpathSync } from 'fs';
+import { realpathSync } from 'node:fs';
 
 const Autoloader = Jymfony.Component.Autoloader.Autoloader;
 const TestCase = Jymfony.Component.Testing.Framework.TestCase;

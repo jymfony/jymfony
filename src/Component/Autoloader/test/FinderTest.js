@@ -1,4 +1,4 @@
-import { dirname, normalize } from 'path';
+import { dirname, normalize } from 'node:path';
 
 const Finder = Jymfony.Component.Autoloader.Finder;
 const TestCase = Jymfony.Component.Testing.Framework.TestCase;

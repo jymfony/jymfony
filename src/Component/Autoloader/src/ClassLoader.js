@@ -42,6 +42,10 @@ const builtinLibs = [
 ];
 
 const builtinRequire = __jymfony.version_compare(process.versions.node, '14.0.0', '<') ? id => {
+    if (id.startsWith('node:')) {
+        id = id.substring(5);
+    }
+
     if ('fs/promises' === id) {
         return require('fs').promises;
     }

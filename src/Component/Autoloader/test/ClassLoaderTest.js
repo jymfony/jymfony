@@ -1,4 +1,4 @@
-import { join } from 'path';
+import { join } from 'node:path';
 
 const ClassLoader = Jymfony.Component.Autoloader.ClassLoader;
 const Finder = Jymfony.Component.Autoloader.Finder;
@@ -26,12 +26,12 @@ export default class ClassLoaderTest extends TestCase {
     }
 
     testShouldResolvePathsOnRequireCalls() {
-        const exports = this._classLoader.loadFile(__dirname + '/../fixtures/ClassLoader/module_with_subdirectory/subdir/fixture.js', undefined, {});
+        const exports = this._classLoader.loadFile(__dirname + '/../fixtures/ClassLoader/module_with_subdirectory/subdir/fixture.js', {});
         __self.assertEquals('This is a test: TESTTEST WOW', exports);
     }
 
     testShouldResolveCircularReferences() {
-        const exports = this._classLoader.loadFile(__dirname + '/../fixtures/ClassLoader/circular/index.js', undefined, {});
+        const exports = this._classLoader.loadFile(__dirname + '/../fixtures/ClassLoader/circular/index.js', {});
         __self.assertInstanceOf(Function, exports.first);
         __self.assertInstanceOf(Function, exports.second);
         __self.assertEquals(exports.first, Object.getPrototypeOf(exports.second));

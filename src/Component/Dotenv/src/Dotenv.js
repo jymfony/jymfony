@@ -179,9 +179,12 @@ export default class Dotenv {
      */
     bootEnv(path, defaultEnv = 'dev', testEnvs = [ 'test' ], overrideExistingVars = false) {
         const p = path + '.local.js';
-        const env = isFile(p) ? __jymfony.autoload.classLoader.loadFile(p) : undefined;
-        let k = this._envKey;
+        let env = isFile(p) ? __jymfony.autoload.classLoader.loadFile(p) : undefined;
+        if (env?.__esModule) {
+            env = env['default'];
+        }
 
+        let k = this._envKey;
         if (isObjectLiteral(env) && (overrideExistingVars || undefined === env[k] || (process.env[k] || env[k]) === env[k])) {
             this.populate(env, overrideExistingVars);
         } else {

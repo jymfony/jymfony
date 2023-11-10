@@ -177,7 +177,7 @@ class Autoloader {
         );
 
         for (const file of includes) {
-            this._classLoader.loadFile(file, null);
+            this._classLoader.loadFile(file);
         }
     }
 
