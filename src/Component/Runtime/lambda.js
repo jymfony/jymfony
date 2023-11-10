@@ -46,9 +46,9 @@ const _splitHandlerString = function(handler) {
 };
 
 const [ moduleRoot, moduleAndHandler ] = _moduleRootAndHandler(awsHandler);
-const [ module ] = _splitHandlerString(moduleAndHandler);
+const [ moduleName ] = _splitHandlerString(moduleAndHandler);
 
-const file = require.resolve(join(awsLambdaTaskRoot, moduleRoot, module));
+const file = require.resolve(join(awsLambdaTaskRoot, moduleRoot, moduleName));
 
 let runtime = nullish(process.env.APP_RUNTIME, () => Jymfony.Component.Runtime.JymfonyRuntime);
 const reflection = new ReflectionClass(runtime);
