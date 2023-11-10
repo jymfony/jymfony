@@ -1,13 +1,16 @@
-const Application = Jymfony.Component.Console.Application;
-const ArgvInput = Jymfony.Component.Console.Input.ArgvInput;
-const Command = Jymfony.Component.Console.Command.Command;
+const AwsLambdaHandlerRunner = Jymfony.Component.Runtime.Runner.Jymfony.AwsLambdaHandlerRunner;
 const ConsoleApplicationRunner = Jymfony.Component.Runtime.Runner.Jymfony.ConsoleApplicationRunner;
-const ConsoleOutput = Jymfony.Component.Console.Output.ConsoleOutput;
 const GenericRuntime = Jymfony.Component.Runtime.GenericRuntime;
 const JymfonyErrorHandler = Jymfony.Component.Runtime.Internal.JymfonyErrorHandler;
+const consoleComponentInstalled = ReflectionClass.exists('Jymfony.Component.Console.Application');
+const httpServerInstalled = ReflectionClass.exists('Jymfony.Component.HttpServer.HttpServer');
 
 function getInput(options) {
-    const input = new ArgvInput();
+    if (! consoleComponentInstalled) {
+        return undefined;
+    }
+
+    const input = new Jymfony.Component.Console.Input.ArgvInput();
     const env = input.getParameterOption([ '--env', '-e' ], null, true);
     if (null !== env) {
         process.env[options.env_var_name] = env;
@@ -95,7 +98,7 @@ export default class JymfonyRuntime extends GenericRuntime {
                 }
             }
 
-            if (options.dotenv_overload ?? false) {
+            if (consoleComponentInstalled && (options.dotenv_overload ?? false)) {
                 if (input.getParameterOption([ '--env', '-e' ], process.env[envKey], true) !== process.env[envKey]) {
                     throw new LogicException(__jymfony.sprintf('Cannot use "--env" or "-e" when the "%s" file defines "%s" and the "dotenv_overload" runtime option is true.', options.dotenv_path ?? '.env', envKey));
                 }
@@ -119,26 +122,38 @@ export default class JymfonyRuntime extends GenericRuntime {
     }
 
     getRunner(application) {
-        if (application instanceof Command) {
-            const console = this.#console ??= new Application();
-            console.name = application.name || console.name;
+        if (consoleComponentInstalled) {
+            const Application = Jymfony.Component.Console.Application;
+            const Command = Jymfony.Component.Console.Command.Command;
+            const ConsoleOutput = Jymfony.Component.Console.Output.ConsoleOutput;
 
-            if (!application.name || !console.has(application.name)) {
-                application.name = process.argv0;
-                console.add(application);
+            if (application instanceof Command) {
+                const console = this.#console ??= new Application();
+                console.name = application.name || console.name;
+
+                if (!application.name || !console.has(application.name)) {
+                    application.name = process.argv0;
+                    console.add(application);
+                }
+
+                console.defaultCommand = application.name;
+                console.definition.addOptions(application.definition.getOptions());
+
+                return this.getRunner(console);
             }
 
-            console.defaultCommand = application.name;
-            console.definition.addOptions(application.definition.getOptions());
+            if (application instanceof Application) {
+                const defaultEnv = !this._options.env ? (process.env[this._options.env_var_name] ?? 'dev') : undefined;
+                const output = this.#output ??= new ConsoleOutput();
 
-            return this.getRunner(console);
+                return new ConsoleApplicationRunner(application, defaultEnv, this.#input, output);
+            }
         }
 
-        if (application instanceof Application) {
-            const defaultEnv = !this._options.env ? (process.env[this._options.env_var_name] ?? 'dev') : undefined;
-            const output = this.#output ??= new ConsoleOutput();
-
-            return new ConsoleApplicationRunner(application, defaultEnv, this.#input, output);
+        if (httpServerInstalled) {
+            if (application instanceof Jymfony.Component.HttpServer.Serverless.AwsLambdaHandler) {
+                return new AwsLambdaHandlerRunner(application);
+            }
         }
 
         return super.getRunner(application);
@@ -147,8 +162,8 @@ export default class JymfonyRuntime extends GenericRuntime {
     getArgument(parameterName) {
         switch (parameterName) {
             case 'input': return this.#input;
-            case 'output': return this.#output ??= new ConsoleOutput();
-            case 'console': return this.#console ??= new Application();
+            case 'output': return this.#output ??= consoleComponentInstalled ? new Jymfony.Component.Console.Output.ConsoleOutput() : undefined;
+            case 'console': return this.#console ??= consoleComponentInstalled ? new Jymfony.Component.Console.Application() : undefined;
             default: return super.getArgument(parameterName);
         }
     }
@@ -160,6 +175,8 @@ export default class JymfonyRuntime extends GenericRuntime {
             'Jymfony.Component.Console.Command.Command': self,
             'Jymfony.Contracts.Console.InputInterface': self,
             'Jymfony.Contracts.Console.OutputInterface': self,
+            'Jymfony.Component.HttpServer.Serverless.AwsLambdaHandler': self,
+            // 'Jymfony.Component.HttpServer.RequestHandler': self,
         }, self._options.runtimes);
         runtime._options = __jymfony.clone(self._options);
 

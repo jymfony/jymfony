@@ -5,6 +5,8 @@ const builtinTypes = [ 'undefined', 'object', 'boolean', 'number', 'bigint', 'st
  * @memberOf Jymfony.Component.Testing.Argument.Token
  */
 export default class TypeToken extends implementationOf(TokenInterface) {
+    _type;
+
     /**
      * Constructor.
      *
@@ -22,11 +24,7 @@ export default class TypeToken extends implementationOf(TokenInterface) {
             return typeof argument === this._type ? 5 : false;
         }
 
-        if (isString(this._type)) {
-            this._type = new ReflectionClass(this._type).getConstructor();
-        }
-
-        return argument instanceof this._type ? 5 : false;
+        return new ReflectionClass(argument).isInstanceOf(this._type) ? 5 : false;
     }
 
     /**

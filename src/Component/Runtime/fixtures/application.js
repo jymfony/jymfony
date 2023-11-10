@@ -1,4 +1,5 @@
 require('./autoload');
+require('..');
 
 const Command = Jymfony.Component.Console.Command.Command;
 const Application = Jymfony.Component.Console.Application;
