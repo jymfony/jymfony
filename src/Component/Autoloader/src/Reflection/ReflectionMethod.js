@@ -7,6 +7,69 @@ const ReflectorTrait = require('./ReflectorTrait');
  */
 class ReflectionMethod extends implementationOf(ReflectorInterface, ReflectorTrait) {
     /**
+     * @type {string}
+     *
+     * @private
+     */
+    _name;
+
+    /**
+     * @type {boolean}
+     *
+     * @private
+     */
+    _private;
+
+    /**
+     * @type {Function}
+     *
+     * @private
+     */
+    _method;
+
+    /**
+     * @type {boolean}
+     *
+     * @private
+     */
+    _static;
+
+    /**
+     * @type {ReflectionClass}
+     *
+     * @private
+     */
+    _class;
+
+    /**
+     * @type {string}
+     *
+     * @private
+     */
+    _type;
+
+    /**
+     * @type {boolean}
+     *
+     * @private
+     */
+    _async;
+
+    /**
+     * @type {ReflectionParameter[]}
+     *
+     * @private
+     */
+    _parameters = [];
+
+    /**
+     * @type {string}
+     *
+     * @private
+     */
+    _docblock;
+
+    /**
      * Constructor.
      *
      * @param {ReflectionClass} reflectionClass
@@ -15,76 +78,25 @@ class ReflectionMethod extends implementationOf(ReflectorInterface, ReflectorTra
     constructor(reflectionClass, methodName) {
         super();
 
-        /**
-         * @type {string}
-         *
-         * @private
-         */
         this._name = methodName;
-
         const method = reflectionClass._methods[methodName];
         if (undefined === method) {
             throw new ReflectionException('Unknown method "' + methodName + '\'');
         }
 
-        /**
-         * @type {boolean}
-         *
-         * @private
-         */
         this._private = method.private;
-
-        /**
-         * @type {Function}
-         *
-         * @private
-         */
         this._method = method.access.get();
-
-        /**
-         * @type {boolean}
-         *
-         * @private
-         */
         this._static = method.static;
-
-        /**
-         * @type {ReflectionClass}
-         *
-         * @private
-         */
         this._class = new ReflectionClass(method.ownClass);
-
-        /**
-         * @type {string}
-         *
-         * @private
-         */
         this._type = isGeneratorFunction(this._method) ? ReflectionMethod.GENERATOR : ReflectionMethod.FUNCTION;
-
-        /**
-         * @type {boolean}
-         *
-         * @private
-         */
         this._async = isAsyncFunction(this._method);
-
-        /**
-         * @type {ReflectionParameter[]}
-         *
-         * @private
-         */
-        this._parameters = [];
         if (method.parameters !== undefined) {
             this._parameters = method.parameters.map(p => new ReflectionParameter(this, p.name, p.index, p.hasDefault, p['default'], p.isObjectPattern, p.isArrayPattern, p.isRestElement));
         }
 
-        /**
-         * @type {string}
-         *
-         * @private
-         */
         this._docblock = this._method[Symbol.docblock];
+
+        return Object.freeze(this);
     }
 
     /**

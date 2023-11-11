@@ -96,6 +96,8 @@ class ReflectionParameter extends implementationOf(ReflectorInterface, Reflector
         this._restElement = restElement;
         this._hasDefaultValue = hasDefaultValue;
         this._scalarDefaultValue = scalarDefaultValue;
+
+        return Object.freeze(this);
     }
 
     /**

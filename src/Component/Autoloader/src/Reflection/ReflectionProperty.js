@@ -6,6 +6,41 @@ const ReflectorTrait = require('./ReflectorTrait');
  */
 class ReflectionProperty extends implementationOf(ReflectorInterface, ReflectorTrait) {
     /**
+     * @type {ReflectionClass}
+     *
+     * @private
+     */
+    _class;
+
+    /**
+     * @type {string}
+     *
+     * @private
+     */
+    _name;
+
+    /**
+     * @type {string}
+     *
+     * @private
+     */
+    _kind;
+
+    /**
+     * @type {Function}
+     *
+     * @private
+     */
+    _method;
+
+    /**
+     * @type {string}
+     *
+     * @private
+     */
+    _docblock;
+
+    /**
      * Constructor.
      *
      * @param {ReflectionClass} reflectionClass
@@ -16,33 +51,9 @@ class ReflectionProperty extends implementationOf(ReflectorInterface, ReflectorT
         super();
         const descriptor = reflectionClass.getPropertyDescriptor(propertyName);
 
-        /**
-         * @type {ReflectionClass}
-         *
-         * @private
-         */
         this._class = new ReflectionClass(descriptor.ownClass);
-
-        /**
-         * @type {string}
-         *
-         * @private
-         */
         this._name = propertyName;
-
-        /**
-         * @type {string}
-         *
-         * @private
-         */
         this._kind = kind;
-
-        /**
-         * @type {Function}
-         *
-         * @private
-         */
-        this._method = undefined;
 
         if (ReflectionProperty.KIND_GET === kind && this._class.hasReadableProperty(propertyName)) {
             this._method = descriptor.get;
@@ -54,12 +65,9 @@ class ReflectionProperty extends implementationOf(ReflectorInterface, ReflectorT
             throw new ReflectionException('Property "' + propertyName + '" (' + kind + ') does not exist');
         }
 
-        /**
-         * @type {string}
-         *
-         * @private
-         */
         this._docblock = this._method[Symbol.docblock];
+
+        return Object.freeze(this);
     }
 
     /**

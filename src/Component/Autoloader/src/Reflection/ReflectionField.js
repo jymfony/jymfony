@@ -1,16 +1,48 @@
 const MetadataHelper = require('../Metadata/MetadataHelper');
 const ReflectorTrait = require('./ReflectorTrait');
 const privateAccessors = new WeakMap();
+const accessibleMap = new WeakMap();
 
 class ReflectionField extends implementationOf(ReflectorInterface, ReflectorTrait) {
+
+    /**
+     * @type {ReflectionClass}
+     *
+     * @private
+     */
+    _class;
+
+    /**
+     * @type {string}
+     *
+     * @private
+     */
+    _name;
+
+    /**
+     * @type {boolean}
+     *
+     * @private
+     */
+    _private;
+
+    /**
+     * @type {boolean}
+     *
+     * @private
+     */
+    _static;
+
+    /**
+     * @type {string}
+     *
+     * @private
+     */
+    _docblock;
+
     constructor(reflectionClass, fieldName) {
         super();
 
-        /**
-         * @type {ReflectionClass}
-         *
-         * @private
-         */
         this._class = reflectionClass;
 
         const metadata = this._class._fields[fieldName];
@@ -20,40 +52,13 @@ class ReflectionField extends implementationOf(ReflectorInterface, ReflectorTrai
 
         privateAccessors.set(this, metadata.access);
 
-        /**
-         * @type {string}
-         *
-         * @private
-         */
         this._name = fieldName;
-
-        /**
-         * @type {boolean}
-         *
-         * @private
-         */
         this._private = metadata.private;
-
-        /**
-         * @type {boolean}
-         *
-         * @private
-         */
-        this._accessible = ! this._private;
-
-        /**
-         * @type {boolean}
-         *
-         * @private
-         */
+        accessibleMap.set(this, ! this._private);
         this._static = metadata.static;
-
-        /**
-         * @type {string}
-         *
-         * @private
-         */
         this._docblock = metadata.docblock || null;
+
+        return Object.freeze(this);
     }
 
     /**
@@ -108,7 +113,7 @@ class ReflectionField extends implementationOf(ReflectorInterface, ReflectorTrai
      * @param {boolean} val
      */
     set accessible(val) {
-        this._accessible = !! val;
+        accessibleMap.set(this, !! val);
     }
 
     /**
@@ -177,7 +182,7 @@ class ReflectionField extends implementationOf(ReflectorInterface, ReflectorTrai
      * @private
      */
     _checkAccessible() {
-        if (! this._accessible) {
+        if (! accessibleMap.get(this)) {
             throw new ReflectionException('Field ' + this._name + ' is not accessible');
         }
     }

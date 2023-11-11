@@ -110,6 +110,8 @@ class ReflectionClass extends implementationOf(ReflectorInterface, ReflectorTrai
         }
 
         InstanceCache.set(value, this);
+
+        return Object.freeze(this);
     }
 
     /**
