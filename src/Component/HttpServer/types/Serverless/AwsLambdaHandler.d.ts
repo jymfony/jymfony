@@ -14,13 +14,15 @@ declare namespace Jymfony.Component.HttpServer.Serverless {
         /**
          * Handles an incoming request from the http server.
          */
-        handleEvent(event: APIGatewayProxyEvent | ALBEvent, context: Context): Promise<APIGatewayProxyResult | ALBResult | void>;
+        handleEvent(event: APIGatewayProxyEvent | ALBEvent, streamOrContext: LambdaResponseStream, context: Context): Promise<APIGatewayProxyResult | ALBResult | void>;
+        handleEvent(event: APIGatewayProxyEvent | ALBEvent, streamOrContext: Context): Promise<APIGatewayProxyResult | ALBResult | void>;
+        handleEvent(event: APIGatewayProxyEvent | ALBEvent, streamOrContext: LambdaResponseStream | Context, context?: Context): Promise<APIGatewayProxyResult | ALBResult | void>;
 
         /**
          * Converts an IncomingMessage to an HttpFoundation request
          * and sends it to the Kernel.
          */
-        protected _handleRequest(event: APIGatewayProxyEvent | ALBEvent, context: Context): Promise<APIGatewayProxyResult | ALBResult>;
+        protected _handleRequest(event: APIGatewayProxyEvent | ALBEvent, context: Context, responseStream?: LambdaResponseStream): Promise<APIGatewayProxyResult | ALBResult>;
 
         /**
          * @inheritdoc
