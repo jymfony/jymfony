@@ -12,6 +12,8 @@ export default class HttpClient {
      * @param {*} defaultOptions     Default request's options
      *
      * @see {HttpClientInterface.OPTIONS_DEFAULTS} for available options
+     *
+     * @returns {Jymfony.Contracts.HttpClient.HttpClientInterface}
      */
     static create(defaultOptions = {}) {
         return new NativeHttpClient(defaultOptions);
@@ -19,6 +21,8 @@ export default class HttpClient {
 
     /**
      * Creates a client that adds options (e.g. authentication headers) only when the request URL matches the provided base URI.
+     *
+     * @returns {Jymfony.Contracts.HttpClient.HttpClientInterface}
      */
     static createForBaseUri(baseUri, defaultOptions = {}) {
         const client = __self.create();

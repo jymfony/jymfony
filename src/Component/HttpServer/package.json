@@ -35,6 +35,7 @@
     "@jymfony/cache": "https://github.com/jymfony/cache.git",
     "@jymfony/debug": "https://github.com/jymfony/debug.git",
     "@jymfony/dependency-injection": "https://github.com/jymfony/dependency-injection.git",
+    "@jymfony/http-client": "https://github.com/jymfony/http-client.git",
     "@jymfony/stopwatch": "https://github.com/jymfony/stopwatch.git",
     "@jymfony/testing": "https://github.com/jymfony/testing.git",
     "@jymfony/var-dumper": "https://github.com/jymfony/var-dumper.git",

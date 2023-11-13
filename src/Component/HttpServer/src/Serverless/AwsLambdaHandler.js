@@ -1,5 +1,4 @@
-import { Readable } from 'stream';
-import { format as urlFormat } from 'url';
+import { Readable } from 'node:stream';
 
 const EventDispatcher = Jymfony.Component.EventDispatcher.EventDispatcher;
 const FunctionControllerResolver = Jymfony.Component.HttpFoundation.Controller.FunctionControllerResolver;
@@ -50,13 +49,19 @@ export default class AwsLambdaHandler extends RequestHandler {
      * Handles an incoming request from the http server.
      *
      * @param {APIGatewayProxyEvent|ALBEvent} event
-     * @param {Context} context
+     * @param {NodeJS.WritableStream|Context} streamOrContext
+     * @param {Context|undefined} context
      *
      * @returns {Promise<APIGatewayProxyResult|ALBResult>}
      */
-    async handleEvent(event, context) {
+    async handleEvent(event, streamOrContext, context) {
+        if (!isFunction(streamOrContext?.write)) {
+            context = streamOrContext;
+            streamOrContext = undefined;
+        }
+
         try {
-            return await this._handleRequest(event, context);
+            return await this._handleRequest(event, context, streamOrContext);
         } catch (e) {
             this._logger.error('Error while processing request: ' + e.message, {
                 exception: e,
@@ -86,12 +91,13 @@ export default class AwsLambdaHandler extends RequestHandler {
      *
      * @param {APIGatewayProxyEvent|ALBEvent} event
      * @param {Context} context
+     * @param {LambdaResponseStream|undefined} responseStream
      *
      * @returns {Promise<APIGatewayProxyResult|ALBResult>}
      *
      * @protected
      */
-    async _handleRequest(event, context) { // eslint-disable-line no-unused-vars
+    async _handleRequest(event, context, responseStream) { // eslint-disable-line no-unused-vars
         const headers = new Jymfony.Component.HttpFoundation.HeaderBag(event.headers || {});
         const normalizedHeaders = headers.keys.reduce((res, key) => (res[key] = headers.get(key), res), {});
         const contentType = new ContentType(headers.get('content-type', 'application/x-www-form-urlencoded'));
@@ -120,18 +126,11 @@ export default class AwsLambdaHandler extends RequestHandler {
         }
 
         const requestUrl = (() => {
-            if (URL !== undefined) {
-                const url = new URL('https://' + (event.requestContext.domainName || 'localhost') + '/');
-                url.pathname = event.rawPath || event.path;
-                url.search = undefined !== event.rawQueryString ? event.rawQueryString : new URLSearchParams(event.queryStringParameters).toString();
+            const url = new URL('https://' + (event.requestContext.domainName || 'localhost') + '/');
+            url.pathname = event.rawPath || event.path;
+            url.search = undefined !== event.rawQueryString ? event.rawQueryString : new URLSearchParams(event.queryStringParameters).toString();
 
-                return url.href;
-            }
-
-            return urlFormat({
-                pathname: event.rawPath || event.path,
-                query: undefined !== event.rawQueryString ? event.rawQueryString : event.queryStringParameters,
-            });
+            return url.href;
         })();
 
         const sourceIp = event.requestContext && event.requestContext.identity ? event.requestContext.identity.sourceIp : undefined;
@@ -167,46 +166,11 @@ export default class AwsLambdaHandler extends RequestHandler {
 
         await response.prepare(request);
 
-        content = null;
-        let isBase64Encoded = false;
-        if (! response.isEmpty && response.content) {
-            content = response.content;
-            if (isFunction(content)) {
-                const buf = new __jymfony.StreamBuffer();
-                await content(buf);
-
-                content = buf.buffer.toString('base64');
-                isBase64Encoded = true;
-            }
+        if (undefined === responseStream) {
+            return this._handleBufferedResponse(request, response, event);
         }
 
-        const responseHeaders = {};
-        const hasMultiHeaders = undefined !== event.multiValueHeaders;
-        const headersKey = hasMultiHeaders ? 'multiValueHeaders' : 'headers';
-
-        for (const hdr of response.headers.keys) {
-            if (hasMultiHeaders) {
-                responseHeaders[hdr] = response.headers.get(hdr, null, false).map(String);
-            } else {
-                responseHeaders[hdr] = String(response.headers.get(hdr));
-            }
-        }
-
-        const result = {
-            isBase64Encoded,
-            statusCode: response.statusCode,
-            [headersKey]: responseHeaders,
-            body: content,
-        };
-
-        if (event.requestContext.elb) {
-            result.statusDescription = result.statusCode + ' ' + (Response.statusTexts[result.statusCode] || 'Unknown');
-        }
-
-        const postResponseEvent = new Event.PostResponseEvent(this, request, response);
-        await this._dispatcher.dispatch(postResponseEvent, HttpServerEvents.POST_RESPONSE);
-
-        return result;
+        return this._handleStreamedResponse(request, response, event, responseStream);
     }
 
     /**
@@ -236,5 +200,125 @@ export default class AwsLambdaHandler extends RequestHandler {
         }
 
         return super._getScheme(headers);
+    }
+
+    /**
+     * Prepare streaming response object.
+     *
+     * @param {Jymfony.Component.HttpFoundation.Request} request
+     * @param {Jymfony.Component.HttpFoundation.Response} response
+     * @param {APIGatewayProxyEvent|ALBEvent} event
+     * @param {LambdaResponseStream} responseStream
+     *
+     * @returns {Promise<void>}
+     *
+     * @private
+     */
+    async _handleStreamedResponse(request, response, event, responseStream) {
+        responseStream.setContentType('application/vnd.awslambda.http-integration-response');
+
+        let content = null;
+        if (! response.isEmpty && response.content) {
+            content = response.content;
+            if (!isFunction(content)) {
+                const buf = new __jymfony.StreamBuffer(Buffer.from(content));
+                content = stream => {
+                    stream.write(buf.buffer);
+                };
+            }
+        }
+
+        const { responseHeaders, headersKey } = this._prepareHeaders(event, response);
+        const prelude = {
+            statusCode: response.statusCode,
+            [headersKey]: responseHeaders,
+        };
+
+        if (event.requestContext.elb) {
+            prelude.statusDescription = prelude.statusCode + ' ' + (Response.statusTexts[prelude.statusCode] || 'Unknown');
+        }
+
+        responseStream._onBeforeFirstWrite = write => {
+            write(JSON.stringify(prelude));
+            write(new Uint8Array(8));
+        };
+
+        if (content) {
+            await content(responseStream);
+        }
+
+        responseStream.end();
+
+        const postResponseEvent = new Event.PostResponseEvent(this, request, response);
+        await this._dispatcher.dispatch(postResponseEvent, HttpServerEvents.POST_RESPONSE);
+
+        await responseStream.finished();
+    }
+
+    /**
+     * Prepare buffered response object.
+     *
+     * @param {Jymfony.Component.HttpFoundation.Request} request
+     * @param {Jymfony.Component.HttpFoundation.Response} response
+     * @param {APIGatewayProxyEvent|ALBEvent} event
+     *
+     * @returns {Promise<APIGatewayProxyResult|ALBResult>}
+     *
+     * @private
+     */
+    async _handleBufferedResponse(request, response, event) {
+        let content = null;
+        let isBase64Encoded = false;
+        if (! response.isEmpty && response.content) {
+            content = response.content;
+            if (isFunction(content)) {
+                const buf = new __jymfony.StreamBuffer();
+                await content(buf);
+
+                content = buf.buffer.toString('base64');
+                isBase64Encoded = true;
+            }
+        }
+
+        const { responseHeaders, headersKey } = this._prepareHeaders(event, response);
+        const result = {
+            isBase64Encoded,
+            statusCode: response.statusCode,
+            [headersKey]: responseHeaders,
+            body: content,
+        };
+
+        if (event.requestContext.elb) {
+            result.statusDescription = result.statusCode + ' ' + (Response.statusTexts[result.statusCode] || 'Unknown');
+        }
+
+        const postResponseEvent = new Event.PostResponseEvent(this, request, response);
+        await this._dispatcher.dispatch(postResponseEvent, HttpServerEvents.POST_RESPONSE);
+
+        return result;
+    }
+
+    /**
+     * @param {APIGatewayProxyEvent|ALBEvent} event
+     * @param {Jymfony.Component.HttpFoundation.Response} response
+     *
+     * @returns {{responseHeaders: {}, headersKey: 'multiValueHeaders'|'headers'}}
+     *
+     * @private
+     */
+    _prepareHeaders(event, response) {
+        const responseHeaders = {};
+        const hasMultiHeaders = undefined !== event.multiValueHeaders;
+        const headersKey = hasMultiHeaders ? 'multiValueHeaders' : 'headers';
+
+        for (const hdr of response.headers.keys) {
+            if (hasMultiHeaders) {
+                responseHeaders[hdr] = response.headers.get(hdr, null, false).map(String);
+            } else {
+                responseHeaders[hdr] = String(response.headers.get(hdr));
+            }
+        }
+
+        return { responseHeaders, headersKey };
     }
 }

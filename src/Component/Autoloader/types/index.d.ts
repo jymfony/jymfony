@@ -11,3 +11,6 @@
 /// <reference path="Finder.d.ts" />
 /// <reference path="globals.d.ts" />
 /// <reference path="Namespace.d.ts" />
+
+declare function trampoline(filename: string): any;
+export { trampoline };

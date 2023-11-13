@@ -2,6 +2,8 @@ declare namespace Jymfony.Component.HttpServer.Serverless {
     import ContentType = Jymfony.Component.HttpFoundation.Header.ContentType;
     import RouteCollection = Jymfony.Component.Routing.RouteCollection;
     import LoggerInterface = Jymfony.Contracts.Logger.LoggerInterface;
+    import Request = Jymfony.Component.HttpFoundation.Request;
+    import Response = Jymfony.Component.HttpFoundation.Response;
 
     export class AwsLambdaHandler extends RequestHandler {
         /**
@@ -12,7 +14,7 @@ declare namespace Jymfony.Component.HttpServer.Serverless {
         /**
          * Handles an incoming request from the http server.
          */
-        handleEvent(event: APIGatewayProxyEvent | ALBEvent, context: Context): Promise<APIGatewayProxyResult | ALBResult>;
+        handleEvent(event: APIGatewayProxyEvent | ALBEvent, context: Context): Promise<APIGatewayProxyResult | ALBResult | void>;
 
         /**
          * Converts an IncomingMessage to an HttpFoundation request
@@ -29,5 +31,16 @@ declare namespace Jymfony.Component.HttpServer.Serverless {
          * @inheritdoc
          */
         protected _getScheme(headers: Record<string, any>): string;
+
+        /**
+         * Prepare streaming response object.
+         */
+        private _handleStreamedResponse(request: Request, response: Response, event: APIGatewayProxyEvent | ALBEvent, responseStream: LambdaResponseStream): Promise<void>;
+
+        /**
+         * Prepare buffered response object.
+         */
+        private _handleBufferedResponse(request: Request, response: Response, event: APIGatewayProxyEvent | ALBEvent): Promise<APIGatewayProxyResult | ALBResult>;
+        private _prepareHeaders(event: APIGatewayProxyEvent | ALBEvent, response: Response): Record<string, any>;
     }
 }
