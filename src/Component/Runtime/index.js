@@ -21,7 +21,9 @@ const mainExports = trampoline(file);
 let runtime = nullish(process.env.APP_RUNTIME, () => Jymfony.Component.Runtime.JymfonyRuntime);
 const reflection = new ReflectionClass(runtime);
 
-runtime = reflection.newInstance(Object.assign({ project_dir: dirname(file) }, nullish(globalThis.APP_RUNTIME_OPTIONS, () => ({}))));
+runtime = reflection.newInstance(Object.assign({
+    project_dir: __jymfony.autoload.finder.findRoot(),
+}, nullish(globalThis.APP_RUNTIME_OPTIONS, () => ({}))));
 
 let [ app, args ] = runtime.getResolver(mainExports['default']).resolve();
 (async function () {
