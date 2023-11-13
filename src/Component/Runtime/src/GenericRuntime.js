@@ -1,5 +1,6 @@
 import { getArgumentNames } from '@jymfony/compiler';
 
+const AwsLambdaClosureRunner = Jymfony.Component.Runtime.Runner.AwsLambdaClosureRunner;
 const ClosureResolver = Jymfony.Component.Runtime.Resolver.ClosureResolver;
 const ClosureRunner = Jymfony.Component.Runtime.Runner.ClosureRunner;
 const RunnerInterface = Jymfony.Component.Runtime.RunnerInterface;
@@ -97,6 +98,10 @@ export default class GenericRuntime extends implementationOf(RuntimeInterface) {
             if (!!runtime) {
                 return runtime.getRunner(application);
             }
+        }
+
+        if (!! process.env.LAMBDA_TASK_ROOT && !! process.env._HANDLER) {
+            return new AwsLambdaClosureRunner(application);
         }
 
         return new ClosureRunner(application);

@@ -3,7 +3,7 @@ require('./autoload');
 
 process.env.LAMBDA_TASK_ROOT = __dirname;
 process.env._HANDLER = basename(__filename) + '.handler';
-const lambda = require('../lambda');
+const { lambda } = require('../lambda');
 
 exports.handler = lambda(async function (env) {
     return function () {

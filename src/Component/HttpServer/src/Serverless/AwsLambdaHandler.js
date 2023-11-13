@@ -55,7 +55,7 @@ export default class AwsLambdaHandler extends RequestHandler {
      * @returns {Promise<APIGatewayProxyResult|ALBResult>}
      */
     async handleEvent(event, streamOrContext, context) {
-        if (!isFunction(streamOrContext?.write)) {
+        if (streamOrContext !== undefined && !isFunction(streamOrContext?.write)) {
             context = streamOrContext;
             streamOrContext = undefined;
         }

@@ -1,4 +1,4 @@
-const AwsLambdaRunnerInterface = Jymfony.Component.Runtime.Runner.Jymfony.AwsLambdaRunnerInterface;
+const AwsLambdaRunnerInterface = Jymfony.Component.Runtime.Runner.AwsLambdaRunnerInterface;
 
 /**
  * @memberof Jymfony.Component.Runtime.Runner.Jymfony
@@ -10,6 +10,7 @@ export default class AwsLambdaHandlerRunner extends implementationOf(AwsLambdaRu
     #handler;
     #event;
     #context;
+    #stream;
 
     /**
      * @param {Jymfony.Component.HttpServer.Serverless.AwsLambdaHandler} handler
@@ -27,7 +28,11 @@ export default class AwsLambdaHandlerRunner extends implementationOf(AwsLambdaRu
         this.#context = context;
     }
 
+    setStreamingResponse(stream) {
+        this.#stream = stream;
+    }
+
     run() {
-        return this.#handler.handleEvent(this.#event, this.#context);
+        return this.#handler.handleEvent(this.#event, this.#stream, this.#context);
     }
 }

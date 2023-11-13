@@ -1,5 +1,6 @@
 const { basename, dirname, join } = require('path');
 const { compile } = require('@jymfony/compiler');
+const { runInThisContext } = require('vm');
 
 const awsLambdaTaskRoot = process.env.LAMBDA_TASK_ROOT;
 const awsHandler = process.env._HANDLER;
@@ -18,7 +19,7 @@ try {
 }
 
 const nullish = (value, cond) => ((undefined === value) || (null === value)) ? cond() : value;
-const AwsLambdaRunnerInterface = Jymfony.Component.Runtime.Runner.Jymfony.AwsLambdaRunnerInterface;
+const AwsLambdaRunnerInterface = Jymfony.Component.Runtime.Runner.AwsLambdaRunnerInterface;
 
 /**
  * Break the full handler string into two pieces, the module root and the actual
@@ -57,8 +58,8 @@ let runtime = nullish(process.env.APP_RUNTIME, () => Jymfony.Component.Runtime.J
 const reflection = new ReflectionClass(runtime);
 runtime = reflection.newInstance(Object.assign({ project_dir: dirname(file) }, nullish(globalThis.APP_RUNTIME_OPTIONS, () => ({}))));
 
-module.exports = function (init) {
-    init = eval(compile('(' + init.toString() + ')', null, { asFunction: false, debug: false }));
+exports.lambda = function (init) {
+    init = runInThisContext(compile('(' + init.toString() + ')', null, { asFunction: false, debug: false }));
     let started = false;
     let [ app, args ] = runtime.getResolver(init).resolve();
 
@@ -76,4 +77,26 @@ module.exports = function (init) {
 
         return runner.run();
     };
+};
+
+exports.streamingResponse = function (init) {
+    init = runInThisContext(compile('(' + init.toString() + ')', null, { asFunction: false, debug: false }));
+    let started = false;
+    let [ app, args ] = runtime.getResolver(init).resolve();
+
+    return awslambda.streamifyResponse(async function (event, streamingResponse, context) {
+        if (! started) {
+            app = await app(...args);
+            started = true;
+        }
+
+        const runner = runtime.getRunner(app);
+        if (runner instanceof AwsLambdaRunnerInterface) {
+            runner.setEvent(event);
+            runner.setContext(context);
+            runner.setStreamingResponse(streamingResponse);
+        }
+
+        await runner.run();
+    });
 };
