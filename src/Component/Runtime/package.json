@@ -7,7 +7,7 @@
     "test": "node ./tests.js"
   },
   "keywords": [
-    "lexer",
+    "runtime",
     "jymfony"
   ],
   "author": "Alessandro Chitolina <alekitto@gmail.com>",
@@ -27,6 +27,7 @@
     "@jymfony/dotenv": "https://github.com/jymfony/dotenv.git",
     "@jymfony/filesystem": "https://github.com/jymfony/filesystem.git",
     "@jymfony/http-client": "https://github.com/jymfony/http-client.git",
+    "@jymfony/http-server": "https://github.com/jymfony/http-server.git",
     "@jymfony/testing": "https://github.com/jymfony/testing.git",
     "mocha": "^10.2"
   },

@@ -1,17 +1,16 @@
-const { dirname } = require('path');
 require('async_hooks').createHook({ init: () => {} }).enable();
 
-let trampoline;
+const { trampoline } = (() => {
+    try {
+        return require('@jymfony/autoloader');
+    } catch (e) {
+        if ('MODULE_NOT_FOUND' === e.code) {
+            return require(__dirname + '/../Autoloader');
+        }
 
-try {
-    trampoline = require('@jymfony/autoloader').trampoline;
-} catch (e) {
-    if ('MODULE_NOT_FOUND' === e.code) {
-        trampoline = require(__dirname + '/../Autoloader').trampoline;
-    } else {
         throw e;
     }
-}
+})();
 
 const nullish = (value, cond) => ((undefined === value) || (null === value)) ? cond() : value;
 const file = require.main.filename;
