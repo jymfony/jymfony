@@ -1,8 +1,7 @@
-declare namespace Jymfony.Component.Runtime.Runner.Jymfony {
+declare namespace Jymfony.Component.Runtime.Runner {
     import Application = Jymfony.Component.Console.Application;
     import InputInterface = Jymfony.Contracts.Console.InputInterface;
     import OutputInterface = Jymfony.Contracts.Console.OutputInterface;
-    import RunnerInterface = Jymfony.Component.Runtime.RunnerInterface;
 
     export class ConsoleApplicationRunner extends implementationOf(RunnerInterface) {
         #application;

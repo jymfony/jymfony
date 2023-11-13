@@ -2,7 +2,7 @@ const InputOption = Jymfony.Component.Console.Input.InputOption;
 const RunnerInterface = Jymfony.Component.Runtime.RunnerInterface;
 
 /**
- * @memberof Jymfony.Component.Runtime.Runner.Jymfony
+ * @memberof Jymfony.Component.Runtime.Runner
  */
 export default class ConsoleApplicationRunner extends implementationOf(RunnerInterface) {
     /**

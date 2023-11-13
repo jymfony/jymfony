@@ -1,7 +1,7 @@
 const AwsLambdaRunnerInterface = Jymfony.Component.Runtime.Runner.AwsLambdaRunnerInterface;
 
 /**
- * @memberof Jymfony.Component.Runtime.Runner.Jymfony
+ * @memberof Jymfony.Component.Runtime.Runner
  */
 export default class AwsLambdaHandlerRunner extends implementationOf(AwsLambdaRunnerInterface) {
     /**

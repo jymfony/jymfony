@@ -19,10 +19,5 @@ Jymfony.Component.Runtime = {
     /**
      * @namespace
      */
-    Runner: {
-        /**
-         * @namespace
-         */
-        Jymfony: {},
-    },
+    Runner: {},
 };

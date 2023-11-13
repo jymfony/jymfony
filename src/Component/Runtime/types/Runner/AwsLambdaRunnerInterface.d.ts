@@ -1,10 +1,8 @@
 declare namespace Jymfony.Component.Runtime.Runner {
-    import RunnerInterface = Jymfony.Component.Runtime.RunnerInterface;
-
     /**
      * Describe a runner aware of aws lambda context.
      */
-    class AwsLambdaRunnerInterface extends RunnerInterface.definition {
+    export class AwsLambdaRunnerInterface extends RunnerInterface.definition {
         public static readonly definition: Newable<AwsLambdaRunnerInterface>;
 
         /**

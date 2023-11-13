@@ -1,4 +1,4 @@
-declare namespace Jymfony.Component.Runtime.Runner.Jymfony {
+declare namespace Jymfony.Component.Runtime.Runner {
     import AwsLambdaRunnerInterface = Jymfony.Component.Runtime.Runner.AwsLambdaRunnerInterface;
 
     export class AwsLambdaHandlerRunner extends implementationOf(AwsLambdaRunnerInterface) {

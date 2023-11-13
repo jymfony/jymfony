@@ -1,5 +1,5 @@
-const AwsLambdaHandlerRunner = Jymfony.Component.Runtime.Runner.Jymfony.AwsLambdaHandlerRunner;
-const ConsoleApplicationRunner = Jymfony.Component.Runtime.Runner.Jymfony.ConsoleApplicationRunner;
+const AwsLambdaHandlerRunner = Jymfony.Component.Runtime.Runner.AwsLambdaHandlerRunner;
+const ConsoleApplicationRunner = Jymfony.Component.Runtime.Runner.ConsoleApplicationRunner;
 const GenericRuntime = Jymfony.Component.Runtime.GenericRuntime;
 const JymfonyErrorHandler = Jymfony.Component.Runtime.Internal.JymfonyErrorHandler;
 const consoleComponentInstalled = ReflectionClass.exists('Jymfony.Component.Console.Application');
