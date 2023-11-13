@@ -9,7 +9,7 @@ export default class GetFunctionTest extends TestCase {
     testShouldRetrieveFunctionFromObject() {
         const fn = __jymfony.getFunction(new TestObject(), 'foo');
         __self.assertIsFunction(fn);
-        __self.assertEquals(TestObject.prototype.foo, fn.innerObject._func);
+        __self.assertEquals(TestObject.prototype.foo, fn.innerObject.getFunction());
     }
 
     async testShouldRetrieveStaticFunctionFromObject() {

@@ -62,7 +62,7 @@ export default class ArgumentMetadataFactory extends implementationOf(MetadataFa
         }
 
         if (!! innerObject) {
-            controller = [ innerObject.getObject(), innerObject._func.name ];
+            controller = [ innerObject.getObject(), innerObject.getFunction().name ];
         }
 
         if ('function' === typeof controller && ! ReflectionClass.exists(controller)) {

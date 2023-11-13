@@ -8,6 +8,17 @@
  */
 class BoundFunction {
     /**
+     * @type {Object}
+     */
+
+    #thisArg;
+
+    /**
+     * @type {Function|GeneratorFunction}
+     */
+    #func;
+
+    /**
      * Create a BoundFunction of thisArg.func and return
      * a callable anonymous function.
      *
@@ -21,19 +32,12 @@ class BoundFunction {
             throw new LogicException('Trying to bind a non-function object');
         }
 
-        /**
-         * @type {Object}
-         *
-         * @private
-         */
-        this._thisArg = thisArg;
+        if (isFunction(thisArg.__invoke) && undefined !== thisArg[Symbol.for('jymfony.namespace.class')]) {
+            thisArg = thisArg[Symbol.for('jymfony.namespace.class')];
+        }
 
-        /**
-         * @type {Function|GeneratorFunction}
-         *
-         * @private
-         */
-        this._func = func;
+        this.#thisArg = thisArg;
+        this.#func = func;
 
         return new Proxy(func, {
             get: (target, name, receiver) => {
@@ -59,7 +63,7 @@ class BoundFunction {
                 }
             },
             apply: (target, thisArg1, argArray) => {
-                return this._func.apply(this._thisArg, argArray);
+                return this.#func.apply(this.#thisArg, argArray);
             },
         });
     }
@@ -84,8 +88,8 @@ class BoundFunction {
             return false;
         }
 
-        return this._thisArg === value._thisArg &&
-                this._func === value._func;
+        return this.#thisArg === value.#thisArg &&
+                this.#func === value.#func;
     }
 
     /**
@@ -94,7 +98,16 @@ class BoundFunction {
      * @returns {Object}
      */
     getObject() {
-        return this._thisArg;
+        return this.#thisArg;
+    }
+
+    /**
+     * Get the bound function
+     *
+     * @returns {Function}
+     */
+    getFunction() {
+        return this.#func;
     }
 }
 
