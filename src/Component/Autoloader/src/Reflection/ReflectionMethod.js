@@ -220,4 +220,4 @@ ReflectionMethod.FUNCTION = 'function';
 ReflectionMethod.ASYNC_FUNCTION = 'async function';
 ReflectionMethod.GENERATOR = 'generator';
 
-module.exports = global.ReflectionMethod = ReflectionMethod;
+module.exports = globalThis.ReflectionMethod = ReflectionMethod;

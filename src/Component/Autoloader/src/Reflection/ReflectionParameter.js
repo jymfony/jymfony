@@ -198,4 +198,4 @@ class ReflectionParameter extends implementationOf(ReflectorInterface, Reflector
     }
 }
 
-module.exports = global.ReflectionParameter = ReflectionParameter;
+module.exports = globalThis.ReflectionParameter = ReflectionParameter;

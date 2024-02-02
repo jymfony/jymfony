@@ -135,4 +135,4 @@ class Exception extends Error {
     }
 }
 
-global.Exception = Exception;
+globalThis.Exception = Exception;

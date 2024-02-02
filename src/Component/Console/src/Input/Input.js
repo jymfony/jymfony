@@ -69,7 +69,7 @@ export default class Input extends implementationOf(StreamableInputInterface) {
      * Parses the options and arguments.
      */
     parse() {
-        throw new global.LogicException('You must override parse method');
+        throw new LogicException('You must override parse method');
     }
 
     /**

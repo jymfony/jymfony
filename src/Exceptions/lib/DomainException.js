@@ -1,4 +1,4 @@
 class DomainException extends Exception {
 }
 
-global.DomainException = DomainException;
+globalThis.DomainException = DomainException;

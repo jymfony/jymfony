@@ -1,4 +1,4 @@
 class UnexpectedValueException extends Exception {
 }
 
-global.UnexpectedValueException = UnexpectedValueException;
+globalThis.UnexpectedValueException = UnexpectedValueException;

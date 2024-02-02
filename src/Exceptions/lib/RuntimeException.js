@@ -1,4 +1,4 @@
 class RuntimeException extends Exception {
 }
 
-global.RuntimeException = RuntimeException;
+globalThis.RuntimeException = RuntimeException;

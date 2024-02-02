@@ -17,4 +17,4 @@ class ReflectorInterface {
     getAnnotations(class_, subclass = false) { }
 }
 
-module.exports = global.ReflectorInterface = getInterface(ReflectorInterface);
+module.exports = globalThis.ReflectorInterface = getInterface(ReflectorInterface);

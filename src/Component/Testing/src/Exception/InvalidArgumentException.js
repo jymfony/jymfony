@@ -1,4 +1,4 @@
-const BaseException = global.InvalidArgumentException;
+const BaseException = globalThis.InvalidArgumentException;
 const ExceptionInterface = Jymfony.Component.Testing.Exception.ExceptionInterface;
 
 /**

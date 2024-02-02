@@ -136,4 +136,4 @@ class ReflectionProperty extends implementationOf(ReflectorInterface, ReflectorT
 ReflectionProperty.KIND_GET = 'get';
 ReflectionProperty.KIND_SET = 'set';
 
-module.exports = global.ReflectionProperty = ReflectionProperty;
+module.exports = globalThis.ReflectionProperty = ReflectionProperty;

@@ -46,6 +46,16 @@ declare class UnderflowException extends Exception {}
 declare class UnexpectedValueException extends Exception {}
 
 declare global {
+    var Exception: Newable<Exception>;
+    var BadMethodCallException: Newable<BadMethodCallException>;
+    var DomainException: Newable<DomainException>;
+    var InvalidArgumentException: Newable<InvalidArgumentException>;
+    var LogicException: Newable<LogicException>;
+    var OutOfBoundsException: Newable<OutOfBoundsException>;
+    var RuntimeException: Newable<RuntimeException>;
+    var UnderflowException: Newable<UnderflowException>;
+    var UnexpectedValueException: Newable<UnexpectedValueException>;
+
     namespace NodeJS {
         interface Global {
             Exception: Newable<Exception>;

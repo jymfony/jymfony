@@ -3,5 +3,5 @@ const ExceptionInterface = Jymfony.Contracts.HttpClient.Exception.ExceptionInter
 /**
  * @memberOf Jymfony.Contracts.HttpClient.Exception
  */
-export default class TransportException extends mix(global.RuntimeException, ExceptionInterface) {
+export default class TransportException extends mix(globalThis.RuntimeException, ExceptionInterface) {
 }

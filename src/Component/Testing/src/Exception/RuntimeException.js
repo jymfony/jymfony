@@ -1,4 +1,4 @@
-const BaseException = global.RuntimeException;
+const BaseException = globalThis.RuntimeException;
 const ExceptionInterface = Jymfony.Component.Testing.Exception.ExceptionInterface;
 
 /**

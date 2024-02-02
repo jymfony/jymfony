@@ -50,8 +50,8 @@ const getClass = function getClass(value) {
         if (undefined === value.prototype) {
             if (value.definition) {
                 // Interface or Trait
-                this._isInterface = global.mixins.isInterface(value);
-                this._isTrait = global.mixins.isTrait(value);
+                this._isInterface = globalThis.mixins.isInterface(value);
+                this._isTrait = globalThis.mixins.isTrait(value);
                 value = value.definition;
             } else {
                 throw new ReflectionException('Not a class');
@@ -687,7 +687,7 @@ class ReflectionClass extends implementationOf(ReflectorInterface, ReflectorTrai
             return;
         }
 
-        for (const IF of global.mixins.getInterfaces(this._constructor)) {
+        for (const IF of globalThis.mixins.getInterfaces(this._constructor)) {
             const reflectionInterface = new ReflectionClass(IF);
             this._interfaces.push(reflectionInterface);
 
@@ -699,7 +699,7 @@ class ReflectionClass extends implementationOf(ReflectorInterface, ReflectorTrai
             }
         }
 
-        for (const TR of global.mixins.getTraits(this._constructor)) {
+        for (const TR of globalThis.mixins.getTraits(this._constructor)) {
             const reflectionTrait = new ReflectionClass(TR);
             this._traits.push(reflectionTrait);
 
@@ -850,12 +850,12 @@ class ReflectionClass extends implementationOf(ReflectorInterface, ReflectorTrai
             return;
         }
 
-        for (const IF of global.mixins.getInterfaces(this._constructor)) {
+        for (const IF of globalThis.mixins.getInterfaces(this._constructor)) {
             const reflectionInterface = new ReflectionClass(IF);
             this._interfaces.push(reflectionInterface);
         }
 
-        for (const TR of global.mixins.getTraits(this._constructor)) {
+        for (const TR of globalThis.mixins.getTraits(this._constructor)) {
             const reflectionTrait = new ReflectionClass(TR);
             this._traits.push(reflectionTrait);
         }
@@ -982,4 +982,4 @@ class ReflectionClass extends implementationOf(ReflectorInterface, ReflectorTrai
     }
 }
 
-global.ReflectionClass = ReflectionClass;
+globalThis.ReflectionClass = ReflectionClass;

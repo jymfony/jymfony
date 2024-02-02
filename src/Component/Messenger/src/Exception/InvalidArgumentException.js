@@ -3,5 +3,5 @@ const ExceptionInterface = Jymfony.Component.Messenger.Exception.ExceptionInterf
 /**
  * @memberOf Jymfony.Component.Messenger.Exception
  */
-export default class InvalidArgumentException extends mix(global.InvalidArgumentException, ExceptionInterface) {
+export default class InvalidArgumentException extends mix(globalThis.InvalidArgumentException, ExceptionInterface) {
 }

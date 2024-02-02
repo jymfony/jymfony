@@ -1,4 +1,4 @@
-const BaseException = global.BadMethodCallException;
+const BaseException = globalThis.BadMethodCallException;
 const ExceptionInterface = Jymfony.Contracts.DependencyInjection.Exception.ExceptionInterface;
 
 /**

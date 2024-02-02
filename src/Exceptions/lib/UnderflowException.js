@@ -1,4 +1,4 @@
 class UnderflowException extends Exception {
 }
 
-global.UnderflowException = UnderflowException;
+globalThis.UnderflowException = UnderflowException;

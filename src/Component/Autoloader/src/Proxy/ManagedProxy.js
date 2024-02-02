@@ -164,7 +164,7 @@ class ManagedProxy {
     }
 }
 
-if (process.env.DEBUG || global.__jymfony.debug) {
+if (process.env.DEBUG || globalThis.__jymfony.debug) {
     ManagedProxy.enableDebug();
 }
 

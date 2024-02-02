@@ -1,4 +1,4 @@
 class LogicException extends Exception {
 }
 
-global.LogicException = LogicException;
+globalThis.LogicException = LogicException;

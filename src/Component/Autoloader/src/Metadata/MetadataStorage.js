@@ -80,4 +80,4 @@ class MetadataStorage {
     }
 }
 
-module.exports = global.MetadataStorage = MetadataStorage;
+module.exports = globalThis.MetadataStorage = MetadataStorage;

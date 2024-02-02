@@ -1,4 +1,4 @@
-const BaseException = global.LogicException;
+const BaseException = globalThis.LogicException;
 const ExceptionInterface = Jymfony.Contracts.Logger.Exception.ExceptionInterface;
 
 /**

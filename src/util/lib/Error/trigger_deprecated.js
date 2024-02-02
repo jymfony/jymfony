@@ -27,7 +27,7 @@ function createWarningObject(warning, type, code, ctor, detail) {
  */
 function getErrorHandlers() {
     const errorHandlers = [];
-    if (global.ReflectionClass === undefined) {
+    if (globalThis.ReflectionClass === undefined) {
         return errorHandlers;
     }
 

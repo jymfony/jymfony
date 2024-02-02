@@ -1,4 +1,4 @@
 class OutOfBoundsException extends Exception {
 }
 
-global.OutOfBoundsException = OutOfBoundsException;
+globalThis.OutOfBoundsException = OutOfBoundsException;

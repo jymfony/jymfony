@@ -188,4 +188,4 @@ class ReflectionField extends implementationOf(ReflectorInterface, ReflectorTrai
     }
 }
 
-module.exports = global.ReflectionField = ReflectionField;
+module.exports = globalThis.ReflectionField = ReflectionField;
