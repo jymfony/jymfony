@@ -51,12 +51,12 @@ declare namespace __jymfony {
      * Creates a function that delays invoking a function after
      * a given time has elapsed, de-duplicating calls.
      */
-    export function debounce(func: Invokable|Function|GeneratorFunction, wait: number): Function;
+    export function debounce<T, P extends unknown[]>(func: Invokable<T, P>, wait: number): Invokable<T, P>;
 
     /**
      * Gets a method given an object and the method name.
      */
-    export function getFunction(object: Object, funcName: string): Function;
+    export function getFunction<T = any, P extends unknown[] = []>(object: Object, funcName: string): (...args: [...P]) => T;
 
     /**
      * Clones an object.
@@ -363,7 +363,7 @@ interface AsyncGeneratorFunction {
 declare module NodeJS {
     interface Global {
         __jymfony: any;
-        BoundFunction: Newable<BoundFunction>;
+        BoundFunction: Newable<BoundFunction<any, any>>;
         EmptyIterator: Newable<EmptyIterator>;
         RecursiveDirectoryIterator: Newable<RecursiveDirectoryIterator>;
 
@@ -675,17 +675,12 @@ declare module NodeJS {
         isPromise(value: any): value is Promise<any>;
         isStream(value: any): value is NodeJS.ReadableStream | NodeJS.WritableStream;
         isCallableArray(value: any): value is [string, string];
-        getCallableFromArray(value: [object, string]): Invokable<any>;
+        getCallableFromArray<T = any>(value: [object, string]): Invokable<T>;
     }
 }
 
-declare type Invokable<T = any> = (...args: any[]) => T | {
-    __invoke<A extends any[]>(...args: A): (...args: A) => T;
-    __invoke<A0, A extends any[]>(arg0: A0, ...args: A): (...args: A) => T;
-    __invoke<A0, A1, A extends any[]>(arg0: A0, arg1: A1, ...args: A): (...args: A) => T;
-    __invoke<A0, A1, A2, A extends any[]>(arg0: A0, arg1: A1, arg2: A2, ...args: A): (...args: A) => T;
-    __invoke<A0, A1, A2, A3, A extends any[]>(arg0: A0, arg1: A1, arg2: A2, arg3: A3, ...args: A): (...args: A) => T;
-    __invoke<AX>(...args: AX[]): (...args: AX[]) => T;
+declare type Invokable<T = any, A extends unknown[] = []> = (...args: any[]) => T | {
+    __invoke(...args: [...A]): (...args: [...A]) => T;
 };
 
 declare function mix<M extends object>(base: undefined, iface: M): M extends MixinInterface<Newable<infer T, infer I>> ? Newable<I, Omit2<T, keyof __jymfony.JObject> & __jymfony.JObject> : typeof __jymfony.JObject & any;
@@ -971,10 +966,11 @@ declare function isObjectLiteral(value: any): value is Object;
 declare function isPromise(value: any): value is Promise<any>;
 declare function isStream(value: any): value is NodeJS.ReadableStream | NodeJS.WritableStream;
 declare function isCallableArray(value: any): value is [string, string];
-declare function getCallableFromArray(value: [object, string]): Invokable<any>;
+declare function getCallableFromArray<T = any>(value: [object, string]): Invokable<T>;
 
-declare interface BoundFunction extends Function {
-    new(thisArg: Object, func: Invokable|Function|GeneratorFunction|string|symbol): Function;
+declare interface BoundFunction<T, P extends unknown[]> extends Function {
+    new(thisArg: Object, func: Invokable<T, P>): Invokable<T, P>;
+    new(thisArg: Object, func: string|symbol): Invokable<T, P>;
 
     arguments: any;
     caller: Function;
@@ -982,9 +978,9 @@ declare interface BoundFunction extends Function {
     readonly name: string;
     prototype: any;
     [Symbol.hasInstance](value: any): boolean;
-    apply(thisArg: any, argArray?: any): any;
-    bind(thisArg: any, ...argArray: any[]): any;
-    call(thisArg: any, ...argArray: any[]): any;
+    apply(thisArg: any, argArray?: P): T;
+    bind(thisArg: any, ...argArray: [...P]): this;
+    call(thisArg: any, ...argArray: [...P]): T;
 }
 
 declare class EmptyIterator<T = any> implements Iterable<T> {
