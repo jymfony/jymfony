@@ -25,7 +25,7 @@ declare namespace Jymfony.Component.Metadata.Factory {
         /**
          * Create a new instance of metadata object for this factory.
          */
-         protected abstract _createMetadata(reflectionClass: ReflectionClass): ClassMetadataInterface;
+        protected abstract _createMetadata(reflectionClass: ReflectionClass): ClassMetadataInterface;
 
         /**
          * Validate loaded metadata.

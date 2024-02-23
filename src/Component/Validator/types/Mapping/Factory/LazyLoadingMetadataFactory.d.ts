@@ -9,6 +9,6 @@ declare namespace Jymfony.Component.Validator.Mapping.Factory {
         /**
          * @inheritdoc
          */
-        protected _createMetadata(reflectionClass): ClassMetadata;
+        protected _createMetadata(reflectionClass: ReflectionClass): ClassMetadata;
     }
 }

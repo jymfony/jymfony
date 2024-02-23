@@ -58,7 +58,7 @@ declare namespace Jymfony.Component.Validator.Mapping {
          *
          * @see Jymfony.Component.Validator.GroupSequenceProviderInterface
          */
-        isGroupSequenceProvider(): boolean;
+        public readonly isGroupSequenceProvider: boolean;
 
         /**
          * Returns the name of the backing class.
