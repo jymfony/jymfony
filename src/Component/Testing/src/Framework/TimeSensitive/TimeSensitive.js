@@ -1,3 +1,5 @@
+import perfHooks from 'perf_hooks';
+
 const sym = Symbol('time sensitive test case hashtable');
 const Timer = Jymfony.Component.Testing.Framework.TimeSensitive.Timer;
 
@@ -10,8 +12,10 @@ export default class TimeSensitive {
 
         suite[sym] = {
             currentDate: new Date(),
+            currentPerformanceNow: perfHooks.performance.now(),
             currentHrTime: process.hrtime(),
             currentHrTimeBigint: process.hrtime.bigint ? process.hrtime.bigint() : null,
+            originalPerfHookPerformanceNow: perfHooks.performance.now,
             originalDateObject: dateFn,
             originalHrTime: process.hrtime,
             originalSleep: __jymfony.sleep,
@@ -73,10 +77,12 @@ export default class TimeSensitive {
 
         global.Date = mockDate;
         process.hrtime = mockHrtime;
+        perfHooks.performance.now = () => suite[sym].currentPerformanceNow;
 
         __jymfony.sleep = async ms => {
             const dateValue = suite[sym].currentDate.valueOf() + ms;
             suite[sym].currentDate = new dateFn(dateValue);
+            suite[sym].currentPerformanceNow += ms;
 
             suite[sym].currentHrTime[0] += Math.floor(ms / 1000);
             suite[sym].currentHrTime[1] += Math.floor(ms % 1000) * 1000000;
@@ -105,5 +111,6 @@ export default class TimeSensitive {
         __jymfony.sleep = suite[sym].originalSleep;
         setTimeout = suite[sym].originalSetTimeout;
         clearTimeout = suite[sym].originalClearTimeout;
+        perfHooks.performance.now = suite[sym].originalPerfHookPerformanceNow;
     }
 }
