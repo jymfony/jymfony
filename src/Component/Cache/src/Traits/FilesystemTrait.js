@@ -30,7 +30,7 @@ class FilesystemTrait {
 
             try {
                 h = await file.openFile('r');
-            } catch (e) {
+            } catch {
                 return;
             }
 
@@ -41,7 +41,7 @@ class FilesystemTrait {
                 try {
                     await file.unlink();
                     pruned = ! await filesystem.exists(file.toString()) && pruned;
-                } catch (e) {
+                } catch {
                     pruned = false;
                 }
             }
@@ -72,7 +72,7 @@ class FilesystemTrait {
                 await h.close();
                 try {
                     await h.unlink();
-                } catch (e) {
+                } catch {
                     // Do nothing
                 }
             } else {
@@ -119,7 +119,7 @@ class FilesystemTrait {
                     expiresAt + '\n' + encodeURIComponent(id) + '\n' + __jymfony.serialize(value),
                     expiresAt
                 );
-            } catch (e) {
+            } catch {
                 ok = false;
             }
         }
@@ -137,7 +137,7 @@ class FilesystemTrait {
         } else {
             try {
                 directory = realpathSync(directory);
-            } catch (e) {
+            } catch {
                 // Do nothing
             }
         }
@@ -190,7 +190,7 @@ class FilesystemTrait {
             try {
                 await file.unlink();
                 return;
-            } catch (e) {
+            } catch {
                 // Do nothing
             }
 
@@ -216,7 +216,7 @@ class FilesystemTrait {
             try {
                 await file.unlink();
                 continue;
-            } catch (e) {
+            } catch {
                 // Do nothing
             }
 

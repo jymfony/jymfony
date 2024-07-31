@@ -189,7 +189,7 @@ export default class HttpServer extends mix(RequestHandler, HttpServerInterface)
                     response += message;
 
                     await new Promise(resolve => socket.write(response, 'UTF-8', resolve));
-                } catch (e) {
+                } catch {
                     // Do nothing.
                 } finally {
                     socket.end();

@@ -56,7 +56,7 @@ export default class ReflectionClassResource extends implementationOf(SelfChecki
             let stat;
             try {
                 stat = statSync(file);
-            } catch (e) {
+            } catch {
                 return false;
             }
 
@@ -113,7 +113,7 @@ export default class ReflectionClassResource extends implementationOf(SelfChecki
         if (null === this._classReflector) {
             try {
                 this._classReflector = new ReflectionClass(this._className);
-            } catch (e) {
+            } catch {
                 // The class does not exist anymore
                 return false;
             }

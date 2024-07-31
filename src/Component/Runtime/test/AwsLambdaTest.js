@@ -20,7 +20,7 @@ export default class AwsLambdaTest extends TestCase {
         try {
             require.resolve('@jymfony/autoloader');
             return true;
-        } catch (e) {
+        } catch {
             return false;
         }
     })();
@@ -56,7 +56,7 @@ export default class AwsLambdaTest extends TestCase {
         try {
             execSync('docker stop ' + containerId);
             await __jymfony.sleep(1000);
-        } catch (e) {
+        } catch {
             // Do nothing
         }
     }

@@ -8,7 +8,7 @@ const PathException = Jymfony.Component.Dotenv.Exception.PathException;
 const isFile = path => {
     try {
         statSync(path);
-    } catch (e) {
+    } catch {
         return false;
     }
 
@@ -602,7 +602,7 @@ export default class Dotenv {
         const isReadable = path => {
             try {
                 accessSync(path, constants.R_OK);
-            } catch (e) {
+            } catch {
                 return false;
             }
 

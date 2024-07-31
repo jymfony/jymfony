@@ -47,7 +47,7 @@ export default class DelegatingEngine extends implementationOf(EngineInterface) 
     async exists(name) {
         try {
             return this.getEngine(name).exists(name);
-        } catch (e) {
+        } catch {
             return false;
         }
     }

@@ -86,7 +86,7 @@ if (! isFunction(globalThis.isObjectLiteral)) {
         let proto;
         try {
             proto = Object.getPrototypeOf(value);
-        } catch (e) {
+        } catch {
             return false;
         }
 

@@ -408,7 +408,7 @@ export default class CliDumper extends AbstractDumper {
      *
      * @returns {string} The value with style decoration
      */
-    _style(style, value, attr = {}) { // eslint-disable-line no-unused-vars
+    _style(style, value, attr = {}) {
         const colors = this.colors;
         if (undefined === this._handlesHrefGracefully) {
             this._handlesHrefGracefully = 'JetBrains-JediTerm' !== process.env.TERMINAL_EMULATOR;

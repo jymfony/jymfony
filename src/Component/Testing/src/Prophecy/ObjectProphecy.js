@@ -277,7 +277,7 @@ export default class ObjectProphecy extends implementationOf(ProphecyInterface) 
             let name = this._doubler.superClass.name;
             try {
                 name = new ReflectionClass(this._doubler.superClass).name;
-            } catch (e) {
+            } catch {
                 // Do nothing.
             }
 

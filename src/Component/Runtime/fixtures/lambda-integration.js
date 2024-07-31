@@ -1,6 +1,6 @@
 try {
     require('@jymfony/autoloader');
-} catch (e) {
+} catch {
     require('../../Autoloader');
 }
 

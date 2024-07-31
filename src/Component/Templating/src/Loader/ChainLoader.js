@@ -54,7 +54,7 @@ export default class ChainLoader extends implementationOf(LoaderInterface, Logge
         for (const loader of this._loaders) {
             try {
                 return loader.load(template);
-            } catch (e) {
+            } catch {
                 // Do nothing and continue.
             }
         }

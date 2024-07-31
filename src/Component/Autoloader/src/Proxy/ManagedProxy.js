@@ -1,6 +1,6 @@
 try {
     require('@jymfony/util');
-} catch (e) {
+} catch {
     require('../../../../util');
 }
 
@@ -83,7 +83,7 @@ class ManagedProxy {
 
                 try {
                     newTarget = newTarget.prototype && newTarget.prototype instanceof this._target ? newTarget : this._target;
-                } catch (e) {
+                } catch {
                     newTarget = this._target;
                 }
 

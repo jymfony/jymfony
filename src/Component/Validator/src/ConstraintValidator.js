@@ -91,7 +91,7 @@ export default class ConstraintValidator extends implementationOf(ConstraintVali
                 });
 
                 return formatter.format(Date.UTC(utcValue.year, utcValue.month - 1, utcValue.day, utcValue.hour, utcValue.minute, utcValue.second, utcValue.millisecond));
-            } catch (e) {
+            } catch {
                 return value.format('M d, y h:i a');
             }
         }

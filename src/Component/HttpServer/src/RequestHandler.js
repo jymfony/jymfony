@@ -299,7 +299,7 @@ export default class RequestHandler extends implementationOf(LoggerAwareInterfac
 
         try {
             return await this._filterResponse(response, request);
-        } catch (e) {
+        } catch {
             return response;
         }
     }

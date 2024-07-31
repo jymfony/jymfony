@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-
 const CustomDefinition = Jymfony.Component.DependencyInjection.Fixtures.CustomDefinition;
 const ServiceSubscriberInterface = Jymfony.Component.DependencyInjection.ServiceSubscriberInterface;
 

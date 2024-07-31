@@ -18,7 +18,7 @@ export default class FunctionComparator extends Comparator {
     /**
      * @inheritdoc
      */
-    assertEquals(expected, actual, delta = 0.0, ignoreCase = false) { // eslint-disable-line no-unused-vars
+    assertEquals(expected, actual, delta = 0.0, ignoreCase = false) {
         if (Reflect.has(expected, '__invoke') && isFunction(expected.__invoke)) {
             const objectComparator = new ObjectComparator();
 

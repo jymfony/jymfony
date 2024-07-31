@@ -47,7 +47,7 @@ class Traits {
                 for (const field of refl.fields) {
                     obj[field] = proto[field];
                 }
-            } catch (e) {
+            } catch {
                 // Do nothing...
             }
 

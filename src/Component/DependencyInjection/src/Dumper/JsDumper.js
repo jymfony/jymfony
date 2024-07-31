@@ -134,7 +134,7 @@ module.exports = new Container${hash}({
             for (const method of reflectionClass.methods) {
                 this._usedMethodNames.add(method);
             }
-        } catch (e) {
+        } catch {
             // Do nothing
         }
     }

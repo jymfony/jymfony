@@ -127,7 +127,7 @@ export default class Runner {
             let stat = null;
             try {
                 stat = statSync(prefix);
-            } catch (e) {
+            } catch {
                 // Do nothing.
             }
 
@@ -180,7 +180,7 @@ export default class Runner {
 
                 try {
                     accessSync(path, constants.R_OK);
-                } catch (e) {
+                } catch {
                     continue;
                 }
 

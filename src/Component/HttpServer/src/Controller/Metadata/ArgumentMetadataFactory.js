@@ -57,7 +57,7 @@ export default class ArgumentMetadataFactory extends implementationOf(MetadataFa
 
         try {
             innerObject = controller.innerObject; // BoundFunction
-        } catch (e) {
+        } catch {
             // Do nothing.
         }
 

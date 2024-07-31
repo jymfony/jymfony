@@ -100,7 +100,7 @@ describe('[Config] ArrayNodeDefinition', function () {
                 tree = node.getNode();
                 expect(shouldThrowWhenNotUsingAttrAsKey).to.be.false;
                 expect(tree.getDefaultValue()).to.be.deep.equal(defaults);
-            } catch (e) {
+            } catch {
                 expect(shouldThrowWhenNotUsingAttrAsKey).to.be.true;
             }
 
@@ -115,7 +115,7 @@ describe('[Config] ArrayNodeDefinition', function () {
                 tree = node.getNode();
                 expect(shouldThrowWhenUsingAttrAsKey).to.be.false;
                 expect(tree.getDefaultValue()).to.be.deep.equal(defaults);
-            } catch (e) {
+            } catch {
                 expect(shouldThrowWhenUsingAttrAsKey).to.be.true;
             }
         });

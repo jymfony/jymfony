@@ -49,7 +49,7 @@ export default class TypeToken extends implementationOf(TokenInterface) {
 
             try {
                 type = new ReflectionClass(this._type).name || type;
-            } catch (e) {
+            } catch {
                 // Do nothing.
             }
         } else {

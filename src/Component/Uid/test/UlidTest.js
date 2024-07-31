@@ -57,7 +57,6 @@ export default @timeSensitive() class UlidTest extends TestCase {
         this.expectException(InvalidArgumentException);
         this.expectExceptionMessage('Invalid ULID: "this is not a ulid".');
 
-        // eslint-disable-next-line no-new
         new Ulid('this is not a ulid');
     }
 

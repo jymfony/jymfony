@@ -286,7 +286,7 @@ export default class Resource {
             let addresses;
             try {
                 addresses = await resolveMethod(url.hostname);
-            } catch (e) {
+            } catch {
                 return undefined;
             }
 

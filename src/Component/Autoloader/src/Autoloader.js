@@ -161,7 +161,7 @@ class Autoloader {
 
             try {
                 packageInfo = JSON.parse(fs.readFileSync(packageJson, { encoding: 'utf8' }));
-            } catch (e) {
+            } catch {
                 continue;
             }
 

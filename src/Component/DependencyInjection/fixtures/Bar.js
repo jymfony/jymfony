@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-
 const BarInterface = Jymfony.Component.DependencyInjection.Fixtures.BarInterface;
 
 /**

@@ -152,7 +152,7 @@ class AbstractAdapterTrait extends LoggerAwareTrait.definition {
         try {
             await this._doDelete(ids);
             return true;
-        } catch (e) {
+        } catch {
         }
 
         let ok = true;

@@ -85,7 +85,7 @@ export default class Application extends SingleCommandApplication {
         const mkdir = name => {
             try {
                 __jymfony.mkdir(name);
-            } catch (e) {
+            } catch {
                 // Do nothing
             }
         };

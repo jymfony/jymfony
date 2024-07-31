@@ -72,7 +72,7 @@ export default class AbstractComparisonValidator extends ConstraintValidator {
 
             try {
                 comparedValue = new DateTime(comparedValue).microtime;
-            } catch (e) {
+            } catch {
                 throw new ConstraintDefinitionException(__jymfony.sprintf('The compared value "%s" could not be converted to a "%s" instance in the "%s" constraint.', comparedValue, dateTimeClass, __jymfony.get_debug_type(constraint)));
             }
         }

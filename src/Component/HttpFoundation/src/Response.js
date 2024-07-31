@@ -391,7 +391,7 @@ export default class Response extends implementationOf(ResponseInterface) {
     get expires() {
         try {
             return this.headers.getDate('Expires');
-        } catch (e) {
+        } catch {
             // According to RFC 2616 invalid date formats (e.g. "0" and "-1") must be treated as in the past
             return new DateTime(DateTime.unixTime - 172800);
         }

@@ -17,7 +17,7 @@ const is_file = file => {
         const statObj = stat(file);
 
         return statObj.isFile();
-    } catch (e) {
+    } catch {
         return false;
     }
 };
@@ -27,7 +27,7 @@ const is_dir = file => {
         const statObj = stat(file);
 
         return statObj.isDirectory();
-    } catch (e) {
+    } catch {
         return false;
     }
 };
@@ -139,7 +139,7 @@ export default class JsFileAdapter extends implementationOf(AdapterInterface, Ca
             if (isFunction(value)) {
                 return value();
             }
-        } catch (e) {
+        } catch {
             delete this._keys[key];
 
             return get_from_pool();
@@ -174,7 +174,7 @@ export default class JsFileAdapter extends implementationOf(AdapterInterface, Ca
         } else if (isFunction(value)) {
             try {
                 value = value();
-            } catch (e) {
+            } catch {
                 value = null;
                 isHit = false;
             }
@@ -293,7 +293,7 @@ export default class JsFileAdapter extends implementationOf(AdapterInterface, Ca
         let cleared = false;
         try {
             cleared = unlinkSync(this._file) || ! existsSync(this._file);
-        } catch (e) {
+        } catch {
             // Do nothing.
         }
 
@@ -323,7 +323,7 @@ export default class JsFileAdapter extends implementationOf(AdapterInterface, Ca
         if (! is_dir(directory)) {
             try {
                 __jymfony.mkdir(directory, 0o777);
-            } catch (e) {
+            } catch {
                 // Do nothing.
             }
         }
@@ -440,7 +440,7 @@ return [{
                 } else if (isFunction(value)) {
                     try {
                         yield [ key, f(key, value(), true) ];
-                    } catch (e) {
+                    } catch {
                         yield [ key, f(key, null, false) ];
                     }
                 } else {

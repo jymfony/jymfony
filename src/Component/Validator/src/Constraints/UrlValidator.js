@@ -39,7 +39,7 @@ export default class UrlValidator extends ConstraintValidator {
             }
 
             valid = valid && value.startsWith(url.protocol + '//');
-        } catch (e) {
+        } catch {
             valid = false;
         }
 

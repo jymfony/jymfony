@@ -99,13 +99,13 @@ export default class Parser {
         try {
             fs.statSync(filename);
         } catch (e) {
-            throw new ParseException(__jymfony.sprintf('File "%s" does not exist.', filename));
+            throw new ParseException(__jymfony.sprintf('File "%s" does not exist.', filename), undefined, undefined, undefined, e);
         }
 
         try {
             fs.accessSync(filename, fs.constants.R_OK);
         } catch (e) {
-            throw new ParseException(__jymfony.sprintf('File "%s" cannot be read.', filename));
+            throw new ParseException(__jymfony.sprintf('File "%s" cannot be read.', filename), undefined, undefined, undefined, e);
         }
 
         this._filename = filename;

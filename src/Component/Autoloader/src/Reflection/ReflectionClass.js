@@ -153,7 +153,7 @@ class ReflectionClass extends implementationOf(ReflectorInterface, ReflectorTrai
     static getClassName(className) {
         try {
             return (new ReflectionClass(className)).name;
-        } catch (e) {
+        } catch {
             return 'Object';
         }
     }
@@ -345,7 +345,7 @@ class ReflectionClass extends implementationOf(ReflectorInterface, ReflectorTrai
 
             try {
                 r = new ReflectionClass(this._isInterface ? mixins.getMixin(parent) : parent);
-            } catch (e) {
+            } catch {
                 continue;
             }
 
@@ -354,7 +354,7 @@ class ReflectionClass extends implementationOf(ReflectorInterface, ReflectorTrai
 
         try {
             return r;
-        } catch (e) {
+        } catch {
             return undefined;
         }
     }
@@ -596,7 +596,7 @@ class ReflectionClass extends implementationOf(ReflectorInterface, ReflectorTrai
                 try {
                     const ns = ReflectionClass._recursiveGet(global, metadata.namespace.split('.'));
                     return ns ? ns.__namespace : null;
-                } catch (e) {
+                } catch {
                     // Do nothing
                 }
             }
@@ -792,7 +792,7 @@ class ReflectionClass extends implementationOf(ReflectorInterface, ReflectorTrai
                 let descriptor;
                 try {
                     descriptor = Object.getOwnPropertyDescriptor(proto, name);
-                } catch (e) {
+                } catch {
                     // Non-configurable property.
                     continue;
                 }
@@ -891,7 +891,7 @@ class ReflectionClass extends implementationOf(ReflectorInterface, ReflectorTrai
                     let descriptor;
                     try {
                         descriptor = Object.getOwnPropertyDescriptor(parent, P);
-                    } catch (e) {
+                    } catch {
                         // Non-configurable property.
                         return false;
                     }
@@ -973,7 +973,7 @@ class ReflectionClass extends implementationOf(ReflectorInterface, ReflectorTrai
                 if (exports === value || (exports !== undefined && exports.__esModule && exports['default'] === value)) {
                     return mod;
                 }
-            } catch (e) {
+            } catch {
                 // Do nothing
             }
         }

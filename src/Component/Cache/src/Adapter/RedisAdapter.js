@@ -83,7 +83,7 @@ export default class RedisAdapter extends mix(AbstractAdapter, RedisTrait) {
             try {
                 return urlParse(dsn);
             } catch (e) {
-                throw new InvalidArgumentException(__jymfony.sprintf('Invalid Redis DSN: %s', dsn));
+                throw new InvalidArgumentException(__jymfony.sprintf('Invalid Redis DSN: %s', dsn), null, e);
             }
         })();
 

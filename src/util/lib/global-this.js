@@ -15,7 +15,7 @@ function getImplementation() {
 
 const polyfill = getImplementation();
 const descriptor = Object.getOwnPropertyDescriptor(polyfill, 'globalThis');
-if (!descriptor || globalThis !== polyfill) { // eslint-disable-line max-len
+if (!descriptor || globalThis !== polyfill) {
     Object.defineProperty(polyfill, 'globalThis', {
         configurable: true,
         enumerable: false,

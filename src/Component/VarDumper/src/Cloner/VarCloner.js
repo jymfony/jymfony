@@ -115,7 +115,7 @@ export default class VarCloner extends AbstractCloner {
 
                             class_ = __jymfony.trim(r.name || r.getConstructor().name);
                             value[Caster.PREFIX_VIRTUAL + 'name'] = __jymfony.trim(r.name || r.getConstructor().name || '<unknown function>');
-                        } catch (e) {
+                        } catch {
                             // Do nothing.
                         }
 

@@ -54,7 +54,7 @@ export default class JsEngine extends implementationOf(EngineInterface) {
     async exists(name) {
         try {
             await this.load(name);
-        } catch (e) {
+        } catch {
             return false;
         }
 

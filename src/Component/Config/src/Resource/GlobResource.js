@@ -20,7 +20,7 @@ export default class GlobResource extends implementationOf(SelfCheckingResourceI
     __construct(prefix, pattern, recursive, forExclusion = false, excludedPrefixes = []) {
         try {
             prefix = realpathSync(prefix);
-        } catch (e) {
+        } catch {
             prefix = existsSync(prefix) ? prefix : false;
         }
 
@@ -121,7 +121,7 @@ export default class GlobResource extends implementationOf(SelfCheckingResourceI
                 if (!s.isDirectory()) {
                     paths = [ this._prefix ];
                 }
-            } catch (e) {
+            } catch {
                 // Do nothing.
             }
         }

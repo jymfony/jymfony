@@ -192,7 +192,7 @@ describe('[Testing] MethodProphecy', function () {
 
         try {
             this._methodProphecy.shouldHave(prediction.reveal());
-        } catch (e) { }
+        } catch { }
 
         expect(this._methodProphecy.checkedPredictions).to.be.deep.equal([ prediction.reveal() ]);
     });

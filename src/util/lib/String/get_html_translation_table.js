@@ -1,4 +1,4 @@
-const get_html_translation_table = (table = 'HTML_SPECIALCHARS', quoteStyle = 'ENT_COMPAT') => { // eslint-disable-line camelcase
+const get_html_translation_table = (table = 'HTML_SPECIALCHARS', quoteStyle = 'ENT_COMPAT') => {
     //  Discuss at: http://locutus.io/php/get_html_translation_table/
     // Original by: Philip Peterson
     //  Revised by: Kevin van Zonneveld (http://kvz.io)

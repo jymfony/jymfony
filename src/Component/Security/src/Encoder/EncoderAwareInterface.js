@@ -10,7 +10,7 @@ class EncoderAwareInterface {
      *
      * @returns {string}
      */
-    get encoderName();
+    get encoderName() { }
 }
 
 export default getInterface(EncoderAwareInterface);

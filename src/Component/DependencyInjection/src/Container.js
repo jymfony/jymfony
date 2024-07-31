@@ -296,7 +296,7 @@ export default class Container extends implementationOf(ContainerInterface) {
         if (isFunction(id)) {
             try {
                 id = (new ReflectionClass(id)).name;
-            } catch (e) { }
+            } catch { }
         }
 
         if (undefined === id || null === id) {

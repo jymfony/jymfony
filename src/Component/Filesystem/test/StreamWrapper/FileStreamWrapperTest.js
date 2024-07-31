@@ -26,15 +26,15 @@ export default class FileStreamWrapperTest extends TestCase {
     before() {
         try {
             fs.rmdirSync(fixturesDir + path.sep + 'dir_1' + path.sep + 'dir_2');
-        } catch (e) { }
+        } catch { }
 
         try {
             fs.rmdirSync(fixturesDir + path.sep + 'dir_1');
-        } catch (e) { }
+        } catch { }
 
         try {
             fs.unlinkSync(fixturesDir + path.sep + 'WRITEFILE');
-        } catch (e) { }
+        } catch { }
     }
 
     beforeEach() {
@@ -72,13 +72,13 @@ export default class FileStreamWrapperTest extends TestCase {
 
         try {
             await this._wrapper.rmdir(fixturesDir+'/dir_1');
-        } catch (e) {
+        } catch {
             __self.assertTrue(fs.statSync(fixturesDir+'/dir_1').isDirectory());
 
             try {
                 fs.rmdirSync(fixturesDir + '/dir_1/dir_2');
                 fs.rmdirSync(fixturesDir + '/dir_1');
-            } catch (e) { }
+            } catch { }
 
             return;
         }
@@ -97,7 +97,7 @@ export default class FileStreamWrapperTest extends TestCase {
         } finally {
             try {
                 fs.rmdirSync(fixturesDir + '/dir_1');
-            } catch (e) { }
+            } catch { }
         }
     }
 
@@ -106,14 +106,14 @@ export default class FileStreamWrapperTest extends TestCase {
         try {
             fs.statSync(fixturesDir+'/RENAMED_FILE');
             this.fail('Expected Error');
-        } catch (e) { }
+        } catch { }
 
         await this._wrapper.rename(fixturesDir+'/RENAMEBLE_FILE', fixturesDir+'/RENAMED_FILE');
 
         try {
             fs.statSync(fixturesDir+'/RENAMEBLE_FILE');
             this.fail('Expected Error');
-        } catch (e) { }
+        } catch { }
 
         __self.assertTrue(fs.statSync(fixturesDir+'/RENAMED_FILE').isFile());
 
@@ -122,7 +122,7 @@ export default class FileStreamWrapperTest extends TestCase {
         try {
             fs.statSync(fixturesDir+'/RENAMED_FILE');
             this.fail('Expected Error');
-        } catch (e) { }
+        } catch { }
 
         __self.assertTrue(fs.statSync(fixturesDir+'/RENAMEBLE_FILE').isFile());
     }

@@ -40,7 +40,7 @@ class DumpCompletionCommand extends Command {
             fullCommand = (() => {
                 try {
                     return realpathSync(fullCommand);
-                } catch (_) {
+                } catch {
                     return null;
                 }
             })() || fullCommand;

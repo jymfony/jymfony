@@ -216,7 +216,7 @@ export default class MessengerPass extends implementationOf(CompilerPassInterfac
         const method = (() => {
             try {
                 return handlerClass.getMethod(methodName);
-            } catch (e) {
+            } catch {
                 throw new RuntimeException(__jymfony.sprintf('Invalid handler service "%s": class "%s" must have a "%s()" method.', serviceId, handlerClass.name, methodName));
             }
         })();

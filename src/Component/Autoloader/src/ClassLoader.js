@@ -287,7 +287,7 @@ class ClassLoader {
         req.optional = (id, asObject = false) => {
             try {
                 return req(id);
-            } catch (e) {
+            } catch {
                 return asObject ? {} : undefined;
             }
         };

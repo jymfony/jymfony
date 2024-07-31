@@ -64,7 +64,7 @@ export default class AbstractMetadataFactory extends implementationOf(MetadataFa
 
         try {
             return !! Class && ReflectionClass.exists(Class);
-        } catch (e) {
+        } catch {
             return false;
         }
     }
@@ -129,7 +129,7 @@ export default class AbstractMetadataFactory extends implementationOf(MetadataFa
         if (isFunction(value)) {
             try {
                 return ReflectionClass.getClassName(value);
-            } catch (e) {
+            } catch {
                 // Do nothing.
             }
         }
@@ -149,7 +149,7 @@ export default class AbstractMetadataFactory extends implementationOf(MetadataFa
         if (isObject(value)) {
             try {
                 return ReflectionClass.getClassName(value);
-            } catch (e) {
+            } catch {
                 return false;
             }
         }

@@ -8,7 +8,7 @@ export default class RedisAdapterTest extends AdapterTestCase {
 
         try {
             await redis.connect();
-        } catch (e) {
+        } catch {
             __self.markTestSkipped();
         } finally {
             if ('end' !== redis.status) {

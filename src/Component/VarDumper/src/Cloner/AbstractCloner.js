@@ -177,7 +177,7 @@ export default class AbstractCloner extends implementationOf(ClonerInterface) {
             let r;
             try {
                 r = new ReflectionClass(class_);
-            } catch (e) {
+            } catch {
                 r = new ReflectionClass(obj);
             }
 

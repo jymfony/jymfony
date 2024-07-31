@@ -76,7 +76,7 @@ export default class ResourceCheckerConfigCache extends implementationOf(ConfigC
         fs.writeFileSync(this._file, content);
         try {
             fs.chmodSync(this._file, mode);
-        } catch (err) {
+        } catch {
             // Ignore chmod
         }
 
@@ -84,7 +84,7 @@ export default class ResourceCheckerConfigCache extends implementationOf(ConfigC
             fs.writeFileSync(this._getMetaFile(), __jymfony.serialize(metadata));
             try {
                 fs.chmodSync(this._getMetaFile(), mode);
-            } catch (err) {
+            } catch {
                 // Ignore this error too
             }
         }

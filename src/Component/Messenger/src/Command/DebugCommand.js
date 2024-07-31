@@ -127,7 +127,7 @@ Or for a specific bus only:
 
                 return __jymfony.trim(docComment);
             }
-        } catch (e) {
+        } catch {
         }
 
         return '';

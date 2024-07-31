@@ -97,7 +97,7 @@ export default class AwsLambdaHandler extends RequestHandler {
      *
      * @protected
      */
-    async _handleRequest(event, context, responseStream) { // eslint-disable-line no-unused-vars
+    async _handleRequest(event, context, responseStream) {
         const headers = new Jymfony.Component.HttpFoundation.HeaderBag(event.headers || {});
         const normalizedHeaders = headers.keys.reduce((res, key) => (res[key] = headers.get(key), res), {});
         const contentType = new ContentType(headers.get('content-type', 'application/x-www-form-urlencoded'));

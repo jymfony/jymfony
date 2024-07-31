@@ -279,7 +279,7 @@ export default class Filesystem {
                 await originWrapper.rename(origin, target);
             } catch (err) {
                 if (! (await this.isDir(origin))) {
-                    throw new IOException(__jymfony.sprintf('Cannot rename "%s" to "%s".', origin, target), null, undefined, target);
+                    throw new IOException(__jymfony.sprintf('Cannot rename "%s" to "%s".', origin, target), null, err, target);
                 }
 
                 await this.mirror(origin, target, { override: overwrite, 'delete': overwrite });

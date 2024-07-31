@@ -131,7 +131,7 @@ export default class YamlFileLoader extends JsonFileLoader {
                 try {
                     return new IteratorArgument(argument);
                 } catch (e) {
-                    throw new InvalidArgumentException(__jymfony.sprintf('"!iterator" tag only accepts arrays of "@service" references in "%s".', file));
+                    throw new InvalidArgumentException(__jymfony.sprintf('"!iterator" tag only accepts arrays of "@service" references in "%s".', file), null, e);
                 }
             }
 
@@ -145,7 +145,7 @@ export default class YamlFileLoader extends JsonFileLoader {
                 try {
                     return new ServiceLocatorArgument(argument);
                 } catch (e) {
-                    throw new InvalidArgumentException(__jymfony.sprintf('"!service_locator" tag only accepts maps of "@service" references in "%s".', file));
+                    throw new InvalidArgumentException(__jymfony.sprintf('"!service_locator" tag only accepts maps of "@service" references in "%s".', file), null, e);
                 }
             }
 
