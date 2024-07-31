@@ -76,7 +76,13 @@ export default class StreamBufferTest extends TestCase {
         __jymfony.mkdir(dirname(fn));
 
         try {
-            const writeStream = createWriteStream(fn);
+            const writeStream = createWriteStream(fn, {
+                flush: true,
+            });
+            await new Promise(res => {
+                writeStream.on('ready', res);
+            });
+
             await new Promise((res, rej) => {
                 this._stream.on('error', rej);
                 this._stream.on('end', res);
