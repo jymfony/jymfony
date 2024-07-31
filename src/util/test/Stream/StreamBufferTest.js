@@ -76,9 +76,7 @@ export default class StreamBufferTest extends TestCase {
         __jymfony.mkdir(dirname(fn));
 
         try {
-            const writeStream = createWriteStream(fn, {
-                flush: true,
-            });
+            const writeStream = createWriteStream(fn);
             await new Promise(res => {
                 writeStream.on('ready', res);
             });
@@ -96,7 +94,11 @@ export default class StreamBufferTest extends TestCase {
             __self.assertEquals(buf.length, s.size);
         } finally {
             const fs = new Filesystem();
-            await fs.remove(dirname(fn));
+            try {
+                await fs.remove(dirname(fn));
+            } catch {
+                // Do nothing.
+            }
         }
     }
 }
