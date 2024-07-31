@@ -31,6 +31,7 @@
     "@jymfony/debug": "git+https://github.com/jymfony/debug.git",
     "@jymfony/http-client": "git+https://github.com/jymfony/http-client.git",
     "@jymfony/filesystem": "git+https://github.com/jymfony/filesystem.git",
+    "@jymfony/runtime": "git+https://github.com/jymfony/runtime.git",
     "@jymfony/testing": "git+https://github.com/jymfony/testing.git",
     "eslint": "^8.40.0",
     "mocha": "^10.2"
