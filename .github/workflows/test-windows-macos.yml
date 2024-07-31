@@ -13,6 +13,7 @@ jobs:
                     - 16
                     - 18
                     - 20
+                    - 22
                 architecture:
                     - x64
 
@@ -21,13 +22,11 @@ jobs:
             - name: 'win: fix temp dir (actions/virtual-environments#712)'
               run: echo "TEMP=$env:USERPROFILE\AppData\Local\Temp" >> $env:GITHUB_ENV
               if: ${{ matrix.os == 'windows-latest' }}
-            - uses: actions/checkout@v3
+            - uses: actions/checkout@v4
             - name: Setup node
-              uses: actions/setup-node@v3
+              uses: actions/setup-node@v4
               with:
                   node-version: ${{ matrix.node_version }}
                   architecture: ${{ matrix.architecture }}
             - run: npm install
-            - run: npm install @jymfony/compiler@next
-              if: ${{ matrix.node_version < 16 }}
             - run: npm test
