@@ -81,7 +81,7 @@ export default class TimeSensitive {
         const performanceNow = () => suite[sym].currentPerformanceNow;
         try {
             perfHooks.performance.now = performanceNow;
-        } catch (e) {
+        } catch {
             perfHooks.performance = {
                 ...perfHooks.performance,
                 now: performanceNow,
