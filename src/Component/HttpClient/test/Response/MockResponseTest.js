@@ -43,11 +43,18 @@ export default class MockResponseTest extends TestCase {
 
     * toArrayErrors() {
         const node19 = __jymfony.version_compare(process.versions.node, '19', '>=');
+        const node22 = __jymfony.version_compare(process.versions.node, '22', '>=');
         const headers = [ 'Content-Type: application/json' ];
 
         yield [ '', headers, 'Response body is empty.' ];
         yield [ 'not json', headers, node19 ? 'Cannot decode content: Unexpected token \'o\', "not json" is not valid JSON' : 'Cannot decode content: Unexpected token o in JSON at position 1' ];
-        yield [ '[1,2}', headers, node19 ? 'Cannot decode content: Expected \',\' or \']\' after array element in JSON at position 4' : 'Cannot decode content: Unexpected token } in JSON at position 4' ];
+        yield [
+            '[1,2}',
+            headers,
+            node19 ?
+                ('Cannot decode content: Expected \',\' or \']\' after array element in JSON at position 4' + (node22 ? ' (line 1 column 5)' : '')) :
+                'Cannot decode content: Unexpected token } in JSON at position 4',
+        ];
         yield [ '"not an array"', headers, 'JSON content was expected to decode to an array, "string" returned for "https://example.com/file.json".' ];
         yield [ '8', headers, 'JSON content was expected to decode to an array, "int" returned for "https://example.com/file.json".' ];
     }
