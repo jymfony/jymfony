@@ -17,14 +17,14 @@
     "node": ">=12.0.0"
   },
   "dependencies": {
-    "@jymfony/exceptions": "https://github.com/jymfony/exceptions.git"
+    "@jymfony/exceptions": "git+https://github.com/jymfony/exceptions.git"
   },
   "devDependencies": {
-    "@jymfony/autoloader": "https://github.com/jymfony/autoloader.git",
-    "@jymfony/datastructure": "https://github.com/jymfony/data-structure.git",
-    "@jymfony/debug": "https://github.com/jymfony/debug.git",
-    "@jymfony/filesystem": "https://github.com/jymfony/filesystem.git",
-    "@jymfony/testing": "https://github.com/jymfony/testing.git",
+    "@jymfony/autoloader": "git+https://github.com/jymfony/autoloader.git",
+    "@jymfony/datastructure": "git+https://github.com/jymfony/data-structure.git",
+    "@jymfony/debug": "git+https://github.com/jymfony/debug.git",
+    "@jymfony/filesystem": "git+https://github.com/jymfony/filesystem.git",
+    "@jymfony/testing": "git+https://github.com/jymfony/testing.git",
     "mocha": "^10.2"
   },
   "config": {

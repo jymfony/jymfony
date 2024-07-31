@@ -16,19 +16,19 @@
     "node": ">=12.0.0"
   },
   "dependencies": {
-    "@jymfony/autoloader": "https://github.com/jymfony/autoloader.git",
-    "@jymfony/contracts": "https://github.com/jymfony/contracts.git",
-    "@jymfony/event-dispatcher": "https://github.com/jymfony/event-dispatcher.git",
-    "@jymfony/exceptions": "https://github.com/jymfony/exceptions.git",
-    "@jymfony/http-foundation": "https://github.com/jymfony/http-foundation.git",
-    "@jymfony/http-server": "https://github.com/jymfony/http-server.git",
-    "@jymfony/logger": "https://github.com/jymfony/logger.git",
-    "@jymfony/routing": "https://github.com/jymfony/routing.git",
-    "@jymfony/util": "https://github.com/jymfony/util.git"
+    "@jymfony/autoloader": "git+https://github.com/jymfony/autoloader.git",
+    "@jymfony/contracts": "git+https://github.com/jymfony/contracts.git",
+    "@jymfony/event-dispatcher": "git+https://github.com/jymfony/event-dispatcher.git",
+    "@jymfony/exceptions": "git+https://github.com/jymfony/exceptions.git",
+    "@jymfony/http-foundation": "git+https://github.com/jymfony/http-foundation.git",
+    "@jymfony/http-server": "git+https://github.com/jymfony/http-server.git",
+    "@jymfony/logger": "git+https://github.com/jymfony/logger.git",
+    "@jymfony/routing": "git+https://github.com/jymfony/routing.git",
+    "@jymfony/util": "git+https://github.com/jymfony/util.git"
   },
   "devDependencies": {
-    "@jymfony/debug": "https://github.com/jymfony/debug.git",
-    "@jymfony/testing": "https://github.com/jymfony/testing.git",
+    "@jymfony/debug": "git+https://github.com/jymfony/debug.git",
+    "@jymfony/testing": "git+https://github.com/jymfony/testing.git",
     "chai": "^4.2",
     "mocha": "^10.2"
   },

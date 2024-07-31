@@ -19,19 +19,19 @@
     "node": ">=12.0.0"
   },
   "dependencies": {
-    "@jymfony/autoloader": "https://github.com/jymfony/autoloader.git",
-    "@jymfony/datastructure": "https://github.com/jymfony/data-structure.git",
-    "@jymfony/exceptions": "https://github.com/jymfony/exceptions.git",
-    "@jymfony/lexer": "https://github.com/jymfony/lexer.git",
-    "@jymfony/util": "https://github.com/jymfony/util.git",
-    "@jymfony/var-exporter": "https://github.com/jymfony/var-exporter.git"
+    "@jymfony/autoloader": "git+https://github.com/jymfony/autoloader.git",
+    "@jymfony/datastructure": "git+https://github.com/jymfony/data-structure.git",
+    "@jymfony/exceptions": "git+https://github.com/jymfony/exceptions.git",
+    "@jymfony/lexer": "git+https://github.com/jymfony/lexer.git",
+    "@jymfony/util": "git+https://github.com/jymfony/util.git",
+    "@jymfony/var-exporter": "git+https://github.com/jymfony/var-exporter.git"
   },
   "devDependencies": {
-    "@jymfony/console": "https://github.com/jymfony/console.git",
-    "@jymfony/debug": "https://github.com/jymfony/debug.git",
-    "@jymfony/http-client": "https://github.com/jymfony/http-client.git",
-    "@jymfony/filesystem": "https://github.com/jymfony/filesystem.git",
-    "@jymfony/testing": "https://github.com/jymfony/testing.git",
+    "@jymfony/console": "git+https://github.com/jymfony/console.git",
+    "@jymfony/debug": "git+https://github.com/jymfony/debug.git",
+    "@jymfony/http-client": "git+https://github.com/jymfony/http-client.git",
+    "@jymfony/filesystem": "git+https://github.com/jymfony/filesystem.git",
+    "@jymfony/testing": "git+https://github.com/jymfony/testing.git",
     "eslint": "^8.40.0",
     "mocha": "^10.2"
   },

@@ -17,21 +17,21 @@
     "node": ">=12.0.0"
   },
   "dependencies": {
-    "@jymfony/autoloader": "https://github.com/jymfony/autoloader.git",
-    "@jymfony/contracts": "https://github.com/jymfony/contracts.git",
-    "@jymfony/datetime": "https://github.com/jymfony/date-time.git",
-    "@jymfony/dependency-injection": "https://github.com/jymfony/dependency-injection.git",
-    "@jymfony/exceptions": "https://github.com/jymfony/exceptions.git",
-    "@jymfony/util": "https://github.com/jymfony/util.git"
+    "@jymfony/autoloader": "git+https://github.com/jymfony/autoloader.git",
+    "@jymfony/contracts": "git+https://github.com/jymfony/contracts.git",
+    "@jymfony/datetime": "git+https://github.com/jymfony/date-time.git",
+    "@jymfony/dependency-injection": "git+https://github.com/jymfony/dependency-injection.git",
+    "@jymfony/exceptions": "git+https://github.com/jymfony/exceptions.git",
+    "@jymfony/util": "git+https://github.com/jymfony/util.git"
   },
   "devDependencies": {
-    "@jymfony/console": "https://github.com/jymfony/console.git",
-    "@jymfony/debug": "https://github.com/jymfony/debug.git",
-    "@jymfony/event-dispatcher": "https://github.com/jymfony/event-dispatcher.git",
-    "@jymfony/stopwatch": "https://github.com/jymfony/stopwatch.git",
-    "@jymfony/testing": "https://github.com/jymfony/testing.git",
-    "@jymfony/var-dumper": "https://github.com/jymfony/var-dumper.git",
-    "@jymfony/validator": "https://github.com/jymfony/validator.git",
+    "@jymfony/console": "git+https://github.com/jymfony/console.git",
+    "@jymfony/debug": "git+https://github.com/jymfony/debug.git",
+    "@jymfony/event-dispatcher": "git+https://github.com/jymfony/event-dispatcher.git",
+    "@jymfony/stopwatch": "git+https://github.com/jymfony/stopwatch.git",
+    "@jymfony/testing": "git+https://github.com/jymfony/testing.git",
+    "@jymfony/var-dumper": "git+https://github.com/jymfony/var-dumper.git",
+    "@jymfony/validator": "git+https://github.com/jymfony/validator.git",
     "mocha": "^10.2"
   },
   "config": {

@@ -21,12 +21,12 @@
     "@jymfony/compiler": "next"
   },
   "dependencies": {
-    "@jymfony/datastructure": "https://github.com/jymfony/data-structure.git",
-    "@jymfony/util": "https://github.com/jymfony/util.git"
+    "@jymfony/datastructure": "git+https://github.com/jymfony/data-structure.git",
+    "@jymfony/util": "git+https://github.com/jymfony/util.git"
   },
   "devDependencies": {
-    "@jymfony/debug": "https://github.com/jymfony/debug.git",
-    "@jymfony/testing": "https://github.com/jymfony/testing.git",
+    "@jymfony/debug": "git+https://github.com/jymfony/debug.git",
+    "@jymfony/testing": "git+https://github.com/jymfony/testing.git",
     "mocha": "^10.2"
   },
   "flat": true,

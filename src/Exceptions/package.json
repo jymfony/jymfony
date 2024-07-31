@@ -18,8 +18,8 @@
     "node": ">=12.0.0"
   },
   "devDependencies": {
-    "@jymfony/debug": "https://github.com/jymfony/debug.git",
-    "@jymfony/testing": "https://github.com/jymfony/testing.git",
+    "@jymfony/debug": "git+https://github.com/jymfony/debug.git",
+    "@jymfony/testing": "git+https://github.com/jymfony/testing.git",
     "chai": "^4.2",
     "mocha": "^10.2"
   },

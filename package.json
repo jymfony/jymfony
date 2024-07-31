@@ -46,7 +46,10 @@
     "nyc": "^15.1.0",
     "typescript": "^5.0"
   },
-  "repository": "https://github.com/jymfony/jymfony.git",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jymfony/jymfony.git"
+  },
   "flat": true,
   "config": {
     "jymfony-autoload": {

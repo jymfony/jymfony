@@ -16,18 +16,18 @@
     "node": ">=12.0.0"
   },
   "dependencies": {
-    "@jymfony/autoloader": "https://github.com/jymfony/autoloader.git",
-    "@jymfony/config": "https://github.com/jymfony/config.git",
-    "@jymfony/exceptions": "https://github.com/jymfony/exceptions.git",
-    "@jymfony/http-foundation": "https://github.com/jymfony/http-foundation.git",
-    "@jymfony/options-resolver": "https://github.com/jymfony/options-resolver.git",
-    "@jymfony/util": "https://github.com/jymfony/util.git"
+    "@jymfony/autoloader": "git+https://github.com/jymfony/autoloader.git",
+    "@jymfony/config": "git+https://github.com/jymfony/config.git",
+    "@jymfony/exceptions": "git+https://github.com/jymfony/exceptions.git",
+    "@jymfony/http-foundation": "git+https://github.com/jymfony/http-foundation.git",
+    "@jymfony/options-resolver": "git+https://github.com/jymfony/options-resolver.git",
+    "@jymfony/util": "git+https://github.com/jymfony/util.git"
   },
   "devDependencies": {
-    "@jymfony/depedency-injection": "https://github.com/jymfony/dependency-injection.git",
-    "@jymfony/debug": "https://github.com/jymfony/debug.git",
-    "@jymfony/testing": "https://github.com/jymfony/testing.git",
-    "@jymfony/yaml": "https://github.com/jymfony/yaml.git",
+    "@jymfony/depedency-injection": "git+https://github.com/jymfony/dependency-injection.git",
+    "@jymfony/debug": "git+https://github.com/jymfony/debug.git",
+    "@jymfony/testing": "git+https://github.com/jymfony/testing.git",
+    "@jymfony/yaml": "git+https://github.com/jymfony/yaml.git",
     "chai": "^4.2",
     "mocha": "^10.2"
   },
