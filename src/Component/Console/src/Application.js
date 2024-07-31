@@ -578,7 +578,17 @@ export default class Application {
 
         if (! name) {
             name = this._defaultCommand;
-            input = new ArrayInput({'command': this._defaultCommand});
+            const args = this.definition.getArguments();
+            this.definition.setArguments();
+            for (const arg of args) {
+                if ('command' === arg.getName()) {
+                    continue;
+                }
+
+                this.definition.addArgument(arg);
+            }
+
+            this.definition.addArgument(new InputArgument('command', InputArgument.OPTIONAL, 'The command to execute', name));
         }
 
         // The command name MUST be the first element of the input
