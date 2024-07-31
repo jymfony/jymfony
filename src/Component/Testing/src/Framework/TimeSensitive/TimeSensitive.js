@@ -77,7 +77,17 @@ export default class TimeSensitive {
 
         global.Date = mockDate;
         process.hrtime = mockHrtime;
-        perfHooks.performance.now = () => suite[sym].currentPerformanceNow;
+
+        const performanceNow = () => suite[sym].currentPerformanceNow;
+        try {
+            perfHooks.performance.now = performanceNow;
+        } catch (e) {
+            perfHooks.performance = {
+                ...perfHooks.performance,
+                now: performanceNow,
+                timeOrigin: perfHooks.performance.timeOrigin,
+            };
+        }
 
         __jymfony.sleep = async ms => {
             const dateValue = suite[sym].currentDate.valueOf() + ms;
