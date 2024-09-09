@@ -421,4 +421,4 @@ class HashTable extends mix(Object, GenericCollectionTrait) {
     }
 }
 
-global.HashTable = HashTable;
+globalThis.HashTable = HashTable;

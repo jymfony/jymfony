@@ -263,4 +263,4 @@ class PriorityQueue extends mix(Object, GenericCollectionTrait) {
     }
 }
 
-global.PriorityQueue = PriorityQueue;
+globalThis.PriorityQueue = PriorityQueue;

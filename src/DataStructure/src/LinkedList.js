@@ -180,4 +180,4 @@ class LinkedList extends mix(Object, GenericCollectionTrait) {
     }
 }
 
-global.LinkedList = LinkedList;
+globalThis.LinkedList = LinkedList;
