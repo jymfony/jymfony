@@ -11,9 +11,9 @@ export default (() => {
         {
             ['offset']: 9000,
             ['dst']: false,
-            ['abbrev']: '+0230',
+            ['abbrev']: '%z',
             ['until']: -1309746600,
-            ['format']: '+0230',
+            ['format']: '%z',
         },
         {
             ['offset']: 10800,
@@ -25,16 +25,16 @@ export default (() => {
         {
             ['offset']: 9000,
             ['dst']: false,
-            ['abbrev']: '+0230',
+            ['abbrev']: '%z',
             ['until']: -1041388200,
-            ['format']: '+0230',
+            ['format']: '%z',
         },
         {
             ['offset']: 9900,
             ['dst']: false,
-            ['abbrev']: '+0245',
+            ['abbrev']: '%z',
             ['until']: -865305900,
-            ['format']: '+0245',
+            ['format']: '%z',
         },
         {
             ['offset']: 10800,

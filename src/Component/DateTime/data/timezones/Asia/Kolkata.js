@@ -33,7 +33,7 @@ export default (() => {
             ['until']: -872055000,
             ['ruleSet']: undefined,
             ['offset']: 19800,
-            ['abbrev']: '+0630',
+            ['abbrev']: '%z',
         },
         {
             ['offset']: 19800,
@@ -46,7 +46,7 @@ export default (() => {
             ['until']: -764141400,
             ['ruleSet']: undefined,
             ['offset']: 19800,
-            ['abbrev']: '+0630',
+            ['abbrev']: '%z',
         },
         {
             ['offset']: 19800,

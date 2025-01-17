@@ -11,23 +11,23 @@ export default (() => {
         {
             ['offset']: -43200,
             ['dst']: false,
-            ['abbrev']: '-12',
+            ['abbrev']: '%z',
             ['until']: 307627200,
-            ['format']: '-12',
+            ['format']: '%z',
         },
         {
             ['offset']: -39600,
             ['dst']: false,
-            ['abbrev']: '-11',
+            ['abbrev']: '%z',
             ['until']: 788871600,
-            ['format']: '-11',
+            ['format']: '%z',
         },
         {
             ['offset']: 46800,
             ['dst']: false,
-            ['abbrev']: '+13',
+            ['abbrev']: '%z',
             ['until']: Infinity,
-            ['format']: '+13',
+            ['format']: '%z',
         },
     ];
 })();

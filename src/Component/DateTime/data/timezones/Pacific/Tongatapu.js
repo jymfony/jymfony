@@ -108,22 +108,22 @@ export default (() => {
             {
                 ['offset']: 44400,
                 ['dst']: false,
-                ['abbrev']: '+1220',
+                ['abbrev']: '%z',
                 ['until']: -284041200,
-                ['format']: '+1220',
+                ['format']: '%z',
             },
             {
                 ['offset']: 46800,
                 ['dst']: false,
-                ['abbrev']: '+13',
+                ['abbrev']: '%z',
                 ['until']: 915102000,
-                ['format']: '+13',
+                ['format']: '%z',
             },
             {
                 ['until']: Infinity,
                 ['ruleSet']: o[0],
                 ['offset']: 46800,
-                ['abbrev']: '+13/+14',
+                ['abbrev']: '%z',
             },
         ],
         [

@@ -4,9 +4,9 @@ export default (() => {
         {
             ['offset']: 46800,
             ['dst']: false,
-            ['abbrev']: '+13',
+            ['abbrev']: '%z',
             ['until']: Infinity,
-            ['format']: '+13',
+            ['format']: '%z',
         },
     ];
 })();

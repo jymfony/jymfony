@@ -18,16 +18,16 @@ export default (() => {
         {
             ['offset']: 28800,
             ['dst']: false,
-            ['abbrev']: '+08',
+            ['abbrev']: '%z',
             ['until']: -880272000,
-            ['format']: '+08',
+            ['format']: '%z',
         },
         {
             ['offset']: 32400,
             ['dst']: false,
-            ['abbrev']: '+09',
+            ['abbrev']: '%z',
             ['until']: -766054800,
-            ['format']: '+09',
+            ['format']: '%z',
         },
         {
             ['offset']: 28800,

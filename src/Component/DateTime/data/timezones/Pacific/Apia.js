@@ -129,21 +129,21 @@ export default (() => {
             {
                 ['offset']: -41400,
                 ['dst']: false,
-                ['abbrev']: '-1130',
+                ['abbrev']: '%z',
                 ['until']: -631110600,
-                ['format']: '-1130',
+                ['format']: '%z',
             },
             {
                 ['until']: 1325239200,
                 ['ruleSet']: o[0],
                 ['offset']: -39600,
-                ['abbrev']: '-11/-10',
+                ['abbrev']: '%z',
             },
             {
                 ['until']: Infinity,
                 ['ruleSet']: o[0],
                 ['offset']: 46800,
-                ['abbrev']: '+13/+14',
+                ['abbrev']: '%z',
             },
         ],
         [

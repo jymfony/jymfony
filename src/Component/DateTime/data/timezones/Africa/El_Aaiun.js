@@ -1947,21 +1947,21 @@ export default (() => {
             {
                 ['offset']: -3600,
                 ['dst']: false,
-                ['abbrev']: '-01',
+                ['abbrev']: '%z',
                 ['until']: 198291600,
-                ['format']: '-01',
+                ['format']: '%z',
             },
             {
                 ['until']: 1540692000,
                 ['ruleSet']: o[0],
                 ['offset']: 0,
-                ['abbrev']: '+00/+01',
+                ['abbrev']: '%z',
             },
             {
                 ['until']: Infinity,
                 ['ruleSet']: o[0],
                 ['offset']: 3600,
-                ['abbrev']: '+01/+00',
+                ['abbrev']: '%z',
             },
         ],
         [

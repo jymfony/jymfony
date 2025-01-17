@@ -163,10 +163,10 @@ export default (() => {
                         ['2011']: [
                             o[16],
                         ],
-                        ['2023']: [
+                        ['2024']: [
                             o[16],
                         ],
-                        ['2024']: [
+                        ['2025']: [
                             o[16],
                         ],
                     },
@@ -525,15 +525,15 @@ export default (() => {
             {
                 ['offset']: 10800,
                 ['dst']: false,
-                ['abbrev']: '+03',
+                ['abbrev']: '%z',
                 ['until']: -1247540400,
-                ['format']: '+03',
+                ['format']: '%z',
             },
             {
                 ['until']: 606866400,
                 ['ruleSet']: o[0],
                 ['offset']: 14400,
-                ['abbrev']: '+04/+05',
+                ['abbrev']: '%z',
             },
             {
                 ['until']: 670374000,
@@ -544,9 +544,9 @@ export default (() => {
             {
                 ['offset']: 14400,
                 ['dst']: false,
-                ['abbrev']: '+04',
+                ['abbrev']: '%z',
                 ['until']: 701820000,
-                ['format']: '+04',
+                ['format']: '%z',
             },
             {
                 ['until']: 1301180400,

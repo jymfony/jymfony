@@ -2,10 +2,10 @@ export default (() => {
     let o;
     return [
         {
-            ['offset']: 7820,
+            ['offset']: 7818,
             ['dst']: false,
             ['abbrev']: 'LMT',
-            ['until']: -2109291020,
+            ['until']: -1924999818,
             ['format']: 'LMT',
         },
         {

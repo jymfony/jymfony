@@ -225,13 +225,13 @@ export default (() => {
                 ['until']: 488986200,
                 ['ruleSet']: o[0],
                 ['offset']: 37800,
-                ['abbrev']: '+1030/+1130',
+                ['abbrev']: '%z',
             },
             {
                 ['until']: Infinity,
                 ['ruleSet']: o[0],
                 ['offset']: 37800,
-                ['abbrev']: '+1030/+11',
+                ['abbrev']: '%z',
             },
         ],
         [

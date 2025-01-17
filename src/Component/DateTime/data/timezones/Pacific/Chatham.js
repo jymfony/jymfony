@@ -138,15 +138,15 @@ export default (() => {
             {
                 ['offset']: 44100,
                 ['dst']: false,
-                ['abbrev']: '+1215',
+                ['abbrev']: '%z',
                 ['until']: -757426500,
-                ['format']: '+1215',
+                ['format']: '%z',
             },
             {
                 ['until']: Infinity,
                 ['ruleSet']: o[0],
                 ['offset']: 45900,
-                ['abbrev']: '+1245/+1345',
+                ['abbrev']: '%z',
             },
         ],
         [

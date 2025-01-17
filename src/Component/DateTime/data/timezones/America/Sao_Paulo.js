@@ -889,19 +889,19 @@ export default (() => {
                 ['until']: -195426000,
                 ['ruleSet']: o[0],
                 ['offset']: -10800,
-                ['abbrev']: '-03/-02',
+                ['abbrev']: '%z',
             },
             {
                 ['until']: -189378000,
                 ['ruleSet']: undefined,
                 ['offset']: -10800,
-                ['abbrev']: '-02',
+                ['abbrev']: '%z',
             },
             {
                 ['until']: Infinity,
                 ['ruleSet']: o[0],
                 ['offset']: -10800,
-                ['abbrev']: '-03/-02',
+                ['abbrev']: '%z',
             },
         ],
         [

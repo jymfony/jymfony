@@ -163,10 +163,10 @@ export default (() => {
                         ['2011']: [
                             o[16],
                         ],
-                        ['2023']: [
+                        ['2024']: [
                             o[16],
                         ],
-                        ['2024']: [
+                        ['2025']: [
                             o[16],
                         ],
                     },
@@ -525,54 +525,54 @@ export default (() => {
             {
                 ['offset']: 28800,
                 ['dst']: false,
-                ['abbrev']: '+08',
+                ['abbrev']: '%z',
                 ['until']: -1247558400,
-                ['format']: '+08',
+                ['format']: '%z',
             },
             {
                 ['until']: 354898800,
                 ['ruleSet']: o[0],
                 ['offset']: 32400,
-                ['abbrev']: '+09/+10',
+                ['abbrev']: '%z',
             },
             {
                 ['until']: 670345200,
                 ['ruleSet']: o[0],
                 ['offset']: 39600,
-                ['abbrev']: '+11/+12',
+                ['abbrev']: '%z',
             },
             {
                 ['until']: 695750400,
                 ['ruleSet']: o[0],
                 ['offset']: 36000,
-                ['abbrev']: '+10/+11',
+                ['abbrev']: '%z',
             },
             {
                 ['until']: 1301151600,
                 ['ruleSet']: o[0],
                 ['offset']: 39600,
-                ['abbrev']: '+11/+12',
+                ['abbrev']: '%z',
             },
             {
                 ['offset']: 43200,
                 ['dst']: false,
-                ['abbrev']: '+12',
+                ['abbrev']: '%z',
                 ['until']: 1315828800,
-                ['format']: '+12',
+                ['format']: '%z',
             },
             {
                 ['offset']: 39600,
                 ['dst']: false,
-                ['abbrev']: '+11',
+                ['abbrev']: '%z',
                 ['until']: 1414249200,
-                ['format']: '+11',
+                ['format']: '%z',
             },
             {
                 ['offset']: 36000,
                 ['dst']: false,
-                ['abbrev']: '+10',
+                ['abbrev']: '%z',
                 ['until']: Infinity,
-                ['format']: '+10',
+                ['format']: '%z',
             },
         ],
         [

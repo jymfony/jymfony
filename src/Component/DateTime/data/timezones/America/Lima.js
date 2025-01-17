@@ -156,7 +156,7 @@ export default (() => {
                 ['until']: Infinity,
                 ['ruleSet']: o[0],
                 ['offset']: -18000,
-                ['abbrev']: '-05/-04',
+                ['abbrev']: '%z',
             },
         ],
         [

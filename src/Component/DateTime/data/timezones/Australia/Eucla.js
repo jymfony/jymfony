@@ -274,13 +274,13 @@ export default (() => {
                 ['until']: -836469900,
                 ['ruleSet']: o[0],
                 ['offset']: 31500,
-                ['abbrev']: '+0845/+0945',
+                ['abbrev']: '%z',
             },
             {
                 ['until']: Infinity,
                 ['ruleSet']: o[8],
                 ['offset']: 31500,
-                ['abbrev']: '+0845/+0945',
+                ['abbrev']: '%z',
             },
         ],
         [

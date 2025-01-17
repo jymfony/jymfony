@@ -11,9 +11,9 @@ export default (() => {
         {
             ['offset']: 25200,
             ['dst']: false,
-            ['abbrev']: '+07',
+            ['abbrev']: '%z',
             ['until']: 760035600,
-            ['format']: '+07',
+            ['format']: '%z',
         },
         {
             ['offset']: 0,
@@ -25,16 +25,16 @@ export default (() => {
         {
             ['offset']: 25200,
             ['dst']: false,
-            ['abbrev']: '+07',
+            ['abbrev']: '%z',
             ['until']: 1702839600,
-            ['format']: '+07',
+            ['format']: '%z',
         },
         {
             ['offset']: 18000,
             ['dst']: false,
-            ['abbrev']: '+05',
+            ['abbrev']: '%z',
             ['until']: Infinity,
-            ['format']: '+05',
+            ['format']: '%z',
         },
     ];
 })();

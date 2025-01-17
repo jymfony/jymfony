@@ -44,7 +44,7 @@ export default class Application extends SingleCommandApplication {
         io.title('Tzdata updater');
 
         const http = HttpClient.create();
-        const response = http.request('GET', 'https://data.iana.org/time-zones/releases/tzdata2023d.tar.gz');
+        const response = http.request('GET', 'https://data.iana.org/time-zones/releases/tzdata2025a.tar.gz');
 
         io.text('Downloading tzdata archive...');
         const buf = await response.getContent();
