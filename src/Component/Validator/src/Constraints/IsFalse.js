@@ -4,6 +4,8 @@ const Constraint = Jymfony.Component.Validator.Constraint;
  * @memberOf Jymfony.Component.Validator.Constraints
  */
 export default class IsFalse extends Constraint {
+    message = 'This value should be false.';
+
     /**
      * @inheritdoc
      */
@@ -13,15 +15,6 @@ export default class IsFalse extends Constraint {
         }
 
         return Constraint.getErrorName(errorCode);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    __construct(options = null) {
-        this.message = 'This value should be false.';
-
-        return super.__construct(options);
     }
 }
 

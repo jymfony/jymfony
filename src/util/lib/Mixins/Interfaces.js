@@ -88,10 +88,13 @@ class Interfaces {
      */
     static _createHasInstance(mixin) {
         return o => {
+            let desc;
             if (null === o || undefined === o) {
                 return false;
             } else if (Object.prototype.hasOwnProperty.call(o, '__self__')) {
                 o = o.__self__;
+            } else if ((desc = Object.getOwnPropertyDescriptor(o, Symbol.for('jymfony.namespace.class')))) {
+                o = desc.value;
             }
 
             if (! isObject(o)) {

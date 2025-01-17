@@ -4,7 +4,7 @@ declare namespace Jymfony.Component.Security.Exception {
     /**
      * Represents an exception thrown on authentication processing.
      */
-    export class AuthenticationException extends RuntimeException {
+    export class AuthenticationException extends global.RuntimeException {
         /**
          * Gets/sets the authentication token for the current exception.
          */

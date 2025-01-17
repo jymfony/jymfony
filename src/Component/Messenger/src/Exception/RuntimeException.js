@@ -3,5 +3,5 @@ const ExceptionInterface = Jymfony.Component.Messenger.Exception.ExceptionInterf
 /**
  * @memberOf Jymfony.Component.Messenger.Exception
  */
-export default class RuntimeException extends mix(global.RuntimeException, ExceptionInterface) {
+export default class RuntimeException extends mix(globalThis.RuntimeException, ExceptionInterface) {
 }

@@ -245,7 +245,7 @@ export default class OutputFormatter extends implementationOf(OutputFormatterInt
             } else {
                 try {
                     style.setOption(match[2]);
-                } catch (e) {
+                } catch {
                     return false;
                 }
             }

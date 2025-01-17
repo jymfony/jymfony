@@ -192,7 +192,7 @@ export default class FileLoader extends BaseFileLoader {
 
             try {
                 accessSync(path, constants.R_OK);
-            } catch (e) {
+            } catch {
                 continue;
             }
 

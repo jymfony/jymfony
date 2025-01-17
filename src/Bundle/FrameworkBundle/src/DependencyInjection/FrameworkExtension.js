@@ -980,7 +980,7 @@ export default class FrameworkExtension extends Extension {
                 const s = statSync(path);
 
                 return s.isDirectory();
-            } catch (e) {
+            } catch {
                 return false;
             }
         };

@@ -1,4 +1,4 @@
-import { util } from 'chai' optional nocompile;
+import { util } from 'chai' with { optional: 'true' };
 
 if (!! util) {
     const getName = util.getName;

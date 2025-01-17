@@ -1,21 +1,20 @@
+import { sep } from 'path';
 const GlobResource = Jymfony.Component.Config.Resource.GlobResource;
-const path = require('path');
-const { expect } = require('chai');
+const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 
-describe('[Config] GlobResource', function () {
-    it('should iterate with pattern', () => {
-        const resolved = [ ...__dirname.split(path.sep).slice(0, -2), 'fixtures', 'Iterator' ].join(path.sep);
+export default class GlobResourceTest extends TestCase {
+    get testCaseName() {
+        return '[Config] ' + super.testCaseName;
+    }
+
+    testShouldIterateWithPattern() {
+        const resolved = [ ...__dirname.split(sep).slice(0, -2), 'fixtures', 'Iterator' ].join(sep);
         const itr = new GlobResource(resolved, '/**/*.txt', true);
-        const result = [];
 
-        for (const file of itr) {
-            result.push(file);
-        }
-
-        expect(result.sort()).to.be.deep.equal([
-            resolved+path.sep+'TESTFILE.txt',
-            resolved+path.sep+'Testdir'+path.sep+'Subdir'+path.sep+'another_dir'+path.sep+'test_file.txt',
-            resolved+path.sep+'Testdir'+path.sep+'bazbaz.txt',
-        ]);
-    });
-});
+        __self.assertEquals([
+            resolved+sep+'TESTFILE.txt',
+            resolved+sep+'Testdir'+sep+'Subdir'+sep+'another_dir'+sep+'test_file.txt',
+            resolved+sep+'Testdir'+sep+'bazbaz.txt',
+        ], [ ...itr ].sort());
+    }
+}

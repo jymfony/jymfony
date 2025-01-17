@@ -294,7 +294,7 @@ export default class Command extends implementationOf(CommandInterface) {
         try {
             this._application = application;
             this._fullDefinition = null;
-        } catch (e) {
+        } catch {
             // Do nothing...
         }
     }

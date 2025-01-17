@@ -71,7 +71,7 @@ export default class Cookie {
         } else if (! isNumber(expire)) {
             try {
                 expire = (new DateTime(expire)).timestamp;
-            } catch (e) {
+            } catch {
                 throw new InvalidArgumentException('The cookie expiration time is not valid.');
             }
         }

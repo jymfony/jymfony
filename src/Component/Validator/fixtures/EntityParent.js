@@ -3,7 +3,7 @@ const Constraints = Jymfony.Component.Validator.Constraints;
 const EntityInterfaceA = Jymfony.Component.Validator.Fixtures.EntityInterfaceA;
 
 export default class EntityParent extends implementationOf(EntityInterfaceA) {
-    firstName;
+    accessor firstName;
     #internal;
     #data = 'Data';
     #child;

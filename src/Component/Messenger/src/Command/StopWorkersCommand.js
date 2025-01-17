@@ -12,16 +12,18 @@ export default
 @AsCommand({ name: 'messenger:stop-workers', description: 'Stop workers after their current message' })
 class StopWorkersCommand extends Command {
     /**
+     * @type {Jymfony.Contracts.Cache.CacheItemPoolInterface}
+     *
+     * @private
+     */
+    _restartSignalCachePool;
+
+    /**
      * Constructor.
      *
      * @param {Jymfony.Contracts.Cache.CacheItemPoolInterface} restartSignalCachePool
      */
     __construct(restartSignalCachePool) {
-        /**
-         * @type {Jymfony.Contracts.Cache.CacheItemPoolInterface}
-         *
-         * @private
-         */
         this._restartSignalCachePool = restartSignalCachePool;
 
         super.__construct();

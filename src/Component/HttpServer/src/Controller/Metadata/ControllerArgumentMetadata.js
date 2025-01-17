@@ -7,37 +7,42 @@ const MetadataInterface = Jymfony.Contracts.Metadata.MetadataInterface;
  */
 export default class ControllerArgumentMetadata extends implementationOf(MetadataInterface) {
     /**
+     * @type {ReflectionParameter}
+     *
+     * @private
+     */
+    _reflectionParameter;
+
+    /**
+     * @type {*}
+     *
+     * @private
+     */
+    _type;
+
+    /**
+     * @type {boolean}
+     *
+     * @private
+     */
+    _hasDefaultValue;
+
+    /**
+     * @type {boolean}
+     *
+     * @private
+     */
+    _isRestElement;
+
+    /**
      * Constructor.
      *
      * @param {ReflectionParameter} reflectionParameter
      */
     __construct(reflectionParameter) {
-        /**
-         * @type {ReflectionParameter}
-         *
-         * @private
-         */
         this._reflectionParameter = reflectionParameter;
-
-        /**
-         * @type {*}
-         *
-         * @private
-         */
         this._type = ReflectionHelper.getParameterType(reflectionParameter);
-
-        /**
-         * @type {*}
-         *
-         * @private
-         */
-        this._defaultValue = reflectionParameter.defaultValue;
-
-        /**
-         * @type {boolean}
-         *
-         * @private
-         */
+        this._hasDefaultValue = reflectionParameter.hasDefaultValue;
         this._isRestElement = reflectionParameter.isRestElement;
     }
 
@@ -76,10 +81,10 @@ export default class ControllerArgumentMetadata extends implementationOf(Metadat
     /**
      * Gets the parameter default value (if any).
      *
-     * @returns {*}
+     * @returns {boolean}
      */
-    get defaultValue() {
-        return this._defaultValue;
+    get hasDefaultValue() {
+        return this._hasDefaultValue;
     }
 
     /**

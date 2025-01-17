@@ -22,7 +22,7 @@ export default class JsonValidator extends ConstraintValidator {
 
         try {
             JSON.parse(value);
-        } catch (e) {
+        } catch {
             this._context.buildViolation(constraint.message)
                 .setParameter('{{ value }}', this._formatValue(value))
                 .setCode(Json.INVALID_JSON_ERROR)

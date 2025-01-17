@@ -4,6 +4,8 @@ const Constraint = Jymfony.Component.Validator.Constraint;
  * @memberOf Jymfony.Component.Validator.Constraints
  */
 export default class Luhn extends Constraint {
+    message = 'Invalid card number.';
+
     /**
      * @inheritdoc
      */
@@ -14,15 +16,6 @@ export default class Luhn extends Constraint {
         }
 
         return Constraint.getErrorName(errorCode);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    __construct(options = null) {
-        this.message = 'Invalid card number.';
-
-        return super.__construct(options);
     }
 }
 

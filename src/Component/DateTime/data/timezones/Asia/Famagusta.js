@@ -274,9 +274,9 @@ export default (() => {
             {
                 ['offset']: 10800,
                 ['dst']: false,
-                ['abbrev']: '+03',
+                ['abbrev']: '%z',
                 ['until']: 1509238800,
-                ['format']: '+03',
+                ['format']: '%z',
             },
             {
                 ['until']: Infinity,

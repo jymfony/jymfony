@@ -5,5 +5,5 @@ const ExceptionInterface = Jymfony.Component.Validator.Exception.ExceptionInterf
  *
  * @memberOf Jymfony.Component.Validator.Exception
  */
-export default class RuntimeException extends mix(global.RuntimeException, ExceptionInterface) {
+export default class RuntimeException extends mix(globalThis.RuntimeException, ExceptionInterface) {
 }

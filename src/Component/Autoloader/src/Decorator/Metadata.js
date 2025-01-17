@@ -1,3 +1,5 @@
+const MetadataHelper = require('../Metadata/MetadataHelper');
+
 /**
  * @memberOf Jymfony.Component.Autoloader.Decorator
  */
@@ -8,12 +10,6 @@ export default function Metadata(key, value) {
             key = value.constructor;
         }
 
-        const parameterIndex = context.parameterIndex === undefined ? null : context.parameterIndex;
-
-        if ('field' === context.kind) {
-            throw new Error('Cannot set metadata on field, use "accessor" keyword instead.');
-        } else {
-            MetadataStorage.addMetadata(key, value, context.metadataKey, parameterIndex);
-        }
+        MetadataStorage.addMetadata(key, value, MetadataHelper.getMetadataTarget(context));
     };
 }

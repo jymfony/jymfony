@@ -9,14 +9,16 @@ const ReceivedStamp = Jymfony.Component.Messenger.Stamp.ReceivedStamp;
  */
 export default class HandlersLocator extends implementationOf(HandlersLocatorInterface) {
     /**
+     * @type {Jymfony.Component.Messenger.Handler.HandlerDescriptor[][]|(function(*): Promise<*>[][])}
+     *
+     * @private
+     */
+    _handlers;
+
+    /**
      * @param {Jymfony.Component.Messenger.Handler.HandlerDescriptor[][]|(function(*): Promise<*>[][])} handlers
      */
     __construct(handlers) {
-        /**
-         * @type {Jymfony.Component.Messenger.Handler.HandlerDescriptor[][]|(function(*): Promise<*>[][])}
-         *
-         * @private
-         */
         this._handlers = handlers;
     }
 

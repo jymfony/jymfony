@@ -6,18 +6,14 @@ const JsonFileLoader = Jymfony.Component.Validator.Mapping.Loader.JsonFileLoader
  * @memberOf Jymfony.Component.Validator.Mapping.Loader
  */
 export default class YamlFileLoader extends JsonFileLoader {
-    __construct(file) {
-        super.__construct(file);
-
-        /**
-         * The used YAML parser.
-         *
-         * @type {null|Jymfony.Component.Yaml.Parser}
-         *
-         * @private
-         */
-        this._yamlParser = null;
-    }
+    /**
+     * The used YAML parser.
+     *
+     * @type {null|Jymfony.Component.Yaml.Parser}
+     *
+     * @private
+     */
+    _yamlParser = null;
 
     /**
      * Loads the YAML class descriptions from the given file.

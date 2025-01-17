@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-
 const FooInterface = Jymfony.Component.DependencyInjection.Fixtures.Prototype.FooInterface;
 const Sub = Jymfony.Component.DependencyInjection.Fixtures.Prototype.Sub;
 

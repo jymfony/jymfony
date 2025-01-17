@@ -69,7 +69,7 @@ export default class DirectoryResource extends implementationOf(SelfCheckingReso
         let stat;
         try {
             stat = statSync(this._resource);
-        } catch (e) {
+        } catch {
             return false;
         }
 

@@ -1,8 +1,8 @@
 import { spawn } from 'child_process';
-import { watch } from 'chokidar' optional;
+import { watch } from 'chokidar' with { optional: 'true' };
 const NullLogger = Jymfony.Contracts.Logger.NullLogger;
 
-const IGNORED_PATHS = /(^\.idea\/|^\.git|^node_modules\/|^\.vscode\/|(^|\/).DS_Store\/)/
+const IGNORED_PATHS = /(^\.idea\/|^\.git|^node_modules\/|^\.vscode\/|(^|\/).DS_Store\/)/;
 
 /**
  * Development server.
@@ -116,7 +116,7 @@ export default class DevServer {
         }
 
         await this._watcher.close();
-        this._watcher.emit('close')
+        this._watcher.emit('close');
     }
 
     async _restart() {

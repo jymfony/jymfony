@@ -5,9 +5,9 @@ const ConstraintDefinitionException = Jymfony.Component.Validator.Exception.Cons
  * @memberOf Jymfony.Component.Validator.Constraints
  */
 export default class Traverse extends Constraint {
-    __construct(options = null) {
-        this.traverse = true;
+    traverse = true;
 
+    __construct(options = null) {
         if (isObjectLiteral(options) && undefined !== options.groups) {
             throw new ConstraintDefinitionException(__jymfony.sprintf('The option "groups" is not supported by the constraint "%s".', ReflectionClass.getClassName(this)));
         }

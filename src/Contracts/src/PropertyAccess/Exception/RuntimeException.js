@@ -1,4 +1,4 @@
-const BaseException = global.RuntimeException;
+const BaseException = globalThis.RuntimeException;
 
 /**
  * @memberOf Jymfony.Contracts.PropertyAccess.Exception

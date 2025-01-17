@@ -6,6 +6,12 @@
  */
 export default class LazyProperty {
     /**
+     * @type {Function}
+     * @private
+     */
+    _propertyValueCallback;
+
+    /**
      * Constructor.
      *
      * @param {Function} propertyValueCallback

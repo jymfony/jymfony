@@ -7,18 +7,14 @@ const FileLoader = Jymfony.Component.Validator.Mapping.Loader.FileLoader;
  * @memberOf Jymfony.Component.Validator.Mapping.Loader
  */
 export default class JsonFileLoader extends FileLoader {
-    __construct(file) {
-        super.__construct(file);
-
-        /**
-         * An array of Json class descriptions.
-         *
-         * @type {null|Object.<string, *>}
-         *
-         * @protected
-         */
-        this._classes = null;
-    }
+    /**
+     * An array of Json class descriptions.
+     *
+     * @type {null|Object.<string, *>}
+     *
+     * @protected
+     */
+    _classes = null;
 
     /**
      * @inheritdoc

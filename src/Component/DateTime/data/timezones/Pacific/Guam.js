@@ -214,9 +214,9 @@ export default (() => {
             {
                 ['offset']: 32400,
                 ['dst']: false,
-                ['abbrev']: '+09',
+                ['abbrev']: '%z',
                 ['until']: -802256400,
-                ['format']: '+09',
+                ['format']: '%z',
             },
             {
                 ['until']: 977493600,

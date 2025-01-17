@@ -216,7 +216,7 @@ export default class MessengerPass extends implementationOf(CompilerPassInterfac
         const method = (() => {
             try {
                 return handlerClass.getMethod(methodName);
-            } catch (e) {
+            } catch {
                 throw new RuntimeException(__jymfony.sprintf('Invalid handler service "%s": class "%s" must have a "%s()" method.', serviceId, handlerClass.name, methodName));
             }
         })();
@@ -247,7 +247,7 @@ export default class MessengerPass extends implementationOf(CompilerPassInterfac
                 if (container.hasAlias('messenger.failure_transports.default')) {
                     failureTransportsMap[globalReceiverName] = new Reference('messenger.failure_transports.default');
                 } else {
-                    failureTransportsMap[globalReceiverName] = new Reference('messenger.transport.'.globalReceiverName);
+                    failureTransportsMap[globalReceiverName] = new Reference('messenger.transport.' + globalReceiverName);
                 }
             }
         }
@@ -263,7 +263,7 @@ export default class MessengerPass extends implementationOf(CompilerPassInterfac
             for (const tag of tags) {
                 if (!!tag.alias) {
                     receiverMapping[tag.alias] = receiverMapping[id];
-                    if (tag.is_failure_transport || false) {
+                    if (tag.is_failure_transport ?? false) {
                         failureTransportsMap[tag.alias] = receiverMapping[id];
                     }
                 }

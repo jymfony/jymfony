@@ -40,7 +40,7 @@ export default class ChoiceValidator extends ConstraintValidator {
                     const reflClass = new ReflectionClass(this._context.object);
                     const method = reflClass.getMethod(constraint.callback);
                     choices = method.method;
-                } catch (e) {
+                } catch {
                     // Do nothing.
                 }
             }

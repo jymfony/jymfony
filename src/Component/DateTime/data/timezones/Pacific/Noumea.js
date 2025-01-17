@@ -89,7 +89,7 @@ export default (() => {
                 ['until']: Infinity,
                 ['ruleSet']: o[0],
                 ['offset']: 39600,
-                ['abbrev']: '+11/+12',
+                ['abbrev']: '%z',
             },
         ],
         [

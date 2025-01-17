@@ -4,6 +4,16 @@ const Constraint = Jymfony.Component.Validator.Constraint;
  * @memberOf Jymfony.Component.Validator.Constraints
  */
 export default class Choice extends Constraint {
+    choices;
+    callback;
+    multiple = false;
+    min;
+    max;
+    message = 'The value you selected is not a valid choice.';
+    multipleMessage = 'One or more of the given values is invalid.';
+    minMessage = 'You must select at least {{ limit }} choice.|You must select at least {{ limit }} choices.';
+    maxMessage = 'You must select at most {{ limit }} choice.|You must select at most {{ limit }} choices.';
+
     /**
      * @inheritdoc
      */
@@ -15,20 +25,6 @@ export default class Choice extends Constraint {
         }
 
         return Constraint.getErrorName(errorCode);
-    }
-
-    __construct(options = null) {
-        this.choices = undefined;
-        this.callback = undefined;
-        this.multiple = false;
-        this.min = undefined;
-        this.max = undefined;
-        this.message = 'The value you selected is not a valid choice.';
-        this.multipleMessage = 'One or more of the given values is invalid.';
-        this.minMessage = 'You must select at least {{ limit }} choice.|You must select at least {{ limit }} choices.';
-        this.maxMessage = 'You must select at most {{ limit }} choice.|You must select at most {{ limit }} choices.';
-
-        return super.__construct(options);
     }
 
     /**

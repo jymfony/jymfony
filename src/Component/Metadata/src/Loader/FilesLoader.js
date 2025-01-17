@@ -10,7 +10,7 @@ export default class FilesLoader extends ChainLoader {
     __construct(paths, loaderClass = null) {
         try {
             loaderClass = ReflectionClass.getClass(loaderClass);
-        } catch (e) {
+        } catch {
             loaderClass = null;
         }
 

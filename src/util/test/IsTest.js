@@ -15,7 +15,7 @@ export default class IsTest extends TestCase {
         __self.assertTrue(isFunction(new InvokableObject()));
 
         if (__jymfony.Platform.hasAsyncGeneratorFunctionSupport()) {
-            eval('__self.assertTrue(isFunction(async function* () {}))');
+            eval('TestCase.assertTrue(isFunction(async function* () {}))');
         }
 
         __self.assertFalse(isFunction('foobar'));

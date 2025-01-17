@@ -1,11 +1,18 @@
-const SecurityExtension = Jymfony.Bundle.SecurityBundle.DependencyInjection.SecurityExtension;
 const ContainerBuilder = Jymfony.Component.DependencyInjection.ContainerBuilder;
-const ParameterBag = Jymfony.Component.DependencyInjection.ParameterBag.ParameterBag;
 const JsDumper = Jymfony.Component.DependencyInjection.Dumper.JsDumper;
-const { expect } = require('chai');
+const ParameterBag = Jymfony.Component.DependencyInjection.ParameterBag.ParameterBag;
+const SecurityExtension = Jymfony.Bundle.SecurityBundle.DependencyInjection.SecurityExtension;
+const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 
-describe('[SecurityBundle] SecurityExtension', function () {
-    beforeEach(() => {
+export default class SecurityExtensionTest extends TestCase {
+    container;
+    extension;
+
+    get testCaseName() {
+        return '[SecurityBundle] ' + super.testCaseName;
+    }
+
+    beforeEach() {
         this.container = new ContainerBuilder(new ParameterBag({
             'kernel.debug': true,
             'kernel.root_dir': __dirname,
@@ -13,16 +20,15 @@ describe('[SecurityBundle] SecurityExtension', function () {
             'kernel.cache_dir': __dirname + '/cache',
         }));
         this.extension = new SecurityExtension();
-    });
+    }
 
-    afterEach(() => {
+    afterEach() {
         this.container.compile();
-
         const dumper = new JsDumper(this.container);
         dumper.dump();
-    });
+    }
 
-    it('should register console command', () => {
+    testShouldRegisterConsoleCommand() {
         this.extension.load([
             {
                 firewalls: {
@@ -31,6 +37,6 @@ describe('[SecurityBundle] SecurityExtension', function () {
             },
         ], this.container);
 
-        expect(this.container.hasDefinition('security.command.user_password_encoder')).to.be.true;
-    });
-});
+        __self.assertTrue(this.container.hasDefinition('security.command.user_password_encoder'));
+    }
+}

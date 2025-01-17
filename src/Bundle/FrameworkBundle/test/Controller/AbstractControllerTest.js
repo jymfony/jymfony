@@ -130,8 +130,8 @@ export default class AbstractControllerTest extends TestCase {
         __self.assertInstanceOf(BinaryFileResponse, response);
         __self.assertEquals(200, response.statusCode);
 
-        if (! __jymfony.Platform.isWindows() && response.headers.has('content-type')) {
-            __self.assertEquals('text/plain', response.headers.get('content-type'));
+        if ('linux' === process.platform && response.headers.has('content-type')) {
+            __self.assertEquals('application/javascript', response.headers.get('content-type'));
         }
 
         __self.assertStringContainsString(ResponseHeaderBag.DISPOSITION_ATTACHMENT, response.headers.get('content-disposition'));
@@ -171,8 +171,8 @@ export default class AbstractControllerTest extends TestCase {
         __self.assertInstanceOf(BinaryFileResponse, response);
         __self.assertEquals(200, response.statusCode);
 
-        if (! __jymfony.Platform.isWindows() && response.headers.has('content-type')) {
-            __self.assertEquals('text/plain', response.headers.get('content-type'));
+        if ('linux' === process.platform && response.headers.has('content-type')) {
+            __self.assertEquals('application/javascript', response.headers.get('content-type'));
         }
 
         __self.assertStringContainsString(ResponseHeaderBag.DISPOSITION_ATTACHMENT, response.headers.get('content-disposition'));

@@ -116,7 +116,7 @@ declare namespace Jymfony.Bundle.FrameworkBundle.Controller {
          *
          * @final
          */
-        protected createNotFoundException(message?: string, previous?: Error | null): Exception;
+        protected createNotFoundException(message?: string, previous?: Error | null): Error;
 
         /**
          * Returns an AccessDeniedException.
@@ -129,7 +129,7 @@ declare namespace Jymfony.Bundle.FrameworkBundle.Controller {
          *
          * @final
          */
-        protected createAccessDeniedException(message?: string, previous?: Error | null): Exception;
+        protected createAccessDeniedException(message?: string, previous?: Error | null): Error;
 
         /**
          * Get a user from the Security Token Storage.

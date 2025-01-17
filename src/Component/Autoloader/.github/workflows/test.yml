@@ -2,6 +2,25 @@ name: Tests
 on: [push, pull_request_target]
 
 jobs:
-    tests:
-        uses: jymfony/jymfony/.github/workflows/test-packages.yml@master
-        secrets: inherit
+    build:
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                node_version:
+                    - 16
+                    - 18
+                    - 20
+                    - 22
+
+        name: Node ${{ matrix.node_version }} - ${{ matrix.architecture }} on Linux
+
+        steps:
+            - uses: actions/checkout@v4
+            - name: Setup node
+              uses: actions/setup-node@v4
+              with:
+                  node-version: ${{ matrix.node_version }}
+                  architecture: ${{ matrix.architecture }}
+            - run: npm install
+            - run: rm -rf node_modules/@jymfony/autoloader
+            - run: npm test

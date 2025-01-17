@@ -302,7 +302,8 @@ declare class ReflectionParameter<Class extends object = any> extends implementa
     private constructor(reflectionMethod: ReflectionMethod,
                         name: string,
                         index: number,
-                        defaultValue?: any,
+                        hasDefaultValue?: boolean,
+                        scalarDefaultValue?: any,
                         objectPattern?: boolean,
                         arrayPattern?: boolean,
                         restElement?: boolean);
@@ -323,9 +324,14 @@ declare class ReflectionParameter<Class extends object = any> extends implementa
     readonly name: string;
 
     /**
-     * Gets the parameter default value.
+     * Whether the parameter has default value (does not imply that scalarDefaultValue is defined).
      */
-    readonly defaultValue: any;
+    readonly hasDefaultValue: any;
+
+    /**
+     * Gets the parameter default value (if scalar).
+     */
+    readonly scalarDefaultValue: any;
 
     /**
      * Whether this parameter is an object pattern.

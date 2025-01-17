@@ -163,10 +163,10 @@ export default (() => {
                         ['2011']: [
                             o[16],
                         ],
-                        ['2021']: [
+                        ['2024']: [
                             o[16],
                         ],
-                        ['2022']: [
+                        ['2025']: [
                             o[16],
                         ],
                     },
@@ -525,48 +525,48 @@ export default (() => {
             {
                 ['offset']: 10800,
                 ['dst']: false,
-                ['abbrev']: '+03',
+                ['abbrev']: '%z',
                 ['until']: -1247540400,
-                ['format']: '+03',
+                ['format']: '%z',
             },
             {
                 ['until']: 606866400,
                 ['ruleSet']: o[0],
                 ['offset']: 14400,
-                ['abbrev']: '+04/+05',
+                ['abbrev']: '%z',
             },
             {
                 ['until']: 670374000,
                 ['ruleSet']: o[0],
                 ['offset']: 10800,
-                ['abbrev']: '+03/+04',
+                ['abbrev']: 'MSK/MSD',
             },
             {
                 ['offset']: 14400,
                 ['dst']: false,
-                ['abbrev']: '+04',
+                ['abbrev']: '%z',
                 ['until']: 701820000,
-                ['format']: '+04',
+                ['format']: '%z',
             },
             {
                 ['until']: 1301180400,
                 ['ruleSet']: o[0],
                 ['offset']: 10800,
-                ['abbrev']: '+03/+04',
+                ['abbrev']: 'MSK/MSD',
             },
             {
                 ['offset']: 14400,
                 ['dst']: false,
-                ['abbrev']: '+04',
+                ['abbrev']: 'MSK',
                 ['until']: 1414274400,
-                ['format']: '+04',
+                ['format']: 'MSK',
             },
             {
                 ['offset']: 10800,
                 ['dst']: false,
-                ['abbrev']: '+03',
+                ['abbrev']: 'MSK',
                 ['until']: Infinity,
-                ['format']: '+03',
+                ['format']: 'MSK',
             },
         ],
         [

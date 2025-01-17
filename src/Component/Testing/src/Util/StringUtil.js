@@ -64,7 +64,7 @@ export default class StringUtil {
             }
 
             return reflection.name || 'Object';
-        } catch (e) {
+        } catch {
             return value.toString();
         }
     }

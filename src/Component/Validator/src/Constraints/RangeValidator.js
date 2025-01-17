@@ -75,7 +75,7 @@ export default class RangeValidator extends ConstraintValidator {
                 try {
                     min = getValue(min);
                 } catch (e) {
-                    throw new ConstraintDefinitionException(__jymfony.sprintf('The min value "%s" could not be converted to a DateTime instance in the "%s" constraint.', min, __jymfony.get_debug_type(constraint)));
+                    throw new ConstraintDefinitionException(__jymfony.sprintf('The min value "%s" could not be converted to a DateTime instance in the "%s" constraint.', min, __jymfony.get_debug_type(constraint)), null, e);
                 }
             }
 
@@ -83,7 +83,7 @@ export default class RangeValidator extends ConstraintValidator {
                 try {
                     max = getValue(max);
                 } catch (e) {
-                    throw new ConstraintDefinitionException(__jymfony.sprintf('The max value "%s" could not be converted to a DateTime instance in the "%s" constraint.', max, __jymfony.get_debug_type(constraint)));
+                    throw new ConstraintDefinitionException(__jymfony.sprintf('The max value "%s" could not be converted to a DateTime instance in the "%s" constraint.', max, __jymfony.get_debug_type(constraint)), null, e);
                 }
             }
         }

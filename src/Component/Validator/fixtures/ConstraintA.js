@@ -1,11 +1,8 @@
 const Constraint = Jymfony.Component.Validator.Constraint;
 
 export default class ConstraintA extends Constraint {
-    __construct(options = null) {
-        this.property1 = undefined;
-        this.property2 = undefined;
-        return super.__construct(options);
-    }
+    property1;
+    property2;
 
     get defaultOption() {
         return 'property2';

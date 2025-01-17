@@ -85,15 +85,15 @@ export default (() => {
             {
                 ['offset']: -37800,
                 ['dst']: false,
-                ['abbrev']: '-1030',
+                ['abbrev']: '%z',
                 ['until']: 279714600,
-                ['format']: '-1030',
+                ['format']: '%z',
             },
             {
                 ['until']: Infinity,
                 ['ruleSet']: o[0],
                 ['offset']: -36000,
-                ['abbrev']: '-10/-0930',
+                ['abbrev']: '%z',
             },
         ],
         [

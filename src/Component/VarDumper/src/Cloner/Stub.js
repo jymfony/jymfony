@@ -5,51 +5,46 @@
  */
 export default class Stub {
     /**
-     * Constructor.
+     * Variable type.
+     *
+     * @type {int}
      */
-    __construct() {
-        /**
-         * Variable type.
-         *
-         * @type {int}
-         */
-        this.type = __self.TYPE_REF;
+    type = __self.TYPE_REF;
 
-        /**
-         * The object class.
-         *
-         * @type {string}
-         */
-        this.class_ = '';
+    /**
+     * The object class.
+     *
+     * @type {string}
+     */
+    class_ = '';
 
-        /**
-         * The real value.
-         *
-         * @type {*}
-         */
-        this.value = undefined;
+    /**
+     * The real value.
+     *
+     * @type {*}
+     */
+    value;
 
-        /**
-         * Object id (handle).
-         *
-         * @type {int}
-         */
-        this.handle = undefined;
+    /**
+     * Object id (handle).
+     *
+     * @type {int}
+     */
+    handle;
 
-        /**
-         * Ref counter.
-         *
-         * @type {number}
-         */
-        this.refCount = 0;
+    /**
+     * Ref counter.
+     *
+     * @type {number}
+     */
+    refCount = 0;
 
-        /**
-         * Attributes.
-         *
-         * @type {*}
-         */
-        this.attr = {};
-    }
+    /**
+     * Attributes.
+     *
+     * @type {*}
+     */
+    attr = {};
 }
 
 Stub.TYPE_REF = 1;

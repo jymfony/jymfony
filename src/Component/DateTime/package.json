@@ -29,10 +29,11 @@
   "devDependencies": {
     "@jymfony/console": "*",
     "@jymfony/debug": "*",
+    "@jymfony/http-client": "*",
     "@jymfony/filesystem": "*",
+    "@jymfony/runtime": "*",
     "@jymfony/testing": "*",
-    "chai": "^4.2",
-    "eslint": "^6.8.0",
+    "eslint": "^8.40.0",
     "mocha": "^10.2"
   },
   "config": {

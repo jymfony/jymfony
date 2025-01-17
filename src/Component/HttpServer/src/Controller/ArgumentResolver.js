@@ -14,26 +14,29 @@ const ArgumentMetadataFactory = Jymfony.Component.HttpServer.Controller.Metadata
  */
 export default class ArgumentResolver extends implementationOf(ArgumentResolverInterface) {
     /**
+     * @type {Jymfony.Contracts.Metadata.MetadataFactoryInterface<Jymfony.Component.HttpServer.Controller.Metadata.ControllerMetadata>}
+     *
+     * @private
+     */
+    _argumentMetadataFactory;
+
+    /**
+     * @type {Jymfony.Component.HttpServer.Controller.ArgumentValueResolverInterface[]}
+     *
+     * @private
+     */
+    _argumentValueResolvers;
+
+    /**
      * Constructor.
      *
      * @param {Jymfony.Contracts.Metadata.MetadataFactoryInterface<Jymfony.Component.HttpServer.Controller.Metadata.ControllerMetadata>} argumentMetadataFactory
      * @param {Jymfony.Component.HttpServer.Controller.ArgumentValueResolverInterface[]} [argumentValueResolvers = []]
      */
     __construct(argumentMetadataFactory = null, argumentValueResolvers = []) {
-        /**
-         * @type {Jymfony.Contracts.Metadata.MetadataFactoryInterface<Jymfony.Component.HttpServer.Controller.Metadata.ControllerMetadata>}
-         *
-         * @private
-         */
         this._argumentMetadataFactory = argumentMetadataFactory || new ArgumentMetadataFactory();
 
         argumentValueResolvers = [ ...argumentValueResolvers ];
-
-        /**
-         * @type {Jymfony.Component.HttpServer.Controller.ArgumentValueResolverInterface[]}
-         *
-         * @private
-         */
         this._argumentValueResolvers = 0 < argumentValueResolvers.length ? argumentValueResolvers : __self.getDefaultArgumentValueResolvers();
     }
 

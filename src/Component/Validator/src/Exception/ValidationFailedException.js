@@ -5,24 +5,27 @@ const RuntimeException = Jymfony.Component.Validator.Exception.RuntimeException;
  */
 export default class ValidationFailedException extends RuntimeException {
     /**
+     * @type {Jymfony.Component.Validator.ConstraintViolationListInterface}
+     *
+     * @private
+     */
+    _violations;
+
+    /**
+     * @type {*}
+     *
+     * @private
+     */
+    _value;
+
+    /**
      * Constructor.
      *
      * @param {*} value
      * @param {Jymfony.Component.Validator.ConstraintViolationListInterface} violations
      */
     __construct(value, violations) {
-        /**
-         * @type {Jymfony.Component.Validator.ConstraintViolationListInterface}
-         *
-         * @private
-         */
         this._violations = violations;
-
-        /**
-         * @type {*}
-         *
-         * @private
-         */
         this._value = value;
 
         super.__construct(violations);

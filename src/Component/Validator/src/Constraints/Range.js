@@ -6,6 +6,15 @@ const MissingOptionsException = Jymfony.Component.Validator.Exception.MissingOpt
  * @memberOf Jymfony.Component.Validator.Constraints
  */
 export default class Range extends Constraint {
+    notInRangeMessage = 'This value should be between {{ min }} and {{ max }}.';
+    minMessage = 'This value should be {{ limit }} or more.';
+    maxMessage = 'This value should be {{ limit }} or less.';
+    invalidMessage = 'This value should be a valid number.';
+    min;
+    minPropertyPath;
+    max;
+    maxPropertyPath;
+
     /**
      * @inheritdoc
      */
@@ -24,15 +33,6 @@ export default class Range extends Constraint {
      * @inheritdoc
      */
     __construct(options = null) {
-        this.notInRangeMessage = 'This value should be between {{ min }} and {{ max }}.';
-        this.minMessage = 'This value should be {{ limit }} or more.';
-        this.maxMessage = 'This value should be {{ limit }} or less.';
-        this.invalidMessage = 'This value should be a valid number.';
-        this.min = undefined;
-        this.minPropertyPath = undefined;
-        this.max = undefined;
-        this.maxPropertyPath = undefined;
-
         if (isObjectLiteral(options)) {
             if (undefined !== options.min && undefined !== options.minPropertyPath) {
                 throw new ConstraintDefinitionException(__jymfony.sprintf('The "%s" constraint requires only one of the "min" or "minPropertyPath" options to be set, not both.', ReflectionClass.getClassName(this)));

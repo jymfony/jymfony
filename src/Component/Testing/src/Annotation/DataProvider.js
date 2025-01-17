@@ -7,6 +7,13 @@ export default
 @Annotation(Annotation.ANNOTATION_TARGET_METHOD)
 class DataProvider {
     /**
+     * @type {string}
+     *
+     * @private
+     */
+    _provider;
+
+    /**
      * Constructor.
      *
      * @param {string} provider

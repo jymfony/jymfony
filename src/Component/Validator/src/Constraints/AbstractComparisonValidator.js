@@ -13,6 +13,13 @@ const UnexpectedTypeException = Jymfony.Component.Validator.Exception.Unexpected
  */
 export default class AbstractComparisonValidator extends ConstraintValidator {
     /**
+     * @type {Jymfony.Contracts.PropertyAccess.PropertyAccessorInterface}
+     *
+     * @private
+     */
+    _propertyAccessor;
+
+    /**
      * Constructor.
      *
      * @param {Jymfony.Contracts.PropertyAccess.PropertyAccessorInterface} propertyAccessor
@@ -20,11 +27,6 @@ export default class AbstractComparisonValidator extends ConstraintValidator {
     __construct(propertyAccessor = null) {
         super.__construct();
 
-        /**
-         * @type {Jymfony.Contracts.PropertyAccess.PropertyAccessorInterface}
-         *
-         * @private
-         */
         this._propertyAccessor = propertyAccessor;
     }
 
@@ -70,7 +72,7 @@ export default class AbstractComparisonValidator extends ConstraintValidator {
 
             try {
                 comparedValue = new DateTime(comparedValue).microtime;
-            } catch (e) {
+            } catch {
                 throw new ConstraintDefinitionException(__jymfony.sprintf('The compared value "%s" could not be converted to a "%s" instance in the "%s" constraint.', comparedValue, dateTimeClass, __jymfony.get_debug_type(constraint)));
             }
         }

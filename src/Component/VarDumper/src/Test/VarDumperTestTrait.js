@@ -6,15 +6,13 @@ const VarCloner = Jymfony.Component.VarDumper.Cloner.VarCloner;
  * @memberOf Jymfony.Component.VarDumper.Test
  */
 class VarDumperTestTrait {
-    __construct() {
-        /**
-         * @internal
-         */
-        this._varDumperConfig = {
-            casters: [],
-            flags: null,
-        };
-    }
+    /**
+     * @internal
+     */
+    _varDumperConfig = {
+        casters: [],
+        flags: null,
+    };
 
     _setUpVarDumper(casters, flags = null) {
         this._varDumperConfig.casters = casters;

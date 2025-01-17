@@ -11,16 +11,16 @@ export default (() => {
         {
             ['offset']: 14400,
             ['dst']: false,
-            ['abbrev']: '+04',
+            ['abbrev']: '%z',
             ['until']: -788932800,
-            ['format']: '+04',
+            ['format']: '%z',
         },
         {
             ['offset']: 16200,
             ['dst']: false,
-            ['abbrev']: '+0430',
+            ['abbrev']: '%z',
             ['until']: Infinity,
-            ['format']: '+0430',
+            ['format']: '%z',
         },
     ];
 })();

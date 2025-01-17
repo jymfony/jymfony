@@ -8,24 +8,27 @@ const ArgumentValueResolverInterface = Jymfony.Component.HttpServer.Controller.A
  */
 export default class TraceableValueResolver extends implementationOf(ArgumentValueResolverInterface) {
     /**
+     * @type {Jymfony.Component.HttpServer.Controller.ArgumentValueResolverInterface}
+     *
+     * @private
+     */
+    _inner;
+
+    /**
+     * @type {Jymfony.Contracts.Stopwatch.StopwatchInterface}
+     *
+     * @private
+     */
+    _stopwatch;
+
+    /**
      * Constructor.
      *
      * @param {Jymfony.Component.HttpServer.Controller.ArgumentValueResolverInterface} inner
      * @param {Jymfony.Contracts.Stopwatch.StopwatchInterface} stopwatch
      */
     __construct(inner, stopwatch) {
-        /**
-         * @type {Jymfony.Component.HttpServer.Controller.ArgumentValueResolverInterface}
-         *
-         * @private
-         */
         this._inner = inner;
-
-        /**
-         * @type {Jymfony.Contracts.Stopwatch.StopwatchInterface}
-         *
-         * @private
-         */
         this._stopwatch = stopwatch;
     }
 

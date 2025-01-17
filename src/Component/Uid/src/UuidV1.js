@@ -16,7 +16,7 @@ export default class UuidV1 extends Uuid {
     }
 
     getTime() {
-        const time = '0' + this._uid.substr(15, 3) + this._uid.substr(9, 4) + this._uid.substr(0, 8);
+        const time = '0' + this._uid.substring(15, 18) + this._uid.substring(9, 13) + this._uid.substring(0, 8);
 
         return BinaryUtil.timeToFloat(time);
     }

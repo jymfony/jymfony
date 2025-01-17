@@ -20,16 +20,11 @@ const DEFAULT_NAMESPACE = 'Jymfony.Component.Validator.Constraints.';
  */
 export default class AbstractLoader extends implementationOf(LoaderInterface) {
     /**
-     * Constructor.
+     * @type {Object.<string, string>}
+     *
+     * @protected
      */
-    __construct() {
-        /**
-         * @type {Object.<string, string>}
-         *
-         * @protected
-         */
-        this._namespaces = {};
-    }
+    _namespaces = {};
 
     /**
      * Adds a namespace alias.

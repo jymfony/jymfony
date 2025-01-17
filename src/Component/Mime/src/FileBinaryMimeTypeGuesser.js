@@ -43,7 +43,7 @@ export default class FileBinaryMimeTypeGuesser extends implementationOf(MimeType
 
         try {
             return supported = '' !== __jymfony.trim(childProcess.execSync('command -v file', { shell: true }).toString());
-        } catch (e) {
+        } catch {
             return supported = false;
         }
     }
@@ -55,7 +55,7 @@ export default class FileBinaryMimeTypeGuesser extends implementationOf(MimeType
         try {
             await access(path, fs.constants.R_OK);
         } catch (e) {
-            throw new InvalidArgumentException(__jymfony.sprintf('The file "%s" does not exist or is not readable', path));
+            throw new InvalidArgumentException(__jymfony.sprintf('The file "%s" does not exist or is not readable', path), null, e);
         }
 
         if (! this.isGuesserSupported()) {

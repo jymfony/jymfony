@@ -11,30 +11,30 @@ export default (() => {
         {
             ['offset']: -14400,
             ['dst']: false,
-            ['abbrev']: '-04',
+            ['abbrev']: '%z',
             ['until']: -1730577600,
-            ['format']: '-04',
+            ['format']: '%z',
         },
         {
             ['offset']: -13500,
             ['dst']: false,
-            ['abbrev']: '-0345',
+            ['abbrev']: '%z',
             ['until']: 176096700,
-            ['format']: '-0345',
+            ['format']: '%z',
         },
         {
             ['offset']: -10800,
             ['dst']: false,
-            ['abbrev']: '-03',
+            ['abbrev']: '%z',
             ['until']: 701841600,
-            ['format']: '-03',
+            ['format']: '%z',
         },
         {
             ['offset']: -14400,
             ['dst']: false,
-            ['abbrev']: '-04',
+            ['abbrev']: '%z',
             ['until']: Infinity,
-            ['format']: '-04',
+            ['format']: '%z',
         },
     ];
 })();

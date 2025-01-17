@@ -41,17 +41,17 @@ export default class Uuid extends AbstractUid {
 
             uuid = __jymfony.sprintf(
                 '%s-%s-%s-%s-%s',
-                uuid.substr(0, 8),
-                uuid.substr(8, 4),
-                uuid.substr(12, 4),
-                uuid.substr(16, 4),
-                uuid.substr(20),
+                uuid.substring(0, 8),
+                uuid.substring(8, 12),
+                uuid.substring(12, 16),
+                uuid.substring(16, 20),
+                uuid.substring(20),
             );
         } else if (26 === uuid.length && Ulid.isValid(uuid)) {
             uuid = (new Ulid(uuid)).toRfc4122();
         }
 
-        if (__self !== this || 36 !== uuid.length) {
+        if (__self !== new ReflectionClass(this).getConstructor() || 36 !== uuid.length) {
             return new this(uuid);
         }
 
@@ -100,7 +100,7 @@ export default class Uuid extends AbstractUid {
     }
 
     static isValid(uuid) {
-        if (__self === this) {
+        if (__self === new ReflectionClass(this).getConstructor()) {
             return uuid_is_valid(uuid);
         }
 
@@ -139,12 +139,12 @@ export default class Uuid extends AbstractUid {
 
         return __jymfony.sprintf(
             '%s-%s-%u%s-%s-%s',
-            uuid.substr(0, 8),
-            uuid.substr(8, 4),
+            uuid.substring(0, 8),
+            uuid.substring(8, 12),
             version,
-            uuid.substr(13, 3),
-            uuid.substr(16, 4),
-            uuid.substr(20)
+            uuid.substring(13, 16),
+            uuid.substring(16, 20),
+            uuid.substring(20)
         );
     }
 }

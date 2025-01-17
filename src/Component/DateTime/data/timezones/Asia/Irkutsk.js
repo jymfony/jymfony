@@ -163,10 +163,10 @@ export default (() => {
                         ['2011']: [
                             o[16],
                         ],
-                        ['2021']: [
+                        ['2024']: [
                             o[16],
                         ],
-                        ['2022']: [
+                        ['2025']: [
                             o[16],
                         ],
                     },
@@ -532,41 +532,41 @@ export default (() => {
             {
                 ['offset']: 25200,
                 ['dst']: false,
-                ['abbrev']: '+07',
+                ['abbrev']: '%z',
                 ['until']: -1247554800,
-                ['format']: '+07',
+                ['format']: '%z',
             },
             {
                 ['until']: 670356000,
                 ['ruleSet']: o[0],
                 ['offset']: 28800,
-                ['abbrev']: '+08/+09',
+                ['abbrev']: '%z',
             },
             {
                 ['until']: 695761200,
                 ['ruleSet']: o[0],
                 ['offset']: 25200,
-                ['abbrev']: '+07/+08',
+                ['abbrev']: '%z',
             },
             {
                 ['until']: 1301162400,
                 ['ruleSet']: o[0],
                 ['offset']: 28800,
-                ['abbrev']: '+08/+09',
+                ['abbrev']: '%z',
             },
             {
                 ['offset']: 32400,
                 ['dst']: false,
-                ['abbrev']: '+09',
+                ['abbrev']: '%z',
                 ['until']: 1414256400,
-                ['format']: '+09',
+                ['format']: '%z',
             },
             {
                 ['offset']: 28800,
                 ['dst']: false,
-                ['abbrev']: '+08',
+                ['abbrev']: '%z',
                 ['until']: Infinity,
-                ['format']: '+08',
+                ['format']: '%z',
             },
         ],
         [

@@ -495,13 +495,13 @@ export default (() => {
                 ['until']: 384919200,
                 ['ruleSet']: o[0],
                 ['offset']: -25200,
-                ['abbrev']: '-07/-06',
+                ['abbrev']: '%z',
             },
             {
                 ['until']: Infinity,
                 ['ruleSet']: o[0],
                 ['offset']: -21600,
-                ['abbrev']: '-06/-05',
+                ['abbrev']: '%z',
             },
         ],
         [

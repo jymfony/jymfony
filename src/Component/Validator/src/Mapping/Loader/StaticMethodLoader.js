@@ -8,16 +8,17 @@ const MappingException = Jymfony.Component.Validator.Exception.MappingException;
  */
 export default class StaticMethodLoader extends implementationOf(LoaderInterface) {
     /**
+     * @type {string}
+     *
+     * @protected
+     */
+    _methodName;
+    /**
      * Creates a new loader.
      *
      * @param {string} methodName The name of the static method to call
      */
     __construct(methodName = 'loadValidatorMetadata') {
-        /**
-         * @type {string}
-         *
-         * @protected
-         */
         this._methodName = methodName;
     }
 

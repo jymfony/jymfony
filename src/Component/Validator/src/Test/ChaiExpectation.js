@@ -1,4 +1,4 @@
-import { Assertion, util } from 'chai' optional nocompile;
+import { Assertion, util } from 'chai' with { optional: 'true' };
 
 if (!! util) {
     const Argument = Jymfony.Component.Testing.Argument.Argument;

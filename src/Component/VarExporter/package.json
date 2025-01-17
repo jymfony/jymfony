@@ -24,7 +24,6 @@
   "devDependencies": {
     "@jymfony/debug": "*",
     "@jymfony/testing": "*",
-    "chai": "^4.2",
     "mocha": "^10.2"
   },
   "config": {

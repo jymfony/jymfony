@@ -51,7 +51,7 @@ export default class FileValidator extends ConstraintValidator {
         try {
             await access(path, constants.R_OK);
             readable = true;
-        } catch (e) {
+        } catch {
             // Do nothing
         }
         if (! readable) {

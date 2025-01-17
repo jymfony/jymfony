@@ -1,4 +1,5 @@
 import { accessSync, constants, readFileSync, statSync } from 'fs';
+import { trampoline } from '@jymfony/autoloader';
 
 const FormatException = Jymfony.Component.Dotenv.Exception.FormatException;
 const FormatExceptionContext = Jymfony.Component.Dotenv.Exception.FormatExceptionContext;
@@ -7,7 +8,7 @@ const PathException = Jymfony.Component.Dotenv.Exception.PathException;
 const isFile = path => {
     try {
         statSync(path);
-    } catch (e) {
+    } catch {
         return false;
     }
 
@@ -21,72 +22,75 @@ const isFile = path => {
  */
 export default class Dotenv {
     /**
+     * @type {string}
+     *
+     * @private
+     */
+    _path;
+
+    /**
+     * @type {int}
+     *
+     * @private
+     */
+    _cursor;
+
+    /**
+     * @type {int}
+     *
+     * @private
+     */
+    _lineno;
+
+    /**
+     * @type {string}
+     *
+     * @private
+     */
+    _data;
+
+    /**
+     * @type {int}
+     *
+     * @private
+     */
+    _end;
+
+    /**
+     * @type {Object.<string, string>}
+     *
+     * @private
+     */
+    _values;
+
+    /**
+     * @type {string}
+     *
+     * @private
+     */
+    _envKey;
+
+    /**
+     * @type {string}
+     *
+     * @private
+     */
+    _debugKey;
+
+    /**
+     * @type {string[]}
+     *
+     * @private
+     */
+    _prodEnvs = [ 'prod' ];
+
+    /**
      * @param {string} envKey
      * @param {string} debugKey
      */
-    __construct(envKey = 'APP_ENV', debugKey = 'APP_DEBUG') {
-        /**
-         * @type {string}
-         *
-         * @private
-         */
-        this._path = undefined;
-
-        /**
-         * @type {int}
-         *
-         * @private
-         */
-        this._cursor = undefined;
-
-        /**
-         * @type {int}
-         *
-         * @private
-         */
-        this._lineno = undefined;
-
-        /**
-         * @type {string}
-         *
-         * @private
-         */
-        this._data = undefined;
-
-        /**
-         * @type {int}
-         *
-         * @private
-         */
-        this._end = undefined;
-
-        /**
-         * @type {Object.<string, string>}
-         *
-         * @private
-         */
-        this._values = undefined;
-
-        /**
-         * @type {string}
-         *
-         * @private
-         */
+    constructor(envKey = 'APP_ENV', debugKey = 'APP_DEBUG') {
         this._envKey = envKey;
-
-        /**
-         * @type {string}
-         *
-         * @private
-         */
         this._debugKey = debugKey;
-
-        /**
-         * @type {string[]}
-         *
-         * @private
-         */
-        this._prodEnvs = [ 'prod' ];
     }
 
     /**
@@ -122,20 +126,21 @@ export default class Dotenv {
      * .env.dist is loaded when it exists and .env is not found.
      *
      * @param {string} path A file to load
-     * @param {string|null} envKey The name of the env vars that defines the app env
-     * @param {string} defaultEnv The app env to use when none is defined
-     * @param {string[]} testEnvs A list of app envs for which .env.local should be ignored
+     * @param {string|null} [envKey = null] The name of the env vars that defines the app env
+     * @param {string} [defaultEnv = 'dev'] The app env to use when none is defined
+     * @param {string[]} [testEnvs = ['test']] A list of app envs for which .env.local should be ignored
+     * @param {boolean} [overrideExistingVars = false] Whether to overwrite existing env variables or not
      *
      * @throws {Jymfony.Component.Dotenv.Exception.FormatException} when a file has a syntax error
      * @throws {Jymfony.Component.Dotenv.Exception.PathException} when a file does not exist or is not readable
      */
-    loadEnv(path, envKey = null, defaultEnv = 'dev', testEnvs = [ 'test' ]) {
+    loadEnv(path, envKey = null, defaultEnv = 'dev', testEnvs = [ 'test' ], overrideExistingVars = false) {
         const k = envKey || this._envKey;
         let p = path + '.dist';
         if (isFile(path) || ! isFile(p)) {
-            this.load(path);
+            this._doLoad(overrideExistingVars, path);
         } else {
-            this.load(p);
+            this._doLoad(overrideExistingVars, p);
         }
 
         let env = process.env[k] || undefined;
@@ -144,7 +149,7 @@ export default class Dotenv {
         }
 
         if (! testEnvs.includes(env) && isFile(p = path + '.local')) {
-            this.load(p);
+            this._doLoad(overrideExistingVars, p);
             env = process.env[k] || env;
         }
 
@@ -153,11 +158,11 @@ export default class Dotenv {
         }
 
         if (isFile(p = path + '.' + env)) {
-            this.load(p);
+            this._doLoad(overrideExistingVars, p);
         }
 
         if (isFile(p = path + '.' + env + '.local')) {
-            this.load(p);
+            this._doLoad(overrideExistingVars, p);
         }
     }
 
@@ -169,18 +174,19 @@ export default class Dotenv {
      * See method loadEnv() for rules related to .env files.
      *
      * @param {string} path
-     * @param {string} defaultEnv
-     * @param {string[]} testEnvs
+     * @param {string} [defaultEnv = 'dev'] The app env to use when none is defined
+     * @param {string[]} [testEnvs = ['test']] A list of app envs for which .env.local should be ignored
+     * @param {boolean} [overrideExistingVars = false] Whether to overwrite existing env variables or not
      */
-    bootEnv(path, defaultEnv = 'dev', testEnvs = [ 'test' ]) {
+    bootEnv(path, defaultEnv = 'dev', testEnvs = [ 'test' ], overrideExistingVars = false) {
         const p = path + '.local.js';
-        const env = isFile(p) ? __jymfony.autoload.classLoader.loadClass(p) : undefined;
-        let k = this._envKey;
+        const env = isFile(p) ? trampoline(p)['default'] : undefined;
 
-        if (isObjectLiteral(env) && (undefined === env[k] || (process.env[k] || env[k]) === env[k])) {
-            this.populate(env);
+        let k = this._envKey;
+        if (isObjectLiteral(env) && (overrideExistingVars || undefined === env[k] || (process.env[k] || env[k]) === env[k])) {
+            this.populate(env, overrideExistingVars);
         } else {
-            this.loadEnv(path, k, defaultEnv, testEnvs);
+            this.loadEnv(path, k, defaultEnv, testEnvs, overrideExistingVars);
         }
 
         k = this._debugKey;
@@ -205,7 +211,7 @@ export default class Dotenv {
      * Sets values as environment variables.
      *
      * @param {Object.<string, string>} values An array of env variables
-     * @param {boolean} overrideExistingVars true when existing environment variables must be overridden
+     * @param {boolean} [overrideExistingVars = true] true when existing environment variables must be overridden
      */
     populate(values, overrideExistingVars = false) {
         let updateLoadedVars = false;
@@ -519,11 +525,11 @@ export default class Dotenv {
             return value;
         }
 
-        const regex = /(?<!\\)(?<backslashes>\\*)\$(?!\()(?<opening_brace>{)?(?<name>(?:[a-zA-Z][a-zA-Z0-9_]*))?(?<default_value>:[-=][^}]+)?(?<closing_brace>})?/g;
+        const regex = /(?<!\\)(?<backslashes>\\*)\$(?!\()(?<opening_brace>{)?(?<name>[a-zA-Z][a-zA-Z0-9_]*)?(?<default_value>:[-=][^}]+)?(?<closing_brace>})?/g;
         return value.replace(regex, (match, backslashes, opening_brace, name, default_value, closing_brace) => {
             // Odd number of backslashes means the $ character is escaped
             if (1 === backslashes.length % 2) {
-                return match.substr(1);
+                return match.substring(1);
             }
 
             // Unescaped $ not followed by variable name
@@ -550,7 +556,7 @@ export default class Dotenv {
                     throw this._createFormatException(__jymfony.sprintf('Unsupported character "%s" found in the default value of variable "$%s".', unsupportedChars[0], name));
                 }
 
-                value = default_value.substr(2);
+                value = default_value.substring(2);
 
                 if ('=' === default_value[1]) {
                     this._values[name] = value;
@@ -596,7 +602,7 @@ export default class Dotenv {
         const isReadable = path => {
             try {
                 accessSync(path, constants.R_OK);
-            } catch (e) {
+            } catch {
                 return false;
             }
 
@@ -604,7 +610,7 @@ export default class Dotenv {
             return ! stat.isDirectory();
         };
 
-        for (const path of paths) {
+        for (const path of isArray(paths) ? paths : [ paths ]) {
             if (! isReadable(path)) {
                 throw new PathException(path);
             }

@@ -11,13 +11,13 @@ export default class DefaultValueResolver extends implementationOf(ArgumentValue
      * @inheritdoc
      */
     supports(request, argument) {
-        return argument.defaultValue !== undefined;
+        return argument.hasDefaultValue;
     }
 
     /**
      * @inheritdoc
      */
-    * resolve(request, argument) {
-        yield argument.defaultValue;
+    * resolve() {
+        yield undefined;
     }
 }

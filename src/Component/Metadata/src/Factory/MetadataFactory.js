@@ -33,7 +33,7 @@ export default class MetadataFactory extends AbstractMetadataFactory {
             }
 
             this._metadataClass = reflectionClass.getConstructor();
-        } catch (e) {
+        } catch {
             throw InvalidArgumentException.create(InvalidArgumentException.INVALID_METADATA_CLASS, metadataClass);
         }
     }

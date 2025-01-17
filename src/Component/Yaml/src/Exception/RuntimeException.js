@@ -5,5 +5,5 @@ const ExceptionInterface = Jymfony.Component.Yaml.Exception.ExceptionInterface;
  *
  * @memberOf Jymfony.Component.Yaml.Exception
  */
-export default class RuntimeException extends mix(global.RuntimeException, ExceptionInterface) {
+export default class RuntimeException extends mix(globalThis.RuntimeException, ExceptionInterface) {
 }

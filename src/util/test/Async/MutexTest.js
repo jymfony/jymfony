@@ -64,7 +64,7 @@ export default class MutexTest extends TestCase {
             await mutex.runExclusive(() => {
                 throw new Error();
             });
-        } catch (e) {
+        } catch {
             // Do nothing
         }
 

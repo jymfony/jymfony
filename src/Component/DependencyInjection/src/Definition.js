@@ -5,159 +5,160 @@ const Container = Jymfony.Component.DependencyInjection.Container;
  */
 export default class Definition {
     /**
+     * @type {string|undefined}
+     *
+     * @private
+     */
+    _class;
+
+    /**
+     * @type {HashTable}
+     *
+     * @protected
+     */
+    _arguments;
+
+    /**
+     * @type {string[]|undefined}
+     *
+     * @private
+     */
+    _module;
+
+    /**
+     * @type {string|Array|undefined}
+     *
+     * @private
+     */
+    _factory;
+
+    /**
+     * @type {boolean}
+     *
+     * @private
+     */
+    _shared = true;
+
+    /**
+     * @type {boolean}
+     *
+     * @private
+     */
+    _deprecated = false;
+
+    /**
+     * @type {string}
+     *
+     * @private
+     */
+    _deprecationTemplate = 'The "%service_id%" service is deprecated. You should stop using it';
+
+    /**
+     * @type {Object}
+     *
+     * @private
+     */
+    _properties = {};
+
+    /**
+     * @type {Array}
+     *
+     * @private
+     */
+    _calls = [];
+
+    /**
+     * @type {Object.<string, Jymfony.Component.DependencyInjection.ChildDefinition>}
+     *
+     * @private
+     */
+    _instanceof = {};
+
+    /**
+     * @type {boolean}
+     *
+     * @private
+     */
+    _autoconfigured = false;
+
+    /**
+     * @type {string|Array|Function|undefined}
+     *
+     * @private
+     */
+    _configurator;
+
+    /**
+     * @type {Object.<string, string>}
+     *
+     * @private
+     */
+    _tags = {};
+
+    /**
+     * @type {boolean}
+     *
+     * @private
+     */
+    _public = false;
+
+    /**
+     * @type {boolean}
+     *
+     * @private
+     */
+    _synthetic = false;
+
+    /**
+     * @type {boolean}
+     *
+     * @private
+     */
+    _abstract = false;
+
+    /**
+     * @type {boolean}
+     *
+     * @private
+     */
+    _lazy = false;
+
+    /**
+     * @type {*}
+     *
+     * @private
+     */
+    _decoratedService;
+
+    /**
+     * @type {Array}
+     *
+     * @private
+     */
+    _shutdown = [];
+
+    /**
+     * @type {Object}
+     *
+     * @private
+     */
+    _changes = {};
+
+    /**
+     * @type {(string|Function|*)[]}
+     *
+     * @private
+     */
+    _errors = [];
+
+    /**
      * Constructor.
      *
      * @param {string} [class_]
      * @param {Array} [args = []]
      */
     __construct(class_ = undefined, args = []) {
-        /**
-         * @type {string|undefined}
-         *
-         * @private
-         */
-        this._class = undefined;
-
-        /**
-         * @type {HashTable}
-         *
-         * @protected
-         */
         this._arguments = HashTable.fromObject(args);
-
-        /**
-         * @type {string[]|undefined}
-         *
-         * @private
-         */
-        this._module = undefined;
-
-        /**
-         * @type {string|Array|undefined}
-         *
-         * @private
-         */
-        this._factory = undefined;
-
-        /**
-         * @type {boolean}
-         *
-         * @private
-         */
-        this._shared = true;
-
-        /**
-         * @type {boolean}
-         *
-         * @private
-         */
-        this._deprecated = false;
-
-        /**
-         * @type {string}
-         *
-         * @private
-         */
-        this._deprecationTemplate = 'The "%service_id%" service is deprecated. You should stop using it';
-
-        /**
-         * @type {Object}
-         *
-         * @private
-         */
-        this._properties = {};
-
-        /**
-         * @type {Array}
-         *
-         * @private
-         */
-        this._calls = [];
-
-        /**
-         * @type {Object.<string, Jymfony.Component.DependencyInjection.ChildDefinition>}
-         *
-         * @private
-         */
-        this._instanceof = {};
-
-        /**
-         * @type {boolean}
-         *
-         * @private
-         */
-        this._autoconfigured = false;
-
-        /**
-         * @type {string|Array|Function|undefined}
-         *
-         * @private
-         */
-        this._configurator = undefined;
-
-        /**
-         * @type {Object.<string, string>}
-         *
-         * @private
-         */
-        this._tags = {};
-
-        /**
-         * @type {boolean}
-         *
-         * @private
-         */
-        this._public = false;
-
-        /**
-         * @type {boolean}
-         *
-         * @private
-         */
-        this._synthetic = false;
-
-        /**
-         * @type {boolean}
-         *
-         * @private
-         */
-        this._abstract = false;
-
-        /**
-         * @type {boolean}
-         *
-         * @private
-         */
-        this._lazy = false;
-
-        /**
-         * @type {*}
-         *
-         * @private
-         */
-        this._decoratedService = undefined;
-
-        /**
-         * @type {Array}
-         *
-         * @private
-         */
-        this._shutdown = [];
-
-        /**
-         * @type {Object}
-         *
-         * @private
-         */
-        this._changes = {};
-
-        /**
-         * @type {(string|Function|*)[]}
-         *
-         * @private
-         */
-        this._errors = [];
-
         if (undefined !== class_) {
             this.setClass(class_);
         }

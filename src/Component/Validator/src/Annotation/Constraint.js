@@ -11,6 +11,9 @@ const Annotation = Jymfony.Component.Autoloader.Decorator.Annotation;
 export default
 @Annotation(Annotation.ANNOTATION_TARGET_CLASS | Annotation.ANNOTATION_TARGET_ACCESSOR | Annotation.ANNOTATION_TARGET_METHOD | Annotation.ANNOTATION_TARGET_GETTER)
 class Constraint {
+    _class;
+    _options;
+
     __construct(class_, options = null) {
         this._class = new ReflectionClass(class_);
         if (! this._class.isSubclassOf('Jymfony.Component.Validator.Constraint')) {

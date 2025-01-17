@@ -18,23 +18,23 @@ export default (() => {
         {
             ['offset']: 23400,
             ['dst']: false,
-            ['abbrev']: '+0630',
+            ['abbrev']: '%z',
             ['until']: -873268200,
-            ['format']: '+0630',
+            ['format']: '%z',
         },
         {
             ['offset']: 32400,
             ['dst']: false,
-            ['abbrev']: '+09',
+            ['abbrev']: '%z',
             ['until']: -778410000,
-            ['format']: '+09',
+            ['format']: '%z',
         },
         {
             ['offset']: 23400,
             ['dst']: false,
-            ['abbrev']: '+0630',
+            ['abbrev']: '%z',
             ['until']: Infinity,
-            ['format']: '+0630',
+            ['format']: '%z',
         },
     ];
 })();

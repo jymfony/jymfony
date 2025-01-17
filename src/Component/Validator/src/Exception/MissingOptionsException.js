@@ -5,6 +5,12 @@ const ValidatorException = Jymfony.Component.Validator.Exception.ValidatorExcept
  */
 export default class MissingOptionsException extends ValidatorException {
     /**
+     * @type {string[]}
+     * @private
+     */
+    _options;
+
+    /**
      * Constructor.
      *
      * @param {string} message

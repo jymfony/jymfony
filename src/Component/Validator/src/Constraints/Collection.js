@@ -7,6 +7,12 @@ const Required = Jymfony.Component.Validator.Constraints.Required;
  * @memberOf Jymfony.Component.Validator.Constraints
  */
 export default class Collection extends Composite {
+    fields = [];
+    allowExtraFields = false;
+    allowMissingFields = false;
+    extraFieldsMessage = 'This field was not expected.';
+    missingFieldsMessage = 'This field is missing.';
+
     /**
      * @inheritdoc
      */
@@ -23,12 +29,6 @@ export default class Collection extends Composite {
      * @inheritdoc
      */
     __construct(options = null) {
-        this.fields = [];
-        this.allowExtraFields = false;
-        this.allowMissingFields = false;
-        this.extraFieldsMessage = 'This field was not expected.';
-        this.missingFieldsMessage = 'This field is missing.';
-
         // No known options set? $options is the fields array
         const opts = [ 'groups', 'fields', 'allowExtraFields', 'allowMissingFields', 'extraFieldsMessage', 'missingFieldsMessage' ];
         if (isObjectLiteral(options) && 0 === Object.keys(options).filter(k => opts.includes(k)).length) {

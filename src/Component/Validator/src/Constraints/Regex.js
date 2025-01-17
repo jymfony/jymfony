@@ -4,6 +4,13 @@ const Constraint = Jymfony.Component.Validator.Constraint;
  * @memberOf Jymfony.Component.Validator.Constraints
  */
 export default class Regex extends Constraint {
+    message = 'This value is not valid.';
+    /** @type {RegExp} */
+    pattern;
+    htmlPattern;
+    match = true;
+    normalizer;
+
     /**
      * @inheritdoc
      */
@@ -19,13 +26,6 @@ export default class Regex extends Constraint {
      * @inheritdoc
      */
     __construct(options = null) {
-        this.message = 'This value is not valid.';
-        /** @type {RegExp} */
-        this.pattern = undefined;
-        this.htmlPattern = undefined;
-        this.match = true;
-        this.normalizer = undefined;
-
         const ret = super.__construct(options);
 
         if (undefined !== this.normalizer && ! isFunction(this.normalizer)) {

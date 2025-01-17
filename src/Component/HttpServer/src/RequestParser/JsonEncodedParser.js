@@ -71,7 +71,7 @@ export default class JsonEncodedParser extends implementationOf(ParserInterface)
                 try {
                     resolve(JSON.parse(body));
                 } catch (e) {
-                    reject(new InvalidJsonBodyException(body));
+                    reject(new InvalidJsonBodyException(body, undefined, null, e));
                 }
             });
         });

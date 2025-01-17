@@ -52,7 +52,7 @@ export default class NamespaceLoader extends Loader {
         for (const Class of this._findClasses(namespace.name, collection)) {
             try {
                 collection.addCollection(this._loader.load(Class, type));
-            } catch (e) {
+            } catch {
                 // Do nothing.
             }
         }
@@ -132,7 +132,7 @@ export default class NamespaceLoader extends Loader {
 
             try {
                 accessSync(path, constants.R_OK);
-            } catch (e) {
+            } catch {
                 continue;
             }
 
@@ -141,7 +141,7 @@ export default class NamespaceLoader extends Loader {
 
             try {
                 r = new ReflectionClass(Class);
-            } catch (e) {
+            } catch {
                 continue;
             }
 

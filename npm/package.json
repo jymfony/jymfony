@@ -52,6 +52,7 @@
     "@jymfony/options-resolver": "0.1.0-alpha.31",
     "@jymfony/property-access": "0.1.0-alpha.31",
     "@jymfony/routing": "0.1.0-alpha.31",
+    "@jymfony/runtime": "0.1.0-alpha.31",
     "@jymfony/security": "0.1.0-alpha.31",
     "@jymfony/security-bundle": "0.1.0-alpha.31",
     "@jymfony/stopwatch": "0.1.0-alpha.31",

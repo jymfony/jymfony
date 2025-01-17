@@ -174,13 +174,13 @@ export default class Filesystem {
                 try {
                     await StreamWrapper.get(file).rmdir(file);
                 } catch (err) {
-                    throw new IOException(__jymfony.sprintf('Failed to remove directory "%s": %s.', file, err.message));
+                    throw new IOException(__jymfony.sprintf('Failed to remove directory "%s": %s.', file, err.message), null, err);
                 }
             } else {
                 try {
                     await StreamWrapper.get(file).unlink(file);
                 } catch (err) {
-                    throw new IOException(__jymfony.sprintf('Failed to remove file "%s": %s.', file, err.message));
+                    throw new IOException(__jymfony.sprintf('Failed to remove file "%s": %s.', file, err.message), null, err);
                 }
             }
         }
@@ -279,7 +279,7 @@ export default class Filesystem {
                 await originWrapper.rename(origin, target);
             } catch (err) {
                 if (! (await this.isDir(origin))) {
-                    throw new IOException(__jymfony.sprintf('Cannot rename "%s" to "%s".', origin, target), null, undefined, target);
+                    throw new IOException(__jymfony.sprintf('Cannot rename "%s" to "%s".', origin, target), null, err, target);
                 }
 
                 await this.mirror(origin, target, { override: overwrite, 'delete': overwrite });

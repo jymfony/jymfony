@@ -20,7 +20,7 @@ export default class UuidV4 extends Uuid {
             uuid.writeUInt8(uuid.readUInt8(8) & 0x3F | 0x80, 8);
             uuid = uuid.toString('hex');
 
-            this._uid = uuid.substr(0, 8) + '-' + uuid.substr(8, 4) + '-' + uuid.substr(12, 4) + '-' + uuid.substr(16, 4) + '-' + uuid.substr(20, 12);
+            this._uid = uuid.substring(0, 8) + '-' + uuid.substring(8, 12) + '-' + uuid.substring(12, 16) + '-' + uuid.substring(16, 20) + '-' + uuid.substring(20);
         } else {
             super.__construct(uuid);
         }

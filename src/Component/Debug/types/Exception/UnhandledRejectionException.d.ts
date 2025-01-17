@@ -2,7 +2,7 @@ declare namespace Jymfony.Component.Debug.Exception {
     /**
      * Debug exception thrown when an unhandled rejection event is fired.
      */
-    export class UnhandledRejectionException extends RuntimeException {
+    export class UnhandledRejectionException extends global.RuntimeException {
         /**
          * Constructor.
          */

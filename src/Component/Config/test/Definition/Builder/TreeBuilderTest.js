@@ -1,46 +1,45 @@
-const Namespace = Jymfony.Component.Autoloader.Namespace;
+const Fixtures = Jymfony.Component.Config.Fixtures;
+const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 const TreeBuilder = Jymfony.Component.Config.Definition.Builder.TreeBuilder;
-const { expect } = require('chai');
-const path = require('path');
 
-const Fixtures = new Namespace(__jymfony.autoload, 'Jymfony.Component.Config.Fixtures', [
-    path.join(__dirname, '..', '..', '..', 'fixtures'),
-]);
+export default class TreeBuilderTest extends TestCase {
+    get testCaseName() {
+        return '[Config] ' + super.testCaseName;
+    }
 
-describe('[Config] TreeBuilder', function () {
-    it('should use custom builder', () => {
+    testShouldUseCustomBuilder() {
         const builder = new TreeBuilder('custom', 'array', new Fixtures.Definition.CustomNodeBuilder(Fixtures));
         const nodeBuilder = builder.rootNode.children();
 
-        expect(nodeBuilder).to.be.instanceOf(Fixtures.Definition.CustomNodeBuilder);
-        expect(nodeBuilder.arrayNode('deeper').children()).to.be.instanceOf(Fixtures.Definition.CustomNodeBuilder);
-    });
+        __self.assertInstanceOf(Fixtures.Definition.CustomNodeBuilder, nodeBuilder);
+        __self.assertInstanceOf(Fixtures.Definition.CustomNodeBuilder, nodeBuilder.arrayNode('deeper').children());
+    }
 
-    it('builtin node type should be overridable', () => {
+    testBuiltinNodeTypeShouldBeOverridable() {
         const builder = new TreeBuilder('custom', 'array', new Fixtures.Definition.CustomNodeBuilder(Fixtures));
         const nodeBuilder = builder.rootNode.children();
 
-        expect(nodeBuilder).to.be.instanceOf(Fixtures.Definition.CustomNodeBuilder);
-        expect(nodeBuilder.variableNode('variable')).to.be.instanceOf(Fixtures.Definition.VariableNodeDefinition);
-    });
+        __self.assertInstanceOf(Fixtures.Definition.CustomNodeBuilder, nodeBuilder);
+        __self.assertInstanceOf(Fixtures.Definition.VariableNodeDefinition, nodeBuilder.variableNode('variable'));
+    }
 
-    it('node type could be added', () => {
+    testNodeTypeCouldBeAdded() {
         const builder = new TreeBuilder('custom', 'array', new Fixtures.Definition.CustomNodeBuilder(Fixtures));
         const nodeBuilder = builder.rootNode.children();
 
-        expect(nodeBuilder).to.be.instanceOf(Fixtures.Definition.CustomNodeBuilder);
-        expect(nodeBuilder.barNode('variable')).to.be.instanceOf(Fixtures.Definition.BarNodeDefinition);
-    });
+        __self.assertInstanceOf(Fixtures.Definition.CustomNodeBuilder, nodeBuilder);
+        __self.assertInstanceOf(Fixtures.Definition.BarNodeDefinition, nodeBuilder.barNode('variable'));
+    }
 
-    it('prototyped array should use custom node builder', () => {
+    testPrototypedArrayShouldUseCustomNodeBuilder() {
         const builder = new TreeBuilder('override', 'array', new Fixtures.Definition.CustomNodeBuilder(Fixtures));
         const root = builder.rootNode;
 
         root.prototype('bar').end();
-        expect(root.getNode(true).getPrototype()).to.be.instanceOf(Fixtures.BarNode);
-    });
+        __self.assertInstanceOf(Fixtures.BarNode, root.getNode(true).getPrototype());
+    }
 
-    it('extended node builder should be propagated to children', () => {
+    testExtendedNodeBuilderShouldBePropagatedToChildren() {
         const builder = new TreeBuilder('propagation');
         builder.rootNode
             .children()
@@ -56,13 +55,13 @@ describe('[Config] TreeBuilder', function () {
         const node = builder.buildTree();
         const children = node.getChildren();
 
-        expect(children.foo).to.be.instanceOf(Jymfony.Component.Config.Definition.BooleanNode);
+        __self.assertInstanceOf(Jymfony.Component.Config.Definition.BooleanNode, children.foo);
 
         const childChildren = children.child.getChildren();
-        expect(childChildren.foo).to.be.instanceOf(Jymfony.Component.Config.Definition.BooleanNode);
-    });
+        __self.assertInstanceOf(Jymfony.Component.Config.Definition.BooleanNode, childChildren.foo);
+    }
 
-    it('definition info should be injected in the node', () => {
+    testDefinitionInfoShouldBeInjectedInTheNode() {
         const builder = new TreeBuilder('test');
         builder.rootNode.info('root info')
             .children()
@@ -72,11 +71,11 @@ describe('[Config] TreeBuilder', function () {
         const node = builder.buildTree();
         const children = node.getChildren();
 
-        expect(node.getInfo()).to.be.equal('root info');
-        expect(children.child.getInfo()).to.be.equal('child info');
-    });
+        __self.assertEquals('root info', node.getInfo());
+        __self.assertEquals('child info', children.child.getInfo());
+    }
 
-    it('definition example should be injected in the node', () => {
+    testDefinitionExampleShouldBeInjectedInTheNode() {
         const builder = new TreeBuilder('test');
         builder.rootNode
             .example({ key: 'value' })
@@ -87,7 +86,7 @@ describe('[Config] TreeBuilder', function () {
         const node = builder.buildTree();
         const children = node.getChildren();
 
-        expect(node.getExample()).to.be.deep.equal({ key: 'value' });
-        expect(children.child.getExample()).to.be.equal('example');
-    });
-});
+        __self.assertEquals({ key: 'value' }, node.getExample());
+        __self.assertEquals('example', children.child.getExample());
+    }
+}

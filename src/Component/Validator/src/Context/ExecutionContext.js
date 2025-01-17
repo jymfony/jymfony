@@ -21,121 +21,126 @@ const Valid = Jymfony.Component.Validator.Constraints.Valid;
  */
 export default class ExecutionContext extends implementationOf(ExecutionContextInterface) {
     /**
+     * @type {Jymfony.Component.Validator.Validator.ValidatorInterface}
+     *
+     * @private
+     */
+    _validator;
+
+    /**
+     * The root value of the validated object graph.
+     *
+     * @type {*}
+     */
+    _root;
+
+    /**
+     * @type {Jymfony.Contracts.Translation.TranslatorInterface}
+     *
+     * @private
+     */
+    _translator;
+
+    /**
+     * @type {string}
+     *
+     * @private
+     */
+    _translationDomain;
+
+    /**
+     * The violations generated in the current context.
+     *
+     * @type {Jymfony.Component.Validator.ConstraintViolationListInterface}
+     */
+    _violations = new ConstraintViolationList();
+
+    /**
+     * The currently validated value.
+     *
+     * @type {*}
+     */
+    _value;
+
+    /**
+     * The currently validated object.
+     *
+     * @type {object}
+     */
+    _object;
+
+    /**
+     * The property path leading to the current value.
+     *
+     * @type {string}
+     */
+    _propertyPath = '';
+
+    /**
+     * The current validation metadata.
+     *
+     * @type {Jymfony.Contracts.Metadata.MetadataInterface}
+     *
+     * @private
+     */
+    _metadata;
+
+    /**
+     * The currently validated group.
+     *
+     * @type {string|null}
+     *
+     * @private
+     */
+    _group;
+
+    /**
+     * The currently validated constraint.
+     *
+     * @type {Jymfony.Component.Validator.Constraint|null}
+     */
+    _constraint;
+
+    /**
+     * Stores which objects have been validated in which group.
+     *
+     * @type {WeakMap.<object, Set<string>>}
+     *
+     * @private
+     */
+    _validatedObjects = new WeakMap();
+
+    /**
+     * Stores which class constraint has been validated for which object.
+     *
+     * @type {WeakMap.<object, Set<string>>}
+     *
+     * @private
+     */
+    _validatedConstraints = new WeakMap();
+
+    /**
+     * Stores already volidated composite/valid constraints for groups.
+     *
+     * @type {WeakMap<object, Map<string, Set<string>>>}
+     *
+     * @private
+     */
+    _compositeValidatedConstraints = new WeakMap();
+
+    /**
      * @param {Jymfony.Component.Validator.Validator.ValidatorInterface} validator
      * @param {*} root The root value of the validated object graph
      * @param {Jymfony.Contracts.Translation.TranslatorInterface} translator
-     * @param {string} [translationDomain]
+     * @param {string|null} [translationDomain]
      *
      * @internal Called by {@link ExecutionContextFactory}. Should not be used in user code.
      */
     __construct(validator, root, translator, translationDomain = null) {
-        /**
-         * @type {Jymfony.Component.Validator.Validator.ValidatorInterface}
-         *
-         * @private
-         */
         this._validator = validator;
-
-        /**
-         * The root value of the validated object graph.
-         *
-         * @type {*}
-         */
         this._root = root;
-
-        /**
-         * @type {Jymfony.Contracts.Translation.TranslatorInterface}
-         *
-         * @private
-         */
         this._translator = translator;
-
-        /**
-         * @type {string}
-         *
-         * @private
-         */
         this._translationDomain = translationDomain;
-
-        /**
-         * The violations generated in the current context.
-         *
-         * @type {Jymfony.Component.Validator.ConstraintViolationListInterface}
-         */
-        this._violations = new ConstraintViolationList();
-
-        /**
-         * The currently validated value.
-         *
-         * @type {*}
-         */
-        this._value = undefined;
-
-        /**
-         * The currently validated object.
-         *
-         * @type {object}
-         */
-        this._object = undefined;
-
-        /**
-         * The property path leading to the current value.
-         *
-         * @type {string}
-         */
-        this._propertyPath = '';
-
-        /**
-         * The current validation metadata.
-         *
-         * @type {Jymfony.Contracts.Metadata.MetadataInterface}
-         *
-         * @private
-         */
-        this._metadata = undefined;
-
-        /**
-         * The currently validated group.
-         *
-         * @type {string|null}
-         *
-         * @private
-         */
-        this._group = undefined;
-
-        /**
-         * The currently validated constraint.
-         *
-         * @type {Jymfony.Component.Validator.Constraint|null}
-         */
-        this._constraint = undefined;
-
-        /**
-         * Stores which objects have been validated in which group.
-         *
-         * @type {WeakMap.<object, Set<string>>}
-         *
-         * @private
-         */
-        this._validatedObjects = new WeakMap();
-
-        /**
-         * Stores which class constraint has been validated for which object.
-         *
-         * @type {WeakMap.<object, Set<string>>}
-         *
-         * @private
-         */
-        this._validatedConstraints = new WeakMap();
-
-        /**
-         * Stores already volidated composite/valid constraints for groups.
-         *
-         * @type {WeakMap<object, Map<string, Set<string>>>}
-         *
-         * @private
-         */
-        this._compositeValidatedConstraints = new WeakMap();
     }
 
     /**

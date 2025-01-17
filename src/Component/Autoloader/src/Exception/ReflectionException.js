@@ -4,4 +4,4 @@
 class ReflectionException extends Error {
 }
 
-module.exports = global.ReflectionException = ReflectionException;
+module.exports = globalThis.ReflectionException = ReflectionException;

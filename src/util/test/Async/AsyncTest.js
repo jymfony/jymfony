@@ -137,7 +137,7 @@ export default class AsyncTest extends TestCase {
         await Async.run(function * () {
             try {
                 yield Symbol('test');
-            } catch (e) { }
+            } catch { }
         });
     }
 

@@ -14,6 +14,7 @@ globalThis.mixins = {
     isInterface: Interfaces.isInterface,
     isTrait: Traits.isTrait,
     getParents: Mixins.getParents,
+    getMixin: Mixins.getMixin,
     getInterfaces: (Class) => Class[Mixins.appliedInterfacesSymbol] || [],
     getTraits: (Class) => Class[Mixins.appliedTraitsSymbol] || [],
 

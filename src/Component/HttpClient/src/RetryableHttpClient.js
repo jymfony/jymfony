@@ -135,7 +135,7 @@ export default class RetryableHttpClient extends implementationOf(HttpClientInte
 
             try {
                 return Math.max(0, (new DateTime(after)).timestamp - DateTime.unixTime) * 1000;
-            } catch (e) {
+            } catch {
                 // Do nothing.
             }
         }

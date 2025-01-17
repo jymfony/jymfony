@@ -48,7 +48,7 @@ class RecursiveDirectoryIterator {
         if (undefined === this._dir) {
             try {
                 this._dir = readdirSync(this._path);
-            } catch (e) {
+            } catch {
                 this._dir = [];
             }
         }
@@ -63,7 +63,7 @@ class RecursiveDirectoryIterator {
 
             try {
                 stat = statSync(this._current);
-            } catch (e) {
+            } catch {
                 this._current = undefined;
 
                 return this.next();

@@ -6,6 +6,10 @@ const InvalidArgumentException = Jymfony.Component.Validator.Exception.InvalidAr
  * @memberOf Jymfony.Component.Validator.Constraints
  */
 export default class Ip extends Constraint {
+    message = 'This value is not a valid hostname.';
+    version = __self.V4;
+    normalizer = null;
+
     /**
      * @inheritdoc
      */
@@ -21,12 +25,7 @@ export default class Ip extends Constraint {
      * @inheritdoc
      */
     __construct(options = null) {
-        this.message = 'This value is not a valid hostname.';
-        this.version = __self.V4;
-        this.normalizer = null;
-
         const ret = super.__construct(options);
-
         if (! __self._versions.includes(this.version)) {
             throw new ConstraintDefinitionException(__jymfony.sprintf('The option "version" must be one of "%s".', __self._versions.join('", "')));
         }

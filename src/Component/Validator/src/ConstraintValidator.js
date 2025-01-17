@@ -10,14 +10,12 @@ const ConstraintValidatorInterface = Jymfony.Component.Validator.ConstraintValid
  * @abstract
  */
 export default class ConstraintValidator extends implementationOf(ConstraintValidatorInterface) {
-    __construct() {
-        /**
-         * @type {Jymfony.Component.Validator.Context.ExecutionContextInterface}
-         *
-         * @protected
-         */
-        this._context = undefined;
-    }
+    /**
+     * @type {Jymfony.Component.Validator.Context.ExecutionContextInterface}
+     *
+     * @protected
+     */
+    _context;
 
     /**
      * @inheritDoc
@@ -93,7 +91,7 @@ export default class ConstraintValidator extends implementationOf(ConstraintVali
                 });
 
                 return formatter.format(Date.UTC(utcValue.year, utcValue.month - 1, utcValue.day, utcValue.hour, utcValue.minute, utcValue.second, utcValue.millisecond));
-            } catch (e) {
+            } catch {
                 return value.format('M d, y h:i a');
             }
         }

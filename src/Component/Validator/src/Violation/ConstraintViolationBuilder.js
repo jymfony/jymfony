@@ -9,6 +9,90 @@ const PropertyPath = Jymfony.Component.Validator.Util.PropertyPath;
  */
 export default class ConstraintViolationBuilder extends implementationOf(ConstraintViolationBuilderInterface) {
     /**
+     * @type {Jymfony.Component.Validator.ConstraintViolationListInterface}
+     *
+     * @private
+     */
+    _violations;
+
+    /**
+     * @type {string}
+     *
+     * @private
+     */
+    _message;
+
+    /**
+     * @type {Object<string, *>}
+     *
+     * @private
+     */
+    _parameters;
+
+    /**
+     * @type {*}
+     *
+     * @private
+     */
+    _root;
+
+    /**
+     * @type {string}
+     *
+     * @private
+     */
+    _propertyPath;
+
+    /**
+     * @type {*}
+     *
+     * @private
+     */
+    _invalidValue;
+
+    /**
+     * @type {Jymfony.Contracts.Translation.TranslatorInterface}
+     *
+     * @private
+     */
+    _translator;
+
+    /**
+     * @type {string}
+     *
+     * @private
+     */
+    _translationDomain;
+
+    /**
+     * @type {Jymfony.Component.Validator.Constraint}
+     *
+     * @private
+     */
+    _constraint;
+
+    /**
+     * @type {string}
+     *
+     * @private
+     */
+    _code;
+
+    /**
+     * @type {*}
+     *
+     * @private
+     */
+    _cause;
+
+    /**
+     * @type {number}
+     *
+     * @private
+     */
+    _plural;
+
+    /**
      * @param {Jymfony.Component.Validator.ConstraintViolationListInterface} violations
      * @param {Jymfony.Component.Validator.Constraint} constraint The failed constraint
      * @param {string} message The error message as a string or a stringable object
@@ -20,88 +104,17 @@ export default class ConstraintViolationBuilder extends implementationOf(Constra
      * @param {string|null} translationDomain
      */
     __construct(violations, constraint, message, parameters, root, propertyPath, invalidValue, translator, translationDomain = null) {
-        /**
-         * @type {Jymfony.Component.Validator.ConstraintViolationListInterface}
-         *
-         * @private
-         */
         this._violations = violations;
-
-        /**
-         * @type {string}
-         *
-         * @private
-         */
         this._message = message;
-
-        /**
-         * @type {Object<string, *>}
-         *
-         * @private
-         */
         this._parameters = parameters;
-
-        /**
-         * @type {*}
-         *
-         * @private
-         */
         this._root = root;
-
-        /**
-         * @type {string}
-         *
-         * @private
-         */
         this._propertyPath = propertyPath;
-
-        /**
-         * @type {*}
-         *
-         * @private
-         */
         this._invalidValue = invalidValue;
-
-        /**
-         * @type {Jymfony.Contracts.Translation.TranslatorInterface}
-         *
-         * @private
-         */
         this._translator = translator;
-
-        /**
-         * @type {string}
-         *
-         * @private
-         */
         this._translationDomain = translationDomain;
-
-        /**
-         * @type {Jymfony.Component.Validator.Constraint}
-         *
-         * @private
-         */
         this._constraint = constraint;
-
-        /**
-         * @type {string}
-         *
-         * @private
-         */
         this._code = undefined;
-
-        /**
-         * @type {*}
-         *
-         * @private
-         */
         this._cause = undefined;
-
-        /**
-         * @type {number}
-         *
-         * @private
-         */
         this._plural = undefined;
     }
 

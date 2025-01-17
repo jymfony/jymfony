@@ -19,7 +19,7 @@ declare namespace __jymfony {
         unpipe(destination?: NodeJS.WritableStream): this;
         unshift(chunk: string | Uint8Array, encoding?: BufferEncoding): void;
         wrap(oldStream: NodeJS.ReadableStream): this;
-        [Symbol.asyncIterator](): AsyncIterableIterator<string | Buffer>;
+        [Symbol.asyncIterator](): NodeJS.AsyncIterator<string | Buffer>;
 
         write(buffer: string | Buffer, cb?: Function): boolean;
         write(str: string, encoding?: string, cb?: Function): boolean;

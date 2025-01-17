@@ -3,7 +3,7 @@ declare namespace Jymfony.Component.Routing.Exception {
      * The resource was found but the request method is not allowed.
      * This exception should trigger an HTTP 405 response in your application code.
      */
-    export class MethodNotAllowedException extends mix(RuntimeException, ExceptionInterface) {
+    export class MethodNotAllowedException extends mix(global.RuntimeException, ExceptionInterface) {
         private _allowedMethods: string[];
 
         /**

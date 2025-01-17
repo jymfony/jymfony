@@ -12,18 +12,19 @@ export default
 @AsCommand({ name: 'debug:messenger', description: 'List messages you can dispatch using the message buses' })
 class DebugCommand extends Command {
     /**
+     * @type {Object<string, Object<string, Object<string, string>>>}
+     *
+     * @private
+     */
+    _mapping;
+
+    /**
      * Constructor.
      *
      * @param {Object.<string, Object.<string, Object.<string, string>>>} mapping
      */
     __construct(mapping) {
-        /**
-         * @type {Object<string, Object<string, Object<string, string>>>}
-         *
-         * @private
-         */
         this._mapping = mapping;
-
         super.__construct();
     }
 
@@ -126,7 +127,7 @@ Or for a specific bus only:
 
                 return __jymfony.trim(docComment);
             }
-        } catch (e) {
+        } catch {
         }
 
         return '';

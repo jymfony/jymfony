@@ -4,6 +4,8 @@ const Constraint = Jymfony.Component.Validator.Constraint;
  * @memberOf Jymfony.Component.Validator.Constraints
  */
 export default class IsNull extends Constraint {
+    message = 'This value should be null.';
+
     /**
      * @inheritdoc
      */
@@ -13,15 +15,6 @@ export default class IsNull extends Constraint {
         }
 
         return Constraint.getErrorName(errorCode);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    __construct(options = null) {
-        this.message = 'This value should be null.';
-
-        return super.__construct(options);
     }
 }
 

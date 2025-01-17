@@ -8,6 +8,48 @@ const StreamWrapper = Jymfony.Component.Filesystem.StreamWrapper.StreamWrapper;
  */
 export default class RecursiveDirectoryIterator {
     /**
+     * @type {string}
+     *
+     * @private
+     */
+    _path;
+
+    /**
+     * @type {int}
+     *
+     * @private
+     */
+    _flags;
+
+    /**
+     * @type {int}
+     *
+     * @private
+     */
+    _followSymlinks;
+
+    /**
+     * @type {string[]}
+     *
+     * @private
+     */
+    _dir;
+
+    /**
+     * @type {string[]}
+     *
+     * @private
+     */
+    _after;
+
+    /**
+     * @type {string[]}
+     *
+     * @private
+     */
+    _current;
+
+    /**
      * Constructor.
      *
      * @param {string} filepath
@@ -16,49 +58,15 @@ export default class RecursiveDirectoryIterator {
     __construct(filepath, flags = 0) {
         const url = File.resolve(filepath);
 
-        /**
-         * @type {string}
-         *
-         * @private
-         */
         this._path = url.href;
         if ('file:' === url.protocol && __jymfony.Platform.isWindows() && url.host) {
             this._path = url.protocol + '//' + url.host.toUpperCase() + ':' + url.path.replace(/\//g, path.sep);
         }
 
-        /**
-         * @type {int}
-         *
-         * @private
-         */
         this._flags = flags;
-
-        /**
-         * @type {int}
-         *
-         * @private
-         */
         this._followSymlinks = flags & __self.FOLLOW_SYMLINKS;
-
-        /**
-         * @type {string[]}
-         *
-         * @private
-         */
         this._dir = undefined;
-
-        /**
-         * @type {string[]}
-         *
-         * @private
-         */
         this._after = undefined;
-
-        /**
-         * @type {string[]}
-         *
-         * @private
-         */
         this._current = undefined;
     }
 

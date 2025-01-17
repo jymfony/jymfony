@@ -35,6 +35,7 @@
     "@jymfony/cache": "*",
     "@jymfony/debug": "*",
     "@jymfony/dependency-injection": "*",
+    "@jymfony/http-client": "*",
     "@jymfony/stopwatch": "*",
     "@jymfony/testing": "*",
     "@jymfony/var-dumper": "*",

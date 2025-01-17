@@ -530,7 +530,7 @@ export default class Kernel extends implementationOf(KernelInterface) {
 
             try {
                 fs.mkdirSync(path.dirname(target));
-            } catch (e) {
+            } catch {
                 // Do nothing
             }
 
@@ -546,7 +546,7 @@ export default class Kernel extends implementationOf(KernelInterface) {
             for (const module of finder.listModules()) {
                 try {
                     resources.push(new FileResource(path.join(rootDir, 'node_modules', module, 'package.json')));
-                } catch (e) {
+                } catch {
                     // Do nothing
                 }
             }
@@ -749,7 +749,7 @@ export default class Kernel extends implementationOf(KernelInterface) {
         try {
             const eventDispatcher = this._container.get('event_dispatcher');
             await eventDispatcher.dispatch(new Jymfony.Contracts.Kernel.Event.UnhandledRejectionEvent(reason, promise));
-        } catch (e) {
+        } catch {
             // Do nothing.
         }
     }

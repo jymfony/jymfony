@@ -6,6 +6,9 @@ const ServiceLocatorTagPass = Jymfony.Component.DependencyInjection.Compiler.Ser
  * @memberOf Jymfony.Component.Validator.DependencyInjection
  */
 export default class AddConstraintValidatorsPass extends implementationOf(CompilerPassInterface) {
+    _validatorFactoryServiceId;
+    _constraintValidatorTag;
+
     /**
      * Constructor.
      *

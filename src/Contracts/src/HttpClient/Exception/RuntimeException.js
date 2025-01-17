@@ -3,7 +3,7 @@ const ExceptionInterface = Jymfony.Contracts.HttpClient.Exception.ExceptionInter
 /**
  * @memberOf Jymfony.Contracts.HttpClient.Exception
  */
-export default class RuntimeException extends mix(global.RuntimeException, ExceptionInterface) {
+export default class RuntimeException extends mix(globalThis.RuntimeException, ExceptionInterface) {
     /**
      * Constructor.
      *

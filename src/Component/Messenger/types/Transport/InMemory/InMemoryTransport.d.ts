@@ -37,7 +37,7 @@ declare namespace Jymfony.Component.Messenger.Transport.InMemory {
         /**
          * @inheritdoc
          */
-        send(envelope: Envelope): Promise<void>;
+        send<T extends object = object>(envelope: Envelope<T>): Promise<Envelope<T>>;
 
         public readonly acknowledged: Envelope[]
 

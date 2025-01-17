@@ -4,6 +4,11 @@ const Constraint = Jymfony.Component.Validator.Constraint;
  * @memberOf Jymfony.Component.Validator.Constraints
  */
 export default class Url extends Constraint {
+    message = 'This value is not a valid URL.';
+    protocols = [ 'http', 'https' ];
+    relativeProtocol = false;
+    normalizer;
+
     /**
      * @inheritdoc
      */
@@ -19,11 +24,6 @@ export default class Url extends Constraint {
      * @inheritdoc
      */
     __construct(options = null) {
-        this.message = 'This value is not a valid URL.';
-        this.protocols = [ 'http', 'https' ];
-        this.relativeProtocol = false;
-        this.normalizer = undefined;
-
         const ret = super.__construct(options);
         if (undefined !== this.normalizer && ! isFunction(this.normalizer)) {
             throw new InvalidArgumentException(__jymfony.sprintf('The "normalizer" option must be a valid callable ("%s" given).', __jymfony.get_debug_type(this.normalizer)));

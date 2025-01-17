@@ -27,7 +27,7 @@
   },
   "devDependencies": {
     "@jymfony/debug": "*",
-    "@jymfony/dependency-injection": "*t",
+    "@jymfony/dependency-injection": "*",
     "@jymfony/testing": "*",
     "@jymfony/var-dumper": "*",
     "@jymfony/yaml": "*",

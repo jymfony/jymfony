@@ -11,9 +11,9 @@ export default (() => {
         {
             ['offset']: -3600,
             ['dst']: false,
-            ['abbrev']: '-01',
+            ['abbrev']: '%z',
             ['until']: 157770000,
-            ['format']: '-01',
+            ['format']: '%z',
         },
         {
             ['offset']: 0,

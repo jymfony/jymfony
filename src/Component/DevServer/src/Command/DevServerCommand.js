@@ -51,7 +51,7 @@ class DevServerCommand extends Command {
         input = CompletionInput.fromTokens(tokens, index);
         try {
             input.bind(this.application.definition);
-        } catch (e) {
+        } catch {
             return;
         }
 

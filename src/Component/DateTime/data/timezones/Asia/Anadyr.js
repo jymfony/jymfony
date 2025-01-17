@@ -163,10 +163,10 @@ export default (() => {
                         ['2011']: [
                             o[16],
                         ],
-                        ['2021']: [
+                        ['2024']: [
                             o[16],
                         ],
-                        ['2022']: [
+                        ['2025']: [
                             o[16],
                         ],
                     },
@@ -525,46 +525,46 @@ export default (() => {
             {
                 ['offset']: 43200,
                 ['dst']: false,
-                ['abbrev']: '+12',
+                ['abbrev']: '%z',
                 ['until']: -1247572800,
-                ['format']: '+12',
+                ['format']: '%z',
             },
             {
                 ['until']: 386420400,
                 ['ruleSet']: o[0],
                 ['offset']: 46800,
-                ['abbrev']: '+13/+14',
+                ['abbrev']: '%z',
             },
             {
                 ['until']: 670341600,
                 ['ruleSet']: o[0],
                 ['offset']: 43200,
-                ['abbrev']: '+12/+13',
+                ['abbrev']: '%z',
             },
             {
                 ['until']: 695746800,
                 ['ruleSet']: o[0],
                 ['offset']: 39600,
-                ['abbrev']: '+11/+12',
+                ['abbrev']: '%z',
             },
             {
                 ['until']: 1269698400,
                 ['ruleSet']: o[0],
                 ['offset']: 43200,
-                ['abbrev']: '+12/+13',
+                ['abbrev']: '%z',
             },
             {
                 ['until']: 1301151600,
                 ['ruleSet']: o[0],
                 ['offset']: 39600,
-                ['abbrev']: '+11/+12',
+                ['abbrev']: '%z',
             },
             {
                 ['offset']: 43200,
                 ['dst']: false,
-                ['abbrev']: '+12',
+                ['abbrev']: '%z',
                 ['until']: Infinity,
-                ['format']: '+12',
+                ['format']: '%z',
             },
         ],
         [

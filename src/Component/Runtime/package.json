@@ -1,0 +1,46 @@
+{
+  "name": "@jymfony/runtime",
+  "version": "0.1.0-alpha.31",
+  "description": "Jymfony Runtime component",
+  "typings": "types/index.d.ts",
+  "scripts": {
+    "test": "node ./tests.js"
+  },
+  "keywords": [
+    "runtime",
+    "jymfony"
+  ],
+  "author": "Alessandro Chitolina <alekitto@gmail.com>",
+  "license": "MIT",
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "dependencies": {
+    "@jymfony/autoloader": "0.1.0-alpha.31",
+    "@jymfony/console": "0.1.0-alpha.31",
+    "@jymfony/contracts": "0.1.0-alpha.31",
+    "@jymfony/exceptions": "0.1.0-alpha.31",
+    "@jymfony/util": "0.1.0-alpha.31"
+  },
+  "devDependencies": {
+    "@jymfony/debug": "*",
+    "@jymfony/dotenv": "*",
+    "@jymfony/filesystem": "*",
+    "@jymfony/http-client": "*",
+    "@jymfony/http-server": "*",
+    "@jymfony/testing": "*",
+    "mocha": "^10.2"
+  },
+  "config": {
+    "jymfony-autoload": {
+      "namespaces": {
+        "Jymfony.Component.Runtime": "src/"
+      }
+    },
+    "jymfony-autoload-dev": {
+      "namespaces": {
+        "Jymfony.Component.Runtime.Tests": "test/"
+      }
+    }
+  }
+}

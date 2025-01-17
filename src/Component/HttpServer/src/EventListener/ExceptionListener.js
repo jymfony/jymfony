@@ -56,7 +56,7 @@ export default class ExceptionListener extends implementationOf(EventSubscriberI
         let exceptionClass = exception.constructor.name;
         try {
             exceptionClass = new ReflectionClass(exception).name || exceptionClass;
-        } catch (e) { }
+        } catch { }
 
         if (! (exception instanceof NotFoundHttpException)) {
             this._logException(exception, __jymfony.sprintf('Uncaught Exception %s: "%s"', exceptionClass, exception.message));

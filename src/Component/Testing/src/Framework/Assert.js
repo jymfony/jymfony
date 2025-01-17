@@ -250,6 +250,15 @@ export default class Assert {
     }
 
     /**
+     * Asserts that a variable is not undefined.
+     *
+     * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}
+     */
+    static assertNotUndefined(actual, message = '') {
+        this.assertThat(actual, this.logicalNot(this.isUndefined()), message);
+    }
+
+    /**
      * Asserts that a value is greater than another value.
      *
      * @throws {Jymfony.Component.Testing.Framework.Exception.ExpectationFailedException}

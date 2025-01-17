@@ -67,5 +67,5 @@ export default class Websocket {
      *
      * @returns {Promise<void>}
      */
-    async onClose() { } // eslint-disable-line no-unused-vars
+    async onClose() { }
 }

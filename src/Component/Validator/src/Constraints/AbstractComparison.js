@@ -7,13 +7,13 @@ const ConstraintDefinitionException = Jymfony.Component.Validator.Exception.Cons
  * @abstract
  */
 export default class AbstractComparison extends Constraint {
+    value;
+    propertyPath;
+
     /**
      * @inheritdoc
      */
     __construct(options = null) {
-        this.value = undefined;
-        this.propertyPath = undefined;
-
         if (isObjectLiteral(options)) {
             if (undefined === options.value && undefined === options.propertyPath) {
                 throw new ConstraintDefinitionException(__jymfony.sprintf('The "%s" constraint requires either the "value" or "propertyPath" option to be set.', __jymfony.get_debug_type(this)));

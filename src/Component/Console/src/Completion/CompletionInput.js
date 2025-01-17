@@ -223,7 +223,7 @@ export default class CompletionInput extends ArgvInput {
     _parseToken(token, parseOptions) {
         try {
             return super._parseToken(token, parseOptions);
-        } catch (e) {
+        } catch {
             // Suppress errors, completed input is almost never valid
         }
 

@@ -33,7 +33,7 @@ export default class File {
             const mimeTypes = Jymfony.Component.Mime.MimeTypes.instance;
             try {
                 return await mimeTypes.guessMimeType(this._fileName);
-            } catch (e) {
+            } catch {
                 // Do nothing
             }
         }
@@ -71,7 +71,7 @@ export default class File {
     exists() {
         try {
             this._stat = fs.statSync(this._fileName);
-        } catch (e) {
+        } catch {
             return false;
         }
 
@@ -86,7 +86,7 @@ export default class File {
     get isReadable() {
         try {
             fs.accessSync(this._fileName, fs.constants.R_OK);
-        } catch (e) {
+        } catch {
             return false;
         }
 

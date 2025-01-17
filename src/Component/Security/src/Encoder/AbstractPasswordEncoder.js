@@ -46,7 +46,7 @@ export default class AbstractPasswordEncoder extends implementationOf(PasswordEn
     _comparePasswords(first, second) {
         try {
             return timingSafeEqual(Buffer.from(first), Buffer.from(second));
-        } catch (e) {
+        } catch {
             return false;
         }
     }

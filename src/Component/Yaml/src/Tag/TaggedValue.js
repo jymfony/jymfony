@@ -3,24 +3,27 @@
  */
 export default class TaggedValue {
     /**
+     * @type {string}
+     *
+     * @private
+     */
+    _tag;
+
+    /**
+     * @type {*}
+     *
+     * @private
+     */
+    _value;
+
+    /**
      * Constructor.
      *
      * @param {string} tag
      * @param {*} value
      */
     __construct(tag, value) {
-        /**
-         * @type {string}
-         *
-         * @private
-         */
         this._tag = tag;
-
-        /**
-         * @type {*}
-         *
-         * @private
-         */
         this._value = value;
     }
 

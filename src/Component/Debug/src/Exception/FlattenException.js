@@ -78,7 +78,7 @@ export default class FlattenException extends implementationOf(FlattenExceptionI
         let className = exception.constructor.name;
         try {
             className = (new ReflectionClass(exception)).name || className;
-        } catch (ex) { }
+        } catch { }
 
         e.class = className;
 

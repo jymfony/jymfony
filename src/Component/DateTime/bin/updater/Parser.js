@@ -167,6 +167,19 @@ export default class Parser {
             return;
         }
 
+        if ('%z' === format) {
+            const minutes = offset % 3600;
+            const hours = Math.abs(offset / 3600);
+            const negative = 0 > offset;
+
+            let fmt = '%s%02i';
+            if (0 !== minutes) {
+                fmt += '%02i';
+            }
+
+            return __jymfony.sprintf(fmt, negative ? '-' : '', hours, minutes);
+        }
+
         if ('-' === rule) {
             this.abbrevs[format] = {
                 offset,

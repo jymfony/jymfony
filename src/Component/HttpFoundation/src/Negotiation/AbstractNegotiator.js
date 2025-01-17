@@ -67,7 +67,7 @@ export default class AbstractNegotiator {
                 const element = this._acceptFactory(h);
                 elements.push(element);
                 orderKeys.push([ element.quality, key, element.value ]);
-            } catch (e) {
+            } catch {
                 // Silently skip in case of invalid headers coming in from a client
             }
         }

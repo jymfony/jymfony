@@ -5,6 +5,13 @@ const UnexpectedTypeException = Jymfony.Component.Validator.Exception.Unexpected
  */
 export default class UnexpectedValueException extends UnexpectedTypeException {
     /**
+     * @type {string}
+     *
+     * @private
+     */
+    _expectedType;
+
+    /**
      * Constructor.
      *
      * @param {*} value
@@ -12,12 +19,6 @@ export default class UnexpectedValueException extends UnexpectedTypeException {
      */
     __construct(value, expectedType) {
         super.__construct(value, expectedType);
-
-        /**
-         * @type {string}
-         *
-         * @private
-         */
         this._expectedType = isString(expectedType) ? expectedType : ReflectionClass.getClassName(expectedType);
     }
 

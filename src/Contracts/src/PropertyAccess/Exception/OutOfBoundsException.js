@@ -1,4 +1,4 @@
-const BaseException = global.OutOfBoundsException;
+const BaseException = globalThis.OutOfBoundsException;
 
 /**
  * @memberOf Jymfony.Contracts.PropertyAccess.Exception

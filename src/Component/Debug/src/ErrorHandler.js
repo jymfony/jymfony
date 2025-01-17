@@ -7,49 +7,54 @@ const LogLevel = Jymfony.Contracts.Logger.LogLevel;
  */
 export default class ErrorHandler {
     /**
+     * @type {Jymfony.Component.Debug.BufferingLogger}
+     *
+     * @private
+     */
+    _bootstrappingLogger;
+
+    /**
+     * @type {Jymfony.Contracts.Logger.LoggerInterface}
+     *
+     * @private
+     */
+    _defaultLogger;
+
+    /**
+     * @type {boolean}
+     *
+     * @private
+     */
+    _debug;
+
+    /**
+     * @type {boolean}
+     *
+     * @private
+     */
+    _isRecursive = false;
+
+    /**
+     * @type {Function}
+     *
+     * @private
+     */
+    _exceptionHandler = null;
+
+    /**
      * Constructor.
      *
      * @param {Jymfony.Component.Debug.BufferingLogger} bootstrappingLogger
      * @param {boolean} debug
      */
-    __construct(bootstrappingLogger = null, debug = false) {
-        /**
-         * @type {Jymfony.Component.Debug.BufferingLogger}
-         *
-         * @private
-         */
+    constructor(bootstrappingLogger = null, debug = false) {
         this._bootstrappingLogger = bootstrappingLogger;
         if (bootstrappingLogger) {
             process.on('beforeExit', () => this._bootstrappingLogger.finalize());
         }
 
-        /**
-         * @type {Jymfony.Contracts.Logger.LoggerInterface}
-         *
-         * @private
-         */
         this._defaultLogger = bootstrappingLogger;
-
-        /**
-         * @type {boolean}
-         *
-         * @private
-         */
         this._debug = debug;
-
-        /**
-         * @type {boolean}
-         *
-         * @private
-         */
-        this._isRecursive = false;
-
-        /**
-         * @type {Function}
-         *
-         * @private
-         */
-        this._exceptionHandler = null;
     }
 
     /**

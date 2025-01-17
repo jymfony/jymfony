@@ -27,25 +27,30 @@
   ],
   "license": "MIT",
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=16.0.0"
   },
   "peerDependencies": {
-    "@jymfony/compiler": "0.4"
+    "@jymfony/compiler": "^0.5"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.19.1",
-    "@babel/plugin-proposal-decorators": "^7.20.0",
+    "@babel/eslint-parser": "^7.25.1",
+    "@babel/plugin-proposal-decorators": "^7.24.7",
+    "@babel/plugin-syntax-import-assertions": "^7.24.7",
     "@types/chai": "^4.3.4",
-    "@types/mocha": "^5.2.7",
-    "@types/node": "^14.14.37",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "^20.14.13",
     "chai": "^4.3.7",
     "ioredis": "^4.25.0",
     "mocha": "^10.2.0",
     "mongodb": "^3.6.6",
     "nyc": "^15.1.0",
-    "typescript": "^4.0"
+    "typescript": "^5.0",
+    "undici-types": "^6.19.5"
   },
-  "repository": "https://github.com/jymfony/jymfony.git",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jymfony/jymfony.git"
+  },
   "flat": true,
   "config": {
     "jymfony-autoload": {
@@ -76,6 +81,7 @@
         "Jymfony.Component.OptionsResolver": "src/Component/OptionsResolver/src",
         "Jymfony.Component.PropertyAccess": "src/Component/PropertyAccess/src",
         "Jymfony.Component.Routing": "src/Component/Routing/src",
+        "Jymfony.Component.Runtime": "src/Component/Runtime/src",
         "Jymfony.Component.Security": "src/Component/Security/src",
         "Jymfony.Component.Stopwatch": "src/Component/Stopwatch/src",
         "Jymfony.Component.Templating": "src/Component/Templating/src",
@@ -102,8 +108,10 @@
         "Jymfony.Bundle.FrameworkBundle.Tests.Fixtures": "src/Bundle/FrameworkBundle/fixtures",
         "Jymfony.Bundle.SecurityBundle.Tests": "src/Bundle/SecurityBundle/test",
         "Jymfony.Component.Autoloader.Tests": "src/Component/Autoloader/test",
+        "Jymfony.Component.Autoloader.Fixtures": "src/Component/Autoloader/fixtures",
         "Jymfony.Component.Cache.Fixtures": "src/Component/Cache/fixtures",
         "Jymfony.Component.Cache.Tests": "src/Component/Cache/test",
+        "Jymfony.Component.Config.Fixtures": "src/Component/Config/fixtures",
         "Jymfony.Component.Config.Tests": "src/Component/Config/test",
         "Jymfony.Component.Console.Tests": "src/Component/Console/test",
         "Jymfony.Component.Crontab.Tests": "src/Component/Crontab/test",
@@ -134,6 +142,7 @@
         "Jymfony.Component.PropertyAccess.Tests": "src/Component/PropertyAccess/test",
         "Jymfony.Component.Routing.Fixtures": "src/Component/Routing/fixtures",
         "Jymfony.Component.Routing.Tests": "src/Component/Routing/test",
+        "Jymfony.Component.Runtime.Tests": "src/Component/Runtime/test",
         "Jymfony.Component.Security.Fixtures": "src/Component/Security/fixtures",
         "Jymfony.Component.Security.Tests": "src/Component/Security/test",
         "Jymfony.Component.Stopwatch.Tests": "src/Component/Stopwatch/test",

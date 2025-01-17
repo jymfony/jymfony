@@ -444,9 +444,9 @@ export default (() => {
             {
                 ['offset']: 10800,
                 ['dst']: false,
-                ['abbrev']: '+03',
+                ['abbrev']: '%z',
                 ['until']: Infinity,
-                ['format']: '+03',
+                ['format']: '%z',
             },
         ],
         [

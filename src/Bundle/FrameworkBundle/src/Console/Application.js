@@ -7,20 +7,20 @@ const InputOption = Jymfony.Component.Console.Input.InputOption;
  */
 export default class Application extends BaseApplication {
     /**
+     * @type {Jymfony.Component.Kernel.KernelInterface}
+     *
+     * @private
+     */
+    _kernel;
+
+    /**
      * Constructor.
      *
      * @param {Jymfony.Component.Kernel.KernelInterface} kernel A KernelInterface instance
      */
     __construct(kernel) {
-        /**
-         * @type {Jymfony.Component.Kernel.KernelInterface}
-         *
-         * @private
-         */
         this._kernel = kernel;
-
         super.__construct('Jymfony', Kernel.VERSION);
-
         this.definition.addOption(new InputOption('--env', '-e', InputOption.VALUE_REQUIRED, 'The environment name', kernel.environment));
         this.definition.addOption(new InputOption('--no-debug', undefined, InputOption.VALUE_NONE, 'Switches off debug mode'));
     }

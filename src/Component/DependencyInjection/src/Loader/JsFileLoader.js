@@ -1,5 +1,6 @@
 import { dirname, extname } from 'path';
 import { Script } from 'vm';
+import { compile } from '@jymfony/compiler';
 import { readFileSync } from 'fs';
 
 const FileLoader = Jymfony.Component.Config.Loader.FileLoader;
@@ -42,7 +43,11 @@ export default class JsFileLoader extends FileLoader {
         this.currentDir = dirname(filePath);
         this._container.addResource(new FileResource(filePath));
 
-        const code = '(function (container, loader) {\n' + readFileSync(filePath) + '\n})';
+        const code = compile('(function (container, loader) {\n' + readFileSync(filePath) + '\n})', filePath, {
+            asFunction: false,
+            debug: false,
+        });
+
         const script = new Script(code, {
             filename: filePath,
             produceCachedData: false,

@@ -8,37 +8,43 @@ const BatchHandlerInterface = Jymfony.Component.Messenger.Handler.BatchHandlerIn
  */
 export default class HandlerDescriptor {
     /**
+     * @type {function(*, Jymfony.Component.Messenger.Handler.Acknowledger?): Promise<void>}
+     *
+     * @private
+     */
+    _handler;
+
+    /**
+     * @type {Jymfony.Component.Messenger.Handler.BatchHandlerInterface | null}
+     *
+     * @private
+     */
+    _batchHandler;
+
+    /**
+     * @type {*}
+     *
+     * @private
+     */
+    _options;
+
+    /**
+     * @type {string}
+     *
+     * @private
+     */
+    _name;
+
+    /**
      * Constructor.
      *
      * @param {function(*, Jymfony.Component.Messenger.Handler.Acknowledger?): Promise<void>} handler
      * @param {*} [options = {}]
      */
     __construct(handler, options = {}) {
-        /**
-         * @type {function(*, Jymfony.Component.Messenger.Handler.Acknowledger?): Promise<void>}
-         *
-         * @private
-         */
         this._handler = handler;
-
-        /**
-         * @type {Jymfony.Component.Messenger.Handler.BatchHandlerInterface | null}
-         * @private
-         */
         this._batchHandler = handler instanceof BatchHandlerInterface ? handler : null;
-
-        /**
-         * @type {*}
-         *
-         * @private
-         */
         this._options = options;
-
-        /**
-         * @type {string}
-         *
-         * @private
-         */
         this._name = ReflectionClass.getClassName(this._handler);
         if ('_reflectionClass_surrogateCtor_' === this._name || '_jymfony_testing_doubler_double__' === this._name) {
             const reflClass = new ReflectionClass(this._handler);

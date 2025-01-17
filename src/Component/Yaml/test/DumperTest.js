@@ -1,8 +1,10 @@
+import { Script } from 'vm';
+import { readFileSync } from 'fs';
+
 const Dumper = Jymfony.Component.Yaml.Dumper;
 const Parser = Jymfony.Component.Yaml.Parser;
 const TestCase = Jymfony.Component.Testing.Framework.TestCase;
 const Yaml = Jymfony.Component.Yaml.Yaml;
-const { readFileSync } = require('fs');
 
 const fixturesDir = __dirname + '/../fixtures/';
 
@@ -85,8 +87,8 @@ foobar:
                 if (!! test.todo) {
                     yield [ null, null ];
                 } else {
-                    let expected;
-                    eval('expected = ' + __jymfony.trim(test['js']) + ';');
+                    const s = new Script('(function () { return ' + __jymfony.trim(test['js']) + '; })');
+                    const expected = s.runInThisContext()();
 
                     yield [ expected, test.test ];
                 }

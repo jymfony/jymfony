@@ -1,5 +1,6 @@
 declare namespace Jymfony.Component.Uid {
     import AbstractUid = Jymfony.Component.Uid.AbstractUid;
+    import UidInterface = Jymfony.Contracts.Uid.UidInterface;
 
     /**
      * A ULID is lexicographically sortable and contains a 48-bit timestamp and 80-bit of crypto-random entropy.
@@ -20,7 +21,7 @@ declare namespace Jymfony.Component.Uid {
         /**
          * @inheritdoc
          */
-        static fromString(ulid: string): Ulid;
+        static fromString<T extends UidInterface>(uid: string): T extends Ulid ? T : never;
 
         toBuffer(): Buffer;
         toBase32(): string;

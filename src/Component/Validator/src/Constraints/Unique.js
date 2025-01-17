@@ -4,6 +4,8 @@ const Constraint = Jymfony.Component.Validator.Constraint;
  * @memberOf Jymfony.Component.Validator.Constraints
  */
 export default class Unique extends Constraint {
+    message = 'This collection should contain only unique elements.';
+
     /**
      * @inheritdoc
      */
@@ -13,15 +15,6 @@ export default class Unique extends Constraint {
         }
 
         return Constraint.getErrorName(errorCode);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    __construct(options = null) {
-        this.message = 'This collection should contain only unique elements.';
-
-        return super.__construct(options);
     }
 }
 

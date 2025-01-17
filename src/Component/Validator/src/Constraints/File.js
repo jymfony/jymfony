@@ -5,6 +5,17 @@ const ConstraintDefinitionException = Jymfony.Component.Validator.Exception.Cons
  * @memberOf Jymfony.Component.Validator.Constraints
  */
 export default class File extends Constraint {
+    mimeTypes = [];
+    notFoundMessage = 'The file could not be found.';
+    notReadableMessage = 'The file is not readable.';
+    maxSizeMessage = 'The file is too large ({{ size }} {{ suffix }}). Allowed maximum size is {{ limit }} {{ suffix }}.';
+    mimeTypesMessage = 'The mime type of the file is invalid ({{ type }}). Allowed mime types are {{ types }}.';
+    disallowEmptyMessage = 'An empty file is not allowed.';
+
+    _initialized = false;
+    _maxSize;
+    binaryFormat;
+
     /**
      * @inheritdoc
      */
@@ -24,17 +35,6 @@ export default class File extends Constraint {
      * @inheritdoc
      */
     __construct(options = null) {
-        this.mimeTypes = [];
-        this.notFoundMessage = 'The file could not be found.';
-        this.notReadableMessage = 'The file is not readable.';
-        this.maxSizeMessage = 'The file is too large ({{ size }} {{ suffix }}). Allowed maximum size is {{ limit }} {{ suffix }}.';
-        this.mimeTypesMessage = 'The mime type of the file is invalid ({{ type }}). Allowed mime types are {{ types }}.';
-        this.disallowEmptyMessage = 'An empty file is not allowed.';
-
-        this._maxSize = undefined;
-        this.binaryFormat = undefined;
-
-        this._initialized = false;
         const ret = super.__construct(options);
         this._initialized = true;
 

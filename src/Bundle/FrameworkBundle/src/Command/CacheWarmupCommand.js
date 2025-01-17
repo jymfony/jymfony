@@ -13,18 +13,19 @@ export default
 @AsCommand({ name: 'cache:warmup', description: 'Warms up an empty cache' })
 class CacheWarmupCommand extends Command {
     /**
+     * @type {Jymfony.Component.Kernel.CacheWarmer.CacheWarmerInterface}
+     *
+     * @private
+     */
+    _cacheWarmer;
+
+    /**
      * Constructor.
      *
      * @param {Jymfony.Component.Kernel.CacheWarmer.CacheWarmerInterface} cacheWarmer
      */
     __construct(cacheWarmer) {
         super.__construct();
-
-        /**
-         * @type {Jymfony.Component.Kernel.CacheWarmer.CacheWarmerInterface}
-         *
-         * @private
-         */
         this._cacheWarmer = cacheWarmer;
     }
 

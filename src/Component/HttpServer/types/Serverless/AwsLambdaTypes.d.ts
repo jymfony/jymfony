@@ -140,4 +140,10 @@ declare namespace Jymfony.Component.HttpServer.Serverless {
         body: string;
         isBase64Encoded: boolean;
     }
+
+    interface LambdaResponseStream extends NodeJS.WritableStream {
+        _onBeforeFirstWrite(write: (string: string) => void): void;
+        setContentType(contentType: string): void;
+        finished(): Promise<void>;
+    }
 }

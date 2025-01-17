@@ -12,6 +12,13 @@ const MappingException = Jymfony.Component.Validator.Exception.MappingException;
  */
 export default class LoaderChain extends implementationOf(LoaderInterface) {
     /**
+     * @type {Jymfony.Component.Metadata.Loader.LoaderInterface[]}
+     *
+     * @private
+     */
+    _loaders;
+
+    /**
      * @param {Jymfony.Component.Metadata.Loader.LoaderInterface[]} loaders The metadata loaders to use
      *
      * @throws {Jymfony.Component.Validator.Exception.MappingException} If any of the loaders has an invalid type
@@ -23,11 +30,6 @@ export default class LoaderChain extends implementationOf(LoaderInterface) {
             }
         }
 
-        /**
-         * @type {Jymfony.Component.Metadata.Loader.LoaderInterface[]}
-         *
-         * @private
-         */
         this._loaders = loaders;
     }
 

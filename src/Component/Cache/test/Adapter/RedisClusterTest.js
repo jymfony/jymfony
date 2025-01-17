@@ -9,7 +9,7 @@ export default class RedisClusterTest extends AdapterTestCase {
 
         try {
             await redis.connect();
-        } catch (e) {
+        } catch {
             __self.markTestSkipped();
         } finally {
             if ('end' !== redis.status) {
@@ -19,7 +19,9 @@ export default class RedisClusterTest extends AdapterTestCase {
     }
 
     async after() {
-        await redis.quit();
+        if ('end' !== redis.status) {
+            await redis.quit();
+        }
     }
 
     _createCachePool(defaultLifetime = undefined) {

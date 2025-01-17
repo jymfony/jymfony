@@ -5,5 +5,5 @@ const ExceptionInterface = Jymfony.Component.Validator.Exception.ExceptionInterf
  *
  * @memberOf Jymfony.Component.Validator.Exception
  */
-export default class InvalidArgumentException extends mix(global.InvalidArgumentException, ExceptionInterface) {
+export default class InvalidArgumentException extends mix(globalThis.InvalidArgumentException, ExceptionInterface) {
 }

@@ -400,4 +400,4 @@ BTree.COMPARISON_EQUAL = 0;
 BTree.COMPARISON_LESSER = -1;
 BTree.COMPARISON_GREATER = 1;
 
-global.BTree = BTree;
+globalThis.BTree = BTree;

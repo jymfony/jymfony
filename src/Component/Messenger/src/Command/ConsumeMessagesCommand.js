@@ -20,6 +20,48 @@ export default
 @AsCommand({ name: 'messenger:consume', description: 'Consume messages' })
 class ConsumeMessagesCommand extends Command {
     /**
+     * @type {Jymfony.Component.Messenger.RoutableMessageBus}
+     *
+     * @private
+     */
+    _routableBus;
+
+    /**
+     * @type {Jymfony.Contracts.DependencyInjection.ContainerInterface}
+     *
+     * @private
+     */
+    _receiverLocator;
+
+    /**
+     * @type {Jymfony.Contracts.EventDispatcher.EventDispatcherInterface}
+     *
+     * @private
+     */
+    _eventDispatcher;
+
+    /**
+     * @type {Jymfony.Contracts.Logger.LoggerInterface}
+     *
+     * @private
+     */
+    _logger;
+
+    /**
+     * @type {string[]}
+     *
+     * @private
+     */
+    _receiverNames;
+
+    /**
+     * @type {string[]}
+     *
+     * @private
+     */
+    _busIds;
+
+    /**
      * @param {Jymfony.Component.Messenger.RoutableMessageBus} routableBus
      * @param {Jymfony.Contracts.DependencyInjection.ContainerInterface} receiverLocator
      * @param {Jymfony.Contracts.EventDispatcher.EventDispatcherInterface} eventDispatcher
@@ -28,46 +70,11 @@ class ConsumeMessagesCommand extends Command {
      * @param {string[]} [busIds = []]
      */
     __construct(routableBus, receiverLocator, eventDispatcher, logger = null, receiverNames = [], busIds = []) {
-        /**
-         * @type {Jymfony.Component.Messenger.RoutableMessageBus}
-         *
-         * @private
-         */
         this._routableBus = routableBus;
-
-        /**
-         * @type {Jymfony.Contracts.DependencyInjection.ContainerInterface}
-         *
-         * @private
-         */
         this._receiverLocator = receiverLocator;
-
-        /**
-         * @type {Jymfony.Contracts.EventDispatcher.EventDispatcherInterface}
-         *
-         * @private
-         */
         this._eventDispatcher = eventDispatcher;
-
-        /**
-         * @type {Jymfony.Contracts.Logger.LoggerInterface}
-         *
-         * @private
-         */
         this._logger = logger;
-
-        /**
-         * @type {string[]}
-         *
-         * @private
-         */
         this._receiverNames = receiverNames;
-
-        /**
-         * @type {string[]}
-         *
-         * @private
-         */
         this._busIds = busIds;
 
         super.__construct();

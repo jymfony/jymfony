@@ -8,24 +8,27 @@ const ExecutionContextFactoryInterface = Jymfony.Component.Validator.Context.Exe
  */
 export default class ExecutionContextFactory extends implementationOf(ExecutionContextFactoryInterface) {
     /**
+     * @type {Jymfony.Contracts.Translation.TranslatorInterface}
+     *
+     * @private
+     */
+    _translator;
+
+    /**
+     * @type {string}
+     *
+     * @private
+     */
+    _translationDomain;
+
+    /**
      * Constructor.
      *
      * @param {Jymfony.Contracts.Translation.TranslatorInterface} translator
      * @param {string} translationDomain
      */
     __construct(translator, translationDomain = null) {
-        /**
-         * @type {Jymfony.Contracts.Translation.TranslatorInterface}
-         *
-         * @private
-         */
         this._translator = translator;
-
-        /**
-         * @type {string}
-         *
-         * @private
-         */
         this._translationDomain = translationDomain;
     }
 

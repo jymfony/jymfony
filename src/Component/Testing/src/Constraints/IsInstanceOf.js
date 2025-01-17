@@ -42,7 +42,7 @@ export default class IsInstanceOf extends Constraint {
             if (reflection.isInterface) {
                 return 'interface';
             }
-        } catch (e) {
+        } catch {
         }
 
         return 'class';

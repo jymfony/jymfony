@@ -9,23 +9,18 @@
  */
 export default class RouteCollection {
     /**
-     * Constructor.
+     * @type {Object.<string, Jymfony.Component.Routing.Route>}
+     *
+     * @private
      */
-    __construct() {
-        /**
-         * @type {Object.<string, Jymfony.Component.Routing.Route>}
-         *
-         * @private
-         */
-        this._routes = {};
+    _routes = {};
 
-        /**
-         * @type {Object.<string, Jymfony.Component.Config.Resource.ResourceInterface>}
-         *
-         * @private
-         */
-        this._resources = {};
-    }
+    /**
+     * @type {Object.<string, Jymfony.Component.Config.Resource.ResourceInterface>}
+     *
+     * @private
+     */
+    _resources = {};
 
     /**
      * Adds a route.

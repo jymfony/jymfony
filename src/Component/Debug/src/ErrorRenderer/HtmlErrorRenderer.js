@@ -24,7 +24,7 @@ const isFile = fn => {
         const s = statSync(fn);
 
         return s.isFile();
-    } catch (e) {
+    } catch {
         return false;
     }
 };

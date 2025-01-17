@@ -1,9 +1,45 @@
+const MetadataHelper = require('../Metadata/MetadataHelper');
 const ReflectorTrait = require('./ReflectorTrait');
 
 /**
  * Reflection utility for class getters/setters.
  */
 class ReflectionProperty extends implementationOf(ReflectorInterface, ReflectorTrait) {
+    /**
+     * @type {ReflectionClass}
+     *
+     * @private
+     */
+    _class;
+
+    /**
+     * @type {string}
+     *
+     * @private
+     */
+    _name;
+
+    /**
+     * @type {string}
+     *
+     * @private
+     */
+    _kind;
+
+    /**
+     * @type {Function}
+     *
+     * @private
+     */
+    _method;
+
+    /**
+     * @type {string}
+     *
+     * @private
+     */
+    _docblock;
+
     /**
      * Constructor.
      *
@@ -15,33 +51,9 @@ class ReflectionProperty extends implementationOf(ReflectorInterface, ReflectorT
         super();
         const descriptor = reflectionClass.getPropertyDescriptor(propertyName);
 
-        /**
-         * @type {ReflectionClass}
-         *
-         * @private
-         */
         this._class = new ReflectionClass(descriptor.ownClass);
-
-        /**
-         * @type {string}
-         *
-         * @private
-         */
         this._name = propertyName;
-
-        /**
-         * @type {string}
-         *
-         * @private
-         */
         this._kind = kind;
-
-        /**
-         * @type {Function}
-         *
-         * @private
-         */
-        this._method = undefined;
 
         if (ReflectionProperty.KIND_GET === kind && this._class.hasReadableProperty(propertyName)) {
             this._method = descriptor.get;
@@ -53,12 +65,9 @@ class ReflectionProperty extends implementationOf(ReflectorInterface, ReflectorT
             throw new ReflectionException('Property "' + propertyName + '" (' + kind + ') does not exist');
         }
 
-        /**
-         * @type {string}
-         *
-         * @private
-         */
         this._docblock = this._method[Symbol.docblock];
+
+        return Object.freeze(this);
     }
 
     /**
@@ -106,11 +115,25 @@ class ReflectionProperty extends implementationOf(ReflectorInterface, ReflectorT
      * @returns {[Function, *][]}
      */
     get metadata() {
-        return MetadataStorage.getMetadata(this._method[Symbol.metadata], undefined);
+        const metadata = this._class.getConstructor()[Symbol.metadata];
+        if (undefined === metadata) {
+            return [];
+        }
+
+        const target = MetadataHelper.getMetadataTarget({ kind: this._kind === ReflectionProperty.KIND_GET ? 'getter' : 'setter', name: this._name, metadata });
+        const storage = MetadataStorage.getMetadata(target);
+
+        return [ ...(function * () {
+            for (const [ class_, data ] of storage) {
+                for (const datum of isArray(data) ? data : [ data ]) {
+                    yield [ class_, datum ];
+                }
+            }
+        }()) ];
     }
 }
 
 ReflectionProperty.KIND_GET = 'get';
 ReflectionProperty.KIND_SET = 'set';
 
-module.exports = global.ReflectionProperty = ReflectionProperty;
+module.exports = globalThis.ReflectionProperty = ReflectionProperty;

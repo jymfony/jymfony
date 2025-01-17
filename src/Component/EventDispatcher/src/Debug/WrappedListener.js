@@ -75,7 +75,7 @@ export default class WrappedListener {
         } else if (listener.innerObject instanceof BoundFunction) {
             const object = listener.innerObject.getObject();
             this._name = (new ReflectionClass(object)).name;
-            this._pretty = this._name + '#' + listener.innerObject._func.name;
+            this._pretty = this._name + '#' + listener.innerObject.getFunction().name;
         }
     }
 

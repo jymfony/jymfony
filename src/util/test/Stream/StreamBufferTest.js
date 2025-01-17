@@ -77,6 +77,10 @@ export default class StreamBufferTest extends TestCase {
 
         try {
             const writeStream = createWriteStream(fn);
+            await new Promise(res => {
+                writeStream.on('ready', res);
+            });
+
             await new Promise((res, rej) => {
                 this._stream.on('error', rej);
                 this._stream.on('end', res);
@@ -90,7 +94,11 @@ export default class StreamBufferTest extends TestCase {
             __self.assertEquals(buf.length, s.size);
         } finally {
             const fs = new Filesystem();
-            await fs.remove(dirname(fn));
+            try {
+                await fs.remove(dirname(fn));
+            } catch {
+                // Do nothing.
+            }
         }
     }
 }

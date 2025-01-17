@@ -4,6 +4,12 @@ const Constraint = Jymfony.Component.Validator.Constraint;
  * @memberOf Jymfony.Component.Validator.Constraints
  */
 export default class Isbn extends Constraint {
+    isbn10Message = 'This value is not a valid ISBN-10.';
+    isbn13Message = 'This value is not a valid ISBN-13.';
+    bothIsbnMessage = 'This value is neither a valid ISBN-10 nor a valid ISBN-13.';
+    type;
+    message;
+
     /**
      * @inheritdoc
      */
@@ -17,19 +23,6 @@ export default class Isbn extends Constraint {
         }
 
         return Constraint.getErrorName(errorCode);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    __construct(options = null) {
-        this.isbn10Message = 'This value is not a valid ISBN-10.';
-        this.isbn13Message = 'This value is not a valid ISBN-13.';
-        this.bothIsbnMessage = 'This value is neither a valid ISBN-10 nor a valid ISBN-13.';
-        this.type = undefined;
-        this.message = undefined;
-
-        return super.__construct(options);
     }
 
     get defaultOption() {

@@ -315,7 +315,7 @@ export default class ContainerBuilder extends Container {
         let stat = null;
         try {
             stat = statSync(path);
-        } catch (e) {
+        } catch {
             // Do nothing.
         }
 

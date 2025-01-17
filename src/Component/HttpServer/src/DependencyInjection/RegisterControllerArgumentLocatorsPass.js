@@ -14,6 +14,34 @@ const Reference = Jymfony.Component.DependencyInjection.Reference;
  */
 export default class RegisterControllerArgumentLocatorsPass extends implementationOf(CompilerPassInterface) {
     /**
+     * @type {string}
+     *
+     * @private
+     */
+    _resolverServiceId;
+
+    /**
+     * @type {string}
+     *
+     * @private
+     */
+    _controllerTag;
+
+    /**
+     * @type {string}
+     *
+     * @private
+     */
+    _controllerLocator;
+
+    /**
+     * @type {string}
+     *
+     * @private
+     */
+    _notTaggedControllerResolverServiceId;
+
+    /**
      * Constructor.
      *
      * @param {string} resolverServiceId
@@ -21,33 +49,15 @@ export default class RegisterControllerArgumentLocatorsPass extends implementati
      * @param {string} controllerLocator
      * @param {string} notTaggedControllerResolverServiceId
      */
-    __construct(resolverServiceId = 'argument_resolver.service', controllerTag = 'controller.service_arguments', controllerLocator = 'argument_resolver.controller_locator', notTaggedControllerResolverServiceId = 'argument_resolver.not_tagged_controller') {
-        /**
-         * @type {string}
-         *
-         * @private
-         */
+    __construct(
+        resolverServiceId = 'argument_resolver.service',
+        controllerTag = 'controller.service_arguments',
+        controllerLocator = 'argument_resolver.controller_locator',
+        notTaggedControllerResolverServiceId = 'argument_resolver.not_tagged_controller',
+    ) {
         this._resolverServiceId = resolverServiceId;
-
-        /**
-         * @type {string}
-         *
-         * @private
-         */
         this._controllerTag = controllerTag;
-
-        /**
-         * @type {string}
-         *
-         * @private
-         */
         this._controllerLocator = controllerLocator;
-
-        /**
-         * @type {string}
-         *
-         * @private
-         */
         this._notTaggedControllerResolverServiceId = notTaggedControllerResolverServiceId;
     }
 
@@ -96,11 +106,11 @@ export default class RegisterControllerArgumentLocatorsPass extends implementati
                     continue;
                 }
 
-                if ('__construct' === method.name) {
+                if ('__construct' === method.name || 'constructor' === method.name) {
                     continue;
                 }
 
-                methods[method.name.toLowerCase()] = [ method, method.parameters ];
+                methods[method.name] = [ method, method.parameters ];
             }
 
             // Validate and collect explicit per-actions and per-arguments service references
@@ -117,7 +127,7 @@ export default class RegisterControllerArgumentLocatorsPass extends implementati
                     }
                 }
 
-                const action = String(attributes.action).toLowerCase();
+                const action = String(attributes.action);
                 if (undefined === methods[action]) {
                     throw new InvalidArgumentException(__jymfony.sprintf('Invalid "action" attribute on tag "%s" for service "%s": no public "%s()" method found on class "%s".', this._controllerTag, id, attributes.action, class_));
                 }
@@ -160,7 +170,7 @@ export default class RegisterControllerArgumentLocatorsPass extends implementati
                         const target = args[r.name][p.name];
                         if ('' === target) {
                             throw new InvalidArgumentException(__jymfony.sprintf('A "%s" tag must have non-empty "id" attributes for service "%s".', this._controllerTag, id));
-                        } else if (null === p.defaultValue) {
+                        } else if (p.hasDefaultValue && null === p.scalarDefaultValue) {
                             invalidBehavior = Container.NULL_ON_INVALID_REFERENCE;
                         }
                     } else if (! type || ! autowire || -1 !== [ 'boolean', 'number', 'string', 'object', 'undefined', 'symbol' ].indexOf(type)) {
@@ -168,7 +178,7 @@ export default class RegisterControllerArgumentLocatorsPass extends implementati
                     }
 
                     if (type && ! ReflectionClass.exists(type)) {
-                        if (p.defaultValue !== undefined) {
+                        if (p.hasDefaultValue) {
                             continue;
                         }
 

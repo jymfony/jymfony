@@ -36,7 +36,7 @@ export default class ProcessorFactory extends implementationOf(ProcessorFactoryI
     registerProcessor(metadataClass, processorClass) {
         try {
             metadataClass = ReflectionClass.getClassName(metadataClass);
-        } catch (e) {
+        } catch {
             // Do nothing.
         }
 

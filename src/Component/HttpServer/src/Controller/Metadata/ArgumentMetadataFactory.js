@@ -6,12 +6,14 @@ const MetadataFactoryInterface = Jymfony.Contracts.Metadata.MetadataFactoryInter
  * @memberOf Jymfony.Component.HttpServer.Controller.Metadata
  */
 export default class ArgumentMetadataFactory extends implementationOf(MetadataFactoryInterface) {
+    /**
+     * @type {WeakMap.<Function, Jymfony.Component.HttpServer.Controller.Metadata.ControllerMetadata>}
+     *
+     * @private
+     */
+    _instances;
+
     __construct() {
-        /**
-         * @type {WeakMap.<Function, Jymfony.Component.HttpServer.Controller.Metadata.ControllerMetadata>}
-         *
-         * @private
-         */
         this._instances = new WeakMap();
     }
 
@@ -55,12 +57,12 @@ export default class ArgumentMetadataFactory extends implementationOf(MetadataFa
 
         try {
             innerObject = controller.innerObject; // BoundFunction
-        } catch (e) {
+        } catch {
             // Do nothing.
         }
 
         if (!! innerObject) {
-            controller = [ innerObject.getObject(), innerObject._func.name ];
+            controller = [ innerObject.getObject(), innerObject.getFunction().name ];
         }
 
         if ('function' === typeof controller && ! ReflectionClass.exists(controller)) {

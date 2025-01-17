@@ -18,16 +18,16 @@
     "node": ">=12.0.0"
   },
   "peerDependencies": {
-    "@jymfony/compiler": "0.4"
+    "@jymfony/compiler": "^0.5"
   },
   "dependencies": {
     "@jymfony/datastructure": "0.1.0-alpha.31",
     "@jymfony/util": "0.1.0-alpha.31"
   },
   "devDependencies": {
-    "chai": "^4.2",
-    "mocha": "^10.2",
-    "typescript": "^4.0"
+    "@jymfony/debug": "git+https://github.com/jymfony/debug.git",
+    "@jymfony/testing": "git+https://github.com/jymfony/testing.git",
+    "mocha": "^10.2"
   },
   "flat": true,
   "config": {
@@ -38,6 +38,12 @@
       "includes": [
         "src/Test/ChaiExpectation.js"
       ]
+    },
+    "jymfony-autoload-dev": {
+      "namespaces": {
+        "Jymfony.Component.Autoloader.Tests": "test/",
+        "Jymfony.Component.Autoloader.Fixtures": "fixtures/"
+      }
     }
   }
 }

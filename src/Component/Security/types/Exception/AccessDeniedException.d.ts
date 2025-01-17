@@ -2,7 +2,7 @@ declare namespace Jymfony.Component.Security.Exception {
     /**
      * Represents an exception thrown on authorization (ie: the user has not the required roles).
      */
-    export class AccessDeniedException extends RuntimeException {
+    export class AccessDeniedException extends global.RuntimeException {
         public attributes: any[];
         public subject: any;
 

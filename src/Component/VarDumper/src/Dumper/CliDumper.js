@@ -11,72 +11,72 @@ let $defaultColors;
  * @memberOf Jymfony.Component.VarDumper.Dumper
  */
 export default class CliDumper extends AbstractDumper {
+    /**
+     * @type {boolean}
+     *
+     * @protected
+     */
+    _colors;
+
+    /**
+     * @type {int}
+     *
+     * @protected
+     */
+    _maxStringWidth = 0;
+
+    /**
+     * @type {Object.<string, string>}
+     *
+     * @protected
+     */
+    _styles = {
+        // See http://en.wikipedia.org/wiki/ANSI_escape_code#graphics
+        'default': '38;5;208',
+        'num': '1;38;5;38',
+        'const': '1;38;5;208',
+        'str': '1;38;5;113',
+        'note': '38;5;38',
+        'ref': '38;5;247',
+        'public': '',
+        'private': '',
+        'meta': '38;5;170',
+        'key': '38;5;113',
+        'index': '38;5;38',
+    };
+
+    /**
+     * @type {boolean}
+     *
+     * @protected
+     */
+    _collapseNextHash = false;
+
+    /**
+     * @type {boolean}
+     *
+     * @protected
+     */
+    _expandNextHash = false;
+
+    /**
+     * @type {Object.<string, *>}
+     *
+     * @protected
+     */
+    _displayOptions = {
+        fileLinkFormat: null,
+    };
+
+    /**
+     * @type {boolean}
+     *
+     * @private
+     */
+    _handlesHrefGracefully = undefined;
+
     __construct(output = process.stdout, flags = 0) {
         super.__construct(output, flags);
-
-        /**
-         * @type {boolean}
-         *
-         * @protected
-         */
-        this._colors = undefined;
-
-        /**
-         * @type {int}
-         *
-         * @protected
-         */
-        this._maxStringWidth = 0;
-
-        /**
-         * @type {Object.<string, string>}
-         *
-         * @protected
-         */
-        this._styles = {
-            // See http://en.wikipedia.org/wiki/ANSI_escape_code#graphics
-            'default': '38;5;208',
-            'num': '1;38;5;38',
-            'const': '1;38;5;208',
-            'str': '1;38;5;113',
-            'note': '38;5;38',
-            'ref': '38;5;247',
-            'public': '',
-            'private': '',
-            'meta': '38;5;170',
-            'key': '38;5;113',
-            'index': '38;5;38',
-        };
-
-        /**
-         * @type {boolean}
-         *
-         * @protected
-         */
-        this._collapseNextHash = false;
-
-        /**
-         * @type {boolean}
-         *
-         * @protected
-         */
-        this._expandNextHash = false;
-
-        /**
-         * @type {Object.<string, *>}
-         *
-         * @protected
-         */
-        this._displayOptions = {
-            fileLinkFormat: null,
-        };
-
-        /**
-         * @type {boolean}
-         *
-         * @private
-         */
-        this._handlesHrefGracefully = undefined;
 
         if (__jymfony.Platform.isWindows() && ! this._isWindowsTrueColor()) {
             this.styles = {
@@ -408,7 +408,7 @@ export default class CliDumper extends AbstractDumper {
      *
      * @returns {string} The value with style decoration
      */
-    _style(style, value, attr = {}) { // eslint-disable-line no-unused-vars
+    _style(style, value, attr = {}) {
         const colors = this.colors;
         if (undefined === this._handlesHrefGracefully) {
             this._handlesHrefGracefully = 'JetBrains-JediTerm' !== process.env.TERMINAL_EMULATOR;

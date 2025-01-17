@@ -1,7 +1,7 @@
 /**
  * @memberOf Jymfony.Contracts.Metadata.Exception
  */
-export default class InvalidArgumentException extends global.InvalidArgumentException {
+export default class InvalidArgumentException extends globalThis.InvalidArgumentException {
     /**
      * Creates a new instance of InvalidArgumentException with meaningful message.
      *
