@@ -1,6 +1,6 @@
 {
   "name": "@jymfony/routing",
-  "version": "0.1.0-alpha.31",
+  "version": "0.1.0-alpha.32",
   "description": "Jymfony Routing component",
   "typings": "types/index.d.ts",
   "scripts": {
@@ -16,12 +16,12 @@
     "node": ">=12.0.0"
   },
   "dependencies": {
-    "@jymfony/autoloader": "0.1.0-alpha.31",
-    "@jymfony/config": "0.1.0-alpha.31",
-    "@jymfony/exceptions": "0.1.0-alpha.31",
-    "@jymfony/http-foundation": "0.1.0-alpha.31",
-    "@jymfony/options-resolver": "0.1.0-alpha.31",
-    "@jymfony/util": "0.1.0-alpha.31"
+    "@jymfony/autoloader": "0.1.0-alpha.32",
+    "@jymfony/config": "0.1.0-alpha.32",
+    "@jymfony/exceptions": "0.1.0-alpha.32",
+    "@jymfony/http-foundation": "0.1.0-alpha.32",
+    "@jymfony/options-resolver": "0.1.0-alpha.32",
+    "@jymfony/util": "0.1.0-alpha.32"
   },
   "devDependencies": {
     "@jymfony/depedency-injection": "*",

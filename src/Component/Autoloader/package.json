@@ -1,6 +1,6 @@
 {
   "name": "@jymfony/autoloader",
-  "version": "0.1.0-alpha.31",
+  "version": "0.1.0-alpha.32",
   "description": "Jymfony Autoloader",
   "main": "index.js",
   "typings": "types/index.d.ts",
@@ -21,8 +21,8 @@
     "@jymfony/compiler": "^0.5"
   },
   "dependencies": {
-    "@jymfony/datastructure": "0.1.0-alpha.31",
-    "@jymfony/util": "0.1.0-alpha.31"
+    "@jymfony/datastructure": "0.1.0-alpha.32",
+    "@jymfony/util": "0.1.0-alpha.32"
   },
   "devDependencies": {
     "@jymfony/debug": "git+https://github.com/jymfony/debug.git",
