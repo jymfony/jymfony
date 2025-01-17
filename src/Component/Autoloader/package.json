@@ -18,7 +18,7 @@
     "node": ">=12.0.0"
   },
   "peerDependencies": {
-    "@jymfony/compiler": "next"
+    "@jymfony/compiler": "^0.5"
   },
   "dependencies": {
     "@jymfony/datastructure": "git+https://github.com/jymfony/data-structure.git",

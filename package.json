@@ -30,7 +30,7 @@
     "node": ">=16.0.0"
   },
   "peerDependencies": {
-    "@jymfony/compiler": "next"
+    "@jymfony/compiler": "^0.5"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.25.1",
